@@ -208,8 +208,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         foreach( $directory_types as $type ) {
                             $checked = in_array( $type->slug, $value ) ? 'checked' : '';
                     ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
-                        <label for="directory_type"><?php echo $type->name; ?></label>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
                     <?php 
                         }
                     }
@@ -275,8 +275,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         foreach( $directory_types as $type ) {
                             $checked = in_array( $type->slug, $value ) ? 'checked' : '';
                     ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
-                        <label for="directory_type"><?php echo $type->name; ?></label>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
                     <?php 
                         }
                     }
@@ -361,7 +361,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 if( $directory_types ) {
                     foreach( $directory_types as $type ) {
                 ?>
-                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="_directory_type"/><?php echo $type->name; ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>'/><?php echo $type->name; ?>
                 <?php 
                     }
                 }
@@ -405,7 +405,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 if( $directory_types ) {
                     foreach( $directory_types as $type ) {
                 ?>
-                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="_directory_type"/><?php echo $type->name; ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>'/><?php echo $type->name; ?>
                 <?php 
                     }
                 }

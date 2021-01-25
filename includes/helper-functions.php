@@ -3392,9 +3392,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
 }
 
-function add_listing_category_location_filter($settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = array())
-{
-
+function add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = array())
+{   
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -3414,29 +3413,35 @@ function add_listing_category_location_filter($settings, $taxonomy_id, $term_id,
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    $terms = get_terms($taxonomy_id, $args);
-
+    $terms             = get_terms($taxonomy_id, $args);
+    $listing_type      = get_term_by( 'id', $lisitng_type, ATBDP_TYPE );
+    $listing_type_slug = $listing_type->slug;
+    
     $html = '';
 
     if (count($terms) > 0) {
 
         foreach ($terms as $term) {
-            $settings['term_id'] = $term->term_id;
+            $directory_type    = get_term_meta( $term->term_id, '_directory_type', true );
+            $directory_type    = ! empty( $directory_type ) ? $directory_type : array();
+            if( in_array( $listing_type_slug, $directory_type ) ) {
+                $settings['term_id'] = $term->term_id;
 
-            $count = 0;
-            if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
-                $count = atbdp_listings_count_by_category($term->term_id);
+                $count = 0;
+                if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
+                    $count = atbdp_listings_count_by_category($term->term_id);
 
-                if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                    if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                }
+                $selected = in_array($term->term_id, $term_id) ? "selected" : '';
+                $html .= sprintf('<option value="%s" %s>', $term->term_id, $selected);
+                $html .= $prefix . $term->name;
+                if (!empty($settings['show_count'])) {
+                    $html .= ' (' . $count . ')';
+                }
+                $html .= add_listing_category_location_filter($lisitng_type, $settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;');
+                $html .= '</option>';
             }
-            $selected = in_array($term->term_id, $term_id) ? "selected" : '';
-            $html .= sprintf('<option value="%s" %s>', $term->term_id, $selected);
-            $html .= $prefix . $term->name;
-            if (!empty($settings['show_count'])) {
-                $html .= ' (' . $count . ')';
-            }
-            $html .= add_listing_category_location_filter($settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;');
-            $html .= '</option>';
         }
 
     }

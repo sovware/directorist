@@ -28,10 +28,50 @@ class ATBDP_Metabox {
 	public function atbdp_dynamic_admin_listing_form() {
 		$term_id 		= sanitize_text_field( $_POST['directory_type'] );
 		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
+
+		// listing meta fields
 		ob_start();
 		$this->render_listing_meta_fields( $term_id, $listing_id );
-		echo ob_get_clean();
+		$listing_meta_fields =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_taxonomies( $term_id, ATBDP_CATEGORY );
+		$listing_categories =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_taxonomies( $term_id, ATBDP_LOCATION );
+		$listing_locations =  ob_get_clean();
+
+		wp_send_json_success( array(
+			'listing_meta_fields' => $listing_meta_fields,
+			'listing_categories'  => $listing_categories,
+			'listing_locations'   => $listing_locations,
+		) );
+
 		die();
+	}
+
+	public function render_listing_taxonomies( $term_id, $taxonomy_id ) {
+		$listing_type 		= get_term_by( 'id', $term_id, ATBDP_TYPE );
+		$listing_type_slug  = $listing_type->slug;
+		$args = array(
+			'hide_empty' => 0,
+			'hierarchical' => false
+		);
+	
+		$terms = get_terms( $taxonomy_id, $args);
+
+		if( $terms ) {
+			foreach( $terms as $term ) {
+				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
+				if( in_array( $listing_type_slug, $directory_type) ) { ?>
+					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"> <?php echo $term->name; ?></label></li>
+
+				<?php
+				}
+			}
+		}
 	}
 
 	public function listing_metabox( $post ) {

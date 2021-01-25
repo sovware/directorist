@@ -123,6 +123,7 @@ class SetupWizard
             'showposts' => 1,
         ]);
         $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
+        $directory_slug = !empty( $listing_types[0] ) ? $listing_types[0]->slug : '';
         foreach ($posts as $index => $post) {
                 if ($count === $limit ) break;
                 // start importing listings
@@ -146,6 +147,7 @@ class SetupWizard
                             $result = wp_insert_term( $value, $taxonomy );
                             if( !is_wp_error( $result ) ){
                                 $term_id = $result['term_id'];
+                                update_term_meta($term_id, '_directory_type', [ $directory_slug ] );
                                 wp_set_object_terms($post_id, $term_id, $taxonomy);
                             }
                         }else{
@@ -158,6 +160,7 @@ class SetupWizard
                             $result = wp_insert_term( $value, $taxonomy );
                             if( !is_wp_error( $result ) ){
                                 $term_id = $result['term_id'];
+                                update_term_meta($term_id, '_directory_type',  [ $directory_slug ] );
                                 wp_set_object_terms($post_id, $term_id, $taxonomy);
                             }
                         }else{

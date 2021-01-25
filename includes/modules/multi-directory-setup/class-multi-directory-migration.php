@@ -29,6 +29,22 @@ class ATBDP_Multi_Directory_Migration {
             update_term_meta( $add_directory['term_id'], '_default', true );
             update_option( 'atbdp_migrated', true );
 
+            // Add directory type to all locations and categories
+            $terms = [ ATBDP_CATEGORY, ATBDP_LOCATION ];
+            foreach( $terms as $term ) {
+                $term_data = get_terms([
+                    'taxonomy'   => $term,
+                    'hide_empty' => false,
+                    'orderby'    => 'date',
+                    'order'      => 'DSCE',
+                  ]);
+                  if( !empty( $term_data ) ) {
+                      foreach( $term_data as $data ) {
+                          update_term_meta( $data->term_id, '_directory_type', $add_directory['slug'] );
+                      }
+                  }
+            }
+            
             // Add directory type to all listings
             $listings = new WP_Query([
                 'post_type'      => ATBDP_POST_TYPE,

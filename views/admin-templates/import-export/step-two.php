@@ -52,6 +52,12 @@ $update_existing = isset($_GET['update_existing']) ? sanitize_key($_GET['update_
 				<?php wp_nonce_field('directorist-csv-importer'); ?>
 			</div>
 		</form>
+		<div id="directorist-type-preloader">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
 	<div class="csv-center">
 		<div class="directorist-importer__importing" style="display: none;">

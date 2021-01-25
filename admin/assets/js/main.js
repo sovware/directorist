@@ -2208,14 +2208,14 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                         {
                                 width: 0,
                         },
-                        500
+                        400
                 );
 
                 $(auth_section).animate(
                         {
-                                width: 290,
+                                width: 350,
                         },
-                        500
+                        400
                 );
         });
 
@@ -2225,19 +2225,19 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 const auth_section = $('.et-auth-section');
                 const purchase_refresh_btn_wrapper = $('.purchase-refresh-btn-wrapper');
-
+                $(this).parent('.atbdp-action-group').siblings('.atbdp-input-group').find('.atbdp-form-feedback').empty();
                 $(purchase_refresh_btn_wrapper).animate(
                         {
                                 width: 182,
                         },
-                        500
+                        400
                 );
 
                 $(auth_section).animate(
                         {
                                 width: 0,
                         },
-                        500
+                        400
                 );
         });
 

@@ -1975,22 +1975,40 @@ function atbdp_display_price_range($price_range)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_category($term_id)
+function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
 {
     $args = array(
         'fields'         => 'ids',
         'posts_per_page' => -1,
         'post_type'      => ATBDP_POST_TYPE,
         'post_status'    => 'publish',
-        'tax_query'      => array(
+    );
+
+    if( ! empty( $lisitng_type ) ) {
+        $args['tax_query'] = array(
+            'relation' => 'AND',
+            array(
+                'taxonomy' => ATBDP_CATEGORY,
+                'field' => 'term_id',
+                'terms' => $term_id,
+                'include_children' => true
+            ),
+            array(
+                'taxonomy' => ATBDP_TYPE,
+                'field' => 'term_id',
+                'terms' => (int) $lisitng_type,
+            )
+        );
+    } else {
+        $args['tax_query'] = array(
             array(
                 'taxonomy' => ATBDP_CATEGORY,
                 'field' => 'term_id',
                 'terms' => $term_id,
                 'include_children' => true
             )
-        ),
-    );
+        );
+    }
 
     $total_categories = ATBDP_Listings_Data_Store::get_listings( $args );
 
@@ -2066,22 +2084,40 @@ function atbdp_list_categories($settings)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_location($term_id)
+function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' )
 {
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
         'post_type' => ATBDP_POST_TYPE,
         'post_status' => 'publish',
-        'tax_query' => array(
+    );
+
+    if( ! empty( $lisitng_type ) ) {
+        $args['tax_query'] = array(
+            'relation' => 'AND',
             array(
                 'taxonomy' => ATBDP_LOCATION,
                 'field' => 'term_id',
                 'terms' => $term_id,
                 'include_children' => true
+            ),
+            array(
+                'taxonomy' => ATBDP_TYPE,
+                'field' => 'term_id',
+                'terms' => (int) $lisitng_type,
             )
-        )
-    );
+        );
+    } else {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => ATBDP_CATEGORY,
+                'field' => 'term_id',
+                'terms' => $term_id,
+                'include_children' => true
+            )
+        );
+    }
 
     $total_location = ATBDP_Listings_Data_Store::get_listings( $args );
     return count( $total_location );

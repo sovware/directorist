@@ -166,7 +166,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             if ( isset( $_POST['directory_type'] ) ) {
                 $directory_type =  $_POST['directory_type'];
-                update_term_meta( $term_id, 'directory_type', $directory_type );
+                update_term_meta( $term_id, '_directory_type', $directory_type );
             }
             //UPDATED location IMAGE
             if (isset($_POST['image']) && '' !== $_POST['image']) {

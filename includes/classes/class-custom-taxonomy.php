@@ -140,7 +140,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             if ( isset( $_POST['directory_type'] ) ) {
                 $directory_type =  $_POST['directory_type'];
-                update_term_meta( $term_id, 'directory_type', $directory_type );
+                update_term_meta( $term_id, '_directory_type', $directory_type );
             }
 
             if (!empty($_POST['category_icon'])) {
@@ -180,7 +180,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             // get current group
             $icon_name       = get_term_meta($term->term_id, 'category_icon', true);
-            $directory_type  = get_term_meta($term->term_id, 'directory_type', true);
+            $directory_type  = get_term_meta($term->term_id, '_directory_type', true);
             $value           = ! empty( $directory_type ) ? $directory_type : array();
             $fa_icons        = get_fa_icons(); // returns the array of FA icon names
             $directory_types = get_terms( array(
@@ -244,7 +244,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             //get current cat image
             $image_id        = get_term_meta($term->term_id, 'image', true);
-            $directory_type  = get_term_meta($term->term_id, 'directory_type', true);
+            $directory_type  = get_term_meta($term->term_id, '_directory_type', true);
             $value           = ! empty( $directory_type ) ? $directory_type : array();
             $image_src       = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
             $directory_types = get_terms( array(
@@ -300,7 +300,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             }
             if ( isset( $_POST['directory_type'] ) ) {
                 $directory_type =  $_POST['directory_type'];
-                add_term_meta($term_id, 'directory_type', $directory_type, true);
+                add_term_meta($term_id, '_directory_type', $directory_type, true);
             }
         }
 
@@ -311,7 +311,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             }
             if ( isset( $_POST['directory_type'] ) ) {
                 $directory_type =  $_POST['directory_type'];
-                add_term_meta($term_id, 'directory_type', $directory_type, true);
+                add_term_meta($term_id, '_directory_type', $directory_type, true);
             }
         }
 

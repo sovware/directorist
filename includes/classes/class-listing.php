@@ -129,7 +129,7 @@ if (!class_exists('ATBDP_Listing')):
                 if( ! is_numeric($directory_type) ){
                     $term = get_term_by( 'slug', $directory_type, ATBDP_TYPE );
                     $directory_type = $term->term_id;
-                    update_term_meta( $id, '_directory_type', $directory_type );
+                    update_post_meta( $id, '_directory_type', $directory_type );
                 }
                 $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
                 $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );

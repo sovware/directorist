@@ -137,10 +137,15 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
          * @param int $tt_id Taxonomy ID
          */
         public function update_category_icon($term_id, $tt_id)
-        {
-            if ( isset( $_POST['directory_type'] ) ) {
-                $directory_type =  $_POST['directory_type'];
-                update_term_meta( $term_id, '_directory_type', $directory_type );
+        {   
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
+                if ( isset( $_POST['directory_type'] ) ) {
+                    $directory_type =  $_POST['directory_type'];
+                    update_term_meta( $term_id, '_directory_type', $directory_type );
+                }
+            } else {
+                update_term_meta( $term_id, '_directory_type', array( $default_listing_type ) );
             }
 
             if (!empty($_POST['category_icon'])) {
@@ -164,9 +169,14 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         public function update_location_field($term_id, $tt_id)
         {
 
-            if ( isset( $_POST['directory_type'] ) ) {
-                $directory_type =  $_POST['directory_type'];
-                update_term_meta( $term_id, '_directory_type', $directory_type );
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
+                if ( isset( $_POST['directory_type'] ) ) {
+                    $directory_type =  $_POST['directory_type'];
+                    update_term_meta( $term_id, '_directory_type', $directory_type );
+                }
+            } else {
+                update_term_meta( $term_id, '_directory_type', array( $default_listing_type ) );
             }
             //UPDATED location IMAGE
             if (isset($_POST['image']) && '' !== $_POST['image']) {
@@ -187,6 +197,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'taxonomy'   => ATBDP_TYPE,
                 'hide_empty' => false,
             ) );
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
             ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
@@ -196,14 +208,15 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         foreach( $directory_types as $type ) {
                             $checked = in_array( $type->slug, $value ) ? 'checked' : '';
                     ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
-                        <label for="directory_type"><?php echo $type->name; ?></label>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
                     <?php 
                         }
                     }
                     ?>
                 </td>
             </tr>
+            <?php } ?>
             <tr class="form-field term-group-wrap">
             <th scope="row"><label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label></th>
             <td><select class="postform" id="category_icon" name="category_icon">
@@ -251,6 +264,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'taxonomy'   => ATBDP_TYPE,
                 'hide_empty' => false,
             ) );
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
             ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
@@ -260,14 +275,15 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         foreach( $directory_types as $type ) {
                             $checked = in_array( $type->slug, $value ) ? 'checked' : '';
                     ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
-                        <label for="directory_type"><?php echo $type->name; ?></label>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
                     <?php 
                         }
                     }
                     ?>
                 </td>
             </tr>
+            <?php } ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row">
                     <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
@@ -291,6 +307,16 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function save_category_icon_meta($term_id, $tt_id)
         {
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
+                if ( isset( $_POST['directory_type'] ) ) {
+                    $directory_type =  $_POST['directory_type'];
+                    add_term_meta( $term_id, '_directory_type', $directory_type, true );
+                }
+            } else {
+                add_term_meta( $term_id, '_directory_type', array( $default_listing_type ), true );
+            }
+
             if (!empty($_POST['category_icon'])) {
                 $category_icon = sanitize_text_field($_POST['category_icon']);
                 add_term_meta($term_id, 'category_icon', $category_icon, true);
@@ -298,10 +324,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }
-            if ( isset( $_POST['directory_type'] ) ) {
-                $directory_type =  $_POST['directory_type'];
-                add_term_meta($term_id, '_directory_type', $directory_type, true);
-            }
+            
         }
 
         public function save_location_extra_meta($term_id, $tt_id)
@@ -309,9 +332,15 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }
-            if ( isset( $_POST['directory_type'] ) ) {
-                $directory_type =  $_POST['directory_type'];
-                add_term_meta($term_id, '_directory_type', $directory_type, true);
+
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
+                if ( isset( $_POST['directory_type'] ) ) {
+                    $directory_type =  $_POST['directory_type'];
+                    add_term_meta($term_id, '_directory_type', $directory_type, true);
+                }
+            } else {
+                add_term_meta( $term_id, '_directory_type', array( $default_listing_type ), true );
             }
         }
 
@@ -323,6 +352,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'taxonomy'   => ATBDP_TYPE,
                 'hide_empty' => false,
             ) );
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
             ?>
             <div class="form-field term-group">
             <label for="directory_type"><?php _e('Directory Type', 'directorist'); ?></label>
@@ -330,12 +361,13 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 if( $directory_types ) {
                     foreach( $directory_types as $type ) {
                 ?>
-                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type"/><?php echo $type->name; ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>'/><?php echo $type->name; ?>
                 <?php 
                     }
                 }
                 ?>
             </div>
+            <?php } ?>
             <div class="form-field term-group">
                 <label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label>
                 <select class="postform" id="category_icon" name="category_icon">
@@ -364,19 +396,22 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'taxonomy'   => ATBDP_TYPE,
                 'hide_empty' => false,
             ) );
+            $default_listing_type = $this->default_listing_type();
+            if( ! $default_listing_type ) {
             ?>
             <div class="form-field term-group">
-            <label for="directory_type"><?php _e('Directory Type', 'directorist'); ?></label>
+                <label for="directory_type"><?php _e('Directory Type', 'directorist'); ?></label>
                 <?php 
                 if( $directory_types ) {
                     foreach( $directory_types as $type ) {
                 ?>
-                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type"/><?php echo $type->name; ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>'/><?php echo $type->name; ?>
                 <?php 
                     }
                 }
                 ?>
             </div>
+            <?php } ?>
             <div class="form-field term-group">
                 <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 <input type="hidden" id="atbdp-categories-image-id" name="image"/>
@@ -641,6 +676,57 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             }
             return false;
 
+        }
+
+        public function get_listing_types() {
+            $listing_types = array();
+            $args          = array(
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false
+            );
+            $all_types     = get_terms( $args );
+    
+            foreach ( $all_types as $type ) {
+                $listing_types[ $type->term_id ] = [
+                    'term' => $type,
+                    'name' => $type->name,
+                    'data' => get_term_meta( $type->term_id, 'general_config', true ),
+                ];
+            }
+            return $listing_types;
+        }
+    
+        public function get_current_listing_type() {
+            $listing_types      = $this->get_listing_types();
+            $listing_type_count = count( $listing_types );
+    
+            $current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+    
+            if ( isset( $_GET['directory_type'] ) ) {
+                $current = $_GET['directory_type'];
+            }
+            else {
+    
+                foreach ( $listing_types as $id => $type ) {
+                    $is_default = get_term_meta( $id, '_default', true );
+                    if ( $is_default ) {
+                        $current = $id;
+                        break;
+                    }
+                }
+            }
+
+            $term = get_term_by( 'id', $current, ATBDP_TYPE );
+            $current = $term->slug;
+          
+            return $current;
+        }
+
+        public function default_listing_type() {
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
+            if( ( 1 == count( $this->get_listing_types() ) ) || empty( $enable_multi_directory) ) {
+                return $this->get_current_listing_type();
+            }
         }
     }
 endif;

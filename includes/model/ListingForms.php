@@ -17,8 +17,10 @@ class Directorist_Listing_Forms {
 	public $add_listing_post;
 	public $directory_type;
 	public $default_directory_type;
+	public $current_listing_type;
 
 	private function __construct( $id ) {
+		$this->current_listing_type = $this->get_current_listing_type();
 		if ( $id ) {
 			$this->add_listing_id = $id;
 			$this->add_listing_post = get_post( $id );
@@ -368,7 +370,7 @@ class Directorist_Listing_Forms {
 			'ancestors'          => array(),
 		);
 
-		$location_fields = add_listing_category_location_filter( $query_args, ATBDP_LOCATION, $ids );
+		$location_fields = add_listing_category_location_filter( $this->current_listing_type, $query_args, ATBDP_LOCATION, $ids );
 		return $location_fields;
 	}
 
@@ -416,7 +418,7 @@ class Directorist_Listing_Forms {
 			'ancestors'          => array(),
 		);
 
-		$categories_field = add_listing_category_location_filter( $query_args, ATBDP_CATEGORY, $ids, '', $plan_cat );
+		$categories_field = add_listing_category_location_filter( $this->current_listing_type, $query_args, ATBDP_CATEGORY, $ids, '', $plan_cat );
 		return $categories_field;
 	}
 

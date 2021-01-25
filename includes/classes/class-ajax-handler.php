@@ -182,7 +182,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             }
 
             wp_send_json_success( array( 
-                'search_form' => $search_form,
+                'search_form'            => $search_form,
                 'popular_categories'     => $popular_categories
              ) );
             die;

@@ -34,9 +34,9 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 					<div class="atbd_content_left"><?php $listings->render_loop_fields($loop_fields['footer']['left']); ?></div>
 					<div class="atbd_content_right"><?php $listings->render_loop_fields($loop_fields['footer']['right']); ?></div>
 				</div>
-				
+
 			</div>
-			
+
 		</article>
 	</div>
 </div>

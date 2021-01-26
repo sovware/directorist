@@ -6,4 +6,4 @@
  */
 ?>
 
-<p><?php directorist_icon( $icon );?><?php echo $listings->get_the_location(); ?></p>
+<p><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $label ); ?><span><?php echo $listings->get_the_location(); ?></span></p>

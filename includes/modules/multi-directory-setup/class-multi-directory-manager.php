@@ -3,12 +3,12 @@
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
-        public $fields            = [];
-        public $layouts           = [];
-        public $config            = [];
-        public $default_form      = [];
-        public $old_custom_fields = [];
-        public $cetagory_options  = [];
+        public $fields                  = [];
+        public $layouts                 = [];
+        public $config                  = [];
+        public $default_form            = [];
+        public $old_custom_fields       = [];
+        public $cetagory_options        = [];
 
         // run
         public function run()
@@ -3247,6 +3247,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "la la-map-marker",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3296,6 +3301,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "la la-globe",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3318,6 +3328,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "la la-at",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3342,6 +3357,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "la la-envelope",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3364,6 +3384,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "la la-fax",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3388,6 +3413,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "la la-phone",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3411,6 +3441,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "la la-phone",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3433,6 +3468,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "la la-map-marker",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3575,6 +3615,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3597,6 +3642,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3621,6 +3671,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3628,7 +3683,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'date' => [
                     'type' => "list-item",
                     'label' => "Date",
-                    'icon' => 'uil uil-text-fields',
+                    'icon' => 'la la-calendar-check-o',
                     'hook' => "atbdp_custom_date",
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
@@ -3642,7 +3697,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'icon' => [
                                 'type' => "icon",
                                 'label' => "Icon",
-                                'value' => "uil uil-text-fields",
+                                'value' => "la la-calendar-check-o",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3666,6 +3726,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],
@@ -3713,6 +3778,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3736,6 +3806,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
                             ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
+                            ],
                         ],
                     ],
                 ],
@@ -3758,6 +3833,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
+                            ],
+                            'show_label' => [
+                                'type' => "toggle",
+                                'label' => "Show Label",
+                                'value' => false,
                             ],
                         ],
                     ],

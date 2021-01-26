@@ -543,7 +543,7 @@ class Directorist_Listing_Forms {
 		);
 		URI_Helper::get_template( 'forms/add-listing-field-des', $args );
 	}
-
+  
 	public function add_listing_section_template( $section_data ) {
 		$args = array(
 			'form'          => $this,

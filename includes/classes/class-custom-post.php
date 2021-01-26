@@ -25,6 +25,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
 
             // bulk directory type assign
+            add_filter('quick_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
             add_filter('bulk_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
             add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
         }
@@ -41,6 +42,7 @@ if (!class_exists('ATBDP_Custom_Post')):
     }
 
         public function on_quick_edit_custom_box( $column_name, $post_type ) {
+
             if ( ( 'directory_type' === $column_name ) && ( $post_type == ATBDP_POST_TYPE ) ) { ?>
             <fieldset class="inline-edit-col-right" style="margin-top: 0;">
                 <div class="inline-edit-group wp-clearfix">
@@ -272,7 +274,7 @@ if (!class_exists('ATBDP_Custom_Post')):
                     
                 case 'directory_type':
                     $term_id = get_post_meta( $post_id, '_directory_type', true );
-                    $term = get_term_by( 'id', $term_id, 'atbdp_listing_types' );
+                    $term = get_term_by( is_numeric($term_id) ? 'id' : 'slug', $term_id, ATBDP_TYPE );
                     $config = get_term_meta( $term_id, 'general_config', true );
                     $icon   = is_array( $config ) ? $config['icon'] : '';
                     $term_name = !empty( $term  ) ? $term->name : '';

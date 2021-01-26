@@ -5120,6 +5120,41 @@ input.atbdp-form-control:focus {
   color: #C6D0DC;
 }
 
+/* progressbar style */
+.directorist-importer__importing progress {
+  border-radius: 15px;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper {
+  position: relative;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length:before {
+  position: absolute;
+  content: '';
+  width: 40px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(rgba(255, 255, 255, 0.25)), to(transparent));
+  background: -o-linear-gradient(left, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+  -webkit-animation: slideRight 2s linear infinite;
+          animation: slideRight 2s linear infinite;
+}
+
 @-webkit-keyframes atbd_spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -5137,6 +5172,24 @@ input.atbdp-form-control:focus {
   100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes slideRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
   }
 }
 

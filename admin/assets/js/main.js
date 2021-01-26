@@ -1189,9 +1189,14 @@ templateResult: selecWithIcon,
                         success(response) {
                                 $('#directiost-listing-fields_wrapper')
                                         .empty()
-                                        .append(response);
+                                        .append(response.data['listing_meta_fields']);
                                 assetsNeedToWorkInVirtualDom();
-
+                                $('#at_biz_dir-locationchecklist')
+                                                .empty()
+                                                .html( response.data['listing_locations'] );
+                                $('#at_biz_dir-categorychecklist')
+                                                .empty()
+                                                .html( response.data['listing_categories'] );
                                 $('#listing_form_info')
                                         .find('.directorist_loader')
                                         .remove();

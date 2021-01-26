@@ -1673,17 +1673,25 @@ class Directorist_Listings {
 				$id = get_the_id();
 				$load_template = true;
 				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
-				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) && ( 'listings_location' !== $field['widget_name'] ) ) {
+
+				if( 'listings_location' === $field['widget_name'] ) {
+					$location = get_the_terms( $id, ATBDP_LOCATION );
+					if( $location ) {
+						$value = true;
+					}
+				}
+				
+				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
 					$load_template = false;
 				}
 				
-				// $value = !empty( $field['show_label'] ) ? '<span>'.$field['label'].'</span>'.' '.$value : $value;
-				$value = !empty( $field['show_label'] ) ? $field['label'].' '.$value : $value;
+				$label = !empty( $field['show_label'] ) ? $field['label'].' ' : '';
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
+					'label'    => $label,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 					'original_field'    => $submission_form_fields,
 				);

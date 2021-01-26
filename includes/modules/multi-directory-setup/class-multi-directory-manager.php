@@ -3,12 +3,12 @@
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
-        public $fields            = [];
-        public $layouts           = [];
-        public $config            = [];
-        public $default_form      = [];
-        public $old_custom_fields = [];
-        public $cetagory_options  = [];
+        public $fields                  = [];
+        public $layouts                 = [];
+        public $config                  = [];
+        public $default_form            = [];
+        public $old_custom_fields       = [];
+        public $cetagory_options        = [];
 
         // run
         public function run()
@@ -3754,11 +3754,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
-                            ],
-                            'show_label' => [
-                                'type' => "toggle",
-                                'label' => "Show Label",
-                                'value' => false,
                             ],
                         ],
                     ],

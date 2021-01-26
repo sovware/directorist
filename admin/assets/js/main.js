@@ -1187,7 +1187,6 @@ templateResult: selecWithIcon,
                                 listing_id: $('#directiost-listing-fields_wrapper').data('id'),
                         },
                         success(response) {
-                                console.log( response.data['listing_categories'] );
                                 $('#directiost-listing-fields_wrapper')
                                         .empty()
                                         .append(response.data['listing_meta_fields']);

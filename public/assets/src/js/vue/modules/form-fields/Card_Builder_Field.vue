@@ -11,8 +11,7 @@
         v-bind="theCurrentTemplateModel"
         :value="theCardBiulderValue"
         @update="updateValue($event)"
-      >
-      </component>
+      />
     </template>
 
     <template v-else>

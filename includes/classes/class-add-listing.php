@@ -219,8 +219,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if ($plan_purchased) {
                         $listing_id = get_post_meta($plan_purchased->ID, '_listing_id', true);
                         $featured = get_post_meta($listing_id, '_featured', true);
-                        $total_regular_listing = $num_regular - ('0' === $featured ? $user_regular_listing + 1 : $user_regular_listing);
-                        $total_featured_listing = $num_featured - ('1' === $featured ? $user_featured_listing + 1 : $user_featured_listing);
+                        $total_regular_listing = $num_regular - ('0' === $featured ? $user_regular_listing : $user_regular_listing);
+                        $total_featured_listing = $num_featured - ('1' === $featured ? $user_featured_listing : $user_featured_listing);
                         $total_regular_listing = max($total_regular_listing, 0);
                         $total_featured_listing = max($total_featured_listing, 0);
                         $subscribed_date = $plan_purchased->post_date;

@@ -1676,6 +1676,9 @@ class Directorist_Listings {
 				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) && ( 'listings_location' !== $field['widget_name'] ) ) {
 					$load_template = false;
 				}
+				
+				// $value = !empty( $field['show_label'] ) ? '<span>'.$field['label'].'</span>'.' '.$value : $value;
+				$value = !empty( $field['show_label'] ) ? $field['label'].' '.$value : $value;
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,

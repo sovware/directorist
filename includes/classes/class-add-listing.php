@@ -87,16 +87,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $edit_l_status         = get_directorist_option('edit_listing_status');
 
                  // data validation
-                 $directory_type = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
+                 $directory = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
 
-                 if( $directory_type ){
-                    $term                   = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
-                    $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
-                    $new_l_status           = get_term_meta( $term->term_id, 'new_listing_status', true );
-                    $edit_l_status          = get_term_meta( $term->term_id, 'edit_listing_status', true );
-                    $preview_enable         = atbdp_is_truthy( get_term_meta( $term->term_id, 'preview_mode', true ) );
+                 if( $directory ){
+                    $term                   = get_term_by( 'slug', $directory, 'atbdp_listing_types' );
+                    $directory_type         = $term->term_id;
+                    $submission_form        = get_term_meta( $directory_type, 'submission_form_fields', true );
+                    $new_l_status           = get_term_meta( $directory_type, 'new_listing_status', true );
+                    $edit_l_status          = get_term_meta( $directory_type, 'edit_listing_status', true );
+                    $preview_enable         = atbdp_is_truthy( get_term_meta( $directory_type, 'preview_mode', true ) );
                     $submission_form_fields = $submission_form['fields'];
 
                     // wp_send_json([
@@ -204,7 +205,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     'tax_input' => !empty($info['tax_input']) ? atbdp_sanitize_array($info['tax_input']) : array(),
                     'meta_input' => apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $metas, $info ),
                 );
-          
                 // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                 if (!empty($info['listing_id'])) {
                     /**

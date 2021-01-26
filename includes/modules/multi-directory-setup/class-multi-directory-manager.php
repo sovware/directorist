@@ -3760,11 +3760,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'label' => "Icon",
                                 'value' => "uil uil-text-fields",
                             ],
-                            'show_label' => [
-                                'type' => "toggle",
-                                'label' => "Show Label",
-                                'value' => false,
-                            ],
                         ],
                     ],
                 ],

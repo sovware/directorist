@@ -9,8 +9,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public $default_form            = [];
         public $old_custom_fields       = [];
         public $cetagory_options        = [];
-        public $need_migration          = false;
-        public $need_import_default     = false;
 
         // run
         public function run()
@@ -121,9 +119,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $has_custom_fields   = $get_custom_fields->post_count;
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
-
-            $this->need_migration       = $need_migration;
-            $this->need_import_default  = $need_import_default;
             
             /* e_var_dump([
                'migrated'            => $migrated,

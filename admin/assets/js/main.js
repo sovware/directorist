@@ -1193,10 +1193,10 @@ templateResult: selecWithIcon,
                                 assetsNeedToWorkInVirtualDom();
                                 $('#at_biz_dir-locationchecklist')
                                                 .empty()
-                                                .html( response.data['listing_categories'] );
+                                                .html( response.data['listing_locations'] );
                                 $('#at_biz_dir-categorychecklist')
                                                 .empty()
-                                                .html( response.data['listing_locations'] );
+                                                .html( response.data['listing_categories'] );
                                 $('#listing_form_info')
                                         .find('.directorist_loader')
                                         .remove();

@@ -12,7 +12,12 @@
                                 <tr>
                                     <th colspan="4">
                                         <div class="ei-action-wrapper">
-                                            <div class="ei-select-all"><input type="checkbox" name="select-all" id=""></div>
+                                            <div class="ei-select-all">
+                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                    <input type="checkbox" name="select-all" id="">
+                                                    <label for="select-all" ></label>
+                                                </div>
+                                            </div>
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
                                                     <option value="">Bulk Action</option>
@@ -30,31 +35,33 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                <label for="<?php echo $extension_base; ?>">
-                                                    <?php
+                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
+                                                    <label for="<?php echo $extension_base; ?>">
+                                                        <?php
 
-                                                        $ext_key = preg_replace( '/\/.+/', '', $extension_base );
-                                                        $img     = 'https://via.placeholder.com/44' ;
+                                                            $ext_key = preg_replace( '/\/.+/', '', $extension_base );
+                                                            $img     = 'https://via.placeholder.com/44' ;
 
-                                                        if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
-                                                            $img = $args['extension_list'][$ext_key]['thumbnail'];
-                                                        }
-                                                    ?>
-                                                    <img src="<?php echo $img; ?>" alt="" width="44" height="44">
-                                                    <?php echo $extension['Name'] ?>
-                                                    <span class="ext-version">v<?php echo $extension['Version'] ?></span>
-                                                </label>
+                                                            if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
+                                                                $img = $args['extension_list'][$ext_key]['thumbnail'];
+                                                            }
+                                                        ?>
+                                                        <img src="<?php echo $img; ?>" alt="" width="44" height="44">
+                                                        <?php echo $extension['Name'] ?>
+                                                        <span class="ext-version">v<?php echo $extension['Version'] ?></span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </td>
 
-                                        <td>
+                                        <td class="directorist_status-badge">
                                             <?php if (is_plugin_active($extension_base)) : ?>
                                                 <span class="active-badge">Active</span>
                                             <?php endif; ?>
                                         </td>
 
-                                        <td>
+                                        <td class="directorist_ext-update">
                                             <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
                                                 <p class="ext-update-info">Update available <!-- <span>What's new?</span></p> -->
                                             <?php else : ?>
@@ -99,7 +106,12 @@
                                 <tr>
                                     <th colspan="4">
                                         <div class="ei-action-wrapper">
-                                            <div class="ei-select-all"><input type="checkbox" name="select-all" id=""></div>
+                                            <div class="ei-select-all">
+                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                    <input type="checkbox" name="select-all" id="">
+                                                    <label for="select-all"></label>
+                                                </div>
+                                            </div>
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
                                                     <option value="">Bulk Action</option>
@@ -116,16 +128,18 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                <label for="<?php echo $extension_base; ?>">
-                                                    <?php
-                                                        $img = 'https://via.placeholder.com/44';
-                                                        if (!empty($args['extension_list'][$extension_base])) {
-                                                            $img = $args['extension_list'][$extension_base]['thumbnail'];
-                                                        }
-                                                    ?>
-                                                    <img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $extension['title'] ?>
-                                                </label>
+                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
+                                                    <label for="<?php echo $extension_base; ?>">
+                                                        <?php
+                                                            $img = 'https://via.placeholder.com/44';
+                                                            if (!empty($args['extension_list'][$extension_base])) {
+                                                                $img = $args['extension_list'][$extension_base]['thumbnail'];
+                                                            }
+                                                        ?>
+                                                        <img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $extension['title'] ?>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </td>
 

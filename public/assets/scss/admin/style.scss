@@ -2986,6 +2986,18 @@ input.atbdp-form-control {
           }
         }
 
+        .directorist_status-badge{
+          min-width: 200px;
+        }
+
+        .directorist_ext-update{
+          min-width: 240px;
+        }
+
+        .ext-action{
+          min-width: 200px;
+        }
+
         .ei-action-wrapper {
           display: flex;
           flex-wrap: wrap;
@@ -3032,10 +3044,10 @@ input.atbdp-form-control {
           display: flex;
           align-items: center;
           padding: 12px 15px;
-          min-width: 300px;
+          min-width: 400px;
 
           input {
-            margin-right: 20px !important;
+            margin-right: 6px !important;
           }
 
           label {
@@ -4498,6 +4510,7 @@ input.atbdp-form-control {
 // Directorist Checkbox
 .directorist_checkbox {
   display: flex;
+  align-items: center;
 
   label {
     position: relative;
@@ -4512,7 +4525,7 @@ input.atbdp-form-control {
     width: 18px;
     height: 18px;
     border-radius: 3px;
-    border: 2px solid #C6D0DC;
+    border: 1px solid #C6D0DC;
 
     &:checked {
       background-color: #3e62f5 !important;
@@ -4535,13 +4548,24 @@ input.atbdp-form-control {
       width: auto;
       height: auto;
       margin: 0;
-      left: -3px;
-      top: -2px;
+      left: 0px;
+      top: 1px;
     }
 
     &:focus {
       outline: 0 none;
       box-shadow: 0 0;
+    }
+  }
+}
+
+.directorist_checkbox {
+  &.directorist_checkbox-success{
+    input[type="checkbox"] {
+      &:checked{
+        background-color: #00b158 !important;
+        border-color: #00b158 !important;
+      }
     }
   }
 }
@@ -4818,6 +4842,45 @@ input.atbdp-form-control {
     }
   }
 }
+/* progressbar style */
+.directorist-importer__importing progress {
+  border-radius: 15px;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+}
+.directorist-importer__importing .directorist-importer-wrapper {
+  position: relative;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length:before {
+  position: absolute;
+  content: '';
+  width: 40px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+  animation: slideRight 2s linear infinite;
+}
+
+// Extension Style
+#my-themes-extensions{
+  .directorist_checkbox{
+    label{
+      top: 0;
+    }
+  }
+}
 // keyframes
 @-webkit-keyframes atbd_spin {
   0% {
@@ -4836,5 +4899,15 @@ input.atbdp-form-control {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes slideRight {
+  from {
+      left: 0;
+  }
+
+  to {
+      left: 100%;
   }
 }

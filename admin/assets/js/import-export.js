@@ -121,6 +121,7 @@ jQuery(document).ready(function($) {
                                                         response.url
                                                 }&listing-imported=${imported}&listing-failed=${failed}`;
                                         }
+                                        $('.directorist-importer-length').css('width', response.percentage + '%');
                                 },
                                 error(response) {
                                         window.console.log(response);

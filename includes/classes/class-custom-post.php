@@ -28,6 +28,46 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_filter('quick_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
             add_filter('bulk_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
             add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
+
+            // Customize listing slug
+            add_filter( 'post_type_link', [ $this, 'customize_listing_slug' ], 10, 2 );
+        }
+
+         // customize_listing_slug
+         public function customize_listing_slug( $post_link = '' ) {
+            $post_type = get_post_type( get_the_ID() );
+
+            if ( ATBDP_POST_TYPE !== $post_type ) {
+                return $post_link;
+            }
+
+            $listing_slug = $this->get_listing_slug();
+            $base_link = home_url();
+
+            if ( ! empty( $listing_slug ) ) {
+                $base_link = "{$base_link}/$listing_slug";
+            }
+            
+            $directory_type = $this->get_listing_slug();
+            $get_the_terms = get_the_terms( get_the_ID(), ATBDP_DIRECTORY_TYPE );
+            
+            if ( ! is_wp_error( $get_the_terms ) && ! empty( $get_the_terms ) && is_array( $get_the_terms ) ) {
+                $directory_type = $get_the_terms[0]->slug;
+            }
+
+            $new_link = str_replace( "%" . ATBDP_DIRECTORY_TYPE ."%", $directory_type, $post_link );
+            return $new_link;
+        }
+
+        public function get_listing_slug() {
+            $listing_slug = 'directory/%'. ATBDP_DIRECTORY_TYPE .'%';
+            $custom_listing_slug = get_directorist_option('atbdp_listing_slug', 'directory');
+            
+            if ( ! empty( $custom_listing_slug ) ) {
+                $listing_slug = "{$custom_listing_slug}/%{ATBDP_DIRECTORY_TYPE}%";
+            }
+
+            return strtolower( $listing_slug );
         }
 
         public function save_quick_edit_custom_box( $post_id) {
@@ -180,17 +220,12 @@ if (!class_exists('ATBDP_Custom_Post')):
                 'capability_type' => ATBDP_POST_TYPE,
                 'map_meta_cap' => true, // set this true, otherwise, even admin will not be able to edit this post. WordPress will map cap from edit_post to edit_at_biz_dir etc,
                 'menu_position' => 5,
-            );
-
-            // get the rewrite slug from the user settings, if exist use it.
-            $slug = get_directorist_option('atbdp_listing_slug', 'directory');// default value is the post type at_biz_dir .
-            if (!empty($slug)) {
-                $args['rewrite'] = array(
-                    'slug' => $slug,
+                'rewrite' => [
+                    'slug' => $this->get_listing_slug(),
                     'with_front' => false,
-
-                );
-            }
+                ],
+            );
+            
             /**
              * @since 6.2.3
              * @package Directorist

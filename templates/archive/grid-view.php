@@ -2,7 +2,7 @@
 /**
  * @template_description1
  *
- * @template_description2
+ * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
  *
  * @author  wpWax
  * @since   6.6

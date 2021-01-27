@@ -1,71 +1,42 @@
 <?php
 /**
+ * @template_description1
+ *
+ * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
+ *
  * @author  wpWax
  * @since   6.6
  * @version 6.6
  */
 
-/**
- * @param WP_Query $all_listings It contains all the queried listings by a user
- * @since 5.5.1
- * @package Directorist
- */
-do_action('atbdp_before_all_listings_list', $listings);
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
+<div class="directorist-archive-list-view">
 
-    <?php
-    /**
-     * @since 6.6
-     * @hooked Directorist_Listings::archive_type - 10
-     * @hooked Directorist_Listings::archive_header - 15
-     */
-    do_action( 'directorist_archive_header', $listings );
+	<div class="<?php Helper::directorist_container(); ?>">
 
-    /**
-     * @since 5.0
-     * It fires before the listings columns
-     * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
-     */
-    if ($listings->action_before_after_loop) {
-        do_action('atbdp_before_list_listings_loop');
-    }
+		<?php if ( $listings->have_posts() ): ?>
 
-    $container = apply_filters('list_view_container', 'container-fluid');
-    $col_container = apply_filters('atbdp_listing_list_view_html_class', 'col-md-12');
-    ?>
+				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-    <div class="<?php echo esc_attr( $container ); ?>">
-        <div class="row">
-            <div class="<?php echo esc_attr( $col_container ); ?>">
-                <?php $listings->setup_loop( ['template' => 'list'] ); ?>
-            </div>
-        </div>
+					<?php $listings->loop_template( 'list', $listing_id ); ?>
+					
+				<?php endforeach; ?>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <?php
-                /**
-                 * @since 5.0
-                 */
-                do_action('atbdp_before_listings_pagination');
-                
-                if ( $listings->show_pagination ) {
-                    echo atbdp_pagination( $listings->query_results );
-                } ?>
-            </div>
-        </div>
+			<?php
+			if ( $listings->show_pagination ) {
+				$listings->pagination();
+			}
+			?>
 
-        <?php
-        /**
-         * @since 5.0
-         * to add custom html
-         * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
-         */
-        if ($listings->action_before_after_loop) {
-            do_action('atbdp_after_grid_listings_loop');
-        }
-        ?>
-    </div>
+		<?php else: ?>
+
+			<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
+
+		<?php endif; ?>
+	</div>
+	
 </div>

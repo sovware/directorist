@@ -7,6 +7,7 @@ namespace Directorist;
 
 use \ATBDP_Listings_Data_Store;
 use \ATBDP_Permalink;
+use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

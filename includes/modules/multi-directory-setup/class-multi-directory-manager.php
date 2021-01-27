@@ -18,6 +18,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
             add_action( 'init', [$this, 'initial_setup'] );
+            add_action( 'init', [$this, 'update_default_directory_type_option'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -25,6 +26,34 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             
             add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
+            
+        }
+
+        // update_default_directory_type_option
+        public function update_default_directory_type_option() {
+            $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
+
+            if ( ! empty( $default_directory ) ) { return; }
+
+            $args = array(
+                'hide_empty' => false, // also retrieve terms which are not used yet
+                'meta_query' => array(
+                    array(
+                        'key'   => '_default',
+                        'value' => true,
+                    )
+                ),
+                'taxonomy' => ATBDP_DIRECTORY_TYPE,
+            );
+
+            $default_directory = '';
+            $terms = get_terms( $args );
+
+            if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+                $default_directory = $terms[0]->term_id;
+            }
+
+            update_directorist_option( 'atbdp_default_derectory', $default_directory );
         }
 
         public function conditional_layouts( $layouts ) {
@@ -4905,6 +4934,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
         // get_default_directory_id
         public function get_default_directory_id() {
+            $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
+
+            if ( ! empty( $default_directory  ) ) {
+                return $default_directory;
+            }
+
             $terms = get_terms([
                 'taxonomy' => ATBDP_DIRECTORY_TYPE,
                 'hide_empty' => false,

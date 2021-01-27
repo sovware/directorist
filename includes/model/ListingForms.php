@@ -516,13 +516,17 @@ class Directorist_Listing_Forms {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-		$terms =  get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
-		$current_type  = !empty($terms) ? $terms[0]->term_id : ( count( $all_types ) === 1 ? $all_types[0]->term_id : '' );
+
+		$terms             = get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
+		$default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
+		$current_type      = ! empty( $terms ) ? $terms[0]->term_id : $default_directory;
+		
 		$args = array(
 			'listing_form'  => $this,
 			'listing_types' => $all_types,
 			'current_type'  => $current_type,
 		);
+		
 		URI_Helper::get_template( 'forms/fields/type', $args );
 	}
 

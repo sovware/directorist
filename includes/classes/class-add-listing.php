@@ -90,34 +90,22 @@ if (!class_exists('ATBDP_Add_Listing')):
                  $directory = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
+                 $directory_type = get_directorist_option( 'atbdp_default_derectory', '' );
 
-                 if( $directory ){
-                    $term                   = get_term_by( 'slug', $directory, 'atbdp_listing_types' );
+                 if ( $directory ){
+                    $term                   = get_term_by( 'id', $directory, 'atbdp_listing_types' );
                     $directory_type         = $term->term_id;
                     $submission_form        = get_term_meta( $directory_type, 'submission_form_fields', true );
                     $new_l_status           = get_term_meta( $directory_type, 'new_listing_status', true );
                     $edit_l_status          = get_term_meta( $directory_type, 'edit_listing_status', true );
                     $preview_enable         = atbdp_is_truthy( get_term_meta( $directory_type, 'preview_mode', true ) );
                     $submission_form_fields = $submission_form['fields'];
-
-                    // wp_send_json([
-                    //     'term'                   => $term,
-                    //     'submission_form'        => $submission_form,
-                    //     'new_l_status'           => $new_l_status,
-                    //     'edit_l_status'          => $edit_l_status,
-                    //     'preview_enable'         => $preview_enable,
-                    //     'submission_form_fields' => $submission_form_fields,
-                    // ]);
                  }
-                //isolate data
+
+                // isolate data
                 $error = [];
                 $dummy = [];
-                // wp_send_json( [
-                //     'info' => $info,
-                //     'submission_form_fields' => $submission_form_fields,
-                // ] );
-                // die;
-                // tax input
+
                 $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
                 $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
@@ -585,11 +573,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $data['need_payment'] = true;
                     } else {
                         //yep! listing is saved to db and redirect user to admin panel or listing itself
-                        $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                        $redirect_page     = get_directorist_option('edit_listing_redirect', 'view_listing');
                         $submission_notice = get_directorist_option('submission_confirmation', 1);
-
+                        $permalink         = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
+                
                         if ('view_listing' == $redirect_page) {
-                            $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, get_permalink($post_id) ) : get_permalink($post_id) ;
+                            $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink ;
                             $data['success'] = true;
                         } else {
                             $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
@@ -607,7 +596,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (!empty($data['error']) && $data['error'] === true) {
                     $data['error_msg'] = isset($data['error_msg']) ? $data['error_msg'] : __('Sorry! Something Wrong with Your Submission', 'directorist');
                 }else{
-                    $data['preview_url'] = get_permalink($post_id);
+                    $data['preview_url'] = $permalink;
                 }
                 if (!empty($data['need_payment']) && $data['need_payment'] === true) {
                     $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
@@ -618,6 +607,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if ($info['listing_id']) {
                     $data['edited_listing'] = true;
                 }
+                $data['redirect_url'] = $permalink;
                 wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
         }
 

@@ -14,7 +14,42 @@
 if ( ! defined('ABSPATH') ) { die( 'You are not allowed to access this file directly' ); }
 
 if (!class_exists('ATBDP_Permalink')):
-class ATBDP_Permalink{
+class ATBDP_Permalink {
+    // atbdp_get_listing_permalink
+    public static function get_listing_permalink( $post_id = 0, $permalink = '' ) {
+            
+        $post_type = get_post_type( $post_id );
+        if ( ATBDP_POST_TYPE !== $post_type ) { return $permalink; }
+
+        $listing_slug = self::get_listing_slug();
+        $base_link = home_url();
+
+        if ( ! empty( $listing_slug ) ) {
+            $base_link = "{$base_link}/$listing_slug";
+        }
+        
+        $directory_type = self::get_listing_slug();
+        $get_the_terms = get_the_terms( $post_id, ATBDP_DIRECTORY_TYPE );
+        
+        if ( ! is_wp_error( $get_the_terms ) && ! empty( $get_the_terms ) && is_array( $get_the_terms ) ) {
+            $directory_type = $get_the_terms[0]->slug;
+        }
+
+        $new_link = str_replace( "%" . ATBDP_DIRECTORY_TYPE ."%", $directory_type, $permalink );
+        return $new_link;
+    }
+
+    public static function get_listing_slug() {
+        $listing_slug = 'directory/%'. ATBDP_DIRECTORY_TYPE .'%';
+        $custom_listing_slug = get_directorist_option('atbdp_listing_slug', 'directory');
+        
+        if ( ! empty( $custom_listing_slug ) ) {
+            $listing_slug = $custom_listing_slug. '/%' .ATBDP_DIRECTORY_TYPE. '%';
+        }
+
+        return strtolower( $listing_slug );
+    }
+
     /**
      * It returns the link to the custom search archive page of ATBDP
      * @return string

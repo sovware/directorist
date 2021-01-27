@@ -9,17 +9,15 @@
  * @version 6.6
  */
 
-use Directorist\URI_Helper;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
+?>
 
-get_header( 'directorist' );
-echo "string";
-if ( have_posts() ) {
-	while ( have_posts() ) {
-		the_post();
-		URI_Helper::get_template( 'archive/contents' );
-	}
-}
+<div class="directorist-archive-contents">
 
-get_footer( 'directorist' );
+	<?php
+	$listings->listing_type_template();
+	$listings->header_template();
+	$listings->archive_view_template();
+	?>
+
+</div>

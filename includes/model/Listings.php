@@ -1016,6 +1016,11 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_listing_search_query_argument', $args );
 	}
 
+	public function archive_view_template() {
+		$template_file = "archive/{$this->view}-view";
+		URI_Helper::get_template( $template_file, array( 'listings' => $this ) );
+	}
+
 	public function render_shortcode() {
 		wp_enqueue_script('adminmainassets');
 		wp_enqueue_script('atbdp_search_listing');
@@ -1040,7 +1045,7 @@ class Directorist_Listings {
 		
 		// Load the template
 		$template_file = "archive/listings-{$this->view}";
-		URI_Helper::get_template( $template_file, array('listings' => $this), 'listings_archive' );
+		URI_Helper::get_template( 'archive-contents', array('listings' => $this), 'listings_archive' );
 
 		return ob_get_clean();
 	}
@@ -1769,6 +1774,22 @@ class Directorist_Listings {
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
 			);
 			URI_Helper::get_template( 'archive/advanced-search-form', $args );
+		}
+
+		public function listing_type_template() {
+			$count = count( $this->listing_types );
+			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+				URI_Helper::get_template( 'archive/listing-types', array('listings' => $this) );
+			}
+		}
+
+		public function header_template() {
+			if ( !$this->header ) {
+				return;
+			}
+
+			URI_Helper::get_template( 'archive/listings-header', array('listings' => $this) );
 		}
 
     	// Hooks ------------

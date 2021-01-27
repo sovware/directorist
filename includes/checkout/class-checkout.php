@@ -116,8 +116,17 @@ class ATBDP_Checkout
             $symbol     = atbdp_currency_symbol($currency);
             $before     = '';
             $after      = '';
+            $args       = array( 
+                'form_data'     => $form_data,
+                'listing_id'    => $listing_id,
+                'c_position'    => $c_position,
+                'currency'      => $currency,
+                'symbol'        => $symbol,
+                'before'        => $before, 
+                'after'         => $after, 
+            );
             //displaying data for checkout
-            \Directorist\URI_Helper::get_template( 'payment/checkout' );
+            \Directorist\URI_Helper::get_template( 'payment/checkout', array( 'checkout' => $args ) );
         }
         return ob_get_clean();
     }

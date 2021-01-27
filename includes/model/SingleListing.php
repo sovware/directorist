@@ -103,10 +103,10 @@ class Directorist_Single_Listing {
 		if ( $section_data['type'] == 'widget_group' ) {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
 			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
-			URI_Helper::get_template( $template, $args );
+			Helper::get_template( $template, $args );
 		}
 		else {
-			URI_Helper::get_template( 'single-listing/section-general', $args );
+			Helper::get_template( 'single-listing/section-general', $args );
 		}
 	}
 
@@ -141,7 +141,7 @@ class Directorist_Single_Listing {
 		$template = 'single-listing/items/' . $data['widget_name'];
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		if( $load_template )
-		URI_Helper::get_template( $template, $args );
+		Helper::get_template( $template, $args );
 	}
 
 	public function social_share_data() {
@@ -176,7 +176,7 @@ class Directorist_Single_Listing {
 			'actions'  => $actions,
 		);
 		if( $actions )
-		URI_Helper::get_template('single-listing/quick-actions', $args );
+		Helper::get_template('single-listing/quick-actions', $args );
 	}
 
 	public function quick_info_template() {
@@ -186,7 +186,7 @@ class Directorist_Single_Listing {
 			'info'    => $quick_info,
 		);
 		if( $quick_info )
-		URI_Helper::get_template('single-listing/quick-info', $args );
+		Helper::get_template('single-listing/quick-info', $args );
 	}
 
 	public function slider_template() {
@@ -272,7 +272,7 @@ class Directorist_Single_Listing {
 			'data'       => $data,
 		);
 
-		URI_Helper::get_template('single-listing/slider', $args );
+		Helper::get_template('single-listing/slider', $args );
 	}
 
 	public function has_price_range() {
@@ -518,7 +518,7 @@ class Directorist_Single_Listing {
 				'submission_confirmation' => get_directorist_option('submission_confirmation', 1 ),
 				'confirmation_msg' 		  => $confirmation_msg,		
 			);
-			$html = URI_Helper::get_template_contents('single-listing/content-wrapper', $args);
+			$html = Helper::get_template_contents('single-listing/content-wrapper', $args);
 			return $html;
 		}
 
@@ -542,7 +542,7 @@ class Directorist_Single_Listing {
 			'enable_content'    => $enable_content,
 		);
 		
-		return URI_Helper::get_template('single-listing/header', $args);
+		return Helper::get_template('single-listing/header', $args);
 	}
 
 	public function render_shortcode_single_listing() {
@@ -554,7 +554,7 @@ class Directorist_Single_Listing {
 			'listing' => $this,
 		);
 
-		return URI_Helper::get_template_contents('single-listing/single-listing', $args);
+		return Helper::get_template_contents('single-listing/single-listing', $args);
 	}
 
 	public function get_contents() {
@@ -711,7 +711,7 @@ class Directorist_Single_Listing {
 			'custom_field_data'  => $field_data,
 		);
 
-		return URI_Helper::get_template_contents('single-listing/custom-field', $args);
+		return Helper::get_template_contents('single-listing/custom-field', $args);
 	}
 
 	public function render_shortcode_video()
@@ -731,7 +731,7 @@ class Directorist_Single_Listing {
 			'video_label'      => get_directorist_option('atbd_video_title', __('Video', 'directorist')),
 		);
 
-		return URI_Helper::get_template_contents('single-listing/listing-video', $args);
+		return Helper::get_template_contents('single-listing/listing-video', $args);
 	}
 
 	public function load_map_resources() {
@@ -859,7 +859,7 @@ class Directorist_Single_Listing {
 			'display_social_info_for'   => get_directorist_option('display_social_info_for', 'admin_users'),
 		);
 
-		return URI_Helper::get_template_contents('single-listing/contact-information', $args);
+		return Helper::get_template_contents('single-listing/contact-information', $args);
 	}
 
 	public function render_shortcode_author_info()
@@ -895,7 +895,7 @@ class Directorist_Single_Listing {
 
 		);
 
-		return URI_Helper::get_template_contents('single-listing/author-details', $args);
+		return Helper::get_template_contents('single-listing/author-details', $args);
 	}
 
 	public function render_shortcode_contact_owner()
@@ -917,7 +917,7 @@ class Directorist_Single_Listing {
 			'email'                 => get_post_meta($id, '_email', true),
 		);
 
-		return URI_Helper::get_template_contents('single-listing/contact-owner', $args);
+		return Helper::get_template_contents('single-listing/contact-owner', $args);
 	}
 
 	public function render_shortcode_tags()
@@ -936,7 +936,7 @@ class Directorist_Single_Listing {
 			'tags_section_lable' => get_directorist_option('tags_section_lable', __('Tags', 'directorist')),
 		);
 
-		return URI_Helper::get_template_contents('single-listing/tags', $args);
+		return Helper::get_template_contents('single-listing/tags', $args);
 	}
 
 	public function get_reviewer_img()
@@ -976,7 +976,7 @@ class Directorist_Single_Listing {
 			'register_link'            => apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>"),
 		);
 
-		URI_Helper::get_template('single-listing/listing-review', $args);
+		Helper::get_template('single-listing/listing-review', $args);
 	}
 
 	public function related_listings_query( $number, $relationship )
@@ -1083,6 +1083,6 @@ class Directorist_Single_Listing {
 			'title'            => $title,
 		);
 
-		URI_Helper::get_template('single-listing/related-listings', $args);
+		Helper::get_template('single-listing/related-listings', $args);
 	}
 }

@@ -9,16 +9,27 @@
  * @version 6.6
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-archive-grid-view">
 
-    <div class="container-fluid">
+    <div class="<?php Helper::directorist_container(); ?>">
 
-        <div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
-        	<?php $listings->setup_loop( ['template' => 'grid'] ); ?>
-        </div>
+        <?php if ( $listings->have_posts() ): ?>
+            <div class="<?php Helper::directorist_row(); ?>">
+                <div class="<?php Helper::directorist_column( $listings->columns ); ?>">
+                    
+                </div>
+                <?php $listings->setup_loop( ['template' => 'grid'] ); ?>
+            </div>     
+        <?php else: ?>
+            
+        <?php endif; ?>
+
+
 
         <?php
         if ( $listings->show_pagination ) {

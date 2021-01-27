@@ -117,7 +117,7 @@ class ATBDP_Checkout
             $before     = '';
             $after      = '';
             //displaying data for checkout
-            \Directorist\URI_Helper::get_template( 'payment/checkout' );
+            \Directorist\Helper::get_template( 'payment/checkout' );
         }
         return ob_get_clean();
     }
@@ -175,7 +175,7 @@ class ATBDP_Checkout
         $container_fluid = 'container-fluid';
         $order_id        = (!empty($order_id)) ? $order_id : '';
 
-        \Directorist\URI_Helper::get_template( 'payment/payment-receipt' );
+        \Directorist\Helper::get_template( 'payment/payment-receipt' );
 
         return ob_get_clean();
     }
@@ -328,7 +328,7 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
-        \Directorist\URI_Helper::get_template( 'payment/transaction-failure' );
+        \Directorist\Helper::get_template( 'payment/transaction-failure' );
 
         return ob_get_clean();
     }

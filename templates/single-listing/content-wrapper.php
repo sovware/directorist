@@ -51,6 +51,6 @@
 
 		</div>
 
-		<?php \Directorist\URI_Helper::get_template( 'single-listing/sidebar' ); ?>
+		<?php \Directorist\Helper::get_template( 'single-listing/sidebar' ); ?>
 	</div>
 </section>

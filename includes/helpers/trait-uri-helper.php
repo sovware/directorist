@@ -7,7 +7,7 @@ namespace Directorist;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class URI_Helper {
+trait URI_Helper {
 
 	public static function get_template_contents( $template, $args = array() ) {
 		ob_start();

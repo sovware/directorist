@@ -1643,7 +1643,11 @@ class Directorist_Listings {
 		}
 
 		public function loop_wrapper_class() {
-			return ($this->loop['featured']) ? 'directorist-featured-listings' : '';
+			$class  = '';
+			$class .= $this->loop['featured'] ? 'directorist-featured' : '';
+			$class .= $this->info_display_in_single_line ? 'directorist-single-line' : '';
+			$class  = apply_filters( 'directorist_loop_wrapper_class', $class );
+			return $class;
 		}
 
 		public function loop_link_attr() {
@@ -1805,6 +1809,10 @@ class Directorist_Listings {
 			}
 
 			Helper::get_template( 'archive/listings-header', array('listings' => $this) );
+		}
+
+		public function single_line_display_class() {
+			return $this->info_display_in_single_line ? 'directorist-single-line' : '';
 		}
 
 		public function pagination( $echo = true ) {

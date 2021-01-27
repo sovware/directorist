@@ -1,13 +1,23 @@
 <?php
 /**
+ * @template_description1
+ *
+ * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
+ *
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 6.6
  */
+
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_thumbnail'];
 ?>
-<div class="atbd_single_listing atbd_listing_list directorist-list-with-thumb">
+
+<div class="directorist-list directorist-list-with-thumb">
+
 	<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
 		<figure class="atbd_listing_thumbnail_area">
@@ -31,4 +41,5 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
 		</div>
 		
 	</article>
+	
 </div>

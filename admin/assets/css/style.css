@@ -3067,6 +3067,18 @@ input.atbdp-form-control:focus {
   padding: 10px 15px;
 }
 
+.et-wrapper .et-contents .ext-wrapper table .directorist_status-badge {
+  min-width: 200px;
+}
+
+.et-wrapper .et-contents .ext-wrapper table .directorist_ext-update {
+  min-width: 240px;
+}
+
+.et-wrapper .et-contents .ext-wrapper table .ext-action {
+  min-width: 200px;
+}
+
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3121,11 +3133,11 @@ input.atbdp-form-control:focus {
       -ms-flex-align: center;
           align-items: center;
   padding: 12px 15px;
-  min-width: 300px;
+  min-width: 400px;
 }
 
 .et-wrapper .et-contents .ext-wrapper table .extension-name input {
-  margin-right: 20px !important;
+  margin-right: 6px !important;
 }
 
 .et-wrapper .et-contents .ext-wrapper table .extension-name label {
@@ -4765,6 +4777,9 @@ input.atbdp-form-control:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .directorist_checkbox label {
@@ -4780,7 +4795,7 @@ input.atbdp-form-control:focus {
   width: 18px;
   height: 18px;
   border-radius: 3px;
-  border: 2px solid #C6D0DC;
+  border: 1px solid #C6D0DC;
 }
 
 .directorist_checkbox input[type="checkbox"]:checked {
@@ -4804,14 +4819,19 @@ input.atbdp-form-control:focus {
   width: auto;
   height: auto;
   margin: 0;
-  left: -3px;
-  top: -2px;
+  left: 0px;
+  top: 1px;
 }
 
 .directorist_checkbox input[type="checkbox"]:focus {
   outline: 0 none;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
+}
+
+.directorist_checkbox.directorist_checkbox-success input[type="checkbox"]:checked {
+  background-color: #00b158 !important;
+  border-color: #00b158 !important;
 }
 
 .directorist_radio label {
@@ -5120,6 +5140,45 @@ input.atbdp-form-control:focus {
   color: #C6D0DC;
 }
 
+/* progressbar style */
+.directorist-importer__importing progress {
+  border-radius: 15px;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper {
+  position: relative;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.directorist-importer__importing .directorist-importer-wrapper .directorist-importer-length:before {
+  position: absolute;
+  content: '';
+  width: 40px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(rgba(255, 255, 255, 0.25)), to(transparent));
+  background: -o-linear-gradient(left, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+  -webkit-animation: slideRight 2s linear infinite;
+          animation: slideRight 2s linear infinite;
+}
+
+#my-themes-extensions .directorist_checkbox label {
+  top: 0;
+}
+
 @-webkit-keyframes atbd_spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -5137,6 +5196,24 @@ input.atbdp-form-control:focus {
   100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes slideRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
   }
 }
 

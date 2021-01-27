@@ -212,17 +212,21 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <tr class="form-field term-group-wrap">
                 <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
                 <td>
-                    <?php
-                    if( $directory_types ) {
-                        foreach( $directory_types as $type ) {
-                            $checked = in_array( $type->slug, $value ) ? 'checked' : '';
-                    ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
-                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
-                    <?php
-                        }
-                    }
-                    ?>
+                <div class="directory_types-wrapper">
+                        <?php
+                            if( $directory_types ) {
+                                foreach( $directory_types as $type ) {
+                                    $checked = in_array( $type->slug, $value ) ? 'checked' : '';
+                            ?>
+                            <div class="directory_type-group">
+                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                                    <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
+                                </div>
+                            <?php
+                                }
+                            }
+                        ?>
+                    </div>
                 </td>
             </tr>
             <?php } ?>
@@ -279,17 +283,21 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <tr class="form-field term-group-wrap">
                 <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
                 <td>
-                    <?php
-                    if( $directory_types ) {
-                        foreach( $directory_types as $type ) {
-                            $checked = in_array( $type->slug, $value ) ? 'checked' : '';
-                    ?>
-                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
-                        <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
-                    <?php
-                        }
-                    }
-                    ?>
+                    <div class="directory_types-wrapper">
+                        <?php
+                            if( $directory_types ) {
+                                foreach( $directory_types as $type ) {
+                                    $checked = in_array( $type->slug, $value ) ? 'checked' : '';
+                            ?>
+                            <div class="directory_type-group">
+                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->slug; ?>" <?php echo $checked; ?>/>
+                                    <label for="<?php echo $type->slug; ?>"><?php echo $type->name; ?></label>
+                                </div>
+                            <?php
+                                }
+                            }
+                        ?>
+                    </div>
                 </td>
             </tr>
             <?php } ?>

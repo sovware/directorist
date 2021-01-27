@@ -422,6 +422,7 @@
           .directorist_menuItem-text{
             display: flex;
             align-items: center;
+            pointer-events: none;
             .directorist_menuItem-icon{
               margin-right: 10px;
             }

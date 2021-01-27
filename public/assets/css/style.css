@@ -8974,6 +8974,7 @@ span.atbd_get_loc_wid {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  pointer-events: none;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li a .directorist_menuItem-text .directorist_menuItem-icon {

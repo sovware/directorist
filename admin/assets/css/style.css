@@ -5217,4 +5217,51 @@ input.atbdp-form-control:focus {
   }
 }
 
+.directory_types-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: -8px;
+}
+
+.directory_types-wrapper .directory_type-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 8px;
+}
+
+.directory_types-wrapper .directory_type-group label {
+  padding: 0 0 0 2px;
+}
+
+.directory_types-wrapper .directory_type-group input {
+  position: relative;
+  top: 2px;
+}
+
+/* add new category icon box style css */
+.select2-container--default .select2-selection--single .select2-selection__rendered#select2-category_icon-container {
+  padding-left: 10px;
+}
+
+#category_icon + .select2-container .select2-selection--single {
+  height: 38px;
+}
+
+/* add new category / location input labels style */
+#addtag .form-field > label {
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

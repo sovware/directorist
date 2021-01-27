@@ -8,7 +8,7 @@
 <div class="atbdp_tab_nav_wrapper">
 	<ul class="atbdp_tab_nav--content atbd-dashboard-nav">
 		<?php foreach ($dashboard_tabs as $key => $value): ?>
-			<li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link" target="<?php echo esc_attr($key);?>"><?php echo wp_kses_post( $value['title'] ); ?></a>
+			<li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link" target="<?php echo esc_attr($key);?>"><span class="directorist_menuItem-text"><span class="directorist_menuItem-icon"><i class="la la-search"></i></span><?php echo wp_kses_post( $value['title'] ); ?></span></a>
 			</li>
 			<?php
 			if (!empty($value['after_nav_hook'])) {

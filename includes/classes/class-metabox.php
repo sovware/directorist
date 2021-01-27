@@ -189,13 +189,31 @@ class ATBDP_Metabox {
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();
+		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-location'] ) : array();
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
-		$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
-		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
-		$submission_form_fields = $submission_form['fields'];
+			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
+			$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+			$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
+			$submission_form_fields = $submission_form['fields'];
+		}
+
+		if( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
+			foreach( $listing_categories as $category ) {
+				$directory_type = get_term_meta( $category, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $category, '_directory_type', array( $term->slug ) );
+				}
+			}
+
+			foreach( $listing_locations as $location ) {
+				$directory_type = get_term_meta( $location, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $location, '_directory_type', array( $term->slug ) );
+				}
+			}
 		}
 		
 		foreach( $submission_form_fields as $key => $value ){

@@ -189,13 +189,31 @@ class ATBDP_Metabox {
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();
+		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-location'] ) : array();
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
-		$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
-		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
-		$submission_form_fields = $submission_form['fields'];
+			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
+			$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+			$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
+			$submission_form_fields = $submission_form['fields'];
+		}
+
+		if( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
+			foreach( $listing_categories as $category ) {
+				$directory_type = get_term_meta( $category, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $category, '_directory_type', array( $term->slug ) );
+				}
+			}
+
+			foreach( $listing_locations as $location ) {
+				$directory_type = get_term_meta( $location, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $location, '_directory_type', array( $term->slug ) );
+				}
+			}
 		}
 		
 		foreach( $submission_form_fields as $key => $value ){
@@ -205,9 +223,9 @@ class ATBDP_Metabox {
 				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
 			}
 			if( 'pricing' === $key ) {
-				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
-				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
-				$metas[ '_price_range' ] = $p['price_range'] ? $p['price_range'] : '';
+				$metas[ '_atbd_listing_pricing' ] 	= !empty( $p['atbd_listing_pricing'] ) ? $p['atbd_listing_pricing'] : '';
+				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
+				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
 			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
@@ -223,7 +241,7 @@ class ATBDP_Metabox {
 
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$exp_dt 					= !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
+		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(

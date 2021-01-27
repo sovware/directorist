@@ -143,6 +143,7 @@ $light-gray: #f4f5f7;
 
 .cptm-btn {
   @extend .reset-pseudo-link;
+
   &.cptm-label-btn {
     display: inline-block;
     vertical-align: top;
@@ -156,7 +157,7 @@ $light-gray: #f4f5f7;
     color: #fff;
     border-color: $primary;
     background-color: $primary;
-  
+
     &:hover {
       background-color: darken($primary, $amount: 2);
     }
@@ -166,13 +167,13 @@ $light-gray: #f4f5f7;
     color: $primary;
     border-color: $primary;
     background-color: transparent;
-  
+
     &:hover {
       color: #fff;
       background-color: $primary;
     }
   }
-  
+
 }
 
 .cptm-file-input-wrap {
@@ -791,7 +792,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   align-items: center;
   padding: 10px;
   text-align: center;
-  background: rgba( 255, 255, 255, 0.8 );
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .cptm-form-builder-group-field-item {
@@ -1003,9 +1004,9 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
 }
 
 
-.cptm-checkbox-area{
-  .cptm-checkbox-item{
-    &:not(:last-child){
+.cptm-checkbox-area {
+  .cptm-checkbox-item {
+    &:not(:last-child) {
       margin-bottom: 10px;
     }
   }
@@ -2103,6 +2104,11 @@ input[type="radio"].cptm-radio {
     font-weight: 500;
     color: $dark-3;
     margin-bottom: 9px;
+    text-transform: lowercase;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   .cptm-form-control {

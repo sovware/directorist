@@ -8,7 +8,7 @@
 $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_thumbnail'];
 ?>
 
-<div class="atbdp_column directorist-grid-with-thumb atbdp-col-<?php echo esc_attr( $listings->columns ); ?>">
+<div class="directorist-card directorist-card-has-thumb">
 	<div class="atbd_single_listing atbd_listing_card <?php echo esc_attr( $listings->info_display_in_single_line ); ?>">
 		<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 			

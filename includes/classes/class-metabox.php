@@ -205,9 +205,9 @@ class ATBDP_Metabox {
 				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
 			}
 			if( 'pricing' === $key ) {
-				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
-				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
-				$metas[ '_price_range' ] = $p['price_range'] ? $p['price_range'] : '';
+				$metas[ '_atbd_listing_pricing' ] 	= !empty( $p['atbd_listing_pricing'] ) ? $p['atbd_listing_pricing'] : '';
+				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
+				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
 			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
@@ -223,7 +223,7 @@ class ATBDP_Metabox {
 
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$exp_dt 					= !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
+		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(

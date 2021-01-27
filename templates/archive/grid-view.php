@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-archive-grid-view">
 
-    <div class="<?php echo esc_attr( $listings->grid_container_fluid() ); ?>">
+    <div class="container-fluid">
 
         <div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
         	<?php $listings->setup_loop( ['template' => 'grid'] ); ?>
@@ -26,4 +26,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         }
         ?>
     </div>
+    
 </div>

@@ -1069,11 +1069,6 @@ class Directorist_Listings {
 				$counter++;
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
-				/**
-				 * @since 6.5.6
-				 * 
-				 */
-				do_action( 'atbdp_listings_loop', $counter );
 				$this->set_loop_data();
 
 				if ( $args['template'] == 'grid' ) {

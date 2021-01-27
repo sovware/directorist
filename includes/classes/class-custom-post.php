@@ -64,7 +64,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             $custom_listing_slug = get_directorist_option('atbdp_listing_slug', 'directory');
             
             if ( ! empty( $custom_listing_slug ) ) {
-                $listing_slug = "{$custom_listing_slug}/%{ATBDP_DIRECTORY_TYPE}%";
+                $listing_slug = $custom_listing_slug. '/%' .ATBDP_DIRECTORY_TYPE. '%';
             }
 
             return strtolower( $listing_slug );

@@ -10,6 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Helper {
 
 	use URI_Helper;
-	use ClassName_Helper;
+	use Markup_Helper;
 	
 }

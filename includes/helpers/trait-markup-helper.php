@@ -7,7 +7,7 @@ namespace Directorist;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-trait ClassName_Helper {
+trait Markup_Helper {
 
 	public static function directorist_container() {
 		$result = apply_filters( 'directorist-container', 'directorist-container' );

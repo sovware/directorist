@@ -138,7 +138,6 @@ class Directorist_Listings {
 		}
 
 		$this->query_results = $this->get_query_results( $caching_options );
-		// $this->query_results = new \WP_Query( $this->query_args );
 	}
 
 	// set_options
@@ -1052,8 +1051,33 @@ class Directorist_Listings {
 	}
 
 	public function have_posts() {
-		return !empty( $this->query_results ) ? true : false;
+		return !empty( $this->query_results->ids ) ? true : false;
 	}
+
+	public function post_ids() {
+		return $this->query_results->ids;
+	}
+
+	public function loop_template( $loop = 'grid', $id ) {
+		setup_postdata( $id );
+		$this->set_loop_data();
+
+		if ( $loop == 'grid' ) {
+			$active_template = $this->loop['card_fields']['active_template'];
+			$template = ( $active_template == 'grid_view_with_thumbnail' ) ? 'loop-grid' : 'loop-grid-nothumb';
+		}
+		elseif ( $loop == 'list' ) {
+			$active_template = $this->loop['list_fields']['active_template'];
+			$template = ( $active_template == 'list_view_with_thumbnail' ) ? 'loop-list' : 'loop-list-nothumb';
+		}
+		else {
+			$template = 'grid';
+		}
+
+		Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		wp_reset_postdata();
+	}
+
 
 	public function setup_loop( array $args = [] ) {
 		$default = [
@@ -1202,15 +1226,6 @@ class Directorist_Listings {
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
 		);
-	}
-
-	public function loop_template( $loop = 'grid' ) {
-		while ($this->query->have_posts()) {
-			$this->query->the_post();
-			$this->set_loop_data();
-			Helper::get_template( "archive/loop/$loop", array('listings' => $this) );
-		}
-		wp_reset_postdata();
 	}
 
 	public function map_template() {
@@ -1790,6 +1805,37 @@ class Directorist_Listings {
 			}
 
 			Helper::get_template( 'archive/listings-header', array('listings' => $this) );
+		}
+
+		public function pagination( $echo = true ) {
+			$navigation = '';
+			$paged = 1;
+			$largeNumber = 999999999;
+
+			$total = ( isset( $this->query_results->total_pages ) ) ? $this->query_results->total_pages : $this->query_results->max_num_pages;
+			$paged = ( isset( $this->query_results->current_page ) ) ? $this->query_results->current_page : $paged;
+
+			$links = paginate_links(array(
+				'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
+				'format'    => '?paged=%#%',
+				'current'   => max(1, $paged),
+				'total'     => $total,
+				'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
+				'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
+			));
+
+			if ($links) {
+				$navigation = _navigation_markup($links, 'pagination', ' ');
+			}
+
+			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
+
+			if ( $echo ) {
+				echo $result;
+			}
+			else {
+				return $result;
+			}
 		}
 
     	// Hooks ------------

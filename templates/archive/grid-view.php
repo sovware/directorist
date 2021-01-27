@@ -16,26 +16,31 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-archive-grid-view">
 
-    <div class="<?php Helper::directorist_container(); ?>">
+	<div class="<?php Helper::directorist_container(); ?>">
 
-        <?php if ( $listings->have_posts() ): ?>
-            <div class="<?php Helper::directorist_row(); ?>">
-                <div class="<?php Helper::directorist_column( $listings->columns ); ?>">
-                    
-                </div>
-                <?php $listings->setup_loop( ['template' => 'grid'] ); ?>
-            </div>     
-        <?php else: ?>
-            
-        <?php endif; ?>
+		<?php if ( $listings->have_posts() ): ?>
 
+			<div class="<?php Helper::directorist_row(); ?>">
 
+				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
+					<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
+						<?php $listings->loop_template( 'grid', $listing_id ); ?>
+					</div>
+				<?php endforeach; ?>
 
-        <?php
-        if ( $listings->show_pagination ) {
-            echo atbdp_pagination( $listings->query_results );
-        }
-        ?>
-    </div>
-    
+			</div>
+
+			<?php
+			if ( $listings->show_pagination ) {
+				$listings->pagination();
+			}
+			?>
+
+		<?php else: ?>
+
+			<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
+
+		<?php endif; ?>
+	</div>
+	
 </div>

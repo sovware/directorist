@@ -12,5 +12,4 @@ class Helper {
 	use URI_Helper;
 	use ClassName_Helper;
 	
-
 }

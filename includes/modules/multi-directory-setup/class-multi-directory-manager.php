@@ -5063,8 +5063,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // register_terms
         public function register_terms()
         {
-            if ( ! defined( 'ATBDP_DIRECTORY_TYPE' ) ) { define( 'ATBDP_DIRECTORY_TYPE', 'atbdp_listing_types' ); }
-
             register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
                 'hierarchical' => false,
                 'labels' => [

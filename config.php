@@ -29,6 +29,7 @@ if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_base
 // Plugin Name
 if ( !defined('ATBDP_NAME') ) { define('ATBDP_NAME', 'Directorist'); }
 // Plugin Post Type
+
 if ( !defined('ATBDP_POST_TYPE') ) { define('ATBDP_POST_TYPE', 'at_biz_dir'); }
 if ( !defined('ATBDP_ORDER_POST_TYPE') ) { define('ATBDP_ORDER_POST_TYPE', 'atbdp_orders'); }
 if ( !defined('ATBDP_CUSTOM_FIELD_POST_TYPE') ) { define('ATBDP_CUSTOM_FIELD_POST_TYPE', 'atbdp_fields'); }
@@ -39,7 +40,8 @@ if ( !defined('ATBDP_LOCATION') ) { define('ATBDP_LOCATION', ATBDP_POST_TYPE.'-l
 // Plugin Tag Taxonomy
 if ( !defined('ATBDP_TAGS') ) { define('ATBDP_TAGS', ATBDP_POST_TYPE.'-tags'); }
 // Plugin Type Taxonomy
-if ( !defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', 'atbdp_listing_types'); }
+if ( ! defined( 'ATBDP_DIRECTORY_TYPE' ) ) { define( 'ATBDP_DIRECTORY_TYPE', 'atbdp_listing_types' ); }
+if ( ! defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', ATBDP_DIRECTORY_TYPE); }
 
 // Plugin Alert Message
 if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }

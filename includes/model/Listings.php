@@ -1127,7 +1127,7 @@ class Directorist_Listings {
 		$view      = ! empty( $this->view ) ? $this->view : '';
 
 		foreach ( $this->views as $value => $label ) {
-			$active_class = ( $view === $value ) ? ' active' : '';
+			$active_class = ( $view === $value ) ? 'active' : '';
 			$link         = add_query_arg( 'view', $value );
 			$link_item    = array();
 

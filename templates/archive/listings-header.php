@@ -5,8 +5,8 @@
  * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
  *
  * @author  wpWax
- * @since   6.6
- * @version 6.6
+ * @since   6.7
+ * @version 6.7
  */
 
 use \Directorist\Helper;

@@ -90,10 +90,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                  $directory = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
-                 $directory_type = get_directorist_option( 'atbdp_default_derectory', '' );
 
                  if ( $directory ){
-                    $term                   = get_term_by( 'id', $directory, 'atbdp_listing_types' );
+                    $term                   = get_term_by( is_numeric( $directory ) ? 'id' : 'slug' , $directory, ATBDP_TYPE );
                     $directory_type         = $term->term_id;
                     $submission_form        = get_term_meta( $directory_type, 'submission_form_fields', true );
                     $new_l_status           = get_term_meta( $directory_type, 'new_listing_status', true );

@@ -91,7 +91,7 @@ class ATBDP_Metabox {
 		$all_types     	= directory_types();
 		$default     	= default_directory_type();
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
-		$term_id = $current_type ? $current_type : $default;
+		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if( !empty ( $multi_directory ) && ( count( $all_types ) > 1 )){
@@ -100,10 +100,8 @@ class ATBDP_Metabox {
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
-			$selected = selected( $type->term_id, $current_type );
-			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach;
 			?>
 		</select>
@@ -111,7 +109,7 @@ class ATBDP_Metabox {
 			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
 		<?php } ?>
 		<div class="form-group atbdp_category_custom_fields"></div>
-		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $term_id, $post->ID ); ?></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $value, $post->ID ); ?></div>
 		<?php
 	}
 

@@ -178,13 +178,13 @@ class ATBDP_Checkout
 
         ob_start();
         extract($data);
-        $c_position      = get_directorist_option('payment_currency_position');
-        $currency        = atbdp_get_payment_currency();
-        $symbol          = atbdp_currency_symbol($currency);
-        $container_fluid = 'container-fluid';
-        $order_id        = (!empty($order_id)) ? $order_id : '';
+        $data['c_position']     = get_directorist_option('payment_currency_position');
+        $data['currency']         = atbdp_get_payment_currency();
+        $data['symbol']          = atbdp_currency_symbol( atbdp_get_payment_currency() );
+        $data['container_fluid']  = 'container-fluid';
+        $data['order_id']         = (!empty($order_id)) ? $order_id : '';
 
-        \Directorist\URI_Helper::get_template( 'payment/payment-receipt' );
+        \Directorist\URI_Helper::get_template( 'payment/payment-receipt', $data );
 
         return ob_get_clean();
     }

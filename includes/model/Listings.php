@@ -1228,7 +1228,7 @@ class Directorist_Listings {
 		);
 	}
 
-	public function map_template() {
+	public function render_map() {
 		if ( 'google' == $this->select_listing_map ) {
 			$this->load_google_map();
 		}
@@ -1669,6 +1669,10 @@ class Directorist_Listings {
 			echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
 		}
 
+		public function filter_container_class() {
+			echo ( 'overlapping' === $this->filters_display ) ? 'ads_float' : 'ads_slide';
+		}
+
 		public function has_listings_header() {
 			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields ) );
 
@@ -1677,10 +1681,6 @@ class Directorist_Listings {
 
 		public function has_header_toolbar() {
 			return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
-		}
-
-		public function filter_container_class() {
-			echo ( 'overlapping' === $this->filters_display ) ? 'ads_float' : 'ads_slide';
 		}
 
 		public function render_card_field( $field ) {

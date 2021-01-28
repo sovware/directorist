@@ -9,19 +9,17 @@
  * @version 6.6
  */
 
-use \Directorist\Helper;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="atbd_wrapper">
-	<div class="atbdp-divider"></div>
+<div class="directorist-archive-map-view">
 
 	<?php
-	$listings->map_template();
+	$listings->render_map();
 
 	if ( $listings->show_pagination ) {
 		$listings->pagination();
 	}
 	?>
+
 </div>

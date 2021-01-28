@@ -14,53 +14,30 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-archive-header-bar">
+<div class="directorist-header-bar">
 
 	<div class="<?php Helper::directorist_container(); ?>">
 
-		<div class="directorist-archive-header-contents">
+		<div class="directorist-header-bar-contents">
 
 			<?php if ( $listings->has_listings_header() ): ?>
-				<div class="atbd_generic_header_title">
-					<?php if ($listings->has_filters_button) { ?>
-						<a href="#" class="more-filter btn btn-outline btn-outline-primary">
-							<?php if ($listings->has_filters_icon) { ?>
-								<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
-							<?php } ?>
-							<?php echo $listings->filter_button_text; ?>
-						</a>
-						<?php
-					}
-					
-					if (!empty($listings->header_title)) {
-						echo $listings->item_found_title();
-					}
-					?>
+
+				<div class="directorist-header-bar-left">
+
+					<?php if ( $listings->has_filters_button ): ?>
+						<a href="#" class="directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
+					<?php endif; ?>
+
+					<?php if ( $listings->header_title ): ?>
+						<h3 class="directorist-header-found-title"><?php  echo $listings->item_found_title(); ?></h3>
+					<?php endif; ?>
 				</div>
+
 			<?php endif; ?>
-			
-			<?php if ($listings->has_listings_header()) { ?>
-				<div class="atbd_generic_header_title">
-					<?php if ($listings->has_filters_button) { ?>
-						<a href="#" class="more-filter btn btn-outline btn-outline-primary">
-							<?php if ($listings->has_filters_icon) { ?>
-								<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
-							<?php } ?>
-							<?php echo $listings->filter_button_text; ?>
-						</a>
-						<?php
-					}
-					
-					if (!empty($listings->header_title)) {
-						echo $listings->item_found_title();
-					}
-					?>
-				</div>
-				<?php
-			}
-			
-			if ($listings->has_header_toolbar()) { ?>
-				<div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
+
+			<?php if ( $listings->has_header_toolbar() ): ?>
+
+				<div class="directorist-header-bar-right">
 					<?php
 					if ($listings->display_viewas_dropdown) {
 						$listings->viewas_dropdown_template();
@@ -71,9 +48,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					}
 					?>
 				</div>
-				<?php
-			}
-			?>
+
+			<?php endif; ?>
+			
 		</div>
 
 		<div class="<?php $listings->filter_container_class(); ?>">

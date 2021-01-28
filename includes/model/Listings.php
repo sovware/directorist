@@ -1603,12 +1603,12 @@ class Directorist_Listings {
 			$count = $this->query_results->total;
 
 			if ( $this->type == 'search_result' ) {
-				$title = $this->item_found_title_for_search($count);
+				$title = $this->item_found_title_for_search( $count );
 			}
 			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title);
+				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
 			}
-			return apply_filters('atbdp_total_listings_found_text', "<h3>{$title}</h3>", $title);
+			return apply_filters('directorist_listings_found_text', $title );
 		}
 
 		public function masonary_grid_attr() {
@@ -1725,7 +1725,6 @@ class Directorist_Listings {
 					echo $before;$this->render_card_field( $field );echo $after;
 				}
 			}
-			
 		}
 
 		public function render_badge_template( $field ) {
@@ -1778,13 +1777,11 @@ class Directorist_Listings {
 		}
 
 		public function sortby_dropdown_template() {
-			$html = Helper::get_template_contents( 'archive/sortby-dropdown', array('listings' => $this) );
-			echo apply_filters('atbdp_listings_header_sort_by_button', $html);
+			Helper::get_template( 'archive/sortby-dropdown', array( 'listings' => $this ) );
 		}
 
 		public function viewas_dropdown_template() {
-			$html = Helper::get_template_contents( 'archive/viewas-dropdown', array('listings' => $this) );
-			echo apply_filters('atbdp_listings_view_as', $html, $this->view, $this->views);
+			Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
 		}
 
 		public function advanced_search_form_template() {
@@ -1793,6 +1790,15 @@ class Directorist_Listings {
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
 			);
 			Helper::get_template( 'archive/advanced-search-form', $args );
+		}
+
+		public function filter_btn_html() {
+			if ( $this->has_filters_icon ) {
+				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text );
+			}
+			else {
+				return $this->filter_button_text;
+			}
 		}
 
 		public function listing_type_template() {

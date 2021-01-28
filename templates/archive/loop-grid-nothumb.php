@@ -1,14 +1,9 @@
 <?php
 /**
- * @template_description1
- *
- * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
- *
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_without_thumbnail'];

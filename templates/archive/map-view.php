@@ -1,34 +1,27 @@
 <?php
 /**
+ * @template_description1
+ *
+ * This template can be overridden by copying it to yourtheme/directorist/ @template_description2
+ *
  * @author  wpWax
  * @since   6.6
  * @version 6.6
  */
 
-/**
- * @param WP_Query $listings It contains all the queried listings by a user
- * @since 6.6
- * @package Directorist
- */
-do_action('atbdp_before_all_listings_map', $listings);
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div id="directorist" class="atbd_wrapper">
-    <?php
-    /**
-     * @since 6.6
-     * @hooked Directorist_Listings::archive_header - 10
-     */
-    do_action( 'directorist_archive_header', $listings );
-    ?>
+	<div class="atbdp-divider"></div>
 
-    <div class="atbdp-divider"></div>
+	<?php
+	$listings->map_template();
 
-    <?php
-    $listings->map_template();
-
-    if ($listings->show_pagination) {
-        echo atbdp_pagination( $listings->query_results );
-    }
-    ?>
+	if ( $listings->show_pagination ) {
+		$listings->pagination();
+	}
+	?>
 </div>

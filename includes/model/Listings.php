@@ -1801,11 +1801,11 @@ class Directorist_Listings {
 			}
 		}
 
-		public function listing_type_template() {
+		public function directory_type_nav_template() {
 			$count = count( $this->listing_types );
 			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-				Helper::get_template( 'archive/listing-types', array('listings' => $this) );
+				Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
 			}
 		}
 

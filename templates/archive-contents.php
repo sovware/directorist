@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-archive-contents">
 
 	<?php
-	$listings->listing_type_template();
+	$listings->directory_type_nav_template();
 	$listings->header_template();
 	$listings->archive_view_template();
 	?>

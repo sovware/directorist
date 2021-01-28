@@ -1809,12 +1809,12 @@ class Directorist_Listings {
 			}
 		}
 
-		public function header_template() {
+		public function header_bar_template() {
 			if ( !$this->header ) {
 				return;
 			}
 
-			Helper::get_template( 'archive/listings-header', array('listings' => $this) );
+			Helper::get_template( 'archive/header-bar', array('listings' => $this) );
 		}
 
 		public function single_line_display_class() {

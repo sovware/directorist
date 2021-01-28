@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php
 	$listings->directory_type_nav_template();
-	$listings->header_template();
+	$listings->header_bar_template();
 	$listings->archive_view_template();
 	?>
 

@@ -565,18 +565,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
                     if (empty($display_glr_img_for) && !empty($display_gallery_field)) {
                         update_post_meta($post_id, '_listing_img', $new_files_meta);
-                    }
-
+                    }                   
+                    $permalink         = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
                     //no pay extension own yet let treat as general user
                     if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active() && ('featured' === $info['listing_type'] ) ) ) {
-                        $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
-                        $data['need_payment'] = true;
+                        $data['redirect_url']   =  ATBDP_Permalink::get_checkout_page_link($post_id);
+                        $data['need_payment']   = true;
                     } else {
                         //yep! listing is saved to db and redirect user to admin panel or listing itself
                         $redirect_page     = get_directorist_option('edit_listing_redirect', 'view_listing');
                         $submission_notice = get_directorist_option('submission_confirmation', 1);
-                        $permalink         = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
-                
+                  
                         if ('view_listing' == $redirect_page) {
                             $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink ;
                             $data['success'] = true;
@@ -607,7 +606,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if ($info['listing_id']) {
                     $data['edited_listing'] = true;
                 }
-                $data['redirect_url'] = $permalink;
                 wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
         }
 

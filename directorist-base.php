@@ -227,6 +227,7 @@ final class Directorist_Base
             self::$instance->includes();
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;

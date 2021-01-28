@@ -1,16 +1,9 @@
 const path                 = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin      = require('vue-loader/lib/plugin');
+const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
-module.exports = {
-  entry: {
-    admin_app: "./public/assets/src/js/admin-index.js",
-    settings_manager: "./public/assets/src/js/settings-manager.js",
-  },
-  output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "public/assets/js"),
-  },
+const commonConfig = {
   resolve: {
     extensions: [ '.js', '.vue' ],
     alias: {
@@ -18,7 +11,10 @@ module.exports = {
     }
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new DependencyExtractionWebpackPlugin({
+      injectPolyfill: true,
+    })
   ],
   module: {
     rules: [
@@ -56,7 +52,7 @@ module.exports = {
           {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ["@wordpress/default"],
             }
           },
         ]
@@ -93,7 +89,7 @@ module.exports = {
             options: {
               sourceMap: true,
               sassOptions: {
-                outputStyle: 'compressed',
+                // outputStyle: 'compressed',
               },
             },
           },
@@ -104,3 +100,51 @@ module.exports = {
 
   devtool: 'source-map'
 };
+
+// Public Config
+const publicConfig = {
+  entry: {
+    // JS
+    ['main']: ["./assets/src/js/main.js"],
+    ['global']: ["./assets/src/js/global.js"],
+    ['checkout']: ["./assets/src/js/checkout.js"],
+    
+    // CSS
+    ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
+    ['openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
+  },
+
+  output: {
+    path: path.resolve(__dirname, "assets/dest/public/js/"),
+  },
+
+  ...commonConfig
+};
+
+// Admin Config
+const adminConfig  = {
+  entry: {
+    // JS
+    ['admin']: "./assets/src/js/admin/admin.js",
+    ['custom-field']: "./assets/src/js/admin/custom-field.js",
+    ['directorist-plupload']: "./assets/src/js/admin/directorist-plupload.js",
+    ['extension-update']: "./assets/src/js/admin/extension-update.js",
+    ['import-export']: "./assets/src/js/admin/import-export.js",
+    ['plugins']: "./assets/src/js/admin/plugins.js",
+    ['setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
+    ['multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
+    ['multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
+    ['settings-manager']: "./assets/src/js/admin/settings-manager.js",
+
+    // CSS
+    ['drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
+  },
+
+  output: {
+    path: path.resolve(__dirname, "assets/dest/admin/js/"),
+  },
+
+  ...commonConfig
+};
+
+module.exports = [ publicConfig, adminConfig ];

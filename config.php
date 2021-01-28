@@ -20,6 +20,22 @@ if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includ
 // Plugin Template Path
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }
 
+// Public Assets Path
+if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_URL . 'assets/dest/'); }
+if ( ! defined( 'DIRECTORIST_PUBLIC_ASSETS' ) ) { define('DIRECTORIST_PUBLIC_ASSETS', DIRECTORIST_ASSETS . 'public/'); }
+if ( ! defined( 'DIRECTORIST_PUBLIC_CSS' ) ) { define('DIRECTORIST_PUBLIC_CSS', DIRECTORIST_PUBLIC_ASSETS . 'css/'); }
+if ( ! defined( 'DIRECTORIST_PUBLIC_JS' ) ) { define('DIRECTORIST_PUBLIC_JS', DIRECTORIST_PUBLIC_ASSETS . 'js/'); }
+
+// Admin Assets Path
+if ( ! defined( 'DIRECTORIST_ADMIN_ASSETS' ) ) { define('DIRECTORIST_ADMIN_ASSETS', DIRECTORIST_ASSETS . 'admin/'); }
+if ( ! defined( 'DIRECTORIST_ADMIN_CSS' ) ) { define('DIRECTORIST_ADMIN_CSS', DIRECTORIST_ADMIN_ASSETS . 'css/'); }
+if ( ! defined( 'DIRECTORIST_ADMIN_JS' ) ) { define('DIRECTORIST_ADMIN_JS', DIRECTORIST_ADMIN_ASSETS . 'js/'); }
+
+// Vendor Assets Path
+if ( ! defined( 'DIRECTORIST_VENDOR_ASSETS' ) ) { define('DIRECTORIST_VENDOR_ASSETS', DIRECTORIST_ASSETS . 'vendor/'); }
+if ( ! defined( 'DIRECTORIST_VENDOR_CSS' ) ) { define('DIRECTORIST_VENDOR_CSS', DIRECTORIST_VENDOR_ASSETS . 'css/'); }
+if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DIRECTORIST_VENDOR_ASSETS . 'js/'); }
+
 // Plugin Admin Assets Path
 if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }
 // Plugin Public Assets Path
@@ -29,6 +45,7 @@ if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_base
 // Plugin Name
 if ( !defined('ATBDP_NAME') ) { define('ATBDP_NAME', 'Directorist'); }
 // Plugin Post Type
+
 if ( !defined('ATBDP_POST_TYPE') ) { define('ATBDP_POST_TYPE', 'at_biz_dir'); }
 if ( !defined('ATBDP_ORDER_POST_TYPE') ) { define('ATBDP_ORDER_POST_TYPE', 'atbdp_orders'); }
 if ( !defined('ATBDP_CUSTOM_FIELD_POST_TYPE') ) { define('ATBDP_CUSTOM_FIELD_POST_TYPE', 'atbdp_fields'); }
@@ -39,7 +56,8 @@ if ( !defined('ATBDP_LOCATION') ) { define('ATBDP_LOCATION', ATBDP_POST_TYPE.'-l
 // Plugin Tag Taxonomy
 if ( !defined('ATBDP_TAGS') ) { define('ATBDP_TAGS', ATBDP_POST_TYPE.'-tags'); }
 // Plugin Type Taxonomy
-if ( !defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', 'atbdp_listing_types'); }
+if ( ! defined( 'ATBDP_DIRECTORY_TYPE' ) ) { define( 'ATBDP_DIRECTORY_TYPE', 'atbdp_listing_types' ); }
+if ( ! defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', ATBDP_DIRECTORY_TYPE); }
 
 // Plugin Alert Message
 if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }

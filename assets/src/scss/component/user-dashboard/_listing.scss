@@ -1,0 +1,223 @@
+// Dashboard btn Area
+.atbd_content_active #directorist.atbd_wrapper {
+  &.dashboard_area {
+    .db_btn_area {
+      padding: 15px 10px;
+      border-top: 1px solid $border-color;
+      margin-top: 0;
+
+      .directory_edit_btn,
+      .directory_remove_btn {
+        font-size: 14px;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s ease;
+
+        &:hover {
+          font-weight: 500;
+          border-bottom-color: $primary;
+        }
+      }
+
+      .directory_edit_btn {
+        margin-right: 15px;
+      }
+
+      &.db_btn_area--sm {
+        .btn {
+          line-height: 19px;
+          font-size: 13px;
+          padding-left: 8px;
+          padding-right: 8px;
+          margin: 0 2px;
+        }
+      }
+    }
+  }
+}
+
+// Promote & renew btn
+.atbd_content_active #directorist.atbd_wrapper {
+  &.dashboard_area {
+    .atbd_promote_btn_wrapper,
+    #directorist-renew {
+      margin-bottom: 0;
+
+      &+div {
+        .directory_edit_btn {
+          background: none !important;
+          color: #7a82a6 !important;
+        }
+
+        .directory_remove_btn {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
+// Dashboard Listing Styles
+.atbd_content_active #directorist.atbd_wrapper {
+  &.dashboard_area {
+    .atbd_dashboard_title_metas {
+      padding: 15px 20px 10px;
+    }
+    .atbd_single_listing {
+      .atbd_listing_info .atbd_content_upper {
+        padding: 0;
+      }
+
+      .atbd_listing_bottom_content {
+        border-top: 0 none;
+        padding: 0;
+        border-radius: 0 0 5px 5px;
+
+        .listing-meta {
+          width: 100%;
+
+          .listing-meta-content {
+            padding: 0 20px 15px;
+          }
+
+          .atbdp-mark-as-sold {
+            padding: 15px 20px 10px;
+            border-top: 1px solid #E9E9E9;
+
+            p {
+              label {
+                margin-bottom: 0;
+              }
+            }
+          }
+
+          .db_btn_area {
+            background: #F7F8F9;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-top: 0 none;
+            padding: 12px 20px;
+          }
+
+          p {
+            color: #444752;
+            font-weight: 500;
+
+            span {
+              color: #7A82A6;
+
+              p:first-child {
+                line-height: 20px;
+                margin-bottom: 2px;
+              }
+
+              &.atbdp_expired {
+                color: $danger;
+              }
+
+              &.atbdp__private,
+              &.atbdp__published,
+              &.atbdp__pending {
+                line-height: 24px;
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 500;
+                padding: 0 10px;
+                border-radius: 12px;
+                margin-top: 9px;
+              }
+
+              &.atbdp__published {
+                background: rgba($success, 0.1);
+                color: $success;
+              }
+
+              &.atbdp__pending {
+                background: rgba($warning, 0.1);
+                color: $warning;
+              }
+
+              &.atbdp__private {
+                background: rgba($info, 0.1);
+                color: $info;
+              }
+            }
+          }
+        }
+      }
+    }
+    .atbd_listing_bottom_content {
+      .listing-meta p span {
+        font-weight: 500;
+        color: $primary;
+      }
+    }
+  }
+}
+
+// Saved Items
+.atbd_content_active #directorist.atbd_wrapper {
+
+  .atbd_saved_items_wrapper {
+    .atbd_single_saved_item {
+      border-bottom: 1px solid $border-color;
+      padding: 20px 0;
+
+      tbody {
+        tr {
+          .thumb_title {
+            width: 60%;
+          }
+
+          .saved_item_category {
+            width: 40%;
+          }
+        }
+      }
+    }
+
+    .thumb_title {
+      .img_wrapper {
+        display: table;
+        vertical-align: middle;
+
+        img {
+          width: 72px;
+          object-fit: cover;
+        }
+
+        &>a {
+          display: table-cell;
+          padding-right: 10px;
+          width: 82px;
+          vertical-align: middle;
+        }
+      }
+
+      h4 {
+        display: table-cell;
+        vertical-align: middle;
+        min-width: 200px;
+      }
+    }
+
+    td {
+      vertical-align: middle;
+      text-align: left;
+    }
+
+    .saved_item_category {
+      vertical-align: middle;
+
+      a {
+        span {
+          font-size: 16px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+
+}

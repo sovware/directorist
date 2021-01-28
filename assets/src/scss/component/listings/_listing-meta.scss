@@ -1,0 +1,53 @@
+// Listing Meta Style
+.atbd_content_active #directorist.atbd_wrapper {
+    .atbd_listing_meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 8px;
+    
+        .atbd_meta {
+          font-size: 14px;
+          line-height: 1.4;
+          color: $light;
+          display: inline-block;
+          border-radius: 3px;
+    
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+    
+        .atbd_listing_rating {
+          display: flex;
+          align-items: center;
+          @extend .atbd_bg-primary;
+    
+          i.fa,
+          i.la {
+            font-size: 12px;
+            margin-left: 5px;
+          }
+        }
+    
+        .atbd_listing_price {
+          @extend .atbd_bg-primary;
+        }
+    
+        .atbd_listing_average_pricing,
+        .atbd_close_now {
+          >span {
+            font-weight: 500;
+            color: rgba(#7a82a6, .3);
+    
+            &.atbd_active {
+              color: #5d658c;
+            }
+          }
+        }
+    
+        .atbd_close_now {
+          color: #f51957;
+        }
+    }
+}

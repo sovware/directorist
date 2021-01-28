@@ -1,0 +1,150 @@
+// Details Module Title
+.atbd_content_active #directorist.atbd_wrapper {
+    .atbd_content_module_title_area,
+    .atbd_content_module__tittle_area {
+        border-bottom: 1px solid $border-color;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 30px;
+        align-items: center;
+        flex-wrap: wrap;
+
+        label {
+        margin-bottom: 0;
+        }
+
+        h4 {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 0;
+
+        span,
+        i {
+            margin-right: 10px;
+            display: inline-block;
+            @extend .atbd_color-primary;
+        }
+        }
+
+        .atbd_listing_action_area {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: -3px;
+
+        span {
+            width: auto;
+            height: auto;
+            top: 0;
+        }
+
+        .atbd_action {
+            border: 1px solid $border-color;
+            padding: 5px 10px;
+            color: #7a82a6;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 3px;
+
+            a {
+            color: #7a82a6;
+
+            &:hover {
+                @extend .atbd_color-primary;
+            }
+            }
+
+            &:hover {
+            @extend .atbd_color-primary;
+            }
+
+            &.atbd_share {
+            position: relative;
+
+            &:hover .atbd_directory_social_wrap {
+                opacity: 1;
+                visibility: visible;
+                top: calc(100% + 10px);
+            }
+
+            .atbd_directory_social_wrap {
+
+                position: absolute;
+                transition: $transition-base;
+                z-index: 2;
+                visibility: hidden;
+                opacity: 0;
+                left: 0;
+                top: calc(100% + 30px);
+                background: $light;
+                border-radius: 4px;
+                width: 180px;
+                -webkit-box-shadow: $box-shadow;
+                -moz-box-shadow: $box-shadow;
+                box-shadow: $box-shadow;
+
+                &:before {
+                position: absolute;
+                content: '';
+                height: 9px;
+                width: 100%;
+                top: -9px;
+                left: 0;
+                }
+
+                ul li {
+                a {
+                    padding: 11px 20px;
+                    display: flex;
+                    align-items: center;
+
+                    >span {
+                    @extend .atbd_color-primary;
+                    margin-right: 5px;
+                    }
+                }
+
+                &+li {
+                    border-top: 1px solid $border-color;
+                }
+                }
+
+                .fa {
+                font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+                }
+            }
+            }
+
+            &.atbd_report {
+            a {
+                pointer-events: none;
+            }
+
+            a span {
+                pointer-events: none;
+            }
+            }
+        }
+
+        .atdlc-mark_compare_wrapper.atdlc_list-btn-position {
+            position: relative;
+            left: 0;
+            right: auto;
+            top: 0;
+
+            .atdlc-mark_compare_btn {
+            border: 1px solid #e3e6ef;
+            padding: 5px 10px;
+            color: #7a82a6;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 3px;
+            min-width: 36px;
+            min-height: 36px;
+            background-color: #fff;
+            }
+        }
+        }
+    }
+}

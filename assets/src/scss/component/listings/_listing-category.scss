@@ -1,0 +1,21 @@
+// Listing Category
+.atbd_content_active #directorist.atbd_wrapper {
+    .atbd_listing_category {
+        a {
+          word-break: break-word;
+    
+          span {
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 7px;
+            line-height: 28px;
+            text-align: center;
+            color: #444752;
+    
+            &.la {
+              font-size: 15px;
+            }
+          }
+        }
+    }
+}

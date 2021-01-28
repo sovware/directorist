@@ -19,6 +19,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="<?php Helper::directorist_container(); ?>">
 
 		<div class="directorist-archive-header-contents">
+
+			<?php if ( $listings->has_listings_header() ): ?>
+				<div class="atbd_generic_header_title">
+					<?php if ($listings->has_filters_button) { ?>
+						<a href="#" class="more-filter btn btn-outline btn-outline-primary">
+							<?php if ($listings->has_filters_icon) { ?>
+								<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
+							<?php } ?>
+							<?php echo $listings->filter_button_text; ?>
+						</a>
+						<?php
+					}
+					
+					if (!empty($listings->header_title)) {
+						echo $listings->item_found_title();
+					}
+					?>
+				</div>
+			<?php endif; ?>
 			
 			<?php if ($listings->has_listings_header()) { ?>
 				<div class="atbd_generic_header_title">

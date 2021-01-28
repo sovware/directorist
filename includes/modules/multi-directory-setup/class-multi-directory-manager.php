@@ -4331,6 +4331,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                     'value'   => 'OR',
                 ],
+                'listing_from_same_author' => [
+                    'type'  => 'toggle',
+                    'label' => 'Listing from same author',
+                    'value' => false,
+                ],
                 'similar_listings_number_of_listings_to_show' => [
                     'type'  => 'range',
                     'min'   => 0,
@@ -4779,6 +4784,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                         'enable_similar_listings',
                                         'similar_listings_title',
                                         'similar_listings_logics',
+                                        'listing_from_same_author',
                                         'similar_listings_number_of_listings_to_show',
                                         'similar_listings_number_of_columns',
                                     ],

@@ -979,7 +979,7 @@ class Directorist_Single_Listing {
 		URI_Helper::get_template('single-listing/listing-review', $args);
 	}
 
-	public function related_listings_query( $number, $relationship )
+	public function related_listings_query( $number, $relationship, $same_author )
 	{
 		$id = get_the_ID();
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
@@ -1015,6 +1015,10 @@ class Directorist_Single_Listing {
 			'posts_per_page' => (int)$number,
 			'post__not_in' => array($id),
 		);
+
+		if( !empty( $same_author ) ){
+			$args['author']  = get_post_field( 'post_author', $id );
+		}
 
 		$meta_queries = array();
 		$meta_queries['expired'] = array(
@@ -1057,6 +1061,7 @@ class Directorist_Single_Listing {
 		$logic   = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
 		$number  = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
+		$same_author   = get_directorist_type_option( $this->type, 'listing_from_same_author', false );
 
 		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
@@ -1074,7 +1079,7 @@ class Directorist_Single_Listing {
 		wp_enqueue_script('atbdp-related-listings-slider');
 		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
 
-		$query = $this->related_listings_query( $number, $relationship );
+		$query = $this->related_listings_query( $number, $relationship, $same_author );
 
 		$related_listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
 		$args = array(
@@ -1083,6 +1088,6 @@ class Directorist_Single_Listing {
 			'title'            => $title,
 		);
 
-		URI_Helper::get_template('single-listing/related-listings', $args);
+		URI_Helper::get_template('single-listing/section-related-listings', $args);
 	}
 }

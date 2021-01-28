@@ -517,9 +517,9 @@ class Directorist_Listing_Forms {
 			'hide_empty' => false,
 		));
 
-		$terms             = get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
-		$default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
-		$current_type      = ! empty( $terms ) ? $terms[0]->term_id : $default_directory;
+		$value             = get_post_meta( $this->get_add_listing_id(), '_directory_type', true );
+		$default_directory = default_directory_type();
+		$current_type      = ! empty( $value ) ? $value : $default_directory;
 		
 		$args = array(
 			'listing_form'  => $this,

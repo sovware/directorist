@@ -32,4 +32,5 @@
 	
 	$form->add_listing_description_template( $data );
 	?>
+	<div id="directorist_listing_description_indicator"></div>
 </div>

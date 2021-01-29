@@ -29,6 +29,7 @@ class Directorist_Listing_Forms {
 		else {
 			add_action( 'wp', array( $this, 'init' ) );
 		}
+
 	}
 
 	public static function instance( $id = '' ) {
@@ -619,7 +620,7 @@ class Directorist_Listing_Forms {
 		
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
-		
+		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 		$args = array(
 			'form'  => $this,
 			'data'  => $field_data,

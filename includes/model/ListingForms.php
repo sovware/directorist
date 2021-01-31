@@ -29,6 +29,7 @@ class Directorist_Listing_Forms {
 		else {
 			add_action( 'wp', array( $this, 'init' ) );
 		}
+
 	}
 
 	public static function instance( $id = '' ) {
@@ -516,13 +517,17 @@ class Directorist_Listing_Forms {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-		$terms =  get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
-		$current_type  = !empty($terms) ? $terms[0]->term_id : ( count( $all_types ) === 1 ? $all_types[0]->term_id : '' );
+
+		$value             = get_post_meta( $this->get_add_listing_id(), '_directory_type', true );
+		$default_directory = default_directory_type();
+		$current_type      = ! empty( $value ) ? $value : $default_directory;
+		
 		$args = array(
 			'listing_form'  => $this,
 			'listing_types' => $all_types,
 			'current_type'  => $current_type,
 		);
+		
 		URI_Helper::get_template( 'forms/fields/type', $args );
 	}
 
@@ -615,7 +620,7 @@ class Directorist_Listing_Forms {
 		
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
-		
+		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 		$args = array(
 			'form'  => $this,
 			'data'  => $field_data,

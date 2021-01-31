@@ -639,6 +639,15 @@ if (!function_exists('get_directorist_option')) {
     }
 }
 
+if ( ! function_exists( 'update_directorist_option' ) ) {
+    function update_directorist_option( $key = '', $value = '' ) {
+        $options = ( array ) get_option( 'atbdp_option', [] );
+        $options[ $key ] = $value;
+
+        update_option( 'atbdp_option', $options );
+    }
+}
+
 
 if (!function_exists('atbdp_yes_to_bool')) {
     function atbdp_yes_to_bool($v = false)

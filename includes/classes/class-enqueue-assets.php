@@ -386,7 +386,7 @@ class Enqueue_Assets {
 
         foreach( $args['scripts'] as $handle => $script_args ) {
 
-            if ( ! empty( $args['page'] && ! empty( $script_args[ 'page' ] ) ) ) {
+            if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( $args['page'] !== $script_args[ 'page' ] ) { continue; }
             }
 
@@ -455,11 +455,11 @@ class Enqueue_Assets {
 
         foreach( $args['scripts'] as $handle => $script_args ) {
 
-            if ( ! empty( $args['page'] && ! empty( $script_args[ 'page' ] ) ) ) {
+            if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( $args['page'] !== $script_args[ 'page' ] ) { continue; }
             }
 
-            if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
+            if (  ! ( isset( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
                 continue;
             }
 

@@ -1,0 +1,55 @@
+// Form Element Group
+.directorist_form-group{
+    position: relative;
+    textarea{
+        min-height: 120px;
+    }
+}
+
+// Form Element
+.directorist_form-element{
+    height: 42px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 5px;
+    border: 1px solid $border-color-normal;
+    &:focus{
+        outline: none;
+        box-shadow: 0 0;
+    }
+}
+
+// Form Element Size
+.directorist_form-element{
+    &.directorist_form-element-lg{
+        height: 50px;
+    }
+    &.directorist_form-element-sm{
+        height: 30px;
+    }
+}
+
+// Directorist Input With Icon
+.directorist_form-group{
+    &.directorist_icon-left{
+        .directorist_form-element{
+            padding-left: 35px;
+        }
+        .directorist_input-icon{
+            left: 15px;
+        }
+    }
+    &.directorist_icon-right{
+        .directorist_form-element{
+            padding-right: 35px;
+        }
+        .directorist_input-icon{
+            right: 15px;
+        }
+    }
+    .directorist_input-icon{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

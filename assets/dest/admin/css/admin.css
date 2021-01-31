@@ -136,10 +136,10 @@
   -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
-  color: #ffffff;
+  color: #9497A7;
 }
 #directorist.atbd_wrapper .listing-img-container .single_attachment .remove_image:hover {
-  color: #e23636;
+  color: #EF0000;
 }
 #directorist.atbd_wrapper .field-options {
   margin-bottom: 15px;
@@ -615,7 +615,7 @@
   font-size: 15px;
 }
 .plupload-upload-uic .atbdp_button {
-  border: 1px solid #e3e6ef;
+  border: 1px solid #EFF1F6;
   background: #f8f9fb;
   font-size: 14px;
   -webkit-box-shadow: none;
@@ -1339,14 +1339,14 @@ span.atbdp-tick-cross {
   width: 100%;
   padding: 0.375rem 0.375rem;
   line-height: 1.5;
-  border: 1px solid #e3e6ef;
+  border: 1px solid #EFF1F6;
 }
 .postbox-container .postbox .form-group textarea {
   display: block;
   width: 100%;
   padding: 0.375rem 0.375rem;
   line-height: 1.5;
-  border: 1px solid #e3e6ef;
+  border: 1px solid #EFF1F6;
   height: 100px;
 }
 .postbox-container .postbox .form-group #excerpt {
@@ -1384,7 +1384,7 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper select,
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper input {
   width: 100%;
-  border: 1px solid #e3e6ef;
+  border: 1px solid #EFF1F6;
   height: 35px;
 }
 .postbox-container .postbox .form-group .btn {
@@ -1392,7 +1392,7 @@ span.atbdp-tick-cross {
   cursor: pointer;
 }
 .postbox-container .postbox .form-group .btn.btn-primary {
-  background: #444752;
+  background: #0A0B1E;
   border: 0 none;
   color: #fff;
 }
@@ -1696,7 +1696,7 @@ span.atbdp-tick-cross {
 .atbds_warnings__single .atbds_warnings__icon i,
 .atbds_warnings__single .atbds_warnings__icon span,
 .atbds_warnings__single .atbds_warnings__icon svg {
-  color: #ffaf00;
+  color: #EF8000;
 }
 .atbds_warnings__single .atbds_warnigns__content {
   max-width: 290px;
@@ -1986,7 +1986,7 @@ span.atbdp-tick-cross {
 
 .atbd-listing-type-active-status {
   display: inline-block;
-  color: #32cc6f;
+  color: #00AC17;
   margin-left: 10px;
 }
 
@@ -2125,12 +2125,12 @@ span.atbdp-tick-cross {
   }
 }
 #atbdp-send-system-info .system_info_success {
-  color: #32cc6f;
+  color: #00AC17;
 }
 
 #atbds_r-viewing #atbdp-remote-response {
   padding: 20px 50px 0;
-  color: #32cc6f;
+  color: #00AC17;
 }
 #atbds_r-viewing .atbds_form-row .button-secondary {
   padding: 8px 33px;
@@ -2216,7 +2216,7 @@ span.atbdp-tick-cross {
 }
 .add_listing_form_wrapper #delete-custom-img {
   margin-left: 5px;
-  background-color: #e23636;
+  background-color: #EF0000;
 }
 .add_listing_form_wrapper #delete-custom-img.hidden {
   display: none;
@@ -3167,7 +3167,7 @@ input.atbdp-form-control {
   background: #3E62F5 !important;
 }
 .theme-card__footer {
-  border-top: 1px solid #e3e6ef;
+  border-top: 1px solid #EFF1F6;
   padding: 20px 25px;
   display: -webkit-box;
   display: -webkit-flex;

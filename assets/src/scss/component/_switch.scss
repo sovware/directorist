@@ -2,7 +2,6 @@
 .directorist_switch{
     position: relative;
     display: block;
-    min-height: 1.7rem;
     input[type=checkbox]{
         &:before{
             display: none;
@@ -33,7 +32,6 @@
         position: relative;
         display: inline-flex;
         align-items: center;
-        height: 1.6rem;
         font-size: 14px;
         font-weight: 400;
         padding-left: 65px;
@@ -67,5 +65,115 @@
             transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
         }
+    }
+}
+
+// Switch Type
+.directorist_switch{
+    &.directorist_switch-success{
+        .directorist_switch-input{
+            &:checked{
+                &+.directorist_switch-label{
+                    &:before{
+                        background-color: $success
+                    }
+                }
+            }
+        }
+    }
+    &.directorist_switch-secondary{
+        .directorist_switch-input{
+            &:checked{
+                &+.directorist_switch-label{
+                    &:before{
+                        background-color: $secondary
+                    }
+                }
+            }
+        }
+    }
+    &.directorist_switch-danger{
+        .directorist_switch-input{
+            &:checked{
+                &+.directorist_switch-label{
+                    &:before{
+                        background-color: $danger
+                    }
+                }
+            }
+        }
+    }
+    &.directorist_switch-warning{
+        .directorist_switch-input{
+            &:checked{
+                &+.directorist_switch-label{
+                    &:before{
+                        background-color: $warning
+                    }
+                }
+            }
+        }
+    }
+    &.directorist_switch-info{
+        .directorist_switch-input{
+            &:checked{
+                &+.directorist_switch-label{
+                    &:before{
+                        background-color: $info;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Directorist Yes No Switch
+.directorist_switch-Yn {
+    padding: 3px;
+    position: relative;
+    display: inline-block;
+    border: 1px solid #e9e9e9;
+    border-radius: 17px;
+    span{
+        user-select: none;
+        font-size: 14px;
+        line-height: 27px;
+        padding: 5px 10.5px;
+        font-weight: 500;
+    }
+    input[type="checkbox"]{
+        display: none;
+
+        &:checked{
+            &+.switch_yes{
+                background-color: #3E62F5;
+                color: #fff;
+            }
+            &+span {
+                &+.switch_no{
+                    background-color: transparent;
+                    color: #9b9eaf;
+                }
+            }
+        }
+        
+        .switch_yes{
+            background-color: transparent;
+            color: #9b9eaf;
+        }
+
+        &+span {
+            &+.switch_no{
+                background-color: #fb6665;
+                color: #fff;
+            }
+        }
+    }
+
+    .switch_yes{
+        border-radius: 15px 0 0 15px;
+    }
+    .switch_no{
+        border-radius: 0 15px 15px 0;
     }
 }

@@ -200,7 +200,7 @@ class ATBDP_Enqueuer {
         $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
         $front_scripts_dependency = array( 'jquery' );
         // @Todo; make unminified css minified then enqueue them.
-        wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
+        // wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );

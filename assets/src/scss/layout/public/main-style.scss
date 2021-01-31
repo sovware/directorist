@@ -1,5 +1,8 @@
 @import "../../vendor/bootstrap/config.bs";
 @import "./../../base/reboot";
+@import "./../../base/utility";
+// Variables
+@import "../../base/variables";
 //mixins
 @import "./../../mixins/colors";
 // components
@@ -10,11 +13,15 @@
 @import "./../../component/widget";
 @import "./../../component/pricing";
 @import "./../../component/button";
+@import "./../../component/badge";
+@import "./../../component/form";
+@import "./../../component/checkbox-radio";
 @import "./../../component/add-listing";
 @import "./../../component/public-profile";
 @import "./../../component/location-category";
 @import "./../../component/range-slider";
 @import "./../../component/dropdown";
+@import "./../../component/card";
 @import "./../../component/switch";
 @import "./../../component/atbdDropdown";
 @import "./../../component/tooltip";

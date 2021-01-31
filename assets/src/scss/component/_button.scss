@@ -37,92 +37,81 @@
     border-color: #444752 !important;
   }
 }
-// Directorist Checkbox
-.directorist_checkbox{
-  display: flex;
-  align-items: center;
 
-  label{
-    position: relative;
-    top: 1px;
-    color: #605F74 !important;
-    margin-left: 10px !important;
-    margin-bottom: 0 !important;
+.directorist_btn{
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  color: $dark;
+  vertical-align: middle;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  padding: 0  26px;
+  line-height: 2.95;
+  border-radius: 5px;
+  background-color: $bg-light-gray;
+}
+
+// Button Type
+.directorist_btn{
+  &.directorist_btn-primary{
+    background-color: $primary;
+    color: #fff;
   }
-
-  input[type="checkbox"]{
-    position: relative;
-    width: 18px;
-    height: 18px;
-    border-radius: 3px;
-    border: 2px solid #C6D0DC;
-
-    &:checked{
-      background-color: $dark !important;
-      border-color: $dark !important;
-      
-      &:before{
-        top: 0;
-        left: 15px;
-        color: #fff;
-        content: '\f147';
-        font: normal 14px/1 dashicons;
-        margin: 0;
-      }
-      &+label{
-        color: $dark;
-      }
-    }
-    &:before{
-      width: auto;
-      height: auto;
-      margin: 0;
-      left: 12px;
-      top: -2px;
-    }
-    &:focus{
-      outline: 0 none;
-      box-shadow: 0 0;
-    }
+  &.directorist_btn-dark{
+    background-color: $dark;
+    color: #fff;
+  }
+  &.directorist_btn-success{
+    background-color: $success;
+    color: #fff;
+  }
+  &.directorist_btn-info{
+    background-color: $info;
+    color: #fff;
+  }
+  &.directorist_btn-warning{
+    background-color: $warning;
+    color: #fff;
+  }
+  &.directorist_btn-danger{
+    background-color: $danger;
+    color: #fff;
+  }
+  &.directorist_btn-bg-normal{
+    background-color: $bg-normal;
+  }
+  &.directorist_btn-bg-light{
+    background-color: $bg-light;
   }
 }
 
-// Directorist Radio
-.directorist_radio{
-
-  label{
-    position: relative;
-    margin-left: 0;
-    padding-left: 35px;
-    &:before{
-      position: absolute;
-      left: 0;
-      top: 3px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border-radius: 50%;
-      border: 1px solid #C6D0DC;
-      content: '';
-    }
+// Button Outline
+.directorist_btn{
+  &.directorist_btn-outline{
+    background-color: transparent;
+    border: 1px solid $border-color !important;
   }
+  &.directorist_btn-outline-normal{
+    background-color: transparent;
+    border: 1px solid $border-color-normal !important;
+  }
+  &.directorist_btn-outline-light{
+    background-color: transparent;
+    border: 1px solid $border-color-light !important;
+  }
+}
 
-  input[type="radio"]{
-    display: none;
-    position: relative;
-
-    &:checked{
-      &+label{
-        &:before{
-          border-color: $dark !important;
-          border-width: 5px;
-        }
-      }
-    }
-    
-    &:focus{
-      outline: 0 none;
-      box-shadow: 0 0;
-    }
+// Button Size
+.directorist_btn{
+  &.directorist_btn-lg{
+    line-height: 3.35;
+  }
+  &.directorist_btn-sm{
+    line-height: 2.7;
+  }
+  &.directorist_btn-xs{
+    line-height: 2.3;
   }
 }

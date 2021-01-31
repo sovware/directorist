@@ -187,6 +187,22 @@ document.body.addEventListener('click', function (e) {
   });
   $(".atbd_dropdown-toggle").on("click", function (e) {
     e.preventDefault();
+  }); // Restructred Dropdown
+  // Directorist Dropdown 
+
+  $('body').on('click', '.directorist_dropdown .directorist_dropdown__toggle', function (e) {
+    e.preventDefault();
+    $(this).siblings('.directorist_dropdown__links').toggle();
+  }); // Select Option after click
+
+  $('body').on('click', '.directorist_dropdown .directorist_dropdown__links .directorist_dropdown__links--single', function (e) {
+    e.preventDefault();
+    $('.directorist_dropdown__links').hide();
+  }); // Hide Clicked Anywhere
+
+  $(document).bind('click', function (e) {
+    var clickedDom = $(e.target);
+    if (!clickedDom.parents().hasClass('directorist_dropdown')) $('.directorist_dropdown__links').hide();
   });
 })(jQuery);
 

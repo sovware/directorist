@@ -42,7 +42,7 @@ class Enqueue_Assets {
 
         // Load Public Assets
         $this->add_public_css_scripts();
-        // $this->add_public_js_scripts();
+        $this->add_public_js_scripts();
 
         // Load Admin Assets
         $this->add_admin_css_scripts();
@@ -143,7 +143,6 @@ class Enqueue_Assets {
      */
     public function add_public_js_scripts() {
         $scripts = [];
-
         $scripts['directorist-main-script'] = [
             'file_name' => 'main',
             'base_path' => DIRECTORIST_PUBLIC_JS,

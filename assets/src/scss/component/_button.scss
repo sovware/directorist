@@ -38,7 +38,7 @@
   }
 }
 
-.directorist_btn{
+.directorist-btn{
   display: inline-block;
   font-size: 15px;
   font-weight: 500;
@@ -54,64 +54,64 @@
 }
 
 // Button Type
-.directorist_btn{
-  &.directorist_btn-primary{
+.directorist-btn{
+  &.directorist-btn-primary{
     background-color: $primary;
     color: #fff;
   }
-  &.directorist_btn-dark{
+  &.directorist-btn-dark{
     background-color: $dark;
     color: #fff;
   }
-  &.directorist_btn-success{
+  &.directorist-btn-success{
     background-color: $success;
     color: #fff;
   }
-  &.directorist_btn-info{
+  &.directorist-btn-info{
     background-color: $info;
     color: #fff;
   }
-  &.directorist_btn-warning{
+  &.directorist-btn-warning{
     background-color: $warning;
     color: #fff;
   }
-  &.directorist_btn-danger{
+  &.directorist-btn-danger{
     background-color: $danger;
     color: #fff;
   }
-  &.directorist_btn-bg-normal{
+  &.directorist-btn-bg-normal{
     background-color: $bg-normal;
   }
-  &.directorist_btn-bg-light{
+  &.directorist-btn-bg-light{
     background-color: $bg-light;
   }
 }
 
 // Button Outline
-.directorist_btn{
-  &.directorist_btn-outline{
+.directorist-btn{
+  &.directorist-btn-outline{
     background-color: transparent;
     border: 1px solid $border-color !important;
   }
-  &.directorist_btn-outline-normal{
+  &.directorist-btn-outline-normal{
     background-color: transparent;
     border: 1px solid $border-color-normal !important;
   }
-  &.directorist_btn-outline-light{
+  &.directorist-btn-outline-light{
     background-color: transparent;
     border: 1px solid $border-color-light !important;
   }
 }
 
 // Button Size
-.directorist_btn{
-  &.directorist_btn-lg{
+.directorist-btn{
+  &.directorist-btn-lg{
     line-height: 3.35;
   }
-  &.directorist_btn-sm{
+  &.directorist-btn-sm{
     line-height: 2.7;
   }
-  &.directorist_btn-xs{
+  &.directorist-btn-xs{
     line-height: 2.3;
   }
 }

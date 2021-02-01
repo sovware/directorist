@@ -1,7 +1,7 @@
 // Directorist Checkbox & Radio Components
 
-.directorist_checkbox,
-.directorist_radio{
+.directorist-checkbox,
+.directorist-radio{
     display: flex;
     align-items: center;
   
@@ -9,8 +9,8 @@
     input[type="radio"]{
         display: none;
 
-        & +.directorist_checkbox__label,
-        & +.directorist_radio__label{
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
             font-size: 14px;
             display: flex;
             flex-flow: column;
@@ -37,8 +37,8 @@
         }
 
         &:checked {
-            & +.directorist_checkbox__label,
-            & +.directorist_radio__label{
+            & +.directorist-checkbox__label,
+            & +.directorist-radio__label{
                 &:after{
                     background-color: $dark;
                     border-color: $dark;
@@ -54,9 +54,9 @@
 }
 
 // Directorist Checkbox Inner Element
-.directorist_checkbox{
+.directorist-checkbox{
     input[type="checkbox"]{
-        & +.directorist_checkbox__label{
+        & +.directorist-checkbox__label{
             &:before{
                 position: absolute;
                 font-size: 10px;
@@ -77,9 +77,9 @@
 }
 
 // Directorist Radio Inner Element
-.directorist_radio{
+.directorist-radio{
     input[type="radio"]{
-        & +.directorist_radio__label{
+        & +.directorist-radio__label{
             &:before{
                 position: absolute;
                 left: 6px;
@@ -96,7 +96,7 @@
             }
         }
         &:checked{
-            & +.directorist_radio__label{
+            & +.directorist-radio__label{
                 &:after{
                     background-color: #fff;
                 }
@@ -107,12 +107,12 @@
 
 
 // Directorist Checkbox & Radio Circle
-.directorist_checkbox.directorist_checkbox-circle,
-.directorist_radio.directorist_radio-circle{
+.directorist-checkbox.directorist-checkbox-circle,
+.directorist-radio.directorist-radio-circle{
     input[type="checkbox"],
     input[type="radio"]{
-        & +.directorist_checkbox__label,
-        & +.directorist_radio__label{
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
             &:after{
                 border-radius: 50%;
             }
@@ -121,13 +121,13 @@
 }
 
 // Directorist Checkbox & Radio Type
-.directorist_checkbox{
-    &.directorist_checkbox-primary{
+.directorist-checkbox{
+    &.directorist-checkbox-primary{
         input[type="checkbox"],
         input[type="radio"] {
             &:checked{
-                & +.directorist_checkbox__label,
-                & +.directorist_radio__label{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
                     &:after{
                         background-color: $primary;
                         border-color: $primary;
@@ -136,12 +136,12 @@
             }
         }
     }
-    &.directorist_checkbox-secondary{
+    &.directorist-checkbox-secondary{
         input[type="checkbox"],
         input[type="radio"] {
             &:checked{
-                & +.directorist_checkbox__label,
-                & +.directorist_radio__label{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
                     &:after{
                         background-color: $secondary;
                         border-color: $secondary;
@@ -152,11 +152,11 @@
     }
 }
 
-.directorist_radio{
-    &.directorist_radio-primary{
+.directorist-radio{
+    &.directorist-radio-primary{
         input[type="radio"]{
             &:checked{
-                & +.directorist_radio__label{
+                & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
                         border-color: $primary !important;
@@ -168,10 +168,10 @@
             }
         }
     }
-    &.directorist_radio-secondary{
+    &.directorist-radio-secondary{
         input[type="radio"]{
             &:checked{
-                & +.directorist_radio__label{
+                & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
                         border-color: $secondary !important;

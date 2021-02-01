@@ -232,42 +232,6 @@ document.body.addEventListener('click', function (e) {
 
 /***/ }),
 
-/***/ "./assets/src/js/components/atbdModal.js":
-/*!***********************************************!*\
-  !*** ./assets/src/js/components/atbdModal.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  // Modal
-  $('.atbdp-toggle-modal').on('click', function (e) {
-    e.preventDefault();
-    var data_target = $(this).data('target');
-    $(data_target).toggleClass('show');
-  }); // Recovery Password Modal
-
-  $("#recover-pass-modal").hide();
-  $(".atbdp_recovery_pass").on("click", function (e) {
-    e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
-  }); // Report abuse [on modal closed]
-
-  $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-report-abuse-message').val('');
-    $('#atbdp-report-abuse-message-display').html('');
-  }); // Contact form [on modal closed]
-
-  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-contact-message').val('');
-    $('#atbdp-contact-message-display').html('');
-  });
-})(jQuery);
-
-/***/ }),
-
 /***/ "./assets/src/js/components/atbdSelect.js":
 /*!************************************************!*\
   !*** ./assets/src/js/components/atbdSelect.js ***!
@@ -1124,6 +1088,59 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 /***/ }),
 
+/***/ "./assets/src/js/components/modal.js":
+/*!*******************************************!*\
+  !*** ./assets/src/js/components/modal.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_component_modal_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/component/_modal.scss */ "./assets/src/scss/component/_modal.scss");
+/* harmony import */ var _scss_component_modal_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_component_modal_scss__WEBPACK_IMPORTED_MODULE_0__);
+
+;
+
+(function ($) {
+  // Recovery Password Modal
+  $("#recover-pass-modal").hide();
+  $(".atbdp_recovery_pass").on("click", function (e) {
+    e.preventDefault();
+    $("#recover-pass-modal").slideToggle().show();
+  }); // Report abuse [on modal closed]
+
+  $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-report-abuse-message').val('');
+    $('#atbdp-report-abuse-message-display').html('');
+  }); // Contact form [on modal closed]
+
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  }); // Template Restructured
+  // Modal
+
+  var directoristModal = document.querySelector('.directorist-modal');
+  $('body').on('click', '.directorist-btn-modal', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr("data-directoristTarget");
+    console.log($(data_target), data_target);
+    $(data_target).toggleClass('directorist_show');
+  });
+  $('body').on('click', '.directorist-modal-close', function (e) {
+    e.preventDefault();
+    $(this).closest('.directorist-modal').removeClass('directorist_show');
+  });
+  $(document).bind('click', function (e) {
+    if (e.target == directoristModal) {
+      directoristModal.classList.remove('directorist_show');
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/components/profileForm.js":
 /*!*************************************************!*\
   !*** ./assets/src/js/components/profileForm.js ***!
@@ -1766,8 +1783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
 /* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_atbdModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/atbdModal */ "./assets/src/js/components/atbdModal.js");
-/* harmony import */ var _components_atbdModal__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_atbdModal__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
 /* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
 /* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
@@ -1902,6 +1918,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/***/ }),
+
+/***/ "./assets/src/scss/component/_modal.scss":
+/*!***********************************************!*\
+  !*** ./assets/src/scss/component/_modal.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

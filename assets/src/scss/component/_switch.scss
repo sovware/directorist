@@ -1,5 +1,5 @@
 // directorist_switch
-.directorist_switch{
+.directorist-switch{
     position: relative;
     display: block;
     input[type=checkbox]{
@@ -7,7 +7,7 @@
             display: none;
         }
     }
-    .directorist_switch-input{
+    .directorist-switch-input{
         position: absolute;
         left: 0;
         z-index: -1;
@@ -15,7 +15,7 @@
         height: 1.65rem;
         opacity: 0;
         &:checked{
-            &+.directorist_switch-label{
+            &+.directorist-switch-label{
                 color: #1A1B29;
                 font-weight: 500;
                 &:before{
@@ -27,7 +27,7 @@
             }
         }
     }
-    .directorist_switch-label{
+    .directorist-switch-label{
         user-select: none;
         position: relative;
         display: inline-flex;
@@ -69,11 +69,11 @@
 }
 
 // Switch Type
-.directorist_switch{
-    &.directorist_switch-success{
-        .directorist_switch-input{
+.directorist-switch{
+    &.directorist-switch-success{
+        .directorist-switch-input{
             &:checked{
-                &+.directorist_switch-label{
+                &+.directorist-switch-label{
                     &:before{
                         background-color: $success
                     }
@@ -81,10 +81,10 @@
             }
         }
     }
-    &.directorist_switch-secondary{
-        .directorist_switch-input{
+    &.directorist-switch-secondary{
+        .directorist-switch-input{
             &:checked{
-                &+.directorist_switch-label{
+                &+.directorist-switch-label{
                     &:before{
                         background-color: $secondary
                     }
@@ -92,10 +92,10 @@
             }
         }
     }
-    &.directorist_switch-danger{
-        .directorist_switch-input{
+    &.directorist-switch-danger{
+        .directorist-switch-input{
             &:checked{
-                &+.directorist_switch-label{
+                &+.directorist-switch-label{
                     &:before{
                         background-color: $danger
                     }
@@ -103,10 +103,10 @@
             }
         }
     }
-    &.directorist_switch-warning{
-        .directorist_switch-input{
+    &.directorist-switch-warning{
+        .directorist-switch-input{
             &:checked{
-                &+.directorist_switch-label{
+                &+.directorist-switch-label{
                     &:before{
                         background-color: $warning
                     }
@@ -114,10 +114,10 @@
             }
         }
     }
-    &.directorist_switch-info{
-        .directorist_switch-input{
+    &.directorist-switch-info{
+        .directorist-switch-input{
             &:checked{
-                &+.directorist_switch-label{
+                &+.directorist-switch-label{
                     &:before{
                         background-color: $info;
                     }
@@ -128,7 +128,7 @@
 }
 
 // Directorist Yes No Switch
-.directorist_switch-Yn {
+.directorist-switch-Yn {
     padding: 3px;
     position: relative;
     display: inline-block;

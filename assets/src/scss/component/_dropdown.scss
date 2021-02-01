@@ -1,7 +1,7 @@
 // Directorist Dropdown Style
-.directorist_dropdown{
+.directorist-dropdown{
     position: relative;
-    .directorist_dropdown__toggle{
+    .directorist-dropdown__toggle{
         color: $body-color;
         display: flex;
         align-items: center;
@@ -9,14 +9,14 @@
         width: 100%;
         height: 100%;
         position: relative;
-        &.directorist_toggle-hasIcon{
+        &.directorist-toggle-hasIcon{
             &:after{
                 content: '\f347';
                 font: normal 12px/1 dashicons;
             }
         }
     }
-    .directorist_dropdown__links{
+    .directorist-dropdown__links{
         display: none;
         position: absolute;
         width: 100%;

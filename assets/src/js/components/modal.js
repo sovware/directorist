@@ -23,6 +23,7 @@ import '../../scss/component/_modal.scss';
         $('#atbdp-contact-message-display').html('');
 
     });
+    
     // Template Restructured
     // Modal
     let directoristModal = document.querySelector('.directorist-modal');
@@ -31,17 +32,17 @@ import '../../scss/component/_modal.scss';
 
         let data_target = $(this).attr("data-directoristTarget");
         console.log($(data_target),data_target);
-        $( data_target ).toggleClass( 'directorist_show' );
+        $( data_target ).toggleClass( 'directorist-show' );
     });
 
     $('body').on('click', '.directorist-modal-close', function(e){
         e.preventDefault();
-        $(this).closest('.directorist-modal').removeClass('directorist_show');
+        $(this).closest('.directorist-modal').removeClass('directorist-show');
     });
 
     $(document).bind('click', function(e) {
         if(e.target == directoristModal){
-            directoristModal.classList.remove('directorist_show');
+            directoristModal.classList.remove('directorist-show');
         }
     });
     

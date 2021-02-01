@@ -154,22 +154,22 @@ document.body.addEventListener('click', function (e) {
 
 (function ($) {
   // Dropdown 
-  $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {
+  $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function (e) {
     e.preventDefault();
-    $(this).siblings('.directorist_dropdown-option').toggle();
+    $(this).siblings('.directorist-dropdown-option').toggle();
   }); // Select Option after click
 
-  $('body').on('click', '.directorist_dropdown .directorist_dropdown-option ul li a', function (e) {
+  $('body').on('click', '.directorist-dropdown .directorist-dropdown-option ul li a', function (e) {
     e.preventDefault();
     var optionText = $(this).html();
-    $(this).children('.directorist_dropdown-toggle__text').html(optionText);
-    $(this).closest('.directorist_dropdown-option').siblings('.directorist_dropdown-toggle').children('.directorist_dropdown-toggle__text').html(optionText);
-    $('.directorist_dropdown-option').hide();
+    $(this).children('.directorist-dropdown-toggle__text').html(optionText);
+    $(this).closest('.directorist-dropdown-option').siblings('.directorist-dropdown-toggle').children('.directorist-dropdown-toggle__text').html(optionText);
+    $('.directorist-dropdown-option').hide();
   }); // Hide Clicked Anywhere
 
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);
-    if (!clickedDom.parents().hasClass('directorist_dropdown')) $('.directorist_dropdown-option').hide();
+    if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
   }); //atbd_dropdown
 
   $(".atbd_dropdown").on("click", function (e) {
@@ -190,19 +190,19 @@ document.body.addEventListener('click', function (e) {
   }); // Restructred Dropdown
   // Directorist Dropdown 
 
-  $('body').on('click', '.directorist_dropdown .directorist_dropdown__toggle', function (e) {
+  $('body').on('click', '.directorist-dropdown .directorist-dropdown__toggle', function (e) {
     e.preventDefault();
-    $(this).siblings('.directorist_dropdown__links').toggle();
+    $(this).siblings('.directorist-dropdown__links').toggle();
   }); // Select Option after click
 
-  $('body').on('click', '.directorist_dropdown .directorist_dropdown__links .directorist_dropdown__links--single', function (e) {
+  $('body').on('click', '.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function (e) {
     e.preventDefault();
-    $('.directorist_dropdown__links').hide();
+    $('.directorist-dropdown__links').hide();
   }); // Hide Clicked Anywhere
 
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);
-    if (!clickedDom.parents().hasClass('directorist_dropdown')) $('.directorist_dropdown__links').hide();
+    if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown__links').hide();
   });
 })(jQuery);
 
@@ -291,37 +291,6 @@ atbdSelectData.forEach(function (el) {
   $('.sorting span').on('click', function () {
     $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
   });
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/components/atbdTooltip.js":
-/*!*************************************************!*\
-  !*** ./assets/src/js/components/atbdTooltip.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  /* atbd tooltip */
-  function atbdp_tooltip() {
-    var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-    atbd_tooltip.forEach(function (el) {
-      if (el.getAttribute('aria-label') !== " ") {
-        document.body.addEventListener('mouseover', function (e) {
-          for (var target = e.target; target && target != this; target = target.parentNode) {
-            if (target.matches('.atbd_tooltip')) {
-              el.classList.add('atbd_tooltip_active');
-            }
-          }
-        }, false);
-      }
-    });
-  }
-
-  atbdp_tooltip();
 })(jQuery);
 
 /***/ }),
@@ -1126,15 +1095,15 @@ __webpack_require__.r(__webpack_exports__);
     e.preventDefault();
     var data_target = $(this).attr("data-directoristTarget");
     console.log($(data_target), data_target);
-    $(data_target).toggleClass('directorist_show');
+    $(data_target).toggleClass('directorist-show');
   });
   $('body').on('click', '.directorist-modal-close', function (e) {
     e.preventDefault();
-    $(this).closest('.directorist-modal').removeClass('directorist_show');
+    $(this).closest('.directorist-modal').removeClass('directorist-show');
   });
   $(document).bind('click', function (e) {
     if (e.target == directoristModal) {
-      directoristModal.classList.remove('directorist_show');
+      directoristModal.classList.remove('directorist-show');
     }
   });
 })(jQuery);
@@ -1775,23 +1744,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_atbdTooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/atbdTooltip */ "./assets/src/js/components/atbdTooltip.js");
-/* harmony import */ var _components_atbdTooltip__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_atbdTooltip__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/components/login.js");
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/components/tab.js");
@@ -1834,8 +1802,8 @@ __webpack_require__.r(__webpack_exports__);
  // Modules
 
 
- // Components
 
+ // Components
 
 
 
@@ -1894,6 +1862,330 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/modules/pureScriptSearchSelect.js":
+/*!*********************************************************!*\
+  !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
+  \*********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options) {
+  var selectors = document.querySelectorAll(selector);
+
+  function eventDelegation(event, selector, program) {
+    document.body.addEventListener(event, function (e) {
+      document.querySelectorAll(selector).forEach(function (elem) {
+        if (e.target === elem) {
+          program(e);
+        }
+      });
+    });
+  }
+
+  selectors.forEach(function (item, index) {
+    function singleSelect() {
+      var virtualSelect = document.createElement('div');
+      virtualSelect.classList.add('directorist-select__container');
+      item.append(virtualSelect);
+      item.style.position = 'relative';
+      item.style.zIndex = '0';
+      var select = item.querySelectorAll('select'),
+          sibling = item.querySelector('.directorist-select__container'),
+          option = '';
+      select.forEach(function (sel) {
+        option = sel.querySelectorAll('option');
+      });
+      var html = "<span class=\"directorist-select__label\">".concat(option[0].text, " <span class=\"la la-angle-down\"></span></span class=\"\"><div class=\"directorist-select__dropdown\">\n            <input class='directorist-select__search ").concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      sibling.innerHTML = html;
+      var arry = [],
+          arryEl = [],
+          selectTrigger = sibling.querySelector('.directorist-select__label'); // el1 = '';
+
+      option.forEach(function (el, index) {
+        arry.push(el.value);
+        arryEl.push(el);
+        el.style.display = 'none';
+
+        if (el.hasAttribute('selected')) {
+          selectTrigger.innerHTML = el.value + '<span class="la la-angle-down"></span>';
+        }
+
+        ;
+      }); //console.log(attribute);
+
+      var input = item.querySelector('.directorist-select__dropdown input');
+      document.body.addEventListener('click', function (event) {
+        if (event.target == selectTrigger || event.target == input) return;
+        sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+        input.value = '';
+      });
+      selectTrigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        sibling.querySelector('.directorist-select__dropdown').classList.toggle('hasClass');
+        var filter = arry.filter(function (el, index) {
+          return el;
+        });
+        var elem = [];
+        arryEl.forEach(function (el, index) {
+          filter.forEach(function (e) {
+            if (el.text.toLowerCase() == e) {
+              elem.push(el);
+              el.style.display = 'block';
+            }
+          });
+        });
+        var item2 = '<ul>';
+        elem.forEach(function (el, key) {
+          var attrbute = '';
+          var attrbute2 = '';
+
+          if (el.hasAttribute('img')) {
+            attrbute = el.getAttribute('img');
+          }
+
+          if (el.hasAttribute('icon')) {
+            attrbute2 = el.getAttribute('icon');
+          }
+
+          item2 += "<li>".concat(el.text, "<i class=\"la la-angle\"></i></li>");
+        });
+        item2 += '</ul>';
+        var popUp = item.querySelector('.directorist-select__dropdown--inner');
+        popUp.innerHTML = item2;
+        var li = item.querySelectorAll('li');
+        li.forEach(function (el, index) {
+          el.addEventListener('click', function (event) {
+            elem[index].setAttribute('selected', 'selected');
+            sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+            item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
+          });
+        });
+      });
+      var value = item.querySelector('input');
+      value && value.addEventListener('keyup', function (event) {
+        var itemValue = event.target.value.toLowerCase();
+        var filter = arry.filter(function (el, index) {
+          return el.startsWith(itemValue);
+        });
+        var elem = [];
+        arryEl.forEach(function (el, index) {
+          filter.forEach(function (e) {
+            if (el.text.toLowerCase() == e) {
+              elem.push(el);
+              el.style.display = 'block';
+            }
+          });
+        });
+        var item2 = '<ul>';
+        elem.forEach(function (el, key) {
+          var attrbute = '';
+          var attrbute2 = '';
+
+          if (el.hasAttribute('img')) {
+            attrbute = el.getAttribute('img');
+          }
+
+          if (el.hasAttribute('icon')) {
+            attrbute2 = el.getAttribute('icon');
+          }
+
+          item2 += "<li>".concat(el.text, "<i class=\"la la-angle-down\"></i></li>");
+        });
+        item2 += '</ul>';
+        var popUp = item.querySelector('.directorist-select__dropdown--inner');
+        popUp.innerHTML = item2;
+        var li = item.querySelectorAll('li');
+        li.forEach(function (el, index) {
+          el.addEventListener('click', function (event) {
+            elem[index].setAttribute('selected', 'selected');
+            sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+            item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
+          });
+        });
+      });
+    }
+
+    function multiSelect() {
+      var selectedItems = options.defaultValue === undefined ? [] : _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(options.defaultValue);
+      var virtualSelect = document.createElement('div');
+      virtualSelect.classList.add('virtualSelect');
+      item.append(virtualSelect);
+      item.style.position = 'relative';
+      item.style.zIndex = '0';
+      var select = item.querySelectorAll('select'),
+          sibling = item.querySelector('.virtualSelect'),
+          option = '';
+      select.forEach(function (sel) {
+        option = sel.querySelectorAll('option');
+      });
+      var html = "<div id=\"searchItem\"></div><input id=\"button\" class='directorist-select__search ".concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' /><div class=\"directorist-select__dropdown\">            \n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+
+      function insertSearchItem() {
+        document.getElementById('searchItem').innerHTML = selectedItems.map(function (item) {
+          return "<span class=\"items\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"delete\">x</a></span>");
+        }).join("");
+      }
+
+      sibling.innerHTML = html;
+      var arry = [],
+          arryEl = [],
+          button = sibling.querySelector('#button');
+      el1 = '';
+      insertSearchItem();
+      option.forEach(function (el, index) {
+        arry.push(el.value);
+        arryEl.push(el);
+        el.style.display = 'none';
+
+        if (el.hasAttribute('selected')) {
+          button.innerHTML = el.value + '<span class="la la-angle-down"></span>';
+        }
+
+        ;
+      });
+      option[0].setAttribute('selected', 'selected');
+      option[0].value = JSON.stringify(selectedItems); //console.log(attribute);
+
+      document.body.addEventListener('click', function (event) {
+        if (event.target == button || event.target.closest('.virtualSelect')) {
+          return;
+        } else {
+          sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+        }
+      });
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        sibling.querySelector('.directorist-select__dropdown').classList.toggle('hasClass');
+        var elem = [];
+        arryEl.forEach(function (el, index) {
+          arry.forEach(function (e) {
+            if (el.text.toLowerCase() == e) {
+              elem.push(el);
+              el.style.display = 'block';
+            }
+          });
+        });
+        var popUp = item.querySelector('.directorist-select__dropdown--inner');
+        var item2 = '<ul>';
+        elem.forEach(function (el, key) {
+          var attrbute = '';
+          var attrbute2 = '';
+
+          if (el.hasAttribute('img')) {
+            attrbute = el.getAttribute('img');
+          }
+
+          if (el.hasAttribute('icon')) {
+            attrbute2 = el.getAttribute('icon');
+          }
+
+          item2 += "<li class=\"hideListItem\">".concat(el.text, "<i class=\"la la-angle-down\"></i></li>");
+        });
+        item2 += '</ul>';
+        popUp.innerHTML = item2;
+        var li = item.querySelectorAll('li');
+        selectedItems.map(function (item, key) {
+          li[item.key].classList.remove('hideListItem');
+          return li[item.key].classList.add('showListItem');
+        });
+        li.forEach(function (el, index) {
+          el.addEventListener('click', function (event) {
+            selectedItems.filter(function (item) {
+              return item.key === index;
+            }).length === 0 && selectedItems.push({
+              value: elem[index].value,
+              key: index
+            });
+            option[0].setAttribute('selected', 'selected');
+            option[0].value = JSON.stringify(selectedItems);
+            event.target.classList.remove('hideListItem');
+            event.target.classList.add('showListItem');
+            insertSearchItem();
+          });
+        });
+      });
+      eventDelegation('click', '.delete', function (e) {
+        var li = item.querySelectorAll('li');
+        selectedItems = selectedItems.filter(function (item) {
+          return item.key !== parseInt(e.target.getAttribute('data-key'));
+        });
+        li.forEach(function (element, index) {
+          if (parseInt(e.target.getAttribute('data-key')) === index) {
+            element.classList.add('hideListItem');
+            element.classList.remove('showListItem');
+          }
+        });
+        insertSearchItem();
+        option[0].setAttribute('selected', 'selected');
+        option[0].value = JSON.stringify(selectedItems);
+      }); // elem[0].setAttribute('selected', 'selected');
+      // elem[0].value = JSON.stringify(selectedItems);                    
+
+      var value = item.querySelector('input');
+      value && value.addEventListener('keyup', function (event) {
+        var itemValue = event.target.value.toLowerCase();
+        var filter = arry.filter(function (el, index) {
+          return el.startsWith(itemValue);
+        });
+        var elem = [];
+        arryEl.forEach(function (el, index) {
+          filter.forEach(function (e) {
+            if (el.text.toLowerCase() == e) {
+              elem.push(el);
+              el.style.display = 'block';
+            }
+          });
+        });
+        var item2 = '<ul>';
+        elem.forEach(function (el, key) {
+          var attrbute = '';
+          var attrbute2 = '';
+
+          if (el.hasAttribute('img')) {
+            attrbute = el.getAttribute('img');
+          }
+
+          if (el.hasAttribute('icon')) {
+            attrbute2 = el.getAttribute('icon');
+          }
+
+          item2 += "<li>".concat(el.text, "<i class=\"la la-angle-down\"></i></li>");
+        });
+        item2 += '</ul>';
+        var popUp = item.querySelector('.directorist-select__dropdown--inner');
+        popUp.innerHTML = item2;
+        var li = item.querySelectorAll('li');
+        li.forEach(function (el, index) {
+          el.addEventListener('click', function (event) {
+            elem[index].setAttribute('selected', 'selected');
+            sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+            item.querySelector('button').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
+          });
+        });
+      });
+    }
+
+    options.multiSelect ? multiSelect() : singleSelect();
+  });
+};
+
+pureScriptSearchNSelect('#directorist-select', {
+  isSearch: true,
+  multiSelect: false,
+  defaultValue: [{
+    value: "dhaka",
+    key: 0
+  }]
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/modules/review.js":
 /*!*****************************************!*\
   !*** ./assets/src/js/modules/review.js ***!
@@ -1943,6 +2235,97 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
@@ -1967,6 +2350,28 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 

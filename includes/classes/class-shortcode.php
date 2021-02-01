@@ -174,7 +174,6 @@ class ATBDP_Shortcode {
 		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_related_listings();
-    	// @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
 	}
 
 	public function author_profile($atts) {

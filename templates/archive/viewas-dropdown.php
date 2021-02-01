@@ -23,3 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 
 </div>
+
+<div class="directorist-dropdown">
+	<a href="" class="directorist-dropdown__toggle directorist-toggle-hasIcon">Directorist Dropdown</a>
+	<div class="directorist-dropdown__links">
+		<a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
+		<a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
+		<a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
+	</div>
+</div>

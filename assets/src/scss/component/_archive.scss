@@ -1,0 +1,40 @@
+/* All listing archive page styles */
+.directorist-content-active {
+    .directorist-archive-contents {
+        width: 100%;
+        max-width: 100% !important;
+    }
+}
+
+.directorist-content-active .directorist-type-nav {
+    @include e(list) {
+        padding: 0;
+        margin: 0 0 15px 0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .current {
+            .directorist-type-nav__link {
+                border-bottom-color: #444752;
+            }
+        }
+    }
+
+    @include e(link) {
+        text-decoration: none;
+        display: block;
+        padding: 0 15px 15px;
+        font-weight: 500;
+        color: #202428;
+        border-bottom: 2px solid transparent;
+        outline: 0;
+
+        &:focus {
+            background: none !important;
+            outline: 0 !important;
+            text-decoration: none !important;
+        }
+    }
+}

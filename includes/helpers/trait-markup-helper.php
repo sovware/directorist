@@ -14,6 +14,11 @@ trait Markup_Helper {
 		echo esc_attr( $result );
 	}
 
+	public static function directorist_container_fluid() {
+		$result = apply_filters( 'directorist-container-fluid', 'directorist-container-fluid' );
+		echo esc_attr( $result );
+	}
+
 	public static function directorist_row() {
 		$result = apply_filters( 'directorist-row', 'directorist-row' );
 		echo esc_attr( $result );

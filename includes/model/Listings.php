@@ -1058,6 +1058,8 @@ class Directorist_Listings {
 	}
 
 	public function loop_template( $loop = 'grid', $id ) {
+		global $post;
+		$post = get_post( $id );
 		setup_postdata( $id );
 		$this->set_loop_data();
 

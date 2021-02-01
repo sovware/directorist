@@ -1670,7 +1670,7 @@ class Directorist_Listings {
 		}
 
 		public function filter_container_class() {
-			echo ( 'overlapping' === $this->filters_display ) ? 'ads_float' : 'ads_slide';
+			echo ( 'overlapping' === $this->filters_display ) ? 'directorist-search-float' : 'directorist-search-slide';
 		}
 
 		public function has_listings_header() {

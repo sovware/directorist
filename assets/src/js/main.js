@@ -18,7 +18,7 @@ import './components/atbdSorting';
 import './components/atbdAlert';
 import './components/pureScriptTab';
 import './components/profileForm';
-import './components/atbdModal';
+import './components/modal';
 import './components/gridResponsive';
 import './components/formValidation';
 import './components/atbdFavourite';

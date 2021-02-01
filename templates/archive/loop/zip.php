@@ -6,4 +6,4 @@
  */
 ?>
 
-<p><?php directorist_icon( $icon );?><?php echo esc_html( $value ); ?></p>
+<div><?php directorist_icon( $icon );?><?php echo esc_html( $value ); ?></div>

@@ -1,0 +1,186 @@
+// Directorist Checkbox & Radio Components
+
+.directorist-checkbox,
+.directorist-radio{
+    display: flex;
+    align-items: center;
+  
+    input[type="checkbox"],
+    input[type="radio"]{
+        display: none;
+
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            font-size: 14px;
+            display: flex;
+            flex-flow: column;
+            position: relative;
+            display: inline-block;
+            user-select: none;
+            padding-left: 30px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            font-weight: 400;
+            color: $body-color;
+
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 18px;
+                height: 18px;
+                border-radius: 3px;
+                content: "";
+                border: 1px solid $border-color-normal;
+                background-color: #fff;
+            }
+        }
+
+        &:checked {
+            & +.directorist-checkbox__label,
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: $dark;
+                    border-color: $dark;
+                }
+
+                &:before{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+// Directorist Checkbox Inner Element
+.directorist-checkbox{
+    input[type="checkbox"]{
+        & +.directorist-checkbox__label{
+            &:before{
+                position: absolute;
+                font-size: 10px;
+                left: 4px;
+                top: 3px;
+                font-weight: 900;
+                line-height: 1.2;
+                font-family: 'Font Awesome\ 5 Free';
+                content: "\f00c";
+                color: #fff;
+                display: block;
+                opacity: 0;
+                transition: all 0.3s ease 0s;
+                z-index: 2;
+            }
+        }
+    }
+}
+
+// Directorist Radio Inner Element
+.directorist-radio{
+    input[type="radio"]{
+        & +.directorist-radio__label{
+            &:before{
+                position: absolute;
+                left: 6px;
+                top: 6px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: $dark !important;
+                border: 0 none;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 2;
+                content: '';
+            }
+        }
+        &:checked{
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+}
+
+
+// Directorist Checkbox & Radio Circle
+.directorist-checkbox.directorist-checkbox-circle,
+.directorist-radio.directorist-radio-circle{
+    input[type="checkbox"],
+    input[type="radio"]{
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            &:after{
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+// Directorist Checkbox & Radio Type
+.directorist-checkbox{
+    &.directorist-checkbox-primary{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: $primary;
+                        border-color: $primary;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-checkbox-secondary{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: $secondary;
+                        border-color: $secondary;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.directorist-radio{
+    &.directorist-radio-primary{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: #fff;
+                        border-color: $primary !important;
+                    }
+                    &:before{
+                        background-color: $primary !important;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-radio-secondary{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: #fff;
+                        border-color: $secondary !important;
+                    }
+                    &:before{
+                        background-color: $secondary !important;
+                    }
+                }
+            }
+        }
+    }
+}

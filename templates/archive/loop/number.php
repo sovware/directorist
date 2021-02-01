@@ -5,4 +5,4 @@
  * @version 6.7
  */
 ?>
-<p><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></p>
+<div><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></div>

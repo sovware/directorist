@@ -5,6 +5,6 @@
  * @version 6.6
  */
 ?>
-<div class="related_single_carousel" style="margin: 0 10px;">
+<div class="related_single_carousel">
 	<?php $listings->card_template();?>
 </div>

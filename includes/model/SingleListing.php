@@ -546,9 +546,12 @@ class Directorist_Single_Listing {
 	}
 
 	public function render_shortcode_single_listing() {
-		if (!is_singular(ATBDP_POST_TYPE)) {
+		
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
 			return;
 		}
+
+		// return Helper::get_template_contents( 'single-contents', array( 'listings' => $this ) );
 
 		$args = array(
 			'listing' => $this,

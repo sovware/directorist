@@ -5,9 +5,9 @@
  * @version 6.7
  */
 ?>
-<div class="ads-advanced">
+<div class="directorist-advanced-filter">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
-		
+
 		<div class="atbdp-search-form atbdp-basic-search-fields">
 			<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
 				<div class="atbdp-basic-search-fields-each"><?php $searchform->field_template( $field ); ?></div>

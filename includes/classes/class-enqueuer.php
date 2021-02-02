@@ -22,7 +22,7 @@ class ATBDP_Enqueuer {
         if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
             $arr = explode('/edit/', $current_url);
             $important = $arr[1];
-            $this->listing_id = (int) $important;            
+            $this->listing_id = (int) $important;
         }
         add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -30,7 +30,7 @@ class ATBDP_Enqueuer {
         // 'Professional WordPress Plugin Development' by Brad Williams
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
         add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
-        
+
     }
 
     public function custom_color_picker_scripts() {
@@ -555,7 +555,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_add_listing_validator' );
         wp_enqueue_script( 'atbdp_custom_field_validator' );
-        
+
         $submission_form = get_term_meta( $this->current_listing_type(), 'submission_form_fields', true );
         $new_tag         = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
         $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
@@ -584,7 +584,7 @@ class ATBDP_Enqueuer {
             'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),
             'nonceName'       => 'atbdp_nonce_js',
-            'media_uploader'  => apply_filters( 'atbdp_media_uploader', [ 
+            'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
                 [
                     'element_id'        => '_listing_gallery',
                     'meta_name'         => 'listing_img',
@@ -932,12 +932,12 @@ class ATBDP_Enqueuer {
     public function search_listing_scripts_styles() {
         $search_dependency = array( 'jquery', 'jquery-ui-slider',
             'select2script' );
-        wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
+        //wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
             /**
              * @since 5.0.1
              * It returns the dependencies for search form js
              */
-            apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
+            //apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
         $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
         wp_enqueue_script( $handel );
 

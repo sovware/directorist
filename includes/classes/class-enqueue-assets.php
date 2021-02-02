@@ -151,10 +151,23 @@ class Enqueue_Assets {
             'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => true,
-            'localize_data' => [ 
-                'object_name' => 'atbdp_public_data', 
+            'localize_data' => [
+                'object_name' => 'atbdp_public_data',
                 'data' => Script_Helper::get_main_script_data()
             ],
+        ];
+        $scripts['atbdp_search_listing'] = [
+            'file_name' => 'search-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'deps'      => ['jquery', 'jquery-ui-slider'],
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+            /* 'localize_data' => [
+                'object_name' => 'atbdp_public_data',
+                'data' => Script_Helper::get_main_script_data()
+            ], */
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);
@@ -209,8 +222,8 @@ class Enqueue_Assets {
             'ver'           => $this->script_version,
             'group'         => 'admin',
             'section'       => '',
-            'localize_data' => [ 
-                'object_name' => 'atbdp_admin_data', 
+            'localize_data' => [
+                'object_name' => 'atbdp_admin_data',
                 'data' => Script_Helper::get_admin_script_data()
             ],
         ];
@@ -235,8 +248,8 @@ class Enqueue_Assets {
             'section'       => '',
             'page'          => 'at_biz_dir_page_tools',
             'enable'        => is_admin(),
-            'localize_data' => [ 
-                'object_name' => 'import_export_data', 
+            'localize_data' => [
+                'object_name' => 'import_export_data',
                 'data' => [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
             ],
         ];
@@ -265,7 +278,7 @@ class Enqueue_Assets {
         // $scripts = array_merge( $this->css_scripts, $scripts);
         // $this->css_scripts = $scripts;
     }
-    
+
     /**
      * Load Global JS Scripts
      *
@@ -354,7 +367,7 @@ class Enqueue_Assets {
                 continue;
             }
 
-            $default = [ 
+            $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_CSS,
                 'deps'      => [],
@@ -421,7 +434,7 @@ class Enqueue_Assets {
                 continue;
             }
 
-            $default = [ 
+            $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_JS,
                 'deps'      => [],
@@ -476,7 +489,7 @@ class Enqueue_Assets {
         }
     }
 
-    
+
     /**
      * Get Script File Name
      *
@@ -490,7 +503,7 @@ class Enqueue_Assets {
         $file_name  = ( ! empty( $args['file_name'] ) ) ? $args['file_name'] : '';
         $has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
         $has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
-        
+
         $load_min = apply_filters( 'directorist_load_min_files', true );
         $is_rtl   =  is_rtl();
 

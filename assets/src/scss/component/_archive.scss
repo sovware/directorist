@@ -6,6 +6,7 @@
     }
 }
 
+/* Directory type nav */
 .directorist-content-active .directorist-type-nav {
     @include e(list) {
         padding: 0;
@@ -35,6 +36,48 @@
             background: none !important;
             outline: 0 !important;
             text-decoration: none !important;
+        }
+    }
+}
+
+/* Archive header bar contents */
+.directorist-content-active {
+    .directorist-listings-header {
+        background: #ffffff;
+        padding: 20px 30px;
+        border-radius: 5px;
+        border: 1px solid #e3e6ef;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @include e(left) {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            .directorist-filter-btn {
+                margin-right: 15px;
+            }
+
+            .directorist-header-found-title {
+                margin: 0;
+                padding: 0;
+                font-size: 15px;
+                color: $text-color;
+                font-weight: 500;
+            }
+        }
+
+        @include e(right) {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -5px;
+
+            .directorist-dropdown {
+                margin: 5px;
+            }
         }
     }
 }

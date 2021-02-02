@@ -92,27 +92,28 @@
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
 
-    var ad = $(".ads_float .ads-advanced");
+    /* Advanced search */
+    var ad = $(".directorist-search-float .directorist-advanced-filter");
     ad.css({
         visibility: 'hidden',
         height: '0',
     });
     var count = 0;
-    $("body").on("click", '.more-filter', function (e) {
+    $("body").on("click", '.directorist-filter-btn', function (e) {
 
         count++;
         e.preventDefault();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
 
         if (count % 2 === 0) {
-            $(this).closest('.atbd_wrapper').find('.ads_float').find('.ads-advanced').css({
+            $(this).closest('.atbd_wrapper').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(this).closest('.atbd_wrapper').find('.ads_float').find('.ads-advanced').css({
+            $(this).closest('.atbd_wrapper').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'visible',
                 height: height - 70 + 'px',
                 transition: '0.3s ease',
@@ -121,15 +122,15 @@
         }
     });
 
-    var ad_slide = $(".ads_slide .ads-advanced");
+    var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
-    $("body").on("click", ".more-filter", function (e) {
+    $("body").on("click", ".directorist-filter-btn", function (e) {
         e.preventDefault();
-        $(this).closest('.atbd_wrapper').find('.ads_slide').find('.ads-advanced').slideToggle().show();
-        $(".ads_slide .ads-advanced").toggleClass("ads_ov");
+        $(this).closest('.atbd_wrapper').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+        $(".directorist-search-slide .directorist-advanced-filter").toggleClass("ads_ov");
         atbd_callingSlider();
     });
-    $(".ads-advanced").parents("div").css("overflow", "visible");
+    $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
 
     //remove preload after window load

@@ -1103,7 +1103,7 @@ input[type=checkbox] {
   }
 }
 /* typography */
-.atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
+.atbd_color-primary {
   color: #0A0B1E;
 }
 
@@ -1975,42 +1975,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: #c70606;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .btn {
-  font-size: 14px;
-  text-transform: capitalize;
-}
-.atbd_content_active #directorist.atbd_wrapper .btn:hover {
-  background-image: none;
-}
-.atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn {
-  line-height: 48px;
-  display: inline-block;
-  padding: 0 20px;
-  background: #f5f7fc;
-  color: #9299b8;
-}
-.atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
-  margin-right: 6px;
-}
-
-#directorist.atbd_wrapper .btn-sm {
-  font-size: 14px;
-  padding: 4px 8px;
-}
-#directorist.atbd_wrapper .btn-outline-primary:hover,
-#directorist.atbd_wrapper .btn-outline-danger:hover {
-  color: #fff !important;
-}
-#directorist.atbd_wrapper .btn-bordered {
-  background: none !important;
-  border: 1px solid #e3e6ef !important;
-  color: #7a82a6 !important;
-}
-#directorist.atbd_wrapper .btn-bordered:hover {
-  background: none !important;
-  border-color: #444752 !important;
-}
-
+/* Directorist button styles */
 .directorist-btn {
   display: inline-block;
   font-size: 15px;
@@ -2027,6 +1992,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   line-height: 2.95;
   border-radius: 5px;
   background-color: #EEF1F3;
+  text-decoration: none;
 }
 
 .directorist-btn.directorist-btn-primary {
@@ -2072,6 +2038,34 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: transparent;
   border: 1px solid #c6d0dc !important;
 }
+.directorist-btn.directorist-btn-outline-primary {
+  background-color: transparent;
+  border: 1px solid #0A0B1E !important;
+}
+.directorist-btn.directorist-btn-outline-secondary {
+  background-color: transparent;
+  border: 1px solid #122069 !important;
+}
+.directorist-btn.directorist-btn-outline-success {
+  background-color: transparent;
+  border: 1px solid #00AC17 !important;
+}
+.directorist-btn.directorist-btn-outline-info {
+  background-color: transparent;
+  border: 1px solid #2C99FF !important;
+}
+.directorist-btn.directorist-btn-outline-warning {
+  background-color: transparent;
+  border: 1px solid #EF8000 !important;
+}
+.directorist-btn.directorist-btn-outline-danger {
+  background-color: transparent;
+  border: 1px solid #EF0000 !important;
+}
+.directorist-btn.directorist-btn-outline-dark {
+  background-color: transparent;
+  border: 1px solid #202428 !important;
+}
 
 .directorist-btn.directorist-btn-lg {
   line-height: 3.35;
@@ -2081,6 +2075,9 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 .directorist-btn.directorist-btn-xs {
   line-height: 2.3;
+}
+.directorist-btn.directorist-btn-px-15 {
+  padding: 0 15px;
 }
 
 .directorist-badge {
@@ -2538,24 +2535,33 @@ p.atbd-min {
   height: 100%;
   position: relative;
 }
+.directorist-dropdown .directorist-dropdown__toggle:focus {
+  outline: 0 !important;
+}
 .directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-hasIcon:after {
   content: "";
   font: normal 12px/1 dashicons;
+  padding-left: 5px;
 }
 .directorist-dropdown .directorist-dropdown__links {
   display: none;
   position: absolute;
   width: 100%;
-  height: 120px;
+  min-width: 180px;
+  max-height: 250px;
   overflow-y: auto;
   left: 0;
   top: 44px;
-  padding: 15px;
+  padding: 10px 0;
   background-color: #fff;
   -webkit-box-shadow: 0 10px 40px rgba(134, 142, 174, 0.1882352941);
           box-shadow: 0 10px 40px rgba(134, 142, 174, 0.1882352941);
   border-radius: 5px;
   z-index: 99999;
+}
+.directorist-dropdown .directorist-dropdown__links--right {
+  left: auto;
+  right: 0;
 }
 .directorist-dropdown .directorist-dropdown__links a {
   display: block;
@@ -2563,7 +2569,7 @@ p.atbd-min {
   font-weight: 500;
   text-decoration: none;
   display: block;
-  padding: 9px 10px;
+  padding: 5px 20px;
   border-radius: 4px;
   color: #5a5f7d;
 }
@@ -3069,6 +3075,7 @@ p.atbd-min {
   max-width: 100% !important;
 }
 
+/* Directory type nav */
 .directorist-content-active .directorist-type-nav__list {
   padding: 0;
   margin: 0 0 15px 0;
@@ -3101,6 +3108,65 @@ p.atbd-min {
   background: none !important;
   outline: 0 !important;
   text-decoration: none !important;
+}
+
+/* Archive header bar contents */
+.directorist-content-active .directorist-listings-header {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  border: 1px solid #e3e6ef;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-content-active .directorist-listings-header__left {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.directorist-content-active .directorist-listings-header__left .directorist-filter-btn {
+  margin-right: 15px;
+}
+.directorist-content-active .directorist-listings-header__left .directorist-header-found-title {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  color: #7a82a6;
+  font-weight: 500;
+}
+.directorist-content-active .directorist-listings-header__right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -5px;
+}
+.directorist-content-active .directorist-listings-header__right .directorist-dropdown {
+  margin: 5px;
 }
 
 .ads-advanced .bottom-inputs {

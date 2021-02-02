@@ -640,8 +640,7 @@ class Directorist_Listing_Forms {
 			else {
 				URI_Helper::get_template( $template, $args );
 			}
-		}
-		else {
+		} else {
 			
 			if ( empty( $field_data['only_for_admin'] ) ) {
 				URI_Helper::get_template( $template, $args );

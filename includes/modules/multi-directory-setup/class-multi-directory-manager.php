@@ -3,16 +3,15 @@
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
-        public $fields                  = [];
-        public $layouts                 = [];
-        public $config                  = [];
-        public $default_form            = [];
-        public $old_custom_fields       = [];
-        public $cetagory_options        = [];
+        public $fields            = [];
+        public $layouts           = [];
+        public $config            = [];
+        public $default_form      = [];
+        public $old_custom_fields = [];
+        public $cetagory_options  = [];
 
         // run
-        public function run()
-        {
+        public function run() {
             add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
@@ -26,7 +25,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             
             add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
-            
         }
 
         // update_default_directory_type_option
@@ -878,6 +876,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'type'  => 'toggle',
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
+                                ],
+                                'modules' => [
+                                    'type'  => 'hidden',
+                                    'value' => [
+                                        'price_unit' => [
+                                            'label'     => __( 'Price Unit', 'directorist-pricing-plans' ),
+                                            'type'      => 'text',
+                                            'field_key' => 'price_unit',
+                                        ],
+                                        'price_range' => [
+                                            'label'     => __( 'Price Range', 'directorist-pricing-plans' ),
+                                            'type'      => 'text',
+                                            'field_key' => 'price_range',
+                                        ],
+                                    ],
                                 ],
                             ]
                         ],

@@ -215,6 +215,67 @@
                         </div>
                     </div>
                 </div>
+                <div class="single-component">
+                    <h4>Directorist Tooltip</h4>
+                    <a href="javascript:void(0)" class="directorist-tooltip" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip Top</span>
+                    </a>
+                    <a href="javascript:void(0)" class="directorist-tooltip directorist-tooltip-bottom" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip Bottom</span>
+                    </a>
+                    <a href="javascript:void(0)" class="directorist-tooltip" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip Primary</span>
+                    </a>
+                    <a href="javascript:void(0)" class="directorist-tooltip directorist-tooltip-success" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip success</span>
+                    </a>
+                    <a href="javascript:void(0)" class="directorist-tooltip directorist-tooltip-info" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip info</span>
+                    </a>
+                    <a href="javascript:void(0)" class="directorist-tooltip directorist-tooltip-warning" aria-label="Tooltip Text Here">
+                        <span class="directorist-tooltip__label">tooltip warning</span>
+                    </a>
+                </div>
+                <div class="single-component directorist-pb-100">
+                    <h4>Directorist Select</h4>
+                    <div class="directorist-select" id="directorist-select">
+                        <select name="mySelect" >
+                            <option value="">Select Item</option>
+                            <option value="dhaka">Dhaka</option>   
+                            <option value="barisal">Barisal</option>   
+                            <option value="khulna">Khulna</option>   
+                            <option value="gazipur">Gazipur</option>   
+                            <option value="narsingdi">Narsingdi</option>   
+                        </select> 
+                    </div>
+                </div>
+                <div class="single-component">
+                    <h4>Directorist Alert</h4>
+                    <div class="directorist-alert directorist-alert-success directorist-mb-15">
+                        <div class="directorist-alert__content">
+                            <p>Your Data Svaed Successfully</p>
+                            <a href="#" class="directorist-alert__close"><i class="la la-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="directorist-alert directorist-alert-danger directorist-mb-15">
+                        <div class="directorist-alert__content">
+                            <p>Your Data Svaed Successfully</p>
+                            <a href="#" class="directorist-alert__close"><i class="la la-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="directorist-alert directorist-alert-warning directorist-mb-15">
+                        <div class="directorist-alert__content">
+                            <p>Your Data Svaed Successfully</p>
+                            <a href="#" class="directorist-alert__close"><i class="la la-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="directorist-alert directorist-alert-primary">
+                        <div class="directorist-alert__content">
+                            <p>Your Data Svaed Successfully</p>
+                            <a href="#" class="directorist-alert__close"><i class="la la-times"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="directorist-card__footer">
 

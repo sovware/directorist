@@ -12,6 +12,7 @@ import './../scss/layout/public/main-style.scss';
 // Modules
 import './modules/helpers';
 import './modules/review';
+import './modules/pureScriptSearchSelect';
 
 // Components
 import './components/atbdSorting';
@@ -22,7 +23,6 @@ import './components/modal';
 import './components/gridResponsive';
 import './components/formValidation';
 import './components/atbdFavourite';
-import './components/atbdTooltip';
 import './components/login';
 import './components/tab';
 import './components/atbdDropdown';

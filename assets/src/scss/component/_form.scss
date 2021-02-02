@@ -51,5 +51,12 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        line-height: 1.45;
+        margin-top: -2px;
+        i,
+        span,
+        svg{
+            font-size: 14px;
+        }
     }
 }

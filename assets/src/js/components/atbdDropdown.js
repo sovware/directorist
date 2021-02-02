@@ -34,25 +34,25 @@ document.body.addEventListener('click', function (e) {
 
 ;(function ($) {
     // Dropdown 
-    $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(e){
+    $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function(e){
         e.preventDefault();
-        $(this).siblings('.directorist_dropdown-option').toggle();
+        $(this).siblings('.directorist-dropdown-option').toggle();
     });
 
     // Select Option after click
-    $('body').on('click','.directorist_dropdown .directorist_dropdown-option ul li a', function(e){
+    $('body').on('click','.directorist-dropdown .directorist-dropdown-option ul li a', function(e){
         e.preventDefault();
         let optionText = $(this).html();
-        $(this).children('.directorist_dropdown-toggle__text').html(optionText)
-        $(this).closest('.directorist_dropdown-option').siblings('.directorist_dropdown-toggle').children('.directorist_dropdown-toggle__text').html(optionText);
-        $('.directorist_dropdown-option').hide();
+        $(this).children('.directorist-dropdown-toggle__text').html(optionText)
+        $(this).closest('.directorist-dropdown-option').siblings('.directorist-dropdown-toggle').children('.directorist-dropdown-toggle__text').html(optionText);
+        $('.directorist-dropdown-option').hide();
     });
 
     // Hide Clicked Anywhere
     $(document).bind('click', function(e) {
         let clickedDom = $(e.target);
-        if(!clickedDom.parents().hasClass('directorist_dropdown'))
-        $('.directorist_dropdown-option').hide();
+        if(!clickedDom.parents().hasClass('directorist-dropdown'))
+        $('.directorist-dropdown-option').hide();
     });
 
     //atbd_dropdown
@@ -76,22 +76,22 @@ document.body.addEventListener('click', function (e) {
 
     // Restructred Dropdown
     // Directorist Dropdown 
-    $('body').on('click', '.directorist_dropdown .directorist_dropdown__toggle', function(e){
+    $('body').on('click', '.directorist-dropdown .directorist-dropdown__toggle', function(e){
         e.preventDefault();
-        $(this).siblings('.directorist_dropdown__links').toggle();
+        $(this).siblings('.directorist-dropdown__links').toggle();
     });
 
     // Select Option after click
-    $('body').on('click','.directorist_dropdown .directorist_dropdown__links .directorist_dropdown__links--single', function(e){
+    $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
         e.preventDefault();
-        $('.directorist_dropdown__links').hide();
+        $('.directorist-dropdown__links').hide();
     });
 
     // Hide Clicked Anywhere
     $(document).bind('click', function(e) {
         let clickedDom = $(e.target);
-        if(!clickedDom.parents().hasClass('directorist_dropdown'))
-        $('.directorist_dropdown__links').hide();
+        if(!clickedDom.parents().hasClass('directorist-dropdown'))
+        $('.directorist-dropdown__links').hide();
     });
 
 })(jQuery);

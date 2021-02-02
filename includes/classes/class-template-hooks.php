@@ -12,12 +12,6 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
-    	// Author Profile
-		$author = Directorist_Listing_Author::instance();
-		add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
-		add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
-		add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
-
     	// Dashboard
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		add_action( 'directorist_dashboard_before_container', array( $dashboard, 'alert_message_template' ) );

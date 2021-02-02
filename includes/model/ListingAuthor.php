@@ -129,12 +129,6 @@ class Directorist_Listing_Author {
 		return $review_in_post;
 	}
 
-	public function get_total_listing_number() {
-		$count = $this->all_listings->total;
-
-		return apply_filters( 'atbdp_author_listing_count', $count );
-	}
-
 	private function enqueue_scripts() {
 		wp_enqueue_script( 'adminmainassets' );
 		wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js' );
@@ -194,33 +188,48 @@ class Directorist_Listing_Author {
 		return $args;
 	}
 
-	public function header_template() {
+	public function avatar_html() {
 		$author_id = $this->id;
-
 		$u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
 		$avatar_img = empty($u_pro_pic) ? get_avatar($author_id, apply_filters('atbdp_avatar_size', 96)) : sprintf('<img src="%s" alt="%s" >', esc_url($u_pro_pic[0]), __('Author Image', 'directorist'));
+		return $avatar_img;
+	}
 
+	public function member_since_text() {
+		$author_id = $this->id;
 		$user_registered = get_the_author_meta('user_registered', $author_id);
 		$member_since_text = sprintf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp')));
+		return $member_since_text;
+	}
 
+	public function review_count_html() {
 		$review_count = $this->total_review;
 		$review_count_html = sprintf( _nx( '<span>%s</span>Review', '<span>%s</span>Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
+		return $review_count_html;
+	}
 
-		$listing_count = $this->get_total_listing_number();
+	public function listing_count_html() {
+		$listing_count = $this->all_listings->total;
 		$listing_count_html = sprintf( _nx( '<span>%s</span>Listing', '<span>%s</span>Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
+		return $listing_count_html;
+	}
 
-		$args = array(
-			'author'             => $this,
-			'avatar_img'         => $avatar_img,
-			'author_name'        => get_the_author_meta('display_name', $author_id),
-			'member_since_text'  => $member_since_text,
-			'enable_review'      => get_directorist_option('enable_review', 1),
-			'rating_count'       => $this->rating,
-			'review_count_html'  => $review_count_html,
-			'listing_count_html' => $listing_count_html,
-		);
+	public function review_enabled() {
+		return get_directorist_option('enable_review', 1);
+	}
 
-		Helper::get_template( 'author/author-header', $args );
+	public function rating_count() {
+		return $this->rating;
+	}
+
+	public function display_name() {
+		$author_id = $this->id;
+		return get_the_author_meta('display_name', $author_id);
+	}
+
+	public function header_template() {
+		$author_id = $this->id;
+		Helper::get_template( 'author/header', [ 'author' => $this ] );
 	}
 
 	public function about_template() {
@@ -251,14 +260,13 @@ class Directorist_Listing_Author {
 			'website'        => get_the_author_meta('user_url', $author_id),
 			'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
 			'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
-			'linkedIn'       => get_user_meta($author_id, 'atbdp_linkedin', true),
+			'linkedin'       => get_user_meta($author_id, 'atbdp_linkedin', true),
 			'youtube'        => get_user_meta($author_id, 'youtube', true),
 		);
 
-		Helper::get_template( 'author/author-about', $args );
+		Helper::get_template( 'author/about', $args );
 	}
 
-    // @todo @kowsar do_action('atbdp_author_listings_html', $all_listings) in "Post Your Need" ext
 	public function author_listings_template() {
 		$query    = $this->author_listings_query();
 		$listings = new Directorist_Listings( NULL, NULL, $query, ['cache' => false] );
@@ -273,7 +281,7 @@ class Directorist_Listing_Author {
 			'display_pagination' => get_directorist_option('paginate_author_listings', 1),
 		);
 
-		Helper::get_template( 'author/author-listings', $args );
+		Helper::get_template( 'author/listings', $args );
 	}
 
 	public function render_shortcode_author_profile( $atts ) {
@@ -298,8 +306,6 @@ class Directorist_Listing_Author {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 
-		$container_fluid = apply_filters( 'atbdp_public_profile_container_fluid', 'container-fluid' );
-
-		return Helper::get_template_contents( 'author/author-profile', compact( 'container_fluid' ) );
+		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
 	}
 }

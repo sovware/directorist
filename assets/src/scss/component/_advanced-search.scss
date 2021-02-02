@@ -1,0 +1,34 @@
+/* Advanced search filter styles */
+.directorist-advanced-filter {
+    border: 1px solid #e3e6ef;
+    background: #fff;
+    padding: 20px 30px;
+}
+
+.directorist-search-slide {
+    .directorist-advanced-filter {
+        display: none;
+
+        @include m(show) {
+            display: block !important;
+        }
+    }
+}
+
+/* Advanced search filter float style  */
+.directorist-search-float {
+    position: relative;
+
+    .directorist-advanced-filter {
+        border-radius: 3px;
+        z-index: 10000;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        visibility: hidden;
+    }
+}

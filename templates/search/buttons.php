@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="bdas-filter-actions">
+<div class="directorist-advanced-filter__action">
 	<?php if ($searchform->has_reset_filters_button) { ?>
 		<a href="" class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php echo esc_html( $searchform->reset_filters_text ); ?></a>
 		<?php

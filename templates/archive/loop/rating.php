@@ -6,12 +6,10 @@
  */
 ?>
 
-<div class="atbd_listing_meta atbdp_info_list">
-    <span class="atbd_meta atbd_listing_rating atbd_listing_transparent">
-        <?php echo $listings->loop['review']['review_stars']; ?>
-        
-        <span class="atbd_listing_avg">
-            <?php echo $listings->loop['review']['average_reviews']; ?>
-        </span>
+<span class="directorist-info-item directorist-rating-meta directorist-rating-transparent">
+    <?php echo $listings->loop['review']['review_stars']; ?>
+    
+    <span class="directorist-rating-avg">
+        <?php echo $listings->loop['review']['average_reviews']; ?>
     </span>
-</div>
+</span>

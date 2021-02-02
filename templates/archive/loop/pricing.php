@@ -11,7 +11,7 @@ $price_range = get_post_meta( $id, '_price_range', true );
 $atbd_listing_pricing = get_post_meta( $id, '_atbd_listing_pricing', true );
 ?>
 
-<div class="atbd_listing_meta atbdp_info_list">
+<span class="directorist-info-item directorist-pricing-meta">
 	<?php
 	if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
 		echo atbdp_display_price_range($price_range);
@@ -20,4 +20,4 @@ $atbd_listing_pricing = get_post_meta( $id, '_atbd_listing_pricing', true );
 		echo apply_filters('atbdp_listing_card_price', atbdp_display_price($price, $listings->is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false));
 	}
 	?>
-</div>
+</span>

@@ -5,4 +5,4 @@
  * @version 6.7
  */
 ?>
-<h4 class="atbd_listing_title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h4>
+<h4 class="directorist-listing-title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h4>

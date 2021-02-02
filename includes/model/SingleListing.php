@@ -339,7 +339,7 @@ class Directorist_Single_Listing {
 		}
 
 		$price = $before . atbdp_format_amount($this->price, $allow_decimal) . $after;
-		$price_html = apply_filters('atbdp_listing_price', sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price));
+		$price_html = apply_filters('atbdp_listing_price', sprintf("<span class='directorist-listing-price'>%s</span>", $price));
 		return $price_html;
 	}
 

@@ -1806,13 +1806,17 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
           justify-content: space-between;
   width: 100%;
   border-radius: 4px;
-  min-height: 44px;
+  min-height: 42px;
   padding: 0 15px;
   background-color: #F4F5F6;
 }
 .directorist-select .directorist-select__label i,
 .directorist-select .directorist-select__label span {
   font-size: 14px;
+  pointer-events: none;
+}
+.directorist-select select {
+  padding: 0;
 }
 
 .directorist-select__container {
@@ -3173,6 +3177,16 @@ p.atbd-min {
   color: #7a82a6;
 }
 
+.directorist-author-listing-top {
+  margin-bottom: 30px;
+}
+.directorist-author-listing-top .directorist-dropdown__toggle {
+  background-color: #fff;
+  padding: 0 15px;
+}
+.directorist-author-listing-top .directorist-dropdown__links {
+  top: 50px;
+}
 .directorist-author-listing-top .directorist-author-listing-top__title {
   -webkit-box-flex: 1;
   -webkit-flex: 1;

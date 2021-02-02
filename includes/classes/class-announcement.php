@@ -148,8 +148,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             ob_start(); ?>
             <li class="atbdp_tab_nav--content-link">
-                <a href="" class="atbd_tn_link" target="announcement">
-                    <?php _e( $nav_label, 'directorist'); ?>
+                <a href="" class="atbdp_all_booking_nav-link atbd-dash-nav-dropdown atbd_tn_link" target="announcement">
+                    <span class="directorist_menuItem-text">
+						<span class="directorist_menuItem-icon"><i class="la la-bullhorn"></i></span><?php _e( $nav_label, 'directorist'); ?>
+					</span>
                 </a>
             </li>
             <?php

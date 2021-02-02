@@ -320,6 +320,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['my_listings'] = array(
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'            => URI_Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
+				'icon'				 => 'la la-list',
 				'after_nav_hook'     => 'atbdp_tab_after_my_listings',
 				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
 			);
@@ -328,6 +329,7 @@ class Directorist_Listing_Dashboard {
 		if ( $my_profile_tab ) {
 			$dashboard_tabs['profile'] = array(
 				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
+				'icon'	   => 'la la-user',
 				'content'  => URI_Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
 			);
 		}
@@ -336,6 +338,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['saved_items'] = array(
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'            => URI_Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
+				'icon'				 => 'la la-heart-o',
 				'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
 				'after_content_hook' => 'atbdp_tab_content_after_favorite',
 			);

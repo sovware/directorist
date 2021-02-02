@@ -108,7 +108,8 @@ const publicConfig = {
     ['main']: ["./assets/src/js/main.js"],
     ['global']: ["./assets/src/js/global.js"],
     ['checkout']: ["./assets/src/js/checkout.js"],
-    
+    ['search-listing']: ["./assets/src/js/components/search-listing.js"],
+
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
     ['openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],

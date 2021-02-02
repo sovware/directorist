@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 		<div class="directorist-row">
 			<div class="directorist-col">
-				<div class="directorist-header-bar-contents">
+				<div class="directorist-listings-header">
 
 					<?php if ( $listings->has_listings_header() ): ?>
 
-						<div class="directorist-header-bar-left">
+						<div class="directorist-listings-header__left">
 
 							<?php if ( $listings->has_filters_button ): ?>
-								<a href="#" class="directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
+								<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
 							<?php endif; ?>
 
 							<?php if ( $listings->header_title ): ?>
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					<?php if ( $listings->has_header_toolbar() ): ?>
 
-						<div class="directorist-header-bar-right">
+						<div class="directorist-listings-header__right">
 							<?php
 							if ($listings->display_viewas_dropdown) {
 								$listings->viewas_dropdown_template();

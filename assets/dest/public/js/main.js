@@ -1953,7 +1953,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
             attrbute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li>".concat(el.text, "<i class=\"la la-angle\"></i></li>");
+          item2 += "<li>".concat(el.text);
         });
         item2 += '</ul>';
         var popUp = item.querySelector('.directorist-select__dropdown--inner');
@@ -1995,7 +1995,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
             attrbute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li>".concat(el.text, "<i class=\"la la-angle-down\"></i></li>");
+          item2 += "<li>".concat(el.text, "</li>");
         });
         item2 += '</ul>';
         var popUp = item.querySelector('.directorist-select__dropdown--inner');

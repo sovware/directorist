@@ -30,39 +30,7 @@
     margin: 0;
     padding: 0;
 }
-.directorist-select__container button {
-	padding: 8px 10px;
-	border: none;
-	background: #fff;
-	border-radius: 0px;
-	cursor: pointer;
-	box-shadow: 0px 0px 3px #ddd;	
-    font-size: 16px;
-    position: relative;
-}
-.directorist-select__container button:focus {
-    outline: none;
-}
-.directorist-select__container button span {
-	position: absolute;
-	width: 35px;
-	height: 40px;
-	background: #fff;
-	top: -3px;
-	right: 2px;
-	font-size: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transform: rotate(90deg);
-	border-bottom: 1px solid #efefef;
-	color: #efefef;
-	padding-bottom: 8px;
-	box-sizing: border-box;
-}
-.directorist-select__container button:hover span{
-    color: #000;
-}
+
 .directorist-select__dropdown {
 	background: #fff;
 	box-shadow: 0 10px 40px rgba(#868EAE,.30);
@@ -88,7 +56,7 @@
     }
     .directorist-select__search{
         font-size: 14px;
-        box-shadow: 0 10px 30px rgba(#868EAE,.30);
+        box-shadow: 0 4px 15px rgba(#868EAE,.15);
         padding: 12px 15px;
         border: 1px solid $border-color-normal;
         &:focus{
@@ -98,9 +66,20 @@
     }
     .directorist-select__dropdown--inner{
         ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
             li{
                 font-size: 14px;
                 padding: 5px 10px;
+                cursor: pointer;
+                &:hover{
+                    color: $info;
+                }
+                img{
+                    width: 20px;    
+                    float: right;
+                }
             }
         }
     }
@@ -111,21 +90,14 @@
 }
 
 .directorist-select__dropdown ul{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    
 }
 .directorist-select__dropdown ul li{
-    cursor: pointer;
-    padding: 5px 0px 5px 5px;    
-}
-.directorist-select__dropdown ul li:hover{
-    color: #01e9286c;
+       
 }
 
 .directorist-select__dropdown ul li img {
-    width: 20px;    
-    float: right;
+    
 }
 .directorist-select__dropdown ul li b {   
     float: right;

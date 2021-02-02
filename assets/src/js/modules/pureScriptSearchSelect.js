@@ -76,7 +76,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                     if(el.hasAttribute('icon')) {
                         attrbute2 = el.getAttribute('icon');
                     }
-                    item2 += `<li>${el.text}<i class="la la-angle"></i></li>`;
+                    item2 += `<li>${el.text}`;
                 });
                 item2 += '</ul>';
                 var popUp = item.querySelector('.directorist-select__dropdown--inner');
@@ -117,7 +117,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                     if(el.hasAttribute('icon')) {
                         attrbute2 = el.getAttribute('icon');
                     }
-                    item2 += `<li>${el.text}<i class="la la-angle-down"></i></li>`;
+                    item2 += `<li>${el.text}</li>`;
                 });
                 item2 += '</ul>';
                 var popUp = item.querySelector('.directorist-select__dropdown--inner');

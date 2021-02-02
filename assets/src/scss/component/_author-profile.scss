@@ -1,1 +1,117 @@
 // Author Profile Style
+.directorist-content-active .directorist-author-profile-content{
+    max-width: 100% !important;
+}
+
+.directorist-author-profile-wrap{
+    &.directorist-card{
+        border-color: #e3e6ef;
+    }
+    .directorist-card__body {
+        padding: 35px;
+    }
+    .directorist-author-avatar{
+        display: flex;
+        align-items: center;
+        img{
+            max-width: 95px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .directorist-author-avatar__info{
+            .directorist-author-name{
+                font-size: 26px;
+                font-weight: 500;
+                line-height: 1.2;
+                color: #272b41;
+                letter-spacing: normal;
+                margin: 0 0 8px;
+            }
+            p{
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #7a82a6;
+                line-height: 24px;
+                text-align: left;
+            }
+        }
+    }
+
+    
+    .directorist-author-meta{
+        .directorist-author-meta__list{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            .directorist-author-meta__list--item{
+                font-size: 14px;
+                line-height: 1.5;
+                margin: 0;
+                position: relative;
+                .directorist-listing-rating-meta{
+                    i{
+                        color: $warning;
+                        margin-left: 5px;
+                    }
+                }
+                .directorist-review-count,
+                .directorist-listing-count{
+                    color: $body-color;
+                    span{
+                        display: block;
+                        color: $primary;
+                    }
+                }
+            }
+            .directorist-info-meta {
+                margin-left: 18px;
+                &+.directorist-info-meta{
+                    padding-left: 18px;
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        left: 0px;
+                        height: 100%;
+                        width: 1px;
+                        background-color: #e3e6ef;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Directorist Author Widget
+.directorist-author-info-widget{
+    .directorist-author-info-list__item{
+        display: flex;
+        align-items: flex-start;
+        font-size: 15px;
+        color: #7a82a6;
+        &:not(:last-child){
+            margin-bottom: 12px;
+        }
+        span.la,
+        span.fa{
+            margin-top: 2px;
+            font-size: 17px;
+            margin-right: 20px;
+        }
+        .directorist-info{
+            a{
+                color: #7a82a6;
+            }
+        }
+    }
+}
+
+// Directorist Author Listings
+.directorist-author-listing-top{
+    .directorist-author-listing-top__title{
+        flex: 1;
+        font-weight: 500;
+        font-size: 24px;
+        margin: 0;
+    }
+}

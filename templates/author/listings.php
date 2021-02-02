@@ -10,50 +10,48 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbd_author_listings_area">
+<div class="<?php Helper::directorist_row(); ?>">
+	<div class="<?php Helper::directorist_column( 12 ); ?>">
+		<div class="directorist-author-listing-top directorist-flex directorist-justify-content-between">
+			<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+			<?php if ( $author->cat_filter_enabled() ): ?>
 
-	<h2><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+				<div class="directorist-dropdown directorist-author-listing-top__dropdown">
 
-	<?php if ( $author->cat_filter_enabled() ): ?>
+					<a class="directorist-dropdown__toggle directorist-toggle-hasIcon" href="#" id="dropdownMenuLink"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
 
-		<div class="atbd_dropdown">
+					<div class="directorist-dropdown__links">
+						<?php
+						foreach ($author->get_listing_categories() as $category) {
+							$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';
+							$link = add_query_arg( 'category', $category->slug );
+							printf('<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', $active_class, $link, $category->name);
+						}
+						?>
+					</div>
 
-			<a class="atbd_dropdown-toggle" href="#" id="dropdownMenuLink"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
+				</div>
 
-			<div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="dropdownMenuLink">
-				<?php
-				foreach ($author->get_listing_categories() as $category) {
-					$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';
-					$link = add_query_arg( 'category', $category->slug );
-					printf('<a class="directoriet-dropdown-item %s" href="%s">%s</a>', $active_class, $link, $category->name);
-				}
-				?>
+			<?php endif; ?>
+		</div>
+		<div class="directorist-author-listing-content">
+			<div class="<?php Helper::directorist_row(); ?>">
+
+				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
+
+					<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
+						<?php $listings->loop_template( 'grid', $listing_id ); ?>
+					</div>
+					
+				<?php endforeach; ?>
+
 			</div>
 
+			<?php
+			if ( $author->listing_pagination_enabled() ) {
+				$listings->pagination();
+			}
+			?>
 		</div>
-
-	<?php endif; ?>
-
-</div>
-
-<div class="atbd_authors_listing <?php echo esc_attr( $listings->grid_view_class() ); ?>">
-
-		<div class="<?php Helper::directorist_row(); ?>">
-
-			<?php foreach ( $listings->post_ids() as $listing_id ): ?>
-
-				<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
-					<?php $listings->loop_template( 'grid', $listing_id ); ?>
-				</div>
-				
-			<?php endforeach; ?>
-
-		</div>
-
-		<?php
-		if ( $author->listing_pagination_enabled() ) {
-			$listings->pagination();
-		}
-		?>
-		
+	</div>
 </div>

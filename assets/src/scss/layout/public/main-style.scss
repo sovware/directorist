@@ -1,10 +1,9 @@
 @import "../../vendor/bootstrap/config.bs";
-@import "./../../base/reboot";
-@import "./../../base/utility";
-// Variables
-@import "../../base/variables";
+//base css
+@import "./../../base/index";
 //mixins
 @import "./../../mixins/colors";
+@import "./../../mixins/general";
 // components
 @import "./../../component/plasma-slider";
 @import "./../../component/plasma-slider-custom";
@@ -27,6 +26,7 @@
 @import "./../../component/tooltip";
 @import "./../../component/alert";
 @import "./../../component/modal";
+@import "./../../component/archive";
 
 
 // Modules
@@ -119,12 +119,15 @@
       margin-bottom: 0;
     }
   }
+
   #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
     border-right: 0;
   }
+
   #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline {
     padding-right: 0;
   }
+
   #directorist {
     .atbd_listing_details .atbd_area_title {
       margin-bottom: 15px;
@@ -482,6 +485,7 @@
 .atbdp-icon {
   display: inline-block;
 }
+
 .atbdp-icon-large {
   display: block;
   margin-bottom: 20px;

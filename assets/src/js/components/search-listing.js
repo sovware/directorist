@@ -134,7 +134,7 @@
 
     //remove preload after window load
     $(window).load(function () {
-        $("body").removeClass("atbdp_preload");
+        $("body").removeClass("directorist-preload");
         $('.button.wp-color-result').attr('style', ' ');
     });
     $('.atbdp_mark_as_fav').each(function () {

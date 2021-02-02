@@ -1545,8 +1545,8 @@ final class Directorist_Base
 
     public function atbdp_body_class($c_classes)
     {
-        $c_classes[] = 'atbd_content_active';//class name goes here
-        $c_classes[] = 'atbdp_preload';//class name goes here
+        $c_classes[] = 'directorist-content-active';//class name goes here
+        $c_classes[] = 'directorist-preload';//class name goes here
         return $c_classes;
     }
 

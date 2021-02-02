@@ -3,8 +3,8 @@
         <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
         
-        <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
-        <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
+        <input class="cptm-form-control" :class="formControlClass" v-if="! valueShouldStringify" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+        <input v-if="valueShouldStringify" type="hidden" :value="JSON.stringify( value )">
 
         <div class="cptm-form-group-feedback" v-if="validationMessages">
             <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">

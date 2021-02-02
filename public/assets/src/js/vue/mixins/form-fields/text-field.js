@@ -30,6 +30,14 @@ export default {
             return 'text';
         },
 
+        valueShouldStringify() {
+            if ( ! ( typeof this.value === 'string' || typeof this.value === 'number') ) {
+                return true;
+            }
+
+            return false;
+        },
+
         formGroupClass() {
             return {
                 ...this.validationClass,

@@ -877,6 +877,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
+                                'modules' => [
+                                    'type'  => 'hidden',
+                                    'value' => [
+                                        'price_unit' => [
+                                            'label'     => __( 'Price Unit', 'directorist-pricing-plans' ),
+                                            'type'      => 'text',
+                                            'field_key' => 'price_unit',
+                                        ],
+                                        'price_range' => [
+                                            'label'     => __( 'Price Range', 'directorist-pricing-plans' ),
+                                            'type'      => 'text',
+                                            'field_key' => 'price_range',
+                                        ],
+                                    ],
+                                ],
                             ]
                         ],
 

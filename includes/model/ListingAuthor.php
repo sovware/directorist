@@ -268,20 +268,30 @@ class Directorist_Listing_Author {
 	}
 
 	public function author_listings_template() {
-		$query    = $this->author_listings_query();
-		$listings = new Directorist_Listings( NULL, NULL, $query, ['cache' => false] );
-
 		$args = array(
-			'author'             => $this,
-			'display_title'      => apply_filters('atbdp_author_listings_header_title', true),
-			'display_cat_filter' => get_directorist_option('author_cat_filter',1),
-			'display_listings'   => apply_filters('atbdp_author_listings', true),
-			'categories'         => get_terms(ATBDP_CATEGORY, array('hide_empty' => 0)),
-			'listings'           => $listings,
-			'display_pagination' => get_directorist_option('paginate_author_listings', 1),
+			'author'   => $this,
+			'listings' => $this->get_listings(),
 		);
 
 		Helper::get_template( 'author/listings', $args );
+	}
+
+	public function get_listings() {
+		$query    = $this->author_listings_query();
+		$listings = new Directorist_Listings( NULL, NULL, $query, ['cache' => false] );
+		return $listings;
+	}
+
+	public function cat_filter_enabled() {
+		return get_directorist_option( 'author_cat_filter', 1 );
+	}
+
+	public function get_listing_categories() {
+		return get_terms( ATBDP_CATEGORY , array( 'hide_empty' => 0 ) );
+	}
+
+	public function listing_pagination_enabled() {
+		return get_directorist_option( 'paginate_author_listings', 1 );
 	}
 
 	public function render_shortcode_author_profile( $atts ) {

@@ -1616,6 +1616,10 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
+		public function grid_view_class() {
+			return $this->view_as == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
+		}
+
 		public function get_the_location() {
 			
 			$id = get_the_ID();

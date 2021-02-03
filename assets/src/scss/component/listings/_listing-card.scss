@@ -121,6 +121,13 @@
                         content: '';
                         background-color: #E9E9E9;
                     }
+                    &.directorist-badge{
+                        margin-right: 8px;
+                        padding-right: 3px;
+                        &:after{
+                            right: -8px;
+                        }
+                    }
                 }
             }
             .directorist-info-item,

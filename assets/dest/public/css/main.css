@@ -3470,6 +3470,13 @@ p.atbd-min {
   content: "";
   background-color: #E9E9E9;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item:not(:last-child).directorist-badge {
+  margin-right: 8px;
+  padding-right: 3px;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item:not(:last-child).directorist-badge:after {
+  right: -8px;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item,
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-listing-title {
   margin: 4px;

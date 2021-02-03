@@ -194,16 +194,14 @@ document.body.addEventListener('click', function (e) {
     e.preventDefault();
     $(this).siblings('.directorist-dropdown__links').toggle();
   }); // Select Option after click
-
-  $('body').on('click', '.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function (e) {
-    e.preventDefault();
-
-    if ($(this).parents().hasClass('.directorist-dropdown-update-js')) {
-      console.log("yes");
-    }
-
-    $('.directorist-dropdown__links').hide();
-  }); // Hide Clicked Anywhere
+  // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
+  //     e.preventDefault();
+  //     if($(this).parents().hasClass('.directorist-dropdown-update-js')){
+  //         console.log("yes");
+  //     }
+  //     $('.directorist-dropdown__links').hide();
+  // });
+  // Hide Clicked Anywhere
 
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);

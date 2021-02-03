@@ -1,5 +1,5 @@
 (function ($) {
-    $('#at_biz_dir-location').select2({
+    /* $('#at_biz_dir-location').select2({
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
         templateResult: function (data) {
@@ -38,10 +38,10 @@
 
             return $wrapper;
         }
-    });
+    }); */
 
     //ad search js
-    var showMore = atbdp_search_listing.i18n_text.show_more;
+    /* var showMore = atbdp_search_listing.i18n_text.show_more;
     var showLess = atbdp_search_listing.i18n_text.show_less;
     var checkbox = $(".bads-tags .custom-control");
     checkbox.slice(4).hide();
@@ -90,7 +90,7 @@
     });
 
 
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
+    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
 
     /* Advanced search */
     var ad = $(".directorist-search-float .directorist-advanced-filter");
@@ -100,20 +100,19 @@
     });
     var count = 0;
     $("body").on("click", '.directorist-filter-btn', function (e) {
-
         count++;
         e.preventDefault();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
 
         if (count % 2 === 0) {
-            $(this).closest('.atbd_wrapper').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(this).closest('.directorist-header-bar').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(this).closest('.atbd_wrapper').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(this).closest('.directorist-header-bar').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'visible',
                 height: height - 70 + 'px',
                 transition: '0.3s ease',
@@ -126,8 +125,8 @@
     ad_slide.hide().slideUp();
     $("body").on("click", ".directorist-filter-btn", function (e) {
         e.preventDefault();
-        $(this).closest('.atbd_wrapper').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
-        $(".directorist-search-slide .directorist-advanced-filter").toggleClass("ads_ov");
+        $(this).closest('.directorist-header-bar').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+        $(".directorist-search-slide .directorist-advanced-filter").toggleClass("directorist-advanced-filter--show");
         atbd_callingSlider();
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
@@ -138,6 +137,7 @@
         $("body").removeClass("directorist-preload");
         $('.button.wp-color-result').attr('style', ' ');
     });
+    
     $('.atbdp_mark_as_fav').each(function () {
         $(this).on('click', function (event) {
             event.preventDefault();

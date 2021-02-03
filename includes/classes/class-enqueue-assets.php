@@ -164,10 +164,10 @@ class Enqueue_Assets {
             'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => true,
-            /* 'localize_data' => [
-                'object_name' => 'atbdp_public_data',
-                'data' => Script_Helper::get_main_script_data()
-            ], */
+            'localize_data' => [
+                'object_name' => 'atbdp_search_listing',
+                'data' => Script_Helper::get_search_script_data()
+            ],
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);

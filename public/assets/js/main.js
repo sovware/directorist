@@ -1226,7 +1226,7 @@
         });
     }
 
-    // Dropdown 
+    // Dropdown
     $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(e){
         e.preventDefault();
         $(this).siblings('.directorist_dropdown-option').toggle();

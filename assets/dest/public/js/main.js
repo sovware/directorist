@@ -2029,7 +2029,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "<div id=\"searchItem\"></div><input id=\"button\" class='directorist-select__search ".concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' /><div class=\"directorist-select__dropdown\">            \n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      var html = "<div id=\"searchItem\"></div><input id=\"button\" class='directorist-select__search ".concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' /><div class=\"directorist-select__dropdown\">\n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
 
       function insertSearchItem() {
         document.getElementById('searchItem').innerHTML = selectedItems.map(function (item) {
@@ -2130,7 +2130,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         option[0].setAttribute('selected', 'selected');
         option[0].value = JSON.stringify(selectedItems);
       }); // elem[0].setAttribute('selected', 'selected');
-      // elem[0].value = JSON.stringify(selectedItems);                    
+      // elem[0].value = JSON.stringify(selectedItems);
 
       var value = item.querySelector('input');
       value && value.addEventListener('keyup', function (event) {
@@ -2185,6 +2185,14 @@ pureScriptSearchNSelect('#directorist-select', {
   multiSelect: false,
   defaultValue: [{
     value: "dhaka",
+    key: 0
+  }]
+});
+pureScriptSearchNSelect('#directorist-search-category', {
+  isSearch: false,
+  multiSelect: false,
+  defaultValue: [{
+    value: "Select Category",
     key: 0
   }]
 });

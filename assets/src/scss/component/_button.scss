@@ -13,6 +13,11 @@
   border-radius: 5px;
   background-color: $bg-light-gray;
   text-decoration: none;
+
+  &:focus {
+    outline: 0 !important;
+    text-decoration: none !important;
+  }
 }
 
 // Button Type

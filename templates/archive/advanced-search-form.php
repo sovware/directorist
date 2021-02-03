@@ -8,13 +8,13 @@
 <div class="directorist-advanced-filter">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
 
-		<div class="atbdp-search-form atbdp-basic-search-fields">
+		<div class="directorist-advanced-filter__basic">
 			<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
-				<div class="atbdp-basic-search-fields-each"><?php $searchform->field_template( $field ); ?></div>
+				<div class="directorist-advanced-filter__basic__each"><?php $searchform->field_template( $field ); ?></div>
 			<?php } ?>
 		</div>
 
-		<div class="atbdp-adv-search-fields">
+		<div class="directorist-advanced-filter__advanced">
 			<?php foreach ( $searchform->form_data[1]['fields'] as $field ){ ?>
 				<div class="form-group atbdp-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php } ?>

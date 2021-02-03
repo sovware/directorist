@@ -239,14 +239,14 @@
                 <div class="single-component directorist-pb-100">
                     <h4>Directorist Select</h4>
                     <div class="directorist-select" id="directorist-select">
-                        <select name="mySelect" >
+                        <select name="mySelect">
                             <option value="">Select Item</option>
-                            <option value="dhaka">Dhaka</option>   
-                            <option value="barisal">Barisal</option>   
-                            <option value="khulna">Khulna</option>   
-                            <option value="gazipur">Gazipur</option>   
-                            <option value="narsingdi">Narsingdi</option>   
-                        </select> 
+                            <option value="dhaka">Dhaka</option>
+                            <option value="barisal">Barisal</option>
+                            <option value="khulna">Khulna</option>
+                            <option value="gazipur">Gazipur</option>
+                            <option value="narsingdi">Narsingdi</option>
+                        </select>
                     </div>
                 </div>
                 <div class="single-component">

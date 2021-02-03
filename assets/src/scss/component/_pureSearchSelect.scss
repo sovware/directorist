@@ -1,7 +1,8 @@
-// Directorist Select Style 
-.directorist-select{
+// Directorist Select Style
+.directorist-select {
     background-color: $bg-light;
-    .directorist-select__label{
+
+    .directorist-select__label {
         font-size: 16px;
         display: inline-flex;
         align-items: center;
@@ -10,78 +11,96 @@
         border-radius: 4px;
         min-height: 42px;
         padding: 0 15px;
-        background-color: $bg-light;
+        background: none;
+        border: 1px solid $border-color-normal;
+
         i,
-        span{
+        span {
             font-size: 14px;
             pointer-events: none;
         }
     }
-    select{
+
+    select {
         padding: 0;
     }
 }
+
 .directorist-select__container {
     position: absolute;
     top: 0;
     left: 0px;
     width: 100%;
     min-width: 300px;
-    background: #fff;    
+    background: #fff;
+    cursor: pointer;
 }
-.directorist-select__container button, .directorist-select__dropdown, .directorist-select__dropdown input{
+
+.directorist-select__container button,
+.directorist-select__dropdown,
+.directorist-select__dropdown input {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
 .directorist-select__dropdown {
-	background: #fff;
-	box-shadow: 0 10px 40px rgba(#868EAE,.30);
-	padding: 15px;
-	box-sizing: border-box;
-	display: none;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(#868EAE, .30);
+    padding: 15px;
+    box-sizing: border-box;
+    display: none;
     margin-top: 1px;
     max-height: 400px;
     overflow-y: scroll;
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
         width: 6px;
         background-color: rgb(241, 241, 241);
     }
-    &::-webkit-scrollbar-thumb{
+
+    &::-webkit-scrollbar-thumb {
         background-color: #ddd;
     }
-    &::-moz-scrollbar{
+
+    &::-moz-scrollbar {
         width: 6px;
         background-color: rgb(241, 241, 241);
     }
-    &::-moz-scrollbar-thumb{
+
+    &::-moz-scrollbar-thumb {
         background-color: #ddd;
     }
-    .directorist-select__search{
+
+    .directorist-select__search {
         font-size: 14px;
-        box-shadow: 0 4px 15px rgba(#868EAE,.15);
+        box-shadow: 0 4px 15px rgba(#868EAE, .15);
         padding: 12px 15px;
         border: 1px solid $border-color-normal;
-        &:focus{
+
+        &:focus {
             outline: none;
             border-color: #ececec !important;
         }
     }
-    .directorist-select__dropdown--inner{
-        ul{
+
+    .directorist-select__dropdown--inner {
+        ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            li{
+
+            li {
                 font-size: 14px;
                 padding: 5px 10px;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: $info;
                 }
-                img{
-                    width: 20px;    
+
+                img {
+                    width: 20px;
                     float: right;
                 }
             }
@@ -89,13 +108,15 @@
     }
 }
 
-.directorist-select__dropdown.hasClass{
+.directorist-select__dropdown.hasClass {
     display: block;
 }
-.directorist-select__dropdown ul li b {   
+
+.directorist-select__dropdown ul li b {
     float: right;
 }
-.directorist-select__container button .item{
+
+.directorist-select__container button .item {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -107,25 +128,29 @@
     justify-content: center;
 }
 
-.directorist-select__container button .item img{
-    width: 100%;      
+.directorist-select__container button .item img {
+    width: 100%;
 }
-.directorist-select__search--show{
+
+.directorist-select__search--show {
     display: block;
 }
-.directorist-select__search--hide{
+
+.directorist-select__search--hide {
     display: none;
 }
 
-.items{
+.items {
     display: inline-block;
     background: #ddd;
     padding: 5px;
     margin: 0 3px;
 }
+
 .hideListItem {
     background-color: #fff;
 }
+
 .showListItem {
     background-color: rgb(199, 6, 6);
 }

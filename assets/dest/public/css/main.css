@@ -1816,7 +1816,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   border-radius: 4px;
   min-height: 42px;
   padding: 0 15px;
-  background-color: #F4F5F6;
+  background: none;
+  border: 1px solid #ececec;
 }
 .directorist-select .directorist-select__label i,
 .directorist-select .directorist-select__label span {
@@ -1834,9 +1835,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   width: 100%;
   min-width: 300px;
   background: #fff;
+  cursor: pointer;
 }
 
-.directorist-select__container button, .directorist-select__dropdown, .directorist-select__dropdown input {
+.directorist-select__container button,
+.directorist-select__dropdown,
+.directorist-select__dropdown input {
   width: 100%;
   margin: 0;
   padding: 0;

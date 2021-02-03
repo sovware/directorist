@@ -1956,6 +1956,92 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: #c70606;
 }
 
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  border: 1px solid #ddd;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2.5px 15px;
+  border-radius: 4px;
+  margin: -4px;
+  min-height: 35px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label input {
+  font-size: 14px;
+  border: 0 none;
+  width: auto;
+  padding: 5px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label input:focus {
+  outline: none;
+  border: 0 none;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -4px 6px -4px -4px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list .directorist-select__selected-list--item {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  padding: 5px 8px;
+  background-color: #3C3D58;
+  border-radius: 4px;
+  min-height: 17px;
+  margin: 4px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list .directorist-select__selected-list--item i {
+  color: #fff;
+}
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list,
+.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label .directorist-select__search {
+  margin: 0;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown {
+  display: none;
+  background: #fff;
+  -webkit-box-shadow: 0 10px 40px rgba(134, 142, 174, 0.3);
+          box-shadow: 0 10px 40px rgba(134, 142, 174, 0.3);
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-top: 2px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown.directorist-select__dropdown-open {
+  display: block;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul li {
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul li.showListItem {
+  background-color: #F4F5F7;
+  border-radius: 4px;
+}
+
 /* Directorist button styles */
 .directorist-btn {
   display: inline-block;

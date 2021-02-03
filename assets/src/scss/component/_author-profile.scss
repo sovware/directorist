@@ -108,6 +108,14 @@
 
 // Directorist Author Listings
 .directorist-author-listing-top{
+    margin-bottom: 30px;
+    .directorist-dropdown__toggle{
+        background-color: #fff;
+        padding: 0 15px;
+    }
+    .directorist-dropdown__links{
+        top: 50px;
+    }
     .directorist-author-listing-top__title{
         flex: 1;
         font-weight: 500;

@@ -8,13 +8,17 @@
         justify-content: space-between;
         width: 100%;
         border-radius: 4px;
-        min-height: 44px;
+        min-height: 42px;
         padding: 0 15px;
         background-color: $bg-light;
         i,
         span{
             font-size: 14px;
+            pointer-events: none;
         }
+    }
+    select{
+        padding: 0;
     }
 }
 .directorist-select__container {
@@ -87,17 +91,6 @@
 
 .directorist-select__dropdown.hasClass{
     display: block;
-}
-
-.directorist-select__dropdown ul{
-    
-}
-.directorist-select__dropdown ul li{
-       
-}
-
-.directorist-select__dropdown ul li img {
-    
 }
 .directorist-select__dropdown ul li b {   
     float: right;

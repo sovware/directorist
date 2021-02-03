@@ -40,17 +40,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</div>
 				</div>
 			</div>
-			<!-- <div class="atbd_author_meta">
-				<?php if ( $author->review_enabled() ): ?>
-					<div class="atbd_listing_meta">
-						<span class="atbd_meta atbd_listing_rating">
-							
-						</span>
-					</div>
-					<p class="meta-info"></p>			
-				<?php endif; ?>
-
-				<p class="meta-info"></p>
-			</div> -->
+		</div>
 	</div>
 </div>

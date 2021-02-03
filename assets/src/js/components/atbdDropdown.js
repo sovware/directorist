@@ -82,13 +82,13 @@ document.body.addEventListener('click', function (e) {
     });
 
     // Select Option after click
-    $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
-        e.preventDefault();
-        if($(this).parents().hasClass('.directorist-dropdown-update-js')){
-            console.log("yes");
-        }
-        $('.directorist-dropdown__links').hide();
-    });
+    // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
+    //     e.preventDefault();
+    //     if($(this).parents().hasClass('.directorist-dropdown-update-js')){
+    //         console.log("yes");
+    //     }
+    //     $('.directorist-dropdown__links').hide();
+    // });
 
     // Hide Clicked Anywhere
     $(document).bind('click', function(e) {

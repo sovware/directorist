@@ -11,6 +11,15 @@ body{
 a{
   text-decoration: none;
 }
+ul{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  li{
+    list-style: none;
+    margin: 0;
+  }
+}
 .directorist-wrapper{
   div{
     font-size: 15px;
@@ -20,14 +29,5 @@ a{
     border: 0;
     padding-bottom: 0;
   }
-  ul{
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    li{
-      list-style: none;
-      margin-left: 0;
-      margin-bottom: 0;
-    }
-  }
+  
 }

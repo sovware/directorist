@@ -27,6 +27,8 @@
                 }
                 .directorist-thumnail-card-front-img{
                     width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                     margin: 0;
                     border-radius: 3px 3px 0 0;
                 }
@@ -106,7 +108,6 @@
                 line-height: 1.45;
                 position: relative;
                 display: inline-block;
-                margin: 4px;
                 &:not(:last-child){
                     padding-right: 8px;
                     &:after{
@@ -120,7 +121,18 @@
                         content: '';
                         background-color: #E9E9E9;
                     }
+                    &.directorist-badge{
+                        margin-right: 8px;
+                        padding-right: 3px;
+                        &:after{
+                            right: -8px;
+                        }
+                    }
                 }
+            }
+            .directorist-info-item,
+            .directorist-listing-title{
+                margin: 4px;
             }
             .directorist-listing-title{
                 font-size: 18px;
@@ -128,7 +140,7 @@
                 padding: 0;
                 text-transform: none;
                 line-height: 1.2;
-                margin: 0 0 8px 0;
+                margin-bottom: 8px;
                 a{
                     text-decoration: none;
                     color: $dark;
@@ -136,13 +148,14 @@
             }
             .directorist-rating-meta{
                 padding: 0;
-                margin: -1.5px 0 -1.5px 0 !important;
                 i,
                 span.la,
                 span.fa{
                     font-size: 12px;
-                    margin: 1.5px;
                     color: $warning;
+                    &:not(:last-child){
+                        margin-right: 3px;
+                    }
                 }
                 .directorist-rating-avg{
                     font-size: 14px;
@@ -165,8 +178,13 @@
         .directorist-listing-single__info--list{
             margin-top: 16px;
             ul{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                
                 li{
                     color: $body-color;
+                    margin: 0;
                     &:not(:last-child){
                         margin: 0 0 10px;
                     }

@@ -14,6 +14,16 @@ a {
   text-decoration: none;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+ul li {
+  list-style: none;
+  margin: 0;
+}
+
 .directorist-wrapper div {
   font-size: 15px;
 }
@@ -21,16 +31,6 @@ a {
   margin-bottom: 0;
   border: 0;
   padding-bottom: 0;
-}
-.directorist-wrapper ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-.directorist-wrapper ul li {
-  list-style: none;
-  margin-left: 0;
-  margin-bottom: 0;
 }
 
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
@@ -3376,6 +3376,9 @@ p.atbd-min {
 }
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb .directorist-thumnail-card .directorist-thumnail-card-front-img {
   width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
   margin: 0;
   border-radius: 3px 3px 0 0;
 }
@@ -3455,7 +3458,6 @@ p.atbd-min {
   line-height: 1.45;
   position: relative;
   display: inline-block;
-  margin: 4px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item:not(:last-child) {
   padding-right: 8px;
@@ -3472,13 +3474,24 @@ p.atbd-min {
   content: "";
   background-color: #E9E9E9;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item:not(:last-child).directorist-badge {
+  margin-right: 8px;
+  padding-right: 3px;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item:not(:last-child).directorist-badge:after {
+  right: -8px;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item,
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-listing-title {
+  margin: 4px;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-listing-title {
   font-size: 18px;
   font-weight: 500;
   padding: 0;
   text-transform: none;
   line-height: 1.2;
-  margin: 0 0 8px 0;
+  margin-bottom: 8px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-listing-title a {
   text-decoration: none;
@@ -3486,14 +3499,17 @@ p.atbd-min {
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta {
   padding: 0;
-  margin: -1.5px 0 -1.5px 0 !important;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta i,
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta span.la,
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta span.fa {
   font-size: 12px;
-  margin: 1.5px;
   color: #EF8000;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta i:not(:last-child),
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta span.la:not(:last-child),
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta span.fa:not(:last-child) {
+  margin-right: 3px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-rating-meta .directorist-rating-avg {
   font-size: 14px;
@@ -3511,8 +3527,14 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list {
   margin-top: 16px;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li {
   color: #767792;
+  margin: 0;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li:not(:last-child) {
   margin: 0 0 10px;

@@ -238,7 +238,7 @@
                 </div>
                 <div class="single-component directorist-pb-100">
                     <h4>Directorist Select</h4>
-                    <div class="directorist-select" id="directorist-select">
+                    <div class="directorist-select" id="directorist-select" data-max="15">
                         <select name="mySelect">
                             <option value="">Select Item</option>
                             <option value="dhaka">Dhaka</option>

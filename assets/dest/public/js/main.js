@@ -194,16 +194,14 @@ document.body.addEventListener('click', function (e) {
     e.preventDefault();
     $(this).siblings('.directorist-dropdown__links').toggle();
   }); // Select Option after click
-
-  $('body').on('click', '.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function (e) {
-    e.preventDefault();
-
-    if ($(this).parents().hasClass('.directorist-dropdown-update-js')) {
-      console.log("yes");
-    }
-
-    $('.directorist-dropdown__links').hide();
-  }); // Hide Clicked Anywhere
+  // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
+  //     e.preventDefault();
+  //     if($(this).parents().hasClass('.directorist-dropdown-update-js')){
+  //         console.log("yes");
+  //     }
+  //     $('.directorist-dropdown__links').hide();
+  // });
+  // Hide Clicked Anywhere
 
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);
@@ -2040,8 +2038,8 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          button = sibling.querySelector('#button');
-      el1 = '';
+          button = sibling.querySelector('#button'); //el1 = '';
+
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -2116,6 +2114,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         });
       });
       eventDelegation('click', '.delete', function (e) {
+        e.preventDefault();
         var li = item.querySelectorAll('li');
         selectedItems = selectedItems.filter(function (item) {
           return item.key !== parseInt(e.target.getAttribute('data-key'));
@@ -2182,11 +2181,14 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
 
 pureScriptSearchNSelect('#directorist-select', {
   isSearch: true,
-  multiSelect: false,
+  multiSelect: true,
   defaultValue: [{
     value: "dhaka",
     key: 0
   }]
+  /* max: 15,
+  required: true */
+
 });
 pureScriptSearchNSelect('#directorist-search-category', {
   isSearch: false,

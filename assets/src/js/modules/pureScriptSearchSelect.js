@@ -158,7 +158,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             let arry = [],
             arryEl = [],
             button = sibling.querySelector('#button');
-            el1 = '';
+            //el1 = '';
             insertSearchItem();
             option.forEach((el, index) => {
                 arry.push(el.value);
@@ -236,6 +236,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             });
 
             eventDelegation('click', '.delete', function(e){
+                e.preventDefault();
                 var li = item.querySelectorAll('li');
                 selectedItems = selectedItems.filter(item => item.key !== parseInt(e.target.getAttribute('data-key')));
                 li.forEach((element, index) => {
@@ -300,8 +301,10 @@ const pureScriptSearchNSelect = (selector, options) => {
 
 pureScriptSearchNSelect('#directorist-select', {
     isSearch: true,
-    multiSelect: false,
-    defaultValue: [{value: "dhaka", key: 0}]
+    multiSelect: true,
+    defaultValue: [{value: "dhaka", key: 0}],
+    /* max: 15,
+    required: true */
 });
 pureScriptSearchNSelect('#directorist-search-category', {
     isSearch: false,

@@ -76,9 +76,10 @@ document.body.addEventListener('click', function (e) {
 
     // Restructred Dropdown
     // Directorist Dropdown 
-    $('body').on('click', '.directorist-dropdown .directorist-dropdown__toggle', function(e){
+    $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function(e){
         e.preventDefault();
-        $(this).siblings('.directorist-dropdown__links').toggle();
+        $('.directorist-dropdown__links').hide();
+        $(this).siblings('.directorist-dropdown__links-js').toggle();
     });
 
     // Select Option after click
@@ -93,8 +94,8 @@ document.body.addEventListener('click', function (e) {
     // Hide Clicked Anywhere
     $(document).bind('click', function(e) {
         let clickedDom = $(e.target);
-        if(!clickedDom.parents().hasClass('directorist-dropdown'))
-        $('.directorist-dropdown__links').hide();
+        if(!clickedDom.parents().hasClass('directorist-dropdown-js'))
+        $('.directorist-dropdown__links-js').hide();
     });
 
 })(jQuery);

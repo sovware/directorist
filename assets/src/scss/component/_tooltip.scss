@@ -4,13 +4,15 @@
 
     &.directorist-tooltip-bottom{
       &[aria-label]:before {
-        bottom: -10px;
+        bottom: -8px;
         top: auto;
         border-top-color:#fff;
         border-bottom-color:rgba(0, 0, 0, 1);
       }
       &[aria-label]:after{
-        transform: translate(-50%, 65px);
+        transform: translate(-50%);
+        top: 100%;
+        margin-top: 8px;
       }
     }
     &[aria-label]:before,
@@ -18,8 +20,7 @@
       position: absolute !important;
       bottom: 100%;
       display: none;
-      -webkit-animation: showTooltip 0.3s ease;
-      -o-animation: showTooltip 0.3s ease;
+      height: fit-content;
       animation: showTooltip 0.3s ease;
     }
   

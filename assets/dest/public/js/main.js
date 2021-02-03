@@ -190,9 +190,10 @@ document.body.addEventListener('click', function (e) {
   }); // Restructred Dropdown
   // Directorist Dropdown 
 
-  $('body').on('click', '.directorist-dropdown .directorist-dropdown__toggle', function (e) {
+  $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
     e.preventDefault();
-    $(this).siblings('.directorist-dropdown__links').toggle();
+    $('.directorist-dropdown__links').hide();
+    $(this).siblings('.directorist-dropdown__links-js').toggle();
   }); // Select Option after click
   // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
   //     e.preventDefault();
@@ -205,7 +206,7 @@ document.body.addEventListener('click', function (e) {
 
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);
-    if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown__links').hide();
+    if (!clickedDom.parents().hasClass('directorist-dropdown-js')) $('.directorist-dropdown__links-js').hide();
   });
 })(jQuery);
 
@@ -1090,19 +1091,19 @@ __webpack_require__.r(__webpack_exports__);
   $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
     $('#atbdp-contact-message').val('');
     $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured
+  }); // Template Restructured 
   // Modal
 
-  var directoristModal = document.querySelector('.directorist-modal');
-  $('body').on('click', '.directorist-btn-modal', function (e) {
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
     var data_target = $(this).attr("data-directoristTarget");
     console.log($(data_target), data_target);
     $(data_target).toggleClass('directorist-show');
   });
-  $('body').on('click', '.directorist-modal-close', function (e) {
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
     e.preventDefault();
-    $(this).closest('.directorist-modal').removeClass('directorist-show');
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
   });
   $(document).bind('click', function (e) {
     if (e.target == directoristModal) {
@@ -1897,7 +1898,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
       item.style.position = 'relative';
-      item.style.zIndex = '0';
+      item.style.zIndex = '2';
       var select = item.querySelectorAll('select'),
           sibling = item.querySelector('.directorist-select__container'),
           option = '';
@@ -2017,20 +2018,20 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
     function multiSelect() {
       var selectedItems = options.defaultValue === undefined ? [] : _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(options.defaultValue);
       var virtualSelect = document.createElement('div');
-      virtualSelect.classList.add('virtualSelect');
+      virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
       item.style.position = 'relative';
       item.style.zIndex = '0';
       var select = item.querySelectorAll('select'),
-          sibling = item.querySelector('.virtualSelect'),
+          sibling = item.querySelector('.directorist-select__container'),
           option = '';
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "<div id=\"searchItem\"></div><input id=\"button\" class='directorist-select__search ".concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' /><div class=\"directorist-select__dropdown\">\n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      var html = "<div id=\"directorist-select__label\"><div id=\"directorist-select__selected-list\" class=\"directorist-select__selected-list\"></div><span><span></div></div><div class=\"directorist-select__dropdown\">\n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>";
 
       function insertSearchItem() {
-        document.getElementById('searchItem').innerHTML = selectedItems.map(function (item) {
+        document.getElementById('directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
           return "<span class=\"items\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"delete\">x</a></span>");
         }).join("");
       }
@@ -2038,8 +2039,8 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          button = sibling.querySelector('#button');
-      el1 = '';
+          button = sibling.querySelector('#button'); // el1 = '';
+
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -2056,7 +2057,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       option[0].value = JSON.stringify(selectedItems); //console.log(attribute);
 
       document.body.addEventListener('click', function (event) {
-        if (event.target == button || event.target.closest('.virtualSelect')) {
+        if (event.target == button || event.target.closest('.directorist-select__container')) {
           return;
         } else {
           sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
@@ -2185,7 +2186,12 @@ pureScriptSearchNSelect('#directorist-select', {
     value: "dhaka",
     key: 0
   }]
-});
+}); // pureScriptSearchNSelect('#directorist-multi-select', {
+//     isSearch: true,
+//     multiSelect: true,
+//     defaultValue: [{value: "dhaka", key: 0}]
+// });
+
 pureScriptSearchNSelect('#directorist-search-category', {
   isSearch: false,
   multiSelect: false,

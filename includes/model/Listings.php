@@ -1845,7 +1845,9 @@ class Directorist_Listings {
 
 			if ($links) {
 				$navigation = _navigation_markup($links, 'pagination', ' ');
+				$navigation = '<div class="directorist-pagination">'.$navigation.'</div>';
 			}
+
 
 			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
 

@@ -106,7 +106,6 @@
                 line-height: 1.45;
                 position: relative;
                 display: inline-block;
-                margin: 4px;
                 &:not(:last-child){
                     padding-right: 8px;
                     &:after{
@@ -122,13 +121,17 @@
                     }
                 }
             }
+            .directorist-info-item,
+            .directorist-listing-title{
+                margin: 4px;
+            }
             .directorist-listing-title{
                 font-size: 18px;
                 font-weight: 500;
                 padding: 0;
                 text-transform: none;
                 line-height: 1.2;
-                margin: 0 0 8px 0;
+                margin-bottom: 8px;
                 a{
                     text-decoration: none;
                     color: $dark;
@@ -136,13 +139,14 @@
             }
             .directorist-rating-meta{
                 padding: 0;
-                margin: -1.5px 0 -1.5px 0 !important;
                 i,
                 span.la,
                 span.fa{
                     font-size: 12px;
-                    margin: 1.5px;
                     color: $warning;
+                    &:not(:last-child){
+                        margin-right: 3px;
+                    }
                 }
                 .directorist-rating-avg{
                     font-size: 14px;

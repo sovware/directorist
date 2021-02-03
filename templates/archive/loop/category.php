@@ -5,7 +5,7 @@
  * @version 6.7
  */
 ?>
-<div class="atbd_listing_category">
+<div class="directorist-listing-category">
 	<?php if ( ! empty( $listings->loop['cats'] ) ) {
 		$term_icon = get_term_meta( $listings->loop['cats'][0]->term_id, 'category_icon', true );
 		$term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la-folder-open' ] );

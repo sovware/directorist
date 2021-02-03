@@ -1,17 +1,28 @@
-#directorist.atbd_wrapper{
-  a{
-    text-decoration: none;
-    box-shadow: none;
-    border: none;
-    &:before,&:after{
-      position: initial;
-    }
+
+input[type="radio"],
+input[type="checkbox"]{
+  height: auto;
+}
+
+body{
+  font-size: 15px;
+  color: $body-color;
+}
+a{
+  text-decoration: none;
+}
+.directorist-wrapper{
+  div{
+    font-size: 15px;
   }
-  span{
-    word-wrap: break-word;
+  article{
+    margin-bottom: 0;
+    border: 0;
+    padding-bottom: 0;
   }
   ul{
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
     list-style-type: none;
     li{
       list-style: none;
@@ -19,30 +30,4 @@
       margin-bottom: 0;
     }
   }
-  article{
-    margin-bottom: 0;
-    border: 0;
-    padding-bottom: 0;
-  }
-  img{
-    box-shadow: 0 0 0;
-  }
-  .btn{
-    position: relative;
-    width: auto;
-    height: auto;
-  }
-  .dropdown-toggle:after{
-    font-size: inherit;
-  }
-  input[type="radio"],
-  input[type="checkbox"]{
-    &:checked:before{
-      margin-left: -15px;
-    }
-  }
-}
-input[type="radio"],
-input[type="checkbox"]{
-  height: auto;
 }

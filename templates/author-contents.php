@@ -10,9 +10,9 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="atbd_wrapper atbd_author_profile">
+<div id="directorist" class="directorist-wrapper directorist-author-profile-content">
 
-    <div class="<?php Helper::directorist_container(); ?>">
+    <div class="<?php Helper::directorist_container_fluid(); ?>">
         <?php
         $author->header_template();
         $author->about_template();

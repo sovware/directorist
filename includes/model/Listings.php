@@ -1843,9 +1843,10 @@ class Directorist_Listings {
 				'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
 			));
 
-			if ($links) {
-				$navigation = _navigation_markup($links, 'pagination', ' ');
+			if ( $links ) {
+				$navigation = '<div class="directorist-pagination">'.$links.'</div>';
 			}
+
 
 			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
 

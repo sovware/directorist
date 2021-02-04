@@ -24,10 +24,10 @@ import '../../scss/component/_modal.scss';
 
     });
     
-    // Template Restructured
+    // Template Restructured 
     // Modal
-    let directoristModal = document.querySelector('.directorist-modal');
-    $( 'body' ).on( 'click', '.directorist-btn-modal', function( e ) {
+    let directoristModal = document.querySelector('.directorist-modal-js');
+    $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {
         e.preventDefault();
 
         let data_target = $(this).attr("data-directoristTarget");
@@ -35,9 +35,9 @@ import '../../scss/component/_modal.scss';
         $( data_target ).toggleClass( 'directorist-show' );
     });
 
-    $('body').on('click', '.directorist-modal-close', function(e){
+    $('body').on('click', '.directorist-modal-close-js', function(e){
         e.preventDefault();
-        $(this).closest('.directorist-modal').removeClass('directorist-show');
+        $(this).closest('.directorist-modal-js').removeClass('directorist-show');
     });
 
     $(document).bind('click', function(e) {

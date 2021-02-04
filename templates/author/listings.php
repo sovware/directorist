@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
 			<?php if ( $author->cat_filter_enabled() ): ?>
 
-				<div class="directorist-dropdown directorist-author-listing-top__dropdown directorist-dropdown-update-js">
+				<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
-					<a class="directorist-dropdown__toggle directorist-toggle-hasIcon directorist-btn directorist-btn-outline-primary" href="#" id="dropdownMenuLink"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
+					<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-hasIcon directorist-btn directorist-btn-outline-primary" href="#" id="dropdownMenuLink"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
 
-					<div class="directorist-dropdown__links">
+					<div class="directorist-dropdown__links directorist-dropdown__links-js">
 						<?php
 						foreach ($author->get_listing_categories() as $category) {
 							$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';

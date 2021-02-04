@@ -1,8 +1,6 @@
 // Directorist Select Style
-.directorist-select {
-    background-color: $bg-light;
-
-    .directorist-select__label {
+.directorist-select{
+    .directorist-select__label{
         font-size: 16px;
         display: inline-flex;
         align-items: center;
@@ -34,6 +32,7 @@
     min-width: 300px;
     background: #fff;
     cursor: pointer;
+    z-index: 22;
 }
 
 .directorist-select__container button,

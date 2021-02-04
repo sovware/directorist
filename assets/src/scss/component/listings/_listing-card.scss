@@ -1,8 +1,76 @@
-// Listing Card Style
+// Single Listing Style 
 .directorist-listing-single{
+    background-color: #fff;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    .directorist-badge{
+        margin: 3px;
+        &.directorist-badge-popular{
+            background-color: #f51957;
+        }
+        &.directorist-badge-new{
+            background-color: #122069 ;
+        }
+    }
+    .directorist-listing-single__thumb{
+        position: relative;
+        margin-bottom: 0;
+        .directorist-thumnail-card{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            .directorist-thumnail-card-front-wrap{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+            .directorist-thumnail-card-front-img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                margin: 0;
+            }
+        }
+        .directorist-thumb-top-left{
+            left: 20px;
+            top: 20px;
+        }
+        .directorist-thumb-top-right{
+            top: 20px;
+            right: 20px;
+        }
+        .directorist-thumb-bottom-left{
+            left: 20px;
+            bottom: 30px;
+        }
+        .directorist-thumb-bottom-right{
+            right: 20px;
+            bottom: 30px;
+        }
 
+        .directorist-thumb-top-right,
+        .directorist-thumb-top-left,
+        .directorist-thumb-bottom-left,
+        .directorist-thumb-bottom-right{
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 0 -3px;
+        }
+    }
+}
+
+// Single Listing Card
+.directorist-listing-single{
     &.directorist-listing-card{
-        background-color: #fff;
         .directorist-listing-single__thumb{
             position: relative;
             a{
@@ -10,30 +78,11 @@
                 height: 100%;
             }
             .directorist-thumnail-card{
-                position: relative;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                z-index: 0;
-                .directorist-thumnail-card-front-wrap{
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    height: 100%;
-                    width: 100%;
-                    overflow: hidden;
-                }
                 .directorist-thumnail-card-front-img{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    margin: 0;
+                    
                     border-radius: 3px 3px 0 0;
                 }
             }
-            
             .directorist-thumb-listing-author{
                 position: absolute;
                 bottom: 0;
@@ -56,49 +105,41 @@
                     border-radius: 50%;
                 }
             }
-            .directorist-thumb-top-left{
-                left: 20px;
-                top: 20px;
-            }
-            .directorist-thumb-top-right{
-                top: 20px;
-                right: 20px;
-            }
-            .directorist-thumb-bottom-left{
-                left: 20px;
-                bottom: 30px;
-            }
-            .directorist-thumb-bottom-right{
-                right: 20px;
-                bottom: 30px;
-            }
-
-            .directorist-thumb-top-right,
-            .directorist-thumb-top-left,
-            .directorist-thumb-bottom-left,
-            .directorist-thumb-bottom-right{
-                position: absolute;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                margin: 0 -3px;
-            }
         }
     }
+}
 
-    .directorist-badge{
-        margin: 3px;
-        &.directorist-badge-popular{
-            background-color: #f51957;
+// Single Listing List
+.directorist-listing-single{
+    &.directorist-listing-list{
+        display: flex;
+        .directorist-listing-single__thumb{
+            flex: 1;
+            .directorist-thumnail-card{
+                .directorist-thumnail-card-front-img{
+                    border-radius: 3px 0 0 3px;
+                }
+            }
         }
-        &.directorist-badge-new{
-            background-color: #122069 ;
+        .directorist-listing-single__content{
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-content: space-between;
+            justify-content: space-between;
+            .directorist-listing-single__info{
+                padding: 18px 20px 15px;
+            }
         }
     }
 }
 
 // Single Listing Content
 .directorist-listing-single{
+    .directorist-listing-single__content{
+        border: 1px solid #EFF1F6;
+        border-radius: 4px;
+    }
     .directorist-listing-single__info{
         padding: 28px 20px 15px;
         position: relative;
@@ -129,6 +170,9 @@
                         }
                     }
                 }
+            }
+            .directorist-badge + .directorist-badge{
+                margin-left: 8px;
             }
             .directorist-info-item,
             .directorist-listing-title{
@@ -208,7 +252,7 @@
         }
     }
     .directorist-listing-single__meta{
-        border-top: 1px solid #e3e6ef;
+        border-top: 1px solid #EFF1F6;
         padding: 12px 20px;
         display: flex;
         flex-wrap: wrap;
@@ -243,6 +287,20 @@
                 span.la,
                 span.fa{
                     margin-right: 5px;
+                }
+            }
+            .directorist-thumb-listing-author{
+                margin: 0 5px;
+                a{
+                    width: 28px;
+                    height: 28px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
                 }
             }
         }

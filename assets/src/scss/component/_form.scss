@@ -8,17 +8,20 @@
 }
 
 // Form Element
-.directorist-form-element {
-    height: 42px;
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: 5px;
-    width: 100%;
-    border: 1px solid $border-color-normal;
-
-    &:focus {
-        outline: none;
-        box-shadow: 0 0;
+.directorist-form-group {
+    .directorist-form-element {
+        height: 42px;
+        padding: 15px 20px;
+        font-size: 14px;
+        font-weight: 400;
+        border-radius: 5px;
+        width: 100%;
+        border: 1px solid $border-color-normal;
+    
+        &:focus {
+            outline: none;
+            box-shadow: 0 0;
+        }
     }
 }
 

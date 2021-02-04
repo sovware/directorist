@@ -15,7 +15,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '0';
+            item.style.zIndex = '2';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;
@@ -136,29 +136,33 @@ const pureScriptSearchNSelect = (selector, options) => {
         function multiSelect(){
             let selectedItems = options.defaultValue === undefined ? [] : [...options.defaultValue];
             let virtualSelect = document.createElement('div');
-            virtualSelect.classList.add('virtualSelect');
+            virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
             item.style.zIndex = '0';
             let select = item.querySelectorAll('select'),
-            sibling = item.querySelector('.virtualSelect'),
+            sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;
             select.forEach((sel) =>{
                 option = sel.querySelectorAll('option');
             });
-            let html = `<div id="searchItem"></div><input id="button" class='directorist-select__search ${ options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide' }' type='text' class='value' placeholder='Filter Options....' /><div class="directorist-select__dropdown">
+            let html = `<div id="directorist-select__label"><div id="directorist-select__selected-list" class="directorist-select__selected-list"></div><span><span></div></div><div class="directorist-select__dropdown">
             <div class="directorist-select__dropdown--inner"></div>
             </div>`;
 
             function insertSearchItem () {
-                document.getElementById('searchItem').innerHTML = selectedItems.map(item => `<span class="items">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="delete">x</a></span>`).join("")
+                document.getElementById('directorist-select__selected-list').innerHTML = selectedItems.map(item => `<span class="items">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="delete">x</a></span>`).join("")
             }
 
             sibling.innerHTML = html;
             let arry = [],
             arryEl = [],
             button = sibling.querySelector('#button');
+<<<<<<< HEAD
             //el1 = '';
+=======
+            // el1 = '';
+>>>>>>> e8f608b88d401e813d24a68d750b83c2aa46ef05
             insertSearchItem();
             option.forEach((el, index) => {
                 arry.push(el.value);
@@ -173,7 +177,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             //console.log(attribute);
 
             document.body.addEventListener('click', (event) => {
-                if(event.target == button || event.target.closest('.virtualSelect')){
+                if(event.target == button || event.target.closest('.directorist-select__container')){
                     return;
                 } else {
                     sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
@@ -306,6 +310,12 @@ pureScriptSearchNSelect('#directorist-select', {
     /* max: 15,
     required: true */
 });
+
+// pureScriptSearchNSelect('#directorist-multi-select', {
+//     isSearch: true,
+//     multiSelect: true,
+//     defaultValue: [{value: "dhaka", key: 0}]
+// });
 pureScriptSearchNSelect('#directorist-search-category', {
     isSearch: false,
     multiSelect: false,

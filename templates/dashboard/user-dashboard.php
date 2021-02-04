@@ -183,9 +183,9 @@
                 </div>
                 <div class="single-component">
                     <h4>Directorist Dropdown</h4>
-                    <div class="directorist-dropdown">
-                        <a href="" class="directorist-dropdown__toggle directorist-toggle-hasIcon">Directorist Dropdown</a>
-                        <div class="directorist-dropdown__links">
+                    <div class="directorist-dropdown directorist-dropdown-js">
+                        <a href="" class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-hasIcon">Directorist Dropdown</a>
+                        <div class="directorist-dropdown__links directorist-dropdown__links-js">
                             <a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
                             <a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
                             <a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
@@ -194,21 +194,21 @@
                 </div>
                 <div class="single-component">
                     <h4>Directorist Modal</h4>
-                    <a href="#" class="directorist-btn directorist-btn-success directorist-btn-modal" data-directoristTarget=".directorist-modal" >Directorist Modal</a>
-                    <div class="directorist-modal directorist-fade">
+                    <a href="#" class="directorist-btn directorist-btn-success directorist-btn-modal directorist-btn-modal-js" data-directoristTarget=".directorist-modal-js" >Directorist Modal</a>
+                    <div class="directorist-modal directorist-modal-js directorist-fade">
                         <div class="directorist-modal__dialog">
                             <div class="directorist-modal__content">
                                 <div class="directorist-modal__header">
                                     <h4 class="directorist-modal__header--title">Modal Title Goes to Here</h4>
-                                    <a href="#" class="directorist-modal-close"><i class="la la-times"></i></a>
+                                    <a href="#" class="directorist-modal-close directorist-modal-close-js"><i class="la la-times"></i></a>
                                 </div>
                                 <div class="directorist-modal__body">
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia, distinctio?</p>
                                 </div>
                                 <div class="directorist-modal__footer">
                                     <div class="directorist-modal__action">
-                                        <button class="directorist-btn directorist-btn-danger directorist-modal-close">Cancel</button>
-                                        <button class="directorist-btn directorist-btn-info directorist-modal-close">Ok</button>
+                                        <button class="directorist-btn directorist-btn-danger directorist-modal-close directorist-modal-close-js">Cancel</button>
+                                        <button class="directorist-btn directorist-btn-info directorist-modal-close directorist-modal-close-js">Ok</button>
                                     </div>
                                 </div>
                             </div>
@@ -239,6 +239,19 @@
                 <div class="single-component directorist-pb-100">
                     <h4>Directorist Select</h4>
                     <div class="directorist-select" id="directorist-select" data-max="15">
+                        <select name="mySelect">
+                            <option value="">Select Item</option>
+                            <option value="dhaka">Dhaka</option>
+                            <option value="barisal">Barisal</option>
+                            <option value="khulna">Khulna</option>
+                            <option value="gazipur">Gazipur</option>
+                            <option value="narsingdi">Narsingdi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="single-component directorist-pb-100">
+                    <h4>Directorist Select</h4>
+                    <div class="directorist-select" id="directorist-multi-select">
                         <select name="mySelect">
                             <option value="">Select Item</option>
                             <option value="dhaka">Dhaka</option>

@@ -22,7 +22,7 @@
                     background-color: $dark;
                 }
                 &:after{
-                    transform: translateX(2rem);
+                    transform: translateX(20px);
                 }
             }
         }
@@ -129,6 +129,7 @@
 
 // Directorist Yes No Switch
 .directorist-switch-Yn {
+    font-size: 15px;
     padding: 3px;
     position: relative;
     display: inline-block;

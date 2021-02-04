@@ -504,7 +504,7 @@ class Directorist_Listing_Search_Form {
 			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
 		);
 
-		return Helper::get_template_contents( 'search/search', $args );
+		return Helper::get_template_contents( 'search-form-contents', $args );
 	}
 
 	public function top_categories() {

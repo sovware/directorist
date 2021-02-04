@@ -2,10 +2,12 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
-$li
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
+
 <div class="directorist-listing-types">
 	<div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', 'container-fluid'); ?>">
 		<ul class="list-inline">

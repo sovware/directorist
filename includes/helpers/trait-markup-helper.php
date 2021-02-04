@@ -28,4 +28,9 @@ trait Markup_Helper {
 		$result = apply_filters( 'directorist-container', 'directorist-col-'. $column , $column );
 		echo esc_attr( $result );
 	}
+
+	public static function search_filter_class( $display_type ) {
+		$result = ( 'overlapping' === $display_type ) ? 'directorist-search-float' : 'directorist-search-slide';
+		echo esc_attr( $result );
+	}
 }

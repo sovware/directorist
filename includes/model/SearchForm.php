@@ -482,7 +482,6 @@ class Directorist_Listing_Search_Form {
 		}
 
 		$data = [
-			// 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
 		];
 
@@ -491,20 +490,23 @@ class Directorist_Listing_Search_Form {
 
 		ATBDP()->enquirer->search_listing_scripts_styles();
 
+		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
+	}
+
+	public function listing_type_slug() {
+		$term_data = get_term( $this->listing_type, ATBDP_TYPE );
+		return $term_data->slug;
+	}
+
+	public function background_img_style() {
 		$bgimg = get_directorist_option('search_home_bg');
+		$style = !empty( $bgimg['url'] ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg['url'] ) ) : '';
+		return $style;
+	}
 
-		$container_class = is_directoria_active() ? 'container' : 'container-fluid';
-		$container_class = apply_filters('atbdp_search_home_container_fluid', $container_class);
-		$search_border = get_directorist_option('search_border', 1);
-
-		$args = array(
-			'searchform'          => $this,
-			'bgimg'               => $bgimg,
-			'container_class'     => $container_class,
-			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
-		);
-
-		return Helper::get_template_contents( 'search-form-contents', $args );
+	public function border_class() {
+		$search_border = get_directorist_option( 'search_border', 1 );
+		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';
 	}
 
 	public function top_categories() {

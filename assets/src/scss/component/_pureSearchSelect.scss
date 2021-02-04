@@ -14,7 +14,6 @@
         i,
         span{
             font-size: 14px;
-            pointer-events: none;
         }
     }
     select{
@@ -135,15 +134,14 @@
 .directorist-select{
     &.directorist-select-multi{
         .directorist-select__container{
-            #directorist-select__label{
+            .directorist-select__label{
                 display: flex;
                 flex-wrap: wrap;
                 border: 1px solid #ddd;
                 align-items: center;
-                padding: 2.5px 15px;
+                padding: 2.5px 10px;
                 border-radius: 4px;
                 margin: -4px;
-                min-height: 35px;
                 input{
                     font-size: 14px;
                     border: 0 none;
@@ -154,7 +152,7 @@
                         border: 0 none;
                     }
                 }
-                #directorist-select__selected-list{
+                .directorist-select__selected-list{
                     display: flex;
                     flex-wrap: wrap;
                     margin: -4px 6px -4px -4px;
@@ -168,12 +166,20 @@
                         border-radius: 4px;
                         min-height: 17px;
                         margin: 4px;
-                        i{
-                            color: #fff;
+                        .directorist-item-remove{
+                            text-decoration: none;
+                            i{
+                                pointer-events: none;
+                                color: #fff;
+                            }
                         }
+                        
                     }
                 }
-                #directorist-select__selected-list,
+                .directorist-select__search{
+                    flex: auto;
+                }
+                .directorist-select__selected-list,
                 .directorist-select__search{
                     margin: 0;
                 }

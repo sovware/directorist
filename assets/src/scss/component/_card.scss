@@ -31,6 +31,9 @@
         border-radius: 0 0 4px 4px;
         p{
             font-size: 15px;
+            &:last-child{
+                margin-bottom: 0;
+            }
         }
     }
 }

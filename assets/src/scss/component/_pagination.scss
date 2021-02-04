@@ -1,0 +1,31 @@
+// Directorist Pagination
+
+.directorist-pagination{
+    display: flex;
+    justify-content: center;
+    margin: 11px -4px -4px -4px;
+    .page-numbers{
+        display: inline-flex;
+        font-weight: 500;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        height: 34px;
+        padding: 0 11.5px;
+        background-color: #fff;
+        color: #81879E;
+        border: 1px solid #E1E4EC;
+        border-radius: 4px;
+        margin: 4px;
+        i,
+        span.la,
+        span.fa{
+            font-size: 14px;
+        }
+        &.current{
+            border-width: 2px;
+            border-color: $dark;
+            color: $dark;
+        }
+    }
+}

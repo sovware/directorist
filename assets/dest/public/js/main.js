@@ -1749,6 +1749,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
 /* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
+/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
 /* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
@@ -1870,14 +1871,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
   \*********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options) {
   var selectors = document.querySelectorAll(selector);
@@ -1893,6 +1888,9 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
   }
 
   selectors.forEach(function (item, index) {
+    var multiSelect = item.getAttribute('data-multiSelect');
+    var isSearch = item.getAttribute('data-isSearch');
+
     function singleSelect() {
       var virtualSelect = document.createElement('div');
       virtualSelect.classList.add('directorist-select__container');
@@ -2015,9 +2013,8 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       });
     }
 
-    function multiSelect() {
-      item.classList.add("directorist-select-multi");
-      var selectedItems = options.defaultValue === undefined ? [] : _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(options.defaultValue);
+    function multiSelects() {
+      var selectedItems = eval(multiSelect);
       var virtualSelect = document.createElement('div');
       virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
@@ -2029,10 +2026,10 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "<div id=\"directorist-select__label\"><div id=\"directorist-select__selected-list\"></div><input class='directorist-select__search ".concat(options.isSearch ? 'inputShow' : 'inputHide', "' type='text' class='value' placeholder='Filter Options....' /></div><div class=\"directorist-select__dropdown\">            \n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      var html = "<div class=\"directorist-select__label\"><div class=\"directorist-select__selected-list\"></div><input class='directorist-select__search ".concat(isSearch ? 'inputShow' : 'inputHide', "' type='text' class='value' placeholder='Filter Options....' /></div><div class=\"directorist-select__dropdown\">            \n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
 
       function insertSearchItem() {
-        document.getElementById('directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
+        item.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
           return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"la la-times\"></i></a></span>");
         }).join("");
       }
@@ -2040,8 +2037,8 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          button = sibling.querySelector('#directorist-select__label'); // el1 = '';
-
+          button = sibling.querySelector('.directorist-select__label');
+      el1 = '';
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -2055,8 +2052,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         ;
       });
       option[0].setAttribute('selected', 'selected');
-      option[0].value = JSON.stringify(selectedItems); //console.log(attribute);
-
+      option[0].value = JSON.stringify(selectedItems);
       document.body.addEventListener('click', function (event) {
         if (event.target == button || event.target.closest('.directorist-select__container')) {
           return;
@@ -2064,9 +2060,9 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
         }
       });
-      var value = item.querySelector('input');
       button.addEventListener('click', function (e) {
         e.preventDefault();
+        var value = item.querySelector('input');
         value.focus();
         sibling.querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
         var elem = [];
@@ -2081,20 +2077,20 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         var popUp = item.querySelector('.directorist-select__dropdown--inner');
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
-          var attrbute = '';
-          var attrbute2 = '';
+          var attribute = '';
+          var attribute2 = '';
 
           if (el.hasAttribute('img')) {
-            attrbute = el.getAttribute('img');
+            attribute = el.getAttribute('img');
           }
 
           if (el.hasAttribute('icon')) {
-            attrbute2 = el.getAttribute('icon');
+            attribute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li class=\"hideListItem\">".concat(el.text, "<i class=\"item\"><img src=\"").concat(attrbute, "\" style=\"").concat(attrbute == null && {
+          item2 += "<li data-key=\"".concat(key, "\" class=\"hideListItem\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
             display: 'none'
-          }, " \" /><b class=\"").concat(attrbute2, "\"></b></b></i></li>");
+          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
         });
         item2 += '</ul>';
         popUp.innerHTML = item2;
@@ -2103,26 +2099,79 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           li[item.key].classList.remove('hideListItem');
           return li[item.key].classList.add('showListItem');
         });
-        li.forEach(function (el, index) {
-          el.addEventListener('click', function (event) {
-            selectedItems.filter(function (item) {
-              return item.key === index;
-            }).length === 0 && selectedItems.push({
-              value: elem[index].value,
-              key: index
-            });
-            option[0].setAttribute('selected', 'selected');
-            option[0].value = JSON.stringify(selectedItems);
-            event.target.classList.remove('hideListItem');
-            event.target.classList.add('showListItem');
-            insertSearchItem();
+        value && value.addEventListener('keyup', function (event) {
+          var itemValue = event.target.value.toLowerCase();
+          var filter = arry.filter(function (el, index) {
+            return el.startsWith(itemValue);
           });
+          var elem = [];
+          arryEl.forEach(function (el, index) {
+            filter.forEach(function (e) {
+              if (el.text.toLowerCase() == e) {
+                elem.push({
+                  el: el,
+                  index: index
+                });
+                el.style.display = 'block';
+              }
+            });
+          });
+          var item2 = '<ul>';
+          elem.forEach(function (_ref, key) {
+            var el = _ref.el,
+                index = _ref.index;
+            var attribute = '';
+            var attribute2 = '';
+
+            if (el.hasAttribute('img')) {
+              attribute = el.getAttribute('img');
+            }
+
+            if (el.hasAttribute('icon')) {
+              attribute2 = el.getAttribute('icon');
+            }
+
+            item2 += "<li data-key=\"".concat(index - 1, "\" class=\"hideListItem\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
+              display: 'none'
+            }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
+          });
+          item2 += '</ul>';
+          var popUp = item.querySelector('.directorist-select__dropdown--inner');
+          popUp.innerHTML = item2;
+          var li = item.querySelectorAll('li');
+          li.forEach(function (element, index) {
+            selectedItems.map(function (item) {
+              if (item.key == element.getAttribute('data-key')) {
+                element.classList.remove('hideListItem');
+                element.classList.add('showListItem');
+              }
+            }); // console.log(boleVal.indexOf(true));
+
+            element.addEventListener('click', function (event) {
+              elem[index].el.setAttribute('selected', 'selected');
+              sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open'); // item.querySelector('button').innerHTML = el.innerHTML +'<span class="angel">&raquo;</span>';                    
+            });
+          });
+        });
+        eventDelegation('click', 'li', function (e) {
+          var index = e.target.getAttribute('data-key');
+          selectedItems.filter(function (item) {
+            return item.key === index;
+          }).length === 0 && selectedItems.push({
+            value: elem[index].value,
+            key: index
+          });
+          option[0].setAttribute('selected', 'selected');
+          option[0].value = JSON.stringify(selectedItems);
+          e.target.classList.remove('hideListItem');
+          e.target.classList.add('showListItem');
+          insertSearchItem();
         });
       });
       eventDelegation('click', '.directorist-item-remove', function (e) {
         var li = item.querySelectorAll('li');
         selectedItems = selectedItems.filter(function (item) {
-          return item.key !== parseInt(e.target.getAttribute('data-key'));
+          return item.key != parseInt(e.target.getAttribute('data-key'));
         });
         li.forEach(function (element, index) {
           if (parseInt(e.target.getAttribute('data-key')) === index) {
@@ -2133,55 +2182,10 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         insertSearchItem();
         option[0].setAttribute('selected', 'selected');
         option[0].value = JSON.stringify(selectedItems);
-      }); // elem[0].setAttribute('selected', 'selected');
-      // elem[0].value = JSON.stringify(selectedItems);                    
-
-      value && value.addEventListener('keyup', function (event) {
-        var itemValue = event.target.value.toLowerCase();
-        var filter = arry.filter(function (el, index) {
-          return el.startsWith(itemValue);
-        });
-        var elem = [];
-        arryEl.forEach(function (el, index) {
-          filter.forEach(function (e) {
-            if (el.text.toLowerCase() == e) {
-              elem.push(el);
-              el.style.display = 'block';
-            }
-          });
-        });
-        var item2 = '<ul>';
-        elem.forEach(function (el, key) {
-          var attrbute = '';
-          var attrbute2 = '';
-
-          if (el.hasAttribute('img')) {
-            attrbute = el.getAttribute('img');
-          }
-
-          if (el.hasAttribute('icon')) {
-            attrbute2 = el.getAttribute('icon');
-          }
-
-          item2 += "<li>".concat(el.text, "<i class=\"item\"><img src=\"").concat(attrbute, "\" style=\"").concat(attrbute == null && {
-            display: 'none'
-          }, " \" /><b class=\"").concat(attrbute2, "\"></b></b></i></li>");
-        });
-        item2 += '</ul>';
-        var popUp = item.querySelector('.directorist-select__dropdown--inner');
-        popUp.innerHTML = item2;
-        var li = item.querySelectorAll('li');
-        li.forEach(function (el, index) {
-          el.addEventListener('click', function (event) {
-            elem[index].setAttribute('selected', 'selected');
-            sibling.querySelector('.popUp').classList.remove('directorist-select__dropdown.open');
-            item.querySelector('button').innerHTML = el.innerHTML + '<span class="angel">&raquo;</span>';
-          });
-        });
       });
     }
 
-    options.multiSelect ? multiSelect() : singleSelect();
+    multiSelect ? multiSelects() : singleSelect();
   });
 };
 
@@ -2193,14 +2197,7 @@ pureScriptSearchNSelect('#directorist-select', {
     key: 0
   }]
 });
-pureScriptSearchNSelect('#directorist-multi-select', {
-  isSearch: true,
-  multiSelect: true,
-  defaultValue: [{
-    value: "dhaka",
-    key: 0
-  }]
-});
+pureScriptSearchNSelect('#directorist-multi-select');
 pureScriptSearchNSelect('#directorist-search-category', {
   isSearch: false,
   multiSelect: false,
@@ -2261,97 +2258,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-module.exports = _arrayLikeToArray;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-
-module.exports = _arrayWithoutHoles;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-module.exports = _iterableToArray;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableSpread;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-
-var iterableToArray = __webpack_require__(/*! ./iterableToArray */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-}
-
-module.exports = _toConsumableArray;
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
@@ -2376,28 +2282,6 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 

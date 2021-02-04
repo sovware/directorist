@@ -15,7 +15,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '2';
+            item.style.zIndex = '0';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;
@@ -134,6 +134,7 @@ const pureScriptSearchNSelect = (selector, options) => {
         }
 
         function multiSelect(){
+            item.classList.add("directorist-select-multi");
             let selectedItems = options.defaultValue === undefined ? [] : [...options.defaultValue];
             let virtualSelect = document.createElement('div');
             virtualSelect.classList.add('directorist-select__container');
@@ -146,30 +147,25 @@ const pureScriptSearchNSelect = (selector, options) => {
             select.forEach((sel) =>{
                 option = sel.querySelectorAll('option');
             });
-            let html = `<div id="directorist-select__label"><div id="directorist-select__selected-list" class="directorist-select__selected-list"></div><span><span></div></div><div class="directorist-select__dropdown">
+            let html = `<div id="directorist-select__label"><div id="directorist-select__selected-list"></div><input class='directorist-select__search ${ options.isSearch ? 'inputShow' : 'inputHide' }' type='text' class='value' placeholder='Filter Options....' /></div><div class="directorist-select__dropdown">
             <div class="directorist-select__dropdown--inner"></div>
             </div>`;
 
             function insertSearchItem () {
-                document.getElementById('directorist-select__selected-list').innerHTML = selectedItems.map(item => `<span class="items">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="delete">x</a></span>`).join("")
+                document.getElementById('directorist-select__selected-list').innerHTML = selectedItems.map(item => `<span class="directorist-select__selected-list--item">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="directorist-item-remove"><i class="la la-times"></i></a></span>`).join("")
             }
 
             sibling.innerHTML = html;
             let arry = [],
             arryEl = [],
-            button = sibling.querySelector('#button');
-<<<<<<< HEAD
-            //el1 = '';
-=======
-            // el1 = '';
->>>>>>> e8f608b88d401e813d24a68d750b83c2aa46ef05
+            button = sibling.querySelector('#directorist-select__label');
             insertSearchItem();
             option.forEach((el, index) => {
                 arry.push(el.value);
                 arryEl.push(el);
                 el.style.display = 'none';
                 if(el.hasAttribute('selected')){
-                    button.innerHTML = el.value +'<span class="la la-angle-down"></span>';
+                    button.innerHTML = el.value +'<span class="angel">&raquo;</span>';
                 };
             });
             option[0].setAttribute('selected', 'selected');
@@ -180,14 +176,15 @@ const pureScriptSearchNSelect = (selector, options) => {
                 if(event.target == button || event.target.closest('.directorist-select__container')){
                     return;
                 } else {
-                    sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+                    sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
                 }
             });
 
+            var value = item.querySelector('input');
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-
-                sibling.querySelector('.directorist-select__dropdown').classList.toggle('hasClass');
+                value.focus();
+                sibling.querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
 
                 var elem = [];
                 arryEl.forEach((el, index) => {
@@ -212,7 +209,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                         attrbute2 = el.getAttribute('icon');
                     }
 
-                    item2 += `<li class="hideListItem">${el.text}<i class="la la-angle-down"></i></li>`;
+                    item2 += `<li class="hideListItem">${el.text}<i class="item"><img src="${attrbute}" style="${attrbute == null && {display: 'none'} } " /><b class="${attrbute2}"></b></b></i></li>`;
                 });
                 item2 += '</ul>';
 
@@ -239,8 +236,7 @@ const pureScriptSearchNSelect = (selector, options) => {
 
             });
 
-            eventDelegation('click', '.delete', function(e){
-                e.preventDefault();
+            eventDelegation('click', '.directorist-item-remove', function(e){
                 var li = item.querySelectorAll('li');
                 selectedItems = selectedItems.filter(item => item.key !== parseInt(e.target.getAttribute('data-key')));
                 li.forEach((element, index) => {
@@ -257,7 +253,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             // elem[0].setAttribute('selected', 'selected');
             // elem[0].value = JSON.stringify(selectedItems);
 
-            var value = item.querySelector('input');
+
             value && value.addEventListener('keyup', (event) => {
                 var itemValue = event.target.value.toLowerCase();
                 var filter = arry.filter((el, index) => {
@@ -283,7 +279,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                     if(el.hasAttribute('icon')) {
                         attrbute2 = el.getAttribute('icon');
                     }
-                    item2 += `<li>${el.text}<i class="la la-angle-down"></i></li>`;
+                    item2 += `<li>${el.text}<i class="item"><img src="${attrbute}" style="${attrbute == null && {display: 'none'} } " /><b class="${attrbute2}"></b></b></i></li>`;
                 });
                 item2 += '</ul>';
                 var popUp = item.querySelector('.directorist-select__dropdown--inner');
@@ -292,8 +288,8 @@ const pureScriptSearchNSelect = (selector, options) => {
                 li.forEach((el, index) => {
                     el.addEventListener('click', (event) => {
                         elem[index].setAttribute('selected', 'selected');
-                        sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
-                        item.querySelector('button').innerHTML = el.innerHTML +'<span class="la la-angle-down"></span>';
+                        sibling.querySelector('.popUp').classList.remove('directorist-select__dropdown.open');
+                        item.querySelector('button').innerHTML = el.innerHTML +'<span class="angel">&raquo;</span>';
                     });
                 });
             });
@@ -311,11 +307,12 @@ pureScriptSearchNSelect('#directorist-select', {
     required: true */
 });
 
-// pureScriptSearchNSelect('#directorist-multi-select', {
-//     isSearch: true,
-//     multiSelect: true,
-//     defaultValue: [{value: "dhaka", key: 0}]
-// });
+pureScriptSearchNSelect('#directorist-multi-select', {
+    isSearch: true,
+    multiSelect: true,
+    defaultValue: [{value: "dhaka", key: 0}]
+});
+
 pureScriptSearchNSelect('#directorist-search-category', {
     isSearch: false,
     multiSelect: false,

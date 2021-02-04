@@ -153,3 +153,81 @@
 .showListItem {
     background-color: rgb(199, 6, 6);
 }
+
+// Directorist Multi Select
+.directorist-select{
+    &.directorist-select-multi{
+        .directorist-select__container{
+            #directorist-select__label{
+                display: flex;
+                flex-wrap: wrap;
+                border: 1px solid #ddd;
+                align-items: center;
+                padding: 2.5px 15px;
+                border-radius: 4px;
+                margin: -4px;
+                min-height: 35px;
+                input{
+                    font-size: 14px;
+                    border: 0 none;
+                    width: auto;
+                    padding: 5px;
+                    &:focus{
+                        outline: none;
+                        border: 0 none;
+                    }
+                }
+                #directorist-select__selected-list{
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin: -4px 6px -4px -4px;
+                    .directorist-select__selected-list--item{
+                        display: inline-block;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: #fff;
+                        padding: 5px 8px;
+                        background-color: #3C3D58;
+                        border-radius: 4px;
+                        min-height: 17px;
+                        margin: 4px;
+                        i{
+                            color: #fff;
+                        }
+                    }
+                }
+                #directorist-select__selected-list,
+                .directorist-select__search{
+                    margin: 0;
+                }
+            }
+            .directorist-select__dropdown{
+                display: none;
+                background: #fff;
+                box-shadow: 0 10px 40px rgb(134 142 174 / 30%);
+                padding: 15px;
+                box-sizing: border-box;
+                margin-top: 2px;
+                max-height: 400px;
+                overflow-y: auto;
+                &.directorist-select__dropdown-open{
+                    display: block;
+                }
+                ul{
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+                    li{
+                        font-size: 14px;
+                        padding: 5px 10px;
+                        cursor: pointer;
+                        &.showListItem{
+                            background-color: #F4F5F7;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

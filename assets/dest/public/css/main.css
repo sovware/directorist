@@ -3457,6 +3457,51 @@ p.atbd-min {
   visibility: hidden;
 }
 
+.directorist-pagination {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 11px -4px -4px -4px;
+}
+.directorist-pagination .page-numbers {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 500;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-decoration: none;
+  height: 34px;
+  padding: 0 11.5px;
+  background-color: #fff;
+  color: #81879E;
+  border: 1px solid #E1E4EC;
+  border-radius: 4px;
+  margin: 4px;
+}
+.directorist-pagination .page-numbers i,
+.directorist-pagination .page-numbers span.la,
+.directorist-pagination .page-numbers span.fa {
+  font-size: 14px;
+}
+.directorist-pagination .page-numbers.current {
+  border-width: 2px;
+  border-color: #202428;
+  color: #202428;
+}
+
 .directorist-listing-single {
   background-color: #fff;
   margin-bottom: 15px;

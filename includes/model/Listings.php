@@ -1674,10 +1674,6 @@ class Directorist_Listings {
 			echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
 		}
 
-		public function filter_container_class() {
-			echo ( 'overlapping' === $this->filters_display ) ? 'directorist-search-float' : 'directorist-search-slide';
-		}
-
 		public function has_listings_header() {
 			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields ) );
 

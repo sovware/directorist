@@ -34,7 +34,6 @@ a {
 .directorist-content-active a:focus,
 .directorist-content-active button:focus {
   outline: none;
-  background-color: transparent;
 }
 
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
@@ -1799,6 +1798,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-image: url(../images/c15352715ade2acabf379fadbe0499b0.svg);
 }
 
+/*  Plugin: PureScriptSearchSelect
+    Author: SovWare
+    URI: https://github.com/woadudakand/pureScriptSelect
+*/
 .directorist-select .directorist-select__label {
   font-size: 16px;
   display: -webkit-inline-box;
@@ -1823,7 +1826,6 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-select .directorist-select__label i,
 .directorist-select .directorist-select__label span {
   font-size: 14px;
-  pointer-events: none;
 }
 .directorist-select select {
   padding: 0;
@@ -1959,7 +1961,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: #c70606;
 }
 
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1972,22 +1974,21 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 2.5px 15px;
+  padding: 2.5px 10px;
   border-radius: 4px;
   margin: -4px;
-  min-height: 35px;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label input {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label input {
   font-size: 14px;
   border: 0 none;
   width: auto;
   padding: 5px;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label input:focus {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label input:focus {
   outline: none;
   border: 0 none;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1997,7 +1998,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
           flex-wrap: wrap;
   margin: -4px 6px -4px -4px;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list .directorist-select__selected-list--item {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item {
   display: inline-block;
   font-size: 12px;
   font-weight: 600;
@@ -2008,11 +2009,21 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   min-height: 17px;
   margin: 4px;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list .directorist-select__selected-list--item i {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove {
+  text-decoration: none;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove i {
+  pointer-events: none;
   color: #fff;
 }
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label #directorist-select__selected-list,
-.directorist-select.directorist-select-multi .directorist-select__container #directorist-select__label .directorist-select__search {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__search {
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+      -ms-flex: auto;
+          flex: auto;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list,
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__search {
   margin: 0;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown {
@@ -2437,6 +2448,9 @@ p.atbd-min {
   padding: 5px 20px;
   border-radius: 4px;
   color: #5a5f7d;
+}
+.directorist-dropdown .directorist-dropdown__links a.active {
+  background-color: #f2f2f2;
 }
 
 .directorist-switch {
@@ -2971,6 +2985,9 @@ p.atbd-min {
 .directorist-card .directorist-card__body p {
   font-size: 15px;
 }
+.directorist-card .directorist-card__body p:last-child {
+  margin-bottom: 0;
+}
 
 .directorist-form-group {
   position: relative;
@@ -3445,6 +3462,51 @@ p.atbd-min {
   -webkit-box-shadow: none;
           box-shadow: none;
   visibility: hidden;
+}
+
+.directorist-pagination {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 11px -4px -4px -4px;
+}
+.directorist-pagination .page-numbers {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 500;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-decoration: none;
+  height: 34px;
+  padding: 0 11.5px;
+  background-color: #fff;
+  color: #81879E;
+  border: 1px solid #E1E4EC;
+  border-radius: 4px;
+  margin: 4px;
+}
+.directorist-pagination .page-numbers i,
+.directorist-pagination .page-numbers span.la,
+.directorist-pagination .page-numbers span.fa {
+  font-size: 14px;
+}
+.directorist-pagination .page-numbers.current {
+  border-width: 2px;
+  border-color: #202428;
+  color: #202428;
 }
 
 .directorist-listing-single {

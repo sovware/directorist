@@ -1674,10 +1674,6 @@ class Directorist_Listings {
 			echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
 		}
 
-		public function filter_container_class() {
-			echo ( 'overlapping' === $this->filters_display ) ? 'directorist-search-float' : 'directorist-search-slide';
-		}
-
 		public function has_listings_header() {
 			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields ) );
 
@@ -1789,12 +1785,12 @@ class Directorist_Listings {
 			Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
 		}
 
-		public function advanced_search_form_template() {
+		public function search_form_template() {
 			$args = array(
 				'listings'   => $this,
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
 			);
-			Helper::get_template( 'archive/advanced-search-form', $args );
+			Helper::get_template( 'archive/search-form', $args );
 		}
 
 		public function filter_btn_html() {

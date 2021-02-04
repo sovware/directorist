@@ -1,4 +1,5 @@
 // Common Classes
+
 .directorist-flex{
     display: flex;
 }
@@ -16,4 +17,13 @@
 }
 .directorist-justify-content-end{
     justify-content: flex-end;
+}
+
+// Error Class
+
+.directorist-error{
+    .directorist-error__msg{
+        color: $danger;
+        font-size: 14px;
+    } 
 }

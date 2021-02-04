@@ -12,6 +12,7 @@ const pureScriptSearchNSelect = (selector, options) => {
     selectors.forEach((item, index) => {
         const multiSelect = item.getAttribute('data-multiSelect');
         const isSearch = item.getAttribute('data-isSearch');
+        const isMax = item.getAttribute('data-max');
         
         function singleSelect(){
             let virtualSelect = document.createElement('div');
@@ -49,13 +50,13 @@ const pureScriptSearchNSelect = (selector, options) => {
             document.body.addEventListener('click', (event) => {
                 if(event.target == selectTrigger || event.target == input)
                 return;
-                sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+                sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
                 input.value = '';
             });
 
             selectTrigger.addEventListener('click', (e) => {
                 e.preventDefault();
-                sibling.querySelector('.directorist-select__dropdown').classList.toggle('hasClass');
+                sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
                 var filter = arry.filter((el, index) => {
                     return el;
                 });
@@ -88,7 +89,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                 li.forEach((el, index) => {
                     el.addEventListener('click', (event) => {
                         elem[index].setAttribute('selected', 'selected');
-                        sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+                        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
                         item.querySelector('.directorist-select__label').innerHTML = el.innerHTML +'<span class="la la-angle-down"></span>';
                     });
                 });
@@ -129,7 +130,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                 li.forEach((el, index) => {
                     el.addEventListener('click', (event) => {
                         elem[index].setAttribute('selected', 'selected');
-                        sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+                        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
                         item.querySelector('.directorist-select__label').innerHTML = el.innerHTML +'<span class="la la-angle-down"></span>';
                     });
                 });
@@ -149,14 +150,19 @@ const pureScriptSearchNSelect = (selector, options) => {
             select.forEach((sel) =>{
                 option = sel.querySelectorAll('option');
             });        
-            let html = `<div class="directorist-select__label"><div class="directorist-select__selected-list"></div><input class='directorist-select__search ${ isSearch ? 'inputShow' : 'inputHide' }' type='text' class='value' placeholder='Filter Options....' /></div><div class="directorist-select__dropdown">            
-            <div class="directorist-select__dropdown--inner"></div>
-            </div>`;
+            let html = `
+            <div class="directorist-select__label">
+                <div class="directorist-select__selected-list"></div>
+                <input class='directorist-select__search ${ isSearch ? 'inputShow' : 'inputHide' }' type='text' class='value' placeholder='Filter Options....' />
+            </div>
+            <div class="directorist-select__dropdown">            
+                <div class="directorist-select__dropdown--inner"></div>
+            </div>
+            <span class="directorist-error__msg"></span>`;
 
             function insertSearchItem () {
-                item.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(item => `<span class="directorist-select__selected-list--item">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="directorist-item-remove"><i class="la la-times"></i></a></span>`).join("")
+                document.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(item => `<span class="directorist-select__selected-list--item">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="directorist-item-remove"><i class="la la-times"></i></a></span>`).join("")
             }
-            
             sibling.innerHTML = html;
             let arry = [],
             arryEl = [],
@@ -182,7 +188,6 @@ const pureScriptSearchNSelect = (selector, options) => {
                 }                
             });
 
-           
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 var value = item.querySelector('input');  
@@ -212,7 +217,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                         attribute2 = el.getAttribute('icon');
                     }
                     
-                    item2 += `<li data-key="${key}" class="hideListItem">${el.text}<i class="item"><img src="${attribute}" style="${attribute == null && {display: 'none'} } " /><b class="${attribute2}"></b></b></i></li>`;
+                    item2 += `<li data-key="${key}" class="directorist-select-item-hide">${el.text}<i class="item"><img src="${attribute}" style="${attribute == null && {display: 'none'} } " /><b class="${attribute2}"></b></b></i></li>`;
                 });
                 item2 += '</ul>';
                 
@@ -220,8 +225,8 @@ const pureScriptSearchNSelect = (selector, options) => {
                 var li = item.querySelectorAll('li');
                 
                 selectedItems.map((item, key) => {
-                    li[item.key].classList.remove('hideListItem')
-                    return li[item.key].classList.add('showListItem')
+                    li[item.key].classList.remove('directorist-select-item-hide')
+                    return li[item.key].classList.add('directorist-select-item-show')
                 });
 
                                
@@ -251,7 +256,7 @@ const pureScriptSearchNSelect = (selector, options) => {
                         if(el.hasAttribute('icon')) {
                             attribute2 = el.getAttribute('icon');
                         }                        
-                        item2 += `<li data-key="${index - 1}" class="hideListItem">${el.text}<i class="item"><img src="${attribute}" style="${attribute == null && {display: 'none'} } " /><b class="${attribute2}"></b></b></i></li>`;
+                        item2 += `<li data-key="${index - 1}" class="directorist-select-item-hide">${el.text}<i class="item"><img src="${attribute}" style="${attribute == null && {display: 'none'} } " /><b class="${attribute2}"></b></b></i></li>`;
                     });
                     item2 += '</ul>';
                     
@@ -261,44 +266,64 @@ const pureScriptSearchNSelect = (selector, options) => {
                     li.forEach((element, index) => {
                         selectedItems.map(item => {
                             if(item.key == element.getAttribute('data-key')){
-                                element.classList.remove('hideListItem');
-                                element.classList.add('showListItem');
+                                element.classList.remove('directorist-select-item-hide');
+                                element.classList.add('directorist-select-item-show');
                             }
-                        });
-                        // console.log(boleVal.indexOf(true));
+                        });                        
                         element.addEventListener('click', (event) => {
                             elem[index].el.setAttribute('selected', 'selected');
-                            sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open');
-                            // item.querySelector('button').innerHTML = el.innerHTML +'<span class="angel">&raquo;</span>';                    
+                            sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open');                                                
                         });
                     });
                 });
+                
                 eventDelegation('click', 'li', function(e){
                     var index = e.target.getAttribute('data-key');
-                    selectedItems.filter(item => item.key === index ).length === 0 && selectedItems.push({value: elem[index].value, key: index});
+                    
+                    if(isMax === null){
+                        selectedItems.filter(item => item.key === index ).length === 0 &&  selectedItems.push({value: elem[index].value, key: index});
                         option[0].setAttribute('selected', 'selected');
-                        option[0].value = JSON.stringify(selectedItems);
-                        
-                        e.target.classList.remove('hideListItem');
-                        e.target.classList.add('showListItem');
+                        option[0].value = JSON.stringify(selectedItems);                        
+                        e.target.classList.remove('directorist-select-item-hide');
+                        e.target.classList.add('directorist-select-item-show');
                         insertSearchItem();
-                });    
+                    } else {
+                        if(selectedItems.length < parseInt(isMax)){
+                            console.log("yes");
+                            
+                            selectedItems.filter(item => item.key === index ).length === 0 &&  selectedItems.push({value: elem[index].value, key: index});
+                            option[0].setAttribute('selected', 'selected');
+                            option[0].value = JSON.stringify(selectedItems);                        
+                            e.target.classList.remove('directorist-select-item-hide');
+                            e.target.classList.add('directorist-select-item-show');
+                            insertSearchItem();
+                        }else{
+                            item.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+                            item.querySelector('.directorist-select__container').classList.add('directorist-error');
+                            item.querySelector('.directorist-error__msg').innerHTML = `Max ${isMax} Items Added `;
+                        }
+                    }
+                });
             });
 
             eventDelegation('click', '.directorist-item-remove', function(e){
                 var li = item.querySelectorAll('li');
                 selectedItems = selectedItems.filter(item => item.key != parseInt(e.target.getAttribute('data-key')));
+                if(selectedItems.length < parseInt(isMax)){
+                    item.querySelector('.directorist-select__container').classList.remove('directorist-error');
+                    item.querySelector('.directorist-error__msg').innerHTML = '';
+                }
                 li.forEach((element, index) => {
                     if(parseInt(e.target.getAttribute('data-key')) === index){                            
-                        element.classList.add('hideListItem')
-                        element.classList.remove('showListItem')
+                        element.classList.add('directorist-select-item-hide')
+                        element.classList.remove('directorist-select-item-show')
                     }
-                })
-                
+                });
+
                 insertSearchItem();
                 option[0].setAttribute('selected', 'selected');
                 option[0].value = JSON.stringify(selectedItems);
-            });
+            });            
         }
 
         multiSelect ? multiSelects() : singleSelect();

@@ -1890,6 +1890,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
   selectors.forEach(function (item, index) {
     var multiSelect = item.getAttribute('data-multiSelect');
     var isSearch = item.getAttribute('data-isSearch');
+    var isMax = item.getAttribute('data-max');
 
     function singleSelect() {
       var virtualSelect = document.createElement('div');
@@ -1924,12 +1925,12 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       var input = item.querySelector('.directorist-select__dropdown input');
       document.body.addEventListener('click', function (event) {
         if (event.target == selectTrigger || event.target == input) return;
-        sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
         input.value = '';
       });
       selectTrigger.addEventListener('click', function (e) {
         e.preventDefault();
-        sibling.querySelector('.directorist-select__dropdown').classList.toggle('hasClass');
+        sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
         var filter = arry.filter(function (el, index) {
           return el;
         });
@@ -1964,7 +1965,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         li.forEach(function (el, index) {
           el.addEventListener('click', function (event) {
             elem[index].setAttribute('selected', 'selected');
-            sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+            sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
             item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
           });
         });
@@ -2006,7 +2007,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         li.forEach(function (el, index) {
           el.addEventListener('click', function (event) {
             elem[index].setAttribute('selected', 'selected');
-            sibling.querySelector('.directorist-select__dropdown').classList.remove('hasClass');
+            sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
             item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
           });
         });
@@ -2026,10 +2027,10 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "<div class=\"directorist-select__label\"><div class=\"directorist-select__selected-list\"></div><input class='directorist-select__search ".concat(isSearch ? 'inputShow' : 'inputHide', "' type='text' class='value' placeholder='Filter Options....' /></div><div class=\"directorist-select__dropdown\">            \n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'inputShow' : 'inputHide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">            \n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
 
       function insertSearchItem() {
-        item.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
+        document.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
           return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"la la-times\"></i></a></span>");
         }).join("");
       }
@@ -2088,7 +2089,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
             attribute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li data-key=\"".concat(key, "\" class=\"hideListItem\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
+          item2 += "<li data-key=\"".concat(key, "\" class=\"directorist-select-item-hide\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
             display: 'none'
           }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
         });
@@ -2096,8 +2097,8 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         popUp.innerHTML = item2;
         var li = item.querySelectorAll('li');
         selectedItems.map(function (item, key) {
-          li[item.key].classList.remove('hideListItem');
-          return li[item.key].classList.add('showListItem');
+          li[item.key].classList.remove('directorist-select-item-hide');
+          return li[item.key].classList.add('directorist-select-item-show');
         });
         value && value.addEventListener('keyup', function (event) {
           var itemValue = event.target.value.toLowerCase();
@@ -2131,7 +2132,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
               attribute2 = el.getAttribute('icon');
             }
 
-            item2 += "<li data-key=\"".concat(index - 1, "\" class=\"hideListItem\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
+            item2 += "<li data-key=\"".concat(index - 1, "\" class=\"directorist-select-item-hide\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
               display: 'none'
             }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
           });
@@ -2142,30 +2143,51 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           li.forEach(function (element, index) {
             selectedItems.map(function (item) {
               if (item.key == element.getAttribute('data-key')) {
-                element.classList.remove('hideListItem');
-                element.classList.add('showListItem');
+                element.classList.remove('directorist-select-item-hide');
+                element.classList.add('directorist-select-item-show');
               }
-            }); // console.log(boleVal.indexOf(true));
-
+            });
             element.addEventListener('click', function (event) {
               elem[index].el.setAttribute('selected', 'selected');
-              sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open'); // item.querySelector('button').innerHTML = el.innerHTML +'<span class="angel">&raquo;</span>';                    
+              sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open');
             });
           });
         });
         eventDelegation('click', 'li', function (e) {
           var index = e.target.getAttribute('data-key');
-          selectedItems.filter(function (item) {
-            return item.key === index;
-          }).length === 0 && selectedItems.push({
-            value: elem[index].value,
-            key: index
-          });
-          option[0].setAttribute('selected', 'selected');
-          option[0].value = JSON.stringify(selectedItems);
-          e.target.classList.remove('hideListItem');
-          e.target.classList.add('showListItem');
-          insertSearchItem();
+
+          if (isMax === null) {
+            selectedItems.filter(function (item) {
+              return item.key === index;
+            }).length === 0 && selectedItems.push({
+              value: elem[index].value,
+              key: index
+            });
+            option[0].setAttribute('selected', 'selected');
+            option[0].value = JSON.stringify(selectedItems);
+            e.target.classList.remove('directorist-select-item-hide');
+            e.target.classList.add('directorist-select-item-show');
+            insertSearchItem();
+          } else {
+            if (selectedItems.length < parseInt(isMax)) {
+              console.log("yes");
+              selectedItems.filter(function (item) {
+                return item.key === index;
+              }).length === 0 && selectedItems.push({
+                value: elem[index].value,
+                key: index
+              });
+              option[0].setAttribute('selected', 'selected');
+              option[0].value = JSON.stringify(selectedItems);
+              e.target.classList.remove('directorist-select-item-hide');
+              e.target.classList.add('directorist-select-item-show');
+              insertSearchItem();
+            } else {
+              item.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+              item.querySelector('.directorist-select__container').classList.add('directorist-error');
+              item.querySelector('.directorist-error__msg').innerHTML = "Max ".concat(isMax, " Items Added ");
+            }
+          }
         });
       });
       eventDelegation('click', '.directorist-item-remove', function (e) {
@@ -2173,10 +2195,16 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         selectedItems = selectedItems.filter(function (item) {
           return item.key != parseInt(e.target.getAttribute('data-key'));
         });
+
+        if (selectedItems.length < parseInt(isMax)) {
+          item.querySelector('.directorist-select__container').classList.remove('directorist-error');
+          item.querySelector('.directorist-error__msg').innerHTML = '';
+        }
+
         li.forEach(function (element, index) {
           if (parseInt(e.target.getAttribute('data-key')) === index) {
-            element.classList.add('hideListItem');
-            element.classList.remove('showListItem');
+            element.classList.add('directorist-select-item-hide');
+            element.classList.remove('directorist-select-item-show');
           }
         });
         insertSearchItem();

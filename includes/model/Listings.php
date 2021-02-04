@@ -1785,12 +1785,12 @@ class Directorist_Listings {
 			Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
 		}
 
-		public function advanced_search_form_template() {
+		public function search_form_template() {
 			$args = array(
 				'listings'   => $this,
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
 			);
-			Helper::get_template( 'archive/advanced-search-form', $args );
+			Helper::get_template( 'archive/search-form', $args );
 		}
 
 		public function filter_btn_html() {

@@ -34,13 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<div class="atbd_seach_fields_wrapper <?php echo esc_attr( $searchform->border_class() ); ?>">
 
-				<?php $searchform->listing_type_template(); ?>
+				<?php $searchform->directory_type_nav_template(); ?>
 
 				<input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
 				<div class="atbdp-whole-search-form">
 
-					<div class="row atbdp-search-form atbdp-search-form-inline">
+					<div class="atbdp-search-form atbdp-search-form-inline">
 
 						<?php
 						foreach ( $searchform->form_data[0]['fields'] as $field ){

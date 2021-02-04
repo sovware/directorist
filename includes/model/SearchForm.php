@@ -279,7 +279,7 @@ class Directorist_Listing_Search_Form {
 
 	public function buttons_template() {
 		if ($this->has_reset_filters_button || $this->has_apply_filters_button) {
-			Helper::get_template( 'search/buttons', array('searchform' => $this) );
+			Helper::get_template( 'search-form/buttons', array('searchform' => $this) );
 		}
 	}
 
@@ -335,7 +335,7 @@ class Directorist_Listing_Search_Form {
 
 		// dvar_dump($field_data);
 
-		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = 'search-form/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
 	}
@@ -368,7 +368,7 @@ class Directorist_Listing_Search_Form {
 			return;
 		}
 
-		Helper::get_template( 'search/directory-type-nav', [ 'searchform' => $this ] );
+		Helper::get_template( 'search-form/directory-type-nav', [ 'searchform' => $this ] );
 	}
 
 	public function has_more_filters_icon() {
@@ -382,11 +382,11 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function more_buttons_template() {
-		Helper::get_template( 'search/more-buttons', [ 'searchform' => $this ] );
+		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}
 
 	public function advanced_search_form_fields_template() {
-		Helper::get_template( 'search/adv-search', array('searchform' => $this) );
+		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}
 
 	public function top_categories_template() {
@@ -398,7 +398,7 @@ class Directorist_Listing_Search_Form {
 					'searchform'      => $this,
 					'top_categories'  => $top_categories,
 				);
-				Helper::get_template( 'search/top-cats', $args );
+				Helper::get_template( 'search-form/top-cats', $args );
 			}
 		}
 	}

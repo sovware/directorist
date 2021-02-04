@@ -9,6 +9,7 @@ $enabled = get_directorist_type_option( $listing->type, 'enable_similar_listings
 $title   = get_directorist_type_option( $listing->type, 'similar_listings_title' );
 $logic   = get_directorist_type_option( $listing->type, 'similar_listings_logics', 'OR' );
 $number  = get_directorist_type_option( $listing->type, 'similar_listings_number_of_listings_to_show', 2 );
+$same_author   = get_directorist_type_option( $listing->type, 'listing_from_same_author', false );
 
 $relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
@@ -16,7 +17,7 @@ if (empty($enabled)) {
 	return;
 }
 
-$query = $listing->related_listings_query( $number, $relationship );
+$query = $listing->related_listings_query( $number, $relationship, $same_author );
 $related_listings = new \Directorist\Directorist_Listings(array(), 'related', $query, ['cache' => false]);
 
 $listing->load_related_listings_script();

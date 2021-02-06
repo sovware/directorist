@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
 class ATBDP_Enqueuer {
     /**

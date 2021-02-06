@@ -3,9 +3,9 @@
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
-        public $fields            = [];
-        public $layouts           = [];
-        public $config            = [];
+        public static $fields     = [];
+        public static $layouts    = [];
+        public static $config     = [];
         public $default_form      = [];
         public $old_custom_fields = [];
         public $cetagory_options  = [];
@@ -170,12 +170,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // import_default_directory
-        public function import_default_directory() {
-            $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/simple-data/directory/directory.json';
+        public function import_default_directory( array $args = [] ) {
+            $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/sample-data/directory/directory.json';
             if ( ! file_exists( $file ) ) { return; }
             $file_contents = file_get_contents( $file );
 
-            $add_directory = $this->add_directory([
+            $add_directory = self::add_directory([
                 'directory_name' => 'General',
                 'fields_value'   => $file_contents,
                 'is_json'        => true
@@ -249,7 +249,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 $directory_name = '';
             }
 
-            $add_directory = $this->add_directory([ 
+            $add_directory = self::add_directory([ 
                 'term_id'        => $term_id,
                 'directory_name' => $directory_name,
                 'fields_value'   => $file_contents,
@@ -260,7 +260,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // add_directory
-        public function add_directory( array $args = [] ) {
+        public static function add_directory( array $args = [] ) {
             $default = [ 
                 'term_id'        => 0,
                 'directory_name' => '',
@@ -285,7 +285,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $create_directory = [ 'term_id' => 0 ];
 
             if ( ! $has_term_id ) {
-                $create_directory = $this->create_directory([ 
+                $create_directory = self::create_directory([ 
                     'directory_name' => $args['directory_name']
                 ]);
 
@@ -294,7 +294,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
             
-            $update_directory = $this->update_directory([
+            $update_directory = self::update_directory([
                 'term_id'        => ( ! $has_term_id ) ? ( int ) $create_directory['term_id'] : ( int ) $args['term_id'],
                 'directory_name' => $args['directory_name'],
                 'fields_value'   => $args['fields_value'],
@@ -312,7 +312,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // create_directory
-        public function create_directory( array $args = [] ) {
+        public static function create_directory( array $args = [] ) {
             $default = [ 'directory_name' => '' ];
             $args    = array_merge( $default, $args );
 
@@ -379,7 +379,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // update_directory
-        public function update_directory( array $args = [] ) {
+        public static function update_directory( array $args = [] ) {
             $default = [ 
                 'directory_name' => '',
                 'term_id'        => 0,
@@ -457,7 +457,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             if ( is_array( $fields ) ) {
                 foreach ( $fields as $_field_key => $_field_value ) {
-                    $fields[ $_field_key ] = $this->maybe_json( $_field_value );
+                    $fields[ $_field_key ] = self::maybe_json( $_field_value );
                 }
             }
 
@@ -496,7 +496,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             
             // Update the value
             foreach ( $fields as $key => $value ) {
-                $this->update_validated_term_meta( $args['term_id'], $key, $value );
+                self::update_validated_term_meta( $args['term_id'], $key, $value );
             }
 
             $response['status']['status_log']['term_updated'] = [
@@ -511,13 +511,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // cptm_fields_before_update
         public function cptm_fields_before_update( $fields ) {
             $new_fields     = $fields;
-            $fields_group   = $this->config['fields_group'];
+            $fields_group   = self::$config['fields_group'];
 
             foreach ( $fields_group as $group_name => $group_fields ) {
                 $grouped_fields_value = [];
 
                 foreach ( $group_fields as $field_index => $field_key ) {
-                    if ('string' === gettype( $field_key ) && array_key_exists($field_key, $this->fields)) {
+                    if ('string' === gettype( $field_key ) && array_key_exists($field_key, self::$fields)) {
                         $grouped_fields_value[ $field_key ] = ( isset( $new_fields[ $field_key ] ) ) ? $new_fields[ $field_key ] : '';
                         unset( $new_fields[ $field_key ] );
                     }
@@ -526,7 +526,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         $grouped_fields_value[ $field_index ] = [];
 
                         foreach ( $field_key as $sub_field_key ) {
-                            if ( array_key_exists( $sub_field_key, $this->fields ) ) {
+                            if ( array_key_exists( $sub_field_key, self::$fields ) ) {
                                 $grouped_fields_value[ $field_index ][ $sub_field_key ] = ( isset( $new_fields[ $sub_field_key ] ) ) ? $new_fields[ $sub_field_key ] : '';
                                 unset( $new_fields[ $sub_field_key ] );
                             }
@@ -544,7 +544,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function save_post_type_data()
         {
             /* wp_send_json([
-                'single_listings_contents' => $this->maybe_json( $_POST['single_listings_contents'] ),
+                'single_listings_contents' => self::maybe_json( $_POST['single_listings_contents'] ),
                 'status' => [
                     'success' => false,
                     'status_log' => [
@@ -574,7 +574,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $directory_name = $_POST['name'];
 
             $fields     = [];
-            $field_list = $this->maybe_json( $_POST['field_list'] );
+            $field_list = self::maybe_json( $_POST['field_list'] );
 
             foreach ( $field_list as $field_key ) {
                 if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
@@ -582,7 +582,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            $add_directory = $this->add_directory([
+            $add_directory = self::add_directory([
                 'term_id'        => $term_id,
                 'directory_name' => $directory_name,
                 'fields_value'   => $fields,
@@ -601,22 +601,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // update_validated_term_meta
-        public function update_validated_term_meta($term_id, $field_key, $value)
-        {
-            if ( ! isset( $this->fields[$field_key] ) && ! array_key_exists( $field_key, $this->config['fields_group'] ) ) {
+        public static function update_validated_term_meta( $term_id, $field_key, $value ) {
+            if ( ! isset( self::$fields[$field_key] ) && ! array_key_exists( $field_key, self::$config['fields_group'] ) ) {
                 return;
             }
 
-            if ( ! empty( $this->fields[$field_key]['type'] ) && 'toggle' === $this->fields[$field_key]['type'] ) {
+            if ( ! empty( self::$fields[$field_key]['type'] ) && 'toggle' === self::$fields[$field_key]['type'] ) {
                 $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
             }
 
-            $value = $this->maybe_json($value);
+            $value = self::maybe_json($value);
             update_term_meta($term_id, $field_key, $value);
         }
 
         // maybe_json
-        public function maybe_json( $string )
+        public static function maybe_json( $string )
         {
             $string_alt = $string;
 
@@ -627,20 +626,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
 
             $string_alt = json_decode($string_alt, true);
-            $string     = (!is_null($string_alt)) ? $string_alt : $string;
+            $string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
 
             return $string;
         }
 
         // maybe_serialize
-        public function maybe_serialize($value = '')
-        {
-            return maybe_serialize($this->maybe_json($value));
+        public function maybe_serialize( $value = '' ) {
+            return maybe_serialize( self::maybe_json( $value ) );
         }
 
         // prepare_settings
-        public function prepare_settings()
-        {
+        public function prepare_settings() {
             $this->cetagory_options = $this->get_cetagory_options();
             
             $form_field_widgets = [
@@ -4117,7 +4114,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
             ];
 
-            $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
+            self::$fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 // 'name' => [
                 //     'label' => 'Name *',
                 //     'type'  => 'text',
@@ -4874,13 +4871,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // -----------------------------
             // Guest Submission
             if ( get_directorist_option( 'guest_listings', 1 ) == '1' ) {
-                $this->fields['guest_email_label'] = [
+                self::$fields['guest_email_label'] = [
                     'label' => __('Guest Email Label', 'directorist'),
                     'type'  => 'text',
                     'value' => 'Your Email',
                 ];
 
-                $this->fields['guest_email_placeholder'] = [
+                self::$fields['guest_email_placeholder'] = [
                     'label' => __('Guest Email Placeholder', 'directorist'),
                     'type'  => 'text',
                     'value' => 'example@email.com',
@@ -4911,7 +4908,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
             ];
 
-            $this->config = [
+            self::$config = [
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
                     'with' => [ 'action' => 'save_post_type_data' ],
@@ -4990,9 +4987,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             ];
 
             $cptm_data = [
-                'fields'  => $this->fields,
+                'fields'  => self::$fields,
                 'layouts' => $this->layouts,
-                'config'  => $this->config,
+                'config'  => self::$config,
                 'options' => $this->options,
                 'id'      => $listing_type_id,
             ];
@@ -5031,15 +5028,15 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( 'array' !== getType( $all_term_meta ) ) { return; }
 
             foreach ( $all_term_meta as $meta_key => $meta_value ) {
-                if ( isset( $this->fields[$meta_key] ) ) {
+                if ( isset( self::$fields[$meta_key] ) ) {
                     $_meta_value = ( ! $test_migration ) ? $meta_value[0] : $meta_value;
                     $value = maybe_unserialize( maybe_unserialize( $_meta_value ) );
 
-                    $this->fields[ $meta_key ]['value'] = $value;
+                    self::$fields[ $meta_key ]['value'] = $value;
                 }
             }
 
-            foreach ($this->config['fields_group'] as $group_key => $group_fields) {
+            foreach (self::$config['fields_group'] as $group_key => $group_fields) {
                 if (array_key_exists($group_key, $all_term_meta)) {
                     $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
                     $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
@@ -5048,14 +5045,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         if ( ! key_exists( $field_key, $group_value ) ) { continue; }
 
-                        if ( 'string' === gettype($field_key) && array_key_exists($field_key, $this->fields)) {
-                            $this->fields[$field_key]['value'] = $group_value[$field_key];
+                        if ( 'string' === gettype($field_key) && array_key_exists($field_key, self::$fields)) {
+                            self::$fields[$field_key]['value'] = $group_value[$field_key];
                         }
 
                         if ('array' === gettype($field_key)) {
                             foreach ($field_key as $sub_field_key) {
-                                if (array_key_exists($sub_field_key, $this->fields)) {
-                                    $this->fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];
+                                if (array_key_exists($sub_field_key, self::$fields)) {
+                                    self::$fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];
                                 }
                             }
                         }
@@ -5071,7 +5068,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // e_var_dump( $test['fields']['video'] );
             // e_var_dump( $test );
-            // e_var_dump( $this->fields[ 'single_listings_contents' ] );
+            // e_var_dump( self::$fields[ 'single_listings_contents' ] );
             // e_var_dump( json_decode( $test ) );
         }
 

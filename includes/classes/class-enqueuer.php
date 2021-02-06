@@ -30,7 +30,15 @@ class ATBDP_Enqueuer {
         // 'Professional WordPress Plugin Development' by Brad Williams
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
         add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
-        
+
+        add_action( 'tiny_mce_before_init', array( $this, 'tiny_mce_custom_format' ) );
+    }
+
+    // tiny_mce_custom_format
+    public function tiny_mce_custom_format( $in ) {
+        $in['content_css'] = ATBDP_PUBLIC_ASSETS . 'css/tiny-mce.css';
+
+        return $in;
     }
 
     public function custom_color_picker_scripts() {

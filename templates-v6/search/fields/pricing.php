@@ -5,7 +5,7 @@
  * @version 6.7
  */
 ?>
-<div class="single_search_field ">
+<div class="single_search_field">
 	<?php
 	$ptype = $searchform->get_pricing_type();
 	$max_placeholder = !empty( $data['price_range_max_placeholder'] ) ? $data['price_range_max_placeholder'] : '';

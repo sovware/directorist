@@ -12,35 +12,35 @@ $max_placeholder = !empty( $data['price_range_max_placeholder'] ) ? $data['price
 $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price_range_min_placeholder'] : '';
 ?>
 
-<div class="single_search_field ">
+<div class="directorist-search-field "> 
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 
-	<div class="price_ranges">
+	<div class="directorist-price-ranges">
 
 		<?php if ( $ptype == 'both' || $ptype == 'price_unit' ): ?>
 
-			<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php echo esc_attr( $min_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>"></div>
-			<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php echo esc_attr( $max_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>"></div>
+			<div class="directorist-price-ranges__item"><input type="text" name="price[0]" class="directorist-form-element" placeholder="<?php echo esc_attr( $min_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>"></div>
+			<div class="directorist-price-ranges__item"><input type="text" name="price[1]" class="directorist-form-element" placeholder="<?php echo esc_attr( $max_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>"></div>
 			
 		<?php endif; ?>
 
 		<?php if ( $ptype == 'both' || $ptype == 'price_range' ): ?>
 
-			<div class="price-frequency">
-				<label class="pf-btn">
-					<?php $searchform->the_price_range_input('bellow_economy');?><span><?php echo str_repeat($searchform->c_symbol, 1); ?></span>
+			<div class="directorist-price-ranges__item directorist-price-ranges__price-frequency">
+				<label class="directorist-price-ranges__price-frequency--btn">
+					<?php $searchform->the_price_range_input('bellow_economy');?><span class="directorist-pf-range"><?php echo str_repeat($searchform->c_symbol, 1); ?></span>
 				</label>
-				<label class="pf-btn">
-					<?php $searchform->the_price_range_input('economy');?><span><?php echo str_repeat($searchform->c_symbol, 2); ?></span>
+				<label class="directorist-price-ranges__price-frequency--btn">
+					<?php $searchform->the_price_range_input('economy');?><span class="directorist-pf-range"><?php echo str_repeat($searchform->c_symbol, 2); ?></span>
 				</label>
-				<label class="pf-btn">
-					<?php $searchform->the_price_range_input('moderate');?><span><?php echo str_repeat($searchform->c_symbol, 3); ?></span>
+				<label class="directorist-price-ranges__price-frequency--btn">
+					<?php $searchform->the_price_range_input('moderate');?><span class="directorist-pf-range"><?php echo str_repeat($searchform->c_symbol, 3); ?></span>
 				</label>
-				<label class="pf-btn">
-					<?php $searchform->the_price_range_input('skimming');?><span><?php echo str_repeat($searchform->c_symbol, 4); ?></span>
+				<label class="directorist-price-ranges__price-frequency--btn">
+					<?php $searchform->the_price_range_input('skimming');?><span class="directorist-pf-range"><?php echo str_repeat($searchform->c_symbol, 4); ?></span>
 				</label>
 			</div>
 

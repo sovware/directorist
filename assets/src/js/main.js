@@ -13,6 +13,7 @@ import './../scss/layout/public/main-style.scss';
 import './modules/helpers';
 import './modules/review';
 import './modules/pureScriptSearchSelect';
+import './modules/range-slider';
 
 // Components
 import './components/atbdSorting';

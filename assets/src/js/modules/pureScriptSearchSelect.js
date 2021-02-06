@@ -19,7 +19,7 @@ const pureScriptSearchNSelect = (selector, options) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '0';
+            item.style.zIndex = '2';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;

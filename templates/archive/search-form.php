@@ -10,13 +10,13 @@
 
 		<div class="directorist-advanced-filter__basic">
 			<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
-				<div class="directorist-advanced-filter__basic__each"><?php $searchform->field_template( $field ); ?></div>
+				<div class="directorist-advanced-filter__basic--element"><?php $searchform->field_template( $field ); ?></div>
 			<?php } ?>
 		</div>
 
 		<div class="directorist-advanced-filter__advanced">
 			<?php foreach ( $searchform->form_data[1]['fields'] as $field ){ ?>
-				<div class="form-group atbdp-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+				<div class="directorist-form-group directorist-advanced-filter__advanced--element directorist-advanced-filter__advanced--<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php } ?>
 		</div>
 

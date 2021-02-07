@@ -32,3 +32,105 @@
         visibility: hidden;
     }
 }
+
+// Advance Search Filter Basic
+.directorist-advanced-filter{
+    @include e(basic){
+        display: flex;
+        margin: -5px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $border-color;
+        @include m(element){
+            flex: 1;
+            margin: 5px;
+            .directorist-form-group{
+                .directorist-filter-location-icon{
+                    margin-top: 1px;
+                }
+            }
+        }
+    }
+}
+
+// Advance Search Filter Advance
+.directorist-advanced-filter{
+    @include e(advanced){
+        @include m(element){
+            border-bottom: 1px solid $border-color;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            &.directorist-advanced-filter__advanced--review{
+                .directorist-search-field{
+                    label{
+                        min-width: 150px;
+                    }
+                }
+            }
+            &.directorist-advanced-filter__advanced--tag{
+                .directorist-search-field{
+                    label{
+                        min-width: 150px;
+                    }
+                }
+                .directorist-search-tags{
+                    flex: 1;
+                }
+            }
+        }
+    }
+    .directorist-price-ranges{
+        display: flex;
+        margin: -5px;
+        @include e(item){
+            margin: 5px;
+            .directorist-form-element{
+                max-width: 150px;
+            }
+            &.directorist-price-ranges__price-frequency{
+                display: flex;
+                border: 1px solid $border-color;
+                border-radius: 3px;
+                .directorist-price-ranges__price-frequency--btn{
+                    margin-bottom: 0;
+                    &:not(:last-child){
+                        border-right: 1px solid $border-color;
+                    }
+                    input[type="radio"]{
+                        display: none;
+                        &:checked{
+                            &+.directorist-pf-range{
+                                background-color: $dark;
+                                color: #fff;
+                            }
+                        }
+                    }
+                    .directorist-pf-range{
+                        cursor: pointer;
+                        min-height: 44px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Advance Search Filter Action
+.directorist-advanced-filter{
+    @include e(action){
+        margin: -5px;
+        .directorist-btn {
+            font-size: 14px;
+            border-radius: 0.2rem;
+            padding: 0 20.5px;
+            margin: 5px;
+            text-transform: capitalize;
+            text-decoration: none;
+            letter-spacing: 0;
+            font-weight: 400;
+        }
+    }
+}

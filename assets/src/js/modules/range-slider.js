@@ -99,7 +99,7 @@ const atbd_slider = (selector, obj) => {
     });
 };
 function atbd_callingSlider(min = atbdp_range_slider.default_val) {
-    atbd_slider ('#atbdp-range-slider', {
+    atbd_slider ('#directorist-range-slider', {
         maxValue: 1000,
         minValue: min,
         maxWidth: '100%',

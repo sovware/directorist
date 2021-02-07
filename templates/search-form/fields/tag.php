@@ -33,6 +33,6 @@ $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
 		}
 		?>
 	</div>
-	<a href="#" class="more-or-less"><?php esc_html_e( 'Show More', 'directorist' ); ?></a>
+	<a href="#" class="directorist-btn-ml"><?php esc_html_e( 'Show More', 'directorist' ); ?></a>
 
 </div>

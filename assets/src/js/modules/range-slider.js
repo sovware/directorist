@@ -21,7 +21,6 @@ const atbd_slider = (selector, obj) => {
     }
 
     const slider = document.querySelectorAll(selector);
-
     slider.forEach((id, index) => {
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
@@ -99,7 +98,7 @@ const atbd_slider = (selector, obj) => {
     });
 };
 function atbd_callingSlider(min = atbdp_range_slider.default_val) {
-    atbd_slider ('#directorist-range-slider', {
+    atbd_slider ('#atbdp-range-slider', {
         maxValue: 1000,
         minValue: min,
         maxWidth: '100%',

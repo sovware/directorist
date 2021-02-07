@@ -4650,7 +4650,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             ]);
             
-            $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
+            self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
                     'label' => 'General',
                     'icon' => '<i class="uil uil-estate"></i>',
@@ -4988,7 +4988,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             $cptm_data = [
                 'fields'  => self::$fields,
-                'layouts' => $this->layouts,
+                'layouts' => self::$layouts,
                 'config'  => self::$config,
                 'options' => $this->options,
                 'id'      => $listing_type_id,

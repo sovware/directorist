@@ -210,12 +210,12 @@ class Directorist_Listing_Taxonomy {
 			$directory_type_meta  = get_term_meta( $term->term_id, '_directory_type', true );
 			$directory_type_meta  = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
 			$current_type		  = $this->current_listing_type;
-			$get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : ''; 
+			$current_slug = '';
 			if( $current_type ) {
 				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
-				$current_slug  = $type->slug;
+				$current_slug  = $type ? $type->slug : '';
 			}
-
+			$get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : $current_type;
 			if( in_array( $current_slug, $directory_type_meta ) || 'all' == $get_current_url_type ) {
 				$current_listing_type   = $this->current_listing_type;
 				$count 					= 0;
@@ -396,11 +396,11 @@ class Directorist_Listing_Taxonomy {
 			}
 		}
 
-		if( ! is_numeric( $current ) ) {
+		if( ! is_numeric( $current ) && 'all' != $current ) {
 			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+			$current = $term ? $term->term_id : '';
 		}
-		return (int) $current;
+		return $current;
 	}
 
 	// Hooks ------------

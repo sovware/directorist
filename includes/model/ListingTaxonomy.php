@@ -207,15 +207,16 @@ class Directorist_Listing_Taxonomy {
     	$result = array();
 
     	foreach ($this->terms as $term) {
-			$directory_type_meta = get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_type_meta = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
-			$current_type		 = $this->current_listing_type;
+			$directory_type_meta  = get_term_meta( $term->term_id, '_directory_type', true );
+			$directory_type_meta  = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
+			$current_type		  = $this->current_listing_type;
+			$get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : ''; 
 			if( $current_type ) {
 				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
 				$current_slug  = $type->slug;
 			}
 
-			if( in_array( $current_slug, $directory_type_meta) ) {
+			if( in_array( $current_slug, $directory_type_meta ) || 'all' == $get_current_url_type ) {
 				$current_listing_type   = $this->current_listing_type;
 				$count 					= 0;
 				if ($this->hide_empty || $this->show_count) {
@@ -378,8 +379,8 @@ class Directorist_Listing_Taxonomy {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( isset( $_GET['directory_type'] ) && 'all' != $_GET['directory_type'] ) {
+			$current = $_GET['directory_type'] ;
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
@@ -407,7 +408,7 @@ class Directorist_Listing_Taxonomy {
 		$count = count( $listings->listing_types );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			URI_Helper::get_template( 'listings-archive/listing-types', array('listings' => $listings) );
+			URI_Helper::get_template( 'listings-archive/listing-types', array('listings' => $listings, 'all_types' => true ) );
 		}
 	}
 }

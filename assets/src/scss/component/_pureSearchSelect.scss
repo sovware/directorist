@@ -12,7 +12,8 @@
         padding: 0 15px;
         background-color: #fff;
         border: 1px solid $border-color-normal;
-        .directorist-select__label--icon{
+        .directorist-select__label--icon,
+        .directorist-select__label--text{
             pointer-events: none;
         }
         i,

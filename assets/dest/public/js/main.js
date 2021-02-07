@@ -2234,9 +2234,22 @@ var pureScriptSelect = function pureScriptSelect(selector) {
   });
 };
 
-pureScriptSelect('#directorist-select-js');
-pureScriptSelect('#directorist-search-category-js'); // pureScriptSelect('#directorist-multi-select');
-// pureScriptSelect('#directorist-search-category-js');
+(function ($) {
+  // if($('#directorist-select-js')){
+  //     pureScriptSelect('#directorist-select-js');
+  // }
+  if ($('#directorist-review-select-js')) {
+    pureScriptSelect('#directorist-review-select-js');
+  }
+
+  if ($('#directorist-search-category-js')) {
+    pureScriptSelect('#directorist-search-category-js');
+  }
+
+  if ($('#directorist-search-select-js')) {
+    pureScriptSelect('#directorist-search-select-js');
+  }
+})(jQuery);
 
 /***/ }),
 

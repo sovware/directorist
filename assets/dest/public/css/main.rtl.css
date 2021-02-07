@@ -1819,7 +1819,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: #fff;
   border: 1px solid #ececec;
 }
-.directorist-select .directorist-select__label .directorist-select__label--icon {
+.directorist-select .directorist-select__label .directorist-select__label--icon,
+.directorist-select .directorist-select__label .directorist-select__label--text {
   pointer-events: none;
 }
 .directorist-select .directorist-select__label i,
@@ -2995,6 +2996,24 @@ p.atbd-min {
 }
 .directorist-card .directorist-card__body p:last-child {
   margin-bottom: 0;
+}
+
+.directorist-color-picker-wrap .wp-color-result {
+  text-decoration: none;
+  margin: 5px 0 0 6px !important;
+}
+.directorist-color-picker-wrap .wp-color-result:hover {
+  background-color: #F9F9F9;
+}
+.directorist-color-picker-wrap .wp-picker-input-wrap label input {
+  width: auto !important;
+}
+.directorist-color-picker-wrap .wp-picker-clear {
+  padding: 0 15px;
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.4;
 }
 
 .directorist-form-group {

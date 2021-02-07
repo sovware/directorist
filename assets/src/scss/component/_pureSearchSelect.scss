@@ -15,10 +15,12 @@
         min-height: 42px;
         padding: 0 15px;
         background: none;
-        border: 1px solid $border-color-normal;
+        border: 1px solid #ececec;
 
         i,
-        span {
+        span.fa,
+        span.la {
+            pointer-events: none;
             font-size: 14px;
         }
     }
@@ -53,7 +55,7 @@
     padding: 15px;
     box-sizing: border-box;
     display: none;
-    margin-top: 1px;
+    margin-top: 4px;
     max-height: 400px;
     overflow-y: scroll;
 
@@ -79,7 +81,7 @@
         font-size: 14px;
         box-shadow: 0 4px 15px rgba(#868EAE, .15);
         padding: 12px 15px;
-        border: 1px solid $border-color-normal;
+        border: 1px solid #ececec;
 
         &:focus {
             outline: none;
@@ -99,7 +101,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    color: $info;
+                    color: #2C99FF;
                 }
 
                 img {
@@ -111,7 +113,7 @@
     }
 }
 
-.directorist-select__dropdown.hasClass {
+.directorist-select__dropdown.directorist-select__dropdown-open {
     display: block;
 }
 
@@ -201,8 +203,13 @@
 
                         .directorist-item-remove {
                             text-decoration: none;
+                            position: relative;
+                            top: 2px;
 
-                            i {
+                            i,
+                            span.fa,
+                            span.la {
+                                font-size: 12px;
                                 pointer-events: none;
                                 color: #fff;
                             }
@@ -250,6 +257,17 @@
                             border-radius: 4px;
                         }
                     }
+                }
+            }
+
+            .directorist-error__msg {
+                display: inline-block;
+                margin-top: 12px;
+            }
+
+            &.directorist-error {
+                .directorist-select__label {
+                    border-color: #EF0000;
                 }
             }
         }

@@ -99,6 +99,11 @@ a {
           justify-content: flex-end;
 }
 
+.directorist-error .directorist-error__msg {
+  color: #EF0000;
+  font-size: 14px;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -1816,7 +1821,9 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   border: 1px solid #ececec;
 }
 .directorist-select .directorist-select__label i,
-.directorist-select .directorist-select__label span {
+.directorist-select .directorist-select__label span.fa,
+.directorist-select .directorist-select__label span.la {
+  pointer-events: none;
   font-size: 14px;
 }
 .directorist-select select {
@@ -1850,7 +1857,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: none;
-  margin-top: 1px;
+  margin-top: 4px;
   max-height: 400px;
   overflow-y: scroll;
 }
@@ -1897,7 +1904,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   float: left;
 }
 
-.directorist-select__dropdown.hasClass {
+.directorist-select__dropdown.directorist-select__dropdown-open {
   display: block;
 }
 
@@ -2003,8 +2010,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove {
   text-decoration: none;
+  position: relative;
+  top: 2px;
 }
-.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove i {
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove i,
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove span.fa,
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label .directorist-select__selected-list .directorist-select__selected-list--item .directorist-item-remove span.la {
+  font-size: 12px;
   pointer-events: none;
   color: #fff;
 }
@@ -2046,6 +2058,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul li.showListItem {
   background-color: #F4F5F7;
   border-radius: 4px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container .directorist-error__msg {
+  display: inline-block;
+  margin-top: 12px;
+}
+.directorist-select.directorist-select-multi .directorist-select__container.directorist-error .directorist-select__label {
+  border-color: #EF0000;
 }
 
 /* Directorist button styles */

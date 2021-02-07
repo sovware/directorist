@@ -16,7 +16,7 @@ trait URI_Helper {
 	}
 
 	public static function template_directory() {
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );;
+		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
 
 		$dir = ATBDP_DIR. 'templates/';
 
@@ -32,15 +32,26 @@ trait URI_Helper {
 			extract( $args );
 		}
 
-		$dir = apply_filters( 'directorist_template_directory', 'directorist' );
+		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
+
+		if ( $legacy ) {
+			$dir = 'directorist-v6';
+		}
+		else {
+			$dir = 'directorist';
+		}
+
+		$dir = apply_filters( 'directorist_template_directory', $dir );
 		$theme_template  = '/' . $dir . '/' . $template_file . '.php';
 		$plugin_template = self::template_directory() . $template_file . '.php';
 
 		if ( file_exists( get_stylesheet_directory() . $theme_template ) ) {
 			$file = get_stylesheet_directory() . $theme_template;
-		} elseif ( file_exists( get_template_directory() . $theme_template ) ) {
+		}
+		elseif ( file_exists( get_template_directory() . $theme_template ) ) {
 			$file = get_template_directory() . $theme_template;
-		} else {
+		}
+		else {
 			$file = $plugin_template;
 		}
 

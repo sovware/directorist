@@ -24,58 +24,57 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php endif; ?>
 
 						<?php if ( $searchform->search_bar_sub_title ): ?>
-							<p class="directorist-search-top__"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
+							<p class="directorist-search-top__subtitle"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
 						<?php endif; ?>
 					</div>
+
+					<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form">
+
+						<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
+
+							<?php $searchform->directory_type_nav_template(); ?>
+
+							<input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
+
+							<div class="directorist-search-form-box">
+
+								<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
+
+									<?php
+									foreach ( $searchform->form_data[0]['fields'] as $field ){
+										$searchform->field_template( $field );
+									}
+									if ( $searchform->more_filters_display !== 'always_open' ){
+										$searchform->more_buttons_template();
+									}
+									?>
+
+								</div>
+
+								<?php
+								if ( $searchform->more_filters_display == 'always_open' ){
+									$searchform->advanced_search_form_fields_template();
+								}
+								else {
+									if ($searchform->has_more_filters_button) { ?>
+										<div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+											<?php $searchform->advanced_search_form_fields_template();?>
+										</div>
+										<?php
+									}
+								}
+								?>
+								
+							</div>
+
+						</div>
+
+					</form>
+
+					<?php $searchform->top_categories_template(); ?>
 				</div>
 			</div>
 
 		<?php endif; ?>
-
-		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="atbd_ads-form">
-
-			<div class="atbd_seach_fields_wrapper <?php echo esc_attr( $searchform->border_class() ); ?>">
-
-				<?php $searchform->directory_type_nav_template(); ?>
-
-				<input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
-
-				<div class="atbdp-whole-search-form">
-
-					<div class="atbdp-search-form atbdp-search-form-inline">
-
-						<?php
-						foreach ( $searchform->form_data[0]['fields'] as $field ){
-							$searchform->field_template( $field );
-						}
-						if ( $searchform->more_filters_display !== 'always_open' ){
-							$searchform->more_buttons_template();
-						}
-						?>
-
-					</div>
-
-					<?php
-					if ( $searchform->more_filters_display == 'always_open' ){
-						$searchform->advanced_search_form_fields_template();
-					}
-					else {
-						if ($searchform->has_more_filters_button) { ?>
-							<div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-								<?php $searchform->advanced_search_form_fields_template();?>
-							</div>
-							<?php
-						}
-					}
-					?>
-					
-				</div>
-
-			</div>
-
-		</form>
-
-		<?php $searchform->top_categories_template(); ?>
-
 	</div>
 </div>

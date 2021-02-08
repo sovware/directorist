@@ -11,7 +11,7 @@ $location_source = !empty($data['location_source']) && $data['location_source'] 
 
 if ( $location_source == 'listing' ) { ?>
 
-	<div class="single_search_field search_location">
+	<div class="single_search_field">
 		<select name="in_loc" id="<?php echo esc_attr($searchform->location_id); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 			<option value=""><?php echo esc_html($data['placeholder']); ?></option>
 			<?php echo $searchform->locations_fields; ?>
@@ -29,7 +29,7 @@ elseif ( $location_source == 'map' ) {
 	$searchform->load_map_scripts();
 	?>
 
-	<div class="directorist-form-group directorist-icon-left">
+	<div class="directorist-search-field directorist-form-group directorist-icon-left">
 		<span class="directorist-input-icon directorist-filter-location-icon"><span class="la la-crosshairs"></span></span>
 		<input type="text" name="address" id="address" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 		

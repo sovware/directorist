@@ -131,6 +131,15 @@ class Enqueue_Assets {
             'section'   => '',
             'enable'   => true,
         ];
+        $scripts['directorist-search-style'] = [
+            'file_name' => 'search-style',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [ ],
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
+            'enable'   => true,
+        ];
 
         $scripts = array_merge( $this->css_scripts, $scripts);
         $this->css_scripts = $scripts;

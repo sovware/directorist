@@ -5,7 +5,7 @@ echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $
 echo '</div>';
 ?>
 <div class="atbdp search-area default-ad-search">
-    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="atbd_ads-form">
+    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="directorist-advanced-filter">
         <?php if(!empty($search_by_text_field)) { ?>
             <div class="form-group">
                 <input type="text" name="q" placeholder="<?php _e('What are you looking for?','directorist');?>" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">

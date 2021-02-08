@@ -1,0 +1,187 @@
+/* Advanced search filter styles */
+.directorist-advanced-filter {
+    border: 1px solid #e3e6ef;
+    background: #fff;
+    padding: 20px 30px;
+}
+
+.directorist-search-slide {
+    .directorist-advanced-filter {
+        display: none;
+
+        @include m(show) {
+            display: block !important;
+        }
+    }
+}
+
+/* Advanced search filter float style  */
+.directorist-search-float {
+    position: relative;
+
+    .directorist-advanced-filter {
+        border-radius: 3px;
+        z-index: 10000;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        visibility: hidden;
+    }
+}
+
+// Advance Search Filter Basic
+.directorist-advanced-filter{
+    @include e(basic){
+        display: flex;
+        margin: -5px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $border-color;
+        @include m(element){
+            flex: 1;
+            margin: 5px;
+            .directorist-form-group{
+                .directorist-filter-location-icon{
+                    margin-top: 1px;
+                }
+            }
+        }
+    }
+}
+
+// Advance Search Filter Advance
+.directorist-advanced-filter{
+    @include e(advanced){
+        @include m(element){
+            border-bottom: 1px solid $border-color;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            .directorist-search-field{
+                label{
+                    min-width: 150px;
+                }
+            }
+            &.directorist-advanced-filter__advanced--tag{
+                .directorist-search-tags{
+                    flex: 1;
+                }
+                .directorist-btn-ml{
+                    font-size: 14px;
+                    color: #7a82a6;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.directorist-price-ranges{
+    display: flex;
+    margin: -5px;
+    @include e(item){
+        margin: 5px;
+        .directorist-form-element{
+            max-width: 150px;
+        }
+        &.directorist-price-ranges__price-frequency{
+            display: flex;
+            border: 1px solid $border-color;
+            border-radius: 3px;
+            .directorist-price-ranges__price-frequency--btn{
+                margin-bottom: 0;
+                min-width: auto;
+                &:first-child{
+                    span{
+                        border-radius: 3px 0 0 3px;
+                    }
+                }
+                &:last-child{
+                    span{
+                        border-radius: 0px 3px 3px 0px;
+                    }
+                }
+                &:not(:last-child){
+                    border-right: 1px solid $border-color;
+                }
+                input[type="radio"]{
+                    display: none;
+                    &:checked{
+                        &+.directorist-pf-range{
+                            background-color: $dark;
+                            color: #fff;
+                        }
+                    }
+                }
+                .directorist-pf-range{
+                    cursor: pointer;
+                    min-height: 42px;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 15px;
+                }
+            }
+        }
+    }
+}
+
+// wp-color Picker
+.directorist-search-field {
+    .wp-picker-container{
+        .wp-picker-clear,
+        .wp-color-result{
+            position: relative;
+            height: 40px;
+            border: 0 none;
+            width: 140px;
+            transition: all 0.2s ease-in-out;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .wp-color-result{
+            position: relative;
+            height: 40px;
+            border: 0 none;
+            width: 140px;
+            transition: all 0.2s ease-in-out;
+            border-radius: 3px;
+            .wp-color-result-text{
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 100%;
+                width: 102px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-transform: capitalize;
+                line-height: 1;
+            }
+        }
+    }
+    .wp-picker-holder {
+        position: absolute;
+        z-index: 22;
+    }
+}
+
+// Advance Search Filter Action
+.directorist-advanced-filter{
+    @include e(action){
+        margin: -5px;
+        .directorist-btn {
+            font-size: 14px;
+            border-radius: 0.2rem;
+            padding: 0 20.5px;
+            margin: 5px;
+            text-transform: capitalize;
+            text-decoration: none;
+            letter-spacing: 0;
+            font-weight: 400;
+        }
+    }
+}

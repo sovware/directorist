@@ -3208,7 +3208,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ]
             ];
 
-            $listing_card_widget = [
+            $listing_card_widget = apply_filters( 'directorist_listing_card_widgets', [
                 'listing_title' => [
                     'type' => "title",
                     'label' => "Listing Title",
@@ -3881,7 +3881,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                 ],
-            ];
+            ] );
 
 
             $listing_card_list_view_widget = $listing_card_widget;
@@ -4612,7 +4612,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'listings_card_grid_view' => [
+                'listings_card_grid_view' => applay_fielters( 'directorist_listing_card_layouts', [
                     'type' => 'card-builder',
                     'card_templates' => [
                         'grid_view_with_thumbnail' => [
@@ -4628,9 +4628,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'layout'   => $listing_card_grid_view_without_thumbnail_layout,
                         ],
                     ],
-                ],
+                ] ),
 
-                'listings_card_list_view' => [
+                'listings_card_list_view' => apply_filters( 'directorist_listing_list_layouts', [
                     'type' => 'card-builder',
                     'card_templates' => [
                         'list_view_with_thumbnail' => [
@@ -4646,7 +4646,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'layout'   => $listing_card_list_view_without_thumbnail_layout,
                         ],
                     ],
-                ],
+                ] ),
 
             ]);
             

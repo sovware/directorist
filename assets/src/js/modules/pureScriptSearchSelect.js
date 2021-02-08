@@ -30,7 +30,7 @@ const pureScriptSelect = (selector) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '2';
+            item.style.zIndex = '22';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;
@@ -159,7 +159,7 @@ const pureScriptSelect = (selector) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '0';
+            item.style.zIndex = '22';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = '';

@@ -39,6 +39,9 @@
 @import "../../module/user-dashboard";
 @import "../../module/home";
 
+// Layouts 
+@import "./search-home";
+
 .ads-advanced .bottom-inputs {
   flex-grow: 1;
 }

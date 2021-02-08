@@ -3457,6 +3457,9 @@ p.atbd-min {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
+.directorist-content-active .directorist-listings-header .directorist-dropdown .directorist-dropdown__links {
+  top: 42px;
+}
 .directorist-content-active .directorist-listings-header__left {
   display: -webkit-box;
   display: -webkit-flex;

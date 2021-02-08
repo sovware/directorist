@@ -5,5 +5,5 @@
  * @version 6.7
  */
 ?>
-<div><?php directorist_icon( $icon );?><a target="_blank" href="<?php echo esc_url( $value ); ?>"><?php echo esc_html( $value ); ?></a>
+<div class="directorist-listing-card-website"><?php directorist_icon( $icon );?><a target="_blank" href="<?php echo esc_url( $value ); ?>"><?php echo esc_html( $value ); ?></a>
 </div>

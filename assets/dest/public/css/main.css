@@ -3422,6 +3422,9 @@ p.atbd-min {
 }
 
 /* Archive header bar contents */
+.directorist-content-active .directorist-header-bar {
+  margin-bottom: 35px;
+}
 .directorist-content-active .directorist-listings-header {
   background: #ffffff;
   padding: 20px 30px;

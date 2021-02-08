@@ -6,4 +6,4 @@
  */
 ?>
 
-<div><?php directorist_icon( $icon );?><?php echo $listings->get_the_location(); ?></div>
+<div class="directorist-listing-card-location"><?php directorist_icon( $icon );?><?php echo $listings->get_the_location(); ?></div>

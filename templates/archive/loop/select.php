@@ -5,4 +5,4 @@
  * @version 6.7
  */
 ?>
-<div><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></div>
+<div class="directorist-listing-card-select"><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></div>

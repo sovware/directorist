@@ -6,4 +6,4 @@
  */
 ?>
 
-<div class="directorist-loop-address"><?php directorist_icon( $icon );?><?php echo esc_html( $value ); ?></div>
+<div class="directorist-listing-card-address"><?php directorist_icon( $icon );?><?php echo esc_html( $value ); ?></div>

@@ -104,6 +104,11 @@ a {
   font-size: 14px;
 }
 
+.entry-content .directorist-search-home-contents {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -4101,6 +4106,14 @@ p.atbd-min {
 }
 .directorist-mark-as-favorite__btn:hover .directorist-favorite-icon::before {
   color: #767792;
+}
+
+.directorist-listing-price-range span {
+  font-weight: 700;
+  color: rgba(122, 130, 166, 0.3);
+}
+.directorist-listing-price-range span.directorist-price-active {
+  color: #5d658c;
 }
 
 .ads-advanced .bottom-inputs {

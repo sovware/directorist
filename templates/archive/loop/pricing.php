@@ -5,19 +5,23 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 $id = get_the_ID();
 $price = get_post_meta( $id, '_price', true );
 $price_range = get_post_meta( $id, '_price_range', true );
-$atbd_listing_pricing = get_post_meta( $id, '_atbd_listing_pricing', true );
+$pricing_type = get_post_meta( $id, '_atbd_listing_pricing', true );
 ?>
 
 <span class="directorist-info-item directorist-pricing-meta">
 	<?php
-	if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
-		echo atbdp_display_price_range($price_range);
+	if ( !empty( $price_range ) && ( 'range' === $pricing_type ) ) {
+		Helper::price_range_template( $price_range );
 	}
 	else {
-		echo apply_filters('atbdp_listing_card_price', atbdp_display_price($price, $listings->is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false));
+		if ( !$listings->is_disable_price ) {
+			printf( '<span class="directorist-listing-price">%s</span>', Helper::formatted_price( $price ) );
+		}
 	}
 	?>
 </span>

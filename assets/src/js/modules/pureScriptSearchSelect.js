@@ -354,17 +354,17 @@ const pureScriptSelect = (selector) => {
 }
 
 ;(function ($) {
-
-    // if($('#directorist-select-js')){
-    //     pureScriptSelect('#directorist-select-js');
-    // }
-    if($('#directorist-review-select-js')){
+    
+    if($('#directorist-select-js').length){
+        pureScriptSelect('#directorist-select-js');
+    }
+    if($('#directorist-review-select-js').length){
         pureScriptSelect('#directorist-review-select-js');
     }
-    if($('#directorist-search-category-js')){
+    if($('#directorist-search-category-js').length){
         pureScriptSelect('#directorist-search-category-js');
     }
-    if($('#directorist-search-select-js')){
+    if($('#directorist-search-select-js').length){
         pureScriptSelect('#directorist-search-select-js');
     }
 

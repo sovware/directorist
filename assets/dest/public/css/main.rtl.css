@@ -1819,10 +1819,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: #fff;
   border: 1px solid #ececec;
 }
+.directorist-select .directorist-select__label .directorist-select__label--icon,
+.directorist-select .directorist-select__label .directorist-select__label--text {
+  pointer-events: none;
+}
 .directorist-select .directorist-select__label i,
 .directorist-select .directorist-select__label span.fa,
 .directorist-select .directorist-select__label span.la {
-  pointer-events: none;
   font-size: 14px;
 }
 .directorist-select select {
@@ -2995,6 +2998,24 @@ p.atbd-min {
   margin-bottom: 0;
 }
 
+.directorist-color-picker-wrap .wp-color-result {
+  text-decoration: none;
+  margin: 5px 0 0 6px !important;
+}
+.directorist-color-picker-wrap .wp-color-result:hover {
+  background-color: #F9F9F9;
+}
+.directorist-color-picker-wrap .wp-picker-input-wrap label input {
+  width: auto !important;
+}
+.directorist-color-picker-wrap .wp-picker-clear {
+  padding: 0 15px;
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.4;
+}
+
 .directorist-form-group {
   position: relative;
 }
@@ -3496,10 +3517,7 @@ p.atbd-min {
   padding-bottom: 15px;
   margin-bottom: 15px;
 }
-.directorist-advanced-filter__advanced--element.directorist-advanced-filter__advanced--review .directorist-search-field label {
-  min-width: 150px;
-}
-.directorist-advanced-filter__advanced--element.directorist-advanced-filter__advanced--tag .directorist-search-field label {
+.directorist-advanced-filter__advanced--element .directorist-search-field label {
   min-width: 150px;
 }
 .directorist-advanced-filter__advanced--element.directorist-advanced-filter__advanced--tag .directorist-search-tags {
@@ -3507,6 +3525,11 @@ p.atbd-min {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+.directorist-advanced-filter__advanced--element.directorist-advanced-filter__advanced--tag .directorist-btn-ml {
+  font-size: 14px;
+  color: #7a82a6;
+  text-decoration: none;
 }
 .directorist-advanced-filter .directorist-price-ranges {
   display: -webkit-box;
@@ -3531,6 +3554,13 @@ p.atbd-min {
 }
 .directorist-advanced-filter .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn {
   margin-bottom: 0;
+  min-width: auto;
+}
+.directorist-advanced-filter .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn:first-child span {
+  border-radius: 0 3px 3px 0;
+}
+.directorist-advanced-filter .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn:last-child span {
+  border-radius: 3px 0px 0px 3px;
 }
 .directorist-advanced-filter .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn:not(:last-child) {
   border-left: 1px solid #eff1f6;
@@ -3544,7 +3574,7 @@ p.atbd-min {
 }
 .directorist-advanced-filter .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn .directorist-pf-range {
   cursor: pointer;
-  min-height: 44px;
+  min-height: 42px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

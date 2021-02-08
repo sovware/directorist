@@ -12,7 +12,7 @@ $max_placeholder = !empty( $data['price_range_max_placeholder'] ) ? $data['price
 $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price_range_min_placeholder'] : '';
 ?>
 
-<div class="directorist-search-field "> 
+<div class="directorist-search-field"> 
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>

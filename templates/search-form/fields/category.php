@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-select directorist-search-category" id="directorist-search-category">
+<div class="directorist-select directorist-search-category" id="directorist-search-category-js">
 
-	<select name="in_cat" id="<?php echo esc_attr($searchform->category_id); ?>" class="<?php echo esc_attr($searchform->category_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+	<select name="in_cat" id="<?php echo esc_attr($searchform->category_id); ?>" class="<?php echo esc_attr($searchform->category_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 
 		<option value=""><?php echo esc_html($data['placeholder']); ?></option>
 

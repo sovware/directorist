@@ -1749,7 +1749,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
 /* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
-/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _modules_range_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/range-slider */ "./assets/src/js/modules/range-slider.js");
 /* harmony import */ var _modules_range_slider__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_modules_range_slider__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
@@ -1874,15 +1873,21 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options) {
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var pureScriptSelect = function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
-  function eventDelegation(event, selector, program) {
+  function eventDelegation(event, psSelector, program) {
     document.body.addEventListener(event, function (e) {
-      document.querySelectorAll(selector).forEach(function (elem) {
+      document.querySelectorAll(psSelector).forEach(function (elem) {
         if (e.target === elem) {
           program(e);
         }
@@ -1890,10 +1895,13 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
     });
   }
 
+  var defaultValues = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, document.querySelector(selector).getAttribute('id'), eval(document.querySelector(selector).getAttribute('data-multiSelect')));
+
+  var isMax = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, document.querySelector(selector).getAttribute('id'), eval(document.querySelector(selector).getAttribute('data-max')));
+
   selectors.forEach(function (item, index) {
     var multiSelect = item.getAttribute('data-multiSelect');
     var isSearch = item.getAttribute('data-isSearch');
-    var isMax = item.getAttribute('data-max');
 
     function singleSelect() {
       var virtualSelect = document.createElement('div');
@@ -1907,24 +1915,22 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "<span class=\"directorist-select__label\">".concat(option[0].text, " <span class=\"la la-angle-down\"></span></span class=\"\"><div class=\"directorist-select__dropdown\">\n            <input class='directorist-select__search ").concat(options.isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
+      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__label--text\">".concat(option[0].text, "</div>\n                <span class=\"directorist-select__label--icon\"><i class=\"la la-angle-down\"></i></span>\n            </div>\n            <div class=\"directorist-select__dropdown\">\n                <input class='directorist-select__search ").concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          selectTrigger = sibling.querySelector('.directorist-select__label'); // el1 = '';
-
+          selectTrigger = sibling.querySelector('.directorist-select__label');
       option.forEach(function (el, index) {
         arry.push(el.value);
         arryEl.push(el);
         el.style.display = 'none';
 
         if (el.hasAttribute('selected')) {
-          selectTrigger.innerHTML = el.value + '<span class="la la-angle-down"></span>';
+          selectTrigger.innerHTML = el.value + '<i class="la la-angle-down"></i>';
         }
 
         ;
-      }); //console.log(attribute);
-
+      });
       var input = item.querySelector('.directorist-select__dropdown input');
       document.body.addEventListener('click', function (event) {
         if (event.target == selectTrigger || event.target == input) return;
@@ -1948,18 +1954,20 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         });
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
-          var attrbute = '';
-          var attrbute2 = '';
+          var attribute = '';
+          var attribute2 = '';
 
           if (el.hasAttribute('img')) {
-            attrbute = el.getAttribute('img');
+            attribute = el.getAttribute('img');
           }
 
           if (el.hasAttribute('icon')) {
-            attrbute2 = el.getAttribute('icon');
+            attribute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li>".concat(el.text);
+          item2 += "<li><span class=\"directorist-select-dropdown-text\">".concat(el.text, "</span> <span class=\"directorist-select-dropdown-item-icon\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
+            display: 'none'
+          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></span></li>");
         });
         item2 += '</ul>';
         var popUp = item.querySelector('.directorist-select__dropdown--inner');
@@ -1969,7 +1977,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           el.addEventListener('click', function (event) {
             elem[index].setAttribute('selected', 'selected');
             sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-            item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
+            item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent + '<i class="la la-angle-down"></i>';
           });
         });
       });
@@ -1990,18 +1998,20 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         });
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
-          var attrbute = '';
-          var attrbute2 = '';
+          var attribute = '';
+          var attribute2 = '';
 
           if (el.hasAttribute('img')) {
-            attrbute = el.getAttribute('img');
+            attribute = el.getAttribute('img');
           }
 
           if (el.hasAttribute('icon')) {
-            attrbute2 = el.getAttribute('icon');
+            attribute2 = el.getAttribute('icon');
           }
 
-          item2 += "<li>".concat(el.text, "</li>");
+          item2 += "<li><span class=\"directorist-select-dropdown-text\">".concat(el.text, "</span><span class=\"directorist-select-dropdown-item-icon\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
+            display: 'none'
+          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></span></li>");
         });
         item2 += '</ul>';
         var popUp = item.querySelector('.directorist-select__dropdown--inner');
@@ -2011,14 +2021,14 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           el.addEventListener('click', function (event) {
             elem[index].setAttribute('selected', 'selected');
             sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-            item.querySelector('.directorist-select__label').innerHTML = el.innerHTML + '<span class="la la-angle-down"></span>';
+            item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent + '<i class="la la-angle-down"></i>';
           });
         });
       });
     }
 
     function multiSelects() {
-      var selectedItems = eval(multiSelect);
+      var arraySelector = item.getAttribute('id');
       var virtualSelect = document.createElement('div');
       virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
@@ -2030,11 +2040,11 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'inputShow' : 'inputHide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">            \n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
+      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">            \n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
 
       function insertSearchItem() {
-        document.querySelector('.directorist-select__selected-list').innerHTML = selectedItems.map(function (item) {
-          return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"la la-times\"></i></a></span>");
+        item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(function (item) {
+          return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"fa fa-times\"></i></a></span>");
         }).join("");
       }
 
@@ -2056,7 +2066,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         ;
       });
       option[0].setAttribute('selected', 'selected');
-      option[0].value = JSON.stringify(selectedItems);
+      option[0].value = JSON.stringify(defaultValues[arraySelector]);
       document.body.addEventListener('click', function (event) {
         if (event.target == button || event.target.closest('.directorist-select__container')) {
           return;
@@ -2068,7 +2078,10 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         e.preventDefault();
         var value = item.querySelector('input');
         value.focus();
-        sibling.querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
+        document.querySelectorAll('.directorist-select__dropdown').forEach(function (el) {
+          return el.classList.remove('directorist-select__dropdown-open');
+        });
+        e.target.closest('.directorist-select__container').querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
         var elem = [];
         arryEl.forEach(function (el, index) {
           arry.forEach(function (e) {
@@ -2099,7 +2112,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         item2 += '</ul>';
         popUp.innerHTML = item2;
         var li = item.querySelectorAll('li');
-        selectedItems.map(function (item, key) {
+        defaultValues[arraySelector].map(function (item, key) {
           li[item.key].classList.remove('directorist-select-item-hide');
           return li[item.key].classList.add('directorist-select-item-show');
         });
@@ -2144,7 +2157,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
           popUp.innerHTML = item2;
           var li = item.querySelectorAll('li');
           li.forEach(function (element, index) {
-            selectedItems.map(function (item) {
+            defaultValues[arraySelector].map(function (item) {
               if (item.key == element.getAttribute('data-key')) {
                 element.classList.remove('directorist-select-item-hide');
                 element.classList.add('directorist-select-item-show');
@@ -2158,50 +2171,51 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         });
         eventDelegation('click', 'li', function (e) {
           var index = e.target.getAttribute('data-key');
+          var closestId = e.target.closest('.directorist-select').getAttribute('id');
 
-          if (isMax === null) {
-            selectedItems.filter(function (item) {
+          if (isMax[closestId] === null && defaultValues[closestId]) {
+            defaultValues[closestId].filter(function (item) {
               return item.key === index;
-            }).length === 0 && selectedItems.push({
+            }).length === 0 && defaultValues[closestId].push({
               value: elem[index].value,
               key: index
             });
             option[0].setAttribute('selected', 'selected');
-            option[0].value = JSON.stringify(selectedItems);
+            option[0].value = JSON.stringify(defaultValues[closestId]);
             e.target.classList.remove('directorist-select-item-hide');
             e.target.classList.add('directorist-select-item-show');
             insertSearchItem();
           } else {
-            if (selectedItems.length < parseInt(isMax)) {
-              console.log("yes");
-              selectedItems.filter(function (item) {
-                return item.key === index;
-              }).length === 0 && selectedItems.push({
+            if (defaultValues[closestId]) if (defaultValues[closestId].length < parseInt(isMax[closestId])) {
+              defaultValues[closestId].filter(function (item) {
+                return item.key == index;
+              }).length === 0 && defaultValues[closestId].push({
                 value: elem[index].value,
                 key: index
               });
               option[0].setAttribute('selected', 'selected');
-              option[0].value = JSON.stringify(selectedItems);
+              option[0].value = JSON.stringify(defaultValues[closestId]);
               e.target.classList.remove('directorist-select-item-hide');
               e.target.classList.add('directorist-select-item-show');
               insertSearchItem();
             } else {
               item.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-              item.querySelector('.directorist-select__container').classList.add('directorist-error');
-              item.querySelector('.directorist-error__msg').innerHTML = "Max ".concat(isMax, " Items Added ");
+              e.target.closest('.directorist-select').querySelector('.directorist-select__container').classList.add('directorist-error');
+              e.target.closest('.directorist-select').querySelector('.directorist-error__msg').innerHTML = "Max ".concat(isMax[arraySelector], " Items Added ");
             }
           }
         });
       });
       eventDelegation('click', '.directorist-item-remove', function (e) {
         var li = item.querySelectorAll('li');
-        selectedItems = selectedItems.filter(function (item) {
+        var closestId = e.target.closest('.directorist-select').getAttribute('id');
+        defaultValues[closestId] = defaultValues[closestId] && defaultValues[closestId].filter(function (item) {
           return item.key != parseInt(e.target.getAttribute('data-key'));
         });
 
-        if (selectedItems.length < parseInt(isMax)) {
-          item.querySelector('.directorist-select__container').classList.remove('directorist-error');
-          item.querySelector('.directorist-error__msg').innerHTML = '';
+        if ((defaultValues[closestId] && defaultValues[closestId].length) < (isMax[closestId] && parseInt(isMax[closestId]))) {
+          e.target.closest('.directorist-select').querySelector('.directorist-select__container').classList.remove('directorist-error');
+          e.target.closest('.directorist-select').querySelector('.directorist-error__msg').innerHTML = '';
         }
 
         li.forEach(function (element, index) {
@@ -2212,7 +2226,7 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
         });
         insertSearchItem();
         option[0].setAttribute('selected', 'selected');
-        option[0].value = JSON.stringify(selectedItems);
+        option[0].value = JSON.stringify(defaultValues[closestId]);
       });
     }
 
@@ -2220,23 +2234,22 @@ var pureScriptSearchNSelect = function pureScriptSearchNSelect(selector, options
   });
 };
 
-pureScriptSearchNSelect('#directorist-select', {
-  isSearch: true,
-  multiSelect: false,
-  defaultValue: [{
-    value: "dhaka",
-    key: 0
-  }]
-});
-pureScriptSearchNSelect('#directorist-multi-select');
-pureScriptSearchNSelect('#directorist-search-category', {
-  isSearch: false,
-  multiSelect: false,
-  defaultValue: [{
-    value: "Select Category",
-    key: 0
-  }]
-});
+(function ($) {
+  // if($('#directorist-select-js')){
+  //     pureScriptSelect('#directorist-select-js');
+  // }
+  if ($('#directorist-review-select-js')) {
+    pureScriptSelect('#directorist-review-select-js');
+  }
+
+  if ($('#directorist-search-category-js')) {
+    pureScriptSelect('#directorist-search-category-js');
+  }
+
+  if ($('#directorist-search-select-js')) {
+    pureScriptSelect('#directorist-search-select-js');
+  }
+})(jQuery);
 
 /***/ }),
 
@@ -2349,7 +2362,7 @@ var atbd_slider = function atbd_slider(selector, obj) {
 
 function atbd_callingSlider() {
   var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : atbdp_range_slider.default_val;
-  atbd_slider('#directorist-range-slider', {
+  atbd_slider('#atbdp-range-slider', {
     maxValue: 1000,
     minValue: min,
     maxWidth: '100%',
@@ -2412,6 +2425,32 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
 
 /***/ }),
 

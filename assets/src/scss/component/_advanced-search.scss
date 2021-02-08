@@ -60,21 +60,19 @@
             border-bottom: 1px solid $border-color;
             padding-bottom: 15px;
             margin-bottom: 15px;
-            &.directorist-advanced-filter__advanced--review{
-                .directorist-search-field{
-                    label{
-                        min-width: 150px;
-                    }
+            .directorist-search-field{
+                label{
+                    min-width: 150px;
                 }
             }
             &.directorist-advanced-filter__advanced--tag{
-                .directorist-search-field{
-                    label{
-                        min-width: 150px;
-                    }
-                }
                 .directorist-search-tags{
                     flex: 1;
+                }
+                .directorist-btn-ml{
+                    font-size: 14px;
+                    color: #7a82a6;
+                    text-decoration: none;
                 }
             }
         }
@@ -93,6 +91,17 @@
                 border-radius: 3px;
                 .directorist-price-ranges__price-frequency--btn{
                     margin-bottom: 0;
+                    min-width: auto;
+                    &:first-child{
+                        span{
+                            border-radius: 3px 0 0 3px;
+                        }
+                    }
+                    &:last-child{
+                        span{
+                            border-radius: 0px 3px 3px 0px;
+                        }
+                    }
                     &:not(:last-child){
                         border-right: 1px solid $border-color;
                     }
@@ -107,7 +116,7 @@
                     }
                     .directorist-pf-range{
                         cursor: pointer;
-                        min-height: 44px;
+                        min-height: 42px;
                         display: flex;
                         align-items: center;
                         padding: 0 15px;

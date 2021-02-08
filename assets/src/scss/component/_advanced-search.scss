@@ -51,7 +51,8 @@
                 padding-right: 5px !important;
                 margin: 5px 0;
                 .directorist-btn-ml{
-                    margin-top: 3px;
+                    display: inline-block;
+                    margin-top: 4px;
                     font-size: 14px;
                     color: #7a82a6;
                     text-decoration: none;
@@ -79,15 +80,17 @@
                 }
                 
                 .directorist-btn-ml{
+                    display: inline-block;
                     font-size: 14px;
                     color: #7a82a6;
                     text-decoration: none;
-                    margin-top: 3px;
+                    margin-top: 4px;
                 }
             }
             &.directorist-advanced-filter__advanced--tag{
                 .directorist-search-tags{
                     flex: 1;
+                    margin: 0 -5px;
                 }
             }
         }

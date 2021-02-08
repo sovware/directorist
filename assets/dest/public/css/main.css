@@ -3563,7 +3563,8 @@ p.atbd-min {
   margin: 5px 0;
 }
 .directorist-advanced-filter__basic--element .directorist-search-field .directorist-btn-ml {
-  margin-top: 3px;
+  display: inline-block;
+  margin-top: 4px;
   font-size: 14px;
   color: #7a82a6;
   text-decoration: none;
@@ -3581,16 +3582,18 @@ p.atbd-min {
   min-width: 150px;
 }
 .directorist-advanced-filter__advanced--element .directorist-search-field .directorist-btn-ml {
+  display: inline-block;
   font-size: 14px;
   color: #7a82a6;
   text-decoration: none;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 .directorist-advanced-filter__advanced--element.directorist-advanced-filter__advanced--tag .directorist-search-tags {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  margin: 0 -5px;
 }
 
 .directorist-price-ranges {
@@ -4381,6 +4384,9 @@ p.atbd-min {
 }
 .directorist-search-home-contents .directorist-search-form-top .directorist-search-field .directorist-search-tags .directorist-checkbox {
   margin-bottom: 10px;
+}
+.directorist-search-home-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap {
+  padding: 10px 15px;
 }
 .directorist-search-home-contents .directorist-search-form-top .directorist-search-field .directorist-btn-ml {
   font-size: 14px;

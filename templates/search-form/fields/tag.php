@@ -11,7 +11,7 @@ $source = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : 
 $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
 ?>
 
-<div class="directorist-search-field directorist-flex directorist-align-center directorist-justify-content-between">
+<div class="directorist-search-field">
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>

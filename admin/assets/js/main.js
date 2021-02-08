@@ -1160,11 +1160,7 @@ templateResult: selecWithIcon,
                 $('.atbds_tooltip__text').removeClass('show');
         });
 
-        // load admin add listing form
-        const directory_type = $('select[name="directory_type"]').val();
-        if (directory_type) {
-                admin_listing_form(directory_type);
-        }
+        // load admin add listing form        
         $('body').on('change', 'select[name="directory_type"]', function() {
                 $(this)
                         .parent('.inside')
@@ -1172,19 +1168,6 @@ templateResult: selecWithIcon,
                 admin_listing_form($(this).val());
 
                 $(this)
-                        .closest('#poststuff')
-                        .find('#publishing-action')
-                        .addClass('directorist_disable');
-        });
-
-        $(window).load(function() {
-                console.log($('select[name="directory_type"]'));
-                $('select[name="directory_type"]')
-                        .parent('.inside')
-                        .append(`<span class="directorist_loader"></span>`);
-                admin_listing_form($('select[name="directory_type"]').val());
-
-                $('select[name="directory_type"]')
                         .closest('#poststuff')
                         .find('#publishing-action')
                         .addClass('directorist_disable');

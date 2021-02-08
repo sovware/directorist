@@ -1161,8 +1161,8 @@ templateResult: selecWithIcon,
         $('.atbds_tooltip').on('mouseleave', function() {
                 $('.atbds_tooltip__text').removeClass('show');
         });
+        
 
-        // load admin add listing form
         const directory_type = $('select[name="directory_type"]').val();
         if (directory_type) {
                 admin_listing_form(directory_type);
@@ -1179,34 +1179,26 @@ templateResult: selecWithIcon,
                         .addClass('directorist_disable');
         });
 
-        $(window).load(function() {
-                console.log($('select[name="directory_type"]'));
-                $('select[name="directory_type"]')
-                        .parent('.inside')
-                        .append(`<span class="directorist_loader"></span>`);
-                admin_listing_form($('select[name="directory_type"]').val());
-
-                $('select[name="directory_type"]')
-                        .closest('#poststuff')
-                        .find('#publishing-action')
-                        .addClass('directorist_disable');
-        });
-
         function admin_listing_form(directory_type) {
                 $.ajax({
                         type: 'post',
                         url: atbdp_admin_data.ajaxurl,
                         data: {
                                 action: 'atbdp_dynamic_admin_listing_form',
-                                directory_type,
+                                directory_type: directory_type,
                                 listing_id: $('#directiost-listing-fields_wrapper').data('id'),
                         },
                         success(response) {
                                 $('#directiost-listing-fields_wrapper')
                                         .empty()
-                                        .append(response);
+                                        .append(response.data['listing_meta_fields']);
                                 assetsNeedToWorkInVirtualDom();
-
+                                $('#at_biz_dir-locationchecklist')
+                                                .empty()
+                                                .html( response.data['listing_locations'] );
+                                $('#at_biz_dir-categorychecklist')
+                                                .empty()
+                                                .html( response.data['listing_categories'] );
                                 $('#listing_form_info')
                                         .find('.directorist_loader')
                                         .remove();

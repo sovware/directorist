@@ -1,7 +1,13 @@
-// Directorist Select Style 
-.directorist-select{
+/*  Plugin: PureScriptSearchSelect
+    Author: SovWare
+    URI: https://github.com/woadudakand/pureScriptSelect
+*/
+
+// Directorist Select Style
+.directorist-select {
     min-height: 42px;
-    .directorist-select__label{
+
+    .directorist-select__label {
         font-size: 16px;
         display: inline-flex;
         align-items: center;
@@ -22,10 +28,12 @@
             font-size: 14px;
         }
     }
-    select{
+
+    select {
         padding: 0;
     }
 }
+
 .directorist-select__container {
     position: absolute;
     top: 0;
@@ -33,61 +41,75 @@
     width: 100%;
     min-width: 300px;
     background: #fff;
-    z-index: 22;    
+    cursor: pointer;
+    z-index: 22;
 }
-.directorist-select__container button, .directorist-select__dropdown, .directorist-select__dropdown input{
+
+.directorist-select__container button,
+.directorist-select__dropdown,
+.directorist-select__dropdown input {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
 .directorist-select__dropdown {
-	background: #fff;
-	box-shadow: 0 10px 40px rgba(#868EAE,.30);
-	padding: 15px;
-	box-sizing: border-box;
-	display: none;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(#868EAE, .30);
+    padding: 15px;
+    box-sizing: border-box;
+    display: none;
     margin-top: 4px;
     max-height: 400px;
     overflow-y: scroll;
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
         width: 6px;
         background-color: rgb(241, 241, 241);
     }
-    &::-webkit-scrollbar-thumb{
+
+    &::-webkit-scrollbar-thumb {
         background-color: #ddd;
     }
-    &::-moz-scrollbar{
+
+    &::-moz-scrollbar {
         width: 6px;
         background-color: rgb(241, 241, 241);
     }
-    &::-moz-scrollbar-thumb{
+
+    &::-moz-scrollbar-thumb {
         background-color: #ddd;
     }
-    .directorist-select__search{
+
+    .directorist-select__search {
         font-size: 14px;
-        box-shadow: 0 4px 15px rgba(#868EAE,.15);
+        box-shadow: 0 4px 15px rgba(#868EAE, .15);
         padding: 12px 15px;
-        border: 1px solid $border-color-normal;
-        &:focus{
+        border: 1px solid #ececec;
+
+        &:focus {
             outline: none;
             border-color: #ececec !important;
         }
     }
-    .directorist-select__dropdown--inner{
-        ul{
+
+    .directorist-select__dropdown--inner {
+        ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            li{
+
+            li {
                 font-size: 14px;
                 padding: 5px 10px;
                 cursor: pointer;
-                &:hover{
-                    color: $info;
+
+                &:hover {
+                    color: #2C99FF;
                 }
-                img{
-                    width: 20px;    
+
+                img {
+                    width: 20px;
                     float: right;
                 }
             }
@@ -95,13 +117,15 @@
     }
 }
 
-.directorist-select__dropdown.directorist-select__dropdown-open{
+.directorist-select__dropdown.directorist-select__dropdown-open {
     display: block;
 }
-.directorist-select__dropdown ul li b {   
+
+.directorist-select__dropdown ul li b {
     float: right;
 }
-.directorist-select__container button .item{
+
+.directorist-select__container button .item {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -113,34 +137,38 @@
     justify-content: center;
 }
 
-.directorist-select__container button .item img{
-    width: 100%;      
+.directorist-select__container button .item img {
+    width: 100%;
 }
-.directorist-select__search--show{
+
+.directorist-select__search--show {
     display: block;
 }
-.directorist-select__search--hide{
+
+.directorist-select__search--hide {
     display: none;
 }
 
-.items{
+.items {
     display: inline-block;
     background: #ddd;
     padding: 5px;
     margin: 0 3px;
 }
+
 .hideListItem {
     background-color: #fff;
 }
+
 .showListItem {
     background-color: rgb(199, 6, 6);
 }
 
 // Directorist Multi Select
-.directorist-select{
-    &.directorist-select-multi{
-        .directorist-select__container{
-            .directorist-select__label{
+.directorist-select {
+    &.directorist-select-multi {
+        .directorist-select__container {
+            .directorist-select__label {
                 display: flex;
                 flex-wrap: wrap;
                 border: 1px solid #ddd;
@@ -148,21 +176,25 @@
                 padding: 2.5px 10px;
                 border-radius: 4px;
                 margin: -4px;
-                input{
+
+                input {
                     font-size: 14px;
                     border: 0 none;
                     width: auto;
                     padding: 5px;
-                    &:focus{
+
+                    &:focus {
                         outline: none;
                         border: 0 none;
                     }
                 }
-                .directorist-select__selected-list{
+
+                .directorist-select__selected-list {
                     display: flex;
                     flex-wrap: wrap;
                     margin: -4px 6px -4px -4px;
-                    .directorist-select__selected-list--item{
+
+                    .directorist-select__selected-list--item {
                         display: inline-block;
                         font-size: 12px;
                         font-weight: 600;
@@ -172,30 +204,35 @@
                         border-radius: 4px;
                         min-height: 17px;
                         margin: 4px;
-                        .directorist-item-remove{
+
+                        .directorist-item-remove {
                             text-decoration: none;
                             position: relative;
                             top: 2px;
+
                             i,
                             span.fa,
-                            span.la{
+                            span.la {
                                 font-size: 12px;
                                 pointer-events: none;
                                 color: #fff;
                             }
                         }
-                        
+
                     }
                 }
-                .directorist-select__search{
+
+                .directorist-select__search {
                     flex: auto;
                 }
+
                 .directorist-select__selected-list,
-                .directorist-select__search{
+                .directorist-select__search {
                     margin: 0;
                 }
             }
-            .directorist-select__dropdown{
+
+            .directorist-select__dropdown {
                 display: none;
                 background: #fff;
                 box-shadow: 0 10px 40px rgb(134 142 174 / 30%);
@@ -204,31 +241,37 @@
                 margin-top: 2px;
                 max-height: 400px;
                 overflow-y: auto;
-                &.directorist-select__dropdown-open{
+
+                &.directorist-select__dropdown-open {
                     display: block;
                 }
-                ul{
+
+                ul {
                     padding: 0;
                     margin: 0;
                     list-style: none;
-                    li{
+
+                    li {
                         font-size: 14px;
                         padding: 5px 10px;
                         cursor: pointer;
-                        &.showListItem{
+
+                        &.showListItem {
                             background-color: #F4F5F7;
                             border-radius: 4px;
                         }
                     }
                 }
             }
-            .directorist-error__msg{
+
+            .directorist-error__msg {
                 display: inline-block;
                 margin-top: 12px;
             }
-            &.directorist-error{
-                .directorist-select__label{
-                    border-color: $danger;
+
+            &.directorist-error {
+                .directorist-select__label {
+                    border-color: #EF0000;
                 }
             }
         }

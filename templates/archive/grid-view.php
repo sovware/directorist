@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-archive-grid-view">
 
-	<div class="<?php Helper::directorist_container(); ?>">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php if ( $listings->have_posts() ): ?>
 
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
 						<?php $listings->loop_template( 'grid', $listing_id ); ?>
 					</div>
-					
+
 				<?php endforeach; ?>
 
 			</div>
@@ -40,5 +40,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php endif; ?>
 	</div>
-	
+
 </div>

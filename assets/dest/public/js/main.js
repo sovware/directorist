@@ -1882,6 +1882,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 
 
+/*  Plugin: PureScriptSearchSelect
+    Author: SovWare
+    URI: https://github.com/woadudakand/pureScriptSelect
+*/
 var pureScriptSelect = function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
@@ -2040,7 +2044,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       select.forEach(function (sel) {
         option = sel.querySelectorAll('option');
       });
-      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">            \n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
+      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">\n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
 
       function insertSearchItem() {
         item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(function (item) {

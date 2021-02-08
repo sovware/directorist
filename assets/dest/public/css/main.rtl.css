@@ -1800,6 +1800,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-image: url(../images/c15352715ade2acabf379fadbe0499b0.svg);
 }
 
+/*  Plugin: PureScriptSearchSelect
+    Author: SovWare
+    URI: https://github.com/woadudakand/pureScriptSelect
+*/
 .directorist-select {
   min-height: 42px;
 }
@@ -1844,10 +1848,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   width: 100%;
   min-width: 300px;
   background: #fff;
+  cursor: pointer;
   z-index: 22;
 }
 
-.directorist-select__container button, .directorist-select__dropdown, .directorist-select__dropdown input {
+.directorist-select__container button,
+.directorist-select__dropdown,
+.directorist-select__dropdown input {
   width: 100%;
   margin: 0;
   padding: 0;

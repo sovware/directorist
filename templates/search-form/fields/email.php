@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-field ">
+<div class="directorist-search-field directorist-flex directorist-align-center">
 
 	<?php
 	if ( !empty($data['label']) ): ?>

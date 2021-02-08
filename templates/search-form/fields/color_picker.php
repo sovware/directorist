@@ -8,20 +8,20 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="single_search_field ">
+<div class="directorist-search-field directorist-flex directorist-align-center">
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 
 	<?php if( !empty( $value ) ): ?>
-		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
+		<script> jQuery(document).ready(function ($) { $('.directorist-color-picker').wpColorPicker(); }); </script>
 	<?php else: ?>
-		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker().empty(); }); </script>
+		<script> jQuery(document).ready(function ($) { $('.directorist-color-picker').wpColorPicker().empty(); }); </script>
 	<?php endif; ?>
 
-	<div class="search-form-field">
-		<input class="form-control search_fields my-color-field" id="color_code2" type="text" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+	<div class="directorist-form-group directorist-color-picker-wrap">
+		<input class="directorist-form-element directorist-color-picker" type="text" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 	</div>
 	
 </div>

@@ -1,7 +1,8 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -27,10 +28,50 @@ class ATBDP_Metabox {
 	public function atbdp_dynamic_admin_listing_form() {
 		$term_id 		= sanitize_text_field( $_POST['directory_type'] );
 		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
+
+		// listing meta fields
 		ob_start();
 		$this->render_listing_meta_fields( $term_id, $listing_id );
-		echo ob_get_clean();
+		$listing_meta_fields =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_taxonomies( $term_id, ATBDP_CATEGORY );
+		$listing_categories =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_taxonomies( $term_id, ATBDP_LOCATION );
+		$listing_locations =  ob_get_clean();
+
+		wp_send_json_success( array(
+			'listing_meta_fields' => $listing_meta_fields,
+			'listing_categories'  => $listing_categories,
+			'listing_locations'   => $listing_locations,
+		) );
+
 		die();
+	}
+
+	public function render_listing_taxonomies( $term_id, $taxonomy_id ) {
+		$listing_type 		= get_term_by( 'id', $term_id, ATBDP_TYPE );
+		$listing_type_slug  = $listing_type->slug;
+		$args = array(
+			'hide_empty' => 0,
+			'hierarchical' => false
+		);
+	
+		$terms = get_terms( $taxonomy_id, $args);
+
+		if( $terms ) {
+			foreach( $terms as $term ) {
+				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
+				if( in_array( $listing_type_slug, $directory_type) ) { ?>
+					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"> <?php echo $term->name; ?></label></li>
+
+				<?php
+				}
+			}
+		}
 	}
 
 	public function listing_metabox( $post ) {
@@ -40,33 +81,35 @@ class ATBDP_Metabox {
 	public function render_listing_meta_fields( $type, $id ) {
 		$form_data = $this->build_form_data( $type );
 		foreach ( $form_data as $section ) {
-			Directorist_Listing_Forms::instance($id)->add_listing_section_template( $section );
+			\Directorist\Directorist_Listing_Forms::instance($id)->add_listing_section_template( $section );
 		}
 	}
 
 	public function listing_form_info_meta( $post ) {
 		wp_enqueue_script( 'atbdp-google-map-front' );
         wp_enqueue_script( 'atbdp-markerclusterer' );
-		$all_types     = get_terms(array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		));
+		$all_types     	= directory_types();
+		$default     	= default_directory_type();
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
+		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
+		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
+		if( !empty ( $multi_directory ) && ( count( $all_types ) > 1 )){
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
-			$default = get_term_meta( $type->term_id, '_default', true );
-			$selected = selected( $type->term_id, $current_type );
-			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
-			<?php endforeach; ?>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
+			<?php endforeach;
+			?>
 		</select>
+		<?php } else {?>
+			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
+		<?php } ?>
 		<div class="form-group atbdp_category_custom_fields"></div>
-		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $value, $post->ID ); ?></div>
 		<?php
 	}
 
@@ -144,13 +187,31 @@ class ATBDP_Metabox {
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();
+		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-location'] ) : array();
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
-		$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
-		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
-		$submission_form_fields = $submission_form['fields'];
+			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
+			$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+			$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
+			$submission_form_fields = $submission_form['fields'];
+		}
+
+		if( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
+			foreach( $listing_categories as $category ) {
+				$directory_type = get_term_meta( $category, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $category, '_directory_type', array( $term->slug ) );
+				}
+			}
+
+			foreach( $listing_locations as $location ) {
+				$directory_type = get_term_meta( $location, '_directory_type', true );
+				if( empty( $directory_type ) ) {
+					update_term_meta( $location, '_directory_type', array( $term->slug ) );
+				}
+			}
 		}
 		
 		foreach( $submission_form_fields as $key => $value ){
@@ -160,9 +221,9 @@ class ATBDP_Metabox {
 				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
 			}
 			if( 'pricing' === $key ) {
-				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
-				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
-				$metas[ '_price_range' ] = $p['price_range'] ? $p['price_range'] : '';
+				$metas[ '_atbd_listing_pricing' ] 	= !empty( $p['atbd_listing_pricing'] ) ? $p['atbd_listing_pricing'] : '';
+				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
+				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
 			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
@@ -178,7 +239,7 @@ class ATBDP_Metabox {
 
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$exp_dt 					= !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
+		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(

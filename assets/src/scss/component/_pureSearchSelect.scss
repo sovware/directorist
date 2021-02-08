@@ -16,13 +16,15 @@
         border-radius: 4px;
         min-height: 42px;
         padding: 0 15px;
-        background: none;
-        border: 1px solid #ececec;
-
+        background-color: #fff;
+        border: 1px solid $border-color-normal;
+        .directorist-select__label--icon,
+        .directorist-select__label--text{
+            pointer-events: none;
+        }
         i,
         span.fa,
-        span.la {
-            pointer-events: none;
+        span.la{
             font-size: 14px;
         }
     }

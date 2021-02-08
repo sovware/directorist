@@ -21,15 +21,20 @@
     padding: 230px 0 265px;
     z-index: 2;
 }
+
 // Directorist Search form top
 .directorist-search-home-contents{
     .directorist-search-form-top{
         background-color: #fff;
         border-radius: 6px;
         padding: 10px 20px 10px 0;
-        align-items: center;
+        flex-wrap: wrap;
+        margin: -5px 0;
         .directorist-search-field{
-            flex: 1;
+            flex: auto;
+            flex-direction: column;
+            min-width: 200px;
+            margin: 5px 0;
             &:not(:last-child){
                 border-right: 1px solid $border-color;
             }
@@ -38,6 +43,22 @@
             }
             .directorist-select .directorist-select__label{
                 border: 0 none;
+            }
+            >label{
+                display: none;
+            }
+            .wp-picker-container{
+                .wp-picker-input-wrap{
+                    label{
+                        display: none;
+                    }
+                }
+            }
+            .directorist-search-tags {
+                flex-direction: column;
+                .directorist-checkbox{
+                    margin-bottom: 10px;
+                }
             }
         }
         .directorist-search-form-action{

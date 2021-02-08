@@ -6,7 +6,8 @@
 // Directorist Select Style
 .directorist-select {
     min-height: 42px;
-
+    width: 100%;
+    
     .directorist-select__label {
         font-size: 16px;
         display: inline-flex;
@@ -40,7 +41,7 @@
     top: 0;
     left: 0px;
     width: 100%;
-    min-width: 300px;
+    min-width: auto;
     background: #fff;
     cursor: pointer;
     z-index: 22;

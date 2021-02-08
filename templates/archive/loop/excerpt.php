@@ -9,12 +9,10 @@ if ( !$value ) {
 	return;
 }
 ?>
-
-<div class="atbd_excerpt_content">
+<p>
 	<?php echo esc_html( wp_trim_words( $value, (int) $data['words_limit'] ) );
-
-	if ( $data['show_readmore'] ) { 
+	if ( $data['show_readmore'] ) {
 		printf( '<a href="%s"> %s</a>', $listings->loop['permalink'], $data['show_readmore_text'] );
 	}
 	?>
-</div>
+</p>

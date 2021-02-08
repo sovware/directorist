@@ -104,6 +104,11 @@ a {
   font-size: 14px;
 }
 
+.entry-content .directorist-search-home-contents {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

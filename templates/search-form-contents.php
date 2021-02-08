@@ -10,22 +10,24 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="" style="<?php echo $searchform->background_img_style(); ?>">
+<div class="directorist-search-home-contents" style="<?php echo $searchform->background_img_style(); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php if ( $searchform->show_title_subtitle && ( $searchform->search_bar_title || $searchform->search_bar_sub_title ) ): ?>
 
-			<div class="atbd_search_title_area">
+			<div class="<?php Helper::directorist_row(); ?>">
+				<div class="<?php Helper::directorist_column( 12 ); ?>">
+					<div class="directorist-search-top">
+						<?php if ( $searchform->search_bar_title ): ?>
+							<h2 class="directorist-search-top__title"><?php echo esc_html( $searchform->search_bar_title ); ?></h2>
+						<?php endif; ?>
 
-				<?php if ( $searchform->search_bar_title ): ?>
-					<h2 class="title"><?php echo esc_html( $searchform->search_bar_title ); ?></h2>
-				<?php endif; ?>
-
-				<?php if ( $searchform->search_bar_sub_title ): ?>
-					<p class="sub_title"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
-				<?php endif; ?>
-
+						<?php if ( $searchform->search_bar_sub_title ): ?>
+							<p class="directorist-search-top__"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
+						<?php endif; ?>
+					</div>
+				</div>
 			</div>
 
 		<?php endif; ?>

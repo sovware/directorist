@@ -513,7 +513,7 @@ class Enqueue_Assets {
         $has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
         $has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
-        $load_min = apply_filters( 'directorist_load_min_files', true );
+        $load_min = apply_filters( 'directorist_load_min_files', !SCRIPT_DEBUG );
         $is_rtl   =  is_rtl();
 
         if ( $has_min && $load_min ) {

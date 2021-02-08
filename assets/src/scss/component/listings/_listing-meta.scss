@@ -1,0 +1,10 @@
+.directorist-listing-price-range {
+    span {
+        font-weight: 700;
+        color: rgba(122, 130, 166, 0.3);
+
+        &.directorist-price-active {
+            color: #5d658c;
+        }
+    }
+}

@@ -1,27 +1,37 @@
-// Single Listing Style 
-.directorist-listing-single{
+// Single Listing Style
+.directorist-listing-single {
     background-color: #fff;
     margin-bottom: 15px;
     border-radius: 4px;
-    .directorist-badge{
+
+    .directorist-badge {
         margin: 3px;
-        &.directorist-badge-popular{
+
+        &.directorist-badge-popular {
             background-color: #f51957;
         }
-        &.directorist-badge-new{
-            background-color: #122069 ;
+
+        &.directorist-badge-new {
+            background-color: #122069;
+        }
+
+        &.directorist-badge-featured {
+            background-color: #fa8b0c;
         }
     }
-    .directorist-listing-single__thumb{
+
+    .directorist-listing-single__thumb {
         position: relative;
         margin-bottom: 0;
-        .directorist-thumnail-card{
+
+        .directorist-thumnail-card {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
             z-index: 0;
-            .directorist-thumnail-card-front-wrap{
+
+            .directorist-thumnail-card-front-wrap {
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -31,26 +41,31 @@
                 width: 100%;
                 overflow: hidden;
             }
-            .directorist-thumnail-card-front-img{
+
+            .directorist-thumnail-card-front-img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 margin: 0;
             }
         }
-        .directorist-thumb-top-left{
+
+        .directorist-thumb-top-left {
             left: 20px;
             top: 20px;
         }
-        .directorist-thumb-top-right{
+
+        .directorist-thumb-top-right {
             top: 20px;
             right: 20px;
         }
-        .directorist-thumb-bottom-left{
+
+        .directorist-thumb-bottom-left {
             left: 20px;
             bottom: 30px;
         }
-        .directorist-thumb-bottom-right{
+
+        .directorist-thumb-bottom-right {
             right: 20px;
             bottom: 30px;
         }
@@ -58,7 +73,7 @@
         .directorist-thumb-top-right,
         .directorist-thumb-top-left,
         .directorist-thumb-bottom-left,
-        .directorist-thumb-bottom-right{
+        .directorist-thumb-bottom-right {
             position: absolute;
             display: flex;
             flex-wrap: wrap;
@@ -69,38 +84,45 @@
 }
 
 // Single Listing Card
-.directorist-listing-single{
-    &.directorist-listing-card{
-        .directorist-listing-single__thumb{
+.directorist-listing-single {
+    &.directorist-listing-card {
+        .directorist-listing-single__thumb {
             position: relative;
-            a{
+
+            a {
                 display: block;
                 height: 100%;
             }
-            .directorist-thumnail-card{
-                .directorist-thumnail-card-front-img{
-                    
+
+            .directorist-thumnail-card {
+                .directorist-thumnail-card-front-img {
+
                     border-radius: 3px 3px 0 0;
                 }
             }
-            .directorist-thumb-listing-author{
+
+            .directorist-thumb-listing-author {
                 position: absolute;
                 bottom: 0;
                 transform: translateY(50%);
                 width: 46px;
                 height: 46px;
                 z-index: 1;
-                &.directorist-alignment-right{
+
+                &.directorist-alignment-right {
                     right: 20px;
                 }
-                &.directorist-alignment-left{
+
+                &.directorist-alignment-left {
                     left: 20px;
                 }
-                &.directorist-alignment-center{
+
+                &.directorist-alignment-center {
                     left: 50%;
                     transform: translate(-50%, 50%);
                 }
-                img{
+
+                img {
                     width: 100%;
                     border-radius: 50%;
                 }
@@ -110,24 +132,28 @@
 }
 
 // Single Listing List
-.directorist-listing-single{
-    &.directorist-listing-list{
+.directorist-listing-single {
+    &.directorist-listing-list {
         display: flex;
-        .directorist-listing-single__thumb{
+
+        .directorist-listing-single__thumb {
             flex: 1;
-            .directorist-thumnail-card{
-                .directorist-thumnail-card-front-img{
+
+            .directorist-thumnail-card {
+                .directorist-thumnail-card-front-img {
                     border-radius: 3px 0 0 3px;
                 }
             }
         }
-        .directorist-listing-single__content{
+
+        .directorist-listing-single__content {
             flex: 2;
             display: flex;
             flex-direction: column;
             align-content: space-between;
             justify-content: space-between;
-            .directorist-listing-single__info{
+
+            .directorist-listing-single__info {
                 padding: 18px 20px 15px;
             }
         }
@@ -135,23 +161,27 @@
 }
 
 // Single Listing Content
-.directorist-listing-single{
-    .directorist-listing-single__content{
+.directorist-listing-single {
+    .directorist-listing-single__content {
         border: 1px solid #EFF1F6;
         border-radius: 4px;
     }
-    .directorist-listing-single__info{
+
+    .directorist-listing-single__info {
         padding: 28px 20px 15px;
         position: relative;
-        .directorist-listing-single__info--top{
 
-            .directorist-info-item{
+        .directorist-listing-single__info--top {
+
+            .directorist-info-item {
                 line-height: 1.45;
                 position: relative;
                 display: inline-block;
-                &:not(:last-child){
+
+                &:not(:last-child) {
                     padding-right: 8px;
-                    &:after{
+
+                    &:after {
                         position: absolute;
                         right: 0;
                         top: 50%;
@@ -162,54 +192,65 @@
                         content: '';
                         background-color: #E9E9E9;
                     }
-                    &.directorist-badge{
+
+                    &.directorist-badge {
                         margin-right: 8px;
                         padding-right: 3px;
-                        &:after{
+
+                        &:after {
                             right: -8px;
                         }
                     }
                 }
             }
-            .directorist-badge + .directorist-badge{
+
+            .directorist-badge+.directorist-badge {
                 margin-left: 8px;
             }
+
             .directorist-info-item,
-            .directorist-listing-title{
+            .directorist-listing-title {
                 margin: 4px;
             }
-            .directorist-listing-title{
+
+            .directorist-listing-title {
                 font-size: 18px;
                 font-weight: 500;
                 padding: 0;
                 text-transform: none;
                 line-height: 1.2;
                 margin-bottom: 8px;
-                a{
+
+                a {
                     text-decoration: none;
                     color: $dark;
                 }
             }
-            .directorist-rating-meta{
+
+            .directorist-rating-meta {
                 padding: 0;
+
                 i,
                 span.la,
-                span.fa{
+                span.fa {
                     font-size: 12px;
                     color: $warning;
-                    &:not(:last-child){
+
+                    &:not(:last-child) {
                         margin-right: 3px;
                     }
                 }
-                .directorist-rating-avg{
+
+                .directorist-rating-avg {
                     font-size: 14px;
                     font-weight: 700;
                     color: #51526E;
                     margin: 0 3px 0 6px;
                 }
             }
-            .directorist-pricing-meta{
-                .directorist-listing-price{
+
+            .directorist-pricing-meta {
+                .directorist-listing-price {
                     font-size: 15px;
                     background-color: #fff;
                     color: #202428;
@@ -219,53 +260,81 @@
             }
         }
 
-        .directorist-listing-single__info--list{
+        .directorist-listing-single__info--list {
             margin-top: 16px;
-            ul{
+
+            ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                
-                li{
+
+                li {
                     color: $body-color;
                     margin: 0;
-                    &:not(:last-child){
+
+                    &:not(:last-child) {
                         margin: 0 0 10px;
                     }
-                    div{
+
+                    div {
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
                         align-items: center;
                     }
+
                     .directorist-icon {
                         font-size: 17px;
                         color: #444752;
                         margin-right: 8px;
                     }
-                    a{
+
+                    a {
                         text-decoration: none;
                         color: #7a82a6;
                     }
                 }
             }
         }
+
+        .directorist-listing-single__info--excerpt {
+            margin-top: 15px;
+
+            p {
+                font-size: 15px;
+                color: #7a82a6;
+                line-height: 24px;
+                text-align: left;
+            }
+        }
+
+        .directorist-listing-single__info--right {
+            display: flex;
+            margin: -3px;
+            align-items: center;
+            position: absolute;
+            right: 17px;
+            top: 20px;
+        }
     }
-    .directorist-listing-single__meta{
+
+    .directorist-listing-single__meta {
         border-top: 1px solid #EFF1F6;
         padding: 12px 20px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        .directorist-listing-single__meta--left{
-            .directorist-listing-category{
-                a{
+
+        .directorist-listing-single__meta--left {
+            .directorist-listing-category {
+                a {
                     text-decoration: none;
                     font-size: 15px;
                     color: #7a82a6;
+
                     i,
                     span.la,
-                    span.fa{
+                    span.fa {
                         display: inline-block;
                         margin-right: 7px;
                         line-height: 28px;
@@ -275,34 +344,131 @@
                 }
             }
         }
-        .directorist-listing-single__meta--right{
+
+        .directorist-listing-single__meta--right {
             display: flex;
             align-items: center;
             margin: 0 -5px;
-            .directorist-view-count{
+
+            .directorist-view-count {
                 font-size: 15px;
                 margin: 0 5px;
                 color: #767792;
+
                 i,
                 span.la,
-                span.fa{
+                span.fa {
                     margin-right: 5px;
                 }
             }
-            .directorist-thumb-listing-author{
+
+            .directorist-thumb-listing-author {
                 margin: 0 5px;
-                a{
+
+                a {
                     width: 28px;
                     height: 28px;
                     display: inline-block;
                     vertical-align: middle;
                 }
-                img{
+
+                img {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                 }
             }
+        }
+    }
+}
+
+/* mark as favorite btn */
+.directorist-mark-as-favorite__btn {
+    background: #F2F2F2 !important;
+    width: 30px;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    &:focus {
+        outline: 0 !important;
+        text-decoration: none !important;
+    }
+
+    &.directorist-added-to-favorite {
+        background: rgba(0, 0, 0, 0.5) !important;
+
+        .directorist-favorite-icon {
+            &:before {
+                content: '\f233';
+            }
+        }
+    }
+
+    .directorist-favorite-icon {
+        line-height: 1;
+
+        &:before {
+            content: "\f234";
+            font-family: 'LineAwesome';
+            color: #51526E;
+        }
+    }
+
+    .directorist-favorite-tooltip {
+        span {
+            position: absolute;
+            min-width: 120px;
+            right: 0;
+            top: 35px;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            border-radius: 3px;
+            text-align: center;
+            padding: 2px 5px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                border-bottom: 8px solid #000;
+                border-right: 6px solid transparent;
+                border-left: 6px solid transparent;
+                right: 8px;
+                top: -7px;
+            }
+        }
+    }
+}
+
+.directorist-mark-as-favorite__btn {
+    background: rgba(#000, 0.07);
+    transition: $transition-base;
+
+    .directorist-favorite-icon::before {
+        color: $light-gray;
+    }
+
+    &.directorist-added-to-favorite {
+        background: $primary !important;
+
+        .directorist-favorite-icon::before {
+            color: #fff !important;
+            font-size: 14px;
+        }
+
+        &:hover {
+            .directorist-favorite-icon::before {
+                color: #fff;
+            }
+        }
+    }
+
+    &:hover {
+        .directorist-favorite-icon::before {
+            color: $body-color;
         }
     }
 }

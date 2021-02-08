@@ -212,7 +212,7 @@
     $("body").removeClass("directorist-preload");
     $('.button.wp-color-result').attr('style', ' ');
   });
-  $('.atbdp_mark_as_fav').each(function () {
+  $('.directorist-mark-as-favorite__btn').each(function () {
     $(this).on('click', function (event) {
       event.preventDefault();
       var data = {
@@ -221,28 +221,28 @@
       };
       var fav_tooltip_success = '<span>' + atbdp_search_listing.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + atbdp_search_listing.i18n_text.please_login + '</span>';
-      $(".atbd_fav_tooltip").hide();
+      $(".directorist-favorite-tooltip").hide();
       $.post(atbdp_search_listing.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
-        var staElement = $('#atbdp-fav_' + post_id);
+        var staElement = $('#directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
 
         if (response === "login_required") {
-          staElement.children(".atbd_fav_tooltip").append(fav_tooltip_warning);
-          staElement.children(".atbd_fav_tooltip").fadeIn();
+          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
+          staElement.children(".directorist-favorite-tooltip").fadeIn();
           setTimeout(function () {
-            staElement.children(".atbd_fav_tooltip").children("span").remove();
+            staElement.children(".directorist-favorite-tooltip").children("span").remove();
           }, 3000);
         } else if ('false' === response) {
-          staElement.removeClass('atbdp_fav_isActive');
-          $(".atbd_fav_tooltip span").remove();
+          staElement.removeClass('directorist-added-to-favorite');
+          $(".directorist-favorite-tooltip span").remove();
         } else {
           if (data_id === post_id) {
-            staElement.addClass('atbdp_fav_isActive');
-            staElement.children(".atbd_fav_tooltip").append(fav_tooltip_success);
-            staElement.children(".atbd_fav_tooltip").fadeIn();
+            staElement.addClass('directorist-added-to-favorite');
+            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
+            staElement.children(".directorist-favorite-tooltip").fadeIn();
             setTimeout(function () {
-              staElement.children(".atbd_fav_tooltip").children("span").remove();
+              staElement.children(".directorist-favorite-tooltip").children("span").remove();
             }, 3000);
           }
         }

@@ -4612,7 +4612,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'listings_card_grid_view' => applay_fielters( 'directorist_listing_card_layouts', [
+                'listings_card_grid_view' => apply_filters( 'directorist_listing_card_layouts', [
                     'type' => 'card-builder',
                     'card_templates' => [
                         'grid_view_with_thumbnail' => [

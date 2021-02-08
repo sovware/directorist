@@ -37,13 +37,26 @@
 .directorist-advanced-filter{
     @include e(basic){
         display: flex;
-        margin: -5px;
+        flex-wrap: wrap;
         padding-bottom: 15px;
         margin-bottom: 20px;
         border-bottom: 1px solid $border-color;
         @include m(element){
-            flex: 1;
-            margin: 5px;
+            flex: 0 0 33.33%;
+            width: 33.33%;
+            .directorist-search-field {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 5px !important;
+                padding-right: 5px !important;
+                margin: 5px 0;
+                .directorist-btn-ml{
+                    margin-top: 3px;
+                    font-size: 14px;
+                    color: #7a82a6;
+                    text-decoration: none;
+                }
+            }
             .directorist-form-group{
                 .directorist-filter-location-icon{
                     margin-top: 1px;
@@ -64,66 +77,110 @@
                 label{
                     min-width: 150px;
                 }
+                
+                .directorist-btn-ml{
+                    font-size: 14px;
+                    color: #7a82a6;
+                    text-decoration: none;
+                    margin-top: 3px;
+                }
             }
             &.directorist-advanced-filter__advanced--tag{
                 .directorist-search-tags{
                     flex: 1;
                 }
-                .directorist-btn-ml{
-                    font-size: 14px;
-                    color: #7a82a6;
-                    text-decoration: none;
+            }
+        }
+    }
+}
+
+.directorist-price-ranges{
+    display: flex;
+    margin: -5px;
+    @include e(item){
+        margin: 5px;
+        .directorist-form-element{
+            max-width: 150px;
+        }
+        &.directorist-price-ranges__price-frequency{
+            display: flex;
+            border: 1px solid $border-color;
+            border-radius: 3px;
+            .directorist-price-ranges__price-frequency--btn{
+                margin-bottom: 0;
+                min-width: auto;
+                &:first-child{
+                    span{
+                        border-radius: 3px 0 0 3px;
+                    }
+                }
+                &:last-child{
+                    span{
+                        border-radius: 0px 3px 3px 0px;
+                    }
+                }
+                &:not(:last-child){
+                    border-right: 1px solid $border-color;
+                }
+                input[type="radio"]{
+                    display: none;
+                    &:checked{
+                        &+.directorist-pf-range{
+                            background-color: $dark;
+                            color: #fff;
+                        }
+                    }
+                }
+                .directorist-pf-range{
+                    cursor: pointer;
+                    min-height: 42px;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 15px;
                 }
             }
         }
     }
-    .directorist-price-ranges{
-        display: flex;
-        margin: -5px;
-        @include e(item){
-            margin: 5px;
-            .directorist-form-element{
-                max-width: 150px;
-            }
-            &.directorist-price-ranges__price-frequency{
+}
+
+// wp-color Picker
+.directorist-search-field {
+    .wp-picker-container{
+        .wp-picker-clear,
+        .wp-color-result{
+            position: relative;
+            height: 40px;
+            border: 0 none;
+            width: 140px;
+            transition: all 0.2s ease-in-out;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .wp-color-result{
+            position: relative;
+            height: 40px;
+            border: 0 none;
+            width: 140px;
+            transition: all 0.2s ease-in-out;
+            border-radius: 3px;
+            .wp-color-result-text{
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 100%;
+                width: 102px;
                 display: flex;
-                border: 1px solid $border-color;
-                border-radius: 3px;
-                .directorist-price-ranges__price-frequency--btn{
-                    margin-bottom: 0;
-                    min-width: auto;
-                    &:first-child{
-                        span{
-                            border-radius: 3px 0 0 3px;
-                        }
-                    }
-                    &:last-child{
-                        span{
-                            border-radius: 0px 3px 3px 0px;
-                        }
-                    }
-                    &:not(:last-child){
-                        border-right: 1px solid $border-color;
-                    }
-                    input[type="radio"]{
-                        display: none;
-                        &:checked{
-                            &+.directorist-pf-range{
-                                background-color: $dark;
-                                color: #fff;
-                            }
-                        }
-                    }
-                    .directorist-pf-range{
-                        cursor: pointer;
-                        min-height: 42px;
-                        display: flex;
-                        align-items: center;
-                        padding: 0 15px;
-                    }
-                }
+                align-items: center;
+                justify-content: center;
+                text-transform: capitalize;
+                line-height: 1;
             }
         }
+    }
+    .wp-picker-holder {
+        position: absolute;
+        z-index: 22;
     }
 }
 

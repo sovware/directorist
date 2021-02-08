@@ -8,15 +8,15 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbd_submit_btn_wrapper">
+<div class="directorist-search-form-action">
 
 	<?php if ( $searchform->has_more_filters_button ): ?>
 
-		<div class="atbd_filter_btn">
-			<a href="#" class="more-filter btn btn-lg">
+		<div class="directorist-search-form-action__filter">
+			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn">
 
 				<?php if ( $searchform->has_more_filters_icon() ): ?>
-					<span class="'<?php atbdp_icon_type( true );?>-filter"></span>
+					<span class="<?php atbdp_icon_type( true );?>-filter"></span>
 				<?php endif;?>
 
 				<?php echo esc_html( $searchform->more_filters_text );?>
@@ -27,11 +27,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php if ( $searchform->has_search_button ): ?>
 
-		<div class="atbd_submit_btn">
-			<button type="submit" class="btn btn-lg btn_search">
+		<div class="directorist-search-form-action__submit">
+			<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
 
 				<?php if ( $searchform->has_search_button_icon() ): ?>
-					<span class="'<?php atbdp_icon_type( true );?>-search"></span>
+					<span class="<?php atbdp_icon_type( true );?>-search"></span>
 				<?php endif;?>
 
 				<?php echo esc_html( $searchform->search_button_text );?>

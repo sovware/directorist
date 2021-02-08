@@ -6,7 +6,7 @@
  */
 ?>
 <div class="directorist-advanced-filter">
-	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
+	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 
 		<div class="directorist-advanced-filter__basic">
 			<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>

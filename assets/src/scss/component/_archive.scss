@@ -56,6 +56,11 @@
         justify-content: space-between;
         flex-wrap: wrap;
 
+        .directorist-dropdown{
+            .directorist-dropdown__links{
+                top: 42px;
+            }
+        }
         @include e(left) {
             display: flex;
             flex-wrap: wrap;

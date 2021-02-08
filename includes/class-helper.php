@@ -20,26 +20,31 @@ class Helper {
 		switch ( $price_range ) {
 			case 'skimming':
 			$active_items = 4;
+			$price_range_text = __( 'Skimming', 'directorist' );
 			break;
 
 			case 'moderate':
 			$active_items = 3;
+			$price_range_text = __( 'Moderate', 'directorist' );
 			break;
 
 			case 'economy':
 			$active_items = 2;
+			$price_range_text = __( 'Economy', 'directorist' );
 			break;
 
 			case 'bellow_economy':
 			$active_items = 1;
+			$price_range_text = __( 'Cheap', 'directorist' );
 			break;
 			
 			default:
 			$active_items = 4;
+			$price_range_text = __( 'Skimming', 'directorist' );
 			break;
 		}
 
-		self::get_template( 'global/price-range', compact( 'active_items', 'currency' ) );
+		self::get_template( 'global/price-range', compact( 'active_items', 'currency', 'price_range_text' ) );
 	}
 
 	public static function formatted_price( $price ) {

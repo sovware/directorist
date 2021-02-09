@@ -48,7 +48,6 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		// add_filter( 'the_content', array( '\Directorist\Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
 		add_action( 'template_redirect', [ $this, 'single_template' ] );
 
 	}

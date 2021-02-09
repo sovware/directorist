@@ -35,11 +35,11 @@ class ATBDP_Metabox {
 		$listing_meta_fields =  ob_get_clean();
 
 		ob_start();
-		$this->render_listing_taxonomies( $term_id, ATBDP_CATEGORY );
+		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_CATEGORY );
 		$listing_categories =  ob_get_clean();
 
 		ob_start();
-		$this->render_listing_taxonomies( $term_id, ATBDP_LOCATION );
+		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
 		$listing_locations =  ob_get_clean();
 
 		wp_send_json_success( array(
@@ -51,22 +51,29 @@ class ATBDP_Metabox {
 		die();
 	}
 
-	public function render_listing_taxonomies( $term_id, $taxonomy_id ) {
+	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
 		$listing_type 		= get_term_by( 'id', $term_id, ATBDP_TYPE );
 		$listing_type_slug  = $listing_type->slug;
 		$args = array(
 			'hide_empty' => 0,
 			'hierarchical' => false
 		);
-	
-		$terms = get_terms( $taxonomy_id, $args);
+		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values    = array();
+		if( $saving_terms ) {
+			foreach( $saving_terms as $saving_term ) {
+				$saving_values[] = $saving_term->term_id;
+			}
+		}
+		$terms 			= get_terms( $taxonomy_id, $args);
 
 		if( $terms ) {
 			foreach( $terms as $term ) {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
+				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
 				if( in_array( $listing_type_slug, $directory_type) ) { ?>
-					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"> <?php echo $term->name; ?></label></li>
+					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
 
 				<?php
 				}

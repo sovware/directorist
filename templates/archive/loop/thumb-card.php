@@ -2,8 +2,10 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $is_blur           = get_directorist_option('prv_background_type', 'blur');
 $is_blur           = ('blur' === $is_blur ? true : false);

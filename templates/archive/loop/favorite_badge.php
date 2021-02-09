@@ -1,9 +1,11 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 $fav_class  = in_array( $listings->loop['id'] , $favourites ) ? 'directorist-added-to-favorite' : '';

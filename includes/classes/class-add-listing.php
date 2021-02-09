@@ -149,6 +149,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $metas[ '_price' ] = !empty( $info['price'] ) ? $info['price'] : '';
                         $metas[ '_price_range' ] = !empty( $info['price_range'] ) ? $info['price_range'] : '';
                     }
+                    if( 'map' === $key ) {
+                        $metas[ '_hide_map' ]   = !empty( $info['hide_map'] ) ? $info['hide_map'] : '';
+                        $metas[ '_manual_lat' ] = !empty( $info['manual_lat'] ) ? $info['manual_lat'] : '';
+                        $metas[ '_manual_lng' ] = !empty( $info['manual_lng'] ) ? $info['manual_lng'] : '';
+                    }
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
@@ -173,8 +178,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
                 }
 
-                // wp_send_json($dummy);
-                // die;
+                // wp_send_json($metas);
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;

@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( !$has_slider ) {
    return;
 }

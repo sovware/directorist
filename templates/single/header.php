@@ -4,15 +4,16 @@
  * @since   6.7
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
+
 <div class="atbd_content_module">
 
 	<div class="atbd_content_module_title_area">
 
 		<?php if ( $section_title ) : ?>
-			<div class="atbd_area_title">
-				<h4><?php directorist_icon( $section_icon );?><?php echo esc_html( $section_title ); ?></h4>
-			</div>
+			<h4><?php directorist_icon( $section_icon );?><?php echo esc_html( $section_title ); ?></h4>
 		<?php endif; ?>
 
 		<?php $listing->quick_actions_template(); ?>
@@ -22,40 +23,24 @@
 
 		<?php $listing->slider_template(); ?>
 
-		<div class="atbd_listing_detail">
+		<div>
 
-			<?php $listing->quick_info_template(); 
-			if( $enable_title ) {
-			?>
-			<div class="<?php echo apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title'); ?>">
-				<?php
-				/**
-				 * @since 5.0.5
-				 */
-				echo apply_filters( 'atbdp_listing_title', sprintf( '<h2>%s</h2>', $listing->title ) );	
-				?>
-			</div>
-			<?php
-			}
-			do_action( 'atbdp_single_listing_after_title', $listing->id );
-			if ( !empty($listing->tagline) && $enable_tagline ) {
-				/**
-				 * @since 5.0.5
-				 */
-				echo apply_filters('atbdp_listing_tagline', sprintf( '<p class="atbd_single_listing_tagline">%s</p>', $listing->tagline ));
-			}
+			<?php $listing->quick_info_template(); ?>
 
-			/**
-			 * Fires after the title and sub title of the listing is rendered on the single listing page
-			 *
-			 * @since 1.0.0
-			 */
-			do_action('atbdp_after_listing_tagline');
+			<?php if ( $display_title ): ?>
+				<h2><?php echo esc_html( $listing->get_title() ); ?></h2>
+			<?php endif; ?>
 
-			if( $enable_content ) {
-				echo apply_filters('atbdp_listing_content', sprintf( '<div class="about_detail">%s</div>', $listing->get_contents() ));
-			}
-			?>
+			<?php if ( $display_tagline && $listing->get_tagline() ): ?>
+				<p class="atbd_single_listing_tagline"><?php echo esc_html( $listing->get_tagline() ); ?></p>
+			<?php endif; ?>
+ 
+			<?php if ( $display_content && $listing->get_contents() ): ?>
+				<p class="about_detail"><?php echo wp_kses_post( $listing->get_contents() ); ?></p>
+			<?php endif; ?>	
+
 		</div>
+
 	</div>
+
 </div>

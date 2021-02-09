@@ -28,7 +28,7 @@ get_header( 'directorist' );
 
 		</div>
 
-		<?php Helper::get_template( 'single/sidebar' ); ?>
+		<?php Helper::get_template( 'single-sidebar' ); ?>
 
 	</div>
 

@@ -1,19 +1,16 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
 
-/**
- * @since 5.0
- */
-do_action('atbdp_before_listing_section');
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode <?php do_action('atbdp_single_listing_details_class') ?>">
 
-	<div class="atbd_content_module_title_area">
+<div>
+
+	<div>
 
 		<?php if (!empty($listing_details_text)) : ?>
 			<div class="atbd_area_title">
@@ -52,18 +49,8 @@ do_action('atbdp_before_listing_section');
 				echo apply_filters('atbdp_listing_tagline', sprintf('<p class="atbd_single_listing_tagline">%s</p>', $tagline));
 			}
 
-			/**
-			 * Fires after the title and sub title of the listing is rendered on the single listing page
-			 *
-			 * @since 1.0.0
-			 */
-			do_action('atbdp_after_listing_tagline');
-
 			echo apply_filters('atbdp_listing_content', sprintf('<div class="about_detail">%s</div>', $content));
 			?>
 		</div>
 	</div>
 </div>
-
-<?php
-do_action('atbdp_after_single_listing_details_section', $listing);

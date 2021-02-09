@@ -51,15 +51,12 @@ class Directorist_Single_Listing {
 		$id = $this->id;
 
 		$this->post   		 = get_post( $id );
-		$this->title  		 = get_the_title( $id );
 		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
 		$term 				 = get_term_by( is_numeric($directory_type) ? 'id' : 'slug', $directory_type, 'atbdp_listing_types' );
 		$this->type          = (int) $term->term_id;
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
-		// dvar_dump($this->content_data);
 		
-		$this->tagline               = get_post_meta( $id, '_tagline', true );
 		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
 		$this->price_range           = get_post_meta( $id, '_price_range', true );
 		$this->atbd_listing_pricing  = get_post_meta( $id, '_atbd_listing_pricing', true );
@@ -91,13 +88,10 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		// e_var_dump($content_data);
-
 		return $content_data;
 	}
 
 	public function section_template( $section_data ) {
-		
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
@@ -113,8 +107,41 @@ class Directorist_Single_Listing {
 			Helper::get_template( $template, $args );
 		}
 		else {
-			Helper::get_template( 'single/section-general', $args );
+			if ( $this->section_has_contents( $section_data ) ) {
+				Helper::get_template( 'single/section-general', $args );
+			}
 		}
+	}
+
+	public function section_has_contents( $section_data ) {
+		$has_contents = false;
+
+		foreach ( $section_data['fields'] as $field ){
+			$value = !empty( $field['field_key'] ) ? get_post_meta( $this->id, '_'.$field['field_key'], true ) : '';
+
+			if ( $value ) {
+				$has_contents = true;
+				break;
+			}
+
+			if( 'tag' === $field['widget_name'] ) {
+				$tags = get_the_terms( $this->id, ATBDP_TAGS );
+				if( $tags ) {
+					$has_contents = true;
+					break;
+				}
+			}
+
+			if( 'map' === $field['widget_name'] ) {
+				$address = get_post_meta( $this->id, '_address', true );
+				if( $address ) {
+					$has_contents = true;
+					break;
+				}
+			}
+		}
+
+		return $has_contents;
 	}
 
 	public function field_template( $data ) {
@@ -151,6 +178,15 @@ class Directorist_Single_Listing {
 		Helper::get_template( $template, $args );
 	}
 
+	public function section_id( $id ) {
+		if ( $id ) {
+			printf( 'id="%s"', $id );
+		}
+		else {
+			return;
+		}
+	}
+
 	public function social_share_data() {
 		$title = get_the_title();
 		$link  = get_the_permalink();
@@ -178,12 +214,15 @@ class Directorist_Single_Listing {
 
 	public function quick_actions_template() {
 		$actions = ! empty( $this->header_data['listings_header']['quick_actions'] ) ? $this->header_data['listings_header']['quick_actions'] : '';
+		
 		$args = array(
 			'listing'  => $this,
 			'actions'  => $actions,
 		);
-		if( $actions )
-		Helper::get_template('single/quick-actions', $args );
+
+		if( $actions ) {
+			Helper::get_template('single/quick-actions', $args );
+		}
 	}
 
 	public function quick_info_template() {
@@ -464,18 +503,17 @@ class Directorist_Single_Listing {
 	public function header_template() {
 		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
 		$section_icon = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
-		$enable_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
-		$enable_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
-		$enable_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
+		$display_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
+		$display_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
+		$display_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
 		
 		$args = array(
 			'listing'           => $this,
 			'section_title'     => $section_title,
 			'section_icon'      => $section_icon,
-			'data'              => $this->header_data,
-			'enable_title'      => $enable_title,
-			'enable_tagline'    => $enable_tagline,
-			'enable_content'    => $enable_content,
+			'display_title'     => $display_title,
+			'display_tagline'   => $display_tagline,
+			'display_content'   => $display_content,
 		);
 		
 		return Helper::get_template('single/header', $args);
@@ -494,6 +532,14 @@ class Directorist_Single_Listing {
 		);
 
 		return Helper::get_template_contents('single/single-listing', $args);
+	}
+
+	public function get_title() {
+		return get_the_title( $this->id );
+	}
+
+	public function get_tagline() {
+		return get_post_meta( $this->id, '_tagline', true );	
 	}
 
 	public function get_contents() {

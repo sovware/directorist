@@ -117,7 +117,7 @@ class ATBDP_Enqueuer {
             wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
             wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
             wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
-            wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
+            // wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
             wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -187,7 +187,7 @@ class ATBDP_Enqueuer {
         }
         // lets add a small stylesheet for order listing page
         if (  ( ATBDP_ORDER_POST_TYPE || ATBDP_CUSTOM_FIELD_POST_TYPE ) == $typenow ) {
-            wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
+            // wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
         }
     }
 

@@ -70,6 +70,17 @@
 
 // Switch Type
 .directorist-switch{
+    &.directorist-switch-primary{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $primary
+                    }
+                }
+            }
+        }
+    }
     &.directorist-switch-success{
         .directorist-switch-input{
             &:checked{

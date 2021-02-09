@@ -4448,171 +4448,6 @@ input.atbdp-form-control {
   }
 }
 
-// Directorist Checkbox
-.directorist_checkbox {
-  display: flex;
-
-  label {
-    position: relative;
-    top: -5px;
-    color: #605F74 !important;
-    margin-left: 10px !important;
-    margin-bottom: 0 !important;
-  }
-
-  input[type="checkbox"] {
-    position: relative;
-    width: 18px;
-    height: 18px;
-    border-radius: 3px;
-    border: 2px solid #C6D0DC;
-
-    &:checked {
-      background-color: #3e62f5 !important;
-      border-color: #3e62f5 !important;
-
-      &:before {
-        color: #fff;
-        content: '\f147';
-        font: normal 14px/1 dashicons;
-        margin: 0;
-      }
-
-      &+label {
-        color: $dark;
-      }
-    }
-
-    &:before {
-      position: absolute;
-      width: auto;
-      height: auto;
-      margin: 0;
-      left: -3px;
-      top: -2px;
-    }
-
-    &:focus {
-      outline: 0 none;
-      box-shadow: 0 0;
-    }
-  }
-}
-
-// Directorist Radio
-.directorist_radio {
-
-  label {
-    position: relative;
-    margin-left: 0;
-    padding-left: 35px;
-
-    &:before {
-      position: absolute;
-      left: 0;
-      top: 3px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border-radius: 50%;
-      border: 1px solid #C6D0DC;
-      box-sizing: border-box;
-      content: '';
-    }
-  }
-
-  input[type="radio"] {
-    display: none;
-    position: relative;
-
-    &:checked {
-      &+label {
-        &:before {
-          border-color: #3e62f5 !important;
-          border-width: 5px;
-        }
-      }
-    }
-
-    &:focus {
-      outline: 0 none;
-      box-shadow: 0 0;
-    }
-  }
-}
-
-// directorist_switch
-.directorist_switch{
-  position: relative;
-  display: block;
-  min-height: 1.7rem;
-  input[type=checkbox]{
-      &:before{
-          display: none;
-      }
-  }
-  .directorist_switch-input{
-      position: absolute;
-      left: 0;
-      z-index: -1;
-      width: 1.6rem;
-      height: 1.65rem;
-      opacity: 0;
-      &:checked{
-          &+.directorist_switch-label{
-              color: #1A1B29;
-              font-weight: 500;
-              &:before{
-                  background-color: $dark;
-              }
-              &:after{
-                  transform: translateX(1.2rem);
-              }
-          }
-      }
-  }
-  .directorist_switch-label{
-      user-select: none;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      height: 1.6rem;
-      font-size: 14px;
-      font-weight: 400;
-      padding-left: 65px;
-      margin-left: 0;
-      color: #51526E;
-      &:before{
-          position: absolute;
-          top: 0.05rem;
-          left: 4px;
-          display: block;
-          width: 44px;
-          height: 24px;
-          border-radius: 15px;
-          pointer-events: all;
-          content: "";
-          background-color: #ECECEC;
-      }
-      &:after{
-          position: absolute;
-          display: block;
-          content: "";
-          background: no-repeat 50% / 50% 50%;
-          top: calc(0.05rem + 4px);
-          left: calc(0px + 8px);
-          background-color: #fff !important;
-          width: calc(24px - 8px);
-          height: calc(24px - 8px);
-          background-color: #fff;
-          box-shadow: 0 0 4px rgba(#8F8E9F,.15);
-          border-radius: 15px;
-          transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-          transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-      }
-  }
-}
-
 // Directorist Dropdown Style
 .directorist_dropdown{
   border: 1px solid #EFF1F6;
@@ -4791,3 +4626,26 @@ input.atbdp-form-control {
     transform: rotate(360deg);
   }
 }
+
+// Checkbox Style Adjustment
+.directorist-checkbox{
+  input[type="checkbox"]{
+      & +.directorist-checkbox__label{
+          &:before{
+              left: 5.5px !important;
+              top: 4px !important;
+          }
+      }
+  }
+}
+
+// Base Style
+@import '../../base/general';
+
+// Component Import
+@import '../../component/form';
+@import '../../component/button';
+@import '../../component/modal';
+@import '../../component/checkbox-radio';
+@import '../../component/switch';
+@import '../../component/pureSearchSelect';

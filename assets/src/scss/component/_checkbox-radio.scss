@@ -31,7 +31,7 @@
                 height: 18px;
                 border-radius: 3px;
                 content: "";
-                border: 1px solid $border-color-normal;
+                border: 1px solid #C6D0DC;
                 background-color: #fff;
             }
         }
@@ -120,6 +120,37 @@
     }
 }
 
+// Directorist Theme Admin
+.directorist-radio.directorist-radio-theme-admin{
+    input[type="radio"]{
+        & +.directorist-radio__label{
+            &:before{
+                width: 8px;
+                height: 8px;
+                top: 5px;
+                left: 5px;
+                background-color: #fff !important;
+            }
+            &:after{
+                width: 16px;
+                height: 16px;
+                border-color: #C6D0DC;
+            }
+        }
+        &:checked{
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: #3e62f5;
+                    border-color: #3e62f5;
+                }
+            }
+        }
+    }
+    .directorist-radio__label{
+        padding-left: 35px !important;
+    }
+}
+
 // Directorist Checkbox & Radio Type
 .directorist-checkbox{
     &.directorist-checkbox-primary{
@@ -145,6 +176,20 @@
                     &:after{
                         background-color: $secondary;
                         border-color: $secondary;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-checkbox-blue{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: #3e62f5;
+                        border-color: #3e62f5;
                     }
                 }
             }
@@ -178,6 +223,21 @@
                     }
                     &:before{
                         background-color: $secondary !important;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-radio-blue{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: #fff;
+                        border-color: #3e62f5 !important;
+                    }
+                    &:before{
+                        background-color: #3e62f5 !important;
                     }
                 }
             }

@@ -31,13 +31,20 @@ class Directorist_Single_Listing {
 	public $price;
 
 
-	public function __construct($id = '') {
+	private function __construct($id = '') {
 		if (!$id) {
 			$id = get_the_ID();
 		}
 		$this->id = (int) $id;
 
 		$this->prepare_data();
+	}
+
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
 	}
 
 	public function prepare_data() {
@@ -352,8 +359,7 @@ class Directorist_Single_Listing {
 		return $review_count_html;
 	}
 
-	public static function single_content_wrapper($content)
-	{
+	public static function single_content_wrapper($content) {
 		$id = get_the_ID();
 		$type = get_post_meta( $id, '_directory_type', true );
 
@@ -523,6 +529,108 @@ class Directorist_Single_Listing {
 		}
 
 		return $content;
+	}
+
+	public function submit_link() {
+		$id = get_the_ID();
+		$payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
+		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$display_preview = get_directorist_option('preview_enable', 1);
+		$link = '';
+
+		if ($display_preview && $redirect) {
+			$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
+			$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
+			$pid = isset($_GET['p']) ? $_GET['p'] : '';
+			$pid = empty($pid) ? $post_id : $pid;
+			if (empty($payment)) {
+				$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+				if( 'view_listing' === $redirect_page){
+					$link = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
+				}
+				else{
+					$link = $redirect;
+				}
+			}
+			else {
+				$link = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
+			}
+		}
+
+		return $link;
+	}
+
+	public function has_redirect_link() {
+		return isset( $_GET['redirect'] ) ;
+	}
+
+	public function edit_link() {
+		$id = get_the_ID();
+		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
+		return $edit_link;
+	}
+
+	public function edit_text() {
+		return isset( $_GET['redirect'] ) ;
+	}
+
+	public function current_user_is_author() {
+		$id = get_the_ID();
+		$author_id = get_post_field( 'post_author', $id );
+
+		if ( atbdp_logged_in_user() && $author_id == get_current_user_id() ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function display_back_link() {
+		$id = get_the_ID();
+		$type = get_post_meta( $id, '_directory_type', true );
+		$header = get_term_meta( $type, 'single_listing_header', true );
+		return !empty( $header['options']['general']['back']['label'] ) ? true : false;
+	}
+
+	public function has_sidebar() {
+		return is_active_sidebar('right-sidebar-listing');
+	}
+
+	public function content_col_class() {
+		return is_active_sidebar('right-sidebar-listing') ? Helper::directorist_column(8) : Helper::directorist_column(12);
+	}
+
+	public function notice_template() {
+		$args = array(
+			'listing'     => $this,
+			'notice_text' => $this->notice_text(),		
+		);
+
+		Helper::get_template('single-listing/notice', $args );
+	}
+
+	public function notice_text() {
+		$notice_text = '';
+
+		if( isset( $_GET['notice'] ) ) {
+			$new_listing_status  = get_term_meta( $type, 'new_listing_status', true );
+			$edit_listing_status = get_term_meta( $type, 'edit_listing_status', true );
+			$edited = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
+
+			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+			$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+
+			if ( $edited === 'no' ) {
+				$notice_text = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
+			}
+			else {
+				$notice_text = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
+			}
+		}
+
+		return $notice_text;
 	}
 
 	public function header_template() {

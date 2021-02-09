@@ -2719,7 +2719,7 @@ input[type=radio] {
     z-index: 99999;
 
     &.--show {
-      display: block;
+      display: block !important;
     }
 
     ul {

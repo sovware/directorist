@@ -1591,8 +1591,9 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
         // Hide Clicked Anywhere
         $(document).bind('click', function(e) {
                 let clickedDom = $(e.target);
-                if(!clickedDom.parents().hasClass('directorist_dropdown'))
-                $('.directorist_dropdown-option').hide();
+                if(!clickedDom.parents().hasClass('directorist_dropdown')){
+                        $('.directorist_dropdown-option').hide();
+                }
         });
 
         // Tab Content
@@ -2729,3 +2730,8 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 });
         });
 })(jQuery);
+
+// Modal Components
+import '../components/modal';
+// PureScript Select
+import '../modules/pureScriptSearchSelect';

@@ -8,6 +8,9 @@
     min-height: 42px;
     width: 100%;
     
+    &.directorist-select-active-js{
+        z-index: 222 !important;
+    }
     .directorist-select__label {
         font-size: 16px;
         display: inline-flex;
@@ -148,7 +151,7 @@
 }
 
 .directorist-select__search--hide {
-    display: none;
+    display: none !important;
 }
 
 .items {

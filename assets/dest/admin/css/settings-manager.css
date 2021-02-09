@@ -2960,7 +2960,7 @@ input[type=radio] {
   z-index: 99999;
 }
 .directorist_dropdown .directorist_dropdown-option.--show {
-  display: block;
+  display: block !important;
 }
 .directorist_dropdown .directorist_dropdown-option ul {
   margin: 0;

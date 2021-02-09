@@ -21,5 +21,6 @@
 		</div>
 
 		<?php $searchform->buttons_template(); ?>
+		
 	</form>
 </div>

@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $alignment =  !empty( $data['align'] ) ? $data['align'] : '' ;
 ?>
 <div class="directorist-thumb-listing-author directorist-alignment-<?php echo esc_attr( $alignment ) ?>">

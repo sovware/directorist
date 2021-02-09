@@ -27,17 +27,17 @@ class ATBDP_Shortcode {
 			'directorist_search_result'  => [ $this, 'search_result' ],
 
 			// Single
-			'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
-			'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
-			'directorist_listing_tags'                => [ $this, 'directorist_tags' ],
-			'directorist_listing_custom_fields'       => [ $this, 'directorist_custom_field' ],
-			'directorist_listing_video'               => [ $this, 'directorist_listing_video' ],
-			'directorist_listing_map'                 => [ $this, 'directorist_listing_map' ],
-			'directorist_listing_contact_information' => [ $this, 'directorist_listing_contact_information' ],
-			'directorist_listing_author_info'         => [ $this, 'directorist_listing_author_details' ],
-			'directorist_listing_contact_owner'       => [ $this, 'directorist_listing_contact_owner' ],
-			'directorist_listing_review'              => [ $this, 'directorist_listing_review' ],
-			'directorist_related_listings'            => [ $this, 'directorist_related_listings' ],
+			// 'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
+			// 'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
+			// 'directorist_listing_tags'                => [ $this, 'directorist_tags' ],
+			// 'directorist_listing_custom_fields'       => [ $this, 'directorist_custom_field' ],
+			// 'directorist_listing_video'               => [ $this, 'directorist_listing_video' ],
+			// 'directorist_listing_map'                 => [ $this, 'directorist_listing_map' ],
+			// 'directorist_listing_contact_information' => [ $this, 'directorist_listing_contact_information' ],
+			// 'directorist_listing_author_info'         => [ $this, 'directorist_listing_author_details' ],
+			// 'directorist_listing_contact_owner'       => [ $this, 'directorist_listing_contact_owner' ],
+			// 'directorist_listing_review'              => [ $this, 'directorist_listing_review' ],
+			// 'directorist_related_listings'            => [ $this, 'directorist_related_listings' ],
 			
 			// Author
 			'directorist_author_profile' => [ $this, 'author_profile' ],

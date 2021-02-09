@@ -1,10 +1,13 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
+
 <div class="directorist-listing-category">
 	<?php if ( ! empty( $listings->loop['cats'] ) ) {
 		$term_icon = get_term_meta( $listings->loop['cats'][0]->term_id, 'category_icon', true );

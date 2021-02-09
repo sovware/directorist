@@ -120,8 +120,10 @@ class Directorist_Single_Listing {
 			}
 		}
 		if( 'map' === $data['widget_name'] ) {
-			$address = get_post_meta( $this->id, '_address', true );
-			if( $address ) {
+			$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
+			$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
+			$hide_map 	= get_post_meta( $this->id, '_hide_map', true );
+			if( ( $manual_lat && $manual_lng ) && ! $hide_map ) {
 				$value = true;
 			}
 		}

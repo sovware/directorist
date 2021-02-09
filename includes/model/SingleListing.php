@@ -16,7 +16,7 @@ class Directorist_Single_Listing {
 	// Basic
 	public $id;
 	public $post;
-	public $title;
+	public $author_id;
 
 	// Type
 	public $type;
@@ -50,6 +50,7 @@ class Directorist_Single_Listing {
 	public function prepare_data() {
 		$id = $this->id;
 
+		$this->author_id     = get_post_field( 'post_author', $id );
 		$this->post   		 = get_post( $id );
 		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
 		$term 				 = get_term_by( is_numeric($directory_type) ? 'id' : 'slug', $directory_type, 'atbdp_listing_types' );
@@ -368,6 +369,79 @@ class Directorist_Single_Listing {
 		return ( $this->price && $plan_price ) ? true : false;
 	}
 
+	public function author_has_socials() {
+		if ( $this->author_info( 'facebook' ) || $this->author_info( 'twitter' ) || $this->author_info( 'linkedIn' ) || $this->author_info( 'youtube' ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function author_display_email() {
+		$email_display_type  = get_directorist_option('display_author_email', 'public');
+		$email = $this->author_info( 'name' );
+
+		if ( !$email ) {
+			return false;
+		}
+
+		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && atbdp_logged_in_user() ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function author_info( $arg ) {
+		$author_id = $this->author_id;
+		$result = '';
+
+		switch ( $arg ) {
+			case 'member_since':
+			$user_registered = get_the_author_meta('user_registered', $author_id);
+			$result = human_time_diff(strtotime($user_registered), current_time('timestamp'));
+			break;
+
+			case 'name':
+			$result = get_the_author_meta('display_name', $author_id);
+			break;
+
+			case 'address':
+			$result = get_user_meta($author_id, 'address', true);
+			break;
+
+			case 'phone':
+			$result = get_user_meta($author_id, 'atbdp_phone', true);
+			break;
+
+			case 'email':
+			$result = get_the_author_meta('user_email', $author_id);
+			break;
+
+			case 'website':
+			$result = get_the_author_meta('user_url', $author_id);
+			break;
+
+			case 'facebook':
+			$result = get_user_meta($author_id, 'atbdp_facebook', true);
+			break;
+
+			case 'twitter':
+			$result = get_user_meta($author_id, 'atbdp_twitter', true);
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta($author_id, 'atbdp_linkedin', true);
+			break;
+
+			case 'youtube':
+			$result = get_user_meta($author_id, 'atbdp_youtube', true);
+			break;
+		}
+
+		return $result;
+	}
 
 	public function price_html() {
 		$id            = $this->id;

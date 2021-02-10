@@ -37,7 +37,8 @@ class Directorist_Template_Hooks {
 
     	// Listings Badges - List View
 		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'featured_badge_list_view') );
-		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'populer_badge_list_view'), 15 );
+		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'popul
+		er_badge_list_view'), 15 );
 		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'new_badge_list_view'), 20 );
 
     	// Listings Top - List View

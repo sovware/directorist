@@ -863,7 +863,9 @@ class Directorist_Listing_Forms {
 				'privacy_page_link'    => ATBDP_Permalink::get_privacy_policy_page_url(),
 				'privacy_label'        => get_directorist_option( 'registration_privacy_label', __( 'I agree to the', 'directorist' ) ),
 				'privacy_label_link'   => get_directorist_option( 'registration_privacy_label_link', __( 'Privacy & Policy', 'directorist' ) ),
-				'user_type'			   => $user_type
+				'user_type'			   => $user_type,
+				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
+				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
 
 			return Helper::get_template_contents( 'forms/registration', $args );

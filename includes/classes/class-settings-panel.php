@@ -3806,6 +3806,11 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'display_user_type' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
                 'reg_signup'    => [
                     'type'          => 'text',
                     'label'         => __('Text', 'directorist'),
@@ -4612,6 +4617,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'display_bio_reg', 'reg_bio', 'require_bio_reg'
                                      ],
                                 ],
+                                'user_type' => [
+                                    'title'       => __('User Type Registration', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_user_type'
+                                     ],
+                                ],
                                 'privacy_policy' => [
                                     'title'       => __('Privacy Policy', 'directorist'),
                                     'description' => '',
@@ -4626,6 +4638,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'regi_terms_condition', 'regi_terms_label', 'regi_terms_label_link'
                                      ],
                                 ],
+                            
                                 'signup_button' => [
                                     'title'       => __('Sign Up Button', 'directorist'),
                                     'description' => '',

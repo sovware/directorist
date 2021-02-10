@@ -48,7 +48,18 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		add_action( 'template_redirect', [ $this, 'single_template' ] );
+		if ( !Helper::is_legacy_mode() ) {
+			add_action( 'template_redirect', [ $this, 'single_template' ] );
+		}
+
+		if ( Helper::is_legacy_mode() ) {
+			$author = Directorist_Listing_Author::instance();
+			add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
+			add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
+			add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
+
+			add_filter('the_content', array( '\Directorist\Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
+		}
 
 	}
 

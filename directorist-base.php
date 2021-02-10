@@ -229,8 +229,12 @@ final class Directorist_Base
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
-            self::$instance->enquirer = new ATBDP_Enqueuer;
-            self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+            $atbdp_legacy_template = get_option( 'atbdp_option' )['atbdp_legacy_template'];
+            if ( ! empty( $atbdp_legacy_template ) ) {
+                self::$instance->enquirer = new ATBDP_Enqueuer;
+            } else {
+                self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+            }
 
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
@@ -479,13 +483,19 @@ final class Directorist_Base
         ]);
 
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
-        load_dependencies('all', ATBDP_INC_DIR . 'model/');
+
+        if ( \Directorist\Helper::is_legacy_mode() ) {
+            load_dependencies('all', ATBDP_INC_DIR . 'model-legacy/');
+        }
+        else {
+            load_dependencies('all', ATBDP_INC_DIR . 'model/');
+        }
+        
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
         load_dependencies('all', ATBDP_INC_DIR . 'modules/');
         load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
-        load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
 
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');

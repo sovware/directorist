@@ -1,0 +1,14 @@
+@import "../vendor/bootstrap/config.bs";
+
+@mixin generate-color($color-map){
+    @each $key, $color in $color-map {
+        .atbd_color-#{$key}{
+            color: #{$color};
+        }
+        .atbd_bg-#{$key}{
+            background:#{$color};
+        }
+    }
+}
+@include generate-color($theme-colors);
+@include generate-color($other-colors);

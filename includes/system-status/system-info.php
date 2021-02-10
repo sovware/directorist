@@ -3,7 +3,7 @@
  * @author AazzTech
  */
 
-use Directorist\URI_Helper;
+use Directorist\Helper;
 
 class ATBDP_System_Info_Email_Link
 {
@@ -295,7 +295,7 @@ class ATBDP_System_Info_Email_Link
 		 */
 		$override_files     = array();
 		$outdated_templates = false;
-		$scan_files         = self::scan_template_files( URI_Helper::template_directory() );
+		$scan_files         = self::scan_template_files( Helper::template_directory() );
 		foreach ( $scan_files as $file ) {
 			$located = $file;
 

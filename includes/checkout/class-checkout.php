@@ -337,7 +337,7 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
-        \Directorist\URI_Helper::get_template( 'payment/transaction-failure' );
+        \Directorist\Helper::get_template( 'payment/transaction-failure' );
 
         return ob_get_clean();
     }

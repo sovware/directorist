@@ -39,7 +39,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 //stop preload transition
-.atbdp_preload * {
+.directorist-preload * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;

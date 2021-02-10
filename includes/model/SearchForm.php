@@ -279,13 +279,7 @@ class Directorist_Listing_Search_Form {
 
 	public function buttons_template() {
 		if ($this->has_reset_filters_button || $this->has_apply_filters_button) {
-			URI_Helper::get_template( 'search/buttons', array('searchform' => $this) );
-		}
-	}
-
-	public function open_now_template() {
-		if ($this->has_open_now_field && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			URI_Helper::get_template( 'search/open-now', array('searchform' => $this) );
+			Helper::get_template( 'search-form/buttons', array('searchform' => $this) );
 		}
 	}
 
@@ -341,12 +335,12 @@ class Directorist_Listing_Search_Form {
 
 		// dvar_dump($field_data);
 
-		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = 'search-form/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
-		URI_Helper::get_template( $template, $args );
+		Helper::get_template( $template, $args );
 	}
 
-	public function get_listing_types() {
+	public function get_listing_type_data() {
 		$listing_types = array();
 		$args          = array(
 			'taxonomy'   => ATBDP_TYPE,
@@ -369,52 +363,30 @@ class Directorist_Listing_Search_Form {
 	}
 
 
-	public function listing_type_template() {
-		if( count( $this->get_listing_types() ) < 2 ) return;
-		$args = array(
-			'searchform' 		=> $this,
-			'listing_types'     => $this->get_listing_types(),
-		);
-		URI_Helper::get_template( 'search/listing-types', $args );
-	}
-
-	public function basic_fields_template() {
-		$args = array(
-			'searchform' => $this,
-			'fields'     => $this->form_data[0]['fields'],
-		);
-		URI_Helper::get_template( 'search/basic-fields', $args );
-	}
-
-
-
-	public function more_buttons_template() {
-		$html = '';
-
-		if ( $this->has_more_filters_button || $this->has_search_button ) {
-			$more_filters_icon   = $this->options['display_more_filter_icon'];
-			$search_button_icon  = $this->options['display_search_button_icon'];
-			$more_filters_icon   = !empty($more_filters_icon) ? '<span class="' . atbdp_icon_type() . '-filter"></span>' : '';
-			$search_button_icon  = !empty($search_button_icon) ? '<span class="fa fa-search"></span>' : '';
-
-			$args = array(
-				'searchform'         => $this,
-				'more_filters_icon'  => $more_filters_icon,
-				'search_button_icon' => $search_button_icon,
-			);
-
-			$html = URI_Helper::get_template_contents( 'search/more-buttons', $args );
+	public function directory_type_nav_template() {
+		if( count( $this->get_listing_type_data() ) < 2 ) {
+			return;
 		}
 
-		/**
-		 * @since 5.0
-		 * It show the search button
-		 */
-		echo apply_filters('atbdp_search_listing_button', $html);
+		Helper::get_template( 'search-form/directory-type-nav', [ 'searchform' => $this ] );
+	}
+
+	public function has_more_filters_icon() {
+		$more_filters_icon = $this->options['display_more_filter_icon'];
+		return !empty( $more_filters_icon ) ? true : false;
+	}
+
+	public function has_search_button_icon() {
+		$search_button_icon = $this->options['display_search_button_icon'];
+		return !empty( $search_button_icon ) ? true : false;
+	}
+
+	public function more_buttons_template() {
+		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}
 
 	public function advanced_search_form_fields_template() {
-		URI_Helper::get_template( 'search/adv-search', array('searchform' => $this) );
+		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}
 
 	public function top_categories_template() {
@@ -426,7 +398,7 @@ class Directorist_Listing_Search_Form {
 					'searchform'      => $this,
 					'top_categories'  => $top_categories,
 				);
-				URI_Helper::get_template( 'search/top-cats', $args );
+				Helper::get_template( 'search-form/top-cats', $args );
 			}
 		}
 	}
@@ -482,7 +454,6 @@ class Directorist_Listing_Search_Form {
 		}
 
 		$data = [
-			// 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
 		];
 
@@ -491,20 +462,23 @@ class Directorist_Listing_Search_Form {
 
 		ATBDP()->enquirer->search_listing_scripts_styles();
 
+		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
+	}
+
+	public function listing_type_slug() {
+		$term_data = get_term( $this->listing_type, ATBDP_TYPE );
+		return $term_data->slug;
+	}
+
+	public function background_img_style() {
 		$bgimg = get_directorist_option('search_home_bg');
+		$style = !empty( $bgimg['url'] ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg['url'] ) ) : '';
+		return $style;
+	}
 
-		$container_class = is_directoria_active() ? 'container' : 'container-fluid';
-		$container_class = apply_filters('atbdp_search_home_container_fluid', $container_class);
-		$search_border = get_directorist_option('search_border', 1);
-
-		$args = array(
-			'searchform'          => $this,
-			'bgimg'               => $bgimg,
-			'container_class'     => $container_class,
-			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
-		);
-
-		return URI_Helper::get_template_contents( 'search/search', $args );
+	public function border_class() {
+		$search_border = get_directorist_option( 'search_border', 1 );
+		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';
 	}
 
 	public function top_categories() {

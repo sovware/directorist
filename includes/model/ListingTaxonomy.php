@@ -308,7 +308,7 @@ class Directorist_Listing_Taxonomy {
     	}
 
     	if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
-    		return URI_Helper::get_template_contents( $template_file, $args );
+    		return Helper::get_template_contents( $template_file, $args );
     	}
     	else {
     		return __('<p>No Results found!</p>', 'directorist');
@@ -408,7 +408,7 @@ class Directorist_Listing_Taxonomy {
 		$count = count( $listings->listing_types );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			URI_Helper::get_template( 'listings-archive/listing-types', array('listings' => $listings, 'all_types' => true ) );
+			Helper::get_template( 'archive/listing-types', array('listings' => $listings, 'all_types' => true ) );
 		}
 	}
 }

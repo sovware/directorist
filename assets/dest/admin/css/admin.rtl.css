@@ -4572,7 +4572,7 @@ input.atbdp-form-control {
   }
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
-  right: 5.5px !important;
+  right: 5px !important;
   top: 4px !important;
 }
 
@@ -5259,26 +5259,26 @@ input.atbdp-form-control {
 .directorist-switch-Yn input[type=checkbox] {
   display: none;
 }
-.directorist-switch-Yn input[type=checkbox]:checked + .switch_yes {
+.directorist-switch-Yn input[type=checkbox]:checked + .directorist-switch-yes {
   background-color: #3E62F5;
   color: #fff;
 }
-.directorist-switch-Yn input[type=checkbox]:checked + span + .switch_no {
+.directorist-switch-Yn input[type=checkbox]:checked + span + .directorist-switch-no {
   background-color: transparent;
   color: #9b9eaf;
 }
-.directorist-switch-Yn input[type=checkbox] .switch_yes {
+.directorist-switch-Yn input[type=checkbox] .directorist-switch-yes {
   background-color: transparent;
   color: #9b9eaf;
 }
-.directorist-switch-Yn input[type=checkbox] + span + .switch_no {
+.directorist-switch-Yn input[type=checkbox] + span + .directorist-switch-no {
   background-color: #fb6665;
   color: #fff;
 }
-.directorist-switch-Yn .switch_yes {
+.directorist-switch-Yn .directorist-switch-yes {
   border-radius: 0 15px 15px 0;
 }
-.directorist-switch-Yn .switch_no {
+.directorist-switch-Yn .directorist-switch-no {
   border-radius: 15px 0 0 15px;
 }
 

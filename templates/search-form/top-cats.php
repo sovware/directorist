@@ -6,8 +6,6 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$counter = 0;
 ?>
 
 <div class="">
@@ -15,7 +13,6 @@ $counter = 0;
 
 		<?php foreach ( $top_categories as $cat ): ?>
 
-			<?php $counter++ ?>
 			<li>
 				<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
 					<span class="<?php echo esc_attr( $searchform->category_icon_class( $cat ) ); ?>"></span>

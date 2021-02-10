@@ -125,7 +125,7 @@ class ATBDP_Enqueuer {
             wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
             wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
             wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
-            // wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
+            wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
             wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -195,7 +195,7 @@ class ATBDP_Enqueuer {
         }
         // lets add a small stylesheet for order listing page
         if (  ( ATBDP_ORDER_POST_TYPE || ATBDP_CUSTOM_FIELD_POST_TYPE ) == $typenow ) {
-            // wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
+            wp_enqueue_style('atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
         }
     }
 
@@ -208,7 +208,7 @@ class ATBDP_Enqueuer {
         $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
         $front_scripts_dependency = array( 'jquery' );
         // @Todo; make unminified css minified then enqueue them.
-        // wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
+        wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
@@ -217,7 +217,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'slickcss', ATBDP_PUBLIC_ASSETS . 'css/slick.css', false, ATBDP_VERSION );
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS . 'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
-        // wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome', 'atbdp-line-awesome' ), ATBDP_VERSION );
+        wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome', 'atbdp-line-awesome' ), ATBDP_VERSION );
         if ( is_rtl() ) {
             wp_register_style( 'atbdp-media-uploader-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader-rtl.css', array( 'atbdp-font-awesome', 'atbdp-line-awesome' ), ATBDP_VERSION );
         } else {
@@ -268,7 +268,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_checkout_script', ATBDP_PUBLIC_ASSETS . 'js/checkout.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_slick_slider', ATBDP_PUBLIC_ASSETS . 'js/slick.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-        // wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
         $modal_dependency = apply_filters( 'atbdp_modal_dependency', array( 'jquery' ) );
         wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', $modal_dependency, ATBDP_VERSION, true );

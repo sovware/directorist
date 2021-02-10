@@ -1,10 +1,6 @@
 <?php
 
 namespace Directorist;
-
-use AazzTech\Directorist\Elementor\Directorist_Tag;
-use Directory;
-
 class Enqueue_Assets {
 
     public $js_scripts  = [];

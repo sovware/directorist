@@ -144,7 +144,7 @@
 #directorist.atbd_wrapper .field-options {
   margin-bottom: 15px;
 }
-#directorist.atbd_wrapper .hide-if-no-js {
+#directorist.atbd_wrapper .directorist-hide-if-no-js {
   text-align: center;
   margin: 0;
 }
@@ -2201,7 +2201,7 @@ span.atbdp-tick-cross {
 .add_listing_form_wrapper .listing-img-container p {
   font-size: 14px;
 }
-.add_listing_form_wrapper .hide-if-no-js {
+.add_listing_form_wrapper .directorist-hide-if-no-js {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

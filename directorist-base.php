@@ -229,13 +229,9 @@ final class Directorist_Base
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
-            $atbdp_legacy_template = get_option( 'atbdp_option' )['atbdp_legacy_template'];
-            if ( ! empty( $atbdp_legacy_template ) ) {
-                self::$instance->enquirer = new ATBDP_Enqueuer;
-            } else {
-                self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
-            }
-
+            self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+            
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
             self::$instance->multi_directory_manager->run();

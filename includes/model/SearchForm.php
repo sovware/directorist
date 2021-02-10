@@ -389,6 +389,36 @@ class Directorist_Listing_Search_Form {
 		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}
 
+	public function top_categories() {
+		$top_categories = [];
+
+		$args = array(
+			'type'          => ATBDP_POST_TYPE,
+			'parent'        => 0,
+			'orderby'       => 'count',
+			'order'         => 'desc',
+			'hide_empty'    => 1,
+			'number'        => (int)$this->popular_cat_num,
+			'taxonomy'      => ATBDP_CATEGORY,
+			'no_found_rows' => true,
+		);
+
+		$cats = get_categories( $args );
+
+		foreach ( $cats as $cat ) {
+			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
+			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
+			$listing_type_id     = $this->listing_type;
+			$listing_type_slug   = get_term_by( 'id', $listing_type_id, ATBDP_TYPE );
+
+			if( in_array( $listing_type_slug->slug, $directory_type ) ) {
+				$top_categories[] = $cat;
+			}
+		}
+
+		return $top_categories;
+	}
+
 	public function top_categories_template() {
 		if ( $this->show_popular_category ) {
 			$top_categories = $this->top_categories();
@@ -479,21 +509,6 @@ class Directorist_Listing_Search_Form {
 	public function border_class() {
 		$search_border = get_directorist_option( 'search_border', 1 );
 		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';
-	}
-
-	public function top_categories() {
-		$args = array(
-			'type'          => ATBDP_POST_TYPE,
-			'parent'        => 0,
-			'orderby'       => 'count',
-			'order'         => 'desc',
-			'hide_empty'    => 1,
-			'number'        => (int)$this->popular_cat_num,
-			'taxonomy'      => ATBDP_CATEGORY,
-			'no_found_rows' => true,
-		);
-		$top_categories = get_categories(apply_filters('atbdp_top_category_argument', $args));
-		return $top_categories;
 	}
 
 	public function category_icon_class($cat) {

@@ -1686,7 +1686,8 @@ class Directorist_Listings {
 					$load_template = false;
 				}
 				
-				$label = !empty( $field['show_label'] ) ? $field['label'].' ' : '';
+				$label = !empty( $field['show_label'] ) ? $field['label'] . ': ' : '';
+				$label = apply_filters( 'directorist_loop_label', $label, $field );
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,

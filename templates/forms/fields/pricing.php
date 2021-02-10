@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  AazzTech
+ * @author  wpWax
  * @since   6.7
  * @version 6.7
  */
@@ -25,25 +25,48 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		<?php
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
 			$checked =  ( $atbd_listing_pricing == 'price' || empty($p_id) ) ? ' checked' : '';
-			?>
+			ob_start(); ?>
 			<label for="price_selected" data-option="price"><input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"<?php echo $checked; ?>> <?php echo esc_html( $data['price_unit_field_label'] );?></label>
 			<?php
+
+			$price_unit_checkbox =  apply_filters( 'directorist_submission_field_module', ob_get_clean(), [
+				'field'       => 'pricing',
+				'module'      => 'price_unit',
+				'section_key' => 'price_selected_input',
+				'data'        => $data,
+			]);
+
+			echo $price_unit_checkbox;
 		}
 
+	
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) {
-			?>
+			ob_start();
+			
+			if ( ! empty( $price_unit_checkbox ) ) : ?>
 			<span><?php esc_html_e('Or', 'directorist'); ?></span>
-
+			<?php endif; ?>
+			
 			<label for="price_range_selected" data-option="price_range"><input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>> <?php echo esc_html( $data['price_range_label'] );?></label>
 			<?php
-		}
-		?>
+			$price_range_checkbox = apply_filters( 'directorist_submission_field_module', ob_get_clean(), [
+				'field'       => 'pricing',
+				'module'      => 'price_range',
+				'section_key' => 'price_range_selected_input',
+				'data'        => $data,
+			]);
 
+			echo $price_range_checkbox;
+		}
+
+		if ( ! empty( $price_unit_checkbox ) || ! empty( $price_range_checkbox ) ) { ?>
 		<small><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
+		<?php } ?>
 	</div>
 
 	<?php
 	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
+		ob_start();
 
 		/**
 		 * @since 6.2.1
@@ -54,9 +77,18 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 
 		<input type="<?php echo $data['price_unit_field_type']; ?>"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 		<?php
+
+		echo apply_filters( 'directorist_submission_field_module', ob_get_clean(), [
+			'field'       => 'pricing',
+			'module'      => 'price_unit',
+			'section_key' => 'price_unit_field_type_input',
+			'data'        => $data,
+		]);
 	}
 
-	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) { ?>
+	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) { 
+		ob_start();
+	?>
 		<select class="form-control directory_field" id="price_range" name="price_range">
 			<option value=""><?php echo esc_html($price_range_placeholder); ?></option>
 
@@ -69,6 +101,13 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 			<option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>><?php printf( '%s (%s)', esc_html__('Cheap', 'directorist'), str_repeat($c_symbol, 1) );?></option>
 		</select>
 		<?php
+
+		echo apply_filters( 'directorist_submission_field_module', ob_get_clean(), [
+			'field'       => 'pricing',
+			'module'      => 'price_range',
+			'section_key' => 'price_range_field_type_input',
+			'data'        => $data,
+		]);
 	}
 
 	/**

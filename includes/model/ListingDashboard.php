@@ -51,7 +51,7 @@ class Directorist_Listing_Dashboard {
 		);
 
 		$result = [
-			'content'    => URI_Helper::get_template_contents( 'dashboard/listing-row', $args ),
+			'content'    => Helper::get_template_contents( 'dashboard/listing-row', $args ),
 			'pagination' => $this->listing_pagination( 'page/%#%', $paged ),
 		];
 
@@ -320,6 +320,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['my_listings'] = array(
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'            => URI_Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
+				'icon'				 => 'la la-list',
 				'after_nav_hook'     => 'atbdp_tab_after_my_listings',
 				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
 			);
@@ -328,6 +329,7 @@ class Directorist_Listing_Dashboard {
 		if ( $my_profile_tab ) {
 			$dashboard_tabs['profile'] = array(
 				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
+				'icon'	   => 'la la-user',
 				'content'  => URI_Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
 			);
 		}
@@ -336,6 +338,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['saved_items'] = array(
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'            => URI_Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
+				'icon'				 => 'la la-heart-o',
 				'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
 				'after_content_hook' => 'atbdp_tab_content_after_favorite',
 			);
@@ -350,7 +353,7 @@ class Directorist_Listing_Dashboard {
 		$args = array(
 			'error_message' => sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), $login_link_html, $signup_link_html),
 		);
-		return URI_Helper::get_template_contents( 'dashboard/error-message', $args );
+		return Helper::get_template_contents( 'dashboard/error-message', $args );
 	}
 
 	public function alert_message_template() {
@@ -371,12 +374,12 @@ class Directorist_Listing_Dashboard {
 			$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
 		}
 
-		URI_Helper::get_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed', 'confirmation_msg') );
+		Helper::get_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed', 'confirmation_msg') );
 	}
 
 	public function section_title( $display_title ) {
 		if ($display_title) {
-			URI_Helper::get_template( 'dashboard/title' );
+			Helper::get_template( 'dashboard/title' );
 		}
 	}
 
@@ -385,14 +388,14 @@ class Directorist_Listing_Dashboard {
 			'dashboard_tabs' => $this->get_dashboard_tabs(),
 		);
 
-		URI_Helper::get_template( 'dashboard/navigation-tabs', $args );
+		Helper::get_template( 'dashboard/navigation-tabs', $args );
 	}
 
 	public function nav_buttons_template() {
 		$args = array(
 			'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
 		);
-		URI_Helper::get_template( 'dashboard/nav-buttons', $args );
+		Helper::get_template( 'dashboard/nav-buttons', $args );
 	}
 
 	public function listing_row_template() {
@@ -400,7 +403,7 @@ class Directorist_Listing_Dashboard {
 			'dashboard' => $this,
 			'query'     => $this->current_listings_query,
 		);
-		URI_Helper::get_template( 'dashboard/listing-row', $args );
+		Helper::get_template( 'dashboard/listing-row', $args );
 	}
 
 	public function tab_contents_html() {
@@ -435,7 +438,7 @@ class Directorist_Listing_Dashboard {
 
 		/*@todo; later show featured listing first on the user dashboard maybe??? */
 
-		return URI_Helper::get_template_contents( 'dashboard/user-dashboard', compact('display_title','container_fluid') );
+		return Helper::get_template_contents( 'dashboard/user-dashboard', compact('display_title','container_fluid') );
 	}
 
 	public function get_action_dropdown_item() {

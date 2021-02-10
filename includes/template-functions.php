@@ -1,6 +1,6 @@
 <?php
 
-use Directorist\URI_Helper;
+use Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -112,10 +112,10 @@ function atbdp_get_widget_template_path( $template ) {
 }
 
 function atbdp_get_shortcode_template_paths( $template_file ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'URI_Helper::get_template()' );
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
     $theme_template_file  = '/directorist/shortcodes/' . $template_file . '.php';
     $theme_template_path  = get_stylesheet_directory() . $theme_template_file;
-    $plugin_template_path = URI_Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
+    $plugin_template_path = Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
 
     return array(
         'theme'  => $theme_template_path,
@@ -124,13 +124,13 @@ function atbdp_get_shortcode_template_paths( $template_file ) {
 }
 
 function atbdp_get_shortcode_template( $template, $args = array() ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'URI_Helper::get_template()' );
-    return URI_Helper::get_template( $template, $args );
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
+    return Helper::get_template( $template, $args );
 }
 
 function atbdp_return_shortcode_template( $template, $args = array() ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'URI_Helper::get_template_contents()' );
-    return URI_Helper::get_template_contents( $template, $args );
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template_contents()' );
+    return Helper::get_template_contents( $template, $args );
 }
 
 function atbdp_return_widget_template( $template, $args = array() ) {

@@ -1,0 +1,49 @@
+
+input[type="radio"],
+input[type="checkbox"]{
+  height: auto;
+}
+
+body{
+  font-size: 15px;
+  color: $body-color;
+}
+a{
+  text-decoration: none;
+}
+
+.directorist-content-active{
+  div{
+    font-size: 15px;
+  }
+  article{
+    margin-bottom: 0;
+    border: 0;
+    padding-bottom: 0;
+  }
+  ul{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    li{
+      list-style: none;
+      margin: 0;
+    }
+  }
+  a,
+  button{
+    &:focus{
+      outline: none;
+    }
+  }
+  .entry-content{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6{
+      margin-bottom: 10px;
+    }
+  }
+}

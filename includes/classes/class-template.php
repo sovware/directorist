@@ -11,7 +11,7 @@
  * @since       1.0
  */
 
-use Directorist\URI_Helper;
+use Directorist\Helper;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) die('What the hell are you doing here accessing this file directly');
@@ -44,14 +44,14 @@ if (!class_exists('ATBDP_Template')):
 
                 // A specific single template for my custom post type exists in theme folder? Or it also doesn't exist in my plugin?
                 if($template === get_stylesheet_directory() . '/' . $custom_template
-                    || !file_exists(URI_Helper::template_directory() . $custom_template)) {
+                    || !file_exists(Helper::template_directory() . $custom_template)) {
                     //Then return "single.php" or "single-ATBDP_POST_TYPE.php" from theme directory.
                     return $template;
                 }
                 // enqueue scripts and styles for the  single page template of the plugin.
 
                 // If not, return my plugin custom post type template.
-                return URI_Helper::template_directory() . $custom_template;
+                return Helper::template_directory() . $custom_template;
             }
 
             //This is not my custom post type, do nothing with $template

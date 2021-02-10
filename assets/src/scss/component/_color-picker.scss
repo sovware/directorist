@@ -1,0 +1,24 @@
+// Color Picker Styles
+.directorist-color-picker-wrap{
+    .wp-color-result{
+        text-decoration: none;
+        margin: 0 6px 0 0 !important;
+        &:hover{
+            background-color: $bg-normal;
+        }
+    }
+    .wp-picker-input-wrap{
+        label{
+            input{
+                width: auto !important;
+            }
+        }
+    }
+    .wp-picker-clear{
+        padding: 0 15px;
+        margin-top: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 2.4;
+    }
+}

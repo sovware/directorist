@@ -1,0 +1,191 @@
+// directorist_switch
+.directorist-switch{
+    position: relative;
+    display: block;
+    input[type=checkbox]{
+        &:before{
+            display: none;
+        }
+    }
+    .directorist-switch-input{
+        position: absolute;
+        left: 0;
+        z-index: -1;
+        width: 1.6rem;
+        height: 1.65rem;
+        opacity: 0;
+        &:checked{
+            &+.directorist-switch-label{
+                color: #1A1B29;
+                font-weight: 500;
+                &:before{
+                    background-color: $dark;
+                }
+                &:after{
+                    transform: translateX(20px);
+                }
+            }
+        }
+    }
+    .directorist-switch-label{
+        user-select: none;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+        padding-left: 65px;
+        margin-left: 0;
+        color: #51526E;
+        &:before{
+            position: absolute;
+            top: 0.05rem;
+            left: 4px;
+            display: block;
+            width: 44px;
+            height: 24px;
+            border-radius: 15px;
+            pointer-events: all;
+            content: "";
+            background-color: #ECECEC;
+        }
+        &:after{
+            position: absolute;
+            display: block;
+            content: "";
+            background: no-repeat 50% / 50% 50%;
+            top: calc(0.05rem + 4px);
+            left: calc(0px + 8px);
+            background-color: #fff !important;
+            width: calc(24px - 8px);
+            height: calc(24px - 8px);
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(#8F8E9F,.15);
+            border-radius: 15px;
+            transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        }
+    }
+}
+
+// Switch Type
+.directorist-switch{
+    &.directorist-switch-primary{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $primary
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-switch-success{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $success
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-switch-secondary{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $secondary
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-switch-danger{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $danger
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-switch-warning{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $warning
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-switch-info{
+        .directorist-switch-input{
+            &:checked{
+                &+.directorist-switch-label{
+                    &:before{
+                        background-color: $info;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Directorist Yes No Switch
+.directorist-switch-Yn {
+    font-size: 15px;
+    padding: 3px;
+    position: relative;
+    display: inline-block;
+    border: 1px solid #e9e9e9;
+    border-radius: 17px;
+    span{
+        user-select: none;
+        font-size: 14px;
+        line-height: 27px;
+        padding: 5px 10.5px;
+        font-weight: 500;
+    }
+    input[type="checkbox"]{
+        display: none;
+
+        &:checked{
+            &+.switch_yes{
+                background-color: #3E62F5;
+                color: #fff;
+            }
+            &+span {
+                &+.switch_no{
+                    background-color: transparent;
+                    color: #9b9eaf;
+                }
+            }
+        }
+        
+        .switch_yes{
+            background-color: transparent;
+            color: #9b9eaf;
+        }
+
+        &+span {
+            &+.switch_no{
+                background-color: #fb6665;
+                color: #fff;
+            }
+        }
+    }
+
+    .switch_yes{
+        border-radius: 15px 0 0 15px;
+    }
+    .switch_no{
+        border-radius: 0 15px 15px 0;
+    }
+}

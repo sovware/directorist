@@ -7,8 +7,8 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
-                <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
+                <input class="cptm-form-control" :class="formControlClass" v-if="! valueShouldStringify" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+                <input v-if="valueShouldStringify" type="hidden" :value="JSON.stringify( value )">
 
                 <div class="cptm-form-group-feedback" v-if="validationMessages">
                     <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">

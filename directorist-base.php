@@ -230,6 +230,7 @@ final class Directorist_Base
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
@@ -447,6 +448,15 @@ final class Directorist_Base
         require_once plugin_dir_path(__FILE__) . '/config.php'; // loads constant from a file so that it can be available on all files.
     }
 
+    function autoload( $dir = '' ) {
+        if ( !file_exists( $dir ) ) return;
+        foreach ( scandir( $dir ) as $file ) {
+            if ( preg_match( "/.php$/i", $file ) ) {
+                require_once( $dir . $file );
+            }
+        }
+    }
+
     /**
      * Include required files.
      *
@@ -456,7 +466,10 @@ final class Directorist_Base
      */
     private function includes()
     {
+        $this->autoload( ATBDP_INC_DIR . 'helpers/' );
+
         self::require_files([
+            ATBDP_INC_DIR . 'class-helper',
             ATBDP_INC_DIR . 'helper-functions',
             ATBDP_INC_DIR . 'template-functions',
             ATBDP_INC_DIR . 'custom-actions',
@@ -465,7 +478,6 @@ final class Directorist_Base
             ATBDP_INC_DIR . 'system-status/class-system-status'
         ]);
 
-        load_dependencies('all', ATBDP_INC_DIR . 'helpers/');
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
@@ -1535,8 +1547,8 @@ final class Directorist_Base
 
     public function atbdp_body_class($c_classes)
     {
-        $c_classes[] = 'atbd_content_active';//class name goes here
-        $c_classes[] = 'atbdp_preload';//class name goes here
+        $c_classes[] = 'directorist-content-active';//class name goes here
+        $c_classes[] = 'directorist-preload';//class name goes here
         return $c_classes;
     }
 

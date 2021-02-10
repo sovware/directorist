@@ -1160,11 +1160,7 @@ templateResult: selecWithIcon,
                 $('.atbds_tooltip__text').removeClass('show');
         });
 
-        // load admin add listing form
-        const directory_type = $('select[name="directory_type"]').val();
-        if (directory_type) {
-                admin_listing_form(directory_type);
-        }
+        // load admin add listing form        
         $('body').on('change', 'select[name="directory_type"]', function() {
                 $(this)
                         .parent('.inside')

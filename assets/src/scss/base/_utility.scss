@@ -1,0 +1,20 @@
+.reset-pseudo-link {
+    &:visited, &:active, &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+// Spacing Classes
+.directorist-mb-15{
+    margin-bottom: 15px;
+}
+.directorist-mb-40{
+    margin-bottom: 40px;
+}
+.directorist-mt-30{
+    margin-top: 30px;
+}
+.directorist-pb-100{
+    padding-bottom: 100px;
+}

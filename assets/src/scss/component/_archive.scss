@@ -1,0 +1,92 @@
+/* All listing archive page styles */
+.directorist-content-active {
+    .directorist-archive-contents {
+        width: 100%;
+        max-width: 100% !important;
+    }
+}
+
+/* Directory type nav */
+.directorist-content-active .directorist-type-nav {
+    @include e(list) {
+        padding: 0;
+        margin: 0 0 15px 0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .current {
+            .directorist-type-nav__link {
+                border-bottom-color: #444752;
+            }
+        }
+    }
+
+    @include e(link) {
+        text-decoration: none;
+        display: block;
+        padding: 0 15px 15px;
+        font-weight: 500;
+        color: #202428;
+        border-bottom: 2px solid transparent;
+        outline: 0;
+
+        &:focus {
+            background: none !important;
+            outline: 0 !important;
+            text-decoration: none !important;
+        }
+    }
+}
+
+/* Archive header bar contents */
+.directorist-content-active {
+    .directorist-header-bar {
+        margin-bottom: 35px;
+    }
+
+    .directorist-listings-header {
+        background: #ffffff;
+        padding: 20px 30px;
+        border-radius: 5px;
+        border: 1px solid #e3e6ef;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .directorist-dropdown{
+            .directorist-dropdown__links{
+                top: 42px;
+            }
+        }
+        @include e(left) {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            .directorist-filter-btn {
+                margin-right: 15px;
+            }
+
+            .directorist-header-found-title {
+                margin: 0;
+                padding: 0;
+                font-size: 15px;
+                color: $text-color;
+                font-weight: 500;
+            }
+        }
+
+        @include e(right) {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -5px;
+
+            .directorist-dropdown {
+                margin: 5px;
+            }
+        }
+    }
+}

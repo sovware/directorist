@@ -12,12 +12,6 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
-    	// Author Profile
-		$author = Directorist_Listing_Author::instance();
-		add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
-		add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
-		add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
-
     	// Dashboard
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		add_action( 'directorist_dashboard_before_container', array( $dashboard, 'alert_message_template' ) );
@@ -53,8 +47,8 @@ class Directorist_Template_Hooks {
     	// Listing Thumbnail Area
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
-		// Single Listing content wrapper
-		add_filter('the_content', array( '\Directorist\Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
+		// Single Listing
+		add_action( 'template_redirect', [ $this, 'single_template' ] );
 
 	}
 
@@ -64,6 +58,13 @@ class Directorist_Template_Hooks {
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+
+	public function single_template() {
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			Helper::get_template( 'single' );
+			die();
+		}
 	}
 }
 

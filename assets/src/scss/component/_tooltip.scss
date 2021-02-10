@@ -1,0 +1,150 @@
+/* Directorist Tooltip */
+.directorist-tooltip {
+    position: relative;
+
+    &.directorist-tooltip-bottom{
+      &[aria-label]:before {
+        bottom: -8px;
+        top: auto;
+        border-top-color:#fff;
+        border-bottom-color:rgba(0, 0, 0, 1);
+      }
+      &[aria-label]:after{
+        transform: translate(-50%);
+        top: 100%;
+        margin-top: 8px;
+      }
+    }
+    &[aria-label]:before,
+    &[aria-label]:after {
+      position: absolute !important;
+      bottom: 100%;
+      display: none;
+      height: fit-content;
+      animation: showTooltip 0.3s ease;
+    }
+  
+    &[aria-label]:before {
+      content: "";
+      left: 50%;
+      top: -6px;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(0, 0, 0, 1);
+    }
+  
+    &[aria-label]:after {
+      font-size: 14px;
+      content: attr(aria-label);
+      left: 50%;
+      transform: translate(-50%, -6px);
+      background: rgba(0, 0, 0, 1);
+      padding: 4px 12px;
+      border-radius: 0.2em;
+      color: #fff;
+      z-index: 9999;
+      text-align: center;
+      min-width: 140px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  
+    &[aria-label]:hover:before,
+    &[aria-label]:hover:after {
+      display: block;
+    }
+    .directorist-tooltip__label{
+      font-size: 16px;
+      color: $dark;
+    }
+}
+
+// Directorist Tooltip Type
+.directorist-tooltip {
+  &.directorist-tooltip-primary{
+    &[aria-label]:after {
+      background-color: $primary;
+    }
+    &[aria-label]:before {
+      border-top-color: $primary;
+    }
+  }
+  &.directorist-tooltip-secondary{
+    &[aria-label]:after {
+      background-color: $secondary;
+    }
+    &[aria-label]:before {
+      border-bottom-color: $secondary;
+    }
+  }
+  &.directorist-tooltip-info{
+    &[aria-label]:after {
+      background-color: $info;
+    }
+    &[aria-label]:before {
+      border-top-color: $info;
+    }
+  }
+  &.directorist-tooltip-warning{
+    &[aria-label]:after {
+      background-color: $warning;
+    }
+    &[aria-label]:before {
+      border-top-color: $warning;
+    }
+  }
+  &.directorist-tooltip-success{
+    &[aria-label]:after {
+      background-color: $success;
+    }
+    &[aria-label]:before {
+      border-top-color: $success;
+    }
+  }
+  &.directorist-tooltip-danger{
+    &[aria-label]:after {
+      background-color: $danger;
+    }
+    &[aria-label]:before {
+      border-top-color: $danger;
+    }
+  }
+  &.directorist-tooltip-bottom{
+    &.directorist-tooltip-primary{
+      &[aria-label]:before {
+        border-bottom-color: $primary;
+      }
+    }
+    &.directorist-tooltip-secondary{
+      &[aria-label]:before {
+        border-bottom-color: $secondary;
+      }
+    }
+    &.directorist-tooltip-info{
+      &[aria-label]:before {
+        border-bottom-color: $info;
+      }
+    }
+    &.directorist-tooltip-warning{
+      &[aria-label]:before {
+        border-bottom-color: $warning;
+      }
+    }
+    &.directorist-tooltip-success{
+      &[aria-label]:before {
+        border-bottom-color: $success;
+      }
+    }
+    &.directorist-tooltip-danger{
+      &[aria-label]:before {
+        border-bottom-color: $danger;
+      }
+    }
+  }
+}
+  
+@keyframes showTooltip {
+    from {
+        opacity: 0;
+    }
+}

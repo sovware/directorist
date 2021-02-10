@@ -4,16 +4,28 @@ const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackRTLPlugin     = require("webpack-rtl-plugin");
 
-module.exports = merge(common, {
-  mode: "development", // production | development
-  watch: true,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "../css/[name].css",
-      minify: false,
-    }),
-    new WebpackRTLPlugin({
-      minify: false,
-    }),
-  ],
+const devConfig = {
+    mode: "development", // production | development
+    watch: true,
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "../css/[name].css",
+        minify: false,
+      }),
+      new WebpackRTLPlugin({
+        minify: false,
+      }),
+    ],
+    output: {
+      filename: "[name].js",
+    },
+};
+
+let configs = [];
+
+common.forEach(element => {
+  const _config = merge( element, devConfig );
+  configs.push( _config );
 });
+
+module.exports = configs;

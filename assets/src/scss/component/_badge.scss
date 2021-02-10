@@ -1,0 +1,68 @@
+// Badge Style
+.directorist-badge{
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.7;
+    padding: 0 3px;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+
+// Badge Type
+.directorist-badge{
+    &.directorist-badge-primary{
+        background-color: $primary;
+    }
+    &.directorist-badge-warning{
+        background-color: $warning;
+    }
+    &.directorist-badge-info{
+        background-color: $info;
+    }
+    &.directorist-badge-success{
+        background-color: $success;
+    }
+    &.directorist-badge-danger{
+        background-color: $danger;
+    }
+    &.directorist-badge-light{
+        background-color: $light;
+    }
+    &.directorist-badge-gray{
+        background-color: $gray;
+    }
+}
+
+// Badge Transparent
+.directorist-badge{
+    &.directorist-badge-primary-transparent{
+        color: $primary;
+        background-color: rgba($primary,.15);
+    }
+    &.directorist-badge-warning-transparent{
+        color: $warning;
+        background-color: rgba($warning,.15);
+    }
+    &.directorist-badge-info-transparent{
+        color: $info;
+        background-color: rgba($info,.15);
+    }
+    &.directorist-badge-success-transparent{
+        color: $success;
+        background-color: rgba($success,.15);
+    }
+    &.directorist-badge-danger-transparent{
+        color: $danger;
+        background-color: rgba($danger,.15);
+    }
+    &.directorist-badge-light-transparent{
+        color: $light;
+        background-color: rgba($light,.15);
+    }
+    &.directorist-badge-gray-transparent{
+        color: $gray;
+        background-color: rgba($gray,.15);
+    }
+}

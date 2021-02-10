@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-listing-card-location"><?php directorist_icon( $icon );?><?php echo $listings->get_the_location(); ?></div>
+<div class="directorist-listing-card-location"><?php directorist_icon( $icon );?><?php $listings->print_label( $label ); ?><?php echo $listings->get_the_location(); ?></div>

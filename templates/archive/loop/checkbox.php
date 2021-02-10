@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-listing-card-checkbox"><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></div>
+<div class="directorist-listing-card-checkbox"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><?php echo esc_html( $value ); ?></div>

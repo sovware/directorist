@@ -16,9 +16,12 @@ class Directorist_Listing_Dashboard {
 	public $id;
 
 	public $current_listings_query;
+	public $user_type;
 
 	private function __construct() {
 		$this->id = get_current_user_id();
+		$user_type 		  = get_user_meta( get_current_user_id(), '_user_type', true );
+		$this->user_type	      = ! empty( $user_type ) ? $user_type : '';
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $this, 'ajax_listing_tab' ) );
 	}
 
@@ -311,7 +314,7 @@ class Directorist_Listing_Dashboard {
 		$my_profile_tab   = get_directorist_option( 'my_profile_tab', 1 );
 		$fav_listings_tab = get_directorist_option( 'fav_listings_tab', 1 );
 
-		if ( $my_listing_tab ) {
+		if ( $my_listing_tab && 'general' != $this->user_type ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
 
 			$listings   = $this->listings_query();
@@ -394,6 +397,7 @@ class Directorist_Listing_Dashboard {
 	public function nav_buttons_template() {
 		$args = array(
 			'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
+			'user_type'			 => $this->user_type
 		);
 		Helper::get_template( 'dashboard/nav-buttons', $args );
 	}

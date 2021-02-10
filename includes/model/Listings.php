@@ -1686,13 +1686,10 @@ class Directorist_Listings {
 		}
 
 		public function render_card_field( $field ) {
-							
-
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
 			}
 			else {
-			
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
 				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
 
@@ -1711,7 +1708,7 @@ class Directorist_Listings {
 					$load_template = false;
 				}
 				
-				$label = !empty( $field['show_label'] ) ? $field['label'].' ' : '';
+				$label = !empty( $field['show_label'] ) ? $field['label']: '';
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
@@ -1719,16 +1716,25 @@ class Directorist_Listings {
 					'value'    => $value,
 					'label'    => $label,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
-					'original_field'    => $submission_form_fields,
+					'original_field' => $submission_form_fields,
 				);
-
 				
 				$template = 'archive/loop/' . $field['widget_name'];
-				// e_var_dump( $template );
+
 				if( $load_template ) {
 					Helper::get_template( $template, $args );
 				}
 
+			}
+		}
+
+		public function print_label( $label ) {
+			if ( $label ) {
+				$label_text = $label . ': ';
+				echo apply_filters( 'directorist_loop_label', $label_text, $label );
+			}
+			else {
+				return;
 			}
 		}
 

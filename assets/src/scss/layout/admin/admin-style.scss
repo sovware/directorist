@@ -1,5 +1,7 @@
 @import "../../vendor/bootstrap/config.bs";
-
+body{
+  color: #fff;
+}
 #directorist.atbd_wrapper {
   padding: 18px 20px;
 
@@ -4632,7 +4634,7 @@ input.atbdp-form-control {
   input[type="checkbox"]{
       & +.directorist-checkbox__label{
           &:before{
-              left: 5.5px !important;
+              left: 5px !important;
               top: 4px !important;
           }
       }

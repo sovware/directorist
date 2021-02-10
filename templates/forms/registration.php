@@ -53,6 +53,9 @@
                         case '7':
                             ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Space is not allowed in username', 'directorist'); ?></p><?php
                             break;
+                        case '8':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Please make sure you filed up the user type', 'directorist'); ?></p><?php
+                            break;
                     }
                   ?>
                 </div>
@@ -106,6 +109,26 @@
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php }
+
+                                if( ! empty( get_directorist_option('display_user_type') ) ) { 
+                                    if( empty( $user_type) || 'author' == $user_type ) {    
+                                    ?>
+                                    <div class="atbd_user_type_area directory_regi_btn">
+                                            <input id="author_type" type="radio"
+                                                name="user_type" value='author' <?php echo $author_checked; ?>>
+                                            <label for="author_type"><?php _e( 'I am an author', 'directorist' ); ?>
+                                    </div>
+                                    <?php } 
+                                    if( empty( $user_type ) || 'general' == $user_type ) { ?>
+                                    <div class="atbd_user_type_area directory_regi_btn">
+                                            <input id="general_type" type="radio"
+                                                name="user_type" value='general' <?php echo $general_checked; ?>>
+                                            <label for="general_type"><?php _e( 'I am a user', 'directorist' ); ?>
+                                    </div>
+                                <?php
+                                    }
+                                }
+
                                 if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">

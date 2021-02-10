@@ -3828,6 +3828,20 @@ p.atbd-min {
           align-items: center;
   margin: 0 -3px;
 }
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-mark-as-favorite,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-badge,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-mark-as-favorite,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-badge,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-mark-as-favorite,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-badge,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-mark-as-favorite,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-badge {
+  margin: 3px;
+}
 
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb {
   position: relative;
@@ -4113,7 +4127,7 @@ p.atbd-min {
 
 /* mark as favorite btn */
 .directorist-mark-as-favorite__btn {
-  background: #F2F2F2 !important;
+  background: rgba(0, 0, 0, 0.2) !important;
   width: 30px;
   height: 30px !important;
   display: -webkit-box !important;
@@ -4129,6 +4143,7 @@ p.atbd-min {
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: 50%;
+  position: relative;
 }
 .directorist-mark-as-favorite__btn:focus {
   outline: 0 !important;
@@ -4146,7 +4161,7 @@ p.atbd-min {
 .directorist-mark-as-favorite__btn .directorist-favorite-icon:before {
   content: "";
   font-family: "LineAwesome";
-  color: #51526E;
+  color: #fff;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span {
   position: absolute;
@@ -4176,7 +4191,7 @@ p.atbd-min {
   transition: all 0.2s ease-in-out;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-icon::before {
-  color: #9192a3;
+  color: #fff;
 }
 .directorist-mark-as-favorite__btn.directorist-added-to-favorite {
   background: #0A0B1E !important;
@@ -4300,6 +4315,22 @@ p.atbd-min {
 }
 .directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__info {
   padding: 0;
+}
+.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: -3px;
+}
+.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-compare-btn,
+.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-mark-as-favorite,
+.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-badge {
+  margin: 3px;
 }
 
 .directorist-listing-price-range span {

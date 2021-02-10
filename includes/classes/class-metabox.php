@@ -48,7 +48,6 @@ class ATBDP_Metabox {
 			'listing_locations'   => $listing_locations,
 		) );
 
-		die();
 	}
 
 	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {

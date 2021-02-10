@@ -55,6 +55,8 @@ trait URI_Helper {
 			$file = $plugin_template;
 		}
 
+		$file = apply_filters( 'directorist_template_file_path', $file, $template_file );
+
 		if ( file_exists( $file ) ) {
 			include $file;
 		}

@@ -12,6 +12,10 @@ class Helper {
 	use URI_Helper;
 	use Markup_Helper;
 
+	public static function is_legacy_mode() {
+		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
+		return $legacy;
+	}
 
 	public static function price_range_template( $price_range ) {
 		$currency = get_directorist_option( 'g_currency', 'USD' );

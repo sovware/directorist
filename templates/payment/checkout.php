@@ -1,4 +1,6 @@
-<?php ('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>
+<?php 
+extract( $checkout );
+('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
@@ -11,7 +13,6 @@
             </button>
         </div>
         <?php
-        
         /**
          * @since 6.5.6
          */

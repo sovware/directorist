@@ -38,6 +38,9 @@ if (!class_exists('ATBDP_Email')):
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
             add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));	
+            /*Fire up emails when a general user apply for become author user*/
+            add_action('atbdp_become_author', array($this, 'notify_admin_become_author'));
+            //add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
         }
 
           /**	
@@ -89,6 +92,7 @@ if (!class_exists('ATBDP_Email')):
             $l_title = get_the_title($listing_id);
             $listing_url = get_permalink($listing_id);
             $l_edit_url = admin_url("post.php?post={$listing_id}&action=edit");
+            $user_dashboard = admin_url("users.php");
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -126,6 +130,7 @@ if (!class_exists('ATBDP_Email')):
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
                 '==DASHBOARD_LINK==' => sprintf('<a href="%s">%s</a>', $dashboard_link, $dashboard_link),
                 '==USER_PASSWORD==' => $user_password,
+                '==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
             );
             $c = nl2br(strtr($content, $find_replace));
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -343,6 +348,20 @@ This email is sent automatically for information purpose only. Please do not res
 ", 'directorist');
         }
 
+        public function author_approval_admin_tmpl() {
+            return __("
+                        Dear Administrator,
+
+                        A new author approval has been submitted on your website [==SITE_NAME==].
+
+                        User Name: ==USERNAME==
+                        You can Edit/Review the listing using the link below:
+                        ==USER_DASHBOARD==
+
+                        This email is sent automatically for information purpose only. Please do not respond to this.
+                        ", 'directorist');
+        }
+
         /**
          * It sends an email
          *
@@ -449,7 +468,7 @@ This email is sent automatically for information purpose only. Please do not res
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
-        }
+        } 
 
 
         /**
@@ -627,6 +646,17 @@ This email is sent automatically for information purpose only. Please do not res
 
         }
 
+        public function notify_admin_become_author( $user_id ) {
+            if (get_directorist_option('disable_email_notification')) return false;
+            $s = __('[==SITE_NAME==] A author approval', 'directorist');
+            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+
+            $body = $this->author_approval_admin_tmpl();
+            $message = $this->replace_in_content( $body, null, null, $user_id);
+            $body = atbdp_email_html($sub, $message);
+            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+        }
+
 
         /**
          * It notifies admin via email when an order is created
@@ -697,7 +727,6 @@ This email is sent automatically for information purpose only. Please do not res
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
 
         }
-
 
         /**
          * It notifies admin via email when a listing is edited

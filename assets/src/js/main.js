@@ -39,6 +39,7 @@ import './components/dashboard/dashboardSearch';
 import './components/dashboard/dashboardListing';
 import './components/dashboard/dashboardResponsive';
 import './components/dashboard/dashboardAnnouncement';
+import './components/dashboard/dashboardBecomeAuthor';
 
 // Single Listing Page
 import './components/single-listing-page/slider';

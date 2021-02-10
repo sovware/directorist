@@ -445,6 +445,37 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 /***/ }),
 
+/***/ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js":
+/*!*********************************************************************!*\
+  !*** ./assets/src/js/components/dashboard/dashboardBecomeAuthor.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  // Dashboard become an author
+  $('.atbdp-become-author').on('click', function (e) {
+    e.preventDefault();
+    var userId = $(this).attr('data-userId');
+    var nonce = $(this).attr('data-nonce');
+    var data = {
+      userId: userId,
+      nonce: nonce,
+      action: "atbdp_become_author"
+    }; // Send the data
+
+    $.post(atbdp_public_data.ajaxurl, data, function (response) {
+      console.log(response);
+      $('#atbdp-become-author-success').html(response);
+      $('.atbdp-become-author').hide();
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/components/dashboard/dashboardImageUploader.js":
 /*!**********************************************************************!*\
   !*** ./assets/src/js/components/dashboard/dashboardImageUploader.js ***!
@@ -1792,10 +1823,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_28__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -1824,6 +1857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Dashboard Js
+
 
 
 

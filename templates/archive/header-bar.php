@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-header-bar">
+
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
+
 		<div class="directorist-listings-header">
 
 			<?php if ( $listings->has_listings_header() ): ?>
@@ -23,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>
-						<h3 class="directorist-header-found-title"><?php  echo $listings->item_found_title(); ?></h3>
+						<h3 class="directorist-header-found-title"><?php echo $listings->item_found_title(); ?></h3>
 					<?php endif; ?>
 				</div>
 
@@ -33,11 +35,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-listings-header__right">
 					<?php
-					if ($listings->display_viewas_dropdown) {
+					if ( $listings->display_viewas_dropdown ) {
 						$listings->viewas_dropdown_template();
 					}
 
-					if ($listings->display_sortby_dropdown) {
+					if ( $listings->display_sortby_dropdown ) {
 						$listings->sortby_dropdown_template();
 					}
 					?>
@@ -48,7 +50,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</div>
 
 		<div class="<?php Helper::search_filter_class( $listings->filters_display ); ?>">
-		<?php $listings->search_form_template();?>
+			<?php $listings->search_form_template();?>
 		</div>
+
 	</div>
+
 </div>

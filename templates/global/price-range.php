@@ -7,6 +7,8 @@
 
 use \Directorist\Helper;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $html  = str_repeat( '<span class="directorist-price-active">'.$currency.'</span>' , $active_items );
 $html .= str_repeat( '<span>'.$currency.'</span>' , ( 4-$active_items ) );
 ?>

@@ -194,7 +194,7 @@
                 </div>
                 <div class="single-component">
                     <h4>Directorist Modal</h4>
-                    <a href="#" class="directorist-btn directorist-btn-success directorist-btn-modal directorist-btn-modal-js" data-directoristTarget=".directorist-modal-js" >Directorist Modal</a>
+                    <a href="#" class="directorist-btn directorist-btn-success directorist-btn-modal directorist-btn-modal-js" data-directorist_target="directorist-modal-js" >Directorist Modal</a>
                     <div class="directorist-modal directorist-modal-js directorist-fade">
                         <div class="directorist-modal__dialog">
                             <div class="directorist-modal__content">

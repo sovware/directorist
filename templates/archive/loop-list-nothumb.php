@@ -35,4 +35,5 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_withou
 			</div>
 		</div>
 	</div>
+	
 </div>

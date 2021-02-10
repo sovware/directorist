@@ -65,5 +65,16 @@ class Helper {
 		$price = $before . atbdp_format_amount( $price, $allow_decimal ) . $after;
 		return $price;
 	}
+
+	public static function formatted_tel( $tel = '', $echo = true ) {
+		$tel = preg_replace( '/\D/', '', $tel );
+
+		if ( !$echo ) {
+			return $tel;
+		}
+		else {
+			echo $tel;
+		}
+	}
 	
 }

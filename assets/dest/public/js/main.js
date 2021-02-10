@@ -1097,12 +1097,12 @@ __webpack_require__.r(__webpack_exports__);
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
-    var data_target = $(this).attr("data-directoristTarget");
-    console.log($(data_target), data_target);
-    $(data_target).toggleClass('directorist-show');
+    var data_target = $(this).attr("data-directorist_target");
+    $('.' + data_target).toggleClass('directorist-show');
   });
   $('body').on('click', '.directorist-modal-close-js', function (e) {
     e.preventDefault();
+    console.log($(this).closest('.directorist-modal-js'));
     $(this).closest('.directorist-modal-js').removeClass('directorist-show');
   });
   $(document).bind('click', function (e) {
@@ -1937,24 +1937,26 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       });
       var input = item.querySelector('.directorist-select__dropdown input');
       document.body.addEventListener('click', function (event) {
-        if (event.target == selectTrigger || event.target == input) return;
-        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+        if (event.target == selectTrigger || event.target == input) {
+          return;
+        } else {
+          sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+          sibling.querySelector('.directorist-select__label').closest('.directorist-select').classList.remove('directorist-select-active-js');
+        }
+
         input.value = '';
       });
       selectTrigger.addEventListener('click', function (e) {
         e.preventDefault();
+        e.target.closest('.directorist-select').classList.add('directorist-select-active-js');
         sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
-        var filter = arry.filter(function (el, index) {
-          return el;
-        });
+        console.log(e.target);
         var elem = [];
         arryEl.forEach(function (el, index) {
-          filter.forEach(function (e) {
-            if (el.text.toLowerCase() == e) {
-              elem.push(el);
-              el.style.display = 'block';
-            }
-          });
+          if (index !== 0 || el.value !== '') {
+            elem.push(el);
+            el.style.display = 'block';
+          }
         });
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
@@ -2086,10 +2088,18 @@ var pureScriptSelect = function pureScriptSelect(selector) {
           return el.classList.remove('directorist-select__dropdown-open');
         });
         e.target.closest('.directorist-select__container').querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
-        var elem = [];
+        var elem = []; // arryEl.forEach((el, index) => {
+        //     arry.forEach(e => {
+        //         if(el.text.toLowerCase() == e){
+        //             elem.push(el);
+        //             el.style.display = 'block';
+        //         }
+        //     });
+        // });
+
         arryEl.forEach(function (el, index) {
-          arry.forEach(function (e) {
-            if (el.text.toLowerCase() == e) {
+          arryEl.forEach(function (el, index) {
+            if (index !== 0 || el.value !== '') {
               elem.push(el);
               el.style.display = 'block';
             }
@@ -2098,6 +2108,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
         var popUp = item.querySelector('.directorist-select__dropdown--inner');
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
+          el.removeAttribute('selected');
           var attribute = '';
           var attribute2 = '';
 
@@ -2253,6 +2264,62 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 
   if ($('#directorist-search-select-js').length) {
     pureScriptSelect('#directorist-search-select-js');
+  }
+
+  if ($('#directorist-select-st-s-js').length) {
+    pureScriptSelect('#directorist-select-st-s-js');
+  }
+
+  if ($('#directorist-select-st-e-js').length) {
+    pureScriptSelect('#directorist-select-st-e-js');
+  }
+
+  if ($('#directorist-select-sn-s-js').length) {
+    pureScriptSelect('#directorist-select-sn-s-js');
+  }
+
+  if ($('#directorist-select-mn-e-js').length) {
+    pureScriptSelect('#directorist-select-sn-e-js');
+  }
+
+  if ($('#directorist-select-mn-s-js').length) {
+    pureScriptSelect('#directorist-select-mn-s-js');
+  }
+
+  if ($('#directorist-select-mn-e-js').length) {
+    pureScriptSelect('#directorist-select-mn-e-js');
+  }
+
+  if ($('#directorist-select-tu-s-js').length) {
+    pureScriptSelect('#directorist-select-tu-s-js');
+  }
+
+  if ($('#directorist-select-tu-e-js').length) {
+    pureScriptSelect('#directorist-select-tu-e-js');
+  }
+
+  if ($('#directorist-select-wd-s-js').length) {
+    pureScriptSelect('#directorist-select-wd-s-js');
+  }
+
+  if ($('#directorist-select-wd-e-js').length) {
+    pureScriptSelect('#directorist-select-wd-e-js');
+  }
+
+  if ($('#directorist-select-th-s-js').length) {
+    pureScriptSelect('#directorist-select-th-s-js');
+  }
+
+  if ($('#directorist-select-th-e-js').length) {
+    pureScriptSelect('#directorist-select-th-e-js');
+  }
+
+  if ($('#directorist-select-fr-s-js').length) {
+    pureScriptSelect('#directorist-select-fr-s-js');
+  }
+
+  if ($('#directorist-select-fr-e-js').length) {
+    pureScriptSelect('#directorist-select-fr-e-js');
   }
 })(jQuery);
 

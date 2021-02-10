@@ -1,8 +1,11 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<div class="directorist-listing-card-number"><?php directorist_icon( $icon );?><?php ATBDP_Helper::sanitize_html( $value ); ?></div>
+
+<div class="directorist-listing-card-number"><?php directorist_icon( $icon );?><?php echo esc_html( $value ); ?></div>

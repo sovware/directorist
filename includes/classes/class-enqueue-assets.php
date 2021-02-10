@@ -192,7 +192,7 @@ class Enqueue_Assets {
         $scripts = [];
 
         $scripts['directorist-admin-style'] = [
-            'file_name' => 'admin-style',
+            'file_name' => 'admin',
             'base_path' => DIRECTORIST_ADMIN_CSS,
             'deps'      => [ 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ],
             'ver'       => $this->script_version,

@@ -1,11 +1,13 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
 
 use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $id = get_the_ID();
 $price = get_post_meta( $id, '_price', true );

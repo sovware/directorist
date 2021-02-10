@@ -106,6 +106,28 @@
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php }
+
+                                if( ! empty( get_directorist_option('enable_user_type') ) ) { 
+                                    if( empty( $user_type) || 'author' == $user_type ) {    
+                                    ?>
+                                    <div class="atbd_user_type_area directory_regi_btn">
+                                        <span class="atbdp_make_str_red"> *</span>
+                                            <input id="author_type" type="radio"
+                                                name="user_type" value='author'>
+                                            <label for="author_type"><?php _e( 'I am an author', 'directorist' ); ?>
+                                    </div>
+                                    <?php } 
+                                    if( empty( $user_type ) || 'general' == $user_type ) { ?>
+                                    <div class="atbd_user_type_area directory_regi_btn">
+                                        <span class="atbdp_make_str_red"> *</span>
+                                            <input id="general_type" type="radio"
+                                                name="user_type" value='general'>
+                                            <label for="general_type"><?php _e( 'I am a user', 'directorist' ); ?>
+                                    </div>
+                                <?php
+                                    }
+                                }
+
                                 if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">

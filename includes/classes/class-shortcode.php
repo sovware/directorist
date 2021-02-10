@@ -195,9 +195,9 @@ class ATBDP_Shortcode {
 		return $forms->render_shortcode_add_listing($atts);
 	}
 
-	public function user_registration() {
+	public function user_registration( $atts ) {
 		$forms = Directorist_Listing_Forms::instance();
-		return $forms->render_shortcode_custom_registration();
+		return $forms->render_shortcode_custom_registration( $atts );
 	}
 
 	public function custom_user_login() {

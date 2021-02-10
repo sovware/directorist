@@ -4630,6 +4630,39 @@ input.atbdp-form-control {
   max-width: 100% !important;
 }
 
+/* directorist module style */
+.directorist-content-module {
+  border: 1px solid #e3e6ef;
+}
+.directorist-content-module__title {
+  border-bottom: 1px solid #e3e6ef;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 30px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-content-module__title h4 {
+  margin: 0 !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.directorist-content-module__contents {
+  padding: 30px;
+}
+
 .directorist-form-group {
   position: relative;
 }

@@ -124,6 +124,39 @@ a {
   max-width: 100% !important;
 }
 
+/* directorist module style */
+.directorist-content-module {
+  border: 1px solid #e3e6ef;
+}
+.directorist-content-module__title {
+  border-bottom: 1px solid #e3e6ef;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 30px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-content-module__title h4 {
+  margin: 0 !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.directorist-content-module__contents {
+  padding: 30px;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -2492,6 +2525,52 @@ p.atbd-min {
 }
 .directorist-dropdown .directorist-dropdown__links a.active {
   background-color: #f2f2f2;
+}
+
+/* custom dropdown with select */
+.directorist-dropdown-select {
+  position: relative;
+}
+
+.directorist-dropdown-select-toggle {
+  display: inline-block;
+  border: 1px solid #eee;
+  padding: 7px 15px;
+  position: relative;
+}
+.directorist-dropdown-select-toggle:before {
+  content: "";
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+
+.directorist-dropdown-select-items {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 40px;
+  border: 1px solid #eee;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background: #fff;
+  z-index: 10;
+}
+
+.directorist-dropdown-select-items.directorist-dropdown-select-show {
+  top: 30px;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.directorist-dropdown-select-item {
+  display: block;
 }
 
 .directorist-switch {

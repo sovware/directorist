@@ -37,8 +37,7 @@ class Directorist_Template_Hooks {
 
     	// Listings Badges - List View
 		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'featured_badge_list_view') );
-		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'popul
-		er_badge_list_view'), 15 );
+		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'populer_badge_list_view'), 15 );
 		add_filter( 'atbdp_list_lower_badges', array( '\Directorist\Directorist_Listings', 'new_badge_list_view'), 20 );
 
     	// Listings Top - List View
@@ -49,7 +48,18 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		add_action( 'template_redirect', [ $this, 'single_template' ] );
+		if ( !Helper::is_legacy_mode() ) {
+			add_action( 'template_redirect', [ $this, 'single_template' ] );
+		}
+
+		if ( Helper::is_legacy_mode() ) {
+			$author = Directorist_Listing_Author::instance();
+			add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
+			add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
+			add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
+
+			add_filter('the_content', array( '\Directorist\Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
+		}
 
 	}
 

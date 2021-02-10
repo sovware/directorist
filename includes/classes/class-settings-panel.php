@@ -3806,7 +3806,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'enable_user_type' => [
+                'display_user_type' => [
                     'label'         => __('Enable', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
@@ -4621,7 +4621,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('User Type Registration', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'enable_user_type'
+                                        'display_user_type'
                                      ],
                                 ],
                                 'privacy_policy' => [

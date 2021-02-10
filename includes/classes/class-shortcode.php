@@ -25,19 +25,6 @@ class ATBDP_Shortcode {
 			// Search
 			'directorist_search_listing' => [ $this, 'search_listing' ],
 			'directorist_search_result'  => [ $this, 'search_result' ],
-
-			// Single
-			// 'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
-			// 'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
-			// 'directorist_listing_tags'                => [ $this, 'directorist_tags' ],
-			// 'directorist_listing_custom_fields'       => [ $this, 'directorist_custom_field' ],
-			// 'directorist_listing_video'               => [ $this, 'directorist_listing_video' ],
-			// 'directorist_listing_map'                 => [ $this, 'directorist_listing_map' ],
-			// 'directorist_listing_contact_information' => [ $this, 'directorist_listing_contact_information' ],
-			// 'directorist_listing_author_info'         => [ $this, 'directorist_listing_author_details' ],
-			// 'directorist_listing_contact_owner'       => [ $this, 'directorist_listing_contact_owner' ],
-			// 'directorist_listing_review'              => [ $this, 'directorist_listing_review' ],
-			// 'directorist_related_listings'            => [ $this, 'directorist_related_listings' ],
 			
 			// Author
 			'directorist_author_profile' => [ $this, 'author_profile' ],
@@ -53,12 +40,29 @@ class ATBDP_Shortcode {
 			'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
 			'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 
+			// Single -- in legacy mode
+			'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
+			'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
+			'directorist_listing_tags'                => [ $this, 'empty_string' ],
+			'directorist_listing_custom_fields'       => [ $this, 'empty_string' ],
+			'directorist_listing_video'               => [ $this, 'empty_string' ],
+			'directorist_listing_map'                 => [ $this, 'empty_string' ],
+			'directorist_listing_contact_information' => [ $this, 'empty_string' ],
+			'directorist_listing_author_info'         => [ $this, 'empty_string' ],
+			'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
+			'directorist_listing_review'              => [ $this, 'empty_string' ],
+			'directorist_related_listings'            => [ $this, 'empty_string' ],
+
 		]);
 
 		// Register Shorcodes
 		foreach ( $shortcodes as $shortcode => $callback ) {
 			add_shortcode( $shortcode, $callback);
 		}
+	}
+
+	public function empty_string() {
+		return '';
 	}
 
 	public function listing_archive( $atts ) {
@@ -114,66 +118,6 @@ class ATBDP_Shortcode {
 	public function directorist_single_listing() {
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_single_listing();
-	}
-
-	public function directorist_listing_header() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_top_area();
-	}
-
-	public function directorist_tags() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_tags();
-	}
-
-	public function directorist_custom_field() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_custom_fields();
-	}
-
-	public function directorist_listing_video() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_video();
-	}
-
-	public function directorist_listing_map() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_map();
-	}
-
-	public function directorist_listing_contact_information() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_contact_information();
-	}
-
-	public function directorist_listing_author_details() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_author_info();
-	}
-
-	public function directorist_listing_contact_owner() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_contact_owner();
-	}
-
-	public function directorist_listing_review() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_listing_review();
-	}
-	
-	public function directorist_related_listings() {
-		return '';
-		$listing = new Directorist_Single_Listing();
-		return $listing->render_shortcode_related_listings();
 	}
 
 	public function author_profile($atts) {

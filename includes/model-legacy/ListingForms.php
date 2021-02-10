@@ -827,8 +827,12 @@ class Directorist_Listing_Forms {
 		return Helper::get_template_contents( 'forms/login' );
 	}
 
-	public function render_shortcode_custom_registration() {
+	public function render_shortcode_custom_registration( $atts ) {
 		if ( ! atbdp_logged_in_user() ) {
+			$atts = shortcode_atts( array(
+				'user_type'			  => '',
+			), $atts );
+			$user_type           = !empty( $atts['user_type'] ) ? $atts['user_type'] : '';
 			$args = array(
 				'parent'               => 0,
 				'container_fluid'      => is_directoria_active() ? 'container' : 'container-fluid',
@@ -860,6 +864,9 @@ class Directorist_Listing_Forms {
 				'privacy_page_link'    => ATBDP_Permalink::get_privacy_policy_page_url(),
 				'privacy_label'        => get_directorist_option( 'registration_privacy_label', __( 'I agree to the', 'directorist' ) ),
 				'privacy_label_link'   => get_directorist_option( 'registration_privacy_label_link', __( 'Privacy & Policy', 'directorist' ) ),
+				'user_type'			   => $user_type,
+				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
+				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
 
 			return Helper::get_template_contents( 'forms/registration', $args );

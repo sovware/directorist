@@ -24,13 +24,15 @@ class ATBDP_Enqueuer {
             $important = $arr[1];
             $this->listing_id = (int) $important;
         }
-        add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
         // best hook to enqueue scripts for front-end is 'template_redirect'
         // 'Professional WordPress Plugin Development' by Brad Williams
-        add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
-        add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
-
+        $atbdp_legacy_template = get_option( 'atbdp_option' )['atbdp_legacy_template'];
+        if ( ! empty( $atbdp_legacy_template ) ) {
+            add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
+            add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
+            add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
+        }
         add_action( 'tiny_mce_before_init', array( $this, 'tiny_mce_custom_format' ) );
     }
 

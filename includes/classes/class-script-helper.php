@@ -159,4 +159,12 @@ class Script_Helper {
 
         return $admin_scripts_dependency;
     }
+
+
+    // ez_media_uploader
+    public static function is_enable__ez_media_uploader() {
+        
+        
+        return true;
+    }
 }

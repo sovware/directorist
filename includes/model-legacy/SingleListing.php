@@ -361,12 +361,6 @@ class Directorist_Single_Listing {
 
 		if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
 
-			$include = apply_filters('include_style_settings', true);
-
-			if ($include) {
-				include ATBDP_DIR . 'public/assets/css/style.php';
-			}
-
 			/**
 			 * @since 5.10.0
 			 * It fires before single listing load

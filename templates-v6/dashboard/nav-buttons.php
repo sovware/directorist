@@ -7,8 +7,13 @@
 ?>
 <div class="nav_button">
 
-    <?php if ($display_submit_btn) { ?>
+    <?php if ( $display_submit_btn && 'general' != $user_type ) { ?>
         <a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>" class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?>"><?php esc_html_e('Submit Listing', 'directorist'); ?></a>
+    <?php } ?>
+
+    <?php if ( 'general' == $user_type ) { ?>
+        <a href="" class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?> atbdp-become-author"><?php esc_html_e('Become an author', 'directorist'); ?></a>
+        <p id='atbdp-become-author-success'></p>
     <?php } ?>
 
     <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="<?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php esc_html_e('Log Out', 'directorist'); ?></a>

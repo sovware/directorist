@@ -5,7 +5,9 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-listing-card-phone2"><?php directorist_icon( $icon );?><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $value ); ?>"><?php echo esc_html( $value ); ?></a></div>
+<div class="directorist-listing-card-phone2"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><a href="tel:<?php Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a></div>

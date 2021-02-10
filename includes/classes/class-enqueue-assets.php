@@ -40,6 +40,8 @@ class Enqueue_Assets {
         $this->add_vendor_css_scripts();
         $this->add_vendor_js_scripts();
 
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        if ( ! $atbdp_legacy_template ) {
         // Load Public Assets
         $this->add_public_css_scripts();
         $this->add_public_js_scripts();
@@ -47,7 +49,7 @@ class Enqueue_Assets {
         // Load Admin Assets
         $this->add_admin_css_scripts();
         $this->add_admin_js_scripts();
-
+        }
         // Load Global Assets
         $this->add_global_css_scripts();
         $this->add_global_js_scripts();
@@ -362,7 +364,7 @@ class Enqueue_Assets {
         $scripts['directorist-admin-style'] = [
             'file_name' => 'admin',
             'base_path' => DIRECTORIST_ADMIN_CSS,
-            // 'deps'      => [ 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ],
+            'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',
             'section'   => '',

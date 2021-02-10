@@ -4883,7 +4883,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'value' => 'example@email.com',
                 ];
 
-                $this->layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
+                self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
                     'title' => __('Guest Submission', 'directorist'),
                     'container' => 'short-width',
                     'fields' => [

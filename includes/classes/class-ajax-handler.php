@@ -87,6 +87,19 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+
+            //dashboard become author 
+            add_action('wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
+        }
+
+        public function atbdp_become_author() {
+            if ( wp_verify_nonce( $_POST['nonce'], 'atbdp_become_author' ) ) { 
+                $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
+                do_action( 'atbdp_become_author', $user_id );
+                update_user_meta( $user_id, '_user_type', 'become_author' );
+                $success_message = __( 'Send successfully', 'directorist' );
+                wp_send_json($success_message);
+            }
         }
 
         // atbdp_quick_ajax_login

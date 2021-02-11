@@ -97,7 +97,7 @@ class Enqueue_Assets {
             'has_rtl'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'enable'    => true
         ];
 
@@ -108,7 +108,7 @@ class Enqueue_Assets {
             'has_rtl'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'enable'    => true
         ];
 
@@ -216,9 +216,9 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-slick'] = [
@@ -238,9 +238,9 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-tooltip'] = [
@@ -249,9 +249,9 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-uikit'] = [
@@ -397,7 +397,7 @@ class Enqueue_Assets {
         $scripts['directorist-admin-script'] = [
             'file_name'     => 'admin',
             'base_path'     => DIRECTORIST_ADMIN_JS,
-            'deps'          => Script_Helper::get_admin_script_dependency(),
+            // 'deps'          => Script_Helper::get_admin_script_dependency(),
             'ver'           => $this->script_version,
             'group'         => 'admin',
             'section'       => '',
@@ -410,7 +410,7 @@ class Enqueue_Assets {
         $scripts['directorist-plugins'] = [
             'file_name'     => 'plugins',
             'base_path'     => DIRECTORIST_ADMIN_JS,
-            'deps'          => ['jquery'],
+            // 'deps'          => ['jquery'],
             'ver'           => $this->script_version,
             'group'         => 'admin',
             'section'       => '',
@@ -421,7 +421,7 @@ class Enqueue_Assets {
         $scripts['directorist-import-export'] = [
             'file_name'     => 'import-export',
             'base_path'     => DIRECTORIST_ADMIN_JS,
-            'deps'          => ['jquery'],
+            // 'deps'          => ['jquery'],
             'ver'           => $this->script_version,
             'group'         => 'admin',
             'section'       => '',

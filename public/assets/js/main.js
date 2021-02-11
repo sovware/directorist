@@ -1168,6 +1168,25 @@
     	return false;
     });
 
+    // Dashboard become an author
+    $('.atbdp-become-author').on('click', function(e){
+        e.preventDefault();
+        var userId = $(this).attr('data-userId');
+        var nonce = $(this).attr('data-nonce');
+        var data = {
+            userId : userId,
+            nonce  : nonce,
+            action : "atbdp_become_author"
+        };
+
+        // Send the data
+        $.post(atbdp_public_data.ajaxurl, data, function (response) {
+            console.log(response);
+            $('#atbdp-become-author-success').html(response);
+            $('.atbdp-become-author').hide();
+        });
+    });
+
     // Dashboard Tasks eg. delete
     $('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function(event) {
     	var task       = $(this).data('task');

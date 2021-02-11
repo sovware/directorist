@@ -21,15 +21,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
      */
     class ATBDP_Extensions
     {
-        public $extensions = [];
-        public $themes     = [];
+        public $extensions                = [];
+        public $themes                    = [];
+        public $extension_recommandations = [];
 
         public function __construct()
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'get_the_product_list') );
-            // add_filter( 'atbdp_extension_list', array( $this, 'exclude_purchased_extensions'), 20, 1 );
-            // add_filter( 'atbdp_theme_list', array( $this, 'exclude_purchased_themes'), 20, 1 );
+            add_action( 'init', array( $this, 'get_extension_recommandations') );
+            add_filter( 'directorist_extension_recommandations', array( $this, 'add_demo_extension_recommandations'), 20, 1 );
+            // add_action( 'init', array( $this, 'get_recommand_extensions_list') );
             
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
@@ -43,6 +45,78 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array($this, 'handle_close_subscriptions_sassion_request') );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
+        }
+
+        public function get_extension_recommandations() {
+            $this->extension_recommandations = apply_filters( 'directorist_extension_recommandations', [] );
+        }
+
+        // add_demo_extension_recommandations
+        public function add_demo_extension_recommandations( array $extension_recommandations = [] ) {
+            $extension_recommandations[] = [
+                'extensions' => [ 
+                    'directorist-coupon',
+                    'directorist-rank-featured-listings',
+                    'directorist-post-your-need',
+                ],
+                'ref' => 'direo',
+            ];
+
+            $extension_recommandations[] = [
+                'extensions' => [ 
+                    'directorist-coupon',
+                    'directorist-rank-featured-listings',
+                    'directorist-post-your-need',
+                ],
+                'ref' => 'dlist',
+            ];
+
+            return $extension_recommandations;
+        }
+
+        // get_recommand_extensions_list
+        public function get_recommand_extensions_list() {
+            $extension_recommandations = $this->extension_recommandations;
+            $recommanded_extensions = [];
+
+            foreach ( $extension_recommandations as $recommandation ) {
+                if ( empty( $recommandation['extensions'] ) ) { continue; }
+                foreach ( $recommandation['extensions'] as $extension ) {
+                    if ( empty( $this->extensions[ $extension ] ) ) { continue; }
+
+                    if ( empty( $recommanded_extensions[ $extension ] ) ) {
+                        $recommanded_extensions[ $extension ] = [];
+                    }
+
+                    $recommanded_extensions[ $extension ][] = $recommandation['ref'];
+                }
+            }
+            
+            return $recommanded_extensions;
+        }
+
+        // prepare_recommanded_extension_list
+        public function prepare_recommanded_extension_list( array $args = [] ) {
+            $recommandation = [];
+
+            $recommand_extensions_list             = ( ! empty( $args['recommand_extensions_list'] ) ) ? $args['recommand_extensions_list'] : [];
+            $extensions_available_in_subscriptions = ( ! empty( $args['extensions_available_in_subscriptions'] ) ) ? $args['extensions_available_in_subscriptions'] : [];
+            $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? array_keys( $extensions_available_in_subscriptions ) : [];
+            $installed_extension_list              = ( ! empty( $args['installed_extension_list'] ) ) ? $args['installed_extension_list'] : [];
+            $installed_extension_list              = ( is_array( $installed_extension_list ) ) ? array_keys( $installed_extension_list ) : [];
+
+            foreach ( $recommand_extensions_list as $extension => $recommanded_by ) {
+
+                if ( is_plugin_active( "{$extension}/{$extension}.php" ) ) { continue; }
+
+                $recommandation[ $extension ] = [];
+                $recommandation[ $extension ][ 'ref' ] = $recommanded_by;
+                $recommandation[ $extension ][ 'purchased' ] = ( in_array( $extension, $extensions_available_in_subscriptions ) ) ? true : false;
+                $recommandation[ $extension ][ 'installed' ] = ( in_array( "{$extension}/{$extension}.php", $installed_extension_list ) ) ? true : false;
+            }
+            
+
+            return $recommandation;
         }
 
         // get_the_products_list
@@ -227,10 +301,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $purchased_extensions_keys = ( is_array( $purchased_extensions ) ) ? array_keys( $purchased_extensions ) : [];
             $excluded_extensions = $extensions;
-
-            atbdp_console_log( $purchased_extensions_keys );
-            var_dump( $purchased_extensions_keys );
-            die;
 
             foreach ( $excluded_extensions as $extension_key => $extension ) {
                 if ( ! in_array( $extension_key, $purchased_extensions_keys ) ) { continue; }
@@ -1566,8 +1636,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 unset( $themes_available_in_subscriptions[ $current_active_theme_info['stylesheet'] ] );
             }
 
-            atbdp_console_log(  $themes_available_in_subscriptions );
-
             $overview = [
                 'total_active_themes'               => $total_active_themes,
                 'total_outdated_themes'             => $total_outdated_themes,
@@ -1651,8 +1719,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-settings#extension_settings__extensions_general' );
 
-            $extensions_overview = $this->get_extensions_overview();
-            $themes_overview     = $this->get_themes_overview();
+            $extensions_overview    = $this->get_extensions_overview();
+            $themes_overview        = $this->get_themes_overview();
+            $recommanded_extensions = $this->prepare_recommanded_extension_list([
+                'recommand_extensions_list'             => $this->get_recommand_extensions_list(),
+                'installed_extension_list'              => $extensions_overview['installed_extension_list'],
+                'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
+            ]);
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
@@ -1668,6 +1741,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
                 'total_available_extensions'            => $extensions_overview['total_available_extensions'],
                 'extensions_promo_list'                 => $extensions_overview['extensions_promo_list'],
+                'recommanded_extensions'                => $recommanded_extensions,
                 
                 'total_active_themes'               => $themes_overview['total_active_themes'],                 // $my_active_themes,
                 'total_outdated_themes'             => $themes_overview['total_outdated_themes'],               // $my_outdated_themes,
@@ -1680,8 +1754,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'extension_list' => $this->extensions,
                 'theme_list'     => $this->themes,
                 
-                // 'all_active_themes'     => $all_active_themes,
-                // 'all_purshased_themes'  => $all_purshased_themes,
                 'settings_url'          => $settings_url,
             ];
 

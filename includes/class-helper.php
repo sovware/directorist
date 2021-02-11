@@ -80,5 +80,73 @@ class Helper {
 			echo $tel;
 		}
 	}
+
+	public static function is_popular( $listing_id ) {
+		$listing_popular_by = get_directorist_option('listing_popular_by');
+		$average = ATBDP()->review->get_average($listing_id);
+		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
+		$view_to_popular = get_directorist_option('views_for_popular');
+
+		if ('average_rating' === $listing_popular_by) {
+			if ($average_review_for_popular <= $average) {
+				return true;
+			}
+		}
+		elseif ('view_count' === $listing_popular_by) {
+			if ((int)$view_count >= (int)$view_to_popular) {
+				return true;
+			}
+		}
+		elseif (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function badge_exists( $listing_id ) {
+		// @cache @kowsar
+		if ( self::is_new( $listing_id ) || self::is_featured( $listing_id ) || self::is_popular( $listing_id ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function is_new( $listing_id ) {
+		$post = get_post( $listing_id ); // @cache @kowsar
+		$new_listing_time = get_directorist_option('new_listing_day');
+		$each_hours = 60 * 60 * 24;
+		$s_date1 = strtotime(current_time('mysql'));
+		$s_date2 = strtotime($post->post_date);
+		$s_date_diff = abs($s_date1 - $s_date2);
+		$days = round($s_date_diff / $each_hours);
+
+		if ($days <= (int)$new_listing_time) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function is_featured( $listing_id ) {
+		return get_post_meta( $listing_id, '_featured', true );
+	}
+
+	public static function new_badge_text() {
+		return get_directorist_option('new_badge_text', 'New');
+	}
+
+	public static function popular_badge_text() {
+		return get_directorist_option('popular_badge_text', 'Popular');
+	}
+
+	public static function featured_badge_text() {
+		return get_directorist_option('feature_badge_text', 'Featured');
+	}
 	
 }

@@ -16,14 +16,62 @@
     }
 }
 
-.directorist-search-home-contents{
+.directorist-search-contents{
     background-size: cover;
     padding: 230px 0 265px;
     z-index: 2;
 }
+// Search Border Boder
+.directorist-search-form-wrap{
+    &.directorist-with-search-border{
+        .directorist-search-form-top{
+            border: 1px solid #ECECEC;
+        }
+    }
+}
 
+// Directorist Listing Type Selection
+.directorist-listing-type-selection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .directorist-listing-type-selection__item{
+        margin-bottom: 25px;
+        &:not(:last-child){
+            margin-right: 25px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 15px;
+            padding: 6px 0;
+            font-weight: 500;
+            display: block;
+            color: #8F8E9F;
+            position: relative;
+            &::after{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                border-radius: 6px;
+                content: '';
+                opacity: 0;
+                visibility: hidden;
+                background-color: $dark;
+            }
+        }
+        .directorist-listing-type-selection__link--current{
+            color: $dark;
+            &::after{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
 // Directorist Search form top
-.directorist-search-home-contents{
+.directorist-search-contents{
     .directorist-search-form-top{
         background-color: #fff;
         border-radius: 6px;
@@ -93,10 +141,44 @@
 }
 
 // Search Home Advance Filter
-.directorist-search-home-contents{
+.directorist-search-contents{
     .directorist-advanced-filter{
         border: 1px solid #e3e6ef;
         margin-top: 25px;
         background: #fff;
+    }
+}
+
+// Directorist listing Category
+.directorist-listing-category-top{
+    text-align: center;
+    margin-top: 25px;
+    ul{
+        margin: -15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        li{
+            margin: 15px;
+            a{
+                color: #51526E;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                i,
+                span.fa,
+                span.la{
+                    color: #8F8E9F;
+                    margin-right: 4px;
+                }
+                p{
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 }

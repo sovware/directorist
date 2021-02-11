@@ -14,27 +14,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="<?php Helper::directorist_column( 8 ); ?>">
 		<div class="directorist-card directorist-author-about">
+
 			<div class="directorist-card__header">
 				<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-user"></span><?php esc_html_e( 'About', 'directorist' ); ?></h4>
 			</div>
+
 			<div class="directorist-card__body">
 				<div class="directorist-author-about__content">
 					<p><?php echo $bio ? wp_kses_post( $bio ) : esc_html__( 'Nothing to show!', 'directorist' );?></p>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
 	<div class="<?php Helper::directorist_column( 4 ); ?>">
-
 		<div class="directorist-card directorist-widget">
 
 			<div class="directorist-card__header">
 				<h4 class="directorist-card__header--title directorist-widget-title"><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h4>
 			</div>
+
 			<div class="directorist-card__body">
 				<div class="directorist-author-info-widget">
+
 					<ul class="directorist-author-info-list">
+
 						<?php if ( $address ): ?>
 							<li class="directorist-author-info-list__item">
 								<span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
@@ -62,30 +67,36 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 								<span class="directorist-info"><a target="_blank" href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website) ; ?></a></span>
 							</li>
 						<?php endif; ?>
+
 					</ul>
+
 					<?php if ( $facebook || $twitter || $linkedIn || $youtube ): ?>
-					<ul class="directorist-author-social">
-						<?php if ( $facebook ): ?>
-							<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"></span></a></li>
-						<?php endif; ?>
 
-						<?php if ( $twitter ): ?>
-							<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"></span></a></li>
-						<?php endif; ?>
+						<ul class="directorist-author-social">
 
-						<?php if ( $linkedin ): ?>
-							<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"></span></a></li>
-						<?php endif; ?>
+							<?php if ( $facebook ): ?>
+								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"></span></a></li>
+							<?php endif; ?>
 
-						<?php if ( $youtube ): ?>
-							<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-youtube"></span></a></li>
-						<?php endif; ?>
-					</ul>
+							<?php if ( $twitter ): ?>
+								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"></span></a></li>
+							<?php endif; ?>
+
+							<?php if ( $linkedin ): ?>
+								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"></span></a></li>
+							<?php endif; ?>
+
+							<?php if ( $youtube ): ?>
+								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-youtube"></span></a></li>
+							<?php endif; ?>
+							
+						</ul>
+
 					<?php endif; ?>
 				</div>
 			</div>
-		</div>
 
+		</div>
 	</div>
 	
 </div>

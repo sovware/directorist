@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-home-contents" style="<?php echo $searchform->background_img_style(); ?>">
+<div class="directorist-search-contents" style="<?php echo $searchform->background_img_style(); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 

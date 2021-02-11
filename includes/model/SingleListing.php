@@ -177,8 +177,10 @@ class Directorist_Single_Listing {
 		);
 		$template = 'single/items/' . $data['widget_name'];
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
-		if( $load_template )
-		Helper::get_template( $template, $args );
+
+		if( $load_template ) {
+			Helper::get_template( $template, $args );
+		}
 	}
 
 	public function section_id( $id ) {
@@ -188,6 +190,20 @@ class Directorist_Single_Listing {
 		else {
 			return;
 		}
+	}
+
+	public function get_address( $data ) {
+		$value = $data['value'];
+		if (!empty($data['address_link_with_map'])) {
+			$value = '<a target="google_map" href="https://www.google.de/maps/search/?' . esc_html($value) . '">' . esc_html($value) . '</a>';
+		}
+		return $value;
+	}
+
+	public function get_cat_list() {
+		// @cache @kowsar
+		$cat_list = get_the_term_list( $this->id, ATBDP_CATEGORY, '', ', ');
+		return $cat_list;
 	}
 
 	public function social_share_data() {
@@ -325,6 +341,28 @@ class Directorist_Single_Listing {
 		);
 
 		Helper::get_template('single/slider', $args );
+	}
+
+	public function has_badge( $data ) {
+		if ( $data['new_badge'] || $data['featured_badge'] || $data['popular_badge'] ) {
+			if ( Helper::badge_exists( $this->id ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function display_new_badge( $data ) {
+		return $data['new_badge'] && Helper::is_new( $this->id );
+	}
+
+	public function display_featured_badge( $data ) {
+		return $data['featured_badge'] && Helper::is_featured( $this->id );
+	}
+
+	public function display_popular_badge( $data ) {
+		return $data['popular_badge'] && Helper::is_popular( $this->id );
 	}
 
 	public function has_price_range() {

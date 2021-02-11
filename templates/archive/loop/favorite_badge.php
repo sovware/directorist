@@ -7,8 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-$fav_class  = in_array( $listings->loop['id'] , $favourites ) ? 'directorist-added-to-favorite' : '';
+$fav_class  = $listings->loop_is_favourite() ? 'directorist-added-to-favorite' : '';
 ?>
 
 <div class="directorist-mark-as-favorite">

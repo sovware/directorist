@@ -1,35 +1,48 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
 
-$enabled = get_directorist_type_option( $listing->type, 'enable_similar_listings', 1 );
-$title   = get_directorist_type_option( $listing->type, 'similar_listings_title' );
-$logic   = get_directorist_type_option( $listing->type, 'similar_listings_logics', 'OR' );
-$number  = get_directorist_type_option( $listing->type, 'similar_listings_number_of_listings_to_show', 2 );
-$same_author   = get_directorist_type_option( $listing->type, 'listing_from_same_author', false );
+use \Directorist\Helper;
 
-$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if (empty($enabled)) {
+$related = $listing->get_related_listings();
+
+if ( !$related->have_posts() ) {
 	return;
 }
-
-$query = $listing->related_listings_query( $number, $relationship, $same_author );
-$related_listings = new \Directorist\Directorist_Listings(array(), 'related', $query, ['cache' => false]);
 
 $listing->load_related_listings_script();
 ?>
 
-<div class="containess-fluid <?php echo esc_attr( $class );?>" <?php echo $id ? 'id="'.$id.'"' : '';?>>
+<div class="related <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+
 	<div class="atbdp-related-listing-header">
-		<h4><?php echo esc_html( $title ); ?></h4>
+		<h4><?php echo esc_html( $label );?></h4>
 	</div>
-	<div class="atbd_margin_fix">
-		<div class="related__carousel">
-			<?php $related_listings->setup_loop(); ?>
+
+
+	<div class="related__carousel">
+
+		<div class="directorist-archive-grid-view">
+			<div class="<?php Helper::directorist_container_fluid(); ?>">
+				<div class="<?php Helper::directorist_row(); ?>">
+
+					<?php foreach ( $related->post_ids() as $listing_id ): ?>
+
+						<div class="<?php Helper::directorist_column( $related->columns ); ?>">
+							<?php $related->loop_template( 'grid', $listing_id ); ?>
+						</div>
+
+					<?php endforeach; ?>
+
+				</div>
+			</div>
 		</div>
+
 	</div>
+
 </div>

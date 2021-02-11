@@ -1091,8 +1091,12 @@ class Directorist_Single_Listing {
 		Helper::get_template('single/listing-review', $args);
 	}
 
-	public function related_listings_query( $number, $relationship, $same_author )
-	{
+	public function get_related_listings() {
+		$number       = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
+		$same_author  = get_directorist_type_option( $this->type, 'listing_from_same_author', false );
+		$logic        = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
+		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
+
 		$id = get_the_ID();
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
 		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
@@ -1150,7 +1154,11 @@ class Directorist_Single_Listing {
 			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
 		}
 
-		return apply_filters('atbdp_related_listing_args', $args);
+		$args = apply_filters( 'directorist_related_listing_args', $args, $this );
+
+		$related = new Directorist_Listings( [], 'related', $args, ['cache' => false] );
+
+		return $related;
 	}
 
 	public function load_related_listings_script() {
@@ -1165,41 +1173,5 @@ class Directorist_Single_Listing {
 
 		wp_enqueue_script('atbdp-related-listings-slider');
 		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
-	}
-
-	public function related_listings_template() {
-		$enabled = get_directorist_type_option( $this->type, 'enable_similar_listings', 1 );
-		$title   = get_directorist_type_option( $this->type, 'similar_listings_title' );
-		$logic   = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
-		$number  = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
-		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
-		$same_author   = get_directorist_type_option( $this->type, 'listing_from_same_author', false );
-
-		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
-
-		if (empty($enabled)) {
-			return;
-		}
-
-		$is_rtl = is_rtl() ? 'true' : '';
-
-		$localized_data = array(
-			'is_rtl' => $is_rtl,
-			'rel_listing_column' => $columns,
-		);
-
-		wp_enqueue_script('atbdp-related-listings-slider');
-		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
-
-		$query = $this->related_listings_query( $number, $relationship, $same_author );
-
-		$related_listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
-		$args = array(
-			'listing'          => $this,
-			'related_listings' => $related_listings,
-			'title'            => $title,
-		);
-
-		Helper::get_template('single/related-listings', $args);
 	}
 }

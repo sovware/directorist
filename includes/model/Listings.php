@@ -367,6 +367,7 @@ class Directorist_Listings {
 			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
 			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
+			'bdbh_version' 			  => get_post_meta( $id, '_bdbh_version', true ),
 			'author_id'               => $author_id,
 			'author_data'             => $author_data,
 			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
@@ -1973,6 +1974,7 @@ class Directorist_Listings {
     	$content = '';
     	$plan_hours              = true;
     	$disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
+		$bdbh_version 			 = get_post_meta(get_the_ID(), '_bdbh_version', true);
     	$enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
     	$bdbh                    = get_post_meta(get_the_ID(), '_bdbh', true);
     	$business_hours          = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();

@@ -337,6 +337,7 @@ class Directorist_Listing_Forms {
 			$listing_info['bdbh']                    = get_post_meta( $p_id, '_bdbh', true );
 			$listing_info['enable247hour']           = get_post_meta( $p_id, '_enable247hour', true );
 			$listing_info['disable_bz_hour_listing'] = get_post_meta( $p_id, '_disable_bz_hour_listing', true );
+			$listing_info['bdbh_version'] 			 = get_post_meta( $p_id, '_bdbh_version', true );
 			$listing_info['hide_contact_info']       = get_post_meta( $p_id, '_hide_contact_info', true );
 			$listing_info['hide_contact_owner']      = get_post_meta( $p_id, '_hide_contact_owner', true );
 			$listing_info['expiry_date']             = get_post_meta( $p_id, '_expiry_date', true );

@@ -177,10 +177,10 @@ class Directorist_Single_Listing {
 		);
 
 		if ( $this->is_custom_field( $data ) ) {
-			$template = 'single/items/custom-fields/' . $data['widget_name'];
+			$template = 'single/custom-fields/' . $data['widget_name'];
 		}
 		else {
-			$template = 'single/items/' . $data['widget_name'];
+			$template = 'single/fields/' . $data['widget_name'];
 		}
 		
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );

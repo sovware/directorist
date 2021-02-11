@@ -1045,7 +1045,7 @@ class Directorist_Listings {
 		}
 		
 		// Load the template
-		Helper::get_template( 'archive-contents', array( 'listings' => $this ) );
+		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 
 		return ob_get_clean();
 	}

@@ -601,8 +601,6 @@ class Directorist_Single_Listing {
 			return;
 		}
 
-		// return Helper::get_template_contents( 'single-contents', array( 'listings' => $this ) );
-
 		$args = array(
 			'listing' => $this,
 		);
@@ -614,9 +612,62 @@ class Directorist_Single_Listing {
 		return get_the_title( $this->id );
 	}
 
+	public function display_review() {
+		return get_directorist_option( 'enable_review', 1 );
+	}
+
+	public function guest_review_enabled() {
+		return get_directorist_option('guest_review', 0);
+	}
+
+	public function owner_review_enabled() {
+		return get_directorist_option('enable_owner_review');
+	}
+
+	public function current_review() {
+		// @cache @kowsar
+		$review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
+		return !empty( $review ) ? $review : '';
+	}
+
+	public function reviewer_name() {
+		return wp_get_current_user()->display_name;;
+	}
+
+	public function review_count() {
+		return ATBDP()->review->db->count(array('post_id' => $this->id));
+	}
+
+	public function review_count_text() {
+		$review_count_text = _nx('Review', 'Reviews', $this->review_count(), 'Number of reviews', 'directorist');
+		return $review_count_text;
+	}
+
+	public function review_approve_immediately() {
+		return get_directorist_option('approve_immediately', 1);
+	}
+
+	public function review_is_duplicate() {
+		return tract_duplicate_review(wp_get_current_user()->display_name, $id);
+	}
+
 	public function get_tagline() {
 		return get_post_meta( $this->id, '_tagline', true );	
 	}
+
+	public function contact_owner_email() {	
+		$email = get_post_meta( $listing->id, '_email', true );
+		return $email;
+	}
+
+	public function guest_email_label() {	
+		return get_directorist_option( 'guest_email', __( 'Your Email', 'directorist' ) );
+	}
+
+	public function guest_email_placeholder() {	
+		return get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) );
+	}
+
 
 	public function get_contents() {
 		$post    = $this->post;

@@ -175,12 +175,24 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-		$template = 'single/items/' . $data['widget_name'];
+
+		if ( $this->is_custom_field( $data ) ) {
+			$template = 'single/items/custom-fields/' . $data['widget_name'];
+		}
+		else {
+			$template = 'single/items/' . $data['widget_name'];
+		}
+		
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
 		if( $load_template ) {
 			Helper::get_template( $template, $args );
 		}
+	}
+
+	public function is_custom_field( $data ) {
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
 
 	public function section_id( $id ) {

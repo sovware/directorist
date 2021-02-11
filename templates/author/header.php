@@ -27,7 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</div>
 
 			<ul class="directorist-author-meta-list">
+
 				<?php if ( $author->review_enabled() ): ?>
+					
 					<li class="directorist-author-meta-list__item">
 						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><i class="<?php atbdp_icon_type(true); ?>-star"></i></span>
 					</li>

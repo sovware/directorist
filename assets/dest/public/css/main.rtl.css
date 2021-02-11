@@ -2488,7 +2488,7 @@ p.atbd-min {
 .directorist-dropdown .directorist-dropdown__toggle:focus {
   outline: 0 !important;
 }
-.directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-hasIcon:after {
+.directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-has-icon:after {
   content: "";
   font: normal 12px/1 dashicons;
   padding-right: 5px;
@@ -3416,7 +3416,7 @@ p.atbd-min {
   line-height: 24px;
   text-align: right;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list {
+.directorist-author-profile-wrap .directorist-author-meta-list {
   margin: 0;
   padding: 0;
   display: -webkit-box;
@@ -3428,32 +3428,32 @@ p.atbd-min {
       -ms-flex-align: center;
           align-items: center;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item {
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
   position: relative;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item .directorist-listing-rating-meta i {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item .directorist-listing-rating-meta i {
   color: #EF8000;
   margin-right: 5px;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item .directorist-review-count,
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item .directorist-listing-count {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item .directorist-review-count,
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item .directorist-listing-count {
   color: #767792;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item .directorist-review-count span,
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-author-meta__list--item .directorist-listing-count span {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item .directorist-review-count span,
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item .directorist-listing-count span {
   display: block;
   color: #0A0B1E;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-info-meta {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-info-meta {
   margin-right: 18px;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-info-meta + .directorist-info-meta {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-info-meta + .directorist-info-meta {
   padding-right: 18px;
 }
-.directorist-author-profile-wrap .directorist-author-meta .directorist-author-meta__list .directorist-info-meta + .directorist-info-meta:before {
+.directorist-author-profile-wrap .directorist-author-meta-list .directorist-info-meta + .directorist-info-meta:before {
   content: "";
   position: absolute;
   right: 0px;

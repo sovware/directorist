@@ -26,26 +26,23 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			</div>
 
-			<div class="directorist-author-meta">
-				<ul class="directorist-author-meta__list">
-
-					<?php if ( $author->review_enabled() ): ?>
-						<li class="directorist-author-meta__list--item">
-							<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><i class="<?php atbdp_icon_type(true); ?>-star"></i></span>
-						</li>
-
-						<li class="directorist-author-meta__list--item directorist-info-meta">
-							<span class="directorist-review-count"><?php echo $author->review_count_html(); ?></span>
-						</li>
-
-					<?php endif; ?>
-
-					<li class="directorist-author-meta__list--item directorist-info-meta">
-						<span class="directorist-listing-count"><?php echo $author->listing_count_html(); ?></span>
+			<ul class="directorist-author-meta-list">
+				<?php if ( $author->review_enabled() ): ?>
+					<li class="directorist-author-meta-list__item">
+						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><i class="<?php atbdp_icon_type(true); ?>-star"></i></span>
 					</li>
 
-				</ul>
-			</div>
+					<li class="directorist-author-meta-list__item directorist-info-meta">
+						<span class="directorist-review-count"><?php echo $author->review_count_html(); ?></span>
+					</li>
+
+				<?php endif; ?>
+
+				<li class="directorist-author-meta-list__item directorist-info-meta">
+					<span class="directorist-listing-count"><?php echo $author->listing_count_html(); ?></span>
+				</li>
+
+			</ul>
 
 		</div>
 	</div>

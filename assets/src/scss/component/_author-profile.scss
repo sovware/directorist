@@ -37,45 +37,42 @@
         }
     }
 
-    
-    .directorist-author-meta{
-        .directorist-author-meta__list{
+    .directorist-author-meta-list{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        .directorist-author-meta-list__item{
+            font-size: 14px;
+            line-height: 1.5;
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            .directorist-author-meta__list--item{
-                font-size: 14px;
-                line-height: 1.5;
-                margin: 0;
-                position: relative;
-                .directorist-listing-rating-meta{
-                    i{
-                        color: $warning;
-                        margin-left: 5px;
-                    }
-                }
-                .directorist-review-count,
-                .directorist-listing-count{
-                    color: $body-color;
-                    span{
-                        display: block;
-                        color: $primary;
-                    }
+            position: relative;
+            .directorist-listing-rating-meta{
+                i{
+                    color: $warning;
+                    margin-left: 5px;
                 }
             }
-            .directorist-info-meta {
-                margin-left: 18px;
-                &+.directorist-info-meta{
-                    padding-left: 18px;
-                    &:before{
-                        content: "";
-                        position: absolute;
-                        left: 0px;
-                        height: 100%;
-                        width: 1px;
-                        background-color: #e3e6ef;
-                    }
+            .directorist-review-count,
+            .directorist-listing-count{
+                color: $body-color;
+                span{
+                    display: block;
+                    color: $primary;
+                }
+            }
+        }
+        .directorist-info-meta {
+            margin-left: 18px;
+            &+.directorist-info-meta{
+                padding-left: 18px;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    left: 0px;
+                    height: 100%;
+                    width: 1px;
+                    background-color: #e3e6ef;
                 }
             }
         }

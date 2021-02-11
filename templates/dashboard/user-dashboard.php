@@ -192,7 +192,7 @@
                 <div class="single-component">
                     <h4>Directorist Dropdown</h4>
                     <div class="directorist-dropdown directorist-dropdown-js">
-                        <a href="" class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-hasIcon">Directorist Dropdown</a>
+                        <a href="" class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon">Directorist Dropdown</a>
                         <div class="directorist-dropdown__links directorist-dropdown__links-js">
                             <a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>
                             <a href="#" class="directorist-dropdown__links--single">Dropdown 1</a>

@@ -1,21 +1,21 @@
 /* custom dropdown */
-const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
+const atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
 
 // toggle dropdown
 let clickCount = 0;
 if (atbdDropdown !== null) {
   atbdDropdown.forEach(function (el) {
-      el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
+      el.querySelector('.directorist-dropdown-select-toggle').addEventListener('click', function (e) {
           e.preventDefault();
           clickCount++;
           if (clickCount % 2 === 1) {
-              document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-                  elem.classList.remove('atbd-show');
+              document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
+                  elem.classList.remove('directorist-dropdown-select-show');
               });
-              el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
+              el.querySelector('.directorist-dropdown-select-items').classList.add('directorist-dropdown-select-show');
           } else {
-              document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-                  elem.classList.remove('atbd-show');
+              document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
+                  elem.classList.remove('directorist-dropdown-select-show');
               });
           }
       });
@@ -24,16 +24,16 @@ if (atbdDropdown !== null) {
 
 // remvoe toggle when click outside
 document.body.addEventListener('click', function (e) {
-  if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
+  if (e.target.getAttribute('data-drop-toggle') !== 'directorist-dropdown-select-toggle') {
       clickCount = 0;
-      document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
-          el.classList.remove('atbd-show');
+      document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (el) {
+          el.classList.remove('directorist-dropdown-select-show');
       });
   }
 });
 
 ;(function ($) {
-    // Dropdown 
+    // Dropdown
     $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function(e){
         e.preventDefault();
         $(this).siblings('.directorist-dropdown-option').toggle();
@@ -75,7 +75,7 @@ document.body.addEventListener('click', function (e) {
 
 
     // Restructred Dropdown
-    // Directorist Dropdown 
+    // Directorist Dropdown
     $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function(e){
         e.preventDefault();
         $('.directorist-dropdown__links').hide();

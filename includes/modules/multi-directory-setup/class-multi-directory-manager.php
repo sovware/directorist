@@ -3570,12 +3570,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'label' => "View Count",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_view_count",
-                    'show_if' => [
-                        'where' => "submission_form_fields.value.fields",
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'view_count'],
-                        ],
-                    ],
                     'options' => [
                         'title' => "View Count Settings",
                         'fields' => [

@@ -1,40 +1,72 @@
+@import '../mixins/general';
 // Common Classes
 
-.directorist-flex{
+.directorist-flex {
     display: flex;
 }
-.directorist-align-center{
+
+.directorist-align-center {
     align-items: center;
 }
-.directorist-justify-content-center{
+
+.directorist-justify-content-center {
     justify-content: center;
 }
-.directorist-justify-content-between{
+
+.directorist-justify-content-between {
     justify-content: space-between;
 }
-.directorist-justify-content-around{
+
+.directorist-justify-content-around {
     justify-content: space-around;
 }
-.directorist-justify-content-start{
+
+.directorist-justify-content-start {
     justify-content: flex-start;
 }
-.directorist-justify-content-end{
+
+.directorist-justify-content-end {
     justify-content: flex-end;
 }
 
 // Error Class
 
-.directorist-error{
-    .directorist-error__msg{
+.directorist-error {
+    .directorist-error__msg {
         color: $danger;
         font-size: 14px;
-    } 
+    }
 }
 
 // General Classes
-.entry-content{
-    .directorist-search-home-contents{
+.entry-content {
+    .directorist-search-home-contents {
         width: 100% !important;
         max-width: 100% !important;
+    }
+}
+
+/* directorist module style */
+.directorist-content-module {
+    border: 1px solid #e3e6ef;
+
+    @include e(title) {
+        border-bottom: 1px solid #e3e6ef;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 30px;
+        align-items: center;
+        flex-wrap: wrap;
+
+        h4 {
+            margin: 0 !important;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    }
+
+    @include e(contents) {
+        padding: 30px;
     }
 }

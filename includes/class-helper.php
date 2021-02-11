@@ -17,7 +17,28 @@ class Helper {
 		return $legacy;
 	}
 
-	public static function price_range_template( $price_range ) {
+	public static function pricing_type( $listing_id ) {
+		$pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
+		return $pricing_type;
+	}
+
+	public static function has_price( $listing_id ) {
+		$price = get_post_meta( $listing_id, '_price', true );
+		return $price;
+	}
+
+	public static function has_price_range( $listing_id ) {
+		$price_range = get_post_meta( $listing_id, '_price_range', true );
+		return $price_range;
+	}
+
+	public static function price_template( $listing_id ) {
+		$price = get_post_meta( $listing_id, '_price', true );
+		self::get_template( 'global/price', compact( 'price' ) );
+	}
+
+	public static function price_range_template( $listing_id ) {
+		$price_range = get_post_meta( $listing_id, '_price_range', true );
 		$currency = get_directorist_option( 'g_currency', 'USD' );
 		$currency = atbdp_currency_symbol( $currency );
 
@@ -79,6 +100,30 @@ class Helper {
 		else {
 			echo $tel;
 		}
+	}
+
+	public static function parse_video( $url ) {
+		$embeddable_url = '';
+
+		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+		if ($is_youtube) {
+			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
+			preg_match($pattern, $url, $matches);
+			if (count($matches) && strlen($matches[7]) == 11) {
+				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
+			}
+		}
+
+		$is_vimeo = preg_match('/vimeo\.com/i', $url);
+		if ($is_vimeo) {
+			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
+			preg_match($pattern, $url, $matches);
+			if (count($matches)) {
+				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
+			}
+		}
+
+		return $embeddable_url;
 	}
 
 	public static function is_popular( $listing_id ) {

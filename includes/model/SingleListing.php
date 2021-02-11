@@ -195,6 +195,10 @@ class Directorist_Single_Listing {
 		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
 
+	public function get_socials() {
+		return get_post_meta( $this->id, '_social', true);
+	}
+
 	public function section_id( $id ) {
 		if ( $id ) {
 			printf( 'id="%s"', $id );
@@ -217,6 +221,20 @@ class Directorist_Single_Listing {
 		$cat_list = get_the_term_list( $this->id, ATBDP_CATEGORY, '', ', ');
 		return $cat_list;
 	}
+
+	public function get_location_list() {
+		// @cache @kowsar
+		$loc_list = get_the_term_list( $this->id, ATBDP_LOCATION, '', ', ');
+		return $loc_list;
+	}
+
+	public function get_tags() {
+		// @cache @kowsar
+		$tags = get_the_terms( $this->id, ATBDP_TAGS );
+		return $tags;
+	}
+
+
 
 	public function social_share_data() {
 		$title = get_the_title();
@@ -518,13 +536,12 @@ class Directorist_Single_Listing {
 		return $price_html;
 	}
 
-	public function review_count_html() {
-		$id = $this->id;
+	public function get_review_count() {
+		return ATBDP()->review->db->count(array('post_id' => $this->id));
+	}
 
-		$reviews_count = ATBDP()->review->db->count(array('post_id' => $id));
-		$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
-		$review_count_html = $reviews_count . $reviews;
-		return $review_count_html;
+	public function get_rating_count() {
+		return ATBDP()->review->get_average( $this->id );
 	}
 
 	public function submit_link() {

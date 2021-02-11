@@ -1,13 +1,23 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
 
-if ( $listing->has_price_range() ) {
-	echo $listing->price_range_html();
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+$id = $listing->id;
+
+if ( !Helper::has_price_range( $id ) && !Helper::has_price( $id ) ) {
+	return;
 }
-elseif( $listing->price_html() ) {
-	echo $listing->price_html();
+
+if ( 'range' === Helper::pricing_type( $id ) ) {
+	Helper::price_range_template( $id );
+}
+else {
+	Helper::price_template( $id );
 }

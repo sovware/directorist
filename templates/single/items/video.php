@@ -4,5 +4,10 @@
  * @since   6.7
  * @version 6.7
  */
+
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo esc_attr( ATBDP()->atbdp_parse_videos( $value ) ); ?>" allowfullscreen></iframe>
+
+<iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo esc_attr( Helper::parse_video( $value ) ); ?>" allowfullscreen></iframe>

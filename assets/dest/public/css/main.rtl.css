@@ -4379,6 +4379,10 @@ p.atbd-min {
   z-index: 2;
 }
 
+.directorist-search-form-wrap.directorist-with-search-border .directorist-search-form-top {
+  border: 1px solid #ECECEC;
+}
+
 .directorist-search-home-contents .directorist-search-form-top {
   background-color: #fff;
   border-radius: 6px;
@@ -4463,6 +4467,54 @@ p.atbd-min {
   border: 1px solid #e3e6ef;
   margin-top: 25px;
   background: #fff;
+}
+
+.directorist-listing-category-top {
+  text-align: center;
+  margin-top: 25px;
+}
+.directorist-listing-category-top ul {
+  margin: -15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-listing-category-top ul li {
+  margin: 15px;
+}
+.directorist-listing-category-top ul li a {
+  color: #51526E;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.directorist-listing-category-top ul li a i,
+.directorist-listing-category-top ul li a span.fa,
+.directorist-listing-category-top ul li a span.la {
+  color: #8F8E9F;
+  margin-left: 4px;
+}
+.directorist-listing-category-top ul li a p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 .ads-advanced .bottom-inputs {

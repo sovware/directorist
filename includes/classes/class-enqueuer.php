@@ -17,6 +17,7 @@ class ATBDP_Enqueuer {
     public $enable_multiple_image = 0;
 
     public function __construct() {
+        return;
         global $pagenow;
         $current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {

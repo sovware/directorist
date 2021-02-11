@@ -5,8 +5,8 @@
  * @version 6.7
  */
 ?>
-<div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
-	<div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', 'container-fluid'); ?>">
+<div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper" style="width: 100%; max-width: 100%;">
+	<div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', 'directorist-container-fluid'); ?>">
 		<form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
 			<fieldset>
 				<?php do_action('atbdb_before_add_listing_from_frontend');?>

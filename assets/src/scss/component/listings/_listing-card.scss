@@ -79,6 +79,12 @@
             flex-wrap: wrap;
             align-items: center;
             margin: 0 -3px;
+
+            .directorist-compare-btn,
+            .directorist-mark-as-favorite,
+            .directorist-badge {
+                margin: 3px;
+            }
         }
     }
 }
@@ -381,13 +387,14 @@
 
 /* mark as favorite btn */
 .directorist-mark-as-favorite__btn {
-    background: #F2F2F2 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
     width: 30px;
     height: 30px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    position: relative;
 
     &:focus {
         outline: 0 !important;
@@ -410,7 +417,7 @@
         &:before {
             content: "\f234";
             font-family: 'LineAwesome';
-            color: #51526E;
+            color: #fff;
         }
     }
 
@@ -445,7 +452,7 @@
     transition: $transition-base;
 
     .directorist-favorite-icon::before {
-        color: $light-gray;
+        color: #fff;
     }
 
     &.directorist-added-to-favorite {
@@ -578,6 +585,18 @@
 
         .directorist-listing-single__info {
             padding: 0;
+        }
+
+        .directorist-listing-single__action {
+            display: flex;
+            align-items: center;
+            margin: -3px;
+
+            .directorist-compare-btn,
+            .directorist-mark-as-favorite,
+            .directorist-badge {
+                margin: 3px;
+            }
         }
     }
 }

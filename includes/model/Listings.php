@@ -1058,7 +1058,8 @@ class Directorist_Listings {
 		return $this->query_results->ids;
 	}
 
-	public function loop_template( $loop = 'grid', $id ) {
+	public function loop_template( $loop = 'grid', $id = NULL ) {
+		if( ! $id ) return;
 		global $post;
 		$post = get_post( $id );
 		setup_postdata( $id );

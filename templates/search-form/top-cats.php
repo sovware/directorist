@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="">
+<div class="directorist-listing-category-top">
 	<ul>
 
 		<?php foreach ( $top_categories as $cat ): ?>

@@ -244,7 +244,6 @@ class ATBDP_Metabox {
 		}
 
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
-		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){

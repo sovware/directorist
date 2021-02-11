@@ -75,14 +75,6 @@ class ATBDP_Enqueuer {
         $select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );
         // Admin Assets
         if ( is_admin() ) {
-            if( 'plugins.php' === $page ) {
-                wp_register_script( 'plugins', ATBDP_ADMIN_ASSETS . 'js/plugins.js', array( 'jquery' ), ATBDP_VERSION, true );
-                wp_register_style( 'plugins-css', ATBDP_ADMIN_ASSETS . 'css/plugins.css', array(), ATBDP_VERSION );
-
-                wp_enqueue_script( 'plugins' );
-                wp_enqueue_style( 'plugins-css' );
-
-            }
             if('at_biz_dir_page_tools' === $page){
                 wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
                 wp_enqueue_script( 'atbdp-import-export' );

@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-advanced-filter">
+<div class="directorist-search-af directorist-advanced-filter">
 
 	<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
 		<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>

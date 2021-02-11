@@ -5,7 +5,7 @@
  * @version 6.7
  */
 ?>
-<div class="directorist-archive-af directorist-advanced-filter">
+<div class="directorist-archive-adv-filter directorist-advanced-filter">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 
 		<div class="directorist-advanced-filter__basic">

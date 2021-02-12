@@ -17,17 +17,21 @@ class Directorist_Listing_Dashboard {
 
 	public $current_listings_query;
 	public $user_type;
+	public $display_title;
 
-	private function __construct() {
+	private function __construct( $atts ) {
+		$atts = shortcode_atts( ['show_title' => ''], $atts );
+		$this->display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
+
 		$this->id = get_current_user_id();
 		$user_type 		  = get_user_meta( get_current_user_id(), '_user_type', true );
-		$this->user_type	      = ! empty( $user_type ) ? $user_type : '';
+		$this->user_type  = ! empty( $user_type ) ? $user_type : '';
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $this, 'ajax_listing_tab' ) );
 	}
 
-	public static function instance() {
+	public static function instance( $atts = array() ) {
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $atts );
 		}
 		return self::$instance;
 	}
@@ -421,28 +425,16 @@ class Directorist_Listing_Dashboard {
 		}
 	}
 
-	public function render_shortcode_user_dashboard($atts) {
-
-		$atts = shortcode_atts(array(
-			'show_title' => '',
-		), $atts);
-
+	public function render_shortcode() {
 		$this->enqueue_scripts();
 
-		// show user dashboard if the user is logged in, else kick him out of this page or show a message
 		if (!atbdp_logged_in_user()) {
 			return $this->error_message_template();
 		}
 
-		ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
+		ATBDP()->enquirer->front_end_enqueue_scripts(true);
 
-		$display_title   = $atts['show_title'] == 'yes' ? true : false;
-		$container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-		$container_fluid = apply_filters( 'atbdp_deshboard_container_fluid', $container_fluid );
-
-		/*@todo; later show featured listing first on the user dashboard maybe??? */
-
-		return Helper::get_template_contents( 'dashboard/user-dashboard', compact('display_title','container_fluid') );
+		return Helper::get_template_contents( 'dashboard/user-dashboard', [ 'dashboard' => $this ] );
 	}
 
 	public function get_action_dropdown_item() {

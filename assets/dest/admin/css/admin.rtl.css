@@ -4663,6 +4663,17 @@ input.atbdp-form-control {
   padding: 30px;
 }
 
+.directorist-content-active a {
+  text-decoration: none;
+  color: #5a6671;
+}
+.directorist-content-active p {
+  font-size: 15px;
+  color: #7a82a6;
+  line-height: 24px;
+  text-align: right;
+}
+
 .directorist-form-group {
   position: relative;
 }

@@ -167,4 +167,13 @@ class Script_Helper {
         
         return true;
     }
+
+
+    // is_enable_map
+    public static function is_enable_map( string $map_type = '' ) {
+        $map_type_option = get_directorist_option('select_listing_map', 'openstreet');
+        if ( ! empty( $map_type ) && $map_type !== $map_type_option ) { return false; }
+        
+        return true;
+    }
 }

@@ -4625,7 +4625,7 @@ input.atbdp-form-control {
   font-size: 14px;
 }
 
-.entry-content .directorist-search-home-contents {
+.entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
 }
@@ -4661,6 +4661,17 @@ input.atbdp-form-control {
 }
 .directorist-content-module__contents {
   padding: 30px;
+}
+
+.directorist-content-active a {
+  text-decoration: none;
+  color: #5a6671;
+}
+.directorist-content-active p {
+  font-size: 15px;
+  color: #7a82a6;
+  line-height: 24px;
+  text-align: left;
 }
 
 .directorist-form-group {

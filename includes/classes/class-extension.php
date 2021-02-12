@@ -58,6 +58,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'directorist-coupon',
                     'directorist-rank-featured-listings',
                     'directorist-post-your-need',
+                    'compare-listings',
                 ],
                 'ref' => 'direo',
             ];

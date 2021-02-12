@@ -1042,7 +1042,7 @@ class Directorist_Listings {
 		}
 		
 		// Load the template
-		Helper::get_template( 'archive-contents', array( 'listings' => $this ) );
+		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 
 		return ob_get_clean();
 	}
@@ -1111,7 +1111,7 @@ class Directorist_Listings {
 				else {
 					$template = $args['template'];
 				}
-
+				
 				Helper::get_template( "archive/loop/" . $template, array('listings' => $this) );
 			endforeach;
 
@@ -1557,6 +1557,16 @@ class Directorist_Listings {
 			return $title;
 		}
 
+		public function loop_is_favourite() {
+			$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+			if ( in_array( get_the_id() , $favourites ) ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 
@@ -1747,36 +1757,28 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
-			// for development purpose
-			do_action( 'atbdp_all_listings_badge_template', $field );
 
 			switch ($field['widget_key']) {
 				case 'popular_badge':
 				$field['class'] = 'popular';
-				$popular_listing_id = atbdp_popular_listings( $id );
-				if ( $popular_listing_id === $id ) {
+				$field['label'] = Helper::popular_badge_text();
+				if ( Helper::is_popular( $id ) ) {
 					Helper::get_template( 'archive/loop/badge', $field );
 				}
 				break;
 
 				case 'featured_badge':
 				$field['class'] = 'featured';
-				$featured = get_post_meta( $id, '_featured', true );
-				if ( $featured ) {
+				$field['label'] = Helper::featured_badge_text();
+				if ( Helper::is_featured( $id ) ) {
 					Helper::get_template( 'archive/loop/badge', $field );
 				}
 				break;
 
 				case 'new_badge':
 				$field['class'] = 'new';
-
-				$new_listing_time = get_directorist_option('new_listing_day');
-				$each_hours = 60 * 60 * 24; // seconds in a day
-				$s_date1 = strtotime(current_time('mysql')); // seconds for date 1
-				$s_date2 = strtotime($post->post_date); // seconds for date 2
-				$s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
-				$days = round($s_date_diff / $each_hours); // divided the different with second in a day
-				if ($days <= (int)$new_listing_time) {
+				$field['label'] = Helper::new_badge_text();
+				if ( Helper::is_new( $id ) ) {
 					Helper::get_template( 'archive/loop/badge', $field );
 				}
 				break;

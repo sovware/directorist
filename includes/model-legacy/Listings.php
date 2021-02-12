@@ -1080,7 +1080,7 @@ class Directorist_Listings {
 				else {
 					$template = $args['template'];
 				}
-
+				
 				Helper::get_template( "listings-archive/loop/" . $template, array('listings' => $this) );
 			endforeach;
 

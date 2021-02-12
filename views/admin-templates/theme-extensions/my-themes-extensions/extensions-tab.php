@@ -228,12 +228,6 @@
                                         </td>
                                         <td>
                                             <div class="ext-action ext-action-<?php echo $extension_base; ?>">
-
-                                                <?php
-                                                
-                                                    atbdp_console_log( $extension );
-                                                ?>
-                                                
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
                                                 <a href="#" class="file-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
                                                     <?php _e('Active', 'directorist') ?>

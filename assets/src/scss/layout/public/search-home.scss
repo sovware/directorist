@@ -16,7 +16,7 @@
     }
 }
 
-.directorist-search-home-contents{
+.directorist-search-contents{
     background-size: cover;
     padding: 230px 0 265px;
     z-index: 2;
@@ -29,8 +29,49 @@
         }
     }
 }
+
+// Directorist Listing Type Selection
+.directorist-listing-type-selection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .directorist-listing-type-selection__item{
+        margin-bottom: 25px;
+        &:not(:last-child){
+            margin-right: 25px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 15px;
+            padding: 6px 0;
+            font-weight: 500;
+            display: block;
+            color: #8F8E9F;
+            position: relative;
+            &::after{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                border-radius: 6px;
+                content: '';
+                opacity: 0;
+                visibility: hidden;
+                background-color: $dark;
+            }
+        }
+        .directorist-listing-type-selection__link--current{
+            color: $dark;
+            &::after{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
 // Directorist Search form top
-.directorist-search-home-contents{
+.directorist-search-contents{
     .directorist-search-form-top{
         background-color: #fff;
         border-radius: 6px;
@@ -100,7 +141,7 @@
 }
 
 // Search Home Advance Filter
-.directorist-search-home-contents{
+.directorist-search-contents{
     .directorist-advanced-filter{
         border: 1px solid #e3e6ef;
         margin-top: 25px;

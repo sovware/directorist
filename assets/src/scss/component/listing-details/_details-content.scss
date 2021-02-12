@@ -1,0 +1,100 @@
+// Directorist Single Listing Style
+.directorist-single-wrapper{
+    .directorist-card{
+        margin-bottom: 35px;
+    }
+    .directorist-card__header{
+        .directorist-card__header--title{
+            font-size: 30px;
+            font-weight: 500;
+            color: $dark;
+            margin: 0;
+        }
+    }
+}
+
+// Single Listing Actions
+.directorist-single-listing-action {
+    margin: -3px;
+    .directorist-sl-action{
+        border: 1px solid #ECECEC;
+        height: 36px;
+        width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7a82a6;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 3px;
+        span.la,
+        span.fa,
+        i{
+            font-size: 17px;
+        }
+        &.directorist-tooltip[aria-label]:after{
+            line-height: 1.75;
+        }
+    }
+    .directorist-social-share{
+        &:hover{
+            .directorist-social-links{
+                opacity: 1;
+                visibility: visible;
+                top: calc(100% + 10px);
+            }
+        }
+        .directorist-social-links{
+            position: absolute;
+            transition: all 0.2s ease-in-out;
+            z-index: 2;
+            visibility: hidden;
+            opacity: 0;
+            left: 0;
+            top: calc(100% + 30px);
+            background: #ffffff;
+            border-radius: 4px;
+            width: 180px;
+            box-shadow: 0 5px 20px rgb(167 178 199 / 30%);
+            .directorist-social-links__item{
+                a{
+                    padding: 11px 20px;
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 1px solid $border-color;
+                    span.la,
+                    span.fa,
+                    i{
+                        color: #444752;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Listing Details
+.directorist-listing-details{
+    .directorist-listing-single{
+        margin: 10px 0 20px 0;
+        .directorist-listing-single__info{
+            padding: 0;
+        }
+    }
+    .directorist-listing-details__listing-title{
+        font-size: 30px;
+        font-weight: 500;
+        display: inline-block;
+        margin: 0 15px 12px 0;
+    }
+    .directorist-listing-details-tagline{
+        margin-bottom: 15px;
+        color: #7a82a6;
+    }
+    .directorist-listing-details__text{
+        p{
+            margin: 0 0 15px;
+        }
+    }
+}

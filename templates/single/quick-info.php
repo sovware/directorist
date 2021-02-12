@@ -1,14 +1,21 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<div class="atbd_data_info atbd_listing_meta">
-	<?php
-	foreach ( $info as $item ):
-		$listing->field_template( $item );
-	endforeach;
-	?>
+
+<div class="directorist-listing-single">
+	
+	<div class="directorist-listing-single__info">
+		<?php
+		foreach ( $info as $item ) {
+			$listing->field_template( $item );
+		}
+		?>
+	</div>
+
 </div>

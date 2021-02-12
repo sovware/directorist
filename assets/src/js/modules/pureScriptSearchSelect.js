@@ -423,8 +423,13 @@ const pureScriptSelect = (selector) => {
     if($('#directorist-select-fr-s-js').length){
         pureScriptSelect('#directorist-select-fr-s-js');
     }
-    if($('#directorist-select-fr-e-js').length){
-        pureScriptSelect('#directorist-select-fr-e-js');
-    }
+    window.addEventListener('load', (event) => {
+        if($('#directorist-select-fr-e-js').length){
+            pureScriptSelect('#directorist-select-fr-e-js');
+        }
+    });
+    
+
+    // console.log($('#directorist-select-fr-e-js').length)
 
 })(jQuery);

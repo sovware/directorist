@@ -12,26 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Directorist_Listing_Dashboard {
 
 	protected static $instance = null;
+	public static $display_title = false;
 
 	public $id;
 
 	public $current_listings_query;
 	public $user_type;
-	public $display_title;
 
-	private function __construct( $atts ) {
-		$atts = shortcode_atts( ['show_title' => ''], $atts );
-		$this->display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
-
+	private function __construct() {
 		$this->id = get_current_user_id();
 		$user_type 		  = get_user_meta( get_current_user_id(), '_user_type', true );
 		$this->user_type  = ! empty( $user_type ) ? $user_type : '';
-		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $this, 'ajax_listing_tab' ) );
 	}
 
-	public static function instance( $atts = array() ) {
+	public static function instance() {
 		if ( null == self::$instance ) {
-			self::$instance = new self( $atts );
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
@@ -425,7 +421,14 @@ class Directorist_Listing_Dashboard {
 		}
 	}
 
-	public function render_shortcode() {
+	public function display_title() {
+		return self::$display_title;
+	}
+
+	public function render_shortcode( $atts ) {
+		$atts = shortcode_atts( ['show_title' => ''], $atts );
+		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
+
 		$this->enqueue_scripts();
 
 		if (!atbdp_logged_in_user()) {

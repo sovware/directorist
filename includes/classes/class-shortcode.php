@@ -126,8 +126,8 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_dashboard($atts) {
-		$dashboard = Directorist_Listing_Dashboard::instance($atts);
-		return $dashboard->render_shortcode();
+		$dashboard = Directorist_Listing_Dashboard::instance();
+		return $dashboard->render_shortcode($atts);
 	}
 
 	public function add_listing($atts) {

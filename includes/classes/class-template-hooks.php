@@ -12,13 +12,8 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
-    	// Dashboard
-		// $dashboard = Directorist_Listing_Dashboard::instance();
-		// add_action( 'directorist_dashboard_before_container', array( $dashboard, 'alert_message_template' ) );
-		// add_action( 'directorist_dashboard_title_area',       array( $dashboard, 'section_title' ) );
-		// add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_tabs_template' ) );
-		// add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_buttons_template' ), 15 );
-		// add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'tab_contents_html' ) );
+    	// Dashboard ajax
+    	add_action('wp_ajax_directorist_dashboard_listing_tab', array( Directorist_Listing_Dashboard::instance(), 'ajax_listing_tab' ) );
 
 		// All Categories
 		add_action( 'atbdp_before_all_categories_loop',    array( '\Directorist\Directorist_Listing_Taxonomy', 'archive_type' ) );

@@ -12,26 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Directorist_Listing_Dashboard {
 
 	protected static $instance = null;
+	public static $display_title = false;
 
 	public $id;
 
 	public $current_listings_query;
 	public $user_type;
-	public $display_title;
 
-	private function __construct( $atts ) {
-		$atts = shortcode_atts( ['show_title' => ''], $atts );
-		$this->display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
-
+	private function __construct() {
 		$this->id = get_current_user_id();
 		$user_type 		  = get_user_meta( get_current_user_id(), '_user_type', true );
 		$this->user_type  = ! empty( $user_type ) ? $user_type : '';
-		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $this, 'ajax_listing_tab' ) );
 	}
 
-	public static function instance( $atts = array() ) {
+	public static function instance() {
 		if ( null == self::$instance ) {
-			self::$instance = new self( $atts );
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
@@ -288,7 +284,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_profile_tab_args() {
-		$uid          = $this->get_id();
+		$uid          = $this->id;
 		$c_user       = get_userdata( $uid );
 		$u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
 		$u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
@@ -326,7 +322,7 @@ class Directorist_Listing_Dashboard {
 
 			$dashboard_tabs['my_listings'] = array(
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'            => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
+				'content'            => URI_Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
 				'icon'				 => 'la la-list',
 				'after_nav_hook'     => 'atbdp_tab_after_my_listings',
 				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
@@ -337,14 +333,14 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['profile'] = array(
 				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	   => 'la la-user',
-				'content'  => Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
+				'content'  => URI_Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
 			$dashboard_tabs['saved_items'] = array(
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'            => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
+				'content'            => URI_Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
 				'icon'				 => 'la la-heart-o',
 				'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
 				'after_content_hook' => 'atbdp_tab_content_after_favorite',
@@ -425,7 +421,14 @@ class Directorist_Listing_Dashboard {
 		}
 	}
 
-	public function render_shortcode() {
+	public function display_title() {
+		return self::$display_title;
+	}
+
+	public function render_shortcode( $atts ) {
+		$atts = shortcode_atts( ['show_title' => ''], $atts );
+		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
+
 		$this->enqueue_scripts();
 
 		if (!atbdp_logged_in_user()) {

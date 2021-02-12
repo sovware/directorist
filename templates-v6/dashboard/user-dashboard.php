@@ -18,7 +18,7 @@ use \Directorist\Helper;
 
     <div class="<?php echo esc_attr( $container_fluid ); ?>">
         <?php
-        if ( $dashboard->display_title ) {
+        if ( $dashboard->display_title() ) {
             Helper::get_template( 'dashboard/title' );
         }
         ?>

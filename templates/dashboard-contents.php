@@ -26,7 +26,7 @@ use \Directorist\Helper;
          */
         //do_action( 'directorist_dashboard_title_area', $display_title );
 
-        if ( $dashboard->display_title ) {
+        if ( $dashboard->display_title() ) {
         	Helper::get_template( 'dashboard/title' );
         }
 

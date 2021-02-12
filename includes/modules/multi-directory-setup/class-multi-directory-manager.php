@@ -4306,25 +4306,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                     'value' => [],
                 ],
-                
-
-                'enable_similar_listings' => [
-                    'type'  => 'toggle',
-                    'label' => 'Enable similar listings',
-                    'value' => true,
-                ],
-                'similar_listings_title' => [
-                    'type'  => 'text',
-                    'label' => 'Section Title',
-                    'value' => 'Similar Listings',
-                    /* 'show_if' => [
-                        'id' => "enable_similar_listings__title",
-                        'where' => "enable_similar_listings",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ], */
-                ],
                 'similar_listings_logics' => [
                     'type'    => 'radio',
                     'name'    => 'similar_listings_logics',
@@ -4785,8 +4766,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'other' => [
                                     'title' => 'Similar Listings',
                                     'fields' => [
-                                        'enable_similar_listings',
-                                        'similar_listings_title',
                                         'similar_listings_logics',
                                         'listing_from_same_author',
                                         'similar_listings_number_of_listings_to_show',

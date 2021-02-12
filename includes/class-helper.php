@@ -17,7 +17,28 @@ class Helper {
 		return $legacy;
 	}
 
-	public static function price_range_template( $price_range ) {
+	public static function pricing_type( $listing_id ) {
+		$pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
+		return $pricing_type;
+	}
+
+	public static function has_price( $listing_id ) {
+		$price = get_post_meta( $listing_id, '_price', true );
+		return $price;
+	}
+
+	public static function has_price_range( $listing_id ) {
+		$price_range = get_post_meta( $listing_id, '_price_range', true );
+		return $price_range;
+	}
+
+	public static function price_template( $listing_id ) {
+		$price = get_post_meta( $listing_id, '_price', true );
+		self::get_template( 'global/price', compact( 'price' ) );
+	}
+
+	public static function price_range_template( $listing_id ) {
+		$price_range = get_post_meta( $listing_id, '_price_range', true );
 		$currency = get_directorist_option( 'g_currency', 'USD' );
 		$currency = atbdp_currency_symbol( $currency );
 
@@ -79,6 +100,98 @@ class Helper {
 		else {
 			echo $tel;
 		}
+	}
+
+	public static function parse_video( $url ) {
+		$embeddable_url = '';
+
+		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+		if ($is_youtube) {
+			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
+			preg_match($pattern, $url, $matches);
+			if (count($matches) && strlen($matches[7]) == 11) {
+				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
+			}
+		}
+
+		$is_vimeo = preg_match('/vimeo\.com/i', $url);
+		if ($is_vimeo) {
+			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
+			preg_match($pattern, $url, $matches);
+			if (count($matches)) {
+				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
+			}
+		}
+
+		return $embeddable_url;
+	}
+
+	public static function is_popular( $listing_id ) {
+		$listing_popular_by = get_directorist_option('listing_popular_by');
+		$average = ATBDP()->review->get_average($listing_id);
+		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
+		$view_to_popular = get_directorist_option('views_for_popular');
+
+		if ('average_rating' === $listing_popular_by) {
+			if ($average_review_for_popular <= $average) {
+				return true;
+			}
+		}
+		elseif ('view_count' === $listing_popular_by) {
+			if ((int)$view_count >= (int)$view_to_popular) {
+				return true;
+			}
+		}
+		elseif (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function badge_exists( $listing_id ) {
+		// @cache @kowsar
+		if ( self::is_new( $listing_id ) || self::is_featured( $listing_id ) || self::is_popular( $listing_id ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function is_new( $listing_id ) {
+		$post = get_post( $listing_id ); // @cache @kowsar
+		$new_listing_time = get_directorist_option('new_listing_day');
+		$each_hours = 60 * 60 * 24;
+		$s_date1 = strtotime(current_time('mysql'));
+		$s_date2 = strtotime($post->post_date);
+		$s_date_diff = abs($s_date1 - $s_date2);
+		$days = round($s_date_diff / $each_hours);
+
+		if ($days <= (int)$new_listing_time) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function is_featured( $listing_id ) {
+		return get_post_meta( $listing_id, '_featured', true );
+	}
+
+	public static function new_badge_text() {
+		return get_directorist_option('new_badge_text', 'New');
+	}
+
+	public static function popular_badge_text() {
+		return get_directorist_option('popular_badge_text', 'Popular');
+	}
+
+	public static function featured_badge_text() {
+		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 	
 }

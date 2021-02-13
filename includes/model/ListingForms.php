@@ -729,9 +729,13 @@ class Directorist_Listing_Forms {
 		wp_enqueue_script( 'adminmainassets' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
+		$user_id		  = get_current_user_id();
+		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
 		if ( ! $guest_submission && ! atbdp_logged_in_user() ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
+		} elseif( ! empty( $user_type ) && ( 'general' == $user_type || 'become_author' == $user_type ) ) {
+			return \ATBDP_Helper::guard( array( 'type' => 'user_type' ) );
 		}
 
 		// Check if current user can access this page

@@ -1,8 +1,9 @@
 ;(function ($) {
 
     //Star rating
-    if ($('.stars').length) {
-        $(".stars").barrating({
+    if ($('.directorist-stars').length) {
+        console.log("yes")
+        $(".directorist-stars").barrating({
             theme: 'fontawesome-stars'
         });
     }

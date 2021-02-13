@@ -535,6 +535,11 @@ css for Custom Field
   }
 }
 
+a{
+  text-decoration: none;
+  color: #7a82a6;
+}
+
 @media (min-width: 1199px) and (max-width: 1510px),
 (min-width: 768px) and (max-width: 1187px),
 (min-width: 576px) and (max-width: 694px),
@@ -1421,6 +1426,26 @@ span.atbdp-tick-cross {
   }
 }
 
+// wp picker Holder
+.wp-picker-container{
+  .wp-picker-input-wrap{
+    label{
+      margin: 0 15px 10px;
+    }
+  }
+}
+
+.wp-picker-holder{
+  .iris-picker-inner{
+    .iris-square{
+      margin-right: 5%;
+      .iris-strip{
+        height: 180px !important;
+      }
+    }
+  }
+}
+
 /* form builder add listing form */
 .postbox-container {
   .postbox {
@@ -1449,9 +1474,13 @@ span.atbdp-tick-cross {
       select.form-control {
         display: block;
         width: 100%;
-        padding: .375rem .375rem;
+        padding: 6px 15px;
         line-height: 1.5;
-        border: 1px solid $border-color;
+        border: 1px solid #C6D0DC;
+
+        &::placeholder{
+          color: #868EAE;
+        }
       }
 
       textarea {
@@ -1466,12 +1495,16 @@ span.atbdp-tick-cross {
       #excerpt {
         margin-top: 0;
       }
-
+      .directorist-social-info-field{
+        #addNewSocial{
+          border-radius: 3px;
+        }
+      }
       .atbdp_social_field_wrapper {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        margin: 0 -15px;
+        margin: 0 -15px 15px;
 
         .col-sm-12 {
           padding: 0 15px;
@@ -1489,9 +1522,7 @@ span.atbdp-tick-cross {
           width: 5%;
         }
 
-        .dashicons {
-          margin-bottom: 30px;
-        }
+        
 
         select,
         input {
@@ -2828,6 +2859,13 @@ input.atbdp-form-control {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    @media only screen and (max-width: 475px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .atbdp-counter-list__actions{
+        margin-left: 0 !important;
+      }
+    }
   }
 
   .atbdp-counter-list__number {
@@ -2842,6 +2880,11 @@ input.atbdp-form-control {
 //extension and theme updated styles
 .et-contents__tab-item {
   display: none;
+  .theme-card-wrapper{
+    .theme-card{
+      width: 100%;
+    }
+  }
 }
 
 .et-contents__tab-item.active {
@@ -2889,12 +2932,46 @@ input.atbdp-form-control {
   }
 
   .et-contents {
+
+    .ext-table-responsive {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #F1F2F6;
+      table tr td{
+        .extension-name{
+          min-width: 400px;
+        }
+        &.directorist_status-badge{
+          min-width: 60px;
+        }
+        &.directorist_ext-update{
+          min-width: 70px;
+        }
+        &.ext-action{
+          min-width: 180px;
+        }
+        &.ext-info{
+          min-width: 120px;
+        }
+      }
+    }
+    .ext-available{
+      &:last-child{
+        .ext-table-responsive {
+          border-bottom: 0 none;
+          padding-bottom: 0;
+        }
+      }
+    }
+
     &__tab-nav {
       display: flex;
       align-items: center;
-      padding: 0 30px;
+      padding: 0 18px;
       border-bottom: 1px solid #E3E6EF;
-      margin: 0 -12px;
 
       li {
         margin: 0 12px;
@@ -2964,6 +3041,10 @@ input.atbdp-form-control {
 
           .ei-select-all {
             margin-right: 20px;
+            .directorist-checkbox__label{
+              min-height: 18px;
+              margin-bottom: 0 !important;
+            }
           }
 
           .ei-action-dropdown {
@@ -2983,7 +3064,7 @@ input.atbdp-form-control {
             border-radius: 4px;
             color: #fff !important;
             line-height: 30px;
-            padding: 0 15px;
+            padding: 0 15px !important;
           }
 
           button.ei-action-btn {
@@ -3007,6 +3088,19 @@ input.atbdp-form-control {
 
           input {
             margin-right: 20px !important;
+          }
+
+          .directorist-checkbox__label{
+            display: inline-flex !important;
+            flex-direction: row;
+            align-items: center;
+          }
+
+          .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after{
+            top: 12px;
+          }
+          .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before{
+            top: 16px !important;
           }
 
           label {
@@ -3078,7 +3172,7 @@ input.atbdp-form-control {
           justify-content: flex-end;
           flex-wrap: wrap;
           margin: 0 0 0 -8px;
-          min-width: 150px;
+          min-width: 170px;
 
           .ext-action-drop {
             margin-left: 17px;
@@ -3090,6 +3184,10 @@ input.atbdp-form-control {
             padding: 0 8px;
             transition: 0.3s ease;
             outline: 0;
+
+            @media only screen and (max-width: 767px) {
+              margin-left: 6px;
+            }
 
             &.active {
               background-color: #F4F5F7 !important;
@@ -3115,7 +3213,7 @@ input.atbdp-form-control {
               transition: 0.3s ease;
 
               a {
-                line-height: 60px;
+                line-height: 40px;
                 display: block;
                 padding: 0 20px;
                 font-size: 14px;
@@ -3136,11 +3234,6 @@ input.atbdp-form-control {
       .ext-installed-table {
         padding: 15px 15px 0 15px;
         margin-bottom: 30px;
-
-        .ext-table-responsive {
-          padding-bottom: 15px;
-          border-bottom: 1px solid #F1F2F6;
-        }
       }
 
       .ext-available-table {
@@ -3158,6 +3251,10 @@ input.atbdp-form-control {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  @media only screen and (max-width: 660px) {
+    flex-flow: column;
+    align-items: flex-start;
+  }
 }
 
 .et-header-actions {
@@ -3165,6 +3262,15 @@ input.atbdp-form-control {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
+  @media only screen and (max-width: 660px) {
+    margin: 10px -6px -6px;
+    .atbdp-action-group{
+      flex-direction: column;
+      .purchase-refresh-btn-wrapper{
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
 
 .et-auth-section {
@@ -3338,6 +3444,11 @@ input.atbdp-form-control {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    .available-theme-card{
+      figure{
+        margin: 0;
+      }
+    }
   }
 
   .available-theme-card {
@@ -3400,6 +3511,11 @@ input.atbdp-form-control {
   margin: 0 auto 30px;
   text-align: center;
 
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    padding: 30px;
+  }
+
   h4 {
     font-size: 24px !important;
     font-weight: 500;
@@ -3451,6 +3567,7 @@ input.atbdp-form-control {
     margin: 12px 5px;
 
     button {
+      position: relative;
       display: block;
       width: 100%;
       border: 0 none;
@@ -3463,6 +3580,13 @@ input.atbdp-form-control {
       font-weight: 500;
       color: #fff;
       cursor: pointer;
+
+      .atbdp-loading{
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
 }
@@ -3478,6 +3602,9 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .et-column {
   flex: 0 0 50%;
   padding: 25px;
+  @media only screen and (max-width: 767px) {
+    flex: 0 0 100%;
+  }
 
   h2 {
     font-size: 22px;
@@ -3497,11 +3624,19 @@ input.atbdp-form-control {
   padding: 15px;
   margin-bottom: 20px;
 
+  @media only screen and (max-width: 1199px) {
+    flex-direction: column;
+  }
+
   &__image,
   &__details {
     padding: 10px;
     flex-grow: 1;
     max-width: 50%;
+
+    @media only screen and (max-width: 1199px) {
+      max-width: 100%;
+    }
   }
 
   &__image {
@@ -3548,6 +3683,7 @@ input.atbdp-form-control {
     padding: 0 20px;
     border-radius: 5px;
     display: block;
+    text-decoration: none;
 
     &--primary {
       background-color: rgba(#3E62F5, 0.1);

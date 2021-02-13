@@ -24,7 +24,7 @@
                 $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
                 $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
                 $activeTab.addClass('tabItemActive');
-                $('#my_listings').data('paged',paged);
+                $('#directorist-dashboard-mylistings-js').data('paged',paged);
             },
 			complete: function () {
 				$('#directorist-dashboard-preloader').hide();
@@ -43,7 +43,7 @@
 
         directorist_dashboard_listing_ajax($item);
         $('#directorist-dashboard-listing-searchform input[name=searchtext').val('');
-        $('#my_listings').data('search','');
+        $('#directorist-dashboard-mylistings-js').data('search','');
 
     	return false;
     });
@@ -54,8 +54,8 @@
     	var task       = $(this).data('task');
     	var postid     = $(this).closest('tr').data('id');
     	var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
-    	var paged      = $('#my_listings').data('paged');
-    	var search     = $('#my_listings').data('search');
+    	var paged      = $('#directorist-dashboard-mylistings-js').data('paged');
+    	var search     = $('#directorist-dashboard-mylistings-js').data('search');
 
 		if (task=='delete') {
 	        swal({

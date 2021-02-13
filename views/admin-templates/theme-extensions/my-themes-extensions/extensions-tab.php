@@ -13,9 +13,9 @@
                                     <th colspan="4">
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
-                                                    <input type="checkbox" name="select-all" id="">
-                                                    <label for="select-all" ></label>
+                                                <div class="directorist-checkbox directorist-checkbox-success">
+                                                    <input type="checkbox" name="select-all-installed" id="">
+                                                    <label class="directorist-checkbox__label" for="select-all-installed" ></label>
                                                 </div>
                                             </div>
                                             <div class="ei-action-dropdown">
@@ -35,9 +35,9 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                <div class="directorist-checkbox directorist-checkbox-success">
                                                     <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label for="<?php echo $extension_base; ?>">
+                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
                                                         <?php
 
                                                             $ext_key = preg_replace( '/\/.+/', '', $extension_base );
@@ -48,8 +48,10 @@
                                                             }
                                                         ?>
                                                         <img src="<?php echo $img; ?>" alt="" width="44" height="44">
-                                                        <?php echo $extension['Name'] ?>
-                                                        <span class="ext-version">v<?php echo $extension['Version'] ?></span>
+                                                        <span class="ext-text">
+                                                            <?php echo $extension['Name'] ?>
+                                                            <span class="ext-version">v<?php echo $extension['Version'] ?></span>
+                                                        </span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -107,9 +109,9 @@
                                     <th colspan="4">
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
-                                                    <input type="checkbox" name="select-all" id="">
-                                                    <label for="select-all"></label>
+                                                <div class="directorist-checkbox directorist-checkbox-success">
+                                                    <input type="checkbox" name="select-all-subscription" id="">
+                                                    <label class="directorist-checkbox__label" for="select-all-subscription"></label>
                                                 </div>
                                             </div>
                                             <div class="ei-action-dropdown">
@@ -128,9 +130,9 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                <div class="directorist-checkbox directorist-checkbox-success">
                                                     <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label for="<?php echo $extension_base; ?>">
+                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
                                                             if (!empty($args['extension_list'][$extension_base])) {
@@ -181,9 +183,9 @@
                                     <th colspan="4">
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
-                                                    <input type="checkbox" name="select-all" id="">
-                                                    <label for="select-all"></label>
+                                                <div class="directorist-checkbox directorist-checkbox-success">
+                                                    <input type="checkbox" name="select-all" id="select-all-extesions">
+                                                    <label class="directorist-checkbox__label" for="select-allextensions"></label>
                                                 </div>
                                             </div>
                                             <div class="ei-action-dropdown">
@@ -203,6 +205,7 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
+<<<<<<< HEAD
                                                 <div class="directorist_checkbox directorist_checkbox-success">
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
                                                     <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
@@ -210,6 +213,11 @@
                                                         <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
                                                     <label for="<?php echo 'required_' . $extension_base; ?>">
+=======
+                                                <div class="directorist-checkbox directorist-checkbox-success">
+                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
+                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
+>>>>>>> b24f930769e25cb2ab0d63cb2626d8fcc514d4b2
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
                                                             if (!empty($args['extension_list'][$extension_base])) {

@@ -431,6 +431,11 @@
   margin-bottom: 0;
 }
 
+a {
+  text-decoration: none;
+  color: #7a82a6;
+}
+
 @media (min-width: 1199px) and (max-width: 1510px), (min-width: 768px) and (max-width: 1187px), (min-width: 576px) and (max-width: 694px), (min-width: 320px) and (max-width: 373px) {
   #directorist.atbd_wrapper .btn.demo,
 #directorist.atbd_wrapper .btn.get {
@@ -1313,6 +1318,17 @@ span.atbdp-tick-cross {
   padding: 4px 0;
 }
 
+.wp-picker-container .wp-picker-input-wrap label {
+  margin: 0 15px 10px;
+}
+
+.wp-picker-holder .iris-picker-inner .iris-square {
+  margin-right: 5%;
+}
+.wp-picker-holder .iris-picker-inner .iris-square .iris-strip {
+  height: 180px !important;
+}
+
 /* form builder add listing form */
 .postbox-container .postbox .form-group {
   margin-bottom: 30px;
@@ -1337,9 +1353,31 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group select.form-control {
   display: block;
   width: 100%;
-  padding: 0.375rem 0.375rem;
+  padding: 6px 15px;
   line-height: 1.5;
-  border: 1px solid #EFF1F6;
+  border: 1px solid #C6D0DC;
+}
+.postbox-container .postbox .form-group input[type=text]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=tel]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=url]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=number]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=date]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=time]::-webkit-input-placeholder, .postbox-container .postbox .form-group input[type=email]::-webkit-input-placeholder, .postbox-container .postbox .form-group select.form-control::-webkit-input-placeholder {
+  color: #868EAE;
+}
+.postbox-container .postbox .form-group input[type=text]::-moz-placeholder, .postbox-container .postbox .form-group input[type=tel]::-moz-placeholder, .postbox-container .postbox .form-group input[type=url]::-moz-placeholder, .postbox-container .postbox .form-group input[type=number]::-moz-placeholder, .postbox-container .postbox .form-group input[type=date]::-moz-placeholder, .postbox-container .postbox .form-group input[type=time]::-moz-placeholder, .postbox-container .postbox .form-group input[type=email]::-moz-placeholder, .postbox-container .postbox .form-group select.form-control::-moz-placeholder {
+  color: #868EAE;
+}
+.postbox-container .postbox .form-group input[type=text]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=tel]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=url]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=number]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=date]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=time]:-ms-input-placeholder, .postbox-container .postbox .form-group input[type=email]:-ms-input-placeholder, .postbox-container .postbox .form-group select.form-control:-ms-input-placeholder {
+  color: #868EAE;
+}
+.postbox-container .postbox .form-group input[type=text]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=tel]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=url]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=number]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=date]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=time]::-ms-input-placeholder, .postbox-container .postbox .form-group input[type=email]::-ms-input-placeholder, .postbox-container .postbox .form-group select.form-control::-ms-input-placeholder {
+  color: #868EAE;
+}
+.postbox-container .postbox .form-group input[type=text]::placeholder,
+.postbox-container .postbox .form-group input[type=tel]::placeholder,
+.postbox-container .postbox .form-group input[type=url]::placeholder,
+.postbox-container .postbox .form-group input[type=number]::placeholder,
+.postbox-container .postbox .form-group input[type=date]::placeholder,
+.postbox-container .postbox .form-group input[type=time]::placeholder,
+.postbox-container .postbox .form-group input[type=email]::placeholder,
+.postbox-container .postbox .form-group select.form-control::placeholder {
+  color: #868EAE;
 }
 .postbox-container .postbox .form-group textarea {
   display: block;
@@ -1351,6 +1389,9 @@ span.atbdp-tick-cross {
 }
 .postbox-container .postbox .form-group #excerpt {
   margin-top: 0;
+}
+.postbox-container .postbox .form-group .directorist-social-info-field #addNewSocial {
+  border-radius: 3px;
 }
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper {
   display: -webkit-box;
@@ -1364,7 +1405,7 @@ span.atbdp-tick-cross {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  margin: 0 -15px;
+  margin: 0 -15px 15px;
 }
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-sm-12 {
   padding: 0 15px;
@@ -1378,9 +1419,6 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-2 {
   width: 5%;
 }
-.postbox-container .postbox .form-group .atbdp_social_field_wrapper .dashicons {
-  margin-bottom: 30px;
-}
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper select,
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper input {
   width: 100%;
@@ -1392,7 +1430,7 @@ span.atbdp-tick-cross {
   cursor: pointer;
 }
 .postbox-container .postbox .form-group .btn.btn-primary {
-  background: #0A0B1E;
+  background: #444752;
   border: 0 none;
   color: #fff;
 }
@@ -2687,6 +2725,22 @@ input.atbdp-form-control {
       -ms-flex-align: center;
           align-items: center;
 }
+@media only screen and (max-width: 475px) {
+  .atbdp-counter-list-vertical .atbdp-counter-list__item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .atbdp-counter-list-vertical .atbdp-counter-list__item .atbdp-counter-list__actions {
+    margin-left: 0 !important;
+  }
+}
 .atbdp-counter-list-vertical .atbdp-counter-list__number {
   margin-right: 10px;
 }
@@ -2696,6 +2750,9 @@ input.atbdp-form-control {
 
 .et-contents__tab-item {
   display: none;
+}
+.et-contents__tab-item .theme-card-wrapper .theme-card {
+  width: 100%;
 }
 
 .et-contents__tab-item.active {
@@ -2749,6 +2806,33 @@ input.atbdp-form-control {
           transform: translateY(-50%);
   font-size: 16px;
 }
+.et-wrapper .et-contents .ext-table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #F1F2F6;
+}
+.et-wrapper .et-contents .ext-table-responsive table tr td .extension-name {
+  min-width: 400px;
+}
+.et-wrapper .et-contents .ext-table-responsive table tr td.directorist_status-badge {
+  min-width: 60px;
+}
+.et-wrapper .et-contents .ext-table-responsive table tr td.directorist_ext-update {
+  min-width: 70px;
+}
+.et-wrapper .et-contents .ext-table-responsive table tr td.ext-action {
+  min-width: 180px;
+}
+.et-wrapper .et-contents .ext-table-responsive table tr td.ext-info {
+  min-width: 120px;
+}
+.et-wrapper .et-contents .ext-available:last-child .ext-table-responsive {
+  border-bottom: 0 none;
+  padding-bottom: 0;
+}
 .et-wrapper .et-contents__tab-nav {
   display: -webkit-box;
   display: -webkit-flex;
@@ -2758,9 +2842,8 @@ input.atbdp-form-control {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0 30px;
+  padding: 0 18px;
   border-bottom: 1px solid #E3E6EF;
-  margin: 0 -12px;
 }
 .et-wrapper .et-contents__tab-nav li {
   margin: 0 12px;
@@ -2827,6 +2910,10 @@ input.atbdp-form-control {
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper .ei-select-all {
   margin-right: 20px;
 }
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper .ei-select-all .directorist-checkbox__label {
+  min-height: 18px;
+  margin-bottom: 0 !important;
+}
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper .ei-action-dropdown {
   margin-right: 8px;
 }
@@ -2842,7 +2929,7 @@ input.atbdp-form-control {
   border-radius: 4px;
   color: #fff !important;
   line-height: 30px;
-  padding: 0 15px;
+  padding: 0 15px !important;
 }
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn {
   padding: 6px 15px;
@@ -2867,6 +2954,27 @@ input.atbdp-form-control {
 }
 .et-wrapper .et-contents .ext-wrapper table .extension-name input {
   margin-right: 20px !important;
+}
+.et-wrapper .et-contents .ext-wrapper table .extension-name .directorist-checkbox__label {
+  display: -webkit-inline-box !important;
+  display: -webkit-inline-flex !important;
+  display: -ms-inline-flexbox !important;
+  display: inline-flex !important;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.et-wrapper .et-contents .ext-wrapper table .extension-name .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after {
+  top: 12px;
+}
+.et-wrapper .et-contents .ext-wrapper table .extension-name .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
+  top: 16px !important;
 }
 .et-wrapper .et-contents .ext-wrapper table .extension-name label {
   margin-bottom: 0 !important;
@@ -2938,7 +3046,7 @@ input.atbdp-form-control {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   margin: 0 0 0 -8px;
-  min-width: 150px;
+  min-width: 170px;
 }
 .et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-drop {
   margin-left: 17px;
@@ -2951,6 +3059,11 @@ input.atbdp-form-control {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   outline: 0;
+}
+@media only screen and (max-width: 767px) {
+  .et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-drop {
+    margin-left: 6px;
+  }
 }
 .et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-drop.active {
   background-color: #F4F5F7 !important;
@@ -2976,7 +3089,7 @@ input.atbdp-form-control {
   transition: 0.3s ease;
 }
 .et-wrapper .et-contents .ext-wrapper table .ext-action div .ext-action-drop__item a {
-  line-height: 60px;
+  line-height: 40px;
   display: block;
   padding: 0 20px;
   font-size: 14px;
@@ -2991,10 +3104,6 @@ input.atbdp-form-control {
 .et-wrapper .et-contents .ext-wrapper .ext-installed-table {
   padding: 15px 15px 0 15px;
   margin-bottom: 30px;
-}
-.et-wrapper .et-contents .ext-wrapper .ext-installed-table .ext-table-responsive {
-  padding-bottom: 15px;
-  border-bottom: 1px solid #F1F2F6;
 }
 .et-wrapper .et-contents .ext-wrapper .ext-available-table {
   padding: 15px;
@@ -3016,6 +3125,19 @@ input.atbdp-form-control {
       -ms-flex-align: center;
           align-items: center;
 }
+@media only screen and (max-width: 660px) {
+  .et-header-title-area {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
 
 .et-header-actions {
   margin: 0 10px;
@@ -3030,6 +3152,21 @@ input.atbdp-form-control {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+}
+@media only screen and (max-width: 660px) {
+  .et-header-actions {
+    margin: 10px -6px -6px;
+  }
+  .et-header-actions .atbdp-action-group {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .et-header-actions .atbdp-action-group .purchase-refresh-btn-wrapper {
+    margin-bottom: 10px;
+  }
 }
 
 .et-auth-section {
@@ -3239,6 +3376,9 @@ input.atbdp-form-control {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
+.available-themes-wrapper .available-themes .available-theme-card figure {
+  margin: 0;
+}
 .available-themes-wrapper .available-theme-card {
   max-width: 400px;
   background: #F4F5F7;
@@ -3292,6 +3432,12 @@ input.atbdp-form-control {
   width: 670px;
   margin: 0 auto 30px;
   text-align: center;
+}
+@media only screen and (max-width: 767px) {
+  #directorist.atbd_wrapper .account-connect {
+    width: 100%;
+    padding: 30px;
+  }
 }
 #directorist.atbd_wrapper .account-connect h4 {
   font-size: 24px !important;
@@ -3351,6 +3497,7 @@ input.atbdp-form-control {
   margin: 12px 5px;
 }
 #directorist.atbd_wrapper .account-connect__form-btn button {
+  position: relative;
   display: block;
   width: 100%;
   border: 0 none;
@@ -3364,6 +3511,13 @@ input.atbdp-form-control {
   font-weight: 500;
   color: #fff;
   cursor: pointer;
+}
+#directorist.atbd_wrapper .account-connect__form-btn button .atbdp-loading {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 /* extension and themes column */
@@ -3388,6 +3542,14 @@ input.atbdp-form-control {
       -ms-flex: 0 0 50%;
           flex: 0 0 50%;
   padding: 25px;
+}
+@media only screen and (max-width: 767px) {
+  #directorist.atbd_wrapper .et-column {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
 }
 #directorist.atbd_wrapper .et-column h2 {
   font-size: 22px;
@@ -3416,6 +3578,15 @@ input.atbdp-form-control {
   padding: 15px;
   margin-bottom: 20px;
 }
+@media only screen and (max-width: 1199px) {
+  #directorist.atbd_wrapper .et-card {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
   padding: 10px;
   -webkit-box-flex: 1;
@@ -3423,6 +3594,11 @@ input.atbdp-form-control {
       -ms-flex-positive: 1;
           flex-grow: 1;
   max-width: 50%;
+}
+@media only screen and (max-width: 1199px) {
+  #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
+    max-width: 100%;
+  }
 }
 #directorist.atbd_wrapper .et-card__image img {
   max-width: 100%;
@@ -3471,6 +3647,7 @@ input.atbdp-form-control {
   padding: 0 20px;
   border-radius: 5px;
   display: block;
+  text-decoration: none;
 }
 #directorist.atbd_wrapper .et-card__btn--primary {
   background-color: rgba(62, 98, 245, 0.1);
@@ -4756,7 +4933,7 @@ input.atbdp-form-control {
 }
 
 .directorist-btn.directorist-btn-primary {
-  background-color: #0A0B1E;
+  background-color: #444752;
   color: #fff;
 }
 .directorist-btn.directorist-btn-dark {
@@ -4800,7 +4977,7 @@ input.atbdp-form-control {
 }
 .directorist-btn.directorist-btn-outline-primary {
   background-color: transparent;
-  border: 1px solid #0A0B1E !important;
+  border: 1px solid #444752 !important;
 }
 .directorist-btn.directorist-btn-outline-secondary {
   background-color: transparent;
@@ -5143,14 +5320,20 @@ input.atbdp-form-control {
 .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #0A0B1E;
-  border-color: #0A0B1E;
+  background-color: #444752;
+  border-color: #444752;
 }
 .directorist-checkbox.directorist-checkbox-secondary input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-secondary input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-secondary input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-secondary input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #122069;
   border-color: #122069;
+}
+.directorist-checkbox.directorist-checkbox-success input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-success input[type=checkbox]:checked + .directorist-radio__label:after,
+.directorist-checkbox.directorist-checkbox-success input[type=radio]:checked + .directorist-checkbox__label:after,
+.directorist-checkbox.directorist-checkbox-success input[type=radio]:checked + .directorist-radio__label:after {
+  background-color: #00AC17;
+  border-color: #00AC17;
 }
 .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-checkbox__label:after,
@@ -5161,10 +5344,10 @@ input.atbdp-form-control {
 
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #fff;
-  border-color: #0A0B1E !important;
+  border-color: #444752 !important;
 }
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:before {
-  background-color: #0A0B1E !important;
+  background-color: #444752 !important;
 }
 .directorist-radio.directorist-radio-secondary input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #fff;
@@ -5260,7 +5443,7 @@ input.atbdp-form-control {
 }
 
 .directorist-switch.directorist-switch-primary .directorist-switch-input:checked + .directorist-switch-label:before {
-  background-color: #0A0B1E;
+  background-color: #444752;
 }
 .directorist-switch.directorist-switch-success .directorist-switch-input:checked + .directorist-switch-label:before {
   background-color: #00AC17;

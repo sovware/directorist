@@ -97,20 +97,22 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/layout/admin/admin-style.scss */ "./assets/src/scss/layout/admin/admin-style.scss");
 /* harmony import */ var _scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_admin_block_1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/admin/block-1 */ "./assets/src/js/components/admin/block-1.js");
-/* harmony import */ var _components_admin_block_1__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_1__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/admin/block-2 */ "./assets/src/js/components/admin/block-2.js");
-/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_admin_block_3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/admin/block-3 */ "./assets/src/js/components/admin/block-3.js");
-/* harmony import */ var _components_admin_block_3__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_3__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/admin/block-4 */ "./assets/src/js/components/admin/block-4.js");
-/* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_4__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/admin/block-5 */ "./assets/src/js/components/admin/block-5.js");
-/* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_5__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
-/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
+/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
+/* harmony import */ var _components_admin_block_1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/admin/block-1 */ "./assets/src/js/components/admin/block-1.js");
+/* harmony import */ var _components_admin_block_1__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_1__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/admin/block-2 */ "./assets/src/js/components/admin/block-2.js");
+/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_admin_block_3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/admin/block-3 */ "./assets/src/js/components/admin/block-3.js");
+/* harmony import */ var _components_admin_block_3__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_3__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/admin/block-4 */ "./assets/src/js/components/admin/block-4.js");
+/* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_4__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../components/admin/block-5 */ "./assets/src/js/components/admin/block-5.js");
+/* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
+ // PureScript Select
+
  // Blocks
 
 
@@ -120,8 +122,6 @@ __webpack_require__.r(__webpack_exports__);
  // subscriptionManagement
 
  // Modal Components
-
- // PureScript Select
 
 
 
@@ -1199,6 +1199,62 @@ $('body').on('change', 'select[name="directory_type"]', function () {
   $(this).parent('.inside').append("<span class=\"directorist_loader\"></span>");
   admin_listing_form($(this).val());
   $(this).closest('#poststuff').find('#publishing-action').addClass('directorist_disable');
+
+  if ($('#directorist-select-st-s-js').length) {
+    pureScriptSelect('#directorist-select-st-s-js');
+  }
+
+  if ($('#directorist-select-st-e-js').length) {
+    pureScriptSelect('#directorist-select-st-e-js');
+  }
+
+  if ($('#directorist-select-sn-s-js').length) {
+    pureScriptSelect('#directorist-select-sn-s-js');
+  }
+
+  if ($('#directorist-select-mn-e-js').length) {
+    pureScriptSelect('#directorist-select-sn-e-js');
+  }
+
+  if ($('#directorist-select-mn-s-js').length) {
+    pureScriptSelect('#directorist-select-mn-s-js');
+  }
+
+  if ($('#directorist-select-mn-e-js').length) {
+    pureScriptSelect('#directorist-select-mn-e-js');
+  }
+
+  if ($('#directorist-select-tu-s-js').length) {
+    pureScriptSelect('#directorist-select-tu-s-js');
+  }
+
+  if ($('#directorist-select-tu-e-js').length) {
+    pureScriptSelect('#directorist-select-tu-e-js');
+  }
+
+  if ($('#directorist-select-wd-s-js').length) {
+    pureScriptSelect('#directorist-select-wd-s-js');
+  }
+
+  if ($('#directorist-select-wd-e-js').length) {
+    pureScriptSelect('#directorist-select-wd-e-js');
+  }
+
+  if ($('#directorist-select-th-s-js').length) {
+    pureScriptSelect('#directorist-select-th-s-js');
+  }
+
+  if ($('#directorist-select-th-e-js').length) {
+    pureScriptSelect('#directorist-select-th-e-js');
+  }
+
+  if ($('#directorist-select-fr-s-js').length) {
+    pureScriptSelect('#directorist-select-fr-s-js');
+  }
+
+  if ($('#directorist-select-fr-e-js').length) {
+    pureScriptSelect('#directorist-select-fr-e-js');
+  }
 });
 
 function admin_listing_form(directory_type) {
@@ -2652,6 +2708,7 @@ __webpack_require__.r(__webpack_exports__);
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
+    console.log("yes");
     var data_target = $(this).attr("data-directorist_target");
     $('.' + data_target).toggleClass('directorist-show');
   });
@@ -3066,59 +3123,59 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     pureScriptSelect('#directorist-search-select-js');
   }
 
-  if ($('#directorist-select-st-s-js').length) {
-    pureScriptSelect('#directorist-select-st-s-js');
-  }
-
-  if ($('#directorist-select-st-e-js').length) {
-    pureScriptSelect('#directorist-select-st-e-js');
-  }
-
-  if ($('#directorist-select-sn-s-js').length) {
-    pureScriptSelect('#directorist-select-sn-s-js');
-  }
-
-  if ($('#directorist-select-mn-e-js').length) {
-    pureScriptSelect('#directorist-select-sn-e-js');
-  }
-
-  if ($('#directorist-select-mn-s-js').length) {
-    pureScriptSelect('#directorist-select-mn-s-js');
-  }
-
-  if ($('#directorist-select-mn-e-js').length) {
-    pureScriptSelect('#directorist-select-mn-e-js');
-  }
-
-  if ($('#directorist-select-tu-s-js').length) {
-    pureScriptSelect('#directorist-select-tu-s-js');
-  }
-
-  if ($('#directorist-select-tu-e-js').length) {
-    pureScriptSelect('#directorist-select-tu-e-js');
-  }
-
-  if ($('#directorist-select-wd-s-js').length) {
-    pureScriptSelect('#directorist-select-wd-s-js');
-  }
-
-  if ($('#directorist-select-wd-e-js').length) {
-    pureScriptSelect('#directorist-select-wd-e-js');
-  }
-
-  if ($('#directorist-select-th-s-js').length) {
-    pureScriptSelect('#directorist-select-th-s-js');
-  }
-
-  if ($('#directorist-select-th-e-js').length) {
-    pureScriptSelect('#directorist-select-th-e-js');
-  }
-
-  if ($('#directorist-select-fr-s-js').length) {
-    pureScriptSelect('#directorist-select-fr-s-js');
-  }
-
   window.addEventListener('load', function (event) {
+    if ($('#directorist-select-st-s-js').length) {
+      pureScriptSelect('#directorist-select-st-s-js');
+    }
+
+    if ($('#directorist-select-st-e-js').length) {
+      pureScriptSelect('#directorist-select-st-e-js');
+    }
+
+    if ($('#directorist-select-sn-s-js').length) {
+      pureScriptSelect('#directorist-select-sn-s-js');
+    }
+
+    if ($('#directorist-select-mn-e-js').length) {
+      pureScriptSelect('#directorist-select-sn-e-js');
+    }
+
+    if ($('#directorist-select-mn-s-js').length) {
+      pureScriptSelect('#directorist-select-mn-s-js');
+    }
+
+    if ($('#directorist-select-mn-e-js').length) {
+      pureScriptSelect('#directorist-select-mn-e-js');
+    }
+
+    if ($('#directorist-select-tu-s-js').length) {
+      pureScriptSelect('#directorist-select-tu-s-js');
+    }
+
+    if ($('#directorist-select-tu-e-js').length) {
+      pureScriptSelect('#directorist-select-tu-e-js');
+    }
+
+    if ($('#directorist-select-wd-s-js').length) {
+      pureScriptSelect('#directorist-select-wd-s-js');
+    }
+
+    if ($('#directorist-select-wd-e-js').length) {
+      pureScriptSelect('#directorist-select-wd-e-js');
+    }
+
+    if ($('#directorist-select-th-s-js').length) {
+      pureScriptSelect('#directorist-select-th-s-js');
+    }
+
+    if ($('#directorist-select-th-e-js').length) {
+      pureScriptSelect('#directorist-select-th-e-js');
+    }
+
+    if ($('#directorist-select-fr-s-js').length) {
+      pureScriptSelect('#directorist-select-fr-s-js');
+    }
+
     if ($('#directorist-select-fr-e-js').length) {
       pureScriptSelect('#directorist-select-fr-e-js');
     }

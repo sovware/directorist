@@ -1,0 +1,65 @@
+// Report Modal
+.directorist-report-abuse-modal{
+    .directorist-modal__header{
+        .directorist-modal-title{
+            font-size: 1.75rem;
+            margin: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #272b41;
+            letter-spacing: normal;
+        }
+        .directorist-modal-close{
+            width: 32px;
+            height: 32px;
+            right: -30px !important;
+            top: -30px !important;
+            left: auto;
+            position: absolute;
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+            background: #444752;
+            color: #fff;
+            border-radius: 300px;
+            opacity: 1;
+            font-weight: 300;
+            z-index: 2;
+            font-size: 16px;
+            padding: 0;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+    }
+    .directorist-modal__body{
+        padding: 20px 15px;
+        label{
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        textarea{
+            min-height: 90px;
+        }
+    }
+    .directorist-modal__footer{
+        display: flex;
+        justify-content: flex-end;
+        .directorist-btn{
+            text-transform: capitalize;
+            padding: 0 15px;
+        }
+    }
+    .directorist-modal__content{
+        padding: 20px 30px 20px;
+        #directorist-report-abuse-form{
+            padding: 20px;
+            text-align: center;
+        }
+    }
+}

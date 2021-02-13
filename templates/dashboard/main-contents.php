@@ -6,20 +6,22 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$counter = 1;
 ?>
 
 <div class="atbd_tab-content">
-	<?php
-	foreach ( $dashboard->dashboard_tabs() as $key => $value ) {
 
-		echo $value['content'];
+	<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-		if (!empty($value['after_content_hook'])) {
-			do_action($value['after_content_hook']);
-		}
-	}
+		<div class="atbd_tab_inner <?php echo ( $counter == 1 ) ? 'tabContentActive' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo $value['content']; ?></div>
 
-	do_action( 'directorist_after_dashboard_contents', $dashboard );
+		<?php do_action( 'directorist_dashboard_contents', $key, $dashboard ); ?>
+		
+		<?php $counter++; ?>
 
-	?>
+	<?php endforeach; ?>
+
+	<?php do_action( 'directorist_after_dashboard_contents', $dashboard ); ?>
+
 </div>

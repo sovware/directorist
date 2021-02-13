@@ -554,7 +554,7 @@ if (flatWrapper != null && fAvailableTime != null) {
         $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
         $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
         $activeTab.addClass('tabItemActive');
-        $('#my_listings').data('paged', paged);
+        $('#directorist-dashboard-mylistings-js').data('paged', paged);
       },
       complete: function complete() {
         $('#directorist-dashboard-preloader').hide();
@@ -572,7 +572,7 @@ if (flatWrapper != null && fAvailableTime != null) {
 
     directorist_dashboard_listing_ajax($item);
     $('#directorist-dashboard-listing-searchform input[name=searchtext').val('');
-    $('#my_listings').data('search', '');
+    $('#directorist-dashboard-mylistings-js').data('search', '');
     return false;
   }); // Dashboard Tasks eg. delete
 
@@ -580,8 +580,8 @@ if (flatWrapper != null && fAvailableTime != null) {
     var task = $(this).data('task');
     var postid = $(this).closest('tr').data('id');
     var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
-    var paged = $('#my_listings').data('paged');
-    var search = $('#my_listings').data('search');
+    var paged = $('#directorist-dashboard-mylistings-js').data('paged');
+    var search = $('#directorist-dashboard-mylistings-js').data('search');
 
     if (task == 'delete') {
       swal({
@@ -675,7 +675,7 @@ if (flatWrapper != null && fAvailableTime != null) {
     var paged = $link.attr('href');
     paged = paged.split('/page/')[1];
     paged = parseInt(paged);
-    var search = $('#my_listings').data('search');
+    var search = $('#directorist-dashboard-mylistings-js').data('search');
     $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
     directorist_dashboard_listing_ajax($activeTab, paged, search);
     return false;
@@ -721,7 +721,7 @@ if (flatWrapper != null && fAvailableTime != null) {
     var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
     var search = $(this).find('input[name=searchtext]').val();
     directorist_dashboard_listing_ajax($activeTab, 1, search);
-    $('#my_listings').data('search', search);
+    $('#directorist-dashboard-mylistings-js').data('search', search);
     return false;
   });
 })(jQuery);
@@ -1146,6 +1146,7 @@ __webpack_require__.r(__webpack_exports__);
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
+    console.log("yes");
     var data_target = $(this).attr("data-directorist_target");
     $('.' + data_target).toggleClass('directorist-show');
   });
@@ -1740,8 +1741,9 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   //Star rating
-  if ($('.stars').length) {
-    $(".stars").barrating({
+  if ($('.directorist-stars').length) {
+    console.log("yes");
+    $(".directorist-stars").barrating({
       theme: 'fontawesome-stars'
     });
   }
@@ -2316,59 +2318,59 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     pureScriptSelect('#directorist-search-select-js');
   }
 
-  if ($('#directorist-select-st-s-js').length) {
-    pureScriptSelect('#directorist-select-st-s-js');
-  }
-
-  if ($('#directorist-select-st-e-js').length) {
-    pureScriptSelect('#directorist-select-st-e-js');
-  }
-
-  if ($('#directorist-select-sn-s-js').length) {
-    pureScriptSelect('#directorist-select-sn-s-js');
-  }
-
-  if ($('#directorist-select-mn-e-js').length) {
-    pureScriptSelect('#directorist-select-sn-e-js');
-  }
-
-  if ($('#directorist-select-mn-s-js').length) {
-    pureScriptSelect('#directorist-select-mn-s-js');
-  }
-
-  if ($('#directorist-select-mn-e-js').length) {
-    pureScriptSelect('#directorist-select-mn-e-js');
-  }
-
-  if ($('#directorist-select-tu-s-js').length) {
-    pureScriptSelect('#directorist-select-tu-s-js');
-  }
-
-  if ($('#directorist-select-tu-e-js').length) {
-    pureScriptSelect('#directorist-select-tu-e-js');
-  }
-
-  if ($('#directorist-select-wd-s-js').length) {
-    pureScriptSelect('#directorist-select-wd-s-js');
-  }
-
-  if ($('#directorist-select-wd-e-js').length) {
-    pureScriptSelect('#directorist-select-wd-e-js');
-  }
-
-  if ($('#directorist-select-th-s-js').length) {
-    pureScriptSelect('#directorist-select-th-s-js');
-  }
-
-  if ($('#directorist-select-th-e-js').length) {
-    pureScriptSelect('#directorist-select-th-e-js');
-  }
-
-  if ($('#directorist-select-fr-s-js').length) {
-    pureScriptSelect('#directorist-select-fr-s-js');
-  }
-
   window.addEventListener('load', function (event) {
+    if ($('#directorist-select-st-s-js').length) {
+      pureScriptSelect('#directorist-select-st-s-js');
+    }
+
+    if ($('#directorist-select-st-e-js').length) {
+      pureScriptSelect('#directorist-select-st-e-js');
+    }
+
+    if ($('#directorist-select-sn-s-js').length) {
+      pureScriptSelect('#directorist-select-sn-s-js');
+    }
+
+    if ($('#directorist-select-mn-e-js').length) {
+      pureScriptSelect('#directorist-select-sn-e-js');
+    }
+
+    if ($('#directorist-select-mn-s-js').length) {
+      pureScriptSelect('#directorist-select-mn-s-js');
+    }
+
+    if ($('#directorist-select-mn-e-js').length) {
+      pureScriptSelect('#directorist-select-mn-e-js');
+    }
+
+    if ($('#directorist-select-tu-s-js').length) {
+      pureScriptSelect('#directorist-select-tu-s-js');
+    }
+
+    if ($('#directorist-select-tu-e-js').length) {
+      pureScriptSelect('#directorist-select-tu-e-js');
+    }
+
+    if ($('#directorist-select-wd-s-js').length) {
+      pureScriptSelect('#directorist-select-wd-s-js');
+    }
+
+    if ($('#directorist-select-wd-e-js').length) {
+      pureScriptSelect('#directorist-select-wd-e-js');
+    }
+
+    if ($('#directorist-select-th-s-js').length) {
+      pureScriptSelect('#directorist-select-th-s-js');
+    }
+
+    if ($('#directorist-select-th-e-js').length) {
+      pureScriptSelect('#directorist-select-th-e-js');
+    }
+
+    if ($('#directorist-select-fr-s-js').length) {
+      pureScriptSelect('#directorist-select-fr-s-js');
+    }
+
     if ($('#directorist-select-fr-e-js').length) {
       pureScriptSelect('#directorist-select-fr-e-js');
     }

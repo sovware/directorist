@@ -2,25 +2,38 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
 
+use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( $query->have_posts() ) {
+
 	while ( $query->have_posts() ) {
 		$query->the_post();
 		?>
+
 		<tr data-id="<?php the_ID(); ?>">
+
+			<?php do_action( 'directorist_dashboard_listing_td_start', $dashboard ); ?>
+
 			<td>
 				<div class="directorist_listing-info">
+
 					<div class="directorist_listing-info__img">
 						<a href="<?php the_permalink(); ?>"><?php echo $dashboard->get_listing_thumbnail(); ?></a>
 					</div>
+
 					<div class="directorist_listing-info__content">
+
 						<h4 class="directorist_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-						<?php if ( $dashboard->get_listing_price_html() ): ?>
-							<span class="directorist_price"><?php echo $dashboard->get_listing_price_html(); ?></span>
-						<?php endif; ?>
+
+						<?php Helper::listing_price(); ?>
+
 					</div>
+
 				</div>
 			</td>
 
@@ -36,24 +49,37 @@ if ( $query->have_posts() ) {
 
 			<td>
 				<div class="directorist_actions">
-					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist_link-btn"><i class="la la-edit"></i><?php esc_html_e('Edit', 'directorist'); ?></a>
+
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist_link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+
 					<div class="directorist_dropdown">
+
 						<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+
 						<div class="directorist_dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist_dropdown-menu__list">
-							<?php
-							$dropdown_items = $dashboard->get_action_dropdown_item();
-							if( $dropdown_items ) {
-								foreach( $dropdown_items as $item ) {
-							?>
-									<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['field']; ?><?php echo $item['label']; ?></a>
-							<?php }
-							} ?>
+
+								<?php
+								$dropdown_items = $dashboard->get_action_dropdown_item();
+								
+								if( $dropdown_items ) {
+									foreach( $dropdown_items as $item ) {
+										?>
+										<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
+										<?php
+									}
+								}
+								?>
+
 							</div>
 						</div>
+
 					</div>
+
 				</div>
 			</td>
+
+			<?php do_action( 'directorist_dashboard_listing_td_end', $dashboard ); ?>
 			
 		</tr>
 		<?php
@@ -61,7 +87,7 @@ if ( $query->have_posts() ) {
 }
 else {
 	?>
-	<tr><td colspan="5"><?php esc_html_e('No items found', 'directorist'); ?></td></tr>
+	<tr><td colspan="5"><?php esc_html_e( 'No items found', 'directorist' ); ?></td></tr>
 	<?php
 }
 

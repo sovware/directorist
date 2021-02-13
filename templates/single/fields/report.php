@@ -8,28 +8,25 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-sl-action directorist-action-report directorist-tooltip" data-target="atbdp-report-abuse-modal" aria-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
+<div class="directorist-sl-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js"  class="atbdp-require-login" data-directorist_target="directorist-modal-js" aria-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
 
 	<?php if ( atbdp_logged_in_user() ): ?>
 		<a href="#"><?php directorist_icon( $icon );?></a>
 	<?php else: ?>
-		<a href="javascript:void(0)" class="directorist-btn-modal directorist-btn-modal-js atbdp-require-login" data-directorist_target="directorist-modal-js"><?php directorist_icon( $icon );?><?php esc_html_e( 'Report', 'directorist' ); ?></a>
+		<a href="javascript:void(0)"><?php directorist_icon( $icon );?><?php esc_html_e( 'Report', 'directorist' ); ?></a>
 	<?php endif; ?>
 
 	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
 
 </div>
  
-<div class="directorist-modal directorist-modal-js directorist-fade">
+<div class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
 	<div class="directorist-modal__dialog">
 		<div class="directorist-modal__content">
-
-			
-
-			<form id="atbdp-report-abuse-form" class="form-vertical tst">
+			<form id="directorist-report-abuse-form">
 
 				<div class="directorist-modal__header">
-					<h3 class="modal-title" id="atbdp-report-abuse-modal-label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h3>
+					<h3 class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h3>
 					<a href="" class="directorist-modal-close directorist-modal-close-js"><span aria-hidden="true">&times;</span></a>
 				</div>
 
@@ -47,7 +44,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				</div>
 
 			</form>
-
 		</div>
 	</div>
 </div>

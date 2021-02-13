@@ -1,0 +1,49 @@
+// Directorist Single Info
+.directorist-details-info-wrap{
+    .directorist-single-info {
+        display: flex;
+        align-items: center;
+        &:not(:last-child){
+            margin-bottom: 10px;
+        }
+        .directorist-single-info__label{
+            flex: 0 0 25%;
+            color: #7a82a6;
+            .directorist-single-info__label-icon{
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                color: #444752;
+                background: #f1f3f8;
+                margin-right: 10px;
+                font-size: 14px;
+                text-align: center;
+                flex: none;
+            }
+        }
+        .directorist-single-info__value{
+            flex: auto;
+            width: 100%;
+            color: #7a82a6;
+        }
+    }
+}
+
+// Directorist Owner Contact form
+.directorist-contact-owner-form-inner{
+    .directorist-form-group{
+        margin-bottom: 1rem;
+    }
+    .directorist-form-element{
+        border-color: #dbdaf7;
+    }
+    .directorist-btn-submit{
+        border-radius: 3px;
+        padding: 0 15px;
+        text-decoration: none;
+        text-transform: capitalize;
+    }
+}

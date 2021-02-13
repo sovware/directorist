@@ -206,7 +206,7 @@ class Enqueue_Assets {
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
-        $scripts['handle'] = [
+        $scripts['directorist-markerclusterer'] = [
             'file'      => 'markerclusterer',
             'base_path' => DIRECTORIST_VENDOR_JS,
             'deps'      => [],
@@ -261,6 +261,22 @@ class Enqueue_Assets {
             'enable'    => false,
         ];
 
+        $scripts['directorist-range-slider'] = [
+            'file_name' => 'range-slider',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'has_rtl'   => true,
+            'ver'       => $this->script_version,
+            'group'     => 'global',                // public || admin  || global
+            'section'   => '',
+            'enable'    => false,
+            'localize_data' => [
+                'object_name' => 'atbdp_range_slider',
+                'data' => Script_Helper::get_range_slider_data()
+            ],
+        ];
+
         
         // Admin
         // ================================
@@ -309,6 +325,14 @@ class Enqueue_Assets {
             'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => false,
+        ];
+
+        $scripts['directorist-plasma-slider'] = [
+            'file_name'     => 'plasma-slider',
+            'base_path'     => DIRECTORIST_VENDOR_JS,
+            'has_min'       => false,
+            'ver'           => $this->script_version,
+            'group'         => 'public',
         ];
 
         $scripts['directorist-uikit'] = [
@@ -697,15 +721,14 @@ class Enqueue_Assets {
             $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_JS,
+                'link'      => '',
                 'deps'      => [],
                 'ver'       => false,
+                'has_rtl'   => false,
                 'in_footer' => true,
-                'link'      => '',
             ];
 
             $script_args = array_merge( $default, $script_args );
-            $script_args['has_rtl'] = false;
-
             $src = $script_args['base_path'] . $this->get_script_file_name( $script_args ) . '.js';
 
             if ( ! empty( $script_args['link'] ) ) {

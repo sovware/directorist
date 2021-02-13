@@ -30,7 +30,7 @@ class ATBDP_Enqueuer {
         // best hook to enqueue scripts for front-end is 'template_redirect'
         // 'Professional WordPress Plugin Development' by Brad Williams
 
-        $atbdp_legacy_template = get_option( 'atbdp_option' )['atbdp_legacy_template'];
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
         if ( ! empty( $atbdp_legacy_template ) ) {
             add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), 20 );
             add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
@@ -228,7 +228,7 @@ class ATBDP_Enqueuer {
 
         wp_register_script( 'atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array( 'jquery' ), ATBDP_VERSION, false );
         if ( ! get_directorist_option( 'fix_js_conflict' ) ) {
-            // wp_register_script( 'atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array( 'jquery', 'atbdp-popper-script' ), ATBDP_VERSION, true );
+            wp_register_script( 'atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array( 'jquery', 'atbdp-popper-script' ), ATBDP_VERSION, true );
         }
 
         wp_register_script( 'no_script', ATBDP_PUBLIC_ASSETS . 'js/no-script.js', array(), ATBDP_VERSION, true );
@@ -255,9 +255,9 @@ class ATBDP_Enqueuer {
         wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
 
         // Google map
-        $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-        wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
-        wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
+        // $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+        // wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
+        // wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
 
         wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -940,12 +940,12 @@ class ATBDP_Enqueuer {
     public function search_listing_scripts_styles() {
         $search_dependency = array( 'jquery', 'jquery-ui-slider',
             'select2script' );
-        //wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
+        wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
             /**
              * @since 5.0.1
              * It returns the dependencies for search form js
              */
-            //apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
+            apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
         $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
         wp_enqueue_script( $handel );
 
@@ -979,8 +979,8 @@ class ATBDP_Enqueuer {
         );
         wp_enqueue_script( 'atbdp_search_listing' );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
+        wp_localize_script( 'atbdp-search-listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );
-
     }
 }
 

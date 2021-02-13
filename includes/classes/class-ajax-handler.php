@@ -89,7 +89,31 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
 
             //dashboard become author 
-            add_action('wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
+            add_action( 'wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
+            add_action( 'wp_ajax_atbdp_user_type_approved', array( $this, 'atbdp_user_type_approved' ) );
+            add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
+        }
+
+        public function atbdp_user_type_deny() {
+            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_deny' ) ) { 
+                $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
+                update_user_meta( $user_id, '_user_type', 'general' );
+                wp_send_json( array(
+                    'user_type' => __( 'User', 'directorist' )
+                )
+                );
+            }
+        }
+
+        public function atbdp_user_type_approved() {
+            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_approve' ) ) { 
+                $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
+                update_user_meta( $user_id, '_user_type', 'author' );
+                wp_send_json( array(
+                    'user_type' => __( 'Author', 'directorist' )
+                )
+                );
+            }
         }
 
         public function atbdp_become_author() {

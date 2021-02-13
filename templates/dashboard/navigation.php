@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$counter = 1;
 ?>
 
 <div class="atbd_user_dashboard_nav atbd_tab_nav">
@@ -17,10 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
 				<li class="atbdp_tab_nav--content-link">
-					<a href="" class="atbdp_all_booking_nav-link atbd-dash-nav-dropdown atbd_tn_link" target="<?php echo esc_attr( $key );?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
+					<a href="#" class="atbdp_all_booking_nav-link atbd-dash-nav-dropdown atbd_tn_link <?php echo ( $counter == 1 ) ? 'tabItemActive' : ''; ?>" target="<?php echo esc_attr( $key ); ?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
 				</li> 
 
 				<?php do_action( 'directorist_dashboard_navigation', $key, $dashboard ); ?>
+				<?php $counter++; ?>
 
 			<?php endforeach; ?>
 

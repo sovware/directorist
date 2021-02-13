@@ -218,13 +218,12 @@ class Directorist_Listing_Dashboard {
 		return "<img src='$image_src' alt='$image_alt' />";
 	}
 
-	public function get_favourite_tab_args() {
-
+	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = ATBDP()->user->current_user_fav_listings();
+		$fav_listings = ATBDP()->user->current_user_fav_listings(); //@cache @kowsar
 
-		if ( $fav_listings->have_posts() ):
+		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {
 				$title         = ! empty( $post->post_title ) ? $post->post_title : __( 'Untitled', 'directorist' );
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
@@ -264,7 +263,7 @@ class Directorist_Listing_Dashboard {
 
 				$fav_listing_items[] = array(
 					'obj'           => $post,
-					'post_link'     => $post_link,
+					'permalink'     => $post_link,
 					'img_src'       => $img_src,
 					'title'         => $title,
 					'category_link' => $category_link,
@@ -273,37 +272,71 @@ class Directorist_Listing_Dashboard {
 					'mark_fav_html' => $mark_fav_html,
 				);
 			}
-		endif;
+		}
 
-		$args = array(
-			'fav_listings'      => $fav_listings,
-			'fav_listing_items' => $fav_listing_items,
-		);
-
-		return $args;
+		return $fav_listing_items;
 	}
 
-	public function get_profile_tab_args() {
-		$uid          = $this->id;
-		$c_user       = get_userdata( $uid );
-		$u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
-		$u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
+	public function user_info( $type ) {
+		$id = $this->id;
+		$userdata = get_userdata( $id );
+		$result = '';
 
-		$args = array(
-			'u_pro_pic_id' => $u_pro_pic_id,
-			'u_pro_pic'    => $u_pro_pic,
-			'c_user'       => $c_user,
-			'u_phone'      => get_user_meta( $uid, 'atbdp_phone', true ),
-			'u_website'    => $c_user->user_url,
-			'u_address'    => get_user_meta( $uid, 'address', true ),
-			'facebook'     => get_user_meta( $uid, 'atbdp_facebook', true ),
-			'twitter'      => get_user_meta( $uid, 'atbdp_twitter', true ),
-			'linkedIn'     => get_user_meta( $uid, 'atbdp_linkedin', true ),
-			'youtube'      => get_user_meta( $uid, 'atbdp_youtube', true ),
-			'bio'          => get_user_meta( $uid, 'description', true ),
-		);
+		switch ( $type ) {
+			case 'display_name':
+			$result = $userdata->display_name;
+			break;
 
-		return $args;
+			case 'username':
+			$result = $userdata->user_login;
+			break;
+
+			case 'first_name':
+			$result = $userdata->first_name;
+			break;
+
+			case 'last_name':
+			$result = $userdata->last_name;
+			break;
+
+			case 'email':
+			$result = $userdata->user_email;
+			break;
+
+			case 'phone':
+			$result = get_user_meta( $id, 'atbdp_phone', true );
+			break;
+
+			case 'website':
+			$result = $userdata->user_url;
+			break;
+
+			case 'address':
+			$result = get_user_meta( $id, 'address', true );
+			break;
+
+			case 'facebook':
+			$result = get_user_meta( $id, 'atbdp_facebook', true );
+			break;
+
+			case 'twitter':
+			$result = get_user_meta( $id, 'atbdp_twitter', true );
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta( $id, 'atbdp_linkedin', true );
+			break;
+
+			case 'youtube':
+			$result = get_user_meta( $id, 'atbdp_youtube', true );
+			break;
+
+			case 'bio':
+			$result = get_user_meta( $id, 'description', true );
+			break;
+		}
+
+		return $result;
 	}
 
 	public function dashboard_tabs() {
@@ -320,28 +353,26 @@ class Directorist_Listing_Dashboard {
 			$listings   = $this->listings_query();
 			$list_found = $listings->found_posts;
 
-			$dashboard_tabs['my_listings'] = array(
-				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'            => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
-				'icon'				 => 'la la-list',
-				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
+			$dashboard_tabs['dashboard_my_listings'] = array(
+				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
+				'content'   => Helper::get_template_contents('dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
+				'icon'	    => atbdp_icon_type() . '-list',
 			);
 		}
 
 		if ( $my_profile_tab ) {
-			$dashboard_tabs['profile'] = array(
-				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
-				'icon'	   => 'la la-user',
-				'content'  => Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
+			$dashboard_tabs['dashboard_profile'] = array(
+				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
+				'icon'	    => atbdp_icon_type() . '-user',
+				'content'   => Helper::get_template_contents('dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
-			$dashboard_tabs['saved_items'] = array(
-				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'            => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
-				'icon'				 => 'la la-heart-o',
-				'after_content_hook' => 'atbdp_tab_content_after_favorite',
+			$dashboard_tabs['dashboard_fav_listings'] = array(
+				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
+				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
+				'icon'		=> atbdp_icon_type() . '-heart-o',
 			);
 		}
 
@@ -355,6 +386,10 @@ class Directorist_Listing_Dashboard {
 			'registration_link' => ATBDP_Permalink::get_registration_page_link(),
 		);
 		return Helper::get_template_contents( 'dashboard/restrict-access', $args );
+	}
+
+	public function profile_pic_template() {
+		Helper::get_template( 'dashboard/profile-pic', [ 'dashboard' => $this ] );
 	}
 
 	public function notice_template() {
@@ -443,10 +478,10 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'field'				=>  '<i class="la la-trash"></i>',
-			'label'				=>  __('Delete Listing', 'directorist')
+			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
+			'label'				=>  __( 'Delete Listing', 'directorist' )
 		 );
 
-		return apply_filters( 'atbdp_dashboard_listing_action_item', $dropdown_items );
+		return apply_filters( 'directorist_dashboard_listing_action_items', $dropdown_items, $this );
 	}
 }

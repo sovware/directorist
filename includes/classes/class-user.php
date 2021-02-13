@@ -23,6 +23,36 @@ class ATBDP_User {
         add_filter('pre_get_posts', array($this,'restrict_listing_to_the_author'));
         // allow contributor upload images for now. @todo; later it will be better to add custom rules and capability
         add_action('plugins_loaded', array($this, 'user_functions_ready_hook'));// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
+
+        add_filter( 'manage_users_columns', array( $this,'manage_users_columns' ), 10, 1 );
+        add_filter( 'manage_users_custom_column', array( $this,'manage_users_custom_column' ), 10, 3 );
+    }
+
+    public function manage_users_custom_column( $val, $column_name, $user_id ) {
+        $get_user_type = get_user_meta( $user_id, '_user_type', true );
+        $get_user_type = ! empty( $get_user_type ) ? $get_user_type : '';
+        $user_type = '';
+        if( 'author' == $get_user_type ) {
+            $user_type = __( 'Author', 'directorist' );
+        } elseif( 'general' == $get_user_type ) {
+            $user_type = __( 'User', 'directorist' );
+        } elseif( 'become_author' == $get_user_type ) {
+            $author_pending = __( "Author ( Pending )"); 
+            $approve        = "<a href='' id='atbdp-user-type-approve' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>Approve </span></a>";
+            $deny           = "<a href='' id='atbdp-user-type-deny' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>Deny</span></a>";
+            $user_type      = "<div class='atbdp-user-type' id='user-type-". $user_id ."'>" .$author_pending . $approve . $deny . "</div>";
+        }
+
+        switch ($column_name) {
+            case 'user_type' :
+                return $user_type;
+            default:
+        }
+        return $val;
+    }
+    function manage_users_columns( $column ) {
+        $column['user_type'] = 'User Type';
+        return $column;
     }
 
     public function user_functions_ready_hook()

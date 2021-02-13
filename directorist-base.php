@@ -1553,8 +1553,14 @@ final class Directorist_Base
 
     public function atbdp_body_class($c_classes)
     {
-        $c_classes[] = 'directorist-content-active';//class name goes here
-        $c_classes[] = 'directorist-preload';//class name goes here
+        if( directorist_legacy_mode() ){
+            $c_classes[] = 'legacy_directorist-content-active';//class name goes here
+            $c_classes[] = 'legacy_directorist-preload';//class name goes here
+        }else{
+            $c_classes[] = 'directorist-content-active';//class name goes here
+            $c_classes[] = 'directorist-preload';//class name goes here
+        }
+        
         return $c_classes;
     }
 

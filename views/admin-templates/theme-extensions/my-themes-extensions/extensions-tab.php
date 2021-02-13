@@ -205,7 +205,6 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-<<<<<<< HEAD
                                                 <div class="directorist_checkbox directorist_checkbox-success">
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
                                                     <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
@@ -213,11 +212,6 @@
                                                         <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
                                                     <label for="<?php echo 'required_' . $extension_base; ?>">
-=======
-                                                <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
->>>>>>> b24f930769e25cb2ab0d63cb2626d8fcc514d4b2
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
                                                             if (!empty($args['extension_list'][$extension_base])) {

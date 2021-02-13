@@ -38,9 +38,9 @@ class ATBDP_User {
             $user_type = __( 'User', 'directorist' );
         } elseif( 'become_author' == $get_user_type ) {
             $author_pending = __( "Author ( Pending )"); 
-            $approve        = "<a href='' id='atbdp-user-type-approve'><span>Approve </span></a>";
-            $deny           = "<a href='' id='atbdp-user-type-deny'><span>Deny</span></a>";
-            $user_type      = $author_pending . $approve . $deny;
+            $approve        = "<a href='' id='atbdp-user-type-approve' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>Approve </span></a>";
+            $deny           = "<a href='' id='atbdp-user-type-deny' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>Deny</span></a>";
+            $user_type      = "<div class='atbdp-user-type' id='user-type-". $user_id ."'>" .$author_pending . $approve . $deny . "</div>";
         }
 
         switch ($column_name) {

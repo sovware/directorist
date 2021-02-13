@@ -6,70 +6,37 @@
  */
 
 use \Directorist\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
 
-    <?php
-    /**
-     * @hooked Directorist_Listing_Dashboard > alert_message_template - 10
-     */
-    // do_action( 'directorist_dashboard_before_container' );
-    $dashboard->alert_message_template();
-    ?>
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
-    <div class="container-fluid">
-        <?php
-        /**
-         * @since 6.6
-         * @hooked Directorist_Listing_Dashboard > section_title - 10
-         */
-        //do_action( 'directorist_dashboard_title_area', $display_title );
+		<?php $dashboard->notice_template(); ?>
 
-        if ( $dashboard->display_title() ) {
-        	Helper::get_template( 'dashboard/title' );
-        }
+		<?php if ( $dashboard->display_title() ): ?>
+			<h2><?php esc_html_e( 'My Dashboard', 'directorist' ); ?></h2>
+		<?php endif; ?>
 
-        ?>
-        <div class="atbd-dashboard-nav-toggle-icon">
-            <a href="" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a>
-        </div>
-        <div class="atbd_dashboard_wrapper atbd_tab">
-            <div class="atbd_user_dashboard_nav atbd_tab_nav">
+		<div class="atbd-dashboard-nav-toggle-icon"><a href="#" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a></div>
+		
+		<div class="atbd_dashboard_wrapper atbd_tab">
 
-                <?php
-                /**
-                 * @since 6.6
-                 * @hooked Directorist_Listing_Dashboard > nav_tabs_template - 10
-                 * @hooked Directorist_Listing_Dashboard > nav_buttons_template - 15
-                 */
-                // do_action( 'directorist_dashboard_navigation');
-                $dashboard->nav_tabs_template();
-                $dashboard->nav_buttons_template();
-                ?>
+			<div class="atbd_user_dashboard_nav atbd_tab_nav">
+				<?php
+				$dashboard->nav_tabs_template();
+				$dashboard->nav_buttons_template();
+				?>
+			</div>
 
-            </div>
+			<div class="atbd_tab-content">
+				<?php $dashboard->tab_contents_html(); ?>
+			</div>
 
-            <div class="atbd_tab-content">
+		</div>
 
-                <?php
-                /**
-                 * @since 6.6
-                 * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
-                 */
-                // do_action( 'directorist_dashboard_tab_contents');
-                $dashboard->tab_contents_html();
-                ?>
-                <div class="atbd_tab_inner" id="tab1">
-                    <p>Empty Content</p>
-                </div>
-                <div class="atbd_tab_inner" id="tab2">
-                    <p>Empty Content</p>
-                </div>
-                <div class="atbd_tab_inner" id="tab3">
-                    <p>Empty Content</p>
-                </div>
-            </div>
-        </div>
-    </div>
+	</div>
+
 </div>

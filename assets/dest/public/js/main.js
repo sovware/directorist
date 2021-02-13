@@ -2146,7 +2146,6 @@ var pureScriptSelect = function pureScriptSelect(selector) {
         //         }
         //     });
         // });
-
         arryEl.forEach(function (el, index) {
           arryEl.forEach(function (el, index) {
             if (index !== 0 || el.value !== '') {

@@ -22,9 +22,6 @@ class Enqueue_Assets {
 
         // Enqueue Global Scripts
         add_action( 'init', [ $this, 'enqueue_global_scripts' ] );
-
-        // Enqueue Other Scripts
-        add_action( 'wp_enqueue_scripts', [ $this, 'custom_color_picker_scripts' ] );
     }
 
     /**
@@ -41,10 +38,10 @@ class Enqueue_Assets {
         $this->add_vendor_js_scripts();
 
         $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        if ( ! $atbdp_legacy_template ) {
-        // Load Public Assets
-        $this->add_public_css_scripts();
-        $this->add_public_js_scripts();
+        if ( empty( $atbdp_legacy_template ) ) {
+            // Load Public Assets
+            $this->add_public_css_scripts();
+            $this->add_public_js_scripts();
         }
 
         // Load Admin Assets
@@ -81,6 +78,22 @@ class Enqueue_Assets {
     public function add_vendor_css_scripts() {
         $scripts = [];
 
+        // Global
+        // ================================
+        $scripts['directorist-openstreet-map'] = [
+            'file_name' => 'openstreet-map',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global', // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        // Admin
+        // ================================
+
+        // Public
+        // ================================
         $scripts['directorist-bootstrap'] = [
             'file_name' => 'bootstrap',
             'base_path' => DIRECTORIST_VENDOR_CSS,
@@ -130,7 +143,7 @@ class Enqueue_Assets {
             'has_rtl'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'enable'    => false
         ];
 
@@ -152,7 +165,7 @@ class Enqueue_Assets {
             'has_rtl'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'enable'    => false
         ];
 
@@ -168,6 +181,108 @@ class Enqueue_Assets {
     public function add_vendor_js_scripts() {
         $scripts = [];
 
+        // Global
+        // ================================
+        // Openstreet
+        $scripts['directorist-openstreet-layers'] = [
+            'file'      => 'openstreetlayers',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => $this->script_version,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        // Google Map
+        $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
+        $scripts['directorist-google-map'] = [
+            'link'      => '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places',
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'google' ),
+        ];
+
+        $scripts['directorist-markerclusterer'] = [
+            'file'      => 'markerclusterer',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => $this->script_version,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'google' ),
+        ];
+
+        // Other
+        $scripts['directorist-select2'] = [
+            'file_name' => 'select2.min',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'has_min'   => false,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+        ];
+
+        $scripts['directorist-sweetalert'] = [
+            'file_name' => 'sweetalert.min',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'has_min'   => false,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+        ];
+
+        $scripts['directorist-tooltip'] = [
+            'file_name' => 'tooltip',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'has_min'   => false,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+        ];
+
+        $scripts['directorist-popper'] = [
+            'file_name' => 'popper',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'global', // public || admin  || global
+            'section'   => '',
+            'enable'    => false,
+        ];
+
+        $scripts['directorist-range-slider'] = [
+            'file_name' => 'range-slider',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'has_rtl'   => true,
+            'ver'       => $this->script_version,
+            'group'     => 'global',                // public || admin  || global
+            'section'   => '',
+            'enable'    => false,
+            'localize_data' => [
+                'object_name' => 'atbdp_range_slider',
+                'data' => Script_Helper::get_range_slider_data()
+            ],
+        ];
+
+        
+        // Admin
+        // ================================
+
+        // Public
+        // ================================
         $scripts['directorist-bootstrap'] = [
             'file_name' => 'bootstrap.min',
             'base_path' => DIRECTORIST_VENDOR_JS,
@@ -201,27 +316,6 @@ class Enqueue_Assets {
             'enable'    => false,
         ];
 
-        $scripts['directorist-popper'] = [
-            'file_name' => 'popper',
-            'base_path' => DIRECTORIST_VENDOR_JS,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'section'   => '',
-            'enable'    => false,
-        ];
-
-        $scripts['directorist-select2'] = [
-            'file_name' => 'select2.min',
-            'base_path' => DIRECTORIST_VENDOR_JS,
-            'has_min'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'section'   => '',
-            'enable'    => true,
-        ];
-
         $scripts['directorist-slick'] = [
             'file_name' => 'slick.min',
             'base_path' => DIRECTORIST_VENDOR_JS,
@@ -233,26 +327,12 @@ class Enqueue_Assets {
             'enable'    => false,
         ];
 
-        $scripts['directorist-sweetalert'] = [
-            'file_name' => 'sweetalert.min',
-            'base_path' => DIRECTORIST_VENDOR_JS,
-            'has_min'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'section'   => '',
-            'enable'    => true,
-        ];
-
-        $scripts['directorist-tooltip'] = [
-            'file_name' => 'tooltip',
-            'base_path' => DIRECTORIST_VENDOR_JS,
-            'has_min'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'section'   => '',
-            'enable'    => true,
+        $scripts['directorist-plasma-slider'] = [
+            'file_name'     => 'plasma-slider',
+            'base_path'     => DIRECTORIST_VENDOR_JS,
+            'has_min'       => false,
+            'ver'           => $this->script_version,
+            'group'         => 'public',
         ];
 
         $scripts['directorist-uikit'] = [
@@ -383,6 +463,16 @@ class Enqueue_Assets {
             'enable'    => is_admin(),
         ];
 
+        $scripts['directorist-plupload'] = [
+            'file_name' => 'directorist-plupload',
+            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
+            'page'      => '',
+        ];
+
         $scripts = array_merge( $this->css_scripts, $scripts);
         $this->css_scripts = $scripts;
     }
@@ -409,14 +499,22 @@ class Enqueue_Assets {
         ];
 
         $scripts['directorist-plugins'] = [
-            'file_name'     => 'plugins',
-            'base_path'     => DIRECTORIST_ADMIN_JS,
-            // 'deps'          => ['jquery'],
-            'ver'           => $this->script_version,
-            'group'         => 'admin',
-            'section'       => '',
-            'page'          => 'plugins.php',
-            'enable'        => is_admin(),
+            'file_name' => 'plugins',
+            'base_path' => DIRECTORIST_ADMIN_JS,
+            // 'deps'      => ['jquery'],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
+            'page'      => 'plugins.php',
+            'enable'    => is_admin(),
+        ];
+
+        $scripts['directorist-plupload'] = [
+            'file_name' => 'directorist-plupload',
+            'base_path' => DIRECTORIST_ADMIN_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
         ];
 
         $scripts['directorist-import-export'] = [
@@ -465,19 +563,20 @@ class Enqueue_Assets {
      * @return void
      */
     public function add_global_js_scripts() {
-        // $scripts = [];
+        $scripts = [];
 
-        // $scripts['directorist-admin-script'] = [
-        //     'file_name' => 'admin',
-        //     'base_path' => DIRECTORIST_ADMIN_JS,
+        // $scripts['handle'] = [
+        //     'file'      => 'file-name',
+        //     'base_path' => DIRECTORIST_PUBLIC_JS,
         //     'deps'      => [],
+        //     'has_min'   => false,
         //     'ver'       => $this->script_version,
         //     'group'     => 'global',
         //     'section'   => '',
         // ];
 
-        // $scripts = array_merge( $this->js_scripts, $scripts);
-        // $this->js_scripts = $scripts;
+        $scripts = array_merge( $this->js_scripts, $scripts);
+        $this->js_scripts = $scripts;
     }
 
 
@@ -510,6 +609,8 @@ class Enqueue_Assets {
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'admin' ] );
         $this->enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
+
+        wp_enqueue_media();
     }
 
     /**
@@ -525,6 +626,9 @@ class Enqueue_Assets {
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'global' ] );
         $this->enqueue_js_scripts_by_group( [ 'group' => 'global', 'page' => $page  ] );
+
+        // Other
+        $this->enqueue_custom_color_picker_scripts();
     }
 
 
@@ -617,15 +721,14 @@ class Enqueue_Assets {
             $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_JS,
+                'link'      => '',
                 'deps'      => [],
                 'ver'       => false,
+                'has_rtl'   => false,
                 'in_footer' => true,
-                'link'      => '',
             ];
 
             $script_args = array_merge( $default, $script_args );
-            $script_args['has_rtl'] = false;
-
             $src = $script_args['base_path'] . $this->get_script_file_name( $script_args ) . '.js';
 
             if ( ! empty( $script_args['link'] ) ) {
@@ -734,27 +837,13 @@ class Enqueue_Assets {
     }
 
     /**
-     * Custom Color Picker Scripts
+     * Enqueue Custom Color Picker Scripts
      *
      * @return void
      */
-    public function custom_color_picker_scripts() {
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script(
-            'iris',
-            admin_url( 'js/iris.min.js' ),
-            array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ),
-            false,
-            1
-        );
-        wp_enqueue_script(
-            'wp-color-picker',
-            admin_url( 'js/color-picker.min.js' ),
-            array( 'iris', 'wp-i18n' ),
-            false,
-            1
-        );
-        wp_enqueue_script( 'wp-color-picker' );
+    public function enqueue_custom_color_picker_scripts() {
+        wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+        wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
 
         $colorpicker_l10n = array(
             'clear'         => __( 'Clear' ),
@@ -762,6 +851,7 @@ class Enqueue_Assets {
             'pick'          => __( 'Select Color' ),
             'current'       => __( 'Current Color' ),
         );
+
         wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 
     }

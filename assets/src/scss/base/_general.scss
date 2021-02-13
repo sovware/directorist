@@ -1,6 +1,5 @@
 @import '../mixins/general';
 // Common Classes
-
 .directorist-flex {
     display: flex;
 }
@@ -68,5 +67,19 @@
 
     @include e(contents) {
         padding: 30px;
+    }
+}
+
+// General Style
+.directorist-content-active{
+    a{
+        text-decoration: none;
+        color: $body-color;
+    }
+    p{
+        font-size: 15px;
+        color: #7a82a6;
+        line-height: 24px;
+        text-align: left; 
     }
 }

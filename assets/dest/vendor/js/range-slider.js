@@ -1,5 +1,5 @@
 /* range slider */
-const atbd_slider = (selector, obj) => {
+var atbd_slider = (selector, obj) => {
     var isDraging 	= false,
         max 		= obj.maxValue,
         min 		= obj.minValue,
@@ -13,15 +13,14 @@ const atbd_slider = (selector, obj) => {
             <div class="atbd-child"></div>
 		`;
 
-    const touch = "ontouchstart" in document.documentElement;
+    var touch = "ontouchstart" in document.documentElement;
     if (touch){
         down 	= 'touchstart';
         up 		= 'touchend';
         move 	= 'touchmove';
     }
 
-    const slider = document.querySelectorAll(selector);
-
+    var slider = document.querySelectorAll(selector);
     slider.forEach((id, index) => {
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
@@ -77,9 +76,8 @@ const atbd_slider = (selector, obj) => {
         window.addEventListener(move, (e) => {
             if(isDraging){
                 count = e.clientX + slid1_val2 * width / max - x;
-                console.log(e.clientX, slid1_val2)
                 if (touch){
-                    count = event.touches[0].clientX + slid1_val2 * width / max - x;
+                    count = e.touches[0].clientX + slid1_val2 * width / max - x;
                 }
                 if(count < 0){
                     count = 0;
@@ -100,7 +98,7 @@ const atbd_slider = (selector, obj) => {
     });
 };
 function atbd_callingSlider(min = atbdp_range_slider.default_val) {
-    atbd_slider ('#directorist-range-slider', {
+    atbd_slider ('#atbdp-range-slider', {
         maxValue: 1000,
         minValue: min,
         maxWidth: '100%',
@@ -113,4 +111,3 @@ function atbd_callingSlider(min = atbdp_range_slider.default_val) {
 window.addEventListener("load", function () {
     atbd_callingSlider();
 });
-

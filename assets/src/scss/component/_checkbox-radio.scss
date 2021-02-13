@@ -181,6 +181,20 @@
             }
         }
     }
+    &.directorist-checkbox-success{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: $success;
+                        border-color: $success;
+                    }
+                }
+            }
+        }
+    }
     &.directorist-checkbox-blue{
         input[type="checkbox"],
         input[type="radio"] {

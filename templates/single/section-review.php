@@ -15,11 +15,11 @@ $review_placeholder = $listing->current_review() ? esc_html__( 'Update your revi
 $review_content = $listing->current_review() ? $listing->current_review()->content : '';
 ?>
 
-<div class="atbd_content_module <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<div class="directorist-card <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
+	<div class="directorist-card atbd_review_module" id="atbd_reviews_block">
 
-		<div class="atbd_content_module_title_area">
+		<div class="directorist-card__header">
 			<h4><span class="<?php atbdp_icon_type( true ); ?>-star atbd_area_icon"></span><span id="reviewCounter"><?php echo esc_html( $listing->review_count() ); ?></span> <?php echo esc_html( $listing->review_count_text() );?></h4>
 
 			<?php if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
@@ -27,7 +27,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 			<?php endif; ?>
 		</div>
 
-		<div class="atbdb_content_module_contents">
+		<div class="directorist-card__body">
 			<input type="hidden" id="review_post_id" data-post-id="<?php echo esc_attr($listing->id); ?>">
 			<div id="client_review_list"></div>
 			<div id="clint_review"></div>
@@ -40,13 +40,13 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 		<?php if (get_current_user_id() != $listing->author_id || $listing->owner_review_enabled() ): ?>
 
-			<div class="atbd_content_module">
+			<div class="directorist-card">
 
-				<div class="atbd_content_module_title_area">
-					<h4><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
+				<div class="directorist-card__header">
+					<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
 				</div>
 
-				<div class="atbdb_content_module_contents atbd_give_review_area">
+				<div class="directorist-card__body atbd_give_review_area">
 					<form action="#" id="atbdp_review_form" method="post">
 
 						<div class="atbd_review_rating_area">

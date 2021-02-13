@@ -17,19 +17,19 @@ $author_img = !empty($u_pro_pic) ? $u_pro_pic[0] : '';
 $avatar_img = get_avatar($author_id, 32);
 ?>
 
-<div class="atbd_content_module <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<div class="directorist-card <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="atbd_content_module_title_area">
-		<h4><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
+	<div class="directorist-card__header">
+		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
 	</div>
 
-	<div class="atbdb_content_module_contents">
+	<div class="directorist-card__body">
 
 		<div class="directorist-single-author-info">
 
 			<div class="atbd_avatar_wrapper">
 
-				<div class="atbd_review_avatar">
+				<div class="directorist-single-author-avatar">
 					<?php if ( $author_img ): ?>
 						<img src="<?php echo esc_url( $author_img ); ?>" alt="<?php esc_attr_e('Avatar Image', 'directorist');?>">
 					<?php else: ?>
@@ -37,14 +37,14 @@ $avatar_img = get_avatar($author_id, 32);
 					<?php endif; ?>
 				</div>
 
-				<div class="atbd_name_time">
+				<div class="directorist-single-author-name">
 					<h4><?php echo esc_html( $listing->author_info( 'name' ) ); ?></h4>
 					<span class="review_time"><?php printf( esc_html__('Member since %s ago', 'directorist'), $listing->author_info( 'member_since' ) ); ?></span>
 				</div>
 
 			</div>
 
-			<div class="atbd_widget_contact_info">
+			<div class="directorist-single-author-contact-info">
 				<ul>
 
 					<?php if ( $address = $listing->author_info( 'address' ) ): ?>
@@ -81,7 +81,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 			<?php if ( $listing->author_has_socials() ): ?>
 
-				<div class="atbd_social_wrap">
+				<div class="directorist-single-author-social-links">
 					<?php
 					if ( $facebook = $listing->author_info( 'facebook' ) ) {
 						printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);

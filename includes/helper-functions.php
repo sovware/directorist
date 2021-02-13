@@ -2606,7 +2606,6 @@ if (!function_exists('new_badge')) {
         global $post;
         $new_listing_time = get_directorist_option('new_listing_day');
         $new_badge_text = get_directorist_option('new_badge_text', 'New');
-        $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
         $each_hours = 60 * 60 * 24; // seconds in a day
         $s_date1 = strtotime(current_time('mysql')); // seconds for date 1
         $s_date2 = strtotime($post->post_date); // seconds for date 2
@@ -2614,9 +2613,7 @@ if (!function_exists('new_badge')) {
         $days = round($s_date_diff / $each_hours); // divided the different with second in a day
         $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
         if ($days <= (int)$new_listing_time) {
-            if (!empty($enable_new_listing)) {
-                return $new;
-            }
+             return $new;
 
         }
     }
@@ -4174,5 +4171,11 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );   
         $submission_form_fields = $submission_form['fields'];
         return $submission_form_fields;
+    }
+}
+
+if( !function_exists('directorist_legacy_mode') ){
+    function directorist_legacy_mode() {
+        return get_directorist_option( 'atbdp_legacy_template', false );
     }
 }

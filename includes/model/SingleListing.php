@@ -195,6 +195,38 @@ class Directorist_Single_Listing {
 		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
 
+	public function get_custom_field_value( $type, $data ) {
+		$result = '';
+		$value = $data['value'];
+		
+		switch ( $type ) {
+			case 'radio':
+			case 'select':
+			foreach( $data['original_data']['options'] as $option ) {
+				$key = $option['option_value'];
+				if( $key === $value ) {
+					$result = $option['option_label'];
+					break;
+				}
+			}
+			break;
+
+			case 'checkbox':
+			$option_value = [];
+			foreach( $data['original_data']['options'] as $option ) {
+				$key = $option['option_value'];
+				if( in_array( $key, explode( ',', $value ) ) ) {
+					$space = str_repeat(' ', 1);
+					$option_value[] = $space . $option['option_label'];
+				}
+			}
+			$result = join( ',', $option_value );
+			break;
+		}
+
+		return $result;
+	}
+
 	public function get_socials() {
 		return get_post_meta( $this->id, '_social', true);
 	}

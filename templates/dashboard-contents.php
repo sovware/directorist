@@ -24,16 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		
 		<div class="atbd_dashboard_wrapper atbd_tab">
 
-			<div class="atbd_user_dashboard_nav atbd_tab_nav">
-				<?php
-				$dashboard->nav_tabs_template();
-				$dashboard->nav_buttons_template();
-				?>
-			</div>
-
-			<div class="atbd_tab-content">
-				<?php $dashboard->tab_contents_html(); ?>
-			</div>
+			<?php $dashboard->navigation_template(); ?>
+			<?php $dashboard->main_contents_template(); ?>
 
 		</div>
 

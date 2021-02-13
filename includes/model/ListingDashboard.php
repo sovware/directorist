@@ -277,27 +277,66 @@ class Directorist_Listing_Dashboard {
 		return $fav_listing_items;
 	}
 
-	public function get_profile_tab_args() {
-		$uid          = $this->id;
-		$c_user       = get_userdata( $uid );
-		$u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
-		$u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
+	public function user_info( $type ) {
+		$id = $this->id;
+		$userdata = get_userdata( $id );
+		$result = '';
 
-		$args = array(
-			'u_pro_pic_id' => $u_pro_pic_id,
-			'u_pro_pic'    => $u_pro_pic,
-			'c_user'       => $c_user,
-			'u_phone'      => get_user_meta( $uid, 'atbdp_phone', true ),
-			'u_website'    => $c_user->user_url,
-			'u_address'    => get_user_meta( $uid, 'address', true ),
-			'facebook'     => get_user_meta( $uid, 'atbdp_facebook', true ),
-			'twitter'      => get_user_meta( $uid, 'atbdp_twitter', true ),
-			'linkedIn'     => get_user_meta( $uid, 'atbdp_linkedin', true ),
-			'youtube'      => get_user_meta( $uid, 'atbdp_youtube', true ),
-			'bio'          => get_user_meta( $uid, 'description', true ),
-		);
+		switch ( $type ) {
+			case 'display_name':
+			$result = $userdata->display_name;
+			break;
 
-		return $args;
+			case 'username':
+			$result = $userdata->user_login;
+			break;
+
+			case 'first_name':
+			$result = $userdata->first_name;
+			break;
+
+			case 'last_name':
+			$result = $userdata->last_name;
+			break;
+
+			case 'email':
+			$result = $userdata->user_email;
+			break;
+
+			case 'phone':
+			$result = get_user_meta( $id, 'atbdp_phone', true );
+			break;
+
+			case 'website':
+			$result = $userdata->user_url;
+			break;
+
+			case 'address':
+			$result = get_user_meta( $id, 'address', true );
+			break;
+
+			case 'facebook':
+			$result = get_user_meta( $id, 'atbdp_facebook', true );
+			break;
+
+			case 'twitter':
+			$result = get_user_meta( $id, 'atbdp_twitter', true );
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta( $id, 'atbdp_linkedin', true );
+			break;
+
+			case 'youtube':
+			$result = get_user_meta( $id, 'atbdp_youtube', true );
+			break;
+
+			case 'bio':
+			$result = get_user_meta( $id, 'description', true );
+			break;
+		}
+
+		return $result;
 	}
 
 	public function dashboard_tabs() {
@@ -325,7 +364,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	    => atbdp_icon_type() . '-user',
-				'content'   => Helper::get_template_contents('dashboard/tab-profile', $this->get_profile_tab_args() ),
+				'content'   => Helper::get_template_contents('dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
 
@@ -347,6 +386,10 @@ class Directorist_Listing_Dashboard {
 			'registration_link' => ATBDP_Permalink::get_registration_page_link(),
 		);
 		return Helper::get_template_contents( 'dashboard/restrict-access', $args );
+	}
+
+	public function profile_pic_template() {
+		Helper::get_template( 'dashboard/profile-pic', [ 'dashboard' => $this ] );
 	}
 
 	public function notice_template() {

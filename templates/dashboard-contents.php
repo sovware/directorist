@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="directorist atbd_wrapper dashboard_area">
+<div id="directorist" class="directorist atbd_wrapper dashboard_area alignwide">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 

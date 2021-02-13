@@ -2157,20 +2157,9 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 // badge settings
-                'display_new_badge_cart' => [
-                    'type' => 'toggle',
-                    'label' => __('Display New Badge', 'directorist'),
-                    'value' => true,
-                ],
                 'new_badge_text' => [
                     'type' => 'text',
                     'label' => __('New Badge Text', 'directorist'),
-                    'show-if' => [
-                        'where' => "display_new_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'value' => __('New', 'directorist'),
                 ],
                 'new_listing_day' => [
@@ -2180,55 +2169,21 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min' => '1',
                     'max' => '100',
                     'step' => '1',
-                    'show-if' => [
-                        'where' => "display_new_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'display_feature_badge_cart' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Featured Badge', 'directorist'),
-                    'value' => true,
                 ],
                 'feature_badge_text' => [
                     'type' => 'text',
                     'label' => __('Featured Badge Text', 'directorist'),
-                    'show-if' => [
-                        'where' => "display_feature_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'value' => __('Featured', 'directorist'),
-                ],
-                'display_popular_badge_cart' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Popular Badge', 'directorist'),
-                    'value' => true,
                 ],
                 'popular_badge_text' => [
                     'type' => 'text',
                     'label' => __('Popular Badge Text', 'directorist'),
-                    'show-if' => [
-                        'where' => "display_popular_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'value' => __('Popular', 'directorist'),
                 ],
                 'listing_popular_by' => [
                     'label' => __('Popular Based on', 'directorist'),
                     'type'  => 'select',
                     'value' => 'view_count',
-                    'show-if' => [
-                        'where' => "display_popular_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'view_count',
@@ -2247,12 +2202,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 'views_for_popular' => [
                     'type' => 'text',
                     'label' => __('Threshold in Views Count', 'directorist'),
-                    'show-if' => [
-                        'where' => "display_popular_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'value' => 5,
                 ],
                 'average_review_for_popular' => [
@@ -2262,12 +2211,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min' => '.5',
                     'max' => '4.5',
                     'step' => '.5',
-                    'show-if' => [
-                        'where' => "display_popular_badge_cart",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                 ],
                 
                 // review settings 
@@ -5004,21 +4947,21 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Badge Management', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_new_badge_cart', 'new_badge_text', 'new_listing_day', 'display_feature_badge_cart', 'feature_badge_text'
+                                        'new_badge_text', 'new_listing_day'
                                     ],
                                 ],
                                 'popular_badge' => [
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_popular_badge_cart', 'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
                                     ],
                                 ],
                                 'featured_badge' => [
                                     'title'       => __('Featured Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'featured_listing_title'
+                                        'feature_badge_text'
                                     ],
                                 ],
                             ] ),

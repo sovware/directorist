@@ -94,8 +94,6 @@ class Directorist_Listings {
 	public $display_mark_as_fav;
 	public $display_publish_date;
 	public $display_contact_info;
-	public $display_feature_badge_cart;
-	public $display_popular_badge_cart;
 	public $enable_tagline;
 	public $enable_excerpt;
 	public $display_author_image;
@@ -200,7 +198,6 @@ class Directorist_Listings {
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
-		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 	}
 
 	// update_search_options
@@ -1894,10 +1891,9 @@ class Directorist_Listings {
 
 		public static function featured_badge( $content ) {
 			$featured = get_post_meta( get_the_ID(), '_featured', true );
-			$display_feature_badge_cart = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 			$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 
-			if ( $featured && $display_feature_badge_cart ) {
+			if ( $featured ) {
 				$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
 				return $content . $badge_html;
 			}
@@ -1907,10 +1903,9 @@ class Directorist_Listings {
 
 		public static function popular_badge( $content ) {
 			$popular_listing_id = atbdp_popular_listings(get_the_ID());
-			$display_popular_badge_cart = get_directorist_option( 'display_popular_badge_cart', 1 ) ? true : false;
 			$popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 			
-			if ($popular_listing_id === get_the_ID() && $display_popular_badge_cart) {
+			if ( $popular_listing_id === get_the_ID() ) {
 				$badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
 				return $content . $badge;
 			}
@@ -1923,7 +1918,6 @@ class Directorist_Listings {
 
 			$new_listing_time = get_directorist_option('new_listing_day');
 			$new_badge_text = get_directorist_option('new_badge_text', 'New');
-			$enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 			$each_hours = 60 * 60 * 24; // seconds in a day
 			$s_date1 = strtotime(current_time('mysql')); // seconds for date 1
 			$s_date2 = strtotime($post->post_date); // seconds for date 2
@@ -1931,9 +1925,7 @@ class Directorist_Listings {
 			$days = round($s_date_diff / $each_hours); // divided the different with second in a day
 			$new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
 			if ($days <= (int)$new_listing_time) {
-				if (!empty($enable_new_listing)) {
-					return  $content .= $new;
-				}
+				return  $content .= $new;
 
 			}
 
@@ -1942,10 +1934,9 @@ class Directorist_Listings {
 
     public static function featured_badge_list_view( $content ) {
     	$featured = get_post_meta(get_the_ID(), '_featured', true);
-    	$display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
     	$feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
 
-    	if ( $featured && !empty( $display_feature_badge_cart ) ) {
+    	if ( $featured ) {
     		$badge = "<span class='atbd_badge atbd_badge_featured'>$feature_badge_text</span>";
     		$content .= $badge;
     	}
@@ -1954,10 +1945,9 @@ class Directorist_Listings {
     }
 
     public static function populer_badge_list_view( $content ) {
-    	$display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
     	$popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
 
-    	if ( atbdp_popular_listings(get_the_ID()) === get_the_ID() && !empty($display_popular_badge_cart)) {
+    	if ( atbdp_popular_listings(get_the_ID()) === get_the_ID() ) {
     		$badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text</span>";
     		$content .= $badge;
     	}

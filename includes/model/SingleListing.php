@@ -175,12 +175,60 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-		$template = 'single/items/' . $data['widget_name'];
+
+		if ( $this->is_custom_field( $data ) ) {
+			$template = 'single/custom-fields/' . $data['widget_name'];
+		}
+		else {
+			$template = 'single/fields/' . $data['widget_name'];
+		}
+		
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
 		if( $load_template ) {
 			Helper::get_template( $template, $args );
 		}
+	}
+
+	public function is_custom_field( $data ) {
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		return in_array( $data['widget_name'], $fields ) ? true : false;
+	}
+
+	public function get_custom_field_value( $type, $data ) {
+		$result = '';
+		$value = $data['value'];
+		
+		switch ( $type ) {
+			case 'radio':
+			case 'select':
+			foreach( $data['original_data']['options'] as $option ) {
+				$key = $option['option_value'];
+				if( $key === $value ) {
+					$result = $option['option_label'];
+					break;
+				}
+			}
+			break;
+
+			case 'checkbox':
+			$option_value = [];
+			foreach( $data['original_data']['options'] as $option ) {
+				$key = $option['option_value'];
+				if( in_array( $key, explode( ',', $value ) ) ) {
+					$space = str_repeat(' ', 1);
+					$option_value[] = $space . $option['option_label'];
+				}
+			}
+			$result = join( ',', $option_value );
+			break;
+		}
+
+		return $result;
+	}
+
+	public function get_socials() {
+		return get_post_meta( $this->id, '_social', true);
 	}
 
 	public function section_id( $id ) {
@@ -205,6 +253,20 @@ class Directorist_Single_Listing {
 		$cat_list = get_the_term_list( $this->id, ATBDP_CATEGORY, '', ', ');
 		return $cat_list;
 	}
+
+	public function get_location_list() {
+		// @cache @kowsar
+		$loc_list = get_the_term_list( $this->id, ATBDP_LOCATION, '', ', ');
+		return $loc_list;
+	}
+
+	public function get_tags() {
+		// @cache @kowsar
+		$tags = get_the_terms( $this->id, ATBDP_TAGS );
+		return $tags;
+	}
+
+
 
 	public function social_share_data() {
 		$title = get_the_title();
@@ -506,13 +568,12 @@ class Directorist_Single_Listing {
 		return $price_html;
 	}
 
-	public function review_count_html() {
-		$id = $this->id;
+	public function get_review_count() {
+		return ATBDP()->review->db->count(array('post_id' => $this->id));
+	}
 
-		$reviews_count = ATBDP()->review->db->count(array('post_id' => $id));
-		$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
-		$review_count_html = $reviews_count . $reviews;
-		return $review_count_html;
+	public function get_rating_count() {
+		return ATBDP()->review->get_average( $this->id );
 	}
 
 	public function submit_link() {

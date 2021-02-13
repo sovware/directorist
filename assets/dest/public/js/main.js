@@ -2370,9 +2370,11 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     pureScriptSelect('#directorist-select-fr-s-js');
   }
 
-  if ($('#directorist-select-fr-e-js').length) {
-    pureScriptSelect('#directorist-select-fr-e-js');
-  }
+  window.addEventListener('load', function (event) {
+    if ($('#directorist-select-fr-e-js').length) {
+      pureScriptSelect('#directorist-select-fr-e-js');
+    }
+  }); // console.log($('#directorist-select-fr-e-js').length)
 })(jQuery);
 
 /***/ }),

@@ -37,7 +37,7 @@ $('.atbd_pricing_options label').on('click', function () {
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
     const length = $('#at_biz_dir-categorychecklist input:checked');
     const id = [];
-    const directory_type = $('select[name="directory_type"]').val();
+    const directory_type = $('select[name="directory_type"]').val();      
     length.each((el, index) => {
         id.push($(index).val());
     });

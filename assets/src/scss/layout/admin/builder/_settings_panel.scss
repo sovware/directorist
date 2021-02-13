@@ -11,6 +11,7 @@
         .directorist_builder-links{
             margin: 0 ;
             padding: 0;
+            margin-top: 10px;
             li{
                 display: inline-block;
                 margin-bottom: 0;
@@ -84,6 +85,11 @@
                 margin-bottom: 15px;
             }
         }
+        .directorist_dropdown{
+            .directorist_dropdown-toggle{
+                line-height: .8;
+            }
+        }
     }
 }
 
@@ -132,6 +138,9 @@
         justify-content: space-between;
         @media only screen and (max-width: 767px) {
             margin-top: 15px;
+        }
+        @media only screen and (max-width: 575px) {
+            flex-direction: column;
         }
         .setting-top-bar__search-field{
             margin-right: 5px;

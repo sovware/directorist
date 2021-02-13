@@ -1,5 +1,8 @@
 import '../../scss/layout/admin/admin-style.scss';
 
+// PureScript Select
+import '../modules/pureScriptSearchSelect';
+
 // Blocks
 import './../components/admin/block-1';
 import './../components/admin/block-2';
@@ -12,6 +15,3 @@ import './../components/admin/subscriptionManagement';
 
 // Modal Components
 import '../components/modal';
-
-// PureScript Select
-import '../modules/pureScriptSearchSelect';

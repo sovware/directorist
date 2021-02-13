@@ -378,52 +378,53 @@ const pureScriptSelect = (selector) => {
         pureScriptSelect('#directorist-search-select-js');
     }
     
-    if($('#directorist-select-st-s-js').length){
-        pureScriptSelect('#directorist-select-st-s-js');
-    }
-    if($('#directorist-select-st-e-js').length){
-        pureScriptSelect('#directorist-select-st-e-js');
-    }
-
-    if($('#directorist-select-sn-s-js').length){
-        pureScriptSelect('#directorist-select-sn-s-js');
-    }
-    if($('#directorist-select-mn-e-js').length){
-        pureScriptSelect('#directorist-select-sn-e-js');
-    }
-
-    if($('#directorist-select-mn-s-js').length){
-        pureScriptSelect('#directorist-select-mn-s-js');
-    }
-    if($('#directorist-select-mn-e-js').length){
-        pureScriptSelect('#directorist-select-mn-e-js');
-    }
-
-    if($('#directorist-select-tu-s-js').length){
-        pureScriptSelect('#directorist-select-tu-s-js');
-    }
-    if($('#directorist-select-tu-e-js').length){
-        pureScriptSelect('#directorist-select-tu-e-js');
-    }
-
-    if($('#directorist-select-wd-s-js').length){
-        pureScriptSelect('#directorist-select-wd-s-js');
-    }
-    if($('#directorist-select-wd-e-js').length){
-        pureScriptSelect('#directorist-select-wd-e-js');
-    }
-
-    if($('#directorist-select-th-s-js').length){
-        pureScriptSelect('#directorist-select-th-s-js');
-    }
-    if($('#directorist-select-th-e-js').length){
-        pureScriptSelect('#directorist-select-th-e-js');
-    }
-
-    if($('#directorist-select-fr-s-js').length){
-        pureScriptSelect('#directorist-select-fr-s-js');
-    }
+    
     window.addEventListener('load', (event) => {
+        if($('#directorist-select-st-s-js').length){
+            pureScriptSelect('#directorist-select-st-s-js');
+        }
+        if($('#directorist-select-st-e-js').length){
+            pureScriptSelect('#directorist-select-st-e-js');
+        }
+    
+        if($('#directorist-select-sn-s-js').length){
+            pureScriptSelect('#directorist-select-sn-s-js');
+        }
+        if($('#directorist-select-mn-e-js').length){
+            pureScriptSelect('#directorist-select-sn-e-js');
+        }
+    
+        if($('#directorist-select-mn-s-js').length){
+            pureScriptSelect('#directorist-select-mn-s-js');
+        }
+        if($('#directorist-select-mn-e-js').length){
+            pureScriptSelect('#directorist-select-mn-e-js');
+        }
+    
+        if($('#directorist-select-tu-s-js').length){
+            pureScriptSelect('#directorist-select-tu-s-js');
+        }
+        if($('#directorist-select-tu-e-js').length){
+            pureScriptSelect('#directorist-select-tu-e-js');
+        }
+    
+        if($('#directorist-select-wd-s-js').length){
+            pureScriptSelect('#directorist-select-wd-s-js');
+        }
+        if($('#directorist-select-wd-e-js').length){
+            pureScriptSelect('#directorist-select-wd-e-js');
+        }
+    
+        if($('#directorist-select-th-s-js').length){
+            pureScriptSelect('#directorist-select-th-s-js');
+        }
+        if($('#directorist-select-th-e-js').length){
+            pureScriptSelect('#directorist-select-th-e-js');
+        }
+    
+        if($('#directorist-select-fr-s-js').length){
+            pureScriptSelect('#directorist-select-fr-s-js');
+        }
         if($('#directorist-select-fr-e-js').length){
             pureScriptSelect('#directorist-select-fr-e-js');
         }

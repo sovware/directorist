@@ -3367,6 +3367,12 @@ p.atbd-min {
   background-color: #122069;
   border-color: #122069;
 }
+.directorist-checkbox.directorist-checkbox-success input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-success input[type=checkbox]:checked + .directorist-radio__label:after,
+.directorist-checkbox.directorist-checkbox-success input[type=radio]:checked + .directorist-checkbox__label:after,
+.directorist-checkbox.directorist-checkbox-success input[type=radio]:checked + .directorist-radio__label:after {
+  background-color: #00AC17;
+  border-color: #00AC17;
+}
 .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-radio__label:after {

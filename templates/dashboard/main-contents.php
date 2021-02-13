@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="atbd_tab-content">
+	
 	<?php
 	foreach ( $dashboard->dashboard_tabs() as $key => $value ) {
 
@@ -20,6 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	}
 
 	do_action( 'directorist_after_dashboard_contents', $dashboard );
-
 	?>
+
 </div>

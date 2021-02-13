@@ -806,7 +806,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   z-index: 100000;
 }
 
-.atbdp_preload * {
+#directorist.atbd_wrapper input[type=checkbox],
+input[type=radio] {
+  height: 25px;
+}
+
+.directorist-preload * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
@@ -2648,7 +2653,6 @@ input#privacy_policy,
   padding: 0 15px 15px;
   font-weight: 500 !important;
   color: #202428 !important;
-  border-bottom: 2px solid transparent !important;
   outline: 0;
 }
 

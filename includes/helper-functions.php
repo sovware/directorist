@@ -4173,3 +4173,9 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         return $submission_form_fields;
     }
 }
+
+if( !function_exists('directorist_legacy_mode') ){
+    function directorist_legacy_mode() {
+        return get_directorist_option( 'atbdp_legacy_template', false );
+    }
+}

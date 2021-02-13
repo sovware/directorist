@@ -306,7 +306,7 @@ class Directorist_Listing_Dashboard {
 		return $args;
 	}
 
-	public function get_dashboard_tabs() {
+	public function dashboard_tabs() {
 		// Tabs
 		$dashboard_tabs = array();
 
@@ -322,9 +322,8 @@ class Directorist_Listing_Dashboard {
 
 			$dashboard_tabs['my_listings'] = array(
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'            => URI_Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
+				'content'            => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
 				'icon'				 => 'la la-list',
-				'after_nav_hook'     => 'atbdp_tab_after_my_listings',
 				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
 			);
 		}
@@ -333,33 +332,32 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['profile'] = array(
 				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	   => 'la la-user',
-				'content'  => URI_Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
+				'content'  => Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
 			$dashboard_tabs['saved_items'] = array(
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'            => URI_Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
+				'content'            => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
 				'icon'				 => 'la la-heart-o',
-				'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
 				'after_content_hook' => 'atbdp_tab_content_after_favorite',
 			);
 		}
 
-		return apply_filters( 'atbdp_dashboard_tabs', $dashboard_tabs );
+		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
 	}
 
-	public function error_message_template() {
-		$login_link_html = apply_filters('atbdp_user_dashboard_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>");
-		$signup_link_html = apply_filters('atbdp_user_dashboard_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>");
+	public function restrict_access_template() {
 		$args = array(
-			'error_message' => sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), $login_link_html, $signup_link_html),
+			'dashboard'         => $this,
+			'login_link'        => ATBDP_Permalink::get_login_page_link(),
+			'registration_link' => ATBDP_Permalink::get_registration_page_link(),
 		);
-		return Helper::get_template_contents( 'dashboard/error-message', $args );
+		return Helper::get_template_contents( 'dashboard/restrict-access', $args );
 	}
 
-	public function alert_message_template() {
+	public function notice_template() {
 		if ( isset($_GET['renew'] ) ) {
 			$renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
 			$renew_succeed = $_GET['renew'] == 'success' ? true : false;
@@ -367,39 +365,50 @@ class Directorist_Listing_Dashboard {
 		else {
 			$renew_token_expired = $renew_succeed = false;
 		}
-		$confirmation_msg 		= '';
-		$new_listing_status 	= get_directorist_option('new_listing_status', 'pending' );
+
+		$args = array(
+			'dashboard' => $this,
+			'renew_token_expired' => $renew_token_expired,
+			'renew_succeed' => $renew_succeed,
+		);
+
+		Helper::get_template( 'dashboard/notice', $args );
+	}
+
+	public function confirmation_text() {
+		if( !isset( $_GET['notice'] ) ) {
+			return '';
+		}
+
 		$edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
 
-		if( isset( $_GET['notice'] ) ) {
-			$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
-		}
-
-		Helper::get_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed', 'confirmation_msg') );
+		return $confirmation_msg;
 	}
 
-	public function section_title( $display_title ) {
-		if ($display_title) {
-			Helper::get_template( 'dashboard/title' );
-		}
+	public function navigation_template() {
+		Helper::get_template( 'dashboard/navigation', [ 'dashboard' => $this ] );
 	}
 
-	public function nav_tabs_template() {
-		$args = array(
-			'dashboard_tabs' => $this->get_dashboard_tabs(),
-		);
-
-		Helper::get_template( 'dashboard/navigation-tabs', $args );
+	public function main_contents_template() {
+		Helper::get_template( 'dashboard/main-contents', [ 'dashboard' => $this ] );
 	}
 
 	public function nav_buttons_template() {
-		$args = array(
-			'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
-			'user_type'			 => $this->user_type
-		);
-		Helper::get_template( 'dashboard/nav-buttons', $args );
+		Helper::get_template( 'dashboard/nav-buttons', [ 'dashboard' => $this ] );
+	}
+
+	public function user_can_submit() {
+		$display_submit_btn = get_directorist_option( 'submit_listing_button', 1 );
+
+		if ( $display_submit_btn && 'general' != $this->user_type && 'become_author' != $this->user_type ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function listing_row_template() {
@@ -408,17 +417,6 @@ class Directorist_Listing_Dashboard {
 			'query'     => $this->current_listings_query,
 		);
 		Helper::get_template( 'dashboard/listing-row', $args );
-	}
-
-	public function tab_contents_html() {
-		$dashboard_tabs = $this->get_dashboard_tabs();
-
-		foreach ($dashboard_tabs as $key => $value) {
-			echo $value['content'];
-			if (!empty($value['after_content_hook'])) {
-				do_action($value['after_content_hook']);
-			}
-		}
 	}
 
 	public function display_title() {
@@ -432,7 +430,7 @@ class Directorist_Listing_Dashboard {
 		$this->enqueue_scripts();
 
 		if (!atbdp_logged_in_user()) {
-			return $this->error_message_template();
+			return $this->restrict_access_template();
 		}
 
 		ATBDP()->enquirer->front_end_enqueue_scripts(true);

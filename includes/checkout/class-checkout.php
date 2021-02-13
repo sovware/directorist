@@ -126,7 +126,7 @@ class ATBDP_Checkout
                 'after'         => $after, 
             );
             //displaying data for checkout
-            \Directorist\URI_Helper::get_template( 'payment/checkout', array( 'checkout' => $args ) );
+            \Directorist\Helper::get_template( 'payment/checkout', array( 'checkout' => $args ) );
         }
         return ob_get_clean();
     }
@@ -184,7 +184,7 @@ class ATBDP_Checkout
         $data['container_fluid']  = 'container-fluid';
         $data['order_id']         = (!empty($order_id)) ? $order_id : '';
 
-        \Directorist\URI_Helper::get_template( 'payment/payment-receipt', $data );
+        \Directorist\Helper::get_template( 'payment/payment-receipt', $data );
 
         return ob_get_clean();
     }

@@ -324,7 +324,6 @@ class Directorist_Listing_Dashboard {
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'            => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
 				'icon'				 => 'la la-list',
-				'after_nav_hook'     => 'atbdp_tab_after_my_listings',
 				'after_content_hook' => 'atbdp_after_loop_dashboard_listings',
 			);
 		}
@@ -342,7 +341,6 @@ class Directorist_Listing_Dashboard {
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'            => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
 				'icon'				 => 'la la-heart-o',
-				'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
 				'after_content_hook' => 'atbdp_tab_content_after_favorite',
 			);
 		}
@@ -390,23 +388,12 @@ class Directorist_Listing_Dashboard {
 		return $confirmation_msg;
 	}
 
-	public function nav_tabs_template() {
-		$args = array(
-			'dashboard_tabs' => $this->dashboard_tabs(),
-		);
-
-		Helper::get_template( 'dashboard/navigation-tabs', $args );
+	public function navigation_template() {
+		Helper::get_template( 'dashboard/navigation', [ 'dashboard' => $this ] );
 	}
 
-	public function tab_contents_html() {
-		$dashboard_tabs = $this->dashboard_tabs();
-
-		foreach ($dashboard_tabs as $key => $value) {
-			echo $value['content'];
-			if (!empty($value['after_content_hook'])) {
-				do_action($value['after_content_hook']);
-			}
-		}
+	public function main_contents_template() {
+		Helper::get_template( 'dashboard/main-contents', [ 'dashboard' => $this ] );
 	}
 
 	public function nav_buttons_template() {

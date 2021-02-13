@@ -16,7 +16,7 @@ use \Directorist\Helper;
     $dashboard->alert_message_template();
     ?>
 
-    <div class="<?php echo esc_attr( $container_fluid ); ?>">
+    <div class="container-fluid">
         <?php
         if ( $dashboard->display_title() ) {
             Helper::get_template( 'dashboard/title' );

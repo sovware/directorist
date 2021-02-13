@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbd_meta atbd_listing_rating"><?php echo $listing->get_rating_count();?><i class="<?php atbdp_icon_type( true ); ?>-star"></i></div>
+<div class="directorist-info-item directorist-rating-meta"><?php echo $listing->get_rating_count();?><i class="<?php atbdp_icon_type( true ); ?>-star"></i></div>

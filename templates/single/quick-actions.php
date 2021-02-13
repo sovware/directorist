@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbd_listing_action_area">
+<div class="directorist-single-listing-action directorist-flex directorist-align-center">
 	<?php
 	foreach ( $actions as $action ):
 		$listing->field_template( $action );

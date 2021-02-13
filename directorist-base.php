@@ -231,7 +231,7 @@ final class Directorist_Base
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
             self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
-            
+
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
             self::$instance->multi_directory_manager->run();
@@ -239,7 +239,7 @@ final class Directorist_Base
             self::$instance->settings_panel = new ATBDP_Settings_Panel;
             self::$instance->settings_panel->run();
 
-           
+
 
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
@@ -486,7 +486,7 @@ final class Directorist_Base
         else {
             load_dependencies('all', ATBDP_INC_DIR . 'model/');
         }
-        
+
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
         load_dependencies('all', ATBDP_INC_DIR . 'modules/');
         load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
@@ -1553,8 +1553,14 @@ final class Directorist_Base
 
     public function atbdp_body_class($c_classes)
     {
-        $c_classes[] = 'directorist-content-active';//class name goes here
-        $c_classes[] = 'directorist-preload';//class name goes here
+        if( directorist_legacy_mode() ){
+            $c_classes[] = 'atbd_content_active';//class name goes here
+            $c_classes[] = 'directorist-preload';//class name goes here
+        } else{
+            $c_classes[] = 'directorist-content-active';//class name goes here
+            $c_classes[] = 'directorist-preload';//class name goes here
+        }
+
         return $c_classes;
     }
 

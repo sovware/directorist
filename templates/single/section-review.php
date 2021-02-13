@@ -15,15 +15,15 @@ $review_placeholder = $listing->current_review() ? esc_html__( 'Update your revi
 $review_content = $listing->current_review() ? $listing->current_review()->content : '';
 ?>
 
-<div class="directorist-card <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<div class="directorist-single-listing-review <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="directorist-card atbd_review_module" id="atbd_reviews_block">
+	<div class="directorist-card" id="directorist-review-block">
 
-		<div class="directorist-card__header">
-			<h4><span class="<?php atbdp_icon_type( true ); ?>-star atbd_area_icon"></span><span id="reviewCounter"><?php echo esc_html( $listing->review_count() ); ?></span> <?php echo esc_html( $listing->review_count_text() );?></h4>
+		<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
+			<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star"></span><span id="directorist-review-counter"><?php echo esc_html( $listing->review_count() ); ?></span> <?php echo esc_html( $listing->review_count_text() );?></h4>
 
 			<?php if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
-				<label for="review_content" class="btn btn-primary btn-sm"><?php esc_html_e( 'Add a review', 'directorist' ); ?></label>
+				<label for="review_content" class="directorist-btn directorist-btn-primary directorist-btn-xs directorist-btn-add-review"><?php esc_html_e( 'Add a review', 'directorist' ); ?></label>
 			<?php endif; ?>
 		</div>
 
@@ -46,23 +46,23 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 					<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
 				</div>
 
-				<div class="directorist-card__body atbd_give_review_area">
-					<form action="#" id="atbdp_review_form" method="post">
+				<div class="directorist-card__body directorist-review-area">
+					<form action="#" id="directorist-review-form" method="post">
 
-						<div class="atbd_review_rating_area">
+						<div class="directorist-rating-review-block">
 
 							<?php if ($listing->current_review()): ?>
 
-								<div class="atbd_review_current_rating">
+								<div class="directorist-review-current-rating">
 
-									<p class="atbd_rating_label"><?php esc_html_e('Current Rating:', 'directorist'); ?></p>
+									<p class="directorist-review-current-rating__label"><?php esc_html_e('Current Rating:', 'directorist'); ?></p>
 
-									<div class="atbd_rated_stars">
+									<div class="directorist-review-current-rating__stars">
 										<ul>
 											<?php
 											$rating = $listing->current_review()->rating;
 											for ($i=1; $i<=5; $i++){
-												printf( '<li><span class="%s"></span></li>', $i <= $rating ? 'rate_active' : 'rate_disable' );
+												printf( '<li><span class="%s"></span></li>', $i <= $rating ? 'directorist-rate-active' : 'rate_disable' );
 											}
 											?>
 										</ul>
@@ -72,12 +72,12 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 							<?php endif; ?>
 
-							<div class="atbd_review_update_rating">
+							<div class="directorist-rating-given-block">
 
-								<p class="atbd_rating_label"><?php echo $listing->current_review() ? esc_html__('Update Rating:', 'directorist') : esc_html__('Your Rating:', 'directorist'); ?></p>
+								<p class="directorist-rating-given-block__label"><?php echo $listing->current_review() ? esc_html__('Update Rating:', 'directorist') : esc_html__('Your Rating:', 'directorist'); ?></p>
 
-								<div class="atbd_rating_stars">
-									<select class="stars" name="rating" id="review_rating">
+								<div class="directorist-rating-given-block__stars">
+									<select class="directorist-stars" name="rating" id="directorist-review-rating">
 										<option value="1"><?php esc_html_e( '1', 'directorist' ); ?></option>
 										<option value="2"><?php esc_html_e( '2', 'directorist' ); ?></option>
 										<option value="3"><?php esc_html_e( '3', 'directorist' ); ?></option>
@@ -90,46 +90,48 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 						</div>
 
-						<div class="form-group">
+						<div class="directorist-form-group">
 
-							<textarea name="content" id="review_content" class="form-control" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( $review_content ); ?></textarea>
+							<textarea name="content" id="review_content" class="directorist-form-element" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( $review_content ); ?></textarea>
 						</div>
 
 						<?php if ( $listing->guest_review_enabled() && !atbdp_logged_in_user() ): ?>
 
-							<div class="form-group">
+							<div class="directorist-form-group">
 
-								<label for="guest_user"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="atbdp_make_str_red">*</span></label>
+								<label for="guest_user"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
 
-								<input type="text" id="guest_user_email" name="guest_user_email" required class="form-control directory_field" placeholder="<?php echo esc_attr($listing->guest_email_placeholder()); ?>"/>
+								<input type="text" id="guest_user_email" name="guest_user_email" required class="directorist-form-element" placeholder="<?php echo esc_attr($listing->guest_email_placeholder()); ?>"/>
 
 							</div>
 
 						<?php endif; ?>
-
-						<?php if ($listing->current_review()): ?>
-
-							<button class="btn btn-primary" type="submit" id="atbdp_review_form_submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
-
-							<button class="btn btn-danger" type="button" id="atbdp_review_remove" data-review_id="<?php echo $listing->current_review()->id; ?>"><?php esc_html_e( 'Remove', 'directorist' ); ?></button>
 						
-						<?php else: ?>
+						<div class="directorist-review-form-action">
+							<?php if ($listing->current_review()): ?>
 
-							<button class="btn btn-primary" type="submit" id="atbdp_review_form_submit"><?php esc_html_e( 'Submit Review', 'directorist' ); ?></button>
+							<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
 
-						<?php endif; ?>
+							<button class="directorist-btn directorist-btn-danger directorist-btn-sm" type="button" id="directorist-review-remove" data-review_id="<?php echo $listing->current_review()->id; ?>"><?php esc_html_e( 'Remove', 'directorist' ); ?></button>
 
-						<?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
+							<?php else: ?>
 
-						<input type="hidden" name="post_id" value="<?php echo esc_attr( $listing->id ); ?>">
+							<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Submit Review', 'directorist' ); ?></button>
 
-						<input type="hidden" name="name" class="btn btn-default" value="<?php echo esc_attr( $listing->reviewer_name() ); ?>" id="reviewer_name">
+							<?php endif; ?>
 
-						<input type="hidden" name="name" id="reviewer_img" class="btn btn-default" value='<?php echo esc_attr( $listing->get_reviewer_img() ); ?>'>
+							<?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
 
-						<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
+							<input type="hidden" name="post_id" value="<?php echo esc_attr( $listing->id ); ?>">
 
-						<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo $listing->review_is_duplicate() ? 'yes' : '';?>">
+							<input type="hidden" name="name" class="btn btn-default" value="<?php echo esc_attr( $listing->reviewer_name() ); ?>" id="reviewer_name">
+
+							<input type="hidden" name="name" id="reviewer_img" class="btn btn-default" value='<?php echo esc_attr( $listing->get_reviewer_img() ); ?>'>
+
+							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
+
+							<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo $listing->review_is_duplicate() ? 'yes' : '';?>">
+						</div>
 
 					</form>
 				</div>
@@ -139,11 +141,11 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 		<?php endif; ?>
 
 	<?php else: ?>
-
-		<div class="atbd_notice atbd-alert atbd-alert-info">
-			<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
-
-			<?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?>
+		<div class="directorist-alert directorist-alert-info">
+			<div class="directorist-alert__content">
+				<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
+				<p><?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?></p>
+			</div>
 		</div>
 
 	<?php endif; ?>

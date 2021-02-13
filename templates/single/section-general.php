@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 
 	<div class="directorist-card__body">
-		<div class="directorist-contact-info-wrap">
+		<div class="directorist-details-info-wrap">
 			<?php
 			foreach ( $section_data['fields'] as $field ){
 				$listing->field_template( $field );

@@ -1,5 +1,5 @@
 // Directorist Single Info
-.directorist-contact-info-wrap{
+.directorist-details-info-wrap{
     .directorist-single-info {
         display: flex;
         align-items: center;
@@ -29,5 +29,21 @@
             width: 100%;
             color: #7a82a6;
         }
+    }
+}
+
+// Directorist Owner Contact form
+.directorist-contact-owner-form-inner{
+    .directorist-form-group{
+        margin-bottom: 1rem;
+    }
+    .directorist-form-element{
+        border-color: #dbdaf7;
+    }
+    .directorist-btn-submit{
+        border-radius: 3px;
+        padding: 0 15px;
+        text-decoration: none;
+        text-transform: capitalize;
     }
 }

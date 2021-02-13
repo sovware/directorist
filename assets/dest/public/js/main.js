@@ -1146,6 +1146,7 @@ __webpack_require__.r(__webpack_exports__);
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
+    console.log("yes");
     var data_target = $(this).attr("data-directorist_target");
     $('.' + data_target).toggleClass('directorist-show');
   });
@@ -1740,8 +1741,9 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   //Star rating
-  if ($('.stars').length) {
-    $(".stars").barrating({
+  if ($('.directorist-stars').length) {
+    console.log("yes");
+    $(".directorist-stars").barrating({
       theme: 'fontawesome-stars'
     });
   }

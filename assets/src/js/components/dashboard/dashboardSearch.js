@@ -9,7 +9,7 @@
         var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
         var search = $(this).find('input[name=searchtext]').val();
         directorist_dashboard_listing_ajax($activeTab,1,search);
-        $('#my_listings').data('search',search);
+        $('#directorist-dashboard-mylistings-js').data('search',search);
         return false;
     });
 

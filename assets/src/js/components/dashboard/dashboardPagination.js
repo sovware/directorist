@@ -8,7 +8,7 @@
         paged = paged.split('/page/')[1];
         paged = parseInt(paged);
 
-        var search = $('#my_listings').data('search');
+        var search = $('#directorist-dashboard-mylistings-js').data('search');
 
         $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
         directorist_dashboard_listing_ajax($activeTab,paged,search);

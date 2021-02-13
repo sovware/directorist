@@ -43,7 +43,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 			<div class="directorist-card">
 
 				<div class="directorist-card__header">
-					<h4><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
+					<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
 				</div>
 
 				<div class="directorist-card__body atbd_give_review_area">

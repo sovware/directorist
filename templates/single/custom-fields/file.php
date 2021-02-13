@@ -13,6 +13,6 @@ $filename = end( $name_arr );
 ?>
 
 <div class="directorist-single-info directorist-single-info-fax">
-	<div class="directorist-single-info-label"><?php directorist_icon( $icon );?><?php echo esc_html( $data['label'] ); ?></div>
-	<div class="directorist-single-info-value"><?php printf('<a href="%s" target="_blank" download>%s</a>', esc_url( $done ), $filename ); ?></div>
+	<div class="directorist-single-info__label"><span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span class="directorist-single-info__label--text"><span><?php echo esc_html( $data['label'] ); ?></span></div>
+	<div class="directorist-single-info__value"><?php printf('<a href="%s" target="_blank" download>%s</a>', esc_url( $done ), $filename ); ?></div>
 </div>

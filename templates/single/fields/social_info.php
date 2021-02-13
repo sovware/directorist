@@ -17,7 +17,7 @@ if ( empty( $socials ) ) {
 <div class="directorist-single-info directorist-single-info-socials">
 
 	<?php if ( $data['label'] ): ?>
-		<div class="directorist-single-info-label"><?php directorist_icon( $icon );?><?php echo esc_html( $data['label'] ); ?></div>
+		<div class="directorist-single-info__label"><span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span class="directorist-single-info__label--text"><span><?php echo esc_html( $data['label'] ); ?></span></div>
 	<?php endif; ?>
 
 	<div class="atbd_director_social_wrap">

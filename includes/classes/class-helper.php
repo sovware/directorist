@@ -650,6 +650,21 @@ if (!class_exists('ATBDP_Helper')) :
 
                 return ob_get_clean();
             }
+
+            if ('user_type' === $type) {
+                ob_start(); ?>
+                <section class="directory_wrapper single_area">
+                    <div class="notice_wrapper">
+                        <div class="atbd-alert atbd-alert-warning">
+                            <span class="fa fa-info-circle" aria-hidden="true"></span>
+                            <?php _e( 'You need to be an author to add a listing.', 'directorist' ); ?>
+                        </div>
+                    </div>
+                </section>
+            <?php
+
+                return ob_get_clean();
+            }
             return '';
         }
 

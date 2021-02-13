@@ -11,6 +11,17 @@
             margin: 0;
         }
     }
+    .directorist-card__body{
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.5rem 0 0 0;
+            li{
+                flex: 33.333%;
+                margin: 0.5rem 0 0 0;
+            }
+        }
+    }
 }
 
 // Single Listing Actions

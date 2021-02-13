@@ -4486,6 +4486,23 @@ p.atbd-min {
   color: #202428;
   margin: 0;
 }
+.directorist-single-wrapper .directorist-card__body ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -0.5rem 0 0 0;
+}
+.directorist-single-wrapper .directorist-card__body ul li {
+  -webkit-box-flex: 33.333%;
+  -webkit-flex: 33.333%;
+      -ms-flex: 33.333%;
+          flex: 33.333%;
+  margin: 0.5rem 0 0 0;
+}
 
 .directorist-single-listing-action {
   margin: -3px;

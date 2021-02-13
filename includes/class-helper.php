@@ -17,6 +17,23 @@ class Helper {
 		return $legacy;
 	}
 
+	public static function listing_price( $id='' ) {
+		if ( !$id ) {
+			$id = get_the_ID();
+		}
+
+		if ( !self::has_price_range( $id ) && !self::has_price( $id ) ) {
+			return;
+		}
+
+		if ( 'range' == Helper::pricing_type( $id ) ) {
+			self::price_range_template( $id );
+		}
+		else {
+			self::price_template( $id );
+		}
+	}
+
 	public static function pricing_type( $listing_id ) {
 		$pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
 		return $pricing_type;

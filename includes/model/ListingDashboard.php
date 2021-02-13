@@ -218,13 +218,12 @@ class Directorist_Listing_Dashboard {
 		return "<img src='$image_src' alt='$image_alt' />";
 	}
 
-	public function get_favourite_tab_args() {
-
+	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = ATBDP()->user->current_user_fav_listings();
+		$fav_listings = ATBDP()->user->current_user_fav_listings(); //@cache @kowsar
 
-		if ( $fav_listings->have_posts() ):
+		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {
 				$title         = ! empty( $post->post_title ) ? $post->post_title : __( 'Untitled', 'directorist' );
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
@@ -264,7 +263,7 @@ class Directorist_Listing_Dashboard {
 
 				$fav_listing_items[] = array(
 					'obj'           => $post,
-					'post_link'     => $post_link,
+					'permalink'     => $post_link,
 					'img_src'       => $img_src,
 					'title'         => $title,
 					'category_link' => $category_link,
@@ -273,14 +272,9 @@ class Directorist_Listing_Dashboard {
 					'mark_fav_html' => $mark_fav_html,
 				);
 			}
-		endif;
+		}
 
-		$args = array(
-			'fav_listings'      => $fav_listings,
-			'fav_listing_items' => $fav_listing_items,
-		);
-
-		return $args;
+		return $fav_listing_items;
 	}
 
 	public function get_profile_tab_args() {
@@ -322,7 +316,7 @@ class Directorist_Listing_Dashboard {
 
 			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'   => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
+				'content'   => Helper::get_template_contents('dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
 				'icon'	    => atbdp_icon_type() . '-list',
 			);
 		}
@@ -331,14 +325,14 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	    => atbdp_icon_type() . '-user',
-				'content'   => Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
+				'content'   => Helper::get_template_contents('dashboard/tab-profile', $this->get_profile_tab_args() ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'   => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
+				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
 				'icon'		=> atbdp_icon_type() . '-heart-o',
 			);
 		}
@@ -441,10 +435,10 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'field'				=>  '<i class="la la-trash"></i>',
-			'label'				=>  __('Delete Listing', 'directorist')
+			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
+			'label'				=>  __( 'Delete Listing', 'directorist' )
 		 );
 
-		return apply_filters( 'atbdp_dashboard_listing_action_item', $dropdown_items );
+		return apply_filters( 'directorist_dashboard_listing_action_items', $dropdown_items, $this );
 	}
 }

@@ -32,6 +32,26 @@ document.body.addEventListener('click', function (e) {
   }
 });
 
+//custom select
+const atbdSelect = document.querySelectorAll('.atbd-drop-select');
+if (atbdSelect !== null) {
+  atbdSelect.forEach(function (el) {
+      el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (item) {
+          item.addEventListener('click', function (e) {
+              e.preventDefault();
+              el.querySelector('.directorist-dropdown-select-toggle').textContent = e.target.textContent;
+              el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elm) {
+                  elm.classList.remove('atbd-active');
+              });
+              item.classList.add('atbd-active');
+          });
+      });
+  });
+}
+
+
+
+
 ;(function ($) {
     // Dropdown
     $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function(e){

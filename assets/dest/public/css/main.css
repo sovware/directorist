@@ -4668,6 +4668,15 @@ p.atbd-min {
 .directorist-advanced-filter__basic--element .directorist-form-group .directorist-filter-location-icon {
   margin-top: 1px;
 }
+.directorist-advanced-filter__basic--element .directorist-search-tags {
+  margin: 2.5px -5px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-advanced-filter__basic--element .directorist-search-tags .directorist-checkbox {
+  margin: 5px;
+}
 
 .directorist-advanced-filter__advanced--element {
   border-bottom: 1px solid #eff1f6;

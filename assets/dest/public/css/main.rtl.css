@@ -6106,6 +6106,7 @@ p.atbd-min {
 }
 .directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap {
   padding: 10px 15px;
+  min-width: 220px;
 }
 .directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-btn-ml {
   font-size: 14px;

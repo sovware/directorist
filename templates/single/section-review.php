@@ -20,15 +20,17 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 	<div class="directorist-card" id="directorist-review-block">
 
 		<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
+
 			<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star"></span><span id="directorist-review-counter"><?php echo esc_html( $listing->review_count() ); ?></span> <?php echo esc_html( $listing->review_count_text() );?></h4>
 
 			<?php if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
 				<label for="review_content" class="directorist-btn directorist-btn-primary directorist-btn-xs directorist-btn-add-review"><?php esc_html_e( 'Add a review', 'directorist' ); ?></label>
 			<?php endif; ?>
+
 		</div>
 
 		<div class="directorist-card__body">
-			<input type="hidden" id="review_post_id" data-post-id="<?php echo esc_attr($listing->id); ?>">
+			<input type="hidden" id="review_post_id" data-post-id="<?php echo esc_attr( $listing->id ); ?>">
 			<div id="directorist-client-review-list"></div>
 			<div id="clint_review"></div>
 		</div>
@@ -108,15 +110,16 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 						<?php endif; ?>
 						
 						<div class="directorist-review-form-action">
+							
 							<?php if ($listing->current_review()): ?>
 
-							<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
+								<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
 
-							<button class="directorist-btn directorist-btn-danger directorist-btn-sm" type="button" id="directorist-review-remove" data-review_id="<?php echo $listing->current_review()->id; ?>"><?php esc_html_e( 'Remove', 'directorist' ); ?></button>
+								<button class="directorist-btn directorist-btn-danger directorist-btn-sm" type="button" id="directorist-review-remove" data-review_id="<?php echo $listing->current_review()->id; ?>"><?php esc_html_e( 'Remove', 'directorist' ); ?></button>
 
 							<?php else: ?>
 
-							<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Submit Review', 'directorist' ); ?></button>
+								<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Submit Review', 'directorist' ); ?></button>
 
 							<?php endif; ?>
 
@@ -141,6 +144,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 		<?php endif; ?>
 
 	<?php else: ?>
+
 		<div class="directorist-alert directorist-alert-info">
 			<div class="directorist-alert__content">
 				<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>

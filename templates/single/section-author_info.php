@@ -31,7 +31,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 				<div class="directorist-single-author-avatar-inner">
 					<?php if ( $author_img ): ?>
-						<img src="<?php echo esc_url( $author_img ); ?>" alt="<?php esc_attr_e('Avatar Image', 'directorist');?>">
+						<img src="<?php echo esc_url( $author_img ); ?>" alt="<?php esc_attr_e( 'Avatar', 'directorist' );?>">
 					<?php else: ?>
 						<?php echo $avatar_img; ?>
 					<?php endif; ?>
@@ -39,7 +39,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 				<div class="directorist-single-author-name">
 					<h4><?php echo esc_html( $listing->author_info( 'name' ) ); ?></h4>
-					<span class="directorist-single-author-membership"><?php printf( esc_html__('Member since %s ago', 'directorist'), $listing->author_info( 'member_since' ) ); ?></span>
+					<span class="directorist-single-author-membership"><?php printf( esc_html__( 'Member since %s ago', 'directorist' ), $listing->author_info( 'member_since' ) ); ?></span>
 				</div>
 
 			</div>
@@ -101,6 +101,7 @@ $avatar_img = get_avatar($author_id, 32);
 			<?php endif; ?>
 
 			<a class="directorist-btn directorist-btn-primary directorist-btn-sm diretorist-view-profile-btn" href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author_id ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
+			
 		</div>
 	</div>
 

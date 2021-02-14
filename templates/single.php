@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 get_header( 'directorist' );
 ?>
 
-<div class="<?php Helper::directorist_container(); ?>">
+<div class="directorist-single <?php Helper::directorist_container(); ?>">
 	<?php Helper::get_template( 'single-contents' ); ?>
 </div>
 

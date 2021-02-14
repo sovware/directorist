@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<form action="atbdp_public_send_contact_email" class="directorist-contact-owner-form" data-form-id="atbdp_stcode_contact_email">
 			<div class="directorist-contact-owner-form-inner">
+
 				<div class="directorist-form-group">
 					<input type="text" class="directorist-form-element" name="atbdp-contact-name" placeholder="<?php esc_attr_e( 'Name', 'directorist' ); ?>" required />
 				</div>
@@ -26,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				</div>
 
 				<div class="directorist-form-group">
-					<textarea class="directorist-form-element" name="atbdp-contact-message" rows="3" placeholder="<?php esc_attr_e('Message', 'directorist'); ?>..." required></textarea>
+					<textarea class="directorist-form-element" name="atbdp-contact-message" rows="3" placeholder="<?php esc_attr_e( 'Message...', 'directorist' ); ?>" required></textarea>
 				</div>
 
 				<input type="hidden" name="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>" />
@@ -35,6 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<p class="directorist-contact-message-display"></p> 
 
 				<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm directorist-btn-submit"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
+
 			</div>
 		</form>
 

@@ -1954,7 +1954,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'single_listing_template' => [
                     'label' => __('Template', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'current_theme_template',
+                    'value' => 'theme_template_page',
                     'show-if' => [
                         'where' => "disable_single_listing",
                         'conditions' => [
@@ -1963,12 +1963,16 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'options' => [
                         [
+                            'value' => 'theme_template_page',
+                            'label' => __('Theme Template (Page)', 'directorist'),
+                        ],
+                        [
                             'value' => 'current_theme_template',
-                            'label' => __('Current Theme Template (used for posts)', 'directorist'),
+                            'label' => __('Theme Template (Post)', 'directorist'),
                         ],
                         [
                             'value' => 'directorist_template',
-                            'label' => __('Directorist Custom Template', 'directorist'),
+                            'label' => __('Directorist Template', 'directorist'),
                         ],
                     ],
                 ],

@@ -1210,6 +1210,15 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  var profileMediaUploader = null;
+
+  if ($("#user_profile_pic").length) {
+    profileMediaUploader = new EzMediaUploader({
+      containerID: "user_profile_pic"
+    });
+    profileMediaUploader.init();
+  }
+
   var is_processing = false;
   $('#user_profile_form').on('submit', function (e) {
     // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.

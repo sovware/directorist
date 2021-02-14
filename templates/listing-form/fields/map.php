@@ -5,7 +5,7 @@
  * @version 6.7
  */
 
-$p_id = $form->add_listing_id;
+$p_id = $listing_form->add_listing_id;
 $address =  get_post_meta( $p_id, '_address', true );
 $select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 $manual_lat        = get_post_meta( $p_id, '_manual_lat', true );

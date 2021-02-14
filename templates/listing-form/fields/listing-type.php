@@ -1,13 +1,20 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
-if( is_admin() ) return;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if( is_admin() ) {
+    return;
+}
+
+$listing_type = !empty($listing_info['listing_type']) ? $listing_info['listing_type'] : '';
 ?>
+
 <div class="atbd_listing_type">
-    <?php $listing_type = !empty($listing_info['listing_type']) ? $listing_info['listing_type'] : ''; ?>
 
     <h4 class="atbdp_option_title"><?php _e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="atbdp_make_str_red"> *</span></h4>
     <div class="atbdp_input_group --atbdp_inline">
@@ -21,7 +28,7 @@ if( is_admin() ) return;
         <label for="featured" class="featured_listing_type_select">
             <?php echo esc_attr( $data['featured_label'] ); ?>
             <small class="atbdp_make_str_green"><?php
-            echo esc_attr( $form->featured_listing_description() ) ;?>
+            echo esc_attr( $listing_form->featured_listing_description() ) ;?>
             </small>
         </label>
     </div>

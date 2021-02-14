@@ -1,19 +1,21 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="form-group" id="directorist-file-upload-field">
-	<?php $form->add_listing_label_template( $data );?>
+	<?php $listing_form->field_label_template( $data );?>
 
 	<?php
 /**
  * Directorist file uploader
  */
-$post_id = $form->get_add_listing_id();
+$post_id = $listing_form->get_add_listing_id();
 wp_enqueue_style( 'atbdp-pluploadcss' );
 wp_enqueue_script( 'atbdp-plupload-min' );
 wp_enqueue_script( 'atbdp-plupload' );
@@ -151,5 +153,5 @@ $multiple           = false;
 </div>
 
 
-	<?php $form->add_listing_description_template( $data ); ?>
+	<?php $listing_form->field_description_template( $data ); ?>
 </div>

@@ -1,26 +1,21 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+$listing_form->load_color_picker_script( $data );
 ?>
 
 <div class="form-group directorist-color-field">
-	<?php
-	$form->add_listing_label_template( $data );
-	
-	if( !empty( $data['value'] ) ) {
-		?>
-		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
-		<?php
-	}
-	else {
-		?>
-		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker().empty(); }); </script>
-	<?php } ?>
-	
-	<input type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="color_code2 <?php echo esc_attr( $data['field_key'] ); ?>" class="my-color-field" value="<?php echo esc_attr( $data['value'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> >
 
-	<?php $form->add_listing_description_template( $data );?>
+	<?php $listing_form->field_label_template( $data ); ?>
+	
+	<input type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="color_code2 <?php echo esc_attr( $data['field_key'] ); ?>" class="my-color-field" value="<?php echo esc_attr( $data['value'] ); ?>" <?php $listing_form->required( $data ); ?>>
+
+	<?php $listing_form->field_description_template( $data );?>
+
 </div>

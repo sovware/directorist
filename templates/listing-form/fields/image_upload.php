@@ -5,9 +5,9 @@
  * @version 6.7
  */
 
-$p_id                = $form->get_add_listing_id();
+$p_id                = $listing_form->get_add_listing_id();
 $fm_plan             = get_post_meta( $p_id, '_fm_plans', true );
-$type                = $form->get_current_listing_type();
+$type                = $listing_form->get_current_listing_type();
 
 $plan_image          = $data['max_image_limit'];
 $max_file_size       = $data['max_per_image_limit'];

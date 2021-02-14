@@ -33,7 +33,7 @@ class ATBDP_Shortcode {
 			// Forms
 			'directorist_add_listing'         => [ $this, 'add_listing' ],
 			'directorist_custom_registration' => [ $this, 'user_registration' ],
-			'directorist_user_login'          => [ $this, 'custom_user_login' ],
+			'directorist_user_login'          => [ $this, 'user_login' ],
 			
 			// Checkout
 			'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
@@ -139,13 +139,13 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_registration( $atts ) {
-		$forms = Directorist_Listing_Forms::instance();
-		return $forms->render_shortcode_custom_registration( $atts );
+		$account = Directorist_Account::instance();
+		return $account->render_shortcode_registration( $atts );
 	}
 
-	public function custom_user_login() {
-		$forms = Directorist_Listing_Forms::instance();
-		return $forms->render_shortcode_user_login();
+	public function user_login() {
+		$account = Directorist_Account::instance();
+		return $account->render_shortcode_login();
 	}
 
 }

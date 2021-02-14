@@ -28,6 +28,7 @@ import './components/login';
 import './components/tab';
 import './components/atbdDropdown';
 import './components/atbdSelect';
+import './components/releated-listings-slider';
 
 // Dashboard Js
 import './components/dashboard/dashboardImageUploader';

@@ -10,6 +10,11 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        span.la,
+        span.fa,
+        i{
+            margin-right: 6px;
+        }
         p{
             margin-bottom: 0;
         }

@@ -15,12 +15,12 @@
         // Send the data
         $.post(atbdp_public_data.ajaxurl, data, function (response) {
             // If successful Append the data into our html container
-            $('#client_review_list').empty().append(response);
+            $('#directorist-client-review-list').empty().append(response);
         });
     }
 
     // Load page 1 as the default
-    if ($('#client_review_list').length) {
+    if ($('#directorist-client-review-list').length) {
         atbdp_load_all_posts(1);
     }
 

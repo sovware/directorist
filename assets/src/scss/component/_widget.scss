@@ -1,0 +1,21 @@
+// Widget Style
+.directorist-widget{
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid #e3e6ef;
+    margin-bottom: 30px;
+    .directorist-widget__header{
+        padding: 15px 30px;
+        border-bottom: 1px solid #e3e6ef;
+        .directorist-widget__header--title{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 0;
+            font-size: 18px;
+        }
+    }
+    .directorist-weidget__body{
+        padding: 20px 30px;
+    }
+}

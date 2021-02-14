@@ -29,7 +29,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 		<div class="directorist-card__body">
 			<input type="hidden" id="review_post_id" data-post-id="<?php echo esc_attr($listing->id); ?>">
-			<div id="client_review_list"></div>
+			<div id="directorist-client-review-list"></div>
 			<div id="clint_review"></div>
 		</div>
 

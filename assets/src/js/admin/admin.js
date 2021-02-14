@@ -9,6 +9,7 @@ import './../components/admin/block-2';
 import './../components/admin/block-3';
 import './../components/admin/block-4';
 import './../components/admin/block-5';
+import './../components/admin/admin-user';
 
 // subscriptionManagement
 import './../components/admin/subscriptionManagement';

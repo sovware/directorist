@@ -139,13 +139,14 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
-            $announcement_tab = get_directorist_option( 'announcement_tab', 'directorist' );
+            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
+            $announcement_tab_text  = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
             if( empty( $announcement_tab ) ) return;
-            $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count'></span>";
+            $nav_label = $announcement_tab_text . " <span class='atbdp-nav-badge new-announcement-count'></span>";
             $new_announcements = $this->get_new_announcement_count();
 
             if ( $new_announcements > 0 ) {
-                $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
+                $nav_label = $announcement_tab_text . " <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
             }
 
             ob_start(); ?>

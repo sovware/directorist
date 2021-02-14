@@ -133,6 +133,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
 
 							<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo $listing->review_is_duplicate() ? 'yes' : '';?>">
+							
 						</div>
 
 					</form>

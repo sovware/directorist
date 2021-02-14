@@ -264,7 +264,7 @@ class ATBDP_Metabox {
 		}
 		// var_dump( $metas );die;
 		$metas['_expiry_date']  = $exp_dt;
-		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
+		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
 		// save the meta data to the database
 
 		foreach ($metas as $meta_key => $meta_value) {

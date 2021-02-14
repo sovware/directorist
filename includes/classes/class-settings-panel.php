@@ -2505,6 +2505,22 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'announcement_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Announcements Listings Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'announcement_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Announcement" Tab Label', 'directorist'),
+                    'value'         => __('Announcements', 'directorist'),
+                    'show-if' => [
+                        'where' => "fav_listings_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 'submit_listing_button' => [
                     'type'  => 'toggle',
                     'label' => __('Display Submit Listing Button', 'directorist'),

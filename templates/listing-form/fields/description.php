@@ -1,18 +1,23 @@
 <?php
 /**
- * @author  AazzTech
- * @since   6.7
+ * @author  wpWax
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+$max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 ?>
 
 <div class="form-group directorist-description-field">
+
 	<?php
 	$listing_form->field_label_template( $data );
 	
 	if ( 'textarea' === $data['type'] ) {
 		?>
-		<textarea <?php echo !empty( $data['max'] ) ? 'max="'. $data['max'] .'"' : ''; ?> name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $data['value'] ); ?></textarea>
+		<textarea <?php echo $max; ?> name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php $listing_form->required( $data ); ?>><?php echo esc_attr( $data['value'] ); ?></textarea>
 		<?php
 	}
 	else {
@@ -32,5 +37,7 @@
 	
 	$listing_form->field_description_template( $data );
 	?>
+
 	<div id="directorist_listing_description_indicator"></div>
+
 </div>

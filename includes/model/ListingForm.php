@@ -51,6 +51,23 @@ class Directorist_Listing_Form {
 		return $this->add_listing_post;
 	}
 
+	public function load_color_picker_script( $data ) {
+		if( !empty( $data['value'] ) ) {
+			?>
+			<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
+			<?php
+		}
+		else {
+			?>
+			<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker().empty(); }); </script>
+			<?php
+		}
+	}
+
+	public function required( $data ) {
+		echo ! empty( $data['required'] ) ? 'required="required"' : '';
+	}
+
 	public function get_custom_fields_query() {
 		$p_id    = $this->get_add_listing_id();
 		$fm_plan = get_post_meta( $p_id, '_fm_plans', true );

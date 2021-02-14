@@ -24,6 +24,7 @@ $listing = Directorist_Single_Listing::instance();
 			<?php Helper::get_template( 'single/top-actions' ); ?>
 
 			<div class="directorist-single-wrapper">
+
 				<?php
 				$listing->header_template();
 
@@ -31,6 +32,7 @@ $listing = Directorist_Single_Listing::instance();
 					$listing->section_template( $section );
 				}
 				?>
+				
 			</div>
 
 		</div>

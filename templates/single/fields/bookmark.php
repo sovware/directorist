@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div href="#" class="directorist-sl-action directorist-action-save directorist-tooltip" aria-label="<?php esc_html_e('Favorite', 'directorist'); ?>" id="atbdp-favourites"><?php echo the_atbdp_favourites_link(); ?></div>
+<div href="#" class="directorist-single-listing-action directorist-action-save directorist-tooltip" aria-label="<?php esc_html_e('Favorite', 'directorist'); ?>" id="atbdp-favourites"><?php echo the_atbdp_favourites_link(); ?></div>

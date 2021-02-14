@@ -76,4 +76,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php $searchform->top_categories_template(); ?>
 
 	</div>
+	
 </div>

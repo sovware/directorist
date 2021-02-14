@@ -5567,7 +5567,7 @@ p.atbd-min {
 .directorist-single-listing-action {
   margin: -3px;
 }
-.directorist-single-listing-action .directorist-sl-action {
+.directorist-single-listing-action .directorist-single-listing-action {
   border: 1px solid #ECECEC;
   height: 36px;
   width: 36px;
@@ -5588,12 +5588,12 @@ p.atbd-min {
   border-radius: 4px;
   margin: 3px;
 }
-.directorist-single-listing-action .directorist-sl-action span.la,
-.directorist-single-listing-action .directorist-sl-action span.fa,
-.directorist-single-listing-action .directorist-sl-action i {
+.directorist-single-listing-action .directorist-single-listing-action span.la,
+.directorist-single-listing-action .directorist-single-listing-action span.fa,
+.directorist-single-listing-action .directorist-single-listing-action i {
   font-size: 17px;
 }
-.directorist-single-listing-action .directorist-sl-action.directorist-tooltip[aria-label]:after {
+.directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[aria-label]:after {
   line-height: 1.75;
 }
 .directorist-single-listing-action .directorist-social-share:hover .directorist-social-links {

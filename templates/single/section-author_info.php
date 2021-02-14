@@ -20,7 +20,9 @@ $avatar_img = get_avatar($author_id, 32);
 <div class="directorist-card directorist-card-author-info <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
 	<div class="directorist-card__header">
+
 		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
+	
 	</div>
 
 	<div class="directorist-card__body">
@@ -45,8 +47,8 @@ $avatar_img = get_avatar($author_id, 32);
 			</div>
 
 			<div class="directorist-single-author-contact-info">
-				<ul>
 
+				<ul>
 					<?php if ( $address = $listing->author_info( 'address' ) ): ?>
 						<li>
 							<span class="<?php atbdp_icon_type( true );?>-map-marker"></span>
@@ -75,8 +77,8 @@ $avatar_img = get_avatar($author_id, 32);
 							<a href="<?php echo esc_url( $website ); ?>" class="directorist-single-author-contact-info-text"><?php echo esc_url( $website ); ?></a>
 						</li>
 					<?php endif; ?>
-
 				</ul>
+
 			</div>
 
 			<?php if ( $listing->author_has_socials() ): ?>

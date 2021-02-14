@@ -2150,6 +2150,35 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   border-color: #EF0000;
 }
 
+.directorist-widget {
+  padding: 0;
+  background-color: #ffffff;
+  border: 1px solid #e3e6ef;
+  margin-bottom: 30px;
+}
+.directorist-widget .directorist-widget__header {
+  padding: 15px 30px;
+  border-bottom: 1px solid #e3e6ef;
+}
+.directorist-widget .directorist-widget__header .directorist-widget__header--title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+  font-size: 18px;
+}
+.directorist-widget .directorist-weidget__body {
+  padding: 20px 30px;
+}
+
 /* Directorist button styles */
 .directorist-btn {
   display: inline-block;
@@ -2878,6 +2907,11 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.directorist-alert .directorist-alert__content span.la,
+.directorist-alert .directorist-alert__content span.fa,
+.directorist-alert .directorist-alert__content i {
+  margin-right: 6px;
 }
 .directorist-alert .directorist-alert__content p {
   margin-bottom: 0;
@@ -4565,6 +4599,22 @@ p.atbd-min {
   text-align: center;
 }
 
+.directorist-rated-stars ul li {
+  display: inline-block;
+}
+.directorist-rated-stars ul li span {
+  color: #d4d3f3;
+}
+.directorist-rated-stars ul li span:before {
+  content: "";
+  font-size: 14px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+.directorist-rated-stars ul li span.directorist-rate-active {
+  color: #fa8b0c;
+}
+
 .directorist-signle-listing-top {
   margin-bottom: 15px;
 }
@@ -4573,7 +4623,7 @@ p.atbd-min {
   margin-bottom: 35px;
 }
 .directorist-single-wrapper .directorist-card__header .directorist-card__header--title {
-  font-size: 30px;
+  font-size: 18px;
   font-weight: 500;
   color: #202428;
   margin: 0;
@@ -4696,6 +4746,16 @@ p.atbd-min {
   border: 0 none;
 }
 
+.directorist-related-listing-header h1,
+.directorist-related-listing-header h2,
+.directorist-related-listing-header h3,
+.directorist-related-listing-header h4,
+.directorist-related-listing-header h5,
+.directorist-related-listing-header h6 {
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
 .directorist-single-author-info .diretorist-view-profile-btn {
   margin-top: 22px;
   padding: 0 14px;
@@ -4770,6 +4830,27 @@ p.atbd-min {
 .directorist-single-author-contact-info ul li .directorist-single-author-contact-info-text {
   margin-left: 12px;
   color: #767792;
+}
+
+.directorist-single-author-info .directorist-social-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 25px -5px -5px;
+}
+.directorist-single-author-info .directorist-social-wrap a {
+  margin: 5px;
+  display: block;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  background-color: #444752 !important;
+  border-radius: 4px;
+  color: #ffffff !important;
+  overflow: hidden;
+  -webkit-transition: all ease-in-out 300ms !important;
+  transition: all ease-in-out 300ms !important;
 }
 
 .directorist-details-info-wrap .directorist-single-info {
@@ -4903,6 +4984,58 @@ p.atbd-min {
 }
 .directorist-review-current-rating .directorist-review-current-rating__stars ul li span.directorist-rate-active {
   color: #fa8b0c;
+}
+
+.directorist-signle-review {
+  padding-bottom: 26px;
+  padding-top: 30px;
+  border-bottom: 1px solid #e3e6ef;
+}
+.directorist-signle-review:first-child {
+  padding-top: 0;
+}
+.directorist-signle-review:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.directorist-signle-review .directorist-signle-review__top {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 22px;
+}
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar {
+  margin-right: 12px;
+}
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar img {
+  max-width: 50px;
+  border-radius: 50%;
+}
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar__info p {
+  font-size: 16px;
+  color: #202428;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar__info .directorist-signle-review-time {
+  font-size: 13px;
+  margin-left: 0;
 }
 
 .directorist-search-top {

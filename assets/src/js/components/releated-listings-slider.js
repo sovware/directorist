@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
     var rtl = !data.is_rtl ? false : true;
-    $('.related__carousel').slick({
+    $('.directorist-related-carousel').slick({
         dots: false,
         arrows: false,
         infinite: true,

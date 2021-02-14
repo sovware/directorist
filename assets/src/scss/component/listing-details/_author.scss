@@ -61,3 +61,23 @@
         }
     }
 }
+
+// Directorist Author Social
+.directorist-single-author-info{
+    .directorist-social-wrap{
+        display: flex;
+        margin: 25px -5px -5px;
+        a{
+            margin: 5px;
+            display: block;
+            line-height: 35px;
+            width: 35px;
+            text-align: center;
+            background-color: #444752 !important;
+            border-radius: 4px;
+            color: #ffffff !important;
+            overflow: hidden;
+            transition: all ease-in-out 300ms !important;
+        }
+    }
+}

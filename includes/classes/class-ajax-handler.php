@@ -669,11 +669,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
 
                         // Set the desired output into a variable
-                        $msg .= '<div class="atbd_single_review atbdp_static" id="single_review_' . $review->id . '">';
-                        $msg .= '<div class="atbd_review_top">';
-                        $msg .= '<div class="atbd_avatar_wrapper">';
+                        $msg .= '<div class="directorist-signle-review" id="directorist-single-review-' . $review->id . '">';
+                        $msg .= '<div class="directorist-signle-review__top">';
+                        $msg .= '<div class="directorist-signle-review-avatar-wrap">';
                         if (!empty($enable_reviewer_img)) {
-                            $msg .= '<div class="atbd_review_avatar">';
+                            $msg .= '<div class="directorist-signle-review-avatar">';
                             if (empty($u_pro_pic)) {
                                 $msg .= $avatar_img;
                             }
@@ -682,27 +682,29 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                             }
                             $msg .= '</div>';
                         }
-                        $msg .= '<div class="atbd_name_time">';
+                        $msg .= '<div class="directorist-signle-review-avatar__info">';
                         $msg .= '<p>' . esc_html($review->name) . '</p>';
-                        $msg .= '<span class="review_time">' .
+                        $msg .= '<span class="directorist-signle-review-time">' .
                             sprintf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))) . '</span>';
                         $msg .= '</div>';
                         $msg .= '</div>';
-                        $msg .= '<div class="atbd_rated_stars">';
+                        $msg .= '<div class="directorist-rated-stars">';
                         $msg .= ATBDP()->review->print_static_rating($review->rating);
                         $msg .= '</div>';
                         $msg .= '</div>';
                         if( !empty( $enable_reviewer_content ) ) {
-                        $msg .= '<div class="review_content">';
+                        $msg .= '<div class="directorist-signle-review__content">';
                         $msg .= '<p>' . stripslashes(esc_html($review->content)) . '</p>';
                         $msg .= '</div>';
                         }
                         $msg .= '</div>';
                     endforeach;
                 } else {
-                    $msg .= ' <div class="notice atbd-alert atbd-alert-info" id="review_notice">
-                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
-                        __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
+                    $msg .= ' <div class="directorist-alert directorist-alert-info" id="review_notice">
+                                <div class="directorist-alert__content">
+                                    <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
+                                    __('No reviews found. Be the first to post a review !', 'directorist') . '</div>
+                                </div>';
                 }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";

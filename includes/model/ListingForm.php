@@ -24,7 +24,6 @@ class Directorist_Listing_Form {
 		if ( $id ) {
 			$this->add_listing_id = $id;
 			$this->add_listing_post = get_post( $id );
-
 		}
 		else {
 			add_action( 'wp', array( $this, 'init' ) );

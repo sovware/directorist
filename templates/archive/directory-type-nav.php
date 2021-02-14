@@ -11,8 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="<?php Helper::directorist_container_fluid(); ?>">
+
 	<div class="directorist-type-nav">
 		<ul class="directorist-type-nav__list">
+
 			<?php foreach ( $listings->listing_types as $id => $value ): ?>
 
 				<li class="<?php echo $listings->current_listing_type == $value['term']->term_id ? 'current': ''; ?>">
@@ -20,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				</li>
 				
 			<?php endforeach; ?>
+			
 		</ul>
 	</div>
+
 </div>

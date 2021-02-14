@@ -39,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
 
 		<?php endif; ?>
+		
 	</div>
 
 </div>

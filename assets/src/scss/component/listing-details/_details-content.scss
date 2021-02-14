@@ -57,13 +57,13 @@
     }
     .directorist-social-share{
         &:hover{
-            .directorist-social-links{
+            .directorist-social-share-links{
                 opacity: 1;
                 visibility: visible;
                 top: calc(100% + 10px);
             }
         }
-        .directorist-social-links{
+        .directorist-social-share-links{
             position: absolute;
             transition: all 0.2s ease-in-out;
             z-index: 2;

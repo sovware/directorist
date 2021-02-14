@@ -35,7 +35,7 @@ class Directorist_Account {
 			return ob_get_clean();
 		}
 
-		return Helper::get_template_contents( 'forms/login' );
+		return Helper::get_template_contents( 'account/login' );
 	}
 
 	public function render_shortcode_registration( $atts ) {
@@ -80,7 +80,7 @@ class Directorist_Account {
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
 
-			return Helper::get_template_contents( 'forms/registration', $args );
+			return Helper::get_template_contents( 'account/registration', $args );
 		}
 		else {
 			$error_message = sprintf( __( 'Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

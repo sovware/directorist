@@ -40,6 +40,13 @@ class Directorist_Single_Listing {
 		$this->prepare_data();
 	}
 
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
 	public function prepare_data() {
 		$id = $this->id;
 

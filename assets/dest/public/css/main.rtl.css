@@ -159,13 +159,11 @@ a {
 
 .directorist-content-active a {
   text-decoration: none;
-  color: #767792;
 }
 .directorist-content-active p {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: right;
 }
 
 /* Directorist custom grid */
@@ -4697,6 +4695,9 @@ p.atbd-min {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   margin: -5px;
 }
 .directorist-price-ranges__item {
@@ -6182,7 +6183,7 @@ p.atbd-min {
 .directorist-listing-category-top ul li a p {
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .ads-advanced .bottom-inputs {

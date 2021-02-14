@@ -1,0 +1,122 @@
+// Directorist Rating
+.directorist-rating-review-block{
+    display: inline-block;
+    border: 1px solid #e3e6ef;
+    padding: 10px 20px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+.directorist-review-area{
+    .directorist-review-form-action{
+        margin-top: 10px;
+    }
+}
+.directorist-rating-given-block{
+    .directorist-rating-given-block__label,
+    .directorist-rating-given-block__stars{
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    .directorist-rating-given-block__label{
+        margin-right: 10px;
+        margin: 0 10px 0 0;
+    }
+    .directorist-rating-given-block__stars{
+        .br-widget a{
+            &:before{
+                content: "\f005";
+                font-size: 14px;
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                color: #d4d3f3;
+            }
+            &.br-selected,
+            &.br-active{
+                &:before{
+                    color: #fa8b0c;
+                }
+            }
+        }
+        .br-current-rating{
+            display: inline-block;
+            margin-left: 20px;
+        }
+    }
+}
+
+// Directorist Current Rating
+.directorist-review-current-rating{
+    margin-bottom: 16px;
+    .directorist-review-current-rating__label{
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+    .directorist-review-current-rating__label,
+    .directorist-review-current-rating__stars{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .directorist-review-current-rating__stars{
+        ul{
+            li{
+                display: inline-block;
+                span{
+                    color: #d4d3f3;
+                    &:before{
+                        content: "\f005";
+                        font-size: 14px;
+                        font-family: 'Font Awesome 5 Free';
+                        font-weight: 900;
+                    }
+                    &.directorist-rate-active{
+                        color: #fa8b0c;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Client Review
+.directorist-signle-review{
+    padding-bottom: 26px;
+    padding-top: 30px;
+    border-bottom: 1px solid #e3e6ef;
+    &:first-child{
+        padding-top: 0;
+    }
+    &:last-child{
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+    .directorist-signle-review__top{
+        display: flex;
+        justify-content: space-between;
+        .directorist-signle-review-avatar-wrap{
+            display: flex;
+            align-items: center;
+            margin-bottom: 22px;
+            .directorist-signle-review-avatar{
+                margin-right: 12px;
+                img{
+                    max-width: 50px;
+                    border-radius: 50%;
+                }
+            }
+            .directorist-signle-review-avatar__info{
+                p{
+                    font-size: 16px;
+                    color: $dark;
+                    text-transform: capitalize;
+                    font-weight: 500;
+                    margin-bottom: 2px;
+                }
+                .directorist-signle-review-time{
+                    font-size: 13px;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

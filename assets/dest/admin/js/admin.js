@@ -108,12 +108,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_4__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../components/admin/block-5 */ "./assets/src/js/components/admin/block-5.js");
 /* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
+/* harmony import */ var _components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../components/admin/admin-user */ "./assets/src/js/components/admin/admin-user.js");
+/* harmony import */ var _components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
  // PureScript Select
 
  // Blocks
+
 
 
 
@@ -124,6 +127,63 @@ __webpack_require__.r(__webpack_exports__);
  // Modal Components
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/components/admin/admin-user.js":
+/*!******************************************************!*\
+  !*** ./assets/src/js/components/admin/admin-user.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// user type change on user dashboard
+(function ($) {
+  $('#atbdp-user-type-approve').on('click', function (event) {
+    event.preventDefault();
+    var userId = $(this).attr('data-userId');
+    var nonce = $(this).attr('data-nonce');
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_user_type_approved',
+        _nonce: nonce,
+        userId: userId
+      },
+      success: function success(response) {
+        if (response.user_type) {
+          $('#user-type-' + userId).html(response.user_type);
+        }
+      },
+      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      }
+    });
+    return false;
+  });
+  $('#atbdp-user-type-deny').on('click', function (event) {
+    event.preventDefault();
+    var userId = $(this).attr('data-userId');
+    var nonce = $(this).attr('data-nonce');
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_user_type_deny',
+        _nonce: nonce,
+        userId: userId
+      },
+      success: function success(response) {
+        if (response.user_type) {
+          $('#user-type-' + userId).html(response.user_type);
+        }
+      },
+      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      }
+    });
+    return false;
+  });
+})(jQuery);
 
 /***/ }),
 
@@ -2123,6 +2183,56 @@ $('.file-install-btn').on('click', function (e) {
       $(self).html(btn_default_html);
     }
   });
+}); // Plugin Active Button
+
+$('.plugin-active-btn').on('click', function (e) {
+  e.preventDefault();
+
+  if ($(this).hasClass('in-progress')) {
+    console.log('Wait...');
+    return;
+  }
+
+  var data_key = $(this).data('key');
+  var form_data = {
+    action: 'atbdp_activate_plugin',
+    item_key: data_key
+  };
+  var btn_default_html = $(this).html();
+  var self = this;
+  $(this).prop('disabled', true);
+  $(this).addClass('in-progress');
+  jQuery.ajax({
+    type: 'post',
+    url: atbdp_admin_data.ajaxurl,
+    data: form_data,
+    beforeSend: function beforeSend() {
+      $(self).html('Activating');
+      var icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
+      $(self).prepend(icon);
+    },
+    success: function success(response) {
+      console.log(response); // return;
+
+      if (response.status && !response.status.success && response.status.message) {
+        alert(response.status.message);
+      }
+
+      if (response.status && response.status.success) {
+        $(self).html('Activated');
+      } else {
+        $(self).html('Failed');
+      }
+
+      location.reload();
+    },
+    error: function error(_error5) {
+      console.log(_error5);
+      $(this).prop('disabled', false);
+      $(this).removeClass('in-progress');
+      $(self).html(btn_default_html);
+    }
+  });
 }); // Purchase refresh btn
 
 $('.purchase-refresh-btn').on('click', function (e) {
@@ -2198,8 +2308,8 @@ $('#purchase-refresh-form').on('submit', function (e) {
         location.reload();
       }
     },
-    error: function error(_error5) {
-      console.log(_error5);
+    error: function error(_error6) {
+      console.log(_error6);
       $(submit_btn).prop('disabled', false);
       $(submit_btn).html(btn_default_html);
       $(close_btn).removeClass('atbdp-d-none');
@@ -2226,8 +2336,8 @@ $('.subscriptions-logout-btn').on('click', function (e) {
       // console.log( response );
       location.reload();
     },
-    error: function error(_error6) {
-      console.log(_error6);
+    error: function error(_error7) {
+      console.log(_error7);
       $(this).prop('disabled', false);
       $(this).removeClass('in-progress');
       $(self).html(btn_default_html);
@@ -2278,8 +2388,8 @@ $('#atbdp-my-extensions-form').on('submit', function (e) {
       $(self).find('button[type="submit"] .atbdp-icon').remove();
       location.reload();
     },
-    error: function error(_error7) {
-      console.log(_error7);
+    error: function error(_error8) {
+      console.log(_error8);
       uninstalling = false;
     }
   }); // console.log( task, plugins_items );
@@ -2296,12 +2406,13 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
   var self = this;
   var task = $(this).find('select[name="bulk-actions"]').val();
   var plugins_items = [];
-  $(self).find('.extension-name-checkbox').each(function (i, e) {
+  var tergeted_items_elm = '.extension-name-checkbox';
+  $(self).find(tergeted_items_elm).each(function (i, e) {
     var is_checked = $(e).is(':checked');
-    var id = $(e).attr('id');
+    var key = $(e).attr('name');
 
     if (is_checked) {
-      plugins_items.push(id);
+      plugins_items.push(key);
     }
   });
 
@@ -2310,13 +2421,86 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
   } // Before Install
 
 
-  $(this).find('.file-install-btn').addClass('in-progress');
-  $(this).find('.file-install-btn').prop('disabled', true);
+  $(this).find('.file-install-btn').prop('disabled', true).addClass('in-progress');
   var loading_icon = '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
-  $(this).find('button[type="submit"]').prop('disabled', true);
-  $(this).find('button[type="submit"]').prepend(loading_icon);
+  $(this).find('button[type="submit"]').prop('disabled', true).prepend(loading_icon);
+  is_bulk_processing = true;
 
-  var install_plugins = function install_plugins(plugins, counter, callback) {
+  var after_bulk_process = function after_bulk_process() {
+    is_bulk_processing = false;
+    $(self).find('button[type="submit"]').find('.atbdp-icon').remove();
+    $(self).find('button[type="submit"]').prop('disabled', false);
+    location.reload();
+  };
+
+  plugins_bulk_actions('install', plugins_items, after_bulk_process);
+}); // Bulk Actions - Required extensions form
+
+var is_bulk_processing = false;
+$('#atbdp-required-extensions-form').on('submit', function (e) {
+  e.preventDefault();
+
+  if (is_bulk_processing) {
+    return;
+  }
+
+  var self = this;
+  var task = $(this).find('select[name="bulk-actions"]').val();
+  var plugins_items = [];
+  var tergeted_items_elm = 'install' === task ? '.extension-install-checkbox' : '.extension-activate-checkbox';
+  $(self).find(tergeted_items_elm).each(function (i, e) {
+    var is_checked = $(e).is(':checked');
+    var key = $(e).attr('value');
+
+    if (is_checked) {
+      plugins_items.push(key);
+    }
+  });
+
+  if (!task.length || !plugins_items.length) {
+    return;
+  } // Before Install
+
+
+  $(this).find('.file-install-btn').prop('disabled', true).addClass('in-progress');
+  $(this).find('.plugin-active-btn').prop('disabled', true).addClass('in-progress');
+  var loading_icon = '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
+  $(this).find('button[type="submit"]').prop('disabled', true).prepend(loading_icon);
+  is_bulk_processing = true;
+
+  var after_bulk_process = function after_bulk_process() {
+    is_bulk_processing = false;
+    $(self).find('button[type="submit"]').find('.atbdp-icon').remove();
+    $(self).find('button[type="submit"]').prop('disabled', false);
+    location.reload();
+  };
+
+  var available_task_list = ['install', 'activate'];
+
+  if (available_task_list.includes(task)) {
+    plugins_bulk_actions(task, plugins_items, after_bulk_process);
+  }
+}); // plugins_bulk__actions
+
+function plugins_bulk_actions(task, plugins_items, after_plugins_install) {
+  var action = {
+    install: 'atbdp_install_file_from_subscriptions',
+    activate: 'atbdp_activate_plugin'
+  };
+  var btnLabelOnProgress = {
+    install: 'Installing',
+    activate: 'Activating'
+  };
+  var btnLabelOnSuccess = {
+    install: 'Installed',
+    activate: 'Activated'
+  };
+  var processStartBtn = {
+    install: '.file-install-btn',
+    activate: '.plugin-active-btn'
+  };
+
+  var bulk_task = function bulk_task(plugins, counter, callback) {
     if (counter > plugins.length - 1) {
       if (callback) {
         callback();
@@ -2326,15 +2510,13 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
     }
 
     var current_item = plugins[counter];
-    var action_wrapper = $(".ext-action-".concat(current_item));
-    var install_btn = action_wrapper.find('.file-install-btn');
-    var next_index = counter + 1; // console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
-
-    console.log({
-      current_item: current_item
-    });
+    var action_wrapper_key = 'install' === task ? plugins[counter] : plugins[counter].replace(/\/.+$/g, '');
+    var action_wrapper = $(".ext-action-".concat(action_wrapper_key));
+    var action_btn = action_wrapper.find(processStartBtn[task]);
+    var next_index = counter + 1;
+    var form_action = action[task] ? action[task] : '';
     form_data = {
-      action: 'atbdp_install_file_from_subscriptions',
+      action: form_action,
       item_key: current_item,
       type: 'plugin'
     };
@@ -2343,36 +2525,30 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
       url: atbdp_admin_data.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
-        install_btn.html('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Installing');
+        action_btn.html("<span class=\"atbdp-icon\">\n                        <span class=\"fas fa-circle-notch fa-spin\"></span>\n                    </span> ".concat(btnLabelOnProgress[task]));
       },
       success: function success(response) {
-        console.log(response);
+        console.log({
+          response: response
+        });
 
         if (response.status.success) {
-          install_btn.html('Installed');
+          action_btn.html(btnLabelOnSuccess[task]);
         } else {
-          install_btn.html('Failed');
+          action_btn.html('Failed');
         }
 
-        install_plugins(plugins, next_index, callback);
+        bulk_task(plugins, next_index, callback);
       },
-      error: function error(_error8) {
-        console.log(_error8);
+      error: function error(_error9) {
+        console.log(_error9);
       }
     });
   };
 
-  var after_plugins_install = function after_plugins_install() {
-    console.log('Done');
-    is_bulk_processing = false;
-    $(self).find('button[type="submit"]').find('.atbdp-icon').remove();
-    $(self).find('button[type="submit"]').prop('disabled', false);
-    location.reload();
-  };
+  bulk_task(plugins_items, 0, after_plugins_install);
+} // Ext Actions | Uninstall
 
-  is_bulk_processing = true;
-  install_plugins(plugins_items, 0, after_plugins_install);
-}); // Ext Actions | Uninstall
 
 var uninstalling = false;
 $('.ext-action-uninstall').on('click', function (e) {
@@ -2402,8 +2578,8 @@ $('.ext-action-uninstall').on('click', function (e) {
       $(self).closest('.ext-action').find('.ext-action-drop').removeClass('active');
       location.reload();
     },
-    error: function error(_error9) {
-      console.log(_error9);
+    error: function error(_error10) {
+      console.log(_error10);
       uninstalling = false;
     }
   });
@@ -2425,6 +2601,15 @@ $('#atbdp-my-subscribed-extensions-form').find('input[name="select-all"]').on('c
     $('#atbdp-my-subscribed-extensions-form').find('.extension-name-checkbox').prop('checked', true);
   } else {
     $('#atbdp-my-subscribed-extensions-form').find('.extension-name-checkbox').prop('checked', false);
+  }
+});
+$('#atbdp-required-extensions-form').find('input[name="select-all"]').on('change', function (e) {
+  var is_checked = $(this).is(':checked');
+
+  if (is_checked) {
+    $('#atbdp-required-extensions-form').find('.extension-name-checkbox').prop('checked', true);
+  } else {
+    $('#atbdp-required-extensions-form').find('.extension-name-checkbox').prop('checked', false);
   }
 }); //
 
@@ -2482,9 +2667,9 @@ $('.theme-activate-btn').on('click', function (e) {
         location.reload();
       }
     },
-    error: function error(_error10) {
+    error: function error(_error11) {
       console.log({
-        error: _error10
+        error: _error11
       });
       theme_is_activating = false;
       $(self).find('.atbdp-icon').remove();
@@ -2534,9 +2719,9 @@ $('.theme-update-btn').on('click', function (e) {
         alert(response.status.message);
       }
     },
-    error: function error(_error11) {
+    error: function error(_error12) {
       console.log({
-        error: _error11
+        error: _error12
       });
       $(self).removeClass('in-progress');
       $(self).html(button_default_html);
@@ -2583,6 +2768,7 @@ __webpack_require__.r(__webpack_exports__);
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
+    console.log("yes");
     var data_target = $(this).attr("data-directorist_target");
     $('.' + data_target).toggleClass('directorist-show');
   });

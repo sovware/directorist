@@ -1,5 +1,5 @@
 // Directorist Single Info
-.directorist-contact-info-wrap{
+.directorist-details-info-wrap{
     .directorist-single-info {
         display: flex;
         align-items: center;
@@ -7,8 +7,11 @@
             margin-bottom: 10px;
         }
         .directorist-single-info__label{
-            flex: 0 0 25%;
+            display: flex;
+            align-items: center;
+            flex: 0 0 30%;
             color: #7a82a6;
+            margin-right: 15px;
             .directorist-single-info__label-icon{
                 display: inline-flex;
                 align-items: center;
@@ -29,5 +32,27 @@
             width: 100%;
             color: #7a82a6;
         }
+        .directorist-social-links{
+            a{
+                text-decoration: none;
+                color: $body-color;
+            }
+        }
+    }
+}
+
+// Directorist Owner Contact form
+.directorist-contact-owner-form-inner{
+    .directorist-form-group{
+        margin-bottom: 1rem;
+    }
+    .directorist-form-element{
+        border-color: #dbdaf7;
+    }
+    .directorist-btn-submit{
+        border-radius: 3px;
+        padding: 0 15px;
+        text-decoration: none;
+        text-transform: capitalize;
     }
 }

@@ -1954,7 +1954,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'single_listing_template' => [
                     'label' => __('Template', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'current_theme_template',
+                    'value' => 'theme_template_page',
                     'show-if' => [
                         'where' => "disable_single_listing",
                         'conditions' => [
@@ -1963,12 +1963,16 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'options' => [
                         [
+                            'value' => 'theme_template_page',
+                            'label' => __('Theme Template (Page)', 'directorist'),
+                        ],
+                        [
                             'value' => 'current_theme_template',
-                            'label' => __('Current Theme Template (used for posts)', 'directorist'),
+                            'label' => __('Theme Template (Post)', 'directorist'),
                         ],
                         [
                             'value' => 'directorist_template',
-                            'label' => __('Directorist Custom Template', 'directorist'),
+                            'label' => __('Directorist Template', 'directorist'),
                         ],
                     ],
                 ],
@@ -2500,6 +2504,22 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value'         => __('Favorite Listings', 'directorist'),
                     'show-if' => [
                         'where' => "fav_listings_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'announcement_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Announcements Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'announcement_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Announcement" Tab Label', 'directorist'),
+                    'value'         => __('Announcements', 'directorist'),
+                    'show-if' => [
+                        'where' => "announcement_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4667,7 +4687,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'submit_listing_button'
+                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'announcement_tab', 'announcement_tab_text', 'submit_listing_button'
                                     ],
                                 ],
                             ] ),

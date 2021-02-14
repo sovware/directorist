@@ -33,7 +33,7 @@ class ATBDP_Shortcode {
 			// Forms
 			'directorist_add_listing'         => [ $this, 'add_listing' ],
 			'directorist_custom_registration' => [ $this, 'user_registration' ],
-			'directorist_user_login'          => [ $this, 'custom_user_login' ],
+			'directorist_user_login'          => [ $this, 'user_login' ],
 			
 			// Checkout
 			'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
@@ -41,17 +41,17 @@ class ATBDP_Shortcode {
 			'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 
 			// Single -- in legacy mode
-			'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
-			'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
-			'directorist_listing_tags'                => [ $this, 'empty_string' ],
-			'directorist_listing_custom_fields'       => [ $this, 'empty_string' ],
-			'directorist_listing_video'               => [ $this, 'empty_string' ],
-			'directorist_listing_map'                 => [ $this, 'empty_string' ],
-			'directorist_listing_contact_information' => [ $this, 'empty_string' ],
-			'directorist_listing_author_info'         => [ $this, 'empty_string' ],
-			'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
-			'directorist_listing_review'              => [ $this, 'empty_string' ],
-			'directorist_related_listings'            => [ $this, 'empty_string' ],
+			// 'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
+			// 'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
+			// 'directorist_listing_tags'                => [ $this, 'empty_string' ],
+			// 'directorist_listing_custom_fields'       => [ $this, 'empty_string' ],
+			// 'directorist_listing_video'               => [ $this, 'empty_string' ],
+			// 'directorist_listing_map'                 => [ $this, 'empty_string' ],
+			// 'directorist_listing_contact_information' => [ $this, 'empty_string' ],
+			// 'directorist_listing_author_info'         => [ $this, 'empty_string' ],
+			// 'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
+			// 'directorist_listing_review'              => [ $this, 'empty_string' ],
+			// 'directorist_related_listings'            => [ $this, 'empty_string' ],
 
 		]);
 
@@ -134,18 +134,18 @@ class ATBDP_Shortcode {
 		$url = $_SERVER['REQUEST_URI'];
 		$pattern = "/edit\/(\d+)/i";
 		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
-		$forms = Directorist_Listing_Forms::instance($id);
+		$forms = Directorist_Listing_Form::instance($id);
 		return $forms->render_shortcode_add_listing($atts);
 	}
 
 	public function user_registration( $atts ) {
-		$forms = Directorist_Listing_Forms::instance();
-		return $forms->render_shortcode_custom_registration( $atts );
+		$account = Directorist_Account::instance();
+		return $account->render_shortcode_registration( $atts );
 	}
 
-	public function custom_user_login() {
-		$forms = Directorist_Listing_Forms::instance();
-		return $forms->render_shortcode_user_login();
+	public function user_login() {
+		$account = Directorist_Account::instance();
+		return $account->render_shortcode_login();
 	}
 
 }

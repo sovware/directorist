@@ -1410,9 +1410,6 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-sm-12 {
   padding: 0 15px;
 }
-.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-3 {
-  width: 30%;
-}
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-6 {
   width: 50%;
 }
@@ -1430,7 +1427,7 @@ span.atbdp-tick-cross {
   cursor: pointer;
 }
 .postbox-container .postbox .form-group .btn.btn-primary {
-  background: #0A0B1E;
+  background: #444752;
   border: 0 none;
   color: #fff;
 }
@@ -4933,7 +4930,7 @@ input.atbdp-form-control {
 }
 
 .directorist-btn.directorist-btn-primary {
-  background-color: #0A0B1E;
+  background-color: #444752;
   color: #fff;
 }
 .directorist-btn.directorist-btn-dark {
@@ -4977,7 +4974,7 @@ input.atbdp-form-control {
 }
 .directorist-btn.directorist-btn-outline-primary {
   background-color: transparent;
-  border: 1px solid #0A0B1E !important;
+  border: 1px solid #444752 !important;
 }
 .directorist-btn.directorist-btn-outline-secondary {
   background-color: transparent;
@@ -5320,8 +5317,8 @@ input.atbdp-form-control {
 .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #0A0B1E;
-  border-color: #0A0B1E;
+  background-color: #444752;
+  border-color: #444752;
 }
 .directorist-checkbox.directorist-checkbox-secondary input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-secondary input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-secondary input[type=radio]:checked + .directorist-checkbox__label:after,
@@ -5344,10 +5341,10 @@ input.atbdp-form-control {
 
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #fff;
-  border-color: #0A0B1E !important;
+  border-color: #444752 !important;
 }
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:before {
-  background-color: #0A0B1E !important;
+  background-color: #444752 !important;
 }
 .directorist-radio.directorist-radio-secondary input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #fff;
@@ -5443,7 +5440,7 @@ input.atbdp-form-control {
 }
 
 .directorist-switch.directorist-switch-primary .directorist-switch-input:checked + .directorist-switch-label:before {
-  background-color: #0A0B1E;
+  background-color: #444752;
 }
 .directorist-switch.directorist-switch-success .directorist-switch-input:checked + .directorist-switch-label:before {
   background-color: #00AC17;

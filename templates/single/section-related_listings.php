@@ -18,30 +18,24 @@ if ( !$related->have_posts() ) {
 $listing->load_related_listings_script();
 ?>
 
-<div class="related <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<div class="directorist-related <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="atbdp-related-listing-header">
+	<div class="directorist-related-listing-header">
+
 		<h4><?php echo esc_html( $label );?></h4>
+		
 	</div>
 
 
-	<div class="related__carousel">
+	<div class="directorist-related-carousel directorist-row">
 
-		<div class="directorist-archive-grid-view">
-			<div class="<?php Helper::directorist_container_fluid(); ?>">
-				<div class="<?php Helper::directorist_row(); ?>">
+		<?php foreach ( $related->post_ids() as $listing_id ): ?>
 
-					<?php foreach ( $related->post_ids() as $listing_id ): ?>
-
-						<div class="<?php Helper::directorist_column( $related->columns ); ?>">
-							<?php $related->loop_template( 'grid', $listing_id ); ?>
-						</div>
-
-					<?php endforeach; ?>
-
-				</div>
+			<div class="<?php Helper::directorist_column( $related->columns ); ?>">
+				<?php $related->loop_template( 'grid', $listing_id ); ?>
 			</div>
-		</div>
+
+		<?php endforeach; ?>
 
 	</div>
 

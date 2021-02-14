@@ -347,7 +347,7 @@ class Directorist_Listing_Dashboard {
 		$my_profile_tab   = get_directorist_option( 'my_profile_tab', 1 );
 		$fav_listings_tab = get_directorist_option( 'fav_listings_tab', 1 );
 
-		if ( $my_listing_tab && 'general' != $this->user_type ) {
+		if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
 
 			$listings   = $this->listings_query();

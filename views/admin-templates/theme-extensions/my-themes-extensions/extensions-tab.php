@@ -171,12 +171,12 @@
         </div><!-- ends: .ext-available -->
     <?php endif; ?>
 
-    <?php if (!empty($args['recommanded_extensions'])) : ?>
+    <?php if (!empty($args['required_extensions_list'])) : ?>
         <div class="ext-available">
-            <h4><?php _e('Required Extensions (' . count( array_keys( $args['recommanded_extensions'] ) ) .')', 'directorist')  ?></h4>
+            <h4><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
-                    <form id="atbdp-my-recommanded-extensions-form" class="atbdp-my-recommanded-extensions-form" method="post">
+                    <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
                         <table>
                             <thead>
                                 <tr>
@@ -189,9 +189,10 @@
                                                 </div>
                                             </div>
                                             <div class="ei-action-dropdown">
-                                                <select id="rc-bulk-actions" name="bulk-actions">
+                                                <select name="bulk-actions">
                                                     <option value="">Bulk Action</option>
-                                                    <option value="activate">Install</option>
+                                                    <option value="install">Install</option>
+                                                    <option value="activate">Activate</option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="ei-action-btn">Apply</button>
@@ -200,13 +201,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($args['recommanded_extensions'] as $extension_base => $extension) : ?>
+                                <?php foreach ($args['required_extensions_list'] as $extension_base => $extension) : ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
+                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                    <?php if ( $extension[ 'installed' ] ) : ?>
+                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
+                                                    <?php elseif ( $extension[ 'purchased' ] ) : ?>
+                                                        <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
+                                                    <?php endif; ?>
+                                                    <label for="<?php echo 'required_' . $extension_base; ?>">
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
                                                             if (!empty($args['extension_list'][$extension_base])) {
@@ -231,7 +236,7 @@
                                         <td>
                                             <div class="ext-action ext-action-<?php echo $extension_base; ?>">
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
-                                                <a href="#" class="file-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
+                                                <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo "{$extension_base}/{$extension_base}.php" ?>">
                                                     <?php _e('Active', 'directorist') ?>
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>

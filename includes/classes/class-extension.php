@@ -21,17 +21,16 @@ if ( ! class_exists('ATBDP_Extensions') ) {
      */
     class ATBDP_Extensions
     {
-        public $extensions                = [];
-        public $themes                    = [];
-        public $extension_recommandations = [];
+        public $extensions          = [];
+        public $themes              = [];
+        public $required_extensions = [];
 
         public function __construct()
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
+            add_action( 'init', array( $this, 'initial_setup') );
+            // add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
             add_action( 'init', array( $this, 'get_the_product_list') );
-            add_action( 'init', array( $this, 'get_extension_recommandations') );
-            add_filter( 'directorist_extension_recommandations', array( $this, 'add_demo_extension_recommandations'), 20, 1 );
-            // add_action( 'init', array( $this, 'get_recommand_extensions_list') );
             
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
@@ -39,6 +38,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_install_file_from_subscriptions', array($this, 'handle_file_install_request_from_subscriptions') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
+            add_action( 'wp_ajax_atbdp_activate_plugin', array($this, 'activate_plugin') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'handle_plugins_update_request') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
             add_action( 'wp_ajax_atbdp_refresh_purchase_status', array($this, 'handle_refresh_purchase_status_request') );
@@ -47,23 +47,29 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
 
-        public function get_extension_recommandations() {
-            $this->extension_recommandations = apply_filters( 'directorist_extension_recommandations', [] );
+        // initial_setup
+        public function initial_setup() {
+
+            // Apply hook to required extensions
+            $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
+
         }
 
-        // add_demo_extension_recommandations
-        public function add_demo_extension_recommandations( array $extension_recommandations = [] ) {
-            $extension_recommandations[] = [
+        // add_demo_required_extensions
+        public function add_demo_required_extensions( array $required_extensions = [] ) {
+            $required_extensions[] = [
                 'extensions' => [ 
                     'directorist-coupon',
                     'directorist-rank-featured-listings',
                     'directorist-post-your-need',
                     'compare-listings',
+                    'directorist-image-gallery',
+                    'directorist-listings-with-map',
                 ],
                 'ref' => 'direo',
             ];
 
-            $extension_recommandations[] = [
+            $required_extensions[] = [
                 'extensions' => [ 
                     'directorist-coupon',
                     'directorist-rank-featured-listings',
@@ -72,41 +78,40 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'ref' => 'dlist',
             ];
 
-            return $extension_recommandations;
+            return $required_extensions;
         }
 
-        // get_recommand_extensions_list
-        public function get_recommand_extensions_list() {
-            $extension_recommandations = $this->extension_recommandations;
-            $recommanded_extensions = [];
+        // get_required_extension_list
+        public function get_required_extension_list() {
+            $required_extensions = [];
 
-            foreach ( $extension_recommandations as $recommandation ) {
+            foreach ( $this->required_extensions as $recommandation ) {
                 if ( empty( $recommandation['extensions'] ) ) { continue; }
                 foreach ( $recommandation['extensions'] as $extension ) {
                     if ( empty( $this->extensions[ $extension ] ) ) { continue; }
 
-                    if ( empty( $recommanded_extensions[ $extension ] ) ) {
-                        $recommanded_extensions[ $extension ] = [];
+                    if ( empty( $required_extensions[ $extension ] ) ) {
+                        $required_extensions[ $extension ] = [];
                     }
 
-                    $recommanded_extensions[ $extension ][] = $recommandation['ref'];
+                    $required_extensions[ $extension ][] = $recommandation['ref'];
                 }
             }
             
-            return $recommanded_extensions;
+            return $required_extensions;
         }
 
-        // prepare_recommanded_extension_list
-        public function prepare_recommanded_extension_list( array $args = [] ) {
+        // prepare_the_final_requred_extension_list
+        public function prepare_the_final_requred_extension_list( array $args = [] ) {
             $recommandation = [];
 
-            $recommand_extensions_list             = ( ! empty( $args['recommand_extensions_list'] ) ) ? $args['recommand_extensions_list'] : [];
+            $required_extensions_list              = ( ! empty( $args['required_extensions_list'] ) ) ? $args['required_extensions_list'] : [];
             $extensions_available_in_subscriptions = ( ! empty( $args['extensions_available_in_subscriptions'] ) ) ? $args['extensions_available_in_subscriptions'] : [];
             $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? array_keys( $extensions_available_in_subscriptions ) : [];
             $installed_extension_list              = ( ! empty( $args['installed_extension_list'] ) ) ? $args['installed_extension_list'] : [];
             $installed_extension_list              = ( is_array( $installed_extension_list ) ) ? array_keys( $installed_extension_list ) : [];
 
-            foreach ( $recommand_extensions_list as $extension => $recommanded_by ) {
+            foreach ( $required_extensions_list as $extension => $recommanded_by ) {
 
                 if ( is_plugin_active( "{$extension}/{$extension}.php" ) ) { continue; }
 
@@ -520,6 +525,23 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             switch_theme( $theme_stylesheet );
+            wp_send_json( [ 'status' => $status] );
+        }
+
+        // activate_plugin
+        public function activate_plugin() {
+            $status = [ 'success' => true ];
+            $plugin_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
+
+            if ( empty( $plugin_key ) ) {
+                $status['success'] = false;
+                $status['log'] = [ '$plugin_key' => $plugin_key ];
+                $status['message'] = __('Please specefy which plugin to activate', 'directorist');
+
+                wp_send_json( [ 'status' => $status] );
+            }
+
+            activate_plugin( $plugin_key );
             wp_send_json( [ 'status' => $status] );
         }
 
@@ -1720,10 +1742,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-settings#extension_settings__extensions_general' );
 
-            $extensions_overview    = $this->get_extensions_overview();
-            $themes_overview        = $this->get_themes_overview();
-            $recommanded_extensions = $this->prepare_recommanded_extension_list([
-                'recommand_extensions_list'             => $this->get_recommand_extensions_list(),
+            $extensions_overview      = $this->get_extensions_overview();
+            $themes_overview          = $this->get_themes_overview();
+            $required_extensions_list = $this->prepare_the_final_requred_extension_list([
+                'required_extensions_list'              => $this->get_required_extension_list(),
                 'installed_extension_list'              => $extensions_overview['installed_extension_list'],
                 'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
             ]);
@@ -1742,7 +1764,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
                 'total_available_extensions'            => $extensions_overview['total_available_extensions'],
                 'extensions_promo_list'                 => $extensions_overview['extensions_promo_list'],
-                'recommanded_extensions'                => $recommanded_extensions,
+                'required_extensions_list'              => $required_extensions_list,
                 
                 'total_active_themes'               => $themes_overview['total_active_themes'],                 // $my_active_themes,
                 'total_outdated_themes'             => $themes_overview['total_outdated_themes'],               // $my_outdated_themes,

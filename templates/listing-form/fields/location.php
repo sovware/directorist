@@ -7,7 +7,7 @@
 ?>
 
 <div class="form-group directorist-location-field">
-	<?php $form->add_listing_label_template( $data ); ?>
+	<?php $form->field_label_template( $data ); ?>
 
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location"
 	 <?php 
@@ -24,5 +24,5 @@
 		?>
 	</select>
 
-	<?php $form->add_listing_description_template( $data ); ?>
+	<?php $form->field_description_template( $data ); ?>
 </div>

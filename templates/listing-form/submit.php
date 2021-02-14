@@ -7,7 +7,7 @@
 ?>
 
 <div class="atbdp_info_module">
-
+    <?php
     if ( $display_guest_listings && !atbdp_logged_in_user() ) {
     	?>
     	<div class="atbd_content_module" id="atbdp_front_media_wrap">

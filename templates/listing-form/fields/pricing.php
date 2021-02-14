@@ -17,7 +17,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 ?>
 
 <div class="form-group directorist-pricing-field">
-	<?php $form->add_listing_label_template( $data ); ?>
+	<?php $form->field_label_template( $data ); ?>
 
 	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
 

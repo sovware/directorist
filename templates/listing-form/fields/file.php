@@ -7,7 +7,7 @@
 ?>
 
 <div class="form-group" id="directorist-file-upload-field">
-	<?php $form->add_listing_label_template( $data );?>
+	<?php $form->field_label_template( $data );?>
 
 	<?php
 /**
@@ -151,5 +151,5 @@ $multiple           = false;
 </div>
 
 
-	<?php $form->add_listing_description_template( $data ); ?>
+	<?php $form->field_description_template( $data ); ?>
 </div>

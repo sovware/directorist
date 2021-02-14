@@ -8,7 +8,7 @@
 
 <div class="form-group directorist-description-field">
 	<?php
-	$form->add_listing_label_template( $data );
+	$form->field_label_template( $data );
 	
 	if ( 'textarea' === $data['type'] ) {
 		?>
@@ -30,7 +30,7 @@
 		);
 	}
 	
-	$form->add_listing_description_template( $data );
+	$form->field_description_template( $data );
 	?>
 	<div id="directorist_listing_description_indicator"></div>
 </div>

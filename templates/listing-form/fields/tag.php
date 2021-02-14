@@ -10,7 +10,7 @@ $current_tag_ids = $form->add_listing_tag_ids();
 ?>
 
 <div class="form-group directorist-tag-field">
-	<?php $form->add_listing_label_template( $data, 'at_biz_dir-tags' ); ?>
+	<?php $form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
 
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-tags" multiple="multiple" <?php echo !empty( $data['max'] ) ? 'max="'. $data['max'] .'"' : ''; ?> >
 		<?php
@@ -23,5 +23,5 @@ $current_tag_ids = $form->add_listing_tag_ids();
 		?>
 	</select>
 
-	<?php $form->add_listing_description_template( $data ); ?>
+	<?php $form->field_description_template( $data ); ?>
 </div>

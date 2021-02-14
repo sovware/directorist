@@ -504,20 +504,20 @@ class Directorist_Listing_Form {
 		echo '<input type="hidden" name="directory_type" value="'.$current_type.'">';
 	}
 
-	public function add_listing_label_template( $data, $label_id = '' ) {
+	public function field_label_template( $data, $label_id = '' ) {
 		$key = !empty( $data['field_key'] ) ? $data['field_key'] : 'random-'.rand();
 		$args = array(
-			'form'     => $this,
-			'data'     => $data,
-			'label_id' => $label_id ? $label_id : $key,
+			'listing_form' => $this,
+			'data'         => $data,
+			'label_id'     => $label_id ? $label_id : $key,
 		);
 		Helper::get_template( 'listing-form/field-label', $args );
 	}
 
-	public function add_listing_description_template( $data ) {
+	public function field_description_template( $data ) {
 		$args = array(
-			'form'  => $this,
-			'data'  => $data,
+			'listing_form' => $this,
+			'data'         => $data,
 		);
 		Helper::get_template( 'listing-form/field-description', $args );
 	}

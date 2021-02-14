@@ -489,30 +489,10 @@ class Directorist_Listing_Form {
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
 
-		Helper::get_template( 'listing-form/submit', apply_filters( 'atbdp_add_listing_submission_template_args', $args ) );
+		Helper::get_template( 'listing-form/submit', $args );
 	}
 
-	public function add_listing_custom_fields_template() {
-		$fields = $this->get_custom_fields_query();
-		$p_id   = $this->get_add_listing_id();
-
-		foreach ( $fields as $post ) {
-			$id    = $post->ID;
-			$value = get_post_meta( $p_id, $id, true );
-
-			$args = array(
-				'form'         => $this,
-				'title'        => get_the_title( $id ),
-				'cf_required'  => get_post_meta( $id, 'required', true ),
-				'instructions' => get_post_meta( $id, 'instructions', true ),
-				'input_field'  => $this->get_custom_field_input( $id, $value ),
-			);
-
-			Helper::get_template( 'listing-form/add-listing-custom-fields', $args );
-		}
-	}
-
-	public function add_listing_type_template() {
+	public function type_hidden_field() {
 		$all_types     = get_terms(array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
@@ -521,13 +501,7 @@ class Directorist_Listing_Form {
 		$value             = get_post_meta( $this->get_add_listing_id(), '_directory_type', true );
 		$default_directory = default_directory_type();
 		$current_type      = ! empty( $value ) ? $value : $default_directory;
-		
-		$args = array(
-			'listing_form'  => $this,
-			'listing_types' => $all_types,
-			'current_type'  => $current_type,
-		);
-		Helper::get_template( 'listing-form/fields/type', $args );
+		echo '<input type="hidden" name="directory_type" value="'.$current_type.'">';
 	}
 
 	public function add_listing_label_template( $data, $label_id = '' ) {
@@ -537,7 +511,7 @@ class Directorist_Listing_Form {
 			'data'     => $data,
 			'label_id' => $label_id ? $label_id : $key,
 		);
-		Helper::get_template( 'listing-form/add-listing-field-label', $args );
+		Helper::get_template( 'listing-form/field-label', $args );
 	}
 
 	public function add_listing_description_template( $data ) {
@@ -545,15 +519,17 @@ class Directorist_Listing_Form {
 			'form'  => $this,
 			'data'  => $data,
 		);
-		Helper::get_template( 'listing-form/add-listing-field-des', $args );
+		Helper::get_template( 'listing-form/field-description', $args );
 	}
   
 	public function section_template( $section_data ) {
 		$args = array(
-			'form'          => $this,
-			'section_data'  => $section_data,
+			'listing_form' => $this,
+			'section_data' => $section_data,
 		);
+
 		$load_section = apply_filters( 'directorist_section_template', true, $section_data );
+
 		if( $load_section ) {
 			Helper::get_template( 'listing-form/section', $args );
 		}
@@ -598,9 +574,12 @@ class Directorist_Listing_Form {
 		
 	}
 
-	public function add_listing_field_template( $field_data ) {
+	public function field_template( $field_data ) {
 
-		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) return;
+		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) {
+			return;
+		}
+
 		$listing_id = $this->get_add_listing_id();
 		$value = '';
 		
@@ -629,6 +608,7 @@ class Directorist_Listing_Form {
 
 		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
 			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
@@ -639,7 +619,8 @@ class Directorist_Listing_Form {
 			else {
 				Helper::get_template( $template, $args );
 			}
-		} else {
+		}
+		else {
 			
 			if ( empty( $field_data['only_for_admin'] ) ) {
 				Helper::get_template( $template, $args );

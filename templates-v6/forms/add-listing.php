@@ -22,7 +22,7 @@
 					}
 
 					foreach ( $form_data as $section ) {
-						$listing_form->add_listing_section_template( $section );
+						$listing_form->section_template( $section );
 					}
 
 					$listing_form->add_listing_submit_template();

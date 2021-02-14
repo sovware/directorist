@@ -550,7 +550,7 @@ class Directorist_Listing_Form {
 		Helper::get_template( 'forms/add-listing-field-des', $args );
 	}
   
-	public function add_listing_section_template( $section_data ) {
+	public function section_template( $section_data ) {
 		$args = array(
 			'form'          => $this,
 			'section_data'  => $section_data,
@@ -600,7 +600,7 @@ class Directorist_Listing_Form {
 		
 	}
 
-	public function add_listing_field_template( $field_data ) {
+	public function field_template( $field_data ) {
 
 		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) return;
 		$listing_id = $this->get_add_listing_id();
@@ -725,7 +725,7 @@ class Directorist_Listing_Form {
 		return $form_data;
 	}
 
-	public function render_shortcode_add_listing( $atts ) {
+	public function render_shortcode( $atts ) {
 		
 		wp_enqueue_script( 'adminmainassets' );
 

@@ -8,7 +8,7 @@ $value = explode( ',', $data['value'] );
 ?>
 
 <div class="form-group directorist-checkbox-field">
-	<?php $form->add_listing_label_template( $data );?>
+	<?php $listing_form->field_label_template( $data );?>
 	
 	<div class="form-control">
 		<?php if( !empty( $data['options'] ) ) :
@@ -21,5 +21,5 @@ $value = explode( ',', $data['value'] );
 		?>
 	</div>
 
-	<?php $form->add_listing_description_template( $data ); ?>
+	<?php $listing_form->field_description_template( $data ); ?>
 </div>

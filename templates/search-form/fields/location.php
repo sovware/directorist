@@ -11,11 +11,13 @@ $location_source = !empty($data['location_source']) && $data['location_source'] 
 
 if ( $location_source == 'listing' ) { ?>
 
-	<div class="single_search_field">
-		<select name="in_loc" id="<?php echo esc_attr($searchform->location_id); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
-			<option value=""><?php echo esc_html($data['placeholder']); ?></option>
-			<?php echo $searchform->locations_fields; ?>
-		</select>
+	<div class="directorist-search-field">
+		<div class="directorist-select" id="directorist-search-location-js">
+			<select name="in_loc" id="<?php echo esc_attr($searchform->location_id); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+				<option value=""><?php echo esc_html($data['placeholder']); ?></option>
+				<?php echo $searchform->locations_fields; ?>
+			</select>
+		</div>
 	</div>
 
 	<?php

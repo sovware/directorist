@@ -4659,6 +4659,15 @@ p.atbd-min {
 .directorist-advanced-filter__basic--element .directorist-form-group .directorist-filter-location-icon {
   margin-top: 1px;
 }
+.directorist-advanced-filter__basic--element .directorist-search-tags {
+  margin: 2.5px -5px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-advanced-filter__basic--element .directorist-search-tags .directorist-checkbox {
+  margin: 5px;
+}
 
 .directorist-advanced-filter__advanced--element {
   border-bottom: 1px solid #eff1f6;
@@ -5596,12 +5605,12 @@ p.atbd-min {
 .directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[aria-label]:after {
   line-height: 1.75;
 }
-.directorist-single-listing-action .directorist-social-share:hover .directorist-social-links {
+.directorist-single-listing-action .directorist-social-share:hover .directorist-social-share-links {
   opacity: 1;
   visibility: visible;
   top: calc(100% + 10px);
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-links {
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links {
   position: absolute;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -5616,7 +5625,7 @@ p.atbd-min {
   -webkit-box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
           box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-links .directorist-social-links__item a {
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
   padding: 11px 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -5628,9 +5637,9 @@ p.atbd-min {
           align-items: center;
   border-bottom: 1px solid #eff1f6;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-links .directorist-social-links__item a span.la,
-.directorist-single-listing-action .directorist-social-share .directorist-social-links .directorist-social-links__item a span.fa,
-.directorist-single-listing-action .directorist-social-share .directorist-social-links .directorist-social-links__item a i {
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.la,
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa,
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a i {
   color: #444752;
   margin-left: 5px;
 }

@@ -7,13 +7,7 @@
 ?>
 
 <div class="atbdp_info_module">
-
-	<?php
-    /*
-     * @since 4.1.0
-     */
-    do_action('atbdp_before_terms_and_conditions_font', $args);
-
+    <?php
     if ( $display_guest_listings && !atbdp_logged_in_user() ) {
     	?>
     	<div class="atbd_content_module" id="atbdp_front_media_wrap">

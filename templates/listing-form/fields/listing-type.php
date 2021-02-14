@@ -21,7 +21,7 @@ if( is_admin() ) return;
         <label for="featured" class="featured_listing_type_select">
             <?php echo esc_attr( $data['featured_label'] ); ?>
             <small class="atbdp_make_str_green"><?php
-            echo esc_attr( $form->featured_listing_description() ) ;?>
+            echo esc_attr( $listing_form->featured_listing_description() ) ;?>
             </small>
         </label>
     </div>

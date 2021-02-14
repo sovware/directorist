@@ -13,7 +13,7 @@ if ( !$has_slider ) {
 
 $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
 ?>
-<div id="single-listing-slider" class="plasmaSlider"
+<div id="directorist-single-listing-slider" class="plasmaSlider"
     data-width="<?php echo esc_attr( $data['width'] ); ?>" 
     data-height="<?php echo esc_attr( $data['height'] ); ?>" 
     data-rtl="<?php echo esc_attr( $data['rtl'] ); ?>"

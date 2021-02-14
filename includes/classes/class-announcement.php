@@ -139,6 +139,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
+            $announcement_tab = get_directorist_option( 'announcement_tab', 'directorist' );
+            if( empty( $announcement_tab ) ) return;
             $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count'></span>";
             $new_announcements = $this->get_new_announcement_count();
 

@@ -9,7 +9,7 @@ use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Listing_Forms {
+class Directorist_Listing_Form {
 
 	protected static $instance = null;
 
@@ -528,6 +528,7 @@ class Directorist_Listing_Forms {
 			'listing_types' => $all_types,
 			'current_type'  => $current_type,
 		);
+		
 		Helper::get_template( 'forms/fields/type', $args );
 	}
 

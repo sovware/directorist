@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listing = Directorist_Single_Listing::instance();
 ?>
 
-<div class="<?php Helper::directorist_container(); ?>">
+<div class="directorist-single-contents-area">
 
 	<?php $listing->notice_template(); ?>
 

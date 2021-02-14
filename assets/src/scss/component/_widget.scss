@@ -70,14 +70,15 @@
     }
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'],
-.atbd_content_active .widget.atbd_widget[id^='dcl'],
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
+.directorist-content-active .widget.atbd_widget[id^='bd'],
+.directorist-content-active .widget.atbd_widget[id^='dcl'],
+.directorist-content-active .widget.atbd_widget {
   a{
     text-decoration: none;
+    color: $dark;
   }
   padding: 0;
-  background: $light;
+  background: #fff;
   border: 1px solid $border-color;
   margin-bottom: 30px;
   //font-family: $atbd-font-family;
@@ -236,8 +237,10 @@
           .cate_title h4 {
             font-weight: 400;
             font-size: 16px;
-            //font-family: $atbd-font-family;
-            margin-bottom: 0;
+            margin: 0;
+          }
+          .directory_tag{
+              margin: 4px 0 0 0;
           }
           .atbd_rated_stars{
             ul li{
@@ -246,7 +249,7 @@
           }
         }
         .atbd_left_img + .atbd_right_content {
-          padding-left: 10px;
+          padding-left: 5px;
         }
       }
     }
@@ -408,6 +411,9 @@
         vertical-align: top;
         margin-left: 7px;
         width: calc(100% - 61px);
+        h4{
+            margin: 0 0 10px;
+        }
         .review_time{
           margin-left: 0;
         }
@@ -438,10 +444,29 @@
           font-size: 12px;
           vertical-align: top;
         }
+        a{
+            color: $body-color;
+        }
       }
     }
     .btn{
-      margin-top: 20px;
+        color: #fff;
+        margin-top: 20px;
+        background: #444752 !important;
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: 5px 15px;
+        font-size: 15px;
+        line-height: 27px;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     }
   }
   .atbdp-widget-listing-contact{
@@ -516,7 +541,7 @@
 
 }
 
-.atbd_content_active .widget.atbd_widget{
+.directorist-content-active .widget.atbd_widget{
   & + .modal{
     position: fixed;
     top: 0;
@@ -661,20 +686,20 @@
 }
 
 @media (min-width: 576px) {
-  .atbd_content_active .widget.atbd_widget + .modal-dialog {
+  .directorist-content-active .widget.atbd_widget + .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
   }
-  .atbd_content_active .widget.atbd_widget + .modal-dialog-centered {
+  .directorist-content-active .widget.atbd_widget + .modal-dialog-centered {
     min-height: calc(100% - (1.75rem * 2));
   }
-  .atbd_content_active .widget.atbd_widget + .modal-sm {
+  .directorist-content-active .widget.atbd_widget + .modal-sm {
     max-width: 300px;
   }
 }
 
 @media (min-width: 992px) {
-  .atbd_content_active .widget.atbd_widget + .modal-lg {
+  .directorist-content-active .widget.atbd_widget + .modal-lg {
     max-width: 800px;
   }
 }

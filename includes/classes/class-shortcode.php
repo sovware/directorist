@@ -463,14 +463,19 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => 'LIKE'
                 );
             }
-            if ( !empty($_GET['miles']) && $_GET['miles'] > 0 && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
+            if(!empty($_GET['miles']) && $_GET['miles'] > 0){
+                $distance  = $_GET['miles'];
+            }else{
+                $distance =  get_directorist_option('search_default_radius_distance', 0);
+            }
+            if ( $distance && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
                 $radius_search_unit = get_directorist_option('radius_search_unit', 'miles');
                 $args['atbdp_geo_query'] = array(
                     'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
                     'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
                     'latitude' => $_GET['cityLat'],    // this is the latitude of the point we are getting distance from
                     'longitude' => $_GET['cityLng'],   // this is the longitude of the point we are getting distance from
-                    'distance' => $_GET['miles'],           // this is the maximum distance to search
+                    'distance' => intval($distance),           // this is the maximum distance to search
                     'units' => $radius_search_unit       // this supports options: miles, mi, kilometers, km
                 );
             } elseif ( ! empty($_GET['address']) ) {

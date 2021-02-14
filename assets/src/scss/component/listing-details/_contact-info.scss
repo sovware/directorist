@@ -32,6 +32,12 @@
             width: 100%;
             color: #7a82a6;
         }
+        .directorist-social-links{
+            a{
+                text-decoration: none;
+                color: $body-color;
+            }
+        }
     }
 }
 

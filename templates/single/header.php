@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-card">
+<div class="directorist-card directorist-card-sl-header">
 
 	<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
 

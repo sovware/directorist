@@ -17,7 +17,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 <div class="directorist-single-listing-review <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="directorist-card" id="directorist-review-block">
+	<div class="directorist-card directorist-card-review-block" id="directorist-review-block">
 
 		<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
 
@@ -42,7 +42,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 		<?php if (get_current_user_id() != $listing->author_id || $listing->owner_review_enabled() ): ?>
 
-			<div class="directorist-card">
+			<div class="directorist-card directorist-card-rating-block">
 
 				<div class="directorist-card__header">
 					<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
@@ -92,14 +92,13 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 						</div>
 
-						<div class="directorist-form-group">
-
+						<div class="directorist-form-group directorist-form-group-review-text">
 							<textarea name="content" id="review_content" class="directorist-form-element" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( $review_content ); ?></textarea>
 						</div>
 
 						<?php if ( $listing->guest_review_enabled() && !atbdp_logged_in_user() ): ?>
 
-							<div class="directorist-form-group">
+							<div class="directorist-form-group directorist-form-group-guest-user">
 
 								<label for="guest_user"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
 
@@ -127,9 +126,9 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 							<input type="hidden" name="post_id" value="<?php echo esc_attr( $listing->id ); ?>">
 
-							<input type="hidden" name="name" class="btn btn-default" value="<?php echo esc_attr( $listing->reviewer_name() ); ?>" id="reviewer_name">
+							<input type="hidden" name="name" value="<?php echo esc_attr( $listing->reviewer_name() ); ?>" id="reviewer_name">
 
-							<input type="hidden" name="name" id="reviewer_img" class="btn btn-default" value='<?php echo esc_attr( $listing->get_reviewer_img() ); ?>'>
+							<input type="hidden" name="name" id="reviewer_img" value='<?php echo esc_attr( $listing->get_reviewer_img() ); ?>'>
 
 							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
 

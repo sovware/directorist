@@ -5840,6 +5840,10 @@ p.atbd-min {
   width: 100%;
   color: #7a82a6;
 }
+.directorist-details-info-wrap .directorist-single-info .directorist-social-links a {
+  text-decoration: none;
+  color: #767792;
+}
 
 .directorist-contact-owner-form-inner .directorist-form-group {
   margin-bottom: 1rem;

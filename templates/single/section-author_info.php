@@ -17,7 +17,7 @@ $author_img = !empty($u_pro_pic) ? $u_pro_pic[0] : '';
 $avatar_img = get_avatar($author_id, 32);
 ?>
 
-<div class="directorist-card <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<div class="directorist-card directorist-card-author-info <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
 	<div class="directorist-card__header">
 		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>

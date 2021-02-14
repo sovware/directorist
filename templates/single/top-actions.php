@@ -25,7 +25,7 @@ $listing = Directorist_Single_Listing::instance();
 	<div>
 
 		<?php if ( $listing->submit_link() ): ?>
-			<a href="<?php echo esc_url( $listing->submit_link() ); ?>" class="btn btn-success"><?php esc_html_e( 'Continue', 'directorist' ); ?></a>
+			<a href="<?php echo esc_url( $listing->submit_link() ); ?>" class="directorist-btn directorist-btn-sm directorist-btn-success"><?php esc_html_e( 'Continue', 'directorist' ); ?></a>
 		<?php endif; ?>
 
 		<a href="<?php echo esc_url( $listing->edit_link() ) ?>" class="directorist-btn directorist-btn-sm directorist-btn-outline-light"><span class="<?php atbdp_icon_type(); ?>-edit"></span> <?php esc_html_e( 'Edit', 'directorist' ); ?></a>

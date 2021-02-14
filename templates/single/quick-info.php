@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-listing-single">
+<div class="directorist-listing-single directorist-listing-single-quickinfo">
 	
 	<div class="directorist-listing-single__info">
 		<?php

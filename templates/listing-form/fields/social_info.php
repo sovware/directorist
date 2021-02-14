@@ -7,7 +7,7 @@
 ?>
 
 <div class="form-group directorist-social-info-field">
-	<?php $form->field_label_template( $data );?>
+	<?php $listing_form->field_label_template( $data );?>
 
 	<div id="social_info_sortable_container">
 		<input type="hidden" id="is_social_checked">

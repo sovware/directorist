@@ -5,7 +5,7 @@
  * @version 6.7
  */
 
-$p_id                    = $form->get_add_listing_id();
+$p_id                    = $listing_form->get_add_listing_id();
 $price                   = get_post_meta( $p_id, '_price', true );
 $price_range             = get_post_meta( $p_id, '_price_range', true );
 $atbd_listing_pricing    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
@@ -17,7 +17,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 ?>
 
 <div class="form-group directorist-pricing-field">
-	<?php $form->field_label_template( $data ); ?>
+	<?php $listing_form->field_label_template( $data ); ?>
 
 	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
 

@@ -7,7 +7,7 @@
 ?>
 
 <div class="form-group directorist-location-field">
-	<?php $form->field_label_template( $data ); ?>
+	<?php $listing_form->field_label_template( $data ); ?>
 
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location"
 	 <?php 
@@ -20,9 +20,9 @@
 			printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
 		}
 
-		echo $form->add_listing_location_fields();
+		echo $listing_form->add_listing_location_fields();
 		?>
 	</select>
 
-	<?php $form->field_description_template( $data ); ?>
+	<?php $listing_form->field_description_template( $data ); ?>
 </div>

@@ -547,8 +547,8 @@ class Directorist_Listing_Form {
 		$field_data['form'] = $this;
 		
 		$args = array(
-			'form'  => $this,
-			'data'  => $field_data,
+			'listing_form' => $this,
+			'data'         => $field_data,
 		);
 		
 		$template = 'listing-form/fields/' . $field_data['widget_name'];
@@ -600,8 +600,8 @@ class Directorist_Listing_Form {
 		$field_data['form'] = $this;
 		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 		$args = array(
-			'form'  => $this,
-			'data'  => $field_data,
+			'listing_form'  => $this,
+			'data'          => $field_data,
 		);
 		
 		$template = 'listing-form/fields/' . $field_data['widget_name'];

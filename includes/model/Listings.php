@@ -1113,7 +1113,7 @@ class Directorist_Listings {
 					$template = $args['template'];
 				}
 				
-				Helper::get_template( "archive/loop/" . $template, array('listings' => $this) );
+				Helper::get_template( "archive/fields/" . $template, array('listings' => $this) );
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;
@@ -1397,7 +1397,7 @@ class Directorist_Listings {
 				ob_start();
 
 				if (!empty($opt['display_map_info']) && (!empty($opt['display_image_map']) || !empty($opt['display_title_map']) || $opt['display_address_map']) || !empty($opt['display_direction_map'])) {
-					Helper::get_template( 'archive/loop/openstreet-map', $opt );
+					Helper::get_template( 'archive/fields/openstreet-map', $opt );
 				}
 
 				$ls_data['info_content'] = ob_get_clean();
@@ -1486,7 +1486,7 @@ class Directorist_Listings {
 					
 					if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
 						$opt['ls_data'] = $ls_data;
-						Helper::get_template( 'archive/loop/google-map', $opt );
+						Helper::get_template( 'archive/fields/google-map', $opt );
 					}
 
 				endforeach;
@@ -1534,7 +1534,7 @@ class Directorist_Listings {
 		}
 
 		public function loop_thumb_card_template() {
-			Helper::get_template( 'archive/loop/thumb-card', array('listings' => $this) );
+			Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );
 		}
 
 		public function loop_get_published_date( $data ) {
@@ -1727,14 +1727,24 @@ class Directorist_Listings {
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 					'original_field' => $submission_form_fields,
 				);
-				
-				$template = 'archive/loop/' . $field['widget_name'];
+
+				if ( $this->is_custom_field( $field ) ) {
+					$template = 'archive/custom-fields/' . $field['widget_name'];
+				}
+				else {
+					$template = 'archive/fields/' . $field['widget_name'];
+				}
 
 				if( $load_template ) {
 					Helper::get_template( $template, $args );
 				}
 
 			}
+		}
+
+		public function is_custom_field( $data ) {
+			$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+			return in_array( $data['widget_name'], $fields ) ? true : false;
 		}
 
 		public function print_label( $label ) {
@@ -1764,7 +1774,7 @@ class Directorist_Listings {
 				$field['class'] = 'popular';
 				$field['label'] = Helper::popular_badge_text();
 				if ( Helper::is_popular( $id ) ) {
-					Helper::get_template( 'archive/loop/badge', $field );
+					Helper::get_template( 'archive/fields/badge', $field );
 				}
 				break;
 
@@ -1772,7 +1782,7 @@ class Directorist_Listings {
 				$field['class'] = 'featured';
 				$field['label'] = Helper::featured_badge_text();
 				if ( Helper::is_featured( $id ) ) {
-					Helper::get_template( 'archive/loop/badge', $field );
+					Helper::get_template( 'archive/fields/badge', $field );
 				}
 				break;
 
@@ -1780,7 +1790,7 @@ class Directorist_Listings {
 				$field['class'] = 'new';
 				$field['label'] = Helper::new_badge_text();
 				if ( Helper::is_new( $id ) ) {
-					Helper::get_template( 'archive/loop/badge', $field );
+					Helper::get_template( 'archive/fields/badge', $field );
 				}
 				break;
 			}

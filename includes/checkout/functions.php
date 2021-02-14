@@ -474,6 +474,13 @@ function atbdp_validate_card_number_format($number = 0)
     return apply_filters('atbdp_cc_is_valid_format', $is_valid_format, $number);
 }
 
+function directorist_payment_guard(){
+    $listing_id = get_query_var('atbdp_listing_id');
+    // vail if the id is empty or post type is not our post type.
+    $guard = empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id));
+    return apply_filters( 'directorist_checkout_guard', $guard );
+}
+
 /**
  * Validate credit card number based on the luhn algorithm
  *

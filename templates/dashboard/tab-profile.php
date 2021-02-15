@@ -184,7 +184,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									<input id="youtube" class="directorist-form-element" type="url" name="user[youtube]" value="<?php echo esc_attr( $dashboard->user_info( 'youtube' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter youtube url', 'directorist' ); ?>">
 									
 									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
-
+									
 								</div>
 								
 							</div>

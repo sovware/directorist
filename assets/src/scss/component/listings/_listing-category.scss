@@ -1,0 +1,62 @@
+.directorist-listing-category {
+    display: flex;
+    align-items: center;
+
+    @include e(popup) {
+        position: relative;
+        margin-left: 5px;
+        cursor: pointer;
+
+        @include e(content) {
+            display: block;
+            position: absolute;
+            width: 120px;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            bottom: 25px;
+            left: -5px;
+            transition: 0.3s ease;
+            background: #000000;
+            line-break: auto;
+            word-break: break-all;
+            padding: 7px 10px;
+            border-radius: 3px;
+
+            &:before {
+                position: absolute;
+                content: '';
+                border-top: 8px solid #000;
+                border-right: 6px solid transparent;
+                border-left: 6px solid transparent;
+                bottom: -8px;
+                left: 10px;
+            }
+
+            a {
+                color: rgba(255, 255, 255, 0.8) !important;
+                display: flex;
+                line-height: normal;
+                align-items: flex-start;
+
+                &:hover {
+                    color: #fff !important;
+                }
+
+                span {
+                    color: rgba(255, 255, 255, 0.8) !important;
+                    position: relative;
+                    top: -2px;
+                }
+            }
+        }
+
+        &:hover {
+            .directorist-listing-category__popup__content {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+}

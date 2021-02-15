@@ -472,7 +472,7 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
-		ATBDP()->enquirer->front_end_enqueue_scripts(true);
+		//ATBDP()->enquirer->front_end_enqueue_scripts(true);
 
 		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}

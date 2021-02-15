@@ -4839,13 +4839,11 @@ input.atbdp-form-control {
 
 .directorist-content-active a {
   text-decoration: none;
-  color: #5a6671;
 }
 .directorist-content-active p {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: right;
 }
 
 .directorist-form-group {
@@ -4931,6 +4929,13 @@ input.atbdp-form-control {
 
 .directorist-btn.directorist-btn-primary {
   background-color: #444752;
+  color: #fff;
+}
+.directorist-btn.directorist-btn-primary:focus {
+  background: #444752 !important;
+}
+.directorist-btn.directorist-btn-secondary {
+  background-color: #122069;
   color: #fff;
 }
 .directorist-btn.directorist-btn-dark {

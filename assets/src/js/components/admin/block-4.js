@@ -9,7 +9,7 @@ const $ = jQuery;
 const pureScriptTab = selector1 => {
     const selector = document.querySelectorAll(selector1);
     selector.forEach((el, index) => {
-        a = el.querySelectorAll('.atbd_tn_link');
+        a = el.querySelectorAll('.directorist-tab__nav__link');
 
         a.forEach((element, index) => {
             element.style.cursor = 'pointer';
@@ -17,22 +17,22 @@ const pureScriptTab = selector1 => {
                 event.preventDefault();
                 event.stopPropagation();
 
-                const ul = event.target.closest('.atbd_tab_nav');
+                const ul = event.target.closest('.directorist-tab__nav');
                 const main = ul.nextElementSibling;
-                const item_a = ul.querySelectorAll('.atbd_tn_link');
-                const section = main.querySelectorAll('.atbd_tab_inner');
+                const item_a = ul.querySelectorAll('.directorist-tab__nav__link');
+                const section = main.querySelectorAll('.directorist-tab__pane');
 
                 item_a.forEach((ela, ind) => {
-                    ela.classList.remove('tabItemActive');
+                    ela.classList.remove('directorist-tab__nav__active');
                 });
-                event.target.classList.add('tabItemActive');
+                event.target.classList.add('directorist-tab__nav__active');
 
                 section.forEach((element1, index) => {
                     // console.log(element1);
-                    element1.classList.remove('tabContentActive');
+                    element1.classList.remove('directorist-tab__pane--active');
                 });
                 const { target } = event.target;
-                document.getElementById(target).classList.add('tabContentActive');
+                document.getElementById(target).classList.add('directorist-tab__pane--active');
             });
         });
     });

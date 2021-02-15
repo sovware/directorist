@@ -1,4 +1,10 @@
 /* Directorist button styles */
+@mixin btnFocusBg($btnFocusBg) {
+  &:focus {
+    background: $btnFocusBg !important;
+  }
+}
+
 .directorist-btn {
   display: inline-block;
   font-size: 15px;
@@ -25,6 +31,12 @@
 .directorist-btn {
   &.directorist-btn-primary {
     background-color: $primary;
+    color: #fff;
+    @include btnFocusBg($primary);
+  }
+
+  &.directorist-btn-secondary {
+    background-color: $secondary;
     color: #fff;
   }
 

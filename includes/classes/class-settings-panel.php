@@ -4698,7 +4698,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'user_dashboard' => [
-                            'label' => __('User Dashboard', 'directorist'),
+                            'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'general_dashboard' => [

@@ -1,0 +1,8 @@
+/* user dashboard tab style */
+.directorist-tab__pane {
+    display: none;
+
+    &.directorist-tab__pane--active {
+        display: block;
+    }
+}

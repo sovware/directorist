@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="directorist atbd_wrapper dashboard_area alignwide">
+<div class="directorist-user-dashboard">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
@@ -20,13 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<h2><?php esc_html_e( 'My Dashboard', 'directorist' ); ?></h2>
 		<?php endif; ?>
 
-		<div class="atbd-dashboard-nav-toggle-icon"><a href="#" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a></div>
-		
-		<div class="atbd_dashboard_wrapper atbd_tab">
+		<div class="directorist-user-dashboard__toggle">
+			<a href="#" class="directorist-user-dashboard__toggle__link"><i class="la la-bars"></i></a>
+		</div>
 
+		<div class="directorist-user-dashboard__contents directorist-tab">
 			<?php $dashboard->navigation_template(); ?>
 			<?php $dashboard->main_contents_template(); ?>
-
 		</div>
 
 	</div>

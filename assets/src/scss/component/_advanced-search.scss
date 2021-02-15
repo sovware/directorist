@@ -106,6 +106,7 @@
 
 .directorist-price-ranges{
     display: flex;
+    flex-wrap: wrap;
     margin: -5px;
     @include e(item){
         margin: 5px;

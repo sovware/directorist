@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist_userDashboard-tab">
 
-			<div class="atbd_tab_nav">
+			<div class="directorist_userDashboard-tab__nav">
 
 				<ul class="directorist-dashboard-listing-nav-js">
 					<li class="directorist_tab_nav--content-link">
@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 								<?php do_action( 'directorist_dashboard_listing_th_6', $dashboard ); ?>
 
 								<th class="directorist_table-actions"></th>
-								
+
 								<?php do_action( 'directorist_dashboard_listing_th_end', $dashboard ); ?>
 							</tr>
 						</thead>

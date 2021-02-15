@@ -52,8 +52,8 @@ class ATBDP_Review_Rating{
         $v ='<ul>';
             for ($i=1; $i<=5; $i++){
                 $v .= ($i <= $star_number)
-                    ? "<li><span class='rate_active'></span></li>"
-                    : "<li><span class='rate_disable'></span></li>";
+                    ? "<li><span class='directorist-rate-active'></span></li>"
+                    : "<li><span class='directorist-rate-disable'></span></li>";
                 /*Less readable
                  * $c = ($i <= $review->rating) ? 'rate_active' : 'rate_disable';
                 echo "<li><span class='{$c}'></span></li>";*/

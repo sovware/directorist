@@ -10,7 +10,11 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 get_header( 'directorist' );
+?>
 
-Helper::get_template( 'single-contents' );
+<div class="directorist-single <?php Helper::directorist_container(); ?>">
+	<?php Helper::get_template( 'single-contents' ); ?>
+</div>
 
+<?php
 get_footer( 'directorist' );

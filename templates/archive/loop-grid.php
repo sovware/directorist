@@ -13,14 +13,17 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 <div class="directorist-listing-single directorist-listing-card directorist-listing-has-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
 	<figure class="directorist-listing-single__thumb">
+
 		<?php
 		$listings->loop_thumb_card_template();
 		$listings->render_loop_fields($loop_fields['thumbnail']['avatar']);
 		?>
+
 		<div class="directorist-thumb-top-left"><?php $listings->render_loop_fields($loop_fields['thumbnail']['top_left']); ?></div>
 		<div class="directorist-thumb-top-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['top_right']); ?></div>
 		<div class="directorist-thumb-bottom-left"><?php $listings->render_loop_fields($loop_fields['thumbnail']['bottom_left']); ?></div>
 		<div class="directorist-thumb-bottom-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['bottom_right']); ?></div>
+		
 	</figure>
 
 	<div class="directorist-listing-single__content">

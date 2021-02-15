@@ -20,7 +20,7 @@ if ( empty( $socials ) ) {
 		<div class="directorist-single-info__label"><span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span class="directorist-single-info__label--text"><span><?php echo esc_html( $data['label'] ); ?></span></div>
 	<?php endif; ?>
 
-	<div class="atbd_director_social_wrap">
+	<div class="directorist-social-links">
 		<?php  foreach ( $socials as $social ): ?>
 			<a target='_blank' href="<?php echo esc_url( $social['url'] ); ?>" class="<?php echo esc_attr( $social['id'] ); ?>">
 				<span class="<?php atbdp_icon_type( true );?>-<?php echo esc_attr( $social['id'] ); ?>"></span>

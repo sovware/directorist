@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					</ul>
 
-					<?php if ( $facebook || $twitter || $linkedIn || $youtube ): ?>
+					<?php if ( $facebook || $twitter || $linkedin || $youtube ): ?>
 
 						<ul class="directorist-author-social">
 

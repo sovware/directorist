@@ -30,7 +30,7 @@
 
     /* Add review to the database using ajax*/
     var submit_count = 1;
-    $("#atbdp_review_form").on("submit", function () {
+    $("#directorist-review-form").on("submit", function () {
         if (submit_count > 1) {
             // show error message
             swal({
@@ -82,7 +82,7 @@
                     });
                 } else {
                     if (submit_count === 1) {
-                        $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                        $('#directorist-client-review-list').prepend(output); // add the review if it's the first review of the user
                         $('.atbdp_static').remove();
                     }
                     submit_count++;
@@ -108,19 +108,19 @@
 
             } else if (response.success) {
                 output +=
-                    '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
+                    '<div class="directorist-signle-review" id="directorist-single-review-' + response.data.id + '">' +
                     '<input type="hidden" value="1" id="has_ajax">' +
-                    '<div class="atbd_review_top"> ' +
-                    '<div class="atbd_avatar_wrapper"> ' +
-                    '<div class="atbd_review_avatar">' + ava_img + '</div> ' +
-                    '<div class="atbd_name_time"> ' +
+                    '<div class="directorist-signle-review__top"> ' +
+                    '<div class="directorist-signle-review-avatar-wrap"> ' +
+                    '<div class="directorist-signle-review-avatar">' + ava_img + '</div> ' +
+                    '<div class="directorist-signle-review-avatar__info"> ' +
                     '<p>' + name + '</p>' +
-                    '<span class="review_time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
-                    '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
+                    '<span class="directorist-signle-review-time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
+                    '<div class="directorist-rated-stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
                 if( atbdp_public_data.enable_reviewer_content ) {
                 output +=
-                    '<div class="review_content"> ' +
+                    '<div class="directorist-signle-review__content"> ' +
                     '<p>' + content + '</p> ' +
                     //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
                     '</div> ';
@@ -132,7 +132,7 @@
                 deleteBtn += '<button class="directory_btn btn btn-danger" type="button" id="atbdp_review_remove" data-review_id="' + response.data.id + '">Remove</button>';
                 $form.append(deleteBtn);
                 if (submit_count === 1) {
-                    $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                    $('#directorist-client-review-list').prepend(output); // add the review if it's the first review of the user
                     $('.atbdp_static').remove();
                 }
                 var sectionToShow = $("#has_ajax").val();

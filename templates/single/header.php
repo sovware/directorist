@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-card">
+<div class="directorist-card directorist-single-listing-header">
 
 	<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
 
@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php endif; ?>
 
 		<?php $listing->quick_actions_template(); ?>
+
 	</div>
 
 	<div class="directorist-card__body">

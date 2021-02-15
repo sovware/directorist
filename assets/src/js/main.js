@@ -28,6 +28,8 @@ import './components/login';
 import './components/tab';
 import './components/atbdDropdown';
 import './components/atbdSelect';
+import './components/releated-listings-slider';
+import './components/loc_cat';
 
 // Dashboard Js
 import './components/dashboard/dashboardImageUploader';

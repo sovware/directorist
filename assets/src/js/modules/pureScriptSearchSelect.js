@@ -374,6 +374,9 @@ const pureScriptSelect = (selector) => {
     if($('#directorist-search-category-js').length){
         pureScriptSelect('#directorist-search-category-js');
     }
+    if($('#directorist-search-location-js').length){
+        pureScriptSelect('#directorist-search-location-js');
+    }
     if($('#directorist-search-select-js').length){
         pureScriptSelect('#directorist-search-select-js');
     }

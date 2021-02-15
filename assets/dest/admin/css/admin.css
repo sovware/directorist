@@ -1410,9 +1410,6 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-sm-12 {
   padding: 0 15px;
 }
-.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-3 {
-  width: 30%;
-}
 .postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-6 {
   width: 50%;
 }
@@ -4842,13 +4839,11 @@ input.atbdp-form-control {
 
 .directorist-content-active a {
   text-decoration: none;
-  color: #5a6671;
 }
 .directorist-content-active p {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: left;
 }
 
 .directorist-form-group {

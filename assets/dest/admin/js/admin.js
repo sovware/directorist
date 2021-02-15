@@ -108,12 +108,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_4__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../components/admin/block-5 */ "./assets/src/js/components/admin/block-5.js");
 /* harmony import */ var _components_admin_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_5__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
-/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
+/* harmony import */ var _components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../components/admin/admin-user */ "./assets/src/js/components/admin/admin-user.js");
+/* harmony import */ var _components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_admin_user__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../components/admin/subscriptionManagement */ "./assets/src/js/components/admin/subscriptionManagement.js");
+/* harmony import */ var _components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_admin_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/modal */ "./assets/src/js/components/modal.js");
  // PureScript Select
 
  // Blocks
+
 
 
 
@@ -124,6 +127,63 @@ __webpack_require__.r(__webpack_exports__);
  // Modal Components
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/components/admin/admin-user.js":
+/*!******************************************************!*\
+  !*** ./assets/src/js/components/admin/admin-user.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// user type change on user dashboard
+(function ($) {
+  $('#atbdp-user-type-approve').on('click', function (event) {
+    event.preventDefault();
+    var userId = $(this).attr('data-userId');
+    var nonce = $(this).attr('data-nonce');
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_user_type_approved',
+        _nonce: nonce,
+        userId: userId
+      },
+      success: function success(response) {
+        if (response.user_type) {
+          $('#user-type-' + userId).html(response.user_type);
+        }
+      },
+      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      }
+    });
+    return false;
+  });
+  $('#atbdp-user-type-deny').on('click', function (event) {
+    event.preventDefault();
+    var userId = $(this).attr('data-userId');
+    var nonce = $(this).attr('data-nonce');
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_user_type_deny',
+        _nonce: nonce,
+        userId: userId
+      },
+      success: function success(response) {
+        if (response.user_type) {
+          $('#user-type-' + userId).html(response.user_type);
+        }
+      },
+      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      }
+    });
+    return false;
+  });
+})(jQuery);
 
 /***/ }),
 
@@ -3117,6 +3177,10 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 
   if ($('#directorist-search-category-js').length) {
     pureScriptSelect('#directorist-search-category-js');
+  }
+
+  if ($('#directorist-search-location-js').length) {
+    pureScriptSelect('#directorist-search-location-js');
   }
 
   if ($('#directorist-search-select-js').length) {

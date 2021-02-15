@@ -194,9 +194,9 @@ class Directorist_Listing_Search_Form {
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
 		$this->category_id             = 'at_biz_dir-category';
-		$this->category_class          = 'search_fields form-control';
+		$this->category_class          = 'search_fields';
 		$this->location_id             = 'at_biz_dir-location';
-		$this->location_class          = 'search_fields form-control';
+		$this->location_class          = 'search_fields';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
 		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
 		$this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
@@ -210,9 +210,9 @@ class Directorist_Listing_Search_Form {
 		$this->apply_filters_text       = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 
 		$this->category_id             = 'cat-type';
-		$this->category_class          = 'form-control directory_field bdas-category-search';
+		$this->category_class          = 'directory_field bdas-category-search';
 		$this->location_id             = 'loc-type';
-		$this->location_class          = 'form-control directory_field bdas-category-location';
+		$this->location_class          = 'directory_field bdas-category-location';
 	}
 
 	public function get_default_listing_type() {

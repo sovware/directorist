@@ -63,3 +63,25 @@
         }
     }
 }
+
+// Directorist Rated Stars
+.directorist-rated-stars,
+.atbd_rated_stars{
+    ul{
+        li{
+            display: inline-block;
+            span{
+                color: #d4d3f3;
+                &:before{
+                    content: "\f005";
+                    font-size: 14px;
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                }
+                &.directorist-rate-active{
+                    color: #fa8b0c;
+                }
+            }
+        }
+    }
+}

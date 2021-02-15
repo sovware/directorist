@@ -14,7 +14,7 @@ if ( !$listing->has_badge( $data ) ) {
 }
 ?>
 
-<div class="directorist-info-item">
+<div class="directorist-info-item directorist-info-item-badges">
 
 	<?php if ( $listing->display_new_badge( $data ) ): ?>
 		<span class="directorist-badge directorist-badge-new"><?php echo esc_html( Helper::new_badge_text() ); ?></span>

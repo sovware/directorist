@@ -1,4 +1,5 @@
 (function($) {
+
         const content = '';
         // Category icon selection
         function selecWithIcon(selected) {
@@ -1160,7 +1161,7 @@ templateResult: selecWithIcon,
                 $('.atbds_tooltip__text').removeClass('show');
         });
 
-        // load admin add listing form        
+        // load admin add listing form
         $('body').on('change', 'select[name="directory_type"]', function() {
                 $(this)
                         .parent('.inside')
@@ -1567,7 +1568,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 }
         });
 
-        // Select Dropdown 
+        // Select Dropdown
         $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(e){
                 e.preventDefault();
                 $(this).siblings('.directorist_dropdown-option').toggle();

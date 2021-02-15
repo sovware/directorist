@@ -17,7 +17,7 @@ class ATBDP_Shortcode {
 			'directorist_category'    => [ $this, 'category_archive' ],
 			'directorist_tag'         => [ $this, 'tag_archive' ],
 			'directorist_location'    => [ $this, 'location_archive' ],
-			
+
 			// Taxonomy
 			'directorist_all_categories' => [ $this, 'all_categories' ],
 			'directorist_all_locations'  => [ $this, 'all_locations' ],
@@ -25,16 +25,16 @@ class ATBDP_Shortcode {
 			// Search
 			'directorist_search_listing' => [ $this, 'search_listing' ],
 			'directorist_search_result'  => [ $this, 'search_result' ],
-			
+
 			// Author
 			'directorist_author_profile' => [ $this, 'author_profile' ],
 			'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
-			
+
 			// Forms
 			'directorist_add_listing'         => [ $this, 'add_listing' ],
 			'directorist_custom_registration' => [ $this, 'user_registration' ],
 			'directorist_user_login'          => [ $this, 'user_login' ],
-			
+
 			// Checkout
 			'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
 			'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],

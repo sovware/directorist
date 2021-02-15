@@ -10,17 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $counter = 1;
 ?>
 
-<div class="atbd_user_dashboard_nav atbd_tab_nav">
+<div class="directorist-user-dashboard__nav directorist-tab__nav">
 
-	<div class="atbdp_tab_nav_wrapper">
+	<div class="directorist-tab__nav__wrapper">
 
-		<ul class="atbdp_tab_nav--content atbd-dashboard-nav">
+		<ul class="directorist-tab__nav__items">
 
 			<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-				<li class="atbdp_tab_nav--content-link">
-					<a href="#" class="atbdp_all_booking_nav-link atbd-dash-nav-dropdown atbd_tn_link <?php echo ( $counter == 1 ) ? 'tabItemActive' : ''; ?>" target="<?php echo esc_attr( $key ); ?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
-				</li> 
+				<li class="directorist-tab__nav__item"><!-- /.directorist-tab__nav__item--has-submenu -->
+					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
+				</li>
 
 				<?php do_action( 'directorist_dashboard_navigation', $key, $dashboard ); ?>
 				<?php $counter++; ?>

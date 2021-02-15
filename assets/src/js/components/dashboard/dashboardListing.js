@@ -1,5 +1,5 @@
 ;(function ($) {
-    
+
     // Dashboard Listing Ajax
 
     function directorist_dashboard_listing_ajax($activeTab,paged=1,search='',task='',taskdata='') {
@@ -22,8 +22,8 @@
             success: function success(response) {
                 $('.directorist-dashboard-listings-tbody').html(response.data.content);
                 $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
-                $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
-                $activeTab.addClass('tabItemActive');
+                $('.directorist-dashboard-listing-nav-js a').removeClass('directorist-tab__nav__active');
+                $activeTab.addClass('directorist-tab__nav__active');
                 $('#directorist-dashboard-mylistings-js').data('paged',paged);
             },
 			complete: function () {
@@ -37,7 +37,7 @@
     $('.directorist-dashboard-listing-nav-js a').on('click', function(event) {
         var $item = $(this);
 
-    	if ($item.hasClass('tabItemActive')) {
+    	if ($item.hasClass('directorist-tab__nav__active')) {
     		return false;
     	}
 
@@ -53,7 +53,7 @@
     $('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function(event) {
     	var task       = $(this).data('task');
     	var postid     = $(this).closest('tr').data('id');
-    	var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    	var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     	var paged      = $('#directorist-dashboard-mylistings-js').data('paged');
     	var search     = $('#directorist-dashboard-mylistings-js').data('search');
 
@@ -88,7 +88,7 @@
     });
 
     // Remove Listing
-    
+
     $(document).on('click', '#remove_listing', function (e) {
         e.preventDefault();
 
@@ -141,5 +141,5 @@
         // send an ajax request to the ajax-handler.php and then delete the review of the given id
 
     });
-    
+
 })(jQuery);

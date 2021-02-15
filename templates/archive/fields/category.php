@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		$totalTerm = count($listings->loop['cats']);
 		if ( $totalTerm > 1 ) { $totalTerm = $totalTerm - 1; ?>
 			<div class="directorist-listing-category__popup">
-				<span>+<?php echo esc_html( $totalTerm ); ?></span>
+				<span class="directorist-listing-category__extran-count">+<?php echo esc_html( $totalTerm ); ?></span>
 				<div class="directorist-listing-category__popup__content">
 					<?php foreach (array_slice($listings->loop['cats'], 1) as $cat) {
 						$term_icon  = get_term_meta( $cat->term_id, 'category_icon', true );
@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						echo "<a href='{$term_link}'>{$term_label}</a>";
 					} ?>
 				</div>
+
 			</div>
 			<?php
 		}

@@ -4186,7 +4186,7 @@ input.atbdp-form-control {
               margin-left: 5px;
             }
 
-            &.directorist-tab__nav__active {
+            &.tabItemActive {
               color: #3E62F5;
 
               .directorist_count {
@@ -4210,7 +4210,7 @@ input.atbdp-form-control {
       .directorist_all-listing-table {
         padding-bottom: 60px;
       }
-      .directorist-table {
+      .directorist_table {
         display: table;
         border-collapse: collapse;
         width: 100%;
@@ -4532,7 +4532,7 @@ input.atbdp-form-control {
   }
 }
 
-.directorist-table-responsive {
+.directorist_table-responsive {
   display: block !important;
   width: 100%;
   overflow-x: auto;

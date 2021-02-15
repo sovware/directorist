@@ -258,7 +258,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-range-slider'] = [
@@ -268,13 +268,23 @@ class Enqueue_Assets {
             'has_min'   => false,
             'has_rtl'   => true,
             'ver'       => $this->script_version,
-            'group'     => 'global',                // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
             'localize_data' => [
                 'object_name' => 'atbdp_range_slider',
                 'data' => Script_Helper::get_range_slider_data()
             ],
+        ];
+
+        $scripts['directorist-ez-media-uploader'] = [
+            'file_name' => 'ez-media-uploader',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
         ];
 
         

@@ -134,6 +134,7 @@ class Script_Helper {
         // listings data
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
         $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
+        
         $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -170,9 +171,69 @@ class Script_Helper {
             'waiting_msg'                 => __( 'Sending the message, please wait...', 'directorist' ),
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
-            'enable_reviewer_content'     => $enable_reviewer_content
+            'enable_reviewer_content'     => $enable_reviewer_content,
+            'add_listing_data'            => self::get_add_listings_data()
 
         );
+
+        return $data;
+    }
+
+    public static function get_add_listings_data() {
+
+        $listing_id  = 0;
+        $current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $current_listing_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $listing_id, '_directory_type', true );
+
+        if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
+            $arr = explode('/edit/', $current_url);
+            $important = $arr[1];
+            $listing_id = (int) $important;
+        }
+
+        $submission_form = get_term_meta( $current_listing_type, 'submission_form_fields', true );
+        $new_tag         = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
+        $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
+        $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
+        $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
+        $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
+        // Internationalization text for javascript file especially add-listing.js
+
+        $i18n_text = array(
+            'confirmation_text'       => __( 'Are you sure', 'directorist' ),
+            'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
+            'ask_conf_faqs_del_txt'   => __( 'Do you really want to remove this FAQ!', 'directorist' ),
+            'confirm_delete'          => __( 'Yes, Delete it!', 'directorist' ),
+            'deleted'                 => __( 'Deleted!', 'directorist' ),
+            'location_selection'      => esc_attr( $loc_placeholder ),
+            'tag_selection'           => esc_attr( $tag_placeholder ),
+            'cat_placeholder'         => esc_attr( $cat_placeholder ),
+            'max_location_creation'   => esc_attr( $max_loc_creation ),
+            'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
+        );
+
+        //get listing is if the screen in edit listing
+        $fm_plans   = get_post_meta( $listing_id, '_fm_plans', true );
+        $data = array(
+            'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
+            'ajaxurl'         => admin_url( 'admin-ajax.php' ),
+            'nonceName'       => 'atbdp_nonce_js',
+            'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
+                [
+                    'element_id'        => '_listing_gallery',
+                    'meta_name'         => 'listing_img',
+                    'files_meta_name'   => 'files_meta',
+                    'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
+                ]
+            ]),
+            'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
+            'i18n_text'       => $i18n_text,
+            'create_new_tag'  => $new_tag,
+            'create_new_loc'  => $new_loc,
+            'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+        );
+
 
         return $data;
     }

@@ -21,27 +21,35 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div class="directorist-user-dashboard-tab__nav">
 
 				<ul class="directorist-dashboard-listing-nav-js">
+
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="all" class="directorist-tab__nav__active"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
 					</li>
+					
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="publish"><?php esc_html_e( 'Published', 'directorist' ); ?></a>
 					</li>
+
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="pending"><?php esc_html_e( 'Pending', 'directorist' ); ?></a>
 					</li>
+
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="expired"><?php esc_html_e( 'Expired', 'directorist' ); ?></a>
 					</li>
+
 				</ul>
 
 				<div class="directorist-user-dashboard-search">
+
 					<div class="directorist-user-dashboard-search__icon">
 						<i class="la la-search"></i>
 					</div>
+
 					<form id="directorist-dashboard-listing-searchform">
 						<input type="text" placeholder="Search listings" name="searchtext">
 					</form>
+
 				</div>
 
 			</div>

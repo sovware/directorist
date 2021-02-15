@@ -6,7 +6,7 @@
 */
 /* eslint-disable */
 
-// Styles 
+// Styles
 import './../scss/layout/public/main-style.scss';
 
 // Modules
@@ -19,7 +19,7 @@ import './modules/pureScriptSearchSelect';
 import './components/atbdSorting';
 import './components/atbdAlert';
 import './components/pureScriptTab';
-import './components/profileForm';
+//import './components/profileForm';
 import './components/modal';
 import './components/gridResponsive';
 import './components/formValidation';
@@ -32,7 +32,7 @@ import './components/releated-listings-slider';
 import './components/loc_cat';
 
 // Dashboard Js
-import './components/dashboard/dashboardImageUploader';
+//import './components/dashboard/dashboardImageUploader';
 import './components/dashboard/dashboardSidebar';
 import './components/dashboard/dashboardTab';
 import './components/dashboard/dashBoardMoreBtn';

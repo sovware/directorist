@@ -1,9 +1,11 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.6
  * @version 6.7
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $p_id                    = $listing_form->get_add_listing_id();
 $price                   = get_post_meta( $p_id, '_price', true );
@@ -17,6 +19,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 ?>
 
 <div class="form-group directorist-pricing-field">
+
 	<?php $listing_form->field_label_template( $data ); ?>
 
 	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
@@ -39,12 +42,12 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 			echo $price_unit_checkbox;
 		}
 
-	
+		
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) {
 			ob_start();
 			
 			if ( ! empty( $price_unit_checkbox ) ) : ?>
-			<span><?php esc_html_e('Or', 'directorist'); ?></span>
+				<span><?php esc_html_e('Or', 'directorist'); ?></span>
 			<?php endif; ?>
 			
 			<label for="price_range_selected" data-option="price_range"><input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>> <?php echo esc_html( $data['price_range_label'] );?></label>
@@ -60,18 +63,13 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		}
 
 		if ( ! empty( $price_unit_checkbox ) || ! empty( $price_range_checkbox ) ) { ?>
-		<small><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
+			<small><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
 		<?php } ?>
 	</div>
 
 	<?php
 	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
 		ob_start();
-
-		/**
-		 * @since 6.2.1
-		 */
-		do_action('atbdp_add_listing_before_price_field', $p_id);
 		$step = $allow_decimal ? ' step="any"' : '';
 		?>
 
@@ -88,7 +86,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 
 	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) { 
 		ob_start();
-	?>
+		?>
 		<select class="form-control directory_field" id="price_range" name="price_range">
 			<option value=""><?php echo esc_html($price_range_placeholder); ?></option>
 
@@ -109,11 +107,6 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 			'data'        => $data,
 		]);
 	}
-
-	/**
-	 * @since 4.7.1
-	 */
-	do_action('atbdp_add_listing_after_price_field', $p_id);
 	?>
 
 </div>

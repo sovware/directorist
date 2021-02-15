@@ -1,0 +1,101 @@
+// Favourite Listings Style
+.directorist-favourite-items-wrap{ 
+
+    .directorist-favourirte-items{
+
+        background-color: #fff;
+        padding: 20px 10px;
+        border-radius: 4px;
+
+    }
+    .directorist-dashboard-items-list{ 
+
+        @include e(single){
+
+            display: flex;
+            padding: 15px !important;
+            margin: 0;
+            justify-content: space-between;
+            align-items: center;
+            transition: .35s;
+
+            @media only screen and (max-width: 991px) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            &:hover{
+
+                background-color: #F8F9FA;
+                border-radius: 5px;
+
+                .directorist-dashboard-items-list__single--action{
+                    
+                    .directorist-favourite-remove-btn{
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+            
+            .directorist-listing-img{
+
+                margin-right: 20px;
+
+                img{
+
+                    max-width: 100px;
+                    border-radius: 6px;
+                }
+            }
+
+            .directorist-listing-content{
+
+                .directorist-listing-title{
+
+                    font-size: 15px;
+                    font-weight: 500;
+                    margin: 0 0 6px;
+                    a{
+                        color: $dark;
+                    }
+                }
+
+                .directorist-listing-category{
+                    color: $primary;
+                    span.la,
+                    span.fa,
+                    span.fas,
+                    i{
+                        margin-right: 6px;
+                        color: $light-gray;
+                    }
+                }
+            }
+
+            @include m(info){
+
+                display: flex;
+
+                @media only screen and (max-width: 991px) {
+                    margin-bottom: 15px;
+                }
+            }
+
+            @include m(action){
+
+                .directorist-favourite-remove-btn{
+                    
+                    font-weight: 500;
+                    display: inline-block;
+                    border-radius: 6px;
+                    padding: 0px 14px;
+                    color: #fff !important;
+                    line-height: 2.65;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}

@@ -447,7 +447,7 @@ class Directorist_Listing_Form {
 	}
 
 	public function featured_listing_description() {
-		$description = get_directorist_option('featured_listing_desc', '(Top of the search result and listings pages for a number days and it requires an additional payment.)');
+		$description = get_directorist_option('featured_listing_desc', ' (Top of the search result and listings pages for a number days and it requires an additional payment.) ');
 		return $description;
 
 	}

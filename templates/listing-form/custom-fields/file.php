@@ -9,12 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="form-group" id="directorist-file-upload-field">
+
 	<?php $listing_form->field_label_template( $data );?>
 
-	<?php
-/**
- * Directorist file uploader
- */
+<?php
 $post_id = $listing_form->get_add_listing_id();
 wp_enqueue_style( 'atbdp-pluploadcss' );
 wp_enqueue_script( 'atbdp-plupload-min' );
@@ -94,6 +92,7 @@ $allowed_file_types = ( 'all_types' == $file_types ) ? '*' : $file_types;
 $display_file_types = ( 'all_types' == $file_types ) ? '.*' : $file_types;
 $multiple           = false;
 ?>
+
 <div class="atbdp-add-files">
 	<div class="atbdp_form_row clearfix atbdp-files-dropbox" id="<?php echo $id; ?>dropbox">
 		<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $value ) ? $value : '' ; ?>"
@@ -154,4 +153,5 @@ $multiple           = false;
 
 
 	<?php $listing_form->field_description_template( $data ); ?>
+	
 </div>

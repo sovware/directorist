@@ -34,6 +34,32 @@ class Helper {
 		}
 	}
 
+	public function socials() {
+		$socials = [
+			'facebook'       => __('Facebook', 'directorist'),
+			'twitter'        => __('Twitter', 'directorist'),
+			'linkedin'       => __('LinkedIn', 'directorist'),
+			'pinterest'      => __('Pinterest', 'directorist'),
+			'instagram'      => __('Instagram', 'directorist'),
+			'tumblr'         => __('Tumblr', 'directorist'),
+			'flickr'         => __('Flickr', 'directorist'),
+			'snapchat'       => __('Snapchat', 'directorist'),
+			'reddit'         => __('Reddit', 'directorist'),
+			'youtube'   => __('Youtube', 'directorist'),
+			'vimeo'          => __('Vimeo', 'directorist'),
+			'vine'           => __('Vine', 'directorist'),
+			'github'         => __('Github', 'directorist'),
+			'dribbble'       => __('Dribbble', 'directorist'),
+			'behance'        => __('Behance', 'directorist'),
+			'soundcloud'     => __('SoundCloud', 'directorist'),
+			'stack-overflow' => __('StackOverFLow', 'directorist'),
+		];
+
+		asort( $socials );
+
+		return $socials;
+	}
+
 	public static function pricing_type( $listing_id ) {
 		$pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
 		return $pricing_type;

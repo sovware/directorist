@@ -4888,6 +4888,11 @@ input.atbdp-form-control {
   padding-bottom: 100px;
 }
 
+.directorist-w-100 {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 .directorist-form-group {
   position: relative;
 }

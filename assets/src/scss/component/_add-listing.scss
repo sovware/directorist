@@ -1,0 +1,23 @@
+// add listing types
+.directorist-add-listing-types {
+    @include e(single) {
+
+        @include e(link) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: #202428 !important;
+            padding: 30px 0;
+            border-radius: 4px;
+            color: #fff !important;
+            font-size: 17px !important;
+            min-height: 118px;
+
+            i {
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

@@ -1,5 +1,8 @@
 .reset-pseudo-link {
-    &:visited, &:active, &:focus {
+
+    &:visited,
+    &:active,
+    &:focus {
         outline: none;
         box-shadow: none;
     }
@@ -41,4 +44,10 @@
 
 .directorist-pb-100{
     padding-bottom: 100px;
+}
+
+// others
+.directorist-w-100 {
+    width: 100% !important;
+    max-width: 100% !important;
 }

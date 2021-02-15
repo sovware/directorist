@@ -47,5 +47,11 @@ import './components/dashboard/dashboardBecomeAuthor';
 // Single Listing Page
 import './components/single-listing-page/slider';
 
+// Add Listing
+import './components/template-scripts/add-listing';
+
 // Booking
 import './components/booking';
+
+// Add listing
+import './components/template-scripts/add-listing';

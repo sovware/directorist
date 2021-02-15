@@ -1497,26 +1497,26 @@ var $ = jQuery;
 var pureScriptTab = function pureScriptTab(selector1) {
   var selector = document.querySelectorAll(selector1);
   selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.atbd_tn_link');
+    a = el.querySelectorAll('.directorist-tab__nav__link');
     a.forEach(function (element, index) {
       element.style.cursor = 'pointer';
       element.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
-        var ul = event.target.closest('.atbd_tab_nav');
+        var ul = event.target.closest('.directorist-tab__nav');
         var main = ul.nextElementSibling;
-        var item_a = ul.querySelectorAll('.atbd_tn_link');
-        var section = main.querySelectorAll('.atbd_tab_inner');
+        var item_a = ul.querySelectorAll('.directorist-tab__nav__link');
+        var section = main.querySelectorAll('.directorist-tab__pane');
         item_a.forEach(function (ela, ind) {
-          ela.classList.remove('tabItemActive');
+          ela.classList.remove('directorist-tab__nav__active');
         });
-        event.target.classList.add('tabItemActive');
+        event.target.classList.add('directorist-tab__nav__active');
         section.forEach(function (element1, index) {
           // console.log(element1);
-          element1.classList.remove('tabContentActive');
+          element1.classList.remove('directorist-tab__pane--active');
         });
         var target = event.target.target;
-        document.getElementById(target).classList.add('tabContentActive');
+        document.getElementById(target).classList.add('directorist-tab__pane--active');
       });
     });
   });

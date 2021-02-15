@@ -552,8 +552,8 @@ if (flatWrapper != null && fAvailableTime != null) {
       success: function success(response) {
         $('.directorist-dashboard-listings-tbody').html(response.data.content);
         $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
-        $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
-        $activeTab.addClass('tabItemActive');
+        $('.directorist-dashboard-listing-nav-js a').removeClass('directorist-tab__nav__active');
+        $activeTab.addClass('directorist-tab__nav__active');
         $('#directorist-dashboard-mylistings-js').data('paged', paged);
       },
       complete: function complete() {
@@ -566,7 +566,7 @@ if (flatWrapper != null && fAvailableTime != null) {
   $('.directorist-dashboard-listing-nav-js a').on('click', function (event) {
     var $item = $(this);
 
-    if ($item.hasClass('tabItemActive')) {
+    if ($item.hasClass('directorist-tab__nav__active')) {
       return false;
     }
 
@@ -579,7 +579,7 @@ if (flatWrapper != null && fAvailableTime != null) {
   $('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function (event) {
     var task = $(this).data('task');
     var postid = $(this).closest('tr').data('id');
-    var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     var paged = $('#directorist-dashboard-mylistings-js').data('paged');
     var search = $('#directorist-dashboard-mylistings-js').data('search');
 
@@ -1277,94 +1277,107 @@ var $ = jQuery;
 pureScriptTab = function pureScriptTab(selector1) {
   var selector = document.querySelectorAll(selector1);
   selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.atbd_tn_link');
+    a = el.querySelectorAll('.directorist-tab__nav__link');
     a.forEach(function (element, index) {
       element.style.cursor = 'pointer';
       element.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
-        var ul = event.target.closest('.atbd_tab_nav'),
+        var ul = event.target.closest('.directorist-tab__nav'),
             main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.atbd_tn_link'),
-            section = main.querySelectorAll('.atbd_tab_inner');
+            item_a = ul.querySelectorAll('.directorist-tab__nav__link'),
+            section = main.querySelectorAll('.directorist-tab__pane');
         item_a.forEach(function (ela, ind) {
-          ela.classList.remove('tabItemActive');
+          ela.classList.remove('directorist-tab__nav__active');
         });
-        event.target.classList.add('tabItemActive');
+        event.target.classList.add('directorist-tab__nav__active');
         section.forEach(function (element1, index) {
           //console.log(element1);
-          element1.classList.remove('tabContentActive');
+          element1.classList.remove('directorist-tab__pane--active');
         });
         var target = event.target.target;
-        document.getElementById(target).classList.add('tabContentActive');
+        document.getElementById(target).classList.add('directorist-tab__pane--active');
       });
     });
   });
 };
+/* pureScriptTabChild = (selector1) => {
+    var selector = document.querySelectorAll(selector1);
+    selector.forEach((el, index) => {
+        a = el.querySelectorAll('.pst_tn_link');
 
-pureScriptTabChild = function pureScriptTabChild(selector1) {
-  var selector = document.querySelectorAll(selector1);
-  selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.pst_tn_link');
-    a.forEach(function (element, index) {
-      element.style.cursor = 'pointer';
-      element.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        var ul = event.target.closest('.pst_tab_nav'),
-            main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.pst_tn_link'),
-            section = main.querySelectorAll('.pst_tab_inner');
-        item_a.forEach(function (ela, ind) {
-          ela.classList.remove('pstItemActive');
+
+        a.forEach((element, index) => {
+
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var ul = event.target.closest('.pst_tab_nav'),
+                    main = ul.nextElementSibling,
+                    item_a = ul.querySelectorAll('.pst_tn_link'),
+                    section = main.querySelectorAll('.pst_tab_inner');
+
+                item_a.forEach((ela, ind) => {
+                    ela.classList.remove('pstItemActive');
+                });
+                event.target.classList.add('pstItemActive');
+
+
+                section.forEach((element1, index) => {
+                    //console.log(element1);
+                    element1.classList.remove('pstContentActive');
+                });
+                var target = event.target.target;
+                document.getElementById(target).classList.add('pstContentActive');
+            });
         });
-        event.target.classList.add('pstItemActive');
-        section.forEach(function (element1, index) {
-          //console.log(element1);
-          element1.classList.remove('pstContentActive');
-        });
-        var target = event.target.target;
-        document.getElementById(target).classList.add('pstContentActive');
-      });
     });
-  });
 };
 
-pureScriptTabChild2 = function pureScriptTabChild2(selector1) {
-  var selector = document.querySelectorAll(selector1);
-  selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.pst_tn_link-2');
-    a.forEach(function (element, index) {
-      element.style.cursor = 'pointer';
-      element.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        var ul = event.target.closest('.pst_tab_nav-2'),
-            main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.pst_tn_link-2'),
-            section = main.querySelectorAll('.pst_tab_inner-2');
-        item_a.forEach(function (ela, ind) {
-          ela.classList.remove('pstItemActive2');
-        });
-        event.target.classList.add('pstItemActive2');
-        section.forEach(function (element1, index) {
-          //console.log(element1);
-          element1.classList.remove('pstContentActive2');
-        });
-        var target = event.target.target;
-        document.getElementById(target).classList.add('pstContentActive2');
-      });
-    });
-  });
-};
+pureScriptTabChild2 = (selector1) => {
+    var selector = document.querySelectorAll(selector1);
+    selector.forEach((el, index) => {
+        a = el.querySelectorAll('.pst_tn_link-2');
 
-if ($('.atbd_tab')) {
-  pureScriptTab('.atbd_tab');
+
+        a.forEach((element, index) => {
+
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var ul = event.target.closest('.pst_tab_nav-2'),
+                    main = ul.nextElementSibling,
+                    item_a = ul.querySelectorAll('.pst_tn_link-2'),
+                    section = main.querySelectorAll('.pst_tab_inner-2');
+
+                item_a.forEach((ela, ind) => {
+                    ela.classList.remove('pstItemActive2');
+                });
+                event.target.classList.add('pstItemActive2');
+
+
+                section.forEach((element1, index) => {
+                    //console.log(element1);
+                    element1.classList.remove('pstContentActive2');
+                });
+                var target = event.target.target;
+                document.getElementById(target).classList.add('pstContentActive2');
+            });
+        });
+    });
+}; */
+
+
+if ($('.directorist-tab')) {
+  pureScriptTab('.directorist-tab');
 }
-
-pureScriptTab('.directorist_userDashboard-tab');
+/* pureScriptTab('.directorist_userDashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');
-pureScriptTabChild2('.atbdp-bookings-tab-inner');
+pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 
 /***/ }),
 

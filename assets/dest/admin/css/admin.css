@@ -4936,6 +4936,13 @@ input.atbdp-form-control {
   background-color: #444752;
   color: #fff;
 }
+.directorist-btn.directorist-btn-primary:focus {
+  background: #444752 !important;
+}
+.directorist-btn.directorist-btn-secondary {
+  background-color: #122069;
+  color: #fff;
+}
 .directorist-btn.directorist-btn-dark {
   background-color: #202428;
   color: #fff;

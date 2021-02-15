@@ -111,6 +111,6 @@ if ( $('.directorist-tab') ) {
     pureScriptTab('.directorist-tab');
 }
 
-/* pureScriptTab('.directorist_userDashboard-tab');
+/* pureScriptTab('.directorist-user-dashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');
 pureScriptTabChild2('.atbdp-bookings-tab-inner'); */

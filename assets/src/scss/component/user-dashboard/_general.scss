@@ -66,8 +66,8 @@
 }
 
 /* My listing tab */
-.directorist_userDashboard-tab {
-    .directorist_userDashboard-tab__nav {
+.directorist-user-dashboard-tab {
+    .directorist-user-dashboard-tab__nav {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -111,7 +111,7 @@
                     background-color: #0A0B1E;
                 }
 
-                &.tabItemActive {
+                &.directorist-tab__nav__active {
                     &:after {
                         opacity: 1;
                         visibility: visible;
@@ -121,12 +121,12 @@
         }
     }
 
-    .directorist_userDashboard-search {
+    .directorist-user-dashboard-search {
         position: relative;
         border-radius: 18px;
         margin: 16px;
 
-        .directorist_userDashboard-search__icon {
+        .directorist-user-dashboard-search__icon {
             position: absolute;
             left: 16px;
             top: 50%;
@@ -157,17 +157,17 @@
     }
 }
 
-.directorist_userDashboard-tabcontent {
+.directorist-user-dashboard-tabcontent {
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(#8F8E9F, .05);
     border-radius: 4px;
     margin-top: 15px;
 
     // margin-bottom: 145px;
-    .directorist_listing-table {
+    .directorist-listing-table {
         border-radius: 6px;
 
-        .directorist_table {
+        .directorist-table {
             display: table;
             border: 0 none;
             border-collapse: collapse;
@@ -184,7 +184,7 @@
             th {
                 text-align: left;
 
-                &.directorist_table-listing {
+                &.directorist-table-listing {
                     min-width: 320px;
 
                     @media (max-width: 1399px) {
@@ -192,7 +192,7 @@
                     }
                 }
 
-                &.directorist_table-plan {
+                &.directorist-table-plan {
                     min-width: 180px;
 
                     @media (max-width: 1399px) {
@@ -200,7 +200,7 @@
                     }
                 }
 
-                &.directorist_table-ex-date {
+                &.directorist-table-ex-date {
                     min-width: 250px;
 
                     @media (max-width: 1399px) {
@@ -208,7 +208,7 @@
                     }
                 }
 
-                &.directorist_table-status {
+                &.directorist-table-status {
                     min-width: 160px;
 
                     @media (max-width: 1399px) {
@@ -216,7 +216,7 @@
                     }
                 }
 
-                &.directorist_table-actions {
+                &.directorist-table-actions {
                     min-width: 200px;
 
                     @media (max-width: 1399px) {
@@ -266,11 +266,11 @@
             }
         }
 
-        .directorist_listing-info {
+        .directorist-listing-table-listing-info {
             display: flex;
         }
 
-        .directorist_listing-info__img {
+        .directorist-listing-table-listing-info__img {
             margin-right: 12px;
 
             img {
@@ -281,17 +281,25 @@
             }
         }
 
-        .directorist_listing-info__content {
+        .directorist-listing-table-listing-info__content {
             flex: auto;
 
-            .directorist_title {
+            .directorist-title {
                 margin: 0 0 5px;
                 font-size: 15px;
                 font-weight: 500;
-                color: #0A0B1E;
+                a{
+                    color: #0A0B1E;
+                }
             }
 
-            .directorist_price {
+            .directorist-listing-price-range{
+                .directorist-price-active{
+                    color: #fff;
+                }
+            }
+
+            .directorist-price {
                 font-size: 14px;
                 font-weight: 500;
                 color: #51526E;
@@ -325,7 +333,7 @@
             }
         }
 
-        .directorist_actions {
+        .directorist-actions {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -334,7 +342,7 @@
                 font-size: 13px;
                 text-decoration: none;
 
-                &.directorist_link-btn {
+                &.directorist-link-btn {
                     color: #2C99FF;
                     font-weight: 500;
                     margin-right: 20px;
@@ -345,7 +353,7 @@
                 }
             }
 
-            .directorist_btn-more {
+            .directorist-btn-more {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -382,7 +390,7 @@
                 }
             }
 
-            .directorist_checkbox {
+            .directorist-checkbox {
                 label {
                     margin-bottom: 0;
                     font-size: 14px;
@@ -392,11 +400,11 @@
             }
         }
 
-        .directorist_dropdown {
+        .directorist-dropdown {
             position: relative;
             border: 0 none;
 
-            .directorist_dropdown-menu {
+            .directorist-dropdown-menu {
                 position: absolute;
                 right: 0;
                 top: 40px;
@@ -413,13 +421,13 @@
             }
         }
 
-        .directorist_dropdown-menu {
+        .directorist-dropdown-menu {
             min-width: 230px;
             border: 1px solid #EFF1F6;
             padding: 0 0 10px 0;
             border-radius: 6px;
 
-            .directorist_dropdown-menu__list {
+            .directorist-dropdown-menu__list {
                 position: relative;
 
                 &:not(:last-child) {
@@ -436,7 +444,7 @@
                     }
                 }
 
-                .directorist_dropdown-item {
+                .directorist-dropdown-item {
                     padding: 10px 20px;
                     font-size: 14px;
                     color: #51526E;
@@ -480,17 +488,44 @@
         margin: 2px 22px 0 22px;
         padding: 25px 0 38px;
         border-top: 1px solid #EFF1F6;
-
+        .pagination{
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            text-align: center;
+            box-shadow: none;
+            border-top: 0;
+        }
         .pagination .nav-links {
             justify-content: flex-end;
             margin: -4px;
 
             .page-numbers {
                 margin: 4px;
-
+                padding: 0;
+                line-height: normal;
+                height: 36px;
+                min-height: 36px;
+                width: 36px;
+                min-width: 36px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #E1E4EC;
+                border-radius: 6px;
+                background: #fff;
+                transition: 0.3s;
+                color: #7a82a6;
+                text-align: center;
+                margin: 4px;
+                right: auto;
+                float: none;
+                font-size: 15px;
+                text-decoration: none;
                 &.current {
                     background-color: #fff !important;
                     color: #0A0B1E;
+                    border: 0 none;
                 }
 
                 i.la,
@@ -502,7 +537,7 @@
     }
 }
 
-.directorist_table-responsive {
+.directorist-table-responsive {
     display: block !important;
     width: 100%;
     overflow-x: auto;
@@ -511,12 +546,12 @@
 
 // Responsive Css
 @media (max-width: 767px) {
-    .directorist_userDashboard-tab .directorist_userDashboard-tab__nav {
+    .directorist-user-dashboard-tab .directorist-user-dashboard-tab__nav {
         flex-flow: column;
         padding-bottom: 20px;
     }
 
-    .directorist_userDashboard-search {
+    .directorist-user-dashboard-search {
         margin-top: 15px;
     }
 }

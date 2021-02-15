@@ -4197,10 +4197,10 @@ input.atbdp-form-control {
   font-weight: 400;
   margin-left: 5px;
 }
-.directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link.tabItemActive {
+.directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link.directorist-tab__nav__active {
   color: #3E62F5;
 }
-.directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link.tabItemActive .directorist_count {
+.directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link.directorist-tab__nav__active .directorist_count {
   color: #868EAE;
 }
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent {
@@ -4218,7 +4218,7 @@ input.atbdp-form-control {
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_all-listing-table {
   padding-bottom: 60px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table {
   display: table;
   border-collapse: collapse;
   width: 100%;
@@ -4229,11 +4229,11 @@ input.atbdp-form-control {
   margin-top: 0;
   overflow: visible !important;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead {
   background-color: #F4F5F7;
   border-radius: 6px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th {
   padding: 16px 20px;
   font-size: 13px;
   text-transform: uppercase;
@@ -4242,98 +4242,98 @@ input.atbdp-form-control {
   color: #5A5F7D;
 }
 @media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th {
     padding: 15px 10px;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th:first-child {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th:first-child {
   border-radius: 6px 0 0 6px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th:last-child {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th:last-child {
   border-radius: 0 6px 6px 0;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-title {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-title {
   min-width: 300px;
 }
 @media only screen and (max-width: 1599px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-title {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-title {
     min-width: 200px;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-count {
   min-width: 150px;
   text-align: right;
 }
 @media only screen and (max-width: 1599px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-count {
     min-width: 110px;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count .directorist_listing-count-title {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-count .directorist_listing-count-title {
   display: block;
   margin-right: 40px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-date {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-c-date {
   min-width: 160px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-action {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table thead tr th.directorist_listing-c-action {
   min-width: 200px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td {
   background-color: #F8F9FB;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_title {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_title {
   color: #3E62F5;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions a {
   color: #fff;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-primary {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions a.directorist_btn-primary {
   background-color: #3E62F5;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger.directorist_btn-transparent {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger.directorist_btn-transparent {
   color: #FF272A;
   background-color: rgba(255, 39, 42, 0.1);
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle {
   background-color: #EFF0F3 !important;
   padding: 0 !important;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle i,
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle svg {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle i,
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr:hover td .directorist_listing-actions .directorist_more-dropdown-toggle svg {
   color: #5A5F7D;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td {
   font-size: 14px;
   font-weight: 400;
   color: #5A5F7D;
   padding: 15px 20px;
 }
 @media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td {
     padding: 15px 10px;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td:first-child {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td:first-child {
   border-radius: 6px 0 0 6px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td:last-child {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td:last-child {
   border-radius: 0 6px 6px 0;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_title {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_title {
   font-size: 15px;
   font-weight: 500;
   color: #272B41;
   text-decoration: none;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_title:hover {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_title:hover {
   color: #3E62F5;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-id {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-id {
   display: block;
   margin-top: 6px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_badge {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_badge {
   font-size: 10px;
   padding: 0.25em 0.55em 0.2em;
   letter-spacing: 1px;
@@ -4341,12 +4341,12 @@ input.atbdp-form-control {
   color: #fff;
   text-transform: uppercase;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-count {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-count {
   display: block;
   text-align: right;
   margin-right: 40px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions {
   margin: -5px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4359,30 +4359,30 @@ input.atbdp-form-control {
   position: relative;
 }
 @media only screen and (max-width: 1225px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions {
     -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;
             flex-wrap: wrap;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_loader {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_loader {
   position: absolute;
   right: 0;
   top: 12px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label {
   padding-top: 1px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label:after {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label:after {
   width: 15px;
   height: 15px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label:before {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label:before {
   font-size: 9px;
   left: 5px;
   top: 5px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a {
   color: #5A5F7D;
   display: inline-block;
   text-decoration: none;
@@ -4395,38 +4395,38 @@ input.atbdp-form-control {
   line-height: 2.75;
 }
 @media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a {
     padding: 0 10px;
     line-height: 2.5;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a i,
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a svg,
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a img {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a i,
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a svg,
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a img {
   margin-right: 8px;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a:hover {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions a:hover {
   color: #fff;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
   position: relative;
   display: inline-block;
   margin: 5px 5px 5px 15px;
 }
 @media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
     margin: 5px;
   }
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_loader {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_loader {
   position: absolute;
   right: -60px;
   top: 6%;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_listing-type-default {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_listing-type-default {
   pointer-events: none;
 }
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .atbd-listing-type-active-status {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist-table tbody tr td .atbd-listing-type-active-status {
   margin-top: 15px;
   margin-left: 0;
 }
@@ -4507,7 +4507,7 @@ input.atbdp-form-control {
   background-color: #3E62F5;
 }
 
-.directorist_table-responsive {
+.directorist-table-responsive {
   display: block !important;
   width: 100%;
   overflow-x: auto;

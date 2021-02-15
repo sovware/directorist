@@ -277,6 +277,16 @@ class Enqueue_Assets {
             ],
         ];
 
+        $scripts['directorist-media-uploader'] = [
+            'file_name' => 'ez-media-uploader',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => $this->script_version,
+            'group'     => 'public',                // public || admin  || global
+            'section'   => '',
+        ];
+
         
         // Admin
         // ================================

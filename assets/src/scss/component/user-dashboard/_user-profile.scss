@@ -1,0 +1,55 @@
+// User Profile Image
+
+.directorist-image-profile-wrap{
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ececec;
+}
+
+// Userdashboard Profile Info
+
+.directorist-user-profile-box{
+    .directorist-card__header{
+        padding: 18px 20px;
+    }
+    .directorist-card__body{
+        padding: 25px 25px 30px 25px;
+    }
+}
+
+.directorist-user-info-wrap{
+    .directorist-form-group{
+        margin-bottom: 25px;
+        .directorist-input-extra-info{
+            color: $light-gray;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+    }
+    .directorist-btn-profile-save{
+        width: 100%;
+        text-align: center;
+        text-transform: capitalize;
+        text-decoration: none;
+    }
+}
+
+// Users Social Info
+.directorist-user-socials{
+    .directorist-user-social-label{
+        font-size: 18px;
+        padding-bottom: 18px;
+        margin-bottom: 28px !important;
+        border-bottom: 1px solid #EFF1F6;
+    }
+    label{
+        .directorist-social-icon{
+            margin-right: 6px;
+            font-size: 16px;
+            color: #0A0B1E;
+        }
+    }
+}

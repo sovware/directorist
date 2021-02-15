@@ -14,29 +14,29 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div></div><div></div><div></div><div></div>
 	</div>
 
-	<div class="directorist_userDashboard-area">
+	<div class="directorist-user-dashboard-area">
 
-		<div class="directorist_userDashboard-tab">
+		<div class="directorist-user-dashboard-tab">
 
-			<div class="directorist_userDashboard-tab__nav">
+			<div class="directorist-user-dashboard-tab__nav">
 
 				<ul class="directorist-dashboard-listing-nav-js">
-					<li class="directorist_tab_nav--content-link">
-						<a href="#" data-tab="all" class="tabItemActive"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
+					<li class="directorist-tab-nav--content-link">
+						<a href="#" data-tab="all" class="directorist-tab__nav__active"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
 					</li>
-					<li class="directorist_tab_nav--content-link">
+					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="publish"><?php esc_html_e( 'Published', 'directorist' ); ?></a>
 					</li>
-					<li class="directorist_tab_nav--content-link">
+					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="pending"><?php esc_html_e( 'Pending', 'directorist' ); ?></a>
 					</li>
-					<li class="directorist_tab_nav--content-link">
+					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="expired"><?php esc_html_e( 'Expired', 'directorist' ); ?></a>
 					</li>
 				</ul>
 
-				<div class="directorist_userDashboard-search">
-					<div class="directorist_userDashboard-search__icon">
+				<div class="directorist-user-dashboard-search">
+					<div class="directorist-user-dashboard-search__icon">
 						<i class="la la-search"></i>
 					</div>
 					<form id="directorist-dashboard-listing-searchform">
@@ -46,28 +46,28 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			</div>
 
-			<div class="directorist_userDashboard-tabcontent">
-				<div class="directorist_listing-table directorist_table-responsive">
+			<div class="directorist-user-dashboard-tabcontent">
+				<div class="directorist-listing-table directorist-table-responsive">
 
-					<table class="directorist_table">
+					<table class="directorist-table">
 
 						<thead>
 							<tr>
 								<?php do_action( 'directorist_dashboard_listing_th_start', $dashboard ); ?>
 
-								<th class="directorist_table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
+								<th class="directorist-table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
 
 								<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
 
-								<th class="directorist_table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+								<th class="directorist-table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
 
-								<th class="directorist_table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
+								<th class="directorist-table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
 
-								<th class="directorist_table-status"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+								<th class="directorist-table-status"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
 
 								<?php do_action( 'directorist_dashboard_listing_th_6', $dashboard ); ?>
 
-								<th class="directorist_table-actions"></th>
+								<th class="directorist-table-actions"></th>
 
 								<?php do_action( 'directorist_dashboard_listing_th_end', $dashboard ); ?>
 							</tr>

@@ -14,8 +14,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         // run
         public function run()
         {
-
-            add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'init', [$this, 'prepare_settings'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
@@ -157,6 +155,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'open-in-new-tab' => true,
                     'label'           => __( 'CSV', 'directorist' ),
                     'button-label'    => __( 'Run Importer', 'directorist' ),
+                ];
+
+                $fields['listing_import_button'] = [
+                    'type'             => 'export-data',
+                    'label'            => __( 'Export Listings', 'directorist' ),
+                    'button-label'     => __( 'Export', 'directorist' ),
+                    'export-file-name' => __( 'listings', 'directorist' ),
+                    'export-as'        => 'csv', // csv | json
+                    'data' => Directorist\Listings_Export::get_listings_data(),
                 ];
 
                 $c = '<b><span style="color:#c71585;">'; //color start
@@ -5055,14 +5062,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
 
                         'listings_import' => [
-                            'label'     => __('Listings Import', 'directorist'),
+                            'label' => __('Listings Import/Export', 'directorist'),
                             'icon' => '<i class="fa fa-upload"></i>',
                             'sections'  => apply_filters('atbdp_listings_import_controls', [
                                 'import_methods' => array(
-                                    'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
-                                        [
-                                            'listing_export_button'
-                                        ],
+                                    'fields' => apply_filters('atbdp_csv_import_settings_fields', [
+                                        'listing_export_button', 'listing_import_button',
                                     ]),
                                 ),
                             ]),
@@ -5190,7 +5195,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'config'  => $this->config,
             ];
 
-            wp_localize_script('atbdp_settings_manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
+            wp_localize_script('directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
         
             /* $status = $this->update_settings_options([
                 'new_listing_status' => 'publish',
@@ -5203,42 +5208,6 @@ Please remember that your order may be canceled if you do not make your payment 
             var_dump( [ '$check_new' => $check_new,  '$check_edit' => $check_edit] ); */
             
             atbdp_load_admin_template('settings-manager/settings');
-        }
-
-        // update_fields_with_old_data
-        public function update_fields_with_old_data()
-        {
-            
-        }
-
-        // enqueue_scripts
-        public function enqueue_scripts()
-        {
-            wp_enqueue_media();
-            // wp_enqueue_style('atbdp-unicons');
-            wp_enqueue_style('atbdp-font-awesome');
-            // wp_enqueue_style('atbdp-select2-style');
-            // wp_enqueue_style('atbdp-select2-bootstrap-style');
-            wp_enqueue_style('atbdp_admin_css');
-
-            wp_localize_script('atbdp_settings_manager', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
-            wp_enqueue_script('atbdp_settings_manager');
-        }
-
-        // register_scripts
-        public function register_scripts( $page = '' )
-        {
-            wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
-            wp_register_style('atbdp-select2-style', '//cdn.bootcss.com/select2/4.0.0/css/select2.css', false);
-            wp_register_style('atbdp-select2-bootstrap-style', '//select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css', false);
-            wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
-
-            wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
-            wp_register_script( 'atbdp_settings_manager', ATBDP_PUBLIC_ASSETS . 'js/settings_manager.js', ['jquery'], false, true );
-
-            if ( 'at_biz_dir_page_atbdp-settings' == $page ) {
-                $this->enqueue_scripts();
-            }
         }
 
         /**

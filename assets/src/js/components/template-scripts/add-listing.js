@@ -13,15 +13,17 @@
         });
 
         // enable sorting if only the container has any social or skill field
-        const $s_wrap = $('#social_info_sortable_container'); // cache it
-        if (window.outerWidth > 1700) {
-                if ($s_wrap.length) {
-                        $s_wrap.sortable({
-                                axis: 'y',
-                                opacity: '0.7',
-                        });
+        setTimeout(() => {
+                const $s_wrap = $('#social_info_sortable_container'); // cache it
+                if (window.outerWidth > 1700) {
+                        if ($s_wrap.length) {
+                                $s_wrap.sortable({
+                                        axis: 'y',
+                                        opacity: '0.7',
+                                });
+                        }
                 }
-        }
+        }, 2000);
 
         // SOCIAL SECTION
         // Rearrange the IDS and Add new social field
@@ -223,9 +225,9 @@ jQuery(function($) {
                         term_id         : id,
                         directory_type  : directory_type,
                 };
-             
+
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                       
+
                        if( response ){
                                 $( '.atbdp_category_custom_fields' ).empty().append( response );
                                 function atbdp_tooltip(){
@@ -298,12 +300,12 @@ jQuery(function($) {
         function setup_form_data( form_data, type, field ){
                  //normal input
                  if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) || ( type === 'url' ) ){
-                        form_data.append( field.name, field.value );   
+                        form_data.append( field.name, field.value );
                 }
                 //textarea
                 if( 'textarea' === type ){
                         const value = $('#'+ field.name + '_ifr').length ? tinymce.get( field.name ).getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
-                        form_data.append( field.name, value );     
+                        form_data.append( field.name, value );
                 }
                 //radio
                 if( 'radio' === type ){
@@ -320,7 +322,7 @@ jQuery(function($) {
                                 });
                                 form_data.append( field.name , values);
                         }else{
-                                form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) ); 
+                                form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) );
                         }
                 }
                 //select
@@ -362,10 +364,10 @@ jQuery(function($) {
                                 } );
                                 mediaUploaders[i].media_uploader.init();
                                 i++;
-                        } 
+                        }
                 }
         }
-        
+
         const formID = $('#add-listing-form');
         let on_processing = false;
         let has_media = true;
@@ -391,7 +393,7 @@ jQuery(function($) {
                 $.each( fieldValuePairs, function( index, fieldValuePair ) {
                         const field = document.getElementsByName( fieldValuePair.name )[0];
                         const type = field.type;
-                        field_list.push( { name: field.name, });   
+                        field_list.push( { name: field.name, });
                         //array fields
                         if ( field.name.indexOf('[') > -1 ){
                                 const field_name = field.name.substr(0, field.name.indexOf("["));
@@ -431,20 +433,20 @@ jQuery(function($) {
                                         } else {
                                                 const name = ele.attr('name');
                                                 const value = ele.val();
-                                               
+
                                                 form_data.append( name, value );
-                                        } 
-                                }       
+                                        }
+                                }
                         }else{
                                 //  field_list2.push({ nam: name, val: value, field: field, type: type})
                                 setup_form_data( form_data, type, field );
-                        }        
+                        }
                 });
 
                 // console.log( field_list2 );
                 // return;
                 // images
-                
+
                 if( mediaUploaders.length ){
                         for ( var uploader of mediaUploaders ) {
                         if (uploader.media_uploader && has_media) {

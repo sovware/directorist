@@ -48,3 +48,6 @@ import './components/single-listing-page/slider';
 
 // Booking
 import './components/booking';
+
+// Add listing
+import './components/template-scripts/add-listing';

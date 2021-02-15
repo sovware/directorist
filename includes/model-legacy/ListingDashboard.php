@@ -395,8 +395,10 @@ class Directorist_Listing_Dashboard {
 
 	public function nav_buttons_template() {
 		$args = array(
-			'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
-			'user_type'			 => $this->user_type
+			'display_submit_btn' 			=> get_directorist_option('submit_listing_button', 1),
+			'become_author_button'	 		=> get_directorist_option( 'become_author_button', 1 ),
+			'become_author_button_text'	    => get_directorist_option( 'become_author_button_text', __( 'Become An Author', 'directorist' ) ),
+			'user_type'			 		    => $this->user_type
 		);
 		Helper::get_template( 'dashboard/nav-buttons', $args );
 	}

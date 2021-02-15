@@ -2530,6 +2530,22 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Display Submit Listing Button', 'directorist'),
                     'value' => true,
                 ],
+                'become_author_button' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display "Become An Author" button', 'directorist'),
+                    'value' => true,
+                ],
+                'become_author_button_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Become An Author" button Label', 'directorist'),
+                    'value'         => __('Become An Author', 'directorist'),
+                    'show-if' => [
+                        'where' => "become_author_button",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 // search form settings
                 'search_title'    => [
                     'type'          => 'text',
@@ -4682,13 +4698,27 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'user_dashboard' => [
-                            'label' => __('User Dashboard', 'directorist'),
+                            'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
-                                'labels' => [
+                                'general_dashboard' => [
                                     'fields'      => [
-                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'announcement_tab', 'announcement_tab_text', 'submit_listing_button'
+                                         'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'announcement_tab', 'announcement_tab_text'
                                     ],
+                                ],
+                                'author_dashboard' => [
+                                    'title'       => __('Author Dashboard', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'submit_listing_button'
+                                        ],
+                                ],
+                                'user_dashboard' => [
+                                    'title'       => __('User Dashboard', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'become_author_button', 'become_author_button_text'
+                                        ],
                                 ],
                             ] ),
                         ],

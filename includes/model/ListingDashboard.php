@@ -18,11 +18,15 @@ class Directorist_Listing_Dashboard {
 
 	public $current_listings_query;
 	public $user_type;
+	public $become_author_button;
+	public $become_author_button_text;
 
 	private function __construct() {
-		$this->id = get_current_user_id();
-		$user_type 		  = get_user_meta( get_current_user_id(), '_user_type', true );
-		$this->user_type  = ! empty( $user_type ) ? $user_type : '';
+		$this->id 						 = get_current_user_id();
+		$user_type 		  		 		 = get_user_meta( get_current_user_id(), '_user_type', true );
+		$this->user_type  		 		 = ! empty( $user_type ) ? $user_type : '';
+		$this->become_author_button 	 = get_directorist_option( 'become_author_button', 1);
+		$this->become_author_button_text = get_directorist_option( 'become_author_button_text', __( 'Become An Author', 'directorist' ) );
 	}
 
 	public static function instance() {

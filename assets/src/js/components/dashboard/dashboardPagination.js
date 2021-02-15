@@ -10,7 +10,7 @@
 
         var search = $('#directorist-dashboard-mylistings-js').data('search');
 
-        $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+        $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
         directorist_dashboard_listing_ajax($activeTab,paged,search);
 
         return false;

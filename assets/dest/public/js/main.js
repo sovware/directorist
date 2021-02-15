@@ -345,17 +345,17 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 (function ($) {
   // User Dashboard Table More Button
-  $('.directorist-dashboard-listings-tbody').on("click", '.directorist_btn-more', function (e) {
+  $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
     e.preventDefault();
     $(this).toggleClass('active');
-    $(".directorist_dropdown-menu").removeClass("active");
-    $(this).next(".directorist_dropdown-menu").toggleClass("active");
+    $(".directorist-dropdown-menu").removeClass("active");
+    $(this).next(".directorist-dropdown-menu").toggleClass("active");
     e.stopPropagation();
   });
   $(document).bind("click", function (e) {
-    if (!$(e.target).parents().hasClass('directorist_dropdown-menu__list')) {
-      $(".directorist_dropdown-menu").removeClass("active");
-      $(".directorist_btn-more").removeClass("active");
+    if (!$(e.target).parents().hasClass('directorist-dropdown-menu__list')) {
+      $(".directorist-dropdown-menu").removeClass("active");
+      $(".directorist-btn-more").removeClass("active");
     }
   });
 })(jQuery);
@@ -490,6 +490,29 @@ if (flatWrapper != null && fAvailableTime != null) {
       $('.atbdp-become-author').hide();
     });
   });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/components/dashboard/dashboardImageUploader.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/js/components/dashboard/dashboardImageUploader.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  // user dashboard image uploader
+  var profileMediaUploader = null;
+
+  if ($("#user_profile_pic").length) {
+    profileMediaUploader = new EzMediaUploader({
+      containerID: "user_profile_pic"
+    });
+    profileMediaUploader.init();
+  }
 })(jQuery);
 
 /***/ }),
@@ -653,7 +676,7 @@ if (flatWrapper != null && fAvailableTime != null) {
     paged = paged.split('/page/')[1];
     paged = parseInt(paged);
     var search = $('#directorist-dashboard-mylistings-js').data('search');
-    $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     directorist_dashboard_listing_ajax($activeTab, paged, search);
     return false;
   });
@@ -695,7 +718,7 @@ if (flatWrapper != null && fAvailableTime != null) {
   $('#directorist-dashboard-listing-searchform input[name=searchtext').val(''); //onready
 
   $('#directorist-dashboard-listing-searchform').on('submit', function (event) {
-    var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     var search = $(this).find('input[name=searchtext]').val();
     directorist_dashboard_listing_ajax($activeTab, 1, search);
     $('#directorist-dashboard-mylistings-js').data('search', search);
@@ -1292,7 +1315,7 @@ pureScriptTabChild2 = (selector1) => {
 if ($('.directorist-tab')) {
   pureScriptTab('.directorist-tab');
 }
-/* pureScriptTab('.directorist_userDashboard-tab');
+/* pureScriptTab('.directorist-user-dashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');
 pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 
@@ -2472,18 +2495,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardSearch__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSearch__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/template-scripts/add-listing */ "./assets/src/js/components/template-scripts/add-listing.js");
-/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/template-scripts/add-listing */ "./assets/src/js/components/template-scripts/add-listing.js");
+/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_29__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -2515,6 +2540,7 @@ __webpack_require__.r(__webpack_exports__);
 
  // Dashboard Js
 //import './components/dashboard/dashboardImageUploader';
+
 
 
 

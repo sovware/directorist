@@ -20,15 +20,15 @@ if ( $query->have_posts() ) {
 			<?php do_action( 'directorist_dashboard_listing_td_start', $dashboard ); ?>
 
 			<td>
-				<div class="directorist_listing-info">
+				<div class="directorist-listing-table-listing-info">
 
-					<div class="directorist_listing-info__img">
+					<div class="directorist-listing-table-listing-info__img">
 						<a href="<?php the_permalink(); ?>"><?php echo $dashboard->get_listing_thumbnail(); ?></a>
 					</div>
 
-					<div class="directorist_listing-info__content">
+					<div class="directorist-listing-table-listing-info__content">
 
-						<h4 class="directorist_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+						<h4 class="directorist-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 
 						<?php Helper::listing_price(); ?>
 
@@ -39,25 +39,25 @@ if ( $query->have_posts() ) {
 
 			<?php do_action( 'directorist_dashboard_listing_td_2', $dashboard ); ?>
 
-			<td><span class="directorist_listing-plan"><?php echo $dashboard->get_listing_type(); ?></span></td>
+			<td><span class="directorist-listing-plan"><?php echo $dashboard->get_listing_type(); ?></span></td>
 
-			<td><span class="directorist_ex-plan"><?php echo $dashboard->get_listing_expired_html(); ?></span></td>
+			<td><span class="directorist-ex-plan"><?php echo $dashboard->get_listing_expired_html(); ?></span></td>
 
 			<td><?php echo $dashboard->get_listing_status_html(); ?></td>
 
 			<?php do_action( 'directorist_dashboard_listing_td_6', $dashboard ); ?>
 
 			<td>
-				<div class="directorist_actions">
+				<div class="directorist-actions">
 
-					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist_link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
 
-					<div class="directorist_dropdown">
+					<div class="directorist-dropdown">
 
-						<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+						<a href="#" class="directorist-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
 
-						<div class="directorist_dropdown-menu directorist-dashboard-listing-actions">
-							<div class="directorist_dropdown-menu__list">
+						<div class="directorist-dropdown-menu directorist-dashboard-listing-actions">
+							<div class="directorist-dropdown-menu__list">
 
 								<?php
 								$dropdown_items = $dashboard->get_action_dropdown_item();
@@ -65,7 +65,7 @@ if ( $query->have_posts() ) {
 								if( $dropdown_items ) {
 									foreach( $dropdown_items as $item ) {
 										?>
-										<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
+										<a class="directorist-dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
 										<?php
 									}
 								}

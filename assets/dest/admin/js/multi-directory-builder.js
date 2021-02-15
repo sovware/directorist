@@ -984,6 +984,163 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 /***/ }),
 
+/***/ "./assets/src/js/vue/mixins/form-fields/export-data-field.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/vue/mixins/form-fields/export-data-field.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/vue/mixins/form-fields/input-field-props.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./assets/src/js/vue/mixins/helpers.js");
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'export-data-field',
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    label: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  },
+  data: function data() {
+    return {
+      validation_message: null
+    };
+  },
+  methods: {
+    exportData: function exportData() {
+      switch (this.exportAs) {
+        case 'csv':
+          this.export_CSV();
+          break;
+
+        case 'json':
+          this.export_JSON();
+          break;
+
+        default:
+          this.export_CSV();
+          break;
+      }
+    },
+    export_CSV: function export_CSV() {
+      if (!Array.isArray(this.data)) {
+        return;
+      }
+
+      var dataStr = "data:text/csv;charset=utf-8,";
+      var tr_count = 0;
+      var delimeter = ',';
+      var table = this.justifyTable(this.data);
+
+      var _iterator = _createForOfIteratorHelper(table),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var tr = _step.value;
+
+          if (!tr || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(tr) !== 'object') {
+            continue;
+          } // Header Row
+
+
+          var header_row_array = [];
+
+          if (0 === tr_count) {
+            for (var td in tr) {
+              header_row_array.push("\"".concat(td, "\""));
+            }
+
+            var header_row = header_row_array.join(delimeter);
+            dataStr += header_row + "\r\n";
+          } // Body Row
+
+
+          var body_row_array = [];
+
+          for (var _td in tr) {
+            var data = _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(tr[_td]) === 'object' ? '' : tr[_td];
+            body_row_array.push("\"".concat(data, "\""));
+          }
+
+          var body_row = body_row_array.join(delimeter);
+          dataStr += body_row + "\r\n";
+          tr_count++;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var dataUri = encodeURI(dataStr);
+      var exportFileDefaultName = this.exportFileName + '.csv';
+      var linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+    },
+    export_JSON: function export_JSON() {
+      var dataStr = JSON.stringify(this.data);
+      var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+      var exportFileDefaultName = this.exportFileName + '.json';
+      var linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+    },
+    justifyTable: function justifyTable(table) {
+      if (!Array.isArray(table)) {
+        return table;
+      }
+
+      if (!table.length) {
+        return table;
+      }
+
+      var tr_lengths = [];
+      table.forEach(function (item, index) {
+        tr_lengths.push(Object.keys(item).length);
+      });
+      var top_tr = tr_lengths.indexOf(Math.max.apply(Math, tr_lengths));
+      var modal_tr = table[top_tr];
+      var justify_table = [];
+      table.forEach(function (item, index) {
+        var tr = {};
+
+        for (var key in modal_tr) {
+          tr[key] = item[key] ? item[key] : '';
+        }
+
+        justify_table.push(tr);
+      });
+      return justify_table;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/vue/mixins/form-fields/export-field.js":
 /*!**************************************************************!*\
   !*** ./assets/src/js/vue/mixins/form-fields/export-field.js ***!
@@ -1210,6 +1367,12 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
+    },
+    data: {
+      required: false
+    },
+    exportAs: {
+      required: false
     },
     theme: {
       type: String,
@@ -3366,6 +3529,7 @@ var map = {
 	"./form-fields/Card_Builder_Listing_Header_Field.vue": "./assets/src/js/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue",
 	"./form-fields/Checkbox_Field.vue": "./assets/src/js/vue/modules/form-fields/Checkbox_Field.vue",
 	"./form-fields/ColorField.vue": "./assets/src/js/vue/modules/form-fields/ColorField.vue",
+	"./form-fields/Export_Data_Field.vue": "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue",
 	"./form-fields/Export_Field.vue": "./assets/src/js/vue/modules/form-fields/Export_Field.vue",
 	"./form-fields/Fields_Group_Field.vue": "./assets/src/js/vue/modules/form-fields/Fields_Group_Field.vue",
 	"./form-fields/Form_Builder_Field.vue": "./assets/src/js/vue/modules/form-fields/Form_Builder_Field.vue",
@@ -3391,6 +3555,7 @@ var map = {
 	"./form-fields/themes/butterfly/Button_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Button_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Checkbox_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Checkbox_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Color_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Color_Field_Theme_Butterfly.vue",
+	"./form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Export_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Import_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Import_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Note_Field_Theme_Butterfly.vue": "./assets/src/js/vue/modules/form-fields/themes/butterfly/Note_Field_Theme_Butterfly.vue",
@@ -3405,6 +3570,7 @@ var map = {
 	"./form-fields/themes/default/Ajax_Action_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Ajax_Action_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Checkbox_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Checkbox_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Color_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Color_Field_Theme_Default.vue",
+	"./form-fields/themes/default/Export_Data_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Export_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Export_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Import_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Import_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Note_Field_Theme_Default.vue": "./assets/src/js/vue/modules/form-fields/themes/default/Note_Field_Theme_Default.vue",
@@ -6131,6 +6297,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue":
+/*!*********************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Export_Data_Field.vue?vue&type=template&id=7efa4fa5& */ "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5&");
+/* harmony import */ var _Export_Data_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Export_Data_Field.vue?vue&type=script&lang=js& */ "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Export_Data_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/vue/modules/form-fields/Export_Data_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5&":
+/*!****************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field.vue?vue&type=template&id=7efa4fa5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_vue_vue_type_template_id_7efa4fa5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./assets/src/js/vue/modules/form-fields/Export_Field.vue":
 /*!****************************************************************!*\
   !*** ./assets/src/js/vue/modules/form-fields/Export_Field.vue ***!
@@ -7856,6 +8091,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue":
+/*!******************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728& */ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728&");
+/* harmony import */ var _Export_Data_Field_Theme_Butterfly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js& */ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Export_Data_Field_Theme_Butterfly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Butterfly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Butterfly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728&":
+/*!*************************************************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728& ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Butterfly_vue_vue_type_template_id_0df85728___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Field_Theme_Butterfly.vue":
 /*!*************************************************************************************************!*\
   !*** ./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Field_Theme_Butterfly.vue ***!
@@ -8817,6 +9121,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_template_id_9040191c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_template_id_9040191c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue":
+/*!**************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8& */ "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8&");
+/* harmony import */ var _Export_Data_Field_Theme_Default_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js& */ "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Export_Data_Field_Theme_Default_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Default_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Default_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8&":
+/*!*********************************************************************************************************************************!*\
+  !*** ./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8& ***!
+  \*********************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Export_Data_Field_Theme_Default_vue_vue_type_template_id_c6b868f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -21759,6 +22132,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./assets/src/js/vue/mixins/form-fields/helper.js");
+/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/vue/mixins/form-fields/input-field-props.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'export-data-field',
+  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  created: function created() {
+    console.log(123);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Field.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/Export_Field.vue?vue&type=script&lang=js& ***!
@@ -24756,7 +25162,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -25103,6 +25509,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'color-field-theme-butterfly',
   mixins: [_mixins_form_fields_color_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/export-data-field */ "./assets/src/js/vue/mixins/form-fields/export-data-field.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'export-data-field-theme-butterfly',
+  mixins: [_mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 /***/ }),
@@ -25749,6 +26193,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'color-field-theme-default',
   mixins: [_mixins_form_fields_color_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/export-data-field */ "./assets/src/js/vue/mixins/form-fields/export-data-field.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'export-data-field-theme-default',
+  mixins: [_mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 /***/ }),
@@ -35238,6 +35714,47 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/Export_Data_Field.vue?vue&type=template&id=7efa4fa5& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.canShow
+    ? _c(
+        _vm.getTheTheme("export-data-field"),
+        _vm._b(
+          {
+            tag: "component",
+            on: {
+              "do-action": function($event) {
+                return _vm.$emit("do-action", $event)
+              }
+            }
+          },
+          "component",
+          _vm.$props,
+          false
+        )
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/Export_Field.vue?vue&type=template&id=6851260a&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/Export_Field.vue?vue&type=template&id=6851260a& ***!
@@ -36333,7 +36850,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )
@@ -37353,6 +37870,57 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/themes/butterfly/Export_Data_Field_Theme_Butterfly.vue?vue&type=template&id=0df85728& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cptm-form-group" }, [
+    _c("div", { staticClass: "atbdp-row" }, [
+      _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
+        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-form-group-info",
+              domProps: { innerHTML: _vm._s(_vm.description) }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
+        _c("a", {
+          staticClass: "settings-save-btn",
+          attrs: { href: "#", target: "_blank" },
+          domProps: { innerHTML: _vm._s(_vm.buttonLabel) },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.exportData($event)
+            }
+          }
+        })
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38701,6 +39269,51 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue?vue&type=template&id=c6b868f8& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cptm-form-group" }, [
+    _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+    _vm._v(" "),
+    _vm.description.length
+      ? _c("p", {
+          staticClass: "cptm-form-group-info",
+          domProps: { innerHTML: _vm._s(_vm.description) }
+        })
+      : _vm._e(),
+    _vm._v(" "),
+    _c("a", {
+      staticClass: "settings-save-btn",
+      attrs: { href: "#", target: "_blank" },
+      domProps: { innerHTML: _vm._s(_vm.buttonLabel) },
+      on: {
+        click: function($event) {
+          $event.preventDefault()
+          return _vm.exportData($event)
+        }
+      }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

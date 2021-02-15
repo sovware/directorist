@@ -14,7 +14,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function run() {
             add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
-            add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
+            // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
             add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'init', [$this, 'update_default_directory_type_option'] );
@@ -4969,7 +4969,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             
 
             if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
-                wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
+                wp_localize_script('directorist-multi-directory-builder', 'cptm_data', $cptm_data);
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
                 return;
             }
@@ -5114,30 +5114,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
             wp_enqueue_script('atbdp_admin_app');
-        }
-
-        // register_scripts
-        public function register_scripts( $page = '' )
-        {
-            wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
-            wp_register_style('atbdp-select2-style', '//cdn.bootcss.com/select2/4.0.0/css/select2.css', false);
-            wp_register_style('atbdp-select2-bootstrap-style', '//select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css', false);
-            wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
-            wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
-            // wp_register_style( 'atbdp-unicons-line', ATBDP_PUBLIC_ASSETS . 'css/unicons-line-min.css', false, ATBDP_VERSION );
-
-            wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
-            wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', ['jquery'], false, true );
-
-
-            $accepted_pages = [ 
-                'at_biz_dir_page_atbdp-layout-builder',
-                'at_biz_dir_page_atbdp-directory-types'
-            ];
-
-            if ( in_array( $page, $accepted_pages ) ) {
-                $this->enqueue_scripts();
-            }
         }
     }
 }

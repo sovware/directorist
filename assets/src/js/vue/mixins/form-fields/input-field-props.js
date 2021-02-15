@@ -5,6 +5,12 @@ export default {
             required: false,
             default: '',
         },
+        data: {
+            required: false,
+        },
+        exportAs: {
+            required: false,
+        },
         theme: {
             type: String,
             required: false,

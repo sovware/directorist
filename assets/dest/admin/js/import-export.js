@@ -94,6 +94,47 @@
 /***/ (function(module, exports) {
 
 jQuery(document).ready(function ($) {
+  var query_string = function (a) {
+    if (a == '') return {};
+    var b = {};
+
+    for (var i = 0; i < a.length; ++i) {
+      var p = a[i].split('=', 2);
+      if (p.length == 1) b[p[0]] = '';else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, ' '));
+    }
+
+    return b;
+  }(window.location.search.substr(1).split('&'));
+
+  $('body').on('change', 'select[name="directory_type"]', function () {
+    admin_listing_form($(this).val());
+  });
+
+  function admin_listing_form(directory_type) {
+    var file = query_string.file;
+    var delimiter = query_string.delimiter;
+    $.ajax({
+      type: 'post',
+      url: import_export_data.ajaxurl,
+      data: {
+        action: 'directorist_listing_type_form_fields',
+        directory_type: directory_type,
+        delimiter: delimiter,
+        file: file
+      },
+      beforeSend: function beforeSend() {
+        $('#directorist-type-preloader').show();
+      },
+      success: function success(response) {
+        $('.atbdp-importer-mapping-table').remove();
+        $('.directory_type_wrapper').after(response);
+      },
+      complete: function complete() {
+        $('#directorist-type-preloader').hide();
+      }
+    });
+  }
+
   $('#atbdp_ie_download_sample').on('click', function (e) {
     var ie_file = $(this).attr('data-sample-csv');
 
@@ -119,23 +160,43 @@ jQuery(document).ready(function ($) {
       var form_data = new FormData(); // ajax action
 
       form_data.append('action', 'atbdp_import_listing');
-      form_data.append('file', $('input[name="file"]').val());
+      form_data.append('csv_file', $('input[name="csv_file"]').val());
       form_data.append('delimiter', $('input[name="delimiter"]').val());
       form_data.append('update_existing', $('input[name="update_existing"]').val());
+
+      if ($('select[name="directory_type"]').length) {
+        form_data.append('directory_type', $('select[name="directory_type"]').val());
+      }
+
       form_data.append('position', position);
       form_data.append('wpnonce', $('input[name="_wpnonce"]').val());
-      $('select.atbdp_map_to').each(function () {
-        var name = $(this).attr('name');
-        var value = $(this).val();
+      var map_elm = null;
 
-        if (value == 'title' || value == 'description' || value == '_listing_prv_img') {
-          form_data.append(value, name);
-        } else if (value == 'category' || value == 'location' || value == 'tag') {
-          form_data.append("tax_input[".concat(value, "]"), name);
-        } else {
-          form_data.append("meta[".concat(value, "]"), name);
-        }
-      });
+      if ($('select.atbdp_map_to').length) {
+        map_elm = $('select.atbdp_map_to');
+      }
+
+      if ($('input.atbdp_map_to').length) {
+        map_elm = $('input.atbdp_map_to');
+      }
+
+      if (map_elm) {
+        // var log = [];
+        map_elm.each(function () {
+          var name = $(this).attr('name');
+          var value = $(this).val();
+
+          if (value == 'listing_title' || value == 'listing_content' || value == 'listing_img' || value == 'directory_type') {
+            form_data.append(value, name); // log.push( { [ value ]: name } );
+          } else if (value == 'category' || value == 'location' || value == 'tag') {
+            form_data.append("tax_input[".concat(value, "]"), name); // log.push( { [ `tax_input[${value}]` ]: name } );
+          } else {
+            form_data.append("meta[".concat(value, "]"), name); // log.push( { [ `meta[${value}]` ]: name } );
+          }
+        });
+      } // return;
+
+
       $.ajax({
         method: 'POST',
         processData: false,
@@ -144,6 +205,8 @@ jQuery(document).ready(function ($) {
         url: import_export_data.ajaxurl,
         data: form_data,
         success: function success(response) {
+          // console.log( { response } );
+          // return;
           imported += response.imported;
           failed += response.failed;
           $('.importer-details').html("Imported ".concat(response.next_position, " out of ").concat(response.total));
@@ -156,6 +219,8 @@ jQuery(document).ready(function ($) {
           } else {
             window.location = "".concat(response.url, "&listing-imported=").concat(imported, "&listing-failed=").concat(failed);
           }
+
+          $('.directorist-importer-length').css('width', response.percentage + '%');
         },
         error: function error(response) {
           window.console.log(response);

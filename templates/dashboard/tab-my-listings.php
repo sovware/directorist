@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-dashboard-mylistings" id="directorist-dashboard-mylistings-js" data-paged="1" data-search="">
 
-	<div id="directorist-dashboard-preloader" style="display:none">
+	<div id="directorist-dashboard-preloader">
 		<div></div><div></div><div></div><div></div>
 	</div>
 
@@ -88,11 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</table>
 
 					<div class="directorist-dashboard-pagination">
-						<div class="navigation pagination">
-							<div class="nav-links">
-								<?php echo $dashboard->listing_pagination(); ?>
-							</div>
-						</div>
+						<?php echo $dashboard->listing_pagination(); ?>
 					</div>
 
 				</div>

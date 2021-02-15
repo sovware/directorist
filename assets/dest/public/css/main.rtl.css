@@ -212,6 +212,10 @@ a {
   line-height: 24px;
 }
 
+#directorist-dashboard-preloader {
+  display: none;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -6688,23 +6692,7 @@ p.atbd-min {
   padding: 25px 0 38px;
   border-top: 1px solid #EFF1F6;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  text-align: center;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  border-top: 0;
-}
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  margin: -4px;
-}
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers {
   margin: 4px;
   padding: 0;
   line-height: normal;
@@ -6737,13 +6725,13 @@ p.atbd-min {
   font-size: 15px;
   text-decoration: none;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers.current {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers.current {
   background-color: #fff !important;
   color: #0A0B1E;
   border: 0 none;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers i.la,
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers svg {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers i.la,
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers svg {
   color: #0A0B1E;
 }
 

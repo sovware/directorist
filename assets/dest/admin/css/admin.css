@@ -4846,6 +4846,48 @@ input.atbdp-form-control {
   line-height: 24px;
 }
 
+.reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.directorist-mt-5 {
+  margin-top: 5px !important;
+}
+
+.directorist-mt-10 {
+  margin-top: 10px !important;
+}
+
+.directorist-mt-15 {
+  margin-top: 15px !important;
+}
+
+.directorist-mt-20 {
+  margin-top: 20px !important;
+}
+
+.directorist-mt-30 {
+  margin-top: 30px;
+}
+
+.directorist-mb-20 {
+  margin-bottom: 20px;
+}
+
+.directorist-mb-15 {
+  margin-bottom: 15px;
+}
+
+.directorist-mb-40 {
+  margin-bottom: 40px;
+}
+
+.directorist-pb-100 {
+  padding-bottom: 100px;
+}
+
 .directorist-form-group {
   position: relative;
 }

@@ -6697,14 +6697,14 @@ p.atbd-min {
           box-shadow: none;
   border-top: 0;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .nav-links {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
           justify-content: flex-end;
   margin: -4px;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .nav-links .page-numbers {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers {
   margin: 4px;
   padding: 0;
   line-height: normal;
@@ -6737,13 +6737,13 @@ p.atbd-min {
   font-size: 15px;
   text-decoration: none;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .nav-links .page-numbers.current {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers.current {
   background-color: #fff !important;
   color: #0A0B1E;
   border: 0 none;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .nav-links .page-numbers i.la,
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .nav-links .page-numbers svg {
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers i.la,
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .pagination .page-numbers svg {
   color: #0A0B1E;
 }
 

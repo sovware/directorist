@@ -1,4 +1,9 @@
-@import '../mixins/general';
+@import "../vendor/bootstrap/config.bs";
+//base css
+@import "../base/";
+//mixins
+@import "../mixins/colors";
+@import "../mixins/general";
 
 // add listing types
 .directorist-add-listing-types {

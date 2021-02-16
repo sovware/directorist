@@ -346,7 +346,7 @@ class Directorist_Listing_Dashboard {
 			);
 		}
 
-		return apply_filters( 'atbdp_dashboard_tabs', $dashboard_tabs );
+		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
 	}
 
 	public function error_message_template() {

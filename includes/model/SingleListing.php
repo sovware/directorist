@@ -753,7 +753,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_is_duplicate() {
-		return tract_duplicate_review(wp_get_current_user()->display_name, $id);
+		return tract_duplicate_review(wp_get_current_user()->display_name, $this->id );
 	}
 
 	public function get_tagline() {
@@ -761,7 +761,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_email() {	
-		$email = get_post_meta( $listing->id, '_email', true );
+		$email = get_post_meta( $this->id, '_email', true );
 		return $email;
 	}
 

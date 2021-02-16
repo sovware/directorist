@@ -6,7 +6,7 @@ class ATBDP_Upgrade
 
     public function __construct()
     {
-       // add_action('admin_notices', array($this, 'upgrade_notice'), 100);
+      // add_action('admin_notices', array($this, 'upgrade_notice'), 100);
        global $pagenow;
         if ( 'plugins.php' === $pagenow )
         {
@@ -48,9 +48,22 @@ class ATBDP_Upgrade
 
     public function upgrade_notice()
     {
-        if (!current_user_can('administrator')) return false;
-        
-
+        if (!current_user_can('administrator')) return false;?>
+        <div class="updated" style="height: 300px; text-align: center;">
+            <p>To get all new <a href="">features</a> please continue <a href="">here</a> | <a href="">maybe later</a></p>
+            <ul>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+                <li>Feature....</li>
+            </ul>
+        </div>
+        <?php
     }
 
 }

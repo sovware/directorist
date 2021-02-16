@@ -15,8 +15,7 @@ class ATBDP_Upgrade
            // add_action( $hook, array($this, 'your_update_message_cb'), 20, 2 );
         }
     }
-
-    public /**
+    /**
     * Displays an update message for plugin list screens.
     * Shows only the version updates from the current until the newest version
     * 
@@ -24,7 +23,7 @@ class ATBDP_Upgrade
     * @param (object) $r
     * @return (string) $output
     */
-   function your_update_message_cb( $plugin_data, $r )
+    public function your_update_message_cb( $plugin_data, $r )
    {
        // readme contents
     //    $data       = file_get_contents( 'https://plugins.trac.wordpress.org/browser/directorist/trunk/readme.txt' );

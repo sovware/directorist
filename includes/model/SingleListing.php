@@ -319,7 +319,7 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function slider_template() {
+	public function get_slider_data() {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 		
@@ -395,11 +395,14 @@ class Directorist_Single_Listing {
 
 		$padding_top         = $data['height'] / $data['width'] * 100;
 		$data['padding-top'] = $padding_top;
+		return $data;
+	}
 
+	public function slider_template() {
 		$args = array(
 			'listing'    => $this,
 			'has_slider' => !empty( $this->header_data['listings_header']['thumbnail'] ) ? true : false,
-			'data'       => $data,
+			'data'       => $this->get_slider_data(),
 		);
 
 		Helper::get_template('single/slider', $args );
@@ -750,7 +753,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_is_duplicate() {
-		return tract_duplicate_review(wp_get_current_user()->display_name, $id);
+		return tract_duplicate_review(wp_get_current_user()->display_name, $this->id );
 	}
 
 	public function get_tagline() {
@@ -758,7 +761,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_email() {	
-		$email = get_post_meta( $listing->id, '_email', true );
+		$email = get_post_meta( $this->id, '_email', true );
 		return $email;
 	}
 

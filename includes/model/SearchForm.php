@@ -502,7 +502,7 @@ class Directorist_Listing_Search_Form {
 
 	public function background_img_style() {
 		$bgimg = get_directorist_option('search_home_bg');
-		$style = !empty( $bgimg['url'] ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg['url'] ) ) : '';
+		$style = !empty( $bgimg ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg ) ) : '';
 		return $style;
 	}
 

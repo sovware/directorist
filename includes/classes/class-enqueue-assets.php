@@ -493,10 +493,6 @@ class Enqueue_Assets {
             'group'     => 'admin',                 // public || admin  || global
             'page'      => 'post-new.php',
             'shortcode' => [],
-            // 'localize_data' => [
-            //     'object_name' => 'atbdp_search_listing',
-            //     'data' => Script_Helper::get_search_script_data()
-            // ],
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);

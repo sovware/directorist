@@ -4846,6 +4846,10 @@ input.atbdp-form-control {
   line-height: 24px;
 }
 
+#directorist-dashboard-preloader {
+  display: none;
+}
+
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5599,6 +5603,27 @@ a {
   margin-bottom: 10px;
 }
 
+@-webkit-keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
+
+@keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5744,6 +5769,10 @@ a {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
+}
+
+#directorist-dashboard-preloader {
+  display: none;
 }
 
 /* Directorist custom grid */
@@ -7190,6 +7219,27 @@ a {
   margin-bottom: 10px;
 }
 
+@-webkit-keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
+
+@keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -7335,6 +7385,10 @@ a {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
+}
+
+#directorist-dashboard-preloader {
+  display: none;
 }
 
 /* Directorist custom grid */

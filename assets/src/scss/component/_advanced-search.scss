@@ -96,8 +96,12 @@
             }
             &.directorist-advanced-filter__advanced--tag{
                 .directorist-search-tags{
+                    flex-wrap: wrap;
                     flex: 1;
-                    margin: 0 -5px;
+                    margin: -5px;
+                    .directorist-checkbox{
+                        margin: 5px;
+                    }
                 }
             }
         }

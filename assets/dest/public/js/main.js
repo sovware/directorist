@@ -766,17 +766,17 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 (function ($) {
   // User Dashboard Table More Button
-  $('.directorist-dashboard-listings-tbody').on("click", '.directorist_btn-more', function (e) {
+  $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
     e.preventDefault();
     $(this).toggleClass('active');
-    $(".directorist_dropdown-menu").removeClass("active");
-    $(this).next(".directorist_dropdown-menu").toggleClass("active");
+    $(".directorist-dropdown-menu").removeClass("active");
+    $(this).next(".directorist-dropdown-menu").toggleClass("active");
     e.stopPropagation();
   });
   $(document).bind("click", function (e) {
-    if (!$(e.target).parents().hasClass('directorist_dropdown-menu__list')) {
-      $(".directorist_dropdown-menu").removeClass("active");
-      $(".directorist_btn-more").removeClass("active");
+    if (!$(e.target).parents().hasClass('directorist-dropdown-menu__list')) {
+      $(".directorist-dropdown-menu").removeClass("active");
+      $(".directorist-btn-more").removeClass("active");
     }
   });
 })(jQuery);
@@ -911,6 +911,29 @@ if (flatWrapper != null && fAvailableTime != null) {
       $('.atbdp-become-author').hide();
     });
   });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/components/dashboard/dashboardImageUploader.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/js/components/dashboard/dashboardImageUploader.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  // user dashboard image uploader
+  var profileMediaUploader = null;
+
+  if ($("#user_profile_pic").length) {
+    profileMediaUploader = new EzMediaUploader({
+      containerID: "user_profile_pic"
+    });
+    profileMediaUploader.init();
+  }
 })(jQuery);
 
 /***/ }),
@@ -1074,7 +1097,7 @@ if (flatWrapper != null && fAvailableTime != null) {
     paged = paged.split('/page/')[1];
     paged = parseInt(paged);
     var search = $('#directorist-dashboard-mylistings-js').data('search');
-    $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     directorist_dashboard_listing_ajax($activeTab, paged, search);
     return false;
   });
@@ -1116,7 +1139,7 @@ if (flatWrapper != null && fAvailableTime != null) {
   $('#directorist-dashboard-listing-searchform input[name=searchtext').val(''); //onready
 
   $('#directorist-dashboard-listing-searchform').on('submit', function (event) {
-    var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
     var search = $(this).find('input[name=searchtext]').val();
     directorist_dashboard_listing_ajax($activeTab, 1, search);
     $('#directorist-dashboard-mylistings-js').data('search', search);
@@ -1713,7 +1736,7 @@ pureScriptTabChild2 = (selector1) => {
 if ($('.directorist-tab')) {
   pureScriptTab('.directorist-tab');
 }
-/* pureScriptTab('.directorist_userDashboard-tab');
+/* pureScriptTab('.directorist-user-dashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');
 pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 
@@ -2899,19 +2922,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardSearch__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSearch__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/template-scripts/add-listing */ "./assets/src/js/components/template-scripts/add-listing.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/admin/block-2 */ "./assets/src/js/components/admin/block-2.js");
-/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_2__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _components_template_scripts_add_listing__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/template-scripts/add-listing */ "./assets/src/js/components/template-scripts/add-listing.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/admin/block-2 */ "./assets/src/js/components/admin/block-2.js");
+/* harmony import */ var _components_admin_block_2__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_components_admin_block_2__WEBPACK_IMPORTED_MODULE_30__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -2943,6 +2968,7 @@ __webpack_require__.r(__webpack_exports__);
 
  // Dashboard Js
 //import './components/dashboard/dashboardImageUploader';
+
 
 
 
@@ -3184,8 +3210,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          button = sibling.querySelector('.directorist-select__label'); //el1 = '';
-
+          button = sibling.querySelector('.directorist-select__label');
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -3465,7 +3490,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     if ($('#directorist-category-select').length) {
       pureScriptSelect('#directorist-category-select');
     }
-  }); // console.log($('#directorist-select-fr-e-js').length)
+  });
 })(jQuery);
 
 /***/ }),
@@ -3515,7 +3540,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Undefined variable.\n   ╷\n77 │             color: $success;\r\n   │                    ^^^^^^^^\n   ╵\n  assets\\src\\scss\\component\\add-listing.scss 77:20  root stylesheet\n    at runLoaders (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\webpack\\lib\\NormalModule.js:316:20)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass-loader\\dist\\index.js:55:7)\n    at Function.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:91131:16)\n    at _render_closure1.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:80007:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)\n    at _FutureListener.handleError$1 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25721:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26018:49)\n    at Object._Future__propagateToListeners (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25851:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25194:12)\n    at Object._asyncRethrow (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:13196:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25215:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25207:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)\n    at _FutureListener.handleError$1 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25721:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26018:49)\n    at Object._Future__propagateToListeners (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25851:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25194:12)\n    at Object._asyncRethrow (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:17983:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25215:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25207:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)\n    at _FutureListener.handleError$1 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25721:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26018:49)\n    at Object._Future__propagateToListeners (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25851:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25194:12)\n    at Object._asyncRethrow (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)");
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Undefined variable.\n   ╷\n77 │             color: $success;\r\n   │                    ^^^^^^^^\n   ╵\n  assets\\src\\scss\\component\\add-listing.scss 77:20  root stylesheet\n    at runLoaders (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\webpack\\lib\\NormalModule.js:316:20)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass-loader\\dist\\index.js:55:7)\n    at Function.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:91131:16)\n    at _render_closure1.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:80007:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)\n    at _FutureListener.handleError$1 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25721:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26018:49)\n    at Object._Future__propagateToListeners (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25851:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25194:12)\n    at Object._asyncRethrow (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:13196:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25215:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25207:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)\n    at _FutureListener.handleError$1 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25721:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26018:49)\n    at Object._Future__propagateToListeners (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25851:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25194:12)\n    at Object._asyncRethrow (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:17983:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25215:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25207:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27193:18)");
 
 /***/ }),
 

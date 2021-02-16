@@ -135,8 +135,8 @@ const adminConfig  = {
     ['import-export']: "./assets/src/js/admin/import-export.js",
     ['plugins']: "./assets/src/js/admin/plugins.js",
     ['setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
-    ['multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
     ['multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
+    ['multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
     ['settings-manager']: "./assets/src/js/admin/settings-manager.js",
 
     // CSS

@@ -185,7 +185,6 @@ const pureScriptSelect = (selector) => {
             let arry = [],
             arryEl = [],
             button = sibling.querySelector('.directorist-select__label');
-            //el1 = '';
             insertSearchItem();
             option.forEach((el, index) => {
                 arry.push(el.value);
@@ -443,8 +442,5 @@ const pureScriptSelect = (selector) => {
         }
 
     });
-
-
-    // console.log($('#directorist-select-fr-e-js').length)
 
 })(jQuery);

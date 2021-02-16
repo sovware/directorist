@@ -196,7 +196,7 @@ if ($('.change_listing_prv_img').attr('src') === '') {
 }
 
 // price range
-$('#price_range').hide();
+/* $('#price_range').hide();
 const is_checked = $('#atbd_listing_pricing').val();
 if (is_checked === 'range') {
     $('#price').hide();
@@ -210,7 +210,7 @@ $('.atbd_pricing_options label').on('click', function () {
     const $sibling = $this.siblings('label');
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $(`#${$sibling.data('option')}`).hide();
-});
+}); */
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 

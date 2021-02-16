@@ -12,4 +12,4 @@ if ( empty( $data['label'] ) ) {
 }
 ?>
 
-<label for="<?php echo esc_attr( $label_id ); ?>"><?php echo esc_html( $data['label'] ); ?>:<?php echo !empty( $data['required'] ) ? '<span class="atbdp_make_str_red"> *</span>' : ''; ?></label>
+<label class="directorist-form-label" for="<?php echo esc_attr( $label_id ); ?>"><?php echo esc_html( $data['label'] ); ?>:<?php echo !empty( $data['required'] ) ? '<span class="directorist-form-required"> *</span>' : ''; ?></label>

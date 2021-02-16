@@ -23,21 +23,23 @@ if (is_checked === 'range') {
     $('#price').hide();
     $('#price_range').show();
 }
-$('.atbd_pricing_options label').on('click', function () {
+$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
     const $this = $(this);
-    $this.children('input[type=checkbox]').prop('checked') == true
-        ? $(`#${$this.data('option')}`).show()
-        : $(`#${$this.data('option')}`).hide();
-    const $sibling = $this.siblings('label');
+    if($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true){
+        $(`#${$this.data('option')}`).hide();
+    }else{
+        $(`#${$this.data('option')}`).show();
+    }
+    const $sibling = $this.parent().siblings('.directorist-checkbox');
     $sibling.children('input[type=checkbox]').prop('checked', false);
-    $(`#${$sibling.data('option')}`).hide();
+    $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
 });
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
     const length = $('#at_biz_dir-categorychecklist input:checked');
     const id = [];
-    const directory_type = $('select[name="directory_type"]').val();      
+    const directory_type = $('select[name="directory_type"]').val();
     length.each((el, index) => {
         id.push($(index).val());
     });
@@ -228,16 +230,16 @@ if (window.outerWidth > 1700) {
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 $('body').on('click', '#addNewSocial', function () {
-    const currentItems = $('.atbdp_social_field_wrapper').length;
+    const currentItems = $('.directorist-form-social-fields').length;
     const ID = `id=${currentItems}`; // eg. 'id=3'
     const iconBindingElement = jQuery('#addNewSocial');
     // arrange names ID in order before adding new elements
-    $('.atbdp_social_field_wrapper').each(function (index, element) {
+    $('.directorist-form-social-fields').each(function (index, element) {
         const e = $(element);
         e.attr('id', `socialID-${index}`);
         e.find('select').attr('name', `social[${index}][id]`);
         e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-        e.find('.removeSocialField').attr('data-id', index);
+        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
     });
     // now add the new elements. we could do it here without using ajax but it would require more markup here.
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
@@ -246,7 +248,7 @@ $('body').on('click', '#addNewSocial', function () {
 });
 
 // remove the social field and then reset the ids while maintaining position
-$(document).on('click', '.removeSocialField', function (e) {
+$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
     const id = $(this).data('id');
     const elementToRemove = $(`div#socialID-${id}`);
     event.preventDefault();
@@ -267,7 +269,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                 elementToRemove.slideUp('fast', function () {
                     elementToRemove.remove();
                     // reorder the index
-                    $('.atbdp_social_field_wrapper').each(function (index, element) {
+                    $('.directorist-form-social-fields').each(function (index, element) {
                         const e = $(element);
                         e.attr('id', `socialID-${index}`);
                         e.find('select').attr('name', `social[${index}][id]`);
@@ -275,7 +277,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                             'name',
                             `social[${index}][url]`
                         );
-                        e.find('.removeSocialField').attr('data-id', index);
+                        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
                     });
                 });
 

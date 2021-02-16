@@ -109,6 +109,8 @@ const publicConfig = {
     ['global']: ["./assets/src/js/global.js"],
     ['checkout']: ["./assets/src/js/checkout.js"],
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],
+    ['add-listing']: ["./assets/src/js/components/template-scripts/add-listing.js"],
+    ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
 
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],

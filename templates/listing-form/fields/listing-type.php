@@ -12,22 +12,21 @@ if( is_admin() ) {
 }
 ?>
 
-<div class="atbd_listing_type">
+<div class="directorist-form-group directorist-form-listing-type">
 
-	<h4 class="atbdp_option_title"><?php esc_html_e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="atbdp_make_str_red"> *</span></h4>
+	<h4 class="directorist-form-listing-type__title"><?php esc_html_e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="directorist-form-required"> *</span></h4>
 
-	<div class="atbdp_input_group --atbdp_inline">
+	<div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 
-		<input id="general" type="radio" class="atbdp_radio_input" name="listing_type" value="general">
-		<label for="general" class="general_listing_type_select"><?php echo esc_attr( $data['general_label'] ); ?></label>
+		<input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general">
+		<label for="directorist-form-listing-type__general" class="directorist-form-listing-type__general directorist-radio__label"><?php echo esc_attr( $data['general_label'] ); ?></label>
 
 	</div>
 
-	<div class="atbdp_input_group --atbdp_inline">
+	<div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 
-		<input id="featured" type="radio" class="atbdp_radio_input" name="listing_type" value="featured">
-
-		<label for="featured" class="featured_listing_type_select">
+		<input id="directorist-form-listing-type__featured" type="radio" class="atbdp_radio_input" name="listing_type" value="featured">
+		<label for="directorist-form-listing-type__featured" class="directorist-form-listing-type__featured directorist-radio__label">
 			<?php echo esc_attr( $data['featured_label'] ); ?>
 			<small class="atbdp_make_str_green"><?php echo esc_html( $listing_form->featured_listing_description() ) ;?></small>
 		</label>

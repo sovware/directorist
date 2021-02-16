@@ -10,11 +10,11 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
-	<div class="directorist-container-fluid">
+<div class="directorist-add-listing-wrapper directorist-w-100">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
-		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="add-listing-form">
-            <div class="atbdp-form-fields">
+		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="directorist-add-listing-form">
+            <div class="directorist-add-listing-form">
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
                 <?php
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 ?>
             </div>
         </form>
-        
+
     </div>
 </div>
 

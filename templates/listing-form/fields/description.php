@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 ?>
 
-<div class="form-group directorist-description-field">
+<div class="directorist-form-group directorist-form-description-field">
 
 	<?php
 	$listing_form->field_label_template( $data );
-	
+
 	if ( 'textarea' === $data['type'] ) {
 		?>
-		<textarea <?php echo $max; ?> name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php $listing_form->required( $data ); ?>><?php echo esc_attr( $data['value'] ); ?></textarea>
+		<textarea <?php echo $max; ?> name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php $listing_form->required( $data ); ?>><?php echo esc_attr( $data['value'] ); ?></textarea>
 		<?php
 	}
 	else {
@@ -34,7 +34,7 @@ $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 			)
 		);
 	}
-	
+
 	$listing_form->field_description_template( $data );
 	?>
 

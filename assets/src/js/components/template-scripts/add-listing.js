@@ -1,4 +1,6 @@
 import '../../../scss/component/add-listing.scss';
+import './add-listing/google-map';
+import './add-listing/openstreet-map';
 
 /* eslint-disable */
 
@@ -7,13 +9,13 @@ const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
 if (!$('input#manual_coordinate').is(':checked')) {
-        $('#hide_if_no_manual_cor').hide();
+        $('#directorist-map-hide').hide();
 }
 $('#manual_coordinate').on('click', function (e) {
         if ($('input#manual_coordinate').is(':checked')) {
-                $('#hide_if_no_manual_cor').show();
+                $('#directorist-map-hide').show();
         } else {
-                $('#hide_if_no_manual_cor').hide();
+                $('#directorist-map-hide').hide();
         }
 });
 

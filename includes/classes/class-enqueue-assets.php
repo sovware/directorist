@@ -3,10 +3,9 @@
 namespace Directorist;
 class Enqueue_Assets {
 
-    public $js_scripts  = [];
-    public $css_scripts = [];
+    public $js_scripts     = [];
+    public $css_scripts    = [];
     public $script_version = false;
-
     /**
      * Constuctor
      */
@@ -35,10 +34,12 @@ class Enqueue_Assets {
 
         // Load Vendor Assets
         $this->add_vendor_css_scripts();
-        $this->add_vendor_js_scripts();
 
         $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
         if ( empty( $atbdp_legacy_template ) ) {
+            // Load Vendor Assets
+            $this->add_vendor_js_scripts();
+        
             // Load Public Assets
             $this->add_public_css_scripts();
             $this->add_public_js_scripts();
@@ -100,80 +101,82 @@ class Enqueue_Assets {
 
         // Public
         // ================================
-        $scripts['directorist-bootstrap'] = [
-            'file_name' => 'bootstrap',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => false
-        ];
+        if ( empty( $atbdp_legacy_template ) ) {
+            $scripts['directorist-bootstrap'] = [
+                'file_name' => 'bootstrap',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'public', // public || admin  || global
+                'enable'    => false
+            ];
 
-        $scripts['directorist-font-awesome'] = [
-            'file_name' => 'font-awesome.min',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'enable'    => true
-        ];
+            $scripts['directorist-font-awesome'] = [
+                'file_name' => 'font-awesome.min',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'global', // public || admin  || global
+                'enable'    => true
+            ];
 
-        $scripts['directorist-line-awesome'] = [
-            'file_name' => 'line-awesome.min',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'enable'    => true
-        ];
+            $scripts['directorist-line-awesome'] = [
+                'file_name' => 'line-awesome.min',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'global', // public || admin  || global
+                'enable'    => true
+            ];
 
-        $scripts['directorist-ez-media-uploader'] = [
-            'file_name' => 'ez-media-uploader',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => Script_Helper::is_enable__ez_media_uploader()
-        ];
+            $scripts['directorist-ez-media-uploader'] = [
+                'file_name' => 'ez-media-uploader',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'public', // public || admin  || global
+                'enable'    => Script_Helper::is_enable__ez_media_uploader()
+            ];
 
-        $scripts['directorist-select2'] = [
-            'file_name' => 'select2.min',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'enable'    => false
-        ];
+            $scripts['directorist-select2'] = [
+                'file_name' => 'select2.min',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'global', // public || admin  || global
+                'enable'    => false
+            ];
 
-        $scripts['directorist-slick'] = [
-            'file_name' => 'slick',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => false
-        ];
+            $scripts['directorist-slick'] = [
+                'file_name' => 'slick',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'public', // public || admin  || global
+                'enable'    => false
+            ];
 
-        $scripts['directorist-sweetalert'] = [
-            'file_name' => 'sweetalert.min',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
-            'enable'    => false
-        ];
+            $scripts['directorist-sweetalert'] = [
+                'file_name' => 'sweetalert.min',
+                'base_path' => DIRECTORIST_VENDOR_CSS,
+                'has_min'   => false,
+                'has_rtl'   => false,
+                'deps'      => [],
+                'ver'       => $this->script_version,
+                'group'     => 'global', // public || admin  || global
+                'enable'    => false
+            ];
+        }
 
         $scripts = array_merge( $this->css_scripts, $scripts);
         $this->css_scripts = $scripts;
@@ -409,6 +412,26 @@ class Enqueue_Assets {
             'enable'   => true,
         ];
 
+        $scripts['directorist-add-listing'] = [
+            'file_name' => 'add-listing',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [ ],
+            'ver'       => $this->script_version,
+            'shortcode' => ['directorist_add_listing'],
+            'group'     => 'public', // public || admin  || global
+            'section'   => '__',
+            'enable'   => true,
+        ];
+
+        $scripts['directorist-pure-select'] = [
+            'file_name' => 'pure-select',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [ ],
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => 'post-new.php',
+        ];
+
         $scripts = array_merge( $this->css_scripts, $scripts);
         $this->css_scripts = $scripts;
 
@@ -435,10 +458,11 @@ class Enqueue_Assets {
                 'data' => Script_Helper::get_main_script_data()
             ],
         ];
+
         $scripts['atbdp_search_listing'] = [
             'file_name' => 'search-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,
-            'deps'      => ['jquery', 'jquery-ui-slider'],
+            // 'deps'      => ['jquery', 'jquery-ui-slider'],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
@@ -447,6 +471,28 @@ class Enqueue_Assets {
                 'object_name' => 'atbdp_search_listing',
                 'data' => Script_Helper::get_search_script_data()
             ],
+        ];
+
+        $scripts['directorist-add-listing'] = [
+            'file_name' => 'add-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'add-listing',
+            // 'shortcode' => ['directorist_add_listing'],
+            // 'localize_data' => [
+            //     'object_name' => 'atbdp_search_listing',
+            //     'data' => Script_Helper::get_search_script_data()
+            // ],
+        ];
+
+        $scripts['directorist-pure-select'] = [
+            'file_name' => 'pure-select',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin',                 // public || admin  || global
+            'page'      => 'post-new.php',
+            'shortcode' => [],
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);
@@ -828,6 +874,7 @@ class Enqueue_Assets {
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
+
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
@@ -838,10 +885,35 @@ class Enqueue_Assets {
             }
 
             if ( ! empty( $script_args['section'] ) ) { continue; }
+            if ( ! empty( $script_args['shortcode'] ) ) { 
+                
+                $match_found = 0;
+                foreach ( $script_args['shortcode'] as $_shortcode ) {
+                    if ( self::has_in_post_content( $_shortcode ) ) {
+                        $match_found++;
+                    }
+                }
+
+                if ( ! $match_found ) { continue; }
+            }
 
             wp_enqueue_script( $handle );
             $this->add_localize_data_to_script( $handle, $script_args );
         }
+    }
+
+    // has_in_post_content
+    public static function has_in_post_content( $subject = '' ) {
+        global $post;
+        $found = false;
+
+        if ( is_a( $post, 'WP_Post' ) ) {
+            if ( has_shortcode( $post->post_content, $subject ) ) {
+                $found = true;
+            }
+        }
+
+        return $found;
     }
 
     /**

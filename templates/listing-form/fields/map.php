@@ -19,14 +19,14 @@ $longitude          = !empty( $manual_lng ) ? $manual_lng : $default_longitude;
 $hide_map           = !empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true : false;
 ?>
 
-<div class="form-group directorist-map-field">
+<div class="directorist-form-group directorist-form-map-field">
 
-	<div class="map_wrapper">
+	<div class="directorist-form-map-field__wrapper">
 
 		<?php if ( 'google' == $select_listing_map ): ?>
 
-			<div id="floating-panel">
-				<button class="btn btn-danger" id="delete_marker"><?php esc_html_e( 'Delete Marker', 'directorist' ); ?></button>
+			<div id="directorist-map-floating-panel">
+				<button class="directorist-btn directorist-btn-danger" id="delete_marker"><?php esc_html_e( 'Delete Marker', 'directorist' ); ?></button>
 			</div>
 
 		<?php endif; ?>
@@ -39,56 +39,37 @@ $hide_map           = !empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true
 
 		<?php endif; ?>
 
-		<div class="cor-wrap">
+		<div class="directorist-map-coordinate directorist-checkbox">
 
 			<input type="checkbox" name="manual_coordinate" value="1" id="manual_coordinate">
 
-			<label for="manual_coordinate"><?php echo esc_attr( $data['lat_long'] );?></label>
+			<label for="manual_coordinate" class="directorist-checkbox__label"><?php echo esc_attr( $data['lat_long'] );?></label>
 
 		</div>
 
 	</div>
 
 
-	<div id="hide_if_no_manual_cor" class="clearfix col-sm-12">
+	<div id="directorist-map-hide">
+		<div class="form-group">
+			<label for="manual_lat"> <?php esc_html_e('Latitude', 'directorist'); ?></label>
+			<input type="text" name="manual_lat" id="manual_lat" value="<?php echo esc_attr( $latitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
+		</div>
 
-		<div class="row">
+		<div class="form-group">
+			<label for="manual_lng"> <?php esc_html_e( 'Longitude', 'directorist' ); ?> </label>
+			<input type="text" name="manual_lng" id="manual_lng" value="<?php echo esc_attr( $longitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e( 'Enter Longitude eg. 91.87198', 'directorist' ); ?>"/>
+		</div>
 
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-
-					<label for="manual_lat"> <?php esc_html_e('Latitude', 'directorist'); ?></label>
-					<input type="text" name="manual_lat" id="manual_lat" value="<?php echo esc_attr( $latitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
-
-				</div>
-			</div>
-
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-
-					<label for="manual_lng"> <?php esc_html_e( 'Longitude', 'directorist' ); ?> </label>
-					<input type="text" name="manual_lng" id="manual_lng" value="<?php echo esc_attr( $longitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e( 'Enter Longitude eg. 91.87198', 'directorist' ); ?>"/>
-
-				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-12">
-
-				<div class="form-group lat_btn_wrap">
-					<button class="btn btn-primary" id="generate_admin_map"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
-				</div>
-
-			</div>
-
+		<div class="form-group lat_btn_wrap">
+			<button class="btn btn-primary" id="generate_admin_map"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
 		</div>
 
 	</div>
 
 	<div class="form-group hide-map-option">
-
 		<input type="checkbox" name="hide_map" value="1" id="hide_map"<?php checked( $hide_map ); ?>>
 		<label for="hide_map"><?php esc_html_e(' Hide Map', 'directorist' ); ?> </label>
-
 	</div>
 
 </div>

@@ -48,6 +48,7 @@
 /* listing label */
 .directorist-form-label {
     display: block;
+    color: #202428;
 }
 
 .directorist-form-required {
@@ -127,4 +128,29 @@
             padding: 0 20px;
         }
     }
+}
+
+/* Map style */
+.directorist-map-coordinates {
+    padding: 0 0 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -15px;
+
+    .directorist-form-group {
+        flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 290px;
+    }
+
+    @include e(generate) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+.directorist-form-map-field__wrapper {
+    margin-bottom: 10px;
 }

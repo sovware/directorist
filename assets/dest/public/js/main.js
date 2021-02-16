@@ -261,14 +261,14 @@ templateResult: selecWithIcon,
 /* Show and hide manual coordinate input field */
 
 if (!$('input#manual_coordinate').is(':checked')) {
-  $('#directorist-map-hide').hide();
+  $('.directorist-map-coordinates').hide();
 }
 
 $('#manual_coordinate').on('click', function (e) {
   if ($('input#manual_coordinate').is(':checked')) {
-    $('#directorist-map-hide').show();
+    $('.directorist-map-coordinates').show();
   } else {
-    $('#directorist-map-hide').hide();
+    $('.directorist-map-coordinates').hide();
   }
 });
 $("[data-toggle='tooltip']").tooltip(); // price range
@@ -2238,14 +2238,14 @@ var localized_data = atbdp_public_data.add_listing_data;
 /* Show and hide manual coordinate input field */
 
 if (!$('input#manual_coordinate').is(':checked')) {
-  $('#directorist-map-hide').hide();
+  $('.directorist-map-coordinates').hide();
 }
 
 $('#manual_coordinate').on('click', function (e) {
   if ($('input#manual_coordinate').is(':checked')) {
-    $('#directorist-map-hide').show();
+    $('.directorist-map-coordinates').show();
   } else {
-    $('#directorist-map-hide').hide();
+    $('.directorist-map-coordinates').hide();
   }
 }); // enable sorting if only the container has any social or skill field
 

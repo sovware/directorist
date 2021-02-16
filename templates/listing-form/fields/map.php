@@ -50,26 +50,26 @@ $hide_map           = !empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true
 	</div>
 
 
-	<div id="directorist-map-hide">
-		<div class="form-group">
+	<div class="directorist-map-coordinates">
+		<div class="directorist-form-group">
 			<label for="manual_lat"> <?php esc_html_e('Latitude', 'directorist'); ?></label>
-			<input type="text" name="manual_lat" id="manual_lat" value="<?php echo esc_attr( $latitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
+			<input type="text" name="manual_lat" id="manual_lat" value="<?php echo esc_attr( $latitude ); ?>" class="directorist-form-element directory_field" placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
 		</div>
 
-		<div class="form-group">
+		<div class="directorist-form-group">
 			<label for="manual_lng"> <?php esc_html_e( 'Longitude', 'directorist' ); ?> </label>
-			<input type="text" name="manual_lng" id="manual_lng" value="<?php echo esc_attr( $longitude ); ?>" class="form-control directory_field" placeholder="<?php esc_attr_e( 'Enter Longitude eg. 91.87198', 'directorist' ); ?>"/>
+			<input type="text" name="manual_lng" id="manual_lng" value="<?php echo esc_attr( $longitude ); ?>" class="directorist-form-element directory_field" placeholder="<?php esc_attr_e( 'Enter Longitude eg. 91.87198', 'directorist' ); ?>"/>
 		</div>
 
-		<div class="form-group lat_btn_wrap">
-			<button class="btn btn-primary" id="generate_admin_map"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
+		<div class="directorist-form-group directorist-map-coordinates__generate">
+			<button class="directorist-btn directorist-btn-sm directorist-btn-primary" id="generate_admin_map"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
 		</div>
 
 	</div>
 
-	<div class="form-group hide-map-option">
+	<div class="directorist-checkbox directorist-hide-map-option">
 		<input type="checkbox" name="hide_map" value="1" id="hide_map"<?php checked( $hide_map ); ?>>
-		<label for="hide_map"><?php esc_html_e(' Hide Map', 'directorist' ); ?> </label>
+		<label for="hide_map" class="directorist-checkbox__label"><?php esc_html_e(' Hide Map', 'directorist' ); ?> </label>
 	</div>
 
 </div>

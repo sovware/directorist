@@ -195,13 +195,13 @@ templateResult: selecWithIcon,
 
 /* Show and hide manual coordinate input field */
 if (!$('input#manual_coordinate').is(':checked')) {
-    $('#directorist-map-hide').hide();
+    $('.directorist-map-coordinates').hide();
 }
 $('#manual_coordinate').on('click', function (e) {
     if ($('input#manual_coordinate').is(':checked')) {
-        $('#directorist-map-hide').show();
+        $('.directorist-map-coordinates').show();
     } else {
-        $('#directorist-map-hide').hide();
+        $('.directorist-map-coordinates').hide();
     }
 });
 

@@ -10512,6 +10512,7 @@ a {
 /* listing label */
 .directorist-form-label {
   display: block;
+  color: #202428;
 }
 
 .directorist-form-required {
@@ -10583,6 +10584,43 @@ a {
 /* social info */
 .directorist-form-social-fields .directorist-form-group select.directorist-form-element {
   padding: 0 20px;
+}
+
+/* Map style */
+.directorist-map-coordinates {
+  padding: 0 0 15px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 -15px;
+}
+.directorist-map-coordinates .directorist-form-group {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 290px;
+}
+.directorist-map-coordinates__generate {
+  -webkit-box-flex: 0 !important;
+  -webkit-flex: 0 0 100% !important;
+      -ms-flex: 0 0 100% !important;
+          flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+.directorist-form-map-field__wrapper {
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=main.css.map*/

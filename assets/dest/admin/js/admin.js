@@ -2975,7 +2975,6 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       var arry = [],
           arryEl = [],
           button = sibling.querySelector('.directorist-select__label');
-      el1 = '';
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -3243,7 +3242,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     if ($('#directorist-select-fr-e-js').length) {
       pureScriptSelect('#directorist-select-fr-e-js');
     }
-  }); // console.log($('#directorist-select-fr-e-js').length)
+  });
 })(jQuery);
 
 /***/ }),

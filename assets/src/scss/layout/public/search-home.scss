@@ -147,6 +147,16 @@
         border: 1px solid #e3e6ef;
         margin-top: 25px;
         background: #fff;
+        .directorist-search-tags{
+            flex-wrap: wrap;
+            margin: -5px;
+            .directorist-checkbox{
+                margin: 5px;
+                .directorist-checkbox__label{
+                    margin-left: 0;
+                }
+            }
+        }
     }
 }
 

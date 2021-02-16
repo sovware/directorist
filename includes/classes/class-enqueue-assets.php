@@ -91,6 +91,12 @@ class Enqueue_Assets {
 
         // Admin
         // ================================
+        $scripts['directorist-unicons'] = [
+            'link'      => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+        ];
 
         // Public
         // ================================
@@ -192,6 +198,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global',
             'section'   => '',
+            'page'      => 'plugins.php',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
@@ -203,6 +210,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global',
             'section'   => '',
+            'page'      => 'plugins.php',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
@@ -214,6 +222,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global',
             'section'   => '',
+            'page'      => 'plugins.php',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
@@ -455,11 +464,11 @@ class Enqueue_Assets {
         $scripts['directorist-admin-style'] = [
             'file_name' => 'admin',
             'base_path' => DIRECTORIST_ADMIN_CSS,
-            //'deps'      => [ 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ],
+            'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',
             'section'   => '',
-            'enable'    => true,
+            // 'page'      => 'plugins.php',
         ];
 
         $scripts['directorist-plugins-css'] = [
@@ -469,8 +478,41 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'admin',
             'section'   => '',
-            'page'      => 'plugins.php',
-            'enable'    => is_admin(),
+            // 'page'      => 'plugins.php',
+            // 'enable'    => is_admin(),
+        ];
+
+        $scripts['directorist-settings-manager'] = [
+            'file_name' => 'settings-manager',
+            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
+            'page'      => 'at_biz_dir_page_atbdp-settings',
+        ];
+
+        $scripts['directorist-multi-directory-archive'] = [
+            'file_name' => 'multi-directory-archive',
+            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
+            // 'page'      => 'at_biz_dir_page_atbdp-settings',
+        ];
+        
+        $scripts['directorist-multi-directory-builder'] = [
+            'file_name' => 'multi-directory-builder',
+            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+            'section'   => '',
+            'page'      => [ 
+                'at_biz_dir_page_atbdp-layout-builder', 
+                'at_biz_dir_page_atbdp-directory-types'
+            ],
         ];
 
         $scripts['directorist-plupload'] = [
@@ -505,6 +547,33 @@ class Enqueue_Assets {
             'localize_data' => [
                 'object_name' => 'atbdp_admin_data',
                 'data' => Script_Helper::get_admin_script_data()
+            ],
+        ];
+
+        $scripts['directorist-multi-directory-builder'] = [
+            'file_name'     => 'multi-directory-builder',
+            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'ver'           => $this->script_version,
+            'group'         => 'admin',
+            'page'          => [ 
+                'at_biz_dir_page_atbdp-layout-builder', 
+                'at_biz_dir_page_atbdp-directory-types'
+            ],
+            'localize_data' => [
+                'object_name' => 'ajax_data',
+                'data' => [ 'ajax_url' => admin_url('admin-ajax.php') ]
+            ],
+        ];
+
+        $scripts['directorist-settings-manager'] = [
+            'file_name'     => 'settings-manager',
+            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'ver'           => $this->script_version,
+            'group'         => 'admin',
+            'page'          => 'at_biz_dir_page_atbdp-settings',
+            'localize_data' => [
+                'object_name' => 'ajax_data',
+                'data' => [ 'ajax_url' => admin_url('admin-ajax.php') ]
             ],
         ];
 
@@ -595,14 +664,14 @@ class Enqueue_Assets {
      *
      * @return void
      */
-    public function enqueue_public_scripts() {
+    public function enqueue_public_scripts( $page ) {
         // CSS
         $this->register_css_scripts_by_group( [ 'group' => 'public' ] );
-        $this->enqueue_css_scripts_by_group( [ 'group' => 'public' ] );
+        $this->enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page  ] );
 
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'public' ] );
-        $this->enqueue_js_scripts_by_group( [ 'group' => 'public' ] );
+        $this->enqueue_js_scripts_by_group( [ 'group' => 'public', 'page' => $page  ] );
     }
 
 
@@ -613,14 +682,12 @@ class Enqueue_Assets {
      */
     public function enqueue_admin_scripts( $page ) {
         // CSS
-        $this->register_css_scripts_by_group( [ 'group' => 'admin'] );
+        $this->register_css_scripts_by_group( [ 'group' => 'admin' ] );
         $this->enqueue_css_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
 
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'admin' ] );
         $this->enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
-
-        wp_enqueue_media();
     }
 
     /**
@@ -639,6 +706,7 @@ class Enqueue_Assets {
 
         // Other
         $this->enqueue_custom_color_picker_scripts();
+        wp_enqueue_media();
     }
 
 
@@ -693,7 +761,8 @@ class Enqueue_Assets {
         foreach( $args['scripts'] as $handle => $script_args ) {
 
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
-                if ( $args['page'] !== $script_args[ 'page' ] ) { continue; }
+                if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
+                if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
             if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
@@ -759,9 +828,9 @@ class Enqueue_Assets {
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
-
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
-                if ( $args['page'] !== $script_args[ 'page' ] ) { continue; }
+                if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
+                if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
             if (  ! ( isset( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
@@ -771,15 +840,56 @@ class Enqueue_Assets {
             if ( ! empty( $script_args['section'] ) ) { continue; }
 
             wp_enqueue_script( $handle );
+            $this->add_localize_data_to_script( $handle, $script_args );
+        }
+    }
 
-            if ( empty( $script_args['localize_data'] ) ) { continue; }
-            if ( empty( $script_args['localize_data']['object_name'] ) ) { continue; }
-            if ( ! is_string( $script_args['localize_data']['object_name'] ) ) { continue; }
-            if ( empty( $script_args['localize_data']['data'] ) ) { continue; }
-            if ( ! is_array(  $script_args['localize_data']['data'] ) ) { continue; }
+    /**
+     *  Add localize data to script
+     *
+     * @param string $handle
+     * @param array $script_args
+     * @return void
+     */
+    public function add_localize_data_to_script( $handle, $script_args ) {
+
+        if ( ! is_array( $script_args ) ) { return; }
+        if ( empty( $script_args['localize_data'] ) ) { return false; }
+
+        if ( self::is_assoc_array( $script_args['localize_data'] ) ) {
+            if ( ! self::has_valid_localize_data( $script_args['localize_data'] ) ) {
+                return;
+            }
 
             wp_localize_script( $handle, $script_args['localize_data']['object_name'], $script_args['localize_data']['data'] );
+            return;
         }
+        
+        foreach ( $script_args as $script_args_item ) {
+            if ( ! self::has_valid_localize_data( $script_args_item['localize_data'] ) ) {
+                return;
+            }
+            atbdp_console_log( $script_args_item['localize_data'] );
+            wp_localize_script( $handle, $script_args_item['localize_data']['object_name'], $script_args_item['localize_data']['data'] );
+        }
+    }
+
+    // has_valid_localize_data
+    public static function has_valid_localize_data( array $localize_data = [] ) {
+        
+        if ( empty( $localize_data['object_name'] ) ) { return false; }
+        if ( ! is_string( $localize_data['object_name'] ) ) { return false; }
+        if ( empty( $localize_data['data'] ) ) { return false; }
+        if ( ! is_array(  $localize_data['data'] ) ) { return false; }
+
+        return true;
+    }
+
+    // is_assoc_array
+    public static function is_assoc_array( array $arr = [] ) {
+        if ( array() === $arr ) { return false; }
+
+        return array_keys( $arr) !== range( 0, count($arr) - 1 );
     }
 
 

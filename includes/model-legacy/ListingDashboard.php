@@ -319,7 +319,7 @@ class Directorist_Listing_Dashboard {
 			$listings   = $this->listings_query();
 			$list_found = $listings->found_posts;
 
-			$dashboard_tabs['my_listings'] = array(
+			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'            => Helper::get_template_contents('dashboard/listings', array( 'dashboard' => $this ) ),
 				'icon'				 => 'la la-list',
@@ -329,7 +329,7 @@ class Directorist_Listing_Dashboard {
 		}
 
 		if ( $my_profile_tab ) {
-			$dashboard_tabs['profile'] = array(
+			$dashboard_tabs['dashboard_profile'] = array(
 				'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	   => 'la la-user',
 				'content'  => Helper::get_template_contents('dashboard/profile', $this->get_profile_tab_args() ),
@@ -337,7 +337,7 @@ class Directorist_Listing_Dashboard {
 		}
 
 		if ( $fav_listings_tab ) {
-			$dashboard_tabs['saved_items'] = array(
+			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'            => Helper::get_template_contents('dashboard/favourite', $this->get_favourite_tab_args() ),
 				'icon'				 => 'la la-heart-o',

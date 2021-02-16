@@ -8,19 +8,19 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbd_content_module">
+<div class="directorist-content-module">
 
-	<div class="atbd_area_title">
+	<div class="directorist-content-module__title">
 		<h4><?php echo esc_html( $section_data['label'] );?></h4>
 	</div>
 
-	<div class="atbdb_content_module_contents">
+	<div class="directorist-content-module__contents">
 
 		<?php foreach ( $section_data['fields'] as $field ) {
 			$listing_form->field_template( $field );
 		}
 		?>
-		
+
 	</div>
 
 </div>

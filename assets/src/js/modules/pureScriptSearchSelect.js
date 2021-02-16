@@ -1,3 +1,4 @@
+import '../../scss/component/pureSearchSelect.scss';
 /*  Plugin: PureScriptSearchSelect
     Author: SovWare
     URI: https://github.com/woadudakand/pureScriptSelect
@@ -77,12 +78,12 @@ const pureScriptSelect = (selector) => {
                 sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
                 console.log(e.target);
                 var elem = [];
-                
-                arryEl.forEach((el, index) => {                   
+
+                arryEl.forEach((el, index) => {
                     if(index !== 0 || el.value !== ''){
                         elem.push(el);
                         el.style.display = 'block';
-                    }                      
+                    }
                 });
                 var item2 = '<ul>';
                 elem.forEach((el, key) => {
@@ -222,12 +223,12 @@ const pureScriptSelect = (selector) => {
                 //     });
                 // });
                 arryEl.forEach((el, index) => {
-                    arryEl.forEach((el, index) => {                   
+                    arryEl.forEach((el, index) => {
                         if(index !== 0 || el.value !== ''){
                             elem.push(el);
                             el.style.display = 'block';
-                        }                      
-                    });     
+                        }
+                    });
                 });
                 var popUp = item.querySelector('.directorist-select__dropdown--inner');
 
@@ -363,7 +364,7 @@ const pureScriptSelect = (selector) => {
 }
 
 ;(function ($) {
-    
+
     if($('#directorist-select-js').length){
         pureScriptSelect('#directorist-select-js');
     }
@@ -379,8 +380,8 @@ const pureScriptSelect = (selector) => {
     if($('#directorist-search-select-js').length){
         pureScriptSelect('#directorist-search-select-js');
     }
-    
-    
+
+
     window.addEventListener('load', (event) => {
         if($('#directorist-select-st-s-js').length){
             pureScriptSelect('#directorist-select-st-s-js');
@@ -388,48 +389,58 @@ const pureScriptSelect = (selector) => {
         if($('#directorist-select-st-e-js').length){
             pureScriptSelect('#directorist-select-st-e-js');
         }
-    
+
         if($('#directorist-select-sn-s-js').length){
             pureScriptSelect('#directorist-select-sn-s-js');
         }
         if($('#directorist-select-mn-e-js').length){
             pureScriptSelect('#directorist-select-sn-e-js');
         }
-    
+
         if($('#directorist-select-mn-s-js').length){
             pureScriptSelect('#directorist-select-mn-s-js');
         }
         if($('#directorist-select-mn-e-js').length){
             pureScriptSelect('#directorist-select-mn-e-js');
         }
-    
+
         if($('#directorist-select-tu-s-js').length){
             pureScriptSelect('#directorist-select-tu-s-js');
         }
         if($('#directorist-select-tu-e-js').length){
             pureScriptSelect('#directorist-select-tu-e-js');
         }
-    
+
         if($('#directorist-select-wd-s-js').length){
             pureScriptSelect('#directorist-select-wd-s-js');
         }
         if($('#directorist-select-wd-e-js').length){
             pureScriptSelect('#directorist-select-wd-e-js');
         }
-    
+
         if($('#directorist-select-th-s-js').length){
             pureScriptSelect('#directorist-select-th-s-js');
         }
         if($('#directorist-select-th-e-js').length){
             pureScriptSelect('#directorist-select-th-e-js');
         }
-    
+
         if($('#directorist-select-fr-s-js').length){
             pureScriptSelect('#directorist-select-fr-s-js');
         }
         if($('#directorist-select-fr-e-js').length){
             pureScriptSelect('#directorist-select-fr-e-js');
         }
+        if($('#directorist-location-select').length){
+            pureScriptSelect('#directorist-location-select');
+        }
+        if($('#directorist-tag-select').length){
+            pureScriptSelect('#directorist-tag-select');
+        }
+        if($('#directorist-category-select').length){
+            pureScriptSelect('#directorist-category-select');
+        }
+
     });
 
 })(jQuery);

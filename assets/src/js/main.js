@@ -55,3 +55,4 @@ import './components/booking';
 
 // Add listing
 import './components/template-scripts/add-listing';
+import './components/admin/block-2';

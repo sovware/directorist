@@ -11,21 +11,22 @@ $multiple = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
 $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 ?>
 
-<div class="form-group directorist-categories-field">
+<div class="directorist-form-group directorist-form-categories-field">
 
 	<?php $listing_form->field_label_template( $data );?>
+	<div class="directorist-select directorist-select-multi" id="directorist-category-select" data-isSearch="false" data-multiSelect='[{value: "Select category", key: 0}]' data-max="15">
+		<select name="admin_category_select[]" id="directorist-category-select-items" <?php echo $multiple; ?> <?php echo $max; ?>>
 
-	<select name="admin_category_select[]" id="at_biz_dir-categories" class="form-control" <?php echo $multiple; ?> <?php echo $max; ?>>
+			<?php
+			if ( $data['type'] != 'multiple' ) {
+				printf( '<option>%s</option>', __( 'Select Category', 'directorist' ) );
+			}
 
-		<?php
-		if ( $data['type'] != 'multiple' ) {
-			printf( '<option>%s</option>', __( 'Select Category', 'directorist' ) );
-		}
-
-		echo $listing_form->add_listing_cat_fields();
-		?>
-	</select>
+			echo $listing_form->add_listing_cat_fields();
+			?>
+		</select>
+	</div>
 
 </div>
 
-<div class="form-group atbdp_category_custom_fields"></div>
+<div class="directorist-form-group atbdp_category_custom_fields"></div>

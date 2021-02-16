@@ -12,4 +12,4 @@ if ( empty( $data['description'] ) ) {
 }
 ?>
 
-<div class=""><?php echo esc_html( $data['description'] ); ?></div>
+<div class="directorist-form-description"><?php echo esc_html( $data['description'] ); ?></div>

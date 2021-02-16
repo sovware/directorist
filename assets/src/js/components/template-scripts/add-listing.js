@@ -1,3 +1,5 @@
+import '../../../scss/component/add-listing.scss';
+
 /* eslint-disable */
 
 const $ = jQuery;
@@ -17,28 +19,28 @@ $('#manual_coordinate').on('click', function (e) {
 
 // enable sorting if only the container has any social or skill field
 const $s_wrap = $('#social_info_sortable_container'); // cache it
-if (window.outerWidth > 1700) {
+/* if (window.outerWidth > 1700) {
         if ($s_wrap.length) {
                 $s_wrap.sortable({
                         axis: 'y',
                         opacity: '0.7',
                 });
         }
-}
+} */
 
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 $('#addNewSocial').on('click', function (e) {
-        const currentItems = $('.atbdp_social_field_wrapper').length;
+        const currentItems = $('.directorist-form-social-fields').length;
         const ID = `id=${currentItems}`; // eg. 'id=3'
         const iconBindingElement = jQuery('#addNewSocial');
         // arrange names ID in order before adding new elements
-        $('.atbdp_social_field_wrapper').each(function (index, element) {
+        $('.directorist-form-social-fields').each(function (index, element) {
                 const e = $(element);
                 e.attr('id', `socialID-${index}`);
                 e.find('select').attr('name', `social[${index}][id]`);
                 e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-                e.find('.removeSocialField').attr('data-id', index);
+                e.find('.directorist-form-social-fields__remove').attr('data-id', index);
         });
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
@@ -47,7 +49,7 @@ $('#addNewSocial').on('click', function (e) {
 });
 
 // remove the social field and then reset the ids while maintaining position
-$(document).on('click', '.removeSocialField', function (e) {
+$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
         const id = $(this).data('id');
         const elementToRemove = $(`div#socialID-${id}`);
         /* Act on the event */
@@ -67,7 +69,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                                 elementToRemove.slideUp('fast', function () {
                                         elementToRemove.remove();
                                         // reorder the index
-                                        $('.atbdp_social_field_wrapper').each(function (index, element) {
+                                        $('.directorist-form-social-fields').each(function (index, element) {
                                                 const e = $(element);
                                                 e.attr('id', `socialID-${index}`);
                                                 e.find('select').attr('name', `social[${index}][id]`);
@@ -75,7 +77,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                                                         'name',
                                                         `social[${index}][url]`
                                                 );
-                                                e.find('.removeSocialField').attr('data-id', index);
+                                                e.find('.directorist-form-social-fields__remove').attr('data-id', index);
                                         });
                                 });
 
@@ -125,7 +127,7 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
 // Location
 const createLoc = localized_data.create_new_loc;
 if (createLoc) {
-        $("#at_biz_dir-location").select2({
+        $("#at_bizd_dir-location").select2({
                 placeholder: localized_data.i18n_text.location_selection,
                 tags: true,
                 maximumSelectionLength: localized_data.i18n_text.max_location_creation,
@@ -368,7 +370,7 @@ if (uploaders) {
         }
 }
 
-const formID = $('#add-listing-form');
+const formID = $('#directorist-add-listing-form');
 let on_processing = false;
 let has_media = true;
 
@@ -389,7 +391,7 @@ $('body').on('submit', formID, function (e) {
         let field_list2 = [];
         $('.listing_submit_btn').addClass('atbd_loading');
         form_data.append('action', 'add_listing_action');
-        const fieldValuePairs = $('#add-listing-form').serializeArray();
+        const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
         $.each(fieldValuePairs, function (index, fieldValuePair) {
                 const field = document.getElementsByName(fieldValuePair.name)[0];
                 const type = field.type;

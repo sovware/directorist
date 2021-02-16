@@ -16,6 +16,7 @@
             display: inline-block;
             outline: 0;
             background: #fff;
+            color: $dark;
         }
     }
 
@@ -75,6 +76,7 @@
         background-color: #fff;
         box-shadow: 0 5px 10px rgba(#8F8E9F, .05);
         border-radius: 4px;
+        padding: 0 20px;
     }
 
     ul {
@@ -124,7 +126,7 @@
     .directorist-user-dashboard-search {
         position: relative;
         border-radius: 18px;
-        margin: 16px;
+        margin: 16px 0 16px 16px;
 
         .directorist-user-dashboard-search__icon {
             position: absolute;

@@ -5943,6 +5943,7 @@ p.atbd-min {
   display: inline-block;
   outline: 0;
   background: #fff;
+  color: #202428;
 }
 .directorist-user-dashboard__tab-content {
   -webkit-box-flex: 1;
@@ -6015,6 +6016,7 @@ p.atbd-min {
   -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
           box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
   border-radius: 4px;
+  padding: 0 20px;
 }
 .directorist-user-dashboard-tab ul {
   padding: 0 0 0 22px;
@@ -6060,7 +6062,7 @@ p.atbd-min {
 .directorist-user-dashboard-tab .directorist-user-dashboard-search {
   position: relative;
   border-radius: 18px;
-  margin: 16px;
+  margin: 16px 0 16px 16px;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search .directorist-user-dashboard-search__icon {
   position: absolute;
@@ -6483,6 +6485,17 @@ p.atbd-min {
   -webkit-box-shadow: 0 5px 10px #8f8e9f05;
           box-shadow: 0 5px 10px #8f8e9f05;
   /* user dashboard sidebar nav action */
+}
+.directorist-user-dashboard__nav.directorist-dashboard-nav-collapsed {
+  width: 0 !important;
+  height: 0;
+  margin-right: 0;
+  left: -230px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__link {
   font-size: 14px;

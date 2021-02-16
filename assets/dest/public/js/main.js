@@ -1160,17 +1160,17 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 (function ($) {
   //dashboard sidebar nav toggler
-  $(".atbd-dashboard-nav-toggler").on("click", function (e) {
+  $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
     e.preventDefault();
-    $(".atbd_user_dashboard_nav").toggleClass("atbd-dashboard-nav-collapsed");
+    $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
   });
 
   if ($(window).innerWidth() < 767) {
-    $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
-    $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed--fixed");
+    $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
+    $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
     $("body").on("click", function (e) {
-      if ($(e.target).is(".atbd_user_dashboard_nav, .atbdp_all_booking_nav-link, .atbd-dashboard-nav-toggler, .atbd-dashboard-nav-toggler i, .atbdp_tab_nav--content-link") === false) {
-        $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
+      if ($(e.target).is(".directorist-user-dashboard__nav, .atbdp_all_booking_nav-link, .directorist-user-dashboard__toggle__link, .directorist-user-dashboard__toggle__link i, .directorist-tab__nav__item") === false) {
+        $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
       }
     });
   } //dashboard nav dropdown

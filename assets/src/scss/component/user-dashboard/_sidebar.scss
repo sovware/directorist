@@ -9,6 +9,17 @@
     background-color: #fff;
     box-shadow: 0 5px 10px #8f8e9f05;
 
+    &.directorist-dashboard-nav-collapsed{
+        width: 0 !important;
+        height: 0;
+        margin-right: 0;
+        left: -230px;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease
+    }
+
     .directorist-tab__nav__link {
         font-size: 14px;
         border-radius: 4px;

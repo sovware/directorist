@@ -752,9 +752,6 @@ class Directorist_Listing_Form {
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
-		
-		wp_enqueue_style( 'directorist-add-listing' );
-		wp_enqueue_script( 'directorist-add-listing' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
 		$user_id		  = get_current_user_id();

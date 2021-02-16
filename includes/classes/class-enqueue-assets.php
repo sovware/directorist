@@ -419,7 +419,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'shortcode' => ['directorist_add_listing'],
             'group'     => 'public', // public || admin  || global
-            'section'   => '__',
+            // 'section'   => '__',
             'enable'   => true,
         ];
 
@@ -478,8 +478,8 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => 'add-listing',
-            // 'shortcode' => ['directorist_add_listing'],
+            // 'section'   => 'add-listing',
+            'shortcode' => ['directorist_add_listing'],
             // 'localize_data' => [
             //     'object_name' => 'atbdp_search_listing',
             //     'data' => Script_Helper::get_search_script_data()
@@ -815,6 +815,10 @@ class Enqueue_Assets {
                 continue;
             }
 
+            if (  ! self::script__verify_shortcode( $script_args ) ) { 
+                continue;
+            }
+
             if ( ! empty( $script_args['section'] ) ) { continue; }
 
             wp_enqueue_style( $handle );
@@ -884,26 +888,41 @@ class Enqueue_Assets {
                 continue;
             }
 
-            if ( ! empty( $script_args['section'] ) ) { continue; }
-            if ( ! empty( $script_args['shortcode'] ) ) { 
-                
-                $match_found = 0;
-                foreach ( $script_args['shortcode'] as $_shortcode ) {
-                    if ( self::has_in_post_content( $_shortcode ) ) {
-                        $match_found++;
-                    }
-                }
-
-                if ( ! $match_found ) { continue; }
+            if (  ! self::script__verify_shortcode( $script_args ) ) { 
+                continue;
             }
+
+            if ( ! empty( $script_args['section'] ) ) { continue; }
 
             wp_enqueue_script( $handle );
             $this->add_localize_data_to_script( $handle, $script_args );
         }
     }
 
-    // has_in_post_content
-    public static function has_in_post_content( $subject = '' ) {
+    // script__verify_shortcode
+    public static function script__verify_shortcode( $script_args ) {
+        if ( empty( $script_args['shortcode'] ) ) { 
+            return true;
+        }
+
+        if ( ! is_array( $script_args['shortcode'] ) ) { 
+            return true;
+        }
+
+        $match_found = 0;
+        foreach ( $script_args['shortcode'] as $_shortcode ) {
+            if ( self::has_shortcode( $_shortcode ) ) {
+                $match_found++;
+            }
+        }
+
+        if ( ! $match_found ) { return false; }
+
+        return true;
+    }
+
+    // has_shortcode
+    public static function has_shortcode( $subject = '' ) {
         global $post;
         $found = false;
 

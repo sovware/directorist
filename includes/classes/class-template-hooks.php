@@ -82,7 +82,7 @@ class Directorist_Template_Hooks {
 	}
 
 	public function single_template() {
-		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return;
 		}
 
@@ -97,7 +97,7 @@ class Directorist_Template_Hooks {
 		else {
 			get_template_part( 'page' );
 		}
-
+		
 		die();
 	}
 

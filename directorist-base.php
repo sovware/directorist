@@ -306,7 +306,6 @@ final class Directorist_Base
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
             self::init_hooks();
-
         }
 
         return self::$instance;
@@ -325,7 +324,6 @@ final class Directorist_Base
         if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
 
             atbdp_auth_guard();
-
             die;
         }
     }

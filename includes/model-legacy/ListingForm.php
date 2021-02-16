@@ -726,7 +726,7 @@ class Directorist_Listing_Form {
 	}
 
 	public function render_shortcode( $atts ) {
-		
+
 		wp_enqueue_script( 'adminmainassets' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
@@ -748,8 +748,9 @@ class Directorist_Listing_Form {
 				return Helper::get_template_contents( 'forms/add-listing-error' );
 			}
 		}
+
 		$atts = shortcode_atts( array(
-			'directory_type'			  => '',
+			'directory_type' => '',
 		), $atts );
 
 		$this->directory_type           = !empty( $atts['directory_type'] ) ? explode( ',', $atts['directory_type'] ) : '';

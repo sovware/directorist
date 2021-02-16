@@ -510,6 +510,24 @@ class Directorist_Listing_Form {
 		Helper::get_template( 'listing-form/submit', $args );
 	}
 
+	public function social_item_template( $index='', $social_info='' ) {
+		if ( !$social_info ) {
+			$index = 'socialindex';
+			$social_info = [
+				'id'   => '',
+				'url'  => '',
+			];
+		}
+
+		$args = array(
+			'listing_form'   => $this,
+			'index'          => $index,
+			'social_info'    => $social_info,
+		);
+
+		Helper::get_template( 'listing-form/social-item', $args );
+	}
+
 	public function generate_linktext( $text, $link ) {
 		$pattern = '%\%(.+)\%%'; // extract 'text' from 'some %text%'
 		preg_match( $pattern, $text, $matches );
@@ -753,7 +771,8 @@ class Directorist_Listing_Form {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
 		
-		wp_enqueue_script( 'adminmainassets' );
+		wp_enqueue_style( 'directorist-add-listing' );
+		wp_enqueue_script( 'directorist-add-listing' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
 		$user_id		  = get_current_user_id();

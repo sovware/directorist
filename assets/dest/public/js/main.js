@@ -261,14 +261,14 @@ templateResult: selecWithIcon,
 /* Show and hide manual coordinate input field */
 
 if (!$('input#manual_coordinate').is(':checked')) {
-  $('#hide_if_no_manual_cor').hide();
+  $('#directorist-map-hide').hide();
 }
 
 $('#manual_coordinate').on('click', function (e) {
   if ($('input#manual_coordinate').is(':checked')) {
-    $('#hide_if_no_manual_cor').show();
+    $('#directorist-map-hide').show();
   } else {
-    $('#hide_if_no_manual_cor').hide();
+    $('#directorist-map-hide').hide();
   }
 });
 $("[data-toggle='tooltip']").tooltip(); // price range
@@ -1160,17 +1160,17 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 (function ($) {
   //dashboard sidebar nav toggler
-  $(".atbd-dashboard-nav-toggler").on("click", function (e) {
+  $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
     e.preventDefault();
-    $(".atbd_user_dashboard_nav").toggleClass("atbd-dashboard-nav-collapsed");
+    $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
   });
 
   if ($(window).innerWidth() < 767) {
-    $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
-    $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed--fixed");
+    $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
+    $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
     $("body").on("click", function (e) {
-      if ($(e.target).is(".atbd_user_dashboard_nav, .atbdp_all_booking_nav-link, .atbd-dashboard-nav-toggler, .atbd-dashboard-nav-toggler i, .atbdp_tab_nav--content-link") === false) {
-        $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
+      if ($(e.target).is(".directorist-user-dashboard__nav, .atbdp_all_booking_nav-link, .directorist-user-dashboard__toggle__link, .directorist-user-dashboard__toggle__link i, .directorist-tab__nav__item") === false) {
+        $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
       }
     });
   } //dashboard nav dropdown
@@ -2218,11 +2218,17 @@ if (tab_url.startsWith("#active_")) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../scss/component/add-listing.scss */ "./assets/src/scss/component/add-listing.scss");
 /* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _add_listing_google_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-listing/google-map */ "./assets/src/js/components/template-scripts/add-listing/google-map.js");
+/* harmony import */ var _add_listing_google_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_add_listing_google_map__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _add_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./add-listing/openstreet-map */ "./assets/src/js/components/template-scripts/add-listing/openstreet-map.js");
+/* harmony import */ var _add_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_add_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_2__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 /* eslint-disable */
@@ -2232,14 +2238,14 @@ var localized_data = atbdp_public_data.add_listing_data;
 /* Show and hide manual coordinate input field */
 
 if (!$('input#manual_coordinate').is(':checked')) {
-  $('#hide_if_no_manual_cor').hide();
+  $('#directorist-map-hide').hide();
 }
 
 $('#manual_coordinate').on('click', function (e) {
   if ($('input#manual_coordinate').is(':checked')) {
-    $('#hide_if_no_manual_cor').show();
+    $('#directorist-map-hide').show();
   } else {
-    $('#hide_if_no_manual_cor').hide();
+    $('#directorist-map-hide').hide();
   }
 }); // enable sorting if only the container has any social or skill field
 
@@ -2868,6 +2874,365 @@ function scrollToEl(el) {// const element = typeof el === 'string' ? el : '';
   //         800
   // );
 }
+
+/***/ }),
+
+/***/ "./assets/src/js/components/template-scripts/add-listing/google-map.js":
+/*!*****************************************************************************!*\
+  !*** ./assets/src/js/components/template-scripts/add-listing/google-map.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  $(document).ready(function () {
+    // initialize all vars here to avoid hoisting related misunderstanding.
+    var placeSearch;
+    var map;
+    var autocomplete;
+    var address_input;
+    var markers;
+    var info_window;
+    var $manual_lat;
+    var $manual_lng;
+    var saved_lat_lng;
+    var info_content; // Localized Data
+
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    }; // default is London city
+
+    info_content = localized_data.info_content, markers = [], // initialize the array to keep track all the marker
+    info_window = new google.maps.InfoWindow({
+      content: info_content,
+      maxWidth: 400
+    });
+    address_input = document.getElementById('address');
+    address_input.addEventListener('focus', geolocate); // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }
+
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      autocomplete = new google.maps.places.Autocomplete(address_input, {
+        types: []
+      }); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+      // Get the place details from the autocomplete object.
+      var place = autocomplete.getPlace(); // set the value of input field to save them to the database
+
+      $manual_lat.val(place.geometry.location.lat());
+      $manual_lng.val(place.geometry.location.lng());
+      map.setCenter(place.geometry.location);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker);
+    }
+
+    initAutocomplete(); // start google map place auto complete API call
+
+    function initMap() {
+      /* Create new map instance */
+      map = new google.maps.Map(document.getElementById('gmap'), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng
+      });
+      var marker = new google.maps.Marker({
+        map: map,
+        position: saved_lat_lng,
+        draggable: true,
+        title: localized_data.marker_title
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker); // create a Geocode instance
+
+      var geocoder = new google.maps.Geocoder();
+      document.getElementById('generate_admin_map').addEventListener('click', function (e) {
+        e.preventDefault();
+        geocodeAddress(geocoder, map);
+      }); // This event listener calls addMarker() when the map is clicked.
+
+      google.maps.event.addListener(map, 'click', function (event) {
+        deleteMarker(); // at first remove previous marker and then set new marker;
+        // set the value of input field to save them to the database
+
+        $manual_lat.val(event.latLng.lat());
+        $manual_lng.val(event.latLng.lng()); // add the marker to the given map.
+
+        addMarker(event.latLng, map);
+      }); // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
+
+      google.maps.event.addListener(marker, 'dragend', function (event) {
+        // set the value of input field to save them to the database
+        $manual_lat.val(event.latLng.lat());
+        $manual_lng.val(event.latLng.lng());
+      });
+    }
+    /*
+     * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+     * */
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+      var address = address_input.value;
+      var lat = document.getElementById('manual_lat').value;
+      var lng = document.getElementById('manual_lng').value;
+      var latLng = new google.maps.LatLng(lat, lng);
+      var opt = {
+        location: latLng,
+        address: address
+      };
+      geocoder.geocode(opt, function (results, status) {
+        if (status === 'OK') {
+          // set the value of input field to save them to the database
+          $manual_lat.val(results[0].geometry.location.lat());
+          $manual_lng.val(results[0].geometry.location.lng());
+          resultsMap.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: resultsMap,
+            position: results[0].geometry.location
+          }); // marker.addListener('click', function () {
+          //     info_window.open(map, marker);
+          // });
+
+          deleteMarker(); // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+          markers.push(marker);
+        } else {
+          alert(localized_data.geocode_error_msg + status);
+        }
+      });
+    }
+
+    initMap(); // adding features of creating marker manually on the map on add listing page.
+
+    /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var labelIndex = 0; */
+    // Adds a marker to the map.
+
+    function addMarker(location, map) {
+      // Add the marker at the clicked location, and add the next-available label
+      // from the array of alphabetical characters.
+      var marker = new google.maps.Marker({
+        position: location,
+
+        /* label: labels[labelIndex++ % labels.length], */
+        draggable: true,
+        title: localized_data.marker_title,
+        map: map
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker);
+    } // Delete Marker
+
+
+    $('#delete_marker').on('click', function (e) {
+      e.preventDefault();
+      deleteMarker();
+    });
+
+    function deleteMarker() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+
+      markers = [];
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/components/template-scripts/add-listing/openstreet-map.js":
+/*!*********************************************************************************!*\
+  !*** ./assets/src/js/components/template-scripts/add-listing/openstreet-map.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  $(document).ready(function () {
+    // Localized Data
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    var loc_map_icon = localized_data.map_icon;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+
+    function mapLeaflet(lat, lon) {
+      // @todo @kowsar / remove later. fix js error
+      if ($("#gmap").length == 0) {
+        return;
+      }
+
+      var fontAwesomeIcon = L.icon({
+        iconUrl: loc_map_icon,
+        iconSize: [20, 25]
+      });
+      var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
+      L.marker([lat, lon], {
+        icon: fontAwesomeIcon,
+        draggable: true
+      }).addTo(mymap).addTo(mymap).on("drag", function (e) {
+        var marker = e.target;
+        var position = marker.getLatLng();
+        $('#manual_lat').val(position.lat);
+        $('#manual_lng').val(position.lng);
+        $.ajax({
+          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
+          type: 'POST',
+          data: {},
+          success: function success(data) {
+            $('#address').val(data.display_name);
+          }
+        });
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(mymap);
+    }
+
+    $('#address').on('keyup', function (event) {
+      event.preventDefault();
+
+      if (event.keyCode !== 40 && event.keyCode !== 38) {
+        var search = $('#address').val();
+        $('#result').css({
+          'display': 'block'
+        });
+
+        if (search === "") {
+          $('#result').css({
+            'display': 'none'
+          });
+        }
+
+        var res = "";
+        $.ajax({
+          url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+          type: 'POST',
+          data: {},
+          success: function success(data) {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+            }
+
+            $('#result ul').html(res);
+          }
+        });
+      }
+    });
+    var lat = loc_manual_lat,
+        lon = loc_manual_lng;
+    mapLeaflet(lat, lon);
+    $('body').on('click', '#result ul li a', function (event) {
+      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      event.preventDefault();
+      var text = $(this).text(),
+          lat = $(this).data('lat'),
+          lon = $(this).data('lon');
+      $('#manual_lat').val(lat);
+      $('#manual_lng').val(lon);
+      $('#address').val(text);
+      $('#result').css({
+        'display': 'none'
+      });
+      mapLeaflet(lat, lon);
+    });
+    $('body').on('click', '#generate_admin_map', function (event) {
+      event.preventDefault();
+      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
+    }); // Popup controller by keyboard
+
+    var index = 0;
+    $('#address').on('keyup', function (event) {
+      event.preventDefault();
+      var length = $('#directorist.atbd_wrapper #result ul li a').length;
+
+      if (event.keyCode === 40) {
+        index++;
+
+        if (index > length) {
+          index = 0;
+        }
+      } else if (event.keyCode === 38) {
+        index--;
+
+        if (index < 0) {
+          index = length;
+        }
+
+        ;
+      }
+
+      if ($('#directorist.atbd_wrapper #result ul li a').length > 0) {
+        $('#directorist.atbd_wrapper #result ul li a').removeClass('active');
+        $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+
+        if (event.keyCode === 13) {
+          $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+          event.preventDefault();
+          index = 0;
+          return false;
+        }
+      }
+
+      ;
+    });
+    $('#post').on('submit', function (event) {
+      event.preventDefault();
+      return false;
+    });
+  });
+})(jQuery);
 
 /***/ }),
 
@@ -3538,9 +3903,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./assets/src/scss/component/add-listing.scss ***!
   \****************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Undefined variable.\n   ╷\n77 │             color: $success;\r\n   │                    ^^^^^^^^\n   ╵\n  assets\\src\\scss\\component\\add-listing.scss 77:20  root stylesheet\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass-loader\\dist\\index.js:55:7\n    at Function.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:91024:16)\n    at _render_closure1.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:79938:12)\n    at _RootZone.runBinary$3$3 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27187:18)\n    at _FutureListener.handleError$1 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25715:19)\n    at _Future__propagateToListeners_handleError.call$0 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26012:49)\n    at Object._Future__propagateToListeners (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25845:9)\n    at _AsyncAwaitCompleter.completeError$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25188:12)\n    at Object._asyncRethrow (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:13196:20\n    at _wrapJsFunctionForAsync_closure.$protected (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25209:12)\n    at _awaitOnObject_closure0.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25201:25)\n    at _RootZone.runBinary$3$3 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27187:18)\n    at _FutureListener.handleError$1 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25715:19)\n    at _Future__propagateToListeners_handleError.call$0 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:26012:49)\n    at Object._Future__propagateToListeners (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4539:77)\n    at _Future._completeError$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25845:9)\n    at _AsyncAwaitCompleter.completeError$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25188:12)\n    at Object._asyncRethrow (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4288:17)\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:17975:20\n    at _wrapJsFunctionForAsync_closure.$protected (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:4313:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25209:12)\n    at _awaitOnObject_closure0.call$2 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:25201:25)\n    at _RootZone.runBinary$3$3 (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\sass\\sass.dart.js:27187:18)");
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

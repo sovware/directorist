@@ -255,9 +255,9 @@ class ATBDP_Enqueuer {
         wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
 
         // Google map
-        // $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-        // wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
-        // wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
+        $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+        wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
 
         wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -555,12 +555,12 @@ class ATBDP_Enqueuer {
 
         if ( ! $map_is_disabled && 'google' == $select_listing_map ) {$dependency[] = 'atbdp-google-map-front';}
 
-        wp_register_script( 'atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing.js', $dependency, ATBDP_VERSION, true );
-        wp_register_script( 'atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', $dependency, ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing.js', [], ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', [], ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_media_uploader' );
         wp_enqueue_script( 'atbdp_add_listing_js' );
-        wp_register_script( 'atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', $dependency, ATBDP_VERSION, true );
-        wp_register_script( 'atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', [], ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', [], ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_add_listing_validator' );
         wp_enqueue_script( 'atbdp_custom_field_validator' );
 

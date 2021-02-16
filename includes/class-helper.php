@@ -45,7 +45,7 @@ class Helper {
 			'flickr'         => __('Flickr', 'directorist'),
 			'snapchat'       => __('Snapchat', 'directorist'),
 			'reddit'         => __('Reddit', 'directorist'),
-			'youtube'   => __('Youtube', 'directorist'),
+			'youtube'        => __('Youtube', 'directorist'),
 			'vimeo'          => __('Vimeo', 'directorist'),
 			'vine'           => __('Vine', 'directorist'),
 			'github'         => __('Github', 'directorist'),

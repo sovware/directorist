@@ -534,14 +534,14 @@ templateResult: selecWithIcon,
 /* Show and hide manual coordinate input field */
 
 if (!$('input#manual_coordinate').is(':checked')) {
-  $('#hide_if_no_manual_cor').hide();
+  $('#directorist-map-hide').hide();
 }
 
 $('#manual_coordinate').on('click', function (e) {
   if ($('input#manual_coordinate').is(':checked')) {
-    $('#hide_if_no_manual_cor').show();
+    $('#directorist-map-hide').show();
   } else {
-    $('#hide_if_no_manual_cor').hide();
+    $('#directorist-map-hide').hide();
   }
 });
 $("[data-toggle='tooltip']").tooltip(); // price range
@@ -1533,14 +1533,14 @@ function assetsNeedToWorkInVirtualDom() {
 
 
   if (!$('input#manual_coordinate').is(':checked')) {
-    $('#hide_if_no_manual_cor').hide();
+    $('#directorist-map-hide').hide();
   }
 
   $('#manual_coordinate').on('click', function (e) {
     if ($('input#manual_coordinate').is(':checked')) {
-      $('#hide_if_no_manual_cor').show();
+      $('#directorist-map-hide').show();
     } else {
-      $('#hide_if_no_manual_cor').hide();
+      $('#directorist-map-hide').hide();
     }
   });
 }

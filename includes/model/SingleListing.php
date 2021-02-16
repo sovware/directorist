@@ -1094,6 +1094,11 @@ class Directorist_Single_Listing {
 		return $related;
 	}
 
+	public function get_related_columns() {
+		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
+		return 12/$columns;
+	}
+
 	public function load_related_listings_script() {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 

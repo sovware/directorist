@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="atbd_tab_inner" id="profile">
+<div class="atbd_tab_inner" id="dashboard_profile">
     <form action="#" id="user_profile_form" method="post">
         <div class="row">
             <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">

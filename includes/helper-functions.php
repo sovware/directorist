@@ -3421,7 +3421,7 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
 
     $terms             = get_terms($taxonomy_id, $args);
     $listing_type      = get_term_by( 'id', $lisitng_type, ATBDP_TYPE );
-    $listing_type_slug = $listing_type->slug;
+    $listing_type_slug = !empty( $listing_type ) ? $listing_type->slug : '';
     
     $html = '';
 

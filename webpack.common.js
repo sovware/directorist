@@ -109,8 +109,10 @@ const publicConfig = {
     ['global']: ["./assets/src/js/global.js"],
     ['checkout']: ["./assets/src/js/checkout.js"],
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],
-    ['add-listing']: ["./assets/src/js/components/template-scripts/add-listing.js"],
     ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
+    ['add-listing']: ["./assets/src/js/add-listing.js"],
+    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/google-map.js"],
+    ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/openstreet-map.js"],
 
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],

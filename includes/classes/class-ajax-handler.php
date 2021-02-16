@@ -1002,8 +1002,13 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function atbdp_social_info_handler()
         {
-            $id = (!empty($_POST['id'])) ? absint($_POST['id']) : 0;
-            ATBDP()->load_template('social', array('id' => $id,));
+            $id = ( ! empty( $_POST['id'] ) ) ? absint( $_POST['id'] ) : 0;
+
+            $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+            $path = ( $atbdp_legacy_template ) ? 'forms/social-fields' : 'listing-form/social-fields';
+            
+            Directorist\Helper::get_template( $path, array( 'id' => $id ) );
+
             die();
         }
 

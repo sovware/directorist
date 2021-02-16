@@ -795,16 +795,16 @@ class Directorist_Listing_Form {
 		$display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
 
 		if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing-osm', 'localized_data', $args );
-			wp_enqueue_script( 'atbdp-add-listing-osm' );
+			wp_localize_script( 'atbdp-add-listing', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-openstreet-map-custom-script', 'localized_data', $args );
 		}
 
 		if ( $display_map && 'google' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing-gmap', 'localized_data', $args );
-			wp_enqueue_script( 'atbdp-add-listing-gmap' );
+			wp_localize_script( 'directorist-add-listing', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-gmap-custom-script', 'localized_data', $args );
 		}
 
-		ATBDP()->enquirer->add_listing_scripts_styles();
+		// ATBDP()->enquirer->add_listing_scripts_styles();
 
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );

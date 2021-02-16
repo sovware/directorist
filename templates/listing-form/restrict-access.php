@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="error"><?php esc_html_e( 'You do not have permission to edit this listing', 'directorist' ); ?></div>
+<div class="directorist-edit-listing-error"><?php esc_html_e( 'You do not have permission to edit this listing', 'directorist' ); ?></div>

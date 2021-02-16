@@ -1,0 +1,125 @@
+@import '../mixins/general';
+
+// add listing types
+.directorist-add-listing-types {
+    @include e(single) {
+
+        @include e(link) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: #202428 !important;
+            padding: 30px 0;
+            border-radius: 4px;
+            color: #fff !important;
+            font-size: 17px !important;
+            min-height: 118px;
+
+            i {
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.directorist-add-listing-form {
+    .directorist-content-module {
+        background: #fff;
+        margin-bottom: 35px;
+
+        .directorist-form-group {
+            &:not(:last-child) {
+                margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+/* ==========================
+    add listing form fields
+============================= */
+/* listing label */
+.directorist-form-label {
+    display: block;
+}
+
+.directorist-form-required {
+    color: red;
+}
+
+/* listing type */
+.directorist-form-listing-type {
+    @include e(title) {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: #272b41;
+        letter-spacing: normal;
+    }
+
+    @include e(single) {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .directorist-radio input[type=radio]+.directorist-radio__label {
+        font-size: 15px;
+        color: #202428;
+        padding-left: 23px;
+        font-weight: 700;
+
+        small {
+            font-weight: normal;
+            color: $success;
+        }
+    }
+}
+
+/* Pricing */
+.directorist-form-pricing-field {
+    @include e(options) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0 -5px 10px;
+
+        .directorist-checkbox,
+        .directorist-form-pricing-field__options__divider,
+        .directorist-form-pricing-field__options__info {
+            padding: 0 5px;
+        }
+
+        .directorist-checkbox input[type=checkbox]+.directorist-checkbox__label {
+            font-size: 15px;
+            font-weight: 700;
+        }
+    }
+
+    select.directorist-form-element {
+        padding: 0 20px;
+    }
+}
+
+/* location */
+.directorist-select-multi select {
+    display: none;
+}
+
+/* hide contact owner */
+.directorist-hide-owner-field.directorist-checkbox input[type=checkbox]+.directorist-checkbox__label {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* social info */
+.directorist-form-social-fields {
+    .directorist-form-group {
+        select.directorist-form-element {
+            padding: 0 20px;
+        }
+    }
+}

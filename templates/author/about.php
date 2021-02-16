@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 
 	<div class="<?php Helper::directorist_column( 4 ); ?>">
-		<div class="directorist-card directorist-widget">
+		<div class="directorist-card directorist-widget directorist-author-contact">
 
 			<div class="directorist-card__header">
 				<h4 class="directorist-card__header--title directorist-widget-title"><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h4>

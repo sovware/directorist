@@ -182,7 +182,7 @@ jQuery(document).ready(function ($) {
 
         //Sinfo
         if ($("#atbdp_socialInFo").length > 0) {
-            var Sinfo = $(".atbdp_social_field_wrapper").length;
+            var Sinfo = $(".directorist-form-social-fields").length;
             var required_Sinfo = add_listing_validator.Sinfo;
             if (0 === Sinfo && '' !== required_Sinfo && !need_post) {
                 $("#atbdp_socialInFo").append('<span class="atbdp_required">' + w_icon + required_Sinfo + '</span>');

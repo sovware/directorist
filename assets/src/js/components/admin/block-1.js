@@ -44,16 +44,16 @@ if (window.outerWidth > 1700) {
 // Rearrange the IDS and Add new social field
 $('body').on('click', '#addNewSocial', function () {
     const social_wrap = $('#social_info_sortable_container'); // cache it
-    const currentItems = $('.atbdp_social_field_wrapper').length;
+    const currentItems = $('.directorist-form-social-fields').length;
     const ID = `id=${currentItems}`; // eg. 'id=3'
     const iconBindingElement = jQuery('#addNewSocial');
     // arrange names ID in order before adding new elements
-    $('.atbdp_social_field_wrapper').each(function (index, element) {
+    $('.directorist-form-social-fields').each(function (index, element) {
         const e = $(element);
         e.attr('id', `socialID-${index}`);
         e.find('select').attr('name', `social[${index}][id]`);
         e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-        e.find('.removeSocialField').attr('data-id', index);
+        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
     });
     // now add the new elements. we could do it here without using ajax but it would require more markup here.
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
@@ -62,7 +62,7 @@ $('body').on('click', '#addNewSocial', function () {
 });
 
 // remove the social field and then reset the ids while maintaining position
-$(document).on('click', '.removeSocialField', function (e) {
+$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
     const id = $(this).data('id');
     const elementToRemove = $(`div#socialID-${id}`);
     e.preventDefault();
@@ -83,7 +83,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                 elementToRemove.slideUp('fast', function () {
                     elementToRemove.remove();
                     // reorder the index
-                    $('.atbdp_social_field_wrapper').each(function (index, element) {
+                    $('.directorist-form-social-fields').each(function (index, element) {
                         const e = $(element);
                         e.attr('id', `socialID-${index}`);
                         e.find('select').attr('name', `social[${index}][id]`);
@@ -91,7 +91,7 @@ $(document).on('click', '.removeSocialField', function (e) {
                             'name',
                             `social[${index}][url]`
                         );
-                        e.find('.removeSocialField').attr('data-id', index);
+                        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
                     });
                 });
 

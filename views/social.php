@@ -3,7 +3,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
 ?>
 
 
-<div class="directorist row atbdp_social_field_wrapper" id="socialID-<?php echo $id; ?>">
+<div class="atbdp_social_field_wrapper" id="socialID-<?php echo $id; ?>">
     <div class="col-md-3 col-sm-12">
         <div class="form-group">
             <select name="social[<?php echo $id; ?>][id]" class="form-control">

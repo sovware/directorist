@@ -11,21 +11,22 @@ $multiple = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
 $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 ?>
 
-<div class="form-group directorist-location-field">
+<div class="directorist-form-group directorist-form-location-field">
 
 	<?php $listing_form->field_label_template( $data ); ?>
+	<div class="directorist-select directorist-select-multi" id="directorist-location-select" data-isSearch="false" data-multiSelect='[{value: "Select location", key: 0}]' data-max="15">
+		<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="directorist-location-select-items" <?php echo $multiple; ?> <?php echo $max; ?>>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location" <?php echo $multiple; ?> <?php echo $max; ?>>
+			<?php
+			if ( $data['type'] != 'multiple' ) {
+				printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
+			}
 
-		<?php
-		if ( $data['type'] != 'multiple' ) {
-			printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
-		}
+			echo $listing_form->add_listing_location_fields();
+			?>
 
-		echo $listing_form->add_listing_location_fields();
-		?>
-		
-	</select>
+		</select>
+	</div>
 
 	<?php $listing_form->field_description_template( $data ); ?>
 

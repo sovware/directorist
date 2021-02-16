@@ -8,12 +8,12 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="atbdp_info_module">
+<div class="directorist-add-listing-form__action">
 
 	<?php if ( $display_guest_listings && !atbdp_logged_in_user() ): ?>
 
 		<div class="form-group">
-			
+
 			<label for="guest_user"><?php echo esc_html( $guest_email_label ); ?>:<span class="atbdp_make_str_red"> *</span></label>
 
 			<input type="text" id="guest_user_email" name="guest_user_email" class="form-control directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<div id="listing_notifier"></div>
-	
+
 	<div class="btn_wrap list_submit">
 		<button type="submit" class="btn btn-primary btn-lg listing_submit_btn"><?php echo esc_html( $listing_form->submit_label() ); ?></button>
 	</div>

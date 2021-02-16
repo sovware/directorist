@@ -1,3 +1,11 @@
+@import "../vendor/bootstrap/config.bs";
+//base css
+@import "../base/index";
+//mixins
+@import "../mixins/colors";
+@import "../mixins/general";
+
+
 /*  Plugin: PureScriptSearchSelect
     Author: SovWare
     URI: https://github.com/woadudakand/pureScriptSelect
@@ -7,10 +15,11 @@
 .directorist-select {
     min-height: 42px;
     width: 100%;
-    
-    &.directorist-select-active-js{
+
+    &.directorist-select-active-js {
         z-index: 222 !important;
     }
+
     .directorist-select__label {
         font-size: 16px;
         display: inline-flex;
@@ -23,13 +32,15 @@
         color: #7a82a6;
         background-color: #fff;
         border: 1px solid $border-color-normal;
+
         .directorist-select__label--icon,
-        .directorist-select__label--text{
+        .directorist-select__label--text {
             pointer-events: none;
         }
+
         i,
         span.fa,
-        span.la{
+        span.la {
             font-size: 14px;
         }
     }

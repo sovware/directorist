@@ -239,17 +239,17 @@ if (window.outerWidth > 1700) {
 $('body').on('click', '#addNewSocial', function () {
   var social_wrap = $('#social_info_sortable_container'); // cache it
 
-  var currentItems = $('.atbdp_social_field_wrapper').length;
+  var currentItems = $('.directorist-form-social-fields').length;
   var ID = "id=".concat(currentItems); // eg. 'id=3'
 
   var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
 
-  $('.atbdp_social_field_wrapper').each(function (index, element) {
+  $('.directorist-form-social-fields').each(function (index, element) {
     var e = $(element);
     e.attr('id', "socialID-".concat(index));
     e.find('select').attr('name', "social[".concat(index, "][id]"));
     e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-    e.find('.removeSocialField').attr('data-id', index);
+    e.find('.directorist-form-social-fields__remove').attr('data-id', index);
   }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
 
   atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
@@ -257,7 +257,7 @@ $('body').on('click', '#addNewSocial', function () {
   });
 }); // remove the social field and then reset the ids while maintaining position
 
-$(document).on('click', '.removeSocialField', function (e) {
+$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
   var id = $(this).data('id');
   var elementToRemove = $("div#socialID-".concat(id));
   e.preventDefault();
@@ -277,12 +277,12 @@ $(document).on('click', '.removeSocialField', function (e) {
       elementToRemove.slideUp('fast', function () {
         elementToRemove.remove(); // reorder the index
 
-        $('.atbdp_social_field_wrapper').each(function (index, element) {
+        $('.directorist-form-social-fields').each(function (index, element) {
           var e = $(element);
           e.attr('id', "socialID-".concat(index));
           e.find('select').attr('name', "social[".concat(index, "][id]"));
           e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-          e.find('.removeSocialField').attr('data-id', index);
+          e.find('.directorist-form-social-fields__remove').attr('data-id', index);
         });
       }); // show success message
 
@@ -389,12 +389,18 @@ if (is_checked === 'range') {
   $('#price_range').show();
 }
 
-$('.atbd_pricing_options label').on('click', function () {
+$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
   var $this = $(this);
-  $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
-  var $sibling = $this.siblings('label');
+
+  if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
+    $("#".concat($this.data('option'))).hide();
+  } else {
+    $("#".concat($this.data('option'))).show();
+  }
+
+  var $sibling = $this.parent().siblings('.directorist-checkbox');
   $sibling.children('input[type=checkbox]').prop('checked', false);
-  $("#".concat($sibling.data('option'))).hide();
+  $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
 }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
@@ -564,17 +570,17 @@ if (window.outerWidth > 1700) {
 
 
 $('body').on('click', '#addNewSocial', function () {
-  var currentItems = $('.atbdp_social_field_wrapper').length;
+  var currentItems = $('.directorist-form-social-fields').length;
   var ID = "id=".concat(currentItems); // eg. 'id=3'
 
   var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
 
-  $('.atbdp_social_field_wrapper').each(function (index, element) {
+  $('.directorist-form-social-fields').each(function (index, element) {
     var e = $(element);
     e.attr('id', "socialID-".concat(index));
     e.find('select').attr('name', "social[".concat(index, "][id]"));
     e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-    e.find('.removeSocialField').attr('data-id', index);
+    e.find('.directorist-form-social-fields__remove').attr('data-id', index);
   }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
 
   atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
@@ -582,7 +588,7 @@ $('body').on('click', '#addNewSocial', function () {
   });
 }); // remove the social field and then reset the ids while maintaining position
 
-$(document).on('click', '.removeSocialField', function (e) {
+$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
   var id = $(this).data('id');
   var elementToRemove = $("div#socialID-".concat(id));
   event.preventDefault();
@@ -602,12 +608,12 @@ $(document).on('click', '.removeSocialField', function (e) {
       elementToRemove.slideUp('fast', function () {
         elementToRemove.remove(); // reorder the index
 
-        $('.atbdp_social_field_wrapper').each(function (index, element) {
+        $('.directorist-form-social-fields').each(function (index, element) {
           var e = $(element);
           e.attr('id', "socialID-".concat(index));
           e.find('select').attr('name', "social[".concat(index, "][id]"));
           e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-          e.find('.removeSocialField').attr('data-id', index);
+          e.find('.directorist-form-social-fields__remove').attr('data-id', index);
         });
       }); // show success message
 
@@ -950,23 +956,24 @@ if ($('.change_listing_prv_img').attr('src') === '') {
   $('.remove_prev_img').show();
 } // price range
 
-
-$('#price_range').hide();
-var is_checked = $('#atbd_listing_pricing').val();
-
+/* $('#price_range').hide();
+const is_checked = $('#atbd_listing_pricing').val();
 if (is_checked === 'range') {
-  $('#price').hide();
-  $('#price_range').show();
+    $('#price').hide();
+    $('#price_range').show();
 }
-
 $('.atbd_pricing_options label').on('click', function () {
-  var $this = $(this);
-  $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
-  var $sibling = $this.siblings('label');
-  $sibling.children('input[type=checkbox]').prop('checked', false);
-  $("#".concat($sibling.data('option'))).hide();
-}); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+    const $this = $(this);
+    $this.children('input[type=checkbox]').prop('checked') == true
+        ? $(`#${$this.data('option')}`).show()
+        : $(`#${$this.data('option')}`).hide();
+    const $sibling = $this.siblings('label');
+    $sibling.children('input[type=checkbox]').prop('checked', false);
+    $(`#${$sibling.data('option')}`).hide();
+}); */
+// Load custom fields of the selected category in the custom post type "atbdp_listings"
 // ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
+
 
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
   $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
@@ -2797,12 +2804,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
+/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__);
 
 
 /*  Plugin: PureScriptSearchSelect
     Author: SovWare
     URI: https://github.com/woadudakand/pureScriptSelect
 */
+
 var pureScriptSelect = function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
@@ -2975,7 +2985,6 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       var arry = [],
           arryEl = [],
           button = sibling.querySelector('.directorist-select__label');
-      el1 = '';
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -3243,7 +3252,19 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     if ($('#directorist-select-fr-e-js').length) {
       pureScriptSelect('#directorist-select-fr-e-js');
     }
-  }); // console.log($('#directorist-select-fr-e-js').length)
+
+    if ($('#directorist-location-select').length) {
+      pureScriptSelect('#directorist-location-select');
+    }
+
+    if ($('#directorist-tag-select').length) {
+      pureScriptSelect('#directorist-tag-select');
+    }
+
+    if ($('#directorist-category-select').length) {
+      pureScriptSelect('#directorist-category-select');
+    }
+  });
 })(jQuery);
 
 /***/ }),
@@ -3252,6 +3273,17 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 /*!***********************************************!*\
   !*** ./assets/src/scss/component/_modal.scss ***!
   \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./assets/src/scss/component/pureSearchSelect.scss":
+/*!*********************************************************!*\
+  !*** ./assets/src/scss/component/pureSearchSelect.scss ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

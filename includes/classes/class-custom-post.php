@@ -29,22 +29,16 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_filter('bulk_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
             add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
             
-             // Customize listing slug
-             add_filter( 'post_type_link', [ $this, 'customize_listing_slug' ], 100, 2 );
-             add_filter( 'post_link ', [ $this, 'customize_listing_slug' ], 100, 2 );
-
-            // add_action( 'init', function () {
-            //     $get_permalink = get_permalink( 25 );
-            //     atbdp_console_log([ $get_permalink ]);
-            // } );
-            
+            // Customize listing slug
+            add_filter( 'post_type_link', [ $this, 'customize_listing_slug' ], 100, 2 );
+            add_filter( 'post_link ', [ $this, 'customize_listing_slug' ], 100, 2 );
         }
 
          // customize_listing_slug
          public function customize_listing_slug( $post_link = '' ) {
-            $new_link = ATBDP_Permalink::get_listing_permalink( get_the_ID(), $post_link );
+            $post_link = ATBDP_Permalink::get_listing_permalink( get_the_ID(), $post_link );
 
-            return $new_link;
+            return $post_link;
         }
 
         
@@ -58,7 +52,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             if ( !empty( $_REQUEST['directory_type'] ) ) {
                 update_post_meta( $post_id, '_directory_type', sanitize_text_field( $_REQUEST['directory_type'] ) );
             }
-    }
+        }
 
         public function on_quick_edit_custom_box( $column_name, $post_type ) {
 

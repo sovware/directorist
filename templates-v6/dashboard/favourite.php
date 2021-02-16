@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="atbd_tab_inner" id="saved_items">
+<div class="atbd_tab_inner" id="dashboard_fav_listings">
     <div class="atbd_saved_items_wrapper">
         <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
             <?php if (!empty($fav_listing_items)): ?>

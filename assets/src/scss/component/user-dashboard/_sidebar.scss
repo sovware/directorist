@@ -9,6 +9,28 @@
     background-color: #fff;
     box-shadow: 0 5px 10px #8f8e9f05;
 
+    @media only screen and (max-width: 991px){
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 230px;
+        height: 100vh;
+        background-color: #fff;
+        padding-top: 100px;
+        box-shadow: 0 5px 10px rgb(143 142 159 / 2%);
+        z-index: 22;
+    }
+
+    .directorist-dashboard__nav--close{
+        display: none;
+        position: absolute;
+        right: 15px;
+        top: 50px;
+        @media only screen and (max-width: 991px){
+            display: block;
+        }
+    }
+
     &.directorist-dashboard-nav-collapsed{
         width: 0 !important;
         height: 0;

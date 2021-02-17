@@ -20,6 +20,11 @@
         }
     }
 
+    @include e(nav){
+
+        
+    }
+
     @include e(tab-content) {
         flex: 1;
     }
@@ -165,7 +170,6 @@
     border-radius: 4px;
     margin-top: 15px;
 
-    // margin-bottom: 145px;
     .directorist-listing-table {
         border-radius: 6px;
 
@@ -189,8 +193,11 @@
                 &.directorist-table-listing {
                     min-width: 320px;
 
-                    @media (max-width: 1399px) {
+                    @media (max-width: 1499px) {
                         min-width: 260px;
+                    }
+                    @media (max-width: 1399px) {
+                        min-width: 230px;
                     }
                 }
 
@@ -205,8 +212,11 @@
                 &.directorist-table-ex-date {
                     min-width: 250px;
 
+                    @media (max-width: 1499px) {
+                        min-width: 220px;
+                    }
                     @media (max-width: 1399px) {
-                        min-width: 230px;
+                        min-width: 200px;
                     }
                 }
 
@@ -214,7 +224,14 @@
                     min-width: 160px;
 
                     @media (max-width: 1399px) {
-                        min-width: 150px;
+                        min-width: 130px;
+                    }
+                }
+                &.directorist_table-plan {
+                    min-width: 120px;
+
+                    @media (max-width: 1399px) {
+                        min-width: 100px;
                     }
                 }
 
@@ -222,7 +239,7 @@
                     min-width: 200px;
 
                     @media (max-width: 1399px) {
-                        min-width: 170px;
+                        min-width: 150px;
                     }
                 }
             }

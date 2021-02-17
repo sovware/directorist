@@ -99,7 +99,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_admin_plugins_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_plugins_scss__WEBPACK_IMPORTED_MODULE_0__);
 
 jQuery(document).ready(function ($) {
-  $('[data-slug="directorist"]').after('<tr class="directorist-extensions"></tr>');
+  var update = $('#directorist-update');
+  var main_div = $('[data-slug="directorist"]');
+  var extensions_area = update.length ? update : main_div;
+  extensions_area.after('<tr class="directorist-extensions"></tr>');
   $('.directorist-extensions').append($('<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'));
   var tbody = $('.directorist-extensions').find('.de-list');
   var extWrapper = $('.directorist-extensions').find('.ext-all-wrapper');

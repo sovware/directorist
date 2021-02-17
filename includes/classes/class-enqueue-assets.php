@@ -497,7 +497,7 @@ class Enqueue_Assets {
             'enable'   => true,
         ];
 
-        $scripts['directorist-add-listing'] = [
+        $scripts['directorist-add-listing-public'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
@@ -506,7 +506,7 @@ class Enqueue_Assets {
             'shortcode' => ['directorist_add_listing'],
         ];
 
-        $scripts['directorist-pure-select'] = [
+        $scripts['directorist-pure-select-public'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
@@ -556,7 +556,7 @@ class Enqueue_Assets {
             ],
         ];
 
-        $scripts['directorist-add-listing'] = [
+        $scripts['directorist-add-listing-public'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -564,7 +564,7 @@ class Enqueue_Assets {
             'shortcode' => ['directorist_add_listing'],
         ];
 
-        $scripts['directorist-add-listing-openstreet-map-custom-script'] = [
+        $scripts['directorist-add-listing-openstreet-map-custom-script-public'] = [
             'file_name' => 'add-listing-openstreet-map-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -573,7 +573,7 @@ class Enqueue_Assets {
             'enable' => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
-        $scripts['directorist-add-listing-gmap-custom-script'] = [
+        $scripts['directorist-add-listing-gmap-custom-script-public'] = [
             'file_name' => 'add-listing-gmap-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -582,7 +582,7 @@ class Enqueue_Assets {
             'enable' => Script_Helper::is_enable_map( 'google' ),
         ];
 
-        $scripts['directorist-pure-select'] = [
+        $scripts['directorist-pure-select-public'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -612,7 +612,7 @@ class Enqueue_Assets {
             // 'page'      => 'plugins.php',
         ];
 
-        $scripts['directorist-add-listing'] = [
+        $scripts['directorist-add-listing-admin'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
@@ -621,7 +621,7 @@ class Enqueue_Assets {
             'page'      => 'post-new.php',
         ];
 
-        $scripts['directorist-pure-select'] = [
+        $scripts['directorist-pure-select-admin'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
@@ -709,7 +709,7 @@ class Enqueue_Assets {
             ],
         ];
 
-        $scripts['directorist-add-listing'] = [
+        $scripts['directorist-add-listing-admin'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -717,7 +717,7 @@ class Enqueue_Assets {
             'page'      => 'post-new.php',
         ];
 
-        $scripts['directorist-add-listing-openstreet-map-custom-script'] = [
+        $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [
             'file_name' => 'add-listing-openstreet-map-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -726,7 +726,7 @@ class Enqueue_Assets {
             'page'      => 'post-new.php',
         ];
 
-        $scripts['directorist-add-listing-gmap-custom-script'] = [
+        $scripts['directorist-add-listing-gmap-custom-script-admin'] = [
             'file_name' => 'add-listing-gmap-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
@@ -735,7 +735,7 @@ class Enqueue_Assets {
             'page'      => 'post-new.php',
         ];
 
-        $scripts['directorist-pure-select'] = [
+        $scripts['directorist-pure-select-admin'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,

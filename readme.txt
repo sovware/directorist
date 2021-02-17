@@ -340,7 +340,6 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Category icon issue
 * Fix - Location permalink issue
 * Fix - Add listing form restriction
-* Fix - Notice with PHP 8
 
 = 6.5.7 - Dec 21, 2020 =
 

@@ -3102,7 +3102,7 @@ if (!class_exists('ATBDP_Shortcode')):
             return ob_get_clean();
         }
 
-        public function add_listing($atts, $content = null, $sc_name)
+        public function add_listing($atts, $content = null)
         {
             ob_start();
             $include = apply_filters('include_style_settings', true);

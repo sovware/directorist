@@ -11,7 +11,7 @@ $counter = 1;
 ?>
 
 <div class="directorist-user-dashboard__nav directorist-tab__nav">
-	<span class="directorist-dashboard__nav--close"><i class="la la-times"></i></span>
+	<span class="directorist-dashboard__nav--close"><i class="<?php atbdp_icon_type( true ); ?>-times"></i></span>
 	<div class="directorist-tab__nav__wrapper">
 
 		<ul class="directorist-tab__nav__items">

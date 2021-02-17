@@ -770,9 +770,6 @@ class Directorist_Listing_Form {
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
-		
-		wp_enqueue_style( 'directorist-add-listing' );
-		wp_enqueue_script( 'directorist-add-listing' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
 		$user_id		  = get_current_user_id();
@@ -816,16 +813,16 @@ class Directorist_Listing_Form {
 		$display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
 
 		if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing-osm', 'localized_data', $args );
-			wp_enqueue_script( 'atbdp-add-listing-osm' );
+			wp_localize_script( 'atbdp-add-listing', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-openstreet-map-custom-script', 'localized_data', $args );
 		}
 
 		if ( $display_map && 'google' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing-gmap', 'localized_data', $args );
-			wp_enqueue_script( 'atbdp-add-listing-gmap' );
+			wp_localize_script( 'directorist-add-listing', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-gmap-custom-script', 'localized_data', $args );
 		}
 
-		ATBDP()->enquirer->add_listing_scripts_styles();
+		// ATBDP()->enquirer->add_listing_scripts_styles();
 
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );

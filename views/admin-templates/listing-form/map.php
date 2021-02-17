@@ -1,4 +1,5 @@
 <?php
+$form = directorist_legacy_mode() ? $form : $listing_form;
 $p_id = $form->add_listing_id;
 $address =  get_post_meta( $p_id, '_address', true );
 $select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );

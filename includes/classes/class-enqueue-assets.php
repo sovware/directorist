@@ -198,10 +198,97 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => $this->script_version,
+            'ver'       => false,
             'group'     => 'global',
             'section'   => '',
-            'page'      => 'plugins.php',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-unpkg'] = [
+            'file'      => 'unpkg-min',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-unpkg-index'] = [
+            'file'      => 'unpkg-index',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-unpkg-libs'] = [
+            'file'      => 'unpkg-libs',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-leaflet-versions'] = [
+            'file'      => 'leaflet-versions',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-libs-setup'] = [
+            'file'      => 'libs-setup',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-open-layers'] = [
+            'file'      => 'OpenLayers',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-open-layers'] = [
+            'file'      => 'Crosshairs',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/openlayers4jgsi/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-open-layers'] = [
+            'file'      => 'load-scripts',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => false,
+            'group'     => 'global',
+            'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
@@ -213,7 +300,6 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global',
             'section'   => '',
-            'page'      => 'plugins.php',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
@@ -225,7 +311,6 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'global',
             'section'   => '',
-            'page'      => 'plugins.php',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
@@ -419,7 +504,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'shortcode' => ['directorist_add_listing'],
             'group'     => 'public', // public || admin  || global
-            'section'   => '__',
+            // 'section'   => '__',
             'enable'   => true,
         ];
 
@@ -473,13 +558,39 @@ class Enqueue_Assets {
             ],
         ];
 
+        $scripts['directorist-add-listing-openstreet-map-custom-script'] = [
+            'file_name' => 'add-listing-openstreet-map-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'shortcode' => ['directorist_add_listing'],
+            // 'localize_data' => [
+                //     'object_name' => 'atbdp_search_listing',
+                //     'data' => Script_Helper::get_search_script_data()
+                // ],
+            'enable' => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-add-listing-gmap-custom-script'] = [
+            'file_name' => 'add-listing-gmap-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'shortcode' => ['directorist_add_listing'],
+            // 'localize_data' => [
+                //     'object_name' => 'atbdp_search_listing',
+                //     'data' => Script_Helper::get_search_script_data()
+                // ],
+            'enable' => Script_Helper::is_enable_map( 'google' ),
+        ];
+
         $scripts['directorist-add-listing'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => 'add-listing',
-            // 'shortcode' => ['directorist_add_listing'],
+            // 'section'   => 'add-listing',
+            'shortcode' => ['directorist_add_listing'],
             // 'localize_data' => [
             //     'object_name' => 'atbdp_search_listing',
             //     'data' => Script_Helper::get_search_script_data()
@@ -767,10 +878,6 @@ class Enqueue_Assets {
 
         foreach( $args['scripts'] as $handle => $script_args ) {
 
-            if ( ! empty( $script_args['enable'] ) && false === $script_args['enable'] ) {
-                continue;
-            }
-
             if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
                 continue;
             }
@@ -806,12 +913,20 @@ class Enqueue_Assets {
 
         foreach( $args['scripts'] as $handle => $script_args ) {
 
+            if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+                continue;
+            }
+
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
             if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
+                continue;
+            }
+
+            if (  ! self::script__verify_shortcode( $script_args ) ) { 
                 continue;
             }
 
@@ -834,11 +949,6 @@ class Enqueue_Assets {
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
-
-            if ( ! empty( $script_args['enable'] ) && false === $script_args['enable'] ) {
-                continue;
-            }
-
             if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
                 continue;
             }
@@ -875,6 +985,10 @@ class Enqueue_Assets {
 
         foreach( $args['scripts'] as $handle => $script_args ) {
 
+            if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+                continue;
+            }
+
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
@@ -884,26 +998,41 @@ class Enqueue_Assets {
                 continue;
             }
 
-            if ( ! empty( $script_args['section'] ) ) { continue; }
-            if ( ! empty( $script_args['shortcode'] ) ) { 
-                
-                $match_found = 0;
-                foreach ( $script_args['shortcode'] as $_shortcode ) {
-                    if ( self::has_in_post_content( $_shortcode ) ) {
-                        $match_found++;
-                    }
-                }
-
-                if ( ! $match_found ) { continue; }
+            if (  ! self::script__verify_shortcode( $script_args ) ) { 
+                continue;
             }
+
+            if ( ! empty( $script_args['section'] ) ) { continue; }
 
             wp_enqueue_script( $handle );
             $this->add_localize_data_to_script( $handle, $script_args );
         }
     }
 
-    // has_in_post_content
-    public static function has_in_post_content( $subject = '' ) {
+    // script__verify_shortcode
+    public static function script__verify_shortcode( $script_args ) {
+        if ( empty( $script_args['shortcode'] ) ) { 
+            return true;
+        }
+
+        if ( ! is_array( $script_args['shortcode'] ) ) { 
+            return true;
+        }
+
+        $match_found = 0;
+        foreach ( $script_args['shortcode'] as $_shortcode ) {
+            if ( self::has_shortcode( $_shortcode ) ) {
+                $match_found++;
+            }
+        }
+
+        if ( ! $match_found ) { return false; }
+
+        return true;
+    }
+
+    // has_shortcode
+    public static function has_shortcode( $subject = '' ) {
         global $post;
         $found = false;
 

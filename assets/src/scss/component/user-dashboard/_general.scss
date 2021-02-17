@@ -323,6 +323,10 @@
                 color: #218A00;
                 background-color: rgba(#218A00, .15);
             }
+            &.directorist_status_pending {
+                color: #DC7600;
+                background-color: rgba(#DC7600, .15);
+            }
 
             &.danger {
                 color: $danger;
@@ -484,6 +488,15 @@
         }
     }
 
+    .directorist_dashboard_rating{
+        ul{
+            li{
+                &:not(:last-child){
+                    margin-right: 4px;
+                }
+            }
+        }
+    }
     .directorist-dashboard-pagination {
         display: flex;
         justify-content: flex-end;

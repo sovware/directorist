@@ -240,9 +240,10 @@ class ATBDP_Enqueuer {
 
         wp_register_script( 'atbdp-plasma-slider-script', ATBDP_PUBLIC_ASSETS . 'js/plasma-slider.js', null, ATBDP_VERSION, true );
 
-        // Open Street Map
+        // Open Street Map - CSS
         wp_register_style( 'leaf-style', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/openstreet.css' );
         wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
+        // Open Street Map - JS
         wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
         wp_register_script( 'unpkg', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/unpkg-min.js' );
         wp_register_script( 'unpkg-index', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/unpkg-index.js', array( 'unpkg' ) );

@@ -1,9 +1,6 @@
-import '../../../scss/component/add-listing.scss';
-import './add-listing/google-map';
-import './add-listing/openstreet-map';
+import '../scss/component/add-listing.scss';
 
 /* eslint-disable */
-
 const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 

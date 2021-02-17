@@ -24,8 +24,11 @@
       $(this).siblings("ul").slideToggle();
     });
 
-    $(".directorist-tab__nav__link").on("click", function(){
-        $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-    })
+    if($(window).innerWidth() < 1199){
+        $(".directorist-tab__nav__link").on("click", function(){
+            $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
+        })
+    }
+    
 
 })(jQuery);

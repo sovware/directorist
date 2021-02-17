@@ -27,6 +27,7 @@
 
     @include e(tab-content) {
         flex: 1;
+        width: calc(100% - 230px);
     }
 }
 
@@ -514,6 +515,29 @@
             }
         }
     }
+
+    .directorist_dashboard_category{
+        ul{
+            flex-direction: column;
+            li{
+                &:not(:last-child){
+                    margin-right: 0px;
+                    margin-bottom: 4px;
+                }
+                i,
+                span.fas,
+                span.fa,
+                span.la{
+                    font-size: 14px;
+                    margin-right: 4px;
+                }
+                a{
+                    padding: 0;
+                }
+            }
+        }
+    }
+
     .directorist-dashboard-pagination {
         display: flex;
         justify-content: flex-end;

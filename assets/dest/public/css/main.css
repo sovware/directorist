@@ -5953,6 +5953,7 @@ p.atbd-min {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  width: calc(100% - 230px);
 }
 
 /* user dashboard loader */
@@ -6411,6 +6412,27 @@ p.atbd-min {
 .directorist-user-dashboard-tabcontent .directorist_dashboard_rating ul li:not(:last-child) {
   margin-right: 4px;
 }
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li:not(:last-child) {
+  margin-right: 0px;
+  margin-bottom: 4px;
+}
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li i,
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.fas,
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.fa,
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.la {
+  font-size: 14px;
+  margin-right: 4px;
+}
+.directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li a {
+  padding: 0;
+}
 .directorist-user-dashboard-tabcontent .directorist-dashboard-pagination {
   display: -webkit-box;
   display: -webkit-flex;
@@ -6514,7 +6536,7 @@ p.atbd-min {
           box-shadow: 0 5px 10px #8f8e9f05;
   /* user dashboard sidebar nav action */
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   .directorist-user-dashboard__nav {
     position: fixed;
     top: 0;
@@ -6534,7 +6556,7 @@ p.atbd-min {
   right: 15px;
   top: 50px;
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   .directorist-user-dashboard__nav .directorist-dashboard__nav--close {
     display: block;
   }

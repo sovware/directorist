@@ -1,7 +1,10 @@
 import '../../scss/layout/admin/plugins.scss';
 
 jQuery(document).ready(function($) {
-    $('[data-slug="directorist"]').after('<tr class="directorist-extensions"></tr>');
+        const update = $( '#directorist-update' );
+        const main_div = $('[data-slug="directorist"]');
+        const extensions_area = update.length ? update : main_div;
+        extensions_area.after('<tr class="directorist-extensions"></tr>');
     $('.directorist-extensions').append(
             $(
                     '<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'

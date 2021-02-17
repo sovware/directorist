@@ -500,21 +500,19 @@ class Enqueue_Assets {
         $scripts['directorist-add-listing'] = [
             'file_name' => 'add-listing',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
-            'deps'      => [ ],
+            'deps'      => [],
             'ver'       => $this->script_version,
-            'shortcode' => ['directorist_add_listing'],
             'group'     => 'public', // public || admin  || global
-            // 'section'   => '__',
-            'enable'   => true,
+            'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts['directorist-pure-select'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_CSS,
-            'deps'      => [ ],
+            'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'admin', // public || admin  || global
-            'page'      => 'post-new.php',
+            'group'     => 'public', // public || admin  || global
+            'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts = array_merge( $this->css_scripts, $scripts);
@@ -558,16 +556,20 @@ class Enqueue_Assets {
             ],
         ];
 
+        $scripts['directorist-add-listing'] = [
+            'file_name' => 'add-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'shortcode' => ['directorist_add_listing'],
+        ];
+
         $scripts['directorist-add-listing-openstreet-map-custom-script'] = [
             'file_name' => 'add-listing-openstreet-map-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'shortcode' => ['directorist_add_listing'],
-            // 'localize_data' => [
-                //     'object_name' => 'atbdp_search_listing',
-                //     'data' => Script_Helper::get_search_script_data()
-                // ],
             'enable' => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
@@ -577,33 +579,15 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'shortcode' => ['directorist_add_listing'],
-            // 'localize_data' => [
-                //     'object_name' => 'atbdp_search_listing',
-                //     'data' => Script_Helper::get_search_script_data()
-                // ],
             'enable' => Script_Helper::is_enable_map( 'google' ),
-        ];
-
-        $scripts['directorist-add-listing'] = [
-            'file_name' => 'add-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            // 'section'   => 'add-listing',
-            'shortcode' => ['directorist_add_listing'],
-            // 'localize_data' => [
-            //     'object_name' => 'atbdp_search_listing',
-            //     'data' => Script_Helper::get_search_script_data()
-            // ],
         ];
 
         $scripts['directorist-pure-select'] = [
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
-            'group'     => 'admin',                 // public || admin  || global
-            'page'      => 'post-new.php',
-            'shortcode' => [],
+            'group'     => 'public',                 // public || admin  || global
+            'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);
@@ -626,6 +610,24 @@ class Enqueue_Assets {
             'group'     => 'admin',
             'section'   => '',
             // 'page'      => 'plugins.php',
+        ];
+
+        $scripts['directorist-add-listing'] = [
+            'file_name' => 'add-listing',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => 'post-new.php',
+        ];
+
+        $scripts['directorist-pure-select'] = [
+            'file_name' => 'pure-select',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => 'post-new.php',
         ];
 
         $scripts['directorist-plugins-css'] = [
@@ -707,6 +709,41 @@ class Enqueue_Assets {
             ],
         ];
 
+        $scripts['directorist-add-listing'] = [
+            'file_name' => 'add-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => 'post-new.php',
+        ];
+
+        $scripts['directorist-add-listing-openstreet-map-custom-script'] = [
+            'file_name' => 'add-listing-openstreet-map-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'enable' => Script_Helper::is_enable_map( 'openstreet' ),
+            'page'      => 'post-new.php',
+        ];
+
+        $scripts['directorist-add-listing-gmap-custom-script'] = [
+            'file_name' => 'add-listing-gmap-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'enable' => Script_Helper::is_enable_map( 'google' ),
+            'page'      => 'post-new.php',
+        ];
+
+        $scripts['directorist-pure-select'] = [
+            'file_name' => 'pure-select',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin',                 // public || admin  || global
+            'page'      => 'post-new.php',
+        ];
+
+    
         $scripts['directorist-multi-directory-builder'] = [
             'file_name'     => 'multi-directory-builder',
             'base_path'     => DIRECTORIST_ADMIN_JS,

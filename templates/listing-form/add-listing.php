@@ -15,8 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="directorist-add-listing-form">
             <div class="directorist-add-listing-form">
+                
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
+
                 <?php
                 ATBDP()->listing->add_listing->show_nonce_field();
                 if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
@@ -29,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
                 $listing_form->submit_template();
                 ?>
+                
             </div>
         </form>
 

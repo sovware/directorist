@@ -1575,4 +1575,22 @@ body.stop-scrolling {
   padding: 20px;
 }
 
+/* =============================
+    backend add listing form
+================================*/
+.add_listing_form_wrapper .hide-if-no-js {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#_listing_gallery {
+  text-align: center;
+}
+
 /*# sourceMappingURL=add-listing.css.map*/

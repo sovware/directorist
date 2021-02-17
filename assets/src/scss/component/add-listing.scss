@@ -415,3 +415,16 @@
     display: block;
     padding: 20px;
 }
+
+
+/* =============================
+    backend add listing form
+================================*/
+.add_listing_form_wrapper .hide-if-no-js {
+    display: flex;
+    justify-content: center;
+}
+
+#_listing_gallery {
+    text-align: center;
+}

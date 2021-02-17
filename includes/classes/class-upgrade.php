@@ -10,23 +10,21 @@ class ATBDP_Upgrade
        global $pagenow;
        if ( 'plugins.php' === $pagenow )
        {
-           // Better update message
-          add_action( 'in_plugin_update_message-directorist/directorist-base.php', array($this, 'your_update_message_cb'), 20, 2 );
+          add_action( 'in_plugin_update_message-directorist/directorist-base.php', array($this, 'directorist_plugin_update_notice'), 20, 2 );
        }
     }
   /**
     * Displays an update message for plugin list screens.
-    * Shows only the version updates from the current until the newest version
     * 
     * @param (array) $plugin_data
-    * @param (object) $r
+    * @param (object) $response
     * @return (string) $output
     */
-    public function your_update_message_cb( $plugin_data, $response )
+    public function directorist_plugin_update_notice( $plugin_data, $response )
    {
 
        $new_version = $response->new_version;
-       if( '6.5.7' == $new_version ){
+       if( '7.0' == $new_version ){
            ob_start() ?>
             <div class="directorist-admin-notice-content">
                 <span class="directorist-highlighted-text"><strong>Attention!</strong> This is a major upgrade that includes significant changes and improvements. Make sure you have a backup of your site before upgrading.</span>

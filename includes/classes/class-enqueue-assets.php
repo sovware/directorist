@@ -34,12 +34,10 @@ class Enqueue_Assets {
 
         // Load Vendor Assets
         $this->add_vendor_css_scripts();
+        $this->add_vendor_js_scripts();
 
         $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
         if ( empty( $atbdp_legacy_template ) ) {
-            // Load Vendor Assets
-            $this->add_vendor_js_scripts();
-        
             // Load Public Assets
             $this->add_public_css_scripts();
             $this->add_public_js_scripts();
@@ -79,6 +77,9 @@ class Enqueue_Assets {
     public function add_vendor_css_scripts() {
         $scripts = [];
 
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+
         // Global
         // ================================
         $scripts['directorist-openstreet-map'] = [
@@ -86,7 +87,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
@@ -119,7 +120,7 @@ class Enqueue_Assets {
                 'has_rtl'   => false,
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'group'     => 'global', // public || admin  || global
+                'group'     => $common_asset_group, // public || admin  || global
                 'enable'    => true
             ];
 
@@ -130,7 +131,7 @@ class Enqueue_Assets {
                 'has_rtl'   => false,
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'group'     => 'global', // public || admin  || global
+                'group'     => $common_asset_group, // public || admin  || global
                 'enable'    => true
             ];
 
@@ -151,8 +152,8 @@ class Enqueue_Assets {
                 'has_rtl'   => false,
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'group'     => 'global', // public || admin  || global
-                'enable'    => false
+                'group'     => $common_asset_group, // public || admin  || global
+                'enable'    => true
             ];
 
             $scripts['directorist-slick'] = [
@@ -173,8 +174,8 @@ class Enqueue_Assets {
                 'has_rtl'   => false,
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'group'     => 'global', // public || admin  || global
-                'enable'    => false
+                'group'     => $common_asset_group, // public || admin  || global
+                'enable'    => true
             ];
         }
 
@@ -190,105 +191,129 @@ class Enqueue_Assets {
     public function add_vendor_js_scripts() {
         $scripts = [];
 
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+
         // Global
         // ================================
+        $scripts['directorist-no-script'] = [
+            'file_name' => 'no-script',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => '',
+            'group'     => 'global',
+            // 'section'   => '',
+        ];
+
         // Openstreet
         $scripts['directorist-openstreet-layers'] = [
-            'file'      => 'openstreetlayers',
+            'file_name' => 'openstreetlayers',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-unpkg'] = [
-            'file'      => 'unpkg-min',
+            'file_name' => 'unpkg-min',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-unpkg-index'] = [
-            'file'      => 'unpkg-index',
+            'file_name' => 'unpkg-index',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-unpkg-libs'] = [
-            'file'      => 'unpkg-libs',
+            'file_name' => 'unpkg-libs',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-leaflet-versions'] = [
-            'file'      => 'leaflet-versions',
+            'file_name' => 'leaflet-versions',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-leaflet-markercluster-versions'] = [
+            'file_name' => 'leaflet.markercluster-versions',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'deps'      => [],
+            'has_min'   => false,
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-libs-setup'] = [
-            'file'      => 'libs-setup',
+            'file_name' => 'libs-setup',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-openstreet-open-layers'] = [
-            'file'      => 'OpenLayers',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'file_name' => 'OpenLayers',
+            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/openlayers/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
-        $scripts['directorist-openstreet-open-layers'] = [
-            'file'      => 'Crosshairs',
+        $scripts['directorist-openstreet-crosshairs'] = [
+            'file_name' => 'Crosshairs',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/openlayers4jgsi/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            // 'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
-        $scripts['directorist-openstreet-open-layers'] = [
-            'file'      => 'load-scripts',
+        $scripts['directorist-openstreet-load-scripts'] = [
+            'file_name' => 'load-scripts',
             'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
-            'ver'       => false,
-            'group'     => 'global',
-            'section'   => '',
+            'ver'       => '',
+            'group'     => $common_asset_group,
+            'section'   => '__',
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
@@ -298,18 +323,18 @@ class Enqueue_Assets {
             'link'      => '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places',
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global',
+            'group'     => $common_asset_group,
             'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
         $scripts['directorist-markerclusterer'] = [
-            'file'      => 'markerclusterer',
+            'file_name' => 'markerclusterer',
             'base_path' => DIRECTORIST_VENDOR_JS,
             'deps'      => [],
             'has_min'   => false,
             'ver'       => $this->script_version,
-            'group'     => 'global',
+            'group'     => $common_asset_group,
             'section'   => '',
             'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
@@ -321,7 +346,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
             'enable'    => true,
         ];
@@ -332,7 +357,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
             'enable'    => true,
         ];
@@ -343,7 +368,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
             'enable'    => true,
         ];
@@ -353,7 +378,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_VENDOR_JS,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
             'enable'    => true,
         ];
@@ -365,7 +390,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'has_rtl'   => true,
             'ver'       => $this->script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
             'enable'    => true,
             'localize_data' => [
@@ -420,7 +445,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-slick'] = [
@@ -554,6 +579,24 @@ class Enqueue_Assets {
                 'object_name' => 'atbdp_search_listing',
                 'data' => Script_Helper::get_search_script_data()
             ],
+        ];
+
+        $scripts['directorist-single-listing-openstreet-map-custom-script'] = [
+            'file_name' => 'single-listing-openstreet-map-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public',                                        // public || admin  || global
+            'section'   => 'single-listing-page',                           // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-single-listing-gmap-custom-script'] = [
+            'file_name' => 'single-listing-gmap-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'single-listing-page', 
+            'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
         $scripts['directorist-add-listing-public'] = [
@@ -901,6 +944,7 @@ class Enqueue_Assets {
         // Other
         $this->enqueue_custom_color_picker_scripts();
         wp_enqueue_media();
+        wp_enqueue_script( 'jquery' );
     }
 
 

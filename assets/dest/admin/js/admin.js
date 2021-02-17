@@ -415,7 +415,7 @@ $('#at_biz_dir-categorychecklist').on('change', function (event) {
     term_id: id,
     directory_type: directory_type
   };
-  $.post(ajaxurl, data, function (response) {
+  $.post(atbdp_admin_data.ajaxurl, data, function (response) {
     if (response) {
       var response = "<div class=\"form-group atbd_content_module\">\n                        <div class=\"atbdb_content_module_contents\">\n                          ".concat(response, "\n                        </div>\n                      </div>");
       $('.atbdp_category_custom_fields').empty().append(response);
@@ -455,7 +455,7 @@ $(document).ready(function () {
     term_id: id,
     directory_type: directory_type
   };
-  $.post(ajaxurl, data, function (response) {
+  $.post(atbdp_admin_data.ajaxurl, data, function (response) {
     if (response) {
       var response = "<div class=\"form-group atbd_content_module\">\n                          <div class=\"atbdb_content_module_contents\">\n                            ".concat(response, "\n                          </div>\n                        </div>");
       $('.atbdp_category_custom_fields').empty().append(response);

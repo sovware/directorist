@@ -974,13 +974,13 @@ class Directorist_Single_Listing {
 		);
 
 		if ('openstreet' === $args['select_listing_map']) {
-			wp_localize_script('atbdp-single-listing-osm', 'localized_data', $args);
-			wp_enqueue_script('atbdp-single-listing-osm');
+			wp_localize_script('directorist-single-listing-openstreet-map-custom-script', 'localized_data', $args);
+			wp_enqueue_script('directorist-single-listing-openstreet-map-custom-script');
 		}
 
 		if ('google' === $args['select_listing_map']) {
-			wp_localize_script('atbdp-single-listing-gmap', 'localized_data', $args);
-			wp_enqueue_script('atbdp-single-listing-gmap');
+			wp_localize_script('directorist-single-listing-gmap-custom-script', 'localized_data', $args);
+			wp_enqueue_script('directorist-single-listing-gmap-custom-script');
 		}
 	}
 

@@ -110,9 +110,11 @@ const publicConfig = {
     ['checkout']: ["./assets/src/js/checkout.js"],
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],
     ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
+    ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js"],
+    ['single-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/google-map.js"],
     ['add-listing']: ["./assets/src/js/add-listing.js"],
-    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/google-map.js"],
     ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/openstreet-map.js"],
+    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/google-map.js"],
 
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],

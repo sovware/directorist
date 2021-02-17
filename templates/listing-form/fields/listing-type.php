@@ -14,7 +14,7 @@ if( is_admin() ) {
 
 <div class="directorist-form-group directorist-form-listing-type">
 
-	<h4 class="directorist-form-listing-type__title"><?php esc_html_e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="directorist-form-required"> *</span></h4>
+	<h4 class="directorist-form-listing-type__title"><?php esc_html_e( 'Choose Listing Type', 'directorist-pricing-plans') ?><span class="directorist-form-required"> *</span></h4>
 
 	<div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 

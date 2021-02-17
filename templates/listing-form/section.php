@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-content-module">
+<div class="directorist-form-section directorist-content-module">
 
 	<div class="directorist-content-module__title">
 		<h4><?php echo esc_html( $section_data['label'] );?></h4>

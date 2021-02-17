@@ -625,6 +625,13 @@ if (!function_exists('get_directorist_option')) {
         $v = (array_key_exists($name, $options))
             ? $v = $options[sanitize_key($name)]
             : null;
+        
+        $newvalue = apply_filters( 'directorist_option', $v, $name );
+
+        if ( $newvalue != $v ) {
+           return $newvalue;
+        }
+
         // use default only when the value of the $v is NULL
         if (is_null($v)) {
             return $default;
@@ -5822,11 +5829,11 @@ function directorist_icon( $icon, $echo = true ) {
 if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
     function atbdp_get_term_icon( array $args = [] )
     {  
-        $default = [ 'icon' => '', 'default' => 'la-folder-open', 'echo' => false ];
+        $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ? 'la ' . $args['icon'] : $args['default'];
-        $icon = ( ! empty( $icon ) ) ? 'la ' . $icon : '';
+        $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ?  $icon : '';
         $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; } 

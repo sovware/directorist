@@ -47,6 +47,3 @@ import './components/dashboard/dashboardBecomeAuthor';
 
 // Booking
 import './components/booking';
-
-// Add listing
-import './components/admin/block-2';

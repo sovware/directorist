@@ -145,7 +145,7 @@
     "paginate_all_listings": true,
     "all_listing_page_items": "6",
     "disable_single_listing": 0,
-    "single_listing_template": "current_theme_template",
+    "single_listing_template": "directorist_template",
     "atbdp_listing_slug": "directory",
     "edit_listing_redirect": "view_listing",
     "listing_details_text": "Listing Details",

@@ -6229,6 +6229,10 @@ p.atbd-min {
   color: #218A00;
   background-color: rgba(33, 138, 0, 0.15);
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_pending {
+  color: #DC7600;
+  background-color: rgba(220, 118, 0, 0.15);
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.danger {
   color: #EF0000;
   background-color: rgba(239, 0, 0, 0.15);
@@ -6377,6 +6381,9 @@ p.atbd-min {
   font-weight: 400;
   color: #51526E;
 }
+.directorist-user-dashboard-tabcontent .directorist_dashboard_rating ul li:not(:last-child) {
+  margin-left: 4px;
+}
 .directorist-user-dashboard-tabcontent .directorist-dashboard-pagination {
   display: -webkit-box;
   display: -webkit-flex;
@@ -6487,6 +6494,7 @@ p.atbd-min {
   right: -230px;
   visibility: hidden;
   opacity: 0;
+  padding: 0;
   pointer-events: none;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;

@@ -160,7 +160,7 @@ class VP_AutoLoader
 	 * @param  String|Array $directories
 	 * @return void
 	 */
-	public static function remove_directories($directories = null, $namespace)
+	public static function remove_directories($directories = null, $namespace = null)
 	{
 		// check if namespace existed
 		if(!in_array($namespace, self::$namespaces))

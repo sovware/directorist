@@ -152,10 +152,15 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $args = array_merge( $default, $args );
 
     $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
+    
     $listing_id = $args['id'];
 
     $new_l_status   = get_directorist_option('new_listing_status', 'pending');
-    $edit_l_status  = get_directorist_option('edit_listing_status');
+    $edit_l_status  = get_directorist_option('edit_listing_status', 'pending');
+    $pre_submit_status = get_post_meta( $listing_id, '_post_status_before_submit', true );
+    if( ( 'publish' === $edit_l_status ) && ( 'publish' !== $pre_submit_status ) ){
+        $edit_l_status = 'pending';
+    }
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 

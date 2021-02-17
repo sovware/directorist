@@ -213,11 +213,7 @@ if (!class_exists('ATBDP_Listing')):
             $publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
             $new_listing_status = get_directorist_option('new_listing_status', 'pending' );
             $edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
-            if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
-                $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
-            }else{
-                $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
-            }
+            
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
@@ -244,6 +240,13 @@ if (!class_exists('ATBDP_Listing')):
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
                     $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     // run block content if its available
+                    $pre_submit_status = get_post_meta( $post->ID, '_post_status_before_submit', true );
+
+                    if( isset( $_GET['edited'] ) || ( $_GET['edited'] === '1' ) || ( $_GET['edited'] === 'yes' ) ) {
+                        $confirmation_msg = ( $edit_listing_status === 'publish' && $pre_submit_status === 'publish' )? $publish_msg : $pending_msg;
+                    }else{
+                        $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+                    }
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">

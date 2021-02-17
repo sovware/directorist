@@ -323,7 +323,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (!empty($preview_enable)) {
                         $args['post_status'] = 'private';
                     }
-
                     // Check if the current user is the owner of the post
                     $post = get_post($args['ID']);
                     // update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.
@@ -381,9 +380,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $content = apply_filters('get_the_content', $post_object->post_content);
                             $args['post_content'] = $content;
                         }
+                        update_post_meta( $listing_id, '_post_status_before_submit', get_post_status( $listing_id ) );
 
                         $post_id = wp_update_post($args);
-
 
                         if (!empty($location)) {
                             $append = false;

@@ -330,6 +330,7 @@ Directorist is a complete directory solution and in combination with its advance
 = 6.6 - Feb 17, 2021 =
 
 * Add - Subscription management
+* Add - Admin debugger
 * Fix - Edited listing status issue
 * Fix - Image limit issue in add listing
 * Fix - Translation issues

@@ -202,7 +202,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
-            'group'     => $common_asset_group,
+            'group'     => 'global',
             // 'section'   => '',
         ];
 
@@ -579,6 +579,24 @@ class Enqueue_Assets {
                 'object_name' => 'atbdp_search_listing',
                 'data' => Script_Helper::get_search_script_data()
             ],
+        ];
+
+        $scripts['directorist-single-listing-openstreet-map-custom-script'] = [
+            'file_name' => 'single-listing-openstreet-map-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public',                                        // public || admin  || global
+            'section'   => 'single-listing-page',                           // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-single-listing-gmap-custom-script'] = [
+            'file_name' => 'single-listing-gmap-custom-script',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'single-listing-page', 
+            'enable'    => Script_Helper::is_enable_map( 'google' ),
         ];
 
         $scripts['directorist-add-listing-public'] = [

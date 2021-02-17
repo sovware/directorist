@@ -640,7 +640,7 @@ class Directorist_Single_Listing {
 			'post_status' => 'publish',
 		);
 
-		$custom_fields = ATBDP_Cache_Helper::get_the_transient([
+		$custom_fields = \ATBDP_Cache_Helper::get_the_transient([
 			'group'      => 'atbdp_custom_field_query',
 			'name'       => 'atbdp_all_custom_fields',
 			'query_args' => $args,

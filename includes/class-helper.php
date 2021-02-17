@@ -34,7 +34,7 @@ class Helper {
 		}
 	}
 
-	public function socials() {
+	public static function socials() {
 		$socials = [
 			'facebook'       => __('Facebook', 'directorist'),
 			'twitter'        => __('Twitter', 'directorist'),
@@ -219,6 +219,10 @@ class Helper {
 		else {
 			return false;
 		}
+	}
+
+	public static function multi_directory_enabled() {
+		return get_directorist_option( 'enable_multi_directory', false );
 	}
 
 	public static function is_featured( $listing_id ) {

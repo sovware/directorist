@@ -20,8 +20,14 @@
         }
     }
 
+    @include e(nav){
+
+        
+    }
+
     @include e(tab-content) {
         flex: 1;
+        width: calc(100% - 230px);
     }
 }
 
@@ -165,7 +171,6 @@
     border-radius: 4px;
     margin-top: 15px;
 
-    // margin-bottom: 145px;
     .directorist-listing-table {
         border-radius: 6px;
 
@@ -189,8 +194,11 @@
                 &.directorist-table-listing {
                     min-width: 320px;
 
-                    @media (max-width: 1399px) {
+                    @media (max-width: 1499px) {
                         min-width: 260px;
+                    }
+                    @media (max-width: 1399px) {
+                        min-width: 230px;
                     }
                 }
 
@@ -202,11 +210,18 @@
                     }
                 }
 
+                &.directorist-table-category {
+                    min-width: 180px;
+                }
+
                 &.directorist-table-ex-date {
                     min-width: 250px;
 
+                    @media (max-width: 1499px) {
+                        min-width: 220px;
+                    }
                     @media (max-width: 1399px) {
-                        min-width: 230px;
+                        min-width: 200px;
                     }
                 }
 
@@ -214,7 +229,14 @@
                     min-width: 160px;
 
                     @media (max-width: 1399px) {
-                        min-width: 150px;
+                        min-width: 130px;
+                    }
+                }
+                &.directorist_table-plan {
+                    min-width: 120px;
+
+                    @media (max-width: 1399px) {
+                        min-width: 100px;
                     }
                 }
 
@@ -222,7 +244,7 @@
                     min-width: 200px;
 
                     @media (max-width: 1399px) {
-                        min-width: 170px;
+                        min-width: 150px;
                     }
                 }
             }
@@ -497,6 +519,30 @@
             }
         }
     }
+
+    .directorist_dashboard_category{
+        ul{
+            flex-direction: column;
+            align-items: flex-start;
+            li{
+                &:not(:last-child){
+                    margin-right: 0px;
+                    margin-bottom: 4px;
+                }
+                i,
+                span.fas,
+                span.fa,
+                span.la{
+                    font-size: 15px;
+                    margin-right: 4px;
+                }
+                a{
+                    padding: 0;
+                }
+            }
+        }
+    }
+
     .directorist-dashboard-pagination {
         display: flex;
         justify-content: flex-end;

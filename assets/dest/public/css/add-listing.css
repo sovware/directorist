@@ -1149,11 +1149,13 @@ body.stop-scrolling {
   margin-bottom: 10px;
 }
 
-.directorist-add-listing-form .directorist-content-module {
+.directorist-add-listing-form .directorist-content-module,
+#directiost-listing-fields_wrapper .directorist-content-module {
   background: #fff;
   margin-bottom: 35px;
 }
-.directorist-add-listing-form .directorist-content-module .directorist-form-group:not(:last-child) {
+.directorist-add-listing-form .directorist-content-module .directorist-form-group:not(:last-child),
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
 

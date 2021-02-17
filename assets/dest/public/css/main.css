@@ -6142,6 +6142,9 @@ p.atbd-min {
     min-width: 160px;
   }
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-category {
+  min-width: 180px;
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-ex-date {
   min-width: 250px;
 }
@@ -6418,6 +6421,10 @@ p.atbd-min {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 .directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li:not(:last-child) {
   margin-right: 0px;
@@ -6427,7 +6434,7 @@ p.atbd-min {
 .directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.fas,
 .directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.fa,
 .directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li span.la {
-  font-size: 14px;
+  font-size: 15px;
   margin-right: 4px;
 }
 .directorist-user-dashboard-tabcontent .directorist_dashboard_category ul li a {

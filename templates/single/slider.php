@@ -40,8 +40,8 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
         <?php
             if ( ! empty( $data['images'] )  ):
                 foreach ( $data['images'] as $image ) {
-                    $img_src = $data['images'][0]['src'];
-                    $img_alt = $data['images'][0]['alt'];
+                    $img_src = $image['src'];
+                    $img_alt = $image['alt'];
                     echo "<span class='plasmaSliderImageItem' data-src='{$img_src}' data-alt='{$img_alt}'></span>" . "\n";
                 }
             endif;

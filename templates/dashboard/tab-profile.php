@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="<?php Helper::directorist_row(); ?>">
 
-		<div class="<?php Helper::directorist_column(3); ?>">
+		<div class="<?php Helper::directorist_column('lg-3'); ?>">
 
 			<?php $dashboard->profile_pic_template(); ?>
 
 		</div>
 
-		<div class="<?php Helper::directorist_column(9); ?>">
+		<div class="<?php Helper::directorist_column('lg-9'); ?>">
 
 			<div class="directorist-user-profile-edit">
 

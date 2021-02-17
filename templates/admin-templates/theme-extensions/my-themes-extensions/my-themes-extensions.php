@@ -66,8 +66,8 @@
         </ul>
 
         <div id="atbdp-themes-extensions-contents" class="et-contents__tab-contents atbdp-tab__contents">
-            <?php ATBDP()->load_template('theme-extensions/my-themes-extensions/extensions-tab', $args); ?>
-            <?php ATBDP()->load_template('theme-extensions/my-themes-extensions/themes-tab', $args); ?>
+            <?php ATBDP()->load_template('admin-templates/theme-extensions/my-themes-extensions/extensions-tab', $args); ?>
+            <?php ATBDP()->load_template('admin-templates/theme-extensions/my-themes-extensions/themes-tab', $args); ?>
         </div>
     </div><!-- ends: .et-contents -->
 </div><!-- ends: .et-wrapper -->

@@ -15,7 +15,7 @@ $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 <div class="directorist-form-group directorist-from-tag-field">
 
 	<?php $listing_form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
-	<div class="directorist-select directorist-select-multi" id="directorist-tag-select" data-isSearch="false" data-multiSelect='[{value: "Select tags", key: 0}]' data-max="15">
+	<div class="directorist-select directorist-select-multi" id="directorist-tag-select" data-isSearch="false" data-multiSelect='[]' data-max="15">
 		<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="directorist-tag-select-items" multiple="multiple" <?php echo $max; ?>>
 
 			<?php

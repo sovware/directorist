@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( !$has_slider ) {
    return;
 }
-
 $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
 ?>
 <div id="directorist-single-listing-slider" class="plasmaSlider"

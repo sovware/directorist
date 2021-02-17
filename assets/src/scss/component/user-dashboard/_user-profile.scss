@@ -5,6 +5,18 @@
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ececec;
+
+    .ezmu__upload-button-wrap{
+        .ezmu__btn {
+            border-radius: 4px;
+            padding: 10.5px 30px;
+            background-color: #F6F7F9;
+            box-shadow: 0 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: $dark;
+        }
+    }
 }
 
 // Userdashboard Profile Info

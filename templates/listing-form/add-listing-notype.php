@@ -8,8 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
-	<div class="container-fluid">
-		<p class="listing-type-admin-notice"><?php esc_html_e('To Site Admin: Please add at least one listing type', 'directorist'); ?></p>
+<div class="directorist-add-listing-types directorist-w-100">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
+		<p class="directorist-listing-type-admin-notice"><?php esc_html_e('To Site Admin: Please add at least one listing type', 'directorist'); ?></p>
 	</div>
 </div>

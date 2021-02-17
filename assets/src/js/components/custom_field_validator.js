@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
 
     // @kowsar @todo rebuild validation
     /*
-    $('.listing_submit_btn').on('click', function () {
+    $('.directorist-form-submit__btn').on('click', function () {
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
 
         //custom fields

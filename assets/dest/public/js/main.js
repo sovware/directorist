@@ -1745,11 +1745,15 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Plasma Slider Initialization 
-var single_listing_slider = new PlasmaSlider({
-  containerID: "single-listing-slider"
-});
-single_listing_slider.init();
+;
+
+(function ($) {
+  // Plasma Slider Initialization 
+  var single_listing_slider = new PlasmaSlider({
+    containerID: "single-listing-slider"
+  });
+  single_listing_slider.init();
+})(jQuery);
 
 /***/ }),
 
@@ -1786,7 +1790,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
-/* harmony import */ var _modules_pureScriptSearchSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/pureScriptSearchSelect */ "./assets/src/js/modules/pureScriptSearchSelect.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
 /* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
@@ -1828,10 +1833,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -1844,9 +1847,11 @@ __webpack_require__.r(__webpack_exports__);
  // Modules
 
 
+ //import './modules/pureScriptSearchSelect';
+// import './modules/range-slider';
+// Single Listing Page
 
- // import './modules/range-slider';
-// Components
+ // Components
 
 
 
@@ -1870,8 +1875,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
- // Single Listing Page
 
  // Booking
 
@@ -1904,482 +1907,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/***/ }),
-
-/***/ "./assets/src/js/modules/pureScriptSearchSelect.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
-  \*********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
-/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/*  Plugin: PureScriptSearchSelect
-    Author: SovWare
-    URI: https://github.com/woadudakand/pureScriptSelect
-*/
-
-var pureScriptSelect = function pureScriptSelect(selector) {
-  var selectors = document.querySelectorAll(selector);
-
-  function eventDelegation(event, psSelector, program) {
-    document.body.addEventListener(event, function (e) {
-      document.querySelectorAll(psSelector).forEach(function (elem) {
-        if (e.target === elem) {
-          program(e);
-        }
-      });
-    });
-  }
-
-  var defaultValues = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, document.querySelector(selector).getAttribute('id'), eval(document.querySelector(selector).getAttribute('data-multiSelect')));
-
-  var isMax = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, document.querySelector(selector).getAttribute('id'), eval(document.querySelector(selector).getAttribute('data-max')));
-
-  selectors.forEach(function (item, index) {
-    var multiSelect = item.getAttribute('data-multiSelect');
-    var isSearch = item.getAttribute('data-isSearch');
-
-    function singleSelect() {
-      var virtualSelect = document.createElement('div');
-      virtualSelect.classList.add('directorist-select__container');
-      item.append(virtualSelect);
-      item.style.position = 'relative';
-      item.style.zIndex = '22';
-      var select = item.querySelectorAll('select'),
-          sibling = item.querySelector('.directorist-select__container'),
-          option = '';
-      select.forEach(function (sel) {
-        option = sel.querySelectorAll('option');
-      });
-      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__label--text\">".concat(option[0].text, "</div>\n                <span class=\"directorist-select__label--icon\"><i class=\"la la-angle-down\"></i></span>\n            </div>\n            <div class=\"directorist-select__dropdown\">\n                <input class='directorist-select__search ").concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>");
-      sibling.innerHTML = html;
-      var arry = [],
-          arryEl = [],
-          selectTrigger = sibling.querySelector('.directorist-select__label');
-      option.forEach(function (el, index) {
-        arry.push(el.value);
-        arryEl.push(el);
-        el.style.display = 'none';
-
-        if (el.hasAttribute('selected')) {
-          selectTrigger.innerHTML = el.value + '<i class="la la-angle-down"></i>';
-        }
-
-        ;
-      });
-      var input = item.querySelector('.directorist-select__dropdown input');
-      document.body.addEventListener('click', function (event) {
-        if (event.target == selectTrigger || event.target == input) {
-          return;
-        } else {
-          sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-          sibling.querySelector('.directorist-select__label').closest('.directorist-select').classList.remove('directorist-select-active-js');
-        }
-
-        input.value = '';
-      });
-      selectTrigger.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.target.closest('.directorist-select').classList.add('directorist-select-active-js');
-        sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
-        console.log(e.target);
-        var elem = [];
-        arryEl.forEach(function (el, index) {
-          if (index !== 0 || el.value !== '') {
-            elem.push(el);
-            el.style.display = 'block';
-          }
-        });
-        var item2 = '<ul>';
-        elem.forEach(function (el, key) {
-          var attribute = '';
-          var attribute2 = '';
-
-          if (el.hasAttribute('img')) {
-            attribute = el.getAttribute('img');
-          }
-
-          if (el.hasAttribute('icon')) {
-            attribute2 = el.getAttribute('icon');
-          }
-
-          item2 += "<li><span class=\"directorist-select-dropdown-text\">".concat(el.text, "</span> <span class=\"directorist-select-dropdown-item-icon\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
-            display: 'none'
-          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></span></li>");
-        });
-        item2 += '</ul>';
-        var popUp = item.querySelector('.directorist-select__dropdown--inner');
-        popUp.innerHTML = item2;
-        var li = item.querySelectorAll('li');
-        li.forEach(function (el, index) {
-          el.addEventListener('click', function (event) {
-            elem[index].setAttribute('selected', 'selected');
-            sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-            item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent + '<i class="la la-angle-down"></i>';
-          });
-        });
-      });
-      var value = item.querySelector('input');
-      value && value.addEventListener('keyup', function (event) {
-        var itemValue = event.target.value.toLowerCase();
-        var filter = arry.filter(function (el, index) {
-          return el.startsWith(itemValue);
-        });
-        var elem = [];
-        arryEl.forEach(function (el, index) {
-          filter.forEach(function (e) {
-            if (el.text.toLowerCase() == e) {
-              elem.push(el);
-              el.style.display = 'block';
-            }
-          });
-        });
-        var item2 = '<ul>';
-        elem.forEach(function (el, key) {
-          var attribute = '';
-          var attribute2 = '';
-
-          if (el.hasAttribute('img')) {
-            attribute = el.getAttribute('img');
-          }
-
-          if (el.hasAttribute('icon')) {
-            attribute2 = el.getAttribute('icon');
-          }
-
-          item2 += "<li><span class=\"directorist-select-dropdown-text\">".concat(el.text, "</span><span class=\"directorist-select-dropdown-item-icon\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
-            display: 'none'
-          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></span></li>");
-        });
-        item2 += '</ul>';
-        var popUp = item.querySelector('.directorist-select__dropdown--inner');
-        popUp.innerHTML = item2;
-        var li = item.querySelectorAll('li');
-        li.forEach(function (el, index) {
-          el.addEventListener('click', function (event) {
-            elem[index].setAttribute('selected', 'selected');
-            sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-            item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent + '<i class="la la-angle-down"></i>';
-          });
-        });
-      });
-    }
-
-    function multiSelects() {
-      var arraySelector = item.getAttribute('id');
-      var virtualSelect = document.createElement('div');
-      virtualSelect.classList.add('directorist-select__container');
-      item.append(virtualSelect);
-      item.style.position = 'relative';
-      item.style.zIndex = '22';
-      var select = item.querySelectorAll('select'),
-          sibling = item.querySelector('.directorist-select__container'),
-          option = '';
-      select.forEach(function (sel) {
-        option = sel.querySelectorAll('option');
-      });
-      var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">\n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
-
-      function insertSearchItem() {
-        item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(function (item) {
-          return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"fa fa-times\"></i></a></span>");
-        }).join("");
-      }
-
-      sibling.innerHTML = html;
-      var arry = [],
-          arryEl = [],
-          button = sibling.querySelector('.directorist-select__label');
-      insertSearchItem();
-      option.forEach(function (el, index) {
-        arry.push(el.value);
-        arryEl.push(el);
-        el.style.display = 'none';
-
-        if (el.hasAttribute('selected')) {
-          button.innerHTML = el.value + '<span class="angel">&raquo;</span>';
-        }
-
-        ;
-      });
-      option[0].setAttribute('selected', 'selected');
-      option[0].value = JSON.stringify(defaultValues[arraySelector]);
-      document.body.addEventListener('click', function (event) {
-        if (event.target == button || event.target.closest('.directorist-select__container')) {
-          return;
-        } else {
-          sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-        }
-      });
-      button.addEventListener('click', function (e) {
-        e.preventDefault();
-        var value = item.querySelector('input');
-        value.focus();
-        document.querySelectorAll('.directorist-select__dropdown').forEach(function (el) {
-          return el.classList.remove('directorist-select__dropdown-open');
-        });
-        e.target.closest('.directorist-select__container').querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
-        var elem = []; // arryEl.forEach((el, index) => {
-        //     arry.forEach(e => {
-        //         if(el.text.toLowerCase() == e){
-        //             elem.push(el);
-        //             el.style.display = 'block';
-        //         }
-        //     });
-        // });
-
-        arryEl.forEach(function (el, index) {
-          arryEl.forEach(function (el, index) {
-            if (index !== 0 || el.value !== '') {
-              elem.push(el);
-              el.style.display = 'block';
-            }
-          });
-        });
-        var popUp = item.querySelector('.directorist-select__dropdown--inner');
-        var item2 = '<ul>';
-        elem.forEach(function (el, key) {
-          el.removeAttribute('selected');
-          var attribute = '';
-          var attribute2 = '';
-
-          if (el.hasAttribute('img')) {
-            attribute = el.getAttribute('img');
-          }
-
-          if (el.hasAttribute('icon')) {
-            attribute2 = el.getAttribute('icon');
-          }
-
-          item2 += "<li data-key=\"".concat(key, "\" class=\"directorist-select-item-hide\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
-            display: 'none'
-          }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
-        });
-        item2 += '</ul>';
-        popUp.innerHTML = item2;
-        var li = item.querySelectorAll('li');
-        defaultValues[arraySelector].map(function (item, key) {
-          li[item.key].classList.remove('directorist-select-item-hide');
-          return li[item.key].classList.add('directorist-select-item-show');
-        });
-        value && value.addEventListener('keyup', function (event) {
-          var itemValue = event.target.value.toLowerCase();
-          var filter = arry.filter(function (el, index) {
-            return el.startsWith(itemValue);
-          });
-          var elem = [];
-          arryEl.forEach(function (el, index) {
-            filter.forEach(function (e) {
-              if (el.text.toLowerCase() == e) {
-                elem.push({
-                  el: el,
-                  index: index
-                });
-                el.style.display = 'block';
-              }
-            });
-          });
-          var item2 = '<ul>';
-          elem.forEach(function (_ref, key) {
-            var el = _ref.el,
-                index = _ref.index;
-            var attribute = '';
-            var attribute2 = '';
-
-            if (el.hasAttribute('img')) {
-              attribute = el.getAttribute('img');
-            }
-
-            if (el.hasAttribute('icon')) {
-              attribute2 = el.getAttribute('icon');
-            }
-
-            item2 += "<li data-key=\"".concat(index - 1, "\" class=\"directorist-select-item-hide\">").concat(el.text, "<i class=\"item\"><img src=\"").concat(attribute, "\" style=\"").concat(attribute == null && {
-              display: 'none'
-            }, " \" /><b class=\"").concat(attribute2, "\"></b></b></i></li>");
-          });
-          item2 += '</ul>';
-          var popUp = item.querySelector('.directorist-select__dropdown--inner');
-          popUp.innerHTML = item2;
-          var li = item.querySelectorAll('li');
-          li.forEach(function (element, index) {
-            defaultValues[arraySelector].map(function (item) {
-              if (item.key == element.getAttribute('data-key')) {
-                element.classList.remove('directorist-select-item-hide');
-                element.classList.add('directorist-select-item-show');
-              }
-            });
-            element.addEventListener('click', function (event) {
-              elem[index].el.setAttribute('selected', 'selected');
-              sibling.querySelector('.directorist-select__dropdown--inner').classList.remove('directorist-select__dropdown.open');
-            });
-          });
-        });
-        eventDelegation('click', 'li', function (e) {
-          var index = e.target.getAttribute('data-key');
-          var closestId = e.target.closest('.directorist-select').getAttribute('id');
-
-          if (isMax[closestId] === null && defaultValues[closestId]) {
-            defaultValues[closestId].filter(function (item) {
-              return item.key === index;
-            }).length === 0 && defaultValues[closestId].push({
-              value: elem[index].value,
-              key: index
-            });
-            option[0].setAttribute('selected', 'selected');
-            option[0].value = JSON.stringify(defaultValues[closestId]);
-            e.target.classList.remove('directorist-select-item-hide');
-            e.target.classList.add('directorist-select-item-show');
-            insertSearchItem();
-          } else {
-            if (defaultValues[closestId]) if (defaultValues[closestId].length < parseInt(isMax[closestId])) {
-              defaultValues[closestId].filter(function (item) {
-                return item.key == index;
-              }).length === 0 && defaultValues[closestId].push({
-                value: elem[index].value,
-                key: index
-              });
-              option[0].setAttribute('selected', 'selected');
-              option[0].value = JSON.stringify(defaultValues[closestId]);
-              e.target.classList.remove('directorist-select-item-hide');
-              e.target.classList.add('directorist-select-item-show');
-              insertSearchItem();
-            } else {
-              item.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-              e.target.closest('.directorist-select').querySelector('.directorist-select__container').classList.add('directorist-error');
-              e.target.closest('.directorist-select').querySelector('.directorist-error__msg').innerHTML = "Max ".concat(isMax[arraySelector], " Items Added ");
-            }
-          }
-        });
-      });
-      eventDelegation('click', '.directorist-item-remove', function (e) {
-        var li = item.querySelectorAll('li');
-        var closestId = e.target.closest('.directorist-select').getAttribute('id');
-        defaultValues[closestId] = defaultValues[closestId] && defaultValues[closestId].filter(function (item) {
-          return item.key != parseInt(e.target.getAttribute('data-key'));
-        });
-
-        if ((defaultValues[closestId] && defaultValues[closestId].length) < (isMax[closestId] && parseInt(isMax[closestId]))) {
-          e.target.closest('.directorist-select').querySelector('.directorist-select__container').classList.remove('directorist-error');
-          e.target.closest('.directorist-select').querySelector('.directorist-error__msg').innerHTML = '';
-        }
-
-        li.forEach(function (element, index) {
-          if (parseInt(e.target.getAttribute('data-key')) === index) {
-            element.classList.add('directorist-select-item-hide');
-            element.classList.remove('directorist-select-item-show');
-          }
-        });
-        insertSearchItem();
-        option[0].setAttribute('selected', 'selected');
-        option[0].value = JSON.stringify(defaultValues[closestId]);
-      });
-    }
-
-    multiSelect ? multiSelects() : singleSelect();
-  });
-};
-
-(function ($) {
-  if ($('#directorist-select-js').length) {
-    pureScriptSelect('#directorist-select-js');
-  }
-
-  if ($('#directorist-review-select-js').length) {
-    pureScriptSelect('#directorist-review-select-js');
-  }
-
-  if ($('#directorist-search-category-js').length) {
-    pureScriptSelect('#directorist-search-category-js');
-  }
-
-  if ($('#directorist-search-location-js').length) {
-    pureScriptSelect('#directorist-search-location-js');
-  }
-
-  if ($('#directorist-search-select-js').length) {
-    pureScriptSelect('#directorist-search-select-js');
-  }
-
-  window.addEventListener('load', function (event) {
-    if ($('#directorist-select-st-s-js').length) {
-      pureScriptSelect('#directorist-select-st-s-js');
-    }
-
-    if ($('#directorist-select-st-e-js').length) {
-      pureScriptSelect('#directorist-select-st-e-js');
-    }
-
-    if ($('#directorist-select-sn-s-js').length) {
-      pureScriptSelect('#directorist-select-sn-s-js');
-    }
-
-    if ($('#directorist-select-mn-e-js').length) {
-      pureScriptSelect('#directorist-select-sn-e-js');
-    }
-
-    if ($('#directorist-select-mn-s-js').length) {
-      pureScriptSelect('#directorist-select-mn-s-js');
-    }
-
-    if ($('#directorist-select-mn-e-js').length) {
-      pureScriptSelect('#directorist-select-mn-e-js');
-    }
-
-    if ($('#directorist-select-tu-s-js').length) {
-      pureScriptSelect('#directorist-select-tu-s-js');
-    }
-
-    if ($('#directorist-select-tu-e-js').length) {
-      pureScriptSelect('#directorist-select-tu-e-js');
-    }
-
-    if ($('#directorist-select-wd-s-js').length) {
-      pureScriptSelect('#directorist-select-wd-s-js');
-    }
-
-    if ($('#directorist-select-wd-e-js').length) {
-      pureScriptSelect('#directorist-select-wd-e-js');
-    }
-
-    if ($('#directorist-select-th-s-js').length) {
-      pureScriptSelect('#directorist-select-th-s-js');
-    }
-
-    if ($('#directorist-select-th-e-js').length) {
-      pureScriptSelect('#directorist-select-th-e-js');
-    }
-
-    if ($('#directorist-select-fr-s-js').length) {
-      pureScriptSelect('#directorist-select-fr-s-js');
-    }
-
-    if ($('#directorist-select-fr-e-js').length) {
-      pureScriptSelect('#directorist-select-fr-e-js');
-    }
-
-    if ($('#directorist-location-select').length) {
-      pureScriptSelect('#directorist-location-select');
-    }
-
-    if ($('#directorist-tag-select').length) {
-      pureScriptSelect('#directorist-tag-select');
-    }
-
-    if ($('#directorist-category-select').length) {
-      pureScriptSelect('#directorist-category-select');
-    }
-  });
-})(jQuery);
 
 /***/ }),
 
@@ -2421,17 +1948,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./assets/src/scss/component/pureSearchSelect.scss":
-/*!*********************************************************!*\
-  !*** ./assets/src/scss/component/pureSearchSelect.scss ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./assets/src/scss/layout/public/main-style.scss":
 /*!*******************************************************!*\
   !*** ./assets/src/scss/layout/public/main-style.scss ***!
@@ -2440,32 +1956,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-module.exports = _defineProperty;
 
 /***/ }),
 

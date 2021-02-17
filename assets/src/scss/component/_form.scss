@@ -2,7 +2,8 @@
 .directorist-form-group {
     position: relative;
 
-    textarea {
+    textarea,
+    textarea.directorist-form-element {
         min-height: 120px;
     }
 }
@@ -17,7 +18,7 @@
         border-radius: 5px;
         width: 100%;
         border: 1px solid $border-color-normal;
-    
+
         &:focus {
             outline: none;
             box-shadow: 0 0;

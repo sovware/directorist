@@ -8,29 +8,29 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="atbdp-quick-login" class="atbdp-modal-container">
-	<div class="atbdp-modal-wrap">
-		<div class="atbdp-modal">
-			<div class="atbdp-modal-header">
-				<div class="atbdp-modal-title-area">
-					<h3 class="atbdp-modal-title">Quick Login</h3>
+<div id="directorist-quick-login" class="directorist-modal-container">
+	<div class="directorist-modal-wrap">
+		<div class="directorist-modals">
+			<div class="directorist-modal-header">
+				<div class="directorist-modal-title-area">
+					<h3 class="directorist-modal-title">Quick Login</h3>
 				</div>
 
-				<div class="atbdp-modal-actions-area">
-					<a href="#" class="atbdp-toggle-modal" data-target="#atbdp-quick-login"><span class="fas fa-times"></span></a>
+				<div class="directorist-modal-actions-area">
+					<a href="#" class="directorist-toggle-modal" data-target="#directorist-quick-login"><span class="fas fa-times"></span></a>
 				</div>
 			</div>
 
-			<div class="atbdp-modal-body">
-				<div class="atbdp-modal-alerts-area"></div>
+			<div class="directorist-modal-body">
+				<div class="directorist-modal-alerts-area"></div>
 
-				<p class="atbdp-form-label atbdp-email-label">user@email.com</p>
+				<p class="directorist-form-label directorist-email-label directorist-mb-10">user@email.com</p>
 
-				<div class="atbdp-form-group">
-					<input type="password" name="password" placeholder="Password" class="atbdp-form-control">
+				<div class="directorist-form-group directorist-mb-15">
+					<input type="password" name="password" placeholder="Password" class="directorist-form-element">
 				</div>
 
-				<button type="button" name="login" class="atbdp-btn atbdp-btn-primary atbdp-btn-block">
+				<button type="button" name="login" class="directorist-btn directorist-btn-primary directorist-btn-block">
 					Login
 				</button>
 			</div>

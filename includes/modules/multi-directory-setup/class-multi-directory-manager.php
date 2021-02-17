@@ -4359,7 +4359,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'single_listing_header' => [
+                'single_listing_header' => apply_filters( 'directorist_listing_header_layout', [
                     'type' => 'card-builder',
                     'template' => 'listing-header',
                     'value' => '',
@@ -4585,7 +4585,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ],
                         ],
                     ],
-                ],
+                ] ),
 
                 'listings_card_grid_view' => apply_filters( 'directorist_listing_card_layouts', [
                     'type' => 'card-builder',

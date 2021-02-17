@@ -4891,6 +4891,10 @@ input.atbdp-form-control {
   margin-bottom: 15px;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px;
+}
+
 .directorist-mb-40 {
   margin-bottom: 40px;
 }
@@ -4907,7 +4911,8 @@ input.atbdp-form-control {
 .directorist-form-group {
   position: relative;
 }
-.directorist-form-group textarea {
+.directorist-form-group textarea,
+.directorist-form-group textarea.directorist-form-element {
   min-height: 120px;
 }
 
@@ -5660,6 +5665,10 @@ a {
   margin-bottom: 15px;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px;
+}
+
 .directorist-mb-40 {
   margin-bottom: 40px;
 }
@@ -6956,7 +6965,6 @@ a {
   min-width: auto;
   background: #fff;
   cursor: pointer;
-  z-index: 22;
 }
 
 .directorist-select__container button,
@@ -7093,7 +7101,6 @@ a {
           align-items: center;
   padding: 2.5px 10px;
   border-radius: 4px;
-  margin: -4px;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label input {
   font-size: 14px;
@@ -7279,6 +7286,10 @@ a {
   margin-bottom: 15px;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px;
+}
+
 .directorist-mb-40 {
   margin-bottom: 40px;
 }
@@ -8575,7 +8586,6 @@ a {
   min-width: auto;
   background: #fff;
   cursor: pointer;
-  z-index: 22;
 }
 
 .directorist-select__container button,
@@ -8712,7 +8722,6 @@ a {
           align-items: center;
   padding: 2.5px 10px;
   border-radius: 4px;
-  margin: -4px;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label input {
   font-size: 14px;

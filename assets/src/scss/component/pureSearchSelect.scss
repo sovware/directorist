@@ -58,7 +58,6 @@
     min-width: auto;
     background: #fff;
     cursor: pointer;
-    z-index: 22;
 }
 
 .directorist-select__container button,
@@ -191,7 +190,6 @@
                 align-items: center;
                 padding: 2.5px 10px;
                 border-radius: 4px;
-                margin: -4px;
 
                 input {
                     font-size: 14px;

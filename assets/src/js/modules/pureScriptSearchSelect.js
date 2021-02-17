@@ -26,12 +26,13 @@ const pureScriptSelect = (selector) => {
     selectors.forEach((item, index) => {
         const multiSelect = item.getAttribute('data-multiSelect');
         const isSearch = item.getAttribute('data-isSearch');
+
         function singleSelect(){
             let virtualSelect = document.createElement('div');
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '22';
+            item.style.zIndex = '2';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = ''           ;
@@ -41,7 +42,7 @@ const pureScriptSelect = (selector) => {
             let html = `
             <div class="directorist-select__label">
                 <div class="directorist-select__label--text">${option[0].text}</div>
-                <span class="directorist-select__label--icon"><i class="la la-angle-down"></i></span>
+                <span class="directorist-select__label--icon"><img src="assets/svg/angle-down-solid.svg" alt=""></span>
             </div>
             <div class="directorist-select__dropdown">
                 <input class='directorist-select__search ${ isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide' }' type='text' class='value' placeholder='Filter Options....' />
@@ -57,36 +58,33 @@ const pureScriptSelect = (selector) => {
                 arryEl.push(el);
                 el.style.display = 'none';
                 if(el.hasAttribute('selected')){
-                    selectTrigger.innerHTML = el.value +'<i class="la la-angle-down"></i>';
+                    selectTrigger.innerHTML = el.value +'<img src="assets/svg/angle-down-solid.svg" alt="">';
                 };
             });
 
             var input = item.querySelector('.directorist-select__dropdown input');
             document.body.addEventListener('click', (event) => {
-                if(event.target == selectTrigger || event.target == input){
-                    return;
-                }else{
-                    sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-                    sibling.querySelector('.directorist-select__label').closest('.directorist-select').classList.remove('directorist-select-active-js');
-                }
+                if(event.target == selectTrigger || event.target == input)
+                return;
+                sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
                 input.value = '';
             });
 
             selectTrigger.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.target.closest('.directorist-select').classList.add('directorist-select-active-js');
                 sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
-                console.log(e.target);
-                var elem = [];
 
+                var elem = [];
                 arryEl.forEach((el, index) => {
                     if(index !== 0 || el.value !== ''){
                         elem.push(el);
                         el.style.display = 'block';
                     }
                 });
+
                 var item2 = '<ul>';
                 elem.forEach((el, key) => {
+                    el.removeAttribute('selected');
                     let attribute = '';
                     let attribute2 = '';
                     if(el.hasAttribute('img')){
@@ -106,7 +104,7 @@ const pureScriptSelect = (selector) => {
                     el.addEventListener('click', (event) => {
                         elem[index].setAttribute('selected', 'selected');
                         sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-                        item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent +'<i class="la la-angle-down"></i>';
+                        item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent +'<img src="assets/svg/angle-down-solid.svg" alt="">';
                     });
                 });
             });
@@ -148,7 +146,7 @@ const pureScriptSelect = (selector) => {
                     el.addEventListener('click', (event) => {
                         elem[index].setAttribute('selected', 'selected');
                         sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-                        item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent +'<i class="la la-angle-down"></i>';
+                        item.querySelector('.directorist-select__label').innerHTML = el.querySelector('.directorist-select-dropdown-text').textContent +'<img src="assets/svg/angle-down-solid.svg" alt="">';
                     });
                 });
             });
@@ -161,12 +159,20 @@ const pureScriptSelect = (selector) => {
             virtualSelect.classList.add('directorist-select__container');
             item.append(virtualSelect);
             item.style.position = 'relative';
-            item.style.zIndex = '22';
+            item.style.zIndex = '0';
             let select = item.querySelectorAll('select'),
             sibling = item.querySelector('.directorist-select__container'),
             option = '';
+
             select.forEach((sel) =>{
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.innerHTML = "Selected Item";
                 option = sel.querySelectorAll('option');
+                if(option[0].value !== ''){
+                    sel.prepend(opt)
+                    option = sel.querySelectorAll('option');
+                }
             });
             let html = `
             <div class="directorist-select__label">
@@ -179,13 +185,16 @@ const pureScriptSelect = (selector) => {
             <span class="directorist-error__msg"></span>`;
 
             function insertSearchItem () {
-                item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(item => `<span class="directorist-select__selected-list--item">${item.value}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="directorist-item-remove"><i class="fa fa-times"></i></a></span>`).join("")
+                item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(item => `<span class="directorist-select__selected-list--item">${item.label}&nbsp;&nbsp;<a href="#" data-key="${item.key}" class="directorist-item-remove"><i class="fa fa-times"></i></a></span>`).join("")
             }
+
             sibling.innerHTML = html;
             let arry = [],
             arryEl = [],
             button = sibling.querySelector('.directorist-select__label');
+            //el1 = '';
             insertSearchItem();
+
             option.forEach((el, index) => {
                 arry.push(el.value);
                 arryEl.push(el);
@@ -214,17 +223,9 @@ const pureScriptSelect = (selector) => {
                 e.target.closest('.directorist-select__container').querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
 
                 var elem = [];
-                // arryEl.forEach((el, index) => {
-                //     arry.forEach(e => {
-                //         if(el.text.toLowerCase() == e){
-                //             elem.push(el);
-                //             el.style.display = 'block';
-                //         }
-                //     });
-                // });
                 arryEl.forEach((el, index) => {
                     arryEl.forEach((el, index) => {
-                        if(index !== 0 || el.value !== ''){
+                        if(index !== 0 ){
                             elem.push(el);
                             el.style.display = 'block';
                         }
@@ -311,7 +312,7 @@ const pureScriptSelect = (selector) => {
 
 
                     if(isMax[closestId] === null && defaultValues[closestId]){
-                        defaultValues[closestId].filter(item => item.key === index ).length === 0 &&  defaultValues[closestId].push({value: elem[index].value, key: index});
+                        defaultValues[closestId].filter(item => item.key === index ).length === 0 &&  defaultValues[closestId].push({value: elem[index].value, label:elem[index].innerHTML, key: index});
                         option[0].setAttribute('selected', 'selected');
                         option[0].value = JSON.stringify(defaultValues[closestId]);
                         e.target.classList.remove('directorist-select-item-hide');
@@ -320,7 +321,7 @@ const pureScriptSelect = (selector) => {
                     } else {
                         if(defaultValues[closestId])
                         if(defaultValues[closestId].length < parseInt(isMax[closestId])){
-                            defaultValues[closestId].filter(item => item.key == index ).length === 0 &&  defaultValues[closestId].push({value: elem[index].value, key: index});
+                            defaultValues[closestId].filter(item => item.key == index ).length === 0 &&  defaultValues[closestId].push({value: elem[index].value, label: elem[index].innerHTML, key: index});
                             option[0].setAttribute('selected', 'selected');
                             option[0].value = JSON.stringify(defaultValues[closestId]);
                             e.target.classList.remove('directorist-select-item-hide');
@@ -380,6 +381,12 @@ const pureScriptSelect = (selector) => {
     if($('#directorist-search-select-js').length){
         pureScriptSelect('#directorist-search-select-js');
     }
+
+        setTimeout(() => {
+            pureScriptSelect('#akanda');
+            alert('sdf')
+        }, 5000);
+
 
 
     window.addEventListener('load', (event) => {

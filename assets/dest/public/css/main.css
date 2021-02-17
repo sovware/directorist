@@ -6050,7 +6050,7 @@ p.atbd-min {
 .directorist-user-dashboard-tab ul li a:after {
   position: absolute;
   left: 0;
-  bottom: -1px;
+  bottom: -4px;
   width: 100%;
   height: 2px;
   border-radius: 10px;
@@ -6628,6 +6628,16 @@ p.atbd-min {
   background-color: #fff;
   border-radius: 4px;
   border: 1px solid #ececec;
+}
+.directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn {
+  border-radius: 4px;
+  padding: 10.5px 30px;
+  background-color: #F6F7F9;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #202428;
 }
 
 .directorist-user-profile-box .directorist-card__header {

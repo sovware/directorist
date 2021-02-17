@@ -28,11 +28,11 @@ class ATBDP_Upgrade
        $new_version = $response->new_version;
        if( '6.5.7' == $new_version ){
            ob_start() ?>
-            <div>
-                <strong style="color: red;">Attention!</strong>
-                <span>This is a major upgrade that includes significant changes and improvements. Make sure you have a backup of your site before upgrading.</span>
-                <div>Take a look at the notable features</div>
-                <ul>
+            <div class="directorist-admin-notice-content">
+                <span class="directorist-highlighted-text"><strong>Attention!</strong> This is a major upgrade that includes significant changes and improvements. Make sure you have a backup of your site before upgrading.</span>
+                <div></div>
+                <p class="directorist-update-label">Take a look at the notable features</p>
+                <ul class="directorist-update-list">
                     <li>Multi directory</li>
                     <li>Custom form and layout builder</li>
                     <li>New settings panel</li>

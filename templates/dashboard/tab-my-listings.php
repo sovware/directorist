@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
@@ -67,7 +69,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
 
-								<th class="directorist-table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+								<?php if ( Helper::multi_directory_enabled() ): ?>
+									<th class="directorist-table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+								<?php endif; ?>
+
 
 								<th class="directorist-table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
 

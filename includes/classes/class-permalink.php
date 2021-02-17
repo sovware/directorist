@@ -38,7 +38,7 @@ class ATBDP_Permalink {
         $_directory_type = get_post_meta( $post_id, '_directory_type', true );
         if ( ! empty( $_directory_type ) ) {
             $get_the_terms = get_term_by( 'id', $_directory_type, ATBDP_DIRECTORY_TYPE );
-            $directory_type = $get_the_terms->slug;
+            $directory_type = !empty( $get_the_terms ) ? $get_the_terms->slug : '';
         }
 
         // // wp_set_post_terms( $post_id, 15, ATBDP_DIRECTORY_TYPE );

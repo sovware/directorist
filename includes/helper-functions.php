@@ -5829,11 +5829,11 @@ function directorist_icon( $icon, $echo = true ) {
 if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
     function atbdp_get_term_icon( array $args = [] )
     {  
-        $default = [ 'icon' => '', 'default' => 'la-folder-open', 'echo' => false ];
+        $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ? 'la ' . $args['icon'] : $args['default'];
-        $icon = ( ! empty( $icon ) ) ? 'la ' . $icon : '';
+        $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ?  $icon : '';
         $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; } 

@@ -1,11 +1,11 @@
 <br>
 <!-- Themes and Extensions -->
 <div class="extension-theme-wrapper">
-    <?php if ( ! empty( $args['all_active_extensions'] ) ) : ?>
+    <?php if ( ! empty( $args['extensions_promo_list'] ) ) : ?>
     <div class="et-column">
         <h3><?php _e( 'Extensions', 'directorist' ) ?></h3>
 
-        <?php foreach( $args['all_active_extensions'] as $extension_key => $extension ) : ?>
+        <?php foreach( $args['extensions_promo_list'] as $extension_key => $extension ) : ?>
         <div class="et-card">
             <div class="et-card__image">
                 <img src="<?php echo $extension['thumbnail'] ?>" alt="">
@@ -23,11 +23,11 @@
     </div><!-- ends: .et-column -->
     <?php endif; ?>
     
-    <?php if ( ! empty( $args['all_active_themes'] ) ) : ?>
+    <?php if ( ! empty( $args['themes_promo_list'] ) ) : ?>
     <div class="et-column">
         <h3><?php _e( 'Themes', 'directorist' ) ?></h3>
 
-        <?php foreach( $args['all_active_themes'] as $theme_key => $theme ) : ?>
+        <?php foreach( $args['themes_promo_list'] as $theme_key => $theme ) : ?>
         <div class="et-card">
             <div class="et-card__image">
                 <img src="<?php echo $theme['thumbnail'] ?>" alt="">

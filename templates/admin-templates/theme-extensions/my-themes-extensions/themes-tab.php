@@ -3,22 +3,25 @@
     <div class="theme-card-wrapper">
         <div class="theme-card">
             <figure>
-                <img src="<?php echo $args['active_theme']['thumbnail']; ?>" alt="">
+                <?php if ( ! empty( $args['currrent_active_theme_info']['thumbnail'] ) ) : ?>
+                <img src="<?php echo $args['currrent_active_theme_info']['thumbnail']; ?>" alt="">
+                <?php endif; ?>
+                
                 <figcaption>
                     <div class="theme-title">
-                        <h5><?php echo $args['active_theme']['name']; ?></h5>
-                        <span class="theme-version">v<?php echo $args['active_theme']['version']; ?></span>
+                        <h5><?php echo $args['currrent_active_theme_info']['name']; ?></h5>
+                        <span class="theme-version">v<?php echo $args['currrent_active_theme_info']['version']; ?></span>
                     </div>
                     <div class="theme-action">
-                        <a href="<?php echo $args['active_theme']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize"><?php _e( 'Customize', 'directorist' ) ?></a>
+                        <a href="<?php echo $args['currrent_active_theme_info']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize"><?php _e( 'Customize', 'directorist' ) ?></a>
                     </div>
                 </figcaption>
             </figure>
 
-            <?php if ( $args['active_theme']['has_update'] ) : ?>
+            <?php if ( $args['currrent_active_theme_info']['has_update'] ) : ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available"><?php _e( 'Update available', 'directorist' ) ?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p> 
-                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
+                <a href="#" class="theme-update-btn" data-target="<?php echo $args['currrent_active_theme_info']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
             </div>
             <?php endif; ?>
 
@@ -86,7 +89,10 @@
             <?php foreach( $args['themes_available_in_subscriptions'] as $_theme_base => $_theme_args ) : ?>
             <div class="available-theme-card">
                 <figure>
-                    <img src="<?php echo $_theme_args['thumbnail'] ?>" alt="">
+                    <?php if ( ! empty( $_theme_args['thumbnail'] ) ) : ?>
+                    <img src="<?php echo $_theme_args['thumbnail']; ?>" alt="">
+                    <?php endif; ?>
+
                     <figcaption>
                         <h5><?php echo $_theme_args['name'] ?></h5>
                         <div class="theme-action">
@@ -98,6 +104,7 @@
                                 <?php if ( ! empty( $_theme_args['customizer_link'] ) ) : ?>
                                     <a href="<?php echo $_theme_args['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php _e( 'Live Preview', 'directorist' ) ?></a>
                                 <?php endif; ?>
+
                             <?php else : ?>
                                 <a href="#" data-type="theme" data-key="<?php echo $_theme_base ?>" class="theme-action-btn file-install-btn">
                                     <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?>

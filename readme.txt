@@ -4,7 +4,7 @@ Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to:  5.6
-Stable tag: 6.5.7
+Stable tag: 6.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -326,6 +326,19 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.6 - Feb 17, 2021 =
+
+* Add - Subscription management
+* Fix - Edited listing status issue
+* Fix - Image limit issue in add listing
+* Fix - Translation issues
+* Fix - Fix duplicate notice in announcement
+* Fix - Listings order by 'rand' when cache enabled
+* Fix - Category icon issue
+* Fix - Location permalink issue
+* Fix - Add listing form restriction
+* Fix - Notice with PHP 8
 
 = 6.5.7 - Dec 21, 2020 =
 

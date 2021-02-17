@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-form-group directorist-checkbox directorist-hide-owner-field">
+<div class="directorist-form-group directorist-checkbox directorist-form-hide-owner-field">
 
 	<input type="checkbox" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" <?php checked($data['value'], 'on'); ?> >
 

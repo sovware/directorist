@@ -609,7 +609,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $icon           = get_term_meta($term_id, 'category_icon', true);
             $directory_type = get_term_meta($term_id, '_directory_type', true);
 
-            $icon_type = array();
+            /* $icon_type = array();
             if (!empty($icon)){
                 $icon_type = explode('-', $icon);
             }
@@ -619,14 +619,14 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 $class = 'la '.$icon;
             }else{
                 $class = 'none';
-            }
+            } */
 
             if ($column_name == 'ID') {
                 return $term_id;
             }
             if ($column_name == 'atbdp_category_icon') {
 
-                return !empty($icon) ? "<i class='{$class}'></i>" : ' ';
+                return !empty($icon) ? "<i class='{$icon}'></i>" : ' ';
             }
 
             if ($column_name == 'atbdp_category_directory_type') {

@@ -12,7 +12,7 @@ import './../scss/layout/public/main-style.scss';
 // Modules
 import './modules/helpers';
 import './modules/review';
-import './modules/pureScriptSearchSelect';
+//import './modules/pureScriptSearchSelect';
 // import './modules/range-slider';
 
 // Single Listing Page

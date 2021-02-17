@@ -31,7 +31,7 @@ $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 ?>
 
-<div class="form-group directorist-image-upload-field">
+<div class="directorist-form-group directorist-form-image-upload-field">
 
 	<div id="_listing_gallery" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" data-max-file-items="<?php echo esc_attr( $max_file_items ); ?>" data-min-file-items="<?php echo esc_attr( $min_file_items ); ?>" data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>" data-max-total-file-size="<?php echo esc_attr( $max_total_file_size_kb ); ?>" data-show-alerts="0">
 
@@ -52,7 +52,7 @@ $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 				}
 			}
 			?>
-			
+
 		</div>
 
 		<div class="ezmu-dictionary">

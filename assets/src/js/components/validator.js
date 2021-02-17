@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
 
     // @kowsar @todo rebuild validation
     /*
-    $('.listing_submit_btn').on('click', function (e) {
+    $('.directorist-form-submit__btn').on('click', function (e) {
         $('.atbdp_required').css({display: "none"});
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
         //title
@@ -206,7 +206,7 @@ jQuery(document).ready(function ($) {
             var privacy = $("#privacy_policy").is(":checked");
             var required_privacy = add_listing_validator.require_privacy;
             if (false === privacy && '' !== required_privacy) {
-                $(".atbd_privacy_policy_area").append('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_privacy + '</span>');
+                $(".directorist-form-privacy").append('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_privacy + '</span>');
                 return false;
             }
         }
@@ -216,7 +216,7 @@ jQuery(document).ready(function ($) {
             var terms = $("#listing_t").is(":checked");
             var required_terms = add_listing_validator.terms;
             if (false === terms && '' !== required_terms) {
-                $(".atbd_term_and_condition_area").append('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_terms + '</span>');
+                $(".directorist-form-terms").append('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_terms + '</span>');
                 return false;
             }
         }

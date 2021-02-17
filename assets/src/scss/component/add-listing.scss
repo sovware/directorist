@@ -1,9 +1,8 @@
 @import "../vendor/bootstrap/config.bs";
-//base css
-@import "../base/";
 //mixins
-@import "../mixins/colors";
 @import "../mixins/general";
+//sweet alert
+@import "./sweet-alert";
 
 // add listing types
 .directorist-add-listing-types {
@@ -29,7 +28,8 @@
     }
 }
 
-.directorist-add-listing-form {
+.directorist-add-listing-form,
+#directiost-listing-fields_wrapper {
     .directorist-content-module {
         background: #fff;
         margin-bottom: 35px;
@@ -42,12 +42,16 @@
     }
 }
 
+
 /* ==========================
     add listing form fields
 ============================= */
 /* listing label */
 .directorist-form-label {
     display: block;
+    color: #202428;
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .directorist-form-required {
@@ -114,6 +118,20 @@
     display: none;
 }
 
+#directorist-location-select {
+    z-index: 113 !important;
+}
+
+/* tags */
+#directorist-tag-select {
+    z-index: 112 !important;
+}
+
+/* categories */
+#directorist-category-select {
+    z-index: 111 !important;
+}
+
 /* hide contact owner */
 .directorist-hide-owner-field.directorist-checkbox input[type=checkbox]+.directorist-checkbox__label {
     font-size: 15px;
@@ -122,9 +140,293 @@
 
 /* social info */
 .directorist-form-social-fields {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+
     .directorist-form-group {
+        flex: 1;
+        padding: 0 10px;
+
+        &.directorist-form-social-fields__action {
+            flex: auto;
+            margin-bottom: 15px;
+        }
+
         select.directorist-form-element {
             padding: 0 20px;
         }
     }
+
+    @include e(remove) {
+        color: #fff;
+        height: 42px;
+        background: #e23636;
+        border-radius: 3px;
+        padding: 0 20px 0 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
+/* Map style */
+.directorist-map-coordinates {
+    padding: 0 0 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 15px -15px 0;
+
+    .directorist-form-group {
+        flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 290px;
+    }
+
+    @include e(generate) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+.directorist-form-map-field__wrapper {
+    margin-bottom: 10px;
+}
+
+.directorist-form-map-field__maps {
+    #gmap {
+        height: 400px;
+    }
+}
+
+/* image upload */
+.directorist-form-image-upload-field {
+    .ezmu__btn.ezmu__input-label {
+        background: #222222;
+        color: #fff;
+    }
+
+    .ezmu__info-list-item {
+        margin-right: 15px !important;
+    }
+
+    .ezmu__thumbnail-list-item {
+        width: auto;
+    }
+}
+
+/* form action */
+.directorist-add-listing-form__action {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .directorist-form-submit {
+        margin-top: 15px;
+    }
+
+    .directorist-form-group {
+        text-align: center;
+    }
+
+    .directorist-form-required {
+        padding-left: 5px;
+    }
+}
+
+/* Custom Fields */
+/* select */
+.directorist-custom-field-select {
+    select.directorist-form-element {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* file upload */
+.plupload-upload-uic {
+    width: 420px;
+    margin: 0 auto !important;
+    border: 1px dashed #dbdee9;
+    padding: 30px;
+    text-align: center;
+
+    .directorist-dropbox-title {
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .directorist-dropbox-file-types {
+        margin-top: 10px;
+        color: #9299b8;
+    }
+}
+
+/* color picker */
+.directorist-custom-field-color {
+    .wp-picker-container {
+        .button {
+            position: relative;
+            height: 40px;
+            border: 0 none;
+            width: 140px;
+            transition: 0.3s ease;
+            border-radius: 3px;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            .wp-color-result-text {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 100%;
+                width: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
+                font-size: 14px;
+                background: #f7f7f7;
+                color: #222;
+            }
+        }
+
+        .wp-picker-input-wrap {
+            label {
+                width: 90px;
+
+                input {
+                    height: 40px;
+                    padding: 0;
+                    text-align: center;
+                }
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    }
+}
+
+.wp-picker-open+.wp-picker-input-wrap {
+    display: block;
+}
+
+.wp-picker-container .wp-picker-input-wrap {
+    padding: 15px 0;
+
+    .screen-reader-text {
+        display: none;
+    }
+
+    label {
+        width: 90px;
+        margin: 0;
+
+        &+.button {
+            margin-left: 10px;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-size: 15px;
+        }
+
+        input {
+            width: 200px;
+        }
+    }
+}
+
+/* quick login */
+.directorist-modal-container {
+    display: none;
+    margin: 0 !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999999999999;
+}
+
+.directorist-modal-container.show {
+    display: block;
+}
+
+.directorist-modal-wrap {
+    display: flex;
+    background-color: #00000078;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.directorist-modals {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.directorist-modal-header {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.directorist-modal-title-area {
+    display: block;
+}
+
+.directorist-modal-header .directorist-modal-title {
+    margin: 0;
+    font-size: 24px;
+}
+
+.directorist-modal-actions-area {
+    display: block;
+    padding: 0 10px;
+}
+
+.directorist-modal-body {
+    display: block;
+    padding: 20px;
+}
+
+
+/* =============================
+    backend add listing form
+================================*/
+.add_listing_form_wrapper .hide-if-no-js {
+    display: flex;
+    justify-content: center;
+}
+
+#_listing_gallery {
+    text-align: center;
 }

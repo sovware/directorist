@@ -350,15 +350,11 @@ This email is sent automatically for information purpose only. Please do not res
 
         public function author_approval_admin_tmpl() {
             return __("
-                        Dear Administrator,
+                        Hello Administrator,
 
-                        A new author approval has been submitted on your website [==SITE_NAME==].
+                        A user wants to become an author, ==USER_DASHBOARD== to review.
 
-                        User Name: ==USERNAME==
-                        You can Edit/Review the listing using the link below:
-                        ==USER_DASHBOARD==
-
-                        This email is sent automatically for information purpose only. Please do not respond to this.
+                        Regards
                         ", 'directorist');
         }
 
@@ -648,7 +644,7 @@ This email is sent automatically for information purpose only. Please do not res
 
         public function notify_admin_become_author( $user_id ) {
             if (get_directorist_option('disable_email_notification')) return false;
-            $s = __('[==SITE_NAME==] A author approval', 'directorist');
+            $s = __('[==SITE_NAME==] New Author Request', 'directorist');
             $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
             $body = $this->author_approval_admin_tmpl();

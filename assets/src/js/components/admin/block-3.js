@@ -593,6 +593,7 @@ $('body').on('change', 'select[name="directory_type"]', function () {
     }
 });
 
+
 function admin_listing_form(directory_type) {
     $.ajax({
         type: 'post',
@@ -603,6 +604,8 @@ function admin_listing_form(directory_type) {
             listing_id: $('#directiost-listing-fields_wrapper').data('id'),
         },
         success(response) {
+            // console.log( response );
+
             $('#directiost-listing-fields_wrapper')
                 .empty()
                 .append(response.data['listing_meta_fields']);
@@ -620,6 +623,21 @@ function admin_listing_form(directory_type) {
                 .closest('#poststuff')
                 .find('#publishing-action')
                 .removeClass('directorist_disable');
+
+
+            if ( response.data['required_js_scripts'] ) {
+                const scripts = response.data['required_js_scripts'];
+                for ( let script_id in scripts ) {
+
+                    var old_script = document.getElementById( script );
+                    if ( old_script ) { old_script.remove(); }
+                    
+                    var script = document.createElement('script');
+                    script.id = script_id;
+                    script.src = scripts[ script_id ];
+                    document.body.appendChild(script);
+                }
+            }
         },
     });
 }

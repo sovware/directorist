@@ -1333,12 +1333,30 @@ function admin_listing_form(directory_type) {
       listing_id: $('#directiost-listing-fields_wrapper').data('id')
     },
     success: function success(response) {
+      // console.log( response );
       $('#directiost-listing-fields_wrapper').empty().append(response.data['listing_meta_fields']);
       assetsNeedToWorkInVirtualDom();
       $('#at_biz_dir-locationchecklist').empty().html(response.data['listing_locations']);
       $('#at_biz_dir-categorychecklist').empty().html(response.data['listing_categories']);
       $('#listing_form_info').find('.directorist_loader').remove();
       $('select[name="directory_type"]').closest('#poststuff').find('#publishing-action').removeClass('directorist_disable');
+
+      if (response.data['required_js_scripts']) {
+        var scripts = response.data['required_js_scripts'];
+
+        for (var script_id in scripts) {
+          var old_script = document.getElementById(script);
+
+          if (old_script) {
+            old_script.remove();
+          }
+
+          var script = document.createElement('script');
+          script.id = script_id;
+          script.src = scripts[script_id];
+          document.body.appendChild(script);
+        }
+      }
     }
   });
 } // default directory type

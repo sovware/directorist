@@ -1,5 +1,9 @@
+import { get_dom_data } from '../../lib/helper';
+
 (function($) {
         $(document).ready(function() {
+                var localized_data = get_dom_data( 'map_data' );
+
                 // initialize all vars here to avoid hoisting related misunderstanding.
                 let placeSearch;
                 let map;

@@ -42,10 +42,18 @@ class ATBDP_Metabox {
 		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
 		$listing_locations =  ob_get_clean();
 
+
+		$required_script_src = [];
+
+		$map_type = get_directorist_option('select_listing_map', 'openstreet');
+		$script_name = ( 'openstreet' === $map_type ) ? 'add-listing-openstreet-map-custom-script' : 'add-listing-gmap-custom-script';
+		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_PUBLIC_JS . $script_name . '.js';
+
 		wp_send_json_success( array(
 			'listing_meta_fields' => $listing_meta_fields,
 			'listing_categories'  => $listing_categories,
 			'listing_locations'   => $listing_locations,
+			'required_js_scripts' => $required_script_src,
 		) );
 
 	}
@@ -64,7 +72,7 @@ class ATBDP_Metabox {
 				$saving_values[] = $saving_term->term_id;
 			}
 		}
-		$terms 			= get_terms( $taxonomy_id, $args);
+		$terms = get_terms( $taxonomy_id, $args);
 
 		if( $terms ) {
 			foreach( $terms as $term ) {

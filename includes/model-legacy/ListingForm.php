@@ -5,6 +5,7 @@
 
 namespace Directorist;
 
+use AazzTech\Directorist\Elementor\Directorist_Tag;
 use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;

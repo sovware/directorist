@@ -141,7 +141,7 @@ class Enqueue_Assets {
                 'has_min'   => false,
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'group'     => 'public', // public || admin  || global
+                'group'     => 'global', // public || admin  || global
                 'enable'    => Script_Helper::is_enable__ez_media_uploader()
             ];
 
@@ -405,7 +405,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'has_min'   => false,
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
+            'group'     => 'admin', // public || admin  || global
             'section'   => '',
         ];
 
@@ -747,8 +747,14 @@ class Enqueue_Assets {
             'group'         => 'admin',
             'section'       => '',
             'localize_data' => [
-                'object_name' => 'atbdp_admin_data',
-                'data' => Script_Helper::get_admin_script_data()
+                [
+                    'object_name' => 'atbdp_admin_data',
+                    'data' => Script_Helper::get_admin_script_data()
+                ],
+                [
+                    'object_name' => 'atbdp_public_data',
+                    'data' => Script_Helper::get_main_script_data()
+                ],
             ],
         ];
 
@@ -764,18 +770,20 @@ class Enqueue_Assets {
             'file_name' => 'add-listing-openstreet-map-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
-            'group'     => 'admin', // public || admin  || global
-            'enable' => Script_Helper::is_enable_map( 'openstreet' ),
+            'group'     => 'admin',                                        // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
             'page'      => 'post-new.php',
+            'section'   => '__',
         ];
 
         $scripts['directorist-add-listing-gmap-custom-script-admin'] = [
             'file_name' => 'add-listing-gmap-custom-script',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
-            'group'     => 'admin', // public || admin  || global
-            'enable' => Script_Helper::is_enable_map( 'google' ),
+            'group'     => 'admin',                                    // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'google' ),
             'page'      => 'post-new.php',
+            'section'   => '__',
         ];
 
         $scripts['directorist-pure-select-admin'] = [
@@ -1147,12 +1155,13 @@ class Enqueue_Assets {
             return;
         }
         
-        foreach ( $script_args as $script_args_item ) {
-            if ( ! self::has_valid_localize_data( $script_args_item['localize_data'] ) ) {
+        foreach ( $script_args['localize_data'] as $script_args_item ) {
+
+            if ( ! self::has_valid_localize_data( $script_args_item ) ) {
                 return;
             }
-            atbdp_console_log( $script_args_item['localize_data'] );
-            wp_localize_script( $handle, $script_args_item['localize_data']['object_name'], $script_args_item['localize_data']['data'] );
+
+            wp_localize_script( $handle, $script_args_item['object_name'], $script_args_item['data'] );
         }
     }
 

@@ -26,12 +26,12 @@ $hide_map           = !empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true
 		<?php if ( 'google' == $select_listing_map ): ?>
 
 			<div id="directorist-map-floating-panel">
-				<button class="directorist-btn directorist-btn-danger" id="delete_marker"><?php esc_html_e( 'Delete Marker', 'directorist' ); ?></button>
+				<button class="directorist-btn directorist-btn-xs directorist-btn-danger" id="delete_marker"><?php esc_html_e( 'Delete Marker', 'directorist' ); ?></button>
 			</div>
 
 		<?php endif; ?>
 
-		<div id="osm"><div id="gmap"></div></div>
+		<div class="directorist-form-map-field__maps"><div id="gmap"></div></div>
 
 		<?php if ('google' == $select_listing_map): ?>
 

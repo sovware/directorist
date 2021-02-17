@@ -135,8 +135,9 @@ var $s_wrap = $('#social_info_sortable_container'); // cache it
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 
-$('#addNewSocial').on('click', function (e) {
+$('body').on('click', '#addNewSocial', function (e) {
   var currentItems = $('.directorist-form-social-fields').length;
+  console.log(currentItems);
   var ID = "id=".concat(currentItems); // eg. 'id=3'
 
   var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
@@ -149,12 +150,12 @@ $('#addNewSocial').on('click', function (e) {
     e.find('.directorist-form-social-fields__remove').attr('data-id', index);
   }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
 
-  /* atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-          $s_wrap.after(data);
-  }); */
+  atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
+    $s_wrap.after(data);
+  });
 }); // remove the social field and then reset the ids while maintaining position
 
-$(document).on('click', '.directorist-form-social-fields__remove', function (e) {
+$('body').on('click', '.directorist-form-social-fields__remove', function (e) {
   var id = $(this).data('id');
   var elementToRemove = $("div#socialID-".concat(id));
   /* Act on the event */
@@ -689,12 +690,12 @@ $('body').on('submit', formID, function (e) {
         if (response.quick_login_required) {
           var email = response.email;
           console.log('Show login form');
-          var modal = $('#atbdp-quick-login');
+          var modal = $('#directorist-quick-login');
           modal.addClass('show');
-          modal.find('.atbdp-email-label').html(email); // Show Alert
+          modal.find('.directorist-email-label').html(email); // Show Alert
 
-          var alert = '<div class="atbdp-alert atbdp-mb-10">' + response.error_msg + '</div>';
-          modal.find('.atbdp-modal-alerts-area').html(alert);
+          var alert = '<div class="directorist-alert directorist-mb-10">' + response.error_msg + '</div>';
+          modal.find('.directorist-modal-alerts-area').html(alert);
         }
       } else {
         // preview on and no need to redirect to payment
@@ -735,6 +736,10 @@ $('body').on('submit', formID, function (e) {
       console.log(_error);
     }
   });
+});
+$('#directorist-quick-login .directorist-toggle-modal').on("click", function (e) {
+  e.preventDefault();
+  $("#directorist-quick-login").removeClass("show");
 }); // scrollToEl
 
 function scrollToEl(el) {// const element = typeof el === 'string' ? el : '';

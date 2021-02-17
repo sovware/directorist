@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php if ( $display_guest_listings && !atbdp_logged_in_user() ): ?>
 
-		<div class="directorist-form-group">
+		<div class="directorist-form-group directorist-mb-15">
 
-			<label for="guest_user"><?php echo esc_html( $guest_email_label ); ?>:<span class="atbdp_make_str_red"> *</span></label>
+			<label for="guest_user"><?php echo esc_html( $guest_email_label ); ?>:<span class="directorist-form-required"> *</span></label>
 
-			<input type="text" id="guest_user_email" name="guest_user_email" class="directorist-form-control directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
+			<input type="text" id="guest_user_email" name="guest_user_email" class="directorist-form-element directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
 		</div>
 
 	<?php endif; ?>
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<label for="privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
 
 			<?php if ( $privacy_is_required ): ?>
-				<span class="atbdp_make_str_red"> *</span>
+				<span class="directorist-form-required"> *</span>
 			<?php endif; ?>
 
 		</div>
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<label for="listing_t" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->terms_label() ); ?></label>
 
 			<?php if ($terms_is_required): ?>
-				<span class="atbdp_make_str_red"> *</span>
+				<span class="directorist-form-required"> *</span>
 			<?php endif; ?>
 
 		</div>

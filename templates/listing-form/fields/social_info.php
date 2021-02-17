@@ -30,8 +30,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<button type="button" class="directorist-btn directorist-btn-primary directorist-btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e('Add New', 'directorist'); ?></button>
 
-	<div id="directorist-social-hidden-item">
-		<?php $listing_form->social_item_template(); ?>
-	</div>
-
 </div>

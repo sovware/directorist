@@ -2363,7 +2363,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
       item.style.position = 'relative';
-      item.style.zIndex = '22';
+      item.style.zIndex = '2';
       var select = item.querySelectorAll('select'),
           sibling = item.querySelector('.directorist-select__container'),
           option = '';
@@ -2388,20 +2388,13 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       });
       var input = item.querySelector('.directorist-select__dropdown input');
       document.body.addEventListener('click', function (event) {
-        if (event.target == selectTrigger || event.target == input) {
-          return;
-        } else {
-          sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
-          sibling.querySelector('.directorist-select__label').closest('.directorist-select').classList.remove('directorist-select-active-js');
-        }
-
+        if (event.target == selectTrigger || event.target == input) return;
+        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
         input.value = '';
       });
       selectTrigger.addEventListener('click', function (e) {
         e.preventDefault();
-        e.target.closest('.directorist-select').classList.add('directorist-select-active-js');
         sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
-        console.log(e.target);
         var elem = [];
         arryEl.forEach(function (el, index) {
           if (index !== 0 || el.value !== '') {
@@ -2411,6 +2404,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
         });
         var item2 = '<ul>';
         elem.forEach(function (el, key) {
+          el.removeAttribute('selected');
           var attribute = '';
           var attribute2 = '';
 
@@ -2490,25 +2484,34 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       virtualSelect.classList.add('directorist-select__container');
       item.append(virtualSelect);
       item.style.position = 'relative';
-      item.style.zIndex = '22';
+      item.style.zIndex = '1';
       var select = item.querySelectorAll('select'),
           sibling = item.querySelector('.directorist-select__container'),
           option = '';
       select.forEach(function (sel) {
+        var opt = document.createElement('option');
+        opt.value = '';
+        opt.innerHTML = "Selected Item";
         option = sel.querySelectorAll('option');
+
+        if (option[0].value !== '') {
+          sel.prepend(opt);
+          option = sel.querySelectorAll('option');
+        }
       });
       var html = "\n            <div class=\"directorist-select__label\">\n                <div class=\"directorist-select__selected-list\"></div>\n                <input class='directorist-select__search ".concat(isSearch ? 'directorist-select__search--show' : 'directorist-select__search--hide', "' type='text' class='value' placeholder='Filter Options....' />\n            </div>\n            <div class=\"directorist-select__dropdown\">\n                <div class=\"directorist-select__dropdown--inner\"></div>\n            </div>\n            <span class=\"directorist-error__msg\"></span>");
 
       function insertSearchItem() {
         item.querySelector('.directorist-select__selected-list').innerHTML = defaultValues[arraySelector].map(function (item) {
-          return "<span class=\"directorist-select__selected-list--item\">".concat(item.value, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"fa fa-times\"></i></a></span>");
+          return "<span class=\"directorist-select__selected-list--item\">".concat(item.label, "&nbsp;&nbsp;<a href=\"#\" data-key=\"").concat(item.key, "\" class=\"directorist-item-remove\"><i class=\"fa fa-times\"></i></a></span>");
         }).join("");
       }
 
       sibling.innerHTML = html;
       var arry = [],
           arryEl = [],
-          button = sibling.querySelector('.directorist-select__label');
+          button = sibling.querySelector('.directorist-select__label'); //el1 = '';
+
       insertSearchItem();
       option.forEach(function (el, index) {
         arry.push(el.value);
@@ -2538,18 +2541,10 @@ var pureScriptSelect = function pureScriptSelect(selector) {
           return el.classList.remove('directorist-select__dropdown-open');
         });
         e.target.closest('.directorist-select__container').querySelector('.directorist-select__dropdown').classList.add('directorist-select__dropdown-open');
-        var elem = []; // arryEl.forEach((el, index) => {
-        //     arry.forEach(e => {
-        //         if(el.text.toLowerCase() == e){
-        //             elem.push(el);
-        //             el.style.display = 'block';
-        //         }
-        //     });
-        // });
-
+        var elem = [];
         arryEl.forEach(function (el, index) {
           arryEl.forEach(function (el, index) {
-            if (index !== 0 || el.value !== '') {
+            if (index !== 0) {
               elem.push(el);
               el.style.display = 'block';
             }
@@ -2643,6 +2638,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
               return item.key === index;
             }).length === 0 && defaultValues[closestId].push({
               value: elem[index].value,
+              label: elem[index].innerHTML,
               key: index
             });
             option[0].setAttribute('selected', 'selected');
@@ -2656,6 +2652,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
                 return item.key == index;
               }).length === 0 && defaultValues[closestId].push({
                 value: elem[index].value,
+                label: elem[index].innerHTML,
                 key: index
               });
               option[0].setAttribute('selected', 'selected');

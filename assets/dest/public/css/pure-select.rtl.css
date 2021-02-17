@@ -1393,7 +1393,6 @@ a {
   min-width: auto;
   background: #fff;
   cursor: pointer;
-  z-index: 22;
 }
 
 .directorist-select__container button,

@@ -1529,7 +1529,6 @@ a {
           align-items: center;
   padding: 2.5px 10px;
   border-radius: 4px;
-  margin: -4px;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__label input {
   font-size: 14px;

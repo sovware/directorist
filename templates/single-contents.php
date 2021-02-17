@@ -13,32 +13,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listing = Directorist_Single_Listing::instance();
 ?>
 
-<div class="directorist-single-contents-area">
+<div class="directorist-single-contents-area directorist-w-100">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
+		<?php $listing->notice_template(); ?>
 
-	<?php $listing->notice_template(); ?>
+		<div class="<?php Helper::directorist_row(); ?>">
 
-	<div class="<?php Helper::directorist_row(); ?>">
+			<div class="<?php $listing->content_col_class(); ?>">
 
-		<div class="<?php $listing->content_col_class(); ?>">
+				<?php Helper::get_template( 'single/top-actions' ); ?>
 
-			<?php Helper::get_template( 'single/top-actions' ); ?>
+				<div class="directorist-single-wrapper">
 
-			<div class="directorist-single-wrapper">
+					<?php
+					$listing->header_template();
 
-				<?php
-				$listing->header_template();
+					foreach ( $listing->content_data as $section ) {
+						$listing->section_template( $section );
+					}
+					?>
 
-				foreach ( $listing->content_data as $section ) {
-					$listing->section_template( $section );
-				}
-				?>
-				
+				</div>
+
 			</div>
 
+			<?php Helper::get_template( 'single-sidebar' ); ?>
+
 		</div>
-
-		<?php Helper::get_template( 'single-sidebar' ); ?>
-
 	</div>
-
 </div>

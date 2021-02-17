@@ -625,6 +625,13 @@ if (!function_exists('get_directorist_option')) {
         $v = (array_key_exists($name, $options))
             ? $v = $options[sanitize_key($name)]
             : null;
+        
+        $newvalue = apply_filters( 'directorist_option', $v, $name );
+
+        if ( $newvalue != $v ) {
+           return $newvalue;
+        }
+
         // use default only when the value of the $v is NULL
         if (is_null($v)) {
             return $default;

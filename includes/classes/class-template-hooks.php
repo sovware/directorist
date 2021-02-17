@@ -67,7 +67,7 @@ class Directorist_Template_Hooks {
 	}
 
 	public static function single_content( $content ) {
-		$single_template = get_directorist_option( 'single_listing_template' );
+		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
 
 		if ( is_singular( ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() && $single_template != 'directorist_template' ) {
 			$content = Helper::get_template_contents( 'single-contents' );
@@ -86,7 +86,7 @@ class Directorist_Template_Hooks {
 			return;
 		}
 
-		$single_template = get_directorist_option( 'single_listing_template' );
+		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
 
 		if ( $single_template == 'current_theme_template' ) {
 			get_template_part( 'single' );

@@ -813,13 +813,13 @@ class Directorist_Listing_Form {
 		$display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
 
 		if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing', 'localized_data', $args );
-			wp_localize_script( 'directorist-add-listing-openstreet-map-custom-script', 'localized_data', $args );
+			wp_localize_script( 'atbdp-add-listing-public', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-openstreet-map-custom-script-public', 'localized_data', $args );
 		}
 
 		if ( $display_map && 'google' === $args['select_listing_map'] ) {
-			wp_localize_script( 'directorist-add-listing', 'localized_data', $args );
-			wp_localize_script( 'directorist-add-listing-gmap-custom-script', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-public', 'localized_data', $args );
+			wp_localize_script( 'directorist-add-listing-gmap-custom-script-public', 'localized_data', $args );
 		}
 
 		// ATBDP()->enquirer->add_listing_scripts_styles();

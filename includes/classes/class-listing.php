@@ -242,7 +242,7 @@ if (!class_exists('ATBDP_Listing')):
                     // run block content if its available
                     $pre_submit_status = get_post_meta( $post->ID, '_post_status_before_submit', true );
 
-                    if( isset( $_GET['edited'] ) || ( $_GET['edited'] === '1' ) || ( $_GET['edited'] === 'yes' ) ) {
+                    if( isset( $_GET['edited'] ) && ( ( $_GET['edited'] === '1' ) || ( $_GET['edited'] === 'yes' ) ) ) {
                         $confirmation_msg = ( $edit_listing_status === 'publish' && $pre_submit_status === 'publish' )? $publish_msg : $pending_msg;
                     }else{
                         $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 

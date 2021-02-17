@@ -1251,24 +1251,24 @@ class Directorist_Listings {
 		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 
-		wp_enqueue_script('no_script');
-		wp_localize_script( 'no_script', 'atbdp_map', $opt );
-		wp_localize_script( 'no_script', 'atbdp_lat_lon', array(
+		wp_enqueue_script('directorist-no-script');
+		wp_localize_script( 'directorist-no-script', 'atbdp_map', $opt );
+		wp_localize_script( 'directorist-no-script', 'atbdp_lat_lon', array(
 			'lat'=>40.7128,
 			'lon'=>74.0060,
 		));
 
 		$map_card_data = $this->get_osm_map_info_card_data();
-		wp_localize_script( 'leaflet-load-scripts', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		wp_localize_script( 'leaflet-load-scripts', 'listings_data', $map_card_data['listings_data'] );
+		wp_localize_script( 'directorist-openstreet-load-scripts', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
+		wp_localize_script( 'directorist-openstreet-load-scripts', 'listings_data', $map_card_data['listings_data'] );
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 		
-		wp_localize_script( 'leaflet-load-scripts', 'loc_data', [
+		wp_localize_script( 'directorist-openstreet-load-scripts', 'loc_data', [
 			'script_path'  => $script_path
 		]);
-		wp_enqueue_script('leaflet-load-scripts');
+		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {

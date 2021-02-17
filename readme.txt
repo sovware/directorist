@@ -327,11 +327,12 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.6 - Feb 17, 2021 =
+= 6.5.8 - Feb 17, 2021 =
 
-* Add - Subscription management
 * Add - Admin debugger
+* Add - Compatibility with PHP 8
 * Fix - Edited listing status issue
+* Fix - Fix title issue in Astra theme
 * Fix - Image limit issue in add listing
 * Fix - Translation issues
 * Fix - Fix duplicate notice in announcement

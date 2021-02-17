@@ -46,7 +46,7 @@
                 }
 
             } else {
-                $(".listing_submit_btn").removeClass("atbd_loading");
+                $(".directorist-form-submit__btn").removeClass("atbd_loading");
                 err_log.user_profile_avater = { msg: 'Listing gallery has invalid files' };
                 error_count++;
             }

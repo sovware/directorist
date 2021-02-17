@@ -45,9 +45,9 @@ $('#addNewSocial').on('click', function (e) {
                 e.find('.directorist-form-social-fields__remove').attr('data-id', index);
         });
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
-        atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
+        /* atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
                 $s_wrap.after(data);
-        });
+        }); */
 });
 
 // remove the social field and then reset the ids while maintaining position
@@ -384,14 +384,14 @@ $('body').on('submit', formID, function (e) {
         //         has_media = false;
         // }
         if (on_processing) {
-                $('.listing_submit_btn').attr('disabled', true);
+                $('.directorist-form-submit__btn').attr('disabled', true);
                 return;
         }
 
         let form_data = new FormData();
         let field_list = [];
         let field_list2 = [];
-        $('.listing_submit_btn').addClass('atbd_loading');
+        $('.directorist-form-submit__btn').addClass('atbd_loading');
         form_data.append('action', 'add_listing_action');
         const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
         $.each(fieldValuePairs, function (index, fieldValuePair) {
@@ -473,7 +473,7 @@ $('body').on('submit', formID, function (e) {
                                                 }
                                         }
                                 } else {
-                                        $('.listing_submit_btn').removeClass('atbd_loading');
+                                        $('.directorist-form-submit__btn').removeClass('atbd_loading');
                                         err_log.listing_gallery = { msg: uploader.uploaders_data['error_msg'] };
                                         error_count++;
                                         scrollToEl('#' + uploader.uploaders_data['element_id']);
@@ -521,14 +521,14 @@ $('body').on('submit', formID, function (e) {
         form_data.append('plan_id', qs.plan);
         if (error_count) {
                 on_processing = false;
-                $('.listing_submit_btn').attr('disabled', false);
+                $('.directorist-form-submit__btn').attr('disabled', false);
                 console.log('Form has invalid data');
                 console.log(error_count, err_log);
                 return;
         }
 
         // on_processing = true;
-        // $('.listing_submit_btn').attr('disabled', true);
+        // $('.directorist-form-submit__btn').attr('disabled', true);
         $.ajax({
                 method: 'POST',
                 processData: false,
@@ -539,12 +539,12 @@ $('body').on('submit', formID, function (e) {
                         // console.log( response );
                         // return;
                         // show the error notice
-                        $('.listing_submit_btn').attr('disabled', false);
+                        $('.directorist-form-submit__btn').attr('disabled', false);
 
                         var is_pending = response.pending ? '&' : '?';
                         if (response.error === true) {
                                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
-                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                $('.directorist-form-submit__btn').removeClass('atbd_loading');
                                 on_processing = false;
 
                                 if (response.quick_login_required) {
@@ -607,9 +607,9 @@ $('body').on('submit', formID, function (e) {
                 },
                 error(error) {
                         on_processing = false;
-                        $('.listing_submit_btn').attr('disabled', false);
+                        $('.directorist-form-submit__btn').attr('disabled', false);
 
-                        $('.listing_submit_btn').removeClass('atbd_loading');
+                        $('.directorist-form-submit__btn').removeClass('atbd_loading');
                         console.log(error);
                 },
         });

@@ -229,7 +229,7 @@ if (window.outerWidth > 1700) {
 
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
-$('body').on('click', '#addNewSocial', function () {
+/* $('body').on('click', '#addNewSocial', function () {
     const currentItems = $('.directorist-form-social-fields').length;
     const ID = `id=${currentItems}`; // eg. 'id=3'
     const iconBindingElement = jQuery('#addNewSocial');
@@ -243,9 +243,9 @@ $('body').on('click', '#addNewSocial', function () {
     });
     // now add the new elements. we could do it here without using ajax but it would require more markup here.
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-        $s_wrap.append(data);
+        //$s_wrap.append(data);
     });
-});
+}); */
 
 // remove the social field and then reset the ids while maintaining position
 $(document).on('click', '.directorist-form-social-fields__remove', function (e) {

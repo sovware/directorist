@@ -154,3 +154,61 @@
 .directorist-form-map-field__wrapper {
     margin-bottom: 10px;
 }
+
+/* image upload */
+.directorist-form-image-upload-field {
+    .ezmu__btn.ezmu__input-label {
+        background: #222222;
+        color: #fff;
+    }
+
+    .ezmu__info-list-item {
+        margin-right: 15px !important;
+    }
+
+    .ezmu__thumbnail-list-item {
+        width: auto;
+    }
+}
+
+/* form action */
+.directorist-add-listing-form__action {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .directorist-form-submit {
+        margin-top: 15px;
+    }
+}
+
+/* Custom Fields */
+/* select */
+.directorist-custom-field-select {
+    select.directorist-form-element {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* file upload */
+.plupload-upload-uic {
+    width: 420px;
+    margin: 0 auto !important;
+    border: 1px dashed #dbdee9;
+    padding: 30px;
+    text-align: center;
+
+    .directorist-dropbox-title {
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .directorist-dropbox-file-types {
+        margin-top: 10px;
+        color: #9299b8;
+    }
+}

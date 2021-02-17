@@ -235,27 +235,26 @@ if (window.outerWidth > 1700) {
 } // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 
+/* $('body').on('click', '#addNewSocial', function () {
+    const social_wrap = $('#social_info_sortable_container'); // cache it
+    const currentItems = $('.directorist-form-social-fields').length;
+    const ID = `id=${currentItems}`; // eg. 'id=3'
+    const iconBindingElement = jQuery('#addNewSocial');
+    // arrange names ID in order before adding new elements
+    $('.directorist-form-social-fields').each(function (index, element) {
+        const e = $(element);
+        e.attr('id', `socialID-${index}`);
+        e.find('select').attr('name', `social[${index}][id]`);
+        e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
+        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
+    });
+    // now add the new elements. we could do it here without using ajax but it would require more markup here.
+    atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
+        //social_wrap.append(data);
+    });
+}); */
+// remove the social field and then reset the ids while maintaining position
 
-$('body').on('click', '#addNewSocial', function () {
-  var social_wrap = $('#social_info_sortable_container'); // cache it
-
-  var currentItems = $('.directorist-form-social-fields').length;
-  var ID = "id=".concat(currentItems); // eg. 'id=3'
-
-  var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
-
-  $('.directorist-form-social-fields').each(function (index, element) {
-    var e = $(element);
-    e.attr('id', "socialID-".concat(index));
-    e.find('select').attr('name', "social[".concat(index, "][id]"));
-    e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-    e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-  }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
-
-  atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-    social_wrap.append(data);
-  });
-}); // remove the social field and then reset the ids while maintaining position
 
 $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
   var id = $(this).data('id');
@@ -568,25 +567,25 @@ if (window.outerWidth > 1700) {
 } // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 
+/* $('body').on('click', '#addNewSocial', function () {
+    const currentItems = $('.directorist-form-social-fields').length;
+    const ID = `id=${currentItems}`; // eg. 'id=3'
+    const iconBindingElement = jQuery('#addNewSocial');
+    // arrange names ID in order before adding new elements
+    $('.directorist-form-social-fields').each(function (index, element) {
+        const e = $(element);
+        e.attr('id', `socialID-${index}`);
+        e.find('select').attr('name', `social[${index}][id]`);
+        e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
+        e.find('.directorist-form-social-fields__remove').attr('data-id', index);
+    });
+    // now add the new elements. we could do it here without using ajax but it would require more markup here.
+    atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
+        //$s_wrap.append(data);
+    });
+}); */
+// remove the social field and then reset the ids while maintaining position
 
-$('body').on('click', '#addNewSocial', function () {
-  var currentItems = $('.directorist-form-social-fields').length;
-  var ID = "id=".concat(currentItems); // eg. 'id=3'
-
-  var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
-
-  $('.directorist-form-social-fields').each(function (index, element) {
-    var e = $(element);
-    e.attr('id', "socialID-".concat(index));
-    e.find('select').attr('name', "social[".concat(index, "][id]"));
-    e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-    e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-  }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
-
-  atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-    $s_wrap.append(data);
-  });
-}); // remove the social field and then reset the ids while maintaining position
 
 $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
   var id = $(this).data('id');

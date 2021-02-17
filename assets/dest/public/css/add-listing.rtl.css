@@ -98,6 +98,10 @@ a {
   margin-bottom: 15px;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px;
+}
+
 .directorist-mb-40 {
   margin-bottom: 40px;
 }
@@ -1485,4 +1489,68 @@ a {
 
 .directorist-form-map-field__wrapper {
   margin-bottom: 10px;
+}
+
+/* image upload */
+.directorist-form-image-upload-field .ezmu__btn.ezmu__input-label {
+  background: #222222;
+  color: #fff;
+}
+.directorist-form-image-upload-field .ezmu__info-list-item {
+  margin-left: 15px !important;
+}
+.directorist-form-image-upload-field .ezmu__thumbnail-list-item {
+  width: auto;
+}
+
+/* form action */
+.directorist-add-listing-form__action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-add-listing-form__action .directorist-form-submit {
+  margin-top: 15px;
+}
+
+/* Custom Fields */
+/* select */
+.directorist-custom-field-select select.directorist-form-element {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* file upload */
+.plupload-upload-uic {
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+  text-align: center;
+}
+.plupload-upload-uic .directorist-dropbox-title {
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+.plupload-upload-uic .directorist-dropbox-file-types {
+  margin-top: 10px;
+  color: #9299b8;
 }

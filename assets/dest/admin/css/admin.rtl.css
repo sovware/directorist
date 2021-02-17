@@ -4884,6 +4884,10 @@ input.atbdp-form-control {
   margin-bottom: 15px;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px;
+}
+
 .directorist-mb-40 {
   margin-bottom: 40px;
 }
@@ -4900,7 +4904,8 @@ input.atbdp-form-control {
 .directorist-form-group {
   position: relative;
 }
-.directorist-form-group textarea {
+.directorist-form-group textarea,
+.directorist-form-group textarea.directorist-form-element {
   min-height: 120px;
 }
 
@@ -5656,6 +5661,10 @@ a {
 
 .directorist-mb-15 {
   margin-bottom: 15px;
+}
+
+.directorist-mb-10 {
+  margin-bottom: 10px;
 }
 
 .directorist-mb-40 {
@@ -7272,6 +7281,10 @@ a {
 
 .directorist-mb-15 {
   margin-bottom: 15px;
+}
+
+.directorist-mb-10 {
+  margin-bottom: 10px;
 }
 
 .directorist-mb-40 {

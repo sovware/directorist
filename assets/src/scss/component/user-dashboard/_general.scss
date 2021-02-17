@@ -210,6 +210,10 @@
                     }
                 }
 
+                &.directorist-table-category {
+                    min-width: 180px;
+                }
+
                 &.directorist-table-ex-date {
                     min-width: 250px;
 
@@ -519,6 +523,7 @@
     .directorist_dashboard_category{
         ul{
             flex-direction: column;
+            align-items: flex-start;
             li{
                 &:not(:last-child){
                     margin-right: 0px;
@@ -528,7 +533,7 @@
                 span.fas,
                 span.fa,
                 span.la{
-                    font-size: 14px;
+                    font-size: 15px;
                     margin-right: 4px;
                 }
                 a{

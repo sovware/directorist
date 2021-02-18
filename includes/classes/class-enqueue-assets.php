@@ -537,7 +537,6 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts = array_merge( $this->css_scripts, $scripts);
@@ -630,7 +629,6 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public',                 // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);

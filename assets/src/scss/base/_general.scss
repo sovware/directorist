@@ -1,4 +1,5 @@
 @import '../mixins/general';
+
 // Common Classes
 .directorist-flex {
     display: flex;
@@ -71,23 +72,31 @@
 }
 
 // General Style
-.directorist-content-active{
-    a{
+.directorist-content-active {
+    a {
         text-decoration: none;
     }
-    p{
+
+    p {
         font-size: 15px;
         color: #7a82a6;
         line-height: 24px;
     }
-    .primary-menu > li{
+
+    .primary-menu>li {
         margin: 0.8rem 0 0 1.6rem;
-        @media (min-width: 1220px){
+
+        @media (min-width: 1220px) {
             margin: 0.8rem 0 0 2.5rem;
         }
     }
 }
 
-#directorist-dashboard-preloader{
+#directorist-dashboard-preloader {
     display: none;
+}
+
+/* form required */
+.directorist-form-required {
+    color: red !important;
 }

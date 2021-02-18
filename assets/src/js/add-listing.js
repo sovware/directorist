@@ -174,17 +174,19 @@ $('#at_biz_dir-categories').select2({
 $('#price_range').hide();
 const is_checked = $('#atbd_listing_pricing').val();
 if (is_checked === 'range') {
-        $('#price').hide();
-        $('#price_range').show();
+    $('#price').hide();
+    $('#price_range').show();
 }
-$('.atbd_pricing_options label').on('click', function () {
-        const $this = $(this);
-        $this.children('input[type=checkbox]').prop('checked') == true
-                ? $(`#${$this.data('option')}`).show()
-                : $(`#${$this.data('option')}`).hide();
-        const $sibling = $this.siblings('label');
-        $sibling.children('input[type=checkbox]').prop('checked', false);
-        $(`#${$sibling.data('option')}`).hide();
+$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
+    const $this = $(this);
+    if($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true){
+        $(`#${$this.data('option')}`).hide();
+    }else{
+        $(`#${$this.data('option')}`).show();
+    }
+    const $sibling = $this.parent().siblings('.directorist-checkbox');
+    $sibling.children('input[type=checkbox]').prop('checked', false);
+    $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
 });
 
 const has_tagline = $('#has_tagline').val();

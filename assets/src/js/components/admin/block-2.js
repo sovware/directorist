@@ -17,7 +17,7 @@ $('#atbd_optional_field_check').on('change', function () {
 });
 
 // price range
-$('#price_range').hide();
+/* $('#price_range').hide();
 const is_checked = $('#atbd_listing_pricing').val();
 if (is_checked === 'range') {
     $('#price').hide();
@@ -33,7 +33,7 @@ $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('c
     const $sibling = $this.parent().siblings('.directorist-checkbox');
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
-});
+}); */
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categorychecklist').on('change', function (event) {

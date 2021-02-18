@@ -3698,6 +3698,24 @@ input.atbdp-form-control {
   min-width: 100px;
 }
 
+.directorist-become-author-modal span.directorist-become-author__loader {
+  border: 2px solid #000;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-radius: 50%;
+  border-right: 2px solid #fff;
+  -webkit-animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.directorist-become-author-modal span.directorist-become-author__loader.active {
+  visibility: visible;
+  opacity: 1;
+}
+
 #directorist-become-author-success {
   color: #388E3C !important;
   margin-bottom: 15px !important;

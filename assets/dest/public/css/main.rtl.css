@@ -7244,6 +7244,22 @@ p.atbd-min {
   padding: 8px 0 !important;
   border-radius: 3px;
 }
+.directorist-become-author-modal span.directorist-become-author__loader {
+  border: 2px solid #000;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-radius: 50%;
+  border-left: 2px solid #fff;
+  -webkit-animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  visibility: hidden;
+  opacity: 0;
+}
+.directorist-become-author-modal span.directorist-become-author__loader.active {
+  visibility: visible;
+  opacity: 1;
+}
 
 #directorist-become-author-success {
   color: #388E3C !important;

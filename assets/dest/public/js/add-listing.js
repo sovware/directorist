@@ -496,8 +496,6 @@ var formID = $('#directorist-add-listing-form');
 var on_processing = false;
 var has_media = true;
 $('body').on('submit', formID, function (e) {
-
-  if( localized_data.is_admin ) return;
   e.preventDefault();
   var error_count = 0;
   var err_log = {}; // if ($('#atbdp_front_media_wrap:visible').length == 0) {

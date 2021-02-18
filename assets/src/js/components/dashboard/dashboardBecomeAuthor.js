@@ -21,7 +21,7 @@
 
         // Send the data
         $.post(atbdp_public_data.ajaxurl, data, function (response) {
-            console.log(response);
+            $('.directorist-become-author__loader').addClass('active');
             $('#directorist-become-author-success').html(response);
             $('.directorist-become-author').hide();
             $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");

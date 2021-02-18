@@ -701,6 +701,23 @@
         top: -10px;
       } */
     }
+
+    span.directorist-become-author__loader {
+        border: 2px solid #000;
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        border-radius: 50%;
+        border-right: 2px solid #fff;
+        animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        visibility: hidden;
+        opacity: 0;
+
+        &.active {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
 }
 
 #directorist-become-author-success {

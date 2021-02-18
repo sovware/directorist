@@ -41,18 +41,20 @@
     font-size: 14px;
     font-weight: 500;
 }
-.update-message.notice{
+
+/* Update Notice Style  */
+#directorist-update .update-message.notice{
     border-color: #E3E6EF;
     border-left-color: #FFB900;
 }
-.update-message >p{
+#directorist-update .update-message >p{
     margin-top: 15px !important;
 }
-.update-message >p:before{
+#directorist-update .update-message >p:before{
     position: relative;
     top: -6px;
 }
-.update-message .update-link{
+#directorist-update .update-message .update-link{
     display: inline-block;
     text-decoration: none !important;
     text-transform: capitalize;
@@ -65,38 +67,37 @@
     padding: 0 16px;
     border-radius: 4px;
 }
-.directorist-admin-notice-content{
+#directorist-update .directorist-admin-notice-content{
     padding-left: 25px;
 }
-.directorist-admin-notice-content .directorist-highlighted-text{
+#directorist-update .directorist-admin-notice-content .directorist-highlighted-text{
     font-size: 14px;
     font-weight: 400;
     color: #272B41;
     font-weight: 500;
 }
-.directorist-admin-notice-content .directorist-highlighted-text strong{
+#directorist-update .directorist-admin-notice-content .directorist-highlighted-text strong{
     color: #FF272A;
 }
-.directorist-admin-notice-content + p{
+#directorist-update .directorist-admin-notice-content + p{
     display: none;
 }
-.directorist-admin-notice-content .directorist-update-label{
+#directorist-update .directorist-admin-notice-content .directorist-update-label{
     font-size: 14px;
     margin-top: 14px !important;
 }
-.directorist-admin-notice-content .directorist-update-list{
+#directorist-update .directorist-admin-notice-content .directorist-update-list{
     margin-top: 4px;
     margin-bottom: 25px;
 }
-.directorist-admin-notice-content .directorist-update-list li{
+#directorist-update .directorist-admin-notice-content .directorist-update-list li{
     position: relative;
     padding-left: 16px;
     font-size: 14px;
     font-weight: 400;
     color: #272B41;
 }
-
-.directorist-admin-notice-content .directorist-update-list li:after{
+#directorist-update .directorist-admin-notice-content .directorist-update-list li:after{
     position: absolute;
     left: 0;
     top: 7px;

@@ -870,26 +870,6 @@ templateResult: selecWithIcon,
                 $('#atbdp-custom-fields-list-selected').hide();
         });
 
-        var length = $('#at_biz_dir-categorychecklist input:checked');
-        if (length) {
-                $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
-
-                var length = $('#at_biz_dir-categorychecklist input:checked');
-                const id = [];
-                length.each((el, index) => {
-                        id.push($(index).val());
-                });
-                const data = {
-                        action: 'atbdp_custom_fields_listings_selected',
-                        post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-                        term_id: id,
-                };
-
-                $.post(ajaxurl, data, function(response) {
-                        $('#atbdp-custom-fields-list-selected').html(response);
-                });
-        }
-
         const avg_review = $('#average_review_for_popular').hide();
         const logged_count = $('#views_for_popular').hide();
         if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {

@@ -482,7 +482,6 @@ if (flatWrapper != null && fAvailableTime != null) {
     e.preventDefault();
     $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
   });
-  a;
   $('.directorist-become-author-modal__approve').on('click', function (e) {
     e.preventDefault();
     var userId = $(this).attr('data-userId');
@@ -1755,15 +1754,11 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
-
-(function ($) {
-  // Plasma Slider Initialization 
-  var single_listing_slider = new PlasmaSlider({
-    containerID: "single-listing-slider"
-  });
-  single_listing_slider.init();
-})(jQuery);
+// Plasma Slider Initialization 
+var single_listing_slider = new PlasmaSlider({
+  containerID: "directorist-single-listing-slider"
+});
+single_listing_slider.init();
 
 /***/ }),
 

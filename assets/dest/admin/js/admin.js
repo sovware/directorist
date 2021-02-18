@@ -380,27 +380,24 @@ $('#atbd_optional_field_check').on('change', function () {
   $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
 }); // price range
 
-$('#price_range').hide();
-var is_checked = $('#atbd_listing_pricing').val();
-
+/* $('#price_range').hide();
+const is_checked = $('#atbd_listing_pricing').val();
 if (is_checked === 'range') {
-  $('#price').hide();
-  $('#price_range').show();
+    $('#price').hide();
+    $('#price_range').show();
 }
-
 $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-  var $this = $(this);
-
-  if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
-    $("#".concat($this.data('option'))).hide();
-  } else {
-    $("#".concat($this.data('option'))).show();
-  }
-
-  var $sibling = $this.parent().siblings('.directorist-checkbox');
-  $sibling.children('input[type=checkbox]').prop('checked', false);
-  $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
-}); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+    const $this = $(this);
+    if($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true){
+        $(`#${$this.data('option')}`).hide();
+    }else{
+        $(`#${$this.data('option')}`).show();
+    }
+    const $sibling = $this.parent().siblings('.directorist-checkbox');
+    $sibling.children('input[type=checkbox]').prop('checked', false);
+    $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
+}); */
+// Load custom fields of the selected category in the custom post type "atbdp_listings"
 
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
   var length = $('#at_biz_dir-categorychecklist input:checked');

@@ -4857,6 +4857,11 @@ input.atbdp-form-control {
   display: none;
 }
 
+/* form required */
+.directorist-form-required {
+  color: red !important;
+}
+
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5792,6 +5797,11 @@ a {
 
 #directorist-dashboard-preloader {
   display: none;
+}
+
+/* form required */
+.directorist-form-required {
+  color: red !important;
 }
 
 /* Directorist custom grid */
@@ -7413,6 +7423,11 @@ a {
 
 #directorist-dashboard-preloader {
   display: none;
+}
+
+/* form required */
+.directorist-form-required {
+  color: red !important;
 }
 
 /* Directorist custom grid */

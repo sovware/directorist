@@ -278,12 +278,18 @@ if (is_checked === 'range') {
   $('#price_range').show();
 }
 
-$('.atbd_pricing_options label').on('click', function () {
+$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
   var $this = $(this);
-  $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
-  var $sibling = $this.siblings('label');
+
+  if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
+    $("#".concat($this.data('option'))).hide();
+  } else {
+    $("#".concat($this.data('option'))).show();
+  }
+
+  var $sibling = $this.parent().siblings('.directorist-checkbox');
   $sibling.children('input[type=checkbox]').prop('checked', false);
-  $("#".concat($sibling.data('option'))).hide();
+  $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
 });
 var has_tagline = $('#has_tagline').val();
 var has_excerpt = $('#has_excerpt').val();

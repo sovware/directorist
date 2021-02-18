@@ -223,6 +223,11 @@ a {
   display: none;
 }
 
+/* form required */
+.directorist-form-required {
+  color: red !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -2116,7 +2121,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-content-active .widget.atbd_widget .atbd_widget_title h4 {
   margin: 0 !important;
   font-size: 18px;
-  font-weight: 400 !important;
+  font-weight: 400;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2578,7 +2583,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
   color: #fff;
   margin-top: 20px;
-  background: #444752 !important;
+  background: #444752;
   display: inline-block;
   font-weight: 400;
   text-align: center;

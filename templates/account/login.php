@@ -106,26 +106,27 @@ use \Directorist\Helper;
                                     <input type="password" id="password" autocomplete="off" name="password" class="directorist-form-element">
                                 </div>
 
-                                <div class="directorist-form-group atbd_login_btn_wrapper">
-                                    <input class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo $log_button; ?>" name="submit" />
+                                <div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15">
+                                    <button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo $log_button; ?>" name="submit" /><?php echo $log_button; ?></button>
                                     <?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
                                 </div>
                                 <p class="status"></p>
 
-                                <div class="keep_signed">
+                                <div class="keep_signed directorist-checkbox directorist-mb-15">
                                     <?php
                                         if ( $display_rememberMe ) {
                                             ?>
-                                        <label for="keep_signed_in" class="not_empty">
-                                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>                                                                                                                                <?php echo $log_rememberMe; ?><span class="cf-select"></span>
+                                        <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
+                                        <label for="keep_signed_in" class="directorist-checkbox__label not_empty">
+                                            <?php echo $log_rememberMe; ?>
                                         </label>
-                                    <?php
+                                </div>
+                                <?php
                                         }
                                             if ( $display_recpass ) {
                                                 printf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . __( $recpass_text, 'directorist' ) . '</a>' );
                                             }
                                         ?>
-                                </div>
                             </form>
 
                             <div class="atbd_social_login">
@@ -195,16 +196,16 @@ use \Directorist\Helper;
                                         }
 
                                 }?>
-                            <div id="recover-pass-modal">
+                            <div id="recover-pass-modal" class="directorist-mt-15">
                                 <form method="post">
-                                    <fieldset>
+                                    <fieldset class="directorist-form-group">
                                         <p><?php printf( __( '%s', 'directorist' ), $recpass_desc );?></p>
                                         <label for="reset_user_login"><?php printf( __( '%s', 'directorist' ), $recpass_username );?></label>
                                         <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';?>
-                                        <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>" />
+                                        <input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>" />
                                         <p>
                                             <input type="hidden" name="action" value="reset" />
-                                            <button type="submit" class="btn btn-primary" id="submit"><?php printf( __( '%s', 'directorist' ), $recpass_button );?></button>
+                                            <button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php printf( __( '%s', 'directorist' ), $recpass_button );?></button>
                                         </p>
                                     </fieldset>
                                 </form>

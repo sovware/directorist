@@ -1170,10 +1170,6 @@ body.stop-scrolling {
   font-weight: 500;
 }
 
-.directorist-form-required {
-  color: red;
-}
-
 /* listing type */
 .directorist-form-listing-type__title {
   margin-bottom: 15px;

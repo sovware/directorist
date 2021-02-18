@@ -7546,6 +7546,21 @@ p.atbd-min {
   margin: 0;
 }
 
+.directorist-payment-gateways {
+  background: #fff;
+}
+
+.directorist-payment-action {
+  text-align: left;
+}
+
+.atbd_payment_recipt .atbd_payment_summary {
+  text-align: center;
+  font-size: 18px;
+  color: #202428;
+  margin-bottom: 20px;
+}
+
 .ads-advanced .bottom-inputs {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;

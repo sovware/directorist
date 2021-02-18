@@ -12,16 +12,16 @@
     <?php } ?>
 
     <?php if ( 'general' == $user_type && ! empty( $become_author_button) ) { ?>
-        <a href="" class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?> atbdp-become-author"><?php echo $become_author_button_text; ?></a>
-        <p id='atbdp-become-author-success'></p>
+        <a href="" class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?> directorist-become-author"><?php echo $become_author_button_text; ?></a>
+        <p id='directorist-become-author-success'></p>
 
-        <div class="become-author-modal">
-            <div class="become-author-modal__content">
-                <!-- <a href="" class="become-author-modal__close">x</a> -->
+        <div class="directorist-become-author-modal">
+            <div class="directorist-become-author-modal__content">
+                <!-- <a href="" class="directorist-become-author-modal__close">x</a> -->
                 <h3>Are you sure?</h3>
                 <p>
-                    <a href="#" class="become-author-modal__cancel">Cancel</a>
-                    <a href="#" class="become-author-modal__approve" data-nonce="<?php echo wp_create_nonce('atbdp_become_author') ?>" data-userId='<?php echo get_current_user_id(); ?>'>Yes</a>
+                    <a href="#" class="directorist-become-author-modal__cancel">Cancel</a>
+                    <a href="#" class="directorist-become-author-modal__approve" data-nonce="<?php echo wp_create_nonce('atbdp_become_author') ?>" data-userId='<?php echo get_current_user_id(); ?>'>Yes</a>
                 </p>
             </div>
         </div>

@@ -4,24 +4,25 @@
  * @since   6.6
  * @version 6.6
  */
+use \Directorist\Helper;
 ?>
-<div id="directorist" class="atbd_wrapper">
-	<?php 
+<div id="directorist" class="atbd_wrapper directorist-w-100">
+	<?php
 	/**
 	 * @since 5.6.6
 	 */
 	do_action( 'atbdp_before_all_categories_loop', $taxonomy );
 	?>
-	<div class="<?php echo esc_attr( $grid_container ); ?>">
-		<div class="col-md-12">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
+		<div class="<?php Helper::directorist_column(12); ?>">
 			<div class="atbd_all_categories atbdp-no-margin">
-				<div class="row">
+				<div class="<?php Helper::directorist_row(); ?>">
 					<?php
 					if( $categories ) {
 						foreach ($categories as $category) {
 							$cat_class = !$category['img'] ? ' atbd_category_no_image' : '';
 							?>
-							<div class="<?php echo esc_attr( $grid_col_class ); ?>">
+							<div class="<?php Helper::directorist_column(['md-3','sm-4']); ?>">
 								<a class="atbd_category_single<?php echo esc_attr( $cat_class ); ?>" href="<?php echo esc_url($category['permalink']); ?>">
 									<figure>
 										<?php if ( $category['img'] ) { ?>
@@ -32,7 +33,7 @@
 										<figcaption class="overlay-bg">
 											<div class="cat-box">
 												<div>
-													<?php 
+													<?php
 													if ($category['has_icon']) { ?>
 														<div class="icon"><span class="<?php echo esc_attr($category['icon_class']);?>"></span></div>
 														<?php
@@ -61,7 +62,7 @@
 		</div>
 	</div>
 
-	<?php 
+	<?php
     /**
      * @since 5.6.6
      */

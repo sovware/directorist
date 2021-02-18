@@ -3613,7 +3613,7 @@ input.atbdp-form-control {
 }
 
 /* become author modal */
-.become-author-modal {
+.directorist-become-author-modal {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -3635,19 +3635,19 @@ input.atbdp-form-control {
   pointer-events: none;
 }
 
-.become-author-modal.become-author-modal__show {
+.directorist-become-author-modal.directorist-become-author-modal__show {
   visibility: visible;
   opacity: 1;
   pointer-events: all;
 }
 
-.become-author-modal .become-author-modal__content {
+.directorist-become-author-modal .directorist-become-author-modal__content {
   background: #fff;
   border-radius: 5px;
-  padding: 15px 30px;
+  padding: 20px 30px 15px;
   text-align: center;
   position: relative;
-  /* .become-author-modal__close {
+  /* .directorist-become-author-modal__close {
       width: 30px !important;
       height: 30px !important;
       background-color: #ddd;
@@ -3661,7 +3661,7 @@ input.atbdp-form-control {
     } */
 }
 
-.become-author-modal .become-author-modal__content p {
+.directorist-become-author-modal .directorist-become-author-modal__content p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3673,26 +3673,32 @@ input.atbdp-form-control {
           justify-content: center;
 }
 
-.become-author-modal .become-author-modal__content .become-author-modal__approve {
+.directorist-become-author-modal .directorist-become-author-modal__content h3 {
+  font-size: 20px;
+}
+
+.directorist-become-author-modal .directorist-become-author-modal__content .directorist-become-author-modal__approve {
   background: #3e62f5;
   display: inline-block;
   color: #fff;
   text-align: center;
   margin: 10px 5px 0 5px;
+  min-width: 100px;
 }
 
-.become-author-modal .become-author-modal__content .become-author-modal__approve:focus {
+.directorist-become-author-modal .directorist-become-author-modal__content .directorist-become-author-modal__approve:focus {
   background: #3e62f5 !important;
 }
 
-.become-author-modal .become-author-modal__content .become-author-modal__cancel {
+.directorist-become-author-modal .directorist-become-author-modal__content .directorist-become-author-modal__cancel {
   background: #eee;
   display: inline-block;
   text-align: center;
   margin: 10px 5px 0 5px;
+  min-width: 100px;
 }
 
-#atbdp-become-author-success {
+#directorist-become-author-success {
   color: #388E3C !important;
   margin-bottom: 15px !important;
 }

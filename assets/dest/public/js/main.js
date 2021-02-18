@@ -1745,15 +1745,11 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
-
-(function ($) {
-  // Plasma Slider Initialization 
-  var single_listing_slider = new PlasmaSlider({
-    containerID: "single-listing-slider"
-  });
-  single_listing_slider.init();
-})(jQuery);
+// Plasma Slider Initialization 
+var single_listing_slider = new PlasmaSlider({
+  containerID: "directorist-single-listing-slider"
+});
+single_listing_slider.init();
 
 /***/ }),
 

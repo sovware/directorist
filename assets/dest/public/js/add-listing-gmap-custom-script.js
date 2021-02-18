@@ -86,16 +86,63 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/*! exports provided: get_dom_data */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
+function get_dom_data(key) {
+  var dom_content = document.body.innerHTML;
+
+  if (!dom_content.length) {
+    return '';
+  }
+
+  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
+  var terget_content = pattern.exec(dom_content);
+
+  if (!terget_content) {
+    return '';
+  }
+
+  if (typeof terget_content[2] === 'undefined') {
+    return '';
+  }
+
+  var dom_data = JSON.parse(terget_content[2]);
+
+  if (!dom_data) {
+    return '';
+  }
+
+  return dom_data;
+}
+
+
+
+/***/ }),
+
 /***/ "./assets/src/js/map-custom-scripts/add-listing/google-map.js":
 /*!********************************************************************!*\
   !*** ./assets/src/js/map-custom-scripts/add-listing/google-map.js ***!
   \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helper */ "./assets/src/js/lib/helper.js");
+
 
 (function ($) {
   $(document).ready(function () {
-    // initialize all vars here to avoid hoisting related misunderstanding.
+    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // initialize all vars here to avoid hoisting related misunderstanding.
+
     var placeSearch;
     var map;
     var autocomplete;

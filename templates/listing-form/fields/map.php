@@ -17,6 +17,9 @@ $default_longitude  = get_directorist_option( 'default_longitude', '-74.0059728'
 $latitude           = !empty( $manual_lat ) ? $manual_lat : $default_latitude;
 $longitude          = !empty( $manual_lng ) ? $manual_lng : $default_longitude;
 $hide_map           = !empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true : false;
+
+$map_data = $listing_form->get_map_data();
+Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 ?>
 
 <div class="directorist-form-group directorist-form-map-field">

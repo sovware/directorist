@@ -231,6 +231,9 @@ $('#at_biz_dir-categories').on('change', function () {
         $.post(localized_data.ajaxurl, data, function (response) {
 
                 if (response) {
+
+
+
                         $('.atbdp_category_custom_fields').empty().append(response);
                         function atbdp_tooltip() {
                                 var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
@@ -253,6 +256,8 @@ $('#at_biz_dir-categories').on('change', function () {
         });
 });
 
+
+let test_data = null;
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $(document).ready(function () {

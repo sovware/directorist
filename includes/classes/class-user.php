@@ -37,9 +37,10 @@ class ATBDP_User {
         } elseif( 'general' == $get_user_type ) {
             $user_type = __( 'User', 'directorist' );
         } elseif( 'become_author' == $get_user_type ) {
-            $author_pending = __( "Author ( Pending )"); 
-            $approve        = "<a href='' id='atbdp-user-type-approve' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>Approve </span></a>";
-            $deny           = "<a href='' id='atbdp-user-type-deny' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>Deny</span></a>";
+            $author_pending = __( "<p>Author <span style='color:red;'>( Pending )</span></p>");
+            $approve        = "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>Approve </span></a>
+            | ";
+            $deny           = "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>Deny</span></a>";
             $user_type      = "<div class='atbdp-user-type' id='user-type-". $user_id ."'>" .$author_pending . $approve . $deny . "</div>";
         }
 
@@ -473,7 +474,7 @@ class ATBDP_User {
         update_user_meta( $ID, 'first_name', $first_name );
         update_user_meta( $ID, 'last_name', $last_name );
         update_user_meta( $ID, 'atbdp_phone', $phone );
-        
+
         if (!empty($new_pass || $confirm_pass)){
             // password will be updated here
             if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){

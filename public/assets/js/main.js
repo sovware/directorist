@@ -1171,6 +1171,14 @@
     // Dashboard become an author
     $('.atbdp-become-author').on('click', function(e){
         e.preventDefault();
+        $(".become-author-modal").addClass("become-author-modal__show");
+    });
+    $('.become-author-modal__cancel').on('click', function(e){
+        e.preventDefault();
+        $(".become-author-modal").removeClass("become-author-modal__show");
+    });
+    $('.become-author-modal__approve').on('click', function(e){
+        e.preventDefault();
         var userId = $(this).attr('data-userId');
         var nonce = $(this).attr('data-nonce');
         var data = {
@@ -1184,6 +1192,7 @@
             console.log(response);
             $('#atbdp-become-author-success').html(response);
             $('.atbdp-become-author').hide();
+            $(".become-author-modal").removeClass("become-author-modal__show");
         });
     });
 

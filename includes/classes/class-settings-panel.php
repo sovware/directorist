@@ -1961,7 +1961,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'single_listing_template' => [
                     'label' => __('Template', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'theme_template_page',
+                    'value' => 'directorist_template',
                     'show-if' => [
                         'where' => "disable_single_listing",
                         'conditions' => [

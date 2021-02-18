@@ -343,7 +343,8 @@ $('#at_biz_dir-categories').on('change', function () {
       $('.atbdp_category_custom_fields').empty();
     }
   });
-}); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+});
+var test_data = null; // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
 $(document).ready(function () {
   var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();

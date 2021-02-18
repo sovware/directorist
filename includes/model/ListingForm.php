@@ -767,6 +767,30 @@ class Directorist_Listing_Form {
 		return $form_data;
 	}
 
+	public function get_map_data() {
+		$p_id = $this->get_add_listing_id();
+
+		$data = array(
+			'p_id'               => $p_id,
+			'listing_form'       => $this,
+			'listing_info'       => $this->get_listing_info(),
+			'select_listing_map' => get_directorist_option( 'select_listing_map', 'google' ),
+			'display_map_for'    => get_directorist_option( 'display_map_for', 0 ),
+			'display_map_field'  => get_directorist_option( 'display_map_field', 1 ),
+			'manual_lat'         => get_post_meta( $p_id, '_manual_lat', true ),
+			'manual_lng'         => get_post_meta( $p_id, '_manual_lng', true ),
+			'default_latitude'   => get_directorist_option( 'default_latitude', '40.7127753' ),
+			'default_longitude'  => get_directorist_option( 'default_longitude', '-74.0059728' ),
+			'info_content'       => $this->get_map_info_content(),
+			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
+			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
+			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
+			'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
+		);
+
+		return $data;
+	}
+
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
@@ -792,37 +816,7 @@ class Directorist_Listing_Form {
 			}
 		}
 
-		$args = array(
-			'p_id'               => $p_id,
-			'listing_form'       => $this,
-			'listing_info'       => $this->get_listing_info(),
-			'select_listing_map' => get_directorist_option( 'select_listing_map', 'google' ),
-			'display_map_for'    => get_directorist_option( 'display_map_for', 0 ),
-			'display_map_field'  => get_directorist_option( 'display_map_field', 1 ),
-			'manual_lat'         => get_post_meta( $p_id, '_manual_lat', true ),
-			'manual_lng'         => get_post_meta( $p_id, '_manual_lng', true ),
-			'default_latitude'   => get_directorist_option( 'default_latitude', '40.7127753' ),
-			'default_longitude'  => get_directorist_option( 'default_longitude', '-74.0059728' ),
-			'info_content'       => $this->get_map_info_content(),
-			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
-			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
-			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
-			'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
-		);
-
-		$display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
-
-		if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
-			wp_localize_script( 'atbdp-add-listing-public', 'localized_data', $args );
-			wp_localize_script( 'directorist-add-listing-openstreet-map-custom-script-public', 'localized_data', $args );
-		}
-
-		if ( $display_map && 'google' === $args['select_listing_map'] ) {
-			wp_localize_script( 'directorist-add-listing-public', 'localized_data', $args );
-			wp_localize_script( 'directorist-add-listing-gmap-custom-script-public', 'localized_data', $args );
-		}
-
-		// ATBDP()->enquirer->add_listing_scripts_styles();
+		$args = $this->get_map_data();
 
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );

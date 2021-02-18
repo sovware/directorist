@@ -240,5 +240,15 @@ class Helper {
 	public static function featured_badge_text() {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
+
+	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
+
+		if ( empty( $data ) ) { return; }
+		
+		$value = json_encode( $data );
+		?>
+		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<?php
+	}
 	
 }

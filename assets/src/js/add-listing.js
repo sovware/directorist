@@ -382,6 +382,7 @@ let on_processing = false;
 let has_media = true;
 
 $('body').on('submit', formID, function (e) {
+        if( localized_data.is_admin ) return;
         e.preventDefault();
         let error_count = 0;
         const err_log = {};

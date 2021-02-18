@@ -1,7 +1,7 @@
 // Report Modal
-.directorist-report-abuse-modal{
-    .directorist-modal__header{
-        .directorist-modal-title{
+.directorist-report-abuse-modal {
+    .directorist-modal__header {
+        .directorist-modal-title {
             font-size: 1.75rem;
             margin: 0;
             margin-bottom: 0.5rem;
@@ -10,7 +10,8 @@
             color: #272b41;
             letter-spacing: normal;
         }
-        .directorist-modal-close{
+
+        .directorist-modal-close {
             width: 32px;
             height: 32px;
             right: -30px !important;
@@ -36,49 +37,59 @@
             text-decoration: none;
         }
     }
-    .directorist-modal__body{
-        padding: 20px 15px;
-        label{
-            font-size: 1.6rem;
+
+    .directorist-modal__body {
+        padding: 20px 0 !important;
+
+        label {
+            font-size: 18px;
             margin-bottom: 12px;
             text-align: left;
+            display: block;
         }
-        textarea{
+
+        textarea {
             min-height: 90px;
         }
     }
-    .directorist-modal__footer{
+
+    .directorist-modal__footer {
         display: flex;
         justify-content: flex-end;
-        .directorist-btn{
+
+        .directorist-btn {
             text-transform: capitalize;
             padding: 0 15px;
         }
     }
-    .directorist-modal__content{
+
+    .directorist-modal__content {
         padding: 20px 30px 20px;
-        #directorist-report-abuse-form{
-            padding: 20px;
-            text-align: center;
+
+        #directorist-report-abuse-form {
+            text-align: left;
         }
     }
 }
 
 // Directorist Rated Stars
 .directorist-rated-stars,
-.atbd_rated_stars{
-    ul{
-        li{
+.atbd_rated_stars {
+    ul {
+        li {
             display: inline-block;
-            span{
+
+            span {
                 color: #d4d3f3;
-                &:before{
+
+                &:before {
                     content: "\f005";
                     font-size: 14px;
                     font-family: 'Font Awesome 5 Free';
                     font-weight: 900;
                 }
-                &.directorist-rate-active{
+
+                &.directorist-rate-active {
                     color: #fa8b0c;
                 }
             }

@@ -994,24 +994,6 @@ $('#at_biz_dir-categorychecklist').on('change', function (event) {
   });
   $('#atbdp-custom-fields-list-selected').hide();
 });
-var length = $('#at_biz_dir-categorychecklist input:checked');
-
-if (length) {
-  $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
-  var length = $('#at_biz_dir-categorychecklist input:checked');
-  var id = [];
-  length.each(function (el, index) {
-    id.push($(index).val());
-  });
-  var data = {
-    action: 'atbdp_custom_fields_listings_selected',
-    post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-    term_id: id
-  };
-  $.post(ajaxurl, data, function (response) {
-    $('#atbdp-custom-fields-list-selected').html(response);
-  });
-}
 
 var avg_review = $('#average_review_for_popular').hide();
 var logged_count = $('#views_for_popular').hide();

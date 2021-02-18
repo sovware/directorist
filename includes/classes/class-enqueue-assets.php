@@ -405,7 +405,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'has_min'   => false,
             'ver'       => $this->script_version,
-            'group'     => 'admin', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
             'section'   => '',
         ];
 

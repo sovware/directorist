@@ -473,7 +473,8 @@ if (flatWrapper != null && fAvailableTime != null) {
 ;
 
 (function ($) {
-  // Dashboard become an author
+  alert('dsfds'); // Dashboard become an author
+
   $('.atbdp-become-author').on('click', function (e) {
     e.preventDefault();
     var userId = $(this).attr('data-userId');

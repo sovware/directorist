@@ -3210,10 +3210,6 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     pureScriptSelect('#directorist-search-select-js');
   }
 
-  setTimeout(function () {
-    pureScriptSelect('#akanda');
-    alert('sdf');
-  }, 5000);
   window.addEventListener('load', function (event) {
     if ($('#directorist-select-st-s-js').length) {
       pureScriptSelect('#directorist-select-st-s-js');

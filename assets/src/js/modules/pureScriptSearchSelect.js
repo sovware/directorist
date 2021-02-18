@@ -19,6 +19,7 @@ const pureScriptSelect = (selector) => {
     let defaultValues = {
         [document.querySelector(selector).getAttribute('id')]: eval(document.querySelector(selector).getAttribute('data-multiSelect'))
     };
+
     let isMax = {
         [document.querySelector(selector).getAttribute('id')]: eval(document.querySelector(selector).getAttribute('data-max'))
     };
@@ -381,13 +382,6 @@ const pureScriptSelect = (selector) => {
     if($('#directorist-search-select-js').length){
         pureScriptSelect('#directorist-search-select-js');
     }
-
-        setTimeout(() => {
-            pureScriptSelect('#akanda');
-            alert('sdf')
-        }, 5000);
-
-
 
     window.addEventListener('load', (event) => {
         if($('#directorist-select-st-s-js').length){

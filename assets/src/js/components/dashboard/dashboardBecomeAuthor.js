@@ -1,5 +1,4 @@
 ;(function ($) {
-
     // Dashboard become an author
 $('.atbdp-become-author').on('click', function(e){
     e.preventDefault();

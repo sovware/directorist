@@ -164,6 +164,11 @@
     display: none !important;
 }
 
+.directorist-select-item-show {
+    background-color: #efefef;
+    border-radius: 3px;
+}
+
 .items {
     display: inline-block;
     background: #ddd;
@@ -269,6 +274,7 @@
                         font-size: 14px;
                         padding: 5px 10px;
                         cursor: pointer;
+                        transition: 0.3s ease;
 
                         &.showListItem {
                             background-color: #F4F5F7;

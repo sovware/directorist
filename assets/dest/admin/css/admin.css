@@ -7081,6 +7081,11 @@ a {
   display: none !important;
 }
 
+.directorist-select-item-show {
+  background-color: #efefef;
+  border-radius: 3px;
+}
+
 .items {
   display: inline-block;
   background: #ddd;
@@ -7189,6 +7194,8 @@ a {
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul li.showListItem {
   background-color: #F4F5F7;
@@ -8707,6 +8714,11 @@ a {
   display: none !important;
 }
 
+.directorist-select-item-show {
+  background-color: #efefef;
+  border-radius: 3px;
+}
+
 .items {
   display: inline-block;
   background: #ddd;
@@ -8815,6 +8827,8 @@ a {
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .directorist-select.directorist-select-multi .directorist-select__container .directorist-select__dropdown ul li.showListItem {
   background-color: #F4F5F7;

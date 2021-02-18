@@ -1,8 +1,6 @@
 function get_dom_data ( key ) {
     var dom_content = document.body.innerHTML;
 
-   
-
     if ( ! dom_content.length ) { return ''; }
 
     var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");

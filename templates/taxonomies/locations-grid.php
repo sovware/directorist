@@ -4,23 +4,24 @@
  * @since   6.6
  * @version 6.6
  */
+use \Directorist\Helper;
 ?>
-<div id="directorist" class="atbd_wrapper">
-	<div class="container-fluid">
-		<?php 
+<div id="directorist" class="atbd_wrapper directorist-w-100">
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
+		<?php
 		/**
 		 * @since 5.6.6
 		 */
 		do_action( 'atbdp_before_all_locations_loop', $taxonomy );
 		?>
 		<div class="atbd_location_grid_wrap atbdp-no-margin">
-			<div class="row">
+			<div class="<?php Helper::directorist_row(); ?>">
 				<?php
 				if( $locations ) {
 					foreach ($locations as $location) {
 						$loc_class = $location['img'] ? '' : ' atbd_location_grid-default';
 						?>
-						<div class="<?php echo esc_attr( $grid_col_class ); ?>">
+						<div class="<?php Helper::directorist_column(['md-3','sm-6']); ?>">
 
 							<a class="atbd_location_grid<?php echo esc_attr( $loc_class ); ?>" href="<?php echo esc_url($location['permalink']); ?>">
 								<figure>

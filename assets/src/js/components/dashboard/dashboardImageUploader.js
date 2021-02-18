@@ -1,6 +1,6 @@
 ;(function ($) {
 
-    // user dashboard image uploader
+  /*   // user dashboard image uploader
     var profileMediaUploader = null;
     if ($("#user_profile_pic").length) {
         profileMediaUploader = new EzMediaUploader({
@@ -8,5 +8,5 @@
         });
         profileMediaUploader.init();
     }
-    
+     */
 })(jQuery);

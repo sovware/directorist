@@ -223,6 +223,11 @@ a {
   display: none;
 }
 
+/* form required */
+.directorist-form-required {
+  color: red !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

@@ -81,33 +81,94 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/scss/layout/public/search-style.scss":
-/*!*********************************************************!*\
-  !*** ./assets/src/scss/layout/public/search-style.scss ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./assets/src/js/modules/atmodal.js":
+/*!******************************************!*\
+  !*** ./assets/src/js/modules/atmodal.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module './../../scss/component/atmodal.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/*
+		Name:  ATModal
+		Version: 1.0
+		Author: AazzTech
+		Author URI: http://aazztech.com
+	*/
+
+/* disable-eslint */
+
+
+var aazztechModal1 = function aazztechModal1(selector) {
+  var element = document.querySelectorAll(selector);
+  element.forEach(function (el, index) {
+    el.style.display = 'none';
+    document.addEventListener('click', function (event) {
+      var current_elm = event.target;
+      var target_id = current_elm.getAttribute('data-target');
+      var el_id = el.getAttribute('id');
+
+      if (target_id === el_id) {
+        event.preventDefault();
+        el.style.display = 'block';
+        document.body.classList.add('atm-open');
+        setTimeout(function () {
+          el.classList.add('atm-show');
+        }, 100);
+        document.querySelector('html').style.overflow = 'hidden';
+      }
+    }, false);
+    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
+      e.preventDefault();
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.atm-contents-inner')) return;
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+  });
+};
+
+function initModal() {
+  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
+}
+
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    initModal();
+  }, 500);
+});
 
 /***/ }),
 
-/***/ 11:
-/*!***************************************************************!*\
-  !*** multi ./assets/src/scss/layout/public/search-style.scss ***!
-  \***************************************************************/
+/***/ 10:
+/*!************************************************!*\
+  !*** multi ./assets/src/js/modules/atmodal.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/scss/layout/public/search-style.scss */"./assets/src/scss/layout/public/search-style.scss");
+module.exports = __webpack_require__(/*! ./assets/src/js/modules/atmodal.js */"./assets/src/js/modules/atmodal.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=search-style.js.map
+//# sourceMappingURL=atmodal.js.map

@@ -836,14 +836,17 @@ class Directorist_Listing_Form {
 			}
 			// if only one directory
 			$type = $this->current_listing_type;
+
 			if ( $type ) {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
-				return Helper::get_template_contents( 'listing-form/add-listing', $args );
+				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 			
 			// multiple directory available
-			return Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
+			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
+			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 		}
 	}
 }

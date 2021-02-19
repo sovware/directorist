@@ -501,6 +501,16 @@ class Enqueue_Assets {
      */
     public function add_public_css_scripts() {
         $scripts = [];
+        
+        $scripts['directorist-atmodal'] = [
+            'file_name' => 'atmodal',
+            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
+            'shortcode' => [ 'directorist_user_dashboard' ],
+        ];
 
         $scripts['directorist-main-style'] = [
             'file_name' => 'main',
@@ -552,6 +562,16 @@ class Enqueue_Assets {
      */
     public function add_public_js_scripts() {
         $scripts = [];
+        $scripts['directorist-atmodal'] = [
+            'file_name' => 'atmodal',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+            'shortcode' => [ 'directorist_user_dashboard' ],
+        ];
+
         $scripts['directorist-main-script'] = [
             'file_name' => 'main',
             'base_path' => DIRECTORIST_PUBLIC_JS,

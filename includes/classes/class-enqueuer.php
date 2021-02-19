@@ -208,8 +208,8 @@ class ATBDP_Enqueuer {
         $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
         $front_scripts_dependency = array( 'jquery' );
         // @Todo; make unminified css minified then enqueue them.
-        // wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
-        // wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
+        wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
+        wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
@@ -295,11 +295,11 @@ class ATBDP_Enqueuer {
 
         /* Enqueue all styles*/
         if ( is_rtl() ) {
-            // wp_enqueue_style( 'atbdp-bootstrap-style-rtl' );
+            wp_enqueue_style( 'atbdp-bootstrap-style-rtl' );
             wp_enqueue_style( 'atbdp-style-rtl' );
             wp_enqueue_style( 'atbdp-media-uploader-style-rtl' );
         } else {
-            // wp_enqueue_style( 'atbdp-bootstrap-style' );
+            wp_enqueue_style( 'atbdp-bootstrap-style' );
             wp_enqueue_style( 'atbdp-style' );
             wp_enqueue_style( 'atbdp-media-uploader-style' );
         }
@@ -916,7 +916,7 @@ class ATBDP_Enqueuer {
 
     public function user_dashboard_scripts_styles() {
         /* Enqueue all styles*/
-        // wp_enqueue_style( 'atbdp-bootstrap-style' );
+        wp_enqueue_style( 'atbdp-bootstrap-style' );
         wp_enqueue_style( 'atbdp-stars' );
         wp_enqueue_style( 'atbdp-line-awesome' );
         wp_enqueue_style( 'atbdp-font-awesome' );

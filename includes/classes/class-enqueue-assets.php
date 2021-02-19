@@ -209,7 +209,7 @@ class Enqueue_Assets {
         // Openstreet
         $scripts['directorist-openstreet-layers'] = [
             'file_name' => 'openstreetlayers',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -220,7 +220,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-unpkg'] = [
             'file_name' => 'unpkg-min',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -231,7 +231,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-unpkg-index'] = [
             'file_name' => 'unpkg-index',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -242,7 +242,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-unpkg-libs'] = [
             'file_name' => 'unpkg-libs',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -253,7 +253,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-leaflet-versions'] = [
             'file_name' => 'leaflet-versions',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -264,7 +264,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-leaflet-markercluster-versions'] = [
             'file_name' => 'leaflet.markercluster-versions',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -275,7 +275,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-libs-setup'] = [
             'file_name' => 'libs-setup',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -286,7 +286,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-open-layers'] = [
             'file_name' => 'OpenLayers',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/openlayers/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openlayers/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -297,7 +297,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-crosshairs'] = [
             'file_name' => 'Crosshairs',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/openlayers4jgsi/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openlayers4jgsi/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -308,7 +308,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-load-scripts'] = [
             'file_name' => 'load-scripts',
-            'base_path' => DIRECTORIST_VENDOR_JS . '/openstreet-map/',
+            'base_path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/',
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',

@@ -659,7 +659,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin', // public || admin  || global
-            'page'      => 'post-new.php',
+            'page'      => [ 'post-new.php', 'post.php' ],
         ];
 
         $scripts['directorist-pure-select-admin'] = [
@@ -761,7 +761,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'admin', // public || admin  || global
-            'page'      => 'post-new.php',
+            'page'      => ['post-new.php', 'post.php'],
         ];
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [

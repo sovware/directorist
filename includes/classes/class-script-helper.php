@@ -219,7 +219,7 @@ class Script_Helper {
             'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),
             'nonceName'       => 'atbdp_nonce_js',
-            'is_admin'		  => is_admin(),
+            'is_admin'		    => is_admin(),
             'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
                 [
                     'element_id'        => '_listing_gallery',

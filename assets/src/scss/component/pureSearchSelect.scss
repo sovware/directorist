@@ -76,7 +76,7 @@
     display: none;
     margin-top: 4px;
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &::-webkit-scrollbar {
         width: 6px;

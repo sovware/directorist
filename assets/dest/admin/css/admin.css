@@ -6995,7 +6995,7 @@ a {
   display: none;
   margin-top: 4px;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .directorist-select__dropdown::-webkit-scrollbar {
   width: 6px;
@@ -8628,7 +8628,7 @@ a {
   display: none;
   margin-top: 4px;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .directorist-select__dropdown::-webkit-scrollbar {
   width: 6px;

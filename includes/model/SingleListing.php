@@ -663,8 +663,8 @@ class Directorist_Single_Listing {
 		$notice_text = '';
 
 		if( isset( $_GET['notice'] ) ) {
-			$new_listing_status  = get_term_meta( $type, 'new_listing_status', true );
-			$edit_listing_status = get_term_meta( $type, 'edit_listing_status', true );
+			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
+			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
 			$edited = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );

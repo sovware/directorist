@@ -1,34 +1,28 @@
 <?php
 /**
- * @author  wpWax
- * @since   6.6
+ * @author  AazzTech
+ * @since   6.7
  * @version 6.7
  */
-
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-$multiple = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
-$max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 ?>
 
 <div class="directorist-form-group directorist-form-location-field">
-
 	<?php $listing_form->field_label_template( $data ); ?>
-	<div class="directorist-select directorist-select-multi" id="directorist-location-select" data-isSearch="false" data-multiSelect="['apple', 'banana', 'orange', 'mango']" data-default="['apple']" data-max="15">
-		<input type="hidden">
-		<!-- <select name="<?php //echo esc_attr( $data['field_key'] ); ?>" id="directorist-location-select-items" <?php //echo $multiple; ?> <?php //echo $max; ?>>
 
-			<?php
-			//if ( $data['type'] != 'multiple' ) {
-				//printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
-			//}
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location"
+	 <?php
+	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
+	 echo $data['max'] ? 'max="'. $data['max'] .'"' : '';
+	 ?>>
 
-			//echo $listing_form->add_listing_location_fields();
-			?>
+		<?php
+		if ($data['type'] != 'multiple') {
+			printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
+		}
 
-		</select> -->
-	</div>
+		echo $listing_form->add_listing_location_fields();
+		?>
+	</select>
 
 	<?php $listing_form->field_description_template( $data ); ?>
-
 </div>

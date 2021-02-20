@@ -14,10 +14,10 @@ if ( !is_active_sidebar( 'right-sidebar-listing' ) ) {
 }
 ?>
 
-<div class="<?php Helper::directorist_column(4); ?>">
+<div class="<?php Helper::directorist_column('md-4'); ?>">
 
 	<div class="directorist-sidebar">
 		<?php dynamic_sidebar( 'right-sidebar-listing' ); ?>
 	</div>
-	
+
 </div>

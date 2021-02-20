@@ -254,7 +254,7 @@
 
 
 function adsFormReset() {
-  var adsForm = document.querySelector(".atbd_ads-form");
+  var adsForm = document.querySelector(".directorist-search-form");
   adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
     el.value = "";
   });
@@ -280,8 +280,8 @@ function adsFormReset() {
   }
 }
 
-if (document.querySelector(".atbd_ads-form #atbdp_reset") !== null) {
-  document.querySelector(".atbd_ads-form #atbdp_reset").addEventListener("click", function (e) {
+if (document.querySelector(".directorist-search-form #atbdp_reset") !== null) {
+  document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
     e.preventDefault();
     adsFormReset();
     atbd_callingSlider(0);

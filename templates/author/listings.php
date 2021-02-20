@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					printf('<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', $active_class, $link, $category->name);
 				}
 				?>
-				
+
 			</div>
 
 		</div>
@@ -44,10 +44,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-			<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
+			<div class="<?php Helper::directorist_column( ['lg-3', 'md-4', 'sm-6'] ); ?>">
 				<?php $listings->loop_template( 'grid', $listing_id ); ?>
 			</div>
-			
+
 		<?php endforeach; ?>
 
 	</div>

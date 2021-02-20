@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -298,7 +298,7 @@ if (document.querySelector("#bdlm-search-area #atbdp_reset") !== null) {
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /*!**********************************************************!*\
   !*** multi ./assets/src/js/components/search-listing.js ***!
   \**********************************************************/

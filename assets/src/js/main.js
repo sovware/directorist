@@ -4,7 +4,7 @@
     Author: Aazztech
     Author URI: www.aazztech.com
 */
-/* eslint-disable */
+
 // Styles
 import './../scss/layout/public/main-style.scss';
 

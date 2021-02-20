@@ -510,19 +510,16 @@ if (flatWrapper != null && fAvailableTime != null) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+var $ = jQuery; // user dashboard image uploader
 
-(function ($) {
-  /*   // user dashboard image uploader
-    var profileMediaUploader = null;
-    if ($("#user_profile_pic").length) {
-        profileMediaUploader = new EzMediaUploader({
-            containerID: "user_profile_pic",
-        });
-        profileMediaUploader.init();
-    }
-     */
-})(jQuery);
+var profileMediaUploader = null;
+
+if ($("#user_profile_pic").length) {
+  profileMediaUploader = new EzMediaUploader({
+    containerID: "user_profile_pic"
+  });
+  profileMediaUploader.init();
+}
 
 /***/ }),
 

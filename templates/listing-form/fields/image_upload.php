@@ -10,22 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $p_id                = $listing_form->get_add_listing_id();
 $type                = $listing_form->get_current_listing_type();
 
-$plan_image          = $data['max_image_limit'];
+$limit          = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
 $max_file_size       = $data['max_per_image_limit'];
 $max_total_file_size = $data['max_total_image_limit'];
 
-$slider_unl = '';
-if ( !empty( $field_data['plans'] ) ) {
-    $plan = atbdp_field_assigned_plan( $field_data );
-    $slider_unl = ( $plan['max'] == 0 ) ? true : false;
-    if (!$slider_unl) {
-        $plan_image = $plan['max'];
-    }
-}
-
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );
-$slider_unl             = $slider_unl;
-$max_file_items         = ! empty( $slider_unl ) ? '999' : $plan_image;
+$max_file_items         = ! empty( $data['unlimited'] ) ? '999' : $limit;
 $min_file_items         = $data['required'] ? '1' : '';
 $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
@@ -70,8 +60,8 @@ $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 			<span class="ezmu-dictionary-info-max-total-file-size"><?php esc_html_e( 'Maximum total allowed file size is __DT__', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-info-type" data-show='0'></span>
 			<span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e( 'Minimum __DT__ file is required', 'directorist' ); ?></span>
-			<span class="ezmu-dictionary-info-max-file-items" data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
-			<?php echo !empty($slider_unl) ? esc_html__( 'Unlimited images with this plan!', 'directorist' ) : ( ( $plan_image > 1 ) ? esc_html__('Maximum __DT__ files are allowed', 'directorist') : esc_html__( 'Maximum __DT__ file is allowed', 'directorist' ) ); ?></span>
+			<span class="ezmu-dictionary-info-max-file-items" data-featured="<?php echo !empty($unlimited) ? '1' : ''; ?>">
+			<?php echo !empty($unlimited) ? esc_html__( 'Unlimited images with this plan!', 'directorist' ) : ( ( $limit > 1 ) ? esc_html__('Maximum __DT__ files are allowed', 'directorist') : esc_html__( 'Maximum __DT__ file is allowed', 'directorist' ) ); ?></span>
 		</div>
 
 	</div>

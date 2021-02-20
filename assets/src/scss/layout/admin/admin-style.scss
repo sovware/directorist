@@ -4769,6 +4769,11 @@ input.atbdp-form-control {
       }
   }
 }
+.directorist-form-group{
+  &.directorist-faq-group{
+    margin-bottom: 30px;
+  }
+}
 
 // Base Style
 @import '../../base/general';

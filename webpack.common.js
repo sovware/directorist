@@ -109,6 +109,7 @@ const publicConfig = {
     ['global']: ["./assets/src/js/global.js"],
     ['checkout']: ["./assets/src/js/checkout.js"],
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],
+    ['search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
     ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
     ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js"],
     ['single-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/google-map.js"],
@@ -116,6 +117,9 @@ const publicConfig = {
     ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/openstreet-map.js"],
     ['add-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/google-map.js"],
     ['atmodal']: ["./assets/src/js/modules/atmodal.js"],
+    ['geolocation']: ["./assets/src/js/components/geolocation.js"],
+    ['geolocation-widget']: ["./assets/src/js/components/geolocation-widget.js"],
+    ['releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
 
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],

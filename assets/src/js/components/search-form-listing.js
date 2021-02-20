@@ -131,10 +131,12 @@
                 $('#address, #q_addressss,.atbdp-search-address').on('keyup', function(event) {
                         event.preventDefault();
                         const search = $(this).val();
+
                         $(this)
                                 .parent()
                                 .next('.address_result')
                                 .css({ display: 'block' });
+
                         if (search === '') {
                                 $(this)
                                         .parent()
@@ -148,7 +150,6 @@
                                 type: 'POST',
                                 data: {},
                                 success(data) {
-                                        // console.log(data);
                                         for (let i = 0; i < data.length; i++) {
                                                 res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${
                                                         data[i].lon
@@ -159,6 +160,9 @@
                                                 .next('.address_result')
                                                 .html(`<ul>${res}</ul>`);
                                 },
+                                error( error ) {
+                                    console.log( { error } );
+                                }
                         });
                 });
                 // hide address result when click outside the input field

@@ -6,13 +6,14 @@
  */
 ?>
 <div id="directorist" class="atbd_wrapper">
-	<?php 
+	<?php
 	/**
 	 * @since 5.6.6
 	 */
 	do_action( 'atbdp_before_all_locations_loop', $taxonomy );
 	?>
 	<div class="atbdp atbdp-categories atbdp-text-list">
+	<div class="container-fluid">
 		<div class="row atbdp-no-margin">
 			<?php
 			if( $locations ) {
@@ -33,6 +34,7 @@
 			}
 			?>
 		</div>
+	</div>
 	</div>
 	<?php
 	/**

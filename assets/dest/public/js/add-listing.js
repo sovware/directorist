@@ -137,7 +137,6 @@ var $s_wrap = $('#social_info_sortable_container'); // cache it
 
 $('body').on('click', '#addNewSocial', function (e) {
   var currentItems = $('.directorist-form-social-fields').length;
-  console.log(currentItems);
   var ID = "id=".concat(currentItems); // eg. 'id=3'
 
   var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements

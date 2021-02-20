@@ -15,19 +15,20 @@ $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 <div class="directorist-form-group directorist-from-tag-field">
 
 	<?php $listing_form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
-	<div class="directorist-select directorist-select-multi" id="directorist-tag-select" data-isSearch="false" data-multiSelect='[]' data-max="15">
-		<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="directorist-tag-select-items" multiple="multiple" <?php echo $max; ?>>
+	<div class="directorist-select directorist-select-multi" id="directorist-tag-select" data-isSearch="false" data-multiSelect="['apple', 'banana', 'orange', 'mango']" data-default="['mango']" data-max="15">
+		<input type="hidden">
+		<!-- <select name="<?php //echo esc_attr( $data['field_key'] ); ?>" id="directorist-tag-select-items" multiple="multiple" <?php //echo $max; ?>>
 
 			<?php
-			foreach ($all_tags as $tag) {
-				$current = in_array( $tag->term_id, $current_tag_ids ) ? true : false;
+			//foreach ($all_tags as $tag) {
+				//$current = in_array( $tag->term_id, $current_tag_ids ) ? true : false;
 				?>
-				<option <?php selected( $current, true, true ); ?> value='<?php echo esc_attr( $tag->name ); ?>'><?php echo esc_html( $tag->name ); ?></option>
+				<option <?php //selected( $current, true, true ); ?> value='<?php //echo esc_attr( $tag->name ); ?>'><?php //echo esc_html( $tag->name ); ?></option>
 				<?php
-			}
+			//}
 			?>
 
-		</select>
+		</select> -->
 	</div>
 
 	<?php $listing_form->field_description_template( $data ); ?>

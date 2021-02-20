@@ -31,7 +31,6 @@ const $s_wrap = $('#social_info_sortable_container'); // cache it
 // Rearrange the IDS and Add new social field
 $('body').on('click', '#addNewSocial', function (e) {
         const currentItems = $('.directorist-form-social-fields').length;
-        console.log(currentItems);
         const ID = `id=${currentItems}`; // eg. 'id=3'
         const iconBindingElement = jQuery('#addNewSocial');
         // arrange names ID in order before adding new elements

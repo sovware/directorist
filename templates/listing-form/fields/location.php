@@ -6,12 +6,12 @@
  */
 ?>
 
-<div class="form-group directorist-location-field">
+<div class="directorist-form-group directorist-form-location-field">
 	<?php $listing_form->field_label_template( $data ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location"
-	 <?php 
-	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; 
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location"
+	 <?php
+	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
 	 echo $data['max'] ? 'max="'. $data['max'] .'"' : '';
 	 ?>>
 

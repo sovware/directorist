@@ -90,12 +90,9 @@
 /*!******************************************!*\
   !*** ./assets/src/js/modules/atmodal.js ***!
   \******************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module './../../scss/component/atmodal.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /*
 		Name:  ATModal
 		Version: 1.0
@@ -104,8 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 	*/
 
 /* disable-eslint */
-
-
+//import './../../scss/component/atmodal.scss';
 var aazztechModal1 = function aazztechModal1(selector) {
   var element = document.querySelectorAll(selector);
   element.forEach(function (el, index) {

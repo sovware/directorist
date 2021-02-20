@@ -3883,7 +3883,7 @@ input.atbdp-form-control {
   z-index: 2;
   visibility: hidden;
   opacity: 0;
-  left: 0;
+  right: 0;
   top: calc(100% + 30px);
   background: #ffffff;
   border-radius: 4px;

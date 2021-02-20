@@ -6,12 +6,13 @@
  */
 ?>
 <div id="directorist" class="atbd_wrapper atbdp atbdp-categories atbdp-text-list">
-	<?php 
+	<?php
     /**
      * @since 5.6.6
      */
     do_action( 'atbdp_before_all_categories_loop', $taxonomy );
     ?>
+	<div class="<?php echo esc_attr( $grid_container ); ?>">
 	<div class="row atbdp-no-margin">
 		<?php
 		if( $categories ) {
@@ -30,6 +31,7 @@
 			_e('<p>No Results found!</p>', 'directorist');
 		}
 		?>
+	</div>
 	</div>
 	<?php
 	/**

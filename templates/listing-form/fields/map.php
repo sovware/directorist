@@ -34,7 +34,7 @@ Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 
 		<?php endif; ?>
 
-		<div class="directorist-form-map-field__maps"><div id="gmap"></div></div>
+		<div class="directorist-form-map-field__maps"><div id="osm"><div id="gmap"></div></div></div>
 
 		<?php if ('google' == $select_listing_map): ?>
 

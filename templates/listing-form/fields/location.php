@@ -14,18 +14,19 @@ $max = !empty( $data['max'] ) ? 'max="'. esc_attr( $data['max'] ) .'"' : '';
 <div class="directorist-form-group directorist-form-location-field">
 
 	<?php $listing_form->field_label_template( $data ); ?>
-	<div class="directorist-select directorist-select-multi" id="directorist-location-select" data-isSearch="false" data-multiSelect='[]' data-max="15">
-		<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="directorist-location-select-items" <?php echo $multiple; ?> <?php echo $max; ?>>
+	<div class="directorist-select directorist-select-multi" id="directorist-location-select" data-isSearch="false" data-multiSelect="['apple', 'banana', 'orange', 'mango']" data-default="['apple']" data-max="15">
+		<input type="hidden">
+		<!-- <select name="<?php //echo esc_attr( $data['field_key'] ); ?>" id="directorist-location-select-items" <?php //echo $multiple; ?> <?php //echo $max; ?>>
 
 			<?php
-			if ( $data['type'] != 'multiple' ) {
-				printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
-			}
+			//if ( $data['type'] != 'multiple' ) {
+				//printf('<option>%s</option>', __( 'Select Location', 'directorist' ) );
+			//}
 
-			echo $listing_form->add_listing_location_fields();
+			//echo $listing_form->add_listing_location_fields();
 			?>
 
-		</select>
+		</select> -->
 	</div>
 
 	<?php $listing_form->field_description_template( $data ); ?>

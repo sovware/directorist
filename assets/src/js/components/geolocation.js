@@ -83,7 +83,7 @@
                                 });
                         }
 
-                        const get_loc_btn = document.querySelector('.atbd_get_loc');
+                        const get_loc_btn = document.querySelector('.directorist-filter-location-icon');
                         get_loc_btn.addEventListener('click', function() {
                                 getLocation();
                         });
@@ -105,7 +105,7 @@
                         });
                 }
 
-                $('.atbd_get_loc').on('click', () => {
+                $('.directorist-filter-location-icon').on('click', () => {
                         navigator.geolocation.getCurrentPosition(displayLocation);
                 });
         }

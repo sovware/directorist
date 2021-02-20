@@ -32,28 +32,30 @@
                         }
 
                         function showPosition(position) {
-                                lat = position.coords.latitude;
-                                lon = position.coords.longitude;
-                                displayLocation(lat, lon);
-                                get_lat.value = lat;
-                                get_lng.value = lon;
+                            
+                            console.log( position );
+                            lat = position.coords.latitude;
+                            lon = position.coords.longitude;
+                            displayLocation(lat, lon);
+                            get_lat.value = lat;
+                            get_lng.value = lon;
                         }
 
                         function showError(error) {
-                                switch (error.code) {
-                                        case error.PERMISSION_DENIED:
-                                                x.value = 'User denied the request for Geolocation.';
-                                                break;
-                                        case error.POSITION_UNAVAILABLE:
-                                                x.value = 'Location information is unavailable.';
-                                                break;
-                                        case error.TIMEOUT:
-                                                x.value = 'The request to get user location timed out.';
-                                                break;
-                                        case error.UNKNOWN_ERROR:
-                                                x.value = 'An unknown error occurred.';
-                                                break;
-                                }
+                            switch (error.code) {
+                                    case error.PERMISSION_DENIED:
+                                            x.value = 'User denied the request for Geolocation.';
+                                            break;
+                                    case error.POSITION_UNAVAILABLE:
+                                            x.value = 'Location information is unavailable.';
+                                            break;
+                                    case error.TIMEOUT:
+                                            x.value = 'The request to get user location timed out.';
+                                            break;
+                                    case error.UNKNOWN_ERROR:
+                                            x.value = 'An unknown error occurred.';
+                                            break;
+                            }
                         }
 
                         function displayLocation(latitude, longitude) {

@@ -7,6 +7,7 @@
         profileMediaUploader.init();
     }
     var is_processing = false;
+
     $('#user_profile_form').on('submit', function (e) {
         // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
         e.preventDefault();
@@ -21,8 +22,8 @@
         var err_log = {};
         var error_count;
 
-         // ajax action
-         form_data.append('action', 'update_user_profile');
+        // ajax action
+        form_data.append('action', 'update_user_profile');
         if ( profileMediaUploader ) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
             if (hasValidFiles) {
@@ -53,11 +54,13 @@
         }
         var $form = $(this);
         var arrData = $form.serializeArray();
+
         $.each(arrData, function (index, elem) {
             var name = elem.name;
             var value = elem.value;
             form_data.append(name, value);
         });
+
         $.ajax({
             method: 'POST',
             processData: false,
@@ -67,10 +70,13 @@
             success: function (response) {
                 submit_button.removeAttr('disabled');
                 submit_button.removeClass("loading");
+
+                console.log( response );
+
                 if (response.success) {
-                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+                    $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
                 } else {
-                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+                    $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
                 }
             },
             error: function (response) {

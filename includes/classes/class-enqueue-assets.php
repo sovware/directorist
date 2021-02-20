@@ -390,7 +390,7 @@ class Enqueue_Assets {
             'has_rtl'   => true,
             'ver'       => $this->script_version,
             'group'     => $common_asset_group, // public || admin  || global
-            'section'   => '',
+            'section'   => '__',
         ];
 
         $scripts['directorist-ez-media-uploader'] = [
@@ -611,7 +611,6 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'search-form',
-            'enable'    => true,
         ];
 
         $scripts['directorist-search-form-listing'] = [

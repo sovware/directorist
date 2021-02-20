@@ -503,26 +503,6 @@ if (flatWrapper != null && fAvailableTime != null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/components/dashboard/dashboardImageUploader.js":
-/*!**********************************************************************!*\
-  !*** ./assets/src/js/components/dashboard/dashboardImageUploader.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var $ = jQuery; // user dashboard image uploader
-
-var profileMediaUploader = null;
-
-if ($("#user_profile_pic").length) {
-  profileMediaUploader = new EzMediaUploader({
-    containerID: "user_profile_pic"
-  });
-  profileMediaUploader.init();
-}
-
-/***/ }),
-
 /***/ "./assets/src/js/components/dashboard/dashboardListing.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/components/dashboard/dashboardListing.js ***!
@@ -1193,6 +1173,112 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/components/profileForm.js":
+/*!*************************************************!*\
+  !*** ./assets/src/js/components/profileForm.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  var profileMediaUploader = null;
+
+  if ($("#user_profile_pic").length) {
+    profileMediaUploader = new EzMediaUploader({
+      containerID: "user_profile_pic"
+    });
+    profileMediaUploader.init();
+  }
+
+  var is_processing = false;
+  $('#user_profile_form').on('submit', function (e) {
+    // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
+    e.preventDefault();
+    var submit_button = $('#update_user_profile');
+    submit_button.attr('disabled', true);
+    submit_button.addClass("loading");
+
+    if (is_processing) {
+      submit_button.removeAttr('disabled');
+      return;
+    }
+
+    var form_data = new FormData();
+    var err_log = {};
+    var error_count; // ajax action
+
+    form_data.append('action', 'update_user_profile');
+
+    if (profileMediaUploader) {
+      var hasValidFiles = profileMediaUploader.hasValidFiles();
+
+      if (hasValidFiles) {
+        //files
+        var files = profileMediaUploader.getTheFiles();
+        var filesMeta = profileMediaUploader.getFilesMeta();
+
+        if (files.length) {
+          for (var i = 0; i < files.length; i++) {
+            form_data.append('profile_picture', files[i]);
+          }
+        }
+
+        if (filesMeta.length) {
+          for (var i = 0; i < filesMeta.length; i++) {
+            var elm = filesMeta[i];
+
+            for (var key in elm) {
+              form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+            }
+          }
+        }
+      } else {
+        $(".directorist-form-submit__btn").removeClass("atbd_loading");
+        err_log.user_profile_avater = {
+          msg: 'Listing gallery has invalid files'
+        };
+        error_count++;
+      }
+    }
+
+    var $form = $(this);
+    var arrData = $form.serializeArray();
+    $.each(arrData, function (index, elem) {
+      var name = elem.name;
+      var value = elem.value;
+      form_data.append(name, value);
+    });
+    $.ajax({
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      url: atbdp_public_data.ajaxurl,
+      data: form_data,
+      success: function success(response) {
+        submit_button.removeAttr('disabled');
+        submit_button.removeClass("loading");
+        console.log(response);
+
+        if (response.success) {
+          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+        } else {
+          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+        }
+      },
+      error: function error(response) {
+        submit_button.removeAttr('disabled');
+        console.log(response);
+      }
+    }); // prevent the from submitting
+
+    return false;
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/components/pureScriptTab.js":
 /*!***************************************************!*\
   !*** ./assets/src/js/components/pureScriptTab.js ***!
@@ -1752,33 +1838,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
 /* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/components/login.js");
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/components/tab.js");
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/components/tab.js");
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/components/atbdDropdown.js");
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/components/atbdSelect.js");
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
 /* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
@@ -1807,7 +1893,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //import './components/profileForm';
+
 
 
 
@@ -1818,8 +1904,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Dashboard Js
-//import './components/dashboard/dashboardImageUploader';
-
 
 
 

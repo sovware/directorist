@@ -1240,6 +1240,14 @@ body.stop-scrolling {
   z-index: 111 !important;
 }
 
+.directorist-form-group .select2-selection {
+  border-color: #ececec;
+}
+
+.select2-container--open .select2-dropdown.select2-dropdown--below {
+  top: 30px;
+}
+
 /* hide contact owner */
 .directorist-hide-owner-field.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
   font-size: 15px;

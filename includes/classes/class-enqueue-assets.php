@@ -391,11 +391,6 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
-            'enable'    => true,
-            'localize_data' => [
-                'object_name' => 'atbdp_range_slider',
-                'data' => Script_Helper::get_range_slider_data()
-            ],
         ];
 
         $scripts['directorist-ez-media-uploader'] = [
@@ -594,14 +589,6 @@ class Enqueue_Assets {
             // 'shortcode' => [ 'directorist_user_dashboard' ],
         ];
 
-        $scripts['directorist-search-form-listing'] = [
-            'file_name' => 'search-form-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'section'   => 'search-home',
-        ];
-
         $scripts['directorist-geolocation'] = [
             'file_name' => 'geolocation',
             'base_path' => DIRECTORIST_PUBLIC_JS,
@@ -618,18 +605,21 @@ class Enqueue_Assets {
             'section'   => 'search-home',
         ];
 
-        $scripts['atbdp_search_listing'] = [
+        $scripts['directorist-search-listing'] = [
             'file_name' => 'search-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,
-            // 'deps'      => ['jquery', 'jquery-ui-slider'],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => '',
+            'section'   => 'search-form',
             'enable'    => true,
-            'localize_data' => [
-                'object_name' => 'atbdp_search_listing',
-                'data' => Script_Helper::get_search_script_data()
-            ],
+        ];
+
+        $scripts['directorist-search-form-listing'] = [
+            'file_name' => 'search-form-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'search-form',
         ];
 
         $scripts['directorist-single-listing-openstreet-map-custom-script'] = [

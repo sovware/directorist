@@ -19,7 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<input type="text" id="guest_user_email" name="guest_user_email" class="directorist-form-element directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
 		</div>
 
-	<?php endif; ?>
+	<?php endif; 
+	/**
+	 * @since 7.0
+	 */
+	do_action( 'atbdp_before_terms_and_conditions_font' )
+	?>
 
 	<?php if ( $display_privacy ): ?>
 

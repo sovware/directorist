@@ -111,6 +111,7 @@
         });
 
         $('.address_result').hide();
+
         if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
                 function initialize() {
                         const options = atbdp_search_listing.countryRestriction

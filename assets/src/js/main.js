@@ -5,7 +5,6 @@
     Author URI: www.aazztech.com
 */
 /* eslint-disable */
-
 // Styles
 import './../scss/layout/public/main-style.scss';
 
@@ -32,7 +31,6 @@ import './components/login';
 import './components/tab';
 import './components/atbdDropdown';
 import './components/atbdSelect';
-import './components/releated-listings-slider';
 import './components/loc_cat';
 
 // Dashboard Js

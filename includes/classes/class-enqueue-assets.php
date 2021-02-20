@@ -121,7 +121,6 @@ class Enqueue_Assets {
                 'deps'      => [],
                 'ver'       => $this->script_version,
                 'group'     => $common_asset_group, // public || admin  || global
-                'enable'    => true
             ];
 
             $scripts['directorist-line-awesome'] = [
@@ -164,7 +163,7 @@ class Enqueue_Assets {
                 'deps'      => [],
                 'ver'       => $this->script_version,
                 'group'     => 'public', // public || admin  || global
-                'enable'    => false
+                'enable'    => true
             ];
 
             $scripts['directorist-sweetalert'] = [
@@ -392,11 +391,6 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => $common_asset_group, // public || admin  || global
             'section'   => '',
-            'enable'    => true,
-            'localize_data' => [
-                'object_name' => 'atbdp_range_slider',
-                'data' => Script_Helper::get_range_slider_data()
-            ],
         ];
 
         $scripts['directorist-ez-media-uploader'] = [
@@ -456,7 +450,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
-            'enable'    => false,
+            'enable'    => true,
         ];
 
         $scripts['directorist-plasma-slider'] = [
@@ -562,20 +556,10 @@ class Enqueue_Assets {
      */
     public function add_public_js_scripts() {
         $scripts = [];
-        $scripts['directorist-atmodal'] = [
-            'file_name' => 'atmodal',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'section'   => '',
-            'enable'    => true,
-            'shortcode' => [ 'directorist_user_dashboard' ],
-        ];
 
         $scripts['directorist-main-script'] = [
             'file_name' => 'main',
             'base_path' => DIRECTORIST_PUBLIC_JS,
-            'deps'      => ['jquery'],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
@@ -586,18 +570,56 @@ class Enqueue_Assets {
             ],
         ];
 
-        $scripts['atbdp_search_listing'] = [
-            'file_name' => 'search-listing',
+        $scripts['directorist-releated-listings-slider'] = [
+            'file_name' => 'releated-listings-slider',
             'base_path' => DIRECTORIST_PUBLIC_JS,
-            // 'deps'      => ['jquery', 'jquery-ui-slider'],
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'single-listing-page',
+            'enable'    => true,
+        ];
+
+        $scripts['directorist-atmodal'] = [
+            'file_name' => 'atmodal',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => true,
-            'localize_data' => [
-                'object_name' => 'atbdp_search_listing',
-                'data' => Script_Helper::get_search_script_data()
-            ],
+            // 'shortcode' => [ 'directorist_user_dashboard' ],
+        ];
+
+        $scripts['directorist-geolocation'] = [
+            'file_name' => 'geolocation',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'search-home',
+        ];
+
+        $scripts['directorist-geolocation-widget'] = [
+            'file_name' => 'geolocation-widget',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'search-home',
+        ];
+
+        $scripts['directorist-search-listing'] = [
+            'file_name' => 'search-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'search-form',
+            'enable'    => true,
+        ];
+
+        $scripts['directorist-search-form-listing'] = [
+            'file_name' => 'search-form-listing',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => 'search-form',
         ];
 
         $scripts['directorist-single-listing-openstreet-map-custom-script'] = [
@@ -731,7 +753,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_ADMIN_CSS,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'admin',
+            'group'     => 'global',
             'section'   => '',
             'page'      => '',
         ];
@@ -838,7 +860,7 @@ class Enqueue_Assets {
             'file_name' => 'directorist-plupload',
             'base_path' => DIRECTORIST_ADMIN_JS,
             'ver'       => $this->script_version,
-            'group'     => 'admin',
+            'group'     => 'global',
             'section'   => '',
         ];
 

@@ -510,19 +510,16 @@ if (flatWrapper != null && fAvailableTime != null) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+var $ = jQuery; // user dashboard image uploader
 
-(function ($) {
-  /*   // user dashboard image uploader
-    var profileMediaUploader = null;
-    if ($("#user_profile_pic").length) {
-        profileMediaUploader = new EzMediaUploader({
-            containerID: "user_profile_pic",
-        });
-        profileMediaUploader.init();
-    }
-     */
-})(jQuery);
+var profileMediaUploader = null;
+
+if ($("#user_profile_pic").length) {
+  profileMediaUploader = new EzMediaUploader({
+    containerID: "user_profile_pic"
+  });
+  profileMediaUploader.init();
+}
 
 /***/ }),
 
@@ -1317,54 +1314,6 @@ pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 
 /***/ }),
 
-/***/ "./assets/src/js/components/releated-listings-slider.js":
-/*!**************************************************************!*\
-  !*** ./assets/src/js/components/releated-listings-slider.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// jQuery(document).ready(function ($) {
-//     var rtl = !data.is_rtl ? false : true;
-//     $('.directorist-related-carousel').slick({
-//         dots: false,
-//         arrows: false,
-//         infinite: true,
-//         speed: 300,
-//         slidesToShow: data.rel_listing_column,
-//         slidesToScroll: 1,
-//         autoplay: true,
-//         rtl: rtl,
-//         responsive: [
-//             {
-//                 breakpoint: 1024,
-//                 settings: {
-//                     slidesToShow: data.rel_listing_column,
-//                     slidesToScroll: 1,
-//                     infinite: true,
-//                     dots: false
-//                 }
-//             },
-//             {
-//                 breakpoint: 767,
-//                 settings: {
-//                     slidesToShow: 2,
-//                     slidesToScroll: 1
-//                 }
-//             },
-//             {
-//                 breakpoint: 575,
-//                 settings: {
-//                     slidesToShow: 1,
-//                     slidesToScroll: 1
-//                 }
-//             }
-//         ]
-//     });
-// });
-
-/***/ }),
-
 /***/ "./assets/src/js/components/review/addReview.js":
 /*!******************************************************!*\
   !*** ./assets/src/js/components/review/addReview.js ***!
@@ -1820,28 +1769,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/components/atbdSelect.js");
 /* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _components_releated_listings_slider__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/releated-listings-slider */ "./assets/src/js/components/releated-listings-slider.js");
-/* harmony import */ var _components_releated_listings_slider__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_releated_listings_slider__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
+/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -1864,7 +1811,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
  //import './components/profileForm';
-
 
 
 
@@ -1897,63 +1843,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
-
-/* disable-eslint */
-var aazztechModal1 = function aazztechModal1(selector) {
-  var element = document.querySelectorAll(selector);
-  element.forEach(function (el, index) {
-    el.style.display = 'none';
-    document.addEventListener('click', function (event) {
-      var current_elm = event.target;
-      var target_id = current_elm.getAttribute('data-target');
-      var el_id = el.getAttribute('id');
-
-      if (target_id === el_id) {
-        event.preventDefault();
-        el.style.display = 'block';
-        document.body.classList.add('atm-open');
-        setTimeout(function () {
-          el.classList.add('atm-show');
-        }, 100);
-        document.querySelector('html').style.overflow = 'hidden';
-      }
-    }, false);
-    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
-      e.preventDefault();
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
-    el.addEventListener('click', function (e) {
-      if (e.target.closest('.atm-contents-inner')) return;
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
-  });
-};
-
-function initModal() {
-  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
-}
-
-window.addEventListener('load', function () {
-  setTimeout(function () {
-    initModal();
-  }, 500);
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\assets\\src\\js\\modules\\atmodal.js: Unexpected token (9:1)\n\n\u001b[0m \u001b[90m  7 | \u001b[39m\u001b[90m/* disable-eslint */\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[32m'./../../scss/layout/public/atmodal.scss'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 | \u001b[39m\u001b[0m\n    at Object._raise (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:748:17)\n    at Object.raiseWithData (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:741:17)\n    at Object.raise (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Object.unexpected (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9101:16)\n    at Object.jsxParseIdentifier (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4536:12)\n    at Object.jsxParseNamespacedName (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4546:23)\n    at Object.jsxParseElementName (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4557:21)\n    at Object.jsxParseOpeningElementAt (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4644:22)\n    at Object.jsxParseElementAt (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4677:33)\n    at Object.jsxParseElement (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4751:17)\n    at Object.parseExprAtom (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4758:19)\n    at Object.parseExprSubscripts (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10150:23)\n    at Object.parseUpdate (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10130:21)\n    at Object.parseMaybeUnary (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10119:17)\n    at Object.parseExprOps (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9989:23)\n    at Object.parseMaybeConditional (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9963:23)\n    at Object.parseMaybeAssign (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9926:21)\n    at Object.parseExpressionBase (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9871:23)\n    at allowInAnd (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9865:39)\n    at Object.allowInAnd (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11541:16)\n    at Object.parseExpression (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9865:17)\n    at Object.parseStatementContent (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11807:23)\n    at Object.parseStatement (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11676:17)\n    at Object.parseBlockOrModuleBlockBody (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:12258:25)\n    at Object.parseBlockBody (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:12249:10)\n    at Object.parseTopLevel (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11607:10)\n    at Object.parse (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:13415:10)\n    at parse (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:13468:38)\n    at parser (C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)");
 
 /***/ }),
 

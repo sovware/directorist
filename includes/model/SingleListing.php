@@ -1109,7 +1109,7 @@ class Directorist_Single_Listing {
 			'rel_listing_column' => $columns,
 		);
 
-		wp_enqueue_script('atbdp-related-listings-slider');
-		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
+		wp_enqueue_script('directorist-releated-listings-slider');
+		wp_localize_script('directorist-releated-listings-slider', 'data', $localized_data);
 	}
 }

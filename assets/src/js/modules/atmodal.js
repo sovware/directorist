@@ -6,6 +6,11 @@
 	*/
 /* disable-eslint */
 
+<<<<<<< HEAD
+=======
+import './../../scss/layout/public/atmodal.scss';
+
+>>>>>>> 5ed623a37c6eabaaf23376fcefea2d40ad2f17f6
 const aazztechModal1 = selector => {
         const element = document.querySelectorAll(selector);
 

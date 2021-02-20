@@ -1342,7 +1342,7 @@ function admin_listing_form(directory_type) {
         var scripts = response.data['required_js_scripts'];
 
         for (var script_id in scripts) {
-          var old_script = document.getElementById(script);
+          var old_script = document.getElementById(script_id);
 
           if (old_script) {
             old_script.remove();
@@ -2779,12 +2779,18 @@ var pureScriptSelect = function pureScriptSelect(selector) {
       });
       var input = item.querySelector('.directorist-select__dropdown input');
       document.body.addEventListener('click', function (event) {
-        if (event.target == selectTrigger || event.target == input) return;
-        sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+        if (event.target == selectTrigger || event.target == input) {
+          return;
+        } else {
+          sibling.querySelector('.directorist-select__dropdown').classList.remove('directorist-select__dropdown-open');
+          sibling.querySelector('.directorist-select__label').closest('.directorist-select').classList.remove('directorist-select-active-js');
+        }
+
         input.value = '';
       });
       selectTrigger.addEventListener('click', function (e) {
         e.preventDefault();
+        e.target.closest('.directorist-select').classList.add('directorist-select-active-js');
         sibling.querySelector('.directorist-select__dropdown').classList.toggle('directorist-select__dropdown-open');
         var elem = [];
         arryEl.forEach(function (el, index) {

@@ -137,9 +137,9 @@ import { get_dom_data } from '../../lib/helper';
 
         });
 
-        $('#post').on('submit', function (event) {
-            event.preventDefault();
-            return false;
-        });
+        // $('#post').on('submit', function (event) {
+        //     event.preventDefault();
+        //     return false;
+        // });
     });
 })(jQuery);

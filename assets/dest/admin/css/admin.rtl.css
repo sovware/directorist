@@ -4745,6 +4745,10 @@ input.atbdp-form-control {
   top: 4px !important;
 }
 
+.directorist-form-group.directorist-faq-group {
+  margin-bottom: 30px;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

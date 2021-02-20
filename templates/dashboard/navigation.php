@@ -21,7 +21,11 @@ $counter = 1;
 				<li class="directorist-tab__nav__item"><!-- /.directorist-tab__nav__item--has-submenu -->
 					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
 				</li>
-
+				<?php
+			if (!empty($value['after_nav_hook'])) {
+				do_action($value['after_nav_hook']);
+			}
+			?>
 				<?php do_action( 'directorist_dashboard_navigation', $key, $dashboard ); ?>
 				<?php $counter++; ?>
 

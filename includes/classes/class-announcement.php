@@ -11,6 +11,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
             add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
             add_action( 'atbdp_schedule_task', [ $this, 'delete_expaired_announcements' ] );
+            
+            add_filter( 'directorist_dashboard_tabs', [ $this, 'directorist_dashboard_tabs' ] );
 
             // Handle ajax
             add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
@@ -160,6 +162,15 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             <?php
             echo ob_get_clean();
         }
+        public function directorist_dashboard_tabs( $dashboard_tabs ) {
+            $dashboard_tabs['dashboard_announcement'] = array(
+				'title'     => get_directorist_option('announcement_tab_text', __('Announcements', 'directorist')),
+				'content'   => $this->add_dashboard_nav_content(),
+				'icon'		=> atbdp_icon_type() . '-bullhorn',
+			);
+
+            return $dashboard_tabs;
+        }
 
         public function add_dashboard_nav_content() {
             $announcements = new WP_Query([
@@ -235,7 +246,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 </div>
             </div>
             <?php
-            echo ob_get_clean();
+            return ob_get_clean();
         }
 
         // send_announcement

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -579,7 +579,7 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!***************************************************************!*\
   !*** multi ./assets/src/js/modules/pureScriptSearchSelect.js ***!
   \***************************************************************/

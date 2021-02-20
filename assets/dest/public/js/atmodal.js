@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -90,14 +90,87 @@
 /*!******************************************!*\
   !*** ./assets/src/js/modules/atmodal.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/assets/src/js/modules/atmodal.js: Unexpected token (9:1)\n\n\u001b[0m \u001b[90m  7 |\u001b[39m \u001b[90m/* disable-eslint */\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m'./../../scss/layout/public/atmodal.scss'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m\u001b[0m\n    at Object._raise (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:776:17)\n    at Object.raiseWithData (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:769:17)\n    at Object.raise (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:737:17)\n    at Object.unexpected (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:9264:16)\n    at Object.jsxParseIdentifier (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4769:12)\n    at Object.jsxParseNamespacedName (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4779:23)\n    at Object.jsxParseElementName (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4790:21)\n    at Object.jsxParseOpeningElementAt (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4877:22)\n    at Object.jsxParseElementAt (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4910:33)\n    at Object.jsxParseElement (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4984:17)\n    at Object.parseExprAtom (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4991:19)\n    at Object.parseExprSubscripts (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10329:23)\n    at Object.parseUpdate (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10309:21)\n    at Object.parseMaybeUnary (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10287:23)\n    at Object.parseExprOps (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10152:23)\n    at Object.parseMaybeConditional (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10126:23)\n    at Object.parseMaybeAssign (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10089:21)\n    at Object.parseExpressionBase (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10034:23)\n    at /Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10028:39\n    at Object.allowInAnd (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11722:16)\n    at Object.parseExpression (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10028:17)\n    at Object.parseStatementContent (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11988:23)\n    at Object.parseStatement (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11857:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12439:25)\n    at Object.parseBlockBody (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12430:10)\n    at Object.parseTopLevel (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11788:10)\n    at Object.parse (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13594:10)\n    at parse (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13647:38)\n    at parser (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/parser/index.js:54:34)\n    at parser.next (<anonymous>)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/atmodal.scss */ "./assets/src/scss/layout/public/atmodal.scss");
+/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__);
+/*
+		Name:  ATModal
+		Version: 1.0
+		Author: AazzTech
+		Author URI: http://aazztech.com
+	*/
+
+/* disable-eslint */
+
+
+var aazztechModal1 = function aazztechModal1(selector) {
+  var element = document.querySelectorAll(selector);
+  element.forEach(function (el, index) {
+    el.style.display = 'none';
+    document.addEventListener('click', function (event) {
+      var current_elm = event.target;
+      var target_id = current_elm.getAttribute('data-target');
+      var el_id = el.getAttribute('id');
+
+      if (target_id === el_id) {
+        event.preventDefault();
+        el.style.display = 'block';
+        document.body.classList.add('atm-open');
+        setTimeout(function () {
+          el.classList.add('atm-show');
+        }, 100);
+        document.querySelector('html').style.overflow = 'hidden';
+      }
+    }, false);
+    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
+      e.preventDefault();
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.atm-contents-inner')) return;
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+  });
+};
+
+function initModal() {
+  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
+}
+
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    initModal();
+  }, 500);
+});
 
 /***/ }),
 
-/***/ 11:
+/***/ "./assets/src/scss/layout/public/atmodal.scss":
+/*!****************************************************!*\
+  !*** ./assets/src/scss/layout/public/atmodal.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ 10:
 /*!************************************************!*\
   !*** multi ./assets/src/js/modules/atmodal.js ***!
   \************************************************/

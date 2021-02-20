@@ -1,31 +1,36 @@
-.directorist-single-author-info{
+.directorist-single-author-info {
 
-    .diretorist-view-profile-btn{
+    .diretorist-view-profile-btn {
         margin-top: 22px;
         padding: 0 14px;
         border-radius: 3px;
+        color: #fff !important;
     }
 }
 
 // Directorist Author Avatar
-.directorist-single-author-avatar{
+.directorist-single-author-avatar {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    .directorist-single-author-avatar-inner{
+
+    .directorist-single-author-avatar-inner {
         margin-right: 10px;
-        img{
+
+        img {
             max-width: 50px;
             border-radius: 50%;
         }
     }
-    .directorist-single-author-name{
+
+    .directorist-single-author-name {
+
         h1,
         h2,
         h3,
         h4,
         h5,
-        h6{
+        h6 {
             font-size: 18px;
             font-weight: 500;
             line-height: 1.2;
@@ -33,28 +38,33 @@
             letter-spacing: normal;
             margin: 0 0 6px;
         }
-        .directorist-single-author-membership{
+
+        .directorist-single-author-membership {
             color: $body-color;
         }
     }
 }
 
 // DIrectorist Author Contact Info
-.directorist-single-author-contact-info{
+.directorist-single-author-contact-info {
     margin-top: 20px;
-    ul{
+
+    ul {
         flex-direction: column;
-        li{
+
+        li {
             width: 100%;
             flex: 100%;
             display: flex;
             align-items: center;
+
             span.la,
             span.fa,
-            i{
+            i {
                 color: $body-color;
             }
-            .directorist-single-author-contact-info-text{
+
+            .directorist-single-author-contact-info-text {
                 margin-left: 12px;
                 color: $body-color;
             }
@@ -63,11 +73,12 @@
 }
 
 // Directorist Author Social
-.directorist-single-author-info{
-    .directorist-social-wrap{
+.directorist-single-author-info {
+    .directorist-social-wrap {
         display: flex;
         margin: 25px -5px -5px;
-        a{
+
+        a {
             margin: 5px;
             display: block;
             line-height: 35px;

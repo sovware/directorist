@@ -15,7 +15,7 @@ class Directorist_Listings {
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
-	
+
 	public $atts;
 	public $type;
 	public $params;
@@ -251,7 +251,7 @@ class Directorist_Listings {
 			'map_height'               => $this->options['listings_map_height'],
 			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
 			'directory_type'	       => '',
-			'default_directory_type'   => ''    
+			'default_directory_type'   => ''
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -383,25 +383,25 @@ class Directorist_Listings {
 		$average_with_zero = number_format( $average, 1 );
 		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
 		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
-	 
+
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
 		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
 		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
-	 
+
 		// Stars
 		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
 		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
-	 
+
 		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
 		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
-	 
+
 		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
 		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
-	 
+
 		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
 		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
-	 
+
 		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
 		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
 
@@ -428,7 +428,7 @@ class Directorist_Listings {
 				'value'   => $this->get_current_listing_type(),
 				'compare' => '=',
 			);
-		
+
 		$meta_queries['expired'] = array(
 				'key'     => '_listing_status',
 				'value'   => 'post_status',
@@ -714,7 +714,7 @@ class Directorist_Listings {
 		else {
 			$args['no_found_rows'] = true;
 		}
-		
+
 		if ( $this->ids ) {
 			$args['post__in'] = $this->ids;
 		}
@@ -864,7 +864,7 @@ class Directorist_Listings {
 				}
 			}
 		}
-		
+
 		if (isset($_GET['price_range']) && 'none' != $_GET['price_range']) {
 			$price_range = sanitize_text_field( $_GET['price_range'] );
 			$meta_queries[] = array(
@@ -920,7 +920,7 @@ class Directorist_Listings {
 
 		if (!empty($_GET['miles']) && $_GET['miles'] > 0 && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
 			$args['atbdp_geo_query'] = array(
-				'lat_field' => '_manual_lat', 
+				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
 				'latitude' => sanitize_text_field( $_GET['cityLat'] ),
 				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
@@ -1041,7 +1041,7 @@ class Directorist_Listings {
 		if ( $this->logged_in_user_only ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
-		
+
 		// Load the template
 		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 
@@ -1112,13 +1112,13 @@ class Directorist_Listings {
 				else {
 					$template = $args['template'];
 				}
-				
+
 				Helper::get_template( "archive/fields/" . $template, array('listings' => $this) );
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;
             wp_reset_postdata();
-		else: 
+		else:
 			?><p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p><?php
 		endif;
 	}
@@ -1151,7 +1151,7 @@ class Directorist_Listings {
 		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
 		foreach ( $options as $value => $label ) {
 			$arguments['sort'] 		   = $value;
-			
+
 			$link_item['link']         = add_query_arg( $arguments, $actual_link );
 			$link_item['label']        = $label;
 			$link_item['key']          = $value;
@@ -1264,7 +1264,7 @@ class Directorist_Listings {
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
-		
+
 		wp_localize_script( 'directorist-openstreet-load-scripts', 'loc_data', [
 			'script_path'  => $script_path
 		]);
@@ -1280,7 +1280,7 @@ class Directorist_Listings {
 		$default_lat_lon   = array( 'lat' => 40.7128, 'lon' => 74.0060 );
 		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
 		$load_scripts_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js';
-		
+
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
@@ -1339,12 +1339,12 @@ class Directorist_Listings {
 
 	public function get_osm_map_info_card_data() {
 		$opt = $this->get_map_options();
-		
+
 		$listings_data = [];
 		$lat_lon = [];
 
 		$listings = $this->query_results;
-		
+
 		if ( ! empty( $listings->ids ) ) :
 			// Prime caches to reduce future queries.
 			if ( ! empty( $listings->ids ) && is_callable( '_prime_post_caches' ) ) {
@@ -1364,7 +1364,7 @@ class Directorist_Listings {
 				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
 
-				$lat_lon = [ 
+				$lat_lon = [
 					'lat' => $ls_data['manual_lat'],
 					'lon' => $ls_data['manual_lng']
 				];
@@ -1374,7 +1374,7 @@ class Directorist_Listings {
 				}
 
 				$ls_data['default_image'] = $this->options['default_preview_image'];
-				
+
 				if ( ! empty( $ls_data['listing_img'][0] ) ) {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
@@ -1393,7 +1393,7 @@ class Directorist_Listings {
 
 				$ls_data['cat_icon'] = $cat_icon;
 				$opt['ls_data'] = $ls_data;
-				
+
 				ob_start();
 
 				if (!empty($opt['display_map_info']) && (!empty($opt['display_image_map']) || !empty($opt['display_title_map']) || $opt['display_address_map']) || !empty($opt['display_direction_map'])) {
@@ -1404,7 +1404,7 @@ class Directorist_Listings {
 
 				$listings_data[] = $ls_data;
 			endforeach;
-			
+
 			$GLOBALS['post'] = $original_post;
 			wp_reset_postdata();
 		endif;
@@ -1440,7 +1440,7 @@ class Directorist_Listings {
 			<?php
 
 			$listings = $this->query_results;
-					
+
 			if ( ! empty( $listings->ids ) ) :
 				// Prime caches to reduce future queries.
 				if ( ! empty( $listings->ids ) && is_callable( '_prime_post_caches' ) ) {
@@ -1474,7 +1474,7 @@ class Directorist_Listings {
 					$icon_type = substr($cat_icon, 0,2);
 					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
 					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-					
+
 					if (!empty($ls_data['listing_prv_img'])) {
 						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
 					}
@@ -1483,7 +1483,7 @@ class Directorist_Listings {
 						$ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 						$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 					}
-					
+
 					if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
 						$opt['ls_data'] = $ls_data;
 						Helper::get_template( 'archive/fields/google-map', $opt );
@@ -1578,13 +1578,13 @@ class Directorist_Listings {
 					$cat_name = $cat->name;
 				}
 			}
-			
+
 			if ( isset($_GET['in_loc'] ) ) {
 				$loc_id = intval($_GET['in_cat']);
 				$loc = get_term_by('id', $loc_id, ATBDP_LOCATION);
 				if ( $loc ) {
 					$loc_name = $loc->name;
-				}	
+				}
 			}
 			elseif ( isset($_GET['address'] ) ) {
 				$loc_name = sanitize_text_field( $_GET['address'] );
@@ -1631,7 +1631,7 @@ class Directorist_Listings {
 		}
 
 		public function get_the_location() {
-			
+
 			$id = get_the_ID();
 			$locs = get_the_terms( $id, ATBDP_LOCATION );
 
@@ -1712,11 +1712,11 @@ class Directorist_Listings {
 						$value = true;
 					}
 				}
-				
+
 				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
 					$load_template = false;
 				}
-				
+
 				$label = !empty( $field['show_label'] ) ? $field['label']: '';
 				$args = array(
 					'listings' => $this,
@@ -1915,7 +1915,7 @@ class Directorist_Listings {
 		public static function popular_badge( $content ) {
 			$popular_listing_id = atbdp_popular_listings(get_the_ID());
 			$popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
-			
+
 			if ( $popular_listing_id === get_the_ID() ) {
 				$badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
 				return $content . $badge;
@@ -2001,7 +2001,7 @@ class Directorist_Listings {
 
     public static function mark_as_favourite_button() {
     	$display_mark_as_fav = apply_filters('atbdp_listings_favourite_btn',get_directorist_option( 'display_mark_as_fav', 1 ));
-    	
+
     	if ( ! empty( $display_mark_as_fav ) ) {
     		echo atbdp_listings_mark_as_favourite( get_the_ID() );
     	}

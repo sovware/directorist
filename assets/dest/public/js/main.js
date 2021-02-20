@@ -1830,49 +1830,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/components/login.js");
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/components/tab.js");
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
-/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _modules_atmodal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/atmodal */ "./assets/src/js/modules/atmodal.js");
+/* harmony import */ var _modules_atmodal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_atmodal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/components/tab.js");
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/components/atbdDropdown.js");
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/components/atbdSelect.js");
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/booking */ "./assets/src/js/components/booking.js");
+/* harmony import */ var _components_booking__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_booking__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -1887,7 +1889,8 @@ __webpack_require__.r(__webpack_exports__);
 
  //import './modules/pureScriptSearchSelect';
 // import './modules/range-slider';
-// Single Listing Page
+
+ // Single Listing Page
 
  // Components
 
@@ -1914,6 +1917,17 @@ __webpack_require__.r(__webpack_exports__);
  // Booking
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/modules/atmodal.js":
+/*!******************************************!*\
+  !*** ./assets/src/js/modules/atmodal.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/assets/src/js/modules/atmodal.js: Unexpected token (9:1)\n\n\u001b[0m \u001b[90m  7 |\u001b[39m \u001b[90m/* disable-eslint */\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m'./../../scss/layout/public/atmodal.scss'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m\u001b[0m\n    at Object._raise (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:776:17)\n    at Object.raiseWithData (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:769:17)\n    at Object.raise (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:737:17)\n    at Object.unexpected (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:9264:16)\n    at Object.jsxParseIdentifier (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4769:12)\n    at Object.jsxParseNamespacedName (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4779:23)\n    at Object.jsxParseElementName (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4790:21)\n    at Object.jsxParseOpeningElementAt (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4877:22)\n    at Object.jsxParseElementAt (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4910:33)\n    at Object.jsxParseElement (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4984:17)\n    at Object.parseExprAtom (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4991:19)\n    at Object.parseExprSubscripts (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10329:23)\n    at Object.parseUpdate (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10309:21)\n    at Object.parseMaybeUnary (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10287:23)\n    at Object.parseExprOps (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10152:23)\n    at Object.parseMaybeConditional (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10126:23)\n    at Object.parseMaybeAssign (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10089:21)\n    at Object.parseExpressionBase (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10034:23)\n    at /Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10028:39\n    at Object.allowInAnd (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11722:16)\n    at Object.parseExpression (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10028:17)\n    at Object.parseStatementContent (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11988:23)\n    at Object.parseStatement (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11857:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12439:25)\n    at Object.parseBlockBody (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12430:10)\n    at Object.parseTopLevel (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11788:10)\n    at Object.parse (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13594:10)\n    at parse (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13647:38)\n    at parser (/Users/syedgalib/Local Sites/directorist-dev/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/parser/index.js:54:34)\n    at parser.next (<anonymous>)");
 
 /***/ }),
 

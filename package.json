@@ -17,6 +17,7 @@
   "homepage": "https://bitbucket.org/vairafiq/directorist-business-directory-plugin#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "cross-env": "^7.0.3",
     "export-to-csv": "^0.2.1",
     "gulp": "^4.0.0",
     "lodash": "^4.17.20",

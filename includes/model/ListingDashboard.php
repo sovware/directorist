@@ -377,6 +377,8 @@ class Directorist_Listing_Dashboard {
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
 				'icon'		=> atbdp_icon_type() . '-heart-o',
+				'after_nav_hook'     => 'directorist_tab_after_favorite_listings',
+				'after_content_hook' => 'directorist_tab_content_after_favorite',
 			);
 		}
 

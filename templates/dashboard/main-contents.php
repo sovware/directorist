@@ -14,8 +14,13 @@ $counter = 1;
 
 	<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo $value['content']; ?></div>
-
+		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo $value['content']; ?>
+		</div>
+		<?php
+			if (!empty($value['after_content_hook'])) {
+				do_action($value['after_content_hook']);
+			}
+			?>
 		<?php do_action( 'directorist_dashboard_contents', $key, $dashboard ); ?>
 
 		<?php $counter++; ?>

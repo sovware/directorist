@@ -105,7 +105,7 @@ const commonConfig = {
 const publicConfig = {
   entry: {
     // JS
-    ['main']: ["./assets/src/js/main.js"],
+    // ['main']: ["./assets/src/js/main.js"],
     ['global']: ["./assets/src/js/global.js"],
     ['checkout']: ["./assets/src/js/checkout.js"],
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],

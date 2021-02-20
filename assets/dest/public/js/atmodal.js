@@ -90,10 +90,83 @@
 /*!******************************************!*\
   !*** ./assets/src/js/modules/atmodal.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\assets\\src\\js\\modules\\atmodal.js: Unexpected token (9:1)\n\n\u001b[0m \u001b[90m  7 | \u001b[39m\u001b[90m/* disable-eslint */\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[32m'./../../scss/layout/public/atmodal.scss'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 | \u001b[39m\u001b[0m\n    at Object._raise (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:748:17)\n    at Object.raiseWithData (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:741:17)\n    at Object.raise (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Object.unexpected (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9101:16)\n    at Object.jsxParseIdentifier (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4536:12)\n    at Object.jsxParseNamespacedName (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4546:23)\n    at Object.jsxParseElementName (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4557:21)\n    at Object.jsxParseOpeningElementAt (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4644:22)\n    at Object.jsxParseElementAt (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4677:33)\n    at Object.jsxParseElement (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4751:17)\n    at Object.parseExprAtom (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:4758:19)\n    at Object.parseExprSubscripts (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10150:23)\n    at Object.parseUpdate (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10130:21)\n    at Object.parseMaybeUnary (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:10119:17)\n    at Object.parseExprOps (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9989:23)\n    at Object.parseMaybeConditional (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9963:23)\n    at Object.parseMaybeAssign (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9926:21)\n    at Object.parseExpressionBase (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9871:23)\n    at E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9865:39\n    at Object.allowInAnd (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11541:16)\n    at Object.parseExpression (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:9865:17)\n    at Object.parseStatementContent (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11807:23)\n    at Object.parseStatement (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11676:17)\n    at Object.parseBlockOrModuleBlockBody (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:12258:25)\n    at Object.parseBlockBody (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:12249:10)\n    at Object.parseTopLevel (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:11607:10)\n    at Object.parse (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:13415:10)\n    at parse (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\parser\\lib\\index.js:13468:38)\n    at parser (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:99:38)\n    at normalizeFile.next (<anonymous>)\n    at run (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\core\\lib\\transformation\\index.js:31:50)\n    at run.next (<anonymous>)\n    at Function.transform (E:\\Aazztech\\directorist-core\\app\\public\\wp-content\\plugins\\directorist\\node_modules\\@babel\\core\\lib\\transform.js:27:41)\n    at transform.next (<anonymous>)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/atmodal.scss */ "./assets/src/scss/layout/public/atmodal.scss");
+/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__);
+/*
+		Name:  ATModal
+		Version: 1.0
+		Author: AazzTech
+		Author URI: http://aazztech.com
+	*/
+
+/* disable-eslint */
+
+
+var aazztechModal1 = function aazztechModal1(selector) {
+  var element = document.querySelectorAll(selector);
+  element.forEach(function (el, index) {
+    el.style.display = 'none';
+    document.addEventListener('click', function (event) {
+      var current_elm = event.target;
+      var target_id = current_elm.getAttribute('data-target');
+      var el_id = el.getAttribute('id');
+
+      if (target_id === el_id) {
+        event.preventDefault();
+        el.style.display = 'block';
+        document.body.classList.add('atm-open');
+        setTimeout(function () {
+          el.classList.add('atm-show');
+        }, 100);
+        document.querySelector('html').style.overflow = 'hidden';
+      }
+    }, false);
+    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
+      e.preventDefault();
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.atm-contents-inner')) return;
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+  });
+};
+
+function initModal() {
+  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
+}
+
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    initModal();
+  }, 500);
+});
+
+/***/ }),
+
+/***/ "./assets/src/scss/layout/public/atmodal.scss":
+/*!****************************************************!*\
+  !*** ./assets/src/scss/layout/public/atmodal.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

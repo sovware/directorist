@@ -4841,7 +4841,7 @@ input.atbdp-form-control {
 }
 
 .directorist-content-active a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .directorist-content-active p {
   font-size: 15px;
@@ -5786,7 +5786,7 @@ a {
 }
 
 .directorist-content-active a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .directorist-content-active p {
   font-size: 15px;
@@ -7419,7 +7419,7 @@ a {
 }
 
 .directorist-content-active a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .directorist-content-active p {
   font-size: 15px;

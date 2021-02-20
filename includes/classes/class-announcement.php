@@ -73,7 +73,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
 
             ob_start(); ?>
-            <div class="directorist-tab__pane " id="announcement">
+            <div class="directorist-tab__pane" id="announcement">
                 <div class="atbd_announcement_wrapper">
                     <?php if ( $announcements->have_posts() ) : ?>
                     <div class="atbdp-accordion">

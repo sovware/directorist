@@ -4866,14 +4866,14 @@ input.atbdp-form-control {
   color: red !important;
 }
 
-.directory_register_form_wrap {
+.directory_register_form_wrap .dgr_show_recaptcha {
   margin-bottom: 20px;
 }
 .directory_register_form_wrap .dgr_show_recaptcha > p {
   font-size: 16px;
   color: #28303d;
   font-weight: 600;
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
 }
 
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
@@ -4943,6 +4943,9 @@ input.atbdp-form-control {
   border-radius: 5px;
   width: 100%;
   border: 1px solid #ececec;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 0;
 }
 .directorist-form-group .directorist-form-element:focus {
   outline: none;
@@ -5000,7 +5003,7 @@ input.atbdp-form-control {
   padding: 0 26px;
   line-height: 2.95;
   border-radius: 5px;
-  background-color: #EEF1F3;
+  background: #EEF1F3;
   border-color: transparent;
   text-decoration: none;
 }
@@ -5010,81 +5013,81 @@ input.atbdp-form-control {
 }
 
 .directorist-btn.directorist-btn-primary {
-  background-color: #444752;
+  background: #444752;
   color: #fff;
 }
 .directorist-btn.directorist-btn-primary:focus {
   background: #444752 !important;
 }
 .directorist-btn.directorist-btn-secondary {
-  background-color: #122069;
+  background: #122069;
   color: #fff;
 }
 .directorist-btn.directorist-btn-dark {
-  background-color: #202428;
+  background: #202428;
   color: #fff;
 }
 .directorist-btn.directorist-btn-success {
-  background-color: #00AC17;
+  background: #00AC17;
   color: #fff;
 }
 .directorist-btn.directorist-btn-info {
-  background-color: #2C99FF;
+  background: #2C99FF;
   color: #fff;
 }
 .directorist-btn.directorist-btn-warning {
-  background-color: #EF8000;
+  background: #EF8000;
   color: #fff;
 }
 .directorist-btn.directorist-btn-danger {
-  background-color: #EF0000;
+  background: #EF0000;
   color: #fff;
 }
 .directorist-btn.directorist-btn-bg-normal {
-  background-color: #F9F9F9;
+  background: #F9F9F9;
 }
 .directorist-btn.directorist-btn-bg-light {
-  background-color: #F4F5F6;
+  background: #F4F5F6;
 }
 
 .directorist-btn.directorist-btn-outline {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #EFF1F6 !important;
 }
 .directorist-btn.directorist-btn-outline-normal {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #ececec !important;
 }
 .directorist-btn.directorist-btn-outline-light {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #c6d0dc !important;
 }
 .directorist-btn.directorist-btn-outline-primary {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #444752 !important;
 }
 .directorist-btn.directorist-btn-outline-secondary {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #122069 !important;
 }
 .directorist-btn.directorist-btn-outline-success {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #00AC17 !important;
 }
 .directorist-btn.directorist-btn-outline-info {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #2C99FF !important;
 }
 .directorist-btn.directorist-btn-outline-warning {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #EF8000 !important;
 }
 .directorist-btn.directorist-btn-outline-danger {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #EF0000 !important;
 }
 .directorist-btn.directorist-btn-outline-dark {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #202428 !important;
 }
 
@@ -5818,14 +5821,14 @@ a {
   color: red !important;
 }
 
-.directory_register_form_wrap {
+.directory_register_form_wrap .dgr_show_recaptcha {
   margin-bottom: 20px;
 }
 .directory_register_form_wrap .dgr_show_recaptcha > p {
   font-size: 16px;
   color: #28303d;
   font-weight: 600;
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
 }
 
 /* Directorist custom grid */
@@ -5925,10 +5928,10 @@ a {
 }
 
 .directorist-col-1 {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   width: 8.3333333333%;
 }
 
@@ -7461,14 +7464,14 @@ a {
   color: red !important;
 }
 
-.directory_register_form_wrap {
+.directory_register_form_wrap .dgr_show_recaptcha {
   margin-bottom: 20px;
 }
 .directory_register_form_wrap .dgr_show_recaptcha > p {
   font-size: 16px;
   color: #28303d;
   font-weight: 600;
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
 }
 
 /* Directorist custom grid */
@@ -7568,10 +7571,10 @@ a {
 }
 
 .directorist-col-1 {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   width: 8.3333333333%;
 }
 

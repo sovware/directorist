@@ -1,0 +1,66 @@
+// Device Screen Breakpoint
+$desktop-width-1: 1599px;
+$desktop-width-2: 1399px;
+
+$laptop-width-1: 1199px;
+
+$tablet-width-1: 991px;
+$tablet-width-2: 767px;
+
+$mobile-width-1: 575px;
+$mobile-width-2: 479px;
+$mobile-width-3: 375px;
+
+// Media Queries
+
+// XX. Extra Small Devices (less than 380px)
+@media only screen and (max-width: #{$mobile-width-3}) {}
+
+
+// XX. Small Devices (less than 480px)
+@media only screen and (max-width: #{$mobile-width-2}) {}
+
+
+// XX. Medium Devices (less than 576px)
+@media only screen and (max-width: #{$mobile-width-1}) {
+    .directorist-search-contents .directorist-search-form-top .directorist-search-field {
+        flex: 0 0 100%;
+    }
+}
+
+
+// XX. Medium Devices (less than 768px)
+@media only screen and (max-width: #{$tablet-width-2}) {}
+
+
+// XX. Medium Devices (less than 991px)
+@media only screen and (max-width: #{$tablet-width-1}) {}
+
+
+// XX. Large Devices (less than 1200px)
+@media only screen and (max-width: #{$laptop-width-1}) {
+    .directorist-search-contents .directorist-search-form-top {
+        justify-content: center;
+
+        .directorist-search-form-action {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+
+// XX. Extra Large Devices (Less than 1400px)
+@media only screen and (max-width: #{$desktop-width-2}) {}
+
+
+// XX. Extra Large Devices (Less than 1600px)
+@media only screen and (max-width: #{$desktop-width-1}) {}
+
+
+// XX. Custom Devices
+//@media only screen and (min-width: $min-width) and (max-width: $max-width) {}
+
+
+// XX. Custom Devices 2
+//@media only screen and (max-width: $max-width) {}

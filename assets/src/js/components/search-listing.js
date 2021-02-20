@@ -182,7 +182,7 @@
 
 /* advanced search form reset */
 function adsFormReset() {
-    const adsForm = document.querySelector(".atbd_ads-form");
+    const adsForm = document.querySelector(".directorist-search-form");
     adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
     });
@@ -204,8 +204,8 @@ function adsFormReset() {
         rangeValue.textContent = "0";
     }
 }
-if(document.querySelector(".atbd_ads-form #atbdp_reset") !== null){
-    document.querySelector(".atbd_ads-form #atbdp_reset").addEventListener("click", function (e) {
+if(document.querySelector(".directorist-search-form #atbdp_reset") !== null){
+    document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
         atbd_callingSlider(0);

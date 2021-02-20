@@ -18,6 +18,8 @@
         border-radius: 5px;
         width: 100%;
         border: 1px solid $border-color-normal;
+        box-sizing: border-box;
+        margin-bottom: 0;
 
         &:focus {
             outline: none;

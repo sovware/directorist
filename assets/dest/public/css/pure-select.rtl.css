@@ -227,14 +227,14 @@ a {
   color: red !important;
 }
 
-.directory_register_form_wrap {
+.directory_register_form_wrap .dgr_show_recaptcha {
   margin-bottom: 20px;
 }
 .directory_register_form_wrap .dgr_show_recaptcha > p {
   font-size: 16px;
   color: #28303d;
   font-weight: 600;
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
 }
 
 /* Directorist custom grid */
@@ -334,10 +334,10 @@ a {
 }
 
 .directorist-col-1 {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   width: 8.3333333333%;
 }
 

@@ -3,6 +3,7 @@
     background-color: #fff;
     margin-bottom: 15px;
     border-radius: 4px;
+    border: 1px solid #EFF1F6;
 
     .directorist-badge {
         margin: 3px;
@@ -406,7 +407,8 @@
 
         .directorist-favorite-icon {
             &:before {
-                content: '\f233';
+                content: '\f004';
+                font-family: 400;
             }
         }
     }
@@ -415,9 +417,10 @@
         line-height: 1;
 
         &:before {
-            content: "\f234";
-            font-family: 'LineAwesome';
+            content: "\f004";
+            font-family: 'Line Awesome Free';
             color: #fff;
+            font-weight: 900;
         }
     }
 

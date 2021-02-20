@@ -30,6 +30,8 @@
 
             &:not(.atbd_location_grid-default) {
                 figure {
+                    margin: 0;
+
                     figcaption {
                         position: absolute;
                         top: 0;

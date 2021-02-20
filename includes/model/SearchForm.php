@@ -284,8 +284,9 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function load_map_scripts() {
-		wp_localize_script( 'atbdp-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
-		wp_enqueue_script( 'atbdp-geolocation' );
+		wp_localize_script( 'directorist-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
+		wp_enqueue_script( 'directorist-geolocation' );
+		wp_enqueue_script( 'directorist-search-form-listing' );
 	}
 
 	public function load_radius_search_scripts( $data ) {

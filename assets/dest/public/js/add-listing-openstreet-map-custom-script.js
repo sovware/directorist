@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -274,17 +274,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       ;
-    });
-    $('#post').on('submit', function (event) {
-      event.preventDefault();
-      return false;
-    });
+    }); // $('#post').on('submit', function (event) {
+    //     event.preventDefault();
+    //     return false;
+    // });
   });
 })(jQuery);
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /*!******************************************************************************!*\
   !*** multi ./assets/src/js/map-custom-scripts/add-listing/openstreet-map.js ***!
   \******************************************************************************/

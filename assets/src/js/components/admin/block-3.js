@@ -630,12 +630,13 @@ function admin_listing_form(directory_type) {
                 const scripts = response.data['required_js_scripts'];
                 for ( let script_id in scripts ) {
 
-                    var old_script = document.getElementById( script );
+                    var old_script = document.getElementById( script_id );
                     if ( old_script ) { old_script.remove(); }
                     
                     var script = document.createElement('script');
                     script.id = script_id;
                     script.src = scripts[ script_id ];
+                    
                     document.body.appendChild(script);
                 }
             }

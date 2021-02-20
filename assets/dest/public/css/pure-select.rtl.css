@@ -227,6 +227,16 @@ a {
   color: red !important;
 }
 
+.directory_register_form_wrap {
+  margin-bottom: 20px;
+}
+.directory_register_form_wrap .dgr_show_recaptcha > p {
+  font-size: 16px;
+  color: #28303d;
+  font-weight: 600;
+  margin-bottom: 10px !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

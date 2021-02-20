@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-listing-category">
 	<?php if ( ! empty( $listings->loop['cats'] ) ) {
 		$term_icon = get_term_meta( $listings->loop['cats'][0]->term_id, 'category_icon', true );
-		$term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la-folder-open' ] );
+		$term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la la-folder-open' ] );
 		?>
 		<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($listings->loop['cats'][0]) ); ?>"><?php echo $term_icon . esc_html($listings->loop['cats'][0]->name); ?></a>
 		<?php

@@ -518,6 +518,7 @@ class Directorist_Listing_Search_Form {
 	public function category_icon_class($cat) {
 		$icon = get_cat_icon($cat->term_id);
 		$icon_type = substr($icon, 0, 2);
+		$icon_class = ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon;
 		$icon_class = $icon;
 		return $icon_class;
 	}

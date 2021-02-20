@@ -446,10 +446,10 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'field'				=>  '<i class="la la-trash"></i>',
+			'icon'				=>  '<i class="la la-trash"></i>',
 			'label'				=>  __('Delete Listing', 'directorist')
 		 );
 
-		return apply_filters( 'atbdp_dashboard_listing_action_item', $dropdown_items );
+		return apply_filters( 'directorist_dashboard_listing_action_items', $dropdown_items );
 	}
 }

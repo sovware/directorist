@@ -56,7 +56,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
         public function conditional_layouts( $layouts ) {
 
-            if( ! get_directorist_option( 'enable_multi_directory', false ) ) {
+            if( ! directorist_multi_directory() ) {
                 unset( $layouts['listings_card_layout']['submenu']['other'] );
                 unset( $layouts['general'] );
             }

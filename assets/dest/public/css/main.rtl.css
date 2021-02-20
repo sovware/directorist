@@ -5078,7 +5078,7 @@ p.atbd-min {
   display: block;
 }
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image) .cat-info .cat-name {
-  margin-bottom: 8px !important;
+  margin-bottom: 8px;
 }
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image) .cat-info .cat-count span {
   font-size: 18px;

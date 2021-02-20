@@ -8414,3 +8414,8 @@ if( !function_exists('directorist_legacy_mode') ){
         return get_directorist_option( 'atbdp_legacy_template', false );
     }
 }
+if( !function_exists('directorist_multi_directory') ){
+    function directorist_multi_directory() {
+        return get_directorist_option( 'enable_multi_directory', false );
+    }
+}

@@ -46,7 +46,7 @@ if ( $query->have_posts() ) {
 							if( $dropdown_items ) {
 								foreach( $dropdown_items as $item ) {
 							?>
-									<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['field']; ?><?php echo $item['label']; ?></a>
+									<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
 							<?php }
 							} ?>
 							</div>

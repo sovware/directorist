@@ -726,6 +726,30 @@ class Directorist_Listing_Form {
 		return $form_data;
 	}
 
+	public function get_map_data() {
+		$p_id = $this->get_add_listing_id();
+
+		$data = array(
+			'p_id'               => $p_id,
+			'listing_form'       => $this,
+			'listing_info'       => $this->get_listing_info(),
+			'select_listing_map' => get_directorist_option( 'select_listing_map', 'google' ),
+			'display_map_for'    => get_directorist_option( 'display_map_for', 0 ),
+			'display_map_field'  => get_directorist_option( 'display_map_field', 1 ),
+			'manual_lat'         => get_post_meta( $p_id, '_manual_lat', true ),
+			'manual_lng'         => get_post_meta( $p_id, '_manual_lng', true ),
+			'default_latitude'   => get_directorist_option( 'default_latitude', '40.7127753' ),
+			'default_longitude'  => get_directorist_option( 'default_longitude', '-74.0059728' ),
+			'info_content'       => $this->get_map_info_content(),
+			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
+			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
+			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
+			'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
+		);
+
+		return $data;
+	}
+
 	public function render_shortcode( $atts ) {
 
 		wp_enqueue_script( 'adminmainassets' );

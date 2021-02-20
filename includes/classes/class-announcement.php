@@ -163,11 +163,15 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             echo ob_get_clean();
         }
         public function directorist_dashboard_tabs( $dashboard_tabs ) {
-            $dashboard_tabs['dashboard_announcement'] = array(
-				'title'     => get_directorist_option('announcement_tab_text', __('Announcements', 'directorist')),
-				'content'   => $this->add_dashboard_nav_content(),
-				'icon'		=> atbdp_icon_type() . '-bullhorn',
-			);
+            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
+            $legacy_template        = get_directorist_option( 'atbdp_legacy_template', true ); 
+            if( ! empty( $announcement_tab ) && empty( $legacy_template ) ){
+                $dashboard_tabs['dashboard_announcement'] = array(
+                    'title'     => get_directorist_option('announcement_tab_text', __('Announcements', 'directorist')),
+                    'content'   => $this->add_dashboard_nav_content(),
+                    'icon'		=> atbdp_icon_type() . '-bullhorn',
+                );
+            }
 
             return $dashboard_tabs;
         }
@@ -246,7 +250,14 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 </div>
             </div>
             <?php
-            return ob_get_clean();
+            $content =  ob_get_clean();
+            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
+            $legacy_template        = get_directorist_option( 'atbdp_legacy_template', true ); 
+            if( ! empty( $announcement_tab ) && empty( $legacy_template ) ){
+                return $content;
+            } else {
+                echo $content;
+            }
         }
 
         // send_announcement

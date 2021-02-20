@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="<?php Helper::directorist_row(); ?> directorist-mb-40">
 
-	<div class="<?php Helper::directorist_column( 8 ); ?>">
+	<div class="<?php Helper::directorist_column( 'md-8' ); ?>">
 		<div class="directorist-card directorist-author-about">
 
 			<div class="directorist-card__header">
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</div>
 	</div>
 
-	<div class="<?php Helper::directorist_column( 4 ); ?>">
+	<div class="<?php Helper::directorist_column( 'md-4' ); ?>">
 		<div class="directorist-card directorist-widget directorist-author-contact">
 
 			<div class="directorist-card__header">
@@ -89,7 +89,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 							<?php if ( $youtube ): ?>
 								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-youtube"></span></a></li>
 							<?php endif; ?>
-							
+
 						</ul>
 
 					<?php endif; ?>
@@ -98,5 +98,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 	</div>
-	
+
 </div>

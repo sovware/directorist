@@ -1,14 +1,16 @@
 // Search Home Styles
-.directorist-search-top{
+.directorist-search-top {
     text-align: center;
     margin-bottom: 34px;
-    @include e(title){
+
+    @include e(title) {
         color: #51526E;
         font-size: 36px;
         font-weight: 500;
         margin-bottom: 18px;
     }
-    @include e(subtitle){
+
+    @include e(subtitle) {
         color: #51526E;
         font-size: 18px;
         opacity: .80;
@@ -16,31 +18,35 @@
     }
 }
 
-.directorist-search-contents{
+.directorist-search-contents {
     background-size: cover;
     padding: 230px 0 265px;
     z-index: 2;
 }
+
 // Search Border Boder
-.directorist-search-form-wrap{
-    &.directorist-with-search-border{
-        .directorist-search-form-top{
+.directorist-search-form-wrap {
+    &.directorist-with-search-border {
+        .directorist-search-form-top {
             border: 1px solid #ECECEC;
         }
     }
 }
 
 // Directorist Listing Type Selection
-.directorist-listing-type-selection{
+.directorist-listing-type-selection {
     display: flex;
     justify-content: center;
     align-items: center;
-    .directorist-listing-type-selection__item{
+
+    .directorist-listing-type-selection__item {
         margin-bottom: 25px;
-        &:not(:last-child){
+
+        &:not(:last-child) {
             margin-right: 25px;
         }
-        a{
+
+        a {
             text-decoration: none;
             font-size: 15px;
             padding: 6px 0;
@@ -48,7 +54,8 @@
             display: block;
             color: #8F8E9F;
             position: relative;
-            &::after{
+
+            &::after {
                 position: absolute;
                 left: 0;
                 bottom: 0;
@@ -61,79 +68,96 @@
                 background-color: $dark;
             }
         }
-        .directorist-listing-type-selection__link--current{
+
+        .directorist-listing-type-selection__link--current {
             color: $dark;
-            &::after{
+
+            &::after {
                 opacity: 1;
                 visibility: visible;
             }
         }
     }
 }
+
 // Directorist Search form top
-.directorist-search-contents{
-    .directorist-search-form-top{
+.directorist-search-contents {
+    .directorist-search-form-top {
         background-color: #fff;
         border-radius: 6px;
         padding: 10px 20px 10px 0;
         flex-wrap: wrap;
         margin: -5px 0;
-        .directorist-search-field{
+
+        .directorist-search-field {
             flex: auto;
             flex-direction: column;
             align-items: flex-start;
             min-width: 200px;
             margin: 5px 0;
-            &:not(:last-child){
+
+            &:not(:last-child) {
                 border-right: 1px solid $border-color;
             }
-            .directorist-form-element{
+
+            .directorist-form-element {
                 border: 0 none;
             }
-            .directorist-select .directorist-select__label{
+
+            .directorist-select .directorist-select__label {
                 border: 0 none;
             }
-            >label{
+
+            >label {
                 display: none;
             }
-            .wp-picker-container{
-                .wp-picker-input-wrap{
-                    label{
+
+            .wp-picker-container {
+                .wp-picker-input-wrap {
+                    label {
                         display: none;
                     }
                 }
             }
+
             .directorist-search-tags {
                 flex-direction: column;
                 padding: 10px 15px;
-                .directorist-checkbox{
+
+                .directorist-checkbox {
                     margin-bottom: 10px;
                 }
             }
-            .directorist-range-slider-wrap{
+
+            .directorist-range-slider-wrap {
                 padding: 10px 15px;
                 min-width: 220px;
             }
-            .directorist-btn-ml{
+
+            .directorist-btn-ml {
                 font-size: 14px;
                 color: #7a82a6;
                 text-decoration: none;
             }
         }
-        .directorist-search-form-action{
+
+        .directorist-search-form-action {
             display: flex;
-            .directorist-btn.directorist-btn-lg{
+
+            .directorist-btn.directorist-btn-lg {
                 border-radius: 6px;
                 font-weight: 400;
                 line-height: 1.75;
                 padding: 11px 15px;
             }
-            button{
+
+            button {
                 text-decoration: none;
                 text-transform: capitalize;
             }
-            @include e(filter){
-                .directorist-filter-btn{
+
+            @include e(filter) {
+                .directorist-filter-btn {
                     background-color: #fff;
                 }
             }
@@ -142,17 +166,20 @@
 }
 
 // Search Home Advance Filter
-.directorist-search-contents{
-    .directorist-advanced-filter{
+.directorist-search-contents {
+    .directorist-advanced-filter {
         border: 1px solid #e3e6ef;
         margin-top: 25px;
         background: #fff;
-        .directorist-search-tags{
+
+        .directorist-search-tags {
             flex-wrap: wrap;
             margin: -5px;
-            .directorist-checkbox{
+
+            .directorist-checkbox {
                 margin: 5px;
-                .directorist-checkbox__label{
+
+                .directorist-checkbox__label {
                     margin-left: 0;
                 }
             }
@@ -161,30 +188,36 @@
 }
 
 // Directorist listing Category
-.directorist-listing-category-top{
+.directorist-content-active .directorist-listing-category-top {
     text-align: center;
     margin-top: 25px;
-    ul{
+
+    ul {
         margin: -15px;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        li{
+
+        li {
             margin: 15px;
-            a{
+
+            a {
                 color: #51526E;
                 font-size: 14px;
                 font-weight: 500;
                 text-decoration: none;
                 display: flex;
                 align-items: center;
+
                 i,
-                span.fa,
-                span.la{
+                span,
+                span.la {
                     color: #8F8E9F;
                     margin-right: 4px;
                 }
-                p{
+
+                p {
                     font-size: 14px;
                     font-weight: 500;
                     margin: 0;

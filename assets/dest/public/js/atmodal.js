@@ -101,7 +101,6 @@
 	*/
 
 /* disable-eslint */
-//import './../../scss/component/atmodal.scss';
 var aazztechModal1 = function aazztechModal1(selector) {
   var element = document.querySelectorAll(selector);
   element.forEach(function (el, index) {

@@ -31,6 +31,7 @@
 @import "./../../component/search-home";
 @import "./../../component/pagination";
 @import "./../../component/category-location";
+@import "./../../component/atmodal";
 
 
 // Modules
@@ -44,6 +45,7 @@
 
 // Payments
 @import "./../../component/payment/checkout-receipt";
+
 
 .ads-advanced .bottom-inputs {
   flex-grow: 1;
@@ -573,3 +575,8 @@
     flex: 0 0 100%;
   }
 }
+
+
+
+//responsive css
+@import "./../../component/responsive";

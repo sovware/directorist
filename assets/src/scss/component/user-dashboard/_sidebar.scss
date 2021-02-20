@@ -9,7 +9,7 @@
     background-color: #fff;
     box-shadow: 0 5px 10px #8f8e9f05;
 
-    @media only screen and (max-width: 1199px){
+    @media only screen and (max-width: 1199px) {
         position: fixed;
         top: 0;
         left: 0;
@@ -21,17 +21,18 @@
         z-index: 22;
     }
 
-    .directorist-dashboard__nav--close{
+    .directorist-dashboard__nav--close {
         display: none;
         position: absolute;
         right: 15px;
         top: 50px;
-        @media only screen and (max-width: 1199px){
+
+        @media only screen and (max-width: 1199px) {
             display: block;
         }
     }
 
-    &.directorist-dashboard-nav-collapsed{
+    &.directorist-dashboard-nav-collapsed {
         width: 0 !important;
         height: 0;
         margin-right: 0;
@@ -57,7 +58,7 @@
             margin-right: 10px;
         }
 
-        &.directorist-tab__nav__active{
+        &.directorist-tab__nav__active {
             font-weight: 700;
             background-color: #E9E9E9;
             color: #0A0B1E;
@@ -70,7 +71,6 @@
 
         .directorist-btn {
             display: block;
-            width: 100%;
 
             &:not(:last-child) {
                 margin-bottom: 15px;

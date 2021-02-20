@@ -14,6 +14,7 @@ import './modules/helpers';
 import './modules/review';
 //import './modules/pureScriptSearchSelect';
 // import './modules/range-slider';
+import './modules/atmodal';
 
 // Single Listing Page
 import './components/single-listing-page/slider';

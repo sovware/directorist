@@ -8,9 +8,10 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id = $listing_form->get_add_listing_id();
-wp_enqueue_style( 'atbdp-pluploadcss' );
-wp_enqueue_script( 'atbdp-plupload-min' );
-wp_enqueue_script( 'atbdp-plupload' );
+// wp_enqueue_style( 'atbdp-pluploadcss' );
+// wp_enqueue_script( 'atbdp-plupload-min' );
+// wp_enqueue_script( 'atbdp-plupload' );
+// wp_enqueue_script( 'atbdp-plupload' );
 $file_type         = get_post_meta( $post_id, 'file_type', true );
 $file_size         = get_post_meta( $post_id, 'file_size', true );
 $file_types        = ! empty( $file_type ) ? $file_type : 'all_types';
@@ -75,11 +76,13 @@ $gd_plupload_init     = array(
 );
 
 wp_localize_script( 'directorist-plupload', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
 wp_localize_script( 'directorist-plupload', 'atbdp_params', $text_value );
-wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
-wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
+// wp_enqueue_script( 'directorist-plupload' );
+// wp_enqueue_style( 'directorist-plupload' );
+// wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
+// wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
+// wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
+// wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
 $id                 = $post_id;
 $is_required        = 0;
 $image_limit        = 0;
@@ -88,7 +91,6 @@ $allowed_file_types = ( 'all_types' == $file_types ) ? '*' : $file_types;
 $display_file_types = ( 'all_types' == $file_types ) ? '.*' : $file_types;
 $multiple           = false;
 ?>
-
 <div class="directorist-form-group directorist-custom-field-file-upload">
 
 	<?php $listing_form->field_label_template( $data );?>

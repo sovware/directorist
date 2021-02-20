@@ -569,13 +569,12 @@ class Enqueue_Assets {
             'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => true,
-            'shortcode' => [ 'directorist_user_dashboard' ],
+            // 'shortcode' => [ 'directorist_user_dashboard' ],
         ];
 
         $scripts['directorist-main-script'] = [
             'file_name' => 'main',
             'base_path' => DIRECTORIST_PUBLIC_JS,
-            'deps'      => ['jquery'],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
@@ -731,7 +730,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_ADMIN_CSS,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'admin',
+            'group'     => 'global',
             'section'   => '',
             'page'      => '',
         ];
@@ -838,7 +837,7 @@ class Enqueue_Assets {
             'file_name' => 'directorist-plupload',
             'base_path' => DIRECTORIST_ADMIN_JS,
             'ver'       => $this->script_version,
-            'group'     => 'admin',
+            'group'     => 'global',
             'section'   => '',
         ];
 

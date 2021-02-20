@@ -81,11 +81,11 @@ $gd_plupload_init     = array(
 );
 
 wp_localize_script( 'directorist-plupload', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
 wp_localize_script( 'directorist-plupload', 'atbdp_params', $text_value );
-wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
-wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
+// wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
+// wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
+// wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
+// wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
 $id                 = $post_id;
 $is_required        = 0;
 $image_limit        = 0;

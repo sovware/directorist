@@ -405,10 +405,12 @@ class Directorist_Listing_Taxonomy {
 
 	// Hooks ------------
 	public static function archive_type($listings) {
+		
 		$count = count( $listings->listing_types );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			Helper::get_template( 'archive/listing-types', array('listings' => $listings, 'all_types' => true ) );
+			
+			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings, 'all_types' => true ) );
 		}
 	}
 }

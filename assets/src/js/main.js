@@ -45,4 +45,4 @@ import './components/dashboard/dashboardAnnouncement';
 import './components/dashboard/dashboardBecomeAuthor';
 
 // Booking
-import './components/booking';
+// import './components/booking';

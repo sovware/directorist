@@ -1005,7 +1005,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $id = ( ! empty( $_POST['id'] ) ) ? absint( $_POST['id'] ) : 0;
 
             $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-            $path = ( $atbdp_legacy_template ) ? 'forms/social-fields' : 'listing-form/social-fields';
+            $path = ( $atbdp_legacy_template ) ? 'forms/social-fields' : 'listing-form/social-item';
             
             Directorist\Helper::get_template( $path, array( 'id' => $id ) );
 

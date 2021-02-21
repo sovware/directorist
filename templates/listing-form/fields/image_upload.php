@@ -7,23 +7,29 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$p_id                = $listing_form->get_add_listing_id();
-$type                = $listing_form->get_current_listing_type();
-
-$limit          = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
-$max_file_size       = $data['max_per_image_limit'];
-$max_total_file_size = $data['max_total_image_limit'];
-
+$p_id                	= $listing_form->get_add_listing_id();
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );
-$max_file_items         = ! empty( $data['unlimited'] ) ? '999' : $limit;
-$min_file_items         = $data['required'] ? '1' : '';
+
+
+$limit                  = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
+$unlimited              = !empty( $data['unlimited'] ) ? $data['unlimited'] : '';
+$max_file_size          = $data['max_per_image_limit'];
+$max_total_file_size    = $data['max_total_image_limit'];
 $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
+$required               = $data['required'] ? '1' : '';
 ?>
 
 <div class="directorist-form-group directorist-form-image-upload-field">
 
-	<div id="_listing_gallery" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" data-max-file-items="<?php echo esc_attr( $max_file_items ); ?>" data-min-file-items="<?php echo esc_attr( $min_file_items ); ?>" data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>" data-max-total-file-size="<?php echo esc_attr( $max_total_file_size_kb ); ?>" data-show-alerts="0">
+	<div id="_listing_gallery" 
+		class="ez-media-uploader" 
+		data-type="jpg, jpeg, png, gif" 
+		data-max-file-items="<?php echo $limit; ?>"
+        data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
+        data-min-file-items="<?php echo esc_attr( $required ); ?>"
+        data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>"
+		data-show-alerts="0">
 
 		<div class="ezmu__loading-section ezmu--show">
 			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

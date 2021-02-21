@@ -304,10 +304,10 @@ atbdSelectData.forEach(function (el) {
 
 (function ($) {
   // Sorting Js 
-  $('.atbdp_sorting_item').click(function () {
+  $('.directorist-dropdown__links--single-js').click(function () {
     var href = $(this).attr('data');
-    $('#atbdp_sort').attr('action', href);
-    $('#atbdp_sort').submit();
+    $('#directorsit-listing-sort').attr('action', href);
+    $('#directorsit-listing-sort').submit();
   }); //sorting toggle
 
   $('.sorting span').on('click', function () {

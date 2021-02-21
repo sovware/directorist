@@ -4473,6 +4473,9 @@ p.atbd-min {
 .directorist-content-active .directorist-listings-header__right .directorist-dropdown {
   margin: 5px;
 }
+.directorist-content-active .directorist-listings-header__right .directorist-dropdown .directorist-dropdown__links--single {
+  cursor: pointer;
+}
 
 /* Advanced search filter styles */
 .directorist-advanced-filter {

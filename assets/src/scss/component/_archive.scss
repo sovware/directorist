@@ -86,6 +86,9 @@
 
             .directorist-dropdown {
                 margin: 5px;
+                .directorist-dropdown__links--single{
+                    cursor: pointer;
+                }
             }
         }
     }

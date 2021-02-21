@@ -6672,6 +6672,33 @@ function atbdp_get_listings_current_view_name($view)
 
 }
 
+function atbdp_calculate_column( $number ) {
+    switch( $number ) {
+        case 1:
+            $columns = 12;
+            break;
+        case 2:
+            $columns = 6;
+            break;  
+        case 3:
+            $columns = 4;
+            break;
+        case 4:
+            $columns = 3;
+            break;
+        case 5:
+            $columns = 2;
+            break;
+        case 6:
+            $columns = 2;
+            break;
+            default:  
+            $columns = 3;
+    }
+
+    return $columns;
+}
+
 /**
  * Get the list of listings view options.
  *

@@ -55,6 +55,10 @@
             color: #8F8E9F;
             position: relative;
 
+            &:focus{
+                background-color: transparent !important;
+            }
+
             &::after {
                 position: absolute;
                 left: 0;

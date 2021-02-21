@@ -97,14 +97,14 @@
   $('body').on('click', '.search_listing_types', function (event) {
     event.preventDefault();
     var listing_type = $(this).attr('data-listing_type');
-    var type_current = $('.type_current');
+    var type_current = $('.directorist-listing-type-selection__link--current');
 
     if (type_current.length) {
-      type_current.removeClass('type_current');
+      type_current.removeClass('directorist-listing-type-selection__link--current');
     }
 
     $('#listing_type').val(listing_type);
-    $(this).addClass('type_current');
+    $(this).addClass('directorist-listing-type-selection__link--current');
     var form_data = new FormData();
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
@@ -116,6 +116,9 @@
       url: atbdp_search.ajax_url,
       data: form_data,
       success: function success(response) {
+        console.log(response);
+        console.log("not response");
+
         if (response) {
           $('.directorist-search-form-box').empty().html(response.data['search_form']);
           $('.directorist_listing_top_category').empty().html(response.data['popular_categories']);

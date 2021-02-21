@@ -27,6 +27,10 @@
                                         $('.directorist_listing_top_category')
                                                 .empty()
                                                 .html( response.data['popular_categories'] );
+
+
+                                        const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
+                                        document.body.dispatchEvent( event );
                                 }
                                 $('.directorist-search-form-box').removeClass('atbdp-form-fade');
                         },

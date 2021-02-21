@@ -230,6 +230,7 @@ final class Directorist_Base
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->Map_iFrame = new Directorist\Map_iFrame;
             self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager
@@ -238,8 +239,6 @@ final class Directorist_Base
 
             self::$instance->settings_panel = new ATBDP_Settings_Panel;
             self::$instance->settings_panel->run();
-
-
 
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;

@@ -5035,9 +5035,9 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-home"></i>',
                             'sections' => apply_filters( 'atbdp_extension_settings_controls', [
                                 'general_settings' => [
-                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [
+                                    'fields' =>  apply_filters( 'atbdp_extension_fields', [
                                          'extension_promotion'
-                                    ] ) ,
+                                    ]) ,
                                 ],
                             ] ),
                         ],

@@ -449,27 +449,30 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 };
 
 (function ($) {
-  if ($('#directorist-select-js').length) {
-    pureScriptSelect('#directorist-select-js');
-  }
+  window.addEventListener('load', initPureScriptSelect);
+  document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initPureScriptSelect);
 
-  if ($('#directorist-review-select-js').length) {
-    pureScriptSelect('#directorist-review-select-js');
-  }
+  function initPureScriptSelect() {
+    if ($('#directorist-select-js').length) {
+      pureScriptSelect('#directorist-select-js');
+    }
 
-  if ($('#directorist-search-category-js').length) {
-    pureScriptSelect('#directorist-search-category-js');
-  }
+    if ($('#directorist-review-select-js').length) {
+      pureScriptSelect('#directorist-review-select-js');
+    }
 
-  if ($('#directorist-search-location-js').length) {
-    pureScriptSelect('#directorist-search-location-js');
-  }
+    if ($('#directorist-search-category-js').length) {
+      pureScriptSelect('#directorist-search-category-js');
+    }
 
-  if ($('#directorist-search-select-js').length) {
-    pureScriptSelect('#directorist-search-select-js');
-  }
+    if ($('#directorist-search-location-js').length) {
+      pureScriptSelect('#directorist-search-location-js');
+    }
 
-  window.addEventListener('load', function (event) {
+    if ($('#directorist-search-select-js').length) {
+      pureScriptSelect('#directorist-search-select-js');
+    }
+
     if ($('#directorist-select-st-s-js').length) {
       pureScriptSelect('#directorist-select-st-s-js');
     }
@@ -537,7 +540,7 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     if ($('#directorist-category-select').length) {
       pureScriptSelect('#directorist-category-select');
     }
-  });
+  }
 })(jQuery);
 
 /***/ }),

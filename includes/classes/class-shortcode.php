@@ -101,6 +101,7 @@ class ATBDP_Shortcode {
 	}
 
 	public function search_listing($atts) {
+
 		$listing_type = '';
 		if (!empty($atts['listing_type'])) {
 			$listing_type = $atts['listing_type'];

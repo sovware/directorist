@@ -90,11 +90,12 @@
 /*!*********************************************************!*\
   !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
   \*********************************************************/
-/*! no exports provided */
+/*! exports provided: pureScriptSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pureScriptSelect", function() { return pureScriptSelect; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
@@ -106,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
     URI: https://github.com/woadudakand/pureScriptSelect
 */
 
-var pureScriptSelect = function pureScriptSelect(selector) {
+function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
   function eventDelegation(event, psSelector, program) {
@@ -446,7 +447,9 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 
     multiSelect ? multiSelects() : singleSelect();
   });
-};
+}
+
+;
 
 (function ($) {
   if ($('#directorist-select-js').length) {
@@ -539,6 +542,8 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     }
   });
 })(jQuery);
+
+
 
 /***/ }),
 

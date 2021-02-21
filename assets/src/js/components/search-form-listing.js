@@ -1,4 +1,7 @@
+
+import {pureScriptSelect} from '../modules/pureScriptSearchSelect';
 (function($) {
+        
         $('body').on('click', '.search_listing_types', function(event) {
                 event.preventDefault();
                 const listing_type = $(this).attr('data-listing_type');
@@ -27,6 +30,21 @@
                                         $('.directorist_listing_top_category')
                                                 .empty()
                                                 .html( response.data['popular_categories'] );
+                                        if($('#directorist-select-js').length){
+                                                pureScriptSelect('#directorist-select-js');
+                                        }
+                                        if($('#directorist-review-select-js').length){
+                                                pureScriptSelect('#directorist-review-select-js');
+                                        }
+                                        if($('#directorist-search-category-js').length){
+                                                pureScriptSelect('#directorist-search-category-js');
+                                        }
+                                        if($('#directorist-search-location-js').length){
+                                                pureScriptSelect('#directorist-search-location-js');
+                                        }
+                                        if($('#directorist-search-select-js').length){
+                                                pureScriptSelect('#directorist-search-select-js');
+                                        }
                                 }
                                 $('.directorist-search-form-box').removeClass('atbdp-form-fade');
                         },
@@ -199,3 +217,4 @@
                         .css({ display: 'none' });
         }
 })(jQuery);
+import '../modules/pureScriptSearchSelect.js';

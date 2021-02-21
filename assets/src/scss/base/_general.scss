@@ -100,3 +100,18 @@
 .directorist-form-required {
     color: red !important;
 }
+
+// Login Registration Style
+
+.directory_register_form_wrap {
+    .dgr_show_recaptcha {
+        margin-bottom: 20px;
+
+        >p {
+            font-size: 16px;
+            color: #28303d;
+            font-weight: 600;
+            margin-bottom: 8px !important;
+        }
+    }
+}

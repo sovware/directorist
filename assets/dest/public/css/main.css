@@ -228,6 +228,16 @@ a {
   color: red !important;
 }
 
+.directory_register_form_wrap .dgr_show_recaptcha {
+  margin-bottom: 20px;
+}
+.directory_register_form_wrap .dgr_show_recaptcha > p {
+  font-size: 16px;
+  color: #28303d;
+  font-weight: 600;
+  margin-bottom: 8px !important;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -5196,6 +5206,8 @@ p.atbd-min {
   font-size: 15px;
   font-weight: 500;
   color: #0A0B1E;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 #directorist.atbd_wrapper.atbdp-categories.atbdp-text-list .atbd_category_wrapper .atbdp_child_category a {
   font-size: 15px;
@@ -5670,6 +5682,10 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__info .directorist-info-item:not(:last-child).directorist-badge:after {
   right: -8px;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-info-item span a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-badge + .directorist-badge {
   margin-left: 8px;
 }
@@ -5774,6 +5790,9 @@ p.atbd-min {
   text-decoration: none;
   font-size: 15px;
   color: #7a82a6;
+  border-bottom: 0 none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left .directorist-listing-category a i,
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left .directorist-listing-category a span.la,
@@ -5967,6 +5986,9 @@ p.atbd-min {
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-listing-title a {
   font-size: 15px;
+  border-bottom: 0 none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info {
   padding-top: 10px;
@@ -6006,6 +6028,9 @@ p.atbd-min {
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info--list ul li a {
   text-decoration: none;
   color: #7a82a6;
+  border-bottom: 0 none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__content {
   border: 0 none;
@@ -6252,6 +6277,10 @@ p.atbd-min {
           flex: 33.333%;
   margin: 0.5rem 0 0 0;
 }
+.directorist-single-wrapper .directorist-card__body .directorist-details-info-wrap ul li a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 
 .directorist-single-listing-action {
   margin: -3px;
@@ -6284,6 +6313,10 @@ p.atbd-min {
 }
 .directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[aria-label]:after {
   line-height: 1.75;
+}
+.directorist-single-listing-action .directorist-single-listing-action a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-single-listing-action .directorist-social-share:hover .directorist-social-share-links {
   opacity: 1;
@@ -6435,6 +6468,8 @@ p.atbd-min {
 .directorist-single-author-contact-info ul li .directorist-single-author-contact-info-text {
   margin-left: 12px;
   color: #767792;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .directorist-single-author-info .directorist-social-wrap {
@@ -6470,6 +6505,10 @@ p.atbd-min {
 }
 .directorist-details-info-wrap .directorist-single-info:not(:last-child) {
   margin-bottom: 10px;
+}
+.directorist-details-info-wrap .directorist-single-info a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-details-info-wrap .directorist-single-info .directorist-single-info__label {
   display: -webkit-box;
@@ -6556,6 +6595,11 @@ p.atbd-min {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
+}
+.directorist-rating-given-block .directorist-rating-given-block__label a,
+.directorist-rating-given-block .directorist-rating-given-block__stars a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-rating-given-block .directorist-rating-given-block__label {
   margin-right: 10px;
@@ -7058,6 +7102,8 @@ p.atbd-min {
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-title a {
   color: #0A0B1E;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-listing-price-range .directorist-price-active {
   color: #fff;

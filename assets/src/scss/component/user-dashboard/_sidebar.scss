@@ -44,23 +44,42 @@
         transition: 0.3s ease
     }
 
+    .directorist-tab__nav__items{
+        li{
+            ul{
+                display: none;
+                li a{
+                    padding-left: 25px;
+                }
+            }
+        }
+    }
+
     .directorist-tab__nav__link {
         font-size: 14px;
         border-radius: 4px;
         padding: 10px;
         outline: 0;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         color: #51526E;
 
-        i {
+        i,
+        span.fa {
+            pointer-events: none;
             display: inline-block;
             margin-right: 10px;
         }
 
-        &.directorist-tab__nav__active {
+        .directorist_menuItem-text{
+            pointer-events: none;
+        }
+
+        &.directorist-tab__nav__active,
+        &:focus {
             font-weight: 700;
-            background-color: #E9E9E9;
+            background-color: #E9E9E9 !important;
             color: #0A0B1E;
         }
     }

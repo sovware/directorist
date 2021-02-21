@@ -1,6 +1,8 @@
 <?php
 defined('ABSPATH') || die('Direct access is not allowed.');
 
+use \Directorist\Helper;
+
 if (!class_exists('ATBDP_Ajax_Handler')) :
 
     /**
@@ -167,11 +169,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $term           = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $searchform     = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
             $top_categories = $searchform->top_categories();
-
             // search form
             ob_start();
             ?>
-            <div class="row atbdp-search-form atbdp-search-form-inline">
+				<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
                     <?php
                     foreach ( $searchform->form_data[0]['fields'] as $field ){
                         $searchform->field_template( $field );
@@ -180,15 +181,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $searchform->more_buttons_template();
                     }
                     ?>
+
                 </div>
+
                 <?php
                 if ( $searchform->more_filters_display == 'always_open' ){
                     $searchform->advanced_search_form_fields_template();
                 }
                 else {
-
                     if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
+                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
                             <?php $searchform->advanced_search_form_fields_template();?>
                         </div>
                         <?php
@@ -196,28 +198,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 }
             $search_form =  ob_get_clean();
 
-
-            // top categories 
-            $counter = 0;
-            foreach ($top_categories as $cat) { 
-                apply_filters('atbdp_popular_category_loop', $counter++, $cat);
-                $directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
-                $directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
-                $listing_type_slug   = $listing_type;
-                if( in_array( $listing_type_slug, $directory_type ) ) {
-                ob_start();   
-                ?>
-                <li>
-                    <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>" <?php do_action('search_home_popular_category', $counter); ?> >
-                        <span class="<?php echo esc_attr($searchform->category_icon_class($cat)); ?>" aria-hidden="true"></span>
-                        <p><?php echo esc_html( $cat->name ); ?></p>
-                    </a>
-                </li>
-            <?php
-                $popular_categories = ob_get_clean();
-                } 
-            }
-
+            $popular_categories = $searchform->top_categories_template();
             wp_send_json_success( array( 
                 'search_form'            => $search_form,
                 'popular_categories'     => $popular_categories
@@ -390,7 +371,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $info['user_login'] = $_POST['username'];
             $info['user_password'] = $_POST['password'];
             $info['remember'] = $keep_signed_in;
-
+            
             $user_signon = wp_signon($info, $keep_signed_in);
             if (is_wp_error($user_signon)) {
                 echo json_encode(array(

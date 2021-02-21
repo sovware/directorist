@@ -72,9 +72,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</div>
 
 		</form>
-
-		<?php $searchform->top_categories_template(); ?>
-
+		
+			<div class="directorist_listing_top_category">
+				<?php $searchform->top_categories_template(); ?>
+			</div>
 	</div>
 	
 </div>

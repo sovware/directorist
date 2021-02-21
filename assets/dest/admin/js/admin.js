@@ -807,7 +807,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 } // ADD IMAGE LINK
 
 
-addImgLink.on('click', function (event) {
+$('body').on('click', '#listing_image_btn', function (event) {
   event.preventDefault(); // If the media frame already exists, reopen it.
 
   if (frame) {
@@ -843,7 +843,7 @@ addImgLink.on('click', function (event) {
     // if no image exist then remove the place holder image before appending new image
 
     if ($('.single_attachment').length === 0) {
-      imgContainer.html('');
+      $('.listing-img-container').html('');
     } // handle multiple image uploading.......
 
 
@@ -874,9 +874,9 @@ addImgLink.on('click', function (event) {
 
 
     if (multiple_image) {
-      imgContainer.append(data);
+      $('.listing-img-container').append(data);
     } else {
-      imgContainer.html(data);
+      $('.listing-img-container').html(data);
     } // Un-hide the remove image link
 
 
@@ -889,7 +889,7 @@ addImgLink.on('click', function (event) {
 delImgLink.on('click', function (event) {
   event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
-  imgContainer.html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
+  $('.listing-img-container').html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
   delImgLink.addClass('hidden');
 });
@@ -900,7 +900,7 @@ $(document).on('click', '.remove_image', function (e) {
   $(this).parent().remove(); // if no image exist then add placeholder and hide remove image button
 
   if ($('.single_attachment').length === 0) {
-    imgContainer.html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
+    $('.listing-img-container').html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
     delImgLink.addClass('hidden');
   }
 });

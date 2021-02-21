@@ -1066,8 +1066,8 @@ atbdSelectData.forEach(function (el) {
       data: {
         'action': 'ajaxlogin',
         //calls wp_ajax_nopriv_ajaxlogin
-        'username': $('form#login p #username').val(),
-        'password': $('form#login p #password').val(),
+        'username': $('form#login #username').val(),
+        'password': $('form#login #password').val(),
         'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
         'security': $('#security').val()
       },

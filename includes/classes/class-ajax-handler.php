@@ -371,7 +371,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $info['user_login'] = $_POST['username'];
             $info['user_password'] = $_POST['password'];
             $info['remember'] = $keep_signed_in;
-
+            
             $user_signon = wp_signon($info, $keep_signed_in);
             if (is_wp_error($user_signon)) {
                 echo json_encode(array(

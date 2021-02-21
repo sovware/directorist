@@ -2557,7 +2557,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 'search_title'    => [
                     'type'          => 'text',
                     'label'         => __('Search Bar Title', 'directorist'),
-                    'description' => __('Enter the title for search bar on Home Page.', 'directorist'),
                     'value' => __('Search here', 'directorist'),
                 ],
                 'search_subtitle'    => [

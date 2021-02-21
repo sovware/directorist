@@ -286,8 +286,6 @@ __webpack_require__.r(__webpack_exports__);
   }
 })(jQuery);
 
-
-
 /***/ }),
 
 /***/ "./assets/src/js/modules/pureScriptSearchSelect.js":

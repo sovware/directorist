@@ -1,7 +1,6 @@
 
 import {pureScriptSelect} from '../modules/pureScriptSearchSelect';
 (function($) {
-        
         $('body').on('click', '.search_listing_types', function(event) {
                 event.preventDefault();
                 const listing_type = $(this).attr('data-listing_type');
@@ -217,4 +216,3 @@ import {pureScriptSelect} from '../modules/pureScriptSearchSelect';
                         .css({ display: 'none' });
         }
 })(jQuery);
-import '../modules/pureScriptSearchSelect.js';

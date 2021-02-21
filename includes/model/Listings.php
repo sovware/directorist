@@ -1787,7 +1787,7 @@ class Directorist_Listings {
 				$field['class'] = 'featured';
 				$field['label'] = Helper::featured_badge_text();
 				if ( Helper::is_featured( $id ) ) {
-					Helper::get_template( 'archive/fields/badge', $field );
+					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 				}
 				break;
 

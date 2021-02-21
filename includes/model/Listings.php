@@ -7,6 +7,7 @@ namespace Directorist;
 
 use \ATBDP_Listings_Data_Store;
 use \ATBDP_Permalink;
+use Directory;
 use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -1255,26 +1256,18 @@ class Directorist_Listings {
 	}
 
 	public function load_openstreet_map() {
-		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
-
-		wp_enqueue_script('directorist-no-script');
-		wp_localize_script( 'directorist-no-script', 'atbdp_map', $opt );
-		wp_localize_script( 'directorist-no-script', 'atbdp_lat_lon', array(
-			'lat'=>40.7128,
-			'lon'=>74.0060,
-		));
-
 		$map_card_data = $this->get_osm_map_info_card_data();
-		wp_localize_script( 'directorist-openstreet-load-scripts', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		wp_localize_script( 'directorist-openstreet-load-scripts', 'listings_data', $map_card_data['listings_data'] );
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
-		wp_localize_script( 'directorist-openstreet-load-scripts', 'loc_data', [
-			'script_path'  => $script_path
-		]);
+		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
+		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
+		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
+		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
+
 		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}
 

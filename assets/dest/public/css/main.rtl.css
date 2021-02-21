@@ -8156,6 +8156,10 @@ p.atbd-min {
   margin-bottom: 20px;
 }
 
+.directorist-iframe {
+  border: none;
+}
+
 .ads-advanced .bottom-inputs {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;

@@ -731,7 +731,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'admin',
             'section'   => '',
-            // 'page'      => 'at_biz_dir_page_atbdp-settings',
+            'page'      => 'at_biz_dir_page_atbdp-directory-types',
         ];
         
         $scripts['directorist-multi-directory-builder'] = [
@@ -794,6 +794,14 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'admin', // public || admin  || global
             'page'      => ['post-new.php', 'post.php'],
+        ];
+
+        $scripts['directorist-multi-directory-archive'] = [
+            'file_name' => 'multi-directory-archive',
+            'base_path' => DIRECTORIST_ADMIN_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => ['at_biz_dir_page_atbdp-directory-types'],
         ];
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [

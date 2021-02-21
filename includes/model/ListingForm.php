@@ -651,6 +651,7 @@ class Directorist_Listing_Form {
 		
 		
 		$field_data['value'] = $value;
+		$field_data['form'] = $this;
 
 		$args = array(
 			'listing_form'  => $this,

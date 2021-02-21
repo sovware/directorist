@@ -520,12 +520,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'     => __('Active Gateways', 'directorist'),
                     'type'      => 'checkbox',
                     'value'     => ['bank_transfer'],
-                    'options'   => [
+                    'options'   => apply_filters( 'directorist_active_gateways', [
                         [
                             'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
-                    ],
+                    ] ),
                     'description' => __('Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist'),
                 ],
 

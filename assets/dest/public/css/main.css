@@ -60,6 +60,24 @@ a {
             transform: rotate(360deg);
   }
 }
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5519,6 +5537,52 @@ p.atbd-min {
     opacity: 0;
   }
 }
+/* custom dropdown */
+.atbd-dropdown {
+  position: relative;
+}
+
+.atbd-dropdown-toggle {
+  display: inline-block;
+  border: 1px solid #eee;
+  padding: 7px 15px;
+  position: relative;
+}
+.atbd-dropdown-toggle:before {
+  content: "";
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.atbd-dropdown-items {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 40px;
+  border: 1px solid #eee;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background: #fff;
+  z-index: 10;
+}
+
+.atbd-dropdown-items.atbd-show {
+  top: 30px;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.atbd-dropdown-item {
+  display: block;
+}
+
 .directorist-listing-single {
   background-color: #fff;
   margin-bottom: 15px;
@@ -7851,6 +7915,37 @@ p.atbd-min {
 
 .directorist-search-form-wrap.directorist-with-search-border .directorist-search-form-top {
   border: 1px solid #ECECEC;
+}
+.directorist-search-form-wrap .directorist-search-form-box {
+  position: relative;
+}
+.directorist-search-form-wrap .directorist-search-form-box.atbdp-form-fade:before {
+  position: absolute;
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 2px solid #0A0B1E;
+  border-top: 0 none;
+  border-right: 0 none;
+  border-radius: 50%;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  margin-left: -20px;
+  margin-top: -20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+.directorist-search-form-wrap .directorist-search-form-box.atbdp-form-fade:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
 }
 
 .directorist-listing-type-selection {

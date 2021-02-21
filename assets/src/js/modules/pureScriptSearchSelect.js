@@ -4,7 +4,7 @@ import '../../scss/component/pureSearchSelect.scss';
     URI: https://github.com/woadudakand/pureScriptSelect
 */
 
-const pureScriptSelect = (selector) => {
+function pureScriptSelect (selector) {
     let selectors = document.querySelectorAll(selector);
 
     function eventDelegation(event, psSelector, program) {
@@ -449,3 +449,5 @@ const pureScriptSelect = (selector) => {
     }
 
 })(jQuery);
+
+export { pureScriptSelect };

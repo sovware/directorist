@@ -1007,12 +1007,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'label'  => 'Maximum Number',
                                     'placeholder' => 'Here 0 means unlimited',
                                     'value' => '0',
-                                    'show_if' => [
-                                        'where' => "self.create_new_loc",
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                                        ],
-                                    ],
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',

@@ -96,14 +96,14 @@ class ATBDP_Permalink {
      * It returns the link to the custom search archive page of ATBDP
      * @return string
      */
-    public static function get_user_profile_page_link($author_id)
+    public static function get_user_profile_page_link( $author_id , $directory_type = '' )
     {
         $link = home_url();
         $id = get_directorist_option('author_profile_page');
         if( $id ) {
             $link = get_permalink( $id );
             if( '' != get_option( 'permalink_structure' ) ) {
-                $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id );
+                $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id . '&directory_type=' . $directory_type );
             } else {
                 $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_author_id ' => $author_id ), $link );
             }

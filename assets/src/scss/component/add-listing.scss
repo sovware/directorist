@@ -132,9 +132,25 @@
     border-color: #ececec;
 }
 
+.directorist-form-group .select2-container--default .select2-selection {
+    height: 40px;
+    padding: 0 15px;
+    .select2-selection__rendered{
+        line-height: 36px;
+    }
+    .select2-selection__clear{
+        padding-right: 15px;
+    }
+    .select2-selection__arrow{
+        right: 10px;
+    }
+}
+
 .select2-container--open .select2-dropdown.select2-dropdown--below {
     top: 30px;
 }
+
+
 
 /* hide contact owner */
 .directorist-hide-owner-field.directorist-checkbox input[type=checkbox]+.directorist-checkbox__label {

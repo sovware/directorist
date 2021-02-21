@@ -19,7 +19,14 @@ $counter = 1;
 			<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
 				<li class="directorist-tab__nav__item"><!-- /.directorist-tab__nav__item--has-submenu -->
-					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>"><i class="<?php echo esc_attr( $value['icon'] ); ?>"></i><?php echo wp_kses_post( $value['title'] ); ?></a>
+					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>">
+						<span class="directorist_menuItem-text">
+							<span class="directorist_menuItem-icon">
+								<i class="<?php echo esc_attr( $value['icon'] ); ?>"></i>
+							</span>
+							<?php echo wp_kses_post( $value['title'] ); ?>
+						</span>
+					</a>
 				</li>
 				<?php
 			if (!empty($value['after_nav_hook'])) {

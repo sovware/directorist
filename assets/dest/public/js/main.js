@@ -486,26 +486,6 @@ atbdSelectData.forEach(function (el) {
 
 /***/ }),
 
-/***/ "./assets/src/js/components/dashboard/dashboardImageUploader.js":
-/*!**********************************************************************!*\
-  !*** ./assets/src/js/components/dashboard/dashboardImageUploader.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var $ = jQuery; // user dashboard image uploader
-
-var profileMediaUploader = null;
-
-if ($("#user_profile_pic").length) {
-  profileMediaUploader = new EzMediaUploader({
-    containerID: "user_profile_pic"
-  });
-  profileMediaUploader.init();
-}
-
-/***/ }),
-
 /***/ "./assets/src/js/components/dashboard/dashboardListing.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/components/dashboard/dashboardListing.js ***!
@@ -1176,6 +1156,112 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/components/profileForm.js":
+/*!*************************************************!*\
+  !*** ./assets/src/js/components/profileForm.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  var profileMediaUploader = null;
+
+  if ($("#user_profile_pic").length) {
+    profileMediaUploader = new EzMediaUploader({
+      containerID: "user_profile_pic"
+    });
+    profileMediaUploader.init();
+  }
+
+  var is_processing = false;
+  $('#user_profile_form').on('submit', function (e) {
+    // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
+    e.preventDefault();
+    var submit_button = $('#update_user_profile');
+    submit_button.attr('disabled', true);
+    submit_button.addClass("loading");
+
+    if (is_processing) {
+      submit_button.removeAttr('disabled');
+      return;
+    }
+
+    var form_data = new FormData();
+    var err_log = {};
+    var error_count; // ajax action
+
+    form_data.append('action', 'update_user_profile');
+
+    if (profileMediaUploader) {
+      var hasValidFiles = profileMediaUploader.hasValidFiles();
+
+      if (hasValidFiles) {
+        //files
+        var files = profileMediaUploader.getTheFiles();
+        var filesMeta = profileMediaUploader.getFilesMeta();
+
+        if (files.length) {
+          for (var i = 0; i < files.length; i++) {
+            form_data.append('profile_picture', files[i]);
+          }
+        }
+
+        if (filesMeta.length) {
+          for (var i = 0; i < filesMeta.length; i++) {
+            var elm = filesMeta[i];
+
+            for (var key in elm) {
+              form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+            }
+          }
+        }
+      } else {
+        $(".directorist-form-submit__btn").removeClass("atbd_loading");
+        err_log.user_profile_avater = {
+          msg: 'Listing gallery has invalid files'
+        };
+        error_count++;
+      }
+    }
+
+    var $form = $(this);
+    var arrData = $form.serializeArray();
+    $.each(arrData, function (index, elem) {
+      var name = elem.name;
+      var value = elem.value;
+      form_data.append(name, value);
+    });
+    $.ajax({
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      url: atbdp_public_data.ajaxurl,
+      data: form_data,
+      success: function success(response) {
+        submit_button.removeAttr('disabled');
+        submit_button.removeClass("loading");
+        console.log(response);
+
+        if (response.success) {
+          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+        } else {
+          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+        }
+      },
+      error: function error(response) {
+        submit_button.removeAttr('disabled');
+        console.log(response);
+      }
+    }); // prevent the from submitting
+
+    return false;
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/components/pureScriptTab.js":
 /*!***************************************************!*\
   !*** ./assets/src/js/components/pureScriptTab.js ***!
@@ -1727,15 +1813,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ "./assets/src/js/modules/helpers.js");
 /* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/review */ "./assets/src/js/modules/review.js");
-/* harmony import */ var _modules_atmodal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/atmodal */ "./assets/src/js/modules/atmodal.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/components/atbdSorting.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/components/pureScriptTab.js");
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/components/modal.js");
 /* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/components/gridResponsive.js");
 /* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__);
@@ -1761,28 +1848,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_19__);
 /* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/components/dashboard/dashBoardMoreBtn.js");
 /* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardImageUploader */ "./assets/src/js/components/dashboard/dashboardImageUploader.js");
-/* harmony import */ var _components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardImageUploader__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_23__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
     Author: Aazztech
     Author URI: www.aazztech.com
 */
-
-/* eslint-disable */
 // Styles
  // Modules
 
-
- //import './modules/pureScriptSearchSelect';
-// import './modules/range-slider';
 
  // Single Listing Page
 
@@ -1790,7 +1870,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //import './components/profileForm';
+
 
 
 
@@ -1801,8 +1881,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Dashboard Js
-//import './components/dashboard/dashboardImageUploader';
-
 
 
 
@@ -1812,79 +1890,6 @@ __webpack_require__.r(__webpack_exports__);
 
  // Booking
 // import './components/booking';
-
-/***/ }),
-
-/***/ "./assets/src/js/modules/atmodal.js":
-/*!******************************************!*\
-  !*** ./assets/src/js/modules/atmodal.js ***!
-  \******************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/atmodal.scss */ "./assets/src/scss/layout/public/atmodal.scss");
-/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__);
-/*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
-
-/* disable-eslint */
-
-
-var aazztechModal1 = function aazztechModal1(selector) {
-  var element = document.querySelectorAll(selector);
-  element.forEach(function (el, index) {
-    el.style.display = 'none';
-    document.addEventListener('click', function (event) {
-      var current_elm = event.target;
-      var target_id = current_elm.getAttribute('data-target');
-      var el_id = el.getAttribute('id');
-
-      if (target_id === el_id) {
-        event.preventDefault();
-        el.style.display = 'block';
-        document.body.classList.add('atm-open');
-        setTimeout(function () {
-          el.classList.add('atm-show');
-        }, 100);
-        document.querySelector('html').style.overflow = 'hidden';
-      }
-    }, false);
-    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
-      e.preventDefault();
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
-    el.addEventListener('click', function (e) {
-      if (e.target.closest('.atm-contents-inner')) return;
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
-  });
-};
-
-function initModal() {
-  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
-}
-
-window.addEventListener('load', function () {
-  setTimeout(function () {
-    initModal();
-  }, 500);
-});
 
 /***/ }),
 
@@ -1947,17 +1952,6 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./assets/src/scss/component/_modal.scss ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/public/atmodal.scss":
-/*!****************************************************!*\
-  !*** ./assets/src/scss/layout/public/atmodal.scss ***!
-  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

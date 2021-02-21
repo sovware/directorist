@@ -237,6 +237,27 @@
 
     .directorist-form-submit {
         margin-top: 15px;
+
+        @include e(btn) {
+            &.atbd_loading {
+                position: relative;
+
+                &:before {
+                    position: absolute;
+                    content: '';
+                    right: 10px;
+                    top: 31%;
+                    border: 2px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 2px solid #656a7a;
+                    width: 20px;
+                    height: 20px;
+                    -webkit-animation: rotate360 2s linear infinite;
+                    /* Safari */
+                    animation: rotate360 2s linear infinite;
+                }
+            }
+        }
     }
 
     .directorist-form-group {

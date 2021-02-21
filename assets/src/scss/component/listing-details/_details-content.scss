@@ -31,6 +31,10 @@
                 li {
                     flex: 33.333%;
                     margin: 0.5rem 0 0 0;
+
+                    a {
+                        box-shadow: none;
+                    }
                 }
             }
         }
@@ -61,6 +65,10 @@
 
         &.directorist-tooltip[aria-label]:after {
             line-height: 1.75;
+        }
+
+        a {
+            box-shadow: none;
         }
     }
 

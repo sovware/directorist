@@ -207,6 +207,10 @@
                     }
                 }
             }
+
+            span a {
+                box-shadow: none;
+            }
         }
 
         .directorist-badge+.directorist-badge {
@@ -313,6 +317,8 @@
                     text-decoration: none;
                     font-size: 15px;
                     color: #7a82a6;
+                    border-bottom: 0 none;
+                    box-shadow: none;
 
                     i,
                     span.la,
@@ -511,6 +517,8 @@
 
             a {
                 font-size: 15px;
+                border-bottom: 0 none;
+                box-shadow: none;
             }
         }
     }
@@ -551,6 +559,8 @@
                 a {
                     text-decoration: none;
                     color: #7a82a6;
+                    border-bottom: 0 none;
+                    box-shadow: none;
                 }
             }
         }

@@ -1,18 +1,25 @@
 // Directorist Single Info
-.directorist-details-info-wrap{
+.directorist-details-info-wrap {
     .directorist-single-info {
         display: flex;
         align-items: center;
-        &:not(:last-child){
+
+        &:not(:last-child) {
             margin-bottom: 10px;
         }
-        .directorist-single-info__label{
+
+        a {
+            box-shadow: none;
+        }
+
+        .directorist-single-info__label {
             display: flex;
             align-items: center;
             flex: 0 0 30%;
             color: #7a82a6;
             margin-right: 15px;
-            .directorist-single-info__label-icon{
+
+            .directorist-single-info__label-icon {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -27,13 +34,15 @@
                 flex: none;
             }
         }
-        .directorist-single-info__value{
+
+        .directorist-single-info__value {
             flex: auto;
             width: 100%;
             color: #7a82a6;
         }
-        .directorist-social-links{
-            a{
+
+        .directorist-social-links {
+            a {
                 text-decoration: none;
                 color: $body-color;
             }
@@ -42,14 +51,16 @@
 }
 
 // Directorist Owner Contact form
-.directorist-contact-owner-form-inner{
-    .directorist-form-group{
+.directorist-contact-owner-form-inner {
+    .directorist-form-group {
         margin-bottom: 1rem;
     }
-    .directorist-form-element{
+
+    .directorist-form-element {
         border-color: #dbdaf7;
     }
-    .directorist-btn-submit{
+
+    .directorist-btn-submit {
         border-radius: 3px;
         padding: 0 15px;
         text-decoration: none;

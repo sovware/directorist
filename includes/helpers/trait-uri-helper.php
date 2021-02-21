@@ -76,7 +76,7 @@ trait URI_Helper {
 		}
 
 		$file = apply_filters( 'directorist_template_file_path', $file, $template_file );
-		
+
 		if ( file_exists( $file ) ) {
 			include $file;
 		}

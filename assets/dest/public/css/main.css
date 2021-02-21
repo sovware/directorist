@@ -7631,6 +7631,9 @@ p.atbd-min {
   display: inline-block;
   margin-right: 10px;
 }
+.directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text {
+  pointer-events: none;
+}
 .directorist-user-dashboard__nav .directorist-tab__nav__link.directorist-tab__nav__active, .directorist-user-dashboard__nav .directorist-tab__nav__link:focus {
   font-weight: 700;
   background-color: #E9E9E9 !important;

@@ -9683,6 +9683,129 @@ span.atbd_get_loc_wid {
   background: rgba(68, 71, 82, 0.1);
 }
 
+.atbd_announcement_wrapper {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 25px 20px;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 15.5px;
+  margin-bottom: 15.5px;
+  border-bottom: 1px solid #F1F2F6;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement {
+  background-color: #e23636 !important;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement i,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.fa,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.la,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.las,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.lab,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.lar,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.fas,
+.atbd_announcement_wrapper .atbdp-announcement:hover .atbdp-announcement__close .close-announcement span.la {
+  color: #fff !important;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__date {
+  -webkit-box-flex: .1;
+      -ms-flex: .1;
+          flex: .1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #F5F6F8;
+  border-radius: 6px;
+  padding: 10.5px;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__date .atbdp-date-card-part-1 {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #171B2E;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__date .atbdp-date-card-part-2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #5A5F7D;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__date .atbdp-date-card-part-3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #171B2E;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__content {
+  -webkit-box-flex: 8;
+      -ms-flex: 8;
+          flex: 8;
+  padding-left: 15px;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__content .atbdp-announcement__title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #202428;
+  margin-bottom: 6px;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__content .atbdp-announcement__title p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #69708E;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close {
+  -webkit-box-flex: 0;
+      -ms-flex: 0;
+          flex: 0;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background-color: #F5F5F5;
+  border: 0 none;
+  -webkit-transition: .35s;
+  -o-transition: .35s;
+  transition: .35s;
+}
+
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement i,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.fa,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.la,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.las,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.lab,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.lar,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.fas,
+.atbd_announcement_wrapper .atbdp-announcement .atbdp-announcement__close .close-announcement span.la {
+  -webkit-transition: .35s;
+  -o-transition: .35s;
+  transition: .35s;
+  color: #474868;
+  font-weight: 900;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {
   display: block;
   width: 100%;

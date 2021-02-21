@@ -118,13 +118,13 @@ class Directorist_Listing_Dashboard {
 	}
 
 	private function enqueue_scripts() {
-		wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js' );
-		wp_localize_script( 'atbdp-search-listing', 'atbdp_search', array(
+		wp_enqueue_script( 'directorist-search-form-listing' );
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search', array(
 			'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),
 			'ajax_url'        => admin_url( 'admin-ajax.php' ),
 			'added_favourite' => __( 'Added to favorite', 'directorist' ),
 			'please_login'    => __( 'Please login first', 'directorist' ),
-		) );
+		));
 	}
 
 	public function get_listing_price_html() {
@@ -377,6 +377,8 @@ class Directorist_Listing_Dashboard {
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
 				'icon'		=> atbdp_icon_type() . '-heart-o',
+				'after_nav_hook'     => 'directorist_tab_after_favorite_listings',
+				'after_content_hook' => 'directorist_tab_content_after_favorite',
 			);
 		}
 
@@ -466,13 +468,11 @@ class Directorist_Listing_Dashboard {
 		$atts = shortcode_atts( ['show_title' => ''], $atts );
 		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
 
-		$this->enqueue_scripts();
+		// $this->enqueue_scripts();
 
 		if (!atbdp_logged_in_user()) {
 			return $this->restrict_access_template();
 		}
-
-		//ATBDP()->enquirer->front_end_enqueue_scripts(true);
 
 		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}

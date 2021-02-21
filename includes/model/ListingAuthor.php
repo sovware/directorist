@@ -130,14 +130,18 @@ class Directorist_Listing_Author {
 	}
 
 	private function enqueue_scripts() {
-		wp_enqueue_script( 'adminmainassets' );
-		wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js' );
-		wp_localize_script( 'atbdp-search-listing', 'atbdp_search', array(
-			'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),
-			'ajax_url'        => admin_url( 'admin-ajax.php' ),
-			'added_favourite' => __( 'Added to favorite', 'directorist' ),
-			'please_login'    => __( 'Please login first', 'directorist' ),
-		) );
+		wp_enqueue_script( 'directorist-search-form-listing' );
+        wp_enqueue_script( 'directorist-search-listing' );
+
+		$data = Script_Helper::get_search_script_data();
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
+			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'added_favourite' => __('Added to favorite', 'directorist'),
+			'please_login' => __('Please login first', 'directorist')
+		]);
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
 	}
 
 	public function author_listings_query() {

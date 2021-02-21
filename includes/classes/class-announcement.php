@@ -11,14 +11,116 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
             add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
             add_action( 'atbdp_schedule_task', [ $this, 'delete_expaired_announcements' ] );
-            
-            add_filter( 'directorist_dashboard_tabs', [ $this, 'directorist_dashboard_tabs' ] );
 
             // Handle ajax
             add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
             add_action( 'wp_ajax_atbdp_close_announcement', [ $this, 'close_announcement' ] );
             add_action( 'wp_ajax_atbdp_get_new_announcement_count', [ $this, 'response_new_announcement_count' ] );
             add_action( 'wp_ajax_atbdp_clear_seen_announcements', [ $this, 'clear_seen_announcements' ] );
+
+            // non legacy template 
+            add_action( 'directorist_tab_after_favorite_listings', [ $this, 'non_legacy_add_dashboard_nav_link' ] );
+            add_action( 'directorist_tab_content_after_favorite', [ $this, 'non_legacy_add_dashboard_nav_content' ] );
+        }
+
+        public function non_legacy_add_dashboard_nav_link() {
+            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
+            $announcement_tab_text  = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
+            if( empty( $announcement_tab ) ) return;
+            $nav_label = $announcement_tab_text . " <span class='atbdp-nav-badge new-announcement-count'></span>";
+            $new_announcements = $this->get_new_announcement_count();
+
+            if ( $new_announcements > 0 ) {
+                $nav_label = $announcement_tab_text . " <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
+            }
+
+            ob_start(); ?>
+            <li class="directorist-tab__nav__item">
+                <a href="#" class="directorist-booking-nav-link directorist-tab__nav__link" target="announcement">
+                    <span class="directorist_menuItem-text">
+						<span class="directorist_menuItem-icon"><i class="la la-bullhorn"></i></span><?php _e( $nav_label, 'directorist' ); ?>
+					</span>
+                </a>
+            </li>
+            <?php
+            echo ob_get_clean();
+        }
+
+        public function non_legacy_add_dashboard_nav_content() {
+            $announcements = new WP_Query([
+                'post_type'      => 'listing-announcement',
+                'posts_per_page' => 20,
+                'meta_query' => [
+                    'relation' => 'AND',
+                    [
+                        'key'     => '_exp_date',
+                        'value'   => date('Y-m-d'),
+                        'compare' => '>'
+                    ],
+                    [
+                        'key'     => '_closed',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ]
+                ]
+            ]);
+            
+            // atbdp_console_log( [ 'announcements' => $announcements->posts ] );
+            // var_dump( $announcements );
+
+            $total_posts = count( $announcements->posts );
+            $skipped_post_count = 0;
+            $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
+
+            ob_start(); ?>
+            <div class="directorist-tab__pane" id="announcement">
+                <div class="atbd_announcement_wrapper">
+                    <?php if ( $announcements->have_posts() ) : ?>
+                    <div class="atbdp-accordion">
+                        <?php while( $announcements->have_posts() ) :
+                            $announcements->the_post();
+
+                            // Check recepent restriction
+                            $recepents = get_post_meta( get_the_ID(), '_recepents', true );
+                            if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+                                if ( ! in_array( $current_user_email, $recepents ) ) {
+                                    $skipped_post_count++;
+                                    continue;
+                                }
+                            }
+                        ?>
+                        <div class="atbdp-announcement <?php echo 'update-announcement-status announcement-item announcement-id-' . get_the_ID() ?>" data-post-id="<?php the_id() ?>">
+                            <div class="atbdp-announcement__date">
+                                <span class="atbdp-date-card-part-1"><?php echo get_the_date( 'd' ) ?></span>
+                                <span class="atbdp-date-card-part-2"><?php echo get_the_date( 'M' ) ?></span>
+                                <span class="atbdp-date-card-part-3"><?php echo get_the_date( 'Y' ) ?></span>
+                            </div>
+                            <div class="atbdp-announcement__content">
+                                <h3 class="atbdp-announcement__title">
+                                    <?php the_title(); ?>
+                                </h3>
+                                <p><?php the_content(); ?></p>
+                            </div>
+                            <div class="atbdp-announcement__close">
+                                <button class="close-announcement" data-post-id="<?php the_id() ?>">
+                                    <?php _e('<i class="la la-times"></i>', 'directorist'); ?>
+                                </button>
+                            </div>
+                        </div>
+                        <?php endwhile; ?>
+                    </div>
+                    <?php else: ?>
+                        <div class="directorist_not-found"><p><?php _e( 'No announcement found', 'directorist' ) ?></p></div>
+                    <?php endif;
+
+                    if ( $total_posts && $skipped_post_count == $total_posts ) {
+                        _e( 'No announcement found', 'directorist' );
+                    }
+                    ?>
+                </div>
+            </div>
+            <?php
+            echo ob_get_clean();
         }
 
         // response_new_announcement_count
@@ -162,19 +264,6 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             <?php
             echo ob_get_clean();
         }
-        public function directorist_dashboard_tabs( $dashboard_tabs ) {
-            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
-            $legacy_template        = get_directorist_option( 'atbdp_legacy_template', true ); 
-            if( ! empty( $announcement_tab ) && empty( $legacy_template ) ){
-                $dashboard_tabs['dashboard_announcement'] = array(
-                    'title'     => get_directorist_option('announcement_tab_text', __('Announcements', 'directorist')),
-                    'content'   => $this->add_dashboard_nav_content(),
-                    'icon'		=> atbdp_icon_type() . '-bullhorn',
-                );
-            }
-
-            return $dashboard_tabs;
-        }
 
         public function add_dashboard_nav_content() {
             $announcements = new WP_Query([
@@ -250,14 +339,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 </div>
             </div>
             <?php
-            $content =  ob_get_clean();
-            $announcement_tab       = get_directorist_option( 'announcement_tab', 'directorist' );
-            $legacy_template        = get_directorist_option( 'atbdp_legacy_template', true ); 
-            if( ! empty( $announcement_tab ) && empty( $legacy_template ) ){
-                return $content;
-            } else {
-                echo $content;
-            }
+            echo ob_get_clean();
         }
 
         // send_announcement

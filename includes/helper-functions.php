@@ -5832,8 +5832,8 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
         $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
-        $icon = ( ! empty( $icon ) ) ?  $icon : '';
+        $icon = ( ! empty($args['icon'] ) ) ?  'la ' . $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ?  'la ' . $icon : '';
         $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; } 
@@ -6670,6 +6670,33 @@ function atbdp_get_listings_current_view_name($view)
 
     return $view;
 
+}
+
+function atbdp_calculate_column( $number ) {
+    switch( $number ) {
+        case 1:
+            $columns = 12;
+            break;
+        case 2:
+            $columns = 6;
+            break;  
+        case 3:
+            $columns = 4;
+            break;
+        case 4:
+            $columns = 3;
+            break;
+        case 5:
+            $columns = 2;
+            break;
+        case 6:
+            $columns = 2;
+            break;
+            default:  
+            $columns = 3;
+    }
+
+    return $columns;
 }
 
 /**

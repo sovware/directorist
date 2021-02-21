@@ -270,7 +270,7 @@ class Directorist_Listings {
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
 		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
 		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
-		$this->columns                  = (int) $this->params['column'];
+		$this->columns                  = (int) atbdp_calculate_column( $this->params['column'] );
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
 		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;
@@ -1787,7 +1787,7 @@ class Directorist_Listings {
 				$field['class'] = 'featured';
 				$field['label'] = Helper::featured_badge_text();
 				if ( Helper::is_featured( $id ) ) {
-					Helper::get_template( 'archive/fields/badge', $field );
+					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 				}
 				break;
 

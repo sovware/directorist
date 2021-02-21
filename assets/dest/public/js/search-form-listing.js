@@ -120,7 +120,8 @@
         console.log("not response");
 
         if (response) {
-          $('.directorist-search-form-box').empty().html(response);
+          $('.directorist-search-form-box').empty().html(response.data['search_form']);
+          $('.directorist_listing_top_category').empty().html(response.data['popular_categories']);
         }
 
         $('.directorist-search-form-box').removeClass('atbdp-form-fade');

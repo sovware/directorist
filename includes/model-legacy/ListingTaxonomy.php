@@ -288,12 +288,13 @@ class Directorist_Listing_Taxonomy {
     	wp_enqueue_script('loc_cat_assets');
 
     	if ( $this->type == 'category' ) {
+			$column = $this->columns ? $this->columns : 3;
     		$args = array(
     			'taxonomy'   => $this,
     			'categories' => $this->tax_data(),
     			'grid_container' => apply_filters('atbdp_cat_container_fluid', 'container-fluid'),
-    			'grid_col_class' => $this->columns == 5 ? 'atbdp_col-5' : 'col-md-' . floor(12 / $this->columns). ' col-sm-6',
-    			'list_col_class' => 'col-md-' . floor(12 / $this->columns),
+    			'grid_col_class' => $this->columns == 5 ? 'atbdp_col-5' : 'col-md-' . floor(12 / $column). ' col-sm-6',
+    			'list_col_class' => 'col-md-' . floor(12 / $column),
     		);
     		$template_file = 'taxonomies/categories-'. $this->view;
     	}

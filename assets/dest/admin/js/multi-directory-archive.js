@@ -97,15 +97,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/multi-directory-archive.scss */ "./assets/src/scss/layout/admin/multi-directory-archive.scss");
 /* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modules_utility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/utility */ "./assets/src/js/modules/utility.js");
-/* harmony import */ var _modules_utility__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_utility__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/import-directory-modal */ "./assets/src/js/components/import-directory-modal.js");
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/delete-directory-modal */ "./assets/src/js/components/delete-directory-modal.js");
-/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/import-directory-modal */ "./assets/src/js/components/import-directory-modal.js");
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/delete-directory-modal */ "./assets/src/js/components/delete-directory-modal.js");
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
 // SASS
  // Scrips
-
 
 
 
@@ -231,35 +228,6 @@ $('.cptm-import-directory-form').on('submit', function (e) {
     });
     $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
   });
-});
-
-/***/ }),
-
-/***/ "./assets/src/js/modules/utility.js":
-/*!******************************************!*\
-  !*** ./assets/src/js/modules/utility.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var $ = jQuery;
-document.querySelectorAll('.la-icon i').forEach(function (item) {
-  className.push(item.getAttribute('class'));
-}); // Handle Disabled Link Action
-
-$('.atbdp-disabled').on('click', function (e) {
-  e.preventDefault();
-}); // Toggle Modal
-
-$('.cptm-modal-toggle').on('click', function (e) {
-  e.preventDefault();
-  var target_class = $(this).data('target');
-  $('.' + target_class).toggleClass('active');
-}); // Change label on file select/change
-
-$('.cptm-file-field').on('change', function (e) {
-  var target_id = $(this).attr('id');
-  $('label[for=' + target_id + ']').text('Change');
 });
 
 /***/ }),

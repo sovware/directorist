@@ -103,7 +103,11 @@ class ATBDP_Permalink {
         if( $id ) {
             $link = get_permalink( $id );
             if( '' != get_option( 'permalink_structure' ) ) {
-                $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id . '&directory_type=' . $directory_type );
+                if( ! empty( $directory_type ) ) {
+                    $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id . '&directory_type=' . $directory_type );
+                } else {
+                    $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id );
+                }
             } else {
                 $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_author_id ' => $author_id ), $link );
             }

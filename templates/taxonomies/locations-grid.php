@@ -4,7 +4,10 @@
  * @since   6.6
  * @version 6.6
  */
+
 use \Directorist\Helper;
+
+$columns = floor( 12 / $taxonomy->columns );
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
@@ -21,7 +24,7 @@ use \Directorist\Helper;
 					foreach ($locations as $location) {
 						$loc_class = $location['img'] ? '' : ' atbd_location_grid-default';
 						?>
-						<div class="<?php Helper::directorist_column(['md-3','sm-6']); ?>">
+						<div class="<?php Helper::directorist_column( $columns ); ?>">
 
 							<a class="atbd_location_grid<?php echo esc_attr( $loc_class ); ?>" href="<?php echo esc_url($location['permalink']); ?>">
 								<figure>

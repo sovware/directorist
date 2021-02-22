@@ -255,6 +255,24 @@ a {
   margin-bottom: 8px !important;
 }
 
+.directorist-loader {
+  position: relative;
+}
+.directorist-loader:before {
+  position: absolute;
+  content: "";
+  right: 20px;
+  top: 31%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

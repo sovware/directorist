@@ -256,6 +256,24 @@ a {
   margin-bottom: 8px !important;
 }
 
+.directorist-loader {
+  position: relative;
+}
+.directorist-loader:before {
+  position: absolute;
+  content: "";
+  right: 20px;
+  top: 31%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -7776,6 +7794,12 @@ p.atbd-min {
   margin-right: 6px;
   font-size: 16px;
   color: #0A0B1E;
+}
+
+#directorist-prifile-notice .directorist-alert {
+  width: 100%;
+  display: inline-block;
+  margin-top: 15px;
 }
 
 .atbd_announcement_wrapper {

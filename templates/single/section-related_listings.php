@@ -27,13 +27,11 @@ $listing->load_related_listings_script();
 	</div>
 
 
-	<div class="directorist-related-carousel directorist-row">
+	<div class="directorist-related-carousel">
 
 		<?php foreach ( $related->post_ids() as $listing_id ): ?>
 
-			<div class="<?php Helper::directorist_column( $listing->get_related_columns() ); ?>">
-				<?php $related->loop_template( 'grid', $listing_id ); ?>
-			</div>
+			<?php $related->loop_template( 'grid', $listing_id ); ?>
 
 		<?php endforeach; ?>
 

@@ -520,6 +520,16 @@ class Enqueue_Assets {
             'enable'   => true,
         ];
 
+        $scripts['directorist-inline-style'] = [
+            'file_name' => 'inline-style',
+            'base_path' => DIRECTORIST_ASSETS . 'other/',
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            // 'section'   => '__',
+            'has_min'   => false,
+            'has_rtl'   => false,
+        ];
+
         $scripts['directorist-atmodal'] = [
             'file_name' => 'atmodal',
             'base_path' => DIRECTORIST_PUBLIC_CSS,

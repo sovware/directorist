@@ -255,6 +255,14 @@
 
 function adsFormReset() {
   var adsForm = document.querySelector(".directorist-search-form");
+
+  if (!adsForm) {
+    adsForm = document.querySelector(".atbd_ads-form");
+  }
+
+  console.log({
+    adsForm: adsForm
+  });
   adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
     el.value = "";
   });

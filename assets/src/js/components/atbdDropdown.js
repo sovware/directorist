@@ -76,7 +76,7 @@ if (atbdSelect !== null) {
     });
 
     //atbd_dropdown
-    $(".atbd_dropdown").on("click", function (e) {
+    $(document).on("click", '.atbd_dropdown', function (e) {
         if ($(this).attr("class") === "atbd_dropdown") {
             e.preventDefault();
             $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
@@ -84,12 +84,23 @@ if (atbdSelect !== null) {
             e.stopPropagation();
         }
     });
+
+    // $(".atbd_dropdown").on("click", function (e) {
+    //     if ($(this).attr("class") === "atbd_dropdown") {
+    //         e.preventDefault();
+    //         $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
+    //         $(this).toggleClass("atbd_drop--active");
+    //         e.stopPropagation();
+    //     }
+    // });
+
     $(document).on("click", function (e) {
         if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
             $(".atbd_dropdown").removeClass("atbd_drop--active");
         }
     });
-    $(".atbd_dropdown-toggle").on("click", function (e) {
+    
+    $('body').on( 'click', '.atbd_dropdown-toggle', function( e ) {
         e.preventDefault();
     });
 
@@ -114,7 +125,7 @@ if (atbdSelect !== null) {
     // Hide Clicked Anywhere
     $(document).bind('click', function(e) {
         let clickedDom = $(e.target);
-        if(!clickedDom.parents().hasClass('directorist-dropdown-js'))
+        if ( ! clickedDom.parents().hasClass('directorist-dropdown-js') )
         $('.directorist-dropdown__links-js').hide();
     });
 

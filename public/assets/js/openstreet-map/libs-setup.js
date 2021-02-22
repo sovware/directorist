@@ -48,7 +48,7 @@
         disabled: true, // Will be enabled if assets are found to be available at runtime (use `checkAssetsAvailability`).
         assets: [{
           type: 'script',
-          path: '../../dist/leaflet.featuregroup.subgroup-src.js'
+          path: 'https://unpkg.com/leaflet.featuregroup.subgroup@1.0.1/dist/leaflet.featuregroup.subgroup.js'
         }]
       }
     ]

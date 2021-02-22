@@ -112,6 +112,7 @@ const publicConfig = {
     ['search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
     ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
     
+    ['load-osm-map']: ["./assets/src/js/map-scripts/load-osm-map.js"],
     ['map-view']: ["./assets/src/js/map-scripts/map-view.js"],
     ['markerclusterer']: ["./assets/src/js/map-scripts/markerclusterer.js"],
     ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],

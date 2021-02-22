@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -130,7 +130,7 @@ jQuery(document).ready(function ($) {
 
 /***/ }),
 
-/***/ 16:
+/***/ 17:
 /*!********************************************************************!*\
   !*** multi ./assets/src/js/components/releated-listings-slider.js ***!
   \********************************************************************/

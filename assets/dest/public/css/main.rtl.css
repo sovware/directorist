@@ -274,6 +274,10 @@ a {
   animation: atbd_spin 2s linear infinite;
 }
 
+#directorist-map-floating-panel {
+  margin-bottom: 15px;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -6709,7 +6713,10 @@ p.atbd-min {
   margin: 0 0 15px;
 }
 
-.directorist-related-carousel .directorist-col-4.slick-slide {
+.directorist-related-carousel .slick-list {
+  margin: 0 -15px;
+}
+.directorist-related-carousel .slick-slide {
   padding: 0 15px;
 }
 

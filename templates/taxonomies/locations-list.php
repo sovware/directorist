@@ -4,7 +4,10 @@
  * @since   6.6
  * @version 6.6
  */
+
 use \Directorist\Helper;
+
+$columns = floor( 12 / $taxonomy->columns );
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
 	<?php
@@ -21,7 +24,7 @@ use \Directorist\Helper;
 				foreach ($locations as $location) {
 					$plus_icon = $location['has_child'] ? '<span class="expander">+</span>' : '';
 					?>
-					<div class="<?php Helper::directorist_column('md-3'); ?>">
+					<div class="<?php Helper::directorist_column( $columns ); ?>">
 						<div class="atbd_category_wrapper">
 							<a href="<?php echo esc_url($location['permalink']);?>"><span><?php echo esc_html($location['name']);?></span><?php echo $location['list_count_html'];?></a><?php echo $plus_icon;?>
 							<?php echo $location['subterm_html'];?>

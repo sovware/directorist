@@ -1772,6 +1772,9 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
+			
+			// for development purpose
+			do_action( 'atbdp_all_listings_badge_template', $field );
 
 			switch ($field['widget_key']) {
 				case 'popular_badge':

@@ -6709,7 +6709,10 @@ p.atbd-min {
   margin: 0 0 15px;
 }
 
-.directorist-related-carousel .directorist-col-4.slick-slide {
+.directorist-related-carousel .slick-list {
+  margin: 0 -15px;
+}
+.directorist-related-carousel .slick-slide {
   padding: 0 15px;
 }
 

@@ -613,6 +613,16 @@ class Enqueue_Assets {
             // 'shortcode' => [ 'directorist_user_dashboard' ],
         ];
 
+        $scripts['login'] = [
+            'file_name' => 'login',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
+            // 'shortcode' => [ 'directorist_user_dashboard' ],
+        ];
+
         $scripts['directorist-geolocation'] = [
             'file_name' => 'geolocation',
             'base_path' => DIRECTORIST_PUBLIC_JS,

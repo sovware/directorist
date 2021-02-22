@@ -1220,6 +1220,9 @@ input[type=radio] {
   float: none;
   font-size: 15px;
   text-decoration: none;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current:last-child,

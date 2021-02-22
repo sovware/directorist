@@ -191,7 +191,13 @@
 
     .atbd_dropdown-item {
       display: block;
-      padding: 3px 15px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      display: block;
+      padding: 5px 20px;
+      border-radius: 4px;
+      color: #5a5f7d;
 
       &.active {
         background: #f2f2f2 !important;
@@ -218,5 +224,24 @@
         }
       }
     }
+  }
+}
+
+// Badge 
+
+.atbd_badge{
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.7;
+  padding: 0 3px;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+  &.atbd_badge_close{
+    background-color: $danger;
+  }
+  &.atbd_badge_open{
+    background-color: $success;
   }
 }

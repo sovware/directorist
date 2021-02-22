@@ -2697,7 +2697,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
             ];
 
-            $search_form_widgets = [
+            $search_form_widgets = apply_filters( 'directorist_search_form_widgets', [
                 'available_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
@@ -2983,28 +2983,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ]
 
                         ],
-
-                        'textarea' => [
-                            'options' => [
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Label',
-                                    'value' => 'Tag',
-                                ],
-                                'placeholder' => [
-                                    'type'  => 'text',
-                                    'label' => 'Placeholder',
-                                    'value' => 'Textarea',
-                                ],
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label' => 'Required',
-                                    'value' => false,
-                                ],
-                            ]
-
-                        ],
-
                         'number' => [
                             'options' => [
                                 'label' => [
@@ -3200,7 +3178,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ]
                 ]
-            ];
+            ] );
 
             $listing_card_widget = apply_filters( 'directorist_listing_card_widgets', [
                 'listing_title' => [

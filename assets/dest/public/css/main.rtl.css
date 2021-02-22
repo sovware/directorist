@@ -5722,7 +5722,13 @@ p.atbd-min {
 }
 .atbd_dropdown .atbd_dropdown-menu .atbd_dropdown-item {
   display: block;
-  padding: 3px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  padding: 5px 20px;
+  border-radius: 4px;
+  color: #5a5f7d;
 }
 .atbd_dropdown .atbd_dropdown-menu .atbd_dropdown-item.active {
   background: #f2f2f2 !important;

@@ -9,7 +9,7 @@
 <div class="directorist-form-group directorist-form-categories-field">
 	<?php $listing_form->field_label_template( $data );?>
 
-	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['max'] ) ? 'max="'. $data['max'] .'"' : ''; ?>>
+	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?>>
 
 		<?php
 		if ( $data['type'] != 'multiple' ) {

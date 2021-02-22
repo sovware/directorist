@@ -652,10 +652,11 @@ class Directorist_Listing_Form {
 		
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
+		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 
 		$args = array(
 			'listing_form'  => $this,
-			'data'          => apply_filters( 'directorist_form_field_data', $field_data, $this ),
+			'data'          => $field_data,
 		);
 
 		if ( $this->is_custom_field( $field_data ) ) {

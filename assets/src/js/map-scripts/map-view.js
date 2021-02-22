@@ -195,7 +195,7 @@ MarkerLabel.prototype.draw = function() {
                 if ($marker.html()) {
                         // map info window close button
                         google.maps.event.addListener(infowindow, 'domready', function() {
-                                const closeBtn = $('#iw-close-btn').get();
+                                const closeBtn = $('.iw-close-btn').get();
                                 google.maps.event.addDomListener(closeBtn[0], 'click', function() {
                                         infowindow.close();
                                 });

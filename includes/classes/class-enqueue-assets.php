@@ -91,6 +91,22 @@ class Enqueue_Assets {
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
+        $scripts['directorist-openstreet-map-leaflet'] = [
+            'file_name' => 'leaflet',
+            'base_path' => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
+            'ver'       => $this->script_version,
+            'group'     => $common_asset_group, // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
+        $scripts['directorist-openstreet-map-openstreet'] = [
+            'file_name' => 'openstreet',
+            'base_path' => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
+            'ver'       => $this->script_version,
+            'group'     => $common_asset_group, // public || admin  || global
+            'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+        ];
+
         // Admin
         // ================================
         $scripts['directorist-unicons'] = [
@@ -579,14 +595,6 @@ class Enqueue_Assets {
             'enable'    => true,
         ];
 
-        $scripts['login'] = [
-            'file_name' => 'login',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => true,
-        ];
-
         $scripts['directorist-atmodal'] = [
             'file_name' => 'atmodal',
             'base_path' => DIRECTORIST_PUBLIC_JS,
@@ -926,16 +934,28 @@ class Enqueue_Assets {
      */
     public function add_global_js_scripts() {
         $scripts = [];
+        
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
 
-        // $scripts['handle'] = [
-        //     'file'      => 'file-name',
-        //     'base_path' => DIRECTORIST_PUBLIC_JS,
-        //     'deps'      => [],
-        //     'has_min'   => false,
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'global',
-        //     'section'   => '',
-        // ];
+        $scripts['directorist-map-view'] = [
+            'file_name' => 'map-view',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => $common_asset_group,
+            'section'   => '',
+        ];
+
+        $scripts['directorist-gmap-marker-clusterer'] = [
+            'file_name' => 'markerclusterer',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => $common_asset_group,
+            'section'   => '',
+            'enable'    => Script_Helper::is_enable_map( 'google' )
+        ];
 
         $scripts = array_merge( $this->js_scripts, $scripts);
         $this->js_scripts = $scripts;

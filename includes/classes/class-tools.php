@@ -44,8 +44,14 @@
         {
             add_action('admin_menu', array($this, 'add_tools_submenu'), 10);
             add_action('admin_init', array($this, 'atbdp_csv_import_controller'));
+
             add_action( 'init', [$this, 'prepare_data'] );
-            $this->file            = isset($_REQUEST['csv_file']) ? wp_unslash($_REQUEST['csv_file']) : '';
+            $this->file = isset($_GET['csv_file']) ? wp_unslash($_GET['csv_file']) : '';
+            
+            if ( empty( $this->file ) && isset($_GET['file'] ) ) {
+                $this->file = wp_unslash( $_GET['file'] );
+            }
+
             $this->update_existing = isset($_REQUEST['update_existing']) ? (bool) $_REQUEST['update_existing'] : false;
             $this->delimiter       = !empty($_REQUEST['delimiter']) ? wp_unslash($_REQUEST['delimiter']) : ',';
             add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
@@ -55,7 +61,12 @@
 
         public function directorist_listing_type_form_fields() {
             $term_id 		        = sanitize_text_field( $_POST['directory_type'] );
-            $file 		            = wp_unslash( $_POST['file'] );
+            $file 		            = wp_unslash( $_POST['csv_file'] );
+
+            if ( empty( $file ) && isset($_POST['file'] ) ) {
+                $file = wp_unslash( $_POST['file'] );
+            }
+
             $delimiter 		        = wp_unslash( $_POST['delimiter'] );
             $this->importable_fields = [];
             $this->setup_fields( $term_id );
@@ -83,14 +94,18 @@
             $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
             $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
             $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', 10);
-            $all_posts          = csv_get_data($this->file, true, $delimiter);
+            $all_posts          = csv_get_data($_POST['csv_file'], true, $delimiter);
             $posts              = array_slice($all_posts, $position);
             $total_length       = count($all_posts);
             $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 100) ? 20 : (($total_length < 35) ? 2 : 5));
 
+            if ( empty( $total_length ) ) {
 
-            if ( ! $total_length ) {
-                $data['error'] = __('No data found', 'directorist');
+                $data['error']     = __('No data found', 'directorist');
+                $data['_POST']     = $_POST;
+                $data['file']      = $_POST['csv_file'];
+                $data['all_posts'] = $all_posts;
+
                 wp_send_json( $data );
             }
 
@@ -261,7 +276,7 @@
                     $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
                     $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
                     continue;
-                    }
+                }
 
                 apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
             }
@@ -281,7 +296,14 @@
         }
 
         public function get_data_table(){
-            ATBDP()->load_template('admin-templates/import-export/data-table',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields ));
+            $csv_data = csv_get_data( $this->file, false, $this->delimiter);
+            $data = [
+                'data'     => $csv_data,
+                'csv_file' => $this->file,
+                'fields'   => $this->importable_fields
+            ];
+
+            ATBDP()->load_template('admin-templates/import-export/data-table', $data );
         }
 
         public function render_tools_submenu_page()

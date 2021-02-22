@@ -81,30 +81,78 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js":
-/*!***************************************************************************!*\
-  !*** ./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js ***!
-  \***************************************************************************/
+/***/ "./assets/src/js/map-scripts/single-listing/openstreet-map.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/js/map-scripts/single-listing/openstreet-map.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'D:\\xampp\\htdocs\\directorist\\wp-content\\plugins\\directorist\\assets\\src\\js\\map-custom-scripts\\single-listing\\openstreet-map.js'");
+(function ($) {
+  jQuery(document).ready(function () {
+    // Localized Data
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    var _localized_data = localized_data,
+        display_map_info = _localized_data.display_map_info;
+    var _localized_data2 = localized_data,
+        cat_icon = _localized_data2.cat_icon;
+    var _localized_data3 = localized_data,
+        info_content = _localized_data3.info_content;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    };
+
+    function mapLeaflet(lat, lon) {
+      var fontAwesomeIcon = L.divIcon({
+        html: "<div class=\"atbd_map_shape\"><span class=\"".concat(cat_icon, "\"></span></div>"),
+        iconSize: [20, 20],
+        className: 'myDivIcon'
+      });
+      var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
+
+      if (display_map_info) {
+        L.marker([lat, lon], {
+          icon: fontAwesomeIcon
+        }).addTo(mymap).bindPopup(info_content);
+      } else {
+        L.marker([lat, lon], {
+          icon: fontAwesomeIcon
+        }).addTo(mymap);
+      }
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(mymap);
+    }
+
+    mapLeaflet(loc_manual_lat, loc_manual_lng);
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ 6:
-/*!*********************************************************************************!*\
-  !*** multi ./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js ***!
-  \*********************************************************************************/
+/***/ 9:
+/*!**************************************************************************!*\
+  !*** multi ./assets/src/js/map-scripts/single-listing/openstreet-map.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js */"./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/openstreet-map.js */"./assets/src/js/map-scripts/single-listing/openstreet-map.js");
 
 
 /***/ })

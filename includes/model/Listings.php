@@ -1433,7 +1433,9 @@ class Directorist_Listings {
 			'disable_info_window' => $disable_info_window,
 			'zoom'                => $opt['zoom'],
 		);
+
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
+		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
@@ -1488,8 +1490,6 @@ class Directorist_Listings {
 						$opt['ls_data'] = $ls_data;
 						Helper::get_template( 'archive/fields/google-map', $opt );
 					}
-
-					atbdp_console_log( $ls_data );
 
 				endforeach;
 

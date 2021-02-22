@@ -81,30 +81,145 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/components/geolocation.js":
-/*!*************************************************!*\
-  !*** ./assets/src/js/components/geolocation.js ***!
-  \*************************************************/
+/***/ "./assets/src/js/map-scripts/geolocation.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/map-scripts/geolocation.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'D:\\xampp\\htdocs\\directorist\\wp-content\\plugins\\directorist\\assets\\src\\js\\components\\geolocation.js'");
+(function ($) {
+  /* $("button[type='reset']").on("click", function (){
+  $("#atbd_rs_value").val(0);
+  $(".atbdpr_amount").text(0 + miles);
+  slider_range.each(function () {
+      $(this).slider({
+          range: "min",
+          min: 0,
+          max: 1000,
+          value: 0,
+          slide: function (event, ui) {
+              $(".atbdpr_amount").text(ui.value + miles);
+              $("#atbd_rs_value").val(ui.value);
+          }
+      });
+  });
+  $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
+  }); */
+
+  /* get current location */
+  if (adbdp_geolocation.select_listing_map === 'google') {
+    (function () {
+      var x = document.querySelector('.location-name');
+      var get_lat = document.querySelector('#cityLat');
+      var get_lng = document.querySelector('#cityLng');
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+          x.value = 'Geolocation is not supported by this browser.';
+        }
+      }
+
+      function showPosition(position) {
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        displayLocation(lat, lon);
+        get_lat.value = lat;
+        get_lng.value = lon;
+      }
+
+      function showError(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            x.value = 'User denied the request for Geolocation.';
+            break;
+
+          case error.POSITION_UNAVAILABLE:
+            x.value = 'Location information is unavailable.';
+            break;
+
+          case error.TIMEOUT:
+            x.value = 'The request to get user location timed out.';
+            break;
+
+          case error.UNKNOWN_ERROR:
+            x.value = 'An unknown error occurred.';
+            break;
+        }
+      }
+
+      function displayLocation(latitude, longitude) {
+        var geocoder;
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(latitude, longitude);
+        geocoder.geocode({
+          latLng: latlng,
+          componentRestrictions: {
+            country: 'GB'
+          }
+        }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              var add = results[0].formatted_address;
+              var value = add.split(',');
+              count = value.length;
+              country = value[count - 1];
+              state = value[count - 2];
+              city = value[count - 3];
+              x.value = city;
+            } else {
+              x.value = 'address not found';
+            }
+          } else {
+            x.value = "Geocoder failed due to: ".concat(status);
+          }
+        });
+      }
+
+      var get_loc_btn = document.querySelector('.directorist-filter-location-icon');
+      get_loc_btn.addEventListener('click', function () {
+        getLocation();
+      });
+    })();
+  } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
+    function displayLocation(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      $.ajax({
+        url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
+        type: 'POST',
+        data: {},
+        success: function success(data) {
+          $('#address,.atbdp-search-address').val(data.display_name);
+          $('#cityLat').val(lat);
+          $('#cityLng').val(lng);
+        }
+      });
+    }
+
+    $('.directorist-filter-location-icon').on('click', function () {
+      navigator.geolocation.getCurrentPosition(displayLocation);
+    });
+  }
+})(jQuery);
 
 /***/ }),
 
-/***/ 12:
-/*!*******************************************************!*\
-  !*** multi ./assets/src/js/components/geolocation.js ***!
-  \*******************************************************/
+/***/ 11:
+/*!********************************************************!*\
+  !*** multi ./assets/src/js/map-scripts/geolocation.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/components/geolocation.js */"./assets/src/js/components/geolocation.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/geolocation.js */"./assets/src/js/map-scripts/geolocation.js");
 
 
 /***/ })

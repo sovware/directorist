@@ -230,7 +230,6 @@ final class Directorist_Base
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
-            self::$instance->Map_iFrame = new Directorist\Map_iFrame;
             self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager

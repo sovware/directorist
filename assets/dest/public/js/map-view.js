@@ -81,19 +81,65 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/*! exports provided: get_dom_data */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
+function get_dom_data(key) {
+  var dom_content = document.body.innerHTML;
+
+  if (!dom_content.length) {
+    return '';
+  }
+
+  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
+  var terget_content = pattern.exec(dom_content);
+
+  if (!terget_content) {
+    return '';
+  }
+
+  if (typeof terget_content[2] === 'undefined') {
+    return '';
+  }
+
+  var dom_data = JSON.parse(terget_content[2]);
+
+  if (!dom_data) {
+    return '';
+  }
+
+  return dom_data;
+}
+
+
+
+/***/ }),
 
 /***/ "./assets/src/js/map-scripts/map-view.js":
 /*!***********************************************!*\
   !*** ./assets/src/js/map-scripts/map-view.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// Define Marker Shapes
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
+
+var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes
+
 var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
 var inherits = function inherits(childCtor, parentCtor) {
@@ -313,13 +359,9 @@ MarkerLabel.prototype.draw = function () {
       // fit to bounds
       map.fitBounds(bounds);
     }
-  } // render map in the custom post
+  }
 
-
-  $('.atbdp-map').each(function () {
-    atbdp_rander_map($(this));
-  });
-  window.addEventListener('load', function () {
+  function setup_info_window() {
     var abc = document.querySelectorAll('div');
     abc.forEach(function (el, index) {
       if (el.innerText === 'atgm_marker') {
@@ -344,12 +386,24 @@ MarkerLabel.prototype.draw = function () {
         });
       }
     });
-  });
+  }
+
+  function setup_map() {
+    // render map in the custom post
+    $('.atbdp-map').each(function () {
+      atbdp_rander_map($(this));
+    });
+  }
+
+  window.addEventListener('load', setup_map);
+  window.addEventListener('load', setup_info_window);
+  window.addEventListener('directorist-reload-listings-map-archive', setup_map);
+  window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
 })(jQuery);
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!*****************************************************!*\
   !*** multi ./assets/src/js/map-scripts/map-view.js ***!
   \*****************************************************/

@@ -28,7 +28,7 @@
 					}
 
 					if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . $default_image . '" alt="' . esc_attr( get_the_title() ) . '">';
+						echo '<img src="' . $ls_data['default_img'] . '" alt="' . esc_attr( get_the_title() ) . '">';
 					}
 
 					if ( ! $disable_single_listing ) {

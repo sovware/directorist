@@ -219,6 +219,13 @@ a {
   padding: 30px;
 }
 
+.directorist-content-active #directorist.atbd_wrapper {
+  max-width: 100%;
+}
+.directorist-content-active #directorist.atbd_wrapper .atbd_header_bar {
+  margin-bottom: 35px;
+}
+
 .directorist-content-active a {
   text-decoration: none !important;
 }

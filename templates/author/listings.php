@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( $author->cat_filter_enabled() ): ?>
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
-			<?php 
-				do_action('directorist_before_author_listings_category_dropdown', $author );
-			?>
+
+			<?php echo $author->archive_type( $author ); ?>
+			
 			<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn directorist-btn-outline-primary" href="#" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
 
 			<div class="directorist-dropdown__links directorist-dropdown__links-js">

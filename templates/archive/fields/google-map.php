@@ -20,15 +20,15 @@
 					}
 
 					if ( ! empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . esc_url( $ls_data['prv_image'] ) . '" alt="' . esc_attr( get_the_title() ) . '">';
+						echo '<img src="' . esc_url( $ls_data['prv_image'] ) . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
 					}
 
 					if ( ! empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . esc_url( $ls_data['gallery_img'] ) . '" alt="' . esc_attr( get_the_title() ) . '">';
+						echo '<img src="' . esc_url( $ls_data['gallery_img'] ) . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
 					}
 
 					if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . $default_image . '" alt="' . esc_attr( get_the_title() ) . '">';
+						echo '<img src="' . $ls_data['default_img'] . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
 					}
 
 					if ( ! $disable_single_listing ) {

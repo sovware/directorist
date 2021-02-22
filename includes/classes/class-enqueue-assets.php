@@ -525,7 +525,15 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_ASSETS . 'other/',
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            // 'section'   => '__',
+            'has_min'   => false,
+            'has_rtl'   => false,
+        ];
+        
+        $scripts['directorist-settings-style'] = [
+            'file_name' => 'settings-style',
+            'base_path' => DIRECTORIST_ASSETS . 'other/',
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
             'has_min'   => false,
             'has_rtl'   => false,
         ];
@@ -605,16 +613,6 @@ class Enqueue_Assets {
 
         $scripts['directorist-atmodal'] = [
             'file_name' => 'atmodal',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            'section'   => '',
-            'enable'    => true,
-            // 'shortcode' => [ 'directorist_user_dashboard' ],
-        ];
-
-        $scripts['login'] = [
-            'file_name' => 'login',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
@@ -990,6 +988,9 @@ class Enqueue_Assets {
         // CSS
         $this->register_css_scripts_by_group( [ 'group' => 'public' ] );
         $this->enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page  ] );
+
+        // Other CSS
+        wp_add_inline_style( 'directorist-settings-style', \ATBDP_Stylesheet::style_settings_css() );
 
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'public' ] );

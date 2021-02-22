@@ -21,18 +21,19 @@ if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includ
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }
 
 // Public Assets Path
-if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_URL . 'assets/dest/'); }
-if ( ! defined( 'DIRECTORIST_PUBLIC_ASSETS' ) ) { define('DIRECTORIST_PUBLIC_ASSETS', DIRECTORIST_ASSETS . 'public/'); }
+if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_URL . 'assets/'); }
+if ( ! defined( 'DIRECTORIST_ASSETS_DEST' ) ) { define('DIRECTORIST_ASSETS_DEST', ATBDP_URL . 'assets/dest/'); }
+if ( ! defined( 'DIRECTORIST_PUBLIC_ASSETS' ) ) { define('DIRECTORIST_PUBLIC_ASSETS', DIRECTORIST_ASSETS_DEST . 'public/'); }
 if ( ! defined( 'DIRECTORIST_PUBLIC_CSS' ) ) { define('DIRECTORIST_PUBLIC_CSS', DIRECTORIST_PUBLIC_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_PUBLIC_JS' ) ) { define('DIRECTORIST_PUBLIC_JS', DIRECTORIST_PUBLIC_ASSETS . 'js/'); }
 
 // Admin Assets Path
-if ( ! defined( 'DIRECTORIST_ADMIN_ASSETS' ) ) { define('DIRECTORIST_ADMIN_ASSETS', DIRECTORIST_ASSETS . 'admin/'); }
+if ( ! defined( 'DIRECTORIST_ADMIN_ASSETS' ) ) { define('DIRECTORIST_ADMIN_ASSETS', DIRECTORIST_ASSETS_DEST . 'admin/'); }
 if ( ! defined( 'DIRECTORIST_ADMIN_CSS' ) ) { define('DIRECTORIST_ADMIN_CSS', DIRECTORIST_ADMIN_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_ADMIN_JS' ) ) { define('DIRECTORIST_ADMIN_JS', DIRECTORIST_ADMIN_ASSETS . 'js/'); }
 
 // Vendor Assets Path
-if ( ! defined( 'DIRECTORIST_VENDOR_ASSETS' ) ) { define('DIRECTORIST_VENDOR_ASSETS', DIRECTORIST_ASSETS . 'vendor/'); }
+if ( ! defined( 'DIRECTORIST_VENDOR_ASSETS' ) ) { define('DIRECTORIST_VENDOR_ASSETS', DIRECTORIST_ASSETS_DEST . 'vendor/'); }
 if ( ! defined( 'DIRECTORIST_VENDOR_CSS' ) ) { define('DIRECTORIST_VENDOR_CSS', DIRECTORIST_VENDOR_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DIRECTORIST_VENDOR_ASSETS . 'js/'); }
 

@@ -712,8 +712,8 @@ a {
   position: relative;
 }
 .atbdp_shortcodes:after {
-  content: "";
-  font-family: "LineAwesome";
+  content: "";
+  font-family: "Line Awesome Free";
   color: #000;
   font-weight: normal;
   line-height: initial;

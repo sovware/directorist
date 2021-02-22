@@ -6183,7 +6183,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
 
     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
     $price = $before . atbdp_format_amount($price, $allow_decimal) . $after;
-    $p = apply_filters('atbdp_listing_price', sprintf("<span class='directorist-listing-price'>%s</span>", $price));
+    $p = sprintf("<span class='directorist-listing-price'>%s</span>", $price);
     if ($echo) {
         echo $p;
     } else {
@@ -6223,7 +6223,7 @@ function atbdp_display_price_range($price_range)
         </span>';
 
     }
-    return apply_filters('atbdp_listing_price', $output);
+    return $output;
 
 }
 

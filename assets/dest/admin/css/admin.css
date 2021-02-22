@@ -4894,6 +4894,10 @@ input.atbdp-form-control {
   animation: atbd_spin 2s linear infinite;
 }
 
+#directorist-map-floating-panel {
+  margin-bottom: 15px;
+}
+
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5883,6 +5887,10 @@ a {
   -webkit-animation: atbd_spin 2s linear infinite;
   /* Safari */
   animation: atbd_spin 2s linear infinite;
+}
+
+#directorist-map-floating-panel {
+  margin-bottom: 15px;
 }
 
 /* Directorist custom grid */
@@ -7562,6 +7570,10 @@ a {
   -webkit-animation: atbd_spin 2s linear infinite;
   /* Safari */
   animation: atbd_spin 2s linear infinite;
+}
+
+#directorist-map-floating-panel {
+  margin-bottom: 15px;
 }
 
 /* Directorist custom grid */

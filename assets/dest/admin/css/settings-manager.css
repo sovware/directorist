@@ -3249,6 +3249,7 @@ input[type=radio] {
 }
 .setting-top-bar .atbdp-setting-top-bar-right .setting-top-bar__search-field input {
   border-radius: 20px;
+  color: #fff !important;
 }
 .setting-top-bar .directorist_setting-panel__pages {
   margin: 0;

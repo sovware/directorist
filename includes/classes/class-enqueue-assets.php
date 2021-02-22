@@ -13,8 +13,11 @@ class Enqueue_Assets {
         // Load Assets
         add_action( 'init', [ $this, 'load_assets'] );
 
-        // Enqueue Public Scripts
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        if ( empty( $atbdp_legacy_template ) ) {
+            // Enqueue Public Scripts
+            add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
+        }
 
         // Enqueue Admin Scripts
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
@@ -36,12 +39,9 @@ class Enqueue_Assets {
         $this->add_vendor_css_scripts();
         $this->add_vendor_js_scripts();
 
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        if ( empty( $atbdp_legacy_template ) ) {
-            // Load Public Assets
-            $this->add_public_css_scripts();
-            $this->add_public_js_scripts();
-        }
+        // Load Public Assets
+        $this->add_public_css_scripts();
+        $this->add_public_js_scripts();
 
         // Load Admin Assets
         $this->add_admin_css_scripts();
@@ -512,7 +512,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => '',
+            // 'section'   => '__',
             'enable'   => true,
         ];
 
@@ -576,6 +576,14 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'single-listing-page',
+            'enable'    => true,
+        ];
+
+        $scripts['login'] = [
+            'file_name' => 'login',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
             'enable'    => true,
         ];
 
@@ -731,7 +739,7 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'admin',
             'section'   => '',
-            // 'page'      => 'at_biz_dir_page_atbdp-settings',
+            'page'      => 'at_biz_dir_page_atbdp-directory-types',
         ];
         
         $scripts['directorist-multi-directory-builder'] = [
@@ -794,6 +802,14 @@ class Enqueue_Assets {
             'ver'       => $this->script_version,
             'group'     => 'admin', // public || admin  || global
             'page'      => ['post-new.php', 'post.php'],
+        ];
+
+        $scripts['directorist-multi-directory-archive'] = [
+            'file_name' => 'multi-directory-archive',
+            'base_path' => DIRECTORIST_ADMIN_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'admin', // public || admin  || global
+            'page'      => ['at_biz_dir_page_atbdp-directory-types'],
         ];
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [
@@ -955,6 +971,8 @@ class Enqueue_Assets {
         // JS
         $this->register_js_scripts_by_group( [ 'group' => 'admin' ] );
         $this->enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
+
+        wp_enqueue_media();
     }
 
     /**
@@ -973,7 +991,7 @@ class Enqueue_Assets {
 
         // Other
         $this->enqueue_custom_color_picker_scripts();
-        wp_enqueue_media();
+
         wp_enqueue_script( 'jquery' );
     }
 

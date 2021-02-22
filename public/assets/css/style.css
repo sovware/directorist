@@ -3721,6 +3721,17 @@ input.atbdp-form-control {
   margin-bottom: 15px !important;
 }
 
+#directorist.atbd_wrapper .bdb-extras input[type="checkbox"]:checked:before,
+#directorist.atbd_wrapper .bdb-hide-booking input[type="checkbox"]:checked:before {
+  margin-left: -18px;
+}
+
+#directorist.atbd_wrapper .bdb-extras input[type=checkbox],
+#directorist.atbd_wrapper .bdb-hide-booking input[type=checkbox] {
+  width: 15px;
+  height: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1733,7 +1733,7 @@ class Directorist_Listings {
 				$field['class'] = 'featured';
 				$featured = get_post_meta( $id, '_featured', true );
 				if ( $featured ) {
-					Helper::get_template( 'listings-archive/loop/badge', $field );
+					Helper::get_template( 'listings-archive/loop/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 				}
 				break;
 

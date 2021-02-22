@@ -5,7 +5,6 @@
  * @version 6.7
  */
 ?>
-
 <div class="directorist-form-group directorist-form-categories-field">
 	<?php $listing_form->field_label_template( $data );?>
 

@@ -520,12 +520,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'     => __('Active Gateways', 'directorist'),
                     'type'      => 'checkbox',
                     'value'     => ['bank_transfer'],
-                    'options'   => [
+                    'options'   => apply_filters( 'directorist_active_gateways', [
                         [
                             'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
-                    ],
+                    ] ),
                     'description' => __('Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist'),
                 ],
 
@@ -2557,7 +2557,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 'search_title'    => [
                     'type'          => 'text',
                     'label'         => __('Search Bar Title', 'directorist'),
-                    'description' => __('Enter the title for search bar on Home Page.', 'directorist'),
                     'value' => __('Search here', 'directorist'),
                 ],
                 'search_subtitle'    => [
@@ -5036,9 +5035,9 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-home"></i>',
                             'sections' => apply_filters( 'atbdp_extension_settings_controls', [
                                 'general_settings' => [
-                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [
+                                    'fields' =>  apply_filters( 'atbdp_extension_fields', [
                                          'extension_promotion'
-                                    ] ) ,
+                                    ]) ,
                                 ],
                             ] ),
                         ],

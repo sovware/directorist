@@ -1244,6 +1244,20 @@ body.stop-scrolling {
   border-color: #ececec;
 }
 
+.directorist-form-group .select2-container--default .select2-selection {
+  height: 40px;
+  padding: 0 15px;
+}
+.directorist-form-group .select2-container--default .select2-selection .select2-selection__rendered {
+  line-height: 36px;
+}
+.directorist-form-group .select2-container--default .select2-selection .select2-selection__clear {
+  padding-left: 15px;
+}
+.directorist-form-group .select2-container--default .select2-selection .select2-selection__arrow {
+  left: 10px;
+}
+
 .select2-container--open .select2-dropdown.select2-dropdown--below {
   top: 30px;
 }
@@ -1362,6 +1376,35 @@ body.stop-scrolling {
 }
 .directorist-form-image-upload-field .ezmu__thumbnail-list-item {
   width: auto;
+}
+
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
+  max-width: 300px;
+  -webkit-flex-basis: 300px;
+      -ms-flex-preferred-size: 300px;
+          flex-basis: 300px;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
+  height: 200px;
+  width: 100%;
+}
+.directorist-add-listing-wrapper .ezmu__media-picker-buttons {
+  margin-top: 10px;
+}
+.directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-1 {
+  font-size: 30px;
+}
+.directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-3 {
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+.directorist-add-listing-wrapper .ezmu__btn {
+  margin-bottom: 25px;
+  background-color: #202428;
+  color: #fff;
+}
+.directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:not(:last-child) {
+  margin-left: 30px;
 }
 
 /* form action */

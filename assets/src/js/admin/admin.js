@@ -1,7 +1,8 @@
 import '../../scss/layout/admin/admin-style.scss';
 
-// PureScript Select
+// Modules
 import '../modules/pureScriptSearchSelect';
+import '../modules/utility';
 
 // Blocks
 import './../components/admin/block-1';

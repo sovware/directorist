@@ -6,32 +6,24 @@
  */
 
 $p_id                = $form->get_add_listing_id();
-$fm_plan             = get_post_meta( $p_id, '_fm_plans', true );
-$type                = $form->get_current_listing_type();
-
-$plan_image          = $data['max_image_limit'];
-$max_file_size       = $data['max_per_image_limit'];
-$max_total_file_size = $data['max_total_image_limit'];
-
-$slider_unl = '';
-if ( !empty( $field_data['plans'] ) ) {
-    $plan = atbdp_field_assigned_plan( $field_data );
-    $slider_unl = ( $plan['max'] == 0 ) ? true : false;
-    if (!$slider_unl) {
-        $plan_image = $plan['max'];
-    }
-}
-
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );
-$slider_unl             = $slider_unl;
-$max_file_items         = ! empty( $slider_unl ) ? '999' : $plan_image;
-$min_file_items         = $data['required'] ? '1' : '';
+
+$limit                  = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
+$unlimited              = !empty( $data['unlimited'] ) ? $data['unlimited'] : '';
+$max_file_size          = $data['max_per_image_limit'];
+$max_total_file_size    = $data['max_total_image_limit'];
 $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
+$required               = $data['required'] ? '1' : '';
 ?>
 
 <div class="form-group directorist-image-upload-field">
-	<div id="_listing_gallery" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" data-max-file-items="<?php echo esc_attr( $max_file_items ); ?>" data-min-file-items="<?php echo esc_attr( $min_file_items ); ?>" data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>" data-max-total-file-size="<?php echo esc_attr( $max_total_file_size_kb ); ?>" data-show-alerts="0">
+	<div id="_listing_gallery" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" 
+		data-max-file-items="<?php echo $limit; ?>"
+        data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
+        data-min-file-items="<?php echo esc_attr( $required ); ?>"
+        data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>"
+		data-show-alerts="0">
 
 		<div class="ezmu__loading-section ezmu--show">
 			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>
@@ -72,8 +64,8 @@ $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 			<span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e('Minimum __DT__ file is required', 'directorist') ?></span>
 
 			<span class="ezmu-dictionary-info-max-file-items" 
-			data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
-			<?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : ( ( $plan_image > 1 ) ? __('Maximum __DT__ files are allowed', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist') ); ?></span>
+			data-featured="<?php echo !empty($unlimited) ? '1' : ''; ?>">
+			<?php echo !empty($unlimited) ? __('Unlimited images with this plan!', 'directorist') : ( ( $limit > 1 ) ? __('Maximum __DT__ files are allowed', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist') ); ?></span>
 		</div>
 	</div>
 </div>

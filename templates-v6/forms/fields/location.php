@@ -12,7 +12,7 @@
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location"
 	 <?php 
 	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; 
-	 echo $data['max'] ? 'max="'. $data['max'] .'"' : '';
+	 echo !empty( $data['max'] ) ? 'max="'. $data['max'] .'"' : '';
 	 ?>>
 
 		<?php

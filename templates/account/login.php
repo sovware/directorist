@@ -69,7 +69,6 @@ use \Directorist\Helper;
                                 <p><?php echo apply_filters( 'directorist_reset_password_link_exp_message', esc_html__( 'Sorry! The link is invalid.', 'directorist' ) ); ?></p>
                             <?php }
                                 } else {
-                                    wp_enqueue_script( 'adminmainassets' );
                                     $redirection = ATBDP_Permalink::get_login_redirection_page_link();
                                     $data        = [
                                         'ajax_url'            => admin_url( 'admin-ajax.php' ),
@@ -77,7 +76,7 @@ use \Directorist\Helper;
                                         'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
                                         'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
                                     ];
-                                    wp_localize_script( 'adminmainassets', 'ajax_login_object', $data );
+                                    wp_localize_script( 'login', 'ajax_login_object', $data );
 
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
                                     $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );

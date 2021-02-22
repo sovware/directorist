@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
         speed: 300,
         slidesToShow: data.rel_listing_column,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         rtl: rtl,
         responsive: [
             {

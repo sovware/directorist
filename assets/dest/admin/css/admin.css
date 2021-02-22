@@ -712,8 +712,8 @@ a {
   position: relative;
 }
 .atbdp_shortcodes:after {
-  content: "";
-  font-family: "LineAwesome";
+  content: "";
+  font-family: "Line Awesome Free";
   color: #000;
   font-weight: normal;
   line-height: initial;
@@ -4876,6 +4876,24 @@ input.atbdp-form-control {
   margin-bottom: 8px !important;
 }
 
+.directorist-loader {
+  position: relative;
+}
+.directorist-loader:before {
+  position: absolute;
+  content: "";
+  right: 20px;
+  top: 31%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5653,6 +5671,24 @@ a {
             transform: rotate(360deg);
   }
 }
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -5829,6 +5865,24 @@ a {
   color: #28303d;
   font-weight: 600;
   margin-bottom: 8px !important;
+}
+
+.directorist-loader {
+  position: relative;
+}
+.directorist-loader:before {
+  position: absolute;
+  content: "";
+  right: 20px;
+  top: 31%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
 }
 
 /* Directorist custom grid */
@@ -7296,6 +7350,24 @@ a {
             transform: rotate(360deg);
   }
 }
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -7472,6 +7544,24 @@ a {
   color: #28303d;
   font-weight: 600;
   margin-bottom: 8px !important;
+}
+
+.directorist-loader {
+  position: relative;
+}
+.directorist-loader:before {
+  position: absolute;
+  content: "";
+  right: 20px;
+  top: 31%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
 }
 
 /* Directorist custom grid */

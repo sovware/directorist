@@ -2708,11 +2708,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
   \*********************************************************/
-/*! no exports provided */
+/*! exports provided: pureScriptSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pureScriptSelect", function() { return pureScriptSelect; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
@@ -2724,7 +2725,7 @@ __webpack_require__.r(__webpack_exports__);
     URI: https://github.com/woadudakand/pureScriptSelect
 */
 
-var pureScriptSelect = function pureScriptSelect(selector) {
+function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
   function eventDelegation(event, psSelector, program) {
@@ -3064,30 +3065,35 @@ var pureScriptSelect = function pureScriptSelect(selector) {
 
     multiSelect ? multiSelects() : singleSelect();
   });
-};
+}
+
+;
 
 (function ($) {
-  if ($('#directorist-select-js').length) {
-    pureScriptSelect('#directorist-select-js');
-  }
+  window.addEventListener('load', initPureScriptSelect);
+  document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initPureScriptSelect);
 
-  if ($('#directorist-review-select-js').length) {
-    pureScriptSelect('#directorist-review-select-js');
-  }
+  function initPureScriptSelect() {
+    if ($('#directorist-select-js').length) {
+      pureScriptSelect('#directorist-select-js');
+    }
 
-  if ($('#directorist-search-category-js').length) {
-    pureScriptSelect('#directorist-search-category-js');
-  }
+    if ($('#directorist-review-select-js').length) {
+      pureScriptSelect('#directorist-review-select-js');
+    }
 
-  if ($('#directorist-search-location-js').length) {
-    pureScriptSelect('#directorist-search-location-js');
-  }
+    if ($('#directorist-search-category-js').length) {
+      pureScriptSelect('#directorist-search-category-js');
+    }
 
-  if ($('#directorist-search-select-js').length) {
-    pureScriptSelect('#directorist-search-select-js');
-  }
+    if ($('#directorist-search-location-js').length) {
+      pureScriptSelect('#directorist-search-location-js');
+    }
 
-  window.addEventListener('load', function (event) {
+    if ($('#directorist-search-select-js').length) {
+      pureScriptSelect('#directorist-search-select-js');
+    }
+
     if ($('#directorist-select-st-s-js').length) {
       pureScriptSelect('#directorist-select-st-s-js');
     }
@@ -3155,8 +3161,10 @@ var pureScriptSelect = function pureScriptSelect(selector) {
     if ($('#directorist-category-select').length) {
       pureScriptSelect('#directorist-category-select');
     }
-  });
+  }
 })(jQuery);
+
+
 
 /***/ }),
 

@@ -467,6 +467,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function render_search_shortcode() {
+
 		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
@@ -476,12 +477,12 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		if (is_rtl()) {
-			wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-		}
-		else {
-			wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-		}
+		// if (is_rtl()) {
+		// 	wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+		// }
+		// else {
+		// 	wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+		//
 
 		$this->search_listing_scripts_styles();
 

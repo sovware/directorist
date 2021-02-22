@@ -4,7 +4,7 @@ import '../../scss/component/pureSearchSelect.scss';
     URI: https://github.com/woadudakand/pureScriptSelect
 */
 
-const pureScriptSelect = (selector) => {
+function pureScriptSelect (selector) {
     let selectors = document.querySelectorAll(selector);
 
     function eventDelegation(event, psSelector, program) {
@@ -20,8 +20,6 @@ const pureScriptSelect = (selector) => {
     let optionValues = {
         [document.querySelector(selector).getAttribute('id')]: eval(document.querySelector(selector).getAttribute('data-multiSelect'))
     };
-
-
 
     let isMax = {
         [document.querySelector(selector).getAttribute('id')]: eval(document.querySelector(selector).getAttribute('data-max'))
@@ -371,24 +369,26 @@ const pureScriptSelect = (selector) => {
 }
 
 ;(function ($) {
+    window.addEventListener('load', initPureScriptSelect );
+    document.body.addEventListener( 'directorist-search-form-nav-tab-reloaded', initPureScriptSelect );
 
-    if($('#directorist-select-js').length){
-        pureScriptSelect('#directorist-select-js');
-    }
-    if($('#directorist-review-select-js').length){
-        pureScriptSelect('#directorist-review-select-js');
-    }
-    if($('#directorist-search-category-js').length){
-        pureScriptSelect('#directorist-search-category-js');
-    }
-    if($('#directorist-search-location-js').length){
-        pureScriptSelect('#directorist-search-location-js');
-    }
-    if($('#directorist-search-select-js').length){
-        pureScriptSelect('#directorist-search-select-js');
-    }
+    function initPureScriptSelect () {
+        if($('#directorist-select-js').length){
+            pureScriptSelect('#directorist-select-js');
+        }
+        if($('#directorist-review-select-js').length){
+            pureScriptSelect('#directorist-review-select-js');
+        }
+        if($('#directorist-search-category-js').length){
+            pureScriptSelect('#directorist-search-category-js');
+        }
+        if($('#directorist-search-location-js').length){
+            pureScriptSelect('#directorist-search-location-js');
+        }
+        if($('#directorist-search-select-js').length){
+            pureScriptSelect('#directorist-search-select-js');
+        }
 
-    window.addEventListener('load', (event) => {
         if($('#directorist-select-st-s-js').length){
             pureScriptSelect('#directorist-select-st-s-js');
         }
@@ -446,7 +446,8 @@ const pureScriptSelect = (selector) => {
         if($('#directorist-category-select').length){
             pureScriptSelect('#directorist-category-select');
         }
-
-    });
+    }
 
 })(jQuery);
+
+export { pureScriptSelect };

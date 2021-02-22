@@ -13,8 +13,11 @@ class Enqueue_Assets {
         // Load Assets
         add_action( 'init', [ $this, 'load_assets'] );
 
-        // Enqueue Public Scripts
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        if ( empty( $atbdp_legacy_template ) ) {
+            // Enqueue Public Scripts
+            add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
+        }
 
         // Enqueue Admin Scripts
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
@@ -36,12 +39,9 @@ class Enqueue_Assets {
         $this->add_vendor_css_scripts();
         $this->add_vendor_js_scripts();
 
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        if ( empty( $atbdp_legacy_template ) ) {
-            // Load Public Assets
-            $this->add_public_css_scripts();
-            $this->add_public_js_scripts();
-        }
+        // Load Public Assets
+        $this->add_public_css_scripts();
+        $this->add_public_js_scripts();
 
         // Load Admin Assets
         $this->add_admin_css_scripts();
@@ -512,7 +512,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => '',
+            // 'section'   => '__',
             'enable'   => true,
         ];
 

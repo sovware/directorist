@@ -119,6 +119,10 @@
         if (response) {
           $('.directorist-search-form-box').empty().html(response.data['search_form']);
           $('.directorist_listing_top_category').empty().html(response.data['popular_categories']);
+
+          var _event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
+
+          document.body.dispatchEvent(_event);
         }
 
         $('.directorist-search-form-box').removeClass('atbdp-form-fade');

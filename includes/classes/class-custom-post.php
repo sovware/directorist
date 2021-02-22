@@ -45,6 +45,7 @@ if (!class_exists('ATBDP_Custom_Post')):
 
         public function save_quick_edit_custom_box( $post_id) {
 
+            if( ! is_admin() ) return;
             if( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) return;
             // if our current user can't edit this post, bail
             if ( ! current_user_can( 'edit_posts' ) ) return;

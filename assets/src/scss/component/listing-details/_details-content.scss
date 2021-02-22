@@ -166,7 +166,10 @@
 }
 
 .directorist-related-carousel {
-    .directorist-col-4.slick-slide {
+    .slick-list{
+        margin: 0 -15px;
+    }
+    .slick-slide {
         padding: 0 15px;
     }
 }

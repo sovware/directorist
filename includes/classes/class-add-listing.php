@@ -180,7 +180,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
                 }
 
-                // wp_send_json($metas);
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;
@@ -191,6 +190,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  */
              
                 $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
+
                 $args = array(
                     'post_content' => $content,
                     'post_title' => $title,
@@ -280,6 +280,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                         $post_id = wp_update_post($args);
+                        update_post_meta($post_id, '_directory_type', $directory_type);
+
                         if( !empty( $directory_type ) ){
                             wp_set_object_terms($post_id, (int)$directory_type, 'atbdp_listing_types');
                         }
@@ -419,6 +421,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                         $post_id = wp_insert_post($args);
+                        
+                        update_post_meta($post_id, '_directory_type', $directory_type);
                         do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 
                         //Every post with the published status should contain all the post meta keys so that we can include them in query.

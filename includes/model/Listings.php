@@ -195,7 +195,7 @@ class Directorist_Listings {
 		$this->options['crop_width']                      = get_directorist_option('crop_width', 360);
 		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
-		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
@@ -1272,14 +1272,14 @@ class Directorist_Listings {
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {
-		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = array_merge( $this->get_map_options(), $map_options ) ;
 
 		$map_card_data     = $this->get_osm_map_info_card_data();
 
 		$default_lat_lon   = array( 'lat' => 40.7128, 'lon' => 74.0060 );
 		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
-		$load_scripts_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js';
+		$load_scripts_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/load-scripts.js';
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
@@ -1416,7 +1416,7 @@ class Directorist_Listings {
 	}
 
 	public function load_google_map() {
-		wp_enqueue_script('atbdp-map-view');
+		wp_enqueue_script('directorist-map-view');
 
 		$opt = $this->get_map_options();
 		$disable_info_window = 'no';
@@ -1433,7 +1433,9 @@ class Directorist_Listings {
 			'disable_info_window' => $disable_info_window,
 			'zoom'                => $opt['zoom'],
 		);
-		wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
+
+		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
+		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
@@ -1474,13 +1476,13 @@ class Directorist_Listings {
 					$icon_type = substr($cat_icon, 0,2);
 					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
 					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 
 					if (!empty($ls_data['listing_prv_img'])) {
 						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
 					}
 
 					if (!empty($ls_data['listing_img'][0])) {
-						$ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 						$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 					}
 
@@ -1490,6 +1492,8 @@ class Directorist_Listings {
 					}
 
 				endforeach;
+
+				$GLOBALS['post'] = $original_post;
 				wp_reset_postdata();
 			endif;
 			echo "</div>";
@@ -1498,7 +1502,7 @@ class Directorist_Listings {
 		public function loop_get_the_thumbnail( $class='' ) {
 			$type              = $this->current_listing_type;
 			$type_general      = get_term_meta( $type, 'general_config', true );
-			$default_image_src = ( ! empty( $type_general['preview_image']['url'] ) ) ? $type_general['preview_image']['url'] : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
+			$default_image_src = ( ! empty( $type_general['preview_image']['url'] ) ) ? $type_general['preview_image']['url'] : DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg' ;
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'large');
@@ -1768,6 +1772,9 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
+			
+			// for development purpose
+			do_action( 'atbdp_all_listings_badge_template', $field );
 
 			switch ($field['widget_key']) {
 				case 'popular_badge':

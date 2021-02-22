@@ -15,9 +15,6 @@ class Directorist_Template_Hooks {
 		// Dashboard ajax
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( Directorist_Listing_Dashboard::instance(), 'ajax_listing_tab' ) );
 
-		// author profile
-		add_action( 'directorist_before_author_listings_category_dropdown',    array( '\Directorist\Directorist_Listing_Author', 'archive_type' ) );
-
 		// All Categories
 		add_action( 'atbdp_before_all_categories_loop',    array( '\Directorist\Directorist_Listing_Taxonomy', 'archive_type' ) );
 

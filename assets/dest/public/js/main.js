@@ -1225,7 +1225,7 @@ __webpack_require__.r(__webpack_exports__);
     e.preventDefault();
     var submit_button = $('#update_user_profile');
     submit_button.attr('disabled', true);
-    submit_button.addClass("loading");
+    submit_button.addClass("directorist-loader");
 
     if (is_processing) {
       submit_button.removeAttr('disabled');
@@ -1285,13 +1285,13 @@ __webpack_require__.r(__webpack_exports__);
       data: form_data,
       success: function success(response) {
         submit_button.removeAttr('disabled');
-        submit_button.removeClass("loading");
+        submit_button.removeClass("directorist-loader");
         console.log(response);
 
         if (response.success) {
-          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
         } else {
-          $('#directorist-prifile-notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
         }
       },
       error: function error(response) {

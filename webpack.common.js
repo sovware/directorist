@@ -111,14 +111,19 @@ const publicConfig = {
     ['search-listing']: ["./assets/src/js/components/search-listing.js"],
     ['search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
     ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
-    ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/openstreet-map.js"],
-    ['single-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/single-listing/google-map.js"],
+    
+    ['load-osm-map']: ["./assets/src/js/map-scripts/load-osm-map.js"],
+    ['map-view']: ["./assets/src/js/map-scripts/map-view.js"],
+    ['markerclusterer']: ["./assets/src/js/map-scripts/markerclusterer.js"],
+    ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],
+    ['single-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map.js"],
+    ['geolocation']: ["./assets/src/js/map-scripts/geolocation.js"],
+    ['geolocation-widget']: ["./assets/src/js/map-scripts/geolocation-widget.js"],
+    
     ['add-listing']: ["./assets/src/js/add-listing.js"],
-    ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/openstreet-map.js"],
-    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-custom-scripts/add-listing/google-map.js"],
+    ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/add-listing/openstreet-map.js"],
+    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/add-listing/google-map.js"],
     ['atmodal']: ["./assets/src/js/modules/atmodal.js"],
-    ['geolocation']: ["./assets/src/js/components/geolocation.js"],
-    ['geolocation-widget']: ["./assets/src/js/components/geolocation-widget.js"],
     ['releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
 
     // CSS

@@ -12,6 +12,14 @@
             background-color: #f51957;
         }
 
+        &.directorist-badge-open {
+            background-color: $success;
+        }
+
+        &.directorist-badge-close {
+            background-color: $danger;
+        }
+
         &.directorist-badge-new {
             background-color: #122069;
         }
@@ -88,6 +96,8 @@
             }
         }
     }
+
+
 }
 
 // Single Listing Card
@@ -177,6 +187,21 @@
     .directorist-listing-single__info {
         padding: 28px 20px 15px;
         position: relative;
+
+        .directorist-listing-single__info--top{
+            .directorist-badge.directorist-badge-close{
+                background-color: transparent;
+                color: $danger;
+            }
+            .directorist-badge.directorist-badge-open{
+                background-color: transparent;
+                color: $success;
+            }
+            .atbd_badge.atbd_badge_open{
+                background-color: transparent;
+                color: $success;
+            }
+        }
 
         .directorist-info-item {
             line-height: 1.45;

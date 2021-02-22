@@ -240,7 +240,7 @@ class Directorist_Listings {
 			'location'                 => '',
 			'tag'                      => '',
 			'ids'                      => '',
-			'column'                   => $this->options['listing_columns'],
+			'columns'                  => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
@@ -270,7 +270,7 @@ class Directorist_Listings {
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
 		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
 		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
-		$this->columns                  = (int) $this->params['column'];
+		$this->columns                  = (int) $this->params['columns'];
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
 		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;
@@ -1451,13 +1451,13 @@ class Directorist_Listings {
 					$icon_type = substr($cat_icon, 0,2);
 					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
 					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-					
+					$ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
+
 					if (!empty($ls_data['listing_prv_img'])) {
 						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
 					}
 
 					if (!empty($ls_data['listing_img'][0])) {
-						$ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 						$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 					}
 					
@@ -1467,6 +1467,8 @@ class Directorist_Listings {
 					}
 
 				endforeach;
+
+				$GLOBALS['post'] = $original_post;
 				wp_reset_postdata();
 			endif;
 			echo "</div>";

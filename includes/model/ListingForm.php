@@ -542,11 +542,6 @@ class Directorist_Listing_Form {
 	}
 
 	public function type_hidden_field() {
-		$all_types     = get_terms(array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		));
-
 		$value             = get_post_meta( $this->get_add_listing_id(), '_directory_type', true );
 		$default_directory = default_directory_type();
 		$current_type      = ! empty( $value ) ? $value : $default_directory;
@@ -652,10 +647,11 @@ class Directorist_Listing_Form {
 		
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
+		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 
 		$args = array(
 			'listing_form'  => $this,
-			'data'          => apply_filters( 'directorist_form_field_data', $field_data, $this ),
+			'data'          => $field_data,
 		);
 
 		if ( $this->is_custom_field( $field_data ) ) {

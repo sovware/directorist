@@ -542,11 +542,6 @@ class Directorist_Listing_Form {
 	}
 
 	public function type_hidden_field() {
-		$all_types     = get_terms(array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		));
-
 		$value             = get_post_meta( $this->get_add_listing_id(), '_directory_type', true );
 		$default_directory = default_directory_type();
 		$current_type      = ! empty( $value ) ? $value : $default_directory;

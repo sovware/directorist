@@ -220,3 +220,22 @@
     }
   }
 }
+
+// Badge 
+
+.atbd_badge{
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.7;
+  padding: 0 3px;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+  &.atbd_badge_close{
+    background-color: $danger;
+  }
+  &.atbd_badge_open{
+    background-color: $success;
+  }
+}

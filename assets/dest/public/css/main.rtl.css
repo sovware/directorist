@@ -5741,6 +5741,23 @@ p.atbd-min {
   color: #444752;
 }
 
+.atbd_badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.7;
+  padding: 0 3px;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+.atbd_badge.atbd_badge_close {
+  background-color: #EF0000;
+}
+.atbd_badge.atbd_badge_open {
+  background-color: #00AC17;
+}
+
 .directorist-listing-single {
   background-color: #fff;
   margin-bottom: 15px;
@@ -5752,6 +5769,12 @@ p.atbd-min {
 }
 .directorist-listing-single .directorist-badge.directorist-badge-popular {
   background-color: #f51957;
+}
+.directorist-listing-single .directorist-badge.directorist-badge-open {
+  background-color: #00AC17;
+}
+.directorist-listing-single .directorist-badge.directorist-badge-close {
+  background-color: #EF0000;
 }
 .directorist-listing-single .directorist-badge.directorist-badge-new {
   background-color: #122069;
@@ -5919,6 +5942,18 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__info {
   padding: 28px 20px 15px;
   position: relative;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-badge.directorist-badge-close {
+  background-color: transparent;
+  color: #EF0000;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-badge.directorist-badge-open {
+  background-color: transparent;
+  color: #00AC17;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .atbd_badge.atbd_badge_open {
+  background-color: transparent;
+  color: #00AC17;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-info-item {
   line-height: 1.45;

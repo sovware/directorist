@@ -1023,7 +1023,7 @@ class Directorist_Listings {
 		Helper::get_template( $template_file, array( 'listings' => $this ) );
 	}
 
-	public function render_shortcode() {
+	public function render_shortcode( $atts = [] ) {
 		wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
         wp_enqueue_script( 'directorist-search-listing' );
@@ -1050,6 +1050,10 @@ class Directorist_Listings {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
+		// if ( ! empty( $atts['shortcode'] ) ) {
+		// 	Helper::add_shortcode_comment( $atts['shortcode'] );
+		// }
+		
 		// Load the template
 		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 

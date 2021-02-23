@@ -125,6 +125,9 @@ class ATBDP_Checkout
                 'before'        => $before, 
                 'after'         => $after, 
             );
+
+            \Directorist\Helper::add_shortcode_comment( 'directorist_checkout' );
+
             //displaying data for checkout
             \Directorist\Helper::get_template( 'payment/checkout', array( 'checkout' => $args ) );
         }
@@ -184,6 +187,7 @@ class ATBDP_Checkout
         $data['container_fluid']  = 'container-fluid';
         $data['order_id']         = (!empty($order_id)) ? $order_id : '';
 
+        \Directorist\Helper::add_shortcode_comment( 'directorist_payment_receipt' );
         \Directorist\Helper::get_template( 'payment/payment-receipt', $data );
 
         return ob_get_clean();
@@ -333,6 +337,8 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
+
+        \Directorist\Helper::add_shortcode_comment( 'directorist_transaction_failure' );
         \Directorist\Helper::get_template( 'payment/transaction-failure' );
 
         return ob_get_clean();

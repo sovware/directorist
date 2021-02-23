@@ -3,9 +3,11 @@
 namespace Directorist;
 class Enqueue_Assets {
 
-    public $js_scripts     = [];
-    public $css_scripts    = [];
-    public $script_version = false;
+    public $js_scripts            = [];
+    public $css_scripts           = [];
+    public $script_version        = false;
+    public static $all_shortcodes = [];
+
     /**
      * Constuctor
      */
@@ -32,7 +34,13 @@ class Enqueue_Assets {
      * @return void
      */
     public function load_assets() {
+        // Store All Shortcode Keys
+        $shortcodes = ATBDP_Shortcode::$shortcodes;
+        if ( is_array( $shortcodes ) ) {
+            self::$all_shortcodes = array_keys( $shortcodes );
+        }
 
+        // Set Script Version
         $this->script_version = apply_filters( 'directorist_script_version', ATBDP_VERSION );
 
         // Load Vendor Assets
@@ -57,7 +65,6 @@ class Enqueue_Assets {
         // Apply Hook to Scripts
         $this->apply_hook_to_scripts();
     }
-
 
     /**
      * Apply Hook to Scripts
@@ -515,9 +522,9 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_PUBLIC_CSS,
             'deps'      => [],
             'ver'       => $this->script_version,
-            'group'     => 'public', // public || admin  || global
-            // 'section'   => '__',
-            'enable'   => true,
+            'group'     => 'public',                 // public || admin  || global
+            'shortcode' => self::$all_shortcodes,
+            'enable'    => true,
         ];
 
         $scripts['directorist-inline-style'] = [
@@ -1038,7 +1045,6 @@ class Enqueue_Assets {
 
         // Other
         $this->enqueue_custom_color_picker_scripts();
-
         wp_enqueue_script( 'jquery' );
     }
 
@@ -1208,14 +1214,11 @@ class Enqueue_Assets {
     }
 
     // has_shortcode
-    public static function has_shortcode( $subject = '' ) {
+    public static function has_shortcode( $shortcode = '' ) {
         global $post;
         $found = false;
-
         if ( is_a( $post, 'WP_Post' ) ) {
-            if ( has_shortcode( $post->post_content, $subject ) ) {
-                $found = true;
-            }
+            $found = has_shortcode( $post->post_content, $shortcode );
         }
 
         return $found;

@@ -466,7 +466,7 @@ class Directorist_Listing_Search_Form {
 		printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
 	}
 
-	public function render_search_shortcode() {
+	public function render_search_shortcode( $atts = [] ) {
 
 		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
@@ -485,6 +485,10 @@ class Directorist_Listing_Search_Form {
 		//
 
 		$this->search_listing_scripts_styles();
+
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
 
 		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 	}

@@ -389,6 +389,10 @@ class Directorist_Listing_Author {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
+		
 		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
 	}
 }

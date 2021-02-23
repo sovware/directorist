@@ -358,6 +358,10 @@ class Directorist_Listing_Author {
 		}
 
 		$container_fluid = apply_filters( 'atbdp_public_profile_container_fluid', 'container-fluid' );
+		
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
 
 		return Helper::get_template_contents( 'author/author-profile', compact( 'container_fluid' ) );
 	}

@@ -15,6 +15,9 @@ import './modules/review';
 // Single Listing Page
 import './components/single-listing-page/slider';
 
+// General
+import './components/general';
+
 // Components
 import './components/atbdSorting';
 import './components/atbdAlert';

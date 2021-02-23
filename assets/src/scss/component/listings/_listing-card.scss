@@ -628,6 +628,22 @@
             text-align: left;
         }
     }
+
+    &.directorist-listing-no-thumb--fix {
+        .directorist-listing-single__header {
+            flex-wrap: wrap;
+
+            .directorist-listing-single__header__left {
+                flex: 0 0 100%;
+                flex-wrap: wrap;
+                padding-right: 0;
+            }
+
+            .directorist-listing-single__header__right {
+                margin-top: 15px;
+            }
+        }
+    }
 }
 
 /* listing card without thumbnail list view */

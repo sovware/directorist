@@ -81,4 +81,16 @@ trait URI_Helper {
 			include $file;
 		}
 	}
+
+	public static function get_theme_template_for( $template ) {
+		if ( locate_template( $template . '.php' ) ) {
+			get_template_part( $template );
+		}
+		elseif ( locate_template( 'singular.php' ) ) {
+			get_template_part( 'singular' );
+		}
+		else {
+			get_template_part( 'index' );
+		}
+	}
 }

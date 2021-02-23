@@ -20,6 +20,12 @@ $csv_from_builder = csv_from_builder( $builder_posts );
 $delimiter        = ( $csv_from_builder ) ? ',' : $delimiter;
 $total            = ( $csv_from_builder ) ? count( $builder_posts ) : $total;
 
+// var_dump( [
+// 	// 'builder_posts' => $builder_posts,
+// 	'file' => $file, 
+// 	'csv_from_builder' => $csv_from_builder
+// ] );
+
 // csv_from_builder
 function csv_from_builder( $data = [] ) {
 	if ( 'array' !== gettype( $data ) ) { return false; }
@@ -50,6 +56,7 @@ function csv_from_builder( $data = [] ) {
 					<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
 					<div class="directory_type_wrapper">
 						<?php if ( $csv_from_builder ) :
+							?><input type="hidden" name="csv_file" value="<?php echo $file ?>"><?php
 							foreach ( $builder_posts[0] as $post_key => $post_value  ) {
 								?><input type="hidden" class="atbdp_map_to" name="<?php echo $post_key ?>" value="<?php echo $post_key ?>"><?php
 							}

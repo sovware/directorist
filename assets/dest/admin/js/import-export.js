@@ -194,8 +194,7 @@ jQuery(document).ready(function ($) {
             form_data.append("meta[".concat(value, "]"), name); // log.push( { [ `meta[${value}]` ]: name } );
           }
         });
-      } // return;
-
+      }
 
       $.ajax({
         method: 'POST',
@@ -205,8 +204,17 @@ jQuery(document).ready(function ($) {
         url: import_export_data.ajaxurl,
         data: form_data,
         success: function success(response) {
-          // console.log( { response } );
-          // return;
+          console.log({
+            response: response
+          });
+
+          if (response.error) {
+            console.log({
+              response: response
+            });
+            return;
+          }
+
           imported += response.imported;
           failed += response.failed;
           $('.importer-details').html("Imported ".concat(response.next_position, " out of ").concat(response.total));

@@ -81,6 +81,18 @@ class Directorist_Template_Hooks {
 		return $content;
 	}
 
+	public static function get_template_for( $template ) {
+		if ( locate_template( $template . '.php' ) ) {
+			get_template_part( $template );
+		}
+		elseif ( locate_template( 'singular.php' ) ) {
+			get_template_part( 'singular' );
+		}
+		else {
+			get_template_part( 'index' );
+		}
+	}
+
 	public function single_template() {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return;
@@ -89,14 +101,13 @@ class Directorist_Template_Hooks {
 		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
 
 		if ( $single_template == 'current_theme_template' ) {
-			return;
+			self::get_template_for( 'single' );
 		}
-		
-		if ( $single_template == 'directorist_template' ) {
+		elseif ( $single_template == 'directorist_template' ) {
 			Helper::get_template( 'single' );
 		}
 		else {
-			get_template_part( 'page' );
+			self::get_template_for( 'page' );
 		}
 		
 		die();

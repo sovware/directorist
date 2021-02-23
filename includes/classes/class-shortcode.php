@@ -74,7 +74,7 @@ class ATBDP_Shortcode {
 		return '';
 	}
 
-	public function listing_archive( $atts = [], $shortcode = '' ) {
+	public function listing_archive( $atts = [] ) {
 		$listings = new Directorist_Listings( $atts );
 
 		if ( empty( $atts[ 'shortcode' ] ) ) {
@@ -84,7 +84,7 @@ class ATBDP_Shortcode {
 		return $listings->render_shortcode( $atts );
 	}
 
-	public function category_archive( $atts = [] ) {
+	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
 		$category_slug    = get_query_var('atbdp_category');
 		$atts['category'] = sanitize_text_field( $category_slug );

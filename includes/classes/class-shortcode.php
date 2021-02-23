@@ -74,7 +74,7 @@ class ATBDP_Shortcode {
 		return '';
 	}
 
-	public function listing_archive( $atts = [], $shortcode = '' ) {
+	public function listing_archive( $atts = [] ) {
 		$listings = new Directorist_Listings( $atts );
 
 		if ( empty( $atts[ 'shortcode' ] ) ) {

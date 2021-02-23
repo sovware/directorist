@@ -2674,7 +2674,7 @@ input#privacy_policy,
 }
 
 .directorist-listing-types ul .current .directorist-listing-types-link {
-  border-bottom-color: #444752 !important;
+  border-bottom: 2px solid #444752 !important;
 }
 
 .directorist-listing-types ul .type_current {

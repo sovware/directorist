@@ -5887,6 +5887,12 @@ p.atbd-min {
   margin: 3px;
 }
 
+.directorist-listing-single {
+  background: #fff;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #EFF1F6;
+}
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb {
   position: relative;
 }
@@ -6239,6 +6245,7 @@ p.atbd-min {
   border-radius: 3px;
   text-align: center;
   padding: 2px 5px;
+  z-index: 111;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span::before {
   content: "";

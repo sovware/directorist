@@ -162,7 +162,7 @@ class Listings_Export {
             $image_urls[] = $preview_image_url;
         }
 
-        if ( ! empty( $_listing_img_id ) ) {
+        if ( ! empty( $_listing_img_id ) && is_array( $_listing_img_id ) ) {
             foreach ( $_listing_img_id as $_img_id ) {
 
                 if ( $_img_id === $_listing_prv_img_id ) { continue; }

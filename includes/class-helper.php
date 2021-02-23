@@ -250,5 +250,9 @@ class Helper {
 		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
 		<?php
 	}
+
+	public static function add_shortcode_comment( string $shortcode = '' ) {
+		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
+	}
 	
 }

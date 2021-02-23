@@ -82,23 +82,22 @@ $avatar_img = get_avatar($author_id, 32);
 			</div>
 
 			<?php if ( $listing->author_has_socials() ): ?>
-
-				<div class="directorist-single-author-social-links">
+				<ul class="directorist-author-social">
 					<?php
 					if ( $facebook = $listing->author_info( 'facebook' ) ) {
-						printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);
+						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></li>', $facebook);
 					}
 					if ( $twitter = $listing->author_info( 'twitter' ) ) {
-						printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></p>', $twitter);
+						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></li>', $twitter);
 					}
 					if ( $linkedin = $listing->author_info( 'linkedin' ) ) {
-						printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></p>', $linkedin);
+						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></li>', $linkedin);
 					}
 					if ( $youtube = $listing->author_info( 'youtube' ) ) {
-						printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></p>', $youtube);
+						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></li class="directorist-author-social-item">', $youtube);
 					}
 					?>
-				</div>
+				</ul>
 
 			<?php endif; ?>
 

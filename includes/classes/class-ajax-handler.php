@@ -168,11 +168,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $listing_type   = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
             $term           = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $searchform     = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
-            $top_categories = $searchform->top_categories();
+            $class          = directorist_legacy_mode() ? 'row atbdp-search-form atbdp-search-form-inline' : 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
             // search form
             ob_start();
             ?>
-				<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
+				<div class="<?php echo esc_attr( $class ); ?>">
                     <?php
                     foreach ( $searchform->form_data[0]['fields'] as $field ){
                         $searchform->field_template( $field );

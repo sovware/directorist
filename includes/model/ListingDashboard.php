@@ -474,6 +474,10 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
+
 		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}
 

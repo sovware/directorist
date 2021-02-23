@@ -182,7 +182,13 @@
 
 /* advanced search form reset */
 function adsFormReset() {
-    const adsForm = document.querySelector(".directorist-search-form");
+    let adsForm = document.querySelector(".directorist-search-form");
+
+    if ( ! adsForm ) {
+        adsForm = document.querySelector(".atbd_ads-form");
+    }
+    
+    console.log( { adsForm } );
     adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
     });

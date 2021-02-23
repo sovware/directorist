@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $bytes      = apply_filters('import_upload_size_limit', wp_max_upload_size());
 $size       = size_format($bytes);
 $upload_dir = wp_upload_dir();
+
 ?>
 <div class="csv-wrapper">
 	<div class="csv-center">

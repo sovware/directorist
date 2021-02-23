@@ -1,9 +1,5 @@
 // Single Listing Style
 .directorist-listing-single {
-    background-color: #fff;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #EFF1F6;
 
     .directorist-badge {
         margin: 3px;
@@ -26,6 +22,16 @@
 
         &.directorist-badge-featured {
             background-color: #fa8b0c;
+        }
+
+        &.directorist-badge-negotiation {
+
+            background-color: $info;
+        }
+
+        &.directorist-badge-sold {
+
+            background-color: $danger;
         }
     }
 
@@ -102,6 +108,11 @@
 
 // Single Listing Card
 .directorist-listing-single {
+    background: #fff;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #EFF1F6;
+
     &.directorist-listing-card {
         .directorist-listing-single__thumb {
             position: relative;
@@ -188,16 +199,18 @@
         padding: 28px 20px 15px;
         position: relative;
 
-        .directorist-listing-single__info--top{
-            .directorist-badge.directorist-badge-close{
+        .directorist-listing-single__info--top {
+            .directorist-badge.directorist-badge-close {
                 background-color: transparent;
                 color: $danger;
             }
-            .directorist-badge.directorist-badge-open{
+
+            .directorist-badge.directorist-badge-open {
                 background-color: transparent;
                 color: $success;
             }
-            .atbd_badge.atbd_badge_open{
+
+            .atbd_badge.atbd_badge_open {
                 background-color: transparent;
                 color: $success;
             }
@@ -467,6 +480,7 @@
             border-radius: 3px;
             text-align: center;
             padding: 2px 5px;
+            z-index: 111;
 
             &::before {
                 content: '';

@@ -5775,12 +5775,6 @@ p.atbd-min {
   background-color: #00AC17;
 }
 
-.directorist-listing-single {
-  background-color: #fff;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  border: 1px solid #EFF1F6;
-}
 .directorist-listing-single .directorist-badge {
   margin: 3px;
 }
@@ -5798,6 +5792,12 @@ p.atbd-min {
 }
 .directorist-listing-single .directorist-badge.directorist-badge-featured {
   background-color: #fa8b0c;
+}
+.directorist-listing-single .directorist-badge.directorist-badge-negotiation {
+  background-color: #2C99FF;
+}
+.directorist-listing-single .directorist-badge.directorist-badge-sold {
+  background-color: #EF0000;
 }
 .directorist-listing-single .directorist-listing-single__thumb {
   position: relative;
@@ -5876,6 +5876,12 @@ p.atbd-min {
   margin: 3px;
 }
 
+.directorist-listing-single {
+  background: #fff;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #EFF1F6;
+}
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb {
   position: relative;
 }
@@ -6228,6 +6234,7 @@ p.atbd-min {
   border-radius: 3px;
   text-align: center;
   padding: 2px 5px;
+  z-index: 111;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span::before {
   content: "";

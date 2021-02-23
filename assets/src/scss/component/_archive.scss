@@ -56,11 +56,12 @@
         justify-content: space-between;
         flex-wrap: wrap;
 
-        .directorist-dropdown{
-            .directorist-dropdown__links{
+        .directorist-dropdown {
+            .directorist-dropdown__links {
                 top: 42px;
             }
         }
+
         @include e(left) {
             display: flex;
             flex-wrap: wrap;
@@ -82,11 +83,12 @@
         @include e(right) {
             display: flex;
             flex-wrap: wrap;
-            margin: -5px;
+            margin: 0 -5px;
 
             .directorist-dropdown {
                 margin: 5px;
-                .directorist-dropdown__links--single{
+
+                .directorist-dropdown__links--single {
                     cursor: pointer;
                 }
             }

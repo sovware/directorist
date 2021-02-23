@@ -2,7 +2,6 @@
 /* typography */
 body {
   font-size: 15px;
-  color: #767792;
 }
 
 a {
@@ -4546,7 +4545,7 @@ p.atbd-min {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  margin: -5px;
+  margin: 0 -5px;
 }
 .directorist-content-active .directorist-listings-header__right .directorist-dropdown {
   margin: 5px;
@@ -6396,6 +6395,24 @@ p.atbd-min {
   color: #7a82a6;
   line-height: 24px;
   text-align: left;
+}
+.directorist-listing-single.directorist-listing-no-thumb.directorist-listing-no-thumb--fix .directorist-listing-single__header {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-listing-single.directorist-listing-no-thumb.directorist-listing-no-thumb--fix .directorist-listing-single__header .directorist-listing-single__header__left {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding-right: 0;
+}
+.directorist-listing-single.directorist-listing-no-thumb.directorist-listing-no-thumb--fix .directorist-listing-single__header .directorist-listing-single__header__right {
+  margin-top: 15px;
 }
 
 /* listing card without thumbnail list view */
@@ -9386,14 +9403,6 @@ p.atbd-min {
             flex: 0 0 100%;
   }
 }
-@media only screen and (max-width: 575px) {
-  .directorist-search-contents .directorist-search-form-top .directorist-search-field {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 100%;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-  }
-}
 @media only screen and (max-width: 1199px) {
   .directorist-search-contents .directorist-search-form-top {
     -webkit-box-pack: center;
@@ -9404,6 +9413,27 @@ p.atbd-min {
   .directorist-search-contents .directorist-search-form-top .directorist-search-form-action {
     margin-top: 15px;
     margin-bottom: 15px;
+  }
+
+  .directorist-all-listing-col {
+    width: 33.33% !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .directorist-all-listing-col {
+    width: 50% !important;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .directorist-search-contents .directorist-search-form-top .directorist-search-field {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+
+  .directorist-all-listing-col {
+    width: 100% !important;
   }
 }
 /* Modal Core Styles */

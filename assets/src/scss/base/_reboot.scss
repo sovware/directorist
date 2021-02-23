@@ -1,43 +1,48 @@
-
-body{
+body {
   font-size: 15px;
-  color: $body-color;
 }
-a{
+
+a {
   text-decoration: none;
 }
 
-.directorist-content-active{
-  div{
+.directorist-content-active {
+  div {
     font-size: 15px;
   }
-  article{
+
+  article {
     margin-bottom: 0;
     border: 0;
     padding-bottom: 0;
   }
-  ul{
+
+  ul {
     padding: 0;
     margin: 0;
     list-style-type: none;
-    li{
+
+    li {
       list-style: none;
       margin: 0;
     }
   }
+
   a,
-  button{
-    &:focus{
+  button {
+    &:focus {
       outline: none;
     }
   }
-  .entry-content{
+
+  .entry-content {
+
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6{
+    h6 {
       margin-bottom: 10px;
     }
   }

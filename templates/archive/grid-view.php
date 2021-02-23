@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-					<div class="<?php Helper::directorist_column( $listings->columns ); ?>">
+					<div class="<?php Helper::directorist_column( $listings->columns ); ?> directorist-all-listing-col">
 						<?php $listings->loop_template( 'grid', $listing_id ); ?>
 					</div>
 
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
 
 		<?php endif; ?>
-		
+
 	</div>
 
 </div>

@@ -16,9 +16,6 @@ class Directorist_Listing_Author {
 	public $rating;
 	public $total_review;
 
-	public $listing_types;
-	public $current_listing_type;
-
 	private function __construct() {
 		$this->prepare_data();
 	}
@@ -49,8 +46,6 @@ class Directorist_Listing_Author {
 	}
 
 	function prepare_data() {
-		/* $this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type(); */
 		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
 		$this->id = intval( $id );
 
@@ -62,60 +57,6 @@ class Directorist_Listing_Author {
 		$this->get_rating();
 
 	}
-
-	/* public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		$all_types     = get_terms( $args );
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
-		}
-		return $listing_types;
-	}
-
-	public function get_current_listing_type() {
-		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
-		}
-		else {
-
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
-			}
-		}
-
-		if( ! is_numeric( $current ) ) {
-			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
-		}
-		return (int) $current;
-	}
-
-	// Hooks ------------
-	public static function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			Helper::get_template( 'archive/listing-types', array('listings' => $listings) );
-		}
-	} */
 
 	public function get_rating() {
 		$user_listings = $this->all_listings;
@@ -209,7 +150,11 @@ class Directorist_Listing_Author {
 		$category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
 		$paged    = atbdp_get_paged_num();
 		$paginate = get_directorist_option( 'paginate_author_listings', 1 );
-
+		$listing_type = ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : default_directory_type();
+		if( ! is_numeric( $listing_type ) ) {
+			$term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
+			$listing_type = $term->term_id;
+		}
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -222,6 +167,18 @@ class Directorist_Listing_Author {
 		} else {
 			$args['no_found_rows'] = true;
 		}
+
+		if ( ! empty( $listing_type ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy'         => ATBDP_TYPE,
+					'field'            => 'term_id',
+					'terms'            => $listing_type,
+					'include_children' => true, /*@todo; Add option to include children or exclude it*/
+				),
+			);
+		}
+
 		if ( ! empty( $category ) ) {
 			$category = array(
 				array(

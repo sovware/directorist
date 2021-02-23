@@ -14,6 +14,8 @@ class Enqueue_Assets {
      */
     function __construct() {
 
+        Helper::update_listings_ratings_meta( 5 );
+
         if ( is_null( self::$instance ) ) {
             self::$instance = $this;
 
@@ -31,8 +33,9 @@ class Enqueue_Assets {
             add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
 
             // Enqueue Global Scripts
-            add_action( 'init', [ $this, 'enqueue_global_scripts' ] );
+            // add_action( 'init', [ $this, 'enqueue_global_scripts' ] );
         }
+
 
         return self::$instance;        
     }
@@ -212,6 +215,7 @@ class Enqueue_Assets {
             'deps'           => [],
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,              // public || admin  || global
+            'group'          => 'public',              // public || admin  || global
             'enable'         => true,
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
@@ -407,7 +411,7 @@ class Enqueue_Assets {
             'has_min'        => false,
             'deps'           => [],
             'ver'            => self::$script_version,
-            'group'          => $common_asset_group,              // public || admin  || global
+            'group'          => $common_asset_group, // public || admin  || global
             'section'        => '',
             'enable'         => true,
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
@@ -1033,12 +1037,15 @@ class Enqueue_Assets {
      * @return void
      */
     public static function enqueue_public_scripts( $page = '', $fource_enqueue = false ) {
+        // Other
+        wp_add_inline_style( 'directorist-settings-style', \ATBDP_Stylesheet::style_settings_css() );
+        self::enqueue_custom_color_picker_scripts();
+        // wp_enqueue_script( 'jquery' );
+        
+        
         // CSS
         self::register_css_scripts_by_group( [ 'group' => 'public' ] );
         self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
-
-        // Other CSS
-        wp_add_inline_style( 'directorist-settings-style', \ATBDP_Stylesheet::style_settings_css() );
 
         // JS
         self::register_js_scripts_by_group( [ 'group' => 'public' ] );
@@ -1052,6 +1059,11 @@ class Enqueue_Assets {
      * @return void
      */
     public static function enqueue_admin_scripts( $page = '' ) {
+        // Other
+        self::enqueue_custom_color_picker_scripts();
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_media();
+
         // CSS
         self::register_css_scripts_by_group( [ 'group' => 'admin' ] );
         self::enqueue_css_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
@@ -1059,8 +1071,6 @@ class Enqueue_Assets {
         // JS
         self::register_js_scripts_by_group( [ 'group' => 'admin' ] );
         self::enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
-
-        wp_enqueue_media();
     }
 
     /**
@@ -1076,10 +1086,6 @@ class Enqueue_Assets {
         // JS
         self::register_js_scripts_by_group( [ 'group' => 'global' ] );
         self::enqueue_js_scripts_by_group( [ 'group' => 'global', 'page' => $page  ] );
-
-        // Other
-        self::enqueue_custom_color_picker_scripts();
-        wp_enqueue_script( 'jquery' );
     }
 
 
@@ -1093,11 +1099,6 @@ class Enqueue_Assets {
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
-
-            if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
-                continue;
-            }
-
             $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_CSS,
@@ -1143,7 +1144,7 @@ class Enqueue_Assets {
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
-            if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
+            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
                 continue;
             }
 
@@ -1170,10 +1171,6 @@ class Enqueue_Assets {
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
-            if (  ! ( ! empty( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
-                continue;
-            }
-
             $default = [
                 'file_name' => $handle,
                 'base_path' => DIRECTORIST_PUBLIC_JS,
@@ -1222,7 +1219,7 @@ class Enqueue_Assets {
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
-            if (  ! ( isset( $script_args['group'] ) && $args['group'] === $script_args['group'] ) ) {
+            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
                 continue;
             }
 

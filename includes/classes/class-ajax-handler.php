@@ -123,7 +123,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
                 do_action( 'atbdp_become_author', $user_id );
                 update_user_meta( $user_id, '_user_type', 'become_author' );
-                $success_message = __( 'Send successfully', 'directorist' );
+                $success_message = __( 'Sent successfully', 'directorist' );
                 wp_send_json($success_message);
             }
         }

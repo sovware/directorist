@@ -230,16 +230,7 @@ class Directorist_Listing_Author {
 				),
 			);
 		}
-		if ( ! empty( $this->current_listing_type ) ) {
-			$category = array(
-				array(
-					'taxonomy'         => ATBDP_TYPE,
-					'field'            => 'term_id',
-					'terms'            => $this->current_listing_type,
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
+		
 		if ( ! empty( $category ) ) {
 			$args['tax_query'] = $category;
 		}

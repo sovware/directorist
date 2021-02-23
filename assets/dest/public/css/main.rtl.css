@@ -4214,26 +4214,6 @@ p.atbd-min {
   border-radius: 50%;
 }
 
-.directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:before {
-  width: 8px;
-  height: 8px;
-  top: 5px;
-  right: 5px;
-  background-color: #fff !important;
-}
-.directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:after {
-  width: 16px;
-  height: 16px;
-  border-color: #C6D0DC;
-}
-.directorist-radio.directorist-radio-theme-admin input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
-}
-.directorist-radio.directorist-radio-theme-admin .directorist-radio__label {
-  padding-right: 35px !important;
-}
-
 .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-primary input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-primary input[type=radio]:checked + .directorist-radio__label:after {
@@ -4279,6 +4259,48 @@ p.atbd-min {
 }
 .directorist-radio.directorist-radio-blue input[type=radio]:checked + .directorist-radio__label:before {
   background-color: #3e62f5 !important;
+}
+
+.directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:before {
+  width: 8px;
+  height: 8px;
+  top: 5px;
+  right: 5px;
+  background-color: #fff !important;
+}
+.directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:after {
+  width: 16px;
+  height: 16px;
+  border-color: #C6D0DC;
+}
+.directorist-radio.directorist-radio-theme-admin input[type=radio]:checked + .directorist-radio__label:after {
+  background-color: #3e62f5;
+  border-color: #3e62f5;
+}
+.directorist-radio.directorist-radio-theme-admin .directorist-radio__label {
+  padding-right: 35px !important;
+}
+
+.directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox] + .directorist-checkbox__label:before {
+  width: 8px;
+  height: 8px;
+  top: 5px !important;
+  right: 5px !important;
+  border-radius: 50%;
+  background-color: #fff !important;
+  content: "";
+}
+.directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox] + .directorist-checkbox__label:after {
+  width: 16px;
+  height: 16px;
+  border-color: #C6D0DC;
+}
+.directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox]:checked + .directorist-checkbox__label:after {
+  background-color: #3e62f5;
+  border-color: #3e62f5;
+}
+.directorist-checkbox.directorist-checkbox-theme-admin .directorist-checkbox__label {
+  padding-right: 35px !important;
 }
 
 .directorist-content-active .directorist-author-profile-content {

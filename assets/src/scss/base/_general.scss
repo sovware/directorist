@@ -125,6 +125,23 @@
     }
 }
 
+.atbd_login_btn_wrapper{
+    .directorist-btn {
+        line-height: 2.55;
+    }
+    .keep_signed.directorist-checkbox{
+        .directorist-checkbox__label{
+            color: $dark;
+        }
+    }
+}
+
+.directory_register_form_wrap{
+    .directorist-btn {
+        line-height: 2.55;
+    }
+}
+
 // Loader
 
 .directorist-loader {

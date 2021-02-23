@@ -1883,7 +1883,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => 'gainsboro',
                 ],
                 'default_preview_image' => [
-                    'label'       => __('Select', 'directorist'),
+                    'label'       => __('Select Listing Preview Image', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',

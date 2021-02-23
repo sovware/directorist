@@ -645,6 +645,13 @@ class Enqueue_Assets {
             'section'   => 'search-form',
         ];
 
+        $scripts['login'] = [
+            'file_name' => 'login',
+            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'ver'       => $this->script_version,
+            'group'     => 'public', // public || admin  || global
+        ];
+
         $scripts['directorist-search-form-listing'] = [
             'file_name' => 'search-form-listing',
             'base_path' => DIRECTORIST_PUBLIC_JS,

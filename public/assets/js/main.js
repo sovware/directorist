@@ -1299,6 +1299,7 @@
         }
     });
 
+    $('.atbd_tab_inner:first-child').addClass('tabContentActive');
 
 })(jQuery);
   // on load of the page: switch to the currently selected tab

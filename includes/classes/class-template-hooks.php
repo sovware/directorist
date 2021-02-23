@@ -89,13 +89,13 @@ class Directorist_Template_Hooks {
 		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
 
 		if ( $single_template == 'current_theme_template' ) {
-			get_template_part( 'single' );
+			Helper::get_theme_template_for( 'single' );
 		}
 		elseif ( $single_template == 'directorist_template' ) {
 			Helper::get_template( 'single' );
 		}
 		else {
-			get_template_part( 'page' );
+			Helper::get_theme_template_for( 'page' );
 		}
 		
 		die();

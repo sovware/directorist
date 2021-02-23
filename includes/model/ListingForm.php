@@ -818,6 +818,10 @@ class Directorist_Listing_Form {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
+
 		// Edit Mode
 		if ( $p_id ) {
 			$terms =  get_the_terms( $p_id, ATBDP_TYPE );
@@ -838,6 +842,11 @@ class Directorist_Listing_Form {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+
+				if ( ! empty( $atts['shortcode'] ) ) {
+					Helper::add_shortcode_comment( $atts['shortcode'] );
+				}
+
 				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 			

@@ -24,7 +24,7 @@ class Directorist_Account {
 		return self::$instance;
 	}
 
-	public function render_shortcode_login() {
+	public function render_shortcode_login( $atts = [] ) {
 		if ( atbdp_logged_in_user() ) {
 
 			do_action( 'atbdp_show_flush_messages' );
@@ -33,6 +33,10 @@ class Directorist_Account {
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );
 			return ob_get_clean();
+		}
+
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
 		return Helper::get_template_contents( 'account/login' );
@@ -80,6 +84,10 @@ class Directorist_Account {
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
 
+			if ( ! empty( $atts['shortcode'] ) ) {
+				Helper::add_shortcode_comment( $atts['shortcode'] );
+			}
+			
 			return Helper::get_template_contents( 'account/registration', $args );
 		}
 		else {

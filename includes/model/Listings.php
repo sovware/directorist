@@ -343,12 +343,11 @@ class Directorist_Listings {
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
-		$listing_type = $this->current_listing_type;
-		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		$listing_type 		= $this->current_listing_type;
+		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
 		$get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
-		$directory_type = ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
-
+		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		$this->loop = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
@@ -371,7 +370,7 @@ class Directorist_Listings {
 			'author_id'               => $author_id,
 			'author_data'             => $author_data,
 			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
-			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ),
+			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $listing_type ),
 			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
 			'u_pro_pic'               => $u_pro_pic,
 			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
@@ -1023,7 +1022,7 @@ class Directorist_Listings {
 		Helper::get_template( $template_file, array( 'listings' => $this ) );
 	}
 
-	public function render_shortcode() {
+	public function render_shortcode( $atts = [] ) {
 		wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
         wp_enqueue_script( 'directorist-search-listing' );
@@ -1050,6 +1049,10 @@ class Directorist_Listings {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
+		// if ( ! empty( $atts['shortcode'] ) ) {
+		// 	Helper::add_shortcode_comment( $atts['shortcode'] );
+		// }
+		
 		// Load the template
 		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 

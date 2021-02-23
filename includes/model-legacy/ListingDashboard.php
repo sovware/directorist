@@ -437,6 +437,10 @@ class Directorist_Listing_Dashboard {
 		}
 
 		ATBDP()->enquirer->front_end_enqueue_scripts(true);
+		
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
 
 		return Helper::get_template_contents( 'dashboard/user-dashboard', [ 'dashboard' => $this ] );
 	}

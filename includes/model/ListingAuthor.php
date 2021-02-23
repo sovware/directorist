@@ -220,6 +220,18 @@ class Directorist_Listing_Author {
 		} else {
 			$args['no_found_rows'] = true;
 		}
+
+		if ( ! empty( $this->current_listing_type ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy'         => ATBDP_TYPE,
+					'field'            => 'term_id',
+					'terms'            => $this->current_listing_type ,
+					'include_children' => true, /*@todo; Add option to include children or exclude it*/
+				),
+			);
+		}
+
 		if ( ! empty( $category ) ) {
 			$category = array(
 				array(
@@ -230,16 +242,7 @@ class Directorist_Listing_Author {
 				),
 			);
 		}
-		if ( ! empty( $this->current_listing_type ) ) {
-			$category = array(
-				array(
-					'taxonomy'         => ATBDP_TYPE,
-					'field'            => 'term_id',
-					'terms'            => $this->current_listing_type,
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
+		
 		if ( ! empty( $category ) ) {
 			$args['tax_query'] = $category;
 		}
@@ -389,6 +392,10 @@ class Directorist_Listing_Author {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
+		
 		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
 	}
 }

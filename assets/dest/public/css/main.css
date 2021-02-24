@@ -6984,6 +6984,9 @@ p.atbd-min {
   background: #444752;
 }
 
+.directorist-report-abuse-modal .directorist-modal__header {
+  padding: 20px 0 !important;
+}
 .directorist-report-abuse-modal .directorist-modal__header .directorist-modal-title {
   font-size: 1.75rem;
   margin: 0;
@@ -7037,6 +7040,7 @@ p.atbd-min {
   min-height: 90px;
 }
 .directorist-report-abuse-modal .directorist-modal__footer {
+  padding: 20px 0 !important;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -7049,6 +7053,20 @@ p.atbd-min {
 .directorist-report-abuse-modal .directorist-modal__footer .directorist-btn {
   text-transform: capitalize;
   padding: 0 15px;
+}
+.directorist-report-abuse-modal .directorist-modal__footer .directorist-btn.directorist-btn-loading:after {
+  content: "";
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #656a7a;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: rotate360 2s linear infinite;
+  animation: rotate360 2s linear infinite;
+  display: inline-block;
+  margin: 0 0 0 10px;
+  position: relative;
+  top: 4px;
 }
 .directorist-report-abuse-modal .directorist-modal__content {
   padding: 20px 30px 20px;
@@ -7237,7 +7255,7 @@ p.atbd-min {
   margin: 0 -15px;
 }
 .directorist-related-carousel .slick-slide {
-  padding: 0 15px;
+  margin: 0 15px;
 }
 
 .directorist-single-author-info .diretorist-view-profile-btn {
@@ -7409,6 +7427,90 @@ p.atbd-min {
 .directorist-details-info-wrap .directorist-single-info .directorist-social-links a {
   text-decoration: none;
   color: #767792;
+}
+
+.directorist-social-links {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-social-links a {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  background: #444752 !important;
+  border-radius: 4px;
+  color: #fff !important;
+  overflow: hidden;
+  -webkit-transition: all ease-in-out 300ms !important;
+  transition: all ease-in-out 300ms !important;
+}
+.directorist-social-links a.facebook:hover {
+  background-color: #4267B2 !important;
+}
+.directorist-social-links a.twitter:hover {
+  background-color: #1da1f2 !important;
+}
+.directorist-social-links a.youtube:hover, .directorist-social-links a.youtube-play:hover {
+  background-color: #ff0000 !important;
+}
+.directorist-social-links a.instagram:hover {
+  background-color: #c32aa3 !important;
+}
+.directorist-social-links a.linkedin:hover {
+  background-color: #007bb5 !important;
+}
+.directorist-social-links a.google-plus:hover {
+  background-color: #db4437 !important;
+}
+.directorist-social-links a.snapchat:hover, .directorist-social-links a.snapchat-ghost:hover {
+  background-color: #eae800 !important;
+}
+.directorist-social-links a.reddit:hover {
+  background-color: #ff4500 !important;
+}
+.directorist-social-links a.pinterest:hover {
+  background-color: #bd081c !important;
+}
+.directorist-social-links a.tumblr:hover {
+  background-color: #35465d !important;
+}
+.directorist-social-links a.flickr:hover {
+  background-color: #f40083 !important;
+}
+.directorist-social-links a.vimeo:hover {
+  background-color: #1ab7ea !important;
+}
+.directorist-social-links a.vine:hover {
+  background-color: #00b489 !important;
+}
+.directorist-social-links a.github:hover {
+  background-color: #444752 !important;
+}
+.directorist-social-links a.dribbble:hover {
+  background-color: #ea4c89 !important;
+}
+.directorist-social-links a.behance:hover {
+  background-color: #196EE3 !important;
+}
+.directorist-social-links a.soundcloud:hover {
+  background-color: #ff5500 !important;
+}
+.directorist-social-links a.stack-overflow:hover {
+  background-color: #ff5500 !important;
+}
+.directorist-social-links a span.fa {
+  line-height: inherit;
+  font-size: 16px;
+  font-family: "Font Awesome 5 Brands" !important;
 }
 
 .directorist-contact-owner-form-inner .directorist-form-group {

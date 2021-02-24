@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-archive-list-view">
 
+	<?php do_action( 'directorist_before_list_listings_loop' ); ?>
+
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php if ( $listings->have_posts() ): ?>
@@ -21,12 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php $listings->loop_template( 'list', $listing_id ); ?>
 				
 			<?php endforeach; ?>
+			
+			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php
 			if ( $listings->show_pagination ) {
 				$listings->pagination();
 			}
 			?>
+
+			<?php do_action('directorist_after_grid_listings_loop'); ?>
 
 		<?php else: ?>
 

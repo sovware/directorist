@@ -296,6 +296,9 @@
 
           span {
             font-size: 16px;
+            &+span{
+              margin-left: 4px;
+            }
           }
         }
 

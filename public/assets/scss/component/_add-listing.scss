@@ -132,13 +132,21 @@
     .cor-wrap {
       label {
         margin-bottom: 0;
+        margin-left: 6px;
       }
     }
   }
 
   .hide-map-option {
     label {
-      margin-left: 0;
+      margin-left: 6px;
+    }
+  }
+
+  .directorist-hide-owner-field{
+    label{
+      position: relative;
+      top: -3px;
     }
   }
 

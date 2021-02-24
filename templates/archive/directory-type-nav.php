@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
 ?>
 
+<?php do_action( 'directorist_before_listing_types', $listings ); ?>
+
 <div class="<?php Helper::directorist_container_fluid(); ?>">
 
 	<div class="directorist-type-nav">

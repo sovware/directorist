@@ -63,5 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="directorist-form-submit">
 		<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-lg directorist-form-submit__btn"><?php echo esc_html( $listing_form->submit_label() ); ?></button>
 	</div>
+	
+	<?php do_action( 'directorist_after_submit_listing_frontend' ); ?>
 
 </div>

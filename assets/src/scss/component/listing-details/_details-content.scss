@@ -1,7 +1,8 @@
 .directorist-signle-listing-top {
     margin-bottom: 15px;
-    @include e(btn-edit){
-        &.directorist-btn.directorist-btn-outline-light{
+
+    @include e(btn-edit) {
+        &.directorist-btn.directorist-btn-outline-light {
             background-color: #fff;
         }
     }
@@ -171,10 +172,11 @@
 }
 
 .directorist-related-carousel {
-    .slick-list{
+    .slick-list {
         margin: 0 -15px;
     }
+
     .slick-slide {
-        padding: 0 15px;
+        margin: 0 15px;
     }
 }

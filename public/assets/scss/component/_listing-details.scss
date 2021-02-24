@@ -442,6 +442,7 @@
       .atbd_rating_count,
       .atbd_badges,
       .atbd_listing_category,
+      .atbd_listing_average_pricing,
       .atbd_listing_rating {
         margin-left: 8px;
         margin-right: 8px;
@@ -1015,9 +1016,9 @@
     line-height: 35px;
     width: 35px;
     text-align: center;
-    background: $primary;
+    background: $primary !important;
     border-radius: 4px;
-    color: $light !important;
+    color: #fff !important;
     overflow: hidden;
     transition: all ease-in-out 300ms !important;
 
@@ -1098,6 +1099,7 @@
     span.fa {
       line-height: inherit;
       font-size: 16px;
+      font-family: "Font Awesome 5 Brands" !important;
     }
 
     // &+a{

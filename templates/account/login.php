@@ -76,7 +76,7 @@ use \Directorist\Helper;
                                         'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
                                         'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
                                     ];
-                                    wp_localize_script( 'login', 'ajax_login_object', $data );
+                                    wp_localize_script( 'directorist-login', 'ajax_login_object', $data );
 
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
                                     $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
@@ -89,7 +89,7 @@ use \Directorist\Helper;
                                     $recpass_username    = get_directorist_option( 'recpass_username', __( 'E-mail:', 'directorist' ) );
                                     $recpass_placeholder = get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) );
                                     $recpass_button      = get_directorist_option( 'recpass_button', __( 'Get New Password', 'directorist' ) );
-                                    $reg_text            = get_directorist_option( 'reg_text', __( 'Don\'t have an account?', 'directorist' ) );
+                                    $reg_text            = get_directorist_option( 'reg_text', __( "Don't have an account?", 'directorist' ) );
                                     $reg_url             = ATBDP_Permalink::get_registration_page_link();
                                     $reg_linktxt         = get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) );
                                     $display_signup      = get_directorist_option( 'display_signup', 1 );

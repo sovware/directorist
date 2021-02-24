@@ -7380,6 +7380,10 @@ p.atbd-min {
   text-transform: capitalize;
 }
 
+.directorist-google-map {
+  height: 400px;
+}
+
 .directorist-rating-review-block {
   display: inline-block;
   border: 1px solid #e3e6ef;

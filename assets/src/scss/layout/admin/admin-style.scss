@@ -3,11 +3,11 @@
 #directorist.atbd_wrapper {
 
   .diectorist-show {
-      display: block !important;
+    display: block !important;
   }
 
   .diectorist-hide {
-      display: none !important;
+    display: none !important;
   }
 
   padding: 18px 20px;
@@ -1194,13 +1194,14 @@ span.atbdp-tick-cross {
           margin-top: 0;
         }
 
-        .directory_type_wrapper{
-          label{
+        .directory_type_wrapper {
+          label {
             width: 100%;
             display: block;
             margin-bottom: 15px;
           }
-          #directory_type{
+
+          #directory_type {
             border: 1px solid #c6d0dc;
             border-radius: 4px;
             line-height: 40px;
@@ -1214,9 +1215,10 @@ span.atbdp-tick-cross {
           box-shadow: none;
           margin-top: 25px;
 
-          tr{
+          tr {
+
             th,
-            td{
+            td {
               width: 50%;
             }
           }
@@ -4854,6 +4856,30 @@ input.atbdp-form-control {
 .directorist-form-group {
   &.directorist-faq-group {
     margin-bottom: 30px;
+  }
+}
+
+//category, location directory type style
+.directory_types-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: -8px;
+
+  .directory_type-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 8px;
+
+    label {
+      padding: 0 0 0 2px;
+    }
+
+    input {
+      position: relative;
+      top: 2px;
+    }
   }
 }
 

@@ -17,6 +17,88 @@ class Helper {
 		return $legacy;
 	}
 
+	// add_listings_review_meta
+	public static function add_listings_review_meta( array $args = [] ) {
+
+		if ( empty( $args['post_id'] ) ) { return false; }
+
+		$reviews = get_post_meta( $args['post_id'], '_directorist_reviews', true );
+
+		if ( ! is_array( $reviews ) ) { $reviews = []; }
+
+		if ( empty( $args['reviewer_id'] ) ) { return false; }
+		if ( empty( $args['status'] ) ) { return false; }
+		if ( empty( $args['rating'] ) ) { return false; }
+		if ( ! is_numeric( $args['rating'] ) ) { return false; }
+
+		$reviews[ $args['reviewer_id'] ] = $args;
+
+		update_post_meta( $args['post_id'], '__directorist_reviews', $reviews );
+
+		return self::update_listings_ratings_meta( $args['post_id'] );
+	}
+
+	// update_listings_review_meta
+	public static function update_listings_review_meta( array $args = [] ) {
+
+		if ( empty( $args['post_id'] ) ) { return false; }
+
+		$reviews = get_post_meta( $args['post_id'], '_directorist_reviews', true );
+
+		if ( ! is_array( $reviews ) ) { return false; }
+
+		if ( empty( $args['field_key'] ) ) { return false; }
+		if ( empty( $args['value'] ) ) { return false; }
+		if ( empty( $args['reviewer_id'] ) ) { return false; }
+
+
+		if (  'rating' === $args['field_key'] && ! is_numeric( $args['value'] ) ) {
+			return false;
+		}
+
+		if ( empty( $reviews[ $args['reviewer_id'] ] ) ) { return false; }
+		if ( empty( $reviews[ $args['reviewer_id'] ][ $args['field_key'] ] ) ) { return false; }
+
+
+		$reviewer_id = $args['reviewer_id'];
+		$field_key   = $args['field_key'];
+		$value       = $args['value'];
+
+		$reviews[ $reviewer_id ][ $field_key ] = $value;
+
+		update_post_meta( $args['post_id'], '__directorist_reviews', $reviews );
+
+		return self::update_listings_ratings_meta( $args['post_id'] );
+	}
+
+	// update_listings_ratings_meta
+	public static function update_listings_ratings_meta( $post_id = 0 ) {
+
+		if ( empty( $post_id ) ) { return false; }
+
+		$reviews = get_post_meta( $post_id, '_directorist_reviews', true );
+
+		if ( empty( $reviews ) ) { return  false; }
+		if ( ! is_array( $reviews ) ) { return  false; }
+
+		$total_ratings = 0;
+
+		foreach ( $reviews as $id => $review ) {
+
+			if ( empty( $review[ 'rating' ] ) ) { continue; }
+			if ( ! is_numeric( $review[ 'rating' ] ) ) { continue; }
+			if ( empty( $review[ 'status' ] ) ) { continue; }
+			if ( 'published' !== $review[ 'status' ] ) { continue; }
+
+			$total_ratings = $total_ratings + ( float ) $review[ 'rating' ];
+		}
+
+		$avg_ratings = $total_ratings / count( $reviews );
+		update_post_meta( $post_id, '_directorist_ratings', $avg_ratings );
+
+		return true;
+	}
+
 	public static function listing_price( $id='' ) {
 		if ( !$id ) {
 			$id = get_the_ID();

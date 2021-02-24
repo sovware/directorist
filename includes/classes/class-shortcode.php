@@ -74,7 +74,8 @@ class ATBDP_Shortcode {
 		return '';
 	}
 
-	public function listing_archive( $atts, $shortcode = '' ) {
+	public function listing_archive( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$listings = new Directorist_Listings( $atts );
 
 		if ( empty( $atts[ 'shortcode' ] ) ) {
@@ -114,7 +115,8 @@ class ATBDP_Shortcode {
 		return $this->listing_archive( $atts );
 	}
 
-	public function all_categories($atts) {
+	public function all_categories( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'category');
 		
 		$atts[ 'shortcode' ] = 'directorist_all_categories';
@@ -122,7 +124,8 @@ class ATBDP_Shortcode {
 		return $taxonomy->render_shortcode( $atts );
 	}
 
-	public function all_locations($atts) {
+	public function all_locations( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'location');
 		
 		$atts[ 'shortcode' ] = 'directorist_all_locations';
@@ -130,8 +133,8 @@ class ATBDP_Shortcode {
 		return $taxonomy->render_shortcode( $atts );
 	}
 
-	public function search_listing($atts) {
-
+	public function search_listing( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$listing_type = '';
 		if (!empty($atts['listing_type'])) {
 			$listing_type = $atts['listing_type'];
@@ -143,7 +146,8 @@ class ATBDP_Shortcode {
 		return $searchform->render_search_shortcode( $atts );
 	}
 
-	public function search_result($atts) {
+	public function search_result( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$listings = new Directorist_Listings( $atts, 'search_result' );
 		
 		$atts[ 'shortcode' ] = 'directorist_search_result';
@@ -151,7 +155,8 @@ class ATBDP_Shortcode {
 		return $listings->render_shortcode( $atts );
 	}
 
-	public function author_profile($atts) {
+	public function author_profile( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$author = Directorist_Listing_Author::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_author_profile';
@@ -159,7 +164,8 @@ class ATBDP_Shortcode {
 		return $author->render_shortcode_author_profile($atts);
 	}
 
-	public function user_dashboard($atts) {
+	public function user_dashboard( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
@@ -167,18 +173,20 @@ class ATBDP_Shortcode {
 		return $dashboard->render_shortcode($atts);
 	}
 
-	public function add_listing($atts) {
+	public function add_listing( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$url = $_SERVER['REQUEST_URI'];
 		$pattern = "/edit\/(\d+)/i";
 		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
 		$forms = Directorist_Listing_Form::instance($id);
-		
+
 		$atts[ 'shortcode' ] = 'directorist_add_listing';
 		
 		return $forms->render_shortcode($atts);
 	}
 
 	public function user_registration( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$account = Directorist_Account::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_custom_registration';
@@ -186,7 +194,8 @@ class ATBDP_Shortcode {
 		return $account->render_shortcode_registration( $atts );
 	}
 
-	public function user_login() {
+	public function user_login( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
 		$account = Directorist_Account::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_login';

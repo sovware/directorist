@@ -261,6 +261,17 @@ a {
   margin-bottom: 8px !important;
 }
 
+.atbd_login_btn_wrapper .directorist-btn {
+  line-height: 2.55;
+}
+.atbd_login_btn_wrapper .keep_signed.directorist-checkbox .directorist-checkbox__label {
+  color: #202428;
+}
+
+.directory_register_form_wrap .directorist-btn {
+  line-height: 2.55;
+}
+
 .directorist-loader {
   position: relative;
 }

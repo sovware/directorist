@@ -1049,9 +1049,9 @@ class Directorist_Listings {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
-		// if ( ! empty( $atts['shortcode'] ) ) {
-		// 	Helper::add_shortcode_comment( $atts['shortcode'] );
-		// }
+		if ( ! empty( $atts['shortcode'] ) ) {
+			Helper::add_shortcode_comment( $atts['shortcode'] );
+		}
 		
 		// Load the template
 		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );

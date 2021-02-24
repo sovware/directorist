@@ -121,6 +121,28 @@
     }
 }
 
+.directorist-author-info-widget,
+.directorist-single-author-info{
+    .directorist-author-social{
+        margin-top: 15px;
+        .directorist-author-social-item{
+            display: inline-block;
+            a{
+                margin: 5px;
+                display: block;
+                line-height: 35px;
+                width: 35px;
+                text-align: center;
+                background-color: $primary;
+                border-radius: 4px;
+                color: #ffffff;
+                overflow: hidden;
+                transition: all ease-in-out 300ms;
+            }
+        }
+    }
+}
+
 // Directorist Author Listings
 .directorist-author-listing-top {
     margin-bottom: 30px;

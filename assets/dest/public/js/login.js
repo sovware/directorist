@@ -81,33 +81,79 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/scss/layout/public/search-style.scss":
-/*!*********************************************************!*\
-  !*** ./assets/src/scss/layout/public/search-style.scss ***!
-  \*********************************************************/
+/***/ "./assets/src/js/components/login.js":
+/*!*******************************************!*\
+  !*** ./assets/src/js/components/login.js ***!
+  \*******************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-// extracted by mini-css-extract-plugin
+;
+
+(function ($) {
+  // Perform AJAX login on form submit
+  $('form#login').on('submit', function (e) {
+    e.preventDefault();
+    $('p.status').show().html(ajax_login_object.loading_message);
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: ajax_login_object.ajax_url,
+      data: {
+        'action': 'ajaxlogin',
+        //calls wp_ajax_nopriv_ajaxlogin
+        'username': $('form#login #username').val(),
+        'password': $('form#login #password').val(),
+        'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
+        'security': $('#security').val()
+      },
+      success: function success(data) {
+        if ('nonce_faild' in data && data.nonce_faild) {
+          $('p.status').html('<span class="status-success">' + data.message + '</span>');
+        }
+
+        if (data.loggedin == true) {
+          $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          document.location.href = ajax_login_object.redirect_url;
+        } else {
+          $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+        }
+      },
+      error: function error(data) {
+        if ('nonce_faild' in data && data.nonce_faild) {
+          $('p.status').html('<span class="status-success">' + data.message + '</span>');
+        }
+
+        $('p.status').show().html('<span class="status-failed">' + ajax_login_object.login_error_message + '</span>');
+      }
+    });
+    e.preventDefault();
+  }); // Alert users to login (only if applicable)
+
+  $('.atbdp-require-login').on('click', function (e) {
+    e.preventDefault();
+    alert(atbdp_public_data.login_alert_message);
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ 19:
-/*!***************************************************************!*\
-  !*** multi ./assets/src/scss/layout/public/search-style.scss ***!
-  \***************************************************************/
+/***/ 18:
+/*!*************************************************!*\
+  !*** multi ./assets/src/js/components/login.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/scss/layout/public/search-style.scss */"./assets/src/scss/layout/public/search-style.scss");
+module.exports = __webpack_require__(/*! ./assets/src/js/components/login.js */"./assets/src/js/components/login.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=search-style.js.map
+//# sourceMappingURL=login.js.map

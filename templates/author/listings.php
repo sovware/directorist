@@ -12,13 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-author-listing-top directorist-flex directorist-justify-content-between">
 
-	<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+	<div>
+		<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+		<div class="directorist-author-listing-type">
+		<?php echo $author->archive_type( $author ); ?>
+		</div>
+	</div>
 
 	<?php if ( $author->cat_filter_enabled() ): ?>
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
-
-			<?php echo $author->archive_type( $author ); ?>
 
 			<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn directorist-btn-outline-primary" href="#" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
 

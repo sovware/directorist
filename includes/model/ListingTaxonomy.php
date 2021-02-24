@@ -309,12 +309,13 @@ class Directorist_Listing_Taxonomy {
     	}
 
     	if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
-
+			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) {
 				Helper::add_shortcode_comment( $atts['shortcode'] );
 			}
 
-    		return Helper::get_template_contents( $template_file, $args );
+    		echo Helper::get_template_contents( $template_file, $args );
+			return ob_get_clean();
     	}
     	else {
     		return __('<p>No Results found!</p>', 'directorist');

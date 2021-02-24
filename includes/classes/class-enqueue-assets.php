@@ -393,16 +393,27 @@ class Enqueue_Assets {
         ];
 
         // Other
-        $scripts['directorist-select2'] = [
+        $scripts['directorist-select2-public'] = [
             'file_name' => 'select2.min',
             'base_path' => DIRECTORIST_VENDOR_JS,
             'has_min'   => false,
             'deps'      => [],
             'ver'       => self::$script_version,
-            'group'     => $common_asset_group, // public || admin  || global
+            'group'     => 'public', // public || admin  || global
             'section'   => '',
             'enable'    => true,
             'shortcode' => ['directorist_add_listing'],
+        ];
+
+        $scripts['directorist-select2-admin'] = [
+            'file_name' => 'select2.min',
+            'base_path' => DIRECTORIST_VENDOR_JS,
+            'has_min'   => false,
+            'deps'      => [],
+            'ver'       => self::$script_version,
+            'group'     => 'admin', // public || admin  || global
+            'section'   => '',
+            'enable'    => true,
         ];
 
         $scripts['directorist-sweetalert'] = [

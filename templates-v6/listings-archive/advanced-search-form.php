@@ -11,6 +11,7 @@
 	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
 	$listing_type = $term->slug;
 }
+
 ?>
 
 <div class="ads-advanced">

@@ -1,6 +1,8 @@
 .atbd_content_active #directorist.atbd_wrapper {
   .atbd_author_module .atbd_content_module p{
-    margin-bottom: 17px;
+    &:not(:last-child){
+      margin-bottom: 17px;
+    }
   }
   .atbd_auhor_profile_area {
     background: $light;
@@ -20,6 +22,7 @@
         max-width: 120px;
         max-height: 100%;
         border-radius: 50%;
+        margin-bottom: 0;
         &.avatar-32{
           width: 120px;
           height: auto;

@@ -56,6 +56,8 @@
 						</tbody>
 					</table>
 
+					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
+
 					<div class="directorist-dashboard-pagination">
 						<div class="navigation pagination">
 							<div class="nav-links">

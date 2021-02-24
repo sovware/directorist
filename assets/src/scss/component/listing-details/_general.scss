@@ -1,6 +1,8 @@
 // Report Modal
 .directorist-report-abuse-modal {
     .directorist-modal__header {
+        padding: 20px 0 !important;
+
         .directorist-modal-title {
             font-size: 1.75rem;
             margin: 0;
@@ -54,12 +56,30 @@
     }
 
     .directorist-modal__footer {
+        padding: 20px 0 !important;
         display: flex;
         justify-content: flex-end;
 
         .directorist-btn {
             text-transform: capitalize;
             padding: 0 15px;
+
+            &.directorist-btn-loading {
+                &:after {
+                    content: "";
+                    border: 2px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 2px solid #656a7a;
+                    width: 20px;
+                    height: 20px;
+                    -webkit-animation: rotate360 2s linear infinite;
+                    animation: rotate360 2s linear infinite;
+                    display: inline-block;
+                    margin: 0 0 0 10px;
+                    position: relative;
+                    top: 4px;
+                }
+            }
         }
     }
 
@@ -97,8 +117,8 @@
     }
 }
 
-.directorist-listing-details{
-    .directorist-listing-single{
+.directorist-listing-details {
+    .directorist-listing-single {
         border: 0 none;
     }
 }

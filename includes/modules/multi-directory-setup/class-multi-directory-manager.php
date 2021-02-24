@@ -2549,7 +2549,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => 'la la-clock',
+                                    'value' => 'la la-clock-o',
                                 ],
                             ]
                         ],

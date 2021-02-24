@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="directorist-add-listing-form">
+
+        <?php do_action('directorist_before_add_listing_from_frontend');?>
+
             <div class="directorist-add-listing-form">
                 
                 <input type="hidden" name="add_listing_form" value="1">

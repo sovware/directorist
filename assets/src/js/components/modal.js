@@ -8,14 +8,6 @@ import '../../scss/component/_modal.scss';
         $("#recover-pass-modal").slideToggle().show();
     });
 
-    // Report abuse [on modal closed]
-    $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
-
-        $('#atbdp-report-abuse-message').val('');
-        $('#atbdp-report-abuse-message-display').html('');
-
-    });
-
     // Contact form [on modal closed]
     $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
 
@@ -23,8 +15,8 @@ import '../../scss/component/_modal.scss';
         $('#atbdp-contact-message-display').html('');
 
     });
-    
-    // Template Restructured 
+
+    // Template Restructured
     // Modal
     let directoristModal = document.querySelector('.directorist-modal-js');
     $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {
@@ -45,5 +37,5 @@ import '../../scss/component/_modal.scss';
             directoristModal.classList.remove('directorist-show');
         }
     });
-    
+
 })(jQuery);

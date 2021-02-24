@@ -209,11 +209,6 @@ function selecWithIcon(selected) {
   return $elem;
 }
 
-$('#category_icon').select2({
-  placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
-  allowClear: true,
-  templateResult: selecWithIcon
-});
 $("[data-toggle='tooltip']").tooltip(); // price range
 
 var pricerange = $('#pricerange_val').val();
@@ -2679,17 +2674,12 @@ __webpack_require__.r(__webpack_exports__);
   $(".atbdp_recovery_pass").on("click", function (e) {
     e.preventDefault();
     $("#recover-pass-modal").slideToggle().show();
-  }); // Report abuse [on modal closed]
-
-  $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-report-abuse-message').val('');
-    $('#atbdp-report-abuse-message-display').html('');
   }); // Contact form [on modal closed]
 
   $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
     $('#atbdp-contact-message').val('');
     $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured 
+  }); // Template Restructured
   // Modal
 
   var directoristModal = document.querySelector('.directorist-modal-js');

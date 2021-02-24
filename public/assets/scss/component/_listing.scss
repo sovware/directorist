@@ -831,6 +831,10 @@
               }
             }
 
+            &:before{
+              display: none;
+            }
+
             p {
               margin-bottom: 2px;
               font-size: 14px;

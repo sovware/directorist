@@ -50,9 +50,6 @@ class Directorist_Single_Listing {
 	public function prepare_data() {
 		$id = $this->id;
 
-		Enqueue_Assets::enqueue_public_scripts( $page = '', $fource_enqueue = true );
-		Enqueue_Assets::enqueue_global_scripts( $page = '', $fource_enqueue = true );
-
 		$this->author_id     = get_post_field( 'post_author', $id );
 		$this->post   		 = get_post( $id );
 		$directory_type 	 = get_post_meta( $id, '_directory_type', true);

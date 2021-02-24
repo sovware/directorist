@@ -93,6 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+alert(123);
 ;
 
 (function ($) {

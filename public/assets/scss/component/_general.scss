@@ -3581,6 +3581,25 @@ input.atbdp-form-control {
   color: #fff !important;
 }
 
+.atbd_author_listings_area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  .atbd_author_filter_area {
+    width: auto !important;
+  }
+
+  .directorist-listing-types {
+    margin-top: 15px;
+
+    ul {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
 .atbd_privacy_policy_area,
 .atbd_term_and_condition_area{
   display: flex;

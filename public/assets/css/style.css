@@ -4650,6 +4650,32 @@ input.atbdp-form-control {
   color: #fff !important;
 }
 
+.atbd_author_listings_area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.atbd_author_listings_area .atbd_author_filter_area {
+  width: auto !important;
+}
+
+.atbd_author_listings_area .directorist-listing-types {
+  margin-top: 15px;
+}
+
+.atbd_author_listings_area .directorist-listing-types ul {
+  margin-bottom: 0 !important;
+}
+
 .atbd_privacy_policy_area,
 .atbd_term_and_condition_area {
   display: -webkit-box;

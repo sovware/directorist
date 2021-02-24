@@ -5,9 +5,17 @@
  * @version 6.7
  */
 ?>
+
+<?php 
+ if(  is_numeric( $searchform->listing_type ) ) {
+	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
+	$listing_type = $term->slug;
+}
+?>
+
 <div class="ads-advanced">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
-		
+		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $searchform->listing_type; ?>'>
 		<div class="atbd_seach_fields_wrapper">
 			<div class="atbdp-search-form atbdp-basic-search-fields">
 				<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>

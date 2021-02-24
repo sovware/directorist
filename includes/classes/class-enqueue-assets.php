@@ -1281,7 +1281,9 @@ class Enqueue_Assets {
             $found = has_shortcode( $post->post_content, $shortcode );
 
             $debug = apply_filters( 'directorist_debug_shortcode_scripts', false );
-            if ( $debug ) {
+            $show_all = apply_filters( 'directorist_debug_shortcode_scripts_show_all', false );
+            
+            if ( $debug && ( $found || $show_all ) ) {
                 atbdp_console_log( [ 
                     'handle' => $handle,
                     'shortcode' => $shortcode, 

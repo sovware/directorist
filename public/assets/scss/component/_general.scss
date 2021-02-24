@@ -3567,3 +3567,22 @@ input.atbdp-form-control {
   background: #3e62f5 !important;
   color: #fff !important;
 }
+
+.atbd_author_listings_area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  .atbd_author_filter_area {
+    width: auto !important;
+  }
+
+  .directorist-listing-types {
+    margin-top: 15px;
+
+    ul {
+      margin-bottom: 0 !important;
+    }
+  }
+}

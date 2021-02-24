@@ -660,6 +660,7 @@ class Enqueue_Assets {
                 'data' => Script_Helper::get_main_script_data()
             ],
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+            'shortcode'      => self::$all_shortcodes,
         ];
 
         $scripts['directorist-releated-listings-slider'] = [
@@ -1167,7 +1168,7 @@ class Enqueue_Assets {
                 continue;
             }
 
-            if (  ! self::script__verify_shortcode( $script_args ) ) { 
+            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 
                 continue;
             }
 
@@ -1242,7 +1243,7 @@ class Enqueue_Assets {
                 continue;
             }
 
-            if (  ! self::script__verify_shortcode( $script_args ) ) { 
+            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 
                 continue;
             }
 
@@ -1254,7 +1255,7 @@ class Enqueue_Assets {
     }
 
     // script__verify_shortcode
-    public static function script__verify_shortcode( $script_args ) {
+    public static function script__verify_shortcode( $script_args = [], $handle = '' ) {
         if ( empty( $script_args['shortcode'] ) ) { 
             return true;
         }
@@ -1263,9 +1264,14 @@ class Enqueue_Assets {
             return true;
         }
 
+        $disable = apply_filters( 'directorist_disable_shortcode_restriction_on_scripts', false );
+        if ( $disable ) { 
+            return true;
+        }
+
         $match_found = 0;
         foreach ( $script_args['shortcode'] as $_shortcode ) {
-            if ( self::has_shortcode( $_shortcode ) ) {
+            if ( self::has_shortcode( $_shortcode, $handle ) ) {
                 $match_found++;
             }
         }
@@ -1276,11 +1282,22 @@ class Enqueue_Assets {
     }
 
     // has_shortcode
-    public static function has_shortcode( $shortcode = '' ) {
+    public static function has_shortcode( $shortcode = '', $handle = '' ) {
         global $post;
         $found = false;
         if ( is_a( $post, 'WP_Post' ) ) {
             $found = has_shortcode( $post->post_content, $shortcode );
+
+            $debug = apply_filters( 'directorist_debug_shortcode_scripts', false );
+            $show_all = apply_filters( 'directorist_debug_shortcode_scripts_show_all', false );
+            
+            if ( $debug && ( $found || $show_all ) ) {
+                atbdp_console_log( [ 
+                    'handle' => $handle,
+                    'shortcode' => $shortcode, 
+                    'found' => $found
+                ]);
+            }
         }
 
         return $found;

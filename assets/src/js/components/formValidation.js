@@ -1,17 +1,6 @@
 ;(function ($) {
-    
-    // Validate forms
-    if ($.fn.validator) {
 
-        // Validate report abuse form
-        var atbdp_report_abuse_submitted = false;
-
-        $('#atbdp-report-abuse-form').validator({
-            disable: false
-        }).on('submit', function (e) {
-
-            if (atbdp_report_abuse_submitted) return false;
-            atbdp_report_abuse_submitted = true;
+        $('#directorist-report-abuse-form').on('submit', function (e) {
             // Check for errors
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
@@ -20,35 +9,31 @@
                 var data = {
                     'action': 'atbdp_public_report_abuse',
                     'post_id': $('#atbdp-post-id').val(),
-                    'message': $('#atbdp-report-abuse-message').val()
+                    'message': $('#directorist-report-message').val()
                 };
 
                 $.post(atbdp_public_data.ajaxurl, data, function (response) {
                     if (1 == response.error) {
-                        $('#atbdp-report-abuse-message-display').addClass('text-danger').html(response.message);
+                        $('#directorist-report-abuse-message-display').addClass('text-danger').html(response.message);
                     } else {
-                        $('#atbdp-report-abuse-message').val('');
-                        $('#atbdp-report-abuse-message-display').addClass('text-success').html(response.message);
+                        $('#directorist-report-message').val('');
+                        $('#directorist-report-abuse-message-display').addClass('text-success').html(response.message);
                     }
 
-
-                    atbdp_report_abuse_submitted = false;  // Re-enable the submit event
                 }, 'json');
 
             }
         });
-
         $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
-        $('.contact_listing_owner_form').on('submit', function (e) {
+        $('.directorist-contact-owner-form').on('submit', function (e) {
             e.preventDefault();
-
             var submit_button = $(this).find('button[type="submit"]');
-            var status_area = $(this).find('.atbdp-contact-message-display');
+            var status_area = $(this).find('.directorist-contact-message-display');
 
             // Show loading message
-            var msg = '<div class="atbdp-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + atbdp_public_data.waiting_msg + ' </div>';
+            var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + atbdp_public_data.waiting_msg + ' </div>';
             status_area.html(msg);
 
             var name = $(this).find('input[name="atbdp-contact-name"]');
@@ -97,6 +82,5 @@
         });
 
         $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
-    }
 
 })(jQuery);

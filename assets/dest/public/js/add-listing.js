@@ -222,52 +222,55 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
 // Location
 
 
-var createLoc = localized_data.create_new_loc;
+if (!localized_data.is_admin) {
+  var createLoc = localized_data.create_new_loc;
 
-if (createLoc) {
-  $("#at_bizd_dir-location").select2({
-    placeholder: localized_data.i18n_text.location_selection,
-    tags: true,
-    maximumSelectionLength: localized_data.i18n_text.max_location_creation,
-    language: {
-      maximumSelected: function maximumSelected() {
-        return localized_data.i18n_text.max_location_msg;
-      }
-    },
-    tokenSeparators: [","]
+  if (createLoc) {
+    $("#at_bizd_dir-location").select2({
+      placeholder: localized_data.i18n_text.location_selection,
+      tags: true,
+      maximumSelectionLength: localized_data.i18n_text.max_location_creation,
+      language: {
+        maximumSelected: function maximumSelected() {
+          return localized_data.i18n_text.max_location_msg;
+        }
+      },
+      tokenSeparators: [","]
+    });
+  } else {
+    $("#at_biz_dir-location").select2({
+      placeholder: localized_data.i18n_text.location_selection,
+      allowClear: true,
+      tags: false,
+      maximumSelectionLength: localized_data.i18n_text.max_location_creation,
+      tokenSeparators: [","]
+    });
+  } // Tags
+
+
+  var createTag = localized_data.create_new_tag;
+
+  if (createTag) {
+    $('#at_biz_dir-tags').select2({
+      placeholder: localized_data.i18n_text.tag_selection,
+      tags: true,
+      tokenSeparators: [',']
+    });
+  } else {
+    $('#at_biz_dir-tags').select2({
+      placeholder: localized_data.i18n_text.tag_selection,
+      allowClear: true,
+      tokenSeparators: [',']
+    });
+  }
+
+  $('#at_biz_dir-categories').select2({
+    placeholder: localized_data.i18n_text.cat_placeholder,
+    allowClear: true
   });
-} else {
-  $("#at_biz_dir-location").select2({
-    placeholder: localized_data.i18n_text.location_selection,
-    allowClear: true,
-    tags: false,
-    maximumSelectionLength: localized_data.i18n_text.max_location_creation,
-    tokenSeparators: [","]
-  });
-} // Tags
-
-
-var createTag = localized_data.create_new_tag;
-
-if (createTag) {
-  $('#at_biz_dir-tags').select2({
-    placeholder: localized_data.i18n_text.tag_selection,
-    tags: true,
-    tokenSeparators: [',']
-  });
-} else {
-  $('#at_biz_dir-tags').select2({
-    placeholder: localized_data.i18n_text.tag_selection,
-    allowClear: true,
-    tokenSeparators: [',']
-  });
-}
-
-$('#at_biz_dir-categories').select2({
-  placeholder: localized_data.i18n_text.cat_placeholder,
-  allowClear: true
-}); // Custom Image uploader for listing image (multiple)
+} // Custom Image uploader for listing image (multiple)
 // price range
+
 
 $('#price_range').hide();
 var is_checked = $('#atbd_listing_pricing').val();

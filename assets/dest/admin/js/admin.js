@@ -1401,6 +1401,15 @@ function assetsNeedToWorkInVirtualDom() {
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $("#".concat($sibling.data('option'))).hide();
   });
+  $('.directorist_pricing_options label').on('click', function () {
+    var self = $(this);
+    var current_input = self.attr('for');
+    var current_field = "#".concat(self.data('option'));
+    $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+    $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+    $('.directory_pricing_field').hide();
+    $(current_field).show();
+  });
   var imageUpload;
 
   if (imageUpload) {

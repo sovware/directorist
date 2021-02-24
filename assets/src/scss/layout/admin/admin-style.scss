@@ -1,6 +1,15 @@
 @import "../../vendor/bootstrap/config.bs";
 
 #directorist.atbd_wrapper {
+
+  .diectorist-show {
+      display: block !important;
+  }
+
+  .diectorist-hide {
+      display: none !important;
+  }
+
   padding: 18px 20px;
 
   a:focus,

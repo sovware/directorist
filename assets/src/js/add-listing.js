@@ -30,9 +30,11 @@ const $s_wrap = $('#social_info_sortable_container'); // cache it
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
 $('body').on('click', '#addNewSocial', function (e) {
+        const social_wrap = $('#social_info_sortable_container'); // cache it
         const currentItems = $('.directorist-form-social-fields').length;
         const ID = `id=${currentItems}`; // eg. 'id=3'
         const iconBindingElement = jQuery('#addNewSocial');
+        
         // arrange names ID in order before adding new elements
         $('.directorist-form-social-fields').each(function (index, element) {
                 const e = $(element);
@@ -41,9 +43,10 @@ $('body').on('click', '#addNewSocial', function (e) {
                 e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
                 e.find('.directorist-form-social-fields__remove').attr('data-id', index);
         });
+
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-                $s_wrap.after(data);
+                social_wrap.append(data);
         });
 });
 

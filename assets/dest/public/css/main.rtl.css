@@ -2086,6 +2086,14 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   width: 200px;
 }
 
+.diectorist-show {
+  display: block !important;
+}
+
+.diectorist-hide {
+  display: none !important;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;

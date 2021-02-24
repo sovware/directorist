@@ -587,6 +587,21 @@
     }
   }
 }
+#directorist.atbd_wrapper{
+  .widget_search{
+    .search-form{
+      display: flex;
+      label{
+        margin-bottom: 0;
+      }
+      .search-submit{
+        padding: 10px;
+        margin-left: 15px;
+        background: $primary;
+      }
+    }
+  }
+}
 
 @media (min-width: 576px) {
   .atbd_content_active .widget.atbd_widget + .modal-dialog {

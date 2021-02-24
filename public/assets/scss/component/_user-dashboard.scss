@@ -403,6 +403,9 @@
 
       li {
         margin: 0px;
+        &:before{
+          display: none;
+        }
 
         a {
           font-size: 14px;

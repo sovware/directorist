@@ -21,6 +21,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper input[type="checkbox"] {
   padding: 0 0 0 15px;
+  width: auto;
 }
 
 #directorist.atbd_wrapper .ads-advanced input[type="checkbox"],
@@ -36,11 +37,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .dropdown-menu {
   z-index: 100000;
-}
-
-#directorist.atbd_wrapper input[type=checkbox],
-input[type=radio] {
-  height: 25px;
 }
 
 //stop preload transition
@@ -363,6 +359,7 @@ input[type=radio] {
   text-align: center;
   box-shadow: none;
   border-top: 0;
+  background: transparent;
 
   &:before,
   &:after {
@@ -432,6 +429,9 @@ input[type=radio] {
         border: 0 none;
         margin: 0;
         height: auto;
+        &:hover{
+          background-color: transparent;
+        }
       }
 
       &:after {
@@ -442,6 +442,14 @@ input[type=radio] {
     &:before,
     &:after {
       content: none;
+    }
+  }
+}
+
+#directorist.atbd_wrapper{
+  .navigation.pagination a{
+    &:hover{
+      color: #7a82a6;
     }
   }
 }
@@ -595,6 +603,7 @@ input[type=radio] {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-top: 20px;
     }
 
     .keep_signed {
@@ -1215,6 +1224,10 @@ input[type=radio] {
 
 .atbd_privacy_policy_area {
   text-align: center;
+}
+
+#directorist.atbd_wrapper .atbd_privacy_policy_area label{
+  margin-bottom: 0;
 }
 
 #directorist.atbd_wrapper .ezmu__btn {
@@ -3566,4 +3579,37 @@ input.atbdp-form-control {
 .directorist-become-author-modal__approve {
   background: #3e62f5 !important;
   color: #fff !important;
+}
+
+.atbd_privacy_policy_area,
+.atbd_term_and_condition_area{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span{
+    margin-right: 5px;
+  }
+  label{
+    margin-left: 5px !important;
+    margin-bottom: 0;
+  }
+}
+
+.atbd_privacy_policy_area{
+  margin-bottom: 8px;
+}
+
+.directory_register_form_wrap{
+  .atbd_privacy_policy_area,
+  .atbd_term_and_condition_area{
+    display: block;
+  }
+}
+
+#directorist.atbd_wrapper{
+  .contact_listing_owner_form{
+    textarea.form-control{
+      padding-top: 8px;
+    }
+  }
 }

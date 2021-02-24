@@ -90,6 +90,10 @@
 
                 .directorist-dropdown__links--single {
                     cursor: pointer;
+
+                    &:hover {
+                        background: #eee;
+                    }
                 }
             }
         }

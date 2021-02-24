@@ -120,7 +120,7 @@
             lat: loc_manual_lat,
             lng: loc_manual_lng,
         };
-        
+
 
         // create an info window for map
         if ( display_map_info ) {

@@ -209,11 +209,6 @@ function selecWithIcon(selected) {
   return $elem;
 }
 
-$('#category_icon').select2({
-  placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
-  allowClear: true,
-  templateResult: selecWithIcon
-});
 $("[data-toggle='tooltip']").tooltip(); // price range
 
 var pricerange = $('#pricerange_val').val();

@@ -43,6 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 </div>
 
+<?php do_action( 'directorist_author_listings_before_loop' ); ?>
 <div class="directorist-author-listing-content">
 
 	<div class="<?php Helper::directorist_row(); ?>">

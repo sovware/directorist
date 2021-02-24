@@ -1,5 +1,10 @@
 .directorist-signle-listing-top {
     margin-bottom: 15px;
+    @include e(btn-edit){
+        &.directorist-btn.directorist-btn-outline-light{
+            background-color: #fff;
+        }
+    }
 }
 
 // Directorist Single Listing Style
@@ -116,7 +121,7 @@
 // Listing Details
 .directorist-listing-details {
     .directorist-listing-single {
-        margin: 10px 0 20px 0;
+        margin: 10px 0 10px 0;
 
         .directorist-listing-single__info {
             padding: 0;

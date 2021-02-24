@@ -1185,9 +1185,32 @@ span.atbdp-tick-cross {
           margin-top: 0;
         }
 
+        .directory_type_wrapper{
+          label{
+            width: 100%;
+            display: block;
+            margin-bottom: 15px;
+          }
+          #directory_type{
+            border: 1px solid #c6d0dc;
+            border-radius: 4px;
+            line-height: 40px;
+            padding: 0 15px;
+            width: 100%;
+          }
+        }
+
         .atbdp-importer-mapping-table {
           border: 0 none;
           box-shadow: none;
+          margin-top: 25px;
+
+          tr{
+            th,
+            td{
+              width: 50%;
+            }
+          }
 
           thead {
             background: #f4f5f7;
@@ -1223,6 +1246,7 @@ span.atbdp-tick-cross {
                 border-radius: 4px;
                 line-height: 40px;
                 padding: 0 15px;
+                width: 100%;
               }
             }
           }
@@ -2381,6 +2405,7 @@ span.atbdp-tick-cross {
   .listing-img-container {
     margin: 40px 0 20px;
     margin: -10px;
+    text-align: center;
 
 
     .single_attachment {

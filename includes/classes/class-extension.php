@@ -49,7 +49,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // initial_setup
         public function initial_setup() {
-
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
 
@@ -58,6 +57,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // add_demo_required_extensions
         public function add_demo_required_extensions( array $required_extensions = [] ) {
             $required_extensions[] = [
+                'ref' => 'direo',
                 'extensions' => [ 
                     'directorist-coupon',
                     'directorist-rank-featured-listings',
@@ -66,7 +66,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'directorist-image-gallery',
                     'directorist-listings-with-map',
                 ],
-                'ref' => 'direo',
+                
             ];
 
             $required_extensions[] = [

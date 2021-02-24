@@ -196,7 +196,7 @@
     }
 
     .directorist-listing-single__info {
-        padding: 28px 20px 15px;
+        padding: 25px 20px 15px;
         position: relative;
 
         .directorist-listing-single__info--top {
@@ -301,6 +301,7 @@
                     }
 
                     div {
+                        line-height: 1;
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
@@ -427,6 +428,14 @@
         font-weight: 700;
         color: #51526E;
         margin: 0 3px 0 6px;
+    }
+
+    &.directorist-info-item-rating{
+        i,
+        span.la,
+        span.fa {
+            margin-left: 4px;
+        }
     }
 }
 

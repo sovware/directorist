@@ -2962,6 +2962,7 @@ input[type=radio] {
   color: #5A5F7D;
   border-radius: 4px;
   padding: 13px 15px;
+  line-height: 1;
 }
 .directorist_dropdown .directorist_dropdown-toggle:focus {
   outline: 0 none;

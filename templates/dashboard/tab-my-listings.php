@@ -91,7 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						</tbody>
 
 					</table>
-
+					
+					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
+					
 					<div class="directorist-dashboard-pagination">
 						<?php echo $dashboard->listing_pagination(); ?>
 					</div>

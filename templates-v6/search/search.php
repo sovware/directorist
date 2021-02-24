@@ -72,7 +72,8 @@
 				</div>
 			</div>
 		</form>
-
+		
+		<?php do_action('atbdp_search_listing_after_search_bar'); ?>
 		<?php $searchform->top_categories_template(); ?>
 
 	</div>

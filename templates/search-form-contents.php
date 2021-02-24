@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
+		<?php do_action('directorist_search_listing_before_title'); ?>
+
 		<?php if ( $searchform->show_title_subtitle && ( $searchform->search_bar_title || $searchform->search_bar_sub_title ) ): ?>
 
 			<div class="directorist-search-top">
@@ -72,10 +74,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</div>
 
 		</form>
-		
-			<div class="directorist_listing_top_category">
-				<?php $searchform->top_categories_template(); ?>
-			</div>
+
+		<?php do_action('directorist_search_listing_after_search_bar'); ?>
+
+		<div class="directorist_listing_top_category">
+			<?php $searchform->top_categories_template(); ?>
+		</div>
 	</div>
 	
 </div>

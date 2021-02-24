@@ -31,6 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php if ( $display_title ): ?>
 				<h2 class="directorist-listing-details__listing-title"><?php echo esc_html( $listing->get_title() ); ?></h2>
 			<?php endif; ?>
+			
+			<?php do_action( 'directorist_single_listing_after_title', $listing->id ); ?>
 
 			<?php if ( $display_tagline && $listing->get_tagline() ): ?>
 				<p class="directorist-listing-details-tagline"><?php echo esc_html( $listing->get_tagline() ); ?></p>

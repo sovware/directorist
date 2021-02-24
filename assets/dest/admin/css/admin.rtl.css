@@ -10,6 +10,12 @@
   /*
   for shortable field*/
 }
+#directorist.atbd_wrapper .diectorist-show {
+  display: block !important;
+}
+#directorist.atbd_wrapper .diectorist-hide {
+  display: none !important;
+}
 #directorist.atbd_wrapper a:focus,
 #directorist.atbd_wrapper a:active {
   -webkit-box-shadow: unset;

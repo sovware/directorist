@@ -1,5 +1,3 @@
-alert( 123 );
-
 ; (function ($) {
     var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
@@ -122,7 +120,7 @@ alert( 123 );
             lat: loc_manual_lat,
             lng: loc_manual_lng,
         };
-        
+
 
         // create an info window for map
         if ( display_map_info ) {

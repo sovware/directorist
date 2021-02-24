@@ -16,6 +16,7 @@ $price_range_placeholder = get_directorist_option( 'price_range_placeholder', __
 $allow_decimal           = get_directorist_option( 'allow_decimal', 1 );
 $currency                = get_directorist_option( 'g_currency', 'USD' );
 $c_symbol                = atbdp_currency_symbol( $currency );
+$current_price_type      = '';
 ?>
 
 <div class="directorist-form-group directorist-form-pricing-field">
@@ -28,8 +29,10 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		<?php
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
 			$checked =  ( $atbd_listing_pricing == 'price' || empty($p_id) ) ? ' checked' : '';
+			$current_price_type = ( ! empty( $checked ) ) ? 'price_unit' : $current_price_type;
+
 			ob_start(); ?>
-			<div class="directorist-checkbox">
+			<div class="directorist-checkbox directorist_pricing_options">
 				<input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"<?php echo $checked; ?>>
 				<label for="price_selected" class="directorist-checkbox__label" data-option="price"><?php echo esc_html( $data['price_unit_field_label'] );?></label>
 			</div>
@@ -50,10 +53,12 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) {
 			ob_start();
 
+			$current_price_type = ( checked( $atbd_listing_pricing, 'range', false ) ) ? 'price_range' : $current_price_type;
+
 			if ( ! empty( $price_unit_checkbox ) ) : ?>
 				<span class="directorist-form-pricing-field__options__divider"><?php esc_html_e('Or', 'directorist'); ?></span>
 			<?php endif; ?>
-			<div class="directorist-checkbox">
+			<div class="directorist-checkbox directorist_pricing_options">
 				<input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>>
 				<label for="price_range_selected" class="directorist-checkbox__label" data-option="price_range"><?php echo esc_html( $data['price_range_label'] );?></label>
 			</div>
@@ -80,7 +85,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		$step = $allow_decimal ? ' step="any"' : '';
 		?>
 
-		<input type="<?php echo $data['price_unit_field_type']; ?>"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="directorist-form-element directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+		<input type="<?php echo $data['price_unit_field_type']; ?>"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="directorist-form-element directory_field directory_pricing_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 		<?php
 
 		echo apply_filters( 'directorist_submission_field_module', ob_get_clean(), [
@@ -94,7 +99,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) {
 		ob_start();
 		?>
-		<select class="directorist-form-element directory_field" id="price_range" name="price_range">
+		<select class="directorist-form-element directory_field directory_pricing_field" id="price_range" name="price_range">
 			<option value=""><?php echo esc_html($price_range_placeholder); ?></option>
 
 			<option value="skimming"<?php selected($price_range, 'skimming'); ?>><?php printf( '%s (%s)', esc_html__('Ultra High', 'directorist'), str_repeat($c_symbol, 4) );?></option>

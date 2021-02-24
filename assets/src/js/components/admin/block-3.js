@@ -685,7 +685,8 @@ function assetsNeedToWorkInVirtualDom() {
         $('#price').hide();
         $('#price_range').show();
     }
-    $('.atbd_pricing_options label').on('click', function () {
+
+    $('.atbd_pricing_options label').on( 'click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
             ? $(`#${$this.data('option')}`).show()
@@ -693,6 +694,19 @@ function assetsNeedToWorkInVirtualDom() {
         const $sibling = $this.siblings('label');
         $sibling.children('input[type=checkbox]').prop('checked', false);
         $(`#${$sibling.data('option')}`).hide();
+    });
+
+    $('.directorist_pricing_options label').on( 'click', function () {
+        const self = $( this );
+
+        const current_input = self.attr( 'for' );
+        const current_field = `#${self.data('option')}`;
+
+        $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
+        $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
+
+        $('.directory_pricing_field').hide();
+        $( current_field ).show();
     });
 
     let imageUpload;

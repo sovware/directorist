@@ -136,6 +136,8 @@ var $s_wrap = $('#social_info_sortable_container'); // cache it
 // Rearrange the IDS and Add new social field
 
 $('body').on('click', '#addNewSocial', function (e) {
+  var social_wrap = $('#social_info_sortable_container'); // cache it
+
   var currentItems = $('.directorist-form-social-fields').length;
   var ID = "id=".concat(currentItems); // eg. 'id=3'
 
@@ -150,7 +152,7 @@ $('body').on('click', '#addNewSocial', function (e) {
   }); // now add the new elements. we could do it here without using ajax but it would require more markup here.
 
   atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-    $s_wrap.after(data);
+    social_wrap.append(data);
   });
 }); // remove the social field and then reset the ids while maintaining position
 

@@ -1,6 +1,7 @@
 ;(function ($) {
 
         $('#directorist-report-abuse-form').on('submit', function (e) {
+            $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading');
             // Check for errors
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
@@ -19,6 +20,7 @@
                         $('#directorist-report-message').val('');
                         $('#directorist-report-abuse-message-display').addClass('text-success').html(response.message);
                     }
+                    $('.directorist-report-abuse-modal button[type=submit]').removeClass('directorist-btn-loading');
 
                 }, 'json');
 

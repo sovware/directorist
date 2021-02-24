@@ -1396,6 +1396,15 @@ function assetsNeedToWorkInVirtualDom() {
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $("#".concat($sibling.data('option'))).hide();
   });
+  $('.directorist_pricing_options label').on('click', function () {
+    var self = $(this);
+    var current_input = self.attr('for');
+    var current_field = "#".concat(self.data('option'));
+    $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+    $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+    $('.directory_pricing_field').hide();
+    $(current_field).show();
+  });
   var imageUpload;
 
   if (imageUpload) {
@@ -2665,17 +2674,12 @@ __webpack_require__.r(__webpack_exports__);
   $(".atbdp_recovery_pass").on("click", function (e) {
     e.preventDefault();
     $("#recover-pass-modal").slideToggle().show();
-  }); // Report abuse [on modal closed]
-
-  $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-report-abuse-message').val('');
-    $('#atbdp-report-abuse-message-display').html('');
   }); // Contact form [on modal closed]
 
   $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
     $('#atbdp-contact-message').val('');
     $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured 
+  }); // Template Restructured
   // Modal
 
   var directoristModal = document.querySelector('.directorist-modal-js');
@@ -2709,7 +2713,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pureScriptSelect", function() { return pureScriptSelect; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty/index.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
 /* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__);
@@ -3225,10 +3229,10 @@ $('.cptm-file-field').on('change', function (e) {
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty/index.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -3248,6 +3252,7 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ })
 

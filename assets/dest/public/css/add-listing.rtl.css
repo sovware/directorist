@@ -1436,19 +1436,19 @@ body.stop-scrolling {
 .directorist-add-listing-form__action .directorist-form-submit__btn.atbd_loading {
   position: relative;
 }
-.directorist-add-listing-form__action .directorist-form-submit__btn.atbd_loading:before {
-  position: absolute;
+.directorist-add-listing-form__action .directorist-form-submit__btn.atbd_loading:after {
   content: "";
-  left: 10px;
-  top: 31%;
   border: 2px solid #f3f3f3;
   border-radius: 50%;
   border-top: 2px solid #656a7a;
   width: 20px;
   height: 20px;
   -webkit-animation: rotate360 2s linear infinite;
-  /* Safari */
   animation: rotate360 2s linear infinite;
+  display: inline-block;
+  margin: 0 10px 0 0;
+  position: relative;
+  top: 4px;
 }
 .directorist-add-listing-form__action .directorist-form-group {
   text-align: center;

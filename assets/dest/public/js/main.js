@@ -763,7 +763,8 @@ atbdSelectData.forEach(function (el) {
 
 (function ($) {
   $('#directorist-report-abuse-form').on('submit', function (e) {
-    // Check for errors
+    $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading'); // Check for errors
+
     if (!e.isDefaultPrevented()) {
       e.preventDefault(); // Post via AJAX
 
@@ -779,6 +780,8 @@ atbdSelectData.forEach(function (el) {
           $('#directorist-report-message').val('');
           $('#directorist-report-abuse-message-display').addClass('text-success').html(response.message);
         }
+
+        $('.directorist-report-abuse-modal button[type=submit]').removeClass('directorist-btn-loading');
       }, 'json');
     }
   });
@@ -1179,17 +1182,12 @@ __webpack_require__.r(__webpack_exports__);
   $(".atbdp_recovery_pass").on("click", function (e) {
     e.preventDefault();
     $("#recover-pass-modal").slideToggle().show();
-  }); // Report abuse [on modal closed]
-
-  $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-report-abuse-message').val('');
-    $('#atbdp-report-abuse-message-display').html('');
   }); // Contact form [on modal closed]
 
   $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
     $('#atbdp-contact-message').val('');
     $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured 
+  }); // Template Restructured
   // Modal
 
   var directoristModal = document.querySelector('.directorist-modal-js');
@@ -1449,7 +1447,7 @@ pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof/index.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
 ;
@@ -2034,10 +2032,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
-  \*******************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/typeof/index.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof/index.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2048,16 +2046,21 @@ function _typeof(obj) {
     module.exports = _typeof = function _typeof(obj) {
       return typeof obj;
     };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
   } else {
     module.exports = _typeof = function _typeof(obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
   }
 
   return _typeof(obj);
 }
 
 module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 

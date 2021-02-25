@@ -1,6 +1,9 @@
 <?php
 
 namespace Directorist;
+
+use ParagonIE\Sodium\Core\Curve25519\H;
+
 class Enqueue_Assets {
 
     public static $js_scripts     = [];
@@ -21,8 +24,7 @@ class Enqueue_Assets {
             add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
             add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
 
-            $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-            if ( empty( $atbdp_legacy_template ) ) {
+            if ( Helper::is_legacy_mode() ) {
                 // Enqueue Public Scripts
                 add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
             }
@@ -90,9 +92,7 @@ class Enqueue_Assets {
      */
     public static function add_vendor_css_scripts() {
         $scripts = [];
-
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+        $common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
 
         // Global
         // ================================
@@ -226,9 +226,7 @@ class Enqueue_Assets {
      */
     public static function add_vendor_js_scripts() {
         $scripts = [];
-
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+        $common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
 
         // Global
         // ================================
@@ -911,7 +909,7 @@ class Enqueue_Assets {
             'group'     => 'admin',                                        // public || admin  || global
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
             'page'      => ['post-new.php', 'post.php'],
-            'section'   => '__',
+            // 'section'   => '__',
         ];
 
         $scripts['directorist-add-listing-gmap-custom-script-admin'] = [
@@ -921,7 +919,7 @@ class Enqueue_Assets {
             'group'     => 'admin',                                    // public || admin  || global
             'enable'    => Script_Helper::is_enable_map( 'google' ),
             'page'      => ['post-new.php', 'post.php'],
-            'section'   => '__',
+            // 'section'   => '__',
         ];
 
     
@@ -1059,11 +1057,11 @@ class Enqueue_Assets {
         // wp_enqueue_script( 'jquery' );
         
         // CSS
-        self::register_css_scripts_by_group( [ 'group' => 'public' ] );
+        self::register_css_scripts( [ 'group' => 'public' ] );
         self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
 
         // JS
-        self::register_js_scripts_by_group( [ 'group' => 'public' ] );
+        self::register_js_scripts( [ 'group' => 'public' ] );
         self::enqueue_js_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
     }
 
@@ -1079,11 +1077,11 @@ class Enqueue_Assets {
         wp_enqueue_script( 'jquery' );
 
         // CSS
-        self::register_css_scripts_by_group( [ 'group' => 'admin' ] );
+        self::register_css_scripts();
         self::enqueue_css_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
 
         // JS
-        self::register_js_scripts_by_group( [ 'group' => 'admin' ] );
+        self::register_js_scripts();
         self::enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
     }
 
@@ -1093,8 +1091,8 @@ class Enqueue_Assets {
      *
      * @return void
      */
-    public static function register_css_scripts_by_group( array $args = [] ) {
-        $default = [ 'scripts' => self::$css_scripts, 'group' => 'public' ];
+    public static function register_css_scripts( array $args = [] ) {
+        $default = [ 'scripts' => self::$css_scripts ];
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
@@ -1133,6 +1131,10 @@ class Enqueue_Assets {
                 continue;
             }
 
+            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
+                continue;
+            }
+
             if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {
                 wp_enqueue_style( $handle );
                 continue;
@@ -1141,10 +1143,6 @@ class Enqueue_Assets {
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
-            }
-
-            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-                continue;
             }
 
             if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 
@@ -1165,8 +1163,8 @@ class Enqueue_Assets {
      * @param array $args
      * @return void
      */
-    public static function register_js_scripts_by_group( array $args = [] ) {
-        $default = [ 'scripts' => self::$js_scripts, 'group' => 'public' ];
+    public static function register_js_scripts( array $args = [] ) {
+        $default = [ 'scripts' => self::$js_scripts ];
         $args    = array_merge( $default, $args );
 
         foreach( $args['scripts'] as $handle => $script_args ) {
@@ -1206,6 +1204,10 @@ class Enqueue_Assets {
                 continue;
             }
 
+            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
+                continue;
+            }
+
             if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {
                 wp_enqueue_script( $handle );
                 self::add_localize_data_to_script( $handle, $script_args );
@@ -1216,10 +1218,6 @@ class Enqueue_Assets {
             if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
                 if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
-            }
-
-            if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-                continue;
             }
 
             if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 

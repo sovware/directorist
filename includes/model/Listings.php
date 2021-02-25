@@ -1675,7 +1675,7 @@ class Directorist_Listings {
 				$class[] = 'directorist-single-line';
 			}
 
-			$class  = apply_filters( 'directorist_loop_wrapper_class', $class );
+			$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
 			
 			return implode( ' ' , $class );
 		}

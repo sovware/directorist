@@ -238,4 +238,9 @@ class Script_Helper {
         
         return true;
     }
+
+    // add_listing_brfore_enqueue_task
+    public static function add_listing_brfore_enqueue_task() {
+        wp_enqueue_media();
+    }
 }

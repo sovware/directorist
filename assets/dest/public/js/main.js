@@ -1479,11 +1479,31 @@ __webpack_require__.r(__webpack_exports__);
 
     return data;
   }
+  /*HELPERS*/
+
+
+  function print_static_rating($star_number) {
+    var v;
+
+    if ($star_number) {
+      v = '<ul>';
+
+      for (var i = 1; i <= 5; i++) {
+        v += i <= $star_number ? "<li><span class='rate_active'></span></li>" : "<li><span class='rate_disable'></span></li>";
+      }
+
+      v += '</ul>';
+    }
+
+    return v;
+  }
   /* Add review to the database using ajax*/
 
 
   var submit_count = 1;
-  $("#directorist-review-form").on("submit", function () {
+  $("#directorist-review-form").on("submit", function (e) {
+    e.preventDefault();
+
     if (submit_count > 1) {
       // show error message
       swal({
@@ -1515,7 +1535,7 @@ __webpack_require__.r(__webpack_exports__);
       field_key: '#review_content'
     }, {
       type: 'id',
-      field_key: '#review_rating'
+      field_key: '#directorist-review-rating'
     }, {
       type: 'id',
       field_key: '#review_duplicate'
@@ -1531,7 +1551,7 @@ __webpack_require__.r(__webpack_exports__);
       var d;
       var name = $form.find("#reviewer_name").val();
       var content = $form.find("#review_content").val();
-      var rating = $form.find("#review_rating").val();
+      var rating = $form.find("#directorist-review-rating").val();
       var ava_img = $form.find("#reviewer_img").val();
       var approve_immediately = $form.find("#approve_immediately").val();
       var review_duplicate = $form.find("#review_duplicate").val();
@@ -1612,7 +1632,7 @@ __webpack_require__.r(__webpack_exports__);
 
         $form[0].reset(); // remove the notice if there was any
 
-        $r_notice = $('#review_notice');
+        var $r_notice = $('#review_notice');
 
         if ($r_notice) {
           $r_notice.remove();

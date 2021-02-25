@@ -224,7 +224,7 @@
                 //reset the form
                 $form[0].reset();
                 // remove the notice if there was any
-                $r_notice = $('#review_notice');
+               var $r_notice = $('#review_notice');
                 if ($r_notice) {
                     $r_notice.remove();
                 }

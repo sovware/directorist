@@ -1665,11 +1665,19 @@ class Directorist_Listings {
 		}
 
 		public function loop_wrapper_class() {
-			$class  = '';
-			$class .= $this->loop['featured'] ? 'directorist-featured' : '';
-			$class .= $this->info_display_in_single_line ? 'directorist-single-line' : '';
+			$class  = [];
+
+			if ( $this->loop['featured'] ) {
+				$class[] = 'directorist-featured';
+			}
+
+			if ( $this->info_display_in_single_line ) {
+				$class[] = 'directorist-single-line';
+			}
+
 			$class  = apply_filters( 'directorist_loop_wrapper_class', $class );
-			return $class;
+			
+			return implode( ' ' , $class );
 		}
 
 		public function loop_link_attr() {

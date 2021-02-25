@@ -87,7 +87,7 @@
                                     $recpass_username    = get_directorist_option( 'recpass_username', __( 'E-mail:', 'directorist' ) );
                                     $recpass_placeholder = get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) );
                                     $recpass_button      = get_directorist_option( 'recpass_button', __( 'Get New Password', 'directorist' ) );
-                                    $reg_text            = get_directorist_option( 'reg_text', __( 'Don\'t have an account?', 'directorist' ) );
+                                    $reg_text            = get_directorist_option( 'reg_text', __( "Don't have an account?", 'directorist' ) );
                                     $reg_url             = ATBDP_Permalink::get_registration_page_link();
                                     $reg_linktxt         = get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) );
                                     $display_signup      = get_directorist_option( 'display_signup', 1 );

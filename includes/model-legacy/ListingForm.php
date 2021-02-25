@@ -21,7 +21,6 @@ class Directorist_Listing_Form {
 	public $current_listing_type;
 
 	private function __construct( $id ) {
-		$this->current_listing_type = $this->get_current_listing_type();
 		if ( $id ) {
 			$this->add_listing_id = $id;
 			$this->add_listing_post = get_post( $id );
@@ -30,6 +29,7 @@ class Directorist_Listing_Form {
 		else {
 			add_action( 'wp', array( $this, 'init' ) );
 		}
+		$this->current_listing_type = $this->get_current_listing_type();
 
 	}
 
@@ -688,9 +688,13 @@ class Directorist_Listing_Form {
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
+		$get_listing_type   = get_post_meta( $this->add_listing_id, '_directory_type', true );
 
 		if ( $listing_type_count == 1 ) {
 			$type = array_key_first( $listing_types );
+		}
+		elseif( ! empty( $get_listing_type ) ) {
+			$type = $get_listing_type;
 		}
 		else {
 			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';

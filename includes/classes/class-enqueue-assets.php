@@ -2,8 +2,6 @@
 
 namespace Directorist;
 
-use ParagonIE\Sodium\Core\Curve25519\H;
-
 class Enqueue_Assets {
 
     public static $js_scripts     = [];

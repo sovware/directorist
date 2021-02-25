@@ -68,11 +68,6 @@ class ATBDP_Gateway{
                             'label' => 'Featured label',
                             'value' => 'Featured',
                         ],
-                        'required' => [
-                            'type'  => 'toggle',
-                            'label'  => 'Required',
-                            'value' => true,
-                        ],
                     ],
                 ];
             }

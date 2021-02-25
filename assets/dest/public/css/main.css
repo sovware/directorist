@@ -9021,7 +9021,13 @@ p.atbd-min {
 }
 .directorist-content-active .directorist-listing-category-top ul li a i,
 .directorist-content-active .directorist-listing-category-top ul li a span,
+.directorist-content-active .directorist-listing-category-top ul li a span.las,
+.directorist-content-active .directorist-listing-category-top ul li a span.lar,
+.directorist-content-active .directorist-listing-category-top ul li a span.lab,
+.directorist-content-active .directorist-listing-category-top ul li a span.fab,
+.directorist-content-active .directorist-listing-category-top ul li a span.fas,
 .directorist-content-active .directorist-listing-category-top ul li a span.la {
+  font-size: 18px;
   color: #8F8E9F;
   margin-right: 4px;
 }
@@ -9029,6 +9035,7 @@ p.atbd-min {
   font-size: 14px;
   font-weight: 500;
   margin: 0;
+  color: #51526E;
 }
 
 .directorist-payment-gateways {

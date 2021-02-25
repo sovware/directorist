@@ -4482,6 +4482,7 @@ input.atbdp-form-control {
   overflow-x: auto;
   overflow-y: visible;
 }
+
 // .taxonomy-at_biz_dir-category .wp-list-table,
 // .taxonomy-at_biz_dir-location .wp-list-table {
 //   @media only screen and (max-width: 782px) {
@@ -4948,35 +4949,42 @@ input.atbdp-form-control {
 
 // Categories Table
 .taxonomy-at_biz_dir-category,
-.taxonomy-at_biz_dir-location{
-  .wp-list-table{
-    thead{
-      tr{
-        .column-cb{
+.taxonomy-at_biz_dir-location {
+  .wp-list-table {
+    thead {
+      tr {
+        .column-cb {
           min-width: 100px;
         }
-        .column-ID{
+
+        .column-ID {
           min-width: 100px;
         }
-        .column-atbdp_category_icon{
+
+        .column-atbdp_category_icon {
           min-width: 115px;
         }
-        .column-name{
+
+        .column-name {
           min-width: 240px;
         }
-        .column-description{
+
+        .column-description {
           min-width: 220px;
         }
-        .column-slug{
+
+        .column-slug {
           min-width: 100px;
         }
-        .column-posts{
+
+        .column-posts {
           min-width: 100px;
         }
       }
     }
   }
 }
+
 // keyframes
 @-webkit-keyframes atbd_spin {
   0% {

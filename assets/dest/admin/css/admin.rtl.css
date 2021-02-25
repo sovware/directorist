@@ -4774,6 +4774,51 @@ input.atbdp-form-control {
   margin-bottom: 30px;
 }
 
+.directory_types-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -8px;
+}
+.directory_types-wrapper .directory_type-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 8px;
+}
+.directory_types-wrapper .directory_type-group label {
+  padding: 0 2px 0 0;
+}
+.directory_types-wrapper .directory_type-group input {
+  position: relative;
+  top: 2px;
+}
+
+div#gmap {
+  height: 400px;
+}
+
+.cor-wrap,
+.lat_btn_wrap {
+  margin-top: 15px;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

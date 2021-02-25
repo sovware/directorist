@@ -22,7 +22,7 @@ class Enqueue_Assets {
             add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
             add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
 
-            if ( Helper::is_legacy_mode() ) {
+            if ( ! Helper::is_legacy_mode() ) {
                 // Enqueue Public Scripts
                 add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
             }
@@ -176,18 +176,6 @@ class Enqueue_Assets {
             'enable'    => Script_Helper::is_enable__ez_media_uploader()
         ];
 
-        $scripts['directorist-select2'] = [
-            'file_name' => 'select2.min',
-            'base_path' => DIRECTORIST_VENDOR_CSS,
-            'has_min'   => false,
-            'has_rtl'   => false,
-            'deps'      => [],
-            'ver'       => self::$script_version,
-            'group'     => $common_asset_group, // public || admin  || global
-            'enable'    => true,
-            'shortcode' => ['directorist_add_listing'],
-        ];
-
         $scripts['directorist-slick'] = [
             'file_name'      => 'slick',
             'base_path'      => DIRECTORIST_VENDOR_CSS,
@@ -196,8 +184,7 @@ class Enqueue_Assets {
             'deps'           => [],
             'ver'            => self::$script_version,
             'group'          => 'public',                         // public || admin  || global
-            'enable'         => true,
-            'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+            'enable'         => is_singular( ATBDP_POST_TYPE ),
         ];
 
         $scripts['directorist-sweetalert'] = [
@@ -391,7 +378,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => '',
+            'section'   => '__',
             'enable'    => true,
             'shortcode' => ['directorist_add_listing'],
         ];

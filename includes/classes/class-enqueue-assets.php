@@ -14,8 +14,6 @@ class Enqueue_Assets {
      */
     function __construct() {
 
-        Helper::update_listings_ratings_meta( 5 );
-
         if ( is_null( self::$instance ) ) {
             self::$instance = $this;
 
@@ -31,9 +29,6 @@ class Enqueue_Assets {
 
             // Enqueue Admin Scripts
             add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
-
-            // Enqueue Global Scripts
-            // add_action( 'init', [ $this, 'enqueue_global_scripts' ] );
         }
 
 
@@ -744,11 +739,12 @@ class Enqueue_Assets {
         ];
 
         $scripts['directorist-add-listing-public'] = [
-            'file_name' => 'add-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
-            'ver'       => self::$script_version,
-            'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
+            'file_name'      => 'add-listing',
+            'base_path'      => DIRECTORIST_PUBLIC_JS,
+            'ver'            => self::$script_version,
+            'group'          => 'public',                                           // public || admin  || global
+            'shortcode'      => ['directorist_add_listing'],
+            'before_enqueue' => [ Script_Helper::class, 'add_listing_brfore_enqueue_task' ],
         ];
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-public'] = [
@@ -1062,7 +1058,6 @@ class Enqueue_Assets {
         self::enqueue_custom_color_picker_scripts();
         // wp_enqueue_script( 'jquery' );
         
-        
         // CSS
         self::register_css_scripts_by_group( [ 'group' => 'public' ] );
         self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
@@ -1082,7 +1077,6 @@ class Enqueue_Assets {
         // Other
         self::enqueue_custom_color_picker_scripts();
         wp_enqueue_script( 'jquery' );
-        wp_enqueue_media();
 
         // CSS
         self::register_css_scripts_by_group( [ 'group' => 'admin' ] );
@@ -1091,21 +1085,6 @@ class Enqueue_Assets {
         // JS
         self::register_js_scripts_by_group( [ 'group' => 'admin' ] );
         self::enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
-    }
-
-    /**
-     * Enqueue Global Scripts
-     *
-     * @return void
-     */
-    public static function enqueue_global_scripts( $page = '' ) {
-        // CSS
-        self::register_css_scripts_by_group( [ 'group' => 'global' ] );
-        self::enqueue_css_scripts_by_group( [ 'group' => 'global', 'page' => $page  ] );
-
-        // JS
-        self::register_js_scripts_by_group( [ 'group' => 'global' ] );
-        self::enqueue_js_scripts_by_group( [ 'group' => 'global', 'page' => $page  ] );
     }
 
 
@@ -1249,9 +1228,31 @@ class Enqueue_Assets {
 
             if ( ! empty( $script_args['section'] ) ) { continue; }
 
+            
+            if ( ! empty( $script_args['before_enqueue'] ) ) {
+                self::handle_script_before_enqueue_task( $script_args['before_enqueue'] );
+            }
+
             wp_enqueue_script( $handle );
             self::add_localize_data_to_script( $handle, $script_args );
         }
+    }
+
+    // handle_script_before_enqueue_task
+    public static function handle_script_before_enqueue_task( $task = [] ) {
+
+        if ( is_array( $task ) && ! self::is_assoc_array( $task ) && ( count( $task ) > 1 )) {
+            $class_name  = $task[0];
+            $method_name = $task[1];
+            $args        = ( isset( $task[2] ) ) ? $task[2] : '';
+
+            if ( class_exists( $class_name ) && method_exists( $class_name, $method_name ) ) {
+                $class = new $class_name;
+                $class->$method_name( $args );
+            }
+        }
+
+
     }
 
     // script__verify_shortcode

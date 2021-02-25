@@ -7,18 +7,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if( is_admin() ) {
+if( is_admin() || $data['value'] ) {
 	return;
 }
 ?>
 
 <div class="directorist-form-group directorist-form-listing-type">
 
-	<h4 class="directorist-form-listing-type__title"><?php esc_html_e( 'Choose Listing Type', 'directorist-pricing-plans') ?><span class="directorist-form-required"> *</span></h4>
+	<?php $listing_form->field_label_template( $data );?>
 
 	<div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 
-		<input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general">
+		<input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general" checked>
 		<label for="directorist-form-listing-type__general" class="directorist-form-listing-type__general directorist-radio__label"><?php echo esc_attr( $data['general_label'] ); ?></label>
 
 	</div>

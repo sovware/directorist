@@ -1450,6 +1450,9 @@ body.stop-scrolling {
   position: relative;
   top: 4px;
 }
+.directorist-add-listing-form__action #listing_notifier {
+  margin-top: 10px;
+}
 .directorist-add-listing-form__action .directorist-form-group {
   text-align: center;
 }
@@ -1569,6 +1572,10 @@ body.stop-scrolling {
 .directorist-modal-body {
   display: block;
   padding: 20px;
+}
+
+.directorist-form-privacy {
+  margin-bottom: 10px;
 }
 
 /* =============================

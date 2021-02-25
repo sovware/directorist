@@ -6158,6 +6158,10 @@ input.atbdp-form-control {
   margin-right: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close {
+  color: #fff;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
   background: #122069;
   margin-left: 0;
@@ -8029,6 +8033,12 @@ span.atbd_get_loc_wid {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title h4 .atbd_badge,
@@ -8608,6 +8618,12 @@ span.atbd_get_loc_wid {
   margin-right: 0;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close {
+  color: #fff;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_new,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_new,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_new {
@@ -8811,6 +8827,10 @@ span.atbd_get_loc_wid {
   padding: 10px;
   margin-left: 15px;
   background: #444752;
+}
+
+.directorist-content-active .widget.atbd_widget .atbd_widget_title .atbd_badge.atbd_badge_close {
+  color: #fff;
 }
 
 @media (min-width: 576px) {

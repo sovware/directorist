@@ -240,6 +240,7 @@
   border-radius: 3px;
   &.atbd_badge_close{
     background-color: $danger;
+    color: #fff;
   }
   &.atbd_badge_open{
     background-color: $success;

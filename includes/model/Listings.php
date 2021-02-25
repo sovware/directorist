@@ -370,7 +370,7 @@ class Directorist_Listings {
 			'author_id'               => $author_id,
 			'author_data'             => $author_data,
 			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
-			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $listing_type ),
+			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ),
 			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
 			'u_pro_pic'               => $u_pro_pic,
 			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),

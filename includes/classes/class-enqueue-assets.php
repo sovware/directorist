@@ -54,6 +54,10 @@ class Enqueue_Assets {
         self::add_vendor_css_scripts();
         self::add_vendor_js_scripts();
 
+        // Load Global Assets
+        self::add_global_css_scripts();
+        self::add_global_js_scripts();
+
         // Load Public Assets
         self::add_public_css_scripts();
         self::add_public_js_scripts();
@@ -61,11 +65,7 @@ class Enqueue_Assets {
         // Load Admin Assets
         self::add_admin_css_scripts();
         self::add_admin_js_scripts();
-        
-        // Load Global Assets
-        self::add_global_css_scripts();
-        self::add_global_js_scripts();
-
+    
         // Inject Scripts Meta
         self::inject_scripts_meta();
 
@@ -172,8 +172,8 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => self::$script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => Script_Helper::is_enable__ez_media_uploader()
+            'group'     => 'public',                                        // public || admin  || global
+            'enable'    => Script_Helper::is_enable__ez_media_uploader(),
         ];
 
         $scripts['directorist-slick'] = [
@@ -377,10 +377,9 @@ class Enqueue_Assets {
             'has_min'   => false,
             'deps'      => [],
             'ver'       => self::$script_version,
-            'group'     => 'public', // public || admin  || global
-            'section'   => '__',
+            'group'     => 'public',                      // public || admin  || global
             'enable'    => true,
-            'shortcode' => ['directorist_add_listing'],
+            // 'shortcode' => ['directorist_add_listing'],
         ];
 
         $scripts['directorist-select2-admin'] = [
@@ -390,7 +389,6 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
-            'section'   => '',
             'enable'    => true,
         ];
 
@@ -446,7 +444,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'ver'       => self::$script_version,
             'group'     => 'global', // public || admin  || global
-            'section'   => '',
+            'section'   => '__',
         ];
 
         
@@ -726,7 +724,8 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_PUBLIC_JS,
             'ver'            => self::$script_version,
             'group'          => 'public',                                           // public || admin  || global
-            'shortcode'      => ['directorist_add_listing'],
+            // 'shortcode'      => ['directorist_add_listing'],
+            'section'        => 'add_listing',
             'before_enqueue' => [ Script_Helper::class, 'add_listing_brfore_enqueue_task' ],
         ];
 
@@ -752,7 +751,7 @@ class Enqueue_Assets {
             'file_name' => 'pure-select',
             'base_path' => DIRECTORIST_PUBLIC_JS,
             'ver'       => self::$script_version,
-            'group'     => 'public',                 // public || admin  || global
+            'group'     => 'public', // public || admin  || global
         ];
 
         $scripts = array_merge( self::$js_scripts, $scripts);
@@ -1249,7 +1248,7 @@ class Enqueue_Assets {
         }
 
         $disable = apply_filters( 'directorist_disable_shortcode_restriction_on_scripts', false );
-        if ( $disable ) { 
+        if ( $disable ) {
             return true;
         }
 

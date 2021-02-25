@@ -869,8 +869,8 @@ class Directorist_Listing_Form {
 
 	// enqueue_scripts
 	public function enqueue_scripts() {
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
 		wp_enqueue_script( 'directorist-add-listing-public' );
-		wp_enqueue_script( 'directorist-select2-public' );
 
 		// Map Scrips
 		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {

@@ -210,11 +210,26 @@ class Directorist_Listing_Author {
 		return $args;
 	}
 
+	public function avatar_html() {
+		$html = '';
+		$author_id = $this->id;
+		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
+
+		if ( !empty( $u_pro_pic ) ) {
+			$html = wp_get_attachment_image( $u_pro_pic );
+		}
+
+		if ( !$html ) {
+			$html = get_avatar( $author_id );
+		}
+
+		return $html;
+	}
+
 	public function header_template() {
 		$author_id = $this->id;
 
 		$u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-		$avatar_img = empty($u_pro_pic) ? get_avatar($author_id, apply_filters('atbdp_avatar_size', 96)) : sprintf('<img src="%s" alt="%s" >', esc_url($u_pro_pic[0]), __('Author Image', 'directorist'));
 
 		$user_registered = get_the_author_meta('user_registered', $author_id);
 		$member_since_text = sprintf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp')));
@@ -227,7 +242,7 @@ class Directorist_Listing_Author {
 
 		$args = array(
 			'author'             => $this,
-			'avatar_img'         => $avatar_img,
+			'avatar_img'         => $this->avatar_html(),
 			'author_name'        => get_the_author_meta('display_name', $author_id),
 			'member_since_text'  => $member_since_text,
 			'enable_review'      => get_directorist_option('enable_review', 1),

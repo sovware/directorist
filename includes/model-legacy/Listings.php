@@ -1624,7 +1624,15 @@ class Directorist_Listings {
 		}
 
 		public function loop_wrapper_class() {
-			return ($this->loop['featured']) ? 'directorist-featured-listings' : '';
+			$class  = [];
+
+			if ( $this->loop['featured'] ) {
+				$class[] = 'directorist-featured-listings';
+			}
+
+			$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
+			
+			return implode( ' ' , $class );
 		}
 
 		public function loop_link_attr() {

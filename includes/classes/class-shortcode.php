@@ -124,7 +124,7 @@ class ATBDP_Shortcode {
 		return $taxonomy->render_shortcode( $atts );
 	}
 
-	public function all_locations( $atts ) {
+	public function all_locations( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'location');
 		

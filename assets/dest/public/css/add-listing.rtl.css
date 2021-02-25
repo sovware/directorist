@@ -1574,6 +1574,10 @@ body.stop-scrolling {
   padding: 20px;
 }
 
+.directorist-form-privacy {
+  margin-bottom: 10px;
+}
+
 /* =============================
     backend add listing form
 ================================*/

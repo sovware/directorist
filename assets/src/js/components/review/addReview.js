@@ -1,5 +1,4 @@
 ;(function ($) {
-
     // 	prepear_form_data
     function prepear_form_data ( form, field_map, data ) {
         if ( ! data || typeof data !== 'object' ) {
@@ -28,9 +27,27 @@
         return data;
     }
 
+     /*HELPERS*/
+     function print_static_rating($star_number) {
+        var v;
+        if ($star_number) {
+            v = '<ul>';
+            for (var i = 1; i <= 5; i++) {
+                v += (i <= $star_number)
+                    ? "<li><span class='rate_active'></span></li>"
+                    : "<li><span class='rate_disable'></span></li>";
+            }
+            v += '</ul>';
+        }
+
+        return v;
+    }
+
     /* Add review to the database using ajax*/
     var submit_count = 1;
-    $("#directorist-review-form").on("submit", function () {
+
+    $("#directorist-review-form").on("submit", function (e) {
+        e.preventDefault();
         if (submit_count > 1) {
             // show error message
             swal({
@@ -51,13 +68,13 @@
             { type: 'id', field_key: '#guest_user_email' },
             { type: 'id', field_key: '#reviewer_name' },
             { type: 'id', field_key: '#review_content' },
-            { type: 'id', field_key: '#review_rating' },
+            { type: 'id', field_key: '#directorist-review-rating' },
             { type: 'id', field_key: '#review_duplicate' },
         ];
 
         var _data = { action: 'save_listing_review' };
         _data = prepear_form_data( $form, field_field_map, _data );
-
+        
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
         jQuery.post(atbdp_public_data.ajaxurl, _data, function(response) {
@@ -66,7 +83,7 @@
             var d;
             var name = $form.find("#reviewer_name").val();
             var content = $form.find("#review_content").val();
-            var rating = $form.find("#review_rating").val();
+            var rating = $form.find("#directorist-review-rating").val();
             var ava_img = $form.find("#reviewer_img").val();
             var approve_immediately = $form.find("#approve_immediately").val();
             var review_duplicate = $form.find("#review_duplicate").val();
@@ -154,7 +171,7 @@
                 //reset the form
                 $form[0].reset();
                 // remove the notice if there was any
-                $r_notice = $('#review_notice');
+                var $r_notice = $('#review_notice');
                 if ($r_notice) {
                     $r_notice.remove();
                 }

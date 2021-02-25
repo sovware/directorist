@@ -3879,7 +3879,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'reg_text'    => [
                     'type'          => 'textarea',
                     'label'         => __('Text', 'directorist'),
-                    'value'         => __('Don\'t have an account?', 'directorist'),
+                    'value'         => __("Don't have an account?", 'directorist'),
                     'show-if' => [
                         'where' => "display_signup",
                         'conditions' => [

@@ -170,6 +170,8 @@
       font-weight: 400;
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
 
       .atbd_badge {
         margin-left: auto;
@@ -640,6 +642,7 @@
 
     &.atbd_badge_close {
       @extend .atbd_bg-danger;
+      color: #fff;
     }
 
     &.atbd_badge_new {

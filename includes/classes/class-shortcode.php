@@ -115,7 +115,7 @@ class ATBDP_Shortcode {
 		return $this->listing_archive( $atts );
 	}
 
-	public function all_categories( $atts ) {
+	public function all_categories( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'category');
 		

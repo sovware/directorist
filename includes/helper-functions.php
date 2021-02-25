@@ -7709,6 +7709,7 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
         foreach ($terms as $term) {
             $directory_type    = get_term_meta( $term->term_id, '_directory_type', true );
             $directory_type    = ! empty( $directory_type ) ? $directory_type : array();
+            $directory_type    = is_array( $directory_type ) ? $directory_type : array( $directory_type );
             if( in_array( $listing_type_slug, $directory_type ) ) {
                 $settings['term_id'] = $term->term_id;
 

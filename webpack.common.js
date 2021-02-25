@@ -125,6 +125,7 @@ const publicConfig = {
     ['add-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/add-listing/google-map.js"],
     ['atmodal']: ["./assets/src/js/modules/atmodal.js"],
     ['releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
+    ['login']: ["./assets/src/js/components/login.js"],
 
     // CSS
     ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],

@@ -2280,6 +2280,14 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-content-active .widget.atbd_widget[id^=bd] .atbd_widget_title h4 .atbd_badge,
 .directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_widget_title h4 .atbd_badge,
@@ -2838,6 +2846,11 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_badge:last-child,
 .directorist-content-active .widget.atbd_widget .atbd_badge:last-child {
   margin-left: 0;
+}
+.directorist-content-active .widget.atbd_widget[id^=bd] .atbd_badge.atbd_badge_close,
+.directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_badge.atbd_badge_close,
+.directorist-content-active .widget.atbd_widget .atbd_badge.atbd_badge_close {
+  color: #fff;
 }
 .directorist-content-active .widget.atbd_widget[id^=bd] .atbd_badge.atbd_badge_new,
 .directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_badge.atbd_badge_new,
@@ -5834,6 +5847,7 @@ p.atbd-min {
 }
 .atbd_badge.atbd_badge_close {
   background-color: #EF0000;
+  color: #fff;
 }
 .atbd_badge.atbd_badge_open {
   background-color: #00AC17;

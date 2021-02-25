@@ -18,7 +18,7 @@ if( is_admin() || $data['value'] ) {
 
 	<div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 
-		<input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general">
+		<input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general" checked>
 		<label for="directorist-form-listing-type__general" class="directorist-form-listing-type__general directorist-radio__label"><?php echo esc_attr( $data['general_label'] ); ?></label>
 
 	</div>

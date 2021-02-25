@@ -4883,6 +4883,16 @@ input.atbdp-form-control {
   }
 }
 
+
+div#gmap {
+  height: 400px;
+}
+
+.cor-wrap,
+.lat_btn_wrap {
+  margin-top: 15px;
+}
+
 // Base Style
 @import '../../base/general';
 @import '../../base/utility';

@@ -4810,6 +4810,15 @@ input.atbdp-form-control {
   top: 2px;
 }
 
+div#gmap {
+  height: 400px;
+}
+
+.cor-wrap,
+.lat_btn_wrap {
+  margin-top: 15px;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

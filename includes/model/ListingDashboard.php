@@ -119,6 +119,8 @@ class Directorist_Listing_Dashboard {
 
 	private function enqueue_scripts() {
 		wp_enqueue_script( 'directorist-atmodal' );
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
+
 		// wp_enqueue_script( 'directorist-search-form-listing' );
 		// wp_localize_script( 'directorist-search-form-listing', 'atbdp_search', array(
 		// 	'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),

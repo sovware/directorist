@@ -15,11 +15,11 @@ class ATBDP_Upgrade
 
         // add_action('admin_init', array($this, 'configure_notices'));
 
-        add_action('admin_notices', array($this, 'upgrade_notice'), 100);
+        //add_action('admin_notices', array($this, 'upgrade_notice'), 100);
         global $pagenow;
         if ( 'plugins.php' === $pagenow )
         {
-          add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
+          //add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
         }
     }
   /**
@@ -64,14 +64,14 @@ class ATBDP_Upgrade
 		$text = '';
 
 		$link = 'https://directorist.com/features/';
-        $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
 
+        $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
 
 		$text .= sprintf( __( '<p style="margin:2px 0;">Congratulations! You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. Please make sure everything is as expected. </p>', 'directorist' ), $link ) ;
 
 		$text .= sprintf( __( '<p style="margin:2px 0;"><a href="%s">Everything is OK</a> | Rollback to 6.5.8 using this<a target="blank" style="color: red;" href="%s"> plugin</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback ) ;
 
-		$notice = '<div class="notice notice-warning is-dismissible directorist-theme-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 
 		echo wp_kses_post( $notice );
 

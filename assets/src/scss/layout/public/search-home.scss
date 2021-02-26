@@ -251,7 +251,13 @@
 
                 i,
                 span,
+                span.las,
+                span.lar,
+                span.lab,
+                span.fab,
+                span.fas,
                 span.la {
+                    font-size: 18px;
                     color: #8F8E9F;
                     margin-right: 4px;
                 }
@@ -260,6 +266,7 @@
                     font-size: 14px;
                     font-weight: 500;
                     margin: 0;
+                    color: #51526E;
                 }
             }
         }

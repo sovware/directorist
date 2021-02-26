@@ -226,13 +226,12 @@ a {
   margin-bottom: 35px;
 }
 
+.directorist-content-active {
+  font-size: 15px;
+  line-height: 24px;
+}
 .directorist-content-active a {
   text-decoration: none !important;
-}
-.directorist-content-active p {
-  font-size: 15px;
-  color: #7a82a6;
-  line-height: 24px;
 }
 .directorist-content-active .primary-menu > li {
   margin: 0.8rem 1.6rem 0 0;
@@ -7246,6 +7245,8 @@ p.atbd-min {
 }
 .directorist-listing-details .directorist-listing-details__text p {
   margin: 0 0 15px;
+  color: #7a82a6;
+  line-height: 24px;
 }
 
 .directorist-single-wrapper .directorist-embaded-video {
@@ -9008,7 +9009,13 @@ p.atbd-min {
 }
 .directorist-content-active .directorist-listing-category-top ul li a i,
 .directorist-content-active .directorist-listing-category-top ul li a span,
+.directorist-content-active .directorist-listing-category-top ul li a span.las,
+.directorist-content-active .directorist-listing-category-top ul li a span.lar,
+.directorist-content-active .directorist-listing-category-top ul li a span.lab,
+.directorist-content-active .directorist-listing-category-top ul li a span.fab,
+.directorist-content-active .directorist-listing-category-top ul li a span.fas,
 .directorist-content-active .directorist-listing-category-top ul li a span.la {
+  font-size: 18px;
   color: #8F8E9F;
   margin-left: 4px;
 }
@@ -9016,6 +9023,7 @@ p.atbd-min {
   font-size: 14px;
   font-weight: 500;
   margin: 0;
+  color: #51526E;
 }
 
 .directorist-payment-gateways {

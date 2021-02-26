@@ -80,9 +80,12 @@ $gd_plupload_init     = array(
 	// 'upload_img_size' => $file_size
 );
 
-wp_localize_script( 'directorist-plupload', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload', 'atbdp_params', $text_value );
- wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
+wp_localize_script( 'directorist-plupload-public', 'atbdp_plupload_params', $gd_plupload_init );
+wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value );
+wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
+wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
+
+wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
  wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
@@ -96,7 +99,7 @@ $multiple           = false;
 ?>
 <div class="atbdp-add-files">
 	<div class="atbdp_form_row clearfix atbdp-files-dropbox" id="<?php echo $id; ?>dropbox">
-		<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $value ) ? $value : '' ; ?>"
+		<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $data['value'] ) ? $data['value'] : '' ; ?>"
 		/>
 		<input type="hidden" name="<?php echo $id; ?>image_limit" id="<?php echo $id; ?>image_limit"
 			   value="<?php echo $image_limit; ?>"/>

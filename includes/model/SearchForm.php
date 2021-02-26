@@ -422,11 +422,13 @@ class Directorist_Listing_Search_Form {
 	public function top_categories_template() {
 		if ( $this->show_popular_category ) {
 			$top_categories = $this->top_categories();
+			$title = get_directorist_option( 'popular_cat_title', __( 'Browse by popular categories', 'directorist' ) );
 
 			if ( !empty($top_categories) ) {
 				$args = array(
 					'searchform'      => $this,
 					'top_categories'  => $top_categories,
+					'title'           => $title,
 				);
 				Helper::get_template( 'search-form/top-cats', $args );
 			}
@@ -477,13 +479,6 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		// if (is_rtl()) {
-		// 	wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-		// }
-		// else {
-		// 	wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-		//
-
 		$this->search_listing_scripts_styles();
 
 		if ( ! empty( $atts['shortcode'] ) ) {
@@ -528,7 +523,6 @@ class Directorist_Listing_Search_Form {
 		$icon = get_cat_icon($cat->term_id);
 		$icon_type = substr($icon, 0, 2);
 		$icon_class = ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon;
-		$icon_class = $icon;
 		return $icon_class;
 	}
 

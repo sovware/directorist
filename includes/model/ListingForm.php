@@ -823,16 +823,19 @@ class Directorist_Listing_Form {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
-
 		// Edit Mode
 		if ( $p_id ) {
 			$terms =  get_the_terms( $p_id, ATBDP_TYPE );
 			$type  = !empty($terms) ? $terms[0]->term_id : '';
 			$args['form_data'] = $this->build_form_data( $type );
 			$args['is_edit_mode'] = true;
+
+			$this->enqueue_scripts();
+
+			if ( ! empty( $atts['shortcode'] ) ) {
+				Helper::add_shortcode_comment( $atts['shortcode'] );
+			}
+
 			return Helper::get_template_contents( 'listing-form/add-listing', $args );
 		}
 		else {
@@ -852,12 +855,31 @@ class Directorist_Listing_Form {
 					Helper::add_shortcode_comment( $atts['shortcode'] );
 				}
 
+				$this->enqueue_scripts();
+
 				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 			
 			// multiple directory available
 			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+		}
+	}
+
+
+	// enqueue_scripts
+	public function enqueue_scripts() {
+		wp_enqueue_media();
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
+		wp_enqueue_script( 'directorist-plupload-public' );
+		wp_enqueue_script( 'directorist-add-listing-public' );
+
+		// Map Scrips
+		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
+			wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script-public' );
+		} else {
+			wp_enqueue_script( 'directorist-add-listing-gmap-custom-script-public' );
+
 		}
 	}
 }

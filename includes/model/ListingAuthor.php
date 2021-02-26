@@ -265,10 +265,19 @@ class Directorist_Listing_Author {
 	}
 
 	public function avatar_html() {
+		$html = '';
 		$author_id = $this->id;
-		$u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-		$avatar_img = empty($u_pro_pic) ? get_avatar($author_id, apply_filters('atbdp_avatar_size', 96)) : sprintf('<img src="%s" alt="%s" >', esc_url($u_pro_pic[0]), __('Author Image', 'directorist'));
-		return $avatar_img;
+		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
+
+		if ( !empty( $u_pro_pic ) ) {
+			$html = wp_get_attachment_image( $u_pro_pic );
+		}
+
+		if ( !$html ) {
+			$html = get_avatar( $author_id );
+		}
+
+		return $html;
 	}
 
 	public function member_since_text() {

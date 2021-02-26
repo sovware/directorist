@@ -1226,6 +1226,8 @@ class Directorist_Listings {
 	}
 
 	public function load_openstreet_map() {
+		echo 123;
+		return;
 		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 
@@ -1247,6 +1249,7 @@ class Directorist_Listings {
 			'script_path'  => $script_path
 		]);
 		wp_enqueue_script('leaflet-load-scripts');
+		
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {
@@ -1270,7 +1273,9 @@ class Directorist_Listings {
 		wp_localize_script( 'no_script', 'loc_data', [
 			'script_path'  => $script_path
 		]);
-
+		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
+		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
+		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
 		$listings_data = $map_card_data['listings_data'];
 		?>
 		<script>
@@ -1624,7 +1629,15 @@ class Directorist_Listings {
 		}
 
 		public function loop_wrapper_class() {
-			return ($this->loop['featured']) ? 'directorist-featured-listings' : '';
+			$class  = [];
+
+			if ( $this->loop['featured'] ) {
+				$class[] = 'directorist-featured-listings';
+			}
+
+			$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
+			
+			return implode( ' ' , $class );
 		}
 
 		public function loop_link_attr() {

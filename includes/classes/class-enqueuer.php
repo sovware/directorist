@@ -30,8 +30,7 @@ class ATBDP_Enqueuer {
         // best hook to enqueue scripts for front-end is 'template_redirect'
         // 'Professional WordPress Plugin Development' by Brad Williams
 
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-        if ( ! empty( $atbdp_legacy_template ) ) {
+        if ( Directorist\Helper::is_legacy_mode() ) {
             add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), 20 );
             add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
@@ -96,23 +95,21 @@ class ATBDP_Enqueuer {
             $disable_map = get_directorist_option( 'display_map_field' );
             
             // === Added to the new enqueuer ===
-            // if ( ! empty( $disable_map ) ) {
-            //     // get the map api from the user settings
-            //     $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-            //     //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
-            //     wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
-            //     wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
+            // get the map api from the user settings
+            $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+            //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
+            wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
+            wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
 
-            //     $admin_scripts_dependency[] = 'atbdp-google-map-front';
-            // }
-            
+            $admin_scripts_dependency[] = 'atbdp-google-map-front';
+
             // === Added to the new enqueuer ===
-            // wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
-            // wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-            // if ('openstreet' == $select_listing_map) {
-            //     wp_enqueue_script( 'openstreet_layer' );
-            //     wp_enqueue_style('leaflet-css');
-            // }
+            wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
+            wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+            if ('openstreet' == $select_listing_map) {
+                wp_enqueue_script( 'openstreet_layer' );
+                wp_enqueue_style('leaflet-css');
+            }
 
 
             // Register all styles for the admin pages

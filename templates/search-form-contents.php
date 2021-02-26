@@ -77,9 +77,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php do_action('directorist_search_listing_after_search_bar'); ?>
 
-		<div class="directorist_listing_top_category">
-			<?php $searchform->top_categories_template(); ?>
-		</div>
+		<?php $searchform->top_categories_template(); ?>
+		
 	</div>
 	
 </div>

@@ -1067,6 +1067,15 @@ class ATBDP_Multi_Directory_Migration {
 
     // get_listings_card_grid_view_data
     public function get_listings_card_grid_view_with_thumbnail_data( array $args = [] ) {
+
+        // $data = [
+        //     'default' => $this->get_default_listings_card_grid_view_with_thumbnail_data(),
+        //     'dlist' => $this->get_dlist_listings_card_grid_view_with_thumbnail_data(),
+        //     'direo' => $this->get_direo_listings_card_grid_view_with_thumbnail_data(),
+        //     'dservice' => $this->get_dservice_listings_card_grid_view_with_thumbnail_data(),  
+        // ];
+
+
         $default = [ 'listings_card_wedgets' => [] ];
         $args    = array_merge( $default, $args );
 

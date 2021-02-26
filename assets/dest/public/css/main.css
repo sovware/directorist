@@ -226,13 +226,12 @@ a {
   margin-bottom: 35px;
 }
 
+.directorist-content-active {
+  font-size: 15px;
+  line-height: 24px;
+}
 .directorist-content-active a {
   text-decoration: none !important;
-}
-.directorist-content-active p {
-  font-size: 15px;
-  color: #7a82a6;
-  line-height: 24px;
 }
 .directorist-content-active .primary-menu > li {
   margin: 0.8rem 0 0 1.6rem;
@@ -7259,6 +7258,8 @@ p.atbd-min {
 }
 .directorist-listing-details .directorist-listing-details__text p {
   margin: 0 0 15px;
+  color: #7a82a6;
+  line-height: 24px;
 }
 
 .directorist-single-wrapper .directorist-embaded-video {

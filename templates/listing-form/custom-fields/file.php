@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$post_id = $listing_form->get_add_listing_id();
+$post_id = ! empty( $listing_form->get_add_listing_id() ) ? $listing_form->get_add_listing_id() : rand();
 // wp_enqueue_style( 'atbdp-pluploadcss' );
 // wp_enqueue_script( 'atbdp-plupload-min' );
 // wp_enqueue_script( 'atbdp-plupload' );
@@ -75,11 +75,10 @@ $gd_plupload_init     = array(
 	// 'upload_img_size' => $file_size
 );
 
-wp_localize_script( 'directorist-plupload-public', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
-
+wp_localize_script( 'directorist-plupload', 'atbdp_plupload_params', $gd_plupload_init );
+wp_localize_script( 'directorist-plupload', 'atbdp_params', $text_value );
+// wp_enqueue_script( 'directorist-plupload' );
+// wp_enqueue_style( 'directorist-plupload' );
  wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
@@ -98,7 +97,7 @@ $multiple           = false;
 
 	<div class="directorist-custom-field-file-upload__wrapper">
 		<div class="" id="<?php echo $id; ?>dropbox">
-			<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $data['value'] ) ? $data['value'] : '' ; ?>"
+			<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $data['field_key'] ) ? $data['field_key'] : '' ; ?>"
 			/>
 			<input type="hidden" name="<?php echo $id; ?>image_limit" id="<?php echo $id; ?>image_limit"
 				   value="<?php echo $image_limit; ?>"/>

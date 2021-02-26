@@ -97,7 +97,7 @@ $multiple           = false;
 
 	<div class="directorist-custom-field-file-upload__wrapper">
 		<div class="" id="<?php echo $id; ?>dropbox">
-			<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $value ) ? $value : '' ; ?>"
+			<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $data['value'] ) ? $data['value'] : '' ; ?>"
 			/>
 			<input type="hidden" name="<?php echo $id; ?>image_limit" id="<?php echo $id; ?>image_limit"
 				   value="<?php echo $image_limit; ?>"/>

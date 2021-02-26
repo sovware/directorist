@@ -122,6 +122,16 @@ class Enqueue_Assets {
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
 
+        $scripts['directorist-select2'] = [
+            'file_name' => 'select2.min',
+            'base_path' => DIRECTORIST_VENDOR_CSS,
+            'has_min'   => false,
+            'has_rtl'   => false,
+            'deps'      => [],
+            'ver'       => self::$script_version,
+            'group'     => 'global', // public || admin  || global
+        ];
+
         // Admin
         // ================================
         $scripts['directorist-unicons'] = [
@@ -445,6 +455,7 @@ class Enqueue_Assets {
             'ver'       => self::$script_version,
             'group'     => 'global', // public || admin  || global
             'section'   => '__',
+            // 'shortcode' => '[__]',
         ];
 
         

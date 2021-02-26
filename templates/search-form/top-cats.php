@@ -9,8 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-listing-category-top">
-	<ul>
 
+	<h3><?php echo esc_html( $title ); ?></h3>
+
+	<ul>
 		<?php foreach ( $top_categories as $cat ): ?>
 
 			<li>
@@ -21,6 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</li>
 			
 		<?php endforeach; ?>
-
 	</ul>
+	
 </div>

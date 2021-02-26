@@ -1,3 +1,23 @@
+var loc_data        = get_dom_data( 'loc_data' );
+var atbdp_lat_lon   = get_dom_data( 'atbdp_lat_lon' );
+var listings_data   = get_dom_data( 'listings_data' );
+function get_dom_data ( key ) {
+    var dom_content = document.body.innerHTML;
+
+    if ( ! dom_content.length ) { return ''; }
+
+    var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
+    var terget_content = pattern.exec( dom_content );
+
+    if ( ! terget_content ) { return ''; }
+    if ( typeof terget_content[2] === 'undefined' ) { return ''; }
+    
+    var dom_data = JSON.parse( terget_content[2] );
+
+    if ( ! dom_data ) { return ''; }
+
+    return dom_data;
+}
 bundle1.fillPlaceholders();
 var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
 if (localVersion) {

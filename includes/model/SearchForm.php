@@ -479,13 +479,6 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		// if (is_rtl()) {
-		// 	wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-		// }
-		// else {
-		// 	wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-		//
-
 		$this->search_listing_scripts_styles();
 
 		if ( ! empty( $atts['shortcode'] ) ) {

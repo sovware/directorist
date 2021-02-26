@@ -118,13 +118,14 @@ class Directorist_Listing_Dashboard {
 	}
 
 	private function enqueue_scripts() {
-		wp_enqueue_script( 'directorist-search-form-listing' );
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search', array(
-			'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),
-			'ajax_url'        => admin_url( 'admin-ajax.php' ),
-			'added_favourite' => __( 'Added to favorite', 'directorist' ),
-			'please_login'    => __( 'Please login first', 'directorist' ),
-		));
+		wp_enqueue_script( 'directorist-atmodal' );
+		// wp_enqueue_script( 'directorist-search-form-listing' );
+		// wp_localize_script( 'directorist-search-form-listing', 'atbdp_search', array(
+		// 	'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),
+		// 	'ajax_url'        => admin_url( 'admin-ajax.php' ),
+		// 	'added_favourite' => __( 'Added to favorite', 'directorist' ),
+		// 	'please_login'    => __( 'Please login first', 'directorist' ),
+		// ));
 	}
 
 	public function get_listing_price_html() {
@@ -468,7 +469,7 @@ class Directorist_Listing_Dashboard {
 		$atts = shortcode_atts( ['show_title' => ''], $atts );
 		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
 
-		// $this->enqueue_scripts();
+		$this->enqueue_scripts();
 
 		if (!atbdp_logged_in_user()) {
 			return $this->restrict_access_template();

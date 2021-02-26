@@ -945,11 +945,19 @@ class Enqueue_Assets {
             'enable'    => is_admin(),
         ];
 
-        $scripts['directorist-plupload'] = [
+        $scripts['directorist-plupload-public'] = [
             'file_name' => 'directorist-plupload',
             'base_path' => DIRECTORIST_ADMIN_JS,
             'ver'       => self::$script_version,
-            'group'     => 'global',
+            'group'     => 'public',
+            'section'   => '__',
+        ];
+
+        $scripts['directorist-plupload-admin'] = [
+            'file_name' => 'directorist-plupload',
+            'base_path' => DIRECTORIST_ADMIN_JS,
+            'ver'       => self::$script_version,
+            'group'     => 'admin',
             'section'   => '',
         ];
 

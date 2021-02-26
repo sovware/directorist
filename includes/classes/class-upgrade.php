@@ -3,41 +3,49 @@
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
+    public $notice_id = 'migrate_to_7';
+
+    public $directorist = 'directorist/directorist-base.php';
 
     public function __construct()
     {
-      // add_action('admin_notices', array($this, 'upgrade_notice'), 100);
-       global $pagenow;
+        if ( !is_admin() ) {
+			return;
+		}
+
+        // add_action('admin_init', array($this, 'configure_notices'));
+
+        add_action('admin_notices', array($this, 'upgrade_notice'), 100);
+        global $pagenow;
         if ( 'plugins.php' === $pagenow )
         {
-            // Better update message
-            $hook = "in_plugin_update_message-directorist/directorist-base.php";
-           // add_action( $hook, array($this, 'your_update_message_cb'), 20, 2 );
+          add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
         }
     }
-    /**
+  /**
     * Displays an update message for plugin list screens.
-    * Shows only the version updates from the current until the newest version
     * 
     * @param (array) $plugin_data
-    * @param (object) $r
+    * @param (object) $response
     * @return (string) $output
     */
-    public function your_update_message_cb( $plugin_data, $r )
+    public function directorist_plugin_update_notice( $plugin_data, $response )
    {
-       // readme contents
-    //    $data       = file_get_contents( 'https://plugins.trac.wordpress.org/browser/directorist/trunk/readme.txt' );
-   
-       $new_version = $plugin_data['new_version'];
-       if( '6.5.7' == $new_version ){
+
+       $new_version = $response->new_version;
+       if( '7.0' == $new_version ){
            ob_start() ?>
-            <div>
-                <strong style="color: red;">**Attention Please**</strong>
-                <p>There are some significant changes in this new version, please have</p>
-                <p>Changes...</p>
-                <p>Changes...</p>
-                <p>Changes...</p>
-                <p>Changes...</p>
+            <div class="directorist-admin-notice-content">
+                <span class="directorist-highlighted-text"><strong>Attention!</strong> This is a major upgrade that includes significant changes and improvements. Make sure you have a backup of your site before upgrading.</span>
+                <div></div>
+                <p class="directorist-update-label">Take a look at the notable features</p>
+                <ul class="directorist-update-list">
+                    <li>Multi directory</li>
+                    <li>Custom form and layout builder</li>
+                    <li>New settings panel</li>
+                    <li>Templating</li>
+                    <li>Admin debugger</li>
+                </ul>
             </div>
            <?php
         $output = ob_get_clean();
@@ -47,22 +55,32 @@ class ATBDP_Upgrade
 
     public function upgrade_notice()
     {
-        if (!current_user_can('administrator')) return false;?>
-        <div class="updated" style="height: 300px; text-align: center;">
-            <p>To get all new <a href="">features</a> please continue <a href="">here</a> | <a href="">maybe later</a></p>
-            <ul>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-                <li>Feature....</li>
-            </ul>
-        </div>
-        <?php
+        if (!current_user_can('administrator')) return;
+
+        if( '7.0' !== ATBDP_VERSION ) return;
+
+        if ( ( get_user_meta( get_current_user_id(), $this->notice_id, true ) ) ) return;
+
+		$text = '';
+
+		$link = 'https://directorist.com/features/';
+        $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
+
+
+		$text .= sprintf( __( '<p style="margin:2px 0;">Congratulations! You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. Please make sure everything is as expected. </p>', 'directorist' ), $link ) ;
+
+		$text .= sprintf( __( '<p style="margin:2px 0;"><a href="%s">Everything is OK</a> | Rollback to 6.5.8 using this<a target="blank" style="color: red;" href="%s"> plugin</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback ) ;
+
+		$notice = '<div class="notice notice-warning is-dismissible directorist-theme-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+
+		echo wp_kses_post( $notice );
+
+    }
+
+    public function configure_notices(){
+        if ( isset( $_GET['directorist-v7'] ) ) {
+			update_user_meta( get_current_user_id(), $this->notice_id, 1 );
+		}
     }
 
 }

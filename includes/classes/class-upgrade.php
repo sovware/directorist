@@ -13,13 +13,13 @@ class ATBDP_Upgrade
 			return;
 		}
 
-        // add_action('admin_init', array($this, 'configure_notices'));
+        add_action('admin_init', array($this, 'configure_notices'));
 
-        //add_action('admin_notices', array($this, 'upgrade_notice'), 100);
+        add_action('admin_notices', array($this, 'upgrade_notice'), 100);
         global $pagenow;
         if ( 'plugins.php' === $pagenow )
         {
-          //add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
+          add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
         }
     }
   /**
@@ -64,10 +64,11 @@ class ATBDP_Upgrade
 		$text = '';
 
 		$link = 'https://directorist.com/features/';
+        $membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
         $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
 
-		$text .= sprintf( __( '<p style="margin:2px 0;">Congratulations! You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. Please make sure everything is as expected. </p>', 'directorist' ), $link ) ;
+		$text .= sprintf( __( '<p style="margin:2px 0;">Congratulations! You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. If you are using any of our premium theme or extension, please update them from this <a href="%s">page</a> </p>', 'directorist' ), $link, $membership_page ) ;
 
 		$text .= sprintf( __( '<p style="margin:2px 0;"><a href="%s">Everything is OK</a> | Rollback to 6.5.8 using this<a target="blank" style="color: red;" href="%s"> plugin</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback ) ;
 

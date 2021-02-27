@@ -9059,6 +9059,15 @@ p.atbd-min {
 .directorist-search-contents .directorist-advanced-filter .directorist-search-tags .directorist-checkbox .directorist-checkbox__label {
   margin-left: 0;
 }
+.directorist-search-contents .directorist-btn-ml::after {
+  font-family: "Line Awesome Free";
+  content: "";
+  font-weight: 900;
+  padding-left: 5px;
+}
+.directorist-search-contents .directorist-btn-ml.active:after {
+  content: "";
+}
 
 .directorist-content-active .directorist-listing-category-top {
   text-align: center;

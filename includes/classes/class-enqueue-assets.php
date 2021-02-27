@@ -454,7 +454,7 @@ class Enqueue_Assets {
             'has_min'   => false,
             'ver'       => self::$script_version,
             'group'     => 'global', // public || admin  || global
-            'section'   => '__',
+            // 'section'   => '__',
             // 'shortcode' => '[__]',
         ];
 
@@ -591,7 +591,7 @@ class Enqueue_Assets {
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
-            'shortcode' => [ 'directorist_user_dashboard' ],
+            // 'shortcode' => [ 'directorist_user_dashboard' ],
         ];
 
         $scripts['directorist-search-style'] = [

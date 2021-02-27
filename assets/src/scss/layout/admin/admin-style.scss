@@ -645,6 +645,7 @@ a {
 
 .plupload-thumbs .thumb {
   float: none !important;
+  max-width: 200px;
 }
 
 #atbdp-categories-image-wrapper {
@@ -4891,6 +4892,10 @@ div#gmap {
 .cor-wrap,
 .lat_btn_wrap {
   margin-top: 15px;
+}
+
+img.atbdp-file-info {
+  max-width: 200px;
 }
 
 // Base Style

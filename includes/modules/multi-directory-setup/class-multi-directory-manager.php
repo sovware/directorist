@@ -4889,7 +4889,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'manage_options',
                 $page_slug,
                 [$this, 'menu_page_callback__directory_types'],
-                6
+                5
             );
         }
 

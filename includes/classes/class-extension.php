@@ -1018,14 +1018,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $installing_file = $available_in_subscriptions[ $item_key ];
-            $activatation_status = $this->activate_license( $installing_file, $type );
-            $status[ 'log'] = $activatation_status;
 
-            if ( ! $activatation_status[ 'success' ] ) {
-                $status[ 'success'] = false;
-                $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
+            if ( empty( $installing_file['skip_licencing'] ) ) {
+                $activatation_status = $this->activate_license( $installing_file, $type );
+                $status[ 'log'] = $activatation_status;
 
-                return [ 'status' => $status ];
+                if ( ! $activatation_status[ 'success' ] ) {
+                    $status[ 'success'] = false;
+                    $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
             }
 
             $link = $installing_file['download_link'];

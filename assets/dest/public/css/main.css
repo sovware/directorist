@@ -3886,6 +3886,10 @@ p.atbd-min {
   pointer-events: none;
 }
 
+.directorist-modal__dialog-lg {
+  width: 900px;
+}
+
 .directorist-modal__content {
   width: 100%;
   background: #fff;
@@ -4468,6 +4472,7 @@ p.atbd-min {
 }
 .directorist-author-info-widget .directorist-author-social .directorist-author-social-item a,
 .directorist-single-author-info .directorist-author-social .directorist-author-social-item a {
+  font-size: 15px;
   margin: 5px;
   display: block;
   line-height: 35px;
@@ -4534,6 +4539,7 @@ p.atbd-min {
   border-bottom-color: #444752;
 }
 .directorist-content-active .directorist-type-nav__link {
+  font-size: 15px;
   text-decoration: none;
   display: block;
   padding: 0 15px 15px;
@@ -4945,6 +4951,7 @@ p.atbd-min {
   margin: 11px -4px -4px -4px;
 }
 .directorist-pagination .page-numbers {
+  font-size: 15px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6389,6 +6396,7 @@ p.atbd-min {
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-icon {
   line-height: 1;
+  font-size: 15px;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-icon:before {
   content: "";
@@ -9792,6 +9800,10 @@ p.atbd-min {
           justify-content: center;
   min-height: calc(100% - 5rem);
   pointer-events: none;
+}
+
+.directorist-modal__dialog-lg {
+  width: 900px;
 }
 
 .directorist-modal__content {

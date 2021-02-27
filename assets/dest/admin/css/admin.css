@@ -5254,6 +5254,10 @@ img.atbdp-file-info {
   pointer-events: none;
 }
 
+.directorist-modal__dialog-lg {
+  width: 900px;
+}
+
 .directorist-modal__content {
   width: 100%;
   background: #fff;
@@ -6500,6 +6504,10 @@ img.atbdp-file-info {
           justify-content: center;
   min-height: calc(100% - 5rem);
   pointer-events: none;
+}
+
+.directorist-modal__dialog-lg {
+  width: 900px;
 }
 
 .directorist-modal__content {

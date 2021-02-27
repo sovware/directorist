@@ -102,14 +102,14 @@
           if (!data.element) {
               return data.text;
           }
-           var $element = $(data.element);
-           var $wrapper = $('<span></span>');
+            var $element = $(data.element);
+            var $wrapper = $('<span></span>');
           $wrapper.addClass($element[0].className);
-           $wrapper.text(data.text);
-           return $wrapper;
+            $wrapper.text(data.text);
+            return $wrapper;
       }
   });
-   // Category
+    // Category
   $('#at_biz_dir-category').select2({
       placeholder: atbdp_search_listing.i18n_text.category_selection,
       allowClear: true,
@@ -118,11 +118,11 @@
           if (!data.element) {
               return data.text;
           }
-           var $element = $(data.element);
-           var $wrapper = $('<span></span>');
+            var $element = $(data.element);
+            var $wrapper = $('<span></span>');
           $wrapper.addClass($element[0].className);
-           $wrapper.text(data.text);
-           return $wrapper;
+            $wrapper.text(data.text);
+            return $wrapper;
       }
   }); */
   //ad search js
@@ -142,7 +142,7 @@
   if (checkbox.length <= 4) {
       show_more.remove();
   }
-    var item = $('.custom-control').closest('.bads-custom-checks');
+      var item = $('.custom-control').closest('.bads-custom-checks');
   item.each(function (index, el) {
       var count = 0;
       var abc = $(el)[0];
@@ -151,24 +151,26 @@
           $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
       }
       $(abc2).slice(4, abc2.length).hide();
-   });
-    $('body').on('click', '.more-or-less', function(event) {
-      event.preventDefault();
-      var item = $(this).closest('.atbdp_cf_checkbox, .ads-filter-tags');
-      var abc2 = $(item).find('.custom-control');
-      $(abc2).slice(4, abc2.length).slideUp();
-       $(this).toggleClass('active');
-      if($(this).hasClass('active')){
-         $(this).text(atbdp_search_listing.i18n_text.show_less);
-         $(abc2).slice(4, abc2.length).slideDown();
-     } else {
-         $(this).text(atbdp_search_listing.i18n_text.show_more);
-         $(abc2).slice(4, abc2.length).slideUp();
-     }
-   });
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+    });
+      
+      $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+  $('body').on('click', '.directorist-btn-ml', function (event) {
+    event.preventDefault();
+    var item = $(this).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
+    var abc2 = $(item).find('.directorist-checkbox ');
+    $(abc2).slice(4, abc2.length).slideUp();
+    $(this).toggleClass('active');
 
+    if ($(this).hasClass('active')) {
+      $(this).text(atbdp_search_listing.i18n_text.show_less);
+      $(abc2).slice(4, abc2.length).slideDown();
+    } else {
+      $(this).text(atbdp_search_listing.i18n_text.show_more);
+      $(abc2).slice(4, abc2.length).slideUp();
+    }
+  });
   /* Advanced search */
+
   var ad = $(".directorist-search-float .directorist-advanced-filter");
   ad.css({
     visibility: 'hidden',

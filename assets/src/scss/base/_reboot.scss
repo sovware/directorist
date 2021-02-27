@@ -28,6 +28,7 @@ a {
 
   a,
   button {
+    color: $primary;
     &:focus {
       outline: none;
     }

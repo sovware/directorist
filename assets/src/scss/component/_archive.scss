@@ -24,6 +24,7 @@
     }
 
     @include e(link) {
+        font-size: 15px;
         text-decoration: none;
         display: block;
         padding: 0 15px 15px;

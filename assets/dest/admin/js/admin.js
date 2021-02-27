@@ -2508,7 +2508,7 @@ $('.ext-action-uninstall').on('click', function (e) {
   });
 }); // Bulk checkbox toggle
 
-$('#atbdp-my-extensions-form').find('input[name="select-all"]').on('change', function (e) {
+$('#select-all-installed').on('change', function (e) {
   var is_checked = $(this).is(':checked');
 
   if (is_checked) {
@@ -2517,7 +2517,7 @@ $('#atbdp-my-extensions-form').find('input[name="select-all"]').on('change', fun
     $('#atbdp-my-extensions-form').find('.extension-name-checkbox').prop('checked', false);
   }
 });
-$('#atbdp-my-subscribed-extensions-form').find('input[name="select-all"]').on('change', function (e) {
+$('#select-all-subscription').on('change', function (e) {
   var is_checked = $(this).is(':checked');
 
   if (is_checked) {
@@ -2526,7 +2526,7 @@ $('#atbdp-my-subscribed-extensions-form').find('input[name="select-all"]').on('c
     $('#atbdp-my-subscribed-extensions-form').find('.extension-name-checkbox').prop('checked', false);
   }
 });
-$('#atbdp-required-extensions-form').find('input[name="select-all"]').on('change', function (e) {
+$('#select-all-required-extensions').on('change', function (e) {
   var is_checked = $(this).is(':checked');
 
   if (is_checked) {

@@ -1335,6 +1335,7 @@ function admin_listing_form(directory_type) {
       $('#at_biz_dir-categorychecklist').empty().html(response.data['listing_categories']);
       $('#listing_form_info').find('.directorist_loader').remove();
       $('select[name="directory_type"]').closest('#poststuff').find('#publishing-action').removeClass('directorist_disable');
+      window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
 
       if (response.data['required_js_scripts']) {
         var scripts = response.data['required_js_scripts'];

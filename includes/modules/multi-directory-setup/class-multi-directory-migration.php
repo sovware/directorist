@@ -1074,6 +1074,8 @@ class ATBDP_Multi_Directory_Migration {
 
         $card_layouts = [
             'thumbnail_top_right' => [],
+            'thumbnail_top_left'  => [],
+            'thumbnail_bottom_left' => [],
             'thumbnail_avatar'    => [],
             'body_top'            => [],
             'bottom_left'         => [],
@@ -1086,10 +1088,33 @@ class ATBDP_Multi_Directory_Migration {
             'favorite_badge' => [
                 'layout' => [
                     'default' => 'thumbnail_top_right',
-                    'dlist' => 'thumbnail_top_right',
                 ],
                 'enable' => get_directorist_option( 'display_mark_as_fav', true )
-            ]
+            ],
+            'featured_badge' => [
+                'layout' => [
+                    'default' => 'thumbnail_top_left',
+                ],
+                'enable' => get_directorist_option( 'display_feature_badge_cart', true )
+            ],
+            'new_badge' => [
+                'layout' => [
+                    'default'   => 'thumbnail_bottom_left',
+                    'direo'     => 'thumbnail_top_left',
+                    'dlist'     => 'thumbnail_top_left',
+                    'dservice'  => 'thumbnail_top_left',
+                ],
+                'enable' => get_directorist_option( 'display_new_badge_cart', true )
+            ],
+            'popular_badge' => [
+                'layout' => [
+                    'default'   => 'thumbnail_bottom_left',
+                    'direo'     => 'thumbnail_top_left',
+                    'dlist'     => 'thumbnail_top_left',
+                    'dservice'  => 'thumbnail_top_left',
+                ],
+                'enable' => get_directorist_option( 'display_popular_badge_cart', true )
+            ],
         ];
 
         $current_theme = wp_get_theme();

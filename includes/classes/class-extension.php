@@ -708,9 +708,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }
+            
+            if ( ! empty( $response_body['license_data']['old_theme_user'] ) ) {
+                update_option( '_directorist_old_theme_user_before_v7', true );
+            }
 
             $previous_username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
-            
+           
             // Enable Sassion
             update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );

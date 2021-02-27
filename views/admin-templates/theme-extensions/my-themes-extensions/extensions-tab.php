@@ -14,7 +14,7 @@
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" name="select-all-installed" id="">
+                                                    <input type="checkbox" name="select-all-installed" id="select-all-installed">
                                                     <label class="directorist-checkbox__label" for="select-all-installed" ></label>
                                                 </div>
                                             </div>
@@ -110,7 +110,7 @@
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" name="select-all-subscription" id="">
+                                                    <input type="checkbox" name="select-all-subscription" id="select-all-subscription">
                                                     <label class="directorist-checkbox__label" for="select-all-subscription"></label>
                                                 </div>
                                             </div>
@@ -184,8 +184,8 @@
                                         <div class="ei-action-wrapper">
                                             <div class="ei-select-all">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" name="select-all" id="select-all-extesions">
-                                                    <label class="directorist-checkbox__label" for="select-allextensions"></label>
+                                                    <input type="checkbox" name="select-all" id="select-all-required-extensions">
+                                                    <label class="directorist-checkbox__label" for="select-all-required-extensions"></label>
                                                 </div>
                                             </div>
                                             <div class="ei-action-dropdown">

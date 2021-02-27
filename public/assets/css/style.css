@@ -13028,6 +13028,10 @@ p.atbd-min {
   pointer-events: none;
 }
 
+.directorist-modal__dialog-lg {
+  width: 900px;
+}
+
 .directorist-modal__content {
   width: 100%;
   background: #fff;
@@ -13304,6 +13308,55 @@ p.atbd-min {
   from {
     opacity: 0;
   }
+}
+
+.directorist-card {
+  border: 1px solid #e3e6ef;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.directorist-card .directorist-card__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e3e6ef;
+  border-radius: 4px 4px 0 0;
+}
+
+.directorist-card .directorist-card__header .directorist-card__header--title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #444752;
+  letter-spacing: normal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.directorist-card .directorist-card__header .directorist-card__header--title i,
+.directorist-card .directorist-card__header .directorist-card__header--title span.la,
+.directorist-card .directorist-card__header .directorist-card__header--title span.fa {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #444752;
+}
+
+.directorist-card .directorist-card__body {
+  padding: 20px 25px;
+  border-radius: 0 0 4px 4px;
+}
+
+.directorist-card .directorist-card__body p {
+  font-size: 15px;
+}
+
+.directorist-card .directorist-card__body p:last-child {
+  margin-bottom: 0;
 }
 
 .ads-advanced .bottom-inputs {

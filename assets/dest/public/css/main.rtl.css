@@ -25,6 +25,10 @@ a {
   list-style: none;
   margin: 0;
 }
+.directorist-content-active a,
+.directorist-content-active button {
+  color: #444752;
+}
 .directorist-content-active a:focus,
 .directorist-content-active button:focus {
   outline: none;
@@ -4788,6 +4792,9 @@ p.atbd-min {
   padding: 0 15px;
 }
 
+.directorist-search-field {
+  font-size: 15px;
+}
 .directorist-search-field .wp-picker-container .wp-picker-clear,
 .directorist-search-field .wp-picker-container .wp-color-result {
   position: relative;
@@ -5732,6 +5739,7 @@ p.atbd-min {
 }
 /* custom dropdown */
 .atbd-dropdown {
+  font-size: 15px;
   position: relative;
 }
 
@@ -5811,6 +5819,7 @@ p.atbd-min {
   margin-left: 15px;
 }
 .directorist-content-active .atbd_generic_header .atbd_generic_header_title h3 {
+  font-weight: 500;
   color: #7a82a6;
   margin: 0;
   font-size: 15px;
@@ -5833,6 +5842,7 @@ p.atbd-min {
 
 /* atbd dropdown */
 .atbd_dropdown {
+  font-size: 15px;
   margin-left: 10px;
   position: relative;
 }
@@ -5938,6 +5948,13 @@ p.atbd-min {
   background-color: #00AC17;
 }
 
+.directorist-form-section {
+  font-size: 15px;
+}
+
+.directorist-listing-single {
+  font-size: 15px;
+}
 .directorist-listing-single .directorist-badge {
   margin: 3px;
 }

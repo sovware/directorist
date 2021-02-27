@@ -1125,7 +1125,7 @@ class ATBDP_Multi_Directory_Migration {
 
             if ( isset( $args['enable'] ) && empty( $args['enable'] ) ) { continue; }
 
-            $layout = ( in_array( $current_theme, array_keys( $args['layout'] ) ) ) ? $args['layout'][ $current_theme ] : $args['layout']['default'];
+            $layout = ( in_array( $current_theme, array_keys( $args['layout'] ) ) && ( !empty( $args['layout'][ $current_theme ] ) ) ) ? $args['layout'][ $current_theme ] : $args['layout']['default'];
             $card_layouts[ $layout ] = $listings_card_wedgets[ $widget_key ];
         }
 
@@ -1140,26 +1140,6 @@ class ATBDP_Multi_Directory_Migration {
         $listings_card_grid_view_footer_left           = [];
         $listings_card_grid_view_body_excerpt          = [];
 
-        // @ Listings Card Grid View - thumbnail_top_right
-        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
-            $listings_card_grid_view_thumbnail_top_right[] = $listings_card_wedgets['favorite_badge']; 
-        }
-
-        // Listings Card Grid View - thumbnail_top_left
-        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_top_left[] = $listings_card_wedgets['featured_badge'];
-        }
-
-        // Listings Card Grid View - thumbnail_bottom_left
-        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['new_badge'];
-        }
-
-        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['popular_badge'];
-        }
-
-        // -------->
 
         // listings_card_grid_view_thumbnail_avatar
         if ( get_directorist_option( 'display_author_image', true ) ) {

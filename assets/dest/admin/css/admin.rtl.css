@@ -4811,6 +4811,31 @@ input.atbdp-form-control {
   top: 2px;
 }
 
+.csv-action-btns {
+  padding-right: 15px;
+}
+
+#atbdp_ie_download_sample {
+  display: inline-block;
+  padding: 0 20px;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #3E62F5;
+  background: #3E62F5;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+#atbdp_ie_download_sample:hover {
+  border-color: #264ef4;
+  background: #264ef4;
+  color: #fff;
+}
+
 div#gmap {
   height: 400px;
 }

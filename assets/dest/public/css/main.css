@@ -4853,10 +4853,10 @@ p.atbd-min {
   font-weight: 400;
 }
 
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group label {
+.directorist-form-group .form-group label {
   min-width: 150px;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn {
+.directorist-form-group .form-group .check-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4865,17 +4865,17 @@ p.atbd-min {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn .btn-checkbox {
+.directorist-form-group .form-group .check-btn .btn-checkbox {
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label {
+.directorist-form-group .form-group .check-btn label {
   width: 100%;
   margin: 0;
   position: relative;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label input {
+.directorist-form-group .form-group .check-btn label input {
   position: absolute;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -4889,18 +4889,18 @@ p.atbd-min {
   border: 0 none;
   background: transparent !important;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label input:checked + span {
+.directorist-form-group .form-group .check-btn label input:checked + span {
   background-color: #444752;
   border-color: #444752;
   color: #fff;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label input:checked + span i {
+.directorist-form-group .form-group .check-btn label input:checked + span i {
   color: #fff;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label input:before {
+.directorist-form-group .form-group .check-btn label input:before {
   display: none;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label span {
+.directorist-form-group .form-group .check-btn label span {
   text-align: center;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4923,7 +4923,7 @@ p.atbd-min {
   border-radius: 4px;
   color: #767792;
 }
-.directorist-search-form-box .direcorist-search-field-business_hours .form-group .check-btn label span i {
+.directorist-form-group .form-group .check-btn label span i {
   font-size: 15px;
   color: #7a82a6;
   margin-right: 5px;

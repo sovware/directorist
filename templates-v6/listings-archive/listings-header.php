@@ -55,9 +55,12 @@
 					?>
 				</div>
 
-				<div class="<?php $listings->filter_container_class(); ?>">
-					<?php $listings->advanced_search_form_template();?>
-				</div>
+				<?php if ( $listings->advanced_filter ) { ?>
+					<div class="<?php $listings->filter_container_class(); ?>">
+						<?php $listings->advanced_search_form_template();?>
+					</div>
+				<?php } ?>
+
 			</div>
 		</div>
 	</div>

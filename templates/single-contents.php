@@ -19,7 +19,7 @@ $listing = Directorist_Single_Listing::instance();
 
 		<div class="<?php Helper::directorist_row(); ?>">
 
-			<div class="<?php Helper::directorist_column('md-8'); ?>">
+			<div class="<?php Helper::directorist_single_column(); ?>">
 
 				<?php Helper::get_template( 'single/top-actions' ); ?>
 

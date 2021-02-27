@@ -4849,6 +4849,47 @@ img.atbdp-file-info {
   max-width: 200px;
 }
 
+/* admin notice */
+.directorist__notice_new {
+  font-size: 14px;
+  font-weight: 500;
+}
+.directorist__notice_new span {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+}
+.directorist__notice_new a {
+  color: #3e62f5;
+  font-weight: 700;
+}
+
+.directorist__notice_new_action {
+  color: red;
+}
+.directorist__notice_new_action a {
+  color: #3e62f5;
+  font-weight: 700;
+}
+.directorist__notice_new_action .directorist__notice_new__btn {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #3e62f5;
+  padding: 8px 17px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+  font-weight: 500;
+  font-size: 15px;
+  color: #fff;
+  background-color: #3e62f5;
+  margin-right: 10px;
+}
+.directorist__notice_new_action .directorist__notice_new__btn:hover {
+  color: #fff;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

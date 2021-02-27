@@ -24,7 +24,7 @@ class ATBDP_Upgrade
     }
   /**
     * Displays an update message for plugin list screens.
-    * 
+    *
     * @param (array) $plugin_data
     * @param (object) $response
     * @return (string) $output
@@ -68,9 +68,9 @@ class ATBDP_Upgrade
 
         $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
 
-		$text .= sprintf( __( '<p style="margin:2px 0;">Congratulations! You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. If you are using any of our premium theme or extension, please update them from this <a href="%s">page</a> </p>', 'directorist' ), $link, $membership_page ) ;
+		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Congratulations!</span> You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. If you are using any of our premium theme or extension, please update them from this <a href="%s">page</a> </p>', 'directorist' ), $link, $membership_page ) ;
 
-		$text .= sprintf( __( '<p style="margin:2px 0;"><a href="%s">Everything is OK</a> | Rollback to 6.5.8 using this<a target="blank" style="color: red;" href="%s"> plugin</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback ) ;
+		$text .= sprintf( __( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Everything is OK</a> Rollback to 6.5.8 using <a target="blank" href="%s"> this plugin</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback ) ;
 
 		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 

@@ -4883,11 +4883,12 @@ input.atbdp-form-control {
     }
   }
 }
-.csv-action-btns{
+
+.csv-action-btns {
   padding-left: 15px;
 }
 
-#atbdp_ie_download_sample{
+#atbdp_ie_download_sample {
   display: inline-block;
   padding: 0 20px;
   color: #fff;
@@ -4900,7 +4901,8 @@ input.atbdp-form-control {
   border: 1px solid #3E62F5;
   background: #3E62F5;
   transition: all ease-in-out 300ms;
-  &:hover{
+
+  &:hover {
     border-color: darken(#3E62F5, 5);
     background: darken(#3E62F5, 5);
     color: #fff;
@@ -4919,6 +4921,51 @@ div#gmap {
 
 img.atbdp-file-info {
   max-width: 200px;
+}
+
+/* admin notice */
+.directorist__notice_new {
+  font-size: 14px;
+  font-weight: 500;
+
+  span {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  a {
+    color: #3e62f5;
+    font-weight: 700;
+  }
+}
+
+.directorist__notice_new_action {
+  color: red;
+
+  a {
+    color: #3e62f5;
+    font-weight: 700;
+  }
+
+  .directorist__notice_new__btn {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #3e62f5;
+    padding: 8px 17px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+    font-weight: 500;
+    font-size: 15px;
+    color: #fff;
+    background-color: #3e62f5;
+    margin-right: 10px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 // Base Style

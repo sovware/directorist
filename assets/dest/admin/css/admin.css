@@ -526,6 +526,7 @@ a {
 
 .plupload-thumbs .thumb {
   float: none !important;
+  max-width: 200px;
 }
 
 #atbdp-categories-image-wrapper {
@@ -4819,6 +4820,10 @@ div#gmap {
   margin-top: 15px;
 }
 
+img.atbdp-file-info {
+  max-width: 200px;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;
@@ -4919,7 +4924,6 @@ div#gmap {
 
 .directorist-content-active {
   font-size: 15px;
-  line-height: 24px;
 }
 .directorist-content-active a {
   text-decoration: none !important;
@@ -5248,6 +5252,10 @@ div#gmap {
           justify-content: center;
   min-height: calc(100% - 5rem);
   pointer-events: none;
+}
+
+.directorist-modal__dialog-lg {
+  width: 900px;
 }
 
 .directorist-modal__content {
@@ -6496,6 +6504,10 @@ div#gmap {
           justify-content: center;
   min-height: calc(100% - 5rem);
   pointer-events: none;
+}
+
+.directorist-modal__dialog-lg {
+  width: 900px;
 }
 
 .directorist-modal__content {

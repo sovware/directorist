@@ -138,6 +138,9 @@
     min-height: calc(100% - 5rem);
     pointer-events: none;
 }
+.directorist-modal__dialog-lg{
+  width: 900px;
+}
 
 .directorist-modal__content{
     width: 100%;
@@ -254,3 +257,193 @@
     }
 }
 
+/* Directorist Tooltip */
+.directorist-tooltip {
+    position: relative;
+
+    &.directorist-tooltip-bottom{
+      &[aria-label]:before {
+        bottom: -8px;
+        top: auto;
+        border-top-color:#fff;
+        border-bottom-color:rgba(0, 0, 0, 1);
+      }
+      &[aria-label]:after{
+        transform: translate(-50%);
+        top: 100%;
+        margin-top: 8px;
+      }
+    }
+    &[aria-label]:before,
+    &[aria-label]:after {
+      position: absolute !important;
+      bottom: 100%;
+      display: none;
+      height: fit-content;
+      animation: showTooltip 0.3s ease;
+    }
+  
+    &[aria-label]:before {
+      content: "";
+      left: 50%;
+      top: -6px;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(0, 0, 0, 1);
+    }
+  
+    &[aria-label]:after {
+      font-size: 14px;
+      content: attr(aria-label);
+      left: 50%;
+      transform: translate(-50%, -6px);
+      background: rgba(0, 0, 0, 1);
+      padding: 4px 12px;
+      border-radius: 0.2em;
+      color: #fff;
+      z-index: 9999;
+      text-align: center;
+      min-width: 140px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  
+    &[aria-label]:hover:before,
+    &[aria-label]:hover:after {
+      display: block;
+    }
+    .directorist-tooltip__label{
+      font-size: 16px;
+      color: $dark;
+    }
+}
+
+// Directorist Tooltip Type
+.directorist-tooltip {
+    &.directorist-tooltip-primary{
+      &[aria-label]:after {
+        background-color: $primary;
+      }
+      &[aria-label]:before {
+        border-top-color: $primary;
+      }
+    }
+    &.directorist-tooltip-secondary{
+      &[aria-label]:after {
+        background-color: $secondary;
+      }
+      &[aria-label]:before {
+        border-bottom-color: $secondary;
+      }
+    }
+    &.directorist-tooltip-info{
+      &[aria-label]:after {
+        background-color: $info;
+      }
+      &[aria-label]:before {
+        border-top-color: $info;
+      }
+    }
+    &.directorist-tooltip-warning{
+      &[aria-label]:after {
+        background-color: $warning;
+      }
+      &[aria-label]:before {
+        border-top-color: $warning;
+      }
+    }
+    &.directorist-tooltip-success{
+      &[aria-label]:after {
+        background-color: $success;
+      }
+      &[aria-label]:before {
+        border-top-color: $success;
+      }
+    }
+    &.directorist-tooltip-danger{
+      &[aria-label]:after {
+        background-color: $danger;
+      }
+      &[aria-label]:before {
+        border-top-color: $danger;
+      }
+    }
+    &.directorist-tooltip-bottom{
+      &.directorist-tooltip-primary{
+        &[aria-label]:before {
+          border-bottom-color: $primary;
+        }
+      }
+      &.directorist-tooltip-secondary{
+        &[aria-label]:before {
+          border-bottom-color: $secondary;
+        }
+      }
+      &.directorist-tooltip-info{
+        &[aria-label]:before {
+          border-bottom-color: $info;
+        }
+      }
+      &.directorist-tooltip-warning{
+        &[aria-label]:before {
+          border-bottom-color: $warning;
+        }
+      }
+      &.directorist-tooltip-success{
+        &[aria-label]:before {
+          border-bottom-color: $success;
+        }
+      }
+      &.directorist-tooltip-danger{
+        &[aria-label]:before {
+          border-bottom-color: $danger;
+        }
+      }
+    }
+  }
+    
+  @keyframes showTooltip {
+      from {
+          opacity: 0;
+      }
+  }
+
+  // Directorist Card Style
+.directorist-card{
+  border: 1px solid #e3e6ef;
+  border-radius: 4px;
+  background-color: #fff;
+  .directorist-card__header{
+      padding: 16px 20px;
+      border-bottom: 1px solid #e3e6ef;
+      border-radius: 4px 4px 0 0;
+      .directorist-card__header--title{
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.2;
+          color: $primary;
+          letter-spacing: normal;
+          display: flex;
+          align-items: center;
+          padding: 0;
+          margin: 0;
+          i,
+          span.la,
+          span.fa{
+              font-size: 16px;
+              margin-right: 10px;
+              color: #444752;
+          }
+      }
+  }
+  .directorist-card__body{
+      padding: 20px 25px;
+      border-radius: 0 0 4px 4px;
+      p{
+          font-size: 15px;
+          &:last-child{
+              margin-bottom: 0;
+          }
+      }
+  }
+}

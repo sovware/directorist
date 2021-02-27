@@ -7,9 +7,7 @@ a {
 }
 
 .directorist-content-active {
-  div {
-    font-size: 15px;
-  }
+  font-size: 15px;
 
   article {
     margin-bottom: 0;
@@ -30,6 +28,7 @@ a {
 
   a,
   button {
+    color: $primary;
     &:focus {
       outline: none;
     }

@@ -1,6 +1,6 @@
 // Single Listing Style
 .directorist-listing-single {
-
+    font-size: 15px;
     .directorist-badge {
         margin: 3px;
 
@@ -468,6 +468,7 @@
 
     .directorist-favorite-icon {
         line-height: 1;
+        font-size: 15px;
 
         &:before {
             content: "\f004";

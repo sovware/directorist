@@ -2778,6 +2778,39 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
+.directorist-content-active .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap,
+.directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap,
+.directorist-content-active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap {
+  margin: 15px -5px -5px -5px;
+}
+.directorist-content-active .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p,
+.directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p,
+.directorist-content-active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.directorist-content-active .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
+.directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
+.directorist-content-active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a {
+  margin: 5px;
+  display: block;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  background-color: #444752 !important;
+  border-radius: 4px;
+  color: #ffffff !important;
+  overflow: hidden;
+  -webkit-transition: all ease-in-out 300ms !important;
+  transition: all ease-in-out 300ms !important;
+}
+.directorist-content-active .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a span,
+.directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a span,
+.directorist-content-active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a span {
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 900;
+  font-size: 15px;
+}
 .directorist-content-active .widget.atbd_widget[id^=bd] .atbdp-widget-listing-contact form .form-control,
 .directorist-content-active .widget.atbd_widget[id^=dcl] .atbdp-widget-listing-contact form .form-control,
 .directorist-content-active .widget.atbd_widget .atbdp-widget-listing-contact form .form-control {
@@ -8738,6 +8771,9 @@ p.atbd-min {
   margin-left: 6px;
   font-size: 16px;
   color: #0A0B1E;
+}
+.directorist-user-socials label .directorist-social-icon .fa {
+  font-family: "Font Awesome 5 Brands";
 }
 
 #directorist-prifile-notice .directorist-alert {

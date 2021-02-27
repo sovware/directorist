@@ -564,6 +564,34 @@
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     }
+
+    .atbd_social_wrap {
+      margin: 15px -5px -5px -5px;
+
+      p {
+        display: inline-block;
+        margin-bottom: 0;
+
+        a {
+          margin: 5px;
+          display: block;
+          line-height: 35px;
+          width: 35px;
+          text-align: center;
+          background-color: #444752 !important;
+          border-radius: 4px;
+          color: #ffffff !important;
+          overflow: hidden;
+          transition: all ease-in-out 300ms !important;
+
+          span {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 900;
+            font-size: 15px;
+          }
+        }
+      }
+    }
   }
 
   .atbdp-widget-listing-contact {

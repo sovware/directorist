@@ -708,9 +708,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }
+            
+            if ( ! empty( $response_body['license_data']['old_theme_user'] ) ) {
+                update_option( '_directorist_old_theme_user_before_v7', true );
+            }
 
             $previous_username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
-            
+           
             // Enable Sassion
             update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
@@ -1014,14 +1018,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $installing_file = $available_in_subscriptions[ $item_key ];
-            $activatation_status = $this->activate_license( $installing_file, $type );
-            $status[ 'log'] = $activatation_status;
 
-            if ( ! $activatation_status[ 'success' ] ) {
-                $status[ 'success'] = false;
-                $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
+            if ( empty( $installing_file['skip_licencing'] ) ) {
+                $activatation_status = $this->activate_license( $installing_file, $type );
+                $status[ 'log'] = $activatation_status;
 
-                return [ 'status' => $status ];
+                if ( ! $activatation_status[ 'success' ] ) {
+                    $status[ 'success'] = false;
+                    $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
             }
 
             $link = $installing_file['download_link'];

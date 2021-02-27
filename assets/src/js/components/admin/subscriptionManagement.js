@@ -1054,11 +1054,9 @@ $('.ext-action-uninstall').on('click', function (e) {
 });
 
 // Bulk checkbox toggle
-$('#atbdp-my-extensions-form')
-    .find('input[name="select-all"]')
+$('#select-all-installed')
     .on('change', function (e) {
         const is_checked = $(this).is(':checked');
-
         if (is_checked) {
             $('#atbdp-my-extensions-form')
                 .find('.extension-name-checkbox')
@@ -1070,8 +1068,7 @@ $('#atbdp-my-extensions-form')
         }
     });
 
-$('#atbdp-my-subscribed-extensions-form')
-    .find('input[name="select-all"]')
+$('#select-all-subscription')
     .on('change', function (e) {
         const is_checked = $(this).is(':checked');
 
@@ -1086,8 +1083,7 @@ $('#atbdp-my-subscribed-extensions-form')
         }
     });
 
-$('#atbdp-required-extensions-form')
-    .find('input[name="select-all"]')
+$('#select-all-required-extensions')
     .on('change', function (e) {
         const is_checked = $(this).is(':checked');
 

@@ -71,10 +71,15 @@
     });
 
 
-    $('body').on('click', '.more-or-less', function(event) {
+    
+
+
+    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+
+    $('body').on('click', '.directorist-btn-ml', function(event) {
         event.preventDefault();
-        var item = $(this).closest('.atbdp_cf_checkbox, .ads-filter-tags');
-        var abc2 = $(item).find('.custom-control');
+        var item = $(this).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
+        var abc2 = $(item).find('.directorist-checkbox ');
         $(abc2).slice(4, abc2.length).slideUp();
 
         $(this).toggleClass('active');
@@ -88,9 +93,6 @@
        }
 
     });
-
-
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
 
     /* Advanced search */
     var ad = $(".directorist-search-float .directorist-advanced-filter");

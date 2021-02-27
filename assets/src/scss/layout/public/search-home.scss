@@ -224,6 +224,21 @@
             }
         }
     }
+
+    
+    .directorist-btn-ml{
+        &::after{
+            font-family: 'Line Awesome Free';
+            content: '\f107';
+            font-weight: 900;
+            padding-left: 5px;
+        }
+        &.active{
+            &:after{
+                content: '\f106';
+            }
+        }
+    }
 }
 
 // Directorist listing Category

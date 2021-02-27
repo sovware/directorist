@@ -364,7 +364,9 @@ class Directorist_Listing_Search_Form {
 
 
 	public function directory_type_nav_template() {
-		if( count( $this->get_listing_type_data() ) < 2 ) {
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+
+		if( count( $this->get_listing_type_data() ) < 2 || empty( $enable_multi_directory ) ) {
 			return;
 		}
 

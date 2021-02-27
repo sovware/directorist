@@ -3416,6 +3416,10 @@ input[type=radio] {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
+.settings-save-btn:focus {
+  color: #fff;
+  outline: none;
+}
 .settings-save-btn:hover {
   border-color: #264ef4;
   background: #264ef4;

@@ -51,7 +51,7 @@ if( isset( $_GET['notice'] ) ) {
 
 $author_id         	  = get_post_field('post_author', $id);
 $class_col         	  = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-$class_float      		  = $redirect ? 'atbdp_float_active' : 'atbdp_float_none';
+$class_float      	  = $redirect ? 'atbdp_float_active' : 'atbdp_float_none';
 $display_back_link 	  = !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '';
 $edit_text         	  = apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist'));
 $submit_text       	  = apply_filters('atbdp_listing_preview_btn_text', $submit_text);

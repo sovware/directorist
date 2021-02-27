@@ -288,7 +288,7 @@
     }
 }
 
-.settings-save-btn {
+.settings-save-btn{
     display: inline-block;
     padding: 0 20px;
     color: #fff;
@@ -301,6 +301,11 @@
     border: 1px solid #3E62F5;
     background: #3E62F5;
     transition: all ease-in-out 300ms;
+
+    &:focus{
+        color: #fff;
+        outline: none;
+    }
 
     &:hover {
         border-color: darken(#3E62F5, 5);

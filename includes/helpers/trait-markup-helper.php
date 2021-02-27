@@ -39,6 +39,11 @@ trait Markup_Helper {
 		echo esc_attr( $result );
 	}
 
+	public static function directorist_single_column() {
+		$column = is_active_sidebar('right-sidebar-listing') ? 'md-8' : 'md-12';
+		Helper::directorist_column( $column );
+	}
+
 	public static function search_filter_class( $display_type ) {
 		if( ! directorist_legacy_mode() ){
 			$result = ( 'overlapping' === $display_type ) ? 'directorist-search-float' : 'directorist-search-slide';

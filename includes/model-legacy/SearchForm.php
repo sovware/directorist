@@ -370,7 +370,8 @@ class Directorist_Listing_Search_Form {
 
 
 	public function listing_type_template() {
-		if( count( $this->get_listing_types() ) < 2 ) return;
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+		if( count( $this->get_listing_types() ) < 2 || empty( $enable_multi_directory ) ) return;
 		$args = array(
 			'searchform' 		=> $this,
 			'listing_types'     => $this->get_listing_types(),

@@ -573,7 +573,7 @@ class Directorist_Listing_Form {
 			'section_data' => $section_data,
 		);
 
-		$load_section = apply_filters( 'directorist_section_template', true, $section_data );
+		$load_section = apply_filters( 'directorist_section_template', true, $args );
 
 		if( $load_section ) {
 			Helper::get_template( 'listing-form/section', $args );

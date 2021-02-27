@@ -13,7 +13,7 @@
 /**
  * Directorist file uploader
  */
-$post_id = $form->get_add_listing_id();
+$post_id = ! empty( $form->get_add_listing_id() ) ? $form->get_add_listing_id() : rand();
 wp_enqueue_style( 'atbdp-pluploadcss' );
 wp_enqueue_script( 'atbdp-plupload-min' );
 wp_enqueue_script( 'atbdp-plupload' );
@@ -84,6 +84,9 @@ wp_localize_script( 'directorist-plupload-public', 'atbdp_plupload_params', $gd_
 wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value );
 wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
 wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
+
+Directorist\Helper::add_hidden_data_to_dom( 'atbdp_plupload_params', $gd_plupload_init );
+Directorist\Helper::add_hidden_data_to_dom( 'atbdp_params', $text_value );
 
 wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );

@@ -85,6 +85,9 @@ wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value )
 wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
 wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
 
+Directorist\Helper::add_hidden_data_to_dom( 'atbdp_plupload_params', $gd_plupload_init );
+Directorist\Helper::add_hidden_data_to_dom( 'atbdp_params', $text_value );
+
 wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
  wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );

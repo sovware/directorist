@@ -2,7 +2,10 @@ jQuery.fn.exists = function() {
     return jQuery(this).length > 0;
 }
 
-jQuery(document).ready(function($) {
+var $ = jQuery;
+jQuery(document).ready( init );
+
+function init() {
     if ($(".plupload-upload-uic").exists()) {
         var pconfig = false;
         var msgErr = '';
@@ -212,8 +215,7 @@ jQuery(document).ready(function($) {
             });
         });
     }
-
-});
+}
 
 function atbdp_esc_entities(str){
     var entityMap = {

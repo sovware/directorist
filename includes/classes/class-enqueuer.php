@@ -529,7 +529,7 @@ class ATBDP_Enqueuer {
 
     public function current_listing_type() {
         $type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
-        if( ! is_numeric( $type ) ) {
+        if( ! empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
 			$type = $term->term_id;
 		}

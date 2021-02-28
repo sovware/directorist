@@ -256,7 +256,7 @@ If you face any issues with managing this awesome business directory plugin in p
 
 == Contribute to Directorist - The Best Business Directory Plugin ==
 
-If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/sovware/directorist). If you find anything improbable, feel free to shoot a bug report.
+If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
 
 == Installation ==
 
@@ -328,13 +328,32 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.6 - Jan 15, 2021 =
+= 7.0 - Feb 28, 2021 =
 
-* Add - Multi Directory
+* Add - Multi directory
 * Add - Custom form and layout builder
-* Add - New Settings Panel
+* Add - New settings panel
 * Add - Templating
-* Add - Admin Debugger
+* Add - Listing CSV Export/Import with custom field
+* Add - Legacy template support
+* Add - Asset loading on demand
+* Add - Different dashboard and signup options for users and listing owners
+* Add - Same author listings in similar listings
+* Add - PHP compatibility (7.0 to 8.0)
+
+= 6.5.8 - Feb 17, 2021 =
+
+* Add - Admin debugger
+* Add - Compatibility with PHP 8
+* Fix - Edited listing status issue
+* Fix - Fix title issue in Astra theme
+* Fix - Image limit issue in add listing
+* Fix - Translation issues
+* Fix - Fix duplicate notice in announcement
+* Fix - Listings order by 'rand' when cache enabled
+* Fix - Category icon issue
+* Fix - Location permalink issue
+* Fix - Add listing form restriction
 
 = 6.5.7 - Dec 21, 2020 =
 

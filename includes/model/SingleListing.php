@@ -322,13 +322,6 @@ class Directorist_Single_Listing {
 	public function get_slider_data() {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
-		
-		// Check if gallery is allowed or not
-		$show_gallery = true;
-
-		if ( is_fee_manager_active() ) {
-			$show_gallery = is_plan_allowed_slider($this->fm_plan);
-		}
 
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
 		$type_general  = get_term_meta( $type, 'general_config', true );
@@ -373,7 +366,7 @@ class Directorist_Single_Listing {
 			'rtl'                => is_rtl() ? '1' : '0',
 		);
 
-		if ( $show_gallery && ! empty( $image_links ) ) {
+		if ( ! empty( $image_links ) ) {
 			$data['images'] = $image_links;
 		}
 

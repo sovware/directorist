@@ -4864,12 +4864,10 @@ img.atbdp-file-info {
   font-weight: 700;
 }
 
-.directorist__notice_new_action {
-  color: red;
-}
 .directorist__notice_new_action a {
   color: #3e62f5;
   font-weight: 700;
+  color: red;
 }
 .directorist__notice_new_action .directorist__notice_new__btn {
   display: inline-block;

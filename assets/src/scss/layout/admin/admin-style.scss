@@ -1761,6 +1761,9 @@ span.atbdp-tick-cross {
       border: 0 none;
       box-shadow: 0 0;
     }
+    .directorist-badge{
+      padding: 0 4px;
+    }
   }
 }
 
@@ -4976,6 +4979,7 @@ img.atbdp-file-info {
 @import '../../component/form';
 @import '../../component/button';
 @import '../../component/modal';
+@import '../../component/badge';
 @import '../../component/checkbox-radio';
 @import '../../component/switch';
 @import '../../component/pureSearchSelect';

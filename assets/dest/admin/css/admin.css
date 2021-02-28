@@ -1614,6 +1614,9 @@ span.atbdp-tick-cross {
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
 }
+.atbds_sidebar .nav-link .directorist-badge {
+  padding: 0 4px;
+}
 
 .atbds_text-center {
   text-align: center;
@@ -5436,6 +5439,68 @@ img.atbdp-file-info {
     width: calc(100% - 30px);
   }
 }
+.directorist-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.7;
+  padding: 0 3px;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+
+.directorist-badge.directorist-badge-primary {
+  background-color: #444752;
+}
+.directorist-badge.directorist-badge-warning {
+  background-color: #EF8000;
+}
+.directorist-badge.directorist-badge-info {
+  background-color: #2C99FF;
+}
+.directorist-badge.directorist-badge-success {
+  background-color: #00AC17;
+}
+.directorist-badge.directorist-badge-danger {
+  background-color: #EF0000;
+}
+.directorist-badge.directorist-badge-light {
+  background-color: #ffffff;
+}
+.directorist-badge.directorist-badge-gray {
+  background-color: #525768;
+}
+
+.directorist-badge.directorist-badge-primary-transparent {
+  color: #444752;
+  background-color: rgba(68, 71, 82, 0.15);
+}
+.directorist-badge.directorist-badge-warning-transparent {
+  color: #EF8000;
+  background-color: rgba(239, 128, 0, 0.15);
+}
+.directorist-badge.directorist-badge-info-transparent {
+  color: #2C99FF;
+  background-color: rgba(44, 153, 255, 0.15);
+}
+.directorist-badge.directorist-badge-success-transparent {
+  color: #00AC17;
+  background-color: rgba(0, 172, 23, 0.15);
+}
+.directorist-badge.directorist-badge-danger-transparent {
+  color: #EF0000;
+  background-color: rgba(239, 0, 0, 0.15);
+}
+.directorist-badge.directorist-badge-light-transparent {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.directorist-badge.directorist-badge-gray-transparent {
+  color: #525768;
+  background-color: rgba(82, 87, 104, 0.15);
+}
+
 .directorist-checkbox,
 .directorist-radio {
   display: -webkit-box;

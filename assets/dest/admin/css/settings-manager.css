@@ -3040,7 +3040,7 @@ input[type=radio] {
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area {
   border-bottom: 1px solid #F1F2F6;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   margin-bottom: 20px;
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area.directorist-no-header {
@@ -3655,6 +3655,10 @@ span.drop-toggle-caret:before {
 .atbdp-settings-panel .cptm-form-control,
 .atbdp-settings-panel .directorist_dropdown {
   max-width: 500px !important;
+}
+
+#page_settings .cptm-menu-title {
+  display: none;
 }
 
 /*# sourceMappingURL=settings-manager.css.map*/

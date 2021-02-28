@@ -2349,6 +2349,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-content-active .widget.atbd_widget .atbd_widget_title {
   padding: 15px 30px;
   border-bottom: 1px solid #EFF1F6;
+  margin-bottom: 0;
 }
 .directorist-content-active .widget.atbd_widget[id^=bd] .atbd_widget_title .atbd_widget_title,
 .directorist-content-active .widget.atbd_widget[id^=dcl] .atbd_widget_title .atbd_widget_title,
@@ -2430,7 +2431,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-content-active .widget.atbd_widget[id^=dcl] .directorist.atbdp-widget-tags,
 .directorist-content-active .widget.atbd_widget .atbdp.atbdp-widget-tags,
 .directorist-content-active .widget.atbd_widget .directorist.atbdp-widget-tags {
-  margin-bottom: -12px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 .directorist-content-active .widget.atbd_widget[id^=bd] .atbdp.atbdp-widget-tags ul li,
 .directorist-content-active .widget.atbd_widget[id^=bd] .directorist.atbdp-widget-tags ul li,

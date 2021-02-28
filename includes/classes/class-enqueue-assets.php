@@ -32,7 +32,7 @@ class Enqueue_Assets {
         }
 
 
-        return self::$instance;        
+        return self::$instance;
     }
 
     /**
@@ -65,7 +65,7 @@ class Enqueue_Assets {
         // Load Admin Assets
         self::add_admin_css_scripts();
         self::add_admin_js_scripts();
-    
+
         // Inject Scripts Meta
         self::inject_scripts_meta();
 
@@ -97,7 +97,7 @@ class Enqueue_Assets {
         $scripts['directorist-openstreet-map'] = [
             'file_name'      => 'openstreet-map',
             'base_path'      => DIRECTORIST_PUBLIC_CSS,
-            'deps'           => [],
+            'has_rtl'        => false,
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,                            // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
@@ -108,7 +108,8 @@ class Enqueue_Assets {
             'file_name'      => 'leaflet',
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
-            'group'          => $common_asset_group,                            // public || admin  || global
+            'group'          => $common_asset_group,
+            'has_rtl'        => false,                            // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
@@ -117,7 +118,8 @@ class Enqueue_Assets {
             'file_name'      => 'openstreet',
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
-            'group'          => $common_asset_group,                            // public || admin  || global
+            'group'          => $common_asset_group,
+            'has_rtl'        => false,                           // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
@@ -246,7 +248,7 @@ class Enqueue_Assets {
             // 'section'   => '',
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-            
+
         ];
 
         $scripts['directorist-openstreet-unpkg'] = [
@@ -458,7 +460,7 @@ class Enqueue_Assets {
             // 'shortcode' => '[__]',
         ];
 
-        
+
         // Admin
         // ================================
 
@@ -553,7 +555,7 @@ class Enqueue_Assets {
      */
     public static function add_public_css_scripts() {
         $scripts = [];
-        
+
         $scripts['directorist-main-style'] = [
             'file_name'      => 'main',
             'base_path'      => DIRECTORIST_PUBLIC_CSS,
@@ -573,7 +575,7 @@ class Enqueue_Assets {
             'has_rtl'   => false,
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
-        
+
         $scripts['directorist-settings-style'] = [
             'file_name' => 'settings-style',
             'base_path' => DIRECTORIST_ASSETS . 'other/',
@@ -826,7 +828,7 @@ class Enqueue_Assets {
             'section'   => '',
             'page'      => 'at_biz_dir_page_atbdp-directory-types',
         ];
-        
+
         $scripts['directorist-multi-directory-builder'] = [
             'file_name' => 'multi-directory-builder',
             'base_path' => DIRECTORIST_ADMIN_CSS,
@@ -834,8 +836,8 @@ class Enqueue_Assets {
             'ver'       => self::$script_version,
             'group'     => 'admin',
             'section'   => '',
-            'page'      => [ 
-                'at_biz_dir_page_atbdp-layout-builder', 
+            'page'      => [
+                'at_biz_dir_page_atbdp-layout-builder',
                 'at_biz_dir_page_atbdp-directory-types'
             ],
         ];
@@ -917,14 +919,14 @@ class Enqueue_Assets {
             // 'section'   => '__',
         ];
 
-    
+
         $scripts['directorist-multi-directory-builder'] = [
             'file_name'     => 'multi-directory-builder',
             'base_path'     => DIRECTORIST_ADMIN_JS,
             'ver'           => self::$script_version,
             'group'         => 'admin',
-            'page'          => [ 
-                'at_biz_dir_page_atbdp-layout-builder', 
+            'page'          => [
+                'at_biz_dir_page_atbdp-layout-builder',
                 'at_biz_dir_page_atbdp-directory-types'
             ],
             'localize_data' => [
@@ -1019,7 +1021,7 @@ class Enqueue_Assets {
      */
     public static function add_global_js_scripts() {
         $scripts = [];
-        
+
         $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
         $common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
 
@@ -1058,7 +1060,7 @@ class Enqueue_Assets {
         wp_add_inline_style( 'directorist-settings-style', \ATBDP_Stylesheet::style_settings_css() );
         self::enqueue_custom_color_picker_scripts();
         // wp_enqueue_script( 'jquery' );
-        
+
         // CSS
         self::register_css_scripts( [ 'group' => 'public' ] );
         self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
@@ -1149,7 +1151,7 @@ class Enqueue_Assets {
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
-            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 
+            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) {
                 continue;
             }
 
@@ -1224,13 +1226,13 @@ class Enqueue_Assets {
                 if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
             }
 
-            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) { 
+            if (  ! self::script__verify_shortcode( $script_args, $handle ) ) {
                 continue;
             }
 
             if ( ! empty( $script_args['section'] ) ) { continue; }
 
-            
+
             if ( ! empty( $script_args['before_enqueue'] ) ) {
                 self::handle_script_before_enqueue_task( $script_args['before_enqueue'] );
             }
@@ -1259,11 +1261,11 @@ class Enqueue_Assets {
 
     // script__verify_shortcode
     public static function script__verify_shortcode( $script_args = [], $handle = '' ) {
-        if ( empty( $script_args['shortcode'] ) ) { 
+        if ( empty( $script_args['shortcode'] ) ) {
             return true;
         }
 
-        if ( ! is_array( $script_args['shortcode'] ) ) { 
+        if ( ! is_array( $script_args['shortcode'] ) ) {
             return true;
         }
 
@@ -1293,11 +1295,11 @@ class Enqueue_Assets {
 
             $debug = apply_filters( 'directorist_debug_shortcode_scripts', false );
             $show_all = apply_filters( 'directorist_debug_shortcode_scripts_show_all', false );
-            
+
             if ( $debug && ( $found || $show_all ) ) {
-                atbdp_console_log( [ 
+                atbdp_console_log( [
                     'handle' => $handle,
-                    'shortcode' => $shortcode, 
+                    'shortcode' => $shortcode,
                     'found' => $found
                 ]);
             }
@@ -1326,7 +1328,7 @@ class Enqueue_Assets {
             wp_localize_script( $handle, $script_args['localize_data']['object_name'], $script_args['localize_data']['data'] );
             return;
         }
-        
+
         foreach ( $script_args['localize_data'] as $script_args_item ) {
 
             if ( ! self::has_valid_localize_data( $script_args_item ) ) {
@@ -1339,7 +1341,7 @@ class Enqueue_Assets {
 
     // has_valid_localize_data
     public static function has_valid_localize_data( array $localize_data = [] ) {
-        
+
         if ( empty( $localize_data['object_name'] ) ) { return false; }
         if ( ! is_string( $localize_data['object_name'] ) ) { return false; }
         if ( empty( $localize_data['data'] ) ) { return false; }

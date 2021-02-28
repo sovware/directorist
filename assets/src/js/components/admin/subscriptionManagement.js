@@ -603,7 +603,7 @@ $('.purchase-refresh-btn').on('click', function (e) {
 
     $(auth_section).animate(
         {
-            width: 290,
+            width: 330,
         },
         500
     );
@@ -669,16 +669,9 @@ $('#purchase-refresh-form').on('submit', function (e) {
                 var feedback_type = response.status.success ? 'success' : 'danger';
                 var message = `<span class="atbdp-text-${feedback_type}">${response.status.message
                     }</span>`;
-
-                form_feedback.html(message);
-            }
-
-            if (response.status.massage) {
-                var feedback_type = response.status.success ? 'success' : 'danger';
-                var message = `<span class="atbdp-text-${feedback_type}">${response.status.massage
-                    }</span>`;
-
-                form_feedback.html(message);
+                    form_feedback.html(message);
+                
+                
             }
 
             if (!response.status.success) {

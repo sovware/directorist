@@ -2536,6 +2536,33 @@ input.atbdp-form-control {
 .atbdp-form-feedback {
   margin: 10px 0;
 }
+.atbdp-form-feedback span {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.et-auth-section-wrap {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.et-auth-section-wrap .atbdp-input-group-wrap {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.et-auth-section-wrap .atbdp-input-group-wrap .atbdp-form-control {
+  min-width: 140px;
+}
+
+.et-auth-section-wrap .atbdp-input-group-append {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 
 .atbdp-form-actions {
   margin: 30px 0;

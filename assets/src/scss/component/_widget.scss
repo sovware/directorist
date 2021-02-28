@@ -158,6 +158,7 @@
   .atbd_widget_title {
     padding: 15px 30px;
     border-bottom: 1px solid $border-color;
+    margin-bottom: 0;
 
     .atbd_widget_title {
       padding: 0;
@@ -208,7 +209,8 @@
     padding: 20px 30px;
 
     &.atbdp-widget-tags {
-      margin-bottom: -12px;
+      margin-bottom: 0;
+      margin-top: 0;
 
       ul li {
         display: inline-block;

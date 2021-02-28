@@ -2166,7 +2166,7 @@ $('.purchase-refresh-btn').on('click', function (e) {
     width: 0
   }, 500);
   $(auth_section).animate({
-    width: 290
+    width: 330
   }, 500);
 }); // et-close-auth-btn
 
@@ -2210,12 +2210,6 @@ $('#purchase-refresh-form').on('submit', function (e) {
       if (response.status.message) {
         var feedback_type = response.status.success ? 'success' : 'danger';
         var message = "<span class=\"atbdp-text-".concat(feedback_type, "\">").concat(response.status.message, "</span>");
-        form_feedback.html(message);
-      }
-
-      if (response.status.massage) {
-        var feedback_type = response.status.success ? 'success' : 'danger';
-        var message = "<span class=\"atbdp-text-".concat(feedback_type, "\">").concat(response.status.massage, "</span>");
         form_feedback.html(message);
       }
 

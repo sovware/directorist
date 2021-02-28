@@ -529,6 +529,10 @@ class ATBDP_Enqueuer {
 
     public function current_listing_type() {
         $type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
+        if( ! is_numeric( $type ) ) {
+			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
+			$type = $term->term_id;
+		}
         return $type;
     }
 
@@ -568,6 +572,7 @@ class ATBDP_Enqueuer {
         $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
         $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
         $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $new_cat         = !empty( $submission_form['fields']['category']['create_new_cat'] ) ? $submission_form['fields']['category']['create_new_cat'] : '';
         $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
         // Internationalization text for javascript file especially add-listing.js
 
@@ -602,6 +607,7 @@ class ATBDP_Enqueuer {
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
             'create_new_loc'  => $new_loc,
+            'create_new_cat'  => $new_cat,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 

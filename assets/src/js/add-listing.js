@@ -34,7 +34,7 @@ $('body').on('click', '#addNewSocial', function (e) {
         const currentItems = $('.directorist-form-social-fields').length;
         const ID = `id=${currentItems}`; // eg. 'id=3'
         const iconBindingElement = jQuery('#addNewSocial');
-        
+
         // arrange names ID in order before adding new elements
         $('.directorist-form-social-fields').each(function (index, element) {
                 const e = $(element);
@@ -126,11 +126,11 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
 }
 
 // Select2 js code
-// Location
 if( ! localized_data.is_admin ){
+        // Location
         const createLoc = localized_data.create_new_loc;
         if (createLoc) {
-                $("#at_bizd_dir-location").select2({
+                $("#at_biz_dir-location").select2({
                         placeholder: localized_data.i18n_text.location_selection,
                         tags: true,
                         maximumSelectionLength: localized_data.i18n_text.max_location_creation,
@@ -150,7 +150,7 @@ if( ! localized_data.is_admin ){
                         tokenSeparators: [","],
                 });
         }
-        
+
         // Tags
         const createTag = localized_data.create_new_tag;
         if (createTag) {
@@ -166,10 +166,22 @@ if( ! localized_data.is_admin ){
                         tokenSeparators: [','],
                 });
         }
-        $('#at_biz_dir-categories').select2({
-                placeholder: localized_data.i18n_text.cat_placeholder,
-                allowClear: true,
-        });
+        //Category
+        const createCat = localized_data.create_new_cat;
+        if(createCat){
+                $('#at_biz_dir-categories').select2({
+                        placeholder: localized_data.i18n_text.cat_placeholder,
+                        allowClear: true,
+                        tags: true,
+                        tokenSeparators: [','],
+                });
+        }else{
+                $('#at_biz_dir-categories').select2({
+                        placeholder: localized_data.i18n_text.cat_placeholder,
+                        allowClear: true,
+                });
+        }
+
 }
 
 

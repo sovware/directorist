@@ -162,6 +162,21 @@
                 placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
                 allowClear: true,
         });
+        //Category
+        const createCat = atbdp_add_listing.create_new_cat;
+        if(createCat){
+                $('#at_biz_dir-categories').select2({
+                        placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
+                        allowClear: true,
+                        tags: true,
+                        tokenSeparators: [','],
+                });
+        }else{
+                $('#at_biz_dir-categories').select2({
+                        placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
+                        allowClear: true,
+                });
+        }
 })(jQuery);
 
 // Custom Image uploader for listing image (multiple)

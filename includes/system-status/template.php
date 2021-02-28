@@ -1,7 +1,7 @@
 <?php 
     $warnings      = directorist_warnings();
     $_count        = count( $warnings );
-    $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
+    $warning_count = ! empty( $_count ) ?  '<span class="directorist-badge directorist-badge-warning">' . $_count . '</span>' : '';
 ?>
 <section class="atbds_wrapper">
     <div class="row">
@@ -17,7 +17,7 @@
                         <a href="#atbds_system-info" class="nav-link active" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'System Information', 'directorist' ); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#atbds_warning" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><span class="directorist-badge directorist-badge-warning"><?php echo $warning_count; ?></span></a>
+                        <a href="#atbds_warning" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><?php echo $warning_count; ?></a>
                     </li>
                     <li class="nav-item">
                         <a href="#atbds_r-viewing" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Remote Viewing', 'directorist' ); ?></a>

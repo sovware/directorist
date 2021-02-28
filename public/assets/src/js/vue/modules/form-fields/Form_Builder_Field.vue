@@ -43,33 +43,38 @@
                     @dragstart="activeGroupOnDragStart(group_key, $event)"
                     @dragend="activeGroupOnDragEnd()"
                   >
-                    <h3 class="cptm-form-builder-group-title">
-                      {{ group.label ? group.label : "" }}
-                      <a
-                        href="#"
-                        class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
-                        v-if="hasGroupOptions(group_key)"
-                        @click.prevent="
-                          toggleActiveGroupOptionCollapseState(group_key)
-                        "
-                      >
-                        <span class="fa fa-pen" aria-hidden="true"></span>
-                      </a>
-                    </h3>
+                    <div class="directoirist-elm-wrap">
+                      <h3 class="cptm-form-builder-group-title">
+                        {{ group.label ? group.label : "" }}
+                        <a
+                          href="#"
+                          class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
+                          v-if="hasGroupOptions(group_key)"
+                          @click.prevent="
+                            toggleActiveGroupOptionCollapseState(group_key)
+                          "
+                        >
+                          <span class="fa fa-pen" aria-hidden="true"></span>
+                        </a>
+                      </h3>
 
-                    <div class="cptm-form-builder-group-title-actions">
-                      <a
-                        href="#"
-                        class="cptm-form-builder-header-action-link"
-                        v-if="group.type !== 'widget_group'"
-                        :class="getActiveGroupCollapseClass(group_key)"
-                        @click.prevent="
-                          toggleActiveGroupCollapseState(group_key)
-                        "
-                      >
-                        <!-- <span class="uil uil-angle-double-up" aria-hidden="true"></span> -->
-                        <span class="fa fa-angle-up" aria-hidden="true"></span>
-                      </a>
+                      <div class="cptm-form-builder-group-title-actions">
+                        <a
+                          href="#"
+                          class="cptm-form-builder-header-action-link"
+                          v-if="group.type !== 'widget_group'"
+                          :class="getActiveGroupCollapseClass(group_key)"
+                          @click.prevent="
+                            toggleActiveGroupCollapseState(group_key)
+                          "
+                        >
+                          <!-- <span class="uil uil-angle-double-up" aria-hidden="true"></span> -->
+                          <span
+                            class="fa fa-angle-up"
+                            aria-hidden="true"
+                          ></span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </dropable-element>
@@ -126,7 +131,14 @@
               :duration="500"
             >
               <div class="cptm-form-builder-group-fields">
-                <div class="cptm-restricted-area cptm-form-fields-restricted-area" v-if="(group.fields && group.fields.length) && formFieldsHasRestriction( group_key )">
+                <div
+                  class="cptm-restricted-area cptm-form-fields-restricted-area"
+                  v-if="
+                    group.fields &&
+                    group.fields.length &&
+                    formFieldsHasRestriction(group_key)
+                  "
+                >
                   <h3 v-html="restrictedFieldsWarningText"></h3>
                 </div>
 
@@ -395,7 +407,7 @@ export default {
 
     theWidgetGroups() {
       this.syncFieldsWithWidgets();
-    }
+    },
   },
   computed: {
     ...mapState({
@@ -479,16 +491,30 @@ export default {
       for (let widget_group in widgets) {
         // Template
         // Get widget keys from field list
-        let has_template = typeof widgets[widget_group].template === "string" ? true : false;
-        has_template = has_template && widgets[widget_group].template.length ? widgets[widget_group].template : false;
-        
-        let template_field = has_template ? this.getTergetFields({ path: has_template }) : null;
-        template_field = this.isObject(template_field) ? JSON.parse(JSON.stringify(template_field)) : null;
-        
-        let template_fields = this.isObject(template_field) && template_field.value ? template_field.value : null;
-        template_fields = this.isObject(template_fields) && template_fields.fields ? template_fields.fields : null;
-        
-        if ( has_template && this.isObject(template_fields) ) {
+        let has_template =
+          typeof widgets[widget_group].template === "string" ? true : false;
+        has_template =
+          has_template && widgets[widget_group].template.length
+            ? widgets[widget_group].template
+            : false;
+
+        let template_field = has_template
+          ? this.getTergetFields({ path: has_template })
+          : null;
+        template_field = this.isObject(template_field)
+          ? JSON.parse(JSON.stringify(template_field))
+          : null;
+
+        let template_fields =
+          this.isObject(template_field) && template_field.value
+            ? template_field.value
+            : null;
+        template_fields =
+          this.isObject(template_fields) && template_fields.fields
+            ? template_fields.fields
+            : null;
+
+        if (has_template && this.isObject(template_fields)) {
           let template_widgets = {};
           for (let widget_key in template_fields) {
             let _widget_name = template_fields[widget_key].widget_name;
@@ -572,17 +598,23 @@ export default {
     theFilteredWidgets() {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse(JSON.stringify(this.theWidgets));
-      if ( ! ( widgets && typeof widgets === 'object' ) ) { return widgets; }
+      if (!(widgets && typeof widgets === "object")) {
+        return widgets;
+      }
 
       for (let widget_group in widgets) {
         // Filter fields if required
         let filter_field_keys = null;
-        let has_filter_by = typeof widgets[widget_group].filter_by === "string" ? true : false;
-        has_filter_by = has_filter_by && widgets[widget_group].filter_by.length ? widgets[widget_group].filter_by : false;
-        
+        let has_filter_by =
+          typeof widgets[widget_group].filter_by === "string" ? true : false;
+        has_filter_by =
+          has_filter_by && widgets[widget_group].filter_by.length
+            ? widgets[widget_group].filter_by
+            : false;
+
         if (has_filter_by) {
           let filter_field = this.getTergetFields({ path: has_filter_by });
-          
+
           if (this.isObject(filter_field)) {
             filter_field_keys = Object.keys(filter_field);
           }
@@ -614,7 +646,7 @@ export default {
 
           // Check if allow multiple
           // let allow_multiple = typeof widgets[widget_group].allow_multiple !== "undefined" && widgets[widget_group].allow_multiple ? true : false;
-            
+
           // if ( ! allow_multiple && typeof this.active_fields[widget] !== "undefined" ) {
           //   delete widgets[widget_group].widgets[widget];
           //   continue;
@@ -630,42 +662,56 @@ export default {
       return widgets;
     },
 
-
     theWidgetGroups() {
       let widgets = JSON.parse(JSON.stringify(this.theFilteredWidgets));
-      if ( ! ( widgets && typeof widgets === 'object' ) ) { return widget_group; }
+      if (!(widgets && typeof widgets === "object")) {
+        return widget_group;
+      }
 
-      for ( let widget_group_key in widgets ) {
-        if ( ! ( widgets[ widget_group_key ] && typeof widgets[ widget_group_key ] === 'object' ) ) {
+      for (let widget_group_key in widgets) {
+        if (
+          !(
+            widgets[widget_group_key] &&
+            typeof widgets[widget_group_key] === "object"
+          )
+        ) {
           continue;
         }
 
-        let widget_group = widgets[ widget_group_key ];
+        let widget_group = widgets[widget_group_key];
 
-        if ( ! ( widget_group.widgets && typeof widget_group.widgets === 'object' ) ) {
+        if (
+          !(widget_group.widgets && typeof widget_group.widgets === "object")
+        ) {
           continue;
         }
 
         // Check if allow multiple
-        let allow_multiple = typeof widgets[widget_group_key].allow_multiple !== "undefined" && widgets[widget_group_key].allow_multiple ? true : false;
-        if ( allow_multiple ) { continue; }
-        
-        let widget_keys = Object.keys( widget_group.widgets );
+        let allow_multiple =
+          typeof widgets[widget_group_key].allow_multiple !== "undefined" &&
+          widgets[widget_group_key].allow_multiple
+            ? true
+            : false;
+        if (allow_multiple) {
+          continue;
+        }
+
+        let widget_keys = Object.keys(widget_group.widgets);
         const self = this;
 
-        widget_keys.map( widget_key => {
-          if ( typeof self.active_fields[widget_key] !== "undefined" ) {
-            delete widgets[ widget_group_key ].widgets[widget_key];
+        widget_keys.map((widget_key) => {
+          if (typeof self.active_fields[widget_key] !== "undefined") {
+            delete widgets[widget_group_key].widgets[widget_key];
           }
 
-          if ( self.active_widget_groups.includes( widget_key )) {
-            delete widgets[ widget_group_key ].widgets[ widget_key ];
+          if (self.active_widget_groups.includes(widget_key)) {
+            delete widgets[widget_group_key].widgets[widget_key];
           }
         });
       }
 
       return widgets;
-    }
+    },
   },
 
   data() {
@@ -747,52 +793,65 @@ export default {
     },
 
     syncFieldsWithWidgets() {
-      if ( ! ( this.active_fields && typeof this.active_fields === 'object' ) ) {
+      if (!(this.active_fields && typeof this.active_fields === "object")) {
         return;
       }
 
-      const field_keys = Object.keys( this.active_fields );
-      if ( ! field_keys.length ) { return; }
+      const field_keys = Object.keys(this.active_fields);
+      if (!field_keys.length) {
+        return;
+      }
 
-      if ( ! ( this.theFilteredWidgets && typeof this.theFilteredWidgets === 'object' ) ) {
+      if (
+        !(
+          this.theFilteredWidgets && typeof this.theFilteredWidgets === "object"
+        )
+      ) {
         return;
       }
 
       // Get All Widgets Keys
       let widget_keys_groups = {};
-      for ( let widget_group_key in this.theFilteredWidgets ) {
-
-        if ( ! ( this.theFilteredWidgets[ widget_group_key ] && typeof this.theFilteredWidgets[ widget_group_key ] === 'object' ) ) {
+      for (let widget_group_key in this.theFilteredWidgets) {
+        if (
+          !(
+            this.theFilteredWidgets[widget_group_key] &&
+            typeof this.theFilteredWidgets[widget_group_key] === "object"
+          )
+        ) {
           continue;
         }
 
-        let widget_group = this.theFilteredWidgets[ widget_group_key ];
+        let widget_group = this.theFilteredWidgets[widget_group_key];
 
-        if ( ! ( widget_group.widgets && typeof widget_group.widgets === 'object' ) ) {
+        if (
+          !(widget_group.widgets && typeof widget_group.widgets === "object")
+        ) {
           continue;
         }
 
-        let widgets_keys = Object.keys( widget_group.widgets );
-        if ( ! widgets_keys.length ) { continue; }
+        let widgets_keys = Object.keys(widget_group.widgets);
+        if (!widgets_keys.length) {
+          continue;
+        }
 
-        widget_keys_groups[ widget_group_key ] = widgets_keys;
+        widget_keys_groups[widget_group_key] = widgets_keys;
       }
 
-      for ( let field_key in this.active_fields ) {
-        let widget_group_key = this.active_fields[ field_key ].widget_group;
-        let widget_name = this.active_fields[ field_key ].widget_name;
+      for (let field_key in this.active_fields) {
+        let widget_group_key = this.active_fields[field_key].widget_group;
+        let widget_name = this.active_fields[field_key].widget_name;
 
-        if ( ! widget_keys_groups[ widget_group_key ] ) { 
-          this.removeActiveField( field_key, widget_name );
+        if (!widget_keys_groups[widget_group_key]) {
+          this.removeActiveField(field_key, widget_name);
           continue;
         }
 
-        if ( ! widget_keys_groups[ widget_group_key ].includes( widget_name ) ) {
-          this.removeActiveField( field_key, widget_name );
+        if (!widget_keys_groups[widget_group_key].includes(widget_name)) {
+          this.removeActiveField(field_key, widget_name);
           continue;
         }
       }
-
     },
 
     parseGroups() {
@@ -1180,31 +1239,37 @@ export default {
         : "action-collapse-down";
     },
 
-    removeActiveField( field_key, widget_name ) {
+    removeActiveField(field_key, widget_name) {
       // Remove field from groups
-      if ( this.groups && Array.isArray( this.groups ) && this.groups.length ) {
-        for ( let group in this.groups ) {
-          if ( ! this.groups[ group ].fields.length ) { continue; }
-          if ( ! this.groups[ group ].fields.includes( field_key ) ) { continue; }
+      if (this.groups && Array.isArray(this.groups) && this.groups.length) {
+        for (let group in this.groups) {
+          if (!this.groups[group].fields.length) {
+            continue;
+          }
+          if (!this.groups[group].fields.includes(field_key)) {
+            continue;
+          }
 
-          const index = this.groups[ group ].fields.indexOf( field_key );
-          this.groups[ group ].fields.splice( index, 1 );
+          const index = this.groups[group].fields.indexOf(field_key);
+          this.groups[group].fields.splice(index, 1);
 
           break;
         }
       }
-      
+
       // active_fields
-      if ( this.active_fields[ field_key ] ) {
-        Vue.delete( this.active_fields, field_key);
+      if (this.active_fields[field_key]) {
+        Vue.delete(this.active_fields, field_key);
       }
 
       // active_fields_ref
-      if ( this.active_fields_ref[ widget_name ] && this.active_fields_ref[ widget_name ].includes( field_key ) ) {
-        const index = this.active_fields_ref[ widget_name ].indexOf( field_key );
-        this.active_fields_ref[ widget_name ].splice( index, 1 );
+      if (
+        this.active_fields_ref[widget_name] &&
+        this.active_fields_ref[widget_name].includes(field_key)
+      ) {
+        const index = this.active_fields_ref[widget_name].indexOf(field_key);
+        this.active_fields_ref[widget_name].splice(index, 1);
       }
-
     },
 
     trashActiveGroupItem(group_key) {
@@ -1568,8 +1633,10 @@ export default {
       this.$emit("update", this.updated_value);
     },
 
-    formFieldsHasRestriction( group_key ) {
-      let has_restriction = this.current_dragging_group !== "" || this.current_dragging_widget_group !== "";
+    formFieldsHasRestriction(group_key) {
+      let has_restriction =
+        this.current_dragging_group !== "" ||
+        this.current_dragging_widget_group !== "";
 
       return has_restriction;
     },

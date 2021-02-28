@@ -29,6 +29,12 @@ Directorist Business Directory is one of the leading and fast-growing business d
 
 == WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN? ==
 
+👉 **Multi Directory:** Boost your business directory possibilities by creating multiple directory types within the same directory. Add different sets of functionalities for each directory type and start managing them on the same website.
+
+👉 **Custom Form and Layout Builder:** Directorist form and layout builder allows you to build custom add listing and search form using drag and drop technology. Besides, you will also be able to design your “All listing” card and "Single Listing" page layout using the builder. Just drag and drop the items you want to show and give the directory a personalized appearance.
+
+👉 **Listing CSV Import/Export with Custom Field:** The new Directorist allows you to import listings with custom fields from the CSV file for no cost. Listing import and migrating to Directorist from another directory plugin is more effective now. Moreover, CSV export has also been added therefore domain switching, exporting to local is no longer a big deal! 
+
 👉 **Beginner Friendly:** Thoughtfully designed user-interface lets users to operate the plugin with zero coding skills and get the most compelling user experience. This beginner-friendly plugin provides you a simple setup wizard to get you started.
 
 👉 **Monetize and Earn:** Expand your business with our amazing monetization features that allows you to create an additional income stream and generate unlimited revenue flow.
@@ -167,6 +173,8 @@ Make a powerful and beautiful business directory or classified website with the 
 * Site owner can customize the email templates as it’s needed and many more.
 
 == Developer Friendly ==
+
+🎉 **Templating:** Directorist offers a robust templating system that allows you to override all the Directorist default template files without amending any of the plugin codes.
 
 WordPress developers can extend the plugin functionalities infinitely using available hooks and filters.
 

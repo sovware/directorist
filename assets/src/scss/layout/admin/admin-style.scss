@@ -1762,7 +1762,12 @@ span.atbdp-tick-cross {
       box-shadow: 0 0;
     }
     .directorist-badge{
-      padding: 0 4px;
+      font-size: 11px;
+      height: 20px;
+      width: 20px;
+      text-align: center;
+      line-height: 1.75;
+      border-radius: 50%;
     }
   }
 }

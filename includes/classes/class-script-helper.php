@@ -144,7 +144,7 @@ class Script_Helper {
         $listing_id  = 0;
         $current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $current_listing_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $listing_id, '_directory_type', true );
-        if( ! is_numeric( $current_listing_type ) ) {
+        if( ! empty( $current_listing_type ) && ! is_numeric( $current_listing_type ) ) {
 			$term = get_term_by( 'slug', $current_listing_type, ATBDP_TYPE );
 			$current_listing_type = ! empty( $term ) ? $term->term_id : '';
 		}

@@ -1111,6 +1111,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                         ]
                                     ]
                                 ],
+                                'create_new_cat' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Allow New',
+                                    'value' => false,
+                                ],
                                 'placeholder' => [
                                     'type'  => 'text',
                                     'label' => 'Placeholder',

@@ -146,7 +146,7 @@ class Script_Helper {
         $current_listing_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $listing_id, '_directory_type', true );
         if( ! is_numeric( $current_listing_type ) ) {
 			$term = get_term_by( 'slug', $current_listing_type, ATBDP_TYPE );
-			$current_listing_type = $term->term_id;
+			$current_listing_type = ! empty( $term ) ? $term->term_id : '';
 		}
         if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
             $arr = explode('/edit/', $current_url);

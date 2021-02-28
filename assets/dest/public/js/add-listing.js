@@ -221,14 +221,14 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
     }
   });
 } // Select2 js code
-// Location
 
 
 if (!localized_data.is_admin) {
+  // Location
   var createLoc = localized_data.create_new_loc;
 
   if (createLoc) {
-    $("#at_bizd_dir-location").select2({
+    $("#at_biz_dir-location").select2({
       placeholder: localized_data.i18n_text.location_selection,
       tags: true,
       maximumSelectionLength: localized_data.i18n_text.max_location_creation,
@@ -264,12 +264,24 @@ if (!localized_data.is_admin) {
       allowClear: true,
       tokenSeparators: [',']
     });
-  }
+  } //Category
 
-  $('#at_biz_dir-categories').select2({
-    placeholder: localized_data.i18n_text.cat_placeholder,
-    allowClear: true
-  });
+
+  var createCat = localized_data.create_new_cat;
+
+  if (createCat) {
+    $('#at_biz_dir-categories').select2({
+      placeholder: localized_data.i18n_text.cat_placeholder,
+      allowClear: true,
+      tags: true,
+      tokenSeparators: [',']
+    });
+  } else {
+    $('#at_biz_dir-categories').select2({
+      placeholder: localized_data.i18n_text.cat_placeholder,
+      allowClear: true
+    });
+  }
 } // Custom Image uploader for listing image (multiple)
 // price range
 

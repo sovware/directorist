@@ -73,9 +73,16 @@
   height: 5px;
 }
 
+.plupload-upload-uic .directorist-btn {
+  padding: 0 1.44em;
+  line-height: 2.65;
+  font-size: 14px;
+}
+
 .plupload-thumbs {
   clear: both;
   margin: 20px 0px;
+  overflow: hidden;
 }
 
 .plupload-thumbs .thumb {

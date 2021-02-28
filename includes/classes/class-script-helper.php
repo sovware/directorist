@@ -144,7 +144,10 @@ class Script_Helper {
         $listing_id  = 0;
         $current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $current_listing_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $listing_id, '_directory_type', true );
-
+        if( ! empty( $current_listing_type ) && ! is_numeric( $current_listing_type ) ) {
+			$term = get_term_by( 'slug', $current_listing_type, ATBDP_TYPE );
+			$current_listing_type = ! empty( $term ) ? $term->term_id : '';
+		}
         if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
             $arr = explode('/edit/', $current_url);
             $important = $arr[1];
@@ -157,6 +160,7 @@ class Script_Helper {
         $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
         $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
         $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $new_cat         = !empty( $submission_form['fields']['category']['create_new_cat'] ) ? $submission_form['fields']['category']['create_new_cat'] : '';
         $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
         // Internationalization text for javascript file especially add-listing.js
 
@@ -192,6 +196,7 @@ class Script_Helper {
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
             'create_new_loc'  => $new_loc,
+            'create_new_cat'  => $new_cat,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 

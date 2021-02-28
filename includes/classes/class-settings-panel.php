@@ -5169,7 +5169,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'manage_options',
                 'atbdp-settings',
                 [ $this, 'menu_page_callback__settings_manager' ],
-                8
+                12
             );
         }
 

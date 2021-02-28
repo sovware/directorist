@@ -86,4 +86,6 @@ gulp.task('rtl', function(done) {
                 .pipe(rename({ suffix: '-rtl', extname: '.css' }))
                 .pipe(gulp.dest('public/assets/css/'))
                 .pipe(search_style.restore);
+
+                done();
 });

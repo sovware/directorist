@@ -1761,6 +1761,14 @@ span.atbdp-tick-cross {
       border: 0 none;
       box-shadow: 0 0;
     }
+    .directorist-badge{
+      font-size: 11px;
+      height: 20px;
+      width: 20px;
+      text-align: center;
+      line-height: 1.75;
+      border-radius: 50%;
+    }
   }
 }
 
@@ -2689,6 +2697,26 @@ input.atbdp-form-control {
 
 .atbdp-form-feedback {
   margin: 10px 0;
+  span{
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.et-auth-section-wrap{
+  align-items: center;
+  .atbdp-input-group-wrap{
+    align-items: center;
+    .atbdp-form-control{
+      min-width: 140px;
+    }
+  }
+}
+
+.et-auth-section-wrap{
+  .atbdp-input-group-append{
+    align-items: center;
+  }
 }
 
 .atbdp-form-actions {
@@ -4941,11 +4969,11 @@ img.atbdp-file-info {
 }
 
 .directorist__notice_new_action {
-  color: red;
 
   a {
     color: #3e62f5;
     font-weight: 700;
+    color: red;
   }
 
   .directorist__notice_new__btn {
@@ -4968,6 +4996,14 @@ img.atbdp-file-info {
   }
 }
 
+.add_listing_form_wrapper{
+  &#gallery_upload{
+    .listing-prv-img-container{
+      text-align: center
+    }
+  }
+}
+
 // Base Style
 @import '../../base/general';
 @import '../../base/utility';
@@ -4976,6 +5012,7 @@ img.atbdp-file-info {
 @import '../../component/form';
 @import '../../component/button';
 @import '../../component/modal';
+@import '../../component/badge';
 @import '../../component/checkbox-radio';
 @import '../../component/switch';
 @import '../../component/pureSearchSelect';

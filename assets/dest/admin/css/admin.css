@@ -5061,6 +5061,93 @@ img.atbdp-file-info {
   margin-bottom: 15px;
 }
 
+.plupload-thumbs .thumb {
+  position: relative;
+}
+.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions {
+  font-size: 15px !important;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
+  background: #000;
+  height: 30px;
+  width: 30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
+  background: #e23636;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink i {
+  font-size: 14px;
+}
+
+.plupload-upload-uic {
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+}
+.plupload-upload-uic .atbdp-dropbox-title {
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+.plupload-upload-uic .atbdp_button {
+  border: 1px solid #EFF1F6;
+  background: #f8f9fb;
+  font-size: 14px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  line-height: 40px !important;
+  padding: 0 30px !important;
+  height: auto !important;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  color: inherit;
+}
+.plupload-upload-uic .atbdp-dropbox-file-types {
+  margin-top: 10px;
+  color: #9299b8;
+}
+
+@media (max-width: 575px) {
+  .plupload-upload-uic {
+    width: 100%;
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;

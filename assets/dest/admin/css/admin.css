@@ -4923,6 +4923,10 @@ img.atbdp-file-info {
   color: #fff;
 }
 
+.add_listing_form_wrapper#gallery_upload .listing-prv-img-container {
+  text-align: center;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

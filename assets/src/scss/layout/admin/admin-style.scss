@@ -4996,6 +4996,14 @@ img.atbdp-file-info {
   }
 }
 
+.add_listing_form_wrapper{
+  &#gallery_upload{
+    .listing-prv-img-container{
+      text-align: center
+    }
+  }
+}
+
 // Base Style
 @import '../../base/general';
 @import '../../base/utility';

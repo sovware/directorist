@@ -23671,9 +23671,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.groups[group_key], "shrink", true);
       var self = this;
       setTimeout(function () {
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(self.groups[group_key], "isDragging", true);
-        self.current_dragging_group = group_key;
-      }, 0); // this.current_dragging_group = group_key;
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(self.groups[group_key], "isDragging", true); // self.current_dragging_group = group_key;
+      }, 0);
+      this.current_dragging_group = group_key;
     },
     activeGroupOnDragEnd: function activeGroupOnDragEnd() {
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.groups[this.current_dragging_group], "isDragging", false);
@@ -36140,10 +36140,6 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c("span", {
-                                        staticClass: "directoirist-elm-wrap"
-                                      }),
-                                      _vm._v(" "),
                                       _c(
                                         "h3",
                                         {
@@ -36151,6 +36147,16 @@ var render = function() {
                                             "cptm-form-builder-group-title"
                                         },
                                         [
+                                          _c(
+                                            "span",
+                                            { staticClass: "cptm-drag-icon" },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-arrows-alt"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
                                           _c("span", {
                                             domProps: {
                                               innerHTML: _vm._s(

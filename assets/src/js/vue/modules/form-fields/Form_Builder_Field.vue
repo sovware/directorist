@@ -43,19 +43,19 @@
                     @dragstart="activeGroupOnDragStart(group_key, $event)"
                     @dragend="activeGroupOnDragEnd()"
                   >
-                    <span class="directoirist-elm-wrap"></span>
                     <h3 class="cptm-form-builder-group-title">
-                    <span v-html="group.label ? group.label : ''"></span>
-                    <a
-                      href="#"
-                      class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
-                      v-if="hasGroupOptions(group_key)"
-                      @click.prevent="
-                        toggleActiveGroupOptionCollapseState(group_key)
-                      "
-                    >
-                      <span class="fa fa-pen" aria-hidden="true"></span>
-                    </a>
+                      <span class="cptm-drag-icon"><span class="fas fa-arrows-alt"></span></span>
+                      <span v-html="group.label ? group.label : ''"></span>
+                      <a
+                        href="#"
+                        class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
+                        v-if="hasGroupOptions(group_key)"
+                        @click.prevent="
+                          toggleActiveGroupOptionCollapseState(group_key)
+                        "
+                      >
+                        <span class="fa fa-pen" aria-hidden="true"></span>
+                      </a>
                   </h3>
 
                   <div class="cptm-form-builder-group-title-actions">
@@ -1314,10 +1314,10 @@ export default {
       let self = this;
       setTimeout(function () {
         Vue.set(self.groups[group_key], "isDragging", true);
-        self.current_dragging_group = group_key;
+        // self.current_dragging_group = group_key;
       }, 0);
 
-      // this.current_dragging_group = group_key;
+      this.current_dragging_group = group_key;
     },
 
     activeGroupOnDragEnd() {

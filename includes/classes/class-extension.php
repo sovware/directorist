@@ -29,7 +29,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'initial_setup') );
-            add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
+            // add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
             add_action( 'init', array( $this, 'get_the_product_list') );
             
             // Ajax

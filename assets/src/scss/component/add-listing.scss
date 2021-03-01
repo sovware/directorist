@@ -464,3 +464,14 @@
         }
     }
 }
+
+.directorist-map-field{
+    #floating-panel{
+        margin-bottom: 20px;
+        #delete_marker{
+            background-color: $danger;
+            border: 1px solid $danger;
+            color: #fff;
+        }
+    }
+}

@@ -1603,3 +1603,12 @@ body.stop-scrolling {
   border-color: #ececec !important;
   padding: 0 10px;
 }
+
+.directorist-map-field #floating-panel {
+  margin-bottom: 20px;
+}
+.directorist-map-field #floating-panel #delete_marker {
+  background-color: #EF0000;
+  border: 1px solid #EF0000;
+  color: #fff;
+}

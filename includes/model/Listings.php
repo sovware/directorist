@@ -195,7 +195,7 @@ class Directorist_Listings {
 		$this->options['crop_width']                      = get_directorist_option('crop_width', 360);
 		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
-		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg');
+		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
@@ -1479,7 +1479,7 @@ class Directorist_Listings {
 					$icon_type = substr($cat_icon, 0,2);
 					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
 					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
+					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 
 					if (!empty($ls_data['listing_prv_img'])) {
 						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
@@ -1505,7 +1505,7 @@ class Directorist_Listings {
 		public function loop_get_the_thumbnail( $class='' ) {
 			$type              = $this->current_listing_type;
 			$type_general      = get_term_meta( $type, 'general_config', true );
-			$default_image_src = ( ! empty( $type_general['preview_image']['url'] ) ) ? $type_general['preview_image']['url'] : DIRECTORIST_PUBLIC_ASSETS . 'images/grid.jpg' ;
+			$default_image_src = ( ! empty( $type_general['preview_image']['url'] ) ) ? $type_general['preview_image']['url'] : DIRECTORIST_ASSETS . 'images/grid.jpg' ;
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'large');

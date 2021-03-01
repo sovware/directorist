@@ -7789,6 +7789,10 @@ p.atbd-min {
   text-transform: capitalize;
 }
 
+.directorist-author-social a .fa {
+  font-family: "Font Awesome 5 Brands";
+}
+
 .directorist-google-map {
   height: 400px;
 }

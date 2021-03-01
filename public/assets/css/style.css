@@ -4713,6 +4713,11 @@ input.atbdp-form-control {
   padding-top: 8px;
 }
 
+.atbd_social_wrap a .fa {
+  font-family: "Font Awesome 5 Brands" !important;
+  font-weight: 900 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;

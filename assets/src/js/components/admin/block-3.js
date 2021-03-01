@@ -648,6 +648,9 @@ function admin_listing_form(directory_type) {
                 }
             }
         },
+        error( error ) {
+            console.log( { error } );
+        },
     });
 }
 

@@ -799,7 +799,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
-            'page'      => [ 'post-new.php', 'post.php' ],
+            // 'page'      => [ 'post-new.php', 'post.php' ],
         ];
 
         $scripts['directorist-plugins-css'] = [
@@ -892,7 +892,7 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
-            'page'      => ['post-new.php', 'post.php'],
+            // 'page'      => ['post-new.php', 'post.php'],
         ];
 
         $scripts['directorist-multi-directory-archive'] = [
@@ -1376,8 +1376,7 @@ class Enqueue_Assets {
         $has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
         $has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
-        $load_min = true;
-        // $load_min = apply_filters( 'directorist_load_min_files', !SCRIPT_DEBUG );
+        $load_min = apply_filters( 'directorist_load_min_files', !SCRIPT_DEBUG );
         $is_rtl   =  is_rtl();
 
         if ( $has_min && $load_min ) {

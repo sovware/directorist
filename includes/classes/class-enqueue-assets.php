@@ -109,6 +109,7 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,
+            'has_min'        => false,                     // public || admin  || global
             'has_rtl'        => false,                            // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
@@ -119,7 +120,8 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,
-            'has_rtl'        => false,                           // public || admin  || global
+            'has_rtl'        => false,
+            'has_min'        => false,                           // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];

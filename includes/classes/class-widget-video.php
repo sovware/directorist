@@ -37,9 +37,10 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
             $allowWidget = apply_filters('atbdp_allow_video_widget', true);
             if (!$allowWidget) return;
             global $post;
-            $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
-            $listing      =  !empty($listing_info) ? $listing_info : array();
-            extract($listing);
+           // $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
+           // $listing      =  !empty($listing_info) ? $listing_info : array();
+            $videourl     = get_post_meta($post->ID, '_videourl', true);
+          //  extract($listing);
 
             if( is_singular(ATBDP_POST_TYPE) && !empty($videourl)) {
 

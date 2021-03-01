@@ -96,7 +96,7 @@ class Enqueue_Assets {
         // ================================
         $scripts['directorist-openstreet-map'] = [
             'file_name'      => 'openstreet-map',
-            'base_path'      => DIRECTORIST_PUBLIC_CSS,
+            'base_path'      => DIRECTORIST_CSS,
             'has_rtl'        => false,
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,                            // public || admin  || global
@@ -109,6 +109,7 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,
+            'has_min'        => false,                     // public || admin  || global
             'has_rtl'        => false,                            // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
@@ -119,7 +120,8 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
             'ver'            => self::$script_version,
             'group'          => $common_asset_group,
-            'has_rtl'        => false,                           // public || admin  || global
+            'has_rtl'        => false,
+            'has_min'        => false,                           // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
@@ -349,7 +351,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-openstreet-load-scripts'] = [
             'file_name' => 'load-osm-map',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'deps'      => [],
             'has_min'   => false,
             'ver'       => '',
@@ -558,7 +560,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-main-style'] = [
             'file_name'      => 'main',
-            'base_path'      => DIRECTORIST_PUBLIC_CSS,
+            'base_path'      => DIRECTORIST_CSS,
             'deps'           => [],
             'ver'            => self::$script_version,
             'group'          => 'public',                         // public || admin  || global
@@ -568,7 +570,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-inline-style'] = [
             'file_name' => 'inline-style',
-            'base_path' => DIRECTORIST_ASSETS . 'other/',
+            'base_path' => DIRECTORIST_CSS . 'other/',
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'has_min'   => false,
@@ -578,7 +580,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-settings-style'] = [
             'file_name' => 'settings-style',
-            'base_path' => DIRECTORIST_ASSETS . 'other/',
+            'base_path' => DIRECTORIST_CSS . 'other/',
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'has_min'   => false,
@@ -588,7 +590,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-atmodal'] = [
             'file_name' => 'atmodal',
-            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
@@ -598,7 +600,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-search-style'] = [
             'file_name' => 'search-style',
-            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [ ],
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
@@ -608,7 +610,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-public'] = [
             'file_name' => 'add-listing',
-            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
@@ -617,7 +619,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-pure-select-public'] = [
             'file_name' => 'pure-select',
-            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
@@ -639,7 +641,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-main-script'] = [
             'file_name' => 'main',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
@@ -654,7 +656,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-releated-listings-slider'] = [
             'file_name' => 'releated-listings-slider',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'single-listing-page',
@@ -664,7 +666,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-login'] = [
             'file_name' => 'login',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'enable'    => true,
@@ -672,7 +674,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-atmodal'] = [
             'file_name' => 'atmodal',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => '',
@@ -682,7 +684,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-geolocation'] = [
             'file_name' => 'geolocation',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'search-home',
@@ -690,7 +692,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-geolocation-widget'] = [
             'file_name' => 'geolocation-widget',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'search-home',
@@ -698,7 +700,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-search-listing'] = [
             'file_name' => 'search-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'search-form',
@@ -706,7 +708,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-search-form-listing'] = [
             'file_name' => 'search-form-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
             'section'   => 'search-form',
@@ -714,7 +716,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-single-listing-openstreet-map-custom-script'] = [
             'file_name'      => 'single-listing-openstreet-map-custom-script',
-            'base_path'      => DIRECTORIST_PUBLIC_JS,
+            'base_path'      => DIRECTORIST_JS,
             'ver'            => self::$script_version,
             'group'          => 'public',                                        // public || admin  || global
             'section'        => 'single-listing-page',                           // public || admin  || global
@@ -724,7 +726,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-single-listing-gmap-custom-script'] = [
             'file_name'      => 'single-listing-gmap-custom-script',
-            'base_path'      => DIRECTORIST_PUBLIC_JS,
+            'base_path'      => DIRECTORIST_JS,
             'ver'            => self::$script_version,
             'group'          => 'public',                                   // public || admin  || global
             'section'        => 'single-listing-page',
@@ -734,7 +736,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-public'] = [
             'file_name'      => 'add-listing',
-            'base_path'      => DIRECTORIST_PUBLIC_JS,
+            'base_path'      => DIRECTORIST_JS,
             'ver'            => self::$script_version,
             'group'          => 'public',                                           // public || admin  || global
             // 'shortcode'      => ['directorist_add_listing'],
@@ -744,25 +746,27 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-public'] = [
             'file_name' => 'add-listing-openstreet-map-custom-script',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
-            'enable' => Script_Helper::is_enable_map( 'openstreet' ),
+            // 'shortcode' => ['directorist_add_listing'],
+            'section' => '__',
+            'enable'  => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-add-listing-gmap-custom-script-public'] = [
             'file_name' => 'add-listing-gmap-custom-script',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
-            'enable' => Script_Helper::is_enable_map( 'google' ),
+            // 'shortcode' => ['directorist_add_listing'],
+            'section' => '__',
+            'enable'  => Script_Helper::is_enable_map( 'google' ),
         ];
 
         $scripts['directorist-pure-select-public'] = [
             'file_name' => 'pure-select',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
         ];
@@ -781,7 +785,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-admin-style'] = [
             'file_name' => 'admin',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -791,7 +795,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-admin'] = [
             'file_name' => 'add-listing',
-            'base_path' => DIRECTORIST_PUBLIC_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
@@ -800,7 +804,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-plugins-css'] = [
             'file_name' => 'plugins',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -811,7 +815,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-settings-manager'] = [
             'file_name' => 'settings-manager',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -821,7 +825,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-multi-directory-archive'] = [
             'file_name' => 'multi-directory-archive',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -831,7 +835,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-multi-directory-builder'] = [
             'file_name' => 'multi-directory-builder',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -844,7 +848,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-plupload'] = [
             'file_name' => 'directorist-plupload',
-            'base_path' => DIRECTORIST_ADMIN_CSS,
+            'base_path' => DIRECTORIST_CSS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => 'global',
@@ -866,7 +870,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-admin-script'] = [
             'file_name'     => 'admin',
-            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'base_path'     => DIRECTORIST_JS,
             // 'deps'          => Script_Helper::get_admin_script_dependency(),
             'ver'           => self::$script_version,
             'group'         => 'admin',
@@ -885,7 +889,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-admin'] = [
             'file_name' => 'add-listing',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
             'page'      => ['post-new.php', 'post.php'],
@@ -893,7 +897,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-multi-directory-archive'] = [
             'file_name' => 'multi-directory-archive',
-            'base_path' => DIRECTORIST_ADMIN_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin', // public || admin  || global
             'page'      => ['at_biz_dir_page_atbdp-directory-types'],
@@ -901,7 +905,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [
             'file_name' => 'add-listing-openstreet-map-custom-script',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin',                                        // public || admin  || global
             'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
@@ -911,7 +915,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-add-listing-gmap-custom-script-admin'] = [
             'file_name' => 'add-listing-gmap-custom-script',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin',                                    // public || admin  || global
             'enable'    => Script_Helper::is_enable_map( 'google' ),
@@ -922,7 +926,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-multi-directory-builder'] = [
             'file_name'     => 'multi-directory-builder',
-            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'base_path'     => DIRECTORIST_JS,
             'ver'           => self::$script_version,
             'group'         => 'admin',
             'page'          => [
@@ -937,7 +941,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-settings-manager'] = [
             'file_name'     => 'settings-manager',
-            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'base_path'     => DIRECTORIST_JS,
             'ver'           => self::$script_version,
             'group'         => 'admin',
             'page'          => 'at_biz_dir_page_atbdp-settings',
@@ -949,7 +953,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-plugins'] = [
             'file_name' => 'plugins',
-            'base_path' => DIRECTORIST_ADMIN_JS,
+            'base_path' => DIRECTORIST_JS,
             // 'deps'      => ['jquery'],
             'ver'       => self::$script_version,
             'group'     => 'admin',
@@ -960,7 +964,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-plupload-public'] = [
             'file_name' => 'directorist-plupload',
-            'base_path' => DIRECTORIST_ADMIN_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public',
             'section'   => '__',
@@ -968,7 +972,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-plupload-admin'] = [
             'file_name' => 'directorist-plupload',
-            'base_path' => DIRECTORIST_ADMIN_JS,
+            'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'admin',
             'section'   => '',
@@ -976,7 +980,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-import-export'] = [
             'file_name'     => 'import-export',
-            'base_path'     => DIRECTORIST_ADMIN_JS,
+            'base_path'     => DIRECTORIST_JS,
             // 'deps'          => ['jquery'],
             'ver'           => self::$script_version,
             'group'         => 'admin',
@@ -1003,7 +1007,7 @@ class Enqueue_Assets {
 
         // $scripts['directorist-admin-style'] = [
         //     'file_name' => 'admin-style',
-        //     'base_path' => DIRECTORIST_ADMIN_CSS,
+        //     'base_path' => DIRECTORIST_CSS,
         //     'deps'      => [],
         //     'ver'       => self::$script_version,
         //     'group'     => 'global',
@@ -1027,7 +1031,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-map-view'] = [
             'file_name' => 'map-view',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => $common_asset_group,
@@ -1037,7 +1041,7 @@ class Enqueue_Assets {
 
         $scripts['directorist-gmap-marker-clusterer'] = [
             'file_name' => 'markerclusterer',
-            'base_path' => DIRECTORIST_PUBLIC_JS,
+            'base_path' => DIRECTORIST_JS,
             'deps'      => [],
             'ver'       => self::$script_version,
             'group'     => $common_asset_group,
@@ -1104,7 +1108,7 @@ class Enqueue_Assets {
         foreach( $args['scripts'] as $handle => $script_args ) {
             $default = [
                 'file_name' => $handle,
-                'base_path' => DIRECTORIST_PUBLIC_CSS,
+                'base_path' => DIRECTORIST_CSS,
                 'deps'      => [],
                 'ver'       => false,
                 'media'     => 'all',
@@ -1176,7 +1180,7 @@ class Enqueue_Assets {
         foreach( $args['scripts'] as $handle => $script_args ) {
             $default = [
                 'file_name' => $handle,
-                'base_path' => DIRECTORIST_PUBLIC_JS,
+                'base_path' => DIRECTORIST_JS,
                 'link'      => '',
                 'deps'      => [],
                 'ver'       => false,
@@ -1372,7 +1376,8 @@ class Enqueue_Assets {
         $has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
         $has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
-        $load_min = apply_filters( 'directorist_load_min_files', !SCRIPT_DEBUG );
+        $load_min = true;
+        // $load_min = apply_filters( 'directorist_load_min_files', !SCRIPT_DEBUG );
         $is_rtl   =  is_rtl();
 
         if ( $has_min && $load_min ) {

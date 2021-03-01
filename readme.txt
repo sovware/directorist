@@ -29,6 +29,12 @@ Directorist Business Directory is one of the leading and fast-growing business d
 
 == WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN? ==
 
+👉 **Multi Directory:** Boost your business directory possibilities by creating multiple directory types within the same directory. Add different sets of functionalities for each directory type and start managing them on the same website.
+
+👉 **Custom Form and Layout Builder:** Directorist form and layout builder allows you to build custom add listing and search form using drag and drop technology. Besides, you will also be able to design your “All listing” card and "Single Listing" page layout using the builder. Just drag and drop the items you want to show and give the directory a personalized appearance.
+
+👉 **Listing CSV Import/Export with Custom Field:** The new Directorist allows you to import listings with custom fields from the CSV file for no cost. Listing import and migrating to Directorist from another directory plugin is more effective now. Moreover, CSV export has also been added therefore domain switching, exporting to local is no longer a big deal! 
+
 👉 **Beginner Friendly:** Thoughtfully designed user-interface lets users to operate the plugin with zero coding skills and get the most compelling user experience. This beginner-friendly plugin provides you a simple setup wizard to get you started.
 
 👉 **Monetize and Earn:** Expand your business with our amazing monetization features that allows you to create an additional income stream and generate unlimited revenue flow.
@@ -168,6 +174,8 @@ Make a powerful and beautiful business directory or classified website with the 
 
 == Developer Friendly ==
 
+🎉 **Templating:** Directorist offers a robust templating system that allows you to override all the Directorist default template files without amending any of the plugin codes.
+
 WordPress developers can extend the plugin functionalities infinitely using available hooks and filters.
 
 == Constructed with Clean Code ==
@@ -256,7 +264,7 @@ If you face any issues with managing this awesome business directory plugin in p
 
 == Contribute to Directorist - The Best Business Directory Plugin ==
 
-If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/sovware/directorist). If you find anything improbable, feel free to shoot a bug report.
+If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
 
 == Installation ==
 
@@ -328,13 +336,32 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.6 - Jan 15, 2021 =
+= 7.0 - Feb 28, 2021 =
 
-* Add - Multi Directory
+* Add - Multi directory
 * Add - Custom form and layout builder
-* Add - New Settings Panel
+* Add - New settings panel
 * Add - Templating
-* Add - Admin Debugger
+* Add - Listing CSV Export/Import with custom field
+* Add - Legacy template support
+* Add - Asset loading on demand
+* Add - Different dashboard and signup options for users and listing owners
+* Add - Same author listings in similar listings
+* Add - PHP compatibility (7.0 to 8.0)
+
+= 6.5.8 - Feb 17, 2021 =
+
+* Add - Admin debugger
+* Add - Compatibility with PHP 8
+* Fix - Edited listing status issue
+* Fix - Fix title issue in Astra theme
+* Fix - Image limit issue in add listing
+* Fix - Translation issues
+* Fix - Fix duplicate notice in announcement
+* Fix - Listings order by 'rand' when cache enabled
+* Fix - Category icon issue
+* Fix - Location permalink issue
+* Fix - Add listing form restriction
 
 = 6.5.7 - Dec 21, 2020 =
 

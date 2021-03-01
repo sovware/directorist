@@ -153,7 +153,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'            => 'button',
                     'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'open-in-new-tab' => true,
-                    'label'           => __( 'CSV', 'directorist' ),
+                    'label'           => __( 'Import Listings', 'directorist' ),
                     'button-label'    => __( 'Run Importer', 'directorist' ),
                 ];
 

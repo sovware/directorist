@@ -4495,7 +4495,7 @@ p.atbd-min {
           align-items: center;
 }
 .directorist-author-profile-wrap .directorist-author-avatar img {
-  max-width: 95px;
+  max-width: 95px !important;
   border-radius: 50%;
   margin-right: 20px;
 }
@@ -7504,7 +7504,11 @@ p.atbd-min {
 }
 
 .directorist-related-carousel .slick-list {
-  margin: 0 -15px;
+  margin: 0 -15px 30px;
+}
+.directorist-related-carousel .slick-track {
+  margin-left: 0;
+  margin-right: 0;
 }
 .directorist-related-carousel .slick-slide {
   margin: 0 15px;

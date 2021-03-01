@@ -855,3 +855,32 @@
     max-width: 800px;
   }
 }
+
+.atbd_widget .default-ad-search {
+  .custom-control {
+    input[type=radio] {
+      display: none;
+    }
+  }
+
+  .submit_btn {
+    .btn {
+      padding: 0 20px;
+      border-radius: 4px;
+      color: #fff;
+      border: 1px solid transparent;
+      line-height: 40px;
+      display: inline-block;
+
+      &.btn-default {
+        background: #fff;
+        border: 1px solid #444752;
+        color: #444752;
+      }
+
+      &:focus {
+        background: #444752 !important;
+      }
+    }
+  }
+}

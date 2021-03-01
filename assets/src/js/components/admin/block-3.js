@@ -632,7 +632,6 @@ function admin_listing_form(directory_type) {
 
             window.dispatchEvent( new CustomEvent( 'directorist-reload-plupload' ) );
 
-
             if ( response.data['required_js_scripts'] ) {
                 const scripts = response.data['required_js_scripts'];
                 for ( let script_id in scripts ) {

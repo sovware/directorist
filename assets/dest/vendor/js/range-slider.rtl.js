@@ -8,7 +8,7 @@ var atbd_slider = (selector, obj) => {
         move 		= 'mousemove',
 
         div = `
-            <div class="atbd-slide1" draggable="true"></div>	
+            <div class="atbd-slide1" draggable="true"></div>
             <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
             <div class="atbd-child"></div>
 		`;
@@ -100,7 +100,7 @@ var atbd_slider = (selector, obj) => {
     });
 };
 function atbd_callingSlider(min = atbdp_range_slider.default_val) {
-    atbd_slider ('#directorist-range-slider', {
+    atbd_slider ('#atbdp-range-slider', {
         maxValue: 1000,
         minValue: min,
         maxWidth: '100%',

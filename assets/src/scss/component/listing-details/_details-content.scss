@@ -175,9 +175,12 @@
 
 .directorist-related-carousel {
     .slick-list {
-        margin: 0 -15px;
+        margin: 0 -15px 30px;
     }
-
+    .slick-track{
+        margin-left: 0;
+        margin-right: 0;
+    }
     .slick-slide {
         margin: 0 15px;
     }

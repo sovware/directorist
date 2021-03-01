@@ -7504,7 +7504,11 @@ p.atbd-min {
 }
 
 .directorist-related-carousel .slick-list {
-  margin: 0 -15px;
+  margin: 0 -15px 30px;
+}
+.directorist-related-carousel .slick-track {
+  margin-left: 0;
+  margin-right: 0;
 }
 .directorist-related-carousel .slick-slide {
   margin: 0 15px;

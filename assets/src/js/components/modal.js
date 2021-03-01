@@ -21,14 +21,12 @@ import '../../scss/component/_modal.scss';
     let directoristModal = document.querySelector('.directorist-modal-js');
     $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {
         e.preventDefault();
-        console.log("yes")
         let data_target = $(this).attr("data-directorist_target");
         $( '.'+data_target ).toggleClass( 'directorist-show' );
     });
 
     $('body').on('click', '.directorist-modal-close-js', function(e){
         e.preventDefault();
-        console.log($(this).closest('.directorist-modal-js'));
         $(this).closest('.directorist-modal-js').removeClass('directorist-show');
     });
 

@@ -659,9 +659,9 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'section'   => 'single-listing-page',
-            'enable'    => true,
-            'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+            'section'   => '__',
+            'enable'    => false,
+            // 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
 
         $scripts['directorist-login'] = [
@@ -721,7 +721,7 @@ class Enqueue_Assets {
             'group'          => 'public',                                        // public || admin  || global
             'section'        => 'single-listing-page',                           // public || admin  || global
             'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
-            'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+            // 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
 
         $scripts['directorist-single-listing-gmap-custom-script'] = [
@@ -731,7 +731,7 @@ class Enqueue_Assets {
             'group'          => 'public',                                   // public || admin  || global
             'section'        => 'single-listing-page',
             'enable'         => Script_Helper::is_enable_map( 'google' ),
-            'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+            // 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
 
         $scripts['directorist-add-listing-public'] = [

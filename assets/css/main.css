@@ -6530,7 +6530,7 @@ p.atbd-min {
 }
 .directorist-mark-as-favorite__btn.directorist-added-to-favorite .directorist-favorite-icon:before {
   content: "";
-  font-family: 400;
+  font-weight: 900;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-icon {
   line-height: 1;
@@ -6540,7 +6540,7 @@ p.atbd-min {
   content: "";
   font-family: "Line Awesome Free";
   color: #fff;
-  font-weight: 900;
+  font-weight: 500;
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span {
   position: absolute;
@@ -6572,6 +6572,7 @@ p.atbd-min {
 }
 .directorist-mark-as-favorite__btn .directorist-favorite-icon::before {
   color: #fff;
+  font-weight: 500;
 }
 .directorist-mark-as-favorite__btn.directorist-added-to-favorite {
   background: #444752 !important;
@@ -6584,7 +6585,7 @@ p.atbd-min {
   color: #fff;
 }
 .directorist-mark-as-favorite__btn:hover .directorist-favorite-icon::before {
-  color: #767792;
+  color: #fff;
 }
 
 /* listing card without thumbnail */

@@ -460,7 +460,7 @@
         .directorist-favorite-icon {
             &:before {
                 content: '\f004';
-                font-family: 400;
+                font-weight: 900;
             }
         }
     }
@@ -473,7 +473,7 @@
             content: "\f004";
             font-family: 'Line Awesome Free';
             color: #fff;
-            font-weight: 900;
+            font-weight: 500;
         }
     }
 
@@ -510,6 +510,7 @@
 
     .directorist-favorite-icon::before {
         color: #fff;
+        font-weight: 500;
     }
 
     &.directorist-added-to-favorite {
@@ -529,7 +530,7 @@
 
     &:hover {
         .directorist-favorite-icon::before {
-            color: $body-color;
+            color: #fff;
         }
     }
 }

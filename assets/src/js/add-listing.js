@@ -12,7 +12,6 @@ if (!$('input#manual_coordinate').is(':checked')) {
 }
 
 $('#manual_coordinate').on('click', function (e) {
-        console.log("fdfd")
         if ($('input#manual_coordinate').is(':checked')) {
                 $('.directorist-map-coordinates').show();
                 $('#hide_if_no_manual_cor').show();

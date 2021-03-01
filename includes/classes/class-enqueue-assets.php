@@ -353,7 +353,7 @@ class Enqueue_Assets {
             'file_name' => 'load-osm-map',
             'base_path' => DIRECTORIST_JS,
             'deps'      => [],
-            'has_min'   => false,
+            'has_min'   => true,
             'ver'       => '',
             'group'     => $common_asset_group,
             'section'   => '__',

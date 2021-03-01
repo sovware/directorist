@@ -749,8 +749,9 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
-            'enable' => Script_Helper::is_enable_map( 'openstreet' ),
+            // 'shortcode' => ['directorist_add_listing'],
+            'section' => '__',
+            'enable'  => Script_Helper::is_enable_map( 'openstreet' ),
         ];
 
         $scripts['directorist-add-listing-gmap-custom-script-public'] = [
@@ -758,8 +759,9 @@ class Enqueue_Assets {
             'base_path' => DIRECTORIST_JS,
             'ver'       => self::$script_version,
             'group'     => 'public', // public || admin  || global
-            'shortcode' => ['directorist_add_listing'],
-            'enable' => Script_Helper::is_enable_map( 'google' ),
+            // 'shortcode' => ['directorist_add_listing'],
+            'section' => '__',
+            'enable'  => Script_Helper::is_enable_map( 'google' ),
         ];
 
         $scripts['directorist-pure-select-public'] = [

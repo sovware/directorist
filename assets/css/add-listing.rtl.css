@@ -1595,3 +1595,11 @@ body.stop-scrolling {
 #_listing_gallery {
   text-align: center;
 }
+
+#listing_form_info .directorist-bh-wrap .directorist-select select {
+  width: calc(100% - 1px);
+  min-height: 42px;
+  display: block !important;
+  border-color: #ececec !important;
+  padding: 0 10px;
+}

@@ -5,25 +5,22 @@ const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
+     
+if (!$('input#manual_coordinate').is(':checked')) {
+        $('.directorist-map-coordinates').hide();
+        $('#hide_if_no_manual_cor').hide();
+}
 
-window.addEventListener('directorist-reload-plupload',function(){
-        
-        if (!$('input#manual_coordinate').is(':checked')) {
+$('#manual_coordinate').on('click', function (e) {
+        console.log("fdfd")
+        if ($('input#manual_coordinate').is(':checked')) {
+                $('.directorist-map-coordinates').show();
+                $('#hide_if_no_manual_cor').show();
+        } else {
                 $('.directorist-map-coordinates').hide();
                 $('#hide_if_no_manual_cor').hide();
         }
-        $('#manual_coordinate').on('click', function (e) {
-                console.log("fdfd")
-                if ($('input#manual_coordinate').is(':checked')) {
-                        $('.directorist-map-coordinates').show();
-                        $('#hide_if_no_manual_cor').show();
-                } else {
-                        $('.directorist-map-coordinates').hide();
-                        $('#hide_if_no_manual_cor').hide();
-                }
-        });
 });
-
 
 // enable sorting if only the container has any social or skill field
 const $s_wrap = $('#social_info_sortable_container'); // cache it

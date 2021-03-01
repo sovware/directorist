@@ -1249,13 +1249,16 @@ body.stop-scrolling {
   padding: 0 15px;
 }
 .directorist-form-group .select2-container--default .select2-selection .select2-selection__rendered {
-  line-height: 36px;
+  line-height: 26px;
 }
 .directorist-form-group .select2-container--default .select2-selection .select2-selection__clear {
   padding-left: 15px;
 }
 .directorist-form-group .select2-container--default .select2-selection .select2-selection__arrow {
   left: 10px;
+}
+.directorist-form-group .select2-container--default .select2-selection input {
+  min-height: 26px;
 }
 
 .select2-container--open .select2-dropdown.select2-dropdown--below {

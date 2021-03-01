@@ -7932,6 +7932,104 @@ p.atbd-min {
   margin-left: 0;
 }
 
+.directorist-content-active .atbdp-universal-pagination ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: -5px;
+  padding: 0;
+}
+.directorist-content-active .atbdp-universal-pagination ul li {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
+  margin: 5px;
+  padding: 0 10px;
+  border: 1px solid #eff1f6;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 28px;
+  border-radius: 3px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background: #fff;
+}
+.directorist-content-active .atbdp-universal-pagination ul li i {
+  line-height: 28px;
+}
+.directorist-content-active .atbdp-universal-pagination ul li.atbd-active {
+  cursor: pointer;
+}
+.directorist-content-active .atbdp-universal-pagination ul li.atbd-active:hover {
+  border-color: #202428;
+  color: #202428;
+}
+.directorist-content-active .atbdp-universal-pagination ul li.atbd-selected {
+  border-color: #202428;
+  color: #202428;
+}
+.directorist-content-active .atbdp-universal-pagination ul li.atbd-inactive {
+  opacity: 0.5;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-] {
+  min-width: 30px;
+  min-height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-] .la {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-] .la_h {
+  visibility: hidden;
+  opacity: 0;
+  left: 70%;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-] .la_d {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-]:hover {
+  color: #202428;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-]:hover .la_h {
+  visibility: visible;
+  opacity: 1;
+  left: 50%;
+}
+.directorist-content-active .atbdp-universal-pagination ul li[class^=atbd-page-jump-]:hover .la_d {
+  visibility: hidden;
+  opacity: 0;
+  left: 30%;
+}
+
 .directorist-card-review-block .directorist-btn-add-review {
   padding: 0 14px;
   line-height: 2.55;

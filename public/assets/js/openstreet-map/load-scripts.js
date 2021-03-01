@@ -1,6 +1,9 @@
 var loc_data        = get_dom_data( 'loc_data' );
 var atbdp_lat_lon   = get_dom_data( 'atbdp_lat_lon' );
 var listings_data   = get_dom_data( 'listings_data' );
+
+console.log( { loc_data, atbdp_lat_lon, listings_data } );
+
 function get_dom_data ( key ) {
     var dom_content = document.body.innerHTML;
 

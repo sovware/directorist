@@ -2230,6 +2230,9 @@ div#listing_notifier span.atbdp_success {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdp-universal-pagination ul li {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
   margin: 5px;
   padding: 0 10px;
   border: 1px solid #e3e6ef;
@@ -2319,6 +2322,62 @@ div#listing_notifier span.atbdp_success {
   visibility: hidden;
   opacity: 0;
   left: 30%;
+}
+
+.directorist-signle-review {
+  padding-bottom: 26px;
+  padding-top: 30px;
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.directorist-signle-review:first-child {
+  padding-top: 0;
+}
+
+.directorist-signle-review:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.directorist-signle-review .directorist-signle-review__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 22px;
+}
+
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar {
+  margin-right: 12px;
+}
+
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar img {
+  max-width: 50px;
+  border-radius: 50%;
+}
+
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar__info p {
+  font-size: 16px;
+  color: #202428;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.directorist-signle-review .directorist-signle-review__top .directorist-signle-review-avatar-wrap .directorist-signle-review-avatar__info .directorist-signle-review-time {
+  font-size: 13px;
+  margin-left: 0;
 }
 
 .select2-container .select2-results__option {

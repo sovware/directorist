@@ -4486,7 +4486,7 @@ p.atbd-min {
           align-items: center;
 }
 .directorist-author-profile-wrap .directorist-author-avatar img {
-  max-width: 95px;
+  max-width: 95px !important;
   border-radius: 50%;
   margin-left: 20px;
 }

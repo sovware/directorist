@@ -47,7 +47,7 @@ class ATBDP_Metabox {
 
 		$map_type = get_directorist_option('select_listing_map', 'openstreet');
 		$script_name = ( 'openstreet' === $map_type ) ? 'add-listing-openstreet-map-custom-script' : 'add-listing-gmap-custom-script';
-		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_PUBLIC_JS . $script_name . '.js';
+		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . '.js';
 
 		wp_send_json_success( array(
 			'listing_meta_fields' => $listing_meta_fields,

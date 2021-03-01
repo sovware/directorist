@@ -529,10 +529,6 @@ $('.atbds_tooltip').on('mouseleave', function () {
 });
 
 
-const directory_type = $('select[name="directory_type"]').val();
-if (directory_type) {
-    admin_listing_form(directory_type);
-}
 $('body').on('change', 'select[name="directory_type"]', function () {
     $(this)
         .parent('.inside')
@@ -605,7 +601,7 @@ function admin_listing_form(directory_type) {
             listing_id: $('#directiost-listing-fields_wrapper').data('id'),
         },
         success(response) {
-            // console.log( response );
+            console.log( response );
 
             $('#directiost-listing-fields_wrapper')
                 .empty()
@@ -642,6 +638,9 @@ function admin_listing_form(directory_type) {
                     document.body.appendChild(script);
                 }
             }
+        },
+        error( error ) {
+            console.log( { error } );
         },
     });
 }

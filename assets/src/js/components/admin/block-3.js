@@ -601,7 +601,7 @@ function admin_listing_form(directory_type) {
             listing_id: $('#directiost-listing-fields_wrapper').data('id'),
         },
         success(response) {
-            console.log( response );
+            // console.log( response );
 
             $('#directiost-listing-fields_wrapper')
                 .empty()

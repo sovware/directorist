@@ -3,7 +3,7 @@
     // remove the review of a user
     var delete_count = 1;
     
-    $(document).on('click', '#atbdp_review_remove', function (e) {
+    $(document).on('click', '#directorist-review-remove', function (e) {
         e.preventDefault();
         if (delete_count > 1) {
             // show error message

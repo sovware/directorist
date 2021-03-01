@@ -279,7 +279,7 @@
 
     var delete_count = 1;
     // remove the review of a user
-    $(document).on('click', '#atbdp_review_remove', function (e) {
+    $(document).on('click', '#', function (e) {
         e.preventDefault();
         if (delete_count > 1) {
             // show error message

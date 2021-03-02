@@ -29,7 +29,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'initial_setup') );
-            // add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
+            add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
             add_action( 'init', array( $this, 'get_the_product_list') );
             
             // Ajax
@@ -135,10 +135,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/11/19_Coupon.png',
                     'active'      => true,
                 ],
-                'compare-listings' => [
+                'directorist-compare-listing' => [
                     'name'        => 'Compare Listings',
                     'description' => __( 'Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/compare-listings/',
+                    'link'        => 'https://directorist.com/product/directorist-compare-listing/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/2020/07/Compare-Listings.png',
                     'active'      => true,
                 ],
@@ -212,10 +212,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/04_Social-Login-1.png',
                     'active'      => true,
                 ],
-                'google-recaptcha' => [
+                'directorist-google-recaptcha' => [
                     'name'        => 'Google reCAPTCHA',
                     'description' => __( 'Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/google-recaptcha/',
+                    'link'        => 'https://directorist.com/product/directorist-google-recaptcha/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
                     'active'      => true,
                 ],
@@ -259,6 +259,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-image-gallery/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
+                    'active'      => true,
+                ],
+                'directorist-ads-manager' => [
+                    'name'        => 'Directorist Ads Manager',
+                    'description' => __( 'Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-ads-manager/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
                     'active'      => true,
                 ],
             ]);
@@ -708,13 +715,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }
-            
-            if ( ! empty( $response_body['license_data']['old_theme_user'] ) ) {
-                update_option( '_directorist_old_theme_user_before_v7', true );
-            }
 
             $previous_username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
-           
+            
             // Enable Sassion
             update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
@@ -1018,17 +1021,14 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $installing_file = $available_in_subscriptions[ $item_key ];
+            $activatation_status = $this->activate_license( $installing_file, $type );
+            $status[ 'log'] = $activatation_status;
 
-            if ( empty( $installing_file['skip_licencing'] ) ) {
-                $activatation_status = $this->activate_license( $installing_file, $type );
-                $status[ 'log'] = $activatation_status;
+            if ( ! $activatation_status[ 'success' ] ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
 
-                if ( ! $activatation_status[ 'success' ] ) {
-                    $status[ 'success'] = false;
-                    $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
-
-                    return [ 'status' => $status ];
-                }
+                return [ 'status' => $status ];
             }
 
             $link = $installing_file['download_link'];

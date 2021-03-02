@@ -116,6 +116,7 @@
 
         $('.address_result').hide();
         if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+                
                 function initialize() {
                         const options = atbdp_search_listing.countryRestriction
                                 ? {
@@ -135,18 +136,17 @@
 
                 google.maps.event.addDomListener(window, 'load', initialize);
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+                
                 $('#address, #q_addressss,.atbdp-search-address').on('keyup', function(event) {
                         event.preventDefault();
                         const search = $(this).val();
-
+                        console.log($(this).parent().next('.address_result'));
                         $(this)
-                                .parent()
                                 .next('.address_result')
                                 .css({ display: 'block' });
 
                         if (search === '') {
                                 $(this)
-                                        .parent()
                                         .next('.address_result')
                                         .css({ display: 'none' });
                         }
@@ -163,7 +163,6 @@
                                                 }>${data[i].display_name}</a></li>`;
                                         }
                                         $(event.target)
-                                                .parent()
                                                 .next('.address_result')
                                                 .html(`<ul>${res}</ul>`);
                                 },
@@ -178,7 +177,7 @@
                                 $('.address_result').hide();
                         }
                 });
-
+ 
                 $('body').on('click', '.address_result ul li a', function(event) {
                         event.preventDefault();
                         const text = $(this).text();

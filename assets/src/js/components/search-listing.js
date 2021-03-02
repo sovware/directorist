@@ -180,6 +180,7 @@
 
         })
     });
+
 })(jQuery);
 
 /* advanced search form reset */

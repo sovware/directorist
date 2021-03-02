@@ -21,7 +21,7 @@ const commonConfig = {
           {
             loader: "file-loader",
             options: {
-              outputPath: "../images",
+              outputPath: "images",
             },
           },
         ],
@@ -32,7 +32,7 @@ const commonConfig = {
         use: {
           loader: "file-loader",
           options: {
-            outputPath: "../fonts",
+            outputPath: "fonts",
           },
         },
       },
@@ -152,7 +152,6 @@ const MainConfig = {
   },
 
   output: {
-    // path: path.resolve(__dirname, "assets/js/"),
     path: path.resolve( process.cwd(), 'assets/'),
   },
 

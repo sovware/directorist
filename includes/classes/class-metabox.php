@@ -46,8 +46,10 @@ class ATBDP_Metabox {
 		$required_script_src = [];
 
 		$map_type = get_directorist_option('select_listing_map', 'openstreet');
-		$script_name = ( 'openstreet' === $map_type ) ? 'add-listing-openstreet-map-custom-script' : 'add-listing-gmap-custom-script';
-		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . '.min.js';
+		$script_name = ( 'openstreet' === $map_type ) ? 'global-add-listing-openstreet-map-custom-script' : 'global-add-listing-gmap-custom-script';
+		
+		$ext = ( apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES ) ) ? '.min.js' : '.js';
+		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
 
 		wp_send_json_success( array(
 			'listing_meta_fields' => $listing_meta_fields,

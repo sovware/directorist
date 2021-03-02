@@ -63,7 +63,7 @@ class ATBDP_Upgrade
 
 		$text = '';
 
-		$link = 'https://directorist.com/features/';
+		$link = 'https://directorist.com/blog/directorist-7-0-released/';
         $membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
         $wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';

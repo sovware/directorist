@@ -287,3 +287,36 @@
         }
     }
 }
+
+.directorist-search-field{
+    #address{
+        &+.address_result{
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 45px;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba($light-gray, 0.2);
+            border-radius: 3px;
+            z-index: 1;
+            max-height: 300px;
+            overflow-y: scroll;
+            ul {
+                li {
+                    border-bottom: 1px solid $border-color;
+                    padding: 10px 15px 10px !important;
+            
+                    a {
+                        font-size: 14px;
+                        color: #7a82a6;
+                        line-height: 22px;
+                        display: block;
+                        &:hover{
+                            color: $primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

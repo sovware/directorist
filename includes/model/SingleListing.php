@@ -419,7 +419,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_featured_badge( $data ) {
-		return Helper::is_featured( $this->id ) && $data['featured_badge'];
+		$featured_badge = !empty( $data['featured_badge'] ) ? $data['featured_badge'] : '';
+		return $featured_badge && Helper::is_featured( $this->id );
 	}
 
 	public function display_popular_badge( $data ) {

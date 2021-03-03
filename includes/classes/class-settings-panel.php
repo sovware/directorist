@@ -72,6 +72,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ]
                 ];
 
+                $fields['single_listing_slug_with_directory_type'] = [
+                    'type'  => 'toggle',
+                    'label' => __('Listing Slug with Directory Type', 'directorist'),
+                    'value' => get_directorist_option( 'enable_multi_directory' ),
+                ];
+
                 $fields['regenerate_pages'] = [
                     'type'                       => 'ajax-action',
                     'action'                     => 'atbdp_upgrade_old_pages',
@@ -4419,7 +4425,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),

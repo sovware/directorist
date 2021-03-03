@@ -385,7 +385,11 @@ export default {
     },
   },
   created() {
+
     this.impportOldData();
+    // console.log( '--', this.fieldId, this.value );
+    // return;
+
     this.groups = this.parseGroups();
     this.$emit("update", this.updated_value);
   },
@@ -434,6 +438,7 @@ export default {
     },
     updated_value() {
       let groups = this.groups;
+
       if (groups.length) {
         groups = JSON.parse(JSON.stringify(this.groups));
         for (let group_index in groups) {
@@ -712,6 +717,7 @@ export default {
         this.default_groups = this.value.groups;
       }
 
+
       // Trace active_widget_groups
       if (this.default_groups.length) {
         for (let group of this.default_groups) {
@@ -779,6 +785,8 @@ export default {
         widget_keys_groups[ widget_group_key ] = widgets_keys;
       }
 
+      
+
       for ( let field_key in this.active_fields ) {
         let widget_group_key = this.active_fields[ field_key ].widget_group;
         let widget_name = this.active_fields[ field_key ].widget_name;
@@ -788,10 +796,12 @@ export default {
           continue;
         }
 
-        if ( ! widget_keys_groups[ widget_group_key ].includes( widget_name ) ) {
-          this.removeActiveField( field_key, widget_name );
+        if ( widget_keys_groups[ widget_group_key ].includes( widget_name ) || widget_keys_groups[ widget_group_key ].includes( field_key ) ) {
           continue;
+        } else {
+          this.removeActiveField( field_key, widget_name );
         }
+
       }
 
     },

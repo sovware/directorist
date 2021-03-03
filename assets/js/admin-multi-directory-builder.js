@@ -22718,7 +22718,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     }
   },
   created: function created() {
-    this.impportOldData();
+    this.impportOldData(); // console.log( '--', this.fieldId, this.value );
+    // return;
+
     this.groups = this.parseGroups();
     this.$emit("update", this.updated_value);
   },
@@ -23157,9 +23159,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           continue;
         }
 
-        if (!widget_keys_groups[_widget_group_key].includes(widget_name)) {
-          this.removeActiveField(field_key, widget_name);
+        if (widget_keys_groups[_widget_group_key].includes(widget_name) || widget_keys_groups[_widget_group_key].includes(field_key)) {
           continue;
+        } else {
+          this.removeActiveField(field_key, widget_name);
         }
       }
     },
@@ -25175,7 +25178,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -36874,7 +36877,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

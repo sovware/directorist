@@ -479,3 +479,13 @@
         }
     }
 }
+
+#listing_form_info{
+    .atbd_content_module {
+        &.atbd-booking-information{
+            .atbdb_content_module_contents{
+                padding-top: 20px;
+            }
+        }
+    }
+}

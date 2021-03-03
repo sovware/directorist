@@ -7,7 +7,7 @@
 ?>
 <div class="atbd_tab_inner tabContentActive" id="dashboard_my_listings" data-paged="1" data-search="">
 	<div id="directorist-dashboard-preloader" style="display:none">
-	<div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div>
 	</div>
 	<div class="directorist_userDashboard-area">
 		<div class="directorist_userDashboard-tab">

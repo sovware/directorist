@@ -396,6 +396,8 @@ export default {
     theAvailableWidgets() {
       let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
 
+      
+
       for ( let widget in available_widgets ) {
         available_widgets[ widget ].widget_name = widget;
         available_widgets[ widget ].widget_key = widget;

@@ -396,6 +396,9 @@ export default {
     },
   },
   created() {
+    // console.log( console.log( this.value.groups ); );
+    // console.log( this.value.groups );
+
     this.impportOldData();
     this.groups = this.parseGroups();
     this.$emit("update", this.updated_value);
@@ -756,6 +759,8 @@ export default {
       if (Array.isArray(this.value.groups) && this.has_group) {
         this.default_groups = this.value.groups;
       }
+
+      console.log( this.value.groups );
 
       // Trace active_widget_groups
       if (this.default_groups.length) {

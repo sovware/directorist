@@ -301,7 +301,7 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $data['default_radius_distance'];
 
-		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
 			'default_val' => $value
 		));	

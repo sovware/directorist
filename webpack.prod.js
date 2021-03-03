@@ -6,17 +6,20 @@ const WebpackRTLPlugin     = require("webpack-rtl-plugin");
 
 const prodConfig = {
   mode: "production", // production | development
+  watch: false,
+  
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/[name].min.css",
+      filename: "css/[name].min.css",
       minify: true,
     }),
     new WebpackRTLPlugin({
       minify: true,
     }),
   ],
+
   output: {
-    filename: "[name].min.js",
+    filename: "js/[name].min.js",
   },
 };
 

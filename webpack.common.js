@@ -21,7 +21,7 @@ const commonConfig = {
           {
             loader: "file-loader",
             options: {
-              outputPath: "../images",
+              outputPath: "images",
             },
           },
         ],
@@ -32,7 +32,7 @@ const commonConfig = {
         use: {
           loader: "file-loader",
           options: {
-            outputPath: "../fonts",
+            outputPath: "fonts",
           },
         },
       },
@@ -67,14 +67,14 @@ const commonConfig = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: false,
+              sourceMap: true,
             }
           },
           'resolve-url-loader',
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: false,
+              sourceMap: true,
               config: {
                 path: 'postcss.config.js'
               }
@@ -83,9 +83,9 @@ const commonConfig = {
           {
             loader: "sass-loader",
             options: {
-              sourceMap: false,
+              sourceMap: true,
               sassOptions: {
-                // outputStyle: 'compressed',
+                outputStyle: 'compressed',
               },
             },
           },
@@ -93,8 +93,6 @@ const commonConfig = {
       },
     ],
   },
-
-  // devtool: 'source-map'
 };
 
 // Main Config
@@ -103,55 +101,58 @@ const MainConfig = {
     // Public
     // -------------------------------------------
     // JS
-    ['main']: ["./assets/src/js/main.js"],
-    ['global']: ["./assets/src/js/global.js"],
-    ['checkout']: ["./assets/src/js/checkout.js"],
-    ['search-listing']: ["./assets/src/js/components/search-listing.js"],
-    ['search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
+    ['public-main']: ["./assets/src/js/main.js"],
+    ['public-checkout']: ["./assets/src/js/checkout.js"],
+    ['public-search-listing']: ["./assets/src/js/components/search-listing.js"],
+    ['public-search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
     
-    ['single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],
-    ['single-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map.js"],
+    ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],
+    ['public-single-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map.js"],
    
-    ['atmodal']: ["./assets/src/js/modules/atmodal.js"],
-    ['releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
-    ['login']: ["./assets/src/js/components/login.js"],
+    ['public-atmodal']: ["./assets/src/js/modules/atmodal.js"],
+    ['public-releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
+    ['public-login']: ["./assets/src/js/components/login.js"],
+    ['public-geolocation-widget']: ["./assets/src/js/map-scripts/geolocation-widget.js"],
 
     // CSS
-    ['search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
-    ['openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
+    ['public-search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
+
 
     // Admin
     // -------------------------------------------
-    ['admin']: "./assets/src/js/admin/admin.js",
-    ['custom-field']: "./assets/src/js/admin/custom-field.js",
-    ['extension-update']: "./assets/src/js/admin/extension-update.js",
-    ['import-export']: "./assets/src/js/admin/import-export.js",
-    ['plugins']: "./assets/src/js/admin/plugins.js",
-    ['setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
-    ['multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
-    ['multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
-    ['settings-manager']: "./assets/src/js/admin/settings-manager.js",
+    ['admin-main']: "./assets/src/js/admin/admin.js",
+    ['admin-custom-field']: "./assets/src/js/admin/custom-field.js",
+    ['admin-extension-update']: "./assets/src/js/admin/extension-update.js",
+    ['admin-import-export']: "./assets/src/js/admin/import-export.js",
+    ['admin-plugins']: "./assets/src/js/admin/plugins.js",
+    ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
+    ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
+    ['admin-multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
+    ['admin-settings-manager']: "./assets/src/js/admin/settings-manager.js",
 
     // CSS
-    ['drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
+    ['admin-drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
 
     // Global
     // -------------------------------------------
     // JS
-    ['geolocation']: ["./assets/src/js/map-scripts/geolocation.js"],
-    ['geolocation-widget']: ["./assets/src/js/map-scripts/geolocation-widget.js"],
-    ['directorist-plupload']: "./assets/src/js/admin/directorist-plupload.js",
-    ['pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
-    ['load-osm-map']: ["./assets/src/js/map-scripts/load-osm-map.js"],
-    ['map-view']: ["./assets/src/js/map-scripts/map-view.js"],
-    ['markerclusterer']: ["./assets/src/js/map-scripts/markerclusterer.js"],
-    ['add-listing']: ["./assets/src/js/add-listing.js"],
-    ['add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/add-listing/openstreet-map.js"],
-    ['add-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/add-listing/google-map.js"],
+    ['global-add-listing']: ["./assets/src/js/add-listing.js"],
+    ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/add-listing/openstreet-map.js"],
+    ['global-add-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/add-listing/google-map.js"],
+    ['global-geolocation']: ["./assets/src/js/map-scripts/geolocation.js"],
+    
+    ['global-directorist-plupload']: "./assets/src/js/admin/directorist-plupload.js",
+    ['global-pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
+    ['global-load-osm-map']: ["./assets/src/js/map-scripts/load-osm-map.js"],
+    ['global-map-view']: ["./assets/src/js/map-scripts/map-view.js"],
+    ['global-markerclusterer']: ["./assets/src/js/map-scripts/markerclusterer.js"],
+
+    // CSS
+    ['global-openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
   },
 
   output: {
-    path: path.resolve(__dirname, "assets/js/"),
+    path: path.resolve( process.cwd(), 'assets/'),
   },
 
   ...commonConfig

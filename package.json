@@ -6,7 +6,8 @@
   "scripts": {
     "server": "webpack-dev-server --config webpack.dev.js --open",
     "dev": "webpack --config webpack.dev.js",
-    "prod": "webpack --config webpack.prod.js"
+    "prod": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.build.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^3.0.0",
     "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.6.0",
     "file-loader": "^6.0.0",
     "gulp-autoprefixer": "^6.0.0",

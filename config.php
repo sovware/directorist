@@ -20,14 +20,20 @@ if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includ
 // Plugin Template Path
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }
 
+if ( ! defined( 'DIRECTORIST_LOAD_MIN_FILES' ) ) { define( 'DIRECTORIST_LOAD_MIN_FILES', true ); }
+if ( ! defined( 'DIRECTORIST_SCRIPT_VERSION' ) ) { define( 'DIRECTORIST_SCRIPT_VERSION', ATBDP_VERSION ); }
+if ( ! defined( 'DIRECTORIST_DISABLE_SHORTCODE_RESTRICTION_ON_SCRIPTS' ) ) { define( 'DIRECTORIST_DISABLE_SHORTCODE_RESTRICTION_ON_SCRIPTS', false ); }
+if ( ! defined( 'DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS' ) ) { define( 'DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS', false ); }
+if ( ! defined( 'DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS_SHOW_ALL' ) ) { define( 'DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS_SHOW_ALL', false ); }
+
 // Public Assets Path
 if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_URL . 'assets/'); }
 if ( ! defined( 'DIRECTORIST_CSS' ) ) { define('DIRECTORIST_CSS', DIRECTORIST_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_JS' ) ) { define('DIRECTORIST_JS', DIRECTORIST_ASSETS . 'js/'); }
 
 // Vendor Assets Path
-if ( ! defined( 'DIRECTORIST_VENDOR_CSS' ) ) { define('DIRECTORIST_VENDOR_CSS', DIRECTORIST_ASSETS . 'css/vendor/'); }
-if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DIRECTORIST_ASSETS . 'js/vendor/'); }
+if ( ! defined( 'DIRECTORIST_VENDOR_CSS' ) ) { define('DIRECTORIST_VENDOR_CSS', DIRECTORIST_ASSETS . 'vendor-css/'); }
+if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DIRECTORIST_ASSETS . 'vendor-js/'); }
 
 // Plugin Admin Assets Path
 if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }

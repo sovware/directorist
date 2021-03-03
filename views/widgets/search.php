@@ -62,7 +62,9 @@ echo '</div>';
             </div>
         <?php } ?>
         <?php if('map_api' == $location_source && !empty($search_by_radius)) {
-            wp_enqueue_script('atbdp-range-slider');
+            $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+            $handle                = ! empty( $atbdp_legacy_template ) ? 'atbdp-range-slider' : 'directorist-range-slider';
+            wp_enqueue_script( $handle );
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -70,13 +72,16 @@ echo '</div>';
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('search_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handle, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
             ?>
             <!--range slider-->
             <div class="form-group">
+                <?php 
+                if( ! empty( $handle ) ) {
+                ?>
                 <div class="atbdp-range-slider-wrapper atbdp-range-slider-widget">
                     <div class="atbdp-range-slider-title">
                         <label><?php _e('Radius Search', 'directorist'); ?></label>
@@ -85,6 +90,7 @@ echo '</div>';
                     <div><div id="atbdp-range-slider"></div></div>
                 </div>
                 <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo !empty($default_radius_distance) ? $default_radius_distance : ''; ?>" />
+                <?php } ?>
             </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>

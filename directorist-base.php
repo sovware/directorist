@@ -1587,9 +1587,6 @@ function ATBDP()
     return Directorist_Base::instance();
 }
 
-// Get ATBDP ( AazzTech Business Directory Plugin) Running.
-if ( apply_filters( 'test_mode_allow_access', true, 'main' ) ) {
-    ATBDP();
-    register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));
-}
+ATBDP();
+register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));
 

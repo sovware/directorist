@@ -30,8 +30,10 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
             
             // Customize listing slug
-            add_filter( 'post_type_link', [ $this, 'customize_listing_slug' ], 100, 2 );
-            add_filter( 'post_link ', [ $this, 'customize_listing_slug' ], 100, 2 );
+            if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
+                add_filter( 'post_type_link', [ $this, 'customize_listing_slug' ], 20, 2 );
+                add_filter( 'post_link ', [ $this, 'customize_listing_slug' ], 20, 2 );
+            }
         }
 
          // customize_listing_slug
@@ -194,11 +196,19 @@ if (!class_exists('ATBDP_Custom_Post')):
                 'capability_type' => ATBDP_POST_TYPE,
                 'map_meta_cap' => true, // set this true, otherwise, even admin will not be able to edit this post. WordPress will map cap from edit_post to edit_at_biz_dir etc,
                 'menu_position' => 5,
-                'rewrite' => [
+            );
+
+            if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
+                $args[ 'rewrite' ] = [
                     'slug' => ATBDP_Permalink::get_listing_slug(),
                     'with_front' => false,
-                ],
-            );
+                ];
+            } else {
+                $args[ 'rewrite' ] = [
+                    'slug' => get_directorist_option('atbdp_listing_slug', 'directory'),
+                    'with_front' => false,
+                ];
+            }
             
             /**
              * @since 6.2.3

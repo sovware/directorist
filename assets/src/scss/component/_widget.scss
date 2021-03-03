@@ -278,6 +278,7 @@
             -moz-border-radius: 3px;
 
             border-radius: 3px;
+            max-width: 100%;
           }
         }
 
@@ -856,30 +857,74 @@
   }
 }
 
-.atbd_widget .default-ad-search {
-  .custom-control {
-    input[type=radio] {
-      display: none;
+.directorist-sidebar {
+  .atbd_widget .default-ad-search {
+    .custom-control {
+
+      input[type=radio],
+      input[type=checkbox] {
+        display: none;
+      }
+    }
+
+    .submit_btn {
+      .btn {
+        padding: 0 20px;
+        border-radius: 4px;
+        color: #fff;
+        border: 1px solid transparent;
+        line-height: 40px;
+        display: inline-block;
+
+        &.btn-default {
+          background: #fff;
+          border: 1px solid #444752;
+          color: #444752;
+        }
+
+        &:focus {
+          background: #444752 !important;
+        }
+      }
+    }
+
+    .check-btn {
+      input {
+        display: none;
+      }
+
+      label {
+        cursor: pointer;
+      }
+    }
+
+    .atbd_get_loc_wid {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%)
+    }
+
+    .directorist-advanced-filter {
+      padding: 0;
+      border: 0 none !important;
     }
   }
 
-  .submit_btn {
-    .btn {
-      padding: 0 20px;
-      border-radius: 4px;
-      color: #fff;
-      border: 1px solid transparent;
-      line-height: 40px;
-      display: inline-block;
+  .widget>* {
+    margin-top: 0;
+  }
 
-      &.btn-default {
-        background: #fff;
-        border: 1px solid #444752;
-        color: #444752;
-      }
+  .atbd_author_info_widget {
+    .atbd_avatar_wrapper {
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: center;
 
-      &:focus {
-        background: #444752 !important;
+      .atbd_name_time {
+        h4 {
+          margin-bottom: 0 !important;
+        }
       }
     }
   }

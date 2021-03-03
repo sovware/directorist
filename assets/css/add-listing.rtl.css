@@ -1615,3 +1615,7 @@ body.stop-scrolling {
   border: 1px solid #EF0000;
   color: #fff;
 }
+
+#listing_form_info .atbd_content_module.atbd-booking-information .atbdb_content_module_contents {
+  padding-top: 20px;
+}

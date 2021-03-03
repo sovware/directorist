@@ -6054,6 +6054,7 @@ p.atbd-min {
   padding: 5px 20px;
   border-radius: 4px;
   color: #5a5f7d;
+  cursor: pointer;
 }
 .atbd_dropdown .atbd_dropdown-menu .atbd_dropdown-item.active {
   background: #f2f2f2 !important;
@@ -6196,6 +6197,36 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-mark-as-favorite,
 .directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-badge {
   margin: 3px;
+}
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn i,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.la,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.las,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.fa,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.fas,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.lab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-right .directorist-compare-btn span.fab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn i,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.la,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.las,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.fa,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.fas,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.lab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left .directorist-compare-btn span.fab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn i,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.la,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.las,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.fa,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.fas,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.lab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-left .directorist-compare-btn span.fab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn i,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.la,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.las,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.fa,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.fas,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.lab,
+.directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-bottom-right .directorist-compare-btn span.fab {
+  color: #fff;
 }
 
 .directorist-listing-single {

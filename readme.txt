@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.6
 Requires PHP: 7.0
-Stable tag: 7.0
+Stable tag: 7.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -336,7 +336,16 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 7.0 - Feb 28, 2021 =
+= 7.0.1 - Mar 03, 2021 =
+
+Add - Option to remove dynamic directory slug 
+Fix - All category and location page issues
+Fix - Responsive issues
+Fix - Widgets issues
+Fix - Membership page issues
+Fix - Custom fields migration issues
+
+= 7.0 - Mar 01, 2021 =
 
 * Add - Multi directory
 * Add - Custom form and layout builder

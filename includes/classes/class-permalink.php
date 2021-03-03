@@ -426,7 +426,7 @@ class ATBDP_Permalink {
             }
         }
 
-        if( ! empty( $directory_type ) ) {
+        if( ! empty( $directory_type ) && 'all' != $directory_type ) {
             $link = $link . '?directory_type=' . $directory_type;
         }
 
@@ -469,7 +469,7 @@ class ATBDP_Permalink {
             }
         }
 
-        if( ! empty( $directory_type ) ) {
+        if( ! empty( $directory_type ) && 'all' != $directory_type ) {
             $link = $link . '?directory_type=' . $directory_type;
         }
 

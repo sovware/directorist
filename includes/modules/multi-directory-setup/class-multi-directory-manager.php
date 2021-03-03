@@ -147,14 +147,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
             
-            /* e_var_dump([
-               'migrated'            => $migrated,
-               'has_listings'        => $has_listings,
-               'has_custom_fields'   => $has_custom_fields,
-               'has_multidirectory'  => $has_multidirectory,
-               'need_migration'      => $need_migration,
-               'need_import_default' => $need_import_default,
-            ]); */
+        //    atbdp_console_log([
+        //        'migrated'            => $migrated,
+        //        'has_listings'        => $has_listings,
+        //        'has_custom_fields'   => $has_custom_fields,
+        //        'has_multidirectory'  => $has_multidirectory,
+        //        'need_migration'      => $need_migration,
+        //        'need_import_default' => $need_import_default,
+        //     ]);
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];

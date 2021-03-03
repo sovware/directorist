@@ -438,6 +438,14 @@ export default {
     },
     updated_value() {
       let groups = this.groups;
+      let active_fields = this.active_fields;
+
+      if ( active_fields && typeof active_fields === 'object' ) {
+        for ( let field_key in active_fields ) {
+          active_fields[ field_key ].widget_key = field_key;
+        }
+      }
+      
 
       if (groups.length) {
         groups = JSON.parse(JSON.stringify(this.groups));

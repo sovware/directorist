@@ -146,7 +146,10 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $data ) {
-		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+		$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, '_' . $data['field_key'], true ) : '';
+		if ( empty( $value ) ) {
+			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
+		}
 
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
@@ -416,7 +419,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_featured_badge( $data ) {
-		return Helper::is_featured( $this->id ) && $data['featured_badge'];
+		$featured_badge = !empty( $data['featured_badge'] ) ? $data['featured_badge'] : '';
+		return $featured_badge && Helper::is_featured( $this->id );
 	}
 
 	public function display_popular_badge( $data ) {
@@ -847,7 +851,7 @@ class Directorist_Single_Listing {
 			'post_status' => 'publish',
 		);
 
-		$custom_fields = ATBDP_Cache_Helper::get_the_transient([
+		$custom_fields = \ATBDP_Cache_Helper::get_the_transient([
 			'group'      => 'atbdp_custom_field_query',
 			'name'       => 'atbdp_all_custom_fields',
 			'query_args' => $args,

@@ -1048,7 +1048,7 @@ final class Directorist_Base
             $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
         }
 
-        return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
+        //return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 
     }
 
@@ -1058,7 +1058,10 @@ final class Directorist_Base
      * @return object|WP_Query It returns the related listings if found.
      */
     public function get_related_listings_widget($post, $count)
-    {
+    {   
+        $directory_type = get_the_terms( get_the_ID(), ATBDP_TYPE );
+        $type_id        = ! empty( $directory_type ) ? $directory_type[0]->term_id : '';
+        $same_author    = get_directorist_type_option( $type_id, 'listing_from_same_author', false );
         $rel_listing_num = !empty($count) ? $count : 5;
         $atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
         $atbd_tags = get_the_terms($post, ATBDP_TAGS);
@@ -1094,6 +1097,9 @@ final class Directorist_Base
             'posts_per_page' => (int)$rel_listing_num,
             'post__not_in' => array($post->ID),
         );
+        if( ! empty( $same_author ) ){
+			$args['author']  = get_post_field( 'post_author', get_the_ID() );
+		}
 
         return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 
@@ -1582,6 +1588,8 @@ function ATBDP()
 }
 
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
-ATBDP();
+if ( apply_filters( 'test_mode_allow_access', true, 'main' ) ) {
+    ATBDP();
+    register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));
+}
 
-register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

@@ -414,7 +414,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $plugin_key = preg_replace( '/\/.+/', '', $plugin_key );
 
                     if ( in_array( $plugin_key, $plugins_available_in_subscriptions_keys ) ) {
-                        $url = $plugins_available_in_subscriptions[ $plugin_key ][ 'links' ][0];
+                        $url = $plugins_available_in_subscriptions[ $plugin_key ][ 'download_link' ];
                     }
                 }
 
@@ -444,7 +444,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $plugin_key = preg_replace( '/\/.+/', '', $plugin_base );
 
                     if ( in_array( $plugin_key, $plugins_available_in_subscriptions_keys ) ) {
-                        $url = $plugins_available_in_subscriptions[ $plugin_key ][ 'links' ][0];
+                        $url = $plugins_available_in_subscriptions[ $plugin_key ][ 'download_link' ];
                     }
                 }
 
@@ -601,7 +601,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 if ( empty( $url ) ) {
                     if ( in_array( $theme_stylesheet, $themes_available_in_subscriptions_keys ) ) {
-                        $url = $themes_available_in_subscriptions_keys[ $theme_stylesheet ][ 'links' ][0];
+                        $url = $themes_available_in_subscriptions_keys[ $theme_stylesheet ][ 'download_link' ];
                     }
                 }
 
@@ -630,7 +630,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 if ( empty( $url ) ) {
                     if ( in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
-                        $url = $themes_available_in_subscriptions[ $theme_key ][ 'links' ][0];
+                        $url = $themes_available_in_subscriptions[ $theme_key ][ 'download_link' ];
                     }
                 }
 

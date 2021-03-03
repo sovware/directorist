@@ -53,7 +53,8 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
             $search_by_radius              = ! empty( $instance['search_by_radius'] ) ? 1 : 0;
             $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
-
+            $select_listing_map            = get_directorist_option('select_listing_map','google');
+            $atbdp_legacy_template         = get_directorist_option( 'atbdp_legacy_template', false );
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             if (is_rtl()){
                 wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
@@ -64,6 +65,13 @@ if ( !class_exists('BD_Search_Widget')) {
                 'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
                 'ajax_url'           => admin_url( 'admin-ajax.php' ),
             ));
+            if( empty( $atbdp_legacy_template ) ) {
+                wp_localize_script('atbdp-search-listing','atbdp_search_listing',array(
+                    'i18n_text'   => array(
+                        'select_listing_map' => $select_listing_map,
+                    ),
+                ));
+            }
 
             $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));
             $address_label           = get_directorist_option('address_label',__('Address','directorist'));

@@ -1721,6 +1721,10 @@ class Directorist_Listings {
 				$load_template = true;
 				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
 
+				if ( empty( $value ) ) {
+					$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, $original_field['field_key'], true ) : '';
+				}
+
 				if( 'listings_location' === $field['widget_name'] ) {
 					$location = get_the_terms( $id, ATBDP_LOCATION );
 					if( $location ) {

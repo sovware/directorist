@@ -119,6 +119,9 @@ class Directorist_Single_Listing {
 
 	public function field_template( $data ) {
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+		if ( empty( $value ) ) {
+			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
+		}
 
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );

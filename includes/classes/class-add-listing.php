@@ -110,6 +110,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
                 $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
+                $images = !empty( $info['files_meta']) ? ( $info['files_meta']) : array();
+                $manual_lat = !empty( $info['manual_lat']) ? ( $info['manual_lat']) : array();
+                $manual_lng = !empty( $info['manual_lng']) ? ( $info['manual_lng']) : array();
+                $map        = !empty( $manual_lat ) && !empty( $manual_lng ) ? true : false;
                 // meta input
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
@@ -118,10 +122,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $only_for_admin = !empty( $value['only_for_admin'] ) ? $value['only_for_admin'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
                     $additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $value, $info );
-                    // array_push( $dummy, [
-                    //     'label' => $label,
-                    //     'additional_logic' => $additional_logic,
-                    //     ] );
+                    
 
                     if( $additional_logic ) {
                         // error handling
@@ -129,15 +130,28 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $msg = $label .__( ' field is required!', 'directorist' );
                             array_push( $error, $msg );
                         }
+
                         if( ( 'location' === $key ) && $required && !$only_for_admin && !$location) {
                             $msg = $label .__( ' field is required!', 'directorist' );
                             array_push( $error, $msg );
                         }
+
                         if( ( 'tag' === $key ) && $required && !$only_for_admin && !$tag) {
                             $msg = $label .__( ' field is required!', 'directorist' );
                             array_push( $error, $msg );
                         }
-                        if( ( 'category' !== $key ) && ( 'tag' !== $key ) && ( 'location' !== $key ) ) {
+
+                        if( ( 'image_upload' === $key ) && $required && !$only_for_admin && !$images) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+
+                        if( ( 'map' === $key ) && $required && !$only_for_admin && !$map) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+
+                        if( ( 'category' !== $key ) && ( 'tag' !== $key ) && ( 'location' !== $key ) && ( 'image_upload' !== $key ) && ( 'map' !== $key ) ) {
                             if( $required && !$submitted_data && !$only_for_admin ){
                                 $msg = $label .__( ' field is required!', 'directorist' );
                                 array_push( $error, $msg );
@@ -145,6 +159,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     
+                    // array_push( $dummy, [
+                    //     'label' => $label,
+                    //     'key' => $key,
+                    //     'submitted_data' => $submitted_data,
+                    //     'additional_logic' => $additional_logic,
+                    //     'form_data' => $info,
+                    //     ] );
+
                     // process meta
                     if( 'pricing' === $key ) {
                         $metas[ '_atbd_listing_pricing' ] = !empty( $info['atbd_listing_pricing'] ) ? $info['atbd_listing_pricing'] : '';
@@ -162,6 +184,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }                    
                 }
     
+                // wp_send_json($error);
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
 

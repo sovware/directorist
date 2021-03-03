@@ -4968,6 +4968,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             $all_term_meta = get_term_meta( $term_id );
             $test_migration = apply_filters( 'atbdp_test_migration', false );
+            // $test_migration = apply_filters( 'atbdp_test_migration', true );
 
             if ( $test_migration ) {
                 $args          = [ 'multi_directory_manager' => $this ];

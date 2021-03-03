@@ -12004,7 +12004,7 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar img {
-  max-width: 120px;
+  max-width: 120px !important;
   max-height: 100%;
   border-radius: 50%;
   margin-bottom: 0;

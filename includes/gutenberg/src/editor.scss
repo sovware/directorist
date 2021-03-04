@@ -1,0 +1,16 @@
+.directorist-gb-fixed-control {
+    .components-input-control__container {
+        max-width: 120px;
+    }
+
+    .components-base-control__field {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+
+        .components-text-control__input {
+            max-width: 60px;
+        }
+    }
+}

@@ -2,6 +2,7 @@
 /**
  * Gutenberg block register functions.
  */
+namespace WpWax\Directorist\Gutenberg;
 
 defined( 'ABSPATH' ) || die();
 
@@ -10,7 +11,7 @@ defined( 'ABSPATH' ) || die();
  *
  * @return void
  */
-function directorist_gutenberg_block_init() {
+function init_blocks() {
 	$dir = __DIR__;
 
 	$script_asset_path = "$dir/assets/index.asset.php";
@@ -45,7 +46,7 @@ function directorist_gutenberg_block_init() {
 	$args = array(
 		'editor_script'   => 'directorist-block-editor',
 		'editor_style'    => 'directorist-block-editor',
-		'render_callback' => 'directorist_dynamic_render_callback',
+		'render_callback' => __NAMESPACE__ . '\dynamic_render_callback',
 	);
 
 	$blocks = array(
@@ -56,13 +57,16 @@ function directorist_gutenberg_block_init() {
 		'transaction-failure',
 		'user-dashboard',
 		'user-login',
+
+		'all-listing',
 	);
 
 	foreach ( $blocks as $block ) {
+		$args['attributes'] = get_attributes_map( $block );
 		register_block_type( 'directorist/' . $block, $args );
 	}
 }
-add_action( 'init', 'directorist_gutenberg_block_init' );
+add_action( 'init', __NAMESPACE__ . '\init_blocks' );
 
 /**
  * Register gutenberg block category.
@@ -71,7 +75,7 @@ add_action( 'init', 'directorist_gutenberg_block_init' );
  * 
  * @return array Modified $categories
  */
-function directorist_register_block_category( $categories ) {
+function register_category( $categories ) {
 	return array_merge(
 		$categories,
 		array(
@@ -82,7 +86,7 @@ function directorist_register_block_category( $categories ) {
 		)
 	);
 }
-add_filter( 'block_categories', 'directorist_register_block_category' );
+add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
 
 /**
  * Single listing dynamic render callback.
@@ -92,9 +96,9 @@ add_filter( 'block_categories', 'directorist_register_block_category' );
  * 
  * @return string
  */
-function directorist_dynamic_render_callback( $atts, $content, $instance ) {
+function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode = str_replace( array( '/', '-' ), '_', $instance->name );
-	$output    = directorist_do_shortcode( $shortcode );
+	$output    = directorist_do_shortcode( $shortcode, $atts, $content );
 	
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
 		return sprintf(
@@ -109,24 +113,127 @@ function directorist_dynamic_render_callback( $atts, $content, $instance ) {
 	return $output;
 }
 
-if ( ! function_exists( 'directorist_do_shortcode' ) ) {
-	/**
-	 * Call a shortcode function by tag name.
-	 *
-	 *
-	 * @param string $tag     The shortcode whose function to call.
-	 * @param array  $atts    The attributes to pass to the shortcode function. Optional.
-	 * @param array  $content The shortcode's content. Default is null (none).
-	 *
-	 * @return string|bool False on failure, the result of the shortcode on success.
-	 */
-	function directorist_do_shortcode( $tag, array $atts = array(), $content = null ) {
-		global $shortcode_tags;
+/**
+ * Call a shortcode function by tag name.
+ *
+ *
+ * @param string $tag     The shortcode whose function to call.
+ * @param array  $atts    The attributes to pass to the shortcode function. Optional.
+ * @param array  $content The shortcode's content. Default is null (none).
+ *
+ * @return string|bool False on failure, the result of the shortcode on success.
+ */
+function directorist_do_shortcode( $tag, array $atts = array(), $content = null ) {
+	global $shortcode_tags;
 
-		if ( ! isset( $shortcode_tags[ $tag ] ) ) {
-				return false;
-		}
-
-		return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
+	if ( ! isset( $shortcode_tags[ $tag ] ) ) {
+			return false;
 	}
+
+	return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
+}
+
+function get_attributes_map( $block ) {
+	$blocks_attributes = array(
+		'all-listing' => array(
+			'view' => array (
+				'type'    => 'string',
+				'default' => 'grid',
+			),
+			'featured' =>  array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'filterby' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'orderby' => array(
+				'type'    => 'string',
+				'default' => 'date',
+			),
+			'order' => array(
+				'type'    => 'string',
+				'default' => 'desc',
+			),
+			'per_page' => array(
+				'type'    => 'number',
+				'default' => 6,
+			),
+			'pagination' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'header' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'header_title' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'category' => array(
+				'type'    => 'array',
+				'default' => array(),
+			),
+			'location' => array(
+				'type'    => 'array',
+				'default' => array(),
+			),
+			'tag' => array(
+				'type'    => 'array',
+				'default' => array(),
+			),
+			'ids' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'columns' => array(
+				'type'    => 'number',
+				'default' => 3,
+			),
+			'featured_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'popular_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'filter' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'preview_image' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'loop_hook' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'logged_in_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'map_height' => array(
+				'type'    => 'number',
+				'default' => 500,
+			),
+			'map_zoom_level' => array(
+				'type'    => 'number',
+				'default' => 0,
+			),
+			'directory_type' => array(
+				'type'    => 'array',
+				'default' => array(),
+			),
+			'default_directory_type' => array(
+				'type'    => 'number',
+				'default' => 0,
+			)
+		)
+	);
+
+	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();
 }

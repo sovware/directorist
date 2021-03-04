@@ -102,13 +102,13 @@
                                  alt="Ads Manager">
 
                             <div class="extension_detail ext_d">
-                                <a href="https://directorist.com/product/directorist-ads-manager" target="_blank"
+                                <a href="https://directorist.com/product/directorist-adverts-manager" target="_blank"
                                    class="ext_title">
                                     <h4><?php esc_html_e(' Ads Manager ', 'directorist'); ?></h4></a>
                                 <p><?php esc_html_e('Create & sell unlimited ads to monetize your directory.', 'directorist'); ?></p>
 
                                 <div class="btn_wrapper">
-                                    <a href="https://directorist.com/product/directorist-ads-manager" target="_blank"
+                                    <a href="https://directorist.com/product/directorist-adverts-manager" target="_blank"
                                        class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
                                 </div>
                             </div>

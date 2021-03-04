@@ -1761,7 +1761,8 @@ span.atbdp-tick-cross {
       border: 0 none;
       box-shadow: 0 0;
     }
-    .directorist-badge{
+
+    .directorist-badge {
       font-size: 11px;
       height: 20px;
       width: 20px;
@@ -2697,24 +2698,27 @@ input.atbdp-form-control {
 
 .atbdp-form-feedback {
   margin: 10px 0;
-  span{
+
+  span {
     display: inline-block;
     margin-left: 10px;
   }
 }
 
-.et-auth-section-wrap{
+.et-auth-section-wrap {
   align-items: center;
-  .atbdp-input-group-wrap{
+
+  .atbdp-input-group-wrap {
     align-items: center;
-    .atbdp-form-control{
+
+    .atbdp-form-control {
       min-width: 140px;
     }
   }
 }
 
-.et-auth-section-wrap{
-  .atbdp-input-group-append{
+.et-auth-section-wrap {
+  .atbdp-input-group-append {
     align-items: center;
   }
 }
@@ -3018,6 +3022,10 @@ input.atbdp-form-control {
 
         &.directorist_ext-update {
           min-width: 70px;
+
+          p {
+            margin-top: 0;
+          }
         }
 
         &.ext-action {
@@ -3086,6 +3094,15 @@ input.atbdp-form-control {
         font-size: 15px !important;
         font-weight: 500;
         padding: 0 30px;
+
+        &.req-ext-title {
+          margin-bottom: 10px;
+        }
+      }
+
+      span.ext-short-desc {
+        padding: 0 30px;
+        display: block;
         margin-bottom: 20px;
       }
 
@@ -3179,6 +3196,8 @@ input.atbdp-form-control {
 
           label {
             margin-bottom: 0 !important;
+            display: inline-flex !important;
+            align-items: center;
 
             img {
               display: inline-block;
@@ -4996,9 +5015,9 @@ img.atbdp-file-info {
   }
 }
 
-.add_listing_form_wrapper{
-  &#gallery_upload{
-    .listing-prv-img-container{
+.add_listing_form_wrapper {
+  &#gallery_upload {
+    .listing-prv-img-container {
       text-align: center
     }
   }

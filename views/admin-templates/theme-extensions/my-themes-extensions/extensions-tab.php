@@ -173,7 +173,8 @@
 
     <?php if (!empty($args['required_extensions_list'])) : ?>
         <div class="ext-available">
-            <h4><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <h4 class="req-ext-title"><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <span class="ext-short-desc">Short Description</span>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -205,13 +206,13 @@
                                     <tr>
                                         <td>
                                             <div class="extension-name">
-                                                <div class="directorist_checkbox directorist_checkbox-success">
+                                                <div class="directorist-checkbox directorist-checkbox-success">
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
                                                     <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
                                                     <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                         <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
-                                                    <label for="<?php echo 'required_' . $extension_base; ?>">
+                                                    <label for="<?php echo 'required_' . $extension_base; ?>" class="directorist-checkbox__label">
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
                                                             if (!empty($args['extension_list'][$extension_base])) {

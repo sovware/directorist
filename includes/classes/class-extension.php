@@ -27,6 +27,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         public function __construct()
         {
+            // Check for plugin update
+            wp_update_plugins();
+
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'initial_setup') );
             add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
@@ -49,9 +52,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // initial_setup
         public function initial_setup() {
+            // Check form theme update
+            $current_theme = wp_get_theme();
+            get_theme_update_available( $current_theme->stylesheet );
+
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
-
         }
 
         // add_demo_required_extensions

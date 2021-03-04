@@ -459,7 +459,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'has_min'   => false,
             'ver'       => self::$script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => 'public', // public || admin  || global
             // 'section'   => '__',
             // 'shortcode' => '[__]',
         ];
@@ -565,7 +565,7 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_CSS,
             'deps'           => [],
             'ver'            => self::$script_version,
-            'group'          => 'public',                         // public || admin  || global
+            'group'          => 'public',                       // public || admin  || global
             'shortcode'      => self::$all_shortcodes,
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];

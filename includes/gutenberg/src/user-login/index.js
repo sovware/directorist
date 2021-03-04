@@ -5,12 +5,12 @@ import ServerSideRender from '@wordpress/server-side-render';
 
 import './editor.scss';
 
-registerBlockType( 'directorist/transaction-failure', {
+registerBlockType( 'directorist/user-login', {
 	apiVersion: 2,
 
-	title: __( 'Transaction Failure', 'directorist' ),
+	title: __( 'Login', 'directorist' ),
 
-	description: __( 'This widget works only on Transaction Failure page.', 'directorist' ),
+	description: __( 'This block works only on Login page.', 'directorist' ),
 
 	category: 'directorist-blocks-collection',
 
@@ -24,7 +24,7 @@ registerBlockType( 'directorist/transaction-failure', {
 		from: [
 			{
 				type: 'shortcode',
-				tag: 'directorist_transaction_failure',
+				tag: 'directorist_user_login',
 				attributes: {}
 			},
 		]
@@ -33,7 +33,7 @@ registerBlockType( 'directorist/transaction-failure', {
 	edit( { attributes } ) {
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This widget works only on Transaction Failure page.', 'directorist' ) }
+				{ __( 'This block works only on Login page.', 'directorist' ) }
 			</div>
 		);
 	}

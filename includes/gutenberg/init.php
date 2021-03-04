@@ -49,7 +49,13 @@ function directorist_gutenberg_block_init() {
 	);
 
 	$blocks = array(
-		
+		'add-listing',
+		'checkout',
+		'custom-registration',
+		'payment-receipt',
+		'transaction-failure',
+		'user-dashboard',
+		'user-login',
 	);
 
 	foreach ( $blocks as $block ) {

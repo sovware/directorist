@@ -1503,9 +1503,7 @@ class Directorist_Listings {
 		}
 
 		public function loop_get_the_thumbnail( $class='' ) {
-			$type              = $this->current_listing_type;
-			$type_general      = get_term_meta( $type, 'general_config', true );
-			$default_image_src = ( ! empty( $type_general['preview_image'] ) ) ? $type_general['preview_image'] : DIRECTORIST_ASSETS . 'images/grid.jpg' ;
+			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'large');

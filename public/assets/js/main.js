@@ -1301,6 +1301,18 @@
 
     $('.atbd_tab_inner:first-child').addClass('tabContentActive');
 
+    // Directorist Dropdown
+    $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function(e){
+        e.preventDefault();
+        $(this).siblings('.directorist-dropdown__links-js').toggle();
+    });
+
+    $(document).bind('click', function(e) {
+        let clickedDom = $(e.target);
+        if ( ! clickedDom.parents().hasClass('directorist-dropdown-js') )
+        $('.directorist-dropdown__links-js').hide();
+    });
+
 })(jQuery);
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();

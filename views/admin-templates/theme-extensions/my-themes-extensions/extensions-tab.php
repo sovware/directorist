@@ -173,7 +173,8 @@
 
     <?php if (!empty($args['required_extensions_list'])) : ?>
         <div class="ext-available">
-            <h4><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <h4 class="req-ext-title"><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <span class="ext-short-desc">Short Description</span>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">

@@ -115,7 +115,6 @@
         }
     }
 
-
 }
 
 // Single Listing Card
@@ -316,7 +315,7 @@
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
-                        align-items: center;
+                        align-items: flex-start;
                     }
 
                     .directorist-icon {
@@ -330,6 +329,13 @@
                         color: #7a82a6;
                     }
                 }
+            }
+            .directorist-listing-card-location-list{
+                position: relative;
+                top: -2px;
+                display: block;
+                margin: 0;
+                line-height: 1.45;
             }
         }
 

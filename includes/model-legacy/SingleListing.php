@@ -119,6 +119,7 @@ class Directorist_Single_Listing {
 
 	public function field_template( $data ) {
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+		
 		if ( empty( $value ) ) {
 			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
 		}
@@ -139,9 +140,11 @@ class Directorist_Single_Listing {
 		}
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
+		
 		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
+
 		$data['value'] = $value;
 		$data['listing_id'] = $this->id;
 		$args = array(
@@ -150,7 +153,9 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-		$template = 'single-listing/items/' . $data['widget_name'];
+
+		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
+		$template = 'single-listing/items/' . $widget_name;
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		if( $load_template )
 		Helper::get_template( $template, $args );

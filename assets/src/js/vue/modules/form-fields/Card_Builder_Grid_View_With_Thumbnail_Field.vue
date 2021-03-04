@@ -408,7 +408,7 @@ export default {
               
               let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
-              
+
               if ( matched_field.widget_key ) {
                 _main_widget.widget_key = matched_field.widget_key;
               }
@@ -422,10 +422,8 @@ export default {
             }
           }
         }
-      
       }
 
-      // console.log( { available_widgets } );
       return available_widgets;
     },
 

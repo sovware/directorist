@@ -504,80 +504,59 @@ export default {
         
         if ( has_template && this.isObject(template_fields) ) {
           let template_widgets = {};
-          for (let widget_key in template_fields) {
+          for ( let widget_key in template_fields ) {
             let _widget_name = template_fields[widget_key].widget_name;
             let _widget_group = template_fields[widget_key].widget_group;
-            if (!widgets[widget_group].widgets[_widget_name]) {
-              continue;
-            }
 
-            let template_root_options =
-              template_field.widgets[_widget_group].widgets[_widget_name];
-            if (!template_root_options) {
-              continue;
-            }
-            if (typeof template_root_options.options !== "undefined") {
+            if ( ! widgets[widget_group].widgets[_widget_name] ) { continue; }
+            let template_root_options = template_field.widgets[_widget_group].widgets[_widget_name];
+            
+            if ( ! template_root_options ) { continue; }
+
+            if ( typeof template_root_options.options !== "undefined") {
               delete template_root_options.options;
             }
-            if (typeof template_root_options.lock !== "undefined") {
+
+            if ( typeof template_root_options.lock !== "undefined") {
               delete template_root_options.lock;
             }
 
-            let widget_label = widgets[widget_group].widgets[_widget_name].label
-              ? widgets[widget_group].widgets[_widget_name].label
-              : "";
-            let template_widget_label =
-              template_fields[widget_key].label &&
-              template_fields[widget_key].label.length
-                ? template_fields[widget_key].label
-                : widget_label;
+            let widget_label = widgets[widget_group].widgets[_widget_name].label ? widgets[widget_group].widgets[_widget_name].label : "";
+            let template_widget_label = template_fields[widget_key].label && template_fields[widget_key].label.length ? template_fields[widget_key].label : widget_label;
 
             widget_label = widget_label ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
 
-            Object.assign(
-              widgets[widget_group].widgets[_widget_name],
-              template_root_options
-            );
+            let new_widgets = JSON.parse( JSON.stringify( widgets ) )
+            Object.assign( new_widgets[widget_group].widgets[_widget_name], template_root_options );
 
-            if (!widgets[widget_group].widgets[_widget_name].options) {
-              widgets[widget_group].widgets[_widget_name].options = {};
+            if (!new_widgets[widget_group].widgets[_widget_name].options) {
+              new_widgets[widget_group].widgets[_widget_name].options = {};
             }
 
-            let widgets_options =
-              widgets[widget_group].widgets[_widget_name].options;
+            let widgets_options = new_widgets[widget_group].widgets[_widget_name].options;
 
-            if (typeof widgets_options.label !== "undefined") {
-              let sync =
-                typeof widgets_options.label.sync !== "undefined"
-                  ? widgets_options.label.sync
-                  : true;
-              widgets_options.label.value = sync
-                ? widget_label
-                : widgets_options.label.value;
+            widgets_options.widget_name = {
+              type: "hidden",
+              value: widget_key,
+            };
+
+            widgets_options.widget_group = {
+              type: "hidden",
+              value: widget_group,
+            };
+
+            if ( typeof widgets_options.label !== "undefined" ) {
+              let sync = typeof widgets_options.label.sync !== "undefined" ? widgets_options.label.sync : true;
+              widgets_options.label.value = sync ? widget_label : widgets_options.label.value;
             }
 
-            widgets[widget_group].widgets[
-              _widget_name
-            ].options = widgets_options;
-            template_widgets[widget_key] =
-              widgets[widget_group].widgets[_widget_name];
+            new_widgets[widget_group].widgets[ _widget_name ].options = widgets_options;
+            template_widgets[widget_key] = new_widgets[widget_group].widgets[_widget_name];
           }
           widgets[widget_group].widgets = template_widgets;
         }
-        for (let widget in widgets[widget_group].widgets) {
-          if (!widgets[widget_group].widgets[widget].options) {
-            widgets[widget_group].widgets[widget].options = {};
-          }
-          widgets[widget_group].widgets[widget].options.widget_name = {
-            type: "hidden",
-            value: widget,
-          };
-          widgets[widget_group].widgets[widget].options.widget_group = {
-            type: "hidden",
-            value: widget_group,
-          };
-        }
+
       }
 
       return widgets;

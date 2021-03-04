@@ -2035,6 +2035,9 @@ $('.ext-update-btn').on('click', function (e) {
     form_data.plugin_key = plugin_key;
   }
 
+  console.log({
+    plugin_key: plugin_key
+  });
   var self = this;
   jQuery.ajax({
     type: 'post',
@@ -2045,8 +2048,6 @@ $('.ext-update-btn').on('click', function (e) {
       $(self).html(icon);
     },
     success: function success(response) {
-      console.log(response);
-
       if (response.status.success) {
         $(self).html('Updated');
         location.reload();

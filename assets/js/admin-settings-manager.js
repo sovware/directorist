@@ -16431,6 +16431,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
 
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
+
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
@@ -17391,11 +17395,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var matched_field = _step.value;
 
-                // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
-                _main_widget.widget_key = current_key;
+
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
 
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
@@ -18288,6 +18294,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
 
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
+
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
@@ -19169,6 +19179,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
 
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
+
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
@@ -19999,6 +20013,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
 
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
+
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
@@ -20786,6 +20804,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                 var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
+
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
 
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
@@ -21588,6 +21610,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                 var current_key = widget_keys.includes(_widget2) ? _widget2 + '_' + (widget_keys.length + 1) : _widget2;
                 _main_widget.widget_key = current_key;
+
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
 
                 if (typeof matched_field.label === 'string' && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
@@ -22831,6 +22857,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     },
     updated_value: function updated_value() {
       var groups = this.groups;
+      var active_fields = this.active_fields;
+
+      if (active_fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_fields) === 'object') {
+        for (var field_key in active_fields) {
+          active_fields[field_key].widget_key = field_key;
+        }
+      }
 
       if (groups.length) {
         groups = JSON.parse(JSON.stringify(this.groups));

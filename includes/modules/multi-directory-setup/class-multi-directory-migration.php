@@ -436,7 +436,7 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
-        // atbdp_console_log( $custom_fields );
+        // directorist_console_log( $custom_fields );
 
         // Contact Info
         $form_groups[] = [
@@ -693,7 +693,7 @@ class ATBDP_Multi_Directory_Migration {
             "groups" => $single_listings_groups
         ];
 
-        // atbdp_console_log( $single_listings_contents );
+        // directorist_console_log( $single_listings_contents );
 
         return $single_listings_contents;
     }

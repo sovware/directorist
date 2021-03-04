@@ -21,8 +21,8 @@ if ( ! function_exists( 'e_var_dump' ) ) {
     }
 }
 
-if ( ! function_exists( 'atbdp_console_log' ) ) {
-    function atbdp_console_log( array $data = [] ) {
+if ( ! function_exists( 'directorist_console_log' ) ) {
+    function directorist_console_log( array $data = [] ) {
         $data = json_encode( $data ); ?>
         <script>
             var data = JSON.parse( '<?php echo $data ?>' );

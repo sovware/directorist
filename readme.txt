@@ -344,6 +344,7 @@ Fix - Responsive issues
 Fix - Widgets issues
 Fix - Membership page issues
 Fix - Custom fields migration issues
+Fix - Add listing form validation issue
 
 = 7.0 - Mar 01, 2021 =
 

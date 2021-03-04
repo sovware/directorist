@@ -49,14 +49,7 @@ function directorist_gutenberg_block_init() {
 	);
 
 	$blocks = array(
-		'listing-top-area',
-		'listing-custom-fields',
-		'listing-video',
-		'listing-map',
-		'listing-author-info',
-		'listing-contact-information',
-		'listing-contact-owner',
-		'listing-review',
+		
 	);
 
 	foreach ( $blocks as $block ) {
@@ -66,7 +59,7 @@ function directorist_gutenberg_block_init() {
 add_action( 'init', 'directorist_gutenberg_block_init' );
 
 /**
- * Register gutenber block category.
+ * Register gutenberg block category.
  * 
  * @param array $categories
  * 

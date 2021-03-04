@@ -103,7 +103,10 @@ class Listings_Export {
         ];
 
         $field_key = $field_args['field_key'];
-        $row[ $field_key ] = call_user_func( $field_data_map[ $field_key ] );
+        $content = call_user_func( $field_data_map[ $field_key ] ) ;
+        $content = str_replace( '"', '""', $content );
+
+        $row[ $field_key ] = $content;
 
         return $row;
     }
@@ -190,7 +193,7 @@ class Listings_Export {
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        $row[ $field_args['field_key'] ] = $value;
+        $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
 
         return $row;
     }

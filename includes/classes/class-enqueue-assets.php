@@ -1303,7 +1303,7 @@ class Enqueue_Assets {
             $show_all = apply_filters( 'directorist_debug_shortcode_scripts_show_all', DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS_SHOW_ALL );
 
             if ( $debug && ( $found || $show_all ) ) {
-                atbdp_console_log( [
+                directorist_console_log( [
                     'handle' => $handle,
                     'shortcode' => $shortcode,
                     'found' => $found

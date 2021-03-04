@@ -1537,7 +1537,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            // atbdp_console_log([
+            // directorist_console_log([
             //     'installed_extensions_keys' => $installed_extensions_keys,
             //     'promo_extensions' => array_keys( $promo_extensions ),
             // ]);

@@ -19,6 +19,16 @@ registerBlockType( 'directorist/listing-review', {
 		html: false,
 	},
 
+	transforms: {
+		from: [
+			{
+				type: 'shortcode',
+				tag: 'directorist_listing_review',
+				attributes: {}
+			},
+		]
+	},
+
 	edit( props ) {
 		return (
 			<div { ...useBlockProps() }>

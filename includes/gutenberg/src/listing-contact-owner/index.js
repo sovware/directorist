@@ -20,6 +20,16 @@ registerBlockType( 'directorist/listing-contact-owner', {
 		html: false,
 	},
 
+	transforms: {
+		from: [
+			{
+				type: 'shortcode',
+				tag: 'directorist_listing_contact_owner',
+				attributes: {}
+			},
+		]
+	},
+
 	edit( props ) {
 		return (
 			<div { ...useBlockProps() }>

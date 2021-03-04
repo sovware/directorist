@@ -19,6 +19,16 @@ registerBlockType( 'directorist/listing-custom-fields', {
 		html: false,
 	},
 
+	transforms: {
+		from: [
+			{
+				type: 'shortcode',
+				tag: 'directorist_listing_custom_fields',
+				attributes: {}
+			},
+		]
+	},
+
 	edit( props ) {
 		return (
 			<div { ...useBlockProps() }>

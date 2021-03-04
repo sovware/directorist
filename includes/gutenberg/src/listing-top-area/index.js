@@ -19,6 +19,16 @@ registerBlockType( 'directorist/listing-top-area', {
 		html: false,
 	},
 
+	transforms: {
+		from: [
+			{
+				type: 'shortcode',
+				tag: 'directorist_listing_top_area',
+				attributes: {}
+			},
+		]
+	},
+
 	edit( props ) {
 		return (
 			<div { ...useBlockProps() }>

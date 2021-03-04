@@ -298,6 +298,10 @@ export default {
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
               _main_widget.widget_key = current_key;
 
+              if ( matched_field.widget_key ) {
+                _main_widget.widget_key = matched_field.widget_key;
+              }
+
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
                 _main_widget.label = matched_field.label;
               }

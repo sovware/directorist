@@ -441,6 +441,8 @@ $('.ext-update-btn').on('click', function (e) {
         form_data.plugin_key = plugin_key;
     }
 
+    console.log( { plugin_key } );
+
     const self = this;
 
     jQuery.ajax({
@@ -452,8 +454,6 @@ $('.ext-update-btn').on('click', function (e) {
             $(self).html(icon);
         },
         success(response) {
-            console.log(response);
-
             if (response.status.success) {
                 $(self).html('Updated');
 

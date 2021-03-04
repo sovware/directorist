@@ -59,8 +59,10 @@ class ATBDP_Multi_Directory_Migration {
                 while ( $listings->have_posts() ) {
                     $listings->the_post();
 
+                    // Set Directory Type
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
                     update_post_meta( get_the_id(), '_directory_type', $add_directory['term_id'] );
+
                 }
             }
         }
@@ -434,6 +436,8 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
+        // atbdp_console_log( $custom_fields );
+
         // Contact Info
         $form_groups[] = [
             "label"  => "Contact Info",
@@ -688,6 +692,8 @@ class ATBDP_Multi_Directory_Migration {
             "fields" => $single_listings_fields,
             "groups" => $single_listings_groups
         ];
+
+        // atbdp_console_log( $single_listings_contents );
 
         return $single_listings_contents;
     }

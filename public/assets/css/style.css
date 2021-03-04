@@ -5266,6 +5266,7 @@ input.atbdp-form-control {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd-listing-location,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbdp_info_list,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_price,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges,
@@ -5278,6 +5279,7 @@ input.atbdp-form-control {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd-listing-location:not(:last-child):before,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbdp_info_list:not(:last-child):before,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_price:not(:last-child):before,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count:not(:last-child):before,
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges:not(:last-child):before,
@@ -12002,7 +12004,7 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar img {
-  max-width: 120px;
+  max-width: 120px !important;
   max-height: 100%;
   border-radius: 50%;
   margin-bottom: 0;
@@ -13421,6 +13423,18 @@ p.atbd-min {
 
 .directorist-card .directorist-card__body p:last-child {
   margin-bottom: 0;
+}
+
+.directorist-compare-btn i,
+.directorist-compare-btn span.la,
+.directorist-compare-btn span.las,
+.directorist-compare-btn span.fa,
+.directorist-compare-btn span.fas,
+.directorist-compare-btn span.lab,
+.directorist-compare-btn span.fab {
+  color: #fff;
+  top: 2px;
+  right: 2px;
 }
 
 .ads-advanced .bottom-inputs {

@@ -642,6 +642,10 @@ class Directorist_Listing_Form {
 			}
 			elseif ( !empty( $field_data['field_key'] ) ) {
 				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+
+				if ( empty( $value ) ) {
+					$value = get_post_meta( $listing_id, $field_data['field_key'], true );
+				}
 			}
 		}
 		

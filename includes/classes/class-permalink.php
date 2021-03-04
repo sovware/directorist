@@ -17,7 +17,11 @@ if (!class_exists('ATBDP_Permalink')):
 class ATBDP_Permalink {
     // atbdp_get_listing_permalink
     public static function get_listing_permalink( $post_id = 0, $permalink = '' ) {
-            
+        
+        if ( empty( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) ) {
+            return $permalink;
+        }
+
         $post_type = get_post_type( $post_id );
         if ( ATBDP_POST_TYPE !== $post_type ) { return $permalink; }
 
@@ -422,7 +426,7 @@ class ATBDP_Permalink {
             }
         }
 
-        if( ! empty( $directory_type ) ) {
+        if( ! empty( $directory_type ) && 'all' != $directory_type ) {
             $link = $link . '?directory_type=' . $directory_type;
         }
 
@@ -465,7 +469,7 @@ class ATBDP_Permalink {
             }
         }
 
-        if( ! empty( $directory_type ) ) {
+        if( ! empty( $directory_type ) && 'all' != $directory_type ) {
             $link = $link . '?directory_type=' . $directory_type;
         }
 

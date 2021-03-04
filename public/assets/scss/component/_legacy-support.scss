@@ -461,3 +461,66 @@
       right: 2px;
   }
 }
+
+// Faq Extension
+
+.atbd_content_active{
+  .directorist-faq-accordion{
+    .directorist-faq-accordion__single{
+      .directorist-faq-accordion__title{
+        a{
+          &:before{
+            font-family: "LineAwesome";
+            content: '\f2c2';
+          }
+          &.directorist-active{
+            &:before{
+              content: '\f28e'!important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#directorist.atbd_wrapper {
+  .directorist-gallery-grid-two {
+    .directorist-grid-item{
+      margin-bottom: 5px;
+    }
+    figure{
+      figcaption{
+        a{
+          width: 2.5rem;
+          height: 2.5rem;
+          background: #f5f3f6;
+          border-radius: 18.75rem;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          transition: .3s;
+          span.la,
+          span.las,
+          span.fa,
+          span.fas{
+            color: $dark;
+          }
+
+          &:hover{
+            color: #fff;
+            background: #f51957;
+            span.la,
+            span.las,
+            span.fa,
+            span.fas{
+              color: #fff;
+            }
+          }
+
+        }
+      }
+    }
+  }
+}

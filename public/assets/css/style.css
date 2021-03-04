@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* typography */
 #directorist.atbd_wrapper a {
   text-decoration: none;
@@ -13435,6 +13436,59 @@ p.atbd-min {
   color: #fff;
   top: 2px;
   right: 2px;
+}
+
+.atbd_content_active .directorist-faq-accordion .directorist-faq-accordion__single .directorist-faq-accordion__title a:before {
+  font-family: "LineAwesome";
+  content: '\f2c2';
+}
+
+.atbd_content_active .directorist-faq-accordion .directorist-faq-accordion__single .directorist-faq-accordion__title a.directorist-active:before {
+  content: "" !important;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two .directorist-grid-item {
+  margin-bottom: 5px;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #f5f3f6;
+  border-radius: 18.75rem;
+  color: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1rem;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.la,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.las,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.fa,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.fas {
+  color: #202428;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover {
+  color: #fff;
+  background: #f51957;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.la,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.las,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fa,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fas {
+  color: #fff;
 }
 
 .ads-advanced .bottom-inputs {

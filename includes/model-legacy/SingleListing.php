@@ -206,8 +206,7 @@ class Directorist_Single_Listing {
 		$listing_title = get_the_title( $listing_id );
 		
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
-		$type_general  = get_term_meta( $type, 'general_config', true );
-		$default_image = ( ! empty( $type_general['preview_image'] ) ) ? $type_general['preview_image'] : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
+		$default_image = Helper::default_preview_image_src( $type );
 
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);

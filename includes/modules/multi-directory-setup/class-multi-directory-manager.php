@@ -4106,7 +4106,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preview_image' => [
                     'button-label' => __('Select', 'directorist'),
                     'type'         => 'wp-media-picker',
-                    'default-img'  => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'default-img'  => '',
                     'value'        => '',
                 ],
 

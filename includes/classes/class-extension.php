@@ -233,10 +233,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
                     'active'      => true,
                 ],
-                'directorist-ads-manager' => [
+                'directorist-adverts-manager' => [
                     'name'        => 'Directorist Ads Manager',
                     'description' => __( 'Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-ads-manager/',
+                    'link'        => 'https://directorist.com/product/directorist-adverts-manager/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
                     'active'      => true,
                 ],

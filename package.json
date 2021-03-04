@@ -7,7 +7,8 @@
     "server": "webpack-dev-server --config webpack.dev.js --open",
     "dev": "webpack --config webpack.dev.js",
     "prod": "webpack --config webpack.prod.js",
-    "build": "webpack --config webpack.build.js"
+    "build": "webpack --config webpack.build.js",
+    "blocks:build": "wp-scripts build ./includes/gutenberg/src/index.js --output-path=includes/gutenberg/assets"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vairafiq/directorist-business-directory-plugin#readme",
   "dependencies": {
+    "@wordpress/block-editor": "^5.2.9",
+    "@wordpress/blocks": "^7.0.5",
+    "@wordpress/i18n": "^3.18.0",
+    "@wordpress/server-side-render": "^1.20.7",
     "axios": "^0.21.1",
     "gulp": "^4.0.0",
     "lodash": "^4.17.20",
@@ -56,7 +61,8 @@
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.0.9"
+    "webpack-merge": "^5.0.9",
+    "@wordpress/scripts": "^13.0.3"
   },
   "browserslist": [
     "defaults",

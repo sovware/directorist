@@ -33,13 +33,13 @@ class Directorist_Account {
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );
 			return ob_get_clean();
-		}
+		}	
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
+		ob_start();
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		echo Helper::get_template_contents( 'account/login' );
 
-		return Helper::get_template_contents( 'account/login' );
+		return ob_get_clean();
 	}
 
 	public function render_shortcode_registration( $atts ) {
@@ -84,11 +84,11 @@ class Directorist_Account {
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
 
-			if ( ! empty( $atts['shortcode'] ) ) {
-				Helper::add_shortcode_comment( $atts['shortcode'] );
-			}
-			
-			return Helper::get_template_contents( 'account/registration', $args );
+			ob_start();
+			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+			echo Helper::get_template_contents( 'account/registration', $args );
+
+			return ob_get_clean();
 		}
 		else {
 			$error_message = sprintf( __( 'Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

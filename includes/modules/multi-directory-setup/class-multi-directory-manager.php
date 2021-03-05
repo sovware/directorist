@@ -1921,7 +1921,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
-                                    'value' => 'color_picker',
+                                    'value' => 'color',
                                 ],
                                 'label' => [
                                     'type'  => 'text',
@@ -3072,7 +3072,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         ],
 
-                        'color_picker' => [
+                        'color' => [
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -3746,7 +3746,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'color_picker' => [
+                'color' => [
                     'type' => "list-item",
                     'label' => "Color Picker",
                     'icon' => 'uil uil-text-fields',
@@ -3903,7 +3903,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                         ],
                     ],
                     'excerpt' => [
@@ -3954,7 +3954,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                         ],
                     ],
                     'excerpt' => [
@@ -4010,7 +4010,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                         ],
                     ],
                     'excerpt' => [
@@ -4057,7 +4057,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                         ],
                     ],
                     'excerpt' => [

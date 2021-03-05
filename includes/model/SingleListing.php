@@ -147,6 +147,7 @@ class Directorist_Single_Listing {
 
 	public function field_template( $data ) {
 		$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, '_' . $data['field_key'], true ) : '';
+		
 		if ( empty( $value ) ) {
 			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
 		}
@@ -167,9 +168,11 @@ class Directorist_Single_Listing {
 		}
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
+		
 		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
+
 		$data['value'] = $value;
 		$data['listing_id'] = $this->id;
 		$args = array(
@@ -180,7 +183,8 @@ class Directorist_Single_Listing {
 		);
 
 		if ( $this->is_custom_field( $data ) ) {
-			$template = 'single/custom-fields/' . $data['widget_name'];
+			$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
+			$template = 'single/custom-fields/' . $widget_name;
 		}
 		else {
 			$template = 'single/fields/' . $data['widget_name'];
@@ -194,8 +198,12 @@ class Directorist_Single_Listing {
 	}
 
 	public function is_custom_field( $data ) {
-		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
-		return in_array( $data['widget_name'], $fields ) ? true : false;
+		$fields = [ 'checkbox', 'color', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
+
+		$is_custom_field = in_array( $widget_name, $fields ) ? true : false;
+
+		return $is_custom_field;
 	}
 
 	public function get_custom_field_value( $type, $data ) {

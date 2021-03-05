@@ -482,12 +482,12 @@ class Directorist_Listing_Search_Form {
 		}
 
 		$this->search_listing_scripts_styles();
+		
+		ob_start();
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
-
-		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
+		return ob_get_clean();
 	}
 
 	public function search_listing_scripts_styles() {

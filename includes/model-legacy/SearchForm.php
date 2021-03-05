@@ -505,11 +505,11 @@ class Directorist_Listing_Search_Form {
 			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
 		);
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
-		
-		return Helper::get_template_contents( 'search/search', $args );
+		ob_start();
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		Helper::get_template_contents( 'search/search', $args );
+
+		return ob_get_clean();
 	}
 
 	public function top_categories() {

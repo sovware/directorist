@@ -40,7 +40,6 @@ class Directorist_All_Locations extends Custom_Widget_Base {
 				'options' => array(
 					'grid' => __( 'Grid View', 'directorist' ),
 					'list' => __( 'List View', 'directorist' ),
-					'map'  => __( 'Map View', 'directorist' ),
 				),
 				'default' => 'grid',
 			),

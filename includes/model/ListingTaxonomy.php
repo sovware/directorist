@@ -74,7 +74,7 @@ class Directorist_Listing_Taxonomy {
 		$this->per_page            	     = ($type == 'category') ? $atts['cat_per_page'] : $atts['loc_per_page'];
 		$this->columns              	 = $atts['columns'];
 		$this->slug                 	 = $atts['slug'];
-		$this->logged_in_user_only  	 = $atts['logged_in_user_only'];
+		$this->logged_in_user_only  	 = $atts['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url    	 = $atts['redirect_page_url'];
 		$this->directory_type       	 = ! empty( $atts['directory_type'] ) ? explode( ',', $atts['directory_type'] ) : array();
 		$this->directory_type_count 	 = ! empty( $this->directory_type ) ? count( $this->directory_type ) : 0;

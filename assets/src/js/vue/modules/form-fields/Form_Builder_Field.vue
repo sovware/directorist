@@ -1466,10 +1466,8 @@ export default {
     },
 
     activeFieldOnDrop(args) {
-      // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
       const inserting_from = this.current_dragging_widget.inserting_from;
-      const inserting_field_key = this.current_dragging_widget
-        .inserting_field_key;
+      const inserting_field_key = this.current_dragging_widget.inserting_field_key;
       const origin_group_index = this.current_dragging_widget.group_key;
       const origin_field_index = this.current_dragging_widget.field_index;
       const destination_group_index = args.group_key;
@@ -1484,14 +1482,14 @@ export default {
       this.active_field_drop_area = "";
       this.current_dragging_widget = "";
 
-      /* console.log({
-          inserting_from,
-          inserting_field_key,
-          origin_group_index,
-          origin_field_index,
-          destination_group_index,
-          destination_field_index,
-      }); */
+      // console.log({
+      //     inserting_from,
+      //     inserting_field_key,
+      //     origin_group_index,
+      //     origin_field_index,
+      //     destination_group_index,
+      //     destination_field_index,
+      // });
 
       // Reorder
       if (
@@ -1507,6 +1505,8 @@ export default {
           origin_field_index,
           destination_field_index,
         });
+
+        return;
       }
 
       // Move
@@ -1523,6 +1523,8 @@ export default {
           destination_group_index,
           destination_field_index,
         });
+
+        return;
       }
 
       // Insert
@@ -1538,6 +1540,8 @@ export default {
           destination_group_index,
           destination_field_index,
         });
+
+        return;
       }
     },
 
@@ -1612,73 +1616,46 @@ export default {
       // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
       // const des_ind = payload.destination_field_index + 1;
       const des_ind = payload.destination_field_index;
-      this.groups[payload.destination_group_index].fields.splice(
-        des_ind,
-        0,
-        origin_value
-      );
+      this.groups[payload.destination_group_index].fields.splice( des_ind, 0, origin_value );
     },
 
     insertActiveFieldsItem(payload) {
       let inserting_field_key = payload.inserting_field_key;
 
-      if (
-        typeof this.active_fields_ref[payload.inserting_field_key] ===
-        "undefined"
-      ) {
+      if ( typeof this.active_fields_ref[payload.inserting_field_key] === "undefined" ) {
         this.active_fields_ref[payload.inserting_field_key] = [];
       }
 
-      if (!this.active_fields_ref[payload.inserting_field_key].length) {
-        this.active_fields_ref[payload.inserting_field_key].push(
-          payload.inserting_field_key
-        );
+      if ( ! this.active_fields_ref[payload.inserting_field_key].length ) {
+        this.active_fields_ref[ payload.inserting_field_key ].push( payload.inserting_field_key );
       } else {
-        let new_key =
-          payload.inserting_field_key +
-          "_" +
-          (this.active_fields_ref[payload.inserting_field_key].length + 1);
-
+        let new_key = payload.inserting_field_key + "_" + (this.active_fields_ref[payload.inserting_field_key].length + 1);
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
 
-      this.$set(this.active_field_collapse_states, inserting_field_key, {});
-      this.$set(
-        this.active_field_collapse_states[inserting_field_key],
-        "collapsed",
-        false
-      );
+      this.$set( this.active_field_collapse_states, inserting_field_key, {});
+      this.$set( this.active_field_collapse_states[inserting_field_key], "collapsed", false );
 
-      const field_data = this.theWidgetGroups[payload.inserting_from].widgets[
-        payload.inserting_field_key
-      ];
+      const field_data = this.theWidgetGroups[payload.inserting_from].widgets[ payload.inserting_field_key ];
       let field_data_options = {};
 
-      for (let option_key in field_data.options) {
-        field_data_options[option_key] =
-          typeof field_data.options[option_key].value !== "undefined"
-            ? field_data.options[option_key].value
-            : "";
+      for ( let option_key in field_data.options) {
+        field_data_options[option_key] = typeof field_data.options[option_key].value !== "undefined" ? field_data.options[option_key].value : "";
       }
+
+      field_data_options.widget_group = payload.inserting_from;
+      field_data_options.widget_name = payload.inserting_field_key;
 
       Vue.set(this.active_fields, inserting_field_key, field_data_options);
 
-      const widget_group = this.active_fields[inserting_field_key].widget_group;
-      const widget_name = this.active_fields[inserting_field_key].widget_name;
+      let terget_index = this.groups[payload.destination_group_index].fields.length;
 
-      let terget_index = this.groups[payload.destination_group_index].fields
-        .length;
-
-      if (typeof payload.destination_field_index !== "undefined") {
+      if ( typeof payload.destination_field_index !== "undefined" ) { 
         terget_index = payload.destination_field_index;
       }
 
-      this.groups[payload.destination_group_index].fields.splice(
-        terget_index,
-        0,
-        inserting_field_key
-      );
+      this.groups[payload.destination_group_index].fields.splice( terget_index, 0, inserting_field_key );
     },
 
     widgetCanShow(widget_group, field_key) {

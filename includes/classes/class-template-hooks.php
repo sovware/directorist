@@ -13,7 +13,8 @@ class Directorist_Template_Hooks {
 
 	private function __construct() {
 		// Dashboard ajax
-		add_action('wp_ajax_directorist_dashboard_listing_tab', array( Directorist_Listing_Dashboard::instance(), 'ajax_listing_tab' ) );
+		$dashboard = Directorist_Listing_Dashboard::instance();
+		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $dashboard, 'ajax_listing_tab' ) );
 
 		// All Categories
 		add_action( 'atbdp_before_all_categories_loop',    array( '\Directorist\Directorist_Listing_Taxonomy', 'archive_type' ) );

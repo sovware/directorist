@@ -111,7 +111,6 @@ const MainConfig = {
    
     ['public-atmodal']: ["./assets/src/js/modules/atmodal.js"],
     ['public-releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
-    ['public-login']: ["./assets/src/js/components/login.js"],
     ['public-geolocation-widget']: ["./assets/src/js/map-scripts/geolocation-widget.js"],
 
     // CSS

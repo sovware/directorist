@@ -134,11 +134,12 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
 if( ! localized_data.is_admin ){
         // Location
         const createLoc = localized_data.create_new_loc;
+        let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
         if (createLoc) {
                 $("#at_biz_dir-location").select2({
                         placeholder: localized_data.i18n_text.location_selection,
                         tags: true,
-                        maximumSelectionLength: localized_data.i18n_text.max_location_creation,
+                        maximumSelectionLength: maxLocationLength,
                         language: {
                                 maximumSelected: function () {
                                         return localized_data.i18n_text.max_location_msg;
@@ -151,38 +152,45 @@ if( ! localized_data.is_admin ){
                         placeholder: localized_data.i18n_text.location_selection,
                         allowClear: true,
                         tags: false,
-                        maximumSelectionLength: localized_data.i18n_text.max_location_creation,
+                        maximumSelectionLength: maxLocationLength,
                         tokenSeparators: [","],
                 });
         }
 
         // Tags
         const createTag = localized_data.create_new_tag;
+        // console.log($('#at_biz_dir-tags').attr("data-max"));
+        let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
         if (createTag) {
                 $('#at_biz_dir-tags').select2({
                         placeholder: localized_data.i18n_text.tag_selection,
                         tags: true,
+                        maximumSelectionLength: maxTagLength,
                         tokenSeparators: [','],
                 });
         } else {
                 $('#at_biz_dir-tags').select2({
                         placeholder: localized_data.i18n_text.tag_selection,
                         allowClear: true,
+                        maximumSelectionLength: maxTagLength,
                         tokenSeparators: [','],
                 });
         }
         //Category
         const createCat = localized_data.create_new_cat;
+        let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
         if(createCat){
                 $('#at_biz_dir-categories').select2({
                         placeholder: localized_data.i18n_text.cat_placeholder,
                         allowClear: true,
                         tags: true,
+                        maximumSelectionLength: maxCatLength,
                         tokenSeparators: [','],
                 });
         }else{
                 $('#at_biz_dir-categories').select2({
                         placeholder: localized_data.i18n_text.cat_placeholder,
+                        maximumSelectionLength: maxCatLength,
                         allowClear: true,
                 });
         }

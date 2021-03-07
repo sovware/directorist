@@ -9,11 +9,11 @@ class Listings_Export {
     public static function get_listings_data() {
         $listings_data = [];
 
-        $listings = new \WP_Query([
+        $listings = new \WP_Query( apply_filters( 'directorist_listings_export_query' , [
             'post_type'      => ATBDP_POST_TYPE,
             'posts_per_page' => -1,
             'post_status'    => 'publish',
-        ]);
+        ]));
 
         $field_map = [
             'native_field' => [

@@ -18,3 +18,19 @@
 .directorist-gb-cb-list-control ul {
     margin-top: 10px;
 }
+
+.wp-block-directorist-all-listing,
+.wp-block-directorist-category {
+    &.is-hovered {
+        position: relative;
+    
+        &:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+        }
+    }
+}

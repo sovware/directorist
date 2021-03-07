@@ -59,6 +59,7 @@ function init_blocks() {
 		'user-login',
 
 		'all-listing',
+		'category',
 	);
 
 	foreach ( $blocks as $block ) {
@@ -98,7 +99,22 @@ add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
  */
 function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode = str_replace( array( '/', '-' ), '_', $instance->name );
-	$output    = directorist_do_shortcode( $shortcode, $atts, $content );
+	$atts_map  = get_attributes_map( str_replace( 'directorist/', '', $instance->name ) );
+	
+	foreach ( $atts as $_key => $_value ) {
+		if ( ! isset( $atts_map[ $_key  ] ) || $_value === "" ) {
+			unset( $atts[ $_key ] );
+		}
+
+		if ( $atts_map[ $_key ]['type'] === 'boolean' ) {
+			$atts[ $_key ] = $_value ? 'yes' : 'no';
+		}
+
+		unset( $_key );
+		unset( $_value );
+	}
+
+	$output = directorist_do_shortcode( $shortcode, $atts, $content );
 	
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
 		return sprintf(
@@ -236,6 +252,52 @@ function get_attributes_map( $block ) {
 				'type'    => 'number',
 				'default' => 0,
 			)
+		),
+		'category' => array(
+			'view' => array (
+				'type'    => 'string',
+				'default' => 'grid',
+			),
+			'orderby' => array(
+				'type'    => 'string',
+				'default' => 'date',
+			),
+			'order' => array(
+				'type'    => 'string',
+				'default' => 'desc',
+			),
+			'listings_per_page' => array(
+				'type'    => 'number',
+				'default' => 6,
+			),
+			'show_pagination' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'header' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'header_title' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'columns' => array(
+				'type'    => 'number',
+				'default' => 3,
+			),
+			'logged_in_user_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'map_height' => array(
+				'type'    => 'number',
+				'default' => 500,
+			),
+			'map_zoom_level' => array(
+				'type'    => 'number',
+				'default' => 0,
+			),
 		)
 	);
 

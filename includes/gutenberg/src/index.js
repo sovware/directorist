@@ -10,3 +10,4 @@ import './user-dashboard/index';
 import './user-login/index';
 
 import './all-listing/index';
+import './category/index';

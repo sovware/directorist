@@ -666,14 +666,6 @@ class Enqueue_Assets {
             // 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
 
-        $scripts['directorist-login'] = [
-            'file_name' => 'public-login',
-            'base_path' => DIRECTORIST_JS,
-            'ver'       => self::$script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => true,
-        ];
-
         $scripts['directorist-atmodal'] = [
             'file_name' => 'public-atmodal',
             'base_path' => DIRECTORIST_JS,

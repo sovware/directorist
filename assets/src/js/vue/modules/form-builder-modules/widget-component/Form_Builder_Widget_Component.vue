@@ -23,7 +23,7 @@
         <slide-up-down :active="expandState" :duration="500">
             <div class="cptm-form-builder-group-field-item-body" v-if="widget_fields && typeof widget_fields === 'object'">
                 <field-list-component 
-                    :fields="widget_fields" 
+                    :field-list="widget_fields" 
                     :value="( activeWidgets[ widgetKey ] ) ? activeWidgets[ widgetKey ] : ''"
                     @update="$emit( 'update-widget-field', { widget_key: widgetKey, payload: $event} )"
                 />

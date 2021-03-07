@@ -24,7 +24,7 @@
         <slide-up-down :active="groupFieldsExpandState" :duration="500">
             <div class="cptm-form-builder-group-options">
                 <field-list-component 
-                    :fields="groupFields" 
+                    :field-list="groupFields" 
                     :value="groupData" 
                     @update="$emit( 'update-group-field', $event)"
                 />

@@ -198,12 +198,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 }
             $search_form =  ob_get_clean();
 
-            $popular_categories = $searchform->top_categories_template();
-            wp_send_json_success( array( 
+            ob_start();
+			
+			$searchform->top_categories_template();
+			
+            $popular_categories = ob_get_clean();
+			
+            wp_send_json( array( 
                 'search_form'            => $search_form,
                 'popular_categories'     => $popular_categories
              ) );
-            die;
         }
 
         public function atbdp_listing_default_type() {

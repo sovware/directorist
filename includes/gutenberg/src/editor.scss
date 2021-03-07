@@ -20,7 +20,9 @@
 }
 
 .wp-block-directorist-all-listing,
-.wp-block-directorist-category {
+.wp-block-directorist-category,
+.wp-block-directorist-location,
+.wp-block-directorist-tag {
     &.is-hovered {
         position: relative;
     

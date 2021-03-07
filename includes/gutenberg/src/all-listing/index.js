@@ -1,4 +1,4 @@
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -71,6 +71,13 @@ registerBlockType( 'directorist/all-listing', {
 				type: 'shortcode',
 				tag: 'directorist_all_listing',
 				attributes: transformAttributesMap
+			},
+			{
+				type: 'block',
+				blocks: [ 'directorist/category', 'directorist/location', 'directorist/tag' ],
+				transform: ( attributes ) => {
+					return createBlock( 'directorist/all-listing', attributes );
+				},
 			},
 		]
 	},

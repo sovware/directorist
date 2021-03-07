@@ -60,6 +60,8 @@ function init_blocks() {
 
 		'all-listing',
 		'category',
+		'location',
+		'tag',
 	);
 
 	foreach ( $blocks as $block ) {
@@ -150,6 +152,53 @@ function directorist_do_shortcode( $tag, array $atts = array(), $content = null 
 }
 
 function get_attributes_map( $block ) {
+	$common = array(
+		'view' => array (
+			'type'    => 'string',
+			'default' => 'grid',
+		),
+		'orderby' => array(
+			'type'    => 'string',
+			'default' => 'date',
+		),
+		'order' => array(
+			'type'    => 'string',
+			'default' => 'desc',
+		),
+		'listings_per_page' => array(
+			'type'    => 'number',
+			'default' => 6,
+		),
+		'show_pagination' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'header' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'header_title' => array(
+			'type'    => 'string',
+			'default' => '',
+		),
+		'columns' => array(
+			'type'    => 'number',
+			'default' => 3,
+		),
+		'logged_in_user_only' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'map_height' => array(
+			'type'    => 'number',
+			'default' => 500,
+		),
+		'map_zoom_level' => array(
+			'type'    => 'number',
+			'default' => 0,
+		),
+	);
+
 	$blocks_attributes = array(
 		'all-listing' => array(
 			'view' => array (
@@ -253,52 +302,9 @@ function get_attributes_map( $block ) {
 				'default' => 0,
 			)
 		),
-		'category' => array(
-			'view' => array (
-				'type'    => 'string',
-				'default' => 'grid',
-			),
-			'orderby' => array(
-				'type'    => 'string',
-				'default' => 'date',
-			),
-			'order' => array(
-				'type'    => 'string',
-				'default' => 'desc',
-			),
-			'listings_per_page' => array(
-				'type'    => 'number',
-				'default' => 6,
-			),
-			'show_pagination' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'header' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'header_title' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'columns' => array(
-				'type'    => 'number',
-				'default' => 3,
-			),
-			'logged_in_user_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'map_height' => array(
-				'type'    => 'number',
-				'default' => 500,
-			),
-			'map_zoom_level' => array(
-				'type'    => 'number',
-				'default' => 0,
-			),
-		)
+		'category' => $common,
+		'location' => $common,
+		'tag' => $common,
 	);
 
 	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();

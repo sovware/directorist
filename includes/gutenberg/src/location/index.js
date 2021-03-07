@@ -52,12 +52,12 @@ for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
 	}
 }
 
-registerBlockType( 'directorist/category', {
+registerBlockType( 'directorist/location', {
 	apiVersion: 2,
 
-	title: __( 'Single Category', 'directorist' ),
+	title: __( 'Single Location', 'directorist' ),
 
-	description: __( 'Create directory listing categories grid view, list view or map view.', 'directorist' ),
+	description: __( 'Create directory listing locations grid view, list view or map view.', 'directorist' ),
 
 	category: 'directorist-blocks-collection',
 
@@ -71,14 +71,14 @@ registerBlockType( 'directorist/category', {
 		from: [
 			{
 				type: 'shortcode',
-				tag: 'directorist_category',
+				tag: 'directorist_location',
 				attributes: transformAttributesMap
 			},
 			{
 				type: 'block',
-				blocks: [ 'directorist/all-listing', 'directorist/location', 'directorist/tag' ],
+				blocks: [ 'directorist/all-listing', 'directorist/category', 'directorist/tag' ],
 				transform: ( attributes ) => {
-					return createBlock( 'directorist/category', attributes );
+					return createBlock( 'directorist/location', attributes );
 				},
 			},
 		]
@@ -212,7 +212,7 @@ registerBlockType( 'directorist/category', {
 
 				<div { ...useBlockProps() }>
 					<ServerSideRender
-						block='directorist/category'
+						block='directorist/location'
 						attributes={ attributes }
 					/>
 				</div>

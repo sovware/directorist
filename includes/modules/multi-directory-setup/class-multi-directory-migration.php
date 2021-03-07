@@ -642,7 +642,7 @@ class ATBDP_Multi_Directory_Migration {
         }
 
         $single_listings_groups[] = [
-            "label"                => "Author Info",
+            "label"                => get_directorist_option( 'atbd_author_info_title', __( 'Author Info', 'directorist' ) ),
             "fields"               => [],
             'type'                 => 'widget_group',
             'widget_group'         => 'other_widgets',
@@ -653,7 +653,7 @@ class ATBDP_Multi_Directory_Migration {
 
         if ( empty( get_directorist_option( 'disable_contact_owner', false ) ) ) {
             $single_listings_groups[] = [
-                "label"                => "Contact Listings Owner Form",
+                "label"                => get_directorist_option( 'contact_listing_owner', __( 'Contact Listings Owner', 'directorist' ) ),
                 "fields"               => [],
                 'type'                 => 'widget_group',
                 'widget_group'         => 'other_widgets',
@@ -678,7 +678,7 @@ class ATBDP_Multi_Directory_Migration {
 
         if ( ! empty( get_directorist_option( 'enable_rel_listing', true ) ) ) {
             $single_listings_groups[] = [
-                "label"                => "Related Listings",
+                "label"                => get_directorist_option( 'rel_listing_title', __( 'Related Listings', 'directorist' ) ),
                 "fields"               => [],
                 'type'                 => 'widget_group',
                 'widget_group'         => 'other_widgets',

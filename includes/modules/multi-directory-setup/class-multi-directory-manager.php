@@ -644,14 +644,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preset' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => apply_filters('atbdp_form_preset_widgets', [
 
                         'title' => [
                             'label' => 'Title',
                             'icon' => 'fa fa-text-height',
-                            'lock' => true,
-                            'show' => true,
+                            'canTrash' => false,
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1585,7 +1584,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'custom' => [
                     'title' => 'Custom Fields',
                     'description' => 'Click on a field type you want to create',
-                    'allow_multiple' => true,
+                    'allowMultiple' => true,
                     'widgets' => apply_filters('atbdp_form_custom_widgets', [
                         'text' => [
                             'label' => 'Text',
@@ -2392,7 +2391,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preset_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => apply_filters( 'atbdp_single_listing_content_widgets', [
                         'tag' => [
@@ -2608,7 +2607,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'other_widgets' => [
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
                         'review' => [ 
                             'type' => 'section',
@@ -2706,7 +2705,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'available_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => [
                         'title' => [
@@ -3141,7 +3140,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'other_widgets' => [
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => [
                         'review' => [
                             'label' => 'Review',
@@ -4167,15 +4166,24 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
-                    'group-options' => [
+                    'generalSettings' => [
+                        'minGroup' => 1,
+                        'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
+                        'restricted_fields_warning_text' => __( 'You can not add in this section', 'directorist' ),
+                    ],
+                    'groupSettings' => [
+                        'defaultGroupLabel' => 'Section',
+                        'disableTrashIfGroupHasWidgets' => [ 
+                            [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
+                        ],
+                    ],
+                    'groupFields' => [
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Group Name',
                             'value' => 'Section',
                         ],
                     ],
-
                     'value' => [
                         'fields' => [
                             'title' => [
@@ -4258,8 +4266,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'single_listings_contents' => [
                     'type'     => 'form-builder',
                     'widgets'  => $single_listings_contents_widgets,
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
-                    'group-options' => [
+                    'generalSettings' => [
+                        'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
+                    ],
+                    'groupFields' => [
                         'icon' => [
                             'type'  => 'icon',
                             'label'  => 'Block/Section Icon',
@@ -4315,9 +4325,15 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'search_form_fields' => [
                     'type'     => 'form-builder',
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
+                    'generalSettings' => [
+                        'allowAddNewGroup' => false,
+                    ],
+                    'groupSettings' => [
+                        'defaultGroupLabel' => 'Section',
+                        'canTrash'   => false,
+                        'draggable'  => false
+                    ],
                     'widgets'  => $search_form_widgets,
-                    'allow_add_new_section' => false,
                     'value' => [
                         'groups' => [
                             [

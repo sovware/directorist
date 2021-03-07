@@ -1,7 +1,7 @@
 <template>
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( tab, tab_index ) in tabContents">
-            <div class="atbdp-cptm-tab-item" :key="tab_index" :class="getActiveClass(tab_index, active_nav_index)">
+            <div class="atbdp-cptm-tab-item" :key="tab_index" v-if="tab_index === active_nav_index" :class="getActiveClass(tab_index, active_nav_index)">
                 <component :is="tab.type" v-bind="tab"></component>
             </div>
         </template>

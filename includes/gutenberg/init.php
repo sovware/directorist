@@ -140,7 +140,7 @@ function get_attributes_map( $block ) {
 				'type'    => 'string',
 				'default' => 'grid',
 			),
-			'featured' =>  array(
+			'_featured' =>  array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
@@ -156,11 +156,11 @@ function get_attributes_map( $block ) {
 				'type'    => 'string',
 				'default' => 'desc',
 			),
-			'per_page' => array(
+			'listings_per_page' => array(
 				'type'    => 'number',
 				'default' => 6,
 			),
-			'pagination' => array(
+			'show_pagination' => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
@@ -173,16 +173,16 @@ function get_attributes_map( $block ) {
 				'default' => '',
 			),
 			'category' => array(
-				'type'    => 'array',
-				'default' => array(),
+				'type'    => 'string',
+				'default' => '',
 			),
 			'location' => array(
-				'type'    => 'array',
-				'default' => array(),
+				'type'    => 'string',
+				'default' => '',
 			),
 			'tag' => array(
-				'type'    => 'array',
-				'default' => array(),
+				'type'    => 'string',
+				'default' => '',
 			),
 			'ids' => array(
 				'type'    => 'string',
@@ -200,21 +200,25 @@ function get_attributes_map( $block ) {
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'filter' => array(
+			'advanced_filter' => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'preview_image' => array(
+			'display_preview_image' => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'loop_hook' => array(
+			'action_before_after_loop' => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'logged_in_only' => array(
+			'logged_in_user_only' => array(
 				'type'    => 'boolean',
 				'default' => false,
+			),
+			'redirect_page_url' => array(
+				'type'    => 'string',
+				'default' => '',
 			),
 			'map_height' => array(
 				'type'    => 'number',
@@ -237,3 +241,37 @@ function get_attributes_map( $block ) {
 
 	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();
 }
+
+/**
+ * Enable rest api for all directorist taxonomies.
+ * 
+ * @param array $args Taxonomy arguments
+ * @param string $name Taxonomy slug
+ * 
+ * @return array Modified $args
+ */
+function tax_show_in_rest( $args, $name ) {
+	if ( in_array( $name, array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ), true ) ) {
+		$args['show_in_rest'] = true;
+	}
+
+	return $args;
+}
+add_filter( 'register_taxonomy_args', __NAMESPACE__ . '\tax_show_in_rest', 10, 2 );
+
+/**
+ * Enable rest api for directorist post type.
+ * 
+ * @param array $args Post type arguments
+ * @param string $name Post type slug
+ * 
+ * @return array Modified $args
+ */
+function post_type_show_in_rest( $args, $name ) {
+	if ( $name === ATBDP_POST_TYPE ) {
+		$args['show_in_rest'] = true;
+	}
+
+	return $args;
+}
+add_filter( 'register_post_type_args', __NAMESPACE__ . '\post_type_show_in_rest', 10, 2 );

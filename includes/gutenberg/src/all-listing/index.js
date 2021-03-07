@@ -1,19 +1,29 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
+import { LocationControl, CategoryControl, TagsControl, ListingControl } from './controls';
+
+import {
+	list,
+	grid,
+	mapMarker
+} from '@wordpress/icons';
 
 import {
 	PanelBody,
 	PanelRow,
 	SelectControl,
 	ToggleControl,
-	TextControl
+	TextControl,
+	Toolbar,
+	ToolbarButton,
 } from '@wordpress/components';
 
-import './editor.scss';
 
+import './editor.scss';
+ 
 registerBlockType( 'directorist/all-listing', {
 	apiVersion: 2,
 
@@ -26,8 +36,8 @@ registerBlockType( 'directorist/all-listing', {
 	icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 
 	supports: {
-		html: false,
-		className: false
+		html: false
+		// className: false
 	},
 
 	transforms: {
@@ -45,7 +55,7 @@ registerBlockType( 'directorist/all-listing', {
 			type: 'string',
 			default: 'grid'
 		},
-		featured: {
+		_featured: {
 			type: 'boolean',
 			default: false
 		},
@@ -61,11 +71,11 @@ registerBlockType( 'directorist/all-listing', {
 			type: 'string',
 			default: 'desc'
 		},
-		per_page: {
+		listings_per_page: {
 			type: 'number',
 			default: 6
 		},
-		pagination: {
+		show_pagination: {
 			type: 'boolean',
 			default: false
 		},
@@ -78,16 +88,16 @@ registerBlockType( 'directorist/all-listing', {
 			default: ''
 		},
 		category: {
-			type: 'array',
-			default: []
+			type: 'string',
+			default: ''
 		},
 		location: {
-			type: 'array',
-			default: []
+			type: 'string',
+			default: ''
 		},
 		tag: {
-			type: 'array',
-			default: []
+			type: 'string',
+			default: ''
 		},
 		ids: {
 			type: 'string',
@@ -105,21 +115,25 @@ registerBlockType( 'directorist/all-listing', {
 			type: 'boolean',
 			default: false
 		},
-		filter: {
+		advanced_filter: {
 			type: 'boolean',
 			default: false
 		},
-		preview_image: {
+		display_preview_image: {
 			type: 'boolean',
 			default: false
 		},
-		loop_hook: {
+		action_before_after_loop: {
 			type: 'boolean',
 			default: false
 		},
-		logged_in_only: {
+		logged_in_user_only: {
 			type: 'boolean',
 			default: false
+		},
+		redirect_page_url: {
+			type: 'string',
+			default: ''
 		},
 		map_height: {
 			type: 'number',
@@ -142,11 +156,12 @@ registerBlockType( 'directorist/all-listing', {
 	edit( { attributes, setAttributes } ) {
 		let {
 			view,
+			_featured,
 			filterby,
 			orderby,
 			order,
-			per_page,
-			pagination,
+			listings_per_page,
+			show_pagination,
 			header,
 			header_title,
 			category,
@@ -156,20 +171,33 @@ registerBlockType( 'directorist/all-listing', {
 			columns,
 			featured_only,
 			popular_only,
-			filter,
-			preview_image,
-			loop_hook,
-			logged_in_only,
+			advanced_filter,
+			display_preview_image,
+			action_before_after_loop,
+			logged_in_user_only,
 			map_height,
 			map_zoom_level,
 			directory_type,
 			default_directory_type
 		} = attributes;
 
+		let oldLocations = location ? location.split(',') : [],
+			oldCategories = category ? category.split(',') : [],
+			oldTags = tag ? tag.split(',') : [],
+			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
+
 		return (
 			<Fragment>
+				<BlockControls>
+					<Toolbar>
+						<ToolbarButton isPressed={view === 'grid'} icon={ grid } label={ __( 'Grid View', 'directorist' ) } onClick={ () => setAttributes( { view: 'grid' } ) } />
+						<ToolbarButton isPressed={view === 'list'} icon={ list } label={ __( 'List View', 'directorist' ) } onClick={ () => setAttributes( { view: 'list' } ) } />
+						<ToolbarButton isPressed={view === 'map'} icon={ mapMarker } label={ __( 'Map View', 'directorist' ) } onClick={ () => setAttributes( { view: 'map' } ) } />
+					</Toolbar>
+				</BlockControls>
+				
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings', 'directorist' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'Listing Layout', 'directorist' ) } initialOpen={ true }>
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
 							labelPosition='side'
@@ -182,7 +210,92 @@ registerBlockType( 'directorist/all-listing', {
 							onChange={ newState => setAttributes( { view: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
+						{ view === 'grid' ? <SelectControl
+							label={ __( 'Columns', 'directorist' ) }
+							labelPosition='side'
+							value={ columns }
+							options={ [
+								{ label: __( '1 Column', 'directorist' ), value: 1 },
+								{ label: __( '2 Columns', 'directorist' ), value: 2 },
+								{ label: __( '3 Columns', 'directorist' ), value: 3 },
+								{ label: __( '4 Columns', 'directorist' ), value: 4 },
+								{ label: __( '6 Columns', 'directorist' ), value: 6 },
+							] }
+							onChange={ newState => setAttributes( { columns: newState } ) }
+							className='directorist-gb-fixed-control'
+						/> : '' }
+						<TextControl
+							label={ __( 'Number Of Listing', 'directorist' ) }
+							type='number'
+							value={ listings_per_page }
+							onChange={ newState => setAttributes( { listings_per_page: newState } ) }
+							className='directorist-gb-fixed-control'
+						/>
+						<ToggleControl
+							label={ __( 'Show Pagination?', 'directorist' ) }
+							checked={ show_pagination }
+							onChange={ newState => setAttributes( { show_pagination: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Show Featured Only?', 'directorist' ) }
+							checked={ featured_only }
+							onChange={ newState => setAttributes( { featured_only: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Show Header?', 'directorist' ) }
+							checked={ header }
+							onChange={ newState => setAttributes( { header: newState } ) }
+						/>
+						{ header ? <TextControl
+							label={ __( 'Header Title', 'directorist' ) }
+							type='text'
+							value={ header_title }
+							onChange={ newState => setAttributes( { header_title: newState } ) }
+						/> : setAttributes( { header_title: '' } ) }
+						<ToggleControl
+							label={ __( 'Show Popular Only?', 'directorist' ) }
+							checked={ popular_only }
+							onChange={ newState => setAttributes( { popular_only: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Show Filter Button?', 'directorist' ) }
+							checked={ advanced_filter }
+							onChange={ newState => setAttributes( { advanced_filter: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Show Preview Image?', 'directorist' ) }
+							checked={ display_preview_image }
+							onChange={ newState => setAttributes( { display_preview_image: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Enable Before After Hook?', 'directorist' ) }
+							checked={ action_before_after_loop }
+							onChange={ newState => setAttributes( { action_before_after_loop: newState } ) }
+						/>
+						<ToggleControl
+							label={ __( 'Logged In User Only?', 'directorist' ) }
+							checked={ logged_in_user_only }
+							onChange={ newState => setAttributes( { logged_in_user_only: newState } ) }
+						/>
+						{ view === 'map' ? <TextControl
+							label={ __( 'Map Height', 'directorist' ) }
+							type='number'
+							value={ map_height }
+							help={ __( 'Applicable for map view only', 'directorist' ) }
+							onChange={ newState => setAttributes( { map_height: newState } ) }
+							className={`directorist-gb-fixed-control ${view !== 'map' ? 'hidden' : ''}`}
+						/> : '' }
+						{ view === 'map' ? <TextControl
+							label={ __( 'Map Zoom Level', 'directorist' ) }
+							help={ __( 'Applicable for map view only', 'directorist' ) }
+							type='number'
+							value={ map_zoom_level }
+							onChange={ newState => setAttributes( { map_zoom_level: newState } ) }
+							className='directorist-gb-fixed-control'
+						/> : '' }
+					</PanelBody>
 
+					<PanelBody title={ __( 'Listing Query', 'directorist' ) } initialOpen={ false }>
 						<SelectControl
 							label={ __( 'Order By', 'directorist' ) }
 							labelPosition='side'
@@ -196,7 +309,6 @@ registerBlockType( 'directorist/all-listing', {
 							onChange={ newState => setAttributes( { orderby: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-
 						<SelectControl
 							label={ __( 'Order', 'directorist' ) }
 							labelPosition='side'
@@ -209,62 +321,53 @@ registerBlockType( 'directorist/all-listing', {
 							className='directorist-gb-fixed-control'
 						/>
 
-						<TextControl
-							label={ __( 'Number Of Listing', 'directorist' ) }
-							type='number'
-							value={ per_page }
-							onChange={ newState => setAttributes( { per_page: newState } ) }
-							className='directorist-gb-fixed-control'
-						/>
+						<ListingControl onChange={(added, newId) => {
+							let _ids = oldIds.slice(0);
 
-						<TextControl
-							label={ __( 'Listing IDs', 'directorist' ) }
-							help={ __( 'Comma separated listing ids, eg: 1,3,4,6', 'directorist' ) }
-							type='text'
-							value={ ids }
-							onChange={ newState => setAttributes( { ids: newState } ) }
-						/>
+							if (added) {
+								_ids.push(newId);
+							} else {
+								_ids.splice(_ids.indexOf(newId), 1);
+							}
+							
+							setAttributes({ids: _ids.join(',')});
+						}} selected={oldIds} />
 
-						<ToggleControl
-							label={ __( 'Show Header?', 'directorist' ) }
-							checked={ header }
-							onChange={ newState => setAttributes( { header: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Pagination', 'directorist' ) }
-							checked={ pagination }
-							onChange={ newState => setAttributes( { pagination: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Featured Only?', 'directorist' ) }
-							checked={ featured_only }
-							onChange={ newState => setAttributes( { featured_only: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Popular Only?', 'directorist' ) }
-							checked={ popular_only }
-							onChange={ newState => setAttributes( { popular_only: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Filter Button?', 'directorist' ) }
-							checked={ filter }
-							onChange={ newState => setAttributes( { filter: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Preview Image?', 'directorist' ) }
-							checked={ preview_image }
-							onChange={ newState => setAttributes( { preview_image: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Enable Look Hook', 'directorist' ) }
-							checked={ loop_hook }
-							onChange={ newState => setAttributes( { loop_hook: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Logged In User Only?', 'directorist' ) }
-							checked={ logged_in_only }
-							onChange={ newState => setAttributes( { logged_in_only: newState } ) }
-						/>
+						<CategoryControl onChange={(added, newCategory) => {
+							let _categories = oldCategories.slice(0);
+
+							if (added) {
+								_categories.push(newCategory);
+							} else {
+								_categories.splice(_categories.indexOf(newCategory), 1);
+							}
+							
+							setAttributes({category: _categories.join(',')});
+						}} selected={oldCategories} />
+
+						<TagsControl onChange={(added, newTag) => {
+							let _tags = oldTags.slice(0);
+
+							if (added) {
+								_tags.push(newTag);
+							} else {
+								_tags.splice(_tags.indexOf(newTag), 1);
+							}
+							
+							setAttributes({tag: _tags.join(',')});
+						}} selected={oldTags} />
+						
+						<LocationControl onChange={(added, newLocation) => {
+							let _locations = oldLocations.slice(0);
+
+							if (added) {
+								_locations.push(newLocation);
+							} else {
+								_locations.splice(_locations.indexOf(newLocation), 1);
+							}
+							
+							setAttributes({location: _locations.join(',')});
+						}} selected={oldLocations} />
 					</PanelBody>
 				</InspectorControls>
 

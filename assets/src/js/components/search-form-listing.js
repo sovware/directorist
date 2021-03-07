@@ -24,7 +24,7 @@
                                         $('.directorist-search-form-box')
                                                 .empty()
                                                 .html( response['search_form'] );
-                                        $('.directorist_listing_top_category')
+                                        $('.directorist-listing-category-top')
                                                 .empty()
                                                 .html( response['popular_categories'] );
 

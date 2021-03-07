@@ -432,11 +432,11 @@ class Directorist_Listings {
 			);
 
 		$meta_queries['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'post_status',
-				'compare' => '=',
-			);
-
+			'key'     => '_listing_status',
+			'value'   => 'expired',
+			'compare' => '!=',
+		);
+			
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
 				$meta_queries['_featured'] = array(

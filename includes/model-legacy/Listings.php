@@ -431,8 +431,8 @@ class Directorist_Listings {
 		
 		$meta_queries['expired'] = array(
 				'key'     => '_listing_status',
-				'value'   => 'post_status',
-				'compare' => '=',
+				'value'   => 'expired',
+				'compare' => '!=',
 			);
 
 		if ( $this->has_featured ) {

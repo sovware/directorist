@@ -23,10 +23,10 @@
                                 if (response) {
                                         $('.directorist-search-form-box')
                                                 .empty()
-                                                .html( response.data['search_form'] );
-                                        $('.directorist_listing_top_category')
+                                                .html( response['search_form'] );
+                                        $('.directorist-listing-category-top')
                                                 .empty()
-                                                .html( response.data['popular_categories'] );
+                                                .html( response['popular_categories'] );
 
 
                                         const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');

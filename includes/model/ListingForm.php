@@ -861,7 +861,7 @@ class Directorist_Listing_Form {
 
 				echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 
-				ob_get_clean();
+				return ob_get_clean();
 			}
 			
 			// multiple directory available

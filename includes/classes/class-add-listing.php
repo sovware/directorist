@@ -102,7 +102,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $preview_enable         = atbdp_is_truthy( get_term_meta( $directory_type, 'preview_mode', true ) );
                     $submission_form_fields = $submission_form['fields'];
                  }
-
                 // isolate data
                 $error = [];
                 $dummy = [];
@@ -231,6 +230,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $listing_id = absint( $info['listing_id'] );
                     $_args = [ 'id' => $listing_id, 'edited' => true, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
                     $post_status = atbdp_get_listing_status_after_submission( $_args );
+
                     $args['post_status'] = $post_status;
 
                     if ( 'pending' === $post_status ) {
@@ -371,10 +371,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                     
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs') && (!isset($data['error']))) {
-                       
-                        $args['post_status'] = $new_l_status;
+                        $_args = [ 'id' => '', 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
+                        $post_status = atbdp_get_listing_status_after_submission( $_args );
+                        
+                        $args['post_status'] = $post_status;
 
-                        if ('pending' === $new_l_status) {
+                        if ('pending' === $post_status) {
                             $data['pending'] = true;
                         }
                         
@@ -389,15 +391,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                         //         $args['post_status'] = 'pending';
                         //     }
                         // } 
-                        if (!empty($featured_enabled && $monitization)) {
+                        if (!empty($featured_enabled && $monitization) && ('featured' === $info['listing_type'] ) ) {
                             $args['post_status'] = 'pending';
                         } else {
-                            $args['post_status'] = $new_l_status;
+                            $args['post_status'] = $post_status;
                         }
                         if (!empty($preview_enable)) {
                             $args['post_status'] = 'private';
                         }
-
+                        
                         if (isset($args['tax_input'])) {
                             foreach ((array)$args['tax_input'] as $taxonomy => $terms) {
                                 // Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.

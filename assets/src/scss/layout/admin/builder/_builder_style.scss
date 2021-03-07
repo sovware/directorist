@@ -641,6 +641,21 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields {
   display: block;
+  .cptm-description-text{
+    &+.cptm-btn{
+      border: 1px solid $primary;
+      height: 43px;
+      background: rgba(62,98,245,.1);
+      color: $primary;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 22px;
+      &.cptm-btn-primary{
+        background: $primary;
+        color: #fff;
+      }
+    }
+  }
 }
 
 .cptm-form-builder-active-fields-container {
@@ -925,11 +940,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   width: calc(50% - 10px);
   margin: 5px;
   background-color: #f4f5f7;
-  padding: 14px 20px;
+  padding: 14px 18px;
   box-sizing: border-box;
   border-radius: 4px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   &.clickable {
     cursor: pointer;
@@ -950,8 +966,8 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
 
 .cptm-form-builder-field-list-icon {
   display: inline-block;
-  margin-right: 10px;
-  width: 28px;
+  margin-right: 4px;
+  width: 22px;
   font-size: 18px;
   color: $dark-3;
 }
@@ -1348,7 +1364,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-option-card-body {
-  padding: 18px 25px 20px;
+  padding: 18px 20px 20px;
   border-radius: 5px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -1376,7 +1392,7 @@ input[type="radio"].cptm-radio {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 300px;
+  width: 330px;
   transform: translate(-50%, -100%);
   pointer-events: none;
 

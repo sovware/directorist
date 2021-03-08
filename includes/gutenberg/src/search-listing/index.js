@@ -72,24 +72,8 @@ registerBlockType( 'directorist/search-listing', {
 			show_title_subtitle,
 			search_bar_title,
 			search_bar_sub_title,
-			text_field,
-			category_field,
-			location_field,
-			search_button_text,
 			more_filters_button,
 			more_filters_text,
-			price_min_max_field,
-			price_range_field,
-			rating_field,
-			tag_field,
-			open_now_field,
-			custom_fields,
-			website_field,
-			email_field,
-			phone_field,
-			fax,
-			address_field,
-			zip_code_field,
 			reset_filters_button,
 			apply_filters_button,
 			reset_filters_text,
@@ -120,27 +104,6 @@ registerBlockType( 'directorist/search-listing', {
 							onChange={ newState => setAttributes( { search_bar_sub_title: newState } ) }
 						/> : '' }
 						<ToggleControl
-							label={ __( 'Show Text Field?', 'directorist' ) }
-							checked={ text_field }
-							onChange={ newState => setAttributes( { text_field: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Category Field?', 'directorist' ) }
-							checked={ category_field }
-							onChange={ newState => setAttributes( { category_field: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Show Location Field?', 'directorist' ) }
-							checked={ location_field }
-							onChange={ newState => setAttributes( { location_field: newState } ) }
-						/>
-						<TextControl
-							label={ __( 'Search Button Label', 'directorist' ) }
-							type='text'
-							value={ search_button_text }
-							onChange={ newState => setAttributes( { search_button_text: newState } ) }
-						/>
-						<ToggleControl
 							label={ __( 'Show More Filters Button?', 'directorist' ) }
 							checked={ more_filters_button }
 							onChange={ newState => setAttributes( { more_filters_button: newState } ) }
@@ -150,66 +113,6 @@ registerBlockType( 'directorist/search-listing', {
 							type='text'
 							value={ more_filters_text }
 							onChange={ newState => setAttributes( { more_filters_text: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Min - Max Price Field?', 'directorist' ) }
-							checked={ price_min_max_field }
-							onChange={ newState => setAttributes( { price_min_max_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Price Range Field?', 'directorist' ) }
-							checked={ price_range_field }
-							onChange={ newState => setAttributes( { price_range_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Rating Field?', 'directorist' ) }
-							checked={ rating_field }
-							onChange={ newState => setAttributes( { rating_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Tag Field?', 'directorist' ) }
-							checked={ tag_field }
-							onChange={ newState => setAttributes( { tag_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Open Now Field?', 'directorist' ) }
-							checked={ open_now_field }
-							onChange={ newState => setAttributes( { open_now_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Custom Field Field?', 'directorist' ) }
-							checked={ custom_fields }
-							onChange={ newState => setAttributes( { custom_fields: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Website Field?', 'directorist' ) }
-							checked={ website_field }
-							onChange={ newState => setAttributes( { website_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Email Field?', 'directorist' ) }
-							checked={ email_field }
-							onChange={ newState => setAttributes( { email_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Phone Number Field?', 'directorist' ) }
-							checked={ phone_field }
-							onChange={ newState => setAttributes( { phone_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Fax Field?', 'directorist' ) }
-							checked={ fax }
-							onChange={ newState => setAttributes( { fax: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Address Field?', 'directorist' ) }
-							checked={ address_field }
-							onChange={ newState => setAttributes( { address_field: newState } ) }
-						/> : '' }
-						{ more_filters_button ? <ToggleControl
-							label={ __( 'Show Zip Field?', 'directorist' ) }
-							checked={ zip_code_field }
-							onChange={ newState => setAttributes( { zip_code_field: newState } ) }
 						/> : '' }
 						{ more_filters_button ? <ToggleControl
 							label={ __( 'Show Apply Filters Button?', 'directorist' ) }

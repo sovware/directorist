@@ -11,22 +11,6 @@
     "type":"string",
     "default":"Find the best match of your interest"
   },
-  "text_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "category_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "location_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "search_button_text":{
-    "type":"string",
-    "default":"Search Listing"
-  },
   "more_filters_button":{
     "type":"boolean",
     "default":true
@@ -34,54 +18,6 @@
   "more_filters_text":{
     "type":"string",
     "default":"More Filters"
-  },
-  "price_min_max_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "price_range_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "rating_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "tag_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "open_now_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "custom_fields":{
-    "type":"boolean",
-    "default":true
-  },
-  "website_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "email_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "phone_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "fax":{
-    "type":"boolean",
-    "default":true
-  },
-  "address_field":{
-    "type":"boolean",
-    "default":true
-  },
-  "zip_code_field":{
-    "type":"boolean",
-    "default":true
   },
   "reset_filters_button":{
     "type":"boolean",

@@ -65,6 +65,10 @@ function init_blocks() {
 
 		'all-categories',
 		'all-locations',
+
+		'author-profile',
+
+		'search-result',
 	);
 
 	foreach ( $blocks as $block ) {
@@ -358,6 +362,23 @@ function get_attributes_map( $block ) {
 				'type'    => 'number',
 				'default' => 100,
 			) ) ),
+
+		'author-profile' => array(
+			'logged_in_user_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			) ),
+
+		'search-result' => array_merge( $common, array(
+			'featured_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'popular_only' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+		) )
 	);
 
 	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();

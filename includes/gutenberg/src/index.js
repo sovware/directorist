@@ -14,6 +14,9 @@ import './category/index';
 import './location/index';
 import './tag/index';
 
-
 import './all-categories/index';
 import './all-locations/index';
+
+import './author-profile/index';
+
+import './search-result/index';

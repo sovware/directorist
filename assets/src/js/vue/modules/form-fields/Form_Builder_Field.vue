@@ -49,9 +49,7 @@
               @update-widget-field="updateWidgetField"
               @trash-widget="trashWidget(widget_group_key, $event)"
               @trash-group="trashGroup(widget_group_key)"
-              @widget-drag-start="
-                handleWidgetDragStart(widget_group_key, $event)
-              "
+              @widget-drag-start="handleWidgetDragStart(widget_group_key, $event)"
               @widget-drag-end="handleWidgetDragEnd()"
               @drop-widget="handleWidgetDrop(widget_group_key, $event)"
               @group-drag-start="handleGroupDragStart(widget_group_key)"

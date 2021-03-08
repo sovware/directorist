@@ -62,6 +62,9 @@ function init_blocks() {
 		'category',
 		'location',
 		'tag',
+
+		'all-categories',
+		'all-locations',
 	);
 
 	foreach ( $blocks as $block ) {
@@ -199,6 +202,45 @@ function get_attributes_map( $block ) {
 		),
 	);
 
+	$categories_locations_map = array(
+		'view' => array (
+			'type'    => 'string',
+			'default' => 'grid',
+		),
+		'orderby' => array(
+			'type'    => 'string',
+			'default' => 'date',
+		),
+		'order' => array(
+			'type'    => 'string',
+			'default' => 'desc',
+		),
+		'columns' => array(
+			'type'    => 'number',
+			'default' => 3,
+		),
+		'slug' => array(
+			'type'    => 'string',
+			'default' => '',
+		),
+		'logged_in_user_only' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'redirect_page_url' => array(
+			'type'    => 'string',
+			'default' => '',
+		),
+		'directory_type' => array(
+			'type'    => 'array',
+			'default' => array(),
+		),
+		'default_directory_type' => array(
+			'type'    => 'number',
+			'default' => 0,
+		)
+	);
+
 	$blocks_attributes = array(
 		'all-listing' => array(
 			'view' => array (
@@ -305,6 +347,17 @@ function get_attributes_map( $block ) {
 		'category' => $common,
 		'location' => $common,
 		'tag' => $common,
+
+		'all-categories' => array_merge( $categories_locations_map, array(
+			'cat_per_page' => array(
+				'type'    => 'number',
+				'default' => 100,
+			) ) ),
+		'all-locations' => array_merge( $categories_locations_map, array(
+			'loc_per_page' => array(
+				'type'    => 'number',
+				'default' => 100,
+			) ) ),
 	);
 
 	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();

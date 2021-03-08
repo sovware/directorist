@@ -13,3 +13,7 @@ import './all-listing/index';
 import './category/index';
 import './location/index';
 import './tag/index';
+
+
+import './all-categories/index';
+import './all-locations/index';

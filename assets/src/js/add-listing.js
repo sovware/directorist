@@ -577,7 +577,9 @@ $('body').on('submit', formID, function (e) {
                         // show the error notice
                         $('.directorist-form-submit__btn').attr('disabled', false);
 
-                        var is_pending = response.pending ? '&' : '?';
+                        // var is_pending = response ? '&' : '?';
+                        var is_pending = ( response && response.pending ) ? '&' : '?';
+
                         if (response.error === true) {
                                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                                 $('.directorist-form-submit__btn').removeClass('atbd_loading');

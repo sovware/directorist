@@ -65,7 +65,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 ]
             ]);
             
-            // atbdp_console_log( [ 'announcements' => $announcements->posts ] );
+            // directorist_console_log( [ 'announcements' => $announcements->posts ] );
             // var_dump( $announcements );
 
             $total_posts = count( $announcements->posts );
@@ -284,7 +284,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 ]
             ]);
             
-            // atbdp_console_log( [ 'announcements' => $announcements->posts ] );
+            // directorist_console_log( [ 'announcements' => $announcements->posts ] );
             // var_dump( $announcements );
 
             $total_posts = count( $announcements->posts );

@@ -119,6 +119,7 @@ class Directorist_Single_Listing {
 
 	public function field_template( $data ) {
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+		
 		if ( empty( $value ) ) {
 			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
 		}
@@ -139,9 +140,11 @@ class Directorist_Single_Listing {
 		}
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
+		
 		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
+
 		$data['value'] = $value;
 		$data['listing_id'] = $this->id;
 		$args = array(
@@ -150,7 +153,9 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-		$template = 'single-listing/items/' . $data['widget_name'];
+
+		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
+		$template = 'single-listing/items/' . $widget_name;
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		if( $load_template )
 		Helper::get_template( $template, $args );
@@ -206,8 +211,7 @@ class Directorist_Single_Listing {
 		$listing_title = get_the_title( $listing_id );
 		
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
-		$type_general  = get_term_meta( $type, 'general_config', true );
-		$default_image = ( ! empty( $type_general['preview_image'] ) ) ? $type_general['preview_image'] : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
+		$default_image = Helper::default_preview_image_src( $type );
 
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);

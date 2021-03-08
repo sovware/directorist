@@ -836,13 +836,12 @@ class Directorist_Listing_Form {
 
 			$this->enqueue_scripts();
 
-			if ( ! empty( $atts['shortcode'] ) ) {
-				Helper::add_shortcode_comment( $atts['shortcode'] );
-			}
-
-			return Helper::get_template_contents( 'listing-form/add-listing', $args );
-		}
-		else {
+			ob_start();
+			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
+			
+			return ob_get_clean();
+		} else {
 			// if no listing type exists
 			if ( $listing_type_count == 0 ) {
 				return Helper::get_template_contents( 'listing-form/add-listing-notype' );
@@ -855,13 +854,14 @@ class Directorist_Listing_Form {
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-				if ( ! empty( $atts['shortcode'] ) ) {
-					Helper::add_shortcode_comment( $atts['shortcode'] );
-				}
-
 				$this->enqueue_scripts();
 
-				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+				ob_start();
+				if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+
+				echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+
+				return ob_get_clean();
 			}
 			
 			// multiple directory available

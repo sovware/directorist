@@ -7,7 +7,7 @@
             </div>
             
             <div class="cptm-form-fields" v-if="sectionFields( section )">
-                <div v-for="( field, field_key ) in sectionFields( section )" :class="fieldWrapperClass( field, fields[ field ] )">
+                <div v-for="( field, field_key ) in sectionFields( section )" :class="fieldWrapperClass( field, fields[ field ] )" :key="field_key">
                     <component
                         v-if="fields[ field ]"
                         :root="fields"

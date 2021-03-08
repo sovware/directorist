@@ -483,11 +483,11 @@ class Directorist_Listing_Search_Form {
 
 		$this->search_listing_scripts_styles();
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
+		ob_start();
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 
-		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
+		return ob_get_clean();
 	}
 
 	public function search_listing_scripts_styles() {

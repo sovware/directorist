@@ -31,7 +31,7 @@ if ( $by_ratio ) {
 }
 
 if ( $image_size !== 'full' && !$blur_background ) {
-	$style = "background-color: $background_color";
+	$style .= "background-color: $background_color";
 }
 
 $front_wrap_html = "<div class='directorist-thumnail-card-front-wrap'>".$listings->loop_get_the_thumbnail('directorist-thumnail-card-front-img')."</div>";

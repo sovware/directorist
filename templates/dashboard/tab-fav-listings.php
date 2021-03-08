@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div class="directorist-dashboard-items-list">
 				<?php foreach ( $dashboard->fav_listing_items() as $item ): ?>
 
-					<div class="directorist-dashboard-items-list__single">
+					<div class="directorist-dashboard-items-list__single" id="directorist_favourite_<?php echo esc_attr( $item['obj']->ID ); ?>">
 
 						<div class="directorist-dashboard-items-list__single--info">
 
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						</div>
 
 						<div class="directorist-dashboard-items-list__single--action">
-							<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-danger directorist-favourite-remove-btn">
+							<a href="#" id="directorist-fav_<?php echo esc_attr( $item['obj']->ID ); ?>" class="directorist-btn directorist-btn-sm directorist-btn-danger directorist-favourite-remove-btn" data-listing_id="<?php echo esc_attr( $item['obj']->ID ); ?>">
 								<i class="la la-trash"></i>
 								<span class="directorist-favourite-remove-text">Remove</span>
 							</a>

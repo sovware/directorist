@@ -769,6 +769,11 @@
         background-color: rgba(#218A00, .15);
       }
 
+      &.directorist_status_pending {
+        color: #DC7600;
+        background-color: rgba(#DC7600, .15);
+      }
+
       &.danger {
         color: $danger;
         background-color: rgba($danger, .15);

@@ -147,7 +147,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
             
-            // atbdp_console_log([
+            // directorist_console_log([
             //     'migrated'            => $migrated,
             //     'has_listings'        => $has_listings,
             //     'has_custom_fields'   => $has_custom_fields,
@@ -644,14 +644,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preset' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => apply_filters('atbdp_form_preset_widgets', [
 
                         'title' => [
                             'label' => 'Title',
                             'icon' => 'fa fa-text-height',
-                            'lock' => true,
-                            'show' => true,
+                            'canTrash' => false,
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1585,7 +1584,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'custom' => [
                     'title' => 'Custom Fields',
                     'description' => 'Click on a field type you want to create',
-                    'allow_multiple' => true,
+                    'allowMultiple' => true,
                     'widgets' => apply_filters('atbdp_form_custom_widgets', [
                         'text' => [
                             'label' => 'Text',
@@ -1921,7 +1920,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
-                                    'value' => 'color_picker',
+                                    'value' => 'color',
                                 ],
                                 'label' => [
                                     'type'  => 'text',
@@ -2392,7 +2391,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preset_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => apply_filters( 'atbdp_single_listing_content_widgets', [
                         'tag' => [
@@ -2608,7 +2607,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'other_widgets' => [
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
                         'review' => [ 
                             'type' => 'section',
@@ -2706,7 +2705,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'available_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => [
                         'title' => [
@@ -3072,7 +3071,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         ],
 
-                        'color_picker' => [
+                        'color' => [
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -3141,7 +3140,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'other_widgets' => [
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
-                    'allow_multiple' => false,
+                    'allowMultiple' => false,
                     'widgets' => [
                         'review' => [
                             'label' => 'Review',
@@ -3746,7 +3745,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'color_picker' => [
+                'color' => [
                     'type' => "list-item",
                     'label' => "Color Picker",
                     'icon' => 'uil uil-text-fields',
@@ -3903,7 +3902,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                         ],
                     ],
                     'excerpt' => [
@@ -3954,7 +3953,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                         ],
                     ],
                     'excerpt' => [
@@ -4010,7 +4009,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                         ],
                     ],
                     'excerpt' => [
@@ -4057,7 +4056,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                         ],
                     ],
                     'excerpt' => [
@@ -4106,7 +4105,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'preview_image' => [
                     'button-label' => __('Select', 'directorist'),
                     'type'         => 'wp-media-picker',
-                    'default-img'  => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'default-img'  => '',
                     'value'        => '',
                 ],
 
@@ -4167,15 +4166,24 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
-                    'group-options' => [
+                    'generalSettings' => [
+                        'minGroup' => 1,
+                        'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
+                        'restricted_fields_warning_text' => __( 'You can not add in this section', 'directorist' ),
+                    ],
+                    'groupSettings' => [
+                        'defaultGroupLabel' => 'Section',
+                        'disableTrashIfGroupHasWidgets' => [ 
+                            [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
+                        ],
+                    ],
+                    'groupFields' => [
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Group Name',
                             'value' => 'Section',
                         ],
                     ],
-
                     'value' => [
                         'fields' => [
                             'title' => [
@@ -4258,8 +4266,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'single_listings_contents' => [
                     'type'     => 'form-builder',
                     'widgets'  => $single_listings_contents_widgets,
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
-                    'group-options' => [
+                    'generalSettings' => [
+                        'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
+                    ],
+                    'groupFields' => [
                         'icon' => [
                             'type'  => 'icon',
                             'label'  => 'Block/Section Icon',
@@ -4315,9 +4325,15 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'search_form_fields' => [
                     'type'     => 'form-builder',
-                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
+                    'generalSettings' => [
+                        'allowAddNewGroup' => false,
+                    ],
+                    'groupSettings' => [
+                        'defaultGroupLabel' => 'Section',
+                        'canTrash'   => false,
+                        'draggable'  => false
+                    ],
                     'widgets'  => $search_form_widgets,
-                    'allow_add_new_section' => false,
                     'value' => [
                         'groups' => [
                             [

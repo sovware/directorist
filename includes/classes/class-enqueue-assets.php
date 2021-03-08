@@ -459,7 +459,7 @@ class Enqueue_Assets {
             'deps'      => [],
             'has_min'   => false,
             'ver'       => self::$script_version,
-            'group'     => 'global', // public || admin  || global
+            'group'     => 'public', // public || admin  || global
             // 'section'   => '__',
             // 'shortcode' => '[__]',
         ];
@@ -565,7 +565,7 @@ class Enqueue_Assets {
             'base_path'      => DIRECTORIST_CSS,
             'deps'           => [],
             'ver'            => self::$script_version,
-            'group'          => 'public',                         // public || admin  || global
+            'group'          => 'public',                       // public || admin  || global
             'shortcode'      => self::$all_shortcodes,
             'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
         ];
@@ -664,14 +664,6 @@ class Enqueue_Assets {
             'section'   => '__',
             'enable'    => false,
             // 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-        ];
-
-        $scripts['directorist-login'] = [
-            'file_name' => 'public-login',
-            'base_path' => DIRECTORIST_JS,
-            'ver'       => self::$script_version,
-            'group'     => 'public', // public || admin  || global
-            'enable'    => true,
         ];
 
         $scripts['directorist-atmodal'] = [
@@ -1303,7 +1295,7 @@ class Enqueue_Assets {
             $show_all = apply_filters( 'directorist_debug_shortcode_scripts_show_all', DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS_SHOW_ALL );
 
             if ( $debug && ( $found || $show_all ) ) {
-                atbdp_console_log( [
+                directorist_console_log( [
                     'handle' => $handle,
                     'shortcode' => $shortcode,
                     'found' => $found

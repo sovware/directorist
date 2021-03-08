@@ -60,13 +60,6 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 			array(
 				'type'      => Controls_Manager::TEXT,
 				'id'        => 'header_title',
-				'label'     => __( 'All Listing Title', 'directorist' ),
-				'default'   => __( 'All Items', 'directorist' ),
-				'condition' => array( 'header' => array( 'yes' ) ),
-			),
-			array(
-				'type'      => Controls_Manager::TEXT,
-				'id'        => 'header_sub_title',
 				'label'     => __( 'Total Listings Found Title', 'directorist' ),
 				'default'   => __( 'Listings Found', 'directorist' ),
 			),
@@ -215,7 +208,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 		$shortcode = sprintf( '[directorist_all_listing header="%1$s" header_title="%2$s" header_sub_title="%3$s" advanced_filter="%4$s" view="%5$s" map_height="%6$s" columns="%7$s" listings_per_page="%8$s" show_pagination="%9$s" category="%10$s" tag="%11$s" location="%12$s" featured_only="%13$s" popular_only="%14$s" logged_in_user_only="%15$s" display_preview_image="%16$s" orderby="%17$s" order="%18$s" ]',
 			esc_attr( $header ),
 			esc_attr( $settings['header_title'] ),
-			esc_attr( $settings['header_sub_title'] ),
+			'',
 			esc_attr( $filter ),
 			esc_attr( $settings['view'] ),
 			esc_attr( $settings['map_height'] ),

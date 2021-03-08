@@ -50,7 +50,7 @@ class ATBDP_Permalink {
         // // wp_set_object_terms( get_the_id(), 15, ATBDP_DIRECTORY_TYPE );
         // $new_get_the_terms  = get_the_terms( $post_id, ATBDP_DIRECTORY_TYPE );
 
-        // atbdp_console_log([ 
+        // directorist_console_log([ 
         //     '$post_type'           => $post_type,
         //     'post_id'              => $post_id,
         //     'listing_slug'         => $listing_slug,

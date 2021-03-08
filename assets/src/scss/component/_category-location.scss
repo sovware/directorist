@@ -241,7 +241,7 @@
             }
 
             span {
-                font-size: 30px;
+                font-size: 18px;
                 display: block;
                 margin-bottom: 7px;
                 line-height: normal;
@@ -301,6 +301,7 @@
                     color: #0A0B1E;
                     font-weight: 500;
                     margin-bottom: 8px;
+                    margin-top: 0;
                 }
 
                 .cat-count {
@@ -328,6 +329,19 @@
                     justify-content: center;
                     margin-bottom: 0;
                     margin-top: 0;
+                }
+            }
+
+            .cat-box {
+                .icon {
+                    span.la,
+                    span.las,
+                    span.lab,
+                    span.fa,
+                    span.fas,
+                    span.fab{
+                        font-size: 30px;
+                    }
                 }
             }
         }
@@ -370,7 +384,10 @@
                 display: block;
 
                 .cat-name {
+                    font-size: 18px;
                     margin-bottom: 8px;
+                    margin-top: 12px;
+                    color: #fff;
                 }
 
                 .cat-count {
@@ -379,7 +396,7 @@
                     span {
                         font-size: 18px;
                         display: inline-block;
-                        color: rgba(#fff, 0.6);
+                        color: rgba(#fff, 0.8);
                     }
                 }
             }
@@ -407,7 +424,7 @@
 
         .directorist-col-3 {
             .atbd_category_single {
-                min-height: 150px;
+                min-height: 205px;
                 margin-bottom: 15px;
 
                 figcaption {

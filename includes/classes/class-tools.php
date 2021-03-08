@@ -113,8 +113,8 @@
                     if ($count === $limit ) break;
                     // start importing listings
                     $args = array(
-                        "post_title"   => isset($post[$title]) ? $post[$title] : '',
-                        "post_content" => isset($post[$description]) ? $post[$description] : '',
+                        "post_title"   => isset($post[$title]) ? html_entity_decode( $post[$title] ): '',
+                        "post_content" => isset($post[$description]) ? html_entity_decode( $post[$description] ) : '',
                         "post_type"    => 'at_biz_dir',
                         "post_status"  => $new_listing_status,
                     );

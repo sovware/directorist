@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* typography */
 #directorist.atbd_wrapper a {
   text-decoration: none;
@@ -6200,6 +6201,67 @@ input.atbdp-form-control {
   margin-left: 5px;
 }
 
+.directorist-dropdown {
+  position: relative;
+}
+
+.directorist-dropdown .directorist-dropdown__toggle {
+  text-decoration: none;
+  color: #5a6671;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.directorist-dropdown .directorist-dropdown__toggle:focus {
+  outline: 0 !important;
+}
+
+.directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-has-icon:after {
+  content: '\f347';
+  font: normal 12px/1 dashicons;
+  padding-left: 5px;
+}
+
+.directorist-dropdown .directorist-dropdown__links {
+  display: none;
+  position: absolute;
+  width: 100%;
+  min-width: 180px;
+  max-height: 250px;
+  overflow-y: auto;
+  right: 0;
+  top: 30px;
+  padding: 10px 0;
+  background-color: #fff;
+  -webkit-box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+          box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+  border-radius: 5px;
+  z-index: 99999;
+}
+
+.directorist-dropdown .directorist-dropdown__links a {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  padding: 5px 20px;
+  border-radius: 4px;
+  color: #5a5f7d;
+}
+
+.directorist-dropdown .directorist-dropdown__links a.active {
+  background-color: #f2f2f2;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;
@@ -6222,6 +6284,10 @@ input.atbdp-form-control {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge:last-child {
   margin-right: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_negotiation {
+  background-color: #3590ec;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close {
@@ -10560,6 +10626,11 @@ span.atbd_get_loc_wid {
   background-color: rgba(33, 138, 0, 0.15);
 }
 
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_badge.directorist_status_pending {
+  color: #DC7600;
+  background-color: rgba(220, 118, 0, 0.15);
+}
+
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_badge.danger {
   color: #e23636;
   background-color: rgba(226, 54, 54, 0.15);
@@ -13435,6 +13506,59 @@ p.atbd-min {
   color: #fff;
   top: 2px;
   right: 2px;
+}
+
+.atbd_content_active .directorist-faq-accordion .directorist-faq-accordion__single .directorist-faq-accordion__title a:before {
+  font-family: "LineAwesome";
+  content: '\f2c2';
+}
+
+.atbd_content_active .directorist-faq-accordion .directorist-faq-accordion__single .directorist-faq-accordion__title a.directorist-active:before {
+  content: "" !important;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two .directorist-grid-item {
+  margin-bottom: 5px;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #f5f3f6;
+  border-radius: 18.75rem;
+  color: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1rem;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.la,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.las,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.fa,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a span.fas {
+  color: #202428;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover {
+  color: #fff;
+  background: #f51957;
+}
+
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.la,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.las,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fa,
+#directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fas {
+  color: #fff;
 }
 
 .ads-advanced .bottom-inputs {

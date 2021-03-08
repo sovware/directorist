@@ -1325,3 +1325,60 @@
     }
   }
 }
+
+// Directorist Dropdown Style
+.directorist-dropdown {
+  position: relative;
+
+  .directorist-dropdown__toggle {
+      text-decoration: none;
+      color: $body-color;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      &:focus {
+          outline: 0 !important;
+      }
+
+      &.directorist-toggle-has-icon {
+          &:after {
+              content: '\f347';
+              font: normal 12px/1 dashicons;
+              padding-left: 5px;
+          }
+      }
+  }
+
+  .directorist-dropdown__links {
+      display: none;
+      position: absolute;
+      width: 100%;
+      min-width: 180px;
+      max-height: 250px;
+      overflow-y: auto;
+      right: 0;
+      top: 30px;
+      padding: 10px 0;
+      background-color: #fff;
+      box-shadow: 0 10px 40px rgba(134, 142, 174, .18823529411764706);
+      border-radius: 5px;
+      z-index: 99999;
+
+      a {
+          display: block;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          display: block;
+          padding: 5px 20px;
+          border-radius: 4px;
+          color: #5a5f7d;
+
+          &.active {
+              background-color: #f2f2f2;
+          }
+      }
+  }
+}

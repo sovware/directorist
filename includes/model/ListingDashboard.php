@@ -8,6 +8,7 @@ namespace Directorist;
 use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
 class Directorist_Listing_Dashboard {
 
 	protected static $instance = null;
@@ -476,11 +477,11 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
+		ob_start();
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		echo Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 
-		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
+		return ob_get_clean();
 	}
 
 	public function get_action_dropdown_item() {

@@ -27,9 +27,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         public function __construct()
         {
+            // Check for plugin update
+            wp_update_plugins();
+
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'initial_setup') );
-            add_filter( 'directorist_required_extensions', array( $this, 'add_demo_required_extensions'), 20, 1 );
             add_action( 'init', array( $this, 'get_the_product_list') );
             
             // Ajax
@@ -49,36 +51,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // initial_setup
         public function initial_setup() {
+            // Check form theme update
+            $current_theme = wp_get_theme();
+            get_theme_update_available( $current_theme->stylesheet );
+
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
-
-        }
-
-        // add_demo_required_extensions
-        public function add_demo_required_extensions( array $required_extensions = [] ) {
-            $required_extensions[] = [
-                'ref' => 'direo',
-                'extensions' => [ 
-                    'directorist-coupon',
-                    'directorist-rank-featured-listings',
-                    'directorist-post-your-need',
-                    'compare-listings',
-                    'directorist-image-gallery',
-                    'directorist-listings-with-map',
-                ],
-                
-            ];
-
-            $required_extensions[] = [
-                'extensions' => [ 
-                    'directorist-coupon',
-                    'directorist-rank-featured-listings',
-                    'directorist-post-your-need',
-                ],
-                'ref' => 'dlist',
-            ];
-
-            return $required_extensions;
         }
 
         // get_required_extension_list
@@ -219,10 +197,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
                     'active'      => true,
                 ],
-                'directorist-listing-faqs' => [
+                'directorist-faqs' => [
                     'name'        => 'Listing FAQs',
                     'description' => __( 'Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-listing-faqs/',
+                    'link'        => 'https://directorist.com/product/directorist-faqs/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/08_Listing-FAQs-1.png',
                     'active'      => true,
                 ],
@@ -233,10 +211,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
                     'active'      => true,
                 ],
-                'directorist-listings-slider-carousel' => [
+                'directorist-slider-carousel' => [
                     'name'        => 'Listings Slider & Carousel',
                     'description' => __( 'Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-listings-slider-carousel/',
+                    'link'        => 'https://directorist.com/product/directorist-slider-carousel/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
                     'active'      => true,
                 ],
@@ -254,17 +232,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/01_Booking-1.png',
                     'active'      => true,
                 ],
-                'directorist-image-gallery' => [
+                'directorist-gallery' => [
                     'name'        => 'Image Gallery',
                     'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-image-gallery/',
+                    'link'        => 'https://directorist.com/product/directorist-gallery/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
                     'active'      => true,
                 ],
-                'directorist-ads-manager' => [
+                'directorist-adverts-manager' => [
                     'name'        => 'Directorist Ads Manager',
                     'description' => __( 'Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-ads-manager/',
+                    'link'        => 'https://directorist.com/product/directorist-adverts-manager/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
                     'active'      => true,
                 ],
@@ -1559,7 +1537,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            // atbdp_console_log([
+            // directorist_console_log([
             //     'installed_extensions_keys' => $installed_extensions_keys,
             //     'promo_extensions' => array_keys( $promo_extensions ),
             // ]);

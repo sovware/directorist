@@ -1,4 +1,4 @@
-import { registerBlockType, createBlock } from '@wordpress/blocks';
+import { registerBlockType } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
@@ -24,35 +24,10 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import blockAttributesMap from './attributes.json';
-
+import { getAttsForTransform } from '../functions'
+import blockAttributes from './attributes.json';
+import getLogo from '../logo';
 import './editor.scss';
-import getLogo from './../logo';
-
-let transformAttributesMap = {};
-
-for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
-	transformAttributesMap[key] = {
-		type: value.type,
-		shortcode: ({named}) => {
-			if (typeof named[key] === 'undefined' ) {
-				return value.default;
-			}
-
-			if (value.type === 'string') {
-				return String(named[key]);
-			}
-
-			if (value.type === 'number') {
-				return Number(named[key]);
-			}
-
-			if (value.type === 'boolen') {
-				return Boolean(named[key]);
-			}
-		}
-	}
-}
 
 registerBlockType( 'directorist/search-result', {
 	apiVersion: 2,
@@ -74,12 +49,12 @@ registerBlockType( 'directorist/search-result', {
 			{
 				type: 'shortcode',
 				tag: 'directorist_search_result',
-				attributes: transformAttributesMap
+				attributes: getAttsForTransform( blockAttributes )
 			},
 		]
 	},
 
-	attributes: blockAttributesMap,
+	attributes: blockAttributes,
 
 	edit( { attributes, setAttributes } ) {
 		let {

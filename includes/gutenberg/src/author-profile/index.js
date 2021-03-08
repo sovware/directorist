@@ -13,34 +13,10 @@ import {
 	ToggleControl
 } from '@wordpress/components';
 
-import blockAttributesMap from './attributes.json';
+import { getAttsForTransform } from '../functions'
+import blockAttributes from './attributes.json';
+import getLogo from '../logo';
 import './editor.scss';
-import getLogo from './../logo';
-
-let transformAttributesMap = {};
-
-for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
-	transformAttributesMap[key] = {
-		type: value.type,
-		shortcode: ({named}) => {
-			if (typeof named[key] === 'undefined' ) {
-				return value.default;
-			}
-
-			if (value.type === 'string') {
-				return String(named[key]);
-			}
-
-			if (value.type === 'number') {
-				return Number(named[key]);
-			}
-
-			if (value.type === 'boolen') {
-				return Boolean(named[key]);
-			}
-		}
-	}
-}
 
 registerBlockType( 'directorist/author-profile', {
 	apiVersion: 2,
@@ -62,12 +38,12 @@ registerBlockType( 'directorist/author-profile', {
 			{
 				type: 'shortcode',
 				tag: 'directorist_author_profile',
-				attributes: transformAttributesMap
+				attributes: getAttsForTransform( blockAttributes )
 			}
 		]
 	},
 
-	attributes: blockAttributesMap,
+	attributes: blockAttributes,
 
 	edit( { attributes, setAttributes } ) {
 		let { logged_in_user_only } = attributes;

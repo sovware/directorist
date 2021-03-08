@@ -3,7 +3,7 @@ import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/bloc
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { CategoryControl } from './../all-listing/controls';
+import { CategoryControl } from '../all-listing/controls';
 
 import {
 	list,
@@ -12,7 +12,6 @@ import {
 
 import {
 	PanelBody,
-	PanelRow,
 	SelectControl,
 	ToggleControl,
 	TextControl,
@@ -20,35 +19,10 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import blockAttributesMap from './attributes.json';
-import './editor.scss';
-
+import { getAttsForTransform } from '../functions'
+import blockAttributes from './attributes.json';
 import getLogo from './../logo';
-
-let transformAttributesMap = {};
-
-for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
-	transformAttributesMap[key] = {
-		type: value.type,
-		shortcode: ({named}) => {
-			if (typeof named[key] === 'undefined' ) {
-				return value.default;
-			}
-
-			if (value.type === 'string') {
-				return String(named[key]);
-			}
-
-			if (value.type === 'number') {
-				return Number(named[key]);
-			}
-
-			if (value.type === 'boolen') {
-				return Boolean(named[key]);
-			}
-		}
-	}
-}
+import './editor.scss';
 
 registerBlockType( 'directorist/all-categories', {
 	apiVersion: 2,
@@ -70,7 +44,7 @@ registerBlockType( 'directorist/all-categories', {
 			{
 				type: 'shortcode',
 				tag: 'directorist_all_categories',
-				attributes: transformAttributesMap
+				attributes: getAttsForTransform( blockAttributes )
 			},
 			{
 				type: 'block',
@@ -85,7 +59,7 @@ registerBlockType( 'directorist/all-categories', {
 		]
 	},
 
-	attributes: blockAttributesMap,
+	attributes: blockAttributes,
 
 	edit( { attributes, setAttributes } ) {
 		let {

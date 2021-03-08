@@ -24,34 +24,10 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import blockAttributesMap from './attributes.json';
+import { getAttsForTransform } from '../functions'
+import blockAttributes from './attributes.json';
+import getLogo from '../logo';
 import './editor.scss';
-import getLogo from './../logo';
-
-let transformAttributesMap = {};
-
-for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
-	transformAttributesMap[key] = {
-		type: value.type,
-		shortcode: ({named}) => {
-			if (typeof named[key] === 'undefined' ) {
-				return value.default;
-			}
-
-			if (value.type === 'string') {
-				return String(named[key]);
-			}
-
-			if (value.type === 'number') {
-				return Number(named[key]);
-			}
-
-			if (value.type === 'boolen') {
-				return Boolean(named[key]);
-			}
-		}
-	}
-}
 
 registerBlockType( 'directorist/category', {
 	apiVersion: 2,
@@ -73,7 +49,7 @@ registerBlockType( 'directorist/category', {
 			{
 				type: 'shortcode',
 				tag: 'directorist_category',
-				attributes: transformAttributesMap
+				attributes: getAttsForTransform( blockAttributes )
 			},
 			{
 				type: 'block',
@@ -85,7 +61,7 @@ registerBlockType( 'directorist/category', {
 		]
 	},
 
-	attributes: blockAttributesMap,
+	attributes: blockAttributes,
 
 	edit( { attributes, setAttributes } ) {
 		let {

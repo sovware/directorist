@@ -24,7 +24,8 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import blockAttributesMap from './attributes';
+import blockAttributesMap from './attributes.json';
+
 import './editor.scss';
 import getLogo from './../logo';
 

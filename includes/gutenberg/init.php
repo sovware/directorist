@@ -57,22 +57,20 @@ function init_blocks() {
 		'transaction-failure',
 		'user-dashboard',
 		'user-login',
-
 		'all-listing',
 		'category',
 		'location',
 		'tag',
-
 		'all-categories',
 		'all-locations',
-
 		'author-profile',
-
 		'search-result',
 	);
 
 	foreach ( $blocks as $block ) {
-		$args['attributes'] = get_attributes_map( $block );
+		$attributes = get_attributes_from_metadata( __DIR__ . '/src/' . $block );
+
+		$args['attributes'] = $attributes;
 		register_block_type( 'directorist/' . $block, $args );
 	}
 }
@@ -108,14 +106,17 @@ add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
  */
 function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode = str_replace( array( '/', '-' ), '_', $instance->name );
-	$atts_map  = get_attributes_map( str_replace( 'directorist/', '', $instance->name ) );
+	// $atts_map  = get_attributes_map( str_replace( 'directorist/', '', $instance->name ) );
+
+	$block_name = str_replace( 'directorist/', '', $instance->name );
+	$registered_atts = get_attributes_from_metadata( __DIR__ . '/src/' . $block_name );
 	
 	foreach ( $atts as $_key => $_value ) {
-		if ( ! isset( $atts_map[ $_key  ] ) || $_value === "" ) {
+		if ( ! isset( $registered_atts[ $_key  ] ) || $_value === "" ) {
 			unset( $atts[ $_key ] );
 		}
 
-		if ( $atts_map[ $_key ]['type'] === 'boolean' ) {
+		if ( $registered_atts[ $_key ]['type'] === 'boolean' ) {
 			$atts[ $_key ] = $_value ? 'yes' : 'no';
 		}
 
@@ -123,7 +124,7 @@ function dynamic_render_callback( $atts, $content, $instance ) {
 		unset( $_value );
 	}
 
-	$output = directorist_do_shortcode( $shortcode, $atts, $content );
+	$output = do_shortcode_callback( $shortcode, $atts, $content );
 	
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
 		return sprintf(
@@ -148,7 +149,7 @@ function dynamic_render_callback( $atts, $content, $instance ) {
  *
  * @return string|bool False on failure, the result of the shortcode on success.
  */
-function directorist_do_shortcode( $tag, array $atts = array(), $content = null ) {
+function do_shortcode_callback( $tag, array $atts = array(), $content = null ) {
 	global $shortcode_tags;
 
 	if ( ! isset( $shortcode_tags[ $tag ] ) ) {
@@ -156,232 +157,6 @@ function directorist_do_shortcode( $tag, array $atts = array(), $content = null 
 	}
 
 	return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
-}
-
-function get_attributes_map( $block ) {
-	$common = array(
-		'view' => array (
-			'type'    => 'string',
-			'default' => 'grid',
-		),
-		'orderby' => array(
-			'type'    => 'string',
-			'default' => 'date',
-		),
-		'order' => array(
-			'type'    => 'string',
-			'default' => 'desc',
-		),
-		'listings_per_page' => array(
-			'type'    => 'number',
-			'default' => 6,
-		),
-		'show_pagination' => array(
-			'type'    => 'boolean',
-			'default' => false,
-		),
-		'header' => array(
-			'type'    => 'boolean',
-			'default' => false,
-		),
-		'header_title' => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'columns' => array(
-			'type'    => 'number',
-			'default' => 3,
-		),
-		'logged_in_user_only' => array(
-			'type'    => 'boolean',
-			'default' => false,
-		),
-		'map_height' => array(
-			'type'    => 'number',
-			'default' => 500,
-		),
-		'map_zoom_level' => array(
-			'type'    => 'number',
-			'default' => 0,
-		),
-	);
-
-	$categories_locations_map = array(
-		'view' => array (
-			'type'    => 'string',
-			'default' => 'grid',
-		),
-		'orderby' => array(
-			'type'    => 'string',
-			'default' => 'date',
-		),
-		'order' => array(
-			'type'    => 'string',
-			'default' => 'desc',
-		),
-		'columns' => array(
-			'type'    => 'number',
-			'default' => 3,
-		),
-		'slug' => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'logged_in_user_only' => array(
-			'type'    => 'boolean',
-			'default' => false,
-		),
-		'redirect_page_url' => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'directory_type' => array(
-			'type'    => 'array',
-			'default' => array(),
-		),
-		'default_directory_type' => array(
-			'type'    => 'number',
-			'default' => 0,
-		)
-	);
-
-	$blocks_attributes = array(
-		'all-listing' => array(
-			'view' => array (
-				'type'    => 'string',
-				'default' => 'grid',
-			),
-			'_featured' =>  array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'filterby' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'orderby' => array(
-				'type'    => 'string',
-				'default' => 'date',
-			),
-			'order' => array(
-				'type'    => 'string',
-				'default' => 'desc',
-			),
-			'listings_per_page' => array(
-				'type'    => 'number',
-				'default' => 6,
-			),
-			'show_pagination' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'header' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'header_title' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'category' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'location' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'tag' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'ids' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'columns' => array(
-				'type'    => 'number',
-				'default' => 3,
-			),
-			'featured_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'popular_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'advanced_filter' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'display_preview_image' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'action_before_after_loop' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'logged_in_user_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'redirect_page_url' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'map_height' => array(
-				'type'    => 'number',
-				'default' => 500,
-			),
-			'map_zoom_level' => array(
-				'type'    => 'number',
-				'default' => 0,
-			),
-			'directory_type' => array(
-				'type'    => 'array',
-				'default' => array(),
-			),
-			'default_directory_type' => array(
-				'type'    => 'number',
-				'default' => 0,
-			)
-		),
-		'category' => $common,
-		'location' => $common,
-		'tag' => $common,
-
-		'all-categories' => array_merge( $categories_locations_map, array(
-			'cat_per_page' => array(
-				'type'    => 'number',
-				'default' => 100,
-			) ) ),
-		'all-locations' => array_merge( $categories_locations_map, array(
-			'loc_per_page' => array(
-				'type'    => 'number',
-				'default' => 100,
-			) ) ),
-
-		'author-profile' => array(
-			'logged_in_user_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			) ),
-
-		'search-result' => array_merge( $common, array(
-			'featured_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'popular_only' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-		) )
-	);
-
-	return isset( $blocks_attributes[ $block ] ) ? $blocks_attributes[ $block ] : array();
 }
 
 /**
@@ -417,3 +192,29 @@ function post_type_show_in_rest( $args, $name ) {
 	return $args;
 }
 add_filter( 'register_post_type_args', __NAMESPACE__ . '\post_type_show_in_rest', 10, 2 );
+
+/**
+ * Get block attributes map from json file.
+ * 
+ * @param string $file_or_folder JSON file path or directory
+ * 
+ * @return array Empty array if not found
+ */
+function get_attributes_from_metadata( $file_or_folder ) {
+	$filename      = 'attributes.json';
+	$metadata_file = ( substr( $file_or_folder, -strlen( $filename ) ) !== $filename ) ?
+		trailingslashit( $file_or_folder ) . $filename :
+		$file_or_folder;
+
+	if ( ! file_exists( $metadata_file ) ) {
+		return [];
+	}
+
+	$metadata = json_decode( file_get_contents( $metadata_file ), true );
+
+	if ( empty( $metadata ) || ! is_array( $metadata )  ) {
+		return [];
+	}
+
+	return $metadata;
+}

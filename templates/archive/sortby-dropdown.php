@@ -8,11 +8,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-dropdown directorist-dropdown-js directorist-sortby-dropdown">
+<div class="directorist-dropdown directorist-dropdown-js directorist-dropdown-right directorist-sortby-dropdown">
 
 	<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-toggle-has-icon" href="#"><?php echo esc_html( $listings->sort_by_text ); ?><span class="directorist-icon-caret"></span></a>
 
-	<div class="directorist-dropdown__links directorist-dropdown__links-js directorist-dropdown__links--right">
+	<div class="directorist-dropdown__links directorist-dropdown__links-js">
 
 		<form id="directorsit-listing-sort" method="post" action="">
 			<?php

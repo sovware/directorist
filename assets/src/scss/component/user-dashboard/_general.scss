@@ -432,81 +432,22 @@
         }
 
         .directorist-dropdown {
-            position: relative;
-            border: 0 none;
-
-            .directorist-dropdown-menu {
-                position: absolute;
-                right: 0;
+            .directorist-dropdown__links{
+                min-width: 230px;
                 top: 40px;
-                opacity: 0;
-                visibility: hidden;
-                background-color: #fff;
-                box-shadow: 0 5px 15px #8F8E9F20;
+                box-shadow: 0 5px 15px #8f8e9f20;
+                border: 1px solid #eff1f6;
+                border-radius: 6px;
 
-                &.active {
-                    opacity: 1;
-                    visibility: visible;
-                    z-index: 22;
-                }
-            }
-        }
-
-        .directorist-dropdown-menu {
-            min-width: 230px;
-            border: 1px solid #EFF1F6;
-            padding: 0 0 10px 0;
-            border-radius: 6px;
-
-            .directorist-dropdown-menu__list {
-                position: relative;
-
-                &:not(:last-child) {
-                    padding-bottom: 10px;
-
-                    &:after {
-                        position: absolute;
-                        left: 20px;
-                        bottom: 0;
-                        width: calc(100% - 40px);
-                        height: 1px;
-                        background-color: #EFF1F6;
-                        content: '';
-                    }
-                }
-
-                .directorist-dropdown-item {
+                .directorist-dropdown__links--single{
                     padding: 10px 20px;
                     font-size: 14px;
-                    color: #51526E;
-                    display: block;
-                    text-decoration: none;
+                    font-weight: 400;
+                    color: #51526e;
 
-                    &:hover {
-                        background-color: #F6F7F9;
-                    }
-
-                    &:first-child {
-                        margin-top: 10px;
-                    }
-
-                    i {
+                    i{
                         font-size: 15px;
                         margin-right: 14px;
-                    }
-                }
-
-                .directorist_custom-checkbox {
-                    padding: 10px 20px;
-
-                    &:first-child {
-                        margin-top: 10px;
-                    }
-
-                    label {
-                        font-size: 14px;
-                        font-weight: 400;
-                        color: #51526E;
                     }
                 }
             }

@@ -24,10 +24,6 @@
     }
 
     .directorist-dropdown__links {
-        @include m(right) {
-            left: auto;
-            right: 0;
-        }
 
         display: none;
         position: absolute;
@@ -56,6 +52,16 @@
             &.active {
                 background-color: #f2f2f2;
             }
+        }
+    }
+}
+
+// Dropdown Placement
+.directorist-dropdown {
+    &.directorist-dropdown-right{
+        .directorist-dropdown__links{
+            left: auto;
+            right: 0;
         }
     }
 }

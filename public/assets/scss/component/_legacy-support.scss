@@ -79,6 +79,49 @@
     }
 }
 
+// Button Outline
+.directorist-btn {
+  &.directorist-btn-outline {
+    background: transparent;
+    border: 1px solid $border-color !important;
+  }
+
+  &.directorist-btn-outline-primary {
+    background: transparent;
+    border: 1px solid $primary !important;
+  }
+
+  &.directorist-btn-outline-secondary {
+    background: transparent;
+    border: 1px solid $secondary !important;
+  }
+
+  &.directorist-btn-outline-success {
+    background: transparent;
+    border: 1px solid $success !important;
+  }
+
+  &.directorist-btn-outline-info {
+    background: transparent;
+    border: 1px solid $info !important;
+  }
+
+  &.directorist-btn-outline-warning {
+    background: transparent;
+    border: 1px solid $warning !important;
+  }
+
+  &.directorist-btn-outline-danger {
+    background: transparent;
+    border: 1px solid $danger !important;
+  }
+
+  &.directorist-btn-outline-dark {
+    background: transparent;
+    border: 1px solid $dark !important;
+  }
+}
+
 // Common Classes
 .directorist-flex {
     display: flex;

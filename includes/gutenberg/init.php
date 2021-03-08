@@ -51,20 +51,21 @@ function init_blocks() {
 
 	$blocks = array(
 		'add-listing',
+		'all-categories',
+		'all-listing',
+		'all-locations',
+		'author-profile',
+		'category',
 		'checkout',
 		'custom-registration',
+		'location',
 		'payment-receipt',
+		'search-result',
+		'search-listing',
+		'tag',
 		'transaction-failure',
 		'user-dashboard',
 		'user-login',
-		'all-listing',
-		'category',
-		'location',
-		'tag',
-		'all-categories',
-		'all-locations',
-		'author-profile',
-		'search-result',
 	);
 
 	foreach ( $blocks as $block ) {

@@ -14,6 +14,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         // run
         public function run()
         {
+            add_action( 'init', [$this, 'initial_setup'] );
+            add_action( 'init', [$this, 'prepare_settings'] );
+
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
@@ -5179,9 +5182,6 @@ Please remember that your order may be canceled if you do not make your payment 
         // menu_page_callback__settings_manager
         public function menu_page_callback__settings_manager()
         {  
-            $this->initial_setup();
-            $this->prepare_settings();
-
             // Get Saved Data
             $atbdp_options = get_option('atbdp_option');
 

@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.6
+Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.1
+Stable tag: 7.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -336,15 +336,31 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+= 7.0.2 - Mar 07, 2021 =
+
+* Fix - Drag and drop section disappearance issue
+* Fix - Preview image issue
+* Fix - Renewal listing disappearance issue
+* Fix - Featured listing issue form admin listing form
+* Fix - Custom fields issue
+* Fix - Style issues
+* Fix - Listing exporter's issue
+* Fix - All categories bug
+* Fix - New listing default status issue
+* Fix - Login issue
+* Fix- Search form issue with popular categories
+* Improve - Migration
+* Improve - Builder performance
+
 = 7.0.1 - Mar 03, 2021 =
 
-Add - Option to remove dynamic directory slug 
-Fix - All category and location page issues
-Fix - Responsive issues
-Fix - Widgets issues
-Fix - Membership page issues
-Fix - Custom fields migration issues
-Fix - Add listing form validation issue
+* Add - Option to remove dynamic directory slug 
+* Fix - All category and location page issues
+* Fix - Responsive issues
+* Fix - Widgets issues
+* Fix - Membership page issues
+* Fix - Custom fields migration issues
+* Fix - Add listing form validation issue
 
 = 7.0 - Mar 01, 2021 =
 

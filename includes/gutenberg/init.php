@@ -69,9 +69,8 @@ function init_blocks() {
 	);
 
 	foreach ( $blocks as $block ) {
-		$attributes = get_attributes_from_metadata( __DIR__ . '/src/' . $block );
-
-		$args['attributes'] = $attributes;
+		$args['attributes'] = get_attributes_from_metadata( __DIR__ . '/src/' . $block );
+		
 		register_block_type( 'directorist/' . $block, $args );
 	}
 }
@@ -106,10 +105,8 @@ add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
  * @return string
  */
 function dynamic_render_callback( $atts, $content, $instance ) {
-	$shortcode = str_replace( array( '/', '-' ), '_', $instance->name );
-	// $atts_map  = get_attributes_map( str_replace( 'directorist/', '', $instance->name ) );
-
-	$block_name = str_replace( 'directorist/', '', $instance->name );
+	$shortcode       = str_replace( array( '/', '-' ), '_', $instance->name );
+	$block_name      = str_replace( 'directorist/', '', $instance->name );
 	$registered_atts = get_attributes_from_metadata( __DIR__ . '/src/' . $block_name );
 	
 	foreach ( $atts as $_key => $_value ) {
@@ -142,7 +139,6 @@ function dynamic_render_callback( $atts, $content, $instance ) {
 
 /**
  * Call a shortcode function by tag name.
- *
  *
  * @param string $tag     The shortcode whose function to call.
  * @param array  $atts    The attributes to pass to the shortcode function. Optional.

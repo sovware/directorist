@@ -4,17 +4,18 @@ import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import './editor.scss';
+import getLogo from './../logo';
 
 registerBlockType( 'directorist/add-listing', {
 	apiVersion: 2,
 
 	title: __( 'Add Listing', 'directorist' ),
 
-	description: __( 'This widget works only on Add Listing page.', 'directorist' ),
+	description: __( 'Create a listing entry form.', 'directorist' ),
 
 	category: 'directorist-blocks-collection',
 
-	icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
+	icon: getLogo(),
 
 	supports: {
 		html: false,

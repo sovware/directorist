@@ -24,6 +24,8 @@ import {
 import blockAttributesMap from './attributes';
 import './editor.scss';
 
+import getLogo from './../logo';
+
 let transformAttributesMap = {};
 
 for ( const [key, value] of Object.entries( blockAttributesMap ) ) {
@@ -58,7 +60,7 @@ registerBlockType( 'directorist/all-listing', {
 
 	category: 'directorist-blocks-collection',
 
-	icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
+	icon: getLogo(),
 
 	supports: {
 		html: false

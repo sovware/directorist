@@ -4,9 +4,13 @@
     
     $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function(e){
         e.preventDefault();
-        $(this).toggleClass('active');
+        $(this).removeClass('active');
         $(".directorist-dropdown-menu").removeClass("active");
-        $(this).next(".directorist-dropdown-menu").toggleClass("active");
+        console.log($(this).next('.active'))
+        if(!$(this).next('.active')){
+            $(this).next(".directorist-dropdown-menu").addClass("active");
+        }
+        
         e.stopPropagation();
     });
 

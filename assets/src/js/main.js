@@ -19,8 +19,8 @@ import './components/single-listing-page/slider';
 import './components/general';
 
 // Components
-import './components/atbdSorting';
-import './components/atbdAlert';
+import './components/directorist-sorting';
+import './components/directorist-alert';
 import './components/pureScriptTab';
 import './components/profileForm';
 import './components/modal';
@@ -29,7 +29,7 @@ import './components/formValidation';
 import './components/atbdFavourite';
 import './components/login';
 import './components/tab';
-import './components/atbdDropdown';
+import './components/directorist-dropdown';
 import './components/atbdSelect';
 import './components/loc_cat';
 import './components/legacy-support';

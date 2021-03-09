@@ -75,6 +75,15 @@
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+    $( window  ).load(function() {
+        
+        $('.directorist-btn-ml').each( (index, element) => {
+            let item = $(element).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
+            var abc2 = $(item).find('.directorist-checkbox ');
+            $(abc2).slice(4, abc2.length).slideUp();
+        });
+        
+    });
 
     $('body').on('click', '.directorist-btn-ml', function(event) {
         event.preventDefault();

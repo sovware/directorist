@@ -5,7 +5,13 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( !Helper::is_review_enabled() ) {
+	return;
+}
 ?>
 
 <span class="directorist-info-item directorist-rating-meta directorist-rating-transparent">

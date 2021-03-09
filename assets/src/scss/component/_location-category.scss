@@ -1,0 +1,52 @@
+/* category style three */
+.directorist-category-child__card {
+    border: 1px solid #eee;
+    border-radius: 4px;
+
+    @include e(header) {
+        padding: 10px 20px;
+        border-bottom: 1px solid #eee;
+
+        a {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222 !important;
+        }
+
+        i {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #2C99FF;
+            color: #fff;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+        }
+    }
+
+    @include e(body) {
+        padding: 15px 20px;
+
+        ul {
+            li {
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: #444752;
+
+                    span {
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+    }
+}

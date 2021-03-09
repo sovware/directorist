@@ -25,7 +25,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
             
-            add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
+            // add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
         }
 
         // update_default_directory_type_option
@@ -2761,23 +2761,23 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                                 'label' => [
                                     'type'  => 'text',
-                                    'label' => 'Label',
+                                    'label' => __( 'Label', 'directorist' ),
                                     'value' => '',
                                     'sync' => false,
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label'  => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Location',
                                 ],
                                 'location_source' => [
                                     'type'  => 'select',
-                                    'label'  => 'Location Source',
+                                    'label'  => __( 'Location Source', 'directorist' ),
                                     'options' => [
                                         [
                                             'label' => __('Display from Listing Location', 'directorist'),
@@ -2797,12 +2797,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'tags_filter_source' => [
                                     'type'  => 'select',
-                                    'label' => 'Tags Filter Source',
+                                    'label' => __( 'Tags Filter Source', 'directorist' ),
                                     'options' => [
                                         [
                                             'label' => __('All Tags', 'directorist'),
@@ -2822,12 +2822,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'price_range_min_placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Price Range Min Placeholder',
+                                    'label'  => __( 'Price Range Min Placeholder', 'directorist' ),
                                     'value' => 'Min',
                                 ],
                                 'price_range_max_placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Price Range Max Placeholder',
+                                    'label'  => __( 'Price Range Max Placeholder', 'directorist' ),
                                     'value' => 'Max',
                                 ],
                             ]
@@ -2857,17 +2857,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label'  => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Zip',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2877,17 +2877,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Phone',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2897,17 +2897,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Phone 2',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label' => 'Required',
+                                    'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2917,17 +2917,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Email',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2937,17 +2937,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Fax',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Fax',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2957,17 +2957,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label'  => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Website',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2977,17 +2977,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Text',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -2997,17 +2997,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Number',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3018,17 +3018,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label'  => __( 'Placeholder', 'directorist' ),
                                     'value' => 'URL',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3039,17 +3039,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label'  => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Date',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3060,17 +3060,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label' => 'Label',
+                                    'label' => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label' => 'Placeholder',
+                                    'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Time',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label' => 'Required',
+                                    'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3081,12 +3081,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3097,12 +3097,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3113,12 +3113,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3129,12 +3129,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label'  => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
                             ]
@@ -3144,8 +3144,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
                 'other_widgets' => [
-                    'title' => 'Other Fields',
-                    'description' => 'Click on a field to use it',
+                    'title' => __( 'Other Fields', 'directorist' ),
+                    'description' => __( 'Click on a field to use it', 'directorist' ),
                     'allowMultiple' => false,
                     'widgets' => [
                         'review' => [
@@ -3154,30 +3154,30 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Review',
                                 ],
                             ],
                         ],
                         'radius_search' => [
-                            'label' => 'Radius Search',
+                            'label' => __( 'Radius Search', 'directorist' ),
                             'icon' => 'fa fa-map',
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label'  => __( 'Label', 'directorist' ),
                                     'value' => 'Radius Search',
                                 ],
                                 'default_radius_distance' => [
                                     'type'  => 'range',
-                                    'label' => 'Default Radius Distance',
+                                    'label' => __( 'Default Radius Distance', 'directorist' ),
                                     'min'   => 0,
                                     'max'   => 750,
                                     'value' => 0,
                                 ],
                                 'radius_search_unit' => [
                                     'type'  => 'select',
-                                    'label' => 'Radius Search Unit',
+                                    'label' => __( 'Radius Search Unit', 'directorist' ),
                                     'value' => 'miles',
                                     'options' => [
                                         [ 'value' => 'miles', 'label' => 'Miles' ],
@@ -3193,7 +3193,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_widget = apply_filters( 'directorist_listing_card_widgets', [
                 'listing_title' => [
                     'type' => "title",
-                    'label' => "Listing Title",
+                    'label' => __( "Listing Title", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_listing_title",
                     'show_if' => [
@@ -3203,11 +3203,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listing Title Settings",
+                        'title' => __( "Listing Title Settings", "directorist" ),
                         'fields' => [
                             'show_tagline' => [
                                 'type' => "toggle",
-                                'label' => "Show Tagline",
+                                'label' => __( "Show Tagline", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3216,7 +3216,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'excerpt' => [
                     'type' => "excerpt",
-                    'label' => "Excerpt",
+                    'label' => __( "Excerpt", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_listing_excerpt",
                     'show_if' => [
@@ -3226,23 +3226,23 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Excerpt Settings",
+                        'title' => __( "Excerpt Settings", "directorist" ),
                         'fields' => [
                             'words_limit' => [
                                 'type' => "range",
-                                'label' => "Words Limit",
+                                'label' => __( "Words Limit", "directorist" ),
                                 'min' => 5,
                                 'max' => 200,
                                 'value' => 20,
                             ],
                             'show_readmore' => [
                                 'type' => "toggle",
-                                'label' => "Show Readmore",
+                                'label' => __( "Show Readmore", "directorist" ),
                                 'value' => true,
                             ],
                             'show_readmore_text' => [
                                 'type' => "text",
-                                'label' => "Read More Text",
+                                'label' => __( "Read More Text", "directorist" ),
                                 'value' => 'Read More',
                             ],
                         ],
@@ -3251,7 +3251,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'listings_location' => [
                     'type' => "list-item",
-                    'label' => "Listings Location",
+                    'label' => __( "Listings Location", "directorist" ),
                     'icon' => 'uil uil-location-point',
                     'hook' => "atbdp_listings_location",
                     'show_if' => [
@@ -3261,16 +3261,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Location Settings",
+                        'title' => __( "Listings Location Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-map-marker",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3279,20 +3279,20 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 
                 'posted_date' => [
                     'type' => "list-item",
-                    'label' => "Posted Date",
+                    'label' => __( "Posted Date", "directorist" ),
                     'icon' => 'la la-clock-o',
                     'hook' => "atbdp_listings_posted_date",
                     'options' => [
-                        'title' => "Posted Date",
+                        'title' => __( "Posted Date", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-clock-o",
                             ],
                             'date_type' => [
                                 'type' => "radio",
-                                'label' => "Date Type",
+                                'label' => __( "Date Type", "directorist" ),
                                 'options' => [
                                     [ 'id' => 'atbdp_days_ago', 'label' => 'Days Ago', 'value' => 'days_ago' ],
                                     [ 'id' => 'atbdp_posted_date', 'label' => 'Posted Date', 'value' => 'post_date' ],
@@ -3305,7 +3305,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'website' => [
                     'type' => "list-item",
-                    'label' => "Listings Website",
+                    'label' => __( "Listings Website", "directorist" ),
                     'icon' => 'la la-globe',
                     'hook' => "atbdp_listings_website",
                     'show_if' => [
@@ -3315,16 +3315,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Website Settings",
+                        'title' => __( "Listings Website Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-globe",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3333,7 +3333,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'zip' => [
                     'type' => "list-item",
-                    'label' => "Listings Zip",
+                    'label' => __( "Listings Zip", "directorist" ),
                     'icon' => 'la la-at',
                     'hook' => "atbdp_listings_zip",
                     'show_if' => [
@@ -3343,16 +3343,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Zip Settings",
+                        'title' => __( "Listings Zip Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-at",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3361,7 +3361,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'email' => [
                     'type' => "list-item",
-                    'label' => "Listings Email",
+                    'label' => __( "Listings Email", "directorist" ),
                     'icon' => 'la la-envelope',
                     'hook' => "atbdp_listings_email",
                     'show_if' => [
@@ -3371,16 +3371,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Email Settings",
+                        'title' => __( "Listings Email Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-envelope",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3389,7 +3389,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'fax' => [
                     'type' => "list-item",
-                    'label' => "Listings Fax",
+                    'label' => __( "Listings Fax", "directorist" ),
                     'icon' => 'la la-fax',
                     'hook' => "atbdp_listings_fax",
                     'show_if' => [
@@ -3399,16 +3399,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Fax Settings",
+                        'title' => __( "Listings Fax Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-fax",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3417,7 +3417,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'phone' => [
                     'type' => "list-item",
-                    'label' => "Listings Phone",
+                    'label' => __( "Listings Phone", "directorist" ),
                     'icon' => 'la la-phone',
                     'hook' => "atbdp_listings_phone",
                     'show_if' => [
@@ -3427,16 +3427,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Phone Settings",
+                        'title' => __( "Listings Phone Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-phone",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3445,7 +3445,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'phone2' => [
                     'type' => "list-item",
-                    'label' => "Listings Phone 2",
+                    'label' => __( "Listings Phone 2", "directorist" ),
                     'icon' => 'la la-phone',
                     'hook' => "atbdp_listings_phone2",
                     'show_if' => [
@@ -3455,16 +3455,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Phone 2 Settings",
+                        'title' => __( "Listings Phone 2 Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-phone",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3473,7 +3473,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'address' => [
                     'type' => "list-item",
-                    'label' => "Listings Address",
+                    'label' => __( "Listings Address", "directorist" ),
                     'icon' => 'la la-map-marker',
                     'hook' => "atbdp_listings_map_address",
                     'show_if' => [
@@ -3483,16 +3483,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Listings Address Settings",
+                        'title' => __( "Listings Address Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-map-marker",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3501,7 +3501,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'pricing' => [
                     'type' => "price",
-                    'label' => "Listings Price",
+                    'label' => __( "Listings Price", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_single_listings_price",
                     'show_if' => [
@@ -3514,50 +3514,50 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'rating' => [
                     'type' => "rating",
-                    'label' => "Rating",
+                    'label' => __( "Rating", "directorist" ),
                     'hook' => "atbdp_listings_rating",
                     'icon' => 'uil uil-text-fields',
                 ],
 
                 'featured_badge' => [
                     'type' => "badge",
-                    'label' => "Featured",
+                    'label' => __( "Featured", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_featured_badge",
                 ],
 
                 'new_badge' => [
                     'type' => "badge",
-                    'label' => "New",
+                    'label' => __( "New", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_new_badge",
                 ],
 
                 'popular_badge' => [
                     'type' => "badge",
-                    'label' => "Popular",
+                    'label' => __( "Popular", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_popular_badge",
                 ],
 
                 'favorite_badge' => [
                     'type' => "icon",
-                    'label' => "Favorite",
+                    'label' => __( "Favorite", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_favorite_badge",
                 ],
 
                 'view_count' => [
                     'type' => "view-count",
-                    'label' => "View Count",
+                    'label' => __( "View Count", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_view_count",
                     'options' => [
-                        'title' => "View Count Settings",
+                        'title' => __( "View Count Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "fa fa-heart",
                             ],
                         ],
@@ -3566,7 +3566,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'category' => [
                     'type' => "category",
-                    'label' => "Category",
+                    'label' => __( "Category", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_category",
                     'show_if' => [
@@ -3576,11 +3576,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Category Settings",
+                        'title' => __( "Category Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "fa fa-folder",
                             ],
                         ],
@@ -3589,21 +3589,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'user_avatar' => [
                     'type' => "avatar",
-                    'label' => "User Avatar",
+                    'label' => __( "User Avatar", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_user_avatar",
                     'can_move' => false,
                     'options' => [
-                        'title' => "User Avatar Settings",
+                        'title' => __( "User Avatar Settings", "directorist" ),
                         'fields' => [
                             'align' => [
                                 'type' => "radio",
-                                'label' => "Align",
+                                'label' => __( "Align", "directorist" ),
                                 'value' => "center",
                                 'options' => [
-                                    [ 'id' => 'atbdp_user_avatar_align_right', 'label' => 'Right', 'value' => 'right' ],
-                                    [ 'id' => 'atbdp_user_avatar_align_center', 'label' => 'Center', 'value' => 'center' ],
-                                    [ 'id' => 'atbdp_user_avatar_align_left', 'label' => 'Left', 'value' => 'left' ],
+                                    [ 'id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'value' => 'right' ],
+                                    [ 'id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'value' => 'center' ],
+                                    [ 'id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'value' => 'left' ],
                                 ],
                             ],
                         ],
@@ -3613,7 +3613,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 // Custom Fields
                 'text' => [
                     'type' => "list-item",
-                    'label' => "Text",
+                    'label' => __( "Text", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_text",
                     'show_if' => [
@@ -3623,16 +3623,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Text Settings",
+                        'title' => __( "Text Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3641,7 +3641,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 
                 'number' => [
                     'type' => "list-item",
-                    'label' => "Number",
+                    'label' => __( "Number", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_number",
                     'show_if' => [
@@ -3655,12 +3655,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3669,7 +3669,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'url' => [
                     'type' => "list-item",
-                    'label' => "URL",
+                    'label' => __( "URL", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_url",
                     'show_if' => [
@@ -3679,16 +3679,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "URL Settings",
+                        'title' => __( "URL Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3697,7 +3697,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'date' => [
                     'type' => "list-item",
-                    'label' => "Date",
+                    'label' => __( "Date", "directorist" ),
                     'icon' => 'la la-calendar-check-o',
                     'hook' => "atbdp_custom_date",
                     'show_if' => [
@@ -3707,16 +3707,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Date Settings",
+                        'title' => __( "Date Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "la la-calendar-check-o",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3725,7 +3725,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'time' => [
                     'type' => "list-item",
-                    'label' => "Time",
+                    'label' => __( "Time", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_time",
                     'show_if' => [
@@ -3735,16 +3735,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Time Settings",
+                        'title' => __( "Time Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3753,7 +3753,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'color_picker' => [
                     'type' => "list-item",
-                    'label' => "Color Picker",
+                    'label' => __( "Color Picker", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_color",
                     'show_if' => [
@@ -3763,11 +3763,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Color Picker Settings",
+                        'title' => __( "Color Picker Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                         ],
@@ -3776,7 +3776,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'select' => [
                     'type' => "list-item",
-                    'label' => "Select",
+                    'label' => __( "Select", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_select",
                     'show_if' => [
@@ -3786,16 +3786,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Select Settings",
+                        'title' => __( "Select Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3804,7 +3804,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'checkbox' => [
                     'type' => "list-item",
-                    'label' => "Checkbox",
+                    'label' => __( "Checkbox", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_checkbox",
                     'show_if' => [
@@ -3818,12 +3818,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3832,7 +3832,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'radio' => [
                     'type' => "list-item",
-                    'label' => "Radio",
+                    'label' => __( "Radio", "directorist" ),
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_custom_radio",
                     'show_if' => [
@@ -3842,16 +3842,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                     ],
                     'options' => [
-                        'title' => "Radio Settings",
+                        'title' => __( "Radio Settings", "directorist" ),
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
-                                'label' => "Icon",
+                                'label' => __( "Icon", "directorist" ),
                                 'value' => "uil uil-text-fields",
                             ],
                             'show_label' => [
                                 'type' => "toggle",
-                                'label' => "Show Label",
+                                'label' => __( "Show Label", "directorist" ),
                                 'value' => false,
                             ],
                         ],
@@ -3874,7 +3874,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_grid_view_with_thumbnail_layout = [
                 'thumbnail' => [
                     'top_right' => [
-                        'label' => 'Top Right',
+                        'label' => __( 'Top Right', 'directorist' ),
                         'maxWidget' => 3,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
@@ -3939,7 +3939,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_grid_view_without_thumbnail_layout = [
                 'body' => [
                     'avatar' => [
-                        'label' => 'Avater',
+                        'label' => __( 'Avatar', 'directorist' ),
                         'maxWidget' => 1,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["user_avatar"],
@@ -3990,7 +3990,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_list_view_with_thumbnail_layout = [
                 'thumbnail' => [
                     'top_right' => [
-                        'label' => 'Top Right',
+                        'label' => __( 'Top Right', 'directorist' ),
                         'maxWidget' => 3,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
@@ -3999,19 +3999,19 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'body' => [
                     'top' => [
-                        'label' => 'Body Top',
+                        'label' => __( 'Body Top', 'directorist' ),
                         'maxWidget' => 0,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
                     ],
                     'right' => [
-                        'label' => 'Body Right',
+                        'label' => __( 'Body Right', 'directorist' ),
                         'maxWidget' => 2,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                     ],
                     'bottom' => [
-                        'label' => 'Body Bottom',
+                        'label' => __( 'Body Bottom', 'directorist' ),
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
@@ -4046,19 +4046,19 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_list_view_without_thumbnail_layout = [
                 'body' => [
                     'top' => [
-                        'label' => 'Body Top',
+                        'label' => __( 'Body Top', 'directorist' ),
                         'maxWidget' => 0,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
                     ],
                     'right' => [
-                        'label' => 'Body Right',
+                        'label' => __( 'Body Right', 'directorist' ),
                         'maxWidget' => 2,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                     ],
                     'bottom' => [
-                        'label' => 'Body Bottom',
+                        'label' => __( 'Body Bottom', 'directorist' ),
                         'maxWidget' => 0,
                         'acceptedWidgets' => [
                             "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
@@ -4101,7 +4101,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 // ],
 
                 'icon' => [
-                    'label' => 'Icon',
+                    'label' => __( 'Icon', 'directorist' ),
                     'type'  => 'icon',
                     'value' => '',
                     'rules' => [
@@ -4116,7 +4116,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
 
                 'import_export' => [
-                    'button-label'     => 'Export',
+                    'button-label'     => __( 'Export', 'directorist' ),
                     'export-file-name' => 'directory',
                     'type'             => 'export',
                 ],
@@ -4247,7 +4247,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'terms_label' => [
                     'label'       => __('Label', 'directorist'),
                     'type'        => 'text',
-                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
                     'value'       => 'I agree with all %terms & conditions%',
                 ],
 
@@ -4265,7 +4265,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'privacy_label' => [
                     'label' => __('Label', 'directorist'),
                     'type'  => 'text',
-                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
                     'value' => 'I agree to the %Privacy & Policy%',
                 ],
                 
@@ -4278,22 +4278,22 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'groupFields' => [
                         'icon' => [
                             'type'  => 'icon',
-                            'label'  => 'Block/Section Icon',
+                            'label'  => __( 'Block/Section Icon', 'directorist' ),
                             'value' => '',
                         ],
                         'label' => [
                             'type'  => 'text',
-                            'label' => 'Label',
+                            'label' => __( 'Label', 'directorist' ),
                             'value' => 'Section',
                         ],
                         'custom_block_id' => [
                             'type'  => 'text',
-                            'label'  => 'Custom block ID',
+                            'label'  => __( 'Custom block ID', 'directorist' ),
                             'value' => '',
                         ],
                         'custom_block_classes' => [
                             'type'  => 'text',
-                            'label'  => 'Custom block Classes',
+                            'label'  => __( 'Custom block Classes', 'directorist' ),
                             'value' => '',
                         ],
                     ],
@@ -4302,30 +4302,30 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'similar_listings_logics' => [
                     'type'    => 'radio',
                     'name'    => 'similar_listings_logics',
-                    'label' => 'Similar listings logics',
+                    'label' => __( 'Similar listings logics', 'directorist' ),
                     'options' => [
-                        ['id' => 'match_category_nd_location', 'label' => 'Must match category and location', 'value' => 'AND'],
-                        ['id' => 'match_category_or_location', 'label' => 'Must match category or location', 'value' => 'OR'],
+                        ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and location', 'directorist' ), 'value' => 'AND'],
+                        ['id' => 'match_category_or_location', 'label' => __( 'Must match category or location', 'directorist' ), 'value' => 'OR'],
                     ],
                     'value'   => 'OR',
                 ],
                 'listing_from_same_author' => [
                     'type'  => 'toggle',
-                    'label' => 'Listing from same author',
+                    'label' => __( 'Listing from same author', 'directorist' ),
                     'value' => false,
                 ],
                 'similar_listings_number_of_listings_to_show' => [
                     'type'  => 'range',
                     'min'   => 0,
                     'max'   => 20,
-                    'label' => 'Number of listings to show',
+                    'label' => __( 'Number of listings to show', 'directorist' ),
                     'value' => 0,
                 ],
                 'similar_listings_number_of_columns' => [
                     'type'  => 'range',
                     'min'   => 1,
                     'max'   => 10,
-                    'label' => 'Number of columns',
+                    'label' => __( 'Number of columns', 'directorist' ),
                     'value' => 3,
                 ],
 
@@ -4343,13 +4343,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'value' => [
                         'groups' => [
                             [
-                                'label'     => 'Basic',
+                                'label'     => __( 'Basic', 'directorist' ),
                                 'lock'      => true,
                                 'draggable' => false,
                                 'fields'    => [],
                             ],
                             [
-                                'label'     => 'Advanced',
+                                'label'     => __( 'Advanced', 'directorist' ),
                                 'lock'      => true,
                                 'draggable' => false,
                                 'fields'    => [],
@@ -4366,13 +4366,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'general' => [
                             'back' => [
                               'type' => "badge",
-                              'label' => "Back",
+                              'label' => __( "Back", 'directorist' ),
                               'options' => [
-                                  'title' => "Back Button Settings",
+                                  'title' => __( "Back Button Settings", "directorist" ),
                                   'fields' => [
                                       'label' => [
                                           'type' => "toggle",
-                                          'label' => "Enable",
+                                          'label' => __( "Enable", "directorist" ),
                                           'value' => true,
                                       ],
                                   ],
@@ -4380,18 +4380,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ],
                             'section_title' => [
                               'type' => "title",
-                              'label' => "Section Title",
+                              'label' => __( "Section Title", "directorist" ),
                               'options' => [
-                                  'title' => "Section Title Options",
+                                  'title' => __( "Section Title Options", "directorist" ),
                                   'fields' => [
                                       'label' => [
                                           'type' => "text",
-                                          'label' => "Label",
+                                          'label' => __( "Label", "directorist" ),
                                           'value' => "Section Title",
                                       ],
                                       'icon' => [
                                           'type' => "icon",
-                                          'label' => "Icon",
+                                          'label' => __( "Icon", "directorist" ),
                                           'value' => "",
                                       ],
                                   ],
@@ -4401,18 +4401,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'content_settings' => [
                             'listing_title' => [
                               'type' => "title",
-                              'label' => "Listing Title",
+                              'label' => __( "Listing Title", "directorist" ),
                               'options' => [
-                                  'title' => "Listing Title Settings",
+                                  'title' => __( "Listing Title Settings", "directorist" ),
                                   'fields' => [
                                       'enable_title' => [
                                           'type' => "toggle",
-                                          'label' => "Show Title",
+                                          'label' => __( "Show Title", "directorist" ),
                                           'value' => true,
                                       ],
                                       'enable_tagline' => [
                                           'type' => "toggle",
-                                          'label' => "Show Tagline",
+                                          'label' => __( "Show Tagline", "directorist" ),
                                           'value' => true,
                                       ],
                                   ],
@@ -4420,13 +4420,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ],
                             'listing_description' => [
                               'type' => "title",
-                              'label' => "Description",
+                              'label' => __( "Description", "directorist" ),
                               'options' => [
-                                  'title' => "Description Settings",
+                                  'title' => __( "Description Settings", "directorist" ),
                                   'fields' => [
                                     'enable' => [
                                         'type' => "toggle",
-                                        'label' => "Show Description",
+                                        'label' => __( "Show Description", "directorist" ),
                                         'value' => true,
                                     ],
                                   ],
@@ -4441,19 +4441,19 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'widgets' => [
                         'bookmark' => [
                             'type' => "button",
-                            'label' => "Bookmark",
+                            'label' => __( "Bookmark", "directorist" ),
                             'icon' => 'la la-bookmark',
                         ],
                         'share' => [
                             'type' => "badge",
-                            'label' => "Share",
+                            'label' => __( "Share", "directorist" ),
                             'icon' => 'la la-share',
                             'options' => [
-                                'title' => "Share Settings",
+                                'title' => __( "Share Settings", "directorist" ),
                                 'fields' => [
                                     'icon' => [
                                         'type' => "icon",
-                                        'label' => "Icon",
+                                        'label' => __( "Icon", "directorist" ),
                                         'value' => 'la la-share',
                                     ],
                                 ],
@@ -4461,14 +4461,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                         'report' => [
                             'type' => "badge",
-                            'label' => "Report",
+                            'label' => __( "Report", "directorist" ),
                             'icon' => 'la la-flag',
                             'options' => [
-                                'title' => "Report Settings",
+                                'title' => __( "Report Settings", "directorist" ),
                                 'fields' => [
                                     'icon' => [
                                         'type' => "icon",
-                                        'label' => "Icon",
+                                        'label' => __( "Icon", "directorist" ),
                                         'value' => 'la la-flag',
                                     ],
                                 ],
@@ -4477,7 +4477,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         
                         'listing_slider' => [
                             'type' => "thumbnail",
-                            'label' => "Listings Slider",
+                            'label' => __( "Listings Slider", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                             'can_move' => false,
                             'show_if' => [
@@ -4487,11 +4487,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                             'options' => [
-                                'title' => "Listings Slider Settings",
+                                'title' => __( "Listings Slider Settings", "directorist" ),
                                 'fields' => [
                                     'footer_thumbail' => [
                                         'type' => "toggle",
-                                        'label' => "Enable Footer Thumbail",
+                                        'label' => __( "Enable Footer Thumbnail", "directorist" ),
                                         'value' => true,
                                     ],
                                 ],
@@ -4499,29 +4499,29 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                         'price' => [
                             'type' => "badge",
-                            'label' => "Listings Price",
+                            'label' => __( "Listings Price", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                         ],
                         'badges' => [
                             'type' => "badge",
-                            'label' => "Badges",
+                            'label' => __( "Badges", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                             'options' => [
-                                'title' => "Badge Settings",
+                                'title' => __( "Badge Settings". "directorist" ),
                                 'fields' => [
                                     'new_badge' => [
                                         'type' => "toggle",
-                                        'label' => "Display New Badge",
+                                        'label' => __( "Display New Badge", "directorist" ),
                                         'value' => true,
                                     ],
                                     'popular_badge' => [
                                         'type' => "toggle",
-                                        'label' => "Display Popular Badge",
+                                        'label' => __( "Display Popular Badge", "directorist" ),
                                         'value' => true,
                                     ],
                                     'featured_badge' => [
                                         'type' => "toggle",
-                                        'label' => "Display Featured Badge",
+                                        'label' => __( "Display Featured Badge", "directorist" ),
                                         'value' => true,
                                     ],
                                 ],
@@ -4530,17 +4530,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         
                         'reviews' => [
                             'type' => "reviews",
-                            'label' => "Listings Reviews",
+                            'label' => __( "Listings Reviews", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                         ],
                         'ratings_count' => [
                             'type' => "ratings-count",
-                            'label' => "Listings Ratings",
+                            'label' => __( "Listings Ratings", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                         ],
                         'category' => [
                             'type' => "badge",
-                            'label' => "Listings Category",
+                            'label' => __( "Listings Category", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
@@ -4551,7 +4551,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                         'location' => [
                             'type' => "badge",
-                            'label' => "Listings Location",
+                            'label' => __( "Listings Location", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
@@ -4565,19 +4565,19 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'layout' => [
                         'listings_header' => [
                             'quick_actions' => [
-                                'label' => 'Top Right',
+                                'label' => __( 'Top Right', 'directorist' ),
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
                             ],
                             'thumbnail' => [
-                                'label' => 'Thumbnail',
+                                'label' => __( 'Thumbnail', 'directorist' ),
                                 'maxWidget' => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'listing_slider' ],
                             ],
                             'quick_info' => [
-                                'label' => 'Quick info',
+                                'label' => __( 'Quick info', 'directorist' ),
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],
@@ -4590,13 +4590,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'type' => 'card-builder',
                     'card_templates' => [
                         'grid_view_with_thumbnail' => [
-                            'label'    => 'With Preview Image',
+                            'label'    => __( 'With Preview Image', 'directorist' ),
                             'template' => 'grid-view-with-thumbnail',
                             'widgets'  => $listing_card_widget,
                             'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                         ],
                         'grid_view_without_thumbnail' => [
-                            'label'    => 'Without Preview Image',
+                            'label'    => __( 'Without Preview Image', 'directorist' ),
                             'template' => 'grid-view-without-thumbnail',
                             'widgets'  => $listing_card_widget,
                             'layout'   => $listing_card_grid_view_without_thumbnail_layout,
@@ -4608,13 +4608,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'type' => 'card-builder',
                     'card_templates' => [
                         'list_view_with_thumbnail' => [
-                            'label'    => 'With Preview Image',
+                            'label'    => __( 'With Preview Image', 'directorist' ),
                             'template' => 'list-view-with-thumbnail',
                             'widgets'  => $listing_card_widget,
                             'layout'   => $listing_card_list_view_with_thumbnail_layout,
                         ],
                         'list_view_without_thumbnail' => [
-                            'label'    => 'Without Preview Image',
+                            'label'    => __( 'Without Preview Image', 'directorist' ),
                             'template' => 'list-view-without-thumbnail',
                             'widgets'  => $listing_card_widget,
                             'layout'   => $listing_card_list_view_without_thumbnail_layout,
@@ -4671,16 +4671,16 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
 
                 'submission_form' => [
-                    'label' => 'Submission Form',
+                    'label' => __( 'Submission Form', 'directorist' ),
                     'icon' => '<span class="uil uil-file-edit-alt"></span>',
                     'submenu' => [
                         'form_fields' => [
-                            'label' => 'Form Fields',
+                            'label' => __( 'Form Fields', 'directorist' ),
                             'container' => 'wide',
                             'sections' => [
                                 'form_fields' => [
-                                    'title' => __('Select or create fields for this listing type', 'directorist'),
-                                    'description' => 'need help?',
+                                    'title' => __( 'Select or create fields for this listing type', 'directorist' ),
+                                    'description' => __( 'need help?', 'directorist' ),
                                     'fields' => [
                                         'submission_form_fields'
                                     ],
@@ -4688,7 +4688,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ],
                         ],
                         'settings' => [
-                            'label' => 'Settings',
+                            'label' => __( 'Settings', 'directorist' ),
                             'sections' => apply_filters( 'atbdp_submission_form_settings', [
                                 'submittion_settings' => [
                                     'title' => __('Submission Settings', 'directorist'),
@@ -4730,15 +4730,15 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
 
                 'single_page_layout' => [
-                    'label' => 'Single Page Layout',
+                    'label' => __( 'Single Page Layout', 'directorist' ),
                     'icon' => '<span class="uil uil-credit-card"></span>',
                     'submenu' => [
                         'listing_header' => [
-                            'label' => 'Listing Header',
+                            'label' => __( 'Listing Header', 'directorist' ),
                             'container' => 'wide',
                             'sections' => [
                                 'listing_header' => [
-                                    'title' => 'Listing Header',
+                                    'title' => __( 'Listing Header', 'directorist' ),
                                     'title_align' => 'center',
                                     'fields' => [
                                         'single_listing_header'
@@ -4747,12 +4747,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ]
                         ],
                         'contents' => [
-                            'label' => 'Contents',
+                            'label' => __( 'Contents', 'directorist' ),
                             'container' => 'wide',
                             'sections' => [
                                 'contents' => [
-                                    'title' => 'Contents',
-                                    'description' => 'need help?',
+                                    'title' => __( 'Contents', 'directorist' ),
+                                    'description' => __( 'need help?', 'directorist' ),
                                     'fields' => [
                                         'single_listings_contents'
                                     ],
@@ -4760,10 +4760,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ]
                         ],
                         'similar_listings' => [
-                            'label' => 'Other Settings',
+                            'label' => __( 'Other Settings', 'directorist' ),
                             'sections' => [
                                 'other' => [
-                                    'title' => 'Similar Listings',
+                                    'title' => __( 'Similar Listings', 'directorist' ),
                                     'fields' => [
                                         'similar_listings_logics',
                                         'listing_from_same_author',
@@ -4776,17 +4776,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ]
                 ],
                 'listings_card_layout' => [
-                    'label' => 'Listings Card Layout',
+                    'label' => __( 'Listings Card Layout', 'directorist' ),
                     'icon' => '<span class="uil uil-list-ul"></span>',
                     'submenu' => [
                         'grid_view' => [
-                            'label' => 'Listings Card Grid Layout',
+                            'label' => __( 'Listings Card Grid Layout', 'directorist' ),
                             'container' => 'wide',
                             'sections' => [
                                 'listings_card' => [
                                     'title' => __('Create and customize the listing card for grid view', 'directorist'),
                                     'title_align' => 'center',
-                                    'description' => 'need help? Read the documentation or open a ticket in our helpdesk.',
+                                    'description' => __( 'need help? Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                     'fields' => [
                                         'listings_card_grid_view'
                                     ],
@@ -4794,13 +4794,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ],
                         ],
                         'list_view' => [
-                            'label' => 'Listings Card List Layout',
+                            'label' => __( 'Listings Card List Layout', 'directorist' ),
                             'container' => 'full-width',
                             'sections' => [
                                 'listings_card' => [
                                     'title' => __('Create and customize the listing card for listing view', 'directorist'),
                                     'title_align' => 'center',
-                                    'description' => 'need help?',
+                                    'description' => __( 'need help?', 'directorist' ),
                                     'fields' => [
                                         'listings_card_list_view'
                                     ],
@@ -4823,13 +4823,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 ],
                 'search_forms' => [
-                    'label' => 'Search Forms',
+                    'label' => __( 'Search Forms', 'directorist' ),
                     'icon' => '<span class="uil uil-search"></span>',
                     'container' => 'wide',
                     'sections' => [
                         'form_fields' => [
                             'title' => __('Customize the search form for this listing type', 'directorist'),
-                            'description' => 'need help?',
+                            'description' => __( 'need help?', 'directorist' ),
                             'fields' => [
                                 'search_form_fields'
                             ],
@@ -4905,7 +4905,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $page_slug  = 'atbdp-layout-builder';
 
             if ( atbdp_is_truthy( $enable_multi_directory ) ) {
-                $page_title = 'Directory Builder';
+                $page_title = __( 'Directory Builder', 'directorist' );
                 $page_slug  = 'atbdp-directory-types';
             }
 
@@ -5065,14 +5065,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 atbdp_add_flush_alert([
                     'id'      => 'deleting_listing_type_status',
                     'page'    => 'all-listing-type',
-                    'message' => 'Successfully Deleted the listing type',
+                    'message' => __( 'Successfully Deleted the listing type', 'directorist' ),
                 ]);
             } else {
                 atbdp_add_flush_alert([
                     'id'      => 'deleting_listing_type_status',
                     'page'    => 'all-listing-type',
                     'type'    => 'error',
-                    'message' => 'Failed to delete the listing type'
+                    'message' => __( 'Failed to delete the listing type', 'directorist' )
                 ]);
             }
         }

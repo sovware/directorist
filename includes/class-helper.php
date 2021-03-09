@@ -350,6 +350,10 @@ class Helper {
 		return $default_image_src;
 	}
 
+	public static function is_review_enabled() {
+		return get_directorist_option( 'enable_review', 1 );
+	}
+
 	public static function is_featured( $listing_id ) {
 		return get_post_meta( $listing_id, '_featured', true );
 	}

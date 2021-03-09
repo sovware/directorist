@@ -26,6 +26,8 @@ $value = explode( ',', $data['value'] );
 
 			<?php endforeach; ?>
 
+			<a href="#" class="directorist-custom-field-btn-more">See More</a>
+
 		<?php endif; ?>
 	<?php $listing_form->field_description_template( $data ); ?>
 

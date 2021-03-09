@@ -658,6 +658,40 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
         $("#directorist-quick-login").removeClass("show");
 });
 
+// Custom Field Checkbox Button More
+
+$( window  ).load(function() {
+        
+        $('.directorist-custom-field-btn-more').each( (index, element) => {
+                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                $(customField).slice(20, customField.length).slideUp();
+
+                if(customField.length<20){
+                        $(element).slideUp();
+                }
+        });
+        
+});
+
+    $('body').on('click', '.directorist-custom-field-btn-more', function(event) {
+        event.preventDefault();
+        let fieldWrapper = $(this).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+        $(customField).slice(20, customField.length).slideUp();
+
+        $(this).toggleClass('active');
+        
+       if($(this).hasClass('active')){
+           $(this).text("See Less");
+           $(customField).slice(20, customField.length).slideDown();
+       } else {
+           $(this).text("See More");
+           $(customField).slice(20, customField.length).slideUp();
+       }
+
+    });
+
 // scrollToEl
 function scrollToEl(el) {
         // const element = typeof el === 'string' ? el : '';

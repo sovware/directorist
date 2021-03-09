@@ -17,6 +17,29 @@ class Helper {
 		return $legacy;
 	}
 
+	// get_widget_value
+	public static function get_widget_value( $post_id = 0, array $widget = [] ) {
+		$value = '';
+
+		if ( isset( $widget['field_key'] ) ) {
+			$value = get_post_meta( $post_id, '_'.$widget['field_key'], true );
+
+			if ( empty( $value ) ) {
+				$value = get_post_meta( $post_id, $widget['field_key'], true );
+			}
+		}
+		
+		if ( isset( $widget['original_data'] ) && isset( $widget['original_data']['field_key'] ) ) {
+			$value = get_post_meta( $post_id, '_' . $widget['original_data']['field_key'], true );
+
+			if ( empty( $value ) ) {
+				$value = get_post_meta( $post_id, $widget['original_data']['field_key'], true );
+			}
+		}
+
+		return $value;
+	}
+
 	// add_listings_review_meta
 	public static function add_listings_review_meta( array $args = [] ) {
 

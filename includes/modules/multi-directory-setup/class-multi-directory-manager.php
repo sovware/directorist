@@ -147,15 +147,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $has_custom_fields   = $get_custom_fields->post_count;
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
-            
-            // directorist_console_log([
-            //     'migrated'            => $migrated,
-            //     'has_listings'        => $has_listings,
-            //     'has_custom_fields'   => $has_custom_fields,
-            //     'has_multidirectory'  => $has_multidirectory,
-            //     'need_migration'      => $need_migration,
-            //     'need_import_default' => $need_import_default,
-            // ]);
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
@@ -662,7 +653,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'description' => __( 'Click on a field to use it', 'directorist' ),
                     'allowMultiple' => false,
                     'widgets' => apply_filters('atbdp_form_preset_widgets', [
-
                         'title' => [
                             'label' => __( 'Title', 'directorist' ),
                             'icon' => 'fa fa-text-height',
@@ -1930,7 +1920,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         ],
 
-                        'color' => [
+                        'color_picker' => [
                             'label' => 'Color',
                             'icon' => 'uil uil-palette',
                             'options' => [
@@ -2573,7 +2563,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ]
                         ],
-                        'color' => [
+                        'color_picker' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3087,7 +3077,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         ],
 
-                        'color' => [
+                        'color_picker' => [
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -3761,7 +3751,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'color' => [
+                'color_picker' => [
                     'type' => "list-item",
                     'label' => "Color Picker",
                     'icon' => 'uil uil-text-fields',
@@ -4944,6 +4934,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
+            $this->prepare_settings();
+
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
             $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
 
@@ -5098,8 +5090,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
                 'show_ui' => false,
             ]);
-
-            $this->prepare_settings();
         }
 
         // enqueue_scripts

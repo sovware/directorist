@@ -277,24 +277,12 @@ export default {
 
     // updateWidgetList
     updateWidgetList(widget_list) {
-      if (!widget_list) {
-        return;
-      }
-      if (typeof widget_list !== "object") {
-        return;
-      }
-      if (typeof widget_list.widget_group === "undefined") {
-        return;
-      }
-      if (typeof widget_list.base_widget_list === "undefined") {
-        return;
-      }
+      if ( ! widget_list) { return; }
+      if (typeof widget_list !== "object") { return; }
+      if (typeof widget_list.widget_group === "undefined") { return; }
+      if (typeof widget_list.base_widget_list === "undefined") { return; }
 
-      Vue.set(
-        this.avilable_widgets,
-        widget_list.widget_group,
-        widget_list.base_widget_list
-      );
+      Vue.set( this.avilable_widgets, widget_list.widget_group, widget_list.base_widget_list );
     },
 
     updateGroupField(widget_group_key, payload) {

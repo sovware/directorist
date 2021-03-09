@@ -582,14 +582,42 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
+        $this->multi_directory_manager->prepare_settings();
+        $single_listings_widgets = [];
+        if (
+            isset( $this->multi_directory_manager::$fields ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] ) &&
+            is_array( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] )
+        ) {
+            $single_listings_widgets = $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'];
+        }
+
+        $single_listings_widgets_keys = is_array( $single_listings_widgets ) ? array_keys( $single_listings_widgets ) : [];
         $single_listings_custom_fields = [];
         $custom_fields = $args[ 'old_custom_fields' ];
         foreach ( $custom_fields as $field_key => $args ) {
-            $single_listings_custom_fields[ $field_key ] = [
+            $widget_args = [
                 "label"        => $args['label'],
                 "widget_group" => "preset_widgets",
-                "widget_name"  => $args['widget_name']
+                "widget_name"  => $field_key
             ];
+
+            if ( ! in_array( $args['widget_name'],  $single_listings_widgets_keys ) ) {
+                continue;
+            }
+
+            if ( ! isset( $single_listings_widgets[ $args['widget_name'] ]['options'] ) ) {
+                continue;
+            }
+
+            foreach ( $single_listings_widgets[ $args['widget_name'] ]['options'] as $option_key => $option_args ) {
+                $widget_args[ $option_key ] = $option_args['value'];
+            }
+
+            $single_listings_custom_fields[ $field_key ] = $widget_args;
         }
 
         $single_listings_fields = array_merge( $single_listings_preset_fields, $single_listings_custom_fields );
@@ -1724,6 +1752,8 @@ class ATBDP_Multi_Directory_Migration {
             $searchable    = get_post_meta($old_field_id, 'searchable', true);
             $field_data    = [];
             
+            $field_type = ( 'color' === $field_type ) ? 'color_picker' : $field_type;
+
             // Common Data
             $field_data['type']         = $field_type;
             $field_data['label']        = get_the_title($old_field_id);
@@ -1741,7 +1771,7 @@ class ATBDP_Multi_Directory_Migration {
             $field_data['searchable']  = ( $searchable == 1 ) ? true : false;
 
             $field_data['widget_group'] = 'custom';
-            $field_data['widget_name']  = $field_type . '_' . $old_field_id;
+            $field_data['widget_name']  = $field_type;
             
             // field group
             $field_group = [ 'radio', 'checkbox', 'select' ];

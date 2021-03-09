@@ -86,11 +86,6 @@ export default {
                     type: "hidden",
                     value: widget_key,
                 };
-
-                widget_list[ widget_key ].options.widget_type = {
-                    type: "hidden",
-                    value: widget_key,
-                };
             }
             
             // filter Widgets By Template
@@ -129,7 +124,6 @@ export default {
             let template_widgets = {};
             for ( let widget_key in template_fields ) {
                 let _widget_group = template_fields[widget_key].widget_group;
-                let _widget_type  = template_fields[widget_key].widget_type;
                 let _widget_name  = template_fields[widget_key].widget_name;
 
                 if ( ! widget_list[ _widget_name ] ) { continue; }
@@ -141,7 +135,7 @@ export default {
                     delete template_root_options.options;
                 }
 
-                if (typeof template_root_options.lock !== "undefined") {
+                if ( typeof template_root_options.lock !== "undefined" ) {
                     delete template_root_options.lock;
                 }
 
@@ -159,9 +153,8 @@ export default {
                 }
 
                 let widgets_options = new_widget_list[_widget_name].options;
-
-                if (typeof widgets_options.label !== "undefined") {
-                let sync = typeof widgets_options.label.sync !== "undefined" ? widgets_options.label.sync : true;
+                if ( typeof widgets_options.label !== "undefined" ) {
+                    let sync = typeof widgets_options.label.sync !== "undefined" ? widgets_options.label.sync : true;
                     widgets_options.label.value = sync ? widget_label : widgets_options.label.value;
                 }
                 
@@ -170,19 +163,18 @@ export default {
                     value: this.widgetGroup,
                 };
 
-                widgets_options.widget_type = {
-                    type: "hidden",
-                    value: widget_key,
-                };
-
                 widgets_options.widget_name = {
                     type: "hidden",
                     value: widget_key,
                 };
 
+                
+
                 new_widget_list[ _widget_name ].options = widgets_options;
                 template_widgets[ widget_key ] = new_widget_list[ _widget_name ];
             }
+
+            console.log( { template_widgets } );
 
             return template_widgets;
         },
@@ -203,9 +195,7 @@ export default {
 
             let selected_widget_keys = [];
             if ( this.selectedWidgets && typeof this.selectedWidgets === 'object' ) {
-                for ( let widget_key in this.selectedWidgets ) {
-                    selected_widget_keys.push( this.selectedWidgets[ widget_key ].widget_name );
-                }
+                selected_widget_keys = Object.keys( this.selectedWidgets );
             }
             
             let new_widget_list = this.cloneObject( widget_list );

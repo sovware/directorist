@@ -97,31 +97,36 @@
     visibility: visible;
     transition: 0.3s ease;
 }
-// .directorist-modal .directorist-modal__dialog .at-modal-close{
-//     width: 32px;
-//     height: 32px;
-//     top: 20px;
-//     right: 20px;
-//     position: absolute;
-//     transform: none;
-//     background: #444752;
-//     color: #fff;
-//     border-radius: 300px;
-//     opacity: 1;
-//     font-weight: 300;
-//     z-index: 2;
-//     font-size: 16px;
-//     padding: 0;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     text-decoration: none;
-// }
 
-// .directorist-modal .directorist-modal__content .close span{
-//     display: block;
-//     line-height: 0;
-// }
+// Directorist Modal Delete
+
+.directorist-modal{
+    .directorist-delete-modal-inner{
+        text-align: center;
+        .directorist-delete-modal-icon{
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid $warning;
+            margin: 0 auto 15px;
+            color: $warning;
+        }
+        .directorist-delete-modal-text{
+            h3{
+                
+                margin: 0 0 15px;
+            }
+            p{
+                font-size: 18px;
+                margin-bottom: 0;
+                color: $body-color;
+            }
+        }
+    }
+}
 
 /* Responsive CSS */
 

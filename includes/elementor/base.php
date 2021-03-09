@@ -55,6 +55,18 @@ class Custom_Widget_Base extends Widget_Base {
 		return array();
 	}
 
+	public function az_run_shortcode( $shortcode, $atts = [] ) {
+		$html = '';
+
+		foreach ( $atts as $key => $value ) {
+			$html .= sprintf( ' %s="%s"', $key, esc_html( $value ) );
+		}
+
+		$html = sprintf( '[%s%s]', $shortcode, $html );
+
+		echo do_shortcode( $html );
+	}
+
 	protected function _register_controls() {
 		$fields = $this->az_fields();
 		foreach ( $fields as $field ) {

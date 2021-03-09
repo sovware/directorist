@@ -51,6 +51,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // initial_setup
         public function initial_setup() {
+            wp_update_plugins();
+            
             // Check form theme update
             $current_theme = wp_get_theme();
             get_theme_update_available( $current_theme->stylesheet );

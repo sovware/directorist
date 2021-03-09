@@ -760,7 +760,7 @@ export default {
         this.default_groups = this.value.groups;
       }
 
-      console.log( this.value.groups );
+      console.log(this.value.groups);
 
       // Trace active_widget_groups
       if (this.default_groups.length) {

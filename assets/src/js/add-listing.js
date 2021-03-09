@@ -56,7 +56,7 @@ $('body').on('click', '#addNewSocial', function (e) {
 });
 
 // remove the social field and then reset the ids while maintaining position
-$(body).on('click', '.directorist-form-social-fields__remove', function (e) {
+$('body').on('click', '.directorist-form-social-fields__remove', function (e) {
         const id = $(this).data('id');
         const elementToRemove = $(`div#socialID-${id}`);
         e.preventDefault();

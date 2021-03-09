@@ -86,6 +86,11 @@ export default {
                     type: "hidden",
                     value: widget_key,
                 };
+
+                widget_list[ widget_key ].options.widget_type = {
+                    type: "hidden",
+                    value: widget_key,
+                };
             }
             
             // filter Widgets By Template
@@ -123,8 +128,9 @@ export default {
 
             let template_widgets = {};
             for ( let widget_key in template_fields ) {
-                let _widget_name = template_fields[widget_key].widget_name;
                 let _widget_group = template_fields[widget_key].widget_group;
+                let _widget_type  = template_fields[widget_key].widget_type;
+                let _widget_name  = template_fields[widget_key].widget_name;
 
                 if ( ! widget_list[ _widget_name ] ) { continue; }
 
@@ -158,15 +164,20 @@ export default {
                 let sync = typeof widgets_options.label.sync !== "undefined" ? widgets_options.label.sync : true;
                     widgets_options.label.value = sync ? widget_label : widgets_options.label.value;
                 }
+                
+                widgets_options.widget_group = {
+                    type: "hidden",
+                    value: this.widgetGroup,
+                };
 
-                widgets_options.widget_name = {
+                widgets_options.widget_type = {
                     type: "hidden",
                     value: widget_key,
                 };
 
-                widgets_options.widget_group = {
+                widgets_options.widget_name = {
                     type: "hidden",
-                    value: this.widgetGroup,
+                    value: widget_key,
                 };
 
                 new_widget_list[ _widget_name ].options = widgets_options;

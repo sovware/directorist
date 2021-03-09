@@ -17,15 +17,20 @@ class ATBDP_Multi_Directory_Migration {
         $this->migrate();
     }
 
-    public function migrate() {
+    public function migrate( array $args = [] ) {
+        $default = [];
+        $args = array_merge( $default, $args );
+
         $fields = $this->get_fields_data();
-        
-        $add_directory = $this->multi_directory_manager->add_directory([
+        $add_directory_args = [
             'directory_name' => 'General',
             'fields_value'   => $fields,
-        ]);
-        $term           = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
-        $directory_slug = $term->slug;
+        ];
+
+        $add_directory_args = array_merge( $add_directory_args, $args );
+        $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
+        $term               = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
+        $directory_slug     = $term->slug;
 
         
         if ( $add_directory['status']['success'] ) {
@@ -65,7 +70,11 @@ class ATBDP_Multi_Directory_Migration {
 
                 }
             }
+
+            return [ 'success' => true ];
         }
+
+        return [ 'success' => false ];
         
     }
 
@@ -1732,7 +1741,7 @@ class ATBDP_Multi_Directory_Migration {
             $field_data['searchable']  = ( $searchable == 1 ) ? true : false;
 
             $field_data['widget_group'] = 'custom';
-            $field_data['widget_name']  = $field_type;
+            $field_data['widget_name']  = $field_type . '_' . $old_field_id;
             
             // field group
             $field_group = [ 'radio', 'checkbox', 'select' ];

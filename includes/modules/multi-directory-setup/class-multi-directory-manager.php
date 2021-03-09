@@ -23,6 +23,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
+            add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
             
             add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
         }
@@ -167,6 +168,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
                 $this->import_default_directory();
             }
+        }
+
+        // handle_force_migration
+        public function handle_force_migration() {
+            $args = [ 'multi_directory_manager' => $this ];
+            $migration = new ATBDP_Multi_Directory_Migration( $args );
+
+            $migration_status = $migration->migrate([ 'term_id' => $this->get_default_directory_id() ]);
+            
+            $status = [
+                'success' => $migration_status,
+                'message' => ( $migration_status ) ? __( 'Migration Successful', 'directorist' ) : __( 'Migration Failed', 'directorist' ),
+            ];
+
+            wp_send_json( $status );
         }
 
         // import_default_directory
@@ -4922,16 +4938,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 return $default_directory;
             }
 
-            $terms = get_terms([
-                'taxonomy' => ATBDP_DIRECTORY_TYPE,
-                'hide_empty' => false,
-            ]);
-
-            if ( is_wp_error( $terms  ) ) {
-                return 0;
-            }
-
-            return $terms[0]->term_id;
+            return 0;
         }
 
         // menu_page_callback__directory_types

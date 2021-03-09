@@ -454,6 +454,8 @@ $('.ext-update-btn').on('click', function (e) {
             $(self).html(icon);
         },
         success(response) {
+            console.log( { response } );
+
             if (response.status.success) {
                 $(self).html('Updated');
 

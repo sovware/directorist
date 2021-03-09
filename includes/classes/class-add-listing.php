@@ -183,7 +183,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }                    
                 }
     
-                // wp_send_json($error);
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
 
@@ -212,7 +211,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  */
              
                 $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
-
+                // wp_send_json($metas);
                 $args = array(
                     'post_content' => $content,
                     'post_title' => $title,

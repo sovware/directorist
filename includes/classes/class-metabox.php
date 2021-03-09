@@ -241,6 +241,11 @@ class ATBDP_Metabox {
 				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
 				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
 			}
+			if( 'map' === $key ) {
+				$metas[ '_hide_map' ]   = !empty( $p['hide_map'] ) ? $p['hide_map'] : '';
+				$metas[ '_manual_lat' ] = !empty( $p['manual_lat'] ) ? $p['manual_lat'] : '';
+				$metas[ '_manual_lng' ] = !empty( $p['manual_lng'] ) ? $p['manual_lng'] : '';
+			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;

@@ -249,12 +249,14 @@
     margin-top: 25px;
 
     h3 {
-        font-size: 20px;
-        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 400;
+        color: #51526E;
+        margin-bottom: 0;
     }
 
     ul {
-        margin: -15px;
+        margin: 5px -15px -15px;
         display: flex;
         flex-wrap: wrap;
         align-items: center;

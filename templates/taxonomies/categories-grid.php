@@ -70,4 +70,10 @@ $columns = floor( 12 / $taxonomy->columns );
      */
     do_action( 'atbdp_after_all_categories_loop' );
     ?>
+
+	<!-- Category style 03 -->
+	<div class="directorist-category-child-style">
+		
+	</div>
+
 </div>

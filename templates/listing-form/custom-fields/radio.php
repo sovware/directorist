@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php endforeach; ?>
 
-			<a href="#" class="directorist-custom-field-btn-more">See More</a>
+			<a href="#" class="directorist-custom-field-btn-more"><?php esc_html_e( 'See More', 'directorist' ); ?></a>
 
 		<?php endif; ?>
 

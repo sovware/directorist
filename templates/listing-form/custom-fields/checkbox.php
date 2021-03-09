@@ -28,6 +28,8 @@ $value = explode( ',', $options_value );
 
 			<?php endforeach; ?>
 
+			<a href="#" class="directorist-custom-field-btn-more"><?php esc_html_e( 'See More', 'directorist' ); ?></a>
+
 		<?php endif; ?>
 	<?php $listing_form->field_description_template( $data ); ?>
 

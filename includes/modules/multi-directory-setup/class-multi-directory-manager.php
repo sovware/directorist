@@ -24,7 +24,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             
-            add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
+            // add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
         }
 
         // update_default_directory_type_option

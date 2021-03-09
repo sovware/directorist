@@ -247,10 +247,11 @@ class ATBDP_Metabox {
 				$metas[ '_manual_lng' ] = !empty( $p['manual_lng'] ) ? $p['manual_lng'] : '';
 			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
+
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
-			}                    
+			}
 		}	
 		
 		$metas['_directory_type'] = $listing_type;
@@ -277,7 +278,7 @@ class ATBDP_Metabox {
 		}else{
 			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
 		}
-		// var_dump( $metas );die;
+	
 		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
 		// save the meta data to the database

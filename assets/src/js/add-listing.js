@@ -674,23 +674,23 @@ $( window  ).load(function() {
         
 });
 
-    $('body').on('click', '.directorist-custom-field-btn-more', function(event) {
+$('body').on('click', '.directorist-custom-field-btn-more', function(event) {
         event.preventDefault();
         let fieldWrapper = $(this).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
         let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
         $(customField).slice(20, customField.length).slideUp();
 
         $(this).toggleClass('active');
-        
-       if($(this).hasClass('active')){
-           $(this).text("See Less");
-           $(customField).slice(20, customField.length).slideDown();
-       } else {
-           $(this).text("See More");
-           $(customField).slice(20, customField.length).slideUp();
-       }
 
-    });
+        if($(this).hasClass('active')){
+                $(this).text("See Less");
+                $(customField).slice(20, customField.length).slideDown();
+        } else {
+                $(this).text("See More");
+                $(customField).slice(20, customField.length).slideUp();
+        }
+
+});
 
 // scrollToEl
 function scrollToEl(el) {

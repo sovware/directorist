@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
-	<button type="button" class="directorist-btn directorist-btn-primary directorist-btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e('Add New', 'directorist'); ?></button>
+	<button type="button" class="directorist-btn directorist-btn-primary directorist-btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e( 'Add New', 'directorist' ); ?></button>
 
 	<div class="directorist-modal directorist-modal-js directorist-fade directorist-delete-social-modal directorist-delete-social-js directorist-w-100">
 
@@ -48,9 +48,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 						<div class="directorist-delete-modal-text">
 
-							<h3>Are You Sure</h3>
+							<h3><?php esc_html_e( 'Are You Sure', 'directorist' ); ?></h3>
 							
-							<p>Do you really want to remove this Social Link!</p>
+							<p><?php esc_html_e( 'Do you really want to remove this Social Link!', 'directorist' ); ?></p>
 
 						</div>
 
@@ -60,9 +60,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-modal__footer directorist-text-center">
 
-					<button class="directorist-btn directorist-btn-danger directorist-modal-close directorist-modal-close-js">Cancel</button>
+					<button class="directorist-btn directorist-btn-danger directorist-modal-close directorist-modal-close-js"><?php esc_html_e( 'Cancel', 'directorist' ); ?></button>
 
-					<button class="directorist-btn directorist-btn-info directorist-delete-social-yes directorist-modal-close-js">Yes, Delete It!</button>
+					<button class="directorist-btn directorist-btn-info directorist-delete-social-yes directorist-modal-close-js"><?php esc_html_e( 'Yes, Delete It!', 'directorist' ); ?></button>
 
 				</div>
 

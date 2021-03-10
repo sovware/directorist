@@ -209,6 +209,7 @@ class Directorist_Listing_Taxonomy {
     	foreach ($this->terms as $term) {
 			$directory_type_meta  = get_term_meta( $term->term_id, '_directory_type', true );
 			$directory_type_meta  = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
+			$directory_type_meta  = is_array( $directory_type_meta ) ? $directory_type_meta : array( $directory_type_meta );
 			$current_type		  = $this->current_listing_type;
 			$current_slug = '';
 			if( $current_type ) {

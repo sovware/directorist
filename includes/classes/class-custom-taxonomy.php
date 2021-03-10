@@ -608,6 +608,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             $icon           = get_term_meta($term_id, 'category_icon', true);
             $directory_type = get_term_meta($term_id, '_directory_type', true);
+            $directory_type = ! empty( $directory_type ) ? $directory_type : array();
+            $directory_type = is_array( $directory_type ) ? $directory_type : array( $directory_type );
 
             /* $icon_type = array();
             if (!empty($icon)){

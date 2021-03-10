@@ -231,7 +231,7 @@ class ATBDP_Metabox {
 		}
 		
 		foreach( $submission_form_fields as $key => $value ){
-
+			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
 			if( 'image_upload' === $key ) {
 				$metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
 				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
@@ -252,8 +252,8 @@ class ATBDP_Metabox {
 				$key = '_'. $field_key;
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
 			}
+
 		}	
-		
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
 			wp_set_object_terms($post_id, (int)$listing_type, ATBDP_TYPE);

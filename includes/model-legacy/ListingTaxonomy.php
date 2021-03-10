@@ -285,11 +285,6 @@ class Directorist_Listing_Taxonomy {
     		return $redirect;
     	}
 
-		$include = apply_filters('include_style_settings', true);
-		if ($include) {
-			include ATBDP_DIR . 'public/assets/css/style.php';
-		}
-
     	wp_enqueue_script('loc_cat_assets');
 
     	if ( $this->type == 'category' ) {

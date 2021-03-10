@@ -1040,11 +1040,6 @@ class Directorist_Listings {
 
 		ob_start();
 
-		$include = apply_filters('include_style_settings', true);
-		if ($include) {
-			include ATBDP_DIR . 'assets/other/style.php';
-		}
-
 		if (!empty($this->redirect_page_url)) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;

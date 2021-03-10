@@ -6,12 +6,16 @@ const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
 $( window ).load(function() {
-        $('input#manual_coordinate').each( (index, element) => {
-                if(!$(element).is(':checked')){
-                        $('#hide_if_no_manual_cor').hide();
-                        $('.directorist-map-coordinates').hide();
-                }
-        });
+        
+        if($('input#manual_coordinate').length){
+
+                $('input#manual_coordinate').each( (index, element) => {
+                        if(!$(element).is(':checked')){
+                                $('#hide_if_no_manual_cor').hide();
+                                $('.directorist-map-coordinates').hide();
+                        }
+                });
+        }
 });
 
 $('body').on("click", "#manual_coordinate" , function(e){
@@ -696,17 +700,3 @@ $('body').on('click', '.directorist-custom-field-btn-more', function(event) {
         }
 
 });
-
-// scrollToEl
-function scrollToEl(el) {
-        // const element = typeof el === 'string' ? el : '';
-        // let scroll_top = $(element).offset().top - 50;
-        // scroll_top = scroll_top < 0 ? 0 : scroll_top;
-
-        // $('html, body').animate(
-        //         {
-        //                 scrollTop: scroll_top,
-        //         },
-        //         800
-        // );
-}

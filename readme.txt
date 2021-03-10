@@ -266,6 +266,17 @@ If you face any issues with managing this awesome business directory plugin in p
 
 If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
 
+
+== Privacy Policy ==
+Directorist &#8211; Business Directory Plugin uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
+
+
 == Installation ==
 
 1. Unzip the downloaded zip file and upload the plugin folder into the `wp-content/plugins/` directory. Alternatively, upload from Plugins >> Add New >> Upload Plugin.

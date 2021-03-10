@@ -75,6 +75,15 @@
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+    $( window  ).load(function() {
+        
+        $('.directorist-btn-ml').each( (index, element) => {
+            let item = $(element).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
+            var abc2 = $(item).find('.directorist-checkbox ');
+            $(abc2).slice(4, abc2.length).slideUp();
+        });
+        
+    });
 
     $('body').on('click', '.directorist-btn-ml', function(event) {
         event.preventDefault();
@@ -105,16 +114,15 @@
         count++;
         e.preventDefault();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-
         if (count % 2 === 0) {
-            $(this).closest('.directorist-content-active').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(this).closest('.directorist-content-active').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'visible',
                 height: height - 70 + 'px',
                 transition: '0.3s ease',
@@ -127,7 +135,7 @@
     ad_slide.hide().slideUp();
     $("body").on("click", ".directorist-filter-btn", function (e) {
         e.preventDefault();
-        $(this).closest('.directorist-content-active').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
         $(".directorist-search-slide .directorist-advanced-filter").toggleClass("directorist-advanced-filter--show");
         atbd_callingSlider();
     });

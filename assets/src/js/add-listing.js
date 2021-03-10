@@ -577,7 +577,9 @@ $('body').on('submit', formID, function (e) {
                         // show the error notice
                         $('.directorist-form-submit__btn').attr('disabled', false);
 
-                        var is_pending = response.pending ? '&' : '?';
+                        // var is_pending = response ? '&' : '?';
+                        var is_pending = ( response && response.pending ) ? '&' : '?';
+
                         if (response.error === true) {
                                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                                 $('.directorist-form-submit__btn').removeClass('atbd_loading');
@@ -654,6 +656,40 @@ $('body').on('submit', formID, function (e) {
 $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e) {
         e.preventDefault();
         $("#directorist-quick-login").removeClass("show");
+});
+
+// Custom Field Checkbox Button More
+
+$( window  ).load(function() {
+        
+        $('.directorist-custom-field-btn-more').each( (index, element) => {
+                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                $(customField).slice(20, customField.length).slideUp();
+
+                if(customField.length<20){
+                        $(element).slideUp();
+                }
+        });
+        
+});
+
+$('body').on('click', '.directorist-custom-field-btn-more', function(event) {
+        event.preventDefault();
+        let fieldWrapper = $(this).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+        $(customField).slice(20, customField.length).slideUp();
+
+        $(this).toggleClass('active');
+
+        if($(this).hasClass('active')){
+                $(this).text("See Less");
+                $(customField).slice(20, customField.length).slideDown();
+        } else {
+                $(this).text("See More");
+                $(customField).slice(20, customField.length).slideUp();
+        }
+
 });
 
 // scrollToEl

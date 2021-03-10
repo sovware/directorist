@@ -5,9 +5,11 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !$listing->display_review() ) {
+if ( !Helper::is_review_enabled() ) {
 	return;
 }
 

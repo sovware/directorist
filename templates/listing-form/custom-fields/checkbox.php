@@ -7,7 +7,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$value = explode( ',', $data['value'] );
+$options_value = is_array( $data['value'] ) ? join( ",",$data['value'] ) : $data['value'];
+
+$value = explode( ',', $options_value );
 ?>
 
 <div class="directorist-form-group directorist-custom-field-checkbox">
@@ -20,11 +22,13 @@ $value = explode( ',', $data['value'] );
 				<?php $uniqid = $option['option_value'] . '-' .wp_rand();  ?>
 
 				<div class="directorist-checkbox directorist-mb-10">
-					<input type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $option['option_value'] ); ?>" <?php echo in_array( $option['option_value'], $value ) ? 'checked="checked"' : '' ; ?>>
+					<input type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="<?php echo esc_attr( $data['field_key'] ); ?>[]" value="<?php echo esc_attr( $option['option_value'] ); ?>" <?php echo in_array( $option['option_value'], $value ) ? 'checked="checked"' : '' ; ?>>
 					<label for="<?php echo esc_attr( $uniqid ); ?>" class="directorist-checkbox__label"><?php echo esc_html( $option['option_label'] ); ?></label>
 				</div>
 
 			<?php endforeach; ?>
+
+			<a href="#" class="directorist-custom-field-btn-more"><?php esc_html_e( 'See More', 'directorist' ); ?></a>
 
 		<?php endif; ?>
 	<?php $listing_form->field_description_template( $data ); ?>

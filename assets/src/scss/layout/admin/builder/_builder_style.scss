@@ -148,6 +148,7 @@ $light-gray: #f4f5f7;
 
 .cptm-btn {
   @extend .reset-pseudo-link;
+
   &.cptm-label-btn {
     display: inline-block;
     vertical-align: top;
@@ -161,7 +162,7 @@ $light-gray: #f4f5f7;
     color: #fff;
     border-color: $primary;
     background-color: $primary;
-  
+
     &:hover {
       background-color: darken($primary, $amount: 2);
     }
@@ -171,13 +172,13 @@ $light-gray: #f4f5f7;
     color: $primary;
     border-color: $primary;
     background-color: transparent;
-  
+
     &:hover {
       color: #fff;
       background-color: $primary;
     }
   }
-  
+
 }
 
 .cptm-file-input-wrap {
@@ -641,16 +642,18 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields {
   display: block;
-  .cptm-description-text{
-    &+.cptm-btn{
+
+  .cptm-description-text {
+    &+.cptm-btn {
       border: 1px solid $primary;
       height: 43px;
-      background: rgba(62,98,245,.1);
+      background: rgba(62, 98, 245, .1);
       color: $primary;
       font-size: 14px;
       font-weight: 500;
       margin: 0 0 22px;
-      &.cptm-btn-primary{
+
+      &.cptm-btn-primary {
         background: $primary;
         color: #fff;
       }
@@ -819,7 +822,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   align-items: center;
   padding: 10px;
   text-align: center;
-  background: rgba( 255, 255, 255, 0.8 );
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .cptm-form-builder-group-field-item {
@@ -1036,9 +1039,9 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
 }
 
 
-.cptm-checkbox-area{
-  .cptm-checkbox-item{
-    &:not(:last-child){
+.cptm-checkbox-area {
+  .cptm-checkbox-item {
+    &:not(:last-child) {
       margin-bottom: 10px;
     }
   }
@@ -2473,6 +2476,11 @@ input[type="text"] {
     color: #fff;
     background-color: #14cc60;
   }
+
+  &.cptm-alert-error {
+    color: #fff;
+    background-color: #cc1433;
+  }
 }
 
 
@@ -2784,4 +2792,12 @@ input[type=radio] {
       }
     }
   }
+}
+
+
+/* Sticky fields */
+.cptm-col-sticky {
+  position: sticky;
+  top: 4rem;
+  height: 100%;
 }

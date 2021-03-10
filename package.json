@@ -8,6 +8,7 @@
     "dev": "webpack --config webpack.dev.js",
     "prod": "webpack --config webpack.prod.js",
     "build": "webpack --config webpack.build.js",
+    "production": "webpack --config webpack.prod.js",
     "blocks:build": "wp-scripts build ./includes/gutenberg/src/index.js --output-path=includes/gutenberg/assets"
   },
   "repository": {

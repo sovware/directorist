@@ -4778,6 +4778,23 @@ input.atbdp-form-control {
   font-weight: 900 !important;
 }
 
+.directorist-address-field #result ul li,
+.directorist-form-address-field #result ul li {
+  margin-bottom: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.directorist-address-field #result ul li a,
+.directorist-form-address-field #result ul li a {
+  color: #5a6671;
+  display: block;
+  padding: 8px 10px;
+}
+
+p.status:empty {
+  display: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;

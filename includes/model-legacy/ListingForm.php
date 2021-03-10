@@ -842,6 +842,7 @@ class Directorist_Listing_Form {
 				$template = Helper::get_template_contents( 'forms/add-listing', $args );
 				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
+
 			
 			// multiple directory available
 			$listing_type_args = array(

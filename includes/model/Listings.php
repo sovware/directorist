@@ -1074,19 +1074,17 @@ class Directorist_Listings {
 		setup_postdata( $id );
 		$this->set_loop_data();
 
-		if ( $loop == 'grid' ) {
+		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
 			$active_template = $this->loop['card_fields']['active_template'];
 			$template = ( $active_template == 'grid_view_with_thumbnail' ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
-		elseif ( $loop == 'list' ) {
+		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
 			$active_template = $this->loop['list_fields']['active_template'];
 			$template = ( $active_template == 'list_view_with_thumbnail' ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
-		else {
-			$template = 'grid';
-		}
-
-		Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		
 		wp_reset_postdata();
 	}
 

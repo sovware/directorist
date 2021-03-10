@@ -458,7 +458,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
         background: <?php echo !empty($open_back_color) ? $open_back_color : '#32cc6f'; ?> !important;
     }
 

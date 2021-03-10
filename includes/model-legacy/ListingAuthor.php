@@ -323,6 +323,7 @@ class Directorist_Listing_Author {
 			return $redirect;
 		}
 
+
 		$this->enqueue_scripts();
 
 		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {

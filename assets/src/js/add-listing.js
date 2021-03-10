@@ -22,7 +22,7 @@ $('body').on("click", "#manual_coordinate" , function(e){
                 $('.directorist-map-coordinates').hide();
                 $('#hide_if_no_manual_cor').hide();
         }
-})
+});
 
 
 // enable sorting if only the container has any social or skill field

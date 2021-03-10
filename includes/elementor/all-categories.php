@@ -6,6 +6,7 @@
 namespace AazzTech\Directorist\Elementor;
 
 use Elementor\Controls_Manager;
+use Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -18,12 +19,22 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 	}
 
 	private function az_listing_categories() {
-	    $result = array();
-	    $categories = get_terms( ATBDP_CATEGORY );
-        foreach ( $categories as $category ) {
-            $result[$category->slug] = $category->name;
-        }
-	    return $result;
+		$result = array();
+		$categories = get_terms( ATBDP_CATEGORY );
+		foreach ( $categories as $category ) {
+			$result[$category->slug] = $category->name;
+		}
+		return $result;
+	}
+
+	private function az_listing_types() {
+		$listing_types = array();
+		$all_types = get_terms( [ 'taxonomy'=> ATBDP_TYPE, 'hide_empty' => false ] );
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->slug ] = $type->name;
+		}
+		return $listing_types;
 	}
 
 	public function az_fields(){
@@ -32,6 +43,21 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 				'mode'    => 'section_start',
 				'id'      => 'sec_general',
 				'label'   => __( 'General', 'directorist' ),
+			),
+			array(
+				'type'     => Controls_Manager::SELECT2,
+				'id'       => 'type',
+				'label'    => __( 'Directory Types', 'directorist' ),
+				'multiple' => true,
+				'options'  => $this->az_listing_types(),
+				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+			),
+			array(
+				'type'     => Controls_Manager::SELECT2,
+				'id'       => 'default_type',
+				'label'    => __( 'Default Directory Types', 'directorist' ),
+				'options'  => $this->az_listing_types(),
+				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'    => Controls_Manager::SELECT,
@@ -62,10 +88,10 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 				'id'      => 'order_by',
 				'label'   => __( 'Order by', 'directorist' ),
 				'options' => array(
-                    'id'    => __( 'ID', 'directorist' ),
-                    'count' => __( 'Count', 'directorist' ),
-                    'name'  => __( 'Name', 'directorist' ),
-                    'slug'  => __( 'Slug', 'directorist' ),
+					'id'    => __( 'ID', 'directorist' ),
+					'count' => __( 'Count', 'directorist' ),
+					'name'  => __( 'Name', 'directorist' ),
+					'slug'  => __( 'Slug', 'directorist' ),
 				),
 				'default' => 'id',
 			),
@@ -112,19 +138,25 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-        $user = $settings['user'] ? $settings['user'] : 'no';
-        $slug = $settings['slug'] ? implode( $settings['slug'], ',' ) : '';
-
-		$shortcode = sprintf( '[directorist_all_categories view="%1$s" columns="%2$s" cat_per_page="%3$s" orderby="%4$s" order="%5$s" logged_in_user_only="%6$s" slug="%7$s"]',
-			esc_attr( $settings['view'] ),
-			esc_attr( $settings['columns'] ),
-			esc_attr( $settings['number_cat'] ),
-			esc_attr( $settings['order_by'] ),
-			esc_attr( $settings['order_list'] ),
-			esc_attr( $user ),
-			esc_attr( $slug )
+		$atts = array(
+			'view'                => $settings['view'],
+			'columns'             => $settings['columns'],
+			'cat_per_page'        => $settings['number_cat'],
+			'orderby'             => $settings['order_by'],
+			'order'               => $settings['order_list'],
+			'logged_in_user_only' => $settings['user'] ? $settings['user'] : 'no',
+			'slug'                => $settings['slug'] ? implode( $settings['slug'], ',' ) : '',
 		);
 
-		echo do_shortcode( $shortcode );
+		if ( Helper::multi_directory_enabled() ) {
+			if ( $settings['type'] ) {
+				$atts['directory_type'] = implode( $settings['type'], ',' );
+			}
+			if ( $settings['default_type'] ) {
+				$atts['default_directory_type'] = $settings['default_type'];
+			}
+		}
+
+		$this->az_run_shortcode( 'directorist_all_categories', $atts );
 	}
 }

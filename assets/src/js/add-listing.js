@@ -5,14 +5,16 @@ const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
-     
-if (!$('input#manual_coordinate').is(':checked')) {
-        $('#hide_if_no_manual_cor').hide();
-        $('.directorist-map-coordinates').hide();
-        
-}
+$( window ).load(function() {
+        $('input#manual_coordinate').each( (index, element) => {
+                if(!$(element).is(':checked')){
+                        $('#hide_if_no_manual_cor').hide();
+                        $('.directorist-map-coordinates').hide();
+                }
+        });
+});
 
-$('#manual_coordinate').on('click', function (e) {
+$('body').on("click", "#manual_coordinate" , function(e){
         if ($('input#manual_coordinate').is(':checked')) {
                 $('.directorist-map-coordinates').show();
                 $('#hide_if_no_manual_cor').show();
@@ -20,7 +22,8 @@ $('#manual_coordinate').on('click', function (e) {
                 $('.directorist-map-coordinates').hide();
                 $('#hide_if_no_manual_cor').hide();
         }
-});
+})
+
 
 // enable sorting if only the container has any social or skill field
 const $s_wrap = $('#social_info_sortable_container'); // cache it

@@ -1485,6 +1485,10 @@ span.atbdp-tick-cross {
 /* form builder add listing form */
 .postbox-container {
   .postbox {
+    select[name=directory_type]+.form-group {
+      margin-top: 15px;
+    }
+
     .form-group {
       margin-bottom: 30px;
 
@@ -1590,6 +1594,10 @@ span.atbdp-tick-cross {
       }
     }
   }
+}
+
+.theme-browser .theme .theme-name {
+  height: auto;
 }
 
 /* System Status */

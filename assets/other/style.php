@@ -468,7 +468,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
         background: <?php echo !empty($closed_back_color) ? $closed_back_color : '#e23636'; ?> !important;
     }
 
@@ -477,7 +477,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
         background: <?php echo !empty($featured_back_color) ? $featured_back_color : '#fa8b0c'; ?> !important;
     }
 
@@ -486,12 +486,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
         background: <?php echo !empty($popular_back_color) ? $popular_back_color : '#f51957'; ?> !important;
     }
 
     /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
         background: <?php echo !empty($new_back_color) ? $new_back_color : '#122069'; ?> !important;
     }
 

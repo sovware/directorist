@@ -1027,7 +1027,7 @@ class Directorist_Listings {
 		));
 
 		ob_start();
-
+		
 		if (!empty($this->redirect_page_url)) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;

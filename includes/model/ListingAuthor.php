@@ -402,6 +402,12 @@ class Directorist_Listing_Author {
 		}
 
 		ob_start();
+
+		$include = apply_filters('include_style_settings', true);
+		if ($include) {
+			include ATBDP_DIR . 'assets/other/style.php';
+		}
+		
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
 

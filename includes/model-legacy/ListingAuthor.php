@@ -323,6 +323,11 @@ class Directorist_Listing_Author {
 			return $redirect;
 		}
 
+		$include = apply_filters('include_style_settings', true);
+		if ($include) {
+			include ATBDP_DIR . 'public/assets/css/style.php';
+		}
+
 		$this->enqueue_scripts();
 
 		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {

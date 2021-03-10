@@ -708,6 +708,11 @@ class Directorist_Single_Listing {
 			return;
 		}
 
+		$include = apply_filters('include_style_settings', true);
+		if ($include) {
+			include ATBDP_DIR . 'assets/other/style.php';
+		}
+
 		$args = array(
 			'listing' => $this,
 		);

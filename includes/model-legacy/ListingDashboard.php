@@ -442,6 +442,11 @@ class Directorist_Listing_Dashboard {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
+		$include = apply_filters('include_style_settings', true);
+		if ($include) {
+			include ATBDP_DIR . 'public/assets/css/style.php';
+		}
+
 		return Helper::get_template_contents( 'dashboard/user-dashboard', [ 'dashboard' => $this ] );
 	}
 

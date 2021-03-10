@@ -484,6 +484,12 @@ class Directorist_Listing_Search_Form {
 		$this->search_listing_scripts_styles();
 
 		ob_start();
+
+		$include = apply_filters('include_style_settings', true);
+		if ($include) {
+			include ATBDP_DIR . 'assets/other/style.php';
+		}
+		
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 

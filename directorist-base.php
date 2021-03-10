@@ -1581,7 +1581,7 @@ final class Directorist_Base
             require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
         }
 
-        $client = new Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist &#8211; Business Directory Plugin', __FILE__ );
+        $client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist &#8211; Business Directory Plugin', __FILE__ );
 
         // Active insights
         $client->insights()

@@ -173,9 +173,7 @@ export default {
                 new_widget_list[ _widget_name ].options = widgets_options;
                 template_widgets[ widget_key ] = new_widget_list[ _widget_name ];
             }
-
-            console.log( { template_widgets } );
-
+            
             return template_widgets;
         },
 

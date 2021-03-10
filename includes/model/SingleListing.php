@@ -196,7 +196,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function is_custom_field( $data ) {
-		$fields = [ 'checkbox', 'color', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
 
 		$is_custom_field = in_array( $widget_name, $fields ) ? true : false;

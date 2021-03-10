@@ -1759,6 +1759,22 @@ class Directorist_Listings {
 				}
 
 				if ( $this->is_custom_field( $field ) ) {
+
+					if( 'checkbox' === $field['original_field']['type'] ){
+						$option_value = [];
+						$value = is_array( $value ) ? join( ",",$value ) : $value;
+						foreach( $field['original_field']['options'] as $option ) {
+							$key = $option['option_value'];
+							if( in_array( $key, explode( ',', $value ) ) ) {
+								$space = str_repeat(' ', 1);
+								$option_value[] = $space . $option['option_label'];
+							}
+						}
+						$output = join( ',', $option_value );
+						$result = $output ? $output : $value;
+						$args['value'] = $result;
+					}
+
 					$template = 'archive/custom-fields/' . $widget_name;
 				} else {
 					$template = 'archive/fields/' . $widget_name;

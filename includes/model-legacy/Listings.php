@@ -1724,6 +1724,21 @@ class Directorist_Listings {
 					'original_field' => $submission_form_fields,
 				);
 
+				$type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
+				if( 'checkbox' === $type ){
+					$option_value = [];
+					$value = is_array( $value ) ? join( ",",$value ) : $value;
+					foreach( $field['original_field']['options'] as $option ) {
+						$key = $option['option_value'];
+						if( in_array( $key, explode( ',', $value ) ) ) {
+							$space = str_repeat(' ', 1);
+							$option_value[] = $space . $option['option_label'];
+						}
+					}
+					$output = join( ',', $option_value );
+					$result = $output ? $output : $value;
+					$args['value'] = $result;
+				}
 				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
 				if( $load_template ) {

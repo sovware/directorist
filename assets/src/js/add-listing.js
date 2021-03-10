@@ -665,16 +665,17 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
 // Custom Field Checkbox Button More
 
 $( window  ).load(function() {
-        
-        $('.directorist-custom-field-btn-more').each( (index, element) => {
-                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
-                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-                $(customField).slice(20, customField.length).slideUp();
+        if($('.directorist-custom-field-btn-more').length){
+                $('.directorist-custom-field-btn-more').each( (index, element) => {
+                        let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                        $(customField).slice(20, customField.length).slideUp();
 
-                if(customField.length<20){
-                        $(element).slideUp();
-                }
-        });
+                        if(customField.length<20){
+                                $(element).slideUp();
+                        }
+                });
+        }
         
 });
 

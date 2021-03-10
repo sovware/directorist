@@ -117,8 +117,8 @@ class Directorist_Single_Listing {
 	public function section_has_contents( $section_data ) {
 		$has_contents = false;
 
-		foreach ( $section_data['fields'] as $field ){
-			$value = !empty( $field['field_key'] ) ? get_post_meta( $this->id, '_'.$field['field_key'], true ) : '';
+		foreach ( $section_data['fields'] as $field ) {
+			$value = Helper::get_widget_value( $this->id, $field );
 
 			if ( $value ) {
 				$has_contents = true;
@@ -146,11 +146,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $data ) {
-		$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, '_' . $data['field_key'], true ) : '';
-		
-		if ( empty( $value ) ) {
-			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
-		}
+		$value = Helper::get_widget_value( $this->id, $data );
 
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
@@ -158,6 +154,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		if( 'map' === $data['widget_name'] ) {
 			$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
 			$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
@@ -166,6 +163,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
 		

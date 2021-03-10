@@ -349,7 +349,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                             foreach ($admin_category_select as $single_category) {
                                 $cat = get_term_by('term_id', $single_category, ATBDP_CATEGORY);
-                                wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);
+                                if( !$cat ){
+                                    $result = wp_insert_term( $single_category, ATBDP_CATEGORY );
+                                    if( !is_wp_error( $result ) ){
+                                        $term_id = $result['term_id'];
+                                        wp_set_object_terms($post_id, $term_id, ATBDP_CATEGORY, $append);
+                                    }
+                                }else{
+                                    wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);
+                                }
                             }
                         }else{
                             wp_set_object_terms($post_id, '', ATBDP_CATEGORY);
@@ -509,7 +517,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                                 foreach ($admin_category_select as $single_category) {
                                     $cat = get_term_by('term_id', $single_category, ATBDP_CATEGORY);
-                                    wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);
+                                    if( !$cat ){
+                                        $result = wp_insert_term( $single_category, ATBDP_CATEGORY );
+                                        if( !is_wp_error( $result ) ){
+                                            $term_id = $result['term_id'];
+                                            wp_set_object_terms($post_id, $term_id, ATBDP_CATEGORY, $append);
+                                        }
+                                    }else{
+                                        wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);
+                                    }
                                 }
                             }else{
                                 wp_set_object_terms($post_id, '', ATBDP_CATEGORY);

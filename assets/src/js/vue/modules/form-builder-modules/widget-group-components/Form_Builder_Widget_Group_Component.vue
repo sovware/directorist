@@ -16,7 +16,7 @@
         <!-- Group Body -->
         <slide-up-down :active="widgetsExpandState" :duration="500">
             <div class="cptm-form-builder-group-fields">
-                <draggable-list-item-wrapper list-id="widget-item" :is-dragging-self="currentDraggingWidget && widget_key === currentDraggingWidget.widget_key" v-for="( widget_key, widget_index ) in groupData.fields" :key="widget_index" 
+                <draggable-list-item-wrapper list-id="widget-item" :is-dragging-self="currentDraggingWidget && ( 'active_widgets' === currentDraggingWidget.from && widget_key === currentDraggingWidget.widget_key)" v-for="( widget_key, widget_index ) in groupData.fields" :key="widget_index" 
                     class-name="directorist-draggable-form-list-wrap" 
                     :droppables="true"
                     :droppable="isDroppable( widget_index )"

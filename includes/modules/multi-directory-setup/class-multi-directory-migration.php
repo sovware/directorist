@@ -17,15 +17,20 @@ class ATBDP_Multi_Directory_Migration {
         $this->migrate();
     }
 
-    public function migrate() {
+    public function migrate( array $args = [] ) {
+        $default = [];
+        $args = array_merge( $default, $args );
+
         $fields = $this->get_fields_data();
-        
-        $add_directory = $this->multi_directory_manager->add_directory([
+        $add_directory_args = [
             'directory_name' => 'General',
             'fields_value'   => $fields,
-        ]);
-        $term           = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
-        $directory_slug = $term->slug;
+        ];
+
+        $add_directory_args = array_merge( $add_directory_args, $args );
+        $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
+        $term               = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
+        $directory_slug     = $term->slug;
 
         
         if ( $add_directory['status']['success'] ) {
@@ -65,7 +70,11 @@ class ATBDP_Multi_Directory_Migration {
 
                 }
             }
+
+            return [ 'success' => true ];
         }
+
+        return [ 'success' => false ];
         
     }
 
@@ -573,14 +582,42 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
+        $this->multi_directory_manager->prepare_settings();
+        $single_listings_widgets = [];
+        if (
+            isset( $this->multi_directory_manager::$fields ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets'] ) &&
+            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] ) &&
+            is_array( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] )
+        ) {
+            $single_listings_widgets = $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'];
+        }
+
+        $single_listings_widgets_keys = is_array( $single_listings_widgets ) ? array_keys( $single_listings_widgets ) : [];
         $single_listings_custom_fields = [];
         $custom_fields = $args[ 'old_custom_fields' ];
         foreach ( $custom_fields as $field_key => $args ) {
-            $single_listings_custom_fields[ $field_key ] = [
+            $widget_args = [
                 "label"        => $args['label'],
                 "widget_group" => "preset_widgets",
-                "widget_name"  => $args['widget_name']
+                "widget_name"  => $field_key
             ];
+
+            if ( ! in_array( $args['widget_name'],  $single_listings_widgets_keys ) ) {
+                continue;
+            }
+
+            if ( ! isset( $single_listings_widgets[ $args['widget_name'] ]['options'] ) ) {
+                continue;
+            }
+
+            foreach ( $single_listings_widgets[ $args['widget_name'] ]['options'] as $option_key => $option_args ) {
+                $widget_args[ $option_key ] = $option_args['value'];
+            }
+
+            $single_listings_custom_fields[ $field_key ] = $widget_args;
         }
 
         $single_listings_fields = array_merge( $single_listings_preset_fields, $single_listings_custom_fields );
@@ -1715,6 +1752,8 @@ class ATBDP_Multi_Directory_Migration {
             $searchable    = get_post_meta($old_field_id, 'searchable', true);
             $field_data    = [];
             
+            $field_type = ( 'color' === $field_type ) ? 'color_picker' : $field_type;
+
             // Common Data
             $field_data['type']         = $field_type;
             $field_data['label']        = get_the_title($old_field_id);

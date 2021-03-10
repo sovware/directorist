@@ -4238,6 +4238,10 @@ input.atbdp-form-control {
       }
     }
 
+    .directorist_btn-migrate {
+      margin-top: 20px;
+    }
+
     .directorist_btn-import {
       margin-top: 20px;
 
@@ -5027,6 +5031,34 @@ img.atbdp-file-info {
   &#gallery_upload {
     .listing-prv-img-container {
       text-align: center
+    }
+  }
+}
+
+// Select2
+
+.select2.select2-container{
+  .select2-selection--single{
+    border: 1px solid #8c8f94;
+    height: 40px;
+    .select2-selection__rendered{
+      height: 40px;
+      line-height: 38px;
+      padding: 0 15px;
+    }
+  }
+
+  
+  .select2-results__option{
+    i,
+    span.las,
+    span.lab,
+    span.la,
+    span.fas,
+    span.fab,
+    span.far,
+    span.fa{
+      font-size: 16px;
     }
   }
 }

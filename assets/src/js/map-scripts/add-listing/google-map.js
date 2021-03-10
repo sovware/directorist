@@ -171,8 +171,10 @@ import { get_dom_data } from '../../lib/helper';
                                 }
                         });
                 }
-
-                initMap();
+                if($('#gmap').length){
+                        initMap();
+                }
+                
 
                 // adding features of creating marker manually on the map on add listing page.
                 /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

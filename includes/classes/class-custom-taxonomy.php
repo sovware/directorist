@@ -232,10 +232,13 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <?php } ?>
             <tr class="form-field term-group-wrap">
             <th scope="row"><label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label></th>
-            <td><select class="postform" id="category_icon" name="category_icon">
+            <td><select class="postform gg" id="category_icon" name="category_icon">
                     <?php foreach ($fa_icons as $_fa_name) : ?>
                         <option value="<?php echo $_fa_name; ?>" <?php selected($_fa_name, $icon_name, true); ?>>
-                            <?php echo $_fa_name; ?>
+                            <span>
+                                <?php echo $_fa_name; ?>
+                                <i class="<?php echo $_fa_name; ?>"></i>
+                            </span>
                         </option>
                     <?php endforeach; ?>
                 </select></td>

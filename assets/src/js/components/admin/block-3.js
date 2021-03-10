@@ -1,4 +1,5 @@
 const $ = jQuery;
+
 // Custom Image uploader for listing image
 
 // Set all variables to be used in scope

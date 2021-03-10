@@ -1,5 +1,20 @@
 const $ = jQuery;
 
+// Category icon selection
+function selecWithIcon(selected) {
+    if (!selected.id) {
+        return selected.text;
+    }
+    const $elem = $(`<span><span class='${selected.element.value}'></span> ${selected.text}</span>`);
+    return $elem;
+}
+
+$('#category_icon').select2({
+    placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+    allowClear: true,
+    templateResult: selecWithIcon,
+});
+
 $('body').on('click', '.directorist_settings-trigger', function () {
     $('.setting-left-sibebar').toggleClass('active');
     $('.directorist_settings-panel-shade').toggleClass('active');

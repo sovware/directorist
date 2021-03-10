@@ -7,8 +7,9 @@ const localized_data = atbdp_public_data.add_listing_data;
 /* Show and hide manual coordinate input field */
      
 if (!$('input#manual_coordinate').is(':checked')) {
-        $('.directorist-map-coordinates').hide();
         $('#hide_if_no_manual_cor').hide();
+        $('.directorist-map-coordinates').hide();
+        
 }
 
 $('#manual_coordinate').on('click', function (e) {

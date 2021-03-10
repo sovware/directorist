@@ -4934,7 +4934,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
-            $this->prepare_settings();
+            //$this->prepare_settings();
 
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
             $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
@@ -5090,6 +5090,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
                 'show_ui' => false,
             ]);
+
+            $this->prepare_settings();
         }
 
         // enqueue_scripts

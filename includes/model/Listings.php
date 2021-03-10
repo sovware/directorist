@@ -1713,14 +1713,24 @@ class Directorist_Listings {
 			}
 			else {
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
+				$original_field = '';
 
+				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
+					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+				}
+				if ( ! empty( $original_field ) ) {
+					$field['original_field'] = $original_field;
+				}
+				
 				$id = get_the_id();
 				$load_template = true;
-				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
-
-				if ( empty( $value ) ) {
-					$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, $original_field['field_key'], true ) : '';
+				
+				$value = '';
+				if ( isset( $field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
+				}
+				if ( isset( $original_field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
 				}
 
 				if( 'listings_location' === $field['widget_name'] ) {
@@ -1745,11 +1755,15 @@ class Directorist_Listings {
 					'original_field' => $submission_form_fields,
 				);
 
-				if ( $this->is_custom_field( $field ) ) {
-					$template = 'archive/custom-fields/' . $field['widget_name'];
+				$widget_name = $field['widget_name'];
+				if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+					$widget_name = $data['original_field']['widget_name'];
 				}
-				else {
-					$template = 'archive/fields/' . $field['widget_name'];
+
+				if ( $this->is_custom_field( $field ) ) {
+					$template = 'archive/custom-fields/' . $widget_name;
+				} else {
+					$template = 'archive/fields/' . $widget_name;
 				}
 
 				if( $load_template ) {
@@ -1761,7 +1775,13 @@ class Directorist_Listings {
 
 		public function is_custom_field( $data ) {
 			$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
-			return in_array( $data['widget_name'], $fields ) ? true : false;
+			$widget_name = $data['widget_name'];
+
+			if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+				$widget_name = $data['original_field']['widget_name'];
+			}
+
+			return in_array( $widget_name, $fields ) ? true : false;
 		}
 
 		public function print_label( $label ) {
@@ -1775,6 +1795,7 @@ class Directorist_Listings {
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
+			
 			if( !empty( $fields ) ) {
 				foreach ( $fields as $field ) {
 					echo $before;$this->render_card_field( $field );echo $after;

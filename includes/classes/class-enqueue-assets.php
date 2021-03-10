@@ -144,7 +144,7 @@ class Enqueue_Assets {
             'link'      => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
             'deps'      => [],
             'ver'       => self::$script_version,
-            'group'     => 'admin', // public || admin  || global
+            'group'     => 'global', // public || admin  || global
         ];
 
         // Public

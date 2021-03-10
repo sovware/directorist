@@ -505,11 +505,6 @@ class Directorist_Listing_Search_Form {
 			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
 		);
 
-		$include = apply_filters('include_style_settings', true);
-		if ($include) {
-			include ATBDP_DIR . 'public/assets/css/style.php';
-		}
-
 		return Helper::get_template_contents( 'search/search', $args );;
 	}
 

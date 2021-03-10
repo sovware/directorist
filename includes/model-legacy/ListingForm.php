@@ -843,10 +843,6 @@ class Directorist_Listing_Form {
 				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 
-			$include = apply_filters('include_style_settings', true);
-            if ($include) {
-                include ATBDP_DIR . 'public/assets/css/style.php';
-            }
 			
 			// multiple directory available
 			$listing_type_args = array(

@@ -1,9 +1,10 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { LocationControl, CategoryControl, TagsControl, ListingControl } from './controls';
+import { LocationControl, CategoryControl, TagsControl, ListingControl } from '../controls';
+import { without } from 'lodash';
 
 import {
 	list,
@@ -92,6 +93,7 @@ registerBlockType( 'directorist/all-listing', {
 			oldTags = tag ? tag.split(',') : [],
 			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
 
+			const [ isListUpdating, setListUpdating ] = useState( false );
 		return (
 			<Fragment>
 				<BlockControls>
@@ -226,53 +228,31 @@ registerBlockType( 'directorist/all-listing', {
 							onChange={ newState => setAttributes( { order: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<ListingControl onChange={(added, newId) => {
-							let _ids = [...oldIds];
 
-							if (added) {
-								_ids.push(newId);
-							} else {
-								_ids.splice(_ids.indexOf(newId), 1);
-							}
+						<ListingControl isUpdating={ isListUpdating } onChange={(added, newId) => {
+							let _ids = added ? [ ...oldIds, newId ] : without( oldIds, newId );
 							
-							setAttributes({ids: _ids.join(',')});
-						}} selected={oldIds} />
+							setAttributes( { ids: _ids.join( ',' ) } );
+							setListUpdating( true );
+						}} selected={ oldIds } />
 
 						<CategoryControl onChange={(added, newCategory) => {
-							let _categories = oldCategories.slice(0);
-
-							if (added) {
-								_categories.push(newCategory);
-							} else {
-								_categories.splice(_categories.indexOf(newCategory), 1);
-							}
+							let _categories = added ? [ ...oldCategories, newCategory ] : without( oldCategories, newCategory );
 							
-							setAttributes({category: _categories.join(',')});
-						}} selected={oldCategories} />
+							setAttributes( { category: _categories.join( ',' ) } );
+						}} selected={ oldCategories } />
 
 						<TagsControl onChange={(added, newTag) => {
-							let _tags = oldTags.slice(0);
-
-							if (added) {
-								_tags.push(newTag);
-							} else {
-								_tags.splice(_tags.indexOf(newTag), 1);
-							}
+							let _tags = added ? [ ...oldTags, newTag ] : without( oldTags, newTag );
 							
-							setAttributes({tag: _tags.join(',')});
-						}} selected={oldTags} />
+							setAttributes( { tag: _tags.join( ',' ) } );
+						}} selected={ oldTags } />
 
 						<LocationControl onChange={(added, newLocation) => {
-							let _locations = oldLocations.slice(0);
+							let _locations = added ? [ ...oldLocations, newLocation ] : without( oldLocations, newLocation );
 
-							if (added) {
-								_locations.push(newLocation);
-							} else {
-								_locations.splice(_locations.indexOf(newLocation), 1);
-							}
-							
-							setAttributes({location: _locations.join(',')});
-						}} selected={oldLocations} />
+							setAttributes( { location: _locations.join( ',' ) } );
+						}} selected={ oldLocations } />
 					</PanelBody>
 				</InspectorControls>
 

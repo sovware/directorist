@@ -1,7 +1,7 @@
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { Spinner } from '@wordpress/components';
-import { sortItemsBySelected } from '../functions'
+import { sortItemsBySelected } from './functions'
 
 import {
 	CheckboxControl,
@@ -135,14 +135,22 @@ export const TagsControl = withSelect( select => {
 });
 
 export const ListingControl = withSelect( select => {
+	const args = {
+		per_page: -1,
+		orderby: 'title',
+		order: 'asc'
+	}
+	
 	return {
-		items: select( 'core' ).getEntityRecords( 'postType', 'at_biz_dir' )
+		items: select( 'core' ).getEntityRecords( 'postType', 'at_biz_dir', args )
 	}
 })( props => {
 	let choices = [];
 
 	if ( props.items ) {
-		choices = props.items.map( item => (
+		choices = ( ! props.isUpdating ?
+			sortItemsBySelected( props.items, props.selected, 'id' ) :
+			props.items ).map( item => (
 			<li key={ item.id }>
 				<CheckboxControl
 					label={ `${item.title.rendered.slice( 0, 22 )}...` }

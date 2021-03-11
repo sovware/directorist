@@ -3,7 +3,8 @@ import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/bloc
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { LocationControl } from './../all-listing/controls';
+import { LocationControl } from '../controls';
+import { without } from 'lodash';
 
 import {
 	list,
@@ -153,13 +154,7 @@ registerBlockType( 'directorist/all-locations', {
 							className='directorist-gb-fixed-control'
 						/>
 						<LocationControl onChange={(added, newLocation) => {
-							let _locations = oldLocations.slice(0);
-
-							if (added) {
-								_locations.push(newLocation);
-							} else {
-								_locations.splice(_locations.indexOf(newLocation), 1);
-							}
+							let _locations = added ? [ ...oldLocations, newLocation ] : without( oldLocations, newLocation );
 							
 							setAttributes({slug: _locations.join(',')});
 						}} selected={oldLocations} />

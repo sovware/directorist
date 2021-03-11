@@ -3,7 +3,8 @@ import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/bloc
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { CategoryControl } from '../all-listing/controls';
+import { CategoryControl } from '../controls';
+import { without } from 'lodash';
 
 import {
 	list,
@@ -153,15 +154,9 @@ registerBlockType( 'directorist/all-categories', {
 							className='directorist-gb-fixed-control'
 						/>
 						<CategoryControl onChange={(added, newCategory) => {
-							let _categories = oldCategories.slice(0);
-
-							if (added) {
-								_categories.push(newCategory);
-							} else {
-								_categories.splice(_categories.indexOf(newCategory), 1);
-							}
+							let _categories = added ? [ ...oldCategories, newCategory ] : without( oldCategories, newCategory );
 							
-							setAttributes({slug: _categories.join(',')});
+							setAttributes( { slug: _categories.join( ',' ) } );
 						}} selected={oldCategories} />
 					</PanelBody>
 				</InspectorControls>

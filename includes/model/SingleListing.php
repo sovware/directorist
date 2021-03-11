@@ -196,7 +196,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function is_custom_field( $data ) {
-		$fields = [ 'checkbox', 'color', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
 
 		$is_custom_field = in_array( $widget_name, $fields ) ? true : false;
@@ -206,7 +206,7 @@ class Directorist_Single_Listing {
 
 	public function get_custom_field_value( $type, $data ) {
 		$result = '';
-		$value = $data['value'];
+		$value = is_array( $data['value'] ) ? join( ",",$data['value'] ) : $data['value'];
 		
 		switch ( $type ) {
 			case 'radio':
@@ -229,7 +229,8 @@ class Directorist_Single_Listing {
 					$option_value[] = $space . $option['option_label'];
 				}
 			}
-			$result = join( ',', $option_value );
+			$output = join( ',', $option_value );
+			$result = $output ? $output : $value;
 			break;
 		}
 

@@ -150,6 +150,7 @@ class ATBDP_Multi_Directory_Migration {
             "placeholder"  => get_directorist_option( 'title_placeholder', "Enter a title" ),
             "widget_group" => "preset",
             "widget_name"  => "title",
+            "widget_key"   => "title",
         ];
 
         // Description
@@ -162,7 +163,8 @@ class ATBDP_Multi_Directory_Migration {
             "required"       => get_directorist_option( 'require_long_details', false ),
             "only_for_admin" => get_directorist_option( 'display_desc_for', false ),
             "widget_group"   => "preset",
-            "widget_name"    => "description"
+            "widget_name"    => "description",
+            "widget_key"     => "description",
         ];
 
         // Excerpt
@@ -176,7 +178,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_excerpt', false ),
                 "only_for_admin" => get_directorist_option( 'display_short_desc_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "excerpt"
+                "widget_name"    => "excerpt",
+                "widget_key"     => "excerpt",
             ];
         }
 
@@ -190,7 +193,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => false,
                 "only_for_admin" => true,
                 "widget_group"   => "preset",
-                "widget_name"    => "view_count"
+                "widget_name"    => "view_count",
+                "widget_key"     => "view_count",
             ];
         }
 
@@ -203,6 +207,7 @@ class ATBDP_Multi_Directory_Migration {
                 "placeholder"  => get_directorist_option( 'tagline_placeholder', "Your Listing's motto or tag-line" ),
                 "widget_group" => "preset",
                 "widget_name"  => "tagline",
+                "widget_key"   => "tagline",
             ];
         }
 
@@ -218,6 +223,7 @@ class ATBDP_Multi_Directory_Migration {
                 "price_unit_field_label" => get_directorist_option( 'price_label', 'Price' ),
                 "widget_group"           => "preset",
                 "widget_name"            => "pricing",
+                "widget_key"             => "pricing",
             ];
         }
 
@@ -229,7 +235,8 @@ class ATBDP_Multi_Directory_Migration {
             "required"       => get_directorist_option( 'require_location', false ),
             "only_for_admin" => get_directorist_option( 'display_loc_for', false ),
             "widget_group"   => "preset",
-            "widget_name"    => "location"
+            "widget_name"    => "location",
+            "widget_key"     => "location"
         ];
 
         $general_group_field_keys[] = 'tag';
@@ -241,7 +248,8 @@ class ATBDP_Multi_Directory_Migration {
             "allow_new"      => get_directorist_option( 'create_new_tag', true ),
             "only_for_admin" => get_directorist_option( 'display_tag_for', false ),
             "widget_group"   => "preset",
-            "widget_name"    => "tag"
+            "widget_name"    => "tag",
+            "widget_key"     => "tag"
         ];
 
         $general_group_field_keys[] = 'category';
@@ -252,20 +260,22 @@ class ATBDP_Multi_Directory_Migration {
             "required"       => get_directorist_option( 'require_category', false ),
             "only_for_admin" => false,
             "widget_group"   => "preset",
-            "widget_name"    => "category"
+            "widget_name"    => "category",
+            "widget_key"     => "category",
         ];
 
         // Contact Group
         // ------------------------------
         $contact_group_info_field_keys[] = 'hide_contact_owner';
         $preset_fields[ "hide_contact_owner" ] = [
-            "type"           => "checkbox",
-            "field_key"      => "hide_contact_owner",
-            "label"          => 'Hide contact owner form for single listing page',
-            "placeholder"    => get_directorist_option( 'zip_placeholder', 'Enter Zip/Post Code' ),
-            "required"       => get_directorist_option( 'require_zip', false ),
-            "widget_group"   => "preset",
-            "widget_name"    => "hide_contact_owner",
+            "type"         => "checkbox",
+            "field_key"    => "hide_contact_owner",
+            "label"        => 'Hide contact owner form for single listing page',
+            "placeholder"  => get_directorist_option( 'zip_placeholder', 'Enter Zip/Post Code' ),
+            "required"     => get_directorist_option( 'require_zip', false ),
+            "widget_group" => "preset",
+            "widget_name"  => "hide_contact_owner",
+            "widget_key"   => "hide_contact_owner",
         ];
 
         if ( ! empty( get_directorist_option( 'display_zip_field', true ) ) ) {
@@ -279,6 +289,7 @@ class ATBDP_Multi_Directory_Migration {
                 "only_for_admin" => get_directorist_option( 'display_zip_for', false ),
                 "widget_group"   => "preset",
                 "widget_name"    => "zip",
+                "widget_key"     => "zip",
             ];
         }
 
@@ -292,7 +303,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_phone_number', false ),
                 "only_for_admin" => get_directorist_option( 'display_phone_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "phone"
+                "widget_name"    => "phone",
+                "widget_key"     => "phone"
             ];
         }
 
@@ -306,7 +318,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_phone2_number', false ),
                 "only_for_admin" => get_directorist_option( 'display_phone2_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "phone2"
+                "widget_name"    => "phone2",
+                "widget_key"     => "phone2",
             ];
         }
 
@@ -320,7 +333,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_fax', false ),
                 "only_for_admin" => get_directorist_option( 'display_fax_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "fax"
+                "widget_name"    => "fax",
+                "widget_key"     => "fax",
             ];
         }
 
@@ -334,7 +348,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_email', false ),
                 "only_for_admin" => get_directorist_option( 'display_email_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "email"
+                "widget_name"    => "email",
+                "widget_key"     => "email",
             ];
         }
 
@@ -349,7 +364,8 @@ class ATBDP_Multi_Directory_Migration {
                 "only_for_admin" => get_directorist_option( 'display_website_for', false ),
                 "plans"          => [],
                 "widget_group"   => "preset",
-                "widget_name"    => "website"
+                "widget_name"    => "website",
+                "widget_key"     => "website",
             ];
         }
 
@@ -362,7 +378,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_social_info', false ),
                 "only_for_admin" => get_directorist_option( 'display_social_info_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "social_info"
+                "widget_name"    => "social_info",
+                "widget_key"     => "social_info",
             ];
         }
 
@@ -376,7 +393,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_address', false ),
                 "only_for_admin" => get_directorist_option( 'display_address_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "address"
+                "widget_name"    => "address",
+                "widget_key"     => "address",
             ];
         }
 
@@ -390,7 +408,8 @@ class ATBDP_Multi_Directory_Migration {
                 "lat_long"       => "Or Enter Coordinates (latitude and longitude) Manually",
                 "required"       => false,
                 "widget_group"   => "preset",
-                "widget_name"    => "map"
+                "widget_name"    => "map",
+                "widget_key"     => "map",
             ];
         }
 
@@ -407,7 +426,8 @@ class ATBDP_Multi_Directory_Migration {
                 "max_total_image_limit" => get_directorist_option( 'max_gallery_upload_size', 2 ),
                 "only_for_admin"        => get_directorist_option( 'display_glr_img_for', false ),
                 "widget_group"          => "preset",
-                "widget_name"           => "image_upload"
+                "widget_name"           => "image_upload",
+                "widget_key"            => "image_upload",
             ];
         }
 
@@ -421,7 +441,8 @@ class ATBDP_Multi_Directory_Migration {
                 "required"       => get_directorist_option( 'require_video', false ),
                 "only_for_admin" => get_directorist_option( 'display_video_for', false ),
                 "widget_group"   => "preset",
-                "widget_name"    => "video"
+                "widget_name"    => "video",
+                "widget_key"     => "video",
             ];
         }
 
@@ -1772,6 +1793,7 @@ class ATBDP_Multi_Directory_Migration {
 
             $field_data['widget_group'] = 'custom';
             $field_data['widget_name']  = $field_type;
+            $field_data['widget_key']   = $field_type . '_' . $old_field_id;
             
             // field group
             $field_group = [ 'radio', 'checkbox', 'select' ];

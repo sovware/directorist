@@ -1759,8 +1759,8 @@ class Directorist_Listings {
 				}
 
 				if ( $this->is_custom_field( $field ) ) {
-
-					if( 'checkbox' === $field['original_field']['type'] ){
+					$field_type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
+					if( 'checkbox' === $field_type ){
 						$option_value = [];
 						$value = is_array( $value ) ? join( ",",$value ) : $value;
 						foreach( $field['original_field']['options'] as $option ) {

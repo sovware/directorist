@@ -83,6 +83,7 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;
@@ -118,7 +119,7 @@ class Directorist_Single_Listing {
 		$has_contents = false;
 
 		foreach ( $section_data['fields'] as $field ) {
-			$value = Helper::get_widget_value( $this->id, $field );
+			$value = Helper::get_value( $this->id, $field );
 
 			if ( $value ) {
 				$has_contents = true;

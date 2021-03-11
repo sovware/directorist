@@ -18,8 +18,12 @@ class Helper {
 	}
 
 	// get_widget_value
-	public static function get_widget_value( $post_id = 0, array $widget = [] ) {
+	public static function get_widget_value( $post_id = 0, $widget = [] ) {
 		$value = '';
+
+		// directorist_console_log( $widget );
+
+		if ( ! is_array( $widget ) ) { return ''; }
 
 		if ( isset( $widget['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_'.$widget['field_key'], true );

@@ -85,6 +85,8 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
+
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;

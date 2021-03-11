@@ -2951,6 +2951,10 @@ input#privacy_policy,
   color: #69708E;
 }
 
+#directorist.atbd_wrapper .atbdp-announcement__content p:empty {
+  display: none;
+}
+
 @media (max-width: 575px) {
   #directorist.atbd_wrapper .atbdp-announcement__content {
     -webkit-box-ordinal-group: 3;

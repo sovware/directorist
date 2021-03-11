@@ -1995,6 +1995,10 @@ input#privacy_policy,
       color: #69708E;
     }
 
+    p:empty{
+      display: none;
+    }
+
     @media (max-width: 575px) {
       order: 2;
       flex: 0 0 100%;

@@ -2800,4 +2800,6 @@ input[type=radio] {
   position: sticky;
   top: 4rem;
   height: 100%;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }

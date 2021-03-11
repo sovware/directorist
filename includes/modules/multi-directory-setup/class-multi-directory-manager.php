@@ -4657,6 +4657,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     ],
                                 ],
 
+                                'default_preview' => [
+                                    'title'       => __('Default Preview', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                                
                                 'export_import' => [
                                     'title'       => __('Export The Config File', 'directorist'),
                                     'description' => __('Export all the form, layout and settings', 'directorist'),
@@ -4803,18 +4811,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'description' => __( 'need help?', 'directorist' ),
                                     'fields' => [
                                         'listings_card_list_view'
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'other' => [
-                            'label' => __('Other', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'preview_image',
                                     ],
                                 ],
                             ],

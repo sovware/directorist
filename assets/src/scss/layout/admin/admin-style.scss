@@ -5034,19 +5034,21 @@ img.atbdp-file-info {
 
 // Select2
 
-.select2.select2-container{
-  .select2-selection--single{
+.select2.select2-container {
+  .select2-selection--single {
     border: 1px solid #8c8f94;
     height: 40px;
-    .select2-selection__rendered{
+
+    .select2-selection__rendered {
       height: 40px;
       line-height: 38px;
       padding: 0 15px;
     }
   }
 
-  
-  .select2-results__option{
+
+  .select2-results__option {
+
     i,
     span.las,
     span.lab,
@@ -5054,11 +5056,18 @@ img.atbdp-file-info {
     span.fas,
     span.fab,
     span.far,
-    span.fa{
+    span.fa {
       font-size: 16px;
     }
   }
 }
+
+#style_settings__color_settings .cptm-field-wraper-type-wp-media-picker {
+  input[type=button].cptm-btn {
+    display: none;
+  }
+}
+
 
 // Base Style
 @import '../../base/general';

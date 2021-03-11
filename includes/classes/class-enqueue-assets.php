@@ -629,8 +629,6 @@ class Enqueue_Assets {
 
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
-
-		// var_dump( self::$css_scripts );
 	}
 
 	/**
@@ -1091,12 +1089,7 @@ class Enqueue_Assets {
 	}
 
 	public static function dynamic_style() {
-		if ( Helper::is_legacy_mode() ) {
-			$style_path = ATBDP_DIR . 'public/assets/css/style.php';
-		}
-		else {
-			$style_path = ATBDP_DIR . 'assets/other/style.php';
-		}
+		$style_path = ATBDP_DIR . 'assets/other/style.php';
 
 		ob_start();
 		include $style_path;
@@ -1105,7 +1098,6 @@ class Enqueue_Assets {
 		$style = self::minify_css( $style );
 		return $style;
 	}
-
 
 	/**
 	 * Enqueue Public Scripts
@@ -1120,7 +1112,7 @@ class Enqueue_Assets {
 		// CSS
 		self::register_css_scripts();
 		self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
-		wp_add_inline_style( 'directorist-main-style', self::dynamic_style() );
+		wp_add_inline_style( 'directorist-inline-style', self::dynamic_style() );
 
 		// JS
 		self::register_js_scripts();

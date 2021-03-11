@@ -819,6 +819,8 @@
         e.preventDefault();
         alert(atbdp_public_data.login_alert_message);
 
+        return false;
+
     });
 
     // Add or Remove from favourites

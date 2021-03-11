@@ -5,6 +5,7 @@
     border-radius: 4px;
     padding: 25px 20px;
     .atbdp-announcement{
+        font-size: 15px;
         display: flex;
         align-items: center;
         padding-bottom: 15.5px;
@@ -62,11 +63,19 @@
                 font-weight: 500;
                 color: $dark;
                 margin-bottom: 6px;
+                margin-top: 0;
                 p{
                     font-size: 14px;
                     font-weight: 400;
                     color: #69708E;
+                    &:empty{
+                        display: none;
+                    }
                 }
+            }
+            
+            p:empty{
+                display: none;
             }
         }
 
@@ -78,6 +87,7 @@
                 border-radius: 50%;
                 background-color: #F5F5F5;
                 border: 0 none;
+                padding: 0;
                 transition: .35s;
                 i,
                 span.fa,

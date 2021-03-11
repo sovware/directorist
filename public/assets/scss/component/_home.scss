@@ -107,8 +107,9 @@
       margin-right: -5px;
       margin-top: -5px;
       margin-bottom: -5px;
+
       .single_search_field {
-        min-width:200px;
+        min-width: 200px;
         flex: auto;
         padding-left: 5px !important;
         padding-right: 5px !important;
@@ -199,62 +200,67 @@
       font-weight: 600;
     }
   }
+
   .atbdp-search-form {
     .single_search_field {
       position: relative;
+
       &.search_category,
-      &.search_location{
+      &.search_location {
         min-width: auto;
       }
 
-      textarea{
-        padding: 10px 15px  !important;
+      textarea {
+        padding: 10px 15px !important;
         resize: none;
       }
 
       .wp-picker-container,
       .atbdp-range-slider-wrapper,
-      .bads-tags{
+      .bads-tags {
         padding: 10px 15px;
       }
 
-      .atbdp-range-slider-wrapper{
-        .atbd-current-value{
+      .atbdp-range-slider-wrapper {
+        .atbd-current-value {
           padding-right: 0 !important;
         }
       }
 
-      .wp-picker-container{
-        .wp-picker-input-wrap{
+      .wp-picker-container {
+        .wp-picker-input-wrap {
           margin-left: 8px;
         }
       }
 
-      .wp-picker-holder{
+      .wp-picker-holder {
         position: absolute;
         z-index: 22;
       }
 
-      label{
+      label {
         display: none !important;
       }
 
-      .custom-checkbox{
-        label{
+      .custom-checkbox {
+        label {
           display: block !important;
           padding-left: 30px !important;
-          &:before{
+
+          &:before {
             display: none;
           }
         }
-        input[type=checkbox]{
+
+        input[type=checkbox] {
           display: none;
         }
       }
     }
   }
-  .ads-advanced{
-    .select2.select2-container{
+
+  .ads-advanced {
+    .select2.select2-container {
       width: 100% !important;
     }
   }
@@ -1005,8 +1011,7 @@
       width: 40px;
       height: 40px;
       border: 2px solid #0A0B1E;
-      border-top: 0 none;
-      border-right: 0 none;
+      border-top-color: transparent;
       border-radius: 50%;
       z-index: 2;
       left: 50%;

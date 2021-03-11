@@ -4795,6 +4795,23 @@ p.status:empty {
   display: none;
 }
 
+.directorist-checkbox-field input + label {
+  margin-left: 5px;
+}
+
+.directorist-hide-owner-field input {
+  margin-top: 2px !important;
+}
+
+.directorist-hide-owner-field input label {
+  margin-left: 0 !important;
+}
+
+.form-group.hide-map-option,
+.directorist-map-field {
+  margin-bottom: 0 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -11291,7 +11308,7 @@ span.atbd_get_loc_wid {
 }
 
 .directory_search_area .atbdp-search-form .single_search_field textarea {
-  padding: 10px 15px  !important;
+  padding: 10px 15px !important;
   resize: none;
 }
 
@@ -12093,8 +12110,7 @@ span.atbd_get_loc_wid {
   width: 40px;
   height: 40px;
   border: 2px solid #0A0B1E;
-  border-top: 0 none;
-  border-right: 0 none;
+  border-top-color: transparent;
   border-radius: 50%;
   z-index: 2;
   left: 50%;

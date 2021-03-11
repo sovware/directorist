@@ -110,15 +110,15 @@
                                 </div>
                                 <?php }
 
-                                if( ! empty( get_directorist_option('display_user_type') ) ) { 
-                                    if( empty( $user_type) || 'author' == $user_type ) {    
+                                if( ! empty( get_directorist_option('display_user_type') ) ) {
+                                    if( empty( $user_type) || 'author' == $user_type ) {
                                     ?>
                                     <div class="atbd_user_type_area directory_regi_btn">
                                             <input id="author_type" type="radio"
                                                 name="user_type" value='author' <?php echo $author_checked; ?>>
                                             <label for="author_type"><?php _e( 'I am an author', 'directorist' ); ?>
                                     </div>
-                                    <?php } 
+                                    <?php }
                                     if( empty( $user_type ) || 'general' == $user_type ) { ?>
                                     <div class="atbd_user_type_area directory_regi_btn">
                                             <input id="general_type" type="radio"
@@ -171,7 +171,7 @@
                                 </div>
                                 <?php } ?>
                                 <div class="directory_regi_btn">
-                                    <?php  
+                                    <?php
                                     $redirection_after_reg = get_directorist_option( 'redirection_after_reg' );
                                     if( ! empty( $redirection_after_reg ) && 'previous_page' == $redirection_after_reg ) {
                                     ?>

@@ -18,8 +18,11 @@
         }
         var $this = $(this);
         var id = $this.data('review_id');
-        var data = 'review_id=' + id;
-
+        var data = {
+            review_id: id,
+            action: "remove_listing_review"
+        };
+        
         swal({
             title: atbdp_public_data.review_sure_msg,
             text: atbdp_public_data.review_want_to_remove,
@@ -34,7 +37,8 @@
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the review
-                    atbdp_do_ajax($this, 'remove_listing_review', data, function (response) {
+
+                    $.post(atbdp_public_data.ajaxurl, data, function (response) {
                         if ('success' === response) {
                             // show success message
                             swal({
@@ -46,8 +50,8 @@
                             $("#single_review_" + id).slideUp();
                             $this.remove();
                             $('#review_content').empty();
-                            $("#atbdp_review_form_submit").remove();
-                            $(".atbd_review_rating_area").remove();
+                            $(".directorist-review-form-action").remove();
+                            $("#directorist-client-review-list").remove();
                             $("#reviewCounter").hide();
                             delete_count++; // increase the delete counter so that we do not need to delete the review more than once.
                         } else {

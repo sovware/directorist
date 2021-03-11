@@ -29,9 +29,7 @@ class ATBDP_Multi_Directory_Migration {
 
         $add_directory_args = array_merge( $add_directory_args, $args );
         $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
-        $term               = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
-        $directory_slug     = $term->slug;
-
+        $directory_id       = $add_directory['term_id'];
         
         if ( $add_directory['status']['success'] ) {
             update_term_meta( $add_directory['term_id'], '_default', true );
@@ -48,7 +46,7 @@ class ATBDP_Multi_Directory_Migration {
                   ]);
                   if( !empty( $term_data ) ) {
                       foreach( $term_data as $data ) {
-                          update_term_meta( $data->term_id, '_directory_type', [ $directory_slug ] );
+                          update_term_meta( $data->term_id, '_directory_type', [ $directory_id ] );
                       }
                   }
             }
@@ -58,15 +56,15 @@ class ATBDP_Multi_Directory_Migration {
                 'post_type'      => ATBDP_POST_TYPE,
                 'status'         => 'publish',
                 'posts_per_page' => -1,
+                'fields'         => 'ids',
             ]);
 
             if ( $listings->have_posts() ) {
-                while ( $listings->have_posts() ) {
-                    $listings->the_post();
+                foreach ( $listings->posts() as $listing_id ) {
 
                     // Set Directory Type
-                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
-                    update_post_meta( get_the_id(), '_directory_type', $add_directory['term_id'] );
+                    wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
+                    update_post_meta( $listing_id, '_directory_type', $directory_id );
 
                 }
             }

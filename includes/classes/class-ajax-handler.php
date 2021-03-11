@@ -604,8 +604,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function remove_listing_review()
         {
-            // save the data if nonce is good and data is valid
-            if (valid_js_nonce()) {
                 if (!empty($_POST['review_id'])) {
                     $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
                     if ($success) {
@@ -613,11 +611,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     } else {
                         echo 'error';
                     }
+                }else {
+                    echo 'error';
                 }
-            } else {
-                echo 'error';
-                // show error message
-            }
             wp_die();
         }
 

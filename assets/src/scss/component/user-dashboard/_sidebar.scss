@@ -44,11 +44,12 @@
         transition: 0.3s ease
     }
 
-    .directorist-tab__nav__items{
-        li{
-            ul{
+    .directorist-tab__nav__items {
+        li {
+            ul {
                 display: none;
-                li a{
+
+                li a {
                     padding-left: 25px;
                 }
             }
@@ -72,7 +73,7 @@
             margin-right: 10px;
         }
 
-        .directorist_menuItem-text{
+        .directorist_menuItem-text {
             pointer-events: none;
         }
 

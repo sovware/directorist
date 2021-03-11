@@ -1074,19 +1074,17 @@ class Directorist_Listings {
 		setup_postdata( $id );
 		$this->set_loop_data();
 
-		if ( $loop == 'grid' ) {
+		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
 			$active_template = $this->loop['card_fields']['active_template'];
 			$template = ( $active_template == 'grid_view_with_thumbnail' ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
-		elseif ( $loop == 'list' ) {
+		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
 			$active_template = $this->loop['list_fields']['active_template'];
 			$template = ( $active_template == 'list_view_with_thumbnail' ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
-		else {
-			$template = 'grid';
-		}
-
-		Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		
 		wp_reset_postdata();
 	}
 
@@ -1713,14 +1711,24 @@ class Directorist_Listings {
 			}
 			else {
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
+				$original_field = '';
 
+				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
+					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+				}
+				if ( ! empty( $original_field ) ) {
+					$field['original_field'] = $original_field;
+				}
+				
 				$id = get_the_id();
 				$load_template = true;
-				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
-
-				if ( empty( $value ) ) {
-					$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, $original_field['field_key'], true ) : '';
+				
+				$value = '';
+				if ( isset( $field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
+				}
+				if ( isset( $original_field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
 				}
 
 				if( 'listings_location' === $field['widget_name'] ) {
@@ -1745,11 +1753,31 @@ class Directorist_Listings {
 					'original_field' => $submission_form_fields,
 				);
 
-				if ( $this->is_custom_field( $field ) ) {
-					$template = 'archive/custom-fields/' . $field['widget_name'];
+				$widget_name = $field['widget_name'];
+				if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+					$widget_name = $data['original_field']['widget_name'];
 				}
-				else {
-					$template = 'archive/fields/' . $field['widget_name'];
+
+				if ( $this->is_custom_field( $field ) ) {
+					$field_type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
+					if( 'checkbox' === $field_type ){
+						$option_value = [];
+						$value = is_array( $value ) ? join( ",",$value ) : $value;
+						foreach( $field['original_field']['options'] as $option ) {
+							$key = $option['option_value'];
+							if( in_array( $key, explode( ',', $value ) ) ) {
+								$space = str_repeat(' ', 1);
+								$option_value[] = $space . $option['option_label'];
+							}
+						}
+						$output = join( ',', $option_value );
+						$result = $output ? $output : $value;
+						$args['value'] = $result;
+					}
+
+					$template = 'archive/custom-fields/' . $widget_name;
+				} else {
+					$template = 'archive/fields/' . $widget_name;
 				}
 
 				if( $load_template ) {
@@ -1761,7 +1789,13 @@ class Directorist_Listings {
 
 		public function is_custom_field( $data ) {
 			$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
-			return in_array( $data['widget_name'], $fields ) ? true : false;
+			$widget_name = $data['widget_name'];
+
+			if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+				$widget_name = $data['original_field']['widget_name'];
+			}
+
+			return in_array( $widget_name, $fields ) ? true : false;
 		}
 
 		public function print_label( $label ) {
@@ -1775,6 +1809,7 @@ class Directorist_Listings {
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
+			
 			if( !empty( $fields ) ) {
 				foreach ( $fields as $field ) {
 					echo $before;$this->render_card_field( $field );echo $after;

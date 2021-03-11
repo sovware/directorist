@@ -5,6 +5,7 @@
  * @version 6.7
  */
 $option_value = [];
+$value = is_array( $value ) ? join( ",",$value ) : $value;
 foreach( $data['original_data']['options'] as $option ) {
     $key = $option['option_value'];
     if( in_array( $key, explode( ',', $value ) ) ) {

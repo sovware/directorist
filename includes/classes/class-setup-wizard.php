@@ -147,7 +147,7 @@ class SetupWizard
                             $result = wp_insert_term( $value, $taxonomy );
                             if( !is_wp_error( $result ) ){
                                 $term_id = $result['term_id'];
-                                update_term_meta($term_id, '_directory_type', [ $directory_slug ] );
+                                update_term_meta($term_id, '_directory_type', [ $directory_id ] );
                                 wp_set_object_terms($post_id, $term_id, $taxonomy);
                             }
                         }else{
@@ -160,7 +160,7 @@ class SetupWizard
                             $result = wp_insert_term( $value, $taxonomy );
                             if( !is_wp_error( $result ) ){
                                 $term_id = $result['term_id'];
-                                update_term_meta($term_id, '_directory_type',  [ $directory_slug ] );
+                                update_term_meta($term_id, '_directory_type',  [ $directory_id ] );
                                 wp_set_object_terms($post_id, $term_id, $taxonomy);
                             }
                         }else{

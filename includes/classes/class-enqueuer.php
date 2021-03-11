@@ -205,6 +205,9 @@ class ATBDP_Enqueuer {
         $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
         $front_scripts_dependency = array( 'jquery' );
         // @Todo; make unminified css minified then enqueue them.
+        wp_register_style( 'directorist-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false, ATBDP_VERSION );
+        wp_enqueue_style( 'directorist-unicons' );
+
         wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
@@ -295,10 +298,12 @@ class ATBDP_Enqueuer {
             wp_enqueue_style( 'atbdp-bootstrap-style-rtl' );
             wp_enqueue_style( 'atbdp-style-rtl' );
             wp_enqueue_style( 'atbdp-media-uploader-style-rtl' );
+            wp_add_inline_style( 'atbdp-style-rtl', self::dynamic_style() );
         } else {
             wp_enqueue_style( 'atbdp-bootstrap-style' );
             wp_enqueue_style( 'atbdp-style' );
             wp_enqueue_style( 'atbdp-media-uploader-style' );
+            wp_add_inline_style( 'atbdp-style', self::dynamic_style() );
         }
         wp_enqueue_style( 'atbdp-font-awesome' );
         wp_enqueue_style( 'atbdp-line-awesome' );
@@ -394,6 +399,60 @@ class ATBDP_Enqueuer {
         wp_add_inline_style( 'atbdp-settings-style', ATBDP_Stylesheet::style_settings_css() );
 
         $this->load_template_scripts();
+    }
+
+    // Ref: https://gist.github.com/Rodrigo54/93169db48194d470188f
+    public static function minify_css( $input ) {
+        if(trim($input) === "") return $input;
+        return preg_replace(
+            array(
+                // Remove comment(s)
+                '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
+                // Remove unused white-space(s)
+                '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
+                // Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
+                '#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
+                // Replace `:0 0 0 0` with `:0`
+                '#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
+                // Replace `background-position:0` with `background-position:0 0`
+                '#(background-position):0(?=[;\}])#si',
+                // Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+                '#(?<=[\s:,\-])0+\.(\d+)#s',
+                // Minify string value
+                '#(\/\*(?>.*?\*\/))|(?<!content\:)([\'"])([a-z_][a-z0-9\-_]*?)\2(?=[\s\{\}\];,])#si',
+                '#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
+                // Minify HEX color code
+                '#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
+                // Replace `(border|outline):none` with `(border|outline):0`
+                '#(?<=[\{;])(border|outline):none(?=[;\}\!])#',
+                // Remove empty selector(s)
+                '#(\/\*(?>.*?\*\/))|(^|[\{\}])(?:[^\s\{\}]+)\{\}#s'
+            ),
+            array(
+                '$1',
+                '$1$2$3$4$5$6$7',
+                '$1',
+                ':0',
+                '$1:0 0',
+                '.$1',
+                '$1$3',
+                '$1$2$4$5',
+                '$1$2$3',
+                '$1:0',
+                '$1$2'
+            ),
+            $input);
+    }
+
+    public static function dynamic_style() {
+        $style_path = ATBDP_DIR . 'public/assets/css/style.php';
+
+        ob_start();
+        include $style_path;
+        $style = ob_get_clean();
+        $style = str_replace( ['<style>', '</style>'], '', $style );
+        $style = self::minify_css( $style );
+        return $style;
     }
 
     // load_template_scripts

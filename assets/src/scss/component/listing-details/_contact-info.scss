@@ -47,6 +47,16 @@
                 color: $body-color;
             }
         }
+
+        &.directorist-single-info-picker{
+            .directorist-single-info__value{
+                .directorist-field-type-color{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 5px;
+                }
+            }
+        }
     }
 }
 

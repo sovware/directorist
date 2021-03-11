@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <?php do_action('directorist_before_add_listing_from_frontend');?>
 
             <div class="directorist-add-listing-form">
-                
+
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
                 $listing_form->submit_template();
                 ?>
-                
+
             </div>
         </form>
 

@@ -2951,6 +2951,10 @@ input#privacy_policy,
   color: #69708E;
 }
 
+#directorist.atbd_wrapper .atbdp-announcement__content p:empty {
+  display: none;
+}
+
 @media (max-width: 575px) {
   #directorist.atbd_wrapper .atbdp-announcement__content {
     -webkit-box-ordinal-group: 3;
@@ -4778,6 +4782,40 @@ input.atbdp-form-control {
   font-weight: 900 !important;
 }
 
+.directorist-address-field #result ul li,
+.directorist-form-address-field #result ul li {
+  margin-bottom: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.directorist-address-field #result ul li a,
+.directorist-form-address-field #result ul li a {
+  color: #5a6671;
+  display: block;
+  padding: 8px 10px;
+}
+
+p.status:empty {
+  display: none;
+}
+
+.directorist-checkbox-field input + label {
+  margin-left: 5px;
+}
+
+.directorist-hide-owner-field input {
+  margin-top: 2px !important;
+}
+
+.directorist-hide-owner-field input label {
+  margin-left: 0 !important;
+}
+
+.form-group.hide-map-option,
+.directorist-map-field {
+  margin-bottom: 0 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4912,6 +4950,17 @@ input.atbdp-form-control {
   cursor: pointer;
   border-radius: 4px;
   margin: 3px;
+  min-width: 36px;
+  min-height: 36px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a,
@@ -4993,6 +5042,56 @@ input.atbdp-form-control {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report a span {
   pointer-events: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report .atbdp-require-login,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report .atbdp-require-login {
+  pointer-events: all;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.la,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.las,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.lab,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fa,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fas,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fab,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.la,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.las,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.lab,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fa,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fas,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action .atbdp-require-login span.fab {
+  pointer-events: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_save, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_save,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share {
+  padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_save .atbdp-require-login, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbdp-require-login,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_save .atbdp-require-login,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbdp-require-login {
+  width: 36px;
+  height: 36px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atdlc-mark_compare_wrapper.atdlc_list-btn-position,
@@ -11213,7 +11312,7 @@ span.atbd_get_loc_wid {
 }
 
 .directory_search_area .atbdp-search-form .single_search_field textarea {
-  padding: 10px 15px  !important;
+  padding: 10px 15px !important;
   resize: none;
 }
 
@@ -12015,8 +12114,7 @@ span.atbd_get_loc_wid {
   width: 40px;
   height: 40px;
   border: 2px solid #0A0B1E;
-  border-top: 0 none;
-  border-right: 0 none;
+  border-top-color: transparent;
   border-radius: 50%;
   z-index: 2;
   left: 50%;

@@ -37,10 +37,12 @@
     });
 
     // Alert users to login (only if applicable)
-    $('.atbdp-require-login').on('click', function (e) {
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
 
         e.preventDefault();
         alert(atbdp_public_data.login_alert_message);
+        
+        return false;
 
     });
 

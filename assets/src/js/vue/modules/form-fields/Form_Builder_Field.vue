@@ -130,8 +130,8 @@ export default {
   },
 
   watch: {
-    local_value() {
-      this.$emit("update", this.local_value);
+    finalValue() {
+      this.$emit("update", this.finalValue);
     },
   },
 
@@ -417,10 +417,10 @@ export default {
 
     handleWidgetInsertFromAvailableWidgets(from, to) {
       let field_data_options = this.getOptionDataFromWidget(from.widget);
-      let inserting_field_key = this.genarateWidgetKeyForActiveWidgets(
-        from.widget_key
-      );
+      let inserting_field_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
 
+      field_data_options.widget_key = inserting_field_key;
+      
       Vue.set(
         this.active_widget_fields,
         inserting_field_key,
@@ -428,18 +428,13 @@ export default {
       );
 
       let to_fields = this.active_widget_groups[to.widget_group_key].fields;
-      let dest_index =
-        "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
-      dest_index =
-        "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
+      let dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
+      dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
       dest_index = dest_index < 0 ? 0 : dest_index;
-      dest_index =
-        dest_index >= to_fields.length ? to_fields.length : dest_index;
+      dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
 
       this.active_widget_groups[to.widget_group_key].fields.splice(
-        dest_index,
-        0,
-        inserting_field_key
+        dest_index, 0, inserting_field_key
       );
 
       this.$emit("updated-state");
@@ -497,10 +492,7 @@ export default {
       let field_data_options = {};
       if (widget.options && typeof widget.options === "object") {
         for (let option_key in widget.options) {
-          field_data_options[option_key] =
-            typeof widget.options[option_key].value !== "undefined"
-              ? widget.options[option_key].value
-              : "";
+          field_data_options[option_key] = typeof widget.options[option_key].value !== "undefined" ? widget.options[option_key].value : "";
         }
       }
 
@@ -633,7 +625,7 @@ export default {
       let group_fields = this.active_widget_groups[widget_group_key].fields;
 
       if (group_fields.length) {
-        for (let widget_key in group_fields) {
+        for ( let widget_key of group_fields ) {
           Vue.delete(this.active_widget_fields, widget_key);
         }
       }
@@ -643,6 +635,7 @@ export default {
       this.$emit("updated-state");
       this.$emit("group-updated");
       this.$emit("group-trashed");
+      this.$emit("active-widgets-updated");
     },
 
     // Other Tasks

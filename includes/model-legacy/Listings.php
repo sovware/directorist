@@ -1027,7 +1027,7 @@ class Directorist_Listings {
 		));
 
 		ob_start();
-
+		
 		if (!empty($this->redirect_page_url)) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
@@ -1676,19 +1676,30 @@ class Directorist_Listings {
 		}
 
 		public function render_card_field( $field ) {
-							
-
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
 			}
 			else {
-			
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
+				$original_field = '';
+
+				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
+					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+				}
+				if ( ! empty( $original_field ) ) {
+					$field['original_field'] = $original_field;
+				}
 
 				$id = get_the_id();
 				$load_template = true;
-				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
+
+				$value = '';
+				if ( isset( $field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
+				}
+				if ( isset( $original_field['field_key']  ) ) {
+					$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
+				}
 
 				if( 'listings_location' === $field['widget_name'] ) {
 					$location = get_the_terms( $id, ATBDP_LOCATION );
@@ -1710,12 +1721,26 @@ class Directorist_Listings {
 					'value'    => $value,
 					'label'    => $label,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
-					'original_field'    => $submission_form_fields,
+					'original_field' => $submission_form_fields,
 				);
 
+				$type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
+				if( 'checkbox' === $type ){
+					$option_value = [];
+					$value = is_array( $value ) ? join( ",",$value ) : $value;
+					foreach( $field['original_field']['options'] as $option ) {
+						$key = $option['option_value'];
+						if( in_array( $key, explode( ',', $value ) ) ) {
+							$space = str_repeat(' ', 1);
+							$option_value[] = $space . $option['option_label'];
+						}
+					}
+					$output = join( ',', $option_value );
+					$result = $output ? $output : $value;
+					$args['value'] = $result;
+				}
 				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
-				// e_var_dump( $template );
 				if( $load_template ) {
 					Helper::get_template( $template, $args );
 				}

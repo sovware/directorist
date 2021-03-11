@@ -42,8 +42,7 @@
                 width: 40px;
                 height: 40px;
                 border: 2px solid #0A0B1E;
-                border-top: 0 none;
-                border-right: 0 none;
+                border-top-color: transparent;
                 border-radius: 50%;
                 z-index: 2;
                 left: 50%;
@@ -53,6 +52,7 @@
                 -webkit-animation: atbd_spin 2s linear infinite;
                 /* Safari */
                 animation: atbd_spin 2s linear infinite;
+                z-index: 9999;
             }
 
             &:after {

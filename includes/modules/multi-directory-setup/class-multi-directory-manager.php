@@ -599,9 +599,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 wp_send_json( $add_directory );
             }
 
-            $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id );
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
-            $add_directory['redirect_url'] = $redirect_url;
+            if (  $enable_multi_directory && empty( $term_id ) ) {
+                $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
+                $add_directory['redirect_url'] = $redirect_url;
+            }
+            
             $add_directory['term_id'] = $add_directory['term_id'];
 
             wp_send_json( $add_directory );
@@ -4657,6 +4661,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     ],
                                 ],
 
+                                'default_preview' => [
+                                    'title'       => __('Default Preview', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                                
                                 'export_import' => [
                                     'title'       => __('Export The Config File', 'directorist'),
                                     'description' => __('Export all the form, layout and settings', 'directorist'),
@@ -4807,18 +4819,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                         ],
-                        'other' => [
-                            'label' => __('Other', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'preview_image',
-                                    ],
-                                ],
-                            ],
-                        ],
                     ],
 
                 ],
@@ -4934,8 +4934,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
-            //$this->prepare_settings();
-
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
             $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
 

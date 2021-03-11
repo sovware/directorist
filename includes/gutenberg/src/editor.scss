@@ -30,7 +30,7 @@
 .wp-block-directorist-category,
 .wp-block-directorist-location,
 .wp-block-directorist-tag {
-    &.is-hovered {
+    &.is-selected {
         position: relative;
     
         &:before {

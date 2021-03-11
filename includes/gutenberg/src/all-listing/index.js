@@ -226,9 +226,8 @@ registerBlockType( 'directorist/all-listing', {
 							onChange={ newState => setAttributes( { order: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-
 						<ListingControl onChange={(added, newId) => {
-							let _ids = oldIds.slice(0);
+							let _ids = [...oldIds];
 
 							if (added) {
 								_ids.push(newId);

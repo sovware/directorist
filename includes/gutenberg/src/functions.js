@@ -26,3 +26,30 @@ export function getAttsForTransform( attributes = {} ) {
 
     return _atts;
 }
+
+export function sortItemsBySelected( items = [], selected = [], key = 'id' ) {
+    const isSelectedItem = item => selected.includes( item[ key ] );
+    
+    const itemsSlected = ( itemA, itemB ) => {
+        const itemASelected = isSelectedItem( itemA );
+        const itemBSelected = isSelectedItem( itemB );
+
+        if ( itemASelected === itemBSelected ) {
+            return 0;
+        }
+
+        if ( itemASelected && ! itemBSelected ) {
+            return -1;
+        }
+
+        if ( ! itemASelected && itemBSelected ) {
+            return 1;
+        }
+
+        return 0;
+    };
+
+    items.sort( itemsSlected );
+
+    return items;
+}

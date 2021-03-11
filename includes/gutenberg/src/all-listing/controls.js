@@ -1,5 +1,7 @@
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
+import { Spinner } from '@wordpress/components';
+import { sortItemsBySelected } from '../functions'
 
 import {
 	CheckboxControl,
@@ -15,18 +17,30 @@ export const LocationControl = withSelect( select => {
 
 	if ( props.items ) {
 		props.items.forEach( item => {
-			choices.push(
-				<li>
-					<CheckboxControl
-						label={ item.name }
-						checked={ props.selected.indexOf( item.slug ) !== -1 }
-						onChange={ value => props.onChange( value, item.slug ) }
-					/>
-				</li>
-			);
+			if ( props.selected.indexOf( item.slug ) !== -1 ) {
+				choices.unshift(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ true }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			} else {
+				choices.push(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ false }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			}
 		});
 	} else {
-		choices.push( <li>Loading...</li> );
+		choices.push( <li><Spinner /></li> );
 	}
 	
 	return (
@@ -45,18 +59,30 @@ export const CategoryControl = withSelect( select => {
 
 	if ( props.items ) {
 		props.items.forEach( item => {
-			choices.push(
-				<li>
-					<CheckboxControl
-						label={ item.name }
-						checked={ props.selected.indexOf( item.slug ) !== -1 }
-						onChange={ value => props.onChange( value, item.slug ) }
-					/>
-				</li>
-			);
+			if ( props.selected.indexOf( item.slug ) !== -1 ) {
+				choices.unshift(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ true }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			} else {
+				choices.push(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ false }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			}
 		});
 	} else {
-		choices.push( <li>Loading...</li> );
+		choices.push( <li><Spinner /></li> );
 	}
 	
 	return (
@@ -75,18 +101,30 @@ export const TagsControl = withSelect( select => {
 
 	if ( props.items ) {
 		props.items.forEach( item => {
-			choices.push(
-				<li>
-					<CheckboxControl
-						label={ item.name }
-						checked={ props.selected.indexOf( item.slug ) !== -1 }
-						onChange={ value => props.onChange( value, item.slug ) }
-					/>
-				</li>
-			);
+			if ( props.selected.indexOf( item.slug ) !== -1 ) {
+				choices.unshift(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ true }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			} else {
+				choices.push(
+					<li>
+						<CheckboxControl
+							label={ item.name }
+							checked={ false }
+							onChange={ value => props.onChange( value, item.slug ) }
+						/>
+					</li>
+				);
+			}
 		});
 	} else {
-		choices.push( <li>Loading...</li> );
+		choices.push( <li><Spinner /></li> );
 	}
 	
 	return (
@@ -98,27 +136,25 @@ export const TagsControl = withSelect( select => {
 
 export const ListingControl = withSelect( select => {
 	return {
-		items: select('core').getEntityRecords('postType', 'at_biz_dir')
+		items: select( 'core' ).getEntityRecords( 'postType', 'at_biz_dir' )
 	}
 })( props => {
 	let choices = [];
 
 	if ( props.items ) {
-		props.items.forEach( item => {
-			choices.push(
-				<li>
-					<CheckboxControl
-						label={ `${item.title.rendered.slice( 0, 22 )}...` }
-						checked={ props.selected.indexOf( item.id ) !== -1 }
-						onChange={ value => props.onChange( value, item.id ) }
-					/>
-				</li>
-			);
-		});
+		choices = props.items.map( item => (
+			<li key={ item.id }>
+				<CheckboxControl
+					label={ `${item.title.rendered.slice( 0, 22 )}...` }
+					checked={ props.selected.includes( item.id ) }
+					onChange={ value => props.onChange( value, item.id ) }
+				/>
+			</li>
+		));
 	} else {
-		choices.push( <li>Loading...</li> );
+		choices = [ <li><Spinner /></li> ]
 	}
-	
+
 	return (
 		<BaseControl 
             label={ __( 'Listing Items', 'directorist' ) }

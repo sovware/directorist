@@ -130,7 +130,7 @@ export default {
   },
 
   watch: {
-    local_value() {
+    finalValue() {
       this.$emit("update", this.local_value);
     },
   },
@@ -625,7 +625,7 @@ export default {
       let group_fields = this.active_widget_groups[widget_group_key].fields;
 
       if (group_fields.length) {
-        for (let widget_key in group_fields) {
+        for ( let widget_key of group_fields ) {
           Vue.delete(this.active_widget_fields, widget_key);
         }
       }
@@ -635,6 +635,7 @@ export default {
       this.$emit("updated-state");
       this.$emit("group-updated");
       this.$emit("group-trashed");
+      this.$emit("active-widgets-updated");
     },
 
     // Other Tasks

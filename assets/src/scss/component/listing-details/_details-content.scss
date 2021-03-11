@@ -76,6 +76,24 @@
         a {
             box-shadow: none;
         }
+
+        .atbdp-require-login,
+        .directorist-action-report-not-loggedin{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            i,
+            span.la,
+            span.las,
+            span.lab,
+            span.fa,
+            span.fas,
+            span.fab{
+                pointer-events: none;
+            }
+        }
     }
 
     .directorist-social-share {

@@ -194,7 +194,10 @@ export default {
                         self.listing_type_id = response.data.term_id;
                         self.footer_actions.save.label = 'Update';
                         self.listing_type_id = response.data.term_id;
-                        // window.location = response.data.redirect_url;
+
+                        if ( response.data.redirect_url ) {
+                            window.location = response.data.redirect_url;
+                        }
                     }
 
                     if ( response.data.status && response.data.status.status_log ) {

@@ -599,9 +599,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 wp_send_json( $add_directory );
             }
 
-            $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id );
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
-            $add_directory['redirect_url'] = $redirect_url;
+            if (  $enable_multi_directory && empty( $term_id ) ) {
+                $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
+                $add_directory['redirect_url'] = $redirect_url;
+            }
+            
             $add_directory['term_id'] = $add_directory['term_id'];
 
             wp_send_json( $add_directory );

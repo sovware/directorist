@@ -122,6 +122,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
                     $additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $value, $info );
                     
+                    $field_category = !empty( $value['category'] ) ? $value['category'] : '';
+                    if( $field_category && ! in_array( $field_category, $admin_category_select ) ) {
+                        $additional_logic = false;
+                    }
 
                     if( $additional_logic ) {
                         // error handling
@@ -161,9 +165,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // array_push( $dummy, [
                     //     'label' => $label,
                     //     'key' => $key,
+                    //     'value' => $value,
                     //     'submitted_data' => $submitted_data,
                     //     'additional_logic' => $additional_logic,
                     //     'form_data' => $info,
+                    //     'category' => $admin_category_select,
                     //     ] );
 
                     // process meta
@@ -183,6 +189,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }                    
                 }
     
+                // wp_send_json( $error );
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
 

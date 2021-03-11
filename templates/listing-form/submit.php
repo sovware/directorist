@@ -44,11 +44,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php if ($display_terms): ?>
 
-		<div class="directorist-form-terms directorist-checkbox">
+		<div class="directorist-form-terms">
 
 			<input id="listing_t" type="checkbox" name="t_c_check" <?php checked( $terms_checked ); ?> <?php echo $terms_is_required ? 'required="required"' : ''; ?>>
 
-			<label for="listing_t" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->terms_label() ); ?></label>
+			<label for="listing_t"><?php echo wp_kses_post( $listing_form->terms_label() ); ?></label>
 
 			<?php if ($terms_is_required): ?>
 				<span class="directorist-form-required"> *</span>

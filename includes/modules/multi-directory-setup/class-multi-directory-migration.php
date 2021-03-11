@@ -450,7 +450,7 @@ class ATBDP_Multi_Directory_Migration {
 
         // General Group
         $form_groups[] = [
-            "label"  => "General Group",
+            "label"  => "General Information",
             "lock"   => true,
             "fields" => $general_group_field_keys,
         ];
@@ -467,7 +467,7 @@ class ATBDP_Multi_Directory_Migration {
 
         // Contact Info
         $form_groups[] = [
-            "label"  => "Contact Info",
+            "label"  => "Contact Information",
             "fields" => $contact_group_info_field_keys,
         ];
 
@@ -479,7 +479,7 @@ class ATBDP_Multi_Directory_Migration {
 
         // Gallery
         $form_groups[] = [
-            "label" => "Gallery",
+            "label" => "Images & Video",
             "fields" => $gallery_group_field_keys,
         ];
 

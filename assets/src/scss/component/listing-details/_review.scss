@@ -143,6 +143,18 @@
                 }
             }
         }
+
+        .directorist-rated-stars{
+            ul{
+                li{
+                    span{
+                        &.directorist-rate-active{
+                            color: #fa8b0c;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

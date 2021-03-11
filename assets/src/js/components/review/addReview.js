@@ -34,8 +34,8 @@
             v = '<ul>';
             for (var i = 1; i <= 5; i++) {
                 v += (i <= $star_number)
-                    ? "<li><span class='rate_active'></span></li>"
-                    : "<li><span class='rate_disable'></span></li>";
+                    ? "<li><span class='directorist-rate-active'></span></li>"
+                    : "<li><span class='directoristrate-disable'></span></li>";
             }
             v += '</ul>';
         }

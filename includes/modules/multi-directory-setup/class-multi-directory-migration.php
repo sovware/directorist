@@ -224,6 +224,13 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
+        if( !empty( $this->get_old_custom_fields() ) ){
+                foreach( $this->get_old_custom_fields() as $key => $value ){
+                    $general_group_field_keys[] = $key;
+                    $preset_fields[ $key ] = $value;
+                }
+        }
+
         $general_group_field_keys[] = 'location';
         $preset_fields[ "location" ] = [
             "type"           => "multiple",
@@ -455,13 +462,13 @@ class ATBDP_Multi_Directory_Migration {
             "fields" => $general_group_field_keys,
         ];
 
-        // Features
-        if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
-            $form_groups[] = [
-                "label"  => "Features",
-                "fields" => array_keys( $custom_fields ),
-            ];
-        }
+        // // Features
+        // if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
+        //     $form_groups[] = [
+        //         "label"  => "Features",
+        //         "fields" => array_keys( $custom_fields ),
+        //     ];
+        // }
 
         // directorist_console_log( $custom_fields );
 

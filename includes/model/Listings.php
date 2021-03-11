@@ -1770,7 +1770,9 @@ class Directorist_Listings {
 								$option_value[] = $space . $option['option_label'];
 							}
 						}
-						$args['value'] = join(',', $option_value);
+						$output = join( ',', $option_value );
+						$result = $output ? $output : $value;
+						$args['value'] = $result;
 					}
 
 					$template = 'archive/custom-fields/' . $widget_name;

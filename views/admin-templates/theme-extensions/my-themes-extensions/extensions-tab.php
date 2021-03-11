@@ -32,6 +32,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($args['installed_extension_list'] as $extension_base => $extension) : ?>
+                                <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -40,11 +41,14 @@
                                                     <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
                                                         <?php
 
-                                                            $ext_key = preg_replace( '/\/.+/', '', $extension_base );
-                                                            $img     = 'https://via.placeholder.com/44' ;
+                                                            $ext_key       = preg_replace( '/\/.+/', '', $extension_base );
+                                                            $ext_key_alias = preg_replace( '/\/.+/', '', $extension_base_alias );
+                                                            $img           = 'https://via.placeholder.com/44' ;
 
                                                             if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
                                                                 $img = $args['extension_list'][$ext_key]['thumbnail'];
+                                                            } else if ( ! empty( $args[ 'extension_list' ][ $ext_key_alias ] ) ) {
+                                                                $img = $args['extension_list'][$ext_key_alias]['thumbnail'];
                                                             }
                                                         ?>
                                                         <img src="<?php echo $img; ?>" alt="" width="44" height="44">
@@ -127,6 +131,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($args['extensions_available_in_subscriptions'] as $extension_base => $extension) : ?>
+                                    <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -135,8 +140,11 @@
                                                     <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
-                                                            if (!empty($args['extension_list'][$extension_base])) {
+
+                                                            if ( ! empty($args['extension_list'][$extension_base] ) ) {
                                                                 $img = $args['extension_list'][$extension_base]['thumbnail'];
+                                                            } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
+                                                                $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
                                                             }
                                                         ?>
                                                         <img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $extension['title'] ?>
@@ -150,6 +158,8 @@
                                                 <?php
                                                 if (!empty($args['extension_list'][$extension_base])) {
                                                     _e($args['extension_list'][$extension_base]['description'], 'directorust');
+                                                } else if (!empty($args['extension_list'][$extension_base_alias])) {
+                                                    _e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
                                                 }
                                                 ?>
                                             </span>
@@ -174,7 +184,6 @@
     <?php if (!empty($args['required_extensions_list'])) : ?>
         <div class="ext-available">
             <h4 class="req-ext-title"><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
-            <span class="ext-short-desc">Short Description</span>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -202,7 +211,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($args['required_extensions_list'] as $extension_base => $extension) : ?>
+                                <?php foreach ( $args['required_extensions_list'] as $extension_base => $extension) : ?>
+                                <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -210,16 +220,28 @@
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
                                                     <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
                                                     <?php elseif ( $extension[ 'purchased' ] ) : ?>
-                                                        <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
+                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
+                                                    
                                                     <label for="<?php echo 'required_' . $extension_base; ?>" class="directorist-checkbox__label">
                                                         <?php
-                                                            $img = 'https://via.placeholder.com/44';
-                                                            if (!empty($args['extension_list'][$extension_base])) {
-                                                                $img = $args['extension_list'][$extension_base]['thumbnail'];
+                                                            
+                                                            $ext_name = ( isset( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['name'] : '';
+                                                            
+                                                            if ( empty( $ext_name ) ) {
+                                                                $ext_name = ( isset( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['name'] : '';
                                                             }
+                                                            
+                                                            $img = 'https://via.placeholder.com/44';
+                                                            if ( ! empty( $args['extension_list'][$extension_base] ) ) {
+                                                                $img = $args['extension_list'][$extension_base]['thumbnail'];
+                                                            } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
+                                                                $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
+                                                            }
+
+                                                            echo "<img src='{$img}' width='44' height='44' alt=''>";
+                                                            echo $ext_name;
                                                         ?>
-                                                        <img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $args['extension_list'][$extension_base]['name']; ?>
                                                     </label>
                                                 </div>
                                             </div>
@@ -228,9 +250,12 @@
                                         <td>
                                             <span class="ext-info">
                                                 <?php
-                                                if (!empty($args['extension_list'][$extension_base])) {
-                                                    _e($args['extension_list'][$extension_base]['description'], 'directorust');
-                                                }
+                                                    if ( ! empty($args['extension_list'][$extension_base])) {
+                                                        _e($args['extension_list'][$extension_base]['description'], 'directorust');
+                                                    }
+                                                    else if ( ! empty($args['extension_list'][$extension_base_alias])) {
+                                                        _e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
+                                                    }
                                                 ?>
                                             </span>
                                         </td>
@@ -244,8 +269,14 @@
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
                                                     <?php _e('Install', 'directorist') ?>
                                                 </a>
-                                                <?php else: ?>
-                                                <a href="<?php echo $args['extension_list'][$extension_base]['link']; ?>" class="ext-action-btn" target="_blank">
+                                                <?php else: 
+                                                    $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';
+                                                
+                                                    if ( empty( $download_link ) ) {
+                                                        $download_link = ( ! empty( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['link'] : ''; 
+                                                    }
+                                                ?>
+                                                <a href="<?php echo $download_link; ?>" class="ext-action-btn" target="_blank">
                                                     <i class="la la-download"></i> <?php _e('Get Now', 'directorist') ?>
                                                 </a>
                                                 <?php endif; ?>

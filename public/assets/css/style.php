@@ -148,7 +148,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
-    #directorist.atbd_wrapper .ezmu__btn, #directorist.atbd_wrapper .btn-primary, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn {
+    #directorist.atbd_wrapper .ezmu__btn, #directorist.atbd_wrapper .btn-primary, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew {
         color: <?php echo !empty($primary_color) ? $primary_color : '#fff'; ?> !important;
     }
 
@@ -161,7 +161,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
     .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover, #directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover, #directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover {
         color: <?php echo !empty($primary_hover_color) ? $primary_hover_color : '#fff'; ?> !important;
     }
 
@@ -174,7 +174,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
-    #directorist.atbd_wrapper .ezmu__btn, #directorist.atbd_wrapper .btn-primary, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn {
+    #directorist.atbd_wrapper .ezmu__btn, #directorist.atbd_wrapper .btn-primary, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew {
         background-color: <?php echo !empty($back_primary_color) ? $back_primary_color : '#444752'; ?> !important;
     }
 
@@ -185,21 +185,21 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .default-ad-search .submit_btn .btn-default:hover,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover,#directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover,#directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover, .directorist-pricing.directorist-pricing--1.directorist-pricing-special .directorist-pricing__action .directorist-pricing__action--btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover {
         background: <?php echo !empty($back_primary_hover_color) ? $back_primary_hover_color : '#222222'; ?> !important;
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-primary,
     .default-ad-search .submit_btn .btn-default,
-    .atbdp_login_form_shortcode #loginform p input[type="submit"], #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary {
+    .atbdp_login_form_shortcode #loginform p input[type="submit"], #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary, .atbd-add-payment-method form .atbd-save-card {
         border-color: <?php echo !empty($border_primary_color) ? $border_primary_color : '#444752'; ?> !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-primary:hover,
     .default-ad-search .submit_btn .btn-default:hover,
-    .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover {
+    .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary:hover, .atbd-add-payment-method form .atbd-save-card:hover {
         border-color: <?php echo !empty($border_primary_hover_color) ? $border_primary_hover_color : '#222222'; ?> !important;
     }
 

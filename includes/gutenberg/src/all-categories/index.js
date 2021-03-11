@@ -1,10 +1,9 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 import { CategoryControl } from '../controls';
-import { without } from 'lodash';
 
 import {
 	list,
@@ -78,6 +77,8 @@ registerBlockType( 'directorist/all-categories', {
 
 		let oldCategories = slug ? slug.split(',') : [];
 
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		return (
 			<Fragment>
 				<BlockControls>
@@ -97,7 +98,7 @@ registerBlockType( 'directorist/all-categories', {
 								{ label: __( 'Grid', 'directorist' ), value: 'grid' },
 								{ label: __( 'List', 'directorist' ), value: 'list' },
 							] }
-							onChange={ newState => setAttributes( { view: newState } ) }
+							onChange={ view => setAttributes( { view } ) }
 							className='directorist-gb-fixed-control'
 						/>
 						{ view === 'grid' ? <SelectControl
@@ -111,20 +112,20 @@ registerBlockType( 'directorist/all-categories', {
 								{ label: __( '4 Columns', 'directorist' ), value: 4 },
 								{ label: __( '6 Columns', 'directorist' ), value: 6 },
 							] }
-							onChange={ newState => setAttributes( { columns: newState } ) }
+							onChange={ columns => setAttributes( { columns } ) }
 							className='directorist-gb-fixed-control'
 						/> : '' }
 						<TextControl
 							label={ __( 'Number Of Listing', 'directorist' ) }
 							type='number'
 							value={ cat_per_page }
-							onChange={ newState => setAttributes( { cat_per_page: newState } ) }
+							onChange={ cat_per_page => setAttributes( { cat_per_page } ) }
 							className='directorist-gb-fixed-control'
 						/>
 						<ToggleControl
 							label={ __( 'Logged In User Only?', 'directorist' ) }
 							checked={ logged_in_user_only }
-							onChange={ newState => setAttributes( { logged_in_user_only: newState } ) }
+							onChange={ logged_in_user_only => setAttributes( { logged_in_user_only } ) }
 						/>
 					</PanelBody>
 
@@ -139,7 +140,7 @@ registerBlockType( 'directorist/all-categories', {
 								{ label: __( 'Name', 'directorist' ), value: 'name' },
 								{ label: __( 'Categories', 'directorist' ), value: 'slug' },
 							] }
-							onChange={ newState => setAttributes( { orderby: newState } ) }
+							onChange={ orderby => setAttributes( { orderby } ) }
 							className='directorist-gb-fixed-control'
 						/>
 						<SelectControl
@@ -150,14 +151,13 @@ registerBlockType( 'directorist/all-categories', {
 								{ label: __( 'ASC', 'directorist' ), value: 'asc' },
 								{ label: __( 'DESC', 'directorist' ), value: 'desc' },
 							] }
-							onChange={ newState => setAttributes( { order: newState } ) }
+							onChange={ order => setAttributes( { order } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<CategoryControl onChange={(added, newCategory) => {
-							let _categories = added ? [ ...oldCategories, newCategory ] : without( oldCategories, newCategory );
-							
-							setAttributes( { slug: _categories.join( ',' ) } );
-						}} selected={oldCategories} />
+						<CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+							setAttributes( { slug: categories.join( ',' ) } );
+							setShouldRender( false );
+						}} selected={ oldCategories } />
 					</PanelBody>
 				</InspectorControls>
 

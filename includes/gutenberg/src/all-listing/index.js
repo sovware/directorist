@@ -4,7 +4,6 @@ import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 import { LocationControl, CategoryControl, TagsControl, ListingControl } from '../controls';
-import { without } from 'lodash';
 
 import {
 	list,
@@ -93,7 +92,8 @@ registerBlockType( 'directorist/all-listing', {
 			oldTags = tag ? tag.split(',') : [],
 			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
 
-			const [ isListUpdating, setListUpdating ] = useState( false );
+		const [ shouldRender, setShouldRender ] = useState( true );
+		
 		return (
 			<Fragment>
 				<BlockControls>
@@ -229,29 +229,24 @@ registerBlockType( 'directorist/all-listing', {
 							className='directorist-gb-fixed-control'
 						/>
 
-						<ListingControl isUpdating={ isListUpdating } onChange={(added, newId) => {
-							let _ids = added ? [ ...oldIds, newId ] : without( oldIds, newId );
-							
-							setAttributes( { ids: _ids.join( ',' ) } );
-							setListUpdating( true );
+						<ListingControl shouldRender={ shouldRender } onChange={ ids => {
+							setAttributes( { ids: ids.join( ',' ) } );
+							setShouldRender( false );
 						}} selected={ oldIds } />
 
-						<CategoryControl onChange={(added, newCategory) => {
-							let _categories = added ? [ ...oldCategories, newCategory ] : without( oldCategories, newCategory );
-							
-							setAttributes( { category: _categories.join( ',' ) } );
+						<CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+							setAttributes( { category: categories.join( ',' ) } );
+							setShouldRender( false );
 						}} selected={ oldCategories } />
 
-						<TagsControl onChange={(added, newTag) => {
-							let _tags = added ? [ ...oldTags, newTag ] : without( oldTags, newTag );
-							
-							setAttributes( { tag: _tags.join( ',' ) } );
+						<TagsControl shouldRender={ shouldRender } onChange={ tags => {							
+							setAttributes( { tag: tags.join( ',' ) } );
+							setShouldRender( false );
 						}} selected={ oldTags } />
 
-						<LocationControl onChange={(added, newLocation) => {
-							let _locations = added ? [ ...oldLocations, newLocation ] : without( oldLocations, newLocation );
-
-							setAttributes( { location: _locations.join( ',' ) } );
+						<LocationControl shouldRender={ shouldRender } onChange={ locations => {
+							setAttributes( { location: locations.join( ',' ) } );
+							setShouldRender( false );
 						}} selected={ oldLocations } />
 					</PanelBody>
 				</InspectorControls>

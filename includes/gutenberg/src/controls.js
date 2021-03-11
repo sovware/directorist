@@ -1,7 +1,8 @@
-import { withSelect } from '@wordpress/data';
+import { withSelect, select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { Spinner } from '@wordpress/components';
 import { sortItemsBySelected } from './functions'
+import { without, truncate } from 'lodash';
 
 import {
 	CheckboxControl,
@@ -9,38 +10,34 @@ import {
 } from '@wordpress/components';
 
 export const LocationControl = withSelect( select => {
+	const args = {
+		per_page: -1,
+		order: 'asc',
+		orderby: 'name'
+	}
+
 	return {
-		items: select('core').getEntityRecords('taxonomy', 'at_biz_dir-location')
+		items: select('core').getEntityRecords( 'taxonomy', 'at_biz_dir-location', args )
 	}
 })( props => {
 	let choices = [];
 
 	if ( props.items ) {
-		props.items.forEach( item => {
-			if ( props.selected.indexOf( item.slug ) !== -1 ) {
-				choices.unshift(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ true }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			} else {
-				choices.push(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ false }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			}
-		});
+		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
+			<li key={ item.id }>
+				<CheckboxControl
+					label={ truncate( item.name, { length: 30 } ) }
+					checked={ props.selected.includes( item.slug ) }
+					onChange={ updated => {
+						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
+
+						props.onChange( values );
+					} }
+				/>
+			</li>
+		));
 	} else {
-		choices.push( <li><Spinner /></li> );
+		choices = [ <li><Spinner /></li> ]
 	}
 	
 	return (
@@ -51,38 +48,34 @@ export const LocationControl = withSelect( select => {
 });
 
 export const CategoryControl = withSelect( select => {
+	const args = {
+		per_page: -1,
+		order: 'asc',
+		orderby: 'name'
+	}
+
 	return {
-		items: select('core').getEntityRecords('taxonomy', 'at_biz_dir-category')
+		items: select('core').getEntityRecords( 'taxonomy', 'at_biz_dir-category', args )
 	}
 })( props => {
 	let choices = [];
 
 	if ( props.items ) {
-		props.items.forEach( item => {
-			if ( props.selected.indexOf( item.slug ) !== -1 ) {
-				choices.unshift(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ true }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			} else {
-				choices.push(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ false }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			}
-		});
+		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
+			<li key={ item.id }>
+				<CheckboxControl
+					label={ truncate( item.name, { length: 30 } ) }
+					checked={ props.selected.includes( item.slug ) }
+					onChange={ updated => {
+						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
+
+						props.onChange( values );
+					} }
+				/>
+			</li>
+		));
 	} else {
-		choices.push( <li><Spinner /></li> );
+		choices = [ <li><Spinner /></li> ]
 	}
 	
 	return (
@@ -93,40 +86,36 @@ export const CategoryControl = withSelect( select => {
 });
 
 export const TagsControl = withSelect( select => {
+	const args = {
+		per_page: -1,
+		order: 'asc',
+		orderby: 'name'
+	}
+
 	return {
-		items: select('core').getEntityRecords('taxonomy', 'at_biz_dir-tags')
+		items: select('core').getEntityRecords( 'taxonomy', 'at_biz_dir-tags', args )
 	}
 })( props => {
 	let choices = [];
 
 	if ( props.items ) {
-		props.items.forEach( item => {
-			if ( props.selected.indexOf( item.slug ) !== -1 ) {
-				choices.unshift(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ true }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			} else {
-				choices.push(
-					<li>
-						<CheckboxControl
-							label={ item.name }
-							checked={ false }
-							onChange={ value => props.onChange( value, item.slug ) }
-						/>
-					</li>
-				);
-			}
-		});
+		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
+			<li key={ item.id }>
+				<CheckboxControl
+					label={ truncate( item.name, { length: 30 } ) }
+					checked={ props.selected.includes( item.slug ) }
+					onChange={ updated => {
+						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
+
+						props.onChange( values );
+					} }
+				/>
+			</li>
+		));
 	} else {
-		choices.push( <li><Spinner /></li> );
+		choices = [ <li><Spinner /></li> ]
 	}
-	
+
 	return (
 		<BaseControl label={ __( 'Tags', 'directorist' ) } className="directorist-gb-cb-list-control">
 			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
@@ -148,14 +137,16 @@ export const ListingControl = withSelect( select => {
 	let choices = [];
 
 	if ( props.items ) {
-		choices = ( ! props.isUpdating ?
-			sortItemsBySelected( props.items, props.selected, 'id' ) :
-			props.items ).map( item => (
+		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'id' ) : props.items ).map( item => (
 			<li key={ item.id }>
 				<CheckboxControl
-					label={ `${item.title.rendered.slice( 0, 22 )}...` }
+					label={ truncate( item.title.rendered, { length: 30 } ) }
 					checked={ props.selected.includes( item.id ) }
-					onChange={ value => props.onChange( value, item.id ) }
+					onChange={ updated => {
+						const values = updated ? [ ...props.selected, item.id ] : without( props.selected, item.id );
+
+						props.onChange( values );
+					} }
 				/>
 			</li>
 		));

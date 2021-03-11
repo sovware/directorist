@@ -1,10 +1,9 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 import { LocationControl } from '../controls';
-import { without } from 'lodash';
 
 import {
 	list,
@@ -77,6 +76,8 @@ registerBlockType( 'directorist/all-locations', {
 		} = attributes;
 
 		let oldLocations = slug ? slug.split(',') : [];
+
+		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
@@ -153,11 +154,10 @@ registerBlockType( 'directorist/all-locations', {
 							onChange={ newState => setAttributes( { order: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<LocationControl onChange={(added, newLocation) => {
-							let _locations = added ? [ ...oldLocations, newLocation ] : without( oldLocations, newLocation );
-							
-							setAttributes({slug: _locations.join(',')});
-						}} selected={oldLocations} />
+						<LocationControl shouldRender={ shouldRender } onChange={ locations => {
+							setAttributes( { slug: locations.join( ',' ) } );
+							setShouldRender( false );
+						}} selected={ oldLocations } />
 					</PanelBody>
 				</InspectorControls>
 

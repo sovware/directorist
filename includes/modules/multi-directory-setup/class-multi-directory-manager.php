@@ -1784,7 +1784,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'value' => '',
                                 ],
                                 'target' => [
-                                    'type'  => 'text',
+                                    'type'  => 'toggle',
                                     'label' => __( 'Open in new tab', 'directorist' ),
                                     'value' => '',
                                 ],

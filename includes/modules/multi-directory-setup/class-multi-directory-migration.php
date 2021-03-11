@@ -462,16 +462,6 @@ class ATBDP_Multi_Directory_Migration {
             "fields" => $general_group_field_keys,
         ];
 
-        // // Features
-        // if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
-        //     $form_groups[] = [
-        //         "label"  => "Features",
-        //         "fields" => array_keys( $custom_fields ),
-        //     ];
-        // }
-
-        // directorist_console_log( $custom_fields );
-
         // Contact Info
         $form_groups[] = [
             "label"  => "Contact Information",
@@ -1685,7 +1675,7 @@ class ATBDP_Multi_Directory_Migration {
                 "widget_name" => "posted_date",
                 "widget_key"  => "posted_date",
                 "icon"        => "la la-clock-o",
-                "date_type"   => "post_date"
+                "date_type"   => "days_ago"
             ],
             'view_count' => [
                 "type"        => "view-count",

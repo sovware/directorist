@@ -5,14 +5,20 @@ const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
-     
-if (!$('input#manual_coordinate').is(':checked')) {
-        $('#hide_if_no_manual_cor').hide();
-        $('.directorist-map-coordinates').hide();
+$( window ).load(function() {
         
-}
+        if($('input#manual_coordinate').length){
 
-$('#manual_coordinate').on('click', function (e) {
+                $('input#manual_coordinate').each( (index, element) => {
+                        if(!$(element).is(':checked')){
+                                $('#hide_if_no_manual_cor').hide();
+                                $('.directorist-map-coordinates').hide();
+                        }
+                });
+        }
+});
+
+$('body').on("click", "#manual_coordinate" , function(e){
         if ($('input#manual_coordinate').is(':checked')) {
                 $('.directorist-map-coordinates').show();
                 $('#hide_if_no_manual_cor').show();
@@ -21,6 +27,7 @@ $('#manual_coordinate').on('click', function (e) {
                 $('#hide_if_no_manual_cor').hide();
         }
 });
+
 
 // enable sorting if only the container has any social or skill field
 const $s_wrap = $('#social_info_sortable_container'); // cache it
@@ -662,16 +669,17 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
 // Custom Field Checkbox Button More
 
 $( window  ).load(function() {
-        
-        $('.directorist-custom-field-btn-more').each( (index, element) => {
-                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
-                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-                $(customField).slice(20, customField.length).slideUp();
+        if($('.directorist-custom-field-btn-more').length){
+                $('.directorist-custom-field-btn-more').each( (index, element) => {
+                        let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                        $(customField).slice(20, customField.length).slideUp();
 
-                if(customField.length<20){
-                        $(element).slideUp();
-                }
-        });
+                        if(customField.length<20){
+                                $(element).slideUp();
+                        }
+                });
+        }
         
 });
 
@@ -692,17 +700,3 @@ $('body').on('click', '.directorist-custom-field-btn-more', function(event) {
         }
 
 });
-
-// scrollToEl
-function scrollToEl(el) {
-        // const element = typeof el === 'string' ? el : '';
-        // let scroll_top = $(element).offset().top - 50;
-        // scroll_top = scroll_top < 0 ? 0 : scroll_top;
-
-        // $('html, body').animate(
-        //         {
-        //                 scrollTop: scroll_top,
-        //         },
-        //         800
-        // );
-}

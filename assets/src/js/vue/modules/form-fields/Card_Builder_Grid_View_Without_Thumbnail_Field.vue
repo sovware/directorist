@@ -342,7 +342,7 @@ export default {
               _main_widget.widget_key = current_key;
 
               if ( matched_field.widget_key ) {
-                _main_widget.widget_key = matched_field.widget_key;
+                _main_widget.original_widget_key = matched_field.widget_key;
               }
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {

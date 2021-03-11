@@ -654,19 +654,35 @@ class Directorist_Listing_Form {
 		$field_data['form'] = $this;
 		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 
-		$args = array(
-			'listing_form'  => $this,
-			'data'          => $field_data,
-		);
 
 		if ( $this->is_custom_field( $field_data ) ) {
+
 			$template = 'listing-form/custom-fields/' . $field_data['widget_name'];
+
+			if( 'checkbox' === $field_data['type'] ){
+
+				$options_value = is_array( $value ) ? join( ",",$value ) : $value;
+				$result = explode( ",", $options_value );
+
+				if( ! is_array( $value ) ){
+					$pure_string = trim(preg_replace('/\n+/', ' ', $options_value));
+					$result = explode( " ", $pure_string );
+				}
+
+				$field_data['value'] = $result;
+			}
+
 		}
 		else {
 			$template = 'listing-form/fields/' . $field_data['widget_name'];
 		}
 		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+
+		$args = array(
+			'listing_form'  => $this,
+			'data'          => $field_data,
+		);
 
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];

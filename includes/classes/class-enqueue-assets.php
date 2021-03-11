@@ -144,7 +144,7 @@ class Enqueue_Assets {
 			'link'      => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
 			'deps'      => [],
 			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
+			'group'     => 'global', // public || admin  || global
 		];
 
 		// Public
@@ -1114,17 +1114,16 @@ class Enqueue_Assets {
 	 */
 	public static function enqueue_public_scripts( $page = '', $fource_enqueue = false ) {
 		// Other
-		wp_add_inline_style( 'directorist-settings-style', \ATBDP_Stylesheet::style_settings_css() );
 		self::enqueue_custom_color_picker_scripts();
 		// wp_enqueue_script( 'jquery' );
 
 		// CSS
-		self::register_css_scripts( [ 'group' => 'public' ] );
+		self::register_css_scripts();
 		self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
 		wp_add_inline_style( 'directorist-main-style', self::dynamic_style() );
 
 		// JS
-		self::register_js_scripts( [ 'group' => 'public' ] );
+		self::register_js_scripts();
 		self::enqueue_js_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
 	}
 

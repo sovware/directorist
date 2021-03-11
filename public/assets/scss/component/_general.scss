@@ -3693,3 +3693,25 @@ input.atbdp-form-control {
   font-family: "Font Awesome 5 Brands" !important;
   font-weight: 900 !important;
 }
+
+.directorist-address-field,
+.directorist-form-address-field{
+    #result{
+        ul{
+            li{
+                margin-bottom: 0;
+                border-bottom: 1px solid #eee;
+                a{ 
+                    color: $body-color;
+                    display: block;
+                    padding: 8px 10px; 
+                }
+            }
+        }
+    }
+}
+
+// Login 
+p.status:empty{
+  display: none;
+}

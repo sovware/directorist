@@ -119,7 +119,7 @@ class Directorist_Single_Listing {
 		$has_contents = false;
 
 		foreach ( $section_data['fields'] as $field ) {
-			$value = Helper::get_value( $this->id, $field );
+			$value = Helper::get_widget_value( $this->id, $field );
 
 			if ( $value ) {
 				$has_contents = true;

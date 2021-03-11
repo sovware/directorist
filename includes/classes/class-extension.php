@@ -928,6 +928,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // activate_license
         public function activate_license( $license_item , $product_type = '' ) {
             $status = [ 'success' => true ];
+
+            if ( isset( $license_item['skip_licencing'] ) && !  empty( $license_item['skip_licencing'] ) ) {
+                return $status;
+            }
             
             $item_id = ( ! empty( $license_item['item_id'] ) ) ? $license_item['item_id'] : 0;
             $license = ( ! empty( $license_item['license'] ) ) ? $license_item['license']: '';
@@ -1039,6 +1043,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $installing_file = $available_in_subscriptions[ $item_key ];
+            
             $activatation_status = $this->activate_license( $installing_file, $type );
             $status[ 'log'] = $activatation_status;
 
@@ -1048,6 +1053,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 return [ 'status' => $status ];
             }
+            
 
             $link = $installing_file['download_link'];
             if ( 'plugin' === $type ) {

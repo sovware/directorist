@@ -54,6 +54,8 @@ if (!class_exists('ATBDP_Custom_Post')):
             // Make sure that it is set.
             if ( !empty( $_REQUEST['directory_type'] ) ) {
                 update_post_meta( $post_id, '_directory_type', sanitize_text_field( $_REQUEST['directory_type'] ) );
+                wp_set_object_terms($post_id, (int)$_REQUEST['directory_type'], ATBDP_TYPE);
+
             }
         }
 

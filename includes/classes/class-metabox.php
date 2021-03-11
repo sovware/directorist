@@ -61,8 +61,6 @@ class ATBDP_Metabox {
 	}
 
 	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
-		$listing_type 		= get_term_by( 'id', $term_id, ATBDP_TYPE );
-		$listing_type_slug  = $listing_type->slug;
 		$args = array(
 			'hide_empty' => 0,
 			'hierarchical' => false
@@ -81,7 +79,7 @@ class ATBDP_Metabox {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
 				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
-				if( in_array( $listing_type_slug, $directory_type) ) { ?>
+				if( in_array( $term_id, $directory_type) ) { ?>
 					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
 
 				<?php

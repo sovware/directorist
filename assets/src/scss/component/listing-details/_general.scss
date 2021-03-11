@@ -16,7 +16,7 @@
         .directorist-modal-close {
             width: 32px;
             height: 32px;
-            right: -30px !important;
+            right: -40px !important;
             top: -30px !important;
             left: auto;
             position: absolute;
@@ -52,6 +52,11 @@
 
         textarea {
             min-height: 90px;
+        }
+
+        #directorist-report-abuse-message-display{
+            color: $body-color;
+            margin-top: 15px;
         }
     }
 

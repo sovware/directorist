@@ -131,7 +131,7 @@ export default {
 
   watch: {
     finalValue() {
-      this.$emit("update", this.local_value);
+      this.$emit("update", this.finalValue);
     },
   },
 

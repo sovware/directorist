@@ -1652,7 +1652,7 @@ class Directorist_Listings {
 			$link = array();
 			foreach ($locals as $location) {
 				$term = get_term_by('slug', $location, ATBDP_LOCATION);
-				$link = ATBDP_Permalink::atbdp_get_location_page($term);
+				$link = esc_url( get_term_link( $term->term_id, ATBDP_LOCATION ) );
 				$space = str_repeat(' ', 1);
 				$output[] = "<a href='{$link}'>{$term->name}</a>";
 			}

@@ -50,7 +50,40 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             add_filter('term_link', array($this, 'taxonomy_redirect_page'), 10, 3);
             add_action('template_redirect', array($this, 'atbdp_template_redirect'));
 
+            add_action('init', array($this, 'directorist_bulk_term_update'));
+
         }
+
+
+        public function directorist_bulk_term_update(){
+            if( get_option( 'directorist_bulk_term_update_for_v7' ) ) return;
+        
+            $terms = [ ATBDP_CATEGORY, ATBDP_LOCATION ];
+            foreach( $terms as $term ) {
+                $term_data = get_terms([
+                    'taxonomy'   => $term,
+                    'hide_empty' => false,
+                    'orderby'    => 'date',
+                    'order'      => 'DSCE',
+                    ]);
+                if( !empty( $term_data ) ) {
+                    foreach( $term_data as $data ) {
+                        $old_data = get_term_meta( $data->term_id, '_directory_type', true );
+                        if( !empty( $old_data ) ){
+                            foreach( $old_data as $single_data ){
+                            if( ! is_numeric( $single_data ) ){
+                                $term_with_directory_slug = get_term_by( 'slug', $single_data, 'atbdp_listing_types' );
+                                $id = $term_with_directory_slug->term_id;
+                                update_term_meta( $data->term_id, '_directory_type', [ $id ] );
+                            }
+                            }
+                        }
+                    }
+                }
+            }
+            update_option( 'directorist_bulk_term_update_for_v7', 1 );
+        }
+
 
         public function atbdp_template_redirect()
         {

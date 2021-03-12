@@ -347,9 +347,12 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 7.0.3.1 - Mar 12, 2021 =
+= 7.0.3.1 - Mar 13, 2021 =
 
 * Fix - Category and location displaying issue
+* Fix - Preset fields not show in listings page
+* Fix - PHP error in single listing
+* Improve - Directory type slug in term link
 
 = 7.0.3 - Mar 12, 2021 =
 

@@ -282,7 +282,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                                     $checked = in_array( $type->term_id, $value ) ? 'checked' : '';
                             ?>
                             <div class="directory_type-group">
-                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->term_id; ?>" <?php echo $checked; ?>/>
+                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->term_id; ?>' id="<?php echo $type->term_id; ?>" <?php echo $checked; ?>/>
                                     <label for="<?php echo $type->term_id; ?>"><?php echo $type->name; ?></label>
                                 </div>
                             <?php

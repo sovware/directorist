@@ -108,13 +108,13 @@ class Directorist_Single_Listing {
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 		
-		if ( $section_data['type'] == 'section' ) {
+		if ( $section_data['type'] == 'general_group' ) {
+			Helper::get_template( 'single-listing/section-general', $args );
+		}
+		else {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
 			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
 			Helper::get_template( $template, $args );
-		}
-		else {
-			Helper::get_template( 'single-listing/section-general', $args );
 		}
 	}
 

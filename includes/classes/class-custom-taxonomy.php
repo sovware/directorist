@@ -50,13 +50,13 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             add_filter('term_link', array($this, 'taxonomy_redirect_page'), 10, 3);
             add_action('template_redirect', array($this, 'atbdp_template_redirect'));
 
-            add_action('init', array($this, 'directorist_bulk_term_update'));
+            add_action('wp_loaded', array($this, 'directorist_bulk_term_update'));
 
         }
 
 
         public function directorist_bulk_term_update(){
-            if( get_option( 'directorist_bulk_term_update_for_v7' ) ) return;
+            if( get_option( 'directorist_bulk_term_update_v7' ) ) return;
         
             $terms = [ ATBDP_CATEGORY, ATBDP_LOCATION ];
             foreach( $terms as $term ) {
@@ -68,20 +68,37 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     ]);
                 if( !empty( $term_data ) ) {
                     foreach( $term_data as $data ) {
+
                         $old_data = get_term_meta( $data->term_id, '_directory_type', true );
-                        if( !empty( $old_data ) ){
-                            foreach( $old_data as $single_data ){
-                            if( ! is_numeric( $single_data ) ){
-                                $term_with_directory_slug = get_term_by( 'slug', $single_data, 'atbdp_listing_types' );
-                                $id = $term_with_directory_slug->term_id;
-                                update_term_meta( $data->term_id, '_directory_type', [ $id ] );
+
+                        $results = is_array( $old_data ) ? $old_data[0] : $old_data;
+
+                        if( !empty( $results ) ){
+
+                            if( is_array( $old_data ) ){
+                                foreach( $old_data as $single_data ){
+
+                                    if( ! is_numeric( $single_data ) ){
+                                        $term_with_directory_slug = get_term_by( 'slug', $single_data, 'atbdp_listing_types' );
+                                        $id = $term_with_directory_slug->term_id;
+                                        update_term_meta( $data->term_id, '_directory_type', [ $id ] );
+                                    }
+                                }
+                            }else{
+                                if( ! is_numeric( $old_data ) ){
+                                    $term_with_directory_slug = get_term_by( 'slug', $old_data, 'atbdp_listing_types' );
+                                    $id = $term_with_directory_slug->term_id;
+                                    update_term_meta( $data->term_id, '_directory_type', [ $id ] );
+                                }
                             }
-                            }
+                            
+                        }else{
+                            update_term_meta( $data->term_id, '_directory_type', [ default_directory_type() ] );
                         }
                     }
                 }
             }
-            update_option( 'directorist_bulk_term_update_for_v7', 1 );
+            update_option( 'directorist_bulk_term_update_v7', 1 );
         }
 
 
@@ -271,7 +288,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                                     $checked = in_array( $type->term_id, $value ) ? 'checked' : '';
                             ?>
                             <div class="directory_type-group">
-                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="<?php echo $type->term_id; ?>" <?php echo $checked; ?>/>
+                                <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->term_id; ?>' id="<?php echo $type->term_id; ?>" <?php echo $checked; ?>/>
                                     <label for="<?php echo $type->term_id; ?>"><?php echo $type->name; ?></label>
                                 </div>
                             <?php

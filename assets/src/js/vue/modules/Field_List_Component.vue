@@ -32,6 +32,9 @@ export default {
     watch: {
         fieldList() {
             this.filtereFieldList();
+        },
+        value() {
+            this.filtereFieldList();
         }
     },
 

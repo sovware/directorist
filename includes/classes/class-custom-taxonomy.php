@@ -135,6 +135,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 $is_directorist_taxonomy = true;
             }
 
+            // Tag
+            if (ATBDP_TAGS == $taxonomy) {
+                $url = ATBDP_Permalink::atbdp_get_tag_page($term);
+                $is_directorist_taxonomy = true;
+            }
+
             if ( $is_directorist_taxonomy && ! empty( $directory_type_slug ) ) {
                 $url = add_query_arg( 'directory_type', $directory_type_slug, $url );
             }   

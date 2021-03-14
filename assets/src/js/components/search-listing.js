@@ -196,10 +196,13 @@ function adsFormReset() {
     let adsForm = document.querySelector(".directorist-search-form");
 
     if ( ! adsForm ) {
+        adsForm = document.querySelector(".directorist-advanced-filter__form");
+    }
+
+    if ( ! adsForm ) {
         adsForm = document.querySelector(".atbd_ads-form");
     }
     
-    console.log( { adsForm } );
     adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
     });
@@ -223,6 +226,13 @@ function adsFormReset() {
 }
 if(document.querySelector(".directorist-search-form #atbdp_reset") !== null){
     document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
+        e.preventDefault();
+        adsFormReset();
+        atbd_callingSlider(0);
+    });
+}
+if(document.querySelector(".directorist-advanced-filter__form #atbdp_reset") !== null){
+    document.querySelector(".directorist-advanced-filter__form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
         atbd_callingSlider(0);

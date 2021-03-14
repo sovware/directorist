@@ -1784,7 +1784,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'value' => '',
                                 ],
                                 'target' => [
-                                    'type'  => 'text',
+                                    'type'  => 'toggle',
                                     'label' => __( 'Open in new tab', 'directorist' ),
                                     'value' => '',
                                 ],
@@ -2380,15 +2380,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'label'  => __( 'Only For Admin Use', 'directorist' ),
                                     'value' => false,
                                 ],
-                                'assign_to' => $this->get_assign_to_field(),
-                                'category' => $this->get_category_select_field([
-                                    'show_if' => [
-                                        'where' => "self.assign_to",
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
-                                        ],
-                                    ],
-                                ]),
                             ]
 
                         ],

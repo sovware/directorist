@@ -70,6 +70,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Latest Key     => Deprecated key
             // Deprecated key => Latest Key
             $this->extensions_aliases = apply_filters( 'directorist_extensions_aliases', [
+                'directorist-listings-with-map' => 'directorist-listings-map',
+                'directorist-listings-map'     => 'directorist-listings-with-map',
+
                 'directorist-adverts-manager' => 'directorist-ads-manager',
                 'directorist-ads-manager'     => 'directorist-adverts-manager',
 
@@ -702,10 +705,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             
             // Get form data
             $username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
-            $password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
+            $password = ( isset( $_POST['password'] ) ) ? urlencode( $_POST['password'] ) : '';
 
             // Validate username
-            if ( empty( $username ) ) {
+            if ( empty( $username ) && ! empty( $password ) ) {
                 $status['success'] = false;
                 $status[ 'log' ]['username_missing'] = [
                     'type'    => 'error',
@@ -714,11 +717,20 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Validate password
-            if ( empty( $password ) ) {
+            if ( empty( $password ) && ! empty( $username ) ) {
                 $status['success'] = false;
                 $status[ 'log' ]['password_missing'] = [
                     'type'    => 'error',
                     'message' => 'Password is required',
+                ];
+            }
+
+            // Validate username && password
+            if ( empty( $password ) && empty( $username ) ) {
+                $status['success'] = false;
+                $status[ 'log' ]['password_missing'] = [
+                    'type'    => 'error',
+                    'message' => 'Username and Password is required',
                 ];
             }
 
@@ -732,17 +744,47 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $args    .= '&password=' . $password;
             $url      = $url_base . $args;
 
-            $response = wp_remote_get( $url);
+            $headers = array(
+                'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+                'Accept'     => 'application/json',
+            );
+
+            $config =  array(
+                'method'      => 'GET',
+                'timeout'     => 30,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'headers'     => $headers,
+                'cookies'     => array()
+            );
+
+            $response = wp_remote_get( $url, $config );
+
+            // $response = wp_remote_post( $url_base, [
+            //     'user' => $username,
+            //     'password' => $password,
+            // ]);
+
             $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
 
             // Validate response
             if ( ! $response_body['success'] ) {
                 $status['success'] = false;
-                $status['massage'] = $response_body['massage'];
-                $status[ 'log' ]['unknown_error'] = [
-                    'type'    => 'error',
-                    'message' => $response_body['massage'],
-                ];
+                $default_status_massage = ( isset( $response_body['massage'] ) ) ? $response_body['massage'] : '';
+
+                if ( isset( $response_body['log'] ) && isset( $response_body['log']['errors'] ) && is_array( $response_body['log']['errors'] ) ) {
+                    foreach( $response_body['log']['errors'] as $error_key => $error_value ) {
+                        $status[ 'log' ][ $error_key ] = [
+                            'type'    => 'error',
+                            'message' => ( is_array( $error_value ) ) ? $error_value[0] : $error_value,
+                        ];
+                    }
+                } else {
+                    $status[ 'log' ][ 'unknown_error' ] = [
+                        'type'    => 'error',
+                        'message' => ( ! empty( $default_status_massage ) ) ? $default_status_massage : __( 'Something went wrong', 'directorist' ),
+                    ];
+                }
 
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }

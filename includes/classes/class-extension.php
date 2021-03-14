@@ -70,6 +70,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Latest Key     => Deprecated key
             // Deprecated key => Latest Key
             $this->extensions_aliases = apply_filters( 'directorist_extensions_aliases', [
+                'directorist-listings-with-map' => 'directorist-listings-map',
+                'directorist-listings-map'     => 'directorist-listings-with-map',
+
                 'directorist-adverts-manager' => 'directorist-ads-manager',
                 'directorist-ads-manager'     => 'directorist-adverts-manager',
 
@@ -1836,6 +1839,4 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             ATBDP()->load_template('admin-templates/theme-extensions/theme-extension', $data );
         }
     }
-
-
 }

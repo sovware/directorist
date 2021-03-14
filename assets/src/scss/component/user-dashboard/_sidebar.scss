@@ -21,6 +21,10 @@
         z-index: 22;
     }
 
+    @media only screen and (max-width: 479px) {
+        padding-top: 80px;
+    }
+
     .directorist-dashboard__nav--close {
         display: none;
         position: absolute;
@@ -29,6 +33,11 @@
 
         @media only screen and (max-width: 1199px) {
             display: block;
+        }
+
+        @media only screen and (max-width: 479px) {
+            right: 20px;
+            top: 60px;
         }
     }
 

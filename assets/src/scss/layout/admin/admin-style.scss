@@ -4240,7 +4240,6 @@ input.atbdp-form-control {
     }
 
     .directorist_btn-import {
-      margin-top: 20px;
 
       .directorist_link-icon {
         border: 0 none;
@@ -4252,6 +4251,12 @@ input.atbdp-form-control {
 
       .directorist_link-text {
         margin-top: 12px;
+      }
+    }
+
+    .directorist_link-block {
+      &+.directorist_link-block{
+        margin-top: 20px;
       }
     }
   }

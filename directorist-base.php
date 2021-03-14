@@ -257,9 +257,7 @@ final class Directorist_Base
             self::$instance->announcement = new ATBDP_Announcement;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
-
-            // new settings
-            // new ATBDP_Settings_Manager();
+            
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();

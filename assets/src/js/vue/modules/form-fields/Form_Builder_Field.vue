@@ -446,11 +446,7 @@ export default {
     handleWidgetListItemDragStart(widget_group_key, payload) {
       // console.log( 'handleWidgetListItemDragStart', { widget_group_key, payload } );
 
-      if (
-        payload.widget &&
-        typeof payload.widget.type !== "undefined" &&
-        "section" === payload.widget.type
-      ) {
+      if ( payload.widget && typeof payload.widget.type !== "undefined" && "section" === payload.widget.type ) {
         this.currentDraggingGroup = {
           from: "available_widgets",
           widget_group_key,

@@ -1,8 +1,7 @@
-import validator from './../validation';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, validator ],
+    mixins: [ props ],
 
     model: {
         prop: 'value',
@@ -36,7 +35,15 @@ export default {
             }
 
             return this.selectButtonLabel;
-        }
+        },
+
+        formGroupClass() {
+            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+
+            return {
+                ...validation_classes,
+            }
+        },
     },
     
     watch: {
@@ -53,6 +60,7 @@ export default {
         return {
             file_frame: null,
             thumbnail_src: '',
+            validationLog: {}
         }
     },
 

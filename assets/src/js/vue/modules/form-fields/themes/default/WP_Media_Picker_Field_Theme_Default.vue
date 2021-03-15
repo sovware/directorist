@@ -20,6 +20,16 @@
         </div>
 
         <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="theButtonLabel">
+
+        <form-field-validatior 
+            :section-id="sectionId"
+            :field-id="fieldId"
+            :root="root"
+            :value="value" 
+            :rules="rules" 
+            v-model="validationLog" 
+            @validate="$emit( 'validate', $event )"
+        />
     </div>
 </template>
 

@@ -307,7 +307,7 @@
         }
 
         .directorist-listing-table-listing-info__content {
-            flex: auto;
+            flex: 1;
 
             .directorist-title {
                 margin: 0 0 5px;
@@ -727,7 +727,7 @@
     margin-bottom: 15px !important;
 }
 
-.directorist-shade{
+.directorist-shade {
     position: fixed;
     top: 0;
     left: 0;
@@ -737,6 +737,7 @@
     opacity: 0;
     z-index: -1;
     background-color: #fff;
+
     &.directorist-active {
         display: block;
         z-index: 21;

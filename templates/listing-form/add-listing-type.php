@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php foreach ( $listing_form->get_listing_types() as $id => $value ): ?>
 
-				<div class="<?php Helper::directorist_column(3); ?>">
+				<div class="<?php Helper::directorist_column(['lg-3', 'md-4', 'sm-6']); ?>">
 					<div class="directorist-add-listing-types__single">
 
 						<a href="<?php echo esc_url( add_query_arg('directory_type', $value['term']->slug ) ); ?>" class="directorist-add-listing-types__single__link">

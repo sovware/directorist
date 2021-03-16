@@ -27,6 +27,37 @@ trait URI_Helper {
 		return $dir;
 	}
 
+	public static function theme_template_directory() {
+		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
+
+		if ( $legacy ) {
+			$dir = 'directorist-v6';
+		}
+		else {
+			$dir = 'directorist';
+		}
+
+		$dir = apply_filters( 'directorist_template_directory', $dir );
+
+		return $dir;
+	}
+
+	public static function template_path( $template_file ) {
+		$theme_template  = self::theme_template_directory() . '/' . $template_file . '.php';
+		$theme_file_path = locate_template( $theme_template );
+
+		if ( $theme_file_path ) {
+			$file_path = $theme_file_path;
+		}
+		else {
+			$file_path = self::template_directory() . $template_file . '.php';
+		}
+
+		$file_path = apply_filters( 'directorist_template_file_path', $file_path, $template_file );
+
+		return $file_path;
+	}
+
 	public static function get_template( $template_file, $args = array(), $shortcode_key = '' ) {
 		if ( is_array( $args ) ) {
 			extract( $args );
@@ -52,45 +83,26 @@ trait URI_Helper {
 			}
 		}
 
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
-
-		if ( $legacy ) {
-			$dir = 'directorist-v6';
-		}
-		else {
-			$dir = 'directorist';
-		}
-
-		$dir = apply_filters( 'directorist_template_directory', $dir );
-		$theme_template  = '/' . $dir . '/' . $template_file . '.php';
-		$plugin_template = self::template_directory() . $template_file . '.php';
-
-		if ( file_exists( get_stylesheet_directory() . $theme_template ) ) {
-			$file = get_stylesheet_directory() . $theme_template;
-		}
-		elseif ( file_exists( get_template_directory() . $theme_template ) ) {
-			$file = get_template_directory() . $theme_template;
-		}
-		else {
-			$file = $plugin_template;
-		}
-
-		$file = apply_filters( 'directorist_template_file_path', $file, $template_file );
+		$file = self::template_path( $template_file );
 
 		if ( file_exists( $file ) ) {
 			include $file;
 		}
 	}
 
-	public static function get_theme_template_for( $template ) {
-		if ( locate_template( $template . '.php' ) ) {
-			get_template_part( $template );
+	public static function get_theme_template_path_for( $template ) {
+		$template_path = locate_template( $template . '.php' );
+		$singular_path = locate_template( 'singular.php' );
+		$index_path    = locate_template( 'index.php' );
+
+		if ( $template_path ) {
+			return $template_path;
 		}
-		elseif ( locate_template( 'singular.php' ) ) {
-			get_template_part( 'singular' );
+		elseif ( $singular_path ) {
+			return $singular_path;
 		}
 		else {
-			get_template_part( 'index' );
+			return $index_path;
 		}
 	}
 }

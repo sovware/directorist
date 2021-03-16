@@ -1,9 +1,15 @@
 export default {
     props: {
+        sectionId: {
+            type: [String, Number],
+            default: '',
+        },
         fieldId: {
             type: [String, Number],
-            required: false,
             default: '',
+        },
+        root: {
+            required: false,
         },
         data: {
             required: false,
@@ -34,9 +40,6 @@ export default {
         saveOptionData: {
             required: false,
             default: false,
-        },
-        root: {
-            required: false,
         },
         showIf: {
             required: false,

@@ -1878,6 +1878,4 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             ATBDP()->load_template('admin-templates/theme-extensions/theme-extension', $data );
         }
     }
-
-
 }

@@ -6372,7 +6372,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' )
     } else {
         $args['tax_query'] = array(
             array(
-                'taxonomy' => ATBDP_CATEGORY,
+                'taxonomy' => ATBDP_LOCATION,
                 'field' => 'term_id',
                 'terms' => $term_id,
                 'include_children' => true

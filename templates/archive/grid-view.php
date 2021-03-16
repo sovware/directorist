@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-					<div class="<?php Helper::directorist_column( $listings->columns ); ?> directorist-all-listing-col">
+					<div class="<?php Helper::directorist_column( $listings->columns ); ?> directorist-all-listing-col"><!-- directorist-all-listing-col -->
 						<?php $listings->loop_template( 'grid', $listing_id ); ?>
 					</div>
 

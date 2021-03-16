@@ -1,12 +1,12 @@
 ;(function ($) {
-    
-    /* atbd alert dismiss */
-    
-    if($('.atbd-alert-close') !== null){
-        $('.atbd-alert-close').each(function(i,e){
+
+    /* Directorist alert dismiss */
+
+    if($('.directorist-alert__close') !== null){
+        $('.directorist-alert__close').each(function(i,e){
             $(e).on('click', function(e){
                 e.preventDefault();
-                $(this).parent('.atbd-alert').remove();
+                $(this).closest('.directorist-alert').remove();
             });
         });
     }

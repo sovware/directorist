@@ -58,7 +58,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
 
             if (response?.status?.success) {
 
-                window.reload();
+                location.reload();
                 return;
 
                 form.attr('id', 'atbdp-product-download-form');

@@ -32,7 +32,6 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($args['installed_extension_list'] as $extension_base => $extension) : ?>
-                                <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -42,7 +41,7 @@
                                                         <?php
 
                                                             $ext_key       = preg_replace( '/\/.+/', '', $extension_base );
-                                                            $ext_key_alias = preg_replace( '/\/.+/', '', $extension_base_alias );
+                                                            $ext_key_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $ext_key );;
                                                             $img           = 'https://via.placeholder.com/44' ;
 
                                                             if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {

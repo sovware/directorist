@@ -1,14 +1,14 @@
 <?php
 /**
- * @author  AazzTech
- * @since   6.7
- * @version 6.7
+ * @author  sovWare
+ * @since   7.0
+ * @version 7.0.3.2
  */
 ?>
 <div class="directorist-form-group directorist-form-categories-field">
 	<?php $listing_form->field_label_template( $data );?>
 
-	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?>>
+	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" <?php echo $data['type'] == 'multiple' ?  'multiple="multiple"' : ''; echo !empty( $data['create_new_cat'] ) ? 'data-allow_new="'. $data['create_new_cat'] .'"' : ''; ?>>
 
 		<?php
 		if ( $data['type'] != 'multiple' ) {

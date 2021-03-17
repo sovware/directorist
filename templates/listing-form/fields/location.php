@@ -1,21 +1,16 @@
 <?php
 /**
- * @author  AazzTech
- * @since   6.7
- * @version 6.7
+ * @author  sovWare
+ * @since   7.0
+ * @version 7.0.3.2
  */
-
 ?>
 
 <div class="directorist-form-group directorist-form-location-field">
 	<?php $listing_form->field_label_template( $data ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location"
-	 <?php
-	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
-	 echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : '';
-	 echo !empty( $data['allow_new'] ) ? 'allow_new="'. $data['allow_new'] .'"' : '';
-	 ?>>
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location" <?php
+	 echo $data['type'] == 'multiple' ? 'multiple="multiple"' : '';  echo !empty( $data['max_location_creation'] ) ? 'data-max="'. $data['max_location_creation'] .'"' : '';  echo !empty( $data['create_new_loc'] ) ? 'data-allow_new="'. $data['create_new_loc'] .'"' : ''; ?>>
 
 		<?php
 		if ($data['type'] != 'multiple') {

@@ -1,8 +1,8 @@
 <?php
 /**
- * @author  AazzTech
- * @since   6.7
- * @version 6.7
+ * @author  sovWare
+ * @since   7.0
+ * @version 7.0.3.2
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
@@ -12,7 +12,7 @@ $current_tag_ids = $listing_form->add_listing_tag_ids();
 <div class="directorist-form-group directorist-form-tag-field">
 	<?php $listing_form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" multiple="multiple" <?php echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?> >
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" multiple="multiple" <?php echo !empty( $data['allow_new'] ) ? 'data-allow_new="'. $data['allow_new'] .'"' : ''; ?> >
 		<?php
 		foreach ($all_tags as $tag) {
 			$current = in_array($tag->term_id, $current_tag_ids) ? true : false;

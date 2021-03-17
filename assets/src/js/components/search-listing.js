@@ -1,5 +1,5 @@
 (function ($) {
-    /* $('#at_biz_dir-location').select2({
+    $('#at_biz_dir-location').select2({
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
         templateResult: function (data) {
@@ -17,7 +17,7 @@
 
             return $wrapper;
         }
-    }); */
+    });
 
     // Category
     $('#at_biz_dir-category').select2({

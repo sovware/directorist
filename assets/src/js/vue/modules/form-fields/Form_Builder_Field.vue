@@ -14,13 +14,9 @@
           :class="forceExpandStateTo ? 'cptm-btn-primary' : ''"
           @click="toggleEnableWidgetGroupDragging"
         >
-          {{
-            forceExpandStateTo
-              ? "Disable Section Dragging"
-              : "Enable Section Dragging"
-          }}
+          {{ forceExpandStateTo ? "Disable Section Dragging" : "Enable Section Dragging" }}
         </button>
-
+        
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
             list-id="widget-group"
@@ -255,6 +251,7 @@ export default {
       }
 
       this.active_widget_fields = this.value.fields;
+      this.active_widget_fields = Array.isArray( this.value.fields ) ? {} : this.value.fields;
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
@@ -345,20 +342,14 @@ export default {
 
       // handleWidgetReorderFromActiveWidgets
       if ("active_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetReorderFromActiveWidgets(
-          this.currentDraggingWidget,
-          dropped_in
-        );
+        this.handleWidgetReorderFromActiveWidgets( this.currentDraggingWidget, dropped_in );
         this.currentDraggingWidget = null;
         return;
       }
 
       // handleWidgetInsertFromAvailableWidgets
       if ("available_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetInsertFromAvailableWidgets(
-          this.currentDraggingWidget,
-          dropped_in
-        );
+        this.handleWidgetInsertFromAvailableWidgets( this.currentDraggingWidget, dropped_in );
         this.currentDraggingWidget = null;
       }
     },
@@ -424,8 +415,12 @@ export default {
         field_data_options.field_key = unique_field_key;
       }
       
-
       field_data_options.widget_key = inserting_widget_key;
+
+      if ( Array.isArray( this.active_widget_fields ) ) {
+        this.active_widget_fields = {};
+      }
+      
       Vue.set( this.active_widget_fields, inserting_widget_key, field_data_options );
 
       let to_fields = this.active_widget_groups[to.widget_group_key].fields;
@@ -435,9 +430,7 @@ export default {
       dest_index = dest_index < 0 ? 0 : dest_index;
       dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
 
-      this.active_widget_groups[to.widget_group_key].fields.splice(
-        dest_index, 0, inserting_widget_key
-      );
+      this.active_widget_groups[to.widget_group_key].fields.splice( dest_index, 0, inserting_widget_key );
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
@@ -568,7 +561,6 @@ export default {
     },
 
     handleGroupDrop(widget_group_key, payload) {
-      // console.log( { widget_group_key, currentDraggingGroup: this.currentDraggingGroup } );
 
       let dropped_in = {
         widget_group_key,
@@ -608,10 +600,7 @@ export default {
     handleGroupReorderFromActiveWidgets(from, to) {
       let origin_data = this.active_widget_groups[from.widget_group_key];
 
-      let dest_index =
-        from.widget_group_key < to.widget_group_key
-          ? to.widget_group_key - 1
-          : to.widget_group_key;
+      let dest_index = from.widget_group_key < to.widget_group_key ? to.widget_group_key - 1 : to.widget_group_key;
       dest_index = "after" === to.drop_direction ? dest_index + 1 : dest_index;
 
       this.active_widget_groups.splice(from.widget_group_key, 1);

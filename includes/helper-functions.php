@@ -7184,7 +7184,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
     // Vars
     $args = array_merge(array(
-        'show_option_none' => '-- ' . __('Select a category', 'advanced-classifieds-and-directory-pro') . ' --',
+        'show_option_none' => '-- ' . __('Select a category', 'directorist') . ' --',
         'option_none_value' => '',
         'taxonomy' => 'at_biz_dir-category',
         'name' => 'bdas_category',

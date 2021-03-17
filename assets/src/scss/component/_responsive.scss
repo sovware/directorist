@@ -65,6 +65,11 @@ $mobile-width-3: 375px;
     .directorist-form-social-fields {
         display: block !important;
     }
+
+    .directorist-advanced-filter__basic--element {
+        width: 100%;
+        flex: 0 0 100%;
+    }
 }
 
 // XX. Small Devices (less than 480px)

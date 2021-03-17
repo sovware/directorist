@@ -1,5 +1,5 @@
 (function ($) {
-    /* $('#at_biz_dir-location').select2({
+    $('#at_biz_dir-location').select2({
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
         templateResult: function (data) {
@@ -38,7 +38,7 @@
 
             return $wrapper;
         }
-    }); */
+    });
 
     //ad search js
     /* var showMore = atbdp_search_listing.i18n_text.show_more;
@@ -71,18 +71,18 @@
     });
 
 
-    
+
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
     $( window  ).load(function() {
-        
+
         $('.directorist-btn-ml').each( (index, element) => {
             let item = $(element).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
             var abc2 = $(item).find('.directorist-checkbox ');
             $(abc2).slice(4, abc2.length).slideUp();
         });
-        
+
     });
 
     $('body').on('click', '.directorist-btn-ml', function(event) {
@@ -202,7 +202,7 @@ function adsFormReset() {
     if ( ! adsForm ) {
         adsForm = document.querySelector(".atbd_ads-form");
     }
-    
+
     adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
     });

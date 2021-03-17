@@ -1,10 +1,9 @@
 import { mapState } from 'vuex';
 import helpers from './../helpers';
-import validator from './../validator';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, helpers, validator ],
+    mixins: [ props, helpers ],
     model: {
         prop: 'value',
         event: 'update'
@@ -108,6 +107,14 @@ export default {
 
             return terget_fields;
         },
+
+        formGroupClass() {
+            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+
+            return {
+                ...validation_classes,
+            }
+        },
     },
 
     data() {
@@ -117,6 +124,7 @@ export default {
             optionsInObject: {},
             show_option_modal: false,
             clickEvent: null,
+            validationLog: {}
         }
     },
 

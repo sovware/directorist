@@ -24,6 +24,16 @@
                         </a>
                     </div>
                 </div>
+
+                <form-field-validatior 
+                    :section-id="sectionId"
+                    :field-id="fieldId"
+                    :root="root"
+                    :value="value" 
+                    :rules="rules" 
+                    v-model="validationLog" 
+                    @validate="$emit( 'validate', $event )"
+                />
             </div>
         </div>
 

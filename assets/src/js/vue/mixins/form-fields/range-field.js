@@ -1,8 +1,7 @@
-import validator from './../validator';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, validator ],
+    mixins: [ props ],
     model: {
         prop: 'value',
         event: 'input'
@@ -19,13 +18,6 @@ export default {
     },
 
     computed: {
-        formGroupClass() {
-            return {
-                ...this.validationClass,
-                'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
-            }
-        },
-
         theMin() {
             return ( ! isNaN( this.min ) ) ? Number( this.min ) : 0;
         },
@@ -50,12 +42,22 @@ export default {
             return {
                 width: p + '%'
             }
-        }
+        },
+
+        formGroupClass() {
+            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+
+            return {
+                ...validation_classes,
+                'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
+            }
+        },
     },
 
     data() {
         return {
             range_value: 0,
+            validationLog: {}
         }
     },
 

@@ -870,9 +870,6 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 }
             }
 
-            $term = get_term_by( 'id', $current, ATBDP_TYPE );
-            $current = $term->slug;
-
             return $current;
         }
 

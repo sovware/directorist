@@ -1235,6 +1235,7 @@ class Directorist_Listings {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_types
 		);
 	}
 

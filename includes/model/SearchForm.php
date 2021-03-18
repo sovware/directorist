@@ -414,6 +414,7 @@ class Directorist_Listing_Search_Form {
 			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
 			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
 			$listing_type_id     = $this->listing_type;
+			
 
 			if( in_array( $listing_type_id, $directory_type ) ) {
 				$top_categories[] = $cat;

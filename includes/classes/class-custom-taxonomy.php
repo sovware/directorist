@@ -56,7 +56,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
 
         public function directorist_bulk_term_update(){
-            if( get_option( 'directorist_bulk_term_update_v7' ) ) return;
+            if( get_option( 'directorist_bulk_term_update_v7_0_3_2' ) ) return;
         
             $terms = [ ATBDP_CATEGORY, ATBDP_LOCATION ];
             foreach( $terms as $term ) {
@@ -98,7 +98,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     }
                 }
             }
-            update_option( 'directorist_bulk_term_update_v7', 1 );
+            update_option( 'directorist_bulk_term_update_v7_0_3_2', 1 );
         }
 
 
@@ -728,7 +728,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             if ($column_name == 'atbdp_location_directory_type') {
 
-                if( $directory_type ) {
+                if( $directory_type && is_array( $directory_type ) ) {
 
                     $listing_type = array();
                     foreach( $directory_type as $type ) {

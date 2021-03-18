@@ -1,7 +1,7 @@
 <?php
 /**
- * @author  sovWare
- * @since   7.0
+ * @author  AazzTech
+ * @since   6.7
  * @version 7.0.3.2
  */
 ?>

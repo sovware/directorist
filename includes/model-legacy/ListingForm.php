@@ -747,7 +747,7 @@ class Directorist_Listing_Form {
 			'manual_lat'         => get_post_meta( $p_id, '_manual_lat', true ),
 			'manual_lng'         => get_post_meta( $p_id, '_manual_lng', true ),
 			'default_latitude'   => get_directorist_option( 'default_latitude', '40.7127753', true ),
-			'default_longitude'  => get_directorist_option( 'default_latitude', '-74.0059728', true ),
+			'default_longitude'  => get_directorist_option( 'default_longitude', '-74.0059728', true ),
 			'info_content'       => $this->get_map_info_content(),
 			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
 			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),

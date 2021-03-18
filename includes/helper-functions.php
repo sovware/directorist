@@ -7653,22 +7653,26 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     if (count($terms) > 0) {
 
         foreach ($terms as $term) {
-            $settings['term_id'] = $term->term_id;
+            $directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+            $directory_type = ! empty( $directory_type ) ? $directory_type : array();
+            if( in_array( $settings['listing_type'], $directory_type ) ) {
+                $settings['term_id'] = $term->term_id;
 
-            $count = 0;
-            if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
-                $count = atbdp_listings_count_by_category($term->term_id);
+                $count = 0;
+                if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
+                    $count = atbdp_listings_count_by_category($term->term_id);
 
-                if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                    if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                }
+                $selected = ($term_id == $term->term_id) ? "selected" : '';
+                $html .= '<option value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= $prefix . $term->name;
+                if (!empty($settings['show_count'])) {
+                    $html .= ' (' . $count . ')';
+                }
+                $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;');
+                $html .= '</option>';
             }
-            $selected = ($term_id == $term->term_id) ? "selected" : '';
-            $html .= '<option value="' . $term->term_id . '" ' . $selected . '>';
-            $html .= $prefix . $term->name;
-            if (!empty($settings['show_count'])) {
-                $html .= ' (' . $count . ')';
-            }
-            $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;');
-            $html .= '</option>';
         }
 
     }

@@ -447,6 +447,7 @@ class Directorist_Listing_Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_type
 		);
 	}
 

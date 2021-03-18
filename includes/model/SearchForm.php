@@ -64,14 +64,14 @@ class Directorist_Listing_Search_Form {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
-
+		
 		if ( $listing_type ) {
 			$this->listing_type = (int) $listing_type;
 		}
 		else {
 			$this->listing_type = $this->get_default_listing_type();
 		}
-
+	
 		// Search result page
 		if ( $type == 'search_result' ) {
 			$this->update_options_for_search_result_page();
@@ -414,7 +414,6 @@ class Directorist_Listing_Search_Form {
 			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
 			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
 			$listing_type_id     = $this->listing_type;
-			
 
 			if( in_array( $listing_type_id, $directory_type ) ) {
 				$top_categories[] = $cat;
@@ -453,6 +452,7 @@ class Directorist_Listing_Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_type 
 		);
 	}
 

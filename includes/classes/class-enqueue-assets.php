@@ -424,7 +424,7 @@ class Enqueue_Assets {
 			'file_name'      => 'tooltip',
 			'base_path'      => DIRECTORIST_VENDOR_JS,
 			'has_min'        => false,
-			'deps'           => [],
+			'deps'           => [ 'directorist-popper' ],
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,              // public || admin  || global
 			'section'        => '',

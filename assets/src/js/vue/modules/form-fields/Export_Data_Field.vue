@@ -15,9 +15,5 @@ import props from './../../mixins/form-fields/input-field-props';
 export default {
     name: 'export-data-field',
     mixins: [ props, feild_helper ],
-
-    created( ) {
-        console.log( 123 );
-    }
 }
 </script>

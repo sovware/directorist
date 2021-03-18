@@ -216,14 +216,14 @@ class ATBDP_Metabox {
 			foreach( $listing_categories as $category ) {
 				$directory_type = get_term_meta( $category, '_directory_type', true );
 				if( empty( $directory_type ) ) {
-					update_term_meta( $category, '_directory_type', array( $term->slug ) );
+					update_term_meta( $category, '_directory_type', array( $term->term_id ) );
 				}
 			}
 
 			foreach( $listing_locations as $location ) {
 				$directory_type = get_term_meta( $location, '_directory_type', true );
 				if( empty( $directory_type ) ) {
-					update_term_meta( $location, '_directory_type', array( $term->slug ) );
+					update_term_meta( $location, '_directory_type', array( $term->term_id ) );
 				}
 			}
 		}

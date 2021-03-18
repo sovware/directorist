@@ -89,6 +89,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                                     $term_with_directory_slug = get_term_by( 'slug', $old_data, 'atbdp_listing_types' );
                                     $id = $term_with_directory_slug->term_id;
                                     update_term_meta( $data->term_id, '_directory_type', [ $id ] );
+                                } else {
+                                    update_term_meta( $data->term_id, '_directory_type', [ $old_data ] );
                                 }
                             }
                             

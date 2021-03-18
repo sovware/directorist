@@ -8,6 +8,14 @@
     }
 }
 
+.directorist-content-active{
+    a,
+    span{
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+}
+
 // Spacing Classes
 .directorist-mt-5 {
     margin-top: 5px !important;

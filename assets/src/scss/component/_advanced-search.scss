@@ -219,7 +219,6 @@
 
 // Business Hour Open Close
 
-
 .directorist-form-group{
     .form-group{
         label{
@@ -284,6 +283,39 @@
                         top: 0;
                     }
                 }
+            }
+        }
+    }
+}
+
+// Custom Field Checkbox & Radio
+
+.directorist-form-group {
+
+    &.direcorist-search-field-checkbox,
+    &.direcorist-search-field-radio{
+
+        .directorist-search-field{
+            display: flex;
+            flex-wrap: wrap;
+            margin: -7.5px;
+
+            >label{
+                
+                margin: 7.5px;
+                flex: 0 0 100%;
+                width: 100%;
+            }
+
+            .directorist-checkbox__label{
+
+                margin-left: 0;
+            }
+
+            .directorist-checkbox,
+            .directorist-radio {
+
+                margin: 7.5px;
             }
         }
     }

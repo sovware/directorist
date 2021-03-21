@@ -327,6 +327,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     if( !is_wp_error( $result ) ){
                                         $term_id = $result['term_id'];
                                         wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                        update_term_meta($term_id, '_directory_type', [ $directory_type ]);
+
                                     }
                                 }else{
                                     wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
@@ -361,6 +363,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     if( !is_wp_error( $result ) ){
                                         $term_id = $result['term_id'];
                                         wp_set_object_terms($post_id, $term_id, ATBDP_CATEGORY, $append);
+                                        update_term_meta($term_id, '_directory_type', [ $directory_type ]);
                                     }
                                 }else{
                                     wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);
@@ -495,6 +498,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         if( !is_wp_error( $result ) ){
                                             $term_id = $result['term_id'];
                                             wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                            update_term_meta($term_id, '_directory_type', [ $directory_type ]);
                                         }
                                     } else {
                                         wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
@@ -529,6 +533,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         if( !is_wp_error( $result ) ){
                                             $term_id = $result['term_id'];
                                             wp_set_object_terms($post_id, $term_id, ATBDP_CATEGORY, $append);
+                                            update_term_meta($term_id, '_directory_type', [ $directory_type ]);
                                         }
                                     }else{
                                         wp_set_object_terms($post_id, $cat->name, ATBDP_CATEGORY, $append);

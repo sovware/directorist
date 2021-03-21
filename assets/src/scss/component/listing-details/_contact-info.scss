@@ -2,10 +2,18 @@
 .directorist-details-info-wrap {
     .directorist-single-info {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
 
+        @media only screen and (max-width: 375px){
+            flex-direction: column;
+            align-items: flex-start;
+        }
         &:not(:last-child) {
             margin-bottom: 10px;
+            @media only screen and (max-width: 375px){
+                margin-bottom: 15px;
+            }
         }
 
         a {
@@ -15,9 +23,18 @@
         .directorist-single-info__label {
             display: flex;
             align-items: center;
-            flex: 0 0 30%;
+            min-width: 350px;
             color: #7a82a6;
             margin-right: 15px;
+
+            @media only screen and (max-width: 575px){
+                min-width: 220px;
+            }
+            @media only screen and (max-width: 375px){
+                min-width: 100%;
+                margin-bottom: 6px;
+                margin-right: 0;
+            }
 
             .directorist-single-info__label-icon {
                 display: inline-flex;
@@ -36,8 +53,7 @@
         }
 
         .directorist-single-info__value {
-            flex: auto;
-            width: 100%;
+            flex: 1;
             color: #7a82a6;
         }
 

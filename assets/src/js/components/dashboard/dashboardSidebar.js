@@ -5,16 +5,12 @@
     $(".directorist-user-dashboard__toggle__link").on("click", function(e){
         e.preventDefault();
         $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
+        // $(".directorist-shade").toggleClass("directorist-active");
     });
     
     if($(window).innerWidth() < 767){
       $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
       $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
-      $("body").on("click", function(e){
-            if($(e.target).is(".directorist-user-dashboard__nav, .atbdp_all_booking_nav-link, .directorist-user-dashboard__toggle__link, .directorist-user-dashboard__toggle__link i, .directorist-tab__nav__item") === false) {
-                $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
-            }
-        });
     }
 
     //dashboard nav dropdown
@@ -27,7 +23,13 @@
     if($(window).innerWidth() < 1199){
         $(".directorist-tab__nav__link").on("click", function(){
             $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-        })
+            $(".directorist-shade").removeClass("directorist-active");
+        });
+
+        $(".directorist-user-dashboard__toggle__link").on("click", function(e){
+            e.preventDefault();
+            $(".directorist-shade").toggleClass("directorist-active");
+        });
     }
     
 

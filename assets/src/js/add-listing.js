@@ -141,7 +141,7 @@ function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackH
 // Select2 js code
 if( ! localized_data.is_admin ){
         // Location
-        const createLoc = localized_data.create_new_loc;
+        const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
         let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
         if (createLoc) {
                 $("#at_biz_dir-location").select2({
@@ -166,7 +166,7 @@ if( ! localized_data.is_admin ){
         }
 
         // Tags
-        const createTag = localized_data.create_new_tag;
+        const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
         // console.log($('#at_biz_dir-tags').attr("data-max"));
         let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
         if (createTag) {
@@ -185,7 +185,7 @@ if( ! localized_data.is_admin ){
                 });
         }
         //Category
-        const createCat = localized_data.create_new_cat;
+        const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
         let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
         if(createCat){
                 $('#at_biz_dir-categories').select2({

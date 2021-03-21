@@ -21,7 +21,7 @@ const commonConfig = {
           {
             loader: "file-loader",
             options: {
-              outputPath: "../images",
+              outputPath: "images",
             },
           },
         ],

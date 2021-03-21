@@ -224,6 +224,13 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
+        if( !empty( $this->get_old_custom_fields() ) ){
+                foreach( $this->get_old_custom_fields() as $key => $value ){
+                    $general_group_field_keys[] = $key;
+                    $preset_fields[ $key ] = $value;
+                }
+        }
+
         $general_group_field_keys[] = 'location';
         $preset_fields[ "location" ] = [
             "type"           => "multiple",
@@ -450,24 +457,14 @@ class ATBDP_Multi_Directory_Migration {
 
         // General Group
         $form_groups[] = [
-            "label"  => "General Group",
+            "label"  => "General Information",
             "lock"   => true,
             "fields" => $general_group_field_keys,
         ];
 
-        // Features
-        if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
-            $form_groups[] = [
-                "label"  => "Features",
-                "fields" => array_keys( $custom_fields ),
-            ];
-        }
-
-        // directorist_console_log( $custom_fields );
-
         // Contact Info
         $form_groups[] = [
-            "label"  => "Contact Info",
+            "label"  => "Contact Information",
             "fields" => $contact_group_info_field_keys,
         ];
 
@@ -479,7 +476,7 @@ class ATBDP_Multi_Directory_Migration {
 
         // Gallery
         $form_groups[] = [
-            "label" => "Gallery",
+            "label" => "Images & Video",
             "fields" => $gallery_group_field_keys,
         ];
 
@@ -1678,7 +1675,7 @@ class ATBDP_Multi_Directory_Migration {
                 "widget_name" => "posted_date",
                 "widget_key"  => "posted_date",
                 "icon"        => "la la-clock-o",
-                "date_type"   => "post_date"
+                "date_type"   => "days_ago"
             ],
             'view_count' => [
                 "type"        => "view-count",

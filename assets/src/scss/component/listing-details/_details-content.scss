@@ -203,3 +203,17 @@
         margin: 0 15px;
     }
 }
+
+#directorist-single-listing-slider{
+    .plasmaSlider__footer{
+        margin-left: -4px;
+    }
+    .plasmaSlider__thumbnailListItem {
+        .plasmaSlider__thumbnailListItemImg{
+            max-width: 120px;
+        }
+    }
+    .plasmaSlider__thumbnailList{
+        padding: 3px 0;
+    }
+}

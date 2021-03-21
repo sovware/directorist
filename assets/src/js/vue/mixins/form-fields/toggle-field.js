@@ -1,8 +1,7 @@
-import validator from './../validation';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, validator ],
+    mixins: [ props ],
     model: {
         prop: 'value',
         event: 'input'
@@ -46,7 +45,15 @@ export default {
             return {
                 [ 'cptm-' + button_type ]: true
             }
-        }
+        },
+
+        formGroupClass() {
+            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+
+            return {
+                ...validation_classes,
+            }
+        },
     },
 
     data() {
@@ -66,7 +73,9 @@ export default {
             confirmation: {
                 show: false,
                 onConfirm: null,
-            }
+            },
+
+            validationLog: {}
         }
     },
 

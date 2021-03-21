@@ -124,6 +124,8 @@
 .directorist-author-info-widget,
 .directorist-single-author-info{
     .directorist-author-social{
+        display: flex;
+        flex-wrap: wrap;
         margin-top: 15px;
         .directorist-author-social-item{
             display: inline-block;

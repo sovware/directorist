@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.2
+Stable tag: 7.0.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -346,6 +346,49 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 7.0.3.2 - Mar 19, 2021 =
+
+* Fix - Single listing review, author, similar listings section disappearing issue
+* Fix - Compatibility issues with some themes eg. Divi
+* Fix - Builder widget's issues
+* Fix - Responsive issue
+* Fix - Login issue in subscription management
+* Fix - Popular category issue
+* Fix - Theme header style modifying issue
+* Fix - Fixed locations widget count issue
+* Fix - New location creation
+* Fix - Builder saving issue
+* Fix - Custom field in search form
+* Fix - Style compatibility with Elementor
+* Add - Tolltip dependency
+* Add - excluded custom taxonomy links (native) from YOAST sitemap
+* Improve - Search form fields
+
+= 7.0.3.1 - Mar 13, 2021 =
+
+* Fix - Category and location displaying issue
+* Fix - Preset fields not show in listings page
+* Fix - PHP error in single listing
+* Improve - Terms link
+
+= 7.0.3 - Mar 12, 2021 =
+
+* Fix - Login issue
+* Fix - Old custom field displaying issue
+* Fix - Custom field checkbox saving issue
+* Fix - Map latitude and longitude saving issue
+* Fix - Translate issues
+* Fix - Review deleting issue
+* Fix - Add listing form validation issue
+* Fix - New category creating issue in add listing form
+* Fix - map_zoom_level parameter issue
+* Fix - Listings bulk edit
+* Fix - Membership management page
+* Fix- Custom Fields(Checkbox , Radio) avoiding the unnecessary scroll for more item.
+* Improve - Builder issues
+* Improve - Migration
+* Improve - Elementor's widgets
 
 = 7.0.2 - Mar 07, 2021 =
 

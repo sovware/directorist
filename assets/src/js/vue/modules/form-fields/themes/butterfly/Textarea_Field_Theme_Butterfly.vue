@@ -9,11 +9,15 @@
             <div class="atbdp-col atbdp-col-8">
                 <textarea name="" id="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" v-model="local_value"></textarea>
 
-                <div class="cptm-form-group-feedback" v-if="validationMessages">
-                    <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
-                        {{ validationMessages.message }}
-                    </div>
-                </div>
+                <form-field-validatior 
+                    :section-id="sectionId"
+                    :field-id="fieldId"
+                    :root="root"
+                    :value="value" 
+                    :rules="rules" 
+                    v-model="validationLog" 
+                    @validate="$emit( 'validate', $event )"
+                />
             </div>
         </div>
     </div>

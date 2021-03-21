@@ -424,7 +424,7 @@ class Enqueue_Assets {
 			'file_name'      => 'tooltip',
 			'base_path'      => DIRECTORIST_VENDOR_JS,
 			'has_min'        => false,
-			'deps'           => [],
+			'deps'           => [ 'directorist-popper' ],
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,              // public || admin  || global
 			'section'        => '',
@@ -1318,10 +1318,10 @@ class Enqueue_Assets {
 			return true;
 		}
 
-		$disable = apply_filters( 'directorist_disable_shortcode_restriction_on_scripts', DIRECTORIST_DISABLE_SHORTCODE_RESTRICTION_ON_SCRIPTS );
-		if ( $disable ) {
-			return true;
-		}
+		$disable = ( class_exists( 'Elementor\Plugin' ) ) ? true : DIRECTORIST_DISABLE_SHORTCODE_RESTRICTION_ON_SCRIPTS;
+		$disable = apply_filters( 'directorist_disable_shortcode_restriction_on_scripts', $disable );
+		
+		if ( $disable ) { return true; }
 
 		$match_found = 0;
 		foreach ( $script_args['shortcode'] as $_shortcode ) {

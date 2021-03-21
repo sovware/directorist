@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -26,12 +26,10 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 		
 	</div>
 
-	
-
 	<div class="directorist-listing-single__content">
 
 		<div class="directorist-listing-single__info">
-			
+
 			<div class="directorist-listing-single__info--top">
 				<?php $listings->render_loop_fields($loop_fields['body']['quick_info']); ?>
 			</div>

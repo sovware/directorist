@@ -152,12 +152,13 @@
 
                     foreach ($metas as $index => $value) {
                         $meta_value = $post[ $value ] ? $post[ $value ] : '';
-                        $meta_value = maybe_unserialize( maybe_unserialize( $meta_value ) );
+                        $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
 
                         if ( $meta_value ) {
-                            update_post_meta($post_id, '_'.$index, $meta_value);
+                            update_post_meta( $post_id, '_' . $index, $meta_value );
                         }
                     }
+
                     $exp_dt = calc_listing_expiry_date();
                     update_post_meta($post_id, '_expiry_date', $exp_dt);
                     update_post_meta($post_id, '_featured', 0);
@@ -174,19 +175,17 @@
                     $preview_url = explode( ',', $preview_url );
 
                     if ( $preview_url ) {
-                        $ind = 0;
-                        foreach ( $preview_url as $_url ) {
+                        $attachment_ids = [];
+                        foreach ( $preview_url as $_url_index => $_url ) {
                             $attachment_id = self::atbdp_insert_attachment_from_url($_url, $post_id);
-
-                            if ( 1 === $ind ) {
+                            if ( 1 === $_url_index ) {
                                 update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                             } else {
-                                update_post_meta($post_id, '_listing_img', $attachment_id);
+                                $attachment_ids[] = $attachment_id;
                             }
-                            
-                            $ind++;
                         }
-                        
+
+                        update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
 
                     $count++;
@@ -200,6 +199,20 @@
             $data['failed']        = $failed;
 
             wp_send_json($data);
+        }
+
+        // maybe_unserialize_csv_string
+        public function maybe_unserialize_csv_string( $data ) {
+            if ( 'string' !== gettype( $data ) ) { return $data; }
+
+            $_data = str_replace( "'", '"', $data );
+            $_data = maybe_unserialize( maybe_unserialize( $_data ) );
+
+            if ( ! empty( $_data ) ) {
+                return $_data;
+            }
+
+            return $data;
         }
 
 

@@ -1,29 +1,32 @@
 import props from './input-field-props.js';
 import helpers from '../helpers';
+const axios = require('axios').default;
 
 export default {
     name: 'export-data-field',
     mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
+
+    created() {
+        if ( this.buttonLabel && this.buttonLabel.length ) {
+            this.button_label = this.buttonLabel;
+        }
     },
 
     data() {
         return {
-            validation_message: null
+            button_label: 'Export',
+            isPreparingExportFile: false,
+            validation_message: null,
         }
     },
 
     methods: {
         exportData() {
+            if ( this.prepareExportFileFrom.length ) {
+                this.prepareExportFile();
+                return;
+            }
+
             switch ( this.exportAs ) {
                 case 'csv':
                     this.export_CSV();
@@ -37,6 +40,51 @@ export default {
                     this.export_CSV();
                     break;
             }
+        },
+
+        prepareExportFile() {
+            let data = new FormData();
+            data.append( 'action', this.prepareExportFileFrom );
+
+            if ( this.isPreparingExportFile ) {
+                console.log( 'Please wait...' );
+                return;
+            }
+
+            const button_label_default = this.button_label;
+            this.button_label = `<i class="fas fa-circle-notch fa-spin"></i> ${button_label_default}`;
+
+            this.isPreparingExportFile = true;
+            const self = this;
+
+            axios.post( ajax_data.ajax_url, data ).then( function( response ) {
+                console.log( {response} );
+
+                self.button_label = button_label_default;
+                self.isPreparingExportFile = false;
+
+                if ( response?.data?.file_url ) {
+                    self.downloadURI( self.exportFileName, response.data.file_url );
+                }
+
+            }).catch( function( error ) {
+                console.log( {error} );
+
+                self.button_label = button_label_default;
+                self.isPreparingExportFile = false;
+            });
+
+        },
+
+        downloadURI( name, uri ) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+
+            link.click();
+            
+            document.body.removeChild(link);
         },
 
         export_CSV() {

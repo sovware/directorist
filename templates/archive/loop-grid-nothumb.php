@@ -30,9 +30,7 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 
 		<div class="directorist-listing-single__info">
 
-			<div class="directorist-listing-single__info--top">
-				<?php $listings->render_loop_fields($loop_fields['body']['quick_info']); ?>
-			</div>
+			<?php $listings->render_loop_fields($loop_fields['body']['quick_info']); ?>
 
 			<div class="directorist-listing-single__info--list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
 

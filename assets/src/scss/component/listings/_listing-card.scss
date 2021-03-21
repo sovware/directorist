@@ -224,16 +224,16 @@
                 background-color: transparent;
                 color: $success;
             }
+        }
 
-            .directorist-mark-as-favorite{
-                line-height: 1.45;
-                position: relative;
-                display: inline-block !important;
-                margin: 4px;
-                &:not(:last-child){
-                    margin-right: 8px;
-                    padding-right: 3px;
-                }
+        .directorist-mark-as-favorite{
+            line-height: 1.45;
+            position: relative;
+            display: inline-block !important;
+            margin: 4px;
+            &:not(:last-child){
+                margin-right: 8px;
+                padding-right: 3px;
             }
         }
 

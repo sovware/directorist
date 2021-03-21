@@ -16,9 +16,7 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_withou
 
 		<div class="directorist-listing-single__header__left">
 			<div class="directorist-listing-single__info">
-				<div class="directorist-listing-single__info--top">
-					<?php $listings->render_loop_fields($loop_fields['body']['top']); ?>
-				</div>
+				<?php $listings->render_loop_fields($loop_fields['body']['top']); ?>
 			</div>
 		</div>
 		

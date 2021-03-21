@@ -1039,6 +1039,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'label'  => __( 'Maximum Number', 'directorist' ),
                                     'placeholder' => 'Here 0 means unlimited',
                                     'value' => '0',
+                                    'show_if' => [
+                                        'where' => "self.type",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'multiple'],
+                                        ],
+                                    ],
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -4575,12 +4581,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'label' => __( "Listings Slider", "directorist" ),
                             'icon' => 'uil uil-text-fields',
                             'can_move' => false,
-                            'show_if' => [
-                                'where' => "submission_form_fields.value.fields",
-                                'conditions' => [
-                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'image_upload'],
-                                ],
-                            ],
                             'options' => [
                                 'title' => __( "Listings Slider Settings", "directorist" ),
                                 'fields' => [

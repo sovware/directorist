@@ -341,9 +341,12 @@ class Directorist_Listing_Search_Form {
 			'original_field'    => $submission_form_fields,
 		);
 
-		// dvar_dump($field_data);
+		$widget_name = $field_data['widget_name'];
+		if ( strpos( $widget_name, '_') ) {
+			$widget_name = strtok( $widget_name, '_' );
+		}
 
-		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = 'search/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
 	}
@@ -447,6 +450,7 @@ class Directorist_Listing_Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_type
 		);
 	}
 

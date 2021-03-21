@@ -1195,6 +1195,7 @@ class Directorist_Listings {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_types
 		);
 	}
 
@@ -1693,7 +1694,7 @@ class Directorist_Listings {
 				$id = get_the_id();
 				$load_template = true;
 
-				$value = '';
+				$value = get_post_meta( $id, '_'.$field['widget_key'], true );
 				if ( isset( $field['field_key']  ) ) {
 					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
 				}

@@ -44,8 +44,8 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		add_action( 'template_redirect', [ $this, 'single_template' ] );
-		add_filter('the_content', [ $this, 'single_content' ], 20 );
+		add_filter( 'template_include', [ $this, 'single_template_path' ] );
+		add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
 
 		// Legacy
 		if ( Helper::is_legacy_mode() ) {
@@ -82,24 +82,24 @@ class Directorist_Template_Hooks {
 		return $content;
 	}
 
-	public function single_template() {
+	public function single_template_path( $template_path ) {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
-			return;
+			return $template_path;
 		}
 
 		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
 
 		if ( $single_template == 'current_theme_template' ) {
-			Helper::get_theme_template_for( 'single' );
+			$template_path = Helper::get_theme_template_path_for( 'single' );
 		}
 		elseif ( $single_template == 'directorist_template' ) {
-			Helper::get_template( 'single' );
+			$template_path = Helper::template_path( 'single' );
 		}
 		else {
-			Helper::get_theme_template_for( 'page' );
+			$template_path = Helper::get_theme_template_path_for( 'page' );
 		}
 		
-		die();
+		return $template_path;
 	}
 
 }

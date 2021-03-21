@@ -31,4 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
+	<div class="directorist-shade"></div>
+
 </div>

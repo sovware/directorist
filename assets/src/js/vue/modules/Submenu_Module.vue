@@ -5,13 +5,15 @@
         </div>
 
         <div class="cptm-tab-content-body">
-            <div class="cptm-tab-sub-content-item" 
-                :class="{ active: ( active_sub_nav === sub_tab_index ) ? true : false }" 
-                v-for="( sub_tab, sub_tab_index ) in subNavigation"
-                :key="sub_tab_index"
-            >
-                <sections-module v-bind="sub_tab" />
-            </div>
+            <template v-for="( sub_tab, sub_tab_index ) in subNavigation">
+                <div class="cptm-tab-sub-content-item" :key="sub_tab_index" 
+                    v-if="( active_sub_nav === sub_tab_index ) ? true : false"
+                    :class="{ active: ( active_sub_nav === sub_tab_index ) ? true : false }"
+                >
+                    <sections-module v-bind="sub_tab" />
+                </div>
+            </template>
+            
         </div>
     </div>
 </template>

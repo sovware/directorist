@@ -5,12 +5,16 @@
         
         <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
         <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
-
-        <div class="cptm-form-group-feedback" v-if="validationMessages">
-            <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
-                {{ validationMessages.message }}
-            </div>
-        </div>
+            
+        <form-field-validatior 
+            :section-id="sectionId"
+            :field-id="fieldId"
+            :root="root"
+            :value="value" 
+            :rules="rules" 
+            v-model="validationLog" 
+            @validate="$emit( 'validate', $event )"
+        />
     </div>
 </template>
 

@@ -85,6 +85,8 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
+
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;
@@ -106,13 +108,13 @@ class Directorist_Single_Listing {
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 		
-		if ( $section_data['type'] == 'widget_group' ) {
+		if ( $section_data['type'] == 'general_group' ) {
+			Helper::get_template( 'single-listing/section-general', $args );
+		}
+		else {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
 			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
 			Helper::get_template( $template, $args );
-		}
-		else {
-			Helper::get_template( 'single-listing/section-general', $args );
 		}
 	}
 

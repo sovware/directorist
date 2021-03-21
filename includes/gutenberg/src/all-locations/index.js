@@ -3,7 +3,7 @@ import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/bloc
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { LocationControl } from '../controls';
+import { LocationControl, TypesControl } from '../controls';
 
 import {
 	list,
@@ -19,7 +19,7 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import { getAttsForTransform } from '../functions'
+import { getAttsForTransform, isMultiDirectoryEnabled } from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -75,7 +75,8 @@ registerBlockType( 'directorist/all-locations', {
 			default_directory_type
 		} = attributes;
 
-		let oldLocations = slug ? slug.split(',') : [];
+		let oldLocations = slug ? slug.split(',') : [],
+			oldTypes = directory_type ? directory_type.split(',') : [];
 
 		const [ shouldRender, setShouldRender ] = useState( true );
 
@@ -89,7 +90,18 @@ registerBlockType( 'directorist/all-locations', {
 				</BlockControls>
 				
 				<InspectorControls>
-					<PanelBody title={ __( 'Listing Layout', 'directorist' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
+						{ isMultiDirectoryEnabled() ? <TypesControl
+							shouldRender={ shouldRender }
+							selected={ oldTypes }
+							showDefault={ true }
+							defaultType={ default_directory_type }
+							onDefaultChange={ value => setAttributes( { default_directory_type: value } ) }
+							onChange={ types => {
+								setAttributes( { directory_type: types.join( ',' ) } );
+								setShouldRender( false );
+							} }  /> : '' }
+
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
 							labelPosition='side'
@@ -122,14 +134,6 @@ registerBlockType( 'directorist/all-locations', {
 							onChange={ newState => setAttributes( { loc_per_page: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<ToggleControl
-							label={ __( 'Logged In User Only?', 'directorist' ) }
-							checked={ logged_in_user_only }
-							onChange={ newState => setAttributes( { logged_in_user_only: newState } ) }
-						/>
-					</PanelBody>
-
-					<PanelBody title={ __( 'Listing Query', 'directorist' ) } initialOpen={ false }>
 						<SelectControl
 							label={ __( 'Order By', 'directorist' ) }
 							labelPosition='side'
@@ -138,11 +142,15 @@ registerBlockType( 'directorist/all-locations', {
 								{ label: __( 'ID', 'directorist' ), value: 'id' },
 								{ label: __( 'Count', 'directorist' ), value: 'count' },
 								{ label: __( 'Name', 'directorist' ), value: 'name' },
-								{ label: __( 'Categories', 'directorist' ), value: 'slug' },
+								{ label: __( 'Locations', 'directorist' ), value: 'slug' },
 							] }
 							onChange={ newState => setAttributes( { orderby: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
+						{ orderby === 'slug' ? <LocationControl shouldRender={ shouldRender } onChange={ locations => {
+							setAttributes( { slug: locations.join( ',' ) } );
+							setShouldRender( false );
+						}} selected={ oldLocations } /> : '' }
 						<SelectControl
 							label={ __( 'Order', 'directorist' ) }
 							labelPosition='side'
@@ -154,10 +162,11 @@ registerBlockType( 'directorist/all-locations', {
 							onChange={ newState => setAttributes( { order: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<LocationControl shouldRender={ shouldRender } onChange={ locations => {
-							setAttributes( { slug: locations.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldLocations } />
+						<ToggleControl
+							label={ __( 'Logged In User Only?', 'directorist' ) }
+							checked={ logged_in_user_only }
+							onChange={ newState => setAttributes( { logged_in_user_only: newState } ) }
+						/>
 					</PanelBody>
 				</InspectorControls>
 

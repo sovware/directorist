@@ -53,3 +53,7 @@ export function sortItemsBySelected( items = [], selected = [], key = 'id' ) {
 
     return items;
 }
+
+export function isMultiDirectoryEnabled() {
+    return !!directoristBlockConfig.multiDirectoryEnabled;
+}

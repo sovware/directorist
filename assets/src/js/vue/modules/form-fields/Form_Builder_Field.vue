@@ -14,13 +14,9 @@
           :class="forceExpandStateTo ? 'cptm-btn-primary' : ''"
           @click="toggleEnableWidgetGroupDragging"
         >
-          {{
-            forceExpandStateTo
-              ? "Disable Section Dragging"
-              : "Enable Section Dragging"
-          }}
+          {{ forceExpandStateTo ? "Disable Section Dragging" : "Enable Section Dragging" }}
         </button>
-
+        
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
             list-id="widget-group"
@@ -255,6 +251,7 @@ export default {
       }
 
       this.active_widget_fields = this.value.fields;
+      this.active_widget_fields = Array.isArray( this.value.fields ) ? {} : this.value.fields;
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
@@ -345,20 +342,14 @@ export default {
 
       // handleWidgetReorderFromActiveWidgets
       if ("active_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetReorderFromActiveWidgets(
-          this.currentDraggingWidget,
-          dropped_in
-        );
+        this.handleWidgetReorderFromActiveWidgets( this.currentDraggingWidget, dropped_in );
         this.currentDraggingWidget = null;
         return;
       }
 
       // handleWidgetInsertFromAvailableWidgets
       if ("available_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetInsertFromAvailableWidgets(
-          this.currentDraggingWidget,
-          dropped_in
-        );
+        this.handleWidgetInsertFromAvailableWidgets( this.currentDraggingWidget, dropped_in );
         this.currentDraggingWidget = null;
       }
     },
@@ -417,25 +408,29 @@ export default {
 
     handleWidgetInsertFromAvailableWidgets(from, to) {
       let field_data_options = this.getOptionDataFromWidget(from.widget);
-      let inserting_field_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
+      let inserting_widget_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
 
-      field_data_options.widget_key = inserting_field_key;
+      if ( field_data_options.field_key ) {
+        let unique_field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+        field_data_options.field_key = unique_field_key;
+      }
       
-      Vue.set(
-        this.active_widget_fields,
-        inserting_field_key,
-        field_data_options
-      );
+      field_data_options.widget_key = inserting_widget_key;
+
+      if ( Array.isArray( this.active_widget_fields ) ) {
+        this.active_widget_fields = {};
+      }
+      
+      Vue.set( this.active_widget_fields, inserting_widget_key, field_data_options );
 
       let to_fields = this.active_widget_groups[to.widget_group_key].fields;
       let dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
+      
       dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
       dest_index = dest_index < 0 ? 0 : dest_index;
       dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
 
-      this.active_widget_groups[to.widget_group_key].fields.splice(
-        dest_index, 0, inserting_field_key
-      );
+      this.active_widget_groups[to.widget_group_key].fields.splice( dest_index, 0, inserting_widget_key );
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
@@ -444,11 +439,7 @@ export default {
     handleWidgetListItemDragStart(widget_group_key, payload) {
       // console.log( 'handleWidgetListItemDragStart', { widget_group_key, payload } );
 
-      if (
-        payload.widget &&
-        typeof payload.widget.type !== "undefined" &&
-        "section" === payload.widget.type
-      ) {
+      if ( payload.widget && typeof payload.widget.type !== "undefined" && "section" === payload.widget.type ) {
         this.currentDraggingGroup = {
           from: "available_widgets",
           widget_group_key,
@@ -499,31 +490,63 @@ export default {
       return field_data_options;
     },
 
-    genarateWidgetKeyForActiveWidgets(widget_key) {
-      if (typeof this.active_widget_fields[widget_key] !== "undefined") {
-        let widget_group = this.active_widget_fields[widget_key].widget_group;
-        let widget_name = this.active_widget_fields[widget_key].widget_name;
+    genarateWidgetKeyForActiveWidgets( widget_key ) {
+      if ( typeof this.active_widget_fields[widget_key] !== "undefined" ) {
+        let matched_keys = Object.keys( this.active_widget_fields );
+        
+        const getUniqueKey = function( current_key, new_key  ) {
+          if ( matched_keys.includes( new_key ) ) {
 
-        let matched_keys = [];
+            let field_id = new_key.match( /[_](\d+)$/ );
+            field_id = ( field_id ) ? parseInt( field_id[1] ) : 1;
 
-        for (let key in this.active_widget_fields) {
-          if (this.active_widget_fields[key].widget_group !== widget_group) {
-            continue;
+            const new_field_key = current_key + '_' + ( field_id + 1 );
+
+            return getUniqueKey( current_key, new_field_key );
           }
 
-          if (this.active_widget_fields[key].widget_name !== widget_name) {
-            continue;
-          }
+          return new_key;
+        };
 
-          matched_keys.push(key);
-        }
-
-        const new_widget_key = widget_key + "_" + (matched_keys.length + 1);
-
+        const new_widget_key = getUniqueKey( widget_key, widget_key );
         return new_widget_key;
       }
 
       return widget_key;
+    },
+
+    genarateFieldKeyForActiveWidgets( field_data_options ) {
+
+      if ( ! field_data_options.field_key ) { return ''; }
+      const current_field_key = field_data_options.field_key;
+
+      let field_keys = [];
+
+      for ( let key in this.active_widget_fields ) {
+        if ( ! this.active_widget_fields[ key ].field_key ) {
+          continue;
+        }
+
+        field_keys.push( this.active_widget_fields[ key ].field_key );
+      }
+
+      const getUniqueKey = function( field_key ) {
+        if ( field_keys.includes( field_key ) ) {
+
+          let field_id = field_key.match( /[-](\d+)$/ );
+          field_id = ( field_id ) ? parseInt( field_id[1] ) : 1;
+
+          const new_field_key = current_field_key + '-' + ( field_id + 1 );
+
+          return getUniqueKey( new_field_key );
+        }
+
+        return field_key;
+      };
+
+      const unique_field_key = getUniqueKey( current_field_key );
+
+      return unique_field_key;
     },
 
     handleGroupDragStart(widget_group_key) {
@@ -538,7 +561,6 @@ export default {
     },
 
     handleGroupDrop(widget_group_key, payload) {
-      // console.log( { widget_group_key, currentDraggingGroup: this.currentDraggingGroup } );
 
       let dropped_in = {
         widget_group_key,
@@ -578,10 +600,7 @@ export default {
     handleGroupReorderFromActiveWidgets(from, to) {
       let origin_data = this.active_widget_groups[from.widget_group_key];
 
-      let dest_index =
-        from.widget_group_key < to.widget_group_key
-          ? to.widget_group_key - 1
-          : to.widget_group_key;
+      let dest_index = from.widget_group_key < to.widget_group_key ? to.widget_group_key - 1 : to.widget_group_key;
       dest_index = "after" === to.drop_direction ? dest_index + 1 : dest_index;
 
       this.active_widget_groups.splice(from.widget_group_key, 1);

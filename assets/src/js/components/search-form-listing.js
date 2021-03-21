@@ -13,6 +13,7 @@
                 form_data.append('action', 'atbdp_listing_types_form');
                 form_data.append('listing_type', listing_type);
                 $('.directorist-search-form-box').addClass('atbdp-form-fade');
+
                 $.ajax({
                         method: 'POST',
                         processData: false,
@@ -31,7 +32,50 @@
 
                                         const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
                                         document.body.dispatchEvent( event );
+
+                                        // Category 
+                                        $('#at_biz_dir-category').select2({
+                                                placeholder: atbdp_search_listing.i18n_text.category_selection,
+                                                allowClear: true,
+                                                templateResult: function (data) {
+                                                        // We only really care if there is an element to pull classes from
+                                                        if (!data.element) {
+                                                                return data.text;
+                                                        }
+                                                
+                                                        var $element = $(data.element);
+                                                
+                                                        var $wrapper = $('<span></span>');
+                                                        $wrapper.addClass($element[0].className);
+                                                
+                                                        $wrapper.text(data.text);
+                                                
+                                                        return $wrapper;
+                                                },
+                                        });
+
+                                        //location
+                                        $('#at_biz_dir-location').select2({
+                                                placeholder: atbdp_search_listing.i18n_text.location_selection,
+                                                allowClear: true,
+                                                templateResult: function (data) {
+                                                        // We only really care if there is an element to pull classes from
+                                                        if (!data.element) {
+                                                                return data.text;
+                                                        }
+
+                                                        var $element = $(data.element);
+
+                                                        var $wrapper = $('<span></span>');
+                                                        $wrapper.addClass($element[0].className);
+
+                                                        $wrapper.text(data.text);
+
+                                                        return $wrapper;
+                                                }
+                                        });
                                 }
+
                                 $('.directorist-search-form-box').removeClass('atbdp-form-fade');
                         },
                         error(error) {
@@ -39,6 +83,8 @@
                         },
                 });
         });
+
+
 
         // Advance search
         // Populate atbdp child terms dropdown
@@ -116,7 +162,7 @@
 
         $('.address_result').hide();
         if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
-                
+
                 function initialize() {
                         const options = atbdp_search_listing.countryRestriction
                                 ? {
@@ -136,7 +182,7 @@
 
                 google.maps.event.addDomListener(window, 'load', initialize);
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
-                
+
                 $('#address, #q_addressss,.atbdp-search-address').on('keyup', function(event) {
                         event.preventDefault();
                         const search = $(this).val();
@@ -177,7 +223,7 @@
                                 $('.address_result').hide();
                         }
                 });
- 
+
                 $('body').on('click', '.address_result ul li a', function(event) {
                         event.preventDefault();
                         const text = $(this).text();
@@ -201,4 +247,5 @@
                         .next('.address_result')
                         .css({ display: 'none' });
         }
+        
 })(jQuery);

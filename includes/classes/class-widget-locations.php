@@ -163,7 +163,7 @@ if (!class_exists('BD_Locations_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sord By', 'directorist' ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sort By', 'directorist' ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
                     <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', 'directorist' ); ?></option>
                     <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', 'directorist' ); ?></option>
@@ -263,7 +263,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
                     $count = 0;
                     if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                        $count = atbdp_listings_count_by_location( $term->term_id, $settings['pad_counts'] );
+                        $count = atbdp_listings_count_by_location( $term->term_id );
 
                         if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                     }

@@ -6,6 +6,8 @@ namespace WpWax\Directorist\Gutenberg;
 
 defined( 'ABSPATH' ) || die();
 
+use Directorist\Helper;
+
 /**
  * Initialize gutenberg blocks.
  *
@@ -30,6 +32,19 @@ function init_blocks() {
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
 		$script_asset['version']
+	);
+
+	wp_localize_script(
+		'directorist-block-editor',
+		'directoristBlockConfig',
+		array(
+			'multiDirectoryEnabled' => (bool) Helper::multi_directory_enabled(),
+			'postType'              => ATBDP_POST_TYPE,
+			'locationTax'           => ATBDP_LOCATION,
+			'tagTax'                => ATBDP_LOCATION,
+			'categoryTax'           => ATBDP_CATEGORY,
+			'typeTax'               => ATBDP_TYPE,
+		)
 	);
 
 	wp_set_script_translations( 'directorist-block-editor', 'directorist' );
@@ -165,7 +180,7 @@ function do_shortcode_callback( $tag, array $atts = array(), $content = null ) {
  * @return array Modified $args
  */
 function tax_show_in_rest( $args, $name ) {
-	if ( in_array( $name, array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ), true ) ) {
+	if ( in_array( $name, array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS, ATBDP_TYPE ), true ) ) {
 		$args['show_in_rest'] = true;
 	}
 

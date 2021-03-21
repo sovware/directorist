@@ -23,13 +23,13 @@
     "type":"boolean",
     "default":true
   },
-  "apply_filters_button":{
-    "type":"boolean",
-    "default":false
-  },
   "reset_filters_text":{
     "type":"string",
     "default":"Reset Filters"
+  },
+  "apply_filters_button":{
+    "type":"boolean",
+    "default":true
   },
   "apply_filters_text":{
     "type":"string",

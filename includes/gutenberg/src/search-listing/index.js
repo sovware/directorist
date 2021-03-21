@@ -61,7 +61,7 @@ registerBlockType( 'directorist/search-listing', {
 		return (
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings', 'directorist' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
 						<ToggleControl
 							label={ __( 'Show Title & Subtitle?', 'directorist' ) }
 							checked={ show_title_subtitle }

@@ -1,8 +1,9 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
+import { TypesControl } from '../controls';
 
 import {
 	PanelBody,
@@ -11,7 +12,7 @@ import {
 	TextControl,
 } from '@wordpress/components';
 
-import { getAttsForTransform } from '../functions'
+import { getAttsForTransform, isMultiDirectoryEnabled } from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -55,13 +56,30 @@ registerBlockType( 'directorist/search-listing', {
 			reset_filters_text,
 			apply_filters_text,
 			more_filters_display,
-			logged_in_user_only
+			logged_in_user_only,
+			directory_type,
+			default_directory_type
 		} = attributes;
+
+		let oldTypes = directory_type ? directory_type.split(',') : [];
+
+		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
 				<InspectorControls>
 					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
+						{ isMultiDirectoryEnabled() ? <TypesControl
+							shouldRender={ shouldRender }
+							selected={ oldTypes }
+							showDefault={ true }
+							defaultType={ default_directory_type }
+							onDefaultChange={ value => setAttributes( { default_directory_type: value } ) }
+							onChange={ types => {
+								setAttributes( { directory_type: types.join( ',' ) } );
+								setShouldRender( false );
+							} }  /> : '' }
+
 						<ToggleControl
 							label={ __( 'Show Title & Subtitle?', 'directorist' ) }
 							checked={ show_title_subtitle }

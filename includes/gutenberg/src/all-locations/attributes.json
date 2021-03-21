@@ -32,11 +32,11 @@
       "default":""
     },
     "directory_type":{
-      "type":"array",
-      "default":[]
+      "type":"string",
+      "default":""
     },
     "default_directory_type":{
-      "type":"number",
-      "default":0
+      "type":"string",
+      "default":""
     }
 }

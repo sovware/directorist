@@ -165,6 +165,11 @@ export default {
 
                 widgets_options.widget_name = {
                     type: "hidden",
+                    value: _widget_name,
+                };
+
+                widgets_options.original_widget_key = {
+                    type: "hidden",
                     value: widget_key,
                 };
 
@@ -209,7 +214,7 @@ export default {
         // cloneObject
         cloneObject( obj ) {
             return JSON.parse( JSON.stringify( obj ) );
-        }
+        },
     }
 }
 </script>

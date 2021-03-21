@@ -82,6 +82,12 @@ export default {
         }
     },
 
+    watch: {
+        value() {
+            this.loadOldData();
+        },
+    },
+
     computed: {
         ...mapState({
             fields: 'fields',

@@ -411,6 +411,7 @@ export default {
 
               if ( matched_field.widget_key ) {
                 _main_widget.original_widget_key = matched_field.widget_key;
+                // console.log( { widget, widget_key: matched_field.widget_key,  matched_field } );
               }
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
@@ -613,18 +614,18 @@ export default {
       }
 
       // Load Active Widgets
-      for (let widget_key in active_widgets_data) {
-        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
+      for ( let widget_key in active_widgets_data ) {
+        if ( typeof this.theAvailableWidgets[widget_key] === "undefined" ) {
           continue;
         }
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-      
+        // let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+
         for ( let root_option in widgets_template ) {
           if ( 'options' === root_option ) { continue; }
-          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
-
+          if ( typeof active_widgets_data[ widget_key ][root_option] === 'undefined' ) { continue; }
+          
           widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
         }
 

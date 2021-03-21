@@ -7,7 +7,6 @@
 		<properties>
 			<property name="text_domain" type="array">
 				<element value="directorist"/>
-				<element value="tgmpa"/>
 			</property>
 		</properties>
 	</rule>

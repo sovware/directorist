@@ -37,7 +37,8 @@
             $wrapper.text(data.text);
 
             return $wrapper;
-        }
+        },
+        cache: true
     });
 
     //ad search js

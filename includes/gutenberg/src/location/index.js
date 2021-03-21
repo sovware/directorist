@@ -89,7 +89,7 @@ registerBlockType( 'directorist/location', {
 				</BlockControls>
 				
 				<InspectorControls>
-					<PanelBody title={ __( 'Listing Settings', 'directorist' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
 							labelPosition='side'

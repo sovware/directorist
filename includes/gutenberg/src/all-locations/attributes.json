@@ -13,7 +13,7 @@
     },
     "loc_per_page":{
       "type":"number",
-      "default":100
+      "default":6
     },
     "columns":{
       "type":"number",

@@ -29,11 +29,11 @@
     },
     "header":{
       "type":"boolean",
-      "default":false
+      "default":true
     },
     "header_title":{
       "type":"string",
-      "default":""
+      "default":"Listings Found"
     },
     "category":{
       "type":"string",
@@ -69,7 +69,7 @@
     },
     "display_preview_image":{
       "type":"boolean",
-      "default":false
+      "default":true
     },
     "action_before_after_loop":{
       "type":"boolean",

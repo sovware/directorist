@@ -21,11 +21,11 @@
     },
     "header":{
       "type":"boolean",
-      "default":false
+      "default":true
     },
     "header_title":{
       "type":"string",
-      "default":""
+      "default":"Items Found"
     },
     "columns":{
       "type":"number",

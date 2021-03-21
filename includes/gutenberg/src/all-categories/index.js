@@ -89,7 +89,7 @@ registerBlockType( 'directorist/all-categories', {
 				</BlockControls>
 				
 				<InspectorControls>
-					<PanelBody title={ __( 'Listing Layout', 'directorist' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
 							labelPosition='side'
@@ -122,14 +122,6 @@ registerBlockType( 'directorist/all-categories', {
 							onChange={ cat_per_page => setAttributes( { cat_per_page } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<ToggleControl
-							label={ __( 'Logged In User Only?', 'directorist' ) }
-							checked={ logged_in_user_only }
-							onChange={ logged_in_user_only => setAttributes( { logged_in_user_only } ) }
-						/>
-					</PanelBody>
-
-					<PanelBody title={ __( 'Listing Query', 'directorist' ) } initialOpen={ false }>
 						<SelectControl
 							label={ __( 'Order By', 'directorist' ) }
 							labelPosition='side'
@@ -143,6 +135,10 @@ registerBlockType( 'directorist/all-categories', {
 							onChange={ orderby => setAttributes( { orderby } ) }
 							className='directorist-gb-fixed-control'
 						/>
+						{ orderby === 'slug' ? <CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+							setAttributes( { slug: categories.join( ',' ) } );
+							setShouldRender( false );
+						}} selected={ oldCategories } /> : '' }
 						<SelectControl
 							label={ __( 'Order', 'directorist' ) }
 							labelPosition='side'
@@ -154,10 +150,11 @@ registerBlockType( 'directorist/all-categories', {
 							onChange={ order => setAttributes( { order } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						<CategoryControl shouldRender={ shouldRender } onChange={ categories => {
-							setAttributes( { slug: categories.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldCategories } />
+						<ToggleControl
+							label={ __( 'Logged In User Only?', 'directorist' ) }
+							checked={ logged_in_user_only }
+							onChange={ logged_in_user_only => setAttributes( { logged_in_user_only } ) }
+						/>
 					</PanelBody>
 				</InspectorControls>
 

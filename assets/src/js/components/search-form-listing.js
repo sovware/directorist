@@ -14,49 +14,6 @@
                 form_data.append('listing_type', listing_type);
                 $('.directorist-search-form-box').addClass('atbdp-form-fade');
 
-                setTimeout(() => {
-                        $('#at_biz_dir-category').select2({
-                                placeholder: atbdp_search_listing.i18n_text.category_selection,
-                                allowClear: true,
-                                templateResult: function (data) {
-                                        // We only really care if there is an element to pull classes from
-                                        if (!data.element) {
-                                        return data.text;
-                                        }
-
-                                        var $element = $(data.element);
-
-                                        var $wrapper = $('<span></span>');
-                                        $wrapper.addClass($element[0].className);
-
-                                        $wrapper.text(data.text);
-
-                                        return $wrapper;
-                                }
-                        });
-
-                        //location
-                        $('#at_biz_dir-location').select2({
-                                placeholder: atbdp_search_listing.i18n_text.location_selection,
-                                allowClear: true,
-                                templateResult: function (data) {
-                                // We only really care if there is an element to pull classes from
-                                if (!data.element) {
-                                        return data.text;
-                                }
-
-                                var $element = $(data.element);
-
-                                var $wrapper = $('<span></span>');
-                                $wrapper.addClass($element[0].className);
-
-                                $wrapper.text(data.text);
-
-                                return $wrapper;
-                                }
-                        });
-                }, 1000);
-
                 $.ajax({
                         method: 'POST',
                         processData: false,
@@ -75,7 +32,50 @@
 
                                         const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
                                         document.body.dispatchEvent( event );
+
+                                        // Category 
+                                        $('#at_biz_dir-category').select2({
+                                                placeholder: atbdp_search_listing.i18n_text.category_selection,
+                                                allowClear: true,
+                                                templateResult: function (data) {
+                                                        // We only really care if there is an element to pull classes from
+                                                        if (!data.element) {
+                                                                return data.text;
+                                                        }
+                                                
+                                                        var $element = $(data.element);
+                                                
+                                                        var $wrapper = $('<span></span>');
+                                                        $wrapper.addClass($element[0].className);
+                                                
+                                                        $wrapper.text(data.text);
+                                                
+                                                        return $wrapper;
+                                                },
+                                        });
+
+                                        //location
+                                        $('#at_biz_dir-location').select2({
+                                                placeholder: atbdp_search_listing.i18n_text.location_selection,
+                                                allowClear: true,
+                                                templateResult: function (data) {
+                                                        // We only really care if there is an element to pull classes from
+                                                        if (!data.element) {
+                                                                return data.text;
+                                                        }
+
+                                                        var $element = $(data.element);
+
+                                                        var $wrapper = $('<span></span>');
+                                                        $wrapper.addClass($element[0].className);
+
+                                                        $wrapper.text(data.text);
+
+                                                        return $wrapper;
+                                                }
+                                        });
                                 }
+
                                 $('.directorist-search-form-box').removeClass('atbdp-form-fade');
                         },
                         error(error) {
@@ -83,6 +83,8 @@
                         },
                 });
         });
+
+
 
         // Advance search
         // Populate atbdp child terms dropdown
@@ -245,4 +247,5 @@
                         .next('.address_result')
                         .css({ display: 'none' });
         }
+        
 })(jQuery);

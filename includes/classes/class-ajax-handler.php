@@ -94,6 +94,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action( 'wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
             add_action( 'wp_ajax_atbdp_user_type_approved', array( $this, 'atbdp_user_type_approved' ) );
             add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
+
+            add_action( 'wp_ajax_directorist_prepare_listings_export_file', [ $this, 'handle_prepare_listings_export_file_request' ] );
+        }
+
+        // handle_prepare_listings_export_file_request
+        public function handle_prepare_listings_export_file_request() {
+            $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
+
+            wp_send_json( $file );
         }
 
         public function atbdp_user_type_deny() {

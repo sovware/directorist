@@ -10,7 +10,7 @@ Directorist is the complete WordPress directory plugin that is used to create mo
 - Official Twitter : [Follow on Twitter](https://twitter.com/wpdirectorist)
 
 ### SUPPORT
-This place isn't suitable for support, you shouldn't use our issue tracker for support requests. For support, please, head over to our [official support channel](https://directorist.com/contact/).
+This place isn't suitable for support, you shouldn't use our issue tracker for support requests. For support or feature request, please head over to our [Official Support Channel](https://directorist.com/contact/).
 
 ### Contributing to Directorist
 You are welcome to contribute to the code, for more information please check our [Development Guidelines](https://github.com/sovware/directorist/wiki/Development-Guidelines)

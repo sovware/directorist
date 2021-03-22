@@ -1562,6 +1562,10 @@ class Directorist_Listings {
 			return $title;
 		}
 
+		public function loop_get_tagline() {
+			return $this->loop['tagline'];
+		}
+
 		public function loop_is_favourite() {
 			$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 			if ( in_array( get_the_id() , $favourites ) ) {

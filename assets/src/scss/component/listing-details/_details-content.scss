@@ -76,6 +76,24 @@
         a {
             box-shadow: none;
         }
+
+        .atbdp-require-login,
+        .directorist-action-report-not-loggedin{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            i,
+            span.la,
+            span.las,
+            span.lab,
+            span.fa,
+            span.fas,
+            span.fab{
+                pointer-events: none;
+            }
+        }
     }
 
     .directorist-social-share {
@@ -183,5 +201,19 @@
     }
     .slick-slide {
         margin: 0 15px;
+    }
+}
+
+#directorist-single-listing-slider{
+    .plasmaSlider__footer{
+        margin-left: -4px;
+    }
+    .plasmaSlider__thumbnailListItem {
+        .plasmaSlider__thumbnailListItemImg{
+            max-width: 120px;
+        }
+    }
+    .plasmaSlider__thumbnailList{
+        padding: 3px 0;
     }
 }

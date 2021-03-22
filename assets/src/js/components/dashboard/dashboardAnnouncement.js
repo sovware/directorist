@@ -1,7 +1,6 @@
 ;(function ($) {
     
     // Clear seen Announcements
-
     var cleared_seen_announcements = false;
 
     $( '.atbd_tn_link' ).on( 'click', function() {
@@ -9,14 +8,12 @@
         var terget = $( this ).attr( 'target' );
 
         if ( 'announcement' === terget ) {
-            // console.log( terget, 'clear seen announcements' );
 
             $.ajax({
                 type: "post",
                 url: atbdp_public_data.ajaxurl,
                 data: { action: 'atbdp_clear_seen_announcements' },
                 success: function( response ) {
-                    // console.log( response );
 
                     if ( response.success ) {
                         cleared_seen_announcements = true;
@@ -59,7 +56,6 @@
                 $( self ).attr( 'disable', true );
             },
             success: function( response ) {
-                // console.log( { response } );
                 closing_announcement = false;
 
                 $( self ).removeClass( 'disable' );

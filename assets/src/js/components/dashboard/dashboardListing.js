@@ -1,7 +1,7 @@
+import { directoristModalAlert } from "../directorist-modal-alert";
 ;(function ($) {
 
 	// Dashboard Listing Ajax
-
 	function directorist_dashboard_listing_ajax($activeTab,paged=1,search='',task='',taskdata='') {
 		var tab = $activeTab.data('tab');
 		$.ajax({
@@ -50,7 +50,7 @@
 
 	// Dashboard Tasks eg. delete
 
-	$('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function(event) {
+	$('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions-js a[data-task]', function(event) {
 		var task       = $(this).data('task');
 		var postid     = $(this).closest('tr').data('id');
 		var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
@@ -58,88 +58,30 @@
 		var search     = $('#directorist-dashboard-mylistings-js').data('search');
 
 		if (task=='delete') {
-			swal({
+
+			directoristModalAlert({
 				title: atbdp_public_data.listing_remove_title,
 				text: atbdp_public_data.listing_remove_text,
-				type: "warning",
-				cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-				showCancelButton: true,
-				confirmButtonColor: "#DD6B55",
-				confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
-				showLoaderOnConfirm: true,
-				closeOnConfirm: false
-			},
+				type: 'warning',
+				action: true,
+				okButtonText: atbdp_public_data.review_delete_msg,
+				okButtonUniqueId: 'directorist-remove-listing-ok'
+			});
 
-			function (isConfirm) {
-				if (isConfirm) {
-					directorist_dashboard_listing_ajax($activeTab,paged,search,task,postid);
+			$('#directorist-remove-listing-ok').on('click', function(){
+				directorist_dashboard_listing_ajax($activeTab,paged,search,task,postid);
 
-					swal({
-						title: atbdp_public_data.listing_delete,
-						type: "success",
-						timer: 200,
-						showConfirmButton: false
-					});
-				}
+				// show success message
+				directoristModalAlert({
+					title: atbdp_public_data.listing_delete,
+					type: 'success',
+					timeout: 200,
+					action: false
+				});
 			});
 		}
 
 		return false;
-	});
-
-	// Remove Listing
-
-	$(document).on('click', '#remove_listing', function (e) {
-		e.preventDefault();
-
-		var $this = $(this);
-		var id = $this.data('listing_id');
-		var data = 'listing_id=' + id;
-		swal({
-			title: atbdp_public_data.listing_remove_title,
-			text: atbdp_public_data.listing_remove_text,
-			type: "warning",
-			cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
-			showLoaderOnConfirm: true,
-			closeOnConfirm: false
-		},
-		function (isConfirm) {
-			if (isConfirm) {
-					// user has confirmed, now remove the listing
-					atbdp_do_ajax($this, 'remove_listing', data, function (response) {
-						$('body').append(response);
-						if ('success' === response) {
-							// show success message
-							swal({
-								title: atbdp_public_data.listing_delete,
-								type: "success",
-								timer: 200,
-								showConfirmButton: false
-							});
-							$("#listing_id_" + id).remove();
-							$this.remove();
-						} else {
-							// show error message
-							swal({
-								title: atbdp_public_data.listing_error_title,
-								text: atbdp_public_data.listing_error_text,
-								type: "error",
-								timer: 2000,
-								showConfirmButton: false
-							});
-						}
-					});
-
-
-				}
-
-			});
-
-		// send an ajax request to the ajax-handler.php and then delete the review of the given id
-
 	});
 
 	// Dashboard pagination

@@ -9,7 +9,11 @@
 
 .directorist-review-area {
     .directorist-review-form-action {
-        margin-top: 10px;
+        margin-top: 16px;
+    }
+
+    .directorist-form-group-guest-user{
+        margin-top: 12px;
     }
 }
 
@@ -140,6 +144,18 @@
                 .directorist-signle-review-time {
                     font-size: 13px;
                     margin-left: 0;
+                }
+            }
+        }
+
+        .directorist-rated-stars{
+            ul{
+                li{
+                    span{
+                        &.directorist-rate-active{
+                            color: #fa8b0c;
+                        }
+                    }
                 }
             }
         }

@@ -128,6 +128,85 @@
     }
 }
 
+// Modal Alert
+.directorist-modal-alert{
+    .directorist-modal__content{
+        .directorist-modal__body{
+            padding: 40px 25px;
+        
+            &.directorist-modal-alert-error{
+                .directorist-modal-alert-icon{
+                    border-color: $danger;
+                    i{
+                        color: $danger;
+                    }
+                }
+            }
+
+            &.directorist-modal-alert-success{
+                .directorist-modal-alert-icon{
+                    border-color: $success;
+                    i{
+                        color: $success;
+                    }
+                }
+            }
+
+            .directorist-modal-alert-icon{
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: 2px solid $warning;
+                margin: 0 auto 15px;
+                color: $warning;
+                i{
+                    font-size: 24px;
+                }
+            }
+            .directorist-modal-alert-text{
+                h3{
+                    font-size: 30px;
+                    font-weight: 500;
+                    margin: 0 0 15px;
+                    &:empty{
+                        display: none;
+                    }
+                }
+                p{
+                    font-size: 18px;
+                    margin-bottom: 0;
+                    color: $body-color;
+                    &:empty{
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .directorist-modal__footer{
+            display: none;
+            &.directorist-modal-alert-action{
+                display: flex;
+                justify-content: center;
+                .directorist-btn{
+                    &+.directorist-btn{
+                        margin-left: 15px;
+                    }
+                }
+            }
+            .directorist-btn{
+                &.directorist-btn-info{
+                    background-color: $info;
+                    border-color: $info;
+                }
+            }
+        }
+    }
+}
+
 /* Responsive CSS */
 
 /* Large devices (desktops, 992px and up) */

@@ -58,7 +58,7 @@ if ( $query->have_posts() ) {
 
 						<a href="#" class="directorist-btn-more directorist-dropdown__toggle directorist-dropdown__toggle-js" type="button"><i class="la la-ellipsis-h"></i></a>
 
-						<div class="directorist-dropdown__links directorist-dropdown__links-js">
+						<div class="directorist-dropdown__links directorist-dropdown__links-js directorist-dashboard-listing-actions-js">
 							
 								<?php
 								$dropdown_items = $dashboard->get_action_dropdown_item();

@@ -35,5 +35,8 @@
                 margin-bottom: 0;
             }
         }
+        p:empty{
+            display: none;
+        }
     }
 }

@@ -33,7 +33,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
             submit_button.attr('disabled', true);
         },
         success(response) {
-            // console.log(response);
+            console.log(response);
             if (response.has_previous_subscriptions) {
                 location.reload();
                 return;
@@ -454,6 +454,8 @@ $('.ext-update-btn').on('click', function (e) {
             $(self).html(icon);
         },
         success(response) {
+            console.log( { response } );
+
             if (response.status.success) {
                 $(self).html('Updated');
 
@@ -718,7 +720,7 @@ $('.subscriptions-logout-btn').on('click', function (e) {
             $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
         },
         success(response) {
-            // console.log( response );
+            console.log( response );
             location.reload();
         },
         error(error) {
@@ -781,7 +783,7 @@ $('#atbdp-my-extensions-form').on('submit', function (e) {
                 );
         },
         success(response) {
-            // console.log( response );
+            console.log( response );
             $(self)
                 .find('button[type="submit"] .atbdp-icon')
                 .remove();
@@ -1032,7 +1034,7 @@ $('.ext-action-uninstall').on('click', function (e) {
             );
         },
         success(response) {
-            // console.log( response );
+            console.log( response );
             $(self)
                 .closest('.ext-action')
                 .find('.ext-action-drop')

@@ -1,17 +1,24 @@
 import '../scss/component/add-listing.scss';
-
+import { directoristModalAlert } from "./components/directorist-modal-alert";
 /* eslint-disable */
 const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
-     
-if (!$('input#manual_coordinate').is(':checked')) {
-        $('.directorist-map-coordinates').hide();
-        $('#hide_if_no_manual_cor').hide();
-}
+$( window ).load(function() {
+        
+        if($('input#manual_coordinate').length){
 
-$('#manual_coordinate').on('click', function (e) {
+                $('input#manual_coordinate').each( (index, element) => {
+                        if(!$(element).is(':checked')){
+                                $('#hide_if_no_manual_cor').hide();
+                                $('.directorist-map-coordinates').hide();
+                        }
+                });
+        }
+});
+
+$('body').on("click", "#manual_coordinate" , function(e){
         if ($('input#manual_coordinate').is(':checked')) {
                 $('.directorist-map-coordinates').show();
                 $('#hide_if_no_manual_cor').show();
@@ -21,16 +28,9 @@ $('#manual_coordinate').on('click', function (e) {
         }
 });
 
+
 // enable sorting if only the container has any social or skill field
 const $s_wrap = $('#social_info_sortable_container'); // cache it
-/* if (window.outerWidth > 1700) {
-        if ($s_wrap.length) {
-                $s_wrap.sortable({
-                        axis: 'y',
-                        opacity: '0.7',
-                });
-        }
-} */
 
 // SOCIAL SECTION
 // Rearrange the IDS and Add new social field
@@ -60,8 +60,15 @@ $('body').on('click', '.directorist-form-social-fields__remove', function (e) {
         const id = $(this).data('id');
         const elementToRemove = $(`div#socialID-${id}`);
         e.preventDefault();
-
-        $('.directorist-delete-social-yes').on('click', function(){
+        directoristModalAlert({
+                title: localized_data.i18n_text.confirmation_text,
+                text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                type: 'warning',
+                action: true,
+                okButtonText: localized_data.i18n_text.confirm_delete,
+                okButtonUniqueId: 'directorist-delete-social-ok'
+        });
+        $('#directorist-delete-social-ok').on('click', function(){
                 // user has confirmed, no remove the item and reset the ids
                 elementToRemove.slideUp('fast', function () {
                         elementToRemove.remove();
@@ -556,7 +563,9 @@ $('body').on('submit', formID, function (e) {
                         // show the error notice
                         $('.directorist-form-submit__btn').attr('disabled', false);
 
-                        var is_pending = response.pending ? '&' : '?';
+                        // var is_pending = response ? '&' : '?';
+                        var is_pending = ( response && response.pending ) ? '&' : '?';
+
                         if (response.error === true) {
                                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                                 $('.directorist-form-submit__btn').removeClass('atbd_loading');
@@ -635,16 +644,37 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
         $("#directorist-quick-login").removeClass("show");
 });
 
-// scrollToEl
-function scrollToEl(el) {
-        // const element = typeof el === 'string' ? el : '';
-        // let scroll_top = $(element).offset().top - 50;
-        // scroll_top = scroll_top < 0 ? 0 : scroll_top;
+// Custom Field Checkbox Button More
 
-        // $('html, body').animate(
-        //         {
-        //                 scrollTop: scroll_top,
-        //         },
-        //         800
-        // );
-}
+$( window  ).load(function() {
+        if($('.directorist-custom-field-btn-more').length){
+                $('.directorist-custom-field-btn-more').each( (index, element) => {
+                        let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                        $(customField).slice(20, customField.length).slideUp();
+
+                        if(customField.length<20){
+                                $(element).slideUp();
+                        }
+                });
+        }
+        
+});
+
+$('body').on('click', '.directorist-custom-field-btn-more', function(event) {
+        event.preventDefault();
+        let fieldWrapper = $(this).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+        let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+        $(customField).slice(20, customField.length).slideUp();
+
+        $(this).toggleClass('active');
+
+        if($(this).hasClass('active')){
+                $(this).text("See Less");
+                $(customField).slice(20, customField.length).slideDown();
+        } else {
+                $(this).text("See More");
+                $(customField).slice(20, customField.length).slideUp();
+        }
+
+});

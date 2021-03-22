@@ -489,3 +489,44 @@
         }
     }
 }
+
+// Custome Field Checkbox & Radio
+
+.directorist-custom-field-radio,
+.directorist-custom-field-checkbox{
+    display: flex;
+    flex-wrap: wrap;
+    .directorist-form-label,
+    .directorist-custom-field-btn-more{
+        width: 100%;
+        flex: 0 0 100%;
+    }
+    .directorist-checkbox,
+    .directorist-radio{
+        flex: 0 0 25%;
+        @media only screen and (max-width: 1599px){
+            flex: 0 0 33.333%;
+        }
+        @media only screen and (max-width: 1199px){
+            flex: 0 0 50%;
+        }
+        @media only screen and (max-width: 767px){
+            flex: 0 0 100%;
+        }
+    }
+    .directorist-custom-field-btn-more{
+        margin-top: 5px;
+        &:after{
+            font-size: 14px;
+            font-family: "Line Awesome Free";
+            content: "";
+            font-weight: 900;
+            padding-left: 5px;
+        }
+        &.active{
+            &:after{
+                content: '\f106';
+            }
+        }
+    }
+}

@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.2
+Stable tag: 7.0.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -266,6 +266,17 @@ If you face any issues with managing this awesome business directory plugin in p
 
 If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
 
+
+== Privacy Policy ==
+Directorist &#8211; Business Directory Plugin uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
+
+
 == Installation ==
 
 1. Unzip the downloaded zip file and upload the plugin folder into the `wp-content/plugins/` directory. Alternatively, upload from Plugins >> Add New >> Upload Plugin.
@@ -335,6 +346,31 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 7.0.3.1 - Mar 13, 2021 =
+
+* Fix - Category and location displaying issue
+* Fix - Preset fields not show in listings page
+* Fix - PHP error in single listing
+* Improve - Terms link
+
+= 7.0.3 - Mar 12, 2021 =
+
+* Fix - Login issue
+* Fix - Old custom field displaying issue
+* Fix - Custom field checkbox saving issue
+* Fix - Map latitude and longitude saving issue
+* Fix - Translate issues
+* Fix - Review deleting issue
+* Fix - Add listing form validation issue
+* Fix - New category creating issue in add listing form
+* Fix - map_zoom_level parameter issue
+* Fix - Listings bulk edit
+* Fix - Membership management page
+* Fix- Custom Fields(Checkbox , Radio) avoiding the unnecessary scroll for more item.
+* Improve - Builder issues
+* Improve - Migration
+* Improve - Elementor's widgets
 
 = 7.0.2 - Mar 07, 2021 =
 

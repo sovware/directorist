@@ -209,6 +209,21 @@ class Directorist_Listing_Taxonomy {
     	foreach ($this->terms as $term) {
 			$directory_type_meta  = get_term_meta( $term->term_id, '_directory_type', true );
 			$directory_type_meta  = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
+			$directory_type_meta  = is_array( $directory_type_meta ) ? $directory_type_meta : array( $directory_type_meta );
+
+			$listing_type_meta = array();
+			foreach( $directory_type_meta as $type ) {
+
+				if( is_numeric( $type ) ) {
+					$get_type = get_term_by( 'term_id', $type, ATBDP_TYPE );
+					$listing_type_meta[] = ! empty( $get_type ) ? $get_type->slug : '';
+				} else {
+
+					$listing_type_meta[] = $type;
+
+				}
+
+			}
 			$current_type		  = $this->current_listing_type;
 			$current_slug = '';
 			if( $current_type ) {
@@ -216,7 +231,7 @@ class Directorist_Listing_Taxonomy {
 				$current_slug  = $type ? $type->slug : '';
 			}
 			$get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : $current_type;
-			if( in_array( $current_slug, $directory_type_meta ) || 'all' == $get_current_url_type ) {
+			if( in_array( $current_slug, $listing_type_meta ) || 'all' == $get_current_url_type ) {
 				$current_listing_type   = $this->current_listing_type;
 				$count 					= 0;
 				if ($this->hide_empty || $this->show_count) {

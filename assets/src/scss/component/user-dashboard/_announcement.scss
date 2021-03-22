@@ -5,11 +5,16 @@
     border-radius: 4px;
     padding: 25px 20px;
     .atbdp-announcement{
+        font-size: 15px;
         display: flex;
         align-items: center;
         padding-bottom: 15.5px;
         margin-bottom: 15.5px;
         border-bottom: 1px solid #F1F2F6;
+
+        @media (max-width: 479px) {
+            flex-direction: column;
+        }
 
         &:hover{
             .atbdp-announcement__close{
@@ -36,6 +41,15 @@
             background-color: #F5F6F8;
             border-radius: 6px;
             padding: 10.5px;
+            @media (max-width: 1199px) {
+                flex: 1;
+            }
+            @media (max-width: 479px) {
+                flex: 100%;
+                width: 100%;
+                flex-direction: row;
+                justify-content: center;
+            }
             .atbdp-date-card-part-1{
                 font-size: 18px;
                 line-height: 1.2;
@@ -57,16 +71,32 @@
         @include e(content){
             flex: 8;
             padding-left: 15px;
+            @media (max-width: 1199px) {
+                flex: 6;
+            }
+            @media (max-width: 479px) {
+                padding-left: 0;
+                margin: 12px 0 6px;
+                text-align: center;
+            }
             .atbdp-announcement__title{
                 font-size: 18px;
                 font-weight: 500;
                 color: $dark;
                 margin-bottom: 6px;
+                margin-top: 0;
                 p{
                     font-size: 14px;
                     font-weight: 400;
                     color: #69708E;
+                    &:empty{
+                        display: none;
+                    }
                 }
+            }
+            
+            p:empty{
+                display: none;
             }
         }
 
@@ -78,6 +108,7 @@
                 border-radius: 50%;
                 background-color: #F5F5F5;
                 border: 0 none;
+                padding: 0;
                 transition: .35s;
                 i,
                 span.fa,

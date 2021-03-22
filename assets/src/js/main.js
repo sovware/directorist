@@ -26,7 +26,7 @@ import './components/profileForm';
 import './components/modal';
 import './components/gridResponsive';
 import './components/formValidation';
-import './components/atbdFavourite';
+import './components/listingFavourite';
 import './components/login';
 import './components/tab';
 import './components/directorist-dropdown';

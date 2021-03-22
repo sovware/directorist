@@ -30,46 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<button type="button" class="directorist-btn directorist-btn-primary directorist-btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e( 'Add New', 'directorist' ); ?></button>
 
-	<div class="directorist-modal directorist-modal-js directorist-fade directorist-delete-social-modal directorist-delete-social-js directorist-w-100">
-
-		<div class="directorist-modal__dialog">
-
-			<div class="directorist-modal__content">
-
-				<div class="directorist-modal-body">
-
-					<div class="directorist-delete-modal-inner">
-
-						<div class="directorist-delete-modal-icon">
-
-							<i class="la la-exclamation"></i>
-
-						</div>
-
-						<div class="directorist-delete-modal-text">
-
-							<h3><?php esc_html_e( 'Are You Sure', 'directorist' ); ?></h3>
-							
-							<p><?php esc_html_e( 'Do you really want to remove this Social Link!', 'directorist' ); ?></p>
-
-						</div>
-
-					</div>
-					
-				</div>
-
-				<div class="directorist-modal__footer directorist-text-center">
-
-					<button class="directorist-btn directorist-btn-danger directorist-modal-close directorist-modal-close-js"><?php esc_html_e( 'Cancel', 'directorist' ); ?></button>
-
-					<button class="directorist-btn directorist-btn-info directorist-delete-social-yes directorist-modal-close-js"><?php esc_html_e( 'Yes, Delete It!', 'directorist' ); ?></button>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
+	<div class="directorist-modal directorist-modal-js directorist-fade directorist-modal-alert"></div>
 
 </div>

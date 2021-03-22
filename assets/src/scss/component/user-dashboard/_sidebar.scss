@@ -21,6 +21,10 @@
         z-index: 22;
     }
 
+    @media only screen and (max-width: 479px) {
+        padding-top: 80px;
+    }
+
     .directorist-dashboard__nav--close {
         display: none;
         position: absolute;
@@ -29,6 +33,11 @@
 
         @media only screen and (max-width: 1199px) {
             display: block;
+        }
+
+        @media only screen and (max-width: 479px) {
+            right: 20px;
+            top: 60px;
         }
     }
 
@@ -44,11 +53,12 @@
         transition: 0.3s ease
     }
 
-    .directorist-tab__nav__items{
-        li{
-            ul{
+    .directorist-tab__nav__items {
+        li {
+            ul {
                 display: none;
-                li a{
+
+                li a {
                     padding-left: 25px;
                 }
             }
@@ -72,7 +82,7 @@
             margin-right: 10px;
         }
 
-        .directorist_menuItem-text{
+        .directorist_menuItem-text {
             pointer-events: none;
         }
 

@@ -83,6 +83,7 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;
@@ -101,24 +102,23 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-		
-		if ( $section_data['type'] == 'widget_group' ) {
-			$template = 'single/section-'. $section_data['widget_name'];
-			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
-			Helper::get_template( $template, $args );
-		}
-		else {
+		if ( $section_data['type'] == 'general_group' ) {
 			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );
 			}
+		}
+		else {
+			$template = 'single/section-'. $section_data['widget_name'];
+			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
+			Helper::get_template( $template, $args );
 		}
 	}
 
 	public function section_has_contents( $section_data ) {
 		$has_contents = false;
 
-		foreach ( $section_data['fields'] as $field ){
-			$value = !empty( $field['field_key'] ) ? get_post_meta( $this->id, '_'.$field['field_key'], true ) : '';
+		foreach ( $section_data['fields'] as $field ) {
+			$value = Helper::get_widget_value( $this->id, $field );
 
 			if ( $value ) {
 				$has_contents = true;
@@ -146,11 +146,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $data ) {
-		$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, '_' . $data['field_key'], true ) : '';
-		
-		if ( empty( $value ) ) {
-			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
-		}
+		$value = Helper::get_widget_value( $this->id, $data );
 
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
@@ -158,6 +154,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		if( 'map' === $data['widget_name'] ) {
 			$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
 			$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
@@ -166,6 +163,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
 		
@@ -198,7 +196,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function is_custom_field( $data ) {
-		$fields = [ 'checkbox', 'color', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 		$widget_name = ! empty( $data['original_data']['widget_name'] ) ? $data['original_data']['widget_name'] : $data['widget_name'];
 
 		$is_custom_field = in_array( $widget_name, $fields ) ? true : false;
@@ -208,7 +206,7 @@ class Directorist_Single_Listing {
 
 	public function get_custom_field_value( $type, $data ) {
 		$result = '';
-		$value = $data['value'];
+		$value = is_array( $data['value'] ) ? join( ",",$data['value'] ) : $data['value'];
 		
 		switch ( $type ) {
 			case 'radio':
@@ -231,7 +229,8 @@ class Directorist_Single_Listing {
 					$option_value[] = $space . $option['option_label'];
 				}
 			}
-			$result = join( ',', $option_value );
+			$output = join( ',', $option_value );
+			$result = $output ? $output : $value;
 			break;
 		}
 

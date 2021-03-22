@@ -410,7 +410,7 @@ export default {
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
 
               if ( matched_field.widget_key ) {
-                _main_widget.widget_key = matched_field.widget_key;
+                _main_widget.original_widget_key = matched_field.widget_key;
               }
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
@@ -837,7 +837,6 @@ export default {
     },
 
     insertWidget( payload, where ) {
-
       if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
         return;
       }

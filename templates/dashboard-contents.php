@@ -31,4 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
+	<div class="directorist-shade"></div>
+
+	<div class="directorist-modal directorist-modal-js directorist-fade directorist-modal-alert"></div>
+
 </div>

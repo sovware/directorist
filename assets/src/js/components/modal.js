@@ -8,15 +8,6 @@ import '../../scss/component/_modal.scss';
         $("#recover-pass-modal").slideToggle().show();
     });
 
-    // Contact form [on modal closed]
-    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-
-        $('#atbdp-contact-message').val('');
-        $('#atbdp-contact-message-display').html('');
-
-    });
-
-    // Template Restructured
     // Modal
     let directoristModal = document.querySelector('.directorist-modal-js');
     $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {

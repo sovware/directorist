@@ -156,11 +156,8 @@
         background: #d3d1ec;
         line-height: 26px;
         width: 26px;
+        height: 26px;
         border-radius: 50%;
-        -webkit-transition: 0.2s;
-        -moz-transition: 0.2s;
-        -ms-transition: 0.2s;
-        -o-transition: 0.2s;
         transition: 0.2s;
         cursor: pointer;
         color: $light;
@@ -1485,6 +1482,10 @@ span.atbdp-tick-cross {
 /* form builder add listing form */
 .postbox-container {
   .postbox {
+    select[name=directory_type]+.form-group {
+      margin-top: 15px;
+    }
+
     .form-group {
       margin-bottom: 30px;
 
@@ -1590,6 +1591,10 @@ span.atbdp-tick-cross {
       }
     }
   }
+}
+
+.theme-browser .theme .theme-name {
+  height: auto;
 }
 
 /* System Status */
@@ -4230,8 +4235,11 @@ input.atbdp-form-control {
       }
     }
 
-    .directorist_btn-import {
+    .directorist_btn-migrate {
       margin-top: 20px;
+    }
+
+    .directorist_btn-import {
 
       .directorist_link-icon {
         border: 0 none;
@@ -4243,6 +4251,12 @@ input.atbdp-form-control {
 
       .directorist_link-text {
         margin-top: 12px;
+      }
+    }
+
+    .directorist_link-block {
+      &+.directorist_link-block{
+        margin-top: 20px;
       }
     }
   }
@@ -5022,6 +5036,47 @@ img.atbdp-file-info {
     }
   }
 }
+
+// Select2
+
+.select2.select2-container {
+  .select2-selection--single {
+    border: 1px solid #8c8f94;
+    height: 40px;
+
+    .select2-selection__rendered {
+      height: 40px;
+      line-height: 38px;
+      padding: 0 15px;
+    }
+  }
+
+
+  .select2-results__option {
+
+    i,
+    span.las,
+    span.lab,
+    span.la,
+    span.fas,
+    span.fab,
+    span.far,
+    span.fa {
+      font-size: 16px;
+    }
+  }
+}
+
+#style_settings__color_settings .cptm-field-wraper-type-wp-media-picker {
+  input[type=button].cptm-btn {
+    display: none;
+  }
+}
+
+.directorist-custom-field-btn-more {
+  display: none;
+}
+
 
 // Base Style
 @import '../../base/general';

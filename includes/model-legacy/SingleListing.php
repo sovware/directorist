@@ -85,6 +85,8 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
+
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;
@@ -97,7 +99,6 @@ class Directorist_Single_Listing {
 	}
 
 	public function section_template( $section_data ) {
-		
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
@@ -107,22 +108,18 @@ class Directorist_Single_Listing {
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 		
-		if ( $section_data['type'] == 'widget_group' ) {
+		if ( $section_data['type'] == 'general_group' ) {
+			Helper::get_template( 'single-listing/section-general', $args );
+		}
+		else {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
 			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
 			Helper::get_template( $template, $args );
 		}
-		else {
-			Helper::get_template( 'single-listing/section-general', $args );
-		}
 	}
 
 	public function field_template( $data ) {
-		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
-		
-		if ( empty( $value ) ) {
-			$value =  ! empty( $data['field_key'] ) ? get_post_meta( $this->id, $data['field_key'], true ) : '';
-		}
+		$value = Helper::get_widget_value( $this->id, $data );
 
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
@@ -130,6 +127,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		if( 'map' === $data['widget_name'] ) {
 			$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
 			$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
@@ -138,6 +136,7 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		}
+
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
 		

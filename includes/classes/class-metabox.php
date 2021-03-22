@@ -61,8 +61,6 @@ class ATBDP_Metabox {
 	}
 
 	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
-		$listing_type 		= get_term_by( 'id', $term_id, ATBDP_TYPE );
-		$listing_type_slug  = $listing_type->slug;
 		$args = array(
 			'hide_empty' => 0,
 			'hierarchical' => false
@@ -81,7 +79,7 @@ class ATBDP_Metabox {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
 				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
-				if( in_array( $listing_type_slug, $directory_type) ) { ?>
+				if( in_array( $term_id, $directory_type) ) { ?>
 					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
 
 				<?php
@@ -231,7 +229,7 @@ class ATBDP_Metabox {
 		}
 		
 		foreach( $submission_form_fields as $key => $value ){
-
+			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
 			if( 'image_upload' === $key ) {
 				$metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
 				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
@@ -241,13 +239,19 @@ class ATBDP_Metabox {
 				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
 				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
 			}
+			if( 'map' === $key ) {
+				$metas[ '_hide_map' ]   = !empty( $p['hide_map'] ) ? $p['hide_map'] : '';
+				$metas[ '_manual_lat' ] = !empty( $p['manual_lat'] ) ? $p['manual_lat'] : '';
+				$metas[ '_manual_lng' ] = !empty( $p['manual_lng'] ) ? $p['manual_lng'] : '';
+			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
+
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
-			}                    
+			}
+
 		}	
-		
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
 			wp_set_object_terms($post_id, (int)$listing_type, ATBDP_TYPE);
@@ -272,7 +276,7 @@ class ATBDP_Metabox {
 		}else{
 			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
 		}
-		// var_dump( $metas );die;
+	
 		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
 		// save the meta data to the database

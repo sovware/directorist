@@ -24,11 +24,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public $extensions          = [];
         public $themes              = [];
         public $required_extensions = [];
+        public $extensions_aliases  = [];
 
         public function __construct()
         {
             // Check for plugin update
-            wp_update_plugins();
+            // wp_update_plugins();
 
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'initial_setup') );
@@ -51,6 +52,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // initial_setup
         public function initial_setup() {
+
+            $this->setup_extensions_alias();
+
+            wp_update_plugins();
+            
             // Check form theme update
             $current_theme = wp_get_theme();
             get_theme_update_available( $current_theme->stylesheet );
@@ -59,14 +65,39 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
         }
 
+        // setup_extensions_alias
+        public function setup_extensions_alias() {
+            // Latest Key     => Deprecated key
+            // Deprecated key => Latest Key
+            $this->extensions_aliases = apply_filters( 'directorist_extensions_aliases', [
+                'directorist-adverts-manager' => 'directorist-ads-manager',
+                'directorist-ads-manager'     => 'directorist-adverts-manager',
+
+                'directorist-gallery'       => 'directorist-image-gallery',
+                'directorist-image-gallery' => 'directorist-gallery',
+
+                'directorist-slider-carousel' => 'directorist-listings-slider-carousel',
+                'directorist-listings-slider-carousel' => 'directorist-slider-carousel',
+
+                'directorist-faqs'         => 'directorist-listing-faqs',
+                'directorist-listing-faqs' => 'directorist-faqs',
+            ]);
+        }
+
+
         // get_required_extension_list
         public function get_required_extension_list() {
             $required_extensions = [];
 
             foreach ( $this->required_extensions as $recommandation ) {
-                if ( empty( $recommandation['extensions'] ) ) { continue; }
+
+                if ( ! isset( $recommandation['extensions'] ) ) { continue; }
+                if ( ! is_array( $recommandation['extensions'] ) ) { continue; }
+
                 foreach ( $recommandation['extensions'] as $extension ) {
-                    if ( empty( $this->extensions[ $extension ] ) ) { continue; }
+                    $extension_alias = $this->get_extension_alias_key( $extension );
+
+                    if ( ! ( isset( $this->extensions[ $extension ] ) || isset( $this->extensions[ $extension_alias ] ) ) ) { continue; }
 
                     if ( empty( $required_extensions[ $extension ] ) ) {
                         $required_extensions[ $extension ] = [];
@@ -83,7 +114,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public function prepare_the_final_requred_extension_list( array $args = [] ) {
             $recommandation = [];
 
-            $required_extensions_list              = ( ! empty( $args['required_extensions_list'] ) ) ? $args['required_extensions_list'] : [];
+            $required_extensions_list              = $this->get_required_extension_list();
             $extensions_available_in_subscriptions = ( ! empty( $args['extensions_available_in_subscriptions'] ) ) ? $args['extensions_available_in_subscriptions'] : [];
             $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? array_keys( $extensions_available_in_subscriptions ) : [];
             $installed_extension_list              = ( ! empty( $args['installed_extension_list'] ) ) ? $args['installed_extension_list'] : [];
@@ -91,14 +122,22 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             foreach ( $required_extensions_list as $extension => $recommanded_by ) {
 
+                $extension_alias = $this->get_extension_alias_key( $extension );
+
                 if ( is_plugin_active( "{$extension}/{$extension}.php" ) ) { continue; }
+                if ( is_plugin_active( "{$extension_alias}/{$extension_alias}.php" ) ) { continue; }
+
+                $is_purchased = ( in_array( $extension, $extensions_available_in_subscriptions ) ) ? true : false;
+                $is_purchased_alias = ( in_array( $extension_alias, $extensions_available_in_subscriptions ) ) ? true : false;
+
+                $is_installed = ( in_array( "{$extension}/{$extension}.php", $installed_extension_list ) ) ? true : false;
+                $is_installed_alias = ( in_array( "{$extension_alias}/{$extension_alias}.php", $installed_extension_list ) ) ? true : false;
 
                 $recommandation[ $extension ] = [];
                 $recommandation[ $extension ][ 'ref' ] = $recommanded_by;
-                $recommandation[ $extension ][ 'purchased' ] = ( in_array( $extension, $extensions_available_in_subscriptions ) ) ? true : false;
-                $recommandation[ $extension ][ 'installed' ] = ( in_array( "{$extension}/{$extension}.php", $installed_extension_list ) ) ? true : false;
+                $recommandation[ $extension ][ 'purchased' ] = ( $is_purchased || $is_purchased_alias ) ? true : false;
+                $recommandation[ $extension ][ 'installed' ] = ( $is_installed || $is_installed_alias ) ? true : false;
             }
-            
 
             return $recommandation;
         }
@@ -359,6 +398,15 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             wp_send_json( $status );
         }
 
+        // get_extension_alias_key
+        public function get_extension_alias_key( string $plugin_key = '' ) {
+            $extensions_aliases      = $this->extensions_aliases;
+            $extensions_aliases_keys = ( is_array( $extensions_aliases ) && ! empty( $extensions_aliases ) ) ? array_keys( $extensions_aliases ) : [];
+            $plugin_alias_key        = in_array( $plugin_key, $extensions_aliases_keys ) ? $extensions_aliases[ $plugin_key ] : '';
+
+            return $plugin_alias_key;
+        }
+
         // update_plugins
         public function update_plugins( array $args = [] ) {
             $default = [ 'plugin_key' => '' ];
@@ -383,7 +431,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $plugins_available_in_subscriptions      = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
             $plugins_available_in_subscriptions_keys = ( is_array( $plugins_available_in_subscriptions ) ) ? array_keys( $plugins_available_in_subscriptions ) : [];
-
+            
             if ( ! empty( $plugin_key ) ) {
                 $outdated_plugin = $outdated_plugins[ $plugin_key ];
                 $url = $outdated_plugin->package;
@@ -393,6 +441,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                     if ( in_array( $plugin_key, $plugins_available_in_subscriptions_keys ) ) {
                         $url = $plugins_available_in_subscriptions[ $plugin_key ][ 'download_link' ];
+                    }
+
+                    $plugin_alias_key = $this->get_extension_alias_key( $plugin_key );
+                    if ( empty( $url ) && in_array( $plugin_alias_key, $plugins_available_in_subscriptions_keys ) ) {
+                        $url = $plugins_available_in_subscriptions[ $plugin_alias_key ][ 'download_link' ];
                     }
                 }
 
@@ -888,7 +941,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // activate_license
         public function activate_license( $license_item , $product_type = '' ) {
             $status = [ 'success' => true ];
-            
+
+            if ( isset( $license_item['skip_licencing'] ) && ! empty( $license_item['skip_licencing'] ) ) {
+                return $status;
+            }
+
             $item_id = ( ! empty( $license_item['item_id'] ) ) ? $license_item['item_id'] : 0;
             $license = ( ! empty( $license_item['license'] ) ) ? $license_item['license']: '';
             
@@ -999,6 +1056,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $installing_file = $available_in_subscriptions[ $item_key ];
+            
             $activatation_status = $this->activate_license( $installing_file, $type );
             $status[ 'log'] = $activatation_status;
 
@@ -1008,6 +1066,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                 return [ 'status' => $status ];
             }
+            
 
             $link = $installing_file['download_link'];
             if ( 'plugin' === $type ) {
@@ -1470,6 +1529,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'installed_extensions' => $installed_extensions,
             ]);
 
+            $required_extensions_list = $this->prepare_the_final_requred_extension_list([
+                'installed_extension_list'              => $installed_extensions,
+                'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
+            ]);
+
             $total_installed_ext_list = count( $installed_extensions );
             $total_ext_available_in_subscriptions = count( $extensions_available_in_subscriptions );
             $total_available_extensions = $total_installed_ext_list + $total_ext_available_in_subscriptions;
@@ -1484,6 +1548,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'extensions_promo_list'                 => $extensions_promo_list,
                 'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
                 'total_available_extensions'            => $total_available_extensions,
+                'required_extensions'                   => $required_extensions_list,
             ];
 
             return $overview;
@@ -1499,15 +1564,19 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             if ( ! empty( $extensions_available_in_subscriptions ) && is_array( $extensions_available_in_subscriptions ) ) {
                 foreach( $extensions_available_in_subscriptions as $base => $args ) {
+                    $base_alias = $this->get_extension_alias_key( $base );
                     $plugin_key = preg_replace( '/(directorist-)/', '', $base );
+                    $plugin_alias_key = preg_replace( '/(directorist-)/', '', $base_alias );
+                    
+                    $is_in_installed_extensions = in_array( $plugin_key, $installed_extensions_keys ) ? true : false;
+                    $is_in_installed_extensions_alias = in_array( $plugin_alias_key, $installed_extensions_keys ) ? true : false;
 
-                    if ( is_array( $extensions_available_in_subscriptions ) && in_array( $plugin_key, $installed_extensions_keys ) ) {
+                    if ( $is_in_installed_extensions || $is_in_installed_extensions_alias ) {
                         unset( $extensions_available_in_subscriptions[ $base ] );
                     }
                 }
             }
             
-
             return $extensions_available_in_subscriptions;
         }
 
@@ -1521,26 +1590,29 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Filter extensions available in subscriptions
             $promo_extensions = $this->get_active_extensions();
-            if ( ! empty( $promo_extensions ) ) {
+            if ( ! empty( $promo_extensions ) && is_array( $installed_extensions_keys ) ) {
                 foreach ( $promo_extensions as $_extension_base => $_extension_args ) {
-                    $ext_key = preg_replace( '/(directorist-)/', '', $_extension_base );
+                    $extension_base_alias = $this->get_extension_alias_key( $_extension_base );
+                    $ext_key              = preg_replace( '/(directorist-)/', '', $_extension_base );
+                    $ext_alias_key        = preg_replace( '/(directorist-)/', '', $extension_base_alias );
 
                     // Exclude Installed Extensions
-                    if ( is_array( $installed_extensions_keys ) && in_array( $ext_key, $installed_extensions_keys ) ) {
+                    $in_installed_extensions       = in_array( $ext_key, $installed_extensions_keys ) ? true : false;
+                    $in_installed_extensions_alias = in_array( $ext_alias_key, $installed_extensions_keys ) ? true : false;
+
+                    if ( $in_installed_extensions || $in_installed_extensions_alias ) {
                         unset( $promo_extensions[ $_extension_base ] );
-                    }
+                    } 
 
                     // Exclude Subscripted Extensions
-                    if ( in_array( $_extension_base, $extensions_available_in_subscriptions_keys ) ) {
+                    $is_available_in_subscriptions       = in_array( $_extension_base, $extensions_available_in_subscriptions_keys ) ? true : false;
+                    $is_available_in_subscriptions_alias = in_array( $extension_base_alias, $extensions_available_in_subscriptions_keys ) ? true : false;
+                    
+                    if ( $is_available_in_subscriptions || $is_available_in_subscriptions_alias ) {
                         unset( $promo_extensions[ $_extension_base ] );
-                    }
+                    } 
                 }
             }
-
-            // directorist_console_log([
-            //     'installed_extensions_keys' => $installed_extensions_keys,
-            //     'promo_extensions' => array_keys( $promo_extensions ),
-            // ]);
 
             return $promo_extensions;
         }
@@ -1729,16 +1801,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $extensions_overview      = $this->get_extensions_overview();
             $themes_overview          = $this->get_themes_overview();
-            $required_extensions_list = $this->prepare_the_final_requred_extension_list([
-                'required_extensions_list'              => $this->get_required_extension_list(),
-                'installed_extension_list'              => $extensions_overview['installed_extension_list'],
-                'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
-            ]);
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
             
             $data = [
+                'ATBDP_Extensions' => $this,
                 'is_logged_in' => $is_logged_in,
                 'hard_logout'  => $hard_logout,
 
@@ -1749,7 +1817,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
                 'total_available_extensions'            => $extensions_overview['total_available_extensions'],
                 'extensions_promo_list'                 => $extensions_overview['extensions_promo_list'],
-                'required_extensions_list'              => $required_extensions_list,
+                'required_extensions_list'              => $extensions_overview['required_extensions'],
                 
                 'total_active_themes'               => $themes_overview['total_active_themes'],                 // $my_active_themes,
                 'total_outdated_themes'             => $themes_overview['total_outdated_themes'],               // $my_outdated_themes,

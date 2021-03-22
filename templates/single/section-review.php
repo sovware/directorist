@@ -5,9 +5,11 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !$listing->display_review() ) {
+if ( !Helper::is_review_enabled() ) {
 	return;
 }
 
@@ -137,6 +139,10 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 						</div>
 
 					</form>
+				</div>
+
+				<div class="directorist-modal directorist-modal-js directorist-fade directorist-modal-alert">
+
 				</div>
 
 			</div>

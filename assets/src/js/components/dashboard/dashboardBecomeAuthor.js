@@ -5,10 +5,12 @@
         e.preventDefault();
         $(".directorist-become-author-modal").addClass("directorist-become-author-modal__show");
     });
+
     $('.directorist-become-author-modal__cancel').on('click', function(e){
         e.preventDefault();
         $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
     });
+    
     $('.directorist-become-author-modal__approve').on('click', function(e){
         e.preventDefault();
         var userId = $(this).attr('data-userId');

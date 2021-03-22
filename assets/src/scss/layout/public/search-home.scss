@@ -20,7 +20,7 @@
 
 .directorist-search-contents {
     background-size: cover;
-    padding: 230px 0 265px;
+    padding: 100px 0 120px;
     z-index: 2;
 }
 
@@ -42,8 +42,7 @@
                 width: 40px;
                 height: 40px;
                 border: 2px solid #0A0B1E;
-                border-top: 0 none;
-                border-right: 0 none;
+                border-top-color: transparent;
                 border-radius: 50%;
                 z-index: 2;
                 left: 50%;
@@ -53,6 +52,7 @@
                 -webkit-animation: atbd_spin 2s linear infinite;
                 /* Safari */
                 animation: atbd_spin 2s linear infinite;
+                z-index: 9999;
             }
 
             &:after {
@@ -249,12 +249,14 @@
     margin-top: 25px;
 
     h3 {
-        font-size: 20px;
-        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 400;
+        color: #51526E;
+        margin-bottom: 0;
     }
 
     ul {
-        margin: -15px;
+        margin: 5px -15px -15px;
         display: flex;
         flex-wrap: wrap;
         align-items: center;

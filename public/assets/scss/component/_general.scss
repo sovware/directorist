@@ -1399,47 +1399,47 @@ div#listing_notifier span {
   border-bottom: 1px solid #e3e6ef;
 
   &:first-child {
-      padding-top: 0;
+    padding-top: 0;
   }
 
   &:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 
   .directorist-signle-review__top {
+    display: flex;
+    justify-content: space-between;
+
+    .directorist-signle-review-avatar-wrap {
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
 
-      .directorist-signle-review-avatar-wrap {
-          display: flex;
-          align-items: center;
-          margin-bottom: 22px;
+      .directorist-signle-review-avatar {
+        margin-right: 12px;
 
-          .directorist-signle-review-avatar {
-              margin-right: 12px;
-
-              img {
-                  max-width: 50px;
-                  border-radius: 50%;
-              }
-          }
-
-          .directorist-signle-review-avatar__info {
-              p {
-                  font-size: 16px;
-                  color: $dark;
-                  text-transform: capitalize;
-                  font-weight: 500;
-                  margin-bottom: 2px;
-              }
-
-              .directorist-signle-review-time {
-                  font-size: 13px;
-                  margin-left: 0;
-              }
-          }
+        img {
+          max-width: 50px;
+          border-radius: 50%;
+        }
       }
+
+      .directorist-signle-review-avatar__info {
+        p {
+          font-size: 16px;
+          color: $dark;
+          text-transform: capitalize;
+          font-weight: 500;
+          margin-bottom: 2px;
+        }
+
+        .directorist-signle-review-time {
+          font-size: 13px;
+          margin-left: 0;
+        }
+      }
+    }
   }
 }
 
@@ -1993,6 +1993,10 @@ input#privacy_policy,
     p {
       font-size: 14px;
       color: #69708E;
+    }
+
+    p:empty{
+      display: none;
     }
 
     @media (max-width: 575px) {
@@ -3692,4 +3696,44 @@ input.atbdp-form-control {
 .atbd_social_wrap a .fa {
   font-family: "Font Awesome 5 Brands" !important;
   font-weight: 900 !important;
+}
+
+.directorist-address-field,
+.directorist-form-address-field {
+  #result {
+    ul {
+      li {
+        margin-bottom: 0;
+        border-bottom: 1px solid #eee;
+
+        a {
+          color: $body-color;
+          display: block;
+          padding: 8px 10px;
+        }
+      }
+    }
+  }
+}
+
+// Login
+p.status:empty {
+  display: none;
+}
+
+.directorist-checkbox-field input+label {
+  margin-left: 5px;
+}
+
+.directorist-hide-owner-field input {
+  margin-top: 2px !important;
+
+  label {
+    margin-left: 0 !important;
+  }
+}
+
+.form-group.hide-map-option,
+.directorist-map-field {
+  margin-bottom: 0 !important;
 }

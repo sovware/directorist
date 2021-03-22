@@ -1,3 +1,5 @@
+<?php $show_migration_button = apply_filters( 'directorist_show_migration_button', false ); ?>
+
 <div class="wrap">
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
@@ -43,6 +45,7 @@
                         </span>
                         <span class="directorist_link-text"><?php _e( 'Create New Directory Type', 'directorist' ); ?></span>
                     </a>
+
                     <a href="#" class="directorist_link-block directorist_link-block-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
                         <span class="directorist_link-icon">
                             <i class="la la-download"></i>
@@ -51,6 +54,17 @@
                             <?php _e( 'Import', 'directorist' ) ?>
                         </span>
                     </a>
+                
+                    <?php if ( $show_migration_button ) : ?>
+                    <a href="#" class="directorist_link-block directorist_link-block-success directorist_btn-migrate cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
+                        <span class="directorist_link-icon">
+                            <i class="la la-download"></i>
+                        </span>
+                        <span class="directorist_link-text">
+                            <?php _e( 'Migrate', 'directorist' ) ?>
+                        </span>
+                    </a>
+                    <?php endif; ?>
                 </div>
                 <?php
                     $all_items =  wp_count_terms('atbdp_listing_types');
@@ -178,7 +192,10 @@
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide">
                     <form action="#" method="post" class="cptm-import-directory-form">
                         <div class="cptm-form-group cptm-mb-10">
-                            <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name">
+                            <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name or ID">
+                            <p class="cptm-info-text">
+                                <?php _e( '<b>Note:</b> You can use an existed directory ID to update it the importing file', 'directorist' ) ?>
+                            </p>
                         </div>
 
                         <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
@@ -247,3 +264,46 @@
         </div>
     </div>
 </div>
+
+<?php 
+;
+
+if ( $show_migration_button ) : ?>
+<!-- Model : Migration -->
+<div class="cptm-modal-container cptm-directory-mirgation-modal">
+    <div class="cptm-modal-wrap">
+        <div class="cptm-modal">
+            <div class="cptm-modal-content">
+                <div class="cptm-modal-header">
+                    <h3 class="cptm-modal-header-title"><?php _e( 'Migrate', 'directorist' ); ?></h3>
+                    <div class="cptm-modal-actions">
+                        <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
+                            <span class="fa fa-times"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cptm-modal-body cptm-center-content cptm-content-wide">
+                    <form action="#" method="post" class="cptm-directory-migration-form">
+                        <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
+
+                        <h2 class="cptm-title-2 cptm-text-center cptm-comfirmation-text">
+                            <?php _e( 'Are you sure?', 'directorist' ) ?>
+                        </h2>
+
+                        <div class="cptm-file-input-wrap">
+                            <a href="#" class="cptm-btn cptm-btn-secondery cptm-modal-toggle atbdp-directory-migration-cencel-link" data-target="cptm-directory-mirgation-modal">
+                                <?php _e( 'No', 'directorist' ); ?>
+                            </a>
+
+                            <a href="#" class="cptm-btn cptm-btn-primary atbdp-directory-migration-link">
+                                <?php _e( 'Yes', 'directorist' ); ?>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

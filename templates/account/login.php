@@ -76,7 +76,7 @@ use \Directorist\Helper;
                                         'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
                                         'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
                                     ];
-                                    wp_localize_script( 'directorist-login', 'ajax_login_object', $data );
+                                    wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
 
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
                                     $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
@@ -201,7 +201,7 @@ use \Directorist\Helper;
                                         <p><?php printf( __( '%s', 'directorist' ), $recpass_desc );?></p>
                                         <label for="reset_user_login"><?php printf( __( '%s', 'directorist' ), $recpass_username );?></label>
                                         <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';?>
-                                        <input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>" />
+                                        <input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>" required />
                                         <p>
                                             <input type="hidden" name="action" value="reset" />
                                             <button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php printf( __( '%s', 'directorist' ), $recpass_button );?></button>

@@ -260,18 +260,21 @@ class Directorist_Listing_Search_Form {
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		foreach ( $search_form_fields['fields'] as $key => $value) {
-			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+		if ( !empty( $search_form_fields['fields'] ) ) {
+			foreach ( $search_form_fields['fields'] as $key => $value) {
+				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+			}
 		}
 
-		foreach ( $search_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
-			}
-			$form_data[] = $section;
-
+		if ( !empty( $search_form_fields['groups'] ) ) {
+			foreach ( $search_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
+			}			
 		}
 
 		return $form_data;
@@ -493,7 +496,7 @@ class Directorist_Listing_Search_Form {
 	public function search_listing_scripts_styles() {
 		wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
-        wp_enqueue_script( 'directorist-search-listing' );
+		wp_enqueue_script( 'directorist-search-listing' );
 
 		$data = Script_Helper::get_search_script_data();
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
@@ -503,7 +506,7 @@ class Directorist_Listing_Search_Form {
 		]);
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
-    }
+	}
 
 	public function listing_type_slug() {
 		$term_data = get_term( $this->listing_type, ATBDP_TYPE );

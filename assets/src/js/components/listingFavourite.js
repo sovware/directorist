@@ -12,6 +12,7 @@
         });
     });
 
+    // Dashboard favourite remove 
     $('.directorist-favourite-remove-btn').each(function () {
       
         $(this).on('click', function (event) {

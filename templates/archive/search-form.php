@@ -6,7 +6,7 @@
  */
 ?>
 
-<?php 
+<?php
  if(  is_numeric( $searchform->listing_type ) ) {
 	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
 	$listing_type = $term->slug;
@@ -27,8 +27,6 @@
 				<div class="directorist-form-group directorist-advanced-filter__advanced--element directorist-advanced-filter__advanced--<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php endforeach; ?>
 		</div>
-
 		<?php $searchform->buttons_template(); ?>
-		
 	</form>
 </div>

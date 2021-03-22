@@ -8,8 +8,8 @@ Directorist is the complete WordPress directory plugin that is used to create mo
 - Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 - Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
 
-## SUPPORT
+### SUPPORT
 This place isn't suitable for support. You shouldn't use our issue tracker for support requests, but for core pluign issues, you can get in touch here only. Moreover, for more support, please, head over to our [official support channel](https://directorist.com/contact/).
 
-## Contributing to Directorist
+### Contributing to Directorist
 You are welcome to contribute to the code, for more information please check our [Development Guidelines](https://github.com/sovware/directorist/wiki/Development-Guidelines)

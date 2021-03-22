@@ -374,13 +374,37 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function sanitize_data_for_json( $data = [] ) {
+		foreach ( $data as $key => $value ) {
+
+			if ( gettype( $value ) === 'array' ) {
+				$data[ $key ] = self::sanitize_data_for_json( $value );
+				continue;
+			}
+
+			if ( gettype( $value ) === 'string' ) {
+				$_value = str_replace( '"', "'", $value );
+				$_value = preg_replace( '/\n/', "", $_value );
+				$_value = preg_replace( '/\t/', "", $_value );
+				$data[ $key ] = $_value;
+				continue;
+			}
+			
+		}
+
+		return $data;
+	}
+	
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }
+		if ( ! is_array( $data ) ) { return; }
 		
+		$data = self::sanitize_data_for_json( $data );
 		$value = json_encode( $data );
+
 		?>
-		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<div id="<?php echo $data_key; ?>" class="directorist-dom-data" style="display: none;"><!-- <?php echo $value; ?> --></div>
 		<?php
 	}
 

@@ -3,17 +3,20 @@ var listings_data = get_dom_data( 'listings_data' );
 var atbdp_map     = get_dom_data( 'atbdp_map' );
 
 function get_dom_data ( key ) {
-    var dom_content = document.body.innerHTML;
+    var dom_elm = document.getElementById( key );
+    if ( ! dom_elm ) { return ''; }
+
+    var dom_content = dom_elm.innerHTML;
+    dom_content = dom_content.replace( /(<!-- )(.*)( -->)/, '$2' );
 
     if ( ! dom_content.length ) { return ''; }
+    var dom_data = '';
 
-    var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-    var terget_content = pattern.exec( dom_content );
-
-    if ( ! terget_content ) { return ''; }
-    if ( typeof terget_content[2] === 'undefined' ) { return ''; }
-    
-    var dom_data = JSON.parse( terget_content[2] );
+    try {
+        dom_data = JSON.parse( dom_content );
+    } catch ( error ) {
+        console.log( { key, error, content: dom_content } );
+    }
 
     if ( ! dom_data ) { return ''; }
 

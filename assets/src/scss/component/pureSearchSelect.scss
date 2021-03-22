@@ -30,6 +30,7 @@
         color: #7a82a6;
         background-color: #fff;
         border: 1px solid $border-color-normal;
+        box-sizing: border-box;
 
         .directorist-select__label--icon,
         .directorist-select__label--text {

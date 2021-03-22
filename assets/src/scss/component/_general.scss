@@ -107,3 +107,39 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+
+.select2.select2-container{
+    &.select2-container--default{
+        width: 100%;
+    }
+    .select2-selection--single{
+        height: 42px;
+        border-color: #ececec;
+        &:focus{
+            outline: none;
+        }
+        .select2-selection__rendered{
+            height: 40px;
+            padding: 0 15px;
+            .select2-selection__clear{
+                padding-right: 25px;
+            }
+            .select2-selection__placeholder{
+                line-height: 2.6;
+            }
+        }
+        .select2-selection__arrow{
+            top: 8px;
+            right: 14px;
+            color: #7a82a6;
+            &:before{
+                font-family: 'Line Awesome Free';
+                content: '\f107';
+                font-weight: 600;
+            }
+            b{
+                display: none;
+            }
+        }
+    }
+}

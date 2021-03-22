@@ -3,10 +3,9 @@
         <label v-if="label.length">{{ label }}</label>
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
-        <a href="#" 
-            class="settings-save-btn" 
+        <a href="#" class="settings-save-btn" 
             target="_blank" 
-            v-html="buttonLabel"
+            v-html="button_label"
             @click.prevent="exportData">
         </a>
     </div>

@@ -1,0 +1,15 @@
+on: pull_request
+
+name: Inspections
+jobs:
+  runPHPCSInspection:
+    name: Run PHPCS inspection
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Run PHPCS inspection
+      uses: rtCamp/action-phpcs-code-review@v2.0.3
+      env:
+        GH_BOT_TOKEN: 06070e51609d70448c26a90a97101b92b73e5486

@@ -101,3 +101,9 @@
     top: 30px;
     border-color: #eff1f6;
 }
+
+/* Container within container spacing issue fix */
+.directorist-container-fluid>.directorist-container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

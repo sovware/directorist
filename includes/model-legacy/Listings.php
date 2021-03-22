@@ -1546,6 +1546,10 @@ class Directorist_Listings {
 			return $title;
 		}
 
+		public function loop_get_tagline() {
+			return $this->loop['tagline'];
+		}
+
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 

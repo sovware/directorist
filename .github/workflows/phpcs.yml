@@ -12,4 +12,4 @@ jobs:
     - name: Run PHPCS inspection
       uses: rtCamp/action-phpcs-code-review@v2.0.3
       env:
-        GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        GH_BOT_TOKEN: 06070e51609d70448c26a90a97101b92b73e5486

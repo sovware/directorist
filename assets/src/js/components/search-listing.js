@@ -43,7 +43,6 @@
         cache: true
     });
 
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
     $( window  ).load(function() {
 
         $('.directorist-btn-ml').each( (index, element) => {

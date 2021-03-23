@@ -13,7 +13,7 @@
         $(this).siblings('.atbdp_child_category').slideToggle();
     });
     //
-   $('.atbdp_child_location').hide();
+    $('.atbdp_child_location').hide();
     $('.atbd_location_wrapper > .expander').on('click', function () {
         $(this).siblings('.atbdp_child_location').slideToggle();
     });

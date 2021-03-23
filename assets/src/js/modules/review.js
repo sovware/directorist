@@ -1,7 +1,7 @@
 // Helper Components
 
-import '../components/review/starRating'
-import '../components/review/addReview'
-import '../components/review/reviewAttatchment'
-import '../components/review/deleteReview'
-import '../components/review/reviewPagination'
+import '../components/review/star-rating'
+import '../components/review/add-review'
+import '../components/review/review-attatchment'
+import '../components/review/delete-review'
+import '../components/review/review-pagination'

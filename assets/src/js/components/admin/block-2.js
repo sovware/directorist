@@ -16,25 +16,6 @@ $('#atbd_optional_field_check').on('change', function () {
         : $('.atbd_tagline_moto_field').fadeOut();
 });
 
-// price range
-/* $('#price_range').hide();
-const is_checked = $('#atbd_listing_pricing').val();
-if (is_checked === 'range') {
-    $('#price').hide();
-    $('#price_range').show();
-}
-$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-    const $this = $(this);
-    if($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true){
-        $(`#${$this.data('option')}`).hide();
-    }else{
-        $(`#${$this.data('option')}`).show();
-    }
-    const $sibling = $this.parent().siblings('.directorist-checkbox');
-    $sibling.children('input[type=checkbox]').prop('checked', false);
-    $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
-}); */
-
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
     const length = $('#at_biz_dir-categorychecklist input:checked');
@@ -166,31 +147,6 @@ $('#listing_popular_by select[name="listing_popular_by"]').on('change', function
         avg_review.show();
         logged_count.show();
     }
-});
-
-/* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-(function ($) {
-"use strict";
-var content = "";
-// Category icon selection
-function selecWithIcon(selected) {
-if (!selected.id) {
-return selected.text;
-}
-var $elem = $(
-"<span><span class='la " +
-selected.element.value +
-"'></span> " +
-selected.text +
-"</span>"
-);
-return $elem;
-}
-
-$("#category_icon").select2({
-placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
-allowClear: true,
-templateResult: selecWithIcon,
 });
 
 /* Show and hide manual coordinate input field */

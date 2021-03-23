@@ -62,7 +62,6 @@ $('.cptm-import-directory-form').on('submit', function (e) {
 
             // Reload the page if success
             if (response.data && response.data.status && response.data.status.success) {
-                // console.log( 'reloading...' );
 
                 modal_content.addClass('cptm-d-none');
                 modal_alert.removeClass('cptm-d-none');

@@ -145,7 +145,6 @@ if( ! localized_data.is_admin ){
 
         // Tags
         const createTag = localized_data.create_new_tag;
-        // console.log($('#at_biz_dir-tags').attr("data-max"));
         let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
         if (createTag) {
                 $('#at_biz_dir-tags').select2({
@@ -402,9 +401,7 @@ $('body').on('submit', formID, function (e) {
         e.preventDefault();
         let error_count = 0;
         const err_log = {};
-        // if ($('#atbdp_front_media_wrap:visible').length == 0) {
-        //         has_media = false;
-        // }
+        
         if (on_processing) {
                 $('.directorist-form-submit__btn').attr('disabled', true);
                 return;
@@ -464,14 +461,10 @@ $('body').on('submit', formID, function (e) {
                                 }
                         }
                 } else {
-                        //  field_list2.push({ nam: name, val: value, field: field, type: type})
                         setup_form_data(form_data, type, field);
                 }
         });
 
-        // console.log( field_list2 );
-        // return;
-        // images
 
         if (mediaUploaders.length) {
                 for (var uploader of mediaUploaders) {
@@ -558,8 +551,7 @@ $('body').on('submit', formID, function (e) {
                 url: localized_data.ajaxurl,
                 data: form_data,
                 success(response) {
-                        // console.log( response );
-                        // return;
+                        
                         // show the error notice
                         $('.directorist-form-submit__btn').attr('disabled', false);
 

@@ -1,9 +1,8 @@
 import InputColorPicker from 'vue-native-color-picker';
-import validator from './../validator';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, validator ],
+    mixins: [ props ],
     components: {
         "v-input-colorpicker": InputColorPicker
     },
@@ -24,8 +23,10 @@ export default {
 
     computed: {
         formGroupClass() {
+            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+
             return {
-                ...this.validationClass,
+                ...validation_classes,
                 'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
             }
         },
@@ -43,7 +44,8 @@ export default {
 
     data() {
         return {
-            local_value: '#fff'
+            local_value: '#fff',
+            validationLog: {}
         }
     },
 }

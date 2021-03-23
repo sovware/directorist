@@ -13268,6 +13268,10 @@ p.atbd-min {
   min-height: 120px;
 }
 
+.directorist-text-center {
+  text-align: center;
+}
+
 /* Modal Core Styles */
 .directorist-modal {
   position: fixed;
@@ -13697,6 +13701,94 @@ p.atbd-min {
 #directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fa,
 #directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fas {
   color: #fff;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body {
+  padding: 40px 25px;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body.directorist-modal-alert-error .directorist-modal-alert-icon {
+  border-color: #e23636;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body.directorist-modal-alert-error .directorist-modal-alert-icon i {
+  color: #e23636;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body.directorist-modal-alert-success .directorist-modal-alert-icon {
+  border-color: #32cc6f;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body.directorist-modal-alert-success .directorist-modal-alert-icon i {
+  color: #32cc6f;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-icon {
+  width: 50px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #ffaf00;
+  margin: 0 auto 15px;
+  color: #ffaf00;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-icon i {
+  font-size: 24px;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-text h3 {
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0 0 15px;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-text h3:empty {
+  display: none;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-text p {
+  font-size: 18px;
+  margin-bottom: 0;
+  color: #5a6671;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__body .directorist-modal-alert-text p:empty {
+  display: none;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__footer {
+  display: none;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__footer.directorist-modal-alert-action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__footer.directorist-modal-alert-action .directorist-btn + .directorist-btn {
+  margin-left: 15px !important;
+}
+
+.directorist-modal-alert .directorist-modal__content .directorist-modal__footer .directorist-btn.directorist-btn-info {
+  background-color: #3590ec;
+  border-color: #3590ec;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .directorist-faq-remove-confirm-js .directorist-modal-alert-text p {
+  text-align: center;
 }
 
 .ads-advanced .bottom-inputs {

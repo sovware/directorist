@@ -33,8 +33,9 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
             submit_button.attr('disabled', true);
         },
         success(response) {
-            console.log(response);
-            if (response.has_previous_subscriptions) {
+            console.log({response});
+
+            if ( response.has_previous_subscriptions ) {
                 location.reload();
                 return;
             }
@@ -43,19 +44,23 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
             submit_button.attr('disabled', false);
             submit_button.find('.atbdp-loading').remove();
 
-            if (response.status.log) {
-                for (const feedback in response.status.log) {
-                    console.log(response.status.log[feedback]);
-                    const alert_type = response.status.log[feedback].type === 'success';
+            if ( response?.status?.log ) {
+                for ( const feedback in response.status.log ) {
+                    const alert_type = response.status.log[feedback].type;
+                    
                     let alert = `<div class="atbdp-form-alert"`;
                     const alert_message = response.status.log[feedback].message;
-                    alert = `<div class="atbdp-form-alert ${alert_type}">${alert_message}<div>`;
+                    alert = `<div class="atbdp-form-alert atbdp-form-alert-${alert_type}">${alert_message}<div>`;
 
                     $('.atbdp-form-feedback').append(alert);
                 }
             }
 
-            if (response.status.success) {
+            if (response?.status?.success) {
+
+                location.reload();
+                return;
+
                 form.attr('id', 'atbdp-product-download-form');
                 form.find('.atbdp-form-page').remove();
 
@@ -387,15 +392,12 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
                         }
 
                         $(form_response_page)
-                            .find(
-                                '.account-connect__form-btn .account-connect__btn'
-                            )
+                            .find( '.account-connect__form-btn .account-connect__btn' )
                             .remove();
 
-                        const finish_btn_label = all_products_are_invalid
-                            ? 'Close'
-                            : 'Finish';
+                        const finish_btn_label = all_products_are_invalid ? 'Close' : 'Finish';
                         const finish_btn = `<button type="button" class="account-connect__btn reload">${finish_btn_label}</button>`;
+                        
                         $(form_response_page)
                             .find('.account-connect__form-btn')
                             .append(finish_btn);

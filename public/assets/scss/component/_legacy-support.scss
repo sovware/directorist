@@ -32,6 +32,7 @@
     line-height: 2.95 !important;
     border-radius: 5px !important;
     background-color: #F2F3F5;
+    border: 1px solid;
     border-color: transparent;
     text-decoration: none;
   
@@ -153,6 +154,10 @@
 
 .directorist-form-group textarea, .directorist-form-group textarea.directorist-form-element {
     min-height: 120px;
+}
+
+.directorist-text-center{
+  text-align: center;
 }
 
 /* Modal Core Styles */
@@ -563,6 +568,95 @@
           }
 
         }
+      }
+    }
+  }
+}
+
+// Modal Alert
+.directorist-modal-alert{
+  .directorist-modal__content{
+      .directorist-modal__body{
+          padding: 40px 25px;
+      
+          &.directorist-modal-alert-error{
+              .directorist-modal-alert-icon{
+                  border-color: $danger;
+                  i{
+                      color: $danger;
+                  }
+              }
+          }
+
+          &.directorist-modal-alert-success{
+              .directorist-modal-alert-icon{
+                  border-color: $success;
+                  i{
+                      color: $success;
+                  }
+              }
+          }
+
+          .directorist-modal-alert-icon{
+              width: 50px;
+              height: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              border: 2px solid $warning;
+              margin: 0 auto 15px;
+              color: $warning;
+              i{
+                  font-size: 24px;
+              }
+          }
+          .directorist-modal-alert-text{
+              h3{
+                  font-size: 30px;
+                  font-weight: 500;
+                  margin: 0 0 15px;
+                  &:empty{
+                      display: none;
+                  }
+              }
+              p{
+                  font-size: 18px;
+                  margin-bottom: 0;
+                  color: $body-color;
+                  &:empty{
+                      display: none;
+                  }
+              }
+          }
+      }
+
+      .directorist-modal__footer{
+          display: none;
+          &.directorist-modal-alert-action{
+              display: flex;
+              justify-content: center;
+              .directorist-btn{
+                  &+.directorist-btn{
+                      margin-left: 15px !important;
+                  }
+              }
+          }
+          .directorist-btn{
+              &.directorist-btn-info{
+                  background-color: $info;
+                  border-color: $info;
+              }
+          }
+      }
+  }
+}
+
+.atbd_content_active #directorist.atbd_wrapper{
+  .directorist-faq-remove-confirm-js{
+    .directorist-modal-alert-text{
+      p{
+        text-align: center;
       }
     }
   }

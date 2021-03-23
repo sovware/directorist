@@ -24,10 +24,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
         // initial_setup
         public function initial_setup() {
-
-            // $test = get_directorist_option( 'announcement' );
-            // var_dump( $test );
-
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
                 $fields['import_settings'] = [
@@ -155,7 +151,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'save-option-data' => false,
                 ];
 
-                $fields['listing_export_button'] = [
+                $fields['listing_import_button'] = [
                     'type'            => 'button',
                     'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'open-in-new-tab' => true,
@@ -163,13 +159,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'button-label'    => __( 'Run Importer', 'directorist' ),
                 ];
 
-                $fields['listing_import_button'] = [
+                $fields['listing_export_button'] = [
                     'type'             => 'export-data',
                     'label'            => __( 'Export Listings', 'directorist' ),
                     'button-label'     => __( 'Export', 'directorist' ),
-                    'export-file-name' => __( 'listings', 'directorist' ),
-                    'export-as'        => 'csv', // csv | json
-                    'data' => Directorist\Listings_Export::get_listings_data(),
+                    'export-file-name' => __( 'listings-export-data', 'directorist' ),
+                    'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
                 ];
 
                 $c = '<b><span style="color:#c71585;">'; //color start
@@ -5072,7 +5067,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections'  => apply_filters('atbdp_listings_import_controls', [
                                 'import_methods' => array(
                                     'fields' => apply_filters('atbdp_csv_import_settings_fields', [
-                                        'listing_export_button', 'listing_import_button',
+                                        'listing_import_button', 'listing_export_button',
                                     ]),
                                 ),
                             ]),

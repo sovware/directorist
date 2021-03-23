@@ -1,6 +1,7 @@
 // Single Listing Style
 .directorist-listing-single {
     font-size: 15px;
+
     .directorist-badge {
         margin: 3px;
 
@@ -101,14 +102,15 @@
                 margin: 3px;
             }
 
-            .directorist-compare-btn{
+            .directorist-compare-btn {
+
                 i,
                 span.la,
                 span.las,
                 span.fa,
                 span.fas,
                 span.lab,
-                span.fab{
+                span.fab {
                     color: #fff;
                 }
             }
@@ -226,6 +228,18 @@
             }
         }
 
+        .directorist-mark-as-favorite {
+            line-height: 1.45;
+            position: relative;
+            display: inline-block !important;
+            margin: 4px;
+
+            &:not(:last-child) {
+                margin-right: 8px;
+                padding-right: 3px;
+            }
+        }
+
         .directorist-info-item {
             line-height: 1.45;
             position: relative;
@@ -267,7 +281,7 @@
 
         .directorist-info-item,
         .directorist-listing-title {
-            margin: 4px;
+            margin: 4px 0;
         }
 
         .directorist-listing-title {
@@ -329,7 +343,8 @@
                     }
                 }
             }
-            .directorist-listing-card-location-list{
+
+            .directorist-listing-card-location-list {
                 position: relative;
                 top: -2px;
                 display: block;
@@ -446,7 +461,8 @@
         margin: 0 3px 0 6px;
     }
 
-    &.directorist-info-item-rating{
+    &.directorist-info-item-rating {
+
         i,
         span.la,
         span.fa {
@@ -587,6 +603,10 @@
                 box-shadow: none;
             }
         }
+
+        .directorist-listing-tagline {
+            margin-bottom: 0;
+        }
     }
 
     .directorist-listing-single__info {
@@ -627,6 +647,7 @@
                     color: #7a82a6;
                     border-bottom: 0 none;
                     box-shadow: none;
+                    line-height: 1.7;
                 }
             }
         }

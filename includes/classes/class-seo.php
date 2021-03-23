@@ -23,6 +23,9 @@ if (!class_exists('ATBDP_SEO')) :
                 add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_og_meta'), 100, 2);
+
+                /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
+                add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
             } else {
                 add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
             }
@@ -44,6 +47,12 @@ if (!class_exists('ATBDP_SEO')) :
 
                 return $seo_data['description'];
             });
+        }
+
+        // yoast_sitemap_exclude_taxonomy
+        public function yoast_sitemap_exclude_taxonomy( $value, $taxonomy ) {
+            $taxonomy_to_exclude = [ ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS, ATBDP_DIRECTORY_TYPE ];
+            if ( in_array( $taxonomy, $taxonomy_to_exclude ) ) return true;
         }
 
         // get_taxonomy_term

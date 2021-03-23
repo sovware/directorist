@@ -375,10 +375,11 @@ class Helper {
 	}
 
 	public static function sanitize_data_for_json( $data = [] ) {
-		foreach ( $data as $key => $value ) {
+		$sanitized_data = $data;
+		foreach ( $sanitized_data as $key => $value ) {
 
 			if ( gettype( $value ) === 'array' ) {
-				$data[ $key ] = self::sanitize_data_for_json( $value );
+				$sanitized_data[ $key ] = self::sanitize_data_for_json( $value );
 				continue;
 			}
 
@@ -386,13 +387,13 @@ class Helper {
 				$_value = str_replace( '"', "'", $value );
 				$_value = preg_replace( '/\n/', "", $_value );
 				$_value = preg_replace( '/\t/', "", $_value );
-				$data[ $key ] = $_value;
+				$sanitized_data[ $key ] = $_value;
 				continue;
 			}
 			
 		}
 
-		return $data;
+		return $sanitized_data;
 	}
 	
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {

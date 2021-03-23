@@ -14,6 +14,7 @@ function get_dom_data ( key ) {
 
     try {
         dom_data = JSON.parse( dom_content );
+        console.log( { key, dom_data, dom_content } );
     } catch ( error ) {
         console.log( { key, error, content: dom_content } );
     }

@@ -13,18 +13,8 @@
 				<?php
 			}
 
-			if ( ! empty( $ls_data['listing_prv_img'] ) ) { ?>
-				<img src='<?php echo esc_url( $ls_data['prv_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
-				<?php
-			}
-
-			if ( ! empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) { ?>
-				<img src='<?php echo esc_url( $ls_data['gallery_img'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
-				<?php
-			}
-
-			if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {?>
-				<img src='<?php echo esc_url( $ls_data['default_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
+			if ( ! empty( $listing_thumbnail ) ) { ?>
+				<img src='<?php echo esc_url( $listing_thumbnail ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
 				<?php
 			}
 

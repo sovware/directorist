@@ -1398,32 +1398,36 @@ class Directorist_Listings {
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
 				$ls_data = [];
-
+	
 				$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
 				$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
-				$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
-				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
+
+				$listing_thumbnail = '';
+				$listing_prv_img   = get_post_meta($listings_id, '_listing_prv_img', true);
+				$listing_img       = get_post_meta($listings_id, '_listing_img', true);
+
+				if ( ! empty( $listing_prv_img ) ) {
+					$listing_thumbnail = atbdp_get_image_source( $listing_prv_img, 'large' );
+				}
+
+				if ( empty( $listing_thumbnail ) && ! empty( $listing_img ) ) {
+					$listing_thumbnail = atbdp_get_image_source( $listing_img[0], 'medium');
+				}
+
+				if ( empty( $listing_thumbnail ) ) {
+					$listing_thumbnail = $this->options['default_preview_image'];
+				}
 
 				$lat_lon = [
 					'lat' => $ls_data['manual_lat'],
 					'lon' => $ls_data['manual_lng']
 				];
 
-				if ( ! empty( $ls_data['listing_prv_img']) ) {
-					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
-				}
+				$cats      = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+				// $font_type = $this->options['font_type'];
 
-				$ls_data['default_image'] = $this->options['default_preview_image'];
-
-				if ( ! empty( $ls_data['listing_img'][0] ) ) {
-					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
-				}
-
-				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = $this->options['font_type'];
-
-				if ( !empty($cats) ) {
+				if ( ! empty( $cats ) ) {
 					$cat_icon = get_cat_icon($cats[0]->term_id);
 				}
 
@@ -1432,12 +1436,13 @@ class Directorist_Listings {
 				$fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
 				$cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 
-				$ls_data['cat_icon'] = $cat_icon;
-				$opt['ls_data'] = $ls_data;
+				$ls_data['cat_icon']      = $cat_icon;
+				$opt['ls_data']           = $ls_data;
+				$opt['listing_thumbnail'] = $listing_thumbnail;
 
 				ob_start();
 
-				if (!empty($opt['display_map_info']) && (!empty($opt['display_image_map']) || !empty($opt['display_title_map']) || $opt['display_address_map']) || !empty($opt['display_direction_map'])) {
+				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || $opt['display_address_map']) || ! empty( $opt['display_direction_map'] ) ) {
 					Helper::get_template( 'archive/fields/openstreet-map', $opt );
 				}
 

@@ -83,6 +83,7 @@ class Directorist_Single_Listing {
 				$section           = $group;
 				$section['fields'] = array();
 				foreach ( $group['fields'] as $field ) {
+					if ( ! isset( $data['fields'][ $field ] ) ) { continue; }
 					$section['fields'][ $field ] = $data['fields'][ $field ];
 				}
 				$content_data[] = $section;
@@ -101,16 +102,15 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-		
-		if ( $section_data['type'] == 'widget_group' ) {
-			$template = 'single/section-'. $section_data['widget_name'];
-			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
-			Helper::get_template( $template, $args );
-		}
-		else {
+		if ( $section_data['type'] == 'general_group' ) {
 			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );
 			}
+		}
+		else {
+			$template = 'single/section-'. $section_data['widget_name'];
+			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
+			Helper::get_template( $template, $args );
 		}
 	}
 
@@ -253,7 +253,7 @@ class Directorist_Single_Listing {
 	public function get_address( $data ) {
 		$value = $data['value'];
 		if (!empty($data['address_link_with_map'])) {
-			$value = '<a target="google_map" href="https://www.google.de/maps/search/?' . esc_html($value) . '">' . esc_html($value) . '</a>';
+			$value = '<a target="google_map" href="https://www.google.com/maps/search/' . esc_html($value) . '">' . esc_html($value) . '</a>';
 		}
 		return $value;
 	}

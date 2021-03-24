@@ -57,6 +57,13 @@ class Directorist_Listing_Search_Form {
 		$this->type = $type;
 		$this->atts = $atts;
 
+		if ( $listing_type ) {
+			$this->listing_type = (int) $listing_type;
+		}
+		else {
+			$this->listing_type = $this->get_default_listing_type();
+		}
+
 		$this->set_default_options();
 
 		// Search form shortcode
@@ -65,12 +72,7 @@ class Directorist_Listing_Search_Form {
 			$this->prepare_search_data($atts);
 		}
 
-		if ( $listing_type ) {
-			$this->listing_type = (int) $listing_type;
-		}
-		else {
-			$this->listing_type = $this->get_default_listing_type();
-		}
+		
 
 		// Search result page
 		if ( $type == 'search_result' ) {
@@ -339,9 +341,12 @@ class Directorist_Listing_Search_Form {
 			'original_field'    => $submission_form_fields,
 		);
 
-		// dvar_dump($field_data);
+		$widget_name = $field_data['widget_name'];
+		if ( strpos( $widget_name, '_') ) {
+			$widget_name = strtok( $widget_name, '_' );
+		}
 
-		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = 'search/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
 	}
@@ -420,8 +425,8 @@ class Directorist_Listing_Search_Form {
 
 	public function top_categories_template() {
 		if ( $this->show_popular_category ) {
+			
 			$top_categories = $this->top_categories();
-
 			if ( !empty($top_categories) ) {
 				$args = array(
 					'searchform'      => $this,
@@ -445,6 +450,7 @@ class Directorist_Listing_Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_type
 		);
 	}
 
@@ -509,6 +515,8 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function top_categories() {
+		$top_categories = [];
+
 		$args = array(
 			'type'          => ATBDP_POST_TYPE,
 			'parent'        => 0,
@@ -519,7 +527,19 @@ class Directorist_Listing_Search_Form {
 			'taxonomy'      => ATBDP_CATEGORY,
 			'no_found_rows' => true,
 		);
-		$top_categories = get_categories(apply_filters('atbdp_top_category_argument', $args));
+
+		$cats = get_categories( $args );
+
+		foreach ( $cats as $cat ) {
+			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
+			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
+			$listing_type_id     = $this->listing_type;
+
+			if( in_array( $listing_type_id, $directory_type ) ) {
+				$top_categories[] = $cat;
+			}
+		}
+
 		return $top_categories;
 	}
 

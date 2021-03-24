@@ -837,6 +837,45 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
+		if ( isset( $_GET['custom_field'] ) ) {
+			$cf = array_filter($_GET['custom_field']);
+
+			foreach ( $cf as $key => $values ) {
+				if ( is_array( $values ) ) {
+					if ( count( $values ) > 1 ) {
+						$sub_meta_queries = array();
+						foreach ( $values as $value ) {
+							$sub_meta_queries[] = array(
+								'key' => '_' . $key,
+								'value' => sanitize_text_field( $value ),
+								'compare' => 'LIKE'
+							);
+						}
+						$meta_queries[] = array_merge( array('relation' => 'OR'), $sub_meta_queries );
+					}
+					else {
+
+						$meta_queries[] = array(
+							'key' => '_' . $key,
+							'value' => sanitize_text_field( $values[0] ),
+							'compare' => 'LIKE'
+						);
+					}
+				}
+				else {
+
+					$field_type = get_post_meta( $key, 'type', true );
+					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					$meta_queries[] = array(
+						'key' => '_' . $key,
+						'value' => sanitize_text_field( $values ),
+						'compare' => $operator
+					);
+
+				}
+			}
+		}
+
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
 			if ($n = count($price)) {
@@ -1235,6 +1274,7 @@ class Directorist_Listings {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_types
 		);
 	}
 
@@ -1561,6 +1601,10 @@ class Directorist_Listings {
 			return $title;
 		}
 
+		public function loop_get_tagline() {
+			return $this->loop['tagline'];
+		}
+
 		public function loop_is_favourite() {
 			$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 			if ( in_array( get_the_id() , $favourites ) ) {
@@ -1652,7 +1696,7 @@ class Directorist_Listings {
 			$link = array();
 			foreach ($locals as $location) {
 				$term = get_term_by('slug', $location, ATBDP_LOCATION);
-				$link = ATBDP_Permalink::atbdp_get_location_page($term);
+				$link = esc_url( get_term_link( $term->term_id, ATBDP_LOCATION ) );
 				$space = str_repeat(' ', 1);
 				$output[] = "<a href='{$link}'>{$term->name}</a>";
 			}
@@ -1722,8 +1766,7 @@ class Directorist_Listings {
 				
 				$id = get_the_id();
 				$load_template = true;
-				
-				$value = '';
+				$value = get_post_meta( $id, '_'.$field['widget_key'], true );
 				if ( isset( $field['field_key']  ) ) {
 					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
 				}

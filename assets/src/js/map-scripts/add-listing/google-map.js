@@ -42,8 +42,15 @@ import { get_dom_data } from '../../lib/helper';
                                 maxWidth: 400,
                         }));
 
-                address_input = document.getElementById('address');
-                address_input.addEventListener('focus', geolocate);
+                // if(address_input){
+                //         address_input = document.getElementById('address');
+                //         address_input.addEventListener('focus', geolocate);
+                // }
+
+                        address_input = document.getElementById('address');
+                        if(address_input !== null){
+                                address_input.addEventListener('focus', geolocate);
+                        }
 
                 // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
                 function geolocate() {
@@ -171,10 +178,8 @@ import { get_dom_data } from '../../lib/helper';
                                 }
                         });
                 }
-                if($('#gmap').length){
-                        initMap();
-                }
-                
+
+                initMap();
 
                 // adding features of creating marker manually on the map on add listing page.
                 /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

@@ -1373,6 +1373,8 @@ input[type="radio"].cptm-radio {
   border-top-left-radius: 0;
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
   background-color: #fff;
+  max-height: 500px;
+  overflow-y: auto;
 
   .cptm-form-group:last-child {
     margin-bottom: 0;

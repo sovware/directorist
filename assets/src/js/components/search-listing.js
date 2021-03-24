@@ -1,7 +1,8 @@
 (function ($) {
-    /* $('#at_biz_dir-location').select2({
+    $('#at_biz_dir-location, #loc-type').select2({
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
+        width: '100%',
         templateResult: function (data) {
             // We only really care if there is an element to pull classes from
             if (!data.element) {
@@ -20,9 +21,10 @@
     });
 
     // Category
-    $('#at_biz_dir-category').select2({
+    $('#at_biz_dir-category, #cat-type').select2({
         placeholder: atbdp_search_listing.i18n_text.category_selection,
         allowClear: true,
+        width: '100%',
         templateResult: function (data) {
             // We only really care if there is an element to pull classes from
             if (!data.element) {
@@ -37,8 +39,9 @@
             $wrapper.text(data.text);
 
             return $wrapper;
-        }
-    }); */
+        },
+        cache: true
+    });
 
     //ad search js
     /* var showMore = atbdp_search_listing.i18n_text.show_more;
@@ -71,18 +74,18 @@
     });
 
 
-    
+
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
     $( window  ).load(function() {
-        
+
         $('.directorist-btn-ml').each( (index, element) => {
             let item = $(element).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
             var abc2 = $(item).find('.directorist-checkbox ');
             $(abc2).slice(4, abc2.length).slideUp();
         });
-        
+
     });
 
     $('body').on('click', '.directorist-btn-ml', function(event) {
@@ -196,10 +199,13 @@ function adsFormReset() {
     let adsForm = document.querySelector(".directorist-search-form");
 
     if ( ! adsForm ) {
+        adsForm = document.querySelector(".directorist-advanced-filter__form");
+    }
+
+    if ( ! adsForm ) {
         adsForm = document.querySelector(".atbd_ads-form");
     }
-    
-    console.log( { adsForm } );
+
     adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
     });
@@ -223,6 +229,13 @@ function adsFormReset() {
 }
 if(document.querySelector(".directorist-search-form #atbdp_reset") !== null){
     document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
+        e.preventDefault();
+        adsFormReset();
+        atbd_callingSlider(0);
+    });
+}
+if(document.querySelector(".directorist-advanced-filter__form #atbdp_reset") !== null){
+    document.querySelector(".directorist-advanced-filter__form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
         atbd_callingSlider(0);

@@ -130,6 +130,7 @@ if (!class_exists('ATBDP_Listing')):
                     $term = get_term_by( 'slug', $directory_type, ATBDP_TYPE );
                     $directory_type = !empty( $term ) ? $term->term_id : '';
                     update_post_meta( $id, '_directory_type', $directory_type );
+                    wp_set_object_terms($id, (int)$directory_type, ATBDP_TYPE);
                 }
                 $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
                 $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );

@@ -19,7 +19,6 @@ class ATBDP_Listing_DB {
     public function __construct ()
     {
         add_action( 'before_delete_post', array( $this, 'atbdp_delete_attachment' ) );
-
     }
 
     /**
@@ -33,7 +32,11 @@ class ATBDP_Listing_DB {
             $listing_img = get_post_meta($id, '_listing_img', true);
             $listing_img = !empty($listing_img) ? $listing_img : array();
             $listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
-            array_unshift($listing_img, $listing_prv_img);
+
+            if ( is_array( $listing_img ) ) {
+                array_unshift($listing_img, $listing_prv_img);
+            }
+            
             if ( ! empty( $listing_img ) ) {		
                 foreach ( $listing_img as $image ) {
                     wp_delete_attachment( $image, true );

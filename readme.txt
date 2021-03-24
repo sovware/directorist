@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.2
+Stable tag: 7.0.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -318,34 +318,80 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Screenshots ==
 
-1. Home Page
-2. Advanced Search/Filter
-3. All Listings Page (Grid View) - Search Result Page
-4. All Listings Page (List View)
-5. All Listings Page (Map View)
-6. Single Listing
-7. Widgets
-8. Advanced Search Widget
-9. Custom Fields
-10. File Upload - Author Profile Page
-11. Maps
-12. Add New Listing (Frontend)
-13. Add New Listing (Backend)
-14. Author Page
-15. User Dashboard (My Listings)
-16. User Dashboard (My Profile)
-17. User Dashboard (Favourite Listings)
-18. Locations Page
-19. Categories Page
-20. Private Directory
-21. Login Page
-22. Registration Page
-23. Checkout Page
-24. Payment Receipt Page
-25. Order History
-26. Directorist Settings Panel
+1. Import Directory Type
+2. Submission Form Builder
+3. Archive Page Builder
+4. Single Listing Layout Builder
+5. Search Form Builder
+6. Home Page
+7. Advanced Search/Filter
+8. Archive Page (Grid View)
+9. Archive Page (List View)
+10. Archive Page (Map View)
+11. Single Listing
+12. Widgets
+13. Advanced Search Widget
+14. Custom Fields
+15. File Upload
+16. Add New Listing (Frontend)
+17. Add New Listing (Backend)
+18. Maps
+19. Author Page
+20. User Dashboard
+21. Locations Page
+22. Categories Page
+23. Private Directory
+24. Login Page
+25. Registration Page
+26. Checkout Page
+27. Payment Receipt Page
+28. Order History
+29. Directorist Settings Panel
 
 == Changelog ==
+
+= 7.0.3.2 - Mar 19, 2021 =
+
+* Fix - Single listing review, author, similar listings section disappearing issue
+* Fix - Compatibility issues with some themes eg. Divi
+* Fix - Builder widget's issues
+* Fix - Responsive issue
+* Fix - Login issue in subscription management
+* Fix - Popular category issue
+* Fix - Theme header style modifying issue
+* Fix - Fixed locations widget count issue
+* Fix - New location creation
+* Fix - Builder saving issue
+* Fix - Custom field in search form
+* Fix - Style compatibility with Elementor
+* Add - Tolltip dependency
+* Add - excluded custom taxonomy links (native) from YOAST sitemap
+* Improve - Search form fields
+
+= 7.0.3.1 - Mar 13, 2021 =
+
+* Fix - Category and location displaying issue
+* Fix - Preset fields not show in listings page
+* Fix - PHP error in single listing
+* Improve - Terms link
+
+= 7.0.3 - Mar 12, 2021 =
+
+* Fix - Login issue
+* Fix - Old custom field displaying issue
+* Fix - Custom field checkbox saving issue
+* Fix - Map latitude and longitude saving issue
+* Fix - Translate issues
+* Fix - Review deleting issue
+* Fix - Add listing form validation issue
+* Fix - New category creating issue in add listing form
+* Fix - map_zoom_level parameter issue
+* Fix - Listings bulk edit
+* Fix - Membership management page
+* Fix- Custom Fields(Checkbox , Radio) avoiding the unnecessary scroll for more item.
+* Improve - Builder issues
+* Improve - Migration
+* Improve - Elementor's widgets
 
 = 7.0.2 - Mar 07, 2021 =
 

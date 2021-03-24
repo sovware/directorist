@@ -909,6 +909,16 @@
       padding: 0;
       border: 0 none !important;
     }
+
+    select.form-control {
+      padding: 0 15px;
+      font-size: 15px;
+    }
+
+    .atbd-slide1 {
+      width: 1em;
+      height: 1em;
+    }
   }
 
   .widget>* {

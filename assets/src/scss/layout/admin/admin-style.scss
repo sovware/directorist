@@ -1,5 +1,12 @@
 @import "../../vendor/bootstrap/config.bs";
 
+@import "./drag_drop";
+@import "./multi-directory-archive";
+@import "./multi-directory-builder";
+@import "./plugins";
+@import "./settings-manager";
+@import "./setup-wizard";
+
 #directorist.atbd_wrapper {
 
   .diectorist-show {
@@ -5086,10 +5093,9 @@ img.atbdp-file-info {
 @import '../../base/utility';
 
 // Component Import
-@import '../../component/form';
-@import '../../component/button';
-@import '../../component/modal';
-@import '../../component/badge';
-@import '../../component/checkbox-radio';
-@import '../../component/switch';
-@import '../../component/pureSearchSelect';
+@import '../../components/form';
+@import '../../components/button';
+@import '../../components/modal';
+@import '../../components/badge';
+@import '../../components/checkbox-radio';
+@import '../../components/switch';

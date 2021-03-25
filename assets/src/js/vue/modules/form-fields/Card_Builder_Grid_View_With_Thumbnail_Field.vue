@@ -411,6 +411,7 @@ export default {
 
               if ( matched_field.widget_key ) {
                 _main_widget.original_widget_key = matched_field.widget_key;
+                // console.log( { widget, widget_key: matched_field.widget_key,  matched_field } );
               }
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {

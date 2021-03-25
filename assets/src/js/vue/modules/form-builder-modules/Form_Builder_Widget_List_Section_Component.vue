@@ -201,9 +201,7 @@ export default {
             
             let new_widget_list = this.cloneObject( widget_list );
             for ( let widget_key in new_widget_list ) {
-                let widget_name = new_widget_list[ widget_key ]?.options?.widget_name?.value;
-                
-                if ( selected_widget_keys.includes( widget_name  ) || active_widget_groups_keys.includes( widget_name ) ) { 
+                if ( selected_widget_keys.includes( widget_key  ) || active_widget_groups_keys.includes( widget_key ) ) { 
                     delete new_widget_list[ widget_key ];
                 }
             }

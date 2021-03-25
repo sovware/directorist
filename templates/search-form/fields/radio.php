@@ -12,8 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif;
-		if( $original_field['fields']['radio']['field_key'] === $data['field_key'] ) {
-			$options = $original_field['fields']['radio']['options'];
+		$widget_key = ( isset( $data['widget_key'] ) ) ? $data['widget_key'] : 'radio';
+
+		if ( $original_field['fields'][ $widget_key ]['field_key'] === $data['field_key'] ) {
+			$options = $original_field['fields'][ $widget_key ]['options'];
 			if( $options ) {
 				foreach ( $options as $option ){
 					$uniqid = $option['option_value'] . '-' .wp_rand();

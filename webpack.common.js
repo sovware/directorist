@@ -107,7 +107,9 @@ const MainConfig = {
     ['public-search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
 
     ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],
+    ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js"],
     ['public-single-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map.js"],
+    ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map-widget.js"],
 
     ['public-atmodal']: ["./assets/src/js/modules/atmodal.js"],
     ['public-releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],

@@ -817,7 +817,12 @@ if (!class_exists('ATBDP_SEO')) :
             $args       = array_merge( $default, $args );
             $url        = $args['url'];
             $seo_meta   = $args['seo_meta'];
-            $yoast_meta = YoastSEO()->meta->for_url( $url );
+
+            try {
+                $yoast_meta = YoastSEO()->meta->for_url( $url );
+            } catch ( Exception $e ) {
+                $yoast_meta = '';
+            }
 
             if ( empty( $yoast_meta ) ) {
                 return $seo_meta;

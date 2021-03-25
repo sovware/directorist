@@ -145,6 +145,7 @@ class Directorist_Listing_Search_Form {
 		$search_filters             = $this->options['search_filters'];
 
 		$search_fields        = $search_more_filters_fields;
+		$search_filters 	  = is_array( $search_filters ) ? $search_filters : [];
 		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
 		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
 
@@ -206,6 +207,7 @@ class Directorist_Listing_Search_Form {
 
 	public function prepare_listing_data() {
 		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		$filters_buttons 				= is_array( $filters_buttons ) ? $filters_buttons : [];
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));

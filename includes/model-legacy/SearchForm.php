@@ -175,6 +175,7 @@ class Directorist_Listing_Search_Form {
 		);
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
+		
 		$this->show_title_subtitle      = $this->params['show_title_subtitle'] == 'yes' ? true : false;
 		$this->has_search_button        = $this->params['search_button'] == 'yes' ? true : false;
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;

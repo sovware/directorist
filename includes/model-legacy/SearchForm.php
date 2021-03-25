@@ -263,18 +263,23 @@ class Directorist_Listing_Search_Form {
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		foreach ( $search_form_fields['fields'] as $key => $value) {
-			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
-		}
-
-		foreach ( $search_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+		if ( isset( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
+			foreach ( $search_form_fields['fields'] as $key => $value) {
+				if ( ! is_array( $search_form_fields['fields'][$key] ) ) { continue; }
+				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			}
-			$form_data[] = $section;
+		}
+		
+		if ( isset( $search_form_fields['groups'] ) && is_array( $search_form_fields['groups'] ) ) {
+			foreach ( $search_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
 
+			}			
 		}
 
 		return $form_data;

@@ -165,6 +165,11 @@ export default {
 
                 widgets_options.widget_name = {
                     type: "hidden",
+                    value: _widget_name,
+                };
+
+                widgets_options.original_widget_key = {
+                    type: "hidden",
                     value: widget_key,
                 };
 
@@ -196,9 +201,7 @@ export default {
             
             let new_widget_list = this.cloneObject( widget_list );
             for ( let widget_key in new_widget_list ) {
-                let widget_name = new_widget_list[ widget_key ]?.options?.widget_name?.value;
-                
-                if ( selected_widget_keys.includes( widget_name  ) || active_widget_groups_keys.includes( widget_name ) ) { 
+                if ( selected_widget_keys.includes( widget_key  ) || active_widget_groups_keys.includes( widget_key ) ) { 
                     delete new_widget_list[ widget_key ];
                 }
             }
@@ -209,7 +212,7 @@ export default {
         // cloneObject
         cloneObject( obj ) {
             return JSON.parse( JSON.stringify( obj ) );
-        }
+        },
     }
 }
 </script>

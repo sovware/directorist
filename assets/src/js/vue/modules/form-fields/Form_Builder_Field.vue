@@ -236,25 +236,31 @@ export default {
 
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
-      if (!this.value) {
-        return;
-      }
-      if (typeof this.value !== "object") {
-        return;
-      }
+      if ( ! this.value) { return; }
+      if ( typeof this.value !== "object" ) { return; }
 
-      if (!this.value.fields) {
-        return;
-      }
-      if (typeof this.value.fields !== "object") {
-        return;
-      }
+      if ( ! this.value.fields) { return; }
+      if ( typeof this.value.fields !== "object") { return; }
 
-      this.active_widget_fields = this.value.fields;
-      this.active_widget_fields = Array.isArray( this.value.fields ) ? {} : this.value.fields;
+      let active_widget_fields =  Array.isArray( this.value.fields ) ? {} : this.value.fields;
+      active_widget_fields = this.formatActiveWidgetFields( active_widget_fields );
+
+      this.active_widget_fields = active_widget_fields;
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
+    },
+
+    // formatActiveWidgetFields
+    formatActiveWidgetFields( active_widget_fields ) {
+      if ( ! active_widget_fields ) { return {} };
+      if ( typeof active_widget_fields !== 'object' ) { return {} };
+
+      for ( let field_key in active_widget_fields ) {
+        active_widget_fields.field_key = field_key;
+      }
+
+      return active_widget_fields;
     },
 
     // setupActiveWidgetGroups

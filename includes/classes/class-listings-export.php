@@ -182,7 +182,8 @@ class Listings_Exporter {
 
     // ================[ Submission Form Fields Helper ]================
     // verifyNativeField
-    public static function verifyNativeField( array $args = [] ) {
+    public static function verifyNativeField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( empty( $args['field_key'] ) ) { return false; }
@@ -212,7 +213,8 @@ class Listings_Exporter {
     }
 
     // verifyTaxonomyField
-    public static function verifyTaxonomyField( array $args = [] ) {
+    public static function verifyTaxonomyField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( empty( $args['field_key'] ) ) { return false; }
@@ -239,7 +241,8 @@ class Listings_Exporter {
     }
 
     // verifyListingImageModuleField
-    public static function verifyListingImageModuleField( array $args = [] ) {
+    public static function verifyListingImageModuleField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( empty( $args['field_key'] ) ) { return false; }
@@ -282,7 +285,8 @@ class Listings_Exporter {
     }
 
     // verifyMetaKeyField
-    public static function verifyMetaKeyField( array $args = [] ) {
+    public static function verifyMetaKeyField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( empty( $args['field_key'] ) ) { return false; }
@@ -300,7 +304,8 @@ class Listings_Exporter {
     }
 
     // verifyPriceModuleField
-    public static function verifyPriceModuleField( array $args = [] ) {
+    public static function verifyPriceModuleField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( 'pricing' !== $args['widget_name'] ) { return false; }
@@ -319,7 +324,8 @@ class Listings_Exporter {
 
 
     // verifyMapModuleField
-    public static function verifyMapModuleField( array $args = [] ) {
+    public static function verifyMapModuleField( $args = [] ) {
+        if ( ! is_array( $args ) ) { return false; }
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( 'map' !== $args['widget_name'] ) { return false; }

@@ -257,17 +257,18 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function build_form_data() {
-		$form_data          = array();
+		$form_data = array();
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		if ( !empty( $search_form_fields['fields'] ) ) {
+		if ( isset( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
 			foreach ( $search_form_fields['fields'] as $key => $value) {
-				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+				if ( ! is_array( $search_form_fields['fields'][$key] ) ) { continue; }
+				$search_form_fields['fields'][$key]['field_key'] = isset( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			}
 		}
 
-		if ( !empty( $search_form_fields['groups'] ) ) {
+		if ( isset( $search_form_fields['groups'] ) && is_array( $search_form_fields['groups'] ) ) {
 			foreach ( $search_form_fields['groups'] as $group ) {
 				$section           = $group;
 				$section['fields'] = array();
@@ -319,7 +320,7 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data) {
 		// e_var_dump( $field_data );
-		$key = $field_data['field_key'];
+		$key = ( isset( $field_data['field_key'] ) ) ? $field_data['field_key'] : '';
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 		if (isset($_GET['custom_field'])) {
 			foreach( $_GET['custom_field'] as $cf_key => $val ) {

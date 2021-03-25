@@ -405,11 +405,14 @@
 
         .atbd_listing_meta,
         .atbd_listing_meta,
-        .atbd_listing_title,
         .atbd_badge,
         .atbdp_add_to_fav_listings,
         .atdlc_compare-btn-container {
           margin: 4px !important;
+        }
+
+        .atbd_listing_title {
+          padding: 4px 0;
         }
 
         .atdlc_compare-btn-container,
@@ -644,6 +647,10 @@
             margin: 4px;
           }
 
+          .atbd_listing_title {
+            margin: 4px 0;
+          }
+
           .atbdp_add_to_fav_listings,
           .atdlc_compare-btn-container {
             display: inline-flex;
@@ -836,7 +843,7 @@
               }
             }
 
-            &:before{
+            &:before {
               display: none;
             }
 
@@ -1007,7 +1014,7 @@
 
       .atbd-card-body-top,
       .directorist-card-nothumb-info {
-        margin: -4px;
+        margin: 0;
 
         .atdlc_compare-btn-container,
         .atbdp_add_to_fav_listings {
@@ -1150,6 +1157,7 @@
 
         .atbd_listing_title {
           margin-bottom: 8px !important;
+          margin-left: 0 !important;
         }
 
         .atdlc_compare-btn-container {

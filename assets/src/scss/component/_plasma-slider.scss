@@ -156,8 +156,8 @@
 }
 
 .plasmaSlider__bgImg.plasmaSlider__cover {
-  -o-object-fit: contain;
-  object-fit: contain;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 
 .plasmaSlider__sliderItem {

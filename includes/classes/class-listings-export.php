@@ -1,11 +1,85 @@
 <?php
 namespace Directorist;
-class Listings_Export {
-    
-    public function __construct() {
-        # code...`
+class Listings_Exporter {
+
+    // get_prepared_listings_export_file
+    public static function get_prepared_listings_export_file() {
+        $filename      = "listings-export-data";
+        $file_name     = "{$filename}.csv";
+        $file_contents = self::get_listings_data_as_csv_content();
+
+        $old_file_id = get_directorist_option( 'directorist_export_attachent_id', '', true );
+        if ( ! empty( $old_file_id ) ) {
+            wp_delete_attachment( $old_file_id, true );
+        }
+
+        $upload_dir = wp_upload_dir();
+
+        if ( wp_mkdir_p( $upload_dir['path'] ) ) {
+            $file = $upload_dir['path'] . '/' . $file_name;
+        } else {
+            $file = $upload_dir['basedir'] . '/' . $file_name;
+        }
+
+        file_put_contents( $file, $file_contents );
+
+        $wp_filetype = wp_check_filetype( $file_name, null );
+        $attachment = array(
+            'post_mime_type' => $wp_filetype['type'],
+            'post_title'     => sanitize_file_name( $filename ),
+            'post_content'   => '',
+            'post_status'    => 'inherit'
+        );
+        
+        $attach_id = wp_insert_attachment( $attachment, $file );
+        $attach_url = wp_get_attachment_url( $attach_id );
+
+        update_directorist_option( 'directorist_export_attachent_id', $attach_id );
+
+        return [ 'success' => true, 'file_url' => $attach_url];
     }
 
+    // get_listings_data_as_csv_content
+    public static function get_listings_data_as_csv_content() {
+        $contents = '';
+
+        $listings_data = self::get_listings_data();
+
+        if ( empty( $listings_data ) ) {
+            return $contents;
+        }
+
+        foreach ( $listings_data as $index => $row ) {
+            if ( $index === 0 ) {
+                $contents .= join( ',', array_keys( $row ) ) . "\n";
+            }
+
+            $row_content = '';
+            $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
+            foreach ( $row as $row_key => $row_value ) {
+                
+                $row_content__ = '';
+                
+                if ( in_array( gettype( $row_value ), $accepted_types ) ) {
+                    $row_content__ = $row_value;
+                }
+
+                if ( 'array' === gettype( $row_value ) ) {
+                    $row_content__ = maybe_serialize( $row_value );
+                }
+                
+                $row_content__ = str_replace( '"', "'", $row_content__ );
+                $row_content__ = '"' . $row_content__ . '",';
+                $row_content .= $row_content__;
+            }
+            $contents .= rtrim( $row_content, ',' )  . "\n";
+        }
+
+
+        return $contents;
+    }
+    
+    // get_listings_data
     public static function get_listings_data() {
         $listings_data = [];
 
@@ -42,6 +116,8 @@ class Listings_Export {
             ],
         ];
 
+        $tr_lengths = [];
+
         if ( $listings->have_posts() ) {
             while ( $listings->have_posts() ) {
                 $listings->the_post();
@@ -68,15 +144,39 @@ class Listings_Export {
                     }
                 }
                 
-
                 $row = apply_filters( 'directorist_listings_export_row', $row );
-                array_push( $listings_data, $row );
+                $max_row_length = count( array_keys( $row ) );
+                $tr_lengths   [] = $max_row_length;
+                $listings_data[] = $row;
             }
-
-            // die;
         }
 
+        $listings_data = self::justifyDataTableRow( $listings_data, $tr_lengths );
+
         return $listings_data;
+    }
+
+    // justifyDataRow
+    public static function justifyDataTableRow( $data_table = [], $tr_lengths = [] ) {
+        if ( empty( $data_table ) ) { return $data_table; }
+        if ( ! is_array( $data_table ) ) { return $data_table; }
+
+        $max_tr_val   = max($tr_lengths);
+        $max_tr_index = array_search($max_tr_val, $tr_lengths);
+        $modal_tr     = $data_table[ $max_tr_index ];
+
+        $justify_table = [];
+        foreach ( $data_table as $row ) {
+            $tr = [];
+
+            foreach ( $modal_tr as $row_key => $row_value ) {
+                $tr[ $row_key ] = ( isset( $row[ $row_key ] ) ) ? $row[ $row_key ] : '';
+            }
+
+            $justify_table[] = $tr;
+        }
+
+        return $justify_table;
     }
 
 
@@ -105,7 +205,7 @@ class Listings_Export {
 
         $field_key = $field_args['field_key'];
         $content = call_user_func( $field_data_map[ $field_key ] ) ;
-        $content = str_replace( '"', '""', $content );
+        // $content = str_replace( '"', '""', $content );
 
         $row[ $field_key ] = $content;
 
@@ -197,7 +297,8 @@ class Listings_Export {
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
+        // $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
+        $row[ $field_args['field_key'] ] = $value;
 
         return $row;
     }

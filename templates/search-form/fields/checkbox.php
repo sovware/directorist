@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.3.2
+ * @version 7.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
-	<?php endif; 
+		
+	<?php endif; ?>
+	<div class="directorist-flex directorist-flex-wrap directorist-checkbox-wrapper"><?php
 		$widget_key = ( isset( $data['widget_key'] ) ) ? $data['widget_key'] : 'checkbox';
 
 		if ( $original_field['fields'][ $widget_key ]['field_key'] === $data['field_key'] ) {
@@ -28,5 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php
 				}
 			}
-		}?>
+		} ?>
+	</div>
 </div>

@@ -130,7 +130,7 @@ class Directorist_Listing_Author {
 	}
 
 	public function get_total_listing_number() {
-		$count = $this->all_listings->total;
+		$count = ! empty( $this->all_listings ) ? $this->all_listings->total : '';
 
 		return apply_filters( 'atbdp_author_listing_count', $count );
 	}

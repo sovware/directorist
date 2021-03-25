@@ -837,6 +837,45 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
+		if ( isset( $_GET['custom_field'] ) ) {
+			$cf = array_filter($_GET['custom_field']);
+
+			foreach ( $cf as $key => $values ) {
+				if ( is_array( $values ) ) {
+					if ( count( $values ) > 1 ) {
+						$sub_meta_queries = array();
+						foreach ( $values as $value ) {
+							$sub_meta_queries[] = array(
+								'key' => '_' . $key,
+								'value' => sanitize_text_field( $value ),
+								'compare' => 'LIKE'
+							);
+						}
+						$meta_queries[] = array_merge( array('relation' => 'OR'), $sub_meta_queries );
+					}
+					else {
+
+						$meta_queries[] = array(
+							'key' => '_' . $key,
+							'value' => sanitize_text_field( $values[0] ),
+							'compare' => 'LIKE'
+						);
+					}
+				}
+				else {
+
+					$field_type = get_post_meta( $key, 'type', true );
+					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					$meta_queries[] = array(
+						'key' => '_' . $key,
+						'value' => sanitize_text_field( $values ),
+						'compare' => $operator
+					);
+
+				}
+			}
+		}
+
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
 			if ($n = count($price)) {
@@ -1560,6 +1599,10 @@ class Directorist_Listings {
 				$title = $this->loop['title'];
 			}
 			return $title;
+		}
+
+		public function loop_get_tagline() {
+			return $this->loop['tagline'];
 		}
 
 		public function loop_is_favourite() {

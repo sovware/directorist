@@ -7,10 +7,9 @@
             </div>
             
             <div class="atbdp-col atbdp-col-8">
-                <a href="#" 
-                    class="settings-save-btn" 
+                <a href="#" class="settings-save-btn" 
                     target="_blank" 
-                    v-html="buttonLabel"
+                    v-html="button_label"
                     @click.prevent="exportData">
                 </a>
             </div>

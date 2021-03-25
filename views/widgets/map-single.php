@@ -8,6 +8,7 @@ $display_map_info               = apply_filters('atbdp_listing_map_info_window',
 $atbdp_legacy_template          = get_directorist_option( 'atbdp_legacy_template' );
 $data = array(
   'listing'               => $this,
+  'map_container_id'      => 'gmap-widget',
   'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),
   'default_longitude'     => get_directorist_option('default_longitude', '-74.0059728'),
   'manual_lat'            => $manual_lat,
@@ -22,25 +23,28 @@ $data = array(
 
 if ('openstreet' == $select_listing_map) {
     if( ! empty( $atbdp_legacy_template ) ) {
-        wp_localize_script('atbdp-single-listing-osm', 'localized_data', $data);
-        wp_enqueue_script('atbdp-single-listing-osm');
+        wp_localize_script('atbdp-single-listing-osm-widget', 'localized_data_widget', $data);
+        wp_enqueue_script('atbdp-single-listing-osm-widget');
     } else {
-        wp_localize_script('directorist-single-listing-openstreet-map-custom-script', 'localized_data', $data);
-        wp_enqueue_script('directorist-single-listing-openstreet-map-custom-script');
+        wp_localize_script('directorist-single-listing-openstreet-map-widget-custom-script', 'localized_data_widget', $data);
+        wp_enqueue_script('directorist-single-listing-openstreet-map-widget-custom-script');
     }
 }
 
 if ('google' == $select_listing_map) {
     if( ! empty( $atbdp_legacy_template ) ) {
-        wp_localize_script('atbdp-single-listing-gmap', 'localized_data', $data);
-        wp_enqueue_script('atbdp-single-listing-gmap');
+        wp_localize_script('atbdp-single-listing-gmap-widget', 'localized_data_widget', $data);
+        wp_enqueue_script('atbdp-single-listing-gmap-widget');
+    } else {
+        wp_localize_script('directorist-single-listing-gmap-widget-custom-script', 'localized_data_widget', $data);
+        wp_enqueue_script('directorist-single-listing-gmap-widget-custom-script');
     }
 } ?>
  
 <?php if( ! empty( $atbdp_legacy_template ) ) { ?> 
-    <div id="gmap" class="atbd_google_map"></div>
+    <div id="gmap-widget" class="atbd_google_map"></div>
 <?php } else { ?>
-    <div id="gmap" class="directorist-google-map"></div>
+    <div id="gmap-widget" class="directorist-google-map"></div>
 <?php } ?>
 
 <?php

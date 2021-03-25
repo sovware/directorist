@@ -101,15 +101,15 @@
         var map, info_window, saved_lat_lng, info_content;
 
         // Localized Data
-        var map_container         = ( localized_data.map_container_id ) ? localized_data.map_container_id : 'gmap';
-        var loc_default_latitude  = parseFloat(localized_data.default_latitude);
-        var loc_default_longitude = parseFloat(localized_data.default_longitude);
-        var loc_manual_lat        = parseFloat(localized_data.manual_lat);
-        var loc_manual_lng        = parseFloat(localized_data.manual_lng);
-        var loc_map_zoom_level    = parseInt(localized_data.map_zoom_level);
-        var display_map_info      = localized_data.display_map_info;
-        var cat_icon              = localized_data.cat_icon;
-        var info_content          = localized_data.info_content;
+        var map_container         = ( localized_data_widget.map_container_id ) ? localized_data_widget.map_container_id : 'gmap';
+        var loc_default_latitude  = parseFloat(localized_data_widget.default_latitude);
+        var loc_default_longitude = parseFloat(localized_data_widget.default_longitude);
+        var loc_manual_lat        = parseFloat(localized_data_widget.manual_lat);
+        var loc_manual_lng        = parseFloat(localized_data_widget.manual_lng);
+        var loc_map_zoom_level    = parseInt(localized_data_widget.map_zoom_level);
+        var display_map_info      = localized_data_widget.display_map_info;
+        var cat_icon              = localized_data_widget.cat_icon;
+        var info_content          = localized_data_widget.info_content;
 
         loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
         loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;

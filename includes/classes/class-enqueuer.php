@@ -387,7 +387,10 @@ class ATBDP_Enqueuer {
 
         // Template Scrips
         wp_register_script( 'atbdp-single-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-single-listing-osm-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-single-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-single-listing-gmap-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
+        
         wp_register_script( 'atbdp-add-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-add-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
 

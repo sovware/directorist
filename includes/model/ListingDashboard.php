@@ -189,10 +189,7 @@ class Directorist_Listing_Dashboard {
 		$id                = get_the_ID();
 		$type              = get_post_meta( $id, '_directory_type', true );
 
-		$type_general      = get_term_meta( $type, 'general_config', true );
-		$default_image_src = ( !empty( $type_general ) && is_array( $type_general['preview_image'] ) ) ? $type_general['preview_image']['url'] : '';
-		$default_image_src = ( ! empty( $default_image_src ) ) ? $default_image_src : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
-
+		$default_image_src = Helper::default_preview_image_src( $type );
 		$image_quality     = get_directorist_option('preview_image_quality', 'large');
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);

@@ -705,7 +705,7 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => 'search-form',
 		];
-
+		
 		$scripts['directorist-single-listing-openstreet-map-custom-script'] = [
 			'file_name'      => 'public-single-listing-openstreet-map-custom-script',
 			'base_path'      => DIRECTORIST_JS,
@@ -716,8 +716,28 @@ class Enqueue_Assets {
 			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
+		$scripts['directorist-single-listing-openstreet-map-widget-custom-script'] = [
+			'file_name'      => 'public-single-listing-openstreet-map-widget-custom-script',
+			'base_path'      => DIRECTORIST_JS,
+			'ver'            => self::$script_version,
+			'group'          => 'public',                                        // public || admin  || global
+			'section'        => 'single-listing-page',                           // public || admin  || global
+			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+		];
+
 		$scripts['directorist-single-listing-gmap-custom-script'] = [
 			'file_name'      => 'public-single-listing-gmap-custom-script',
+			'base_path'      => DIRECTORIST_JS,
+			'ver'            => self::$script_version,
+			'group'          => 'public',                                   // public || admin  || global
+			'section'        => 'single-listing-page',
+			'enable'         => Script_Helper::is_enable_map( 'google' ),
+			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+		];
+
+		$scripts['directorist-single-listing-gmap-widget-custom-script'] = [
+			'file_name'      => 'public-single-listing-gmap-widget-custom-script',
 			'base_path'      => DIRECTORIST_JS,
 			'ver'            => self::$script_version,
 			'group'          => 'public',                                   // public || admin  || global

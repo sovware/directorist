@@ -1,15 +1,15 @@
 (function($) {
         jQuery(document).ready(function() {
                 // Localized Data
-                const map_container         = ( localized_data.map_container_id ) ? localized_data.map_container_id : 'gmap';
-                const loc_default_latitude  = parseFloat(localized_data.default_latitude);
-                const loc_default_longitude = parseFloat(localized_data.default_longitude);
-                let   loc_manual_lat        = parseFloat(localized_data.manual_lat);
-                let   loc_manual_lng        = parseFloat(localized_data.manual_lng);
-                const loc_map_zoom_level    = parseInt(localized_data.map_zoom_level);
-                const { display_map_info }  = localized_data;
-                const { cat_icon }          = localized_data;
-                const { info_content }      = localized_data;
+                const map_container         = ( localized_data_widget.map_container_id ) ? localized_data_widget.map_container_id : 'gmap';
+                const loc_default_latitude  = parseFloat(localized_data_widget.default_latitude);
+                const loc_default_longitude = parseFloat(localized_data_widget.default_longitude);
+                let   loc_manual_lat        = parseFloat(localized_data_widget.manual_lat);
+                let   loc_manual_lng        = parseFloat(localized_data_widget.manual_lng);
+                const loc_map_zoom_level    = parseInt(localized_data_widget.map_zoom_level);
+                const { display_map_info }  = localized_data_widget;
+                const { cat_icon }          = localized_data_widget;
+                const { info_content }      = localized_data_widget;
 
                 loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
                 loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;

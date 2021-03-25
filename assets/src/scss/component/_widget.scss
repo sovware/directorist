@@ -939,3 +939,15 @@
     }
   }
 }
+
+.widget ul.listings {
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li {
+      display: inline-block;
+    }
+  }
+}

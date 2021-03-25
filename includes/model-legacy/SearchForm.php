@@ -171,18 +171,19 @@ class Directorist_Listing_Search_Form {
 			'more_filters_display'   		=> $this->options['open_filter_fields'],
 			'directory_type'         		=> '',
 			'default_directory_type'        => '',
+			'show_popular_category'			=> ! empty( get_directorist_option('show_popular_category', 1 ) ) ? 'yes' : ''
 		);
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
-
+		
 		$this->show_title_subtitle      = $this->params['show_title_subtitle'] == 'yes' ? true : false;
 		$this->has_search_button        = $this->params['search_button'] == 'yes' ? true : false;
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
-		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
-		$this->show_popular_category    = !empty( get_directorist_option('show_popular_category', 1) ) ? true : false;
+		$this->show_connector           = !empty( get_directorist_option('show_connector', 1 ) ) ? true : false;
+		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
 		$this->search_bar_title     	= $this->params['search_bar_title'];
 		$this->search_bar_sub_title 	= $this->params['search_bar_sub_title'];

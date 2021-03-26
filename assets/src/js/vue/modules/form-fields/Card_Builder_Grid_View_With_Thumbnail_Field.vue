@@ -405,9 +405,9 @@ export default {
           if ( show_if_cond_state.status ) {
             let widget_keys = [];
             for ( let matched_field of show_if_cond_state.matched_data ) {
-              
               let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              _main_widget.widget_key = current_key;
 
               if ( matched_field.widget_key ) {
                 _main_widget.original_widget_key = matched_field.widget_key;
@@ -424,7 +424,7 @@ export default {
           }
         }
       }
-
+      
       return available_widgets;
     },
 

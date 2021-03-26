@@ -45,9 +45,26 @@ export default {
             return this.highlighted_field_key === field_key;
         },
 
-        getOptionID( option, index ) {
-            let field_id = ( this.fieldId ) ? this.fieldId : '';
-            return ( typeof option.id !== 'undefined' ) ? field_id + '_' + index + '_' + option.id : field_id + '_' + index;
+        getOptionID( option, field_index, section_index ) {
+            let option_id = '';
+
+            if ( section_index ) {
+                option_id = section_index;
+            }
+
+            if ( this.fieldId ) {
+                option_id = option_id + '_' + this.fieldId;
+            }
+
+            if ( typeof option.id !== 'undefined' ) {
+                option_id = option_id + '_' + option.id;
+            }
+
+            if ( typeof field_index !== 'undefined' ) {
+                option_id = option_id + '_' + field_index;
+            }
+
+            return option_id;
         },
 
         mapDataByMap( data, map ) {

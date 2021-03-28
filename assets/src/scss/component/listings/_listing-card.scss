@@ -47,7 +47,8 @@
             overflow: hidden;
             z-index: 0;
 
-            .directorist-thumnail-card-front-wrap {
+            .directorist-thumnail-card-front-wrap,
+            .directorist-thumnail-card-back-wrap {
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -56,13 +57,35 @@
                 height: 100%;
                 width: 100%;
                 overflow: hidden;
+                z-index: 2;
             }
 
-            .directorist-thumnail-card-front-img {
+            .directorist-thumnail-card-back-wrap {
+                z-index: 1;
+            }
+
+            .directorist-thumnail-card-front-img,
+            .directorist-thumnail-card-back-img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 margin: 0;
+            }
+
+            .directorist-thumnail-card-back-img {
+                filter: blur( 5px );
+            }
+
+            &.directorist-card-contain {
+                .directorist-thumnail-card-front-img {
+                    object-fit: contain;
+                }
+            }
+
+            &.directorist-card-full {
+                .directorist-thumnail-card-front-wrap {
+                    position: static;
+                }
             }
         }
 

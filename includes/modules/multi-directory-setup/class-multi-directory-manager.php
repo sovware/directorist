@@ -170,7 +170,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'hide_empty' => false,
             ]);
 
-            // var_dump( $directory_types );
             if ( empty( $directory_types ) ) { return; }
 
             foreach ( $directory_types as $directory_type ) {

@@ -16,7 +16,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
-            add_action( 'init', [$this, 'initial_setup'] );
+            add_action( 'init', [$this, 'setup_migration'] );
             add_action( 'init', [$this, 'update_default_directory_type_option'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
@@ -120,8 +120,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             return array_merge( $default, $args );
         }
 
-        // initial_setup
-        public function initial_setup() {
+        // setup_migration
+        public function setup_migration() {
             $directory_types = get_terms( array(
                 'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                 'hide_empty' => false,

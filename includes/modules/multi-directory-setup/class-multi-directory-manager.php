@@ -176,6 +176,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             foreach ( $directory_types as $directory_type ) {
                 $this->sanitize_submission_form_fields_data_structure( $directory_type );
                 $this->sanitize_single_listings_contents_data_structure( $directory_type );
+                $this->sanitize_search_form_fields_data_structure( $directory_type );
             }
         }
 
@@ -184,18 +185,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
 
             $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
-            if ( empty( $submission_form_fields ) ) { return; }
-            if ( empty( $submission_form_fields['fields'] ) ) { return; }
-
-            foreach ( $submission_form_fields['fields'] as $field_key => $field_args ) {
-
-                if ( ! is_array( $field_args ) ) {
-                    $submission_form_fields['fields'][$field_key] = [];
-                }
-
-                $submission_form_fields['fields'][$field_key][ 'widget_key' ] = $field_key;
-            }
-
+            $submission_form_fields = self::get_sanitized_form_builder_data( $submission_form_fields );
+            
             update_term_meta( $directory_type->term_id, 'submission_form_fields', $submission_form_fields);
         }
 
@@ -203,22 +194,63 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function sanitize_single_listings_contents_data_structure( $directory_type = null ) {
             if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
 
-            // $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
+            $referable_field_keys     = self::get_referable_field_keys( $directory_type->term_id, 'submission_form_fields' );
             $single_listings_contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
-
-            if ( empty( $single_listings_contents ) ) { return; }
-            if ( empty( $single_listings_contents['fields'] ) ) { return; }
-
-            foreach ( $single_listings_contents['fields'] as $field_key => $field_args ) {
-
-                if ( ! is_array( $field_args ) ) {
-                    $single_listings_contents['fields'][$field_key] = [];
-                }
-
-                $single_listings_contents['fields'][$field_key][ 'widget_key' ] = $field_key;
-            }
+            $single_listings_contents = self::get_sanitized_form_builder_data( $single_listings_contents, $referable_field_keys );
 
             update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents);
+        }
+
+        // sanitize_search_form_fields_data_structure
+        public function sanitize_search_form_fields_data_structure( $directory_type = null ) {
+            if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
+
+            $referable_field_keys = self::get_referable_field_keys( $directory_type->term_id, 'submission_form_fields' );
+            $search_form_fields   = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
+            $search_form_fields   = self::get_sanitized_form_builder_data( $search_form_fields, $referable_field_keys );
+
+            update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields);
+        }
+
+        // get_sanitized_form_builder_data
+        public static function get_sanitized_form_builder_data( $form_builder_data = [], $referable_field_keys = [] ) {
+            if ( empty( $form_builder_data ) ) { return $form_builder_data; }
+            if ( empty( $form_builder_data['fields'] ) ) { return $form_builder_data; }
+
+            foreach ( $form_builder_data['fields'] as $field_key => $field_args ) {
+
+                if ( ! is_array( $field_args ) ) {
+                    $form_builder_data['fields'][$field_key] = [];
+                }
+
+                $widget_name = ( isset( $field_args['widget_name'] ) ) ? $field_args['widget_name'] : '';
+                $widget_name = preg_replace( '/_.*$/', '', $widget_name );
+
+                if ( ! empty( $referable_field_keys ) && is_array( $referable_field_keys ) && in_array( $widget_name, $referable_field_keys ) ) {
+                    $form_builder_data['fields'][$field_key][ 'original_widget_key' ] = $field_key;
+                }
+
+                $form_builder_data['fields'][$field_key][ 'widget_name' ] = $widget_name;
+                $form_builder_data['fields'][$field_key][ 'widget_key' ] = $field_key;
+            }
+
+            return $form_builder_data;
+        }
+
+        // get_referable_field_keys
+        public static function get_referable_field_keys( $directory_type_id = 0, $referable_fields_metakey = '' ) {
+            $referable_field_keys = [];
+            $fields_data = get_term_meta( $directory_type_id, $referable_fields_metakey, true );
+
+            if ( is_array( $fields_data ) && isset( $fields_data['fields'] ) ) {
+                foreach ( $fields_data['fields'] as $field_key => $field_args ) {
+                    if ( ! isset( $field_args['widget_name'] ) ) { continue; }
+                    $referable_field_keys[] = $field_args['widget_name'];
+                    
+                }
+            }
+
+            return $referable_field_keys;
         }
 
         // is_valid_term_object

@@ -145,7 +145,6 @@ class Directorist_Listing_Search_Form {
 		$search_filters             = $this->options['search_filters'];
 
 		$search_fields        = $search_more_filters_fields;
-		$search_filters 	  = is_array( $search_filters ) ? $search_filters : [];
 		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
 		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
 
@@ -208,7 +207,6 @@ class Directorist_Listing_Search_Form {
 
 	public function prepare_listing_data() {
 		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
-		$filters_buttons 				= is_array( $filters_buttons ) ? $filters_buttons : [];
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
@@ -265,23 +263,18 @@ class Directorist_Listing_Search_Form {
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		if ( isset( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
-			foreach ( $search_form_fields['fields'] as $key => $value) {
-				if ( ! is_array( $search_form_fields['fields'][$key] ) ) { continue; }
-				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
-			}
+		foreach ( $search_form_fields['fields'] as $key => $value) {
+			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 		}
-		
-		if ( isset( $search_form_fields['groups'] ) && is_array( $search_form_fields['groups'] ) ) {
-			foreach ( $search_form_fields['groups'] as $group ) {
-				$section           = $group;
-				$section['fields'] = array();
-				foreach ( $group['fields'] as $field ) {
-					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
-				}
-				$form_data[] = $section;
 
-			}			
+		foreach ( $search_form_fields['groups'] as $group ) {
+			$section           = $group;
+			$section['fields'] = array();
+			foreach ( $group['fields'] as $field ) {
+				$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+			}
+			$form_data[] = $section;
+
 		}
 
 		return $form_data;

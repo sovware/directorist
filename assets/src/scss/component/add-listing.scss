@@ -133,7 +133,7 @@
 }
 
 .directorist-form-group .select2-container--default .select2-selection {
-    height: 40px;
+    min-height: 40px;
     padding: 0 15px;
 
     .select2-selection__rendered {
@@ -148,7 +148,7 @@
         right: 10px;
     }
 
-    input{
+    input {
         min-height: 26px;
     }
 }
@@ -455,10 +455,10 @@
     text-align: center;
 }
 
-#listing_form_info{
-    .directorist-bh-wrap{
-        .directorist-select{
-            select{
+#listing_form_info {
+    .directorist-bh-wrap {
+        .directorist-select {
+            select {
                 width: calc(100% - 1px);
                 min-height: 42px;
                 display: block !important;
@@ -469,10 +469,11 @@
     }
 }
 
-.directorist-map-field{
-    #floating-panel{
+.directorist-map-field {
+    #floating-panel {
         margin-bottom: 20px;
-        #delete_marker{
+
+        #delete_marker {
             background-color: $danger;
             border: 1px solid $danger;
             color: #fff;
@@ -480,10 +481,10 @@
     }
 }
 
-#listing_form_info{
+#listing_form_info {
     .atbd_content_module {
-        &.atbd-booking-information{
-            .atbdb_content_module_contents{
+        &.atbd-booking-information {
+            .atbdb_content_module_contents {
                 padding-top: 20px;
             }
         }
@@ -493,38 +494,46 @@
 // Custome Field Checkbox & Radio
 
 .directorist-custom-field-radio,
-.directorist-custom-field-checkbox{
+.directorist-custom-field-checkbox {
     display: flex;
     flex-wrap: wrap;
+
     .directorist-form-label,
-    .directorist-custom-field-btn-more{
+    .directorist-custom-field-btn-more {
         width: 100%;
         flex: 0 0 100%;
     }
+
     .directorist-checkbox,
-    .directorist-radio{
+    .directorist-radio {
         flex: 0 0 25%;
-        @media only screen and (max-width: 1599px){
+
+        @media only screen and (max-width: 1599px) {
             flex: 0 0 33.333%;
         }
-        @media only screen and (max-width: 1199px){
+
+        @media only screen and (max-width: 1199px) {
             flex: 0 0 50%;
         }
-        @media only screen and (max-width: 767px){
+
+        @media only screen and (max-width: 767px) {
             flex: 0 0 100%;
         }
     }
-    .directorist-custom-field-btn-more{
+
+    .directorist-custom-field-btn-more {
         margin-top: 5px;
-        &:after{
+
+        &:after {
             font-size: 14px;
             font-family: "Line Awesome Free";
             content: "";
             font-weight: 900;
             padding-left: 5px;
         }
-        &.active{
-            &:after{
+
+        &.active {
+            &:after {
                 content: '\f106';
             }
         }

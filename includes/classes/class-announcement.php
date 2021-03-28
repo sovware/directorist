@@ -8,12 +8,12 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'init', [ $this, 'create_announcement_post_type' ] );
 
             // Legacy template
-            add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
-            add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
+           // add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
+           // add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
 
             // Non legacy template
-            add_action( 'directorist_tab_after_favorite_listings', [ $this, 'non_legacy_add_dashboard_nav_link' ] );
-            add_action( 'directorist_tab_content_after_favorite', [ $this, 'non_legacy_add_dashboard_nav_content' ] );
+           // add_action( 'directorist_tab_after_favorite_listings', [ $this, 'non_legacy_add_dashboard_nav_link' ] );
+            //add_action( 'directorist_tab_content_after_favorite', [ $this, 'non_legacy_add_dashboard_nav_content' ] );
 
             add_action( 'atbdp_schedule_task', [ $this, 'delete_expaired_announcements' ] );
 

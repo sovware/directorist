@@ -17,6 +17,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
             add_action( 'init', [$this, 'setup_migration'] );
+            add_action( 'init', [$this, 'sanitize_builder_data_structure'] );
             add_action( 'init', [$this, 'update_default_directory_type_option'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
@@ -159,6 +160,74 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
                 $this->import_default_directory();
             }
+        }
+
+        // sanitize_builder_data_structure
+        public function sanitize_builder_data_structure() {
+
+            $directory_types = get_terms([
+                'taxonomy' => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            ]);
+
+            // var_dump( $directory_types );
+            if ( empty( $directory_types ) ) { return; }
+
+            foreach ( $directory_types as $directory_type ) {
+                $this->sanitize_submission_form_fields_data_structure( $directory_type );
+                $this->sanitize_single_listings_contents_data_structure( $directory_type );
+            }
+        }
+
+        // sanitize_submission_form_fields_data_structure
+        public function sanitize_submission_form_fields_data_structure( $directory_type = null ) {
+            if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
+
+            $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
+            if ( empty( $submission_form_fields ) ) { return; }
+            if ( empty( $submission_form_fields['fields'] ) ) { return; }
+
+            foreach ( $submission_form_fields['fields'] as $field_key => $field_args ) {
+
+                if ( ! is_array( $field_args ) ) {
+                    $submission_form_fields['fields'][$field_key] = [];
+                }
+
+                $submission_form_fields['fields'][$field_key][ 'widget_key' ] = $field_key;
+            }
+
+            update_term_meta( $directory_type->term_id, 'submission_form_fields', $submission_form_fields);
+        }
+
+        // sanitize_single_listings_contents_data_structure
+        public function sanitize_single_listings_contents_data_structure( $directory_type = null ) {
+            if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
+
+            // $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
+            $single_listings_contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+
+            if ( empty( $single_listings_contents ) ) { return; }
+            if ( empty( $single_listings_contents['fields'] ) ) { return; }
+
+            foreach ( $single_listings_contents['fields'] as $field_key => $field_args ) {
+
+                if ( ! is_array( $field_args ) ) {
+                    $single_listings_contents['fields'][$field_key] = [];
+                }
+
+                $single_listings_contents['fields'][$field_key][ 'widget_key' ] = $field_key;
+            }
+
+            update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents);
+        }
+
+        // is_valid_term_object
+        public static function is_valid_term_object( $term = [] ) {
+            if ( empty( $term ) ) { return false; }
+            if ( ! is_object( $term ) ) { return false; }
+            if ( ! isset( $term->term_id ) ) { return false; }
+
+            return true;
         }
 
         // handle_force_migration

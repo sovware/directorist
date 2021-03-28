@@ -95,7 +95,7 @@ export default {
             // Submit the form
             axios.post( ajax_url, form_data )
                 .then( response => {
-                    // console.log( response );
+                    console.log( response );
 
                     let message = ( response.data.data ) ? response.data.data : null;
                     message = ( response.data.message ) ? response.data.message : message;

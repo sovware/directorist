@@ -30,7 +30,7 @@ $counter = 1;
 				</li>
 				<?php
 			if (!empty($value['after_nav_hook'])) {
-				do_action($value['after_nav_hook']);
+				// do_action($value['after_nav_hook']);
 			}
 			?>
 				<?php do_action( 'directorist_dashboard_navigation', $key, $dashboard ); ?>

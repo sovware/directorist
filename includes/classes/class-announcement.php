@@ -23,7 +23,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'wp_ajax_atbdp_get_new_announcement_count', [ $this, 'response_new_announcement_count' ] );
             add_action( 'wp_ajax_atbdp_clear_seen_announcements', [ $this, 'clear_seen_announcements' ] );
 
-            
+
         }
 
         public function non_legacy_add_dashboard_nav_link() {
@@ -75,8 +75,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         public function non_legacy_add_dashboard_nav_content() {
             $announcements = self::get_announcement_query_data();
-            
-            // directorist_console_log([ 
+
+            // directorist_console_log([
             //     'announcements' => $announcements->posts,
             //     'post_type_exists' => post_type_exists( 'listing-announcement' ),
             // ]);

@@ -353,7 +353,7 @@ class Directorist_Listing_Dashboard {
 		if ( $announcement_tab ) {
 			$dashboard_tabs['announcement'] = array(
 				'title'              => $announcement_label,
-				'content'            => Helper::get_template_contents('dashboard/announcement', $this->get_announcement_tab_args() ),
+				'content'            => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
 				'icon'				 => 'la la-bullhorn',
 				'after_nav_hook'     => 'atbdp_tab_after_announcement',
 				'after_content_hook' => 'atbdp_tab_content_after_announcement',
@@ -361,6 +361,30 @@ class Directorist_Listing_Dashboard {
 		}
 
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
+	}
+
+	public function get_announcements() {
+		$announcements       = [];
+		$announcements_query = \ATBDP()->announcement::get_announcement_query_data();
+		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
+
+		foreach ( $announcements_query->posts as $announcement ) {
+			$id = $announcement->ID;
+			$recepents = get_post_meta( $id, '_recepents', true );
+
+			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+				if ( ! in_array( $current_user_email, $recepents ) ) {
+					continue;
+				}
+			}
+
+			$announcements[$id] = [
+				'title'   => get_the_title( $id ),
+				'content' => $announcement->post_content,
+			];
+		}
+
+		return $announcements;
 	}
 
 	public function get_announcement_tab_args() {

@@ -352,12 +352,6 @@ class Directorist_Listing_Dashboard {
 		$fav_listings_tab   = get_directorist_option( 'fav_listings_tab', 1 );
 		$announcement_tab 	= get_directorist_option( 'announcement_tab', 1 );
 
-		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
-		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
-		if ( $new_announcements > 0 ) {
-			$announcement_label = $announcement_label . " <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
-		}
-
 		if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
 
@@ -366,7 +360,7 @@ class Directorist_Listing_Dashboard {
 
 			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'   => Helper::get_template_contents('dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
 				'icon'	    => atbdp_icon_type() . '-list',
 			);
 		}
@@ -375,42 +369,60 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	    => atbdp_icon_type() . '-user',
-				'content'   => Helper::get_template_contents('dashboard/tab-profile', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
 				'icon'		=> atbdp_icon_type() . '-heart-o',
-				'after_nav_hook'     => 'directorist_tab_after_favorite_listings',
-				'after_content_hook' => 'directorist_tab_content_after_favorite',
 			);
 		}
 
 		if ( $announcement_tab ) {
-			$dashboard_tabs['announcement'] = array(
-				'title'              => get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) ),
-				'content'            => Helper::get_template_contents('dashboard/announcement', $this->get_announcement_tab_args() ),
-				'icon'				 => 'la la-bullhorn',
-				'after_nav_hook'     => 'atbdp_tab_after_announcement',
-				'after_content_hook' => 'atbdp_tab_content_after_announcement',
+			$dashboard_tabs['dashboard_announcement'] = array(
+				'title'    => $this->get_announcement_label(),
+				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
+				'icon'	   => atbdp_icon_type() . '-bullhorn',
 			);
 		}
 
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
 	}
 
-	public function get_announcement_tab_args() {
-		$announcements = ATBDP()->announcement::get_announcement_query_data();
-		$args = array(
-			'announcements'       => $announcements,
-			'total_posts' 		  => count( $announcements->posts ),
-            'current_user_email'  => get_the_author_meta( 'user_email', get_current_user_id() )
-		);
+	public function get_announcement_label() {
+		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
+		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
+		if ( $new_announcements > 0 ) {
+			$announcement_label = $announcement_label . "<span class='directorist-announcement-count'>{$new_announcements}</span>";
+		}
+		return apply_filters( 'directorist_announcement_label', $announcement_label );
+	}
 
-		return $args;
+	public function get_announcements() {
+		$announcements       = [];
+		$announcements_query = \ATBDP()->announcement::get_announcement_query_data();
+		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
+
+		foreach ( $announcements_query->posts as $announcement ) {
+			$id = $announcement->ID;
+			$recepents = get_post_meta( $id, '_recepents', true );
+
+			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+				if ( ! in_array( $current_user_email, $recepents ) ) {
+					continue;
+				}
+			}
+
+			$announcements[$id] = [
+				'title'   => get_the_title( $id ),
+				'content' => $announcement->post_content,
+			];
+		}
+
+		return $announcements;
 	}
 
 	public function restrict_access_template() {

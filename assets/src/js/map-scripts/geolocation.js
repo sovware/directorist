@@ -74,7 +74,7 @@
                                                                 country = value[count - 1];
                                                                 state = value[count - 2];
                                                                 city = value[count - 3];
-                                                                x.value = state;
+                                                                x.value = results[0].geometry.location;
                                                         } else {
                                                                 x.value = 'address not found';
                                                         }

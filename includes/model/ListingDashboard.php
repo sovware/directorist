@@ -214,7 +214,7 @@ class Directorist_Listing_Dashboard {
 			$thumbnail_id = 0;
 		}
 
-		$image_src    = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+		$image_src    = is_array($thumbnail_img) ? $thumbnail_img['url'] : $thumbnail_img;
 		$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 		$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
 		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );

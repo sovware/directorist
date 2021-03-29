@@ -16,20 +16,24 @@ $blur_background   = $is_blur;
 $background_color  = get_directorist_option('prv_background_color', '#fff');
 
 // Style
-$style = '';
-
+$style_component = [];
 if ( $by_ratio ) {
 	$padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
-	$padding_top_css = "padding-top: $padding_top_value%;";
-	$style .= $padding_top_css;
+	$style_component[ 'padding-top' ] = "{$padding_top_value}%";
 } else {
 	$height_value = (int) $ratio_height;
-	$height_css = "height: {$height_value}px;";
-	$style .= $height_css;
+	$style_component[ 'height' ] = "{$height_value}px";
+}
+if ( $image_size !== 'full' && ! $blur_background ) {
+	$style_component[ 'background-color' ] = $background_color;
+}
+if ( $image_size === 'full' ) {
+	unset( $style_component[ 'height' ] );
 }
 
-if ( $image_size !== 'full' && !$blur_background ) {
-	$style = "background-color: $background_color";
+$style = '';
+foreach ( $style_component as $style_prop => $style_value ) {
+	$style .= "{$style_prop}: {$style_value};";
 }
 
 $front_wrap_html = "<div class='atbd-thumbnail-card-front-wrap'>".$listings->loop_get_the_thumbnail('atbd-thumbnail-card-front-img')."</div>";

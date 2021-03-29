@@ -61,7 +61,7 @@
                                         let geocoder;
                                         geocoder = new google.maps.Geocoder();
                                         const latlng = new google.maps.LatLng(latitude, longitude);
-                                        geocoder.geocode({ latLng: latlng, componentRestrictions: { country: 'GB' } }, function(
+                                        geocoder.geocode({ latLng: latlng, componentRestrictions: { country: 'BD' } }, function(
                                                 results,
                                                 status
                                         ) {
@@ -74,7 +74,7 @@
                                                                 country = value[count - 1];
                                                                 state = value[count - 2];
                                                                 city = value[count - 3];
-                                                                x.value = results[0].geometry.location;
+                                                                x.value = city;
                                                         } else {
                                                                 x.value = 'address not found';
                                                         }

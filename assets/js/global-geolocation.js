@@ -163,7 +163,7 @@
           geocoder.geocode({
             latLng: latlng,
             componentRestrictions: {
-              country: 'GB'
+              country: 'BD'
             }
           }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -174,7 +174,7 @@
                 country = value[count - 1];
                 state = value[count - 2];
                 city = value[count - 3];
-                x.value = results[0].geometry.location;
+                x.value = city;
               } else {
                 x.value = 'address not found';
               }

@@ -3,11 +3,11 @@
 namespace Directorist;
 class Multi_Directory_Migration {
 
-    public $multi_directory_manager = null;
+    public static $multi_directory_manager = null;
 
     public function __construct( array $args = [] ) {
         if ( isset( $args['multi_directory_manager'] ) ) {
-            $this->multi_directory_manager = $args['multi_directory_manager'];
+            self::$multi_directory_manager = $args['multi_directory_manager'];
         }
     }
 
@@ -27,7 +27,7 @@ class Multi_Directory_Migration {
         ];
 
         $add_directory_args = array_merge( $add_directory_args, $args );
-        $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
+        $add_directory      = self::$multi_directory_manager->add_directory( $add_directory_args );
         
         if ( $add_directory['status']['success'] ) {
             update_term_meta( $add_directory['term_id'], '_default', true );
@@ -50,7 +50,7 @@ class Multi_Directory_Migration {
             }
 
             // Add directory type to all listings
-            $listings = new WP_Query([
+            $listings = new \WP_Query([
                 'post_type'      => ATBDP_POST_TYPE,
                 'status'         => 'publish',
                 'posts_per_page' => -1,
@@ -596,17 +596,17 @@ class Multi_Directory_Migration {
             ];
         }
 
-        $this->multi_directory_manager->prepare_settings();
+        self::$multi_directory_manager->prepare_settings();
         $single_listings_widgets = [];
         if (
-            isset( $this->multi_directory_manager::$fields ) &&
-            isset( $this->multi_directory_manager::$fields['single_listings_contents'] ) &&
-            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets'] ) &&
-            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets'] ) &&
-            isset( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] ) &&
-            is_array( $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] )
+            isset( self::$multi_directory_manager::$fields ) &&
+            isset( self::$multi_directory_manager::$fields['single_listings_contents'] ) &&
+            isset( self::$multi_directory_manager::$fields['single_listings_contents']['widgets'] ) &&
+            isset( self::$multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets'] ) &&
+            isset( self::$multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] ) &&
+            is_array( self::$multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'] )
         ) {
-            $single_listings_widgets = $this->multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'];
+            $single_listings_widgets = self::$multi_directory_manager::$fields['single_listings_contents']['widgets']['preset_widgets']['widgets'];
         }
 
         $single_listings_widgets_keys = is_array( $single_listings_widgets ) ? array_keys( $single_listings_widgets ) : [];

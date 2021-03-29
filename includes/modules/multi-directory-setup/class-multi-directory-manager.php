@@ -3,12 +3,18 @@
 namespace Directorist;
 class Multi_Directory_Manager 
 {
+    public static $migration  = null;
     public static $fields     = [];
     public static $layouts    = [];
     public static $config     = [];
+
     public $default_form      = [];
     public $old_custom_fields = [];
     public $cetagory_options  = [];
+
+    public function __construct() {
+        self::$migration = new Multi_Directory_Migration([ 'multi_directory_manager' => $this ]);
+    }
 
     // run
     public function run() {
@@ -150,10 +156,7 @@ class Multi_Directory_Manager
         $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
 
         if ( $need_migration ) {
-            $args = [ 'multi_directory_manager' => $this ];
-            $migration = new Multi_Directory_Migration( $args );
-            $migration->run();
-
+            self::$migration->migrate();
             return;
         }
 
@@ -269,10 +272,7 @@ class Multi_Directory_Manager
 
     // handle_force_migration
     public function handle_force_migration() {
-        $args = [ 'multi_directory_manager' => $this ];
-        $migration = new Multi_Directory_Migration( $args );
-
-        $migration_status = $migration->migrate([ 'term_id' => $this->get_default_directory_id() ]);
+        $migration_status = self::$migration->migrate( [ 'term_id' => $this->get_default_directory_id() ] );
         
         $status = [
             'success' => $migration_status,
@@ -5181,9 +5181,7 @@ class Multi_Directory_Manager
         // $test_migration = apply_filters( 'atbdp_test_migration', true );
 
         if ( $test_migration ) {
-            $args          = [ 'multi_directory_manager' => $this ];
-            $migration     = new Multi_Directory_Migration( $args );
-            $all_term_meta = $migration->get_fields_data();
+            $all_term_meta = self::$migration->get_fields_data();
         }
 
         if ( 'array' !== getType( $all_term_meta ) ) { return; }

@@ -145,7 +145,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 							<div class="directorist-user-socials">
 
-								<h4 class="directorist-user-social-label">Social Profiles</h4>
+								<h4 class="directorist-user-social-label"><?php esc_html_e( 'Social Profiles', 'directorist' ); ?></h4>
 
 								<div class="directorist-form-group">
 

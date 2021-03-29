@@ -1727,21 +1727,24 @@ div#listing_notifier span {
   position: relative;
 }
 
-.atbd-dropdown-toggle {
-  display: inline-block;
-  border: 1px solid #eee;
-  padding: 7px 15px;
-  position: relative;
-
-  &:before {
-    content: '';
-    position: absolute !important;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
+#directorist.atbd_wrapper{
+  .atbd-dropdown-toggle {
+    display: inline-block;
+    border: 1px solid #eee;
+    padding: 7px 15px;
+    position: relative;
+  
+    &:before {
+      content: '';
+      position: absolute !important;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
   }
 }
+
 
 .atbd-dropdown-items {
   position: absolute;

@@ -2671,14 +2671,14 @@ div#listing_notifier span.atbdp_success {
   position: relative;
 }
 
-.atbd-dropdown-toggle {
+#directorist.atbd_wrapper .atbd-dropdown-toggle {
   display: inline-block;
   border: 1px solid #eee;
   padding: 7px 15px;
   position: relative;
 }
 
-.atbd-dropdown-toggle:before {
+#directorist.atbd_wrapper .atbd-dropdown-toggle:before {
   content: '';
   position: absolute !important;
   width: 100%;
@@ -13156,37 +13156,37 @@ p.atbd-min {
   text-decoration: none !important;
 }
 
-.directorist-btn.directorist-btn-primary {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-primary {
   background-color: #444752;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-secondary {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-secondary {
   background-color: #122069;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-dark {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-dark {
   background-color: #202428;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-success {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-success {
   background-color: #32cc6f;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-info {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-info {
   background-color: #3590ec;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-warning {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-warning {
   background-color: #ffaf00;
   color: #fff;
 }
 
-.directorist-btn.directorist-btn-danger {
+#directorist.atbd_wrapper .directorist-btn.directorist-btn-danger {
   background-color: #e23636;
   color: #fff;
 }
@@ -13234,6 +13234,10 @@ p.atbd-min {
 
 .directorist-form-group textarea, .directorist-form-group textarea.directorist-form-element {
   min-height: 120px;
+}
+
+.directorist-mb-15 {
+  margin-bottom: 15px;
 }
 
 /* Modal Core Styles */
@@ -13665,6 +13669,115 @@ p.atbd-min {
 #directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fa,
 #directorist.atbd_wrapper .directorist-gallery-grid-two figure figcaption a:hover span.fas {
   color: #fff;
+}
+
+.directorist-radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.directorist-radio input[type="checkbox"],
+.directorist-radio input[type="radio"] {
+  display: none;
+}
+
+.directorist-radio input[type="checkbox"] + .directorist-checkbox__label,
+.directorist-radio input[type="checkbox"] + .directorist-radio__label,
+.directorist-radio input[type="radio"] + .directorist-checkbox__label,
+.directorist-radio input[type="radio"] + .directorist-radio__label {
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  position: relative;
+  display: inline-block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding-left: 30px;
+  margin-bottom: 0;
+  line-height: 1.3;
+  font-weight: 400;
+  color: #5a6671;
+}
+
+.directorist-radio input[type="checkbox"] + .directorist-checkbox__label:after,
+.directorist-radio input[type="checkbox"] + .directorist-radio__label:after,
+.directorist-radio input[type="radio"] + .directorist-checkbox__label:after,
+.directorist-radio input[type="radio"] + .directorist-radio__label:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  content: "";
+  border: 1px solid #C6D0DC;
+  background-color: #fff;
+}
+
+.directorist-radio input[type="checkbox"]:checked + .directorist-checkbox__label:after,
+.directorist-radio input[type="checkbox"]:checked + .directorist-radio__label:after,
+.directorist-radio input[type="radio"]:checked + .directorist-checkbox__label:after,
+.directorist-radio input[type="radio"]:checked + .directorist-radio__label:after {
+  background-color: #202428;
+  border-color: #202428;
+}
+
+.directorist-radio input[type="checkbox"]:checked + .directorist-checkbox__label:before,
+.directorist-radio input[type="checkbox"]:checked + .directorist-radio__label:before,
+.directorist-radio input[type="radio"]:checked + .directorist-checkbox__label:before,
+.directorist-radio input[type="radio"]:checked + .directorist-radio__label:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.directorist-radio input[type="radio"] + .directorist-radio__label:before {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #202428 !important;
+  border: 0 none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 2;
+  content: '';
+}
+
+.directorist-radio input[type="radio"]:checked + .directorist-radio__label:after {
+  background-color: #fff;
+}
+
+.directorist-checkbox.directorist-checkbox-circle input[type="checkbox"] + .directorist-checkbox__label:after,
+.directorist-checkbox.directorist-checkbox-circle input[type="checkbox"] + .directorist-radio__label:after,
+.directorist-checkbox.directorist-checkbox-circle input[type="radio"] + .directorist-checkbox__label:after,
+.directorist-checkbox.directorist-checkbox-circle input[type="radio"] + .directorist-radio__label:after,
+.directorist-radio.directorist-radio-circle input[type="checkbox"] + .directorist-checkbox__label:after,
+.directorist-radio.directorist-radio-circle input[type="checkbox"] + .directorist-radio__label:after,
+.directorist-radio.directorist-radio-circle input[type="radio"] + .directorist-checkbox__label:after,
+.directorist-radio.directorist-radio-circle input[type="radio"] + .directorist-radio__label:after {
+  border-radius: 50%;
+}
+
+#directorist.atbd_wrapper .directorist-booking-content-inner .directorist-booking-sortby-select .atbd-drop-select .atbd-dropdown-toggle::after {
+  position: absolute;
+  top: 15px;
+}
+
+#directorist.atbd_wrapper .directorist-booking-hour-selection .diretorist-booking-hour-remove {
+  margin: 10px;
 }
 
 .ads-advanced .bottom-inputs {

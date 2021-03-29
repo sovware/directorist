@@ -34,7 +34,7 @@ class Directorist_Listing_Search_Form {
 	public $popular_cat_title;
 	public $popular_cat_num;
 	public $show_popular_category;
-	public $directory_type; 
+	public $directory_type;
 	public $default_directory_type;
 
 	// Common - Search Shortcode and Listing Header
@@ -53,7 +53,7 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
-		
+
 		$this->type = $type;
 		$this->atts = $atts;
 
@@ -64,14 +64,14 @@ class Directorist_Listing_Search_Form {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
-		
+
 		if ( $listing_type ) {
 			$this->listing_type = (int) $listing_type;
 		}
 		else {
 			$this->listing_type = $this->get_default_listing_type();
 		}
-	
+
 		// Search result page
 		if ( $type == 'search_result' ) {
 			$this->update_options_for_search_result_page();
@@ -114,11 +114,9 @@ class Directorist_Listing_Search_Form {
 
 	// update_options_for_search_result_page
 	public function update_options_for_search_result_page() {
-		$this->options['more_filters_fields'] = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-		$this->options['search_filters']      = get_directorist_option('search_result_filters_button', array('search_reset_filters', 'search_apply_filters'));
-
-		$this->options['more_filters_button'] = get_directorist_option( 'search_result_filters_button_display', 1 );
-
+		$this->options['more_filters_fields']     = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
+		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', [], true);
+		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
 		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
 	}
@@ -127,7 +125,7 @@ class Directorist_Listing_Search_Form {
 	public function update_options_for_search_form() {
 		$this->options['more_filters_fields'] = get_directorist_option('search_more_filters_fields', array( 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
 
-		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
+		$this->options['search_filters']             = get_directorist_option('search_filters', [], true );
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
@@ -194,8 +192,8 @@ class Directorist_Listing_Search_Form {
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
-		$this->category_id             = 'at_biz_dir-category';
-		$this->category_class          = 'search_fields';
+		$this->category_id             = 'at_biz_dir-categoryas';
+		$this->category_class          = 'search_fields directorist-category-select';
 		$this->location_id             = 'at_biz_dir-location';
 		$this->location_class          = 'search_fields';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
@@ -204,7 +202,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function prepare_listing_data() {
-		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		$filters_buttons                = get_directorist_option( 'listings_filters_button', [], true );
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
@@ -236,7 +234,7 @@ class Directorist_Listing_Search_Form {
 			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
 			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
 		}
-		
+
 		if( $this->directory_type ) {
 			$current_id = true;
 			foreach( $this->directory_type as $value ) {
@@ -245,14 +243,14 @@ class Directorist_Listing_Search_Form {
 				if( $current == $term_id ) {
 					$current_id = null;
 					break;
-				} 
+				}
 			}
 			if( $current_id != null ) {
 				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
 				$current 		 = $directory_types->term_taxonomy_id;
 			}
 		}
-		
+
 		return (int) $current;
 	}
 
@@ -275,7 +273,7 @@ class Directorist_Listing_Search_Form {
 					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
 				}
 				$form_data[] = $section;
-			}			
+			}
 		}
 
 		return $form_data;
@@ -308,7 +306,7 @@ class Directorist_Listing_Search_Form {
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
 			'default_val' => $value
-		));	
+		));
 	}
 
 	public function get_pricing_type() {
@@ -341,7 +339,7 @@ class Directorist_Listing_Search_Form {
 		if ( strpos( $widget_name, '_') ) {
 			$widget_name = strtok( $widget_name, '_' );
 		}
-		
+
 		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );

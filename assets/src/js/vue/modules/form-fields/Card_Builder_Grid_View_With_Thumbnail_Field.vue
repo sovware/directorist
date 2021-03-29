@@ -651,6 +651,7 @@ export default {
         let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
+      
     },
 
     importWidgets() {

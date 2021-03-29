@@ -3857,6 +3857,7 @@ class Multi_Directory_Manager
                     'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                 ],
 
+<<<<<<< HEAD
                 'left' => [
                     'maxWidget' => 1,
                     'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
@@ -3893,6 +3894,28 @@ class Multi_Directory_Manager
                     'acceptedWidgets' => [
                         "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
                         'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+=======
+                'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
+                    'type'    => 'form-builder',
+                    'widgets' => $form_field_widgets,
+                    'generalSettings' => [
+                        'minGroup' => 1,
+                        'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
+                        'restricted_fields_warning_text' => __( 'You can not add in this section', 'directorist' ),
+                    ],
+                    'groupSettings' => [
+                        'defaultGroupLabel' => 'Section',
+                        // 'disableTrashIfGroupHasWidgets' => [ 
+                        //     [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
+                        // ],
+                    ],
+                    'groupFields' => [
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Group Name',
+                            'value' => 'Section',
+                        ],
+>>>>>>> upstream/alpha
                     ],
                 ],
                 'excerpt' => [

@@ -21,7 +21,7 @@
     });
 
     // Category
-    $('#at_biz_dir-category, #cat-type').select2({
+    $('#cat-type').select2({
         placeholder: atbdp_search_listing.i18n_text.category_selection,
         allowClear: true,
         width: '100%',
@@ -42,6 +42,29 @@
         },
         cache: true
     });
+    $('.directorist-category-select').each(function (ind, elem) {
+        $(this).select2({
+            placeholder: atbdp_search_listing.i18n_text.category_selection,
+            allowClear: true,
+            width: '100%',
+            templateResult: function (data) {
+                // We only really care if there is an element to pull classes from
+                if (!data.element) {
+                    return data.text;
+                }
+
+                var $element = $(data.element);
+
+                var $wrapper = $('<span></span>');
+                $wrapper.addClass($element[0].className);
+
+                $wrapper.text(data.text);
+
+                return $wrapper;
+            },
+            cache: true,
+        });
+    })
 
     //ad search js
     /* var showMore = atbdp_search_listing.i18n_text.show_more;
@@ -112,35 +135,40 @@
         visibility: 'hidden',
         height: '0',
     });
-    var count = 0;
-    $("body").on("click", '.directorist-filter-btn', function (e) {
-        count++;
-        e.preventDefault();
-        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-        if (count % 2 === 0) {
-            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                visibility: 'hidden',
-                opacity: '0',
-                height: '0',
-                transition: '.3s ease'
-            });
-        } else {
-            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                visibility: 'visible',
-                height: height - 70 + 'px',
-                transition: '0.3s ease',
-                opacity: '1',
-            });
-        }
-    });
 
+    var dFilterBtn = $('body').find('.directorist-filter-btn');
+    dFilterBtn.each(function(ind, elm){
+        var count = 0;
+        $(elm).on("click", function (e) {
+            count++;
+            e.preventDefault();
+            var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
+            if (count % 2 === 0) {
+                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                    visibility: 'hidden',
+                    opacity: '0',
+                    height: '0',
+                    transition: '.3s ease'
+                });
+            } else {
+                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                    visibility: 'visible',
+                    height: height - 70 + 'px',
+                    transition: '0.3s ease',
+                    opacity: '1',
+                });
+            }
+        });
+    });
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
-    $("body").on("click", ".directorist-filter-btn", function (e) {
-        e.preventDefault();
-        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
-        $(".directorist-search-slide .directorist-advanced-filter").toggleClass("directorist-advanced-filter--show");
-        atbd_callingSlider();
+    dFilterBtn.each(function(ind, elm){
+        $(elm).on("click", function (e) {
+            e.preventDefault();
+            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
+            atbd_callingSlider();
+        });
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 

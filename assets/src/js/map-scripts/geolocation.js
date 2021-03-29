@@ -61,10 +61,13 @@
                                         let geocoder;
                                         geocoder = new google.maps.Geocoder();
                                         const latlng = new google.maps.LatLng(latitude, longitude);
-                                        geocoder.geocode({ latLng: latlng, componentRestrictions: { country: 'GB' } }, function(
-                                                results,
-                                                status
-                                        ) {
+                                        geocoder.geocode({
+                                                latLng: latlng,
+                                                componentRestrictions: { country: 'GB' }},
+                                                function(
+                                                        results,
+                                                        status
+                                                ) {
                                                 if (status == google.maps.GeocoderStatus.OK) {
                                                         if (results[0]) {
                                                                 const add = results[0].formatted_address;

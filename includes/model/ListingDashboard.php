@@ -396,7 +396,7 @@ class Directorist_Listing_Dashboard {
 		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
 		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
 		if ( $new_announcements > 0 ) {
-			$announcement_label = $announcement_label . "<span class='directorist-announcement-count'>{$new_announcements}</span>";
+			$announcement_label = $announcement_label . "<span class='directorist-announcement-count show'>{$new_announcements}</span>";
 		}
 		return apply_filters( 'directorist_announcement_label', $announcement_label );
 	}

@@ -37,10 +37,6 @@ class Multi_Directory_Manager
 
     // update_default_directory_type_option
     public function update_default_directory_type_option() {
-        $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
-
-        if ( ! empty( $default_directory ) ) { return; }
-
         $args = array(
             'hide_empty' => false, // also retrieve terms which are not used yet
             'meta_query' => array(
@@ -52,7 +48,7 @@ class Multi_Directory_Manager
             'taxonomy' => ATBDP_DIRECTORY_TYPE,
         );
 
-        $default_directory = '';
+        $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
         $terms = get_terms( $args );
 
         if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
@@ -272,7 +268,14 @@ class Multi_Directory_Manager
 
     // handle_force_migration
     public function handle_force_migration() {
-        $migration_status = self::$migration->migrate( [ 'term_id' => $this->get_default_directory_id() ] );
+        $general_directory = term_exists( 'General', 'atbdp_listing_types' );
+        $args = [];
+
+        if ( $general_directory ) {
+            $args[ 'term_id' ] = $general_directory['term_id'];
+        }
+        
+        $migration_status = self::$migration->migrate( $args );
         
         $status = [
             'success' => $migration_status,
@@ -564,6 +567,9 @@ class Multi_Directory_Manager
             ];
 
             $response['status']['error_count']++;
+            $response['status']['success'] = false;
+     
+            return $response;
         }
         
         $fields = $args['fields_value'];

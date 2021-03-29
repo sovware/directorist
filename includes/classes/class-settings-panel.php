@@ -83,6 +83,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'data'                       => [],
                 ];
 
+                $fields['sanitize_builder_data'] = [
+                    'type'                       => 'ajax-action',
+                    'action'                     => 'directorist_sanitize_builder_data_structure',
+                    'label'                      => 'Sanitize Builder Data',
+                    'button-label'               => 'Sanitize Builder Data',
+                    'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
+                    'data'                       => [],
+                ];
+
                 $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
                 $recepents = [];
 
@@ -5084,6 +5093,17 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'restore_default' => [
                                     'title' => __( 'Restore Default', 'directorist' ),
                                     'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
+
+                        'other' => [
+                            'label' => __( 'Other', 'directorist' ),
+                            'icon' => '<i class="fa fa-list"></i>',
+                            'sections'  => apply_filters('atbdp_settings_tools_other_controls', [
+                                'builder-options' => [
+                                    'title' => __( 'Builder Options', 'directorist' ),
+                                    'fields' => [ 'sanitize_builder_data' ]
                                 ],
                             ]),
                         ],

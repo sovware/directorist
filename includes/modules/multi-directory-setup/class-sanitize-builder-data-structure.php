@@ -114,6 +114,11 @@ class Builder_Data_Sanitizer {
                 foreach ( $layout_args as $area_key => $area_args ) {
                     if ( ! is_array( $area_args ) ) { continue; }
                     foreach ( $area_args as $_widget_key => $_widget_args ) {
+
+                        if ( ! is_array( $_widget_args ) ) {
+                            $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ] = [];
+                        }
+
                         $widget_name = ( isset( $_widget_args[ 'widget_name' ] ) ) ? $_widget_args[ 'widget_name' ] : '';
                         $widget_name = self::sanitize_widget_name( $widget_name );
                         $widget_key  = ( isset( $_widget_args[ 'widget_key' ] ) ) ? $_widget_args[ 'widget_key' ] : '';
@@ -136,11 +141,6 @@ class Builder_Data_Sanitizer {
                         $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_name' ] = $widget_name;
                     }
                 }
-
-                // directorist_console_log( [
-                //     'template_key' => $template_key,
-                //     'template_data' => $card_builder_data['template_data'][ $template_key ],
-                // ] );
             }
         }
 

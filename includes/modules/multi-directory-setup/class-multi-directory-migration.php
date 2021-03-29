@@ -11,11 +11,6 @@ class Multi_Directory_Migration {
         }
     }
 
-    // Run Migration
-    public function run() {
-        $this->migrate();
-    }
-
     public function migrate( array $args = [] ) {
         $default = [];
         $args = array_merge( $default, $args );

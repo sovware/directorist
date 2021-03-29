@@ -30,7 +30,7 @@ $announcements = $dashboard->get_announcements();
 					</div>
 
 					<div class="directorist-announcement__close">
-						<button class="close-announcement"><i class="<?php atbdp_icon_type( true ); ?>-times"></i></button>
+						<a href="#" class="close-announcement"><i class="<?php atbdp_icon_type( true ); ?>-times"></i></a>
 					</div>
 
 				</div>

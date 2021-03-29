@@ -13,6 +13,12 @@
         margin-bottom: 15.5px;
         border-bottom: 1px solid #F1F2F6;
 
+        &:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: 0 none;
+        }
+
         @media (max-width: 479px) {
             flex-direction: column;
         }
@@ -105,6 +111,9 @@
                 border: 0 none;
                 padding: 0;
                 transition: .35s;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
 
                 i,
                 span.fa,

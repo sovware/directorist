@@ -294,7 +294,7 @@ class Directorist_Listing_Author {
 	}
 
 	public function listing_count_html() {
-		$listing_count = $this->all_listings->total;
+		$listing_count = ! empty( $this->all_listings ) ? $this->all_listings->total : '';
 		$listing_count_html = sprintf( _nx( '<span>%s</span>Listing', '<span>%s</span>Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
 		return $listing_count_html;
 	}

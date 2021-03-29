@@ -279,18 +279,21 @@
                 if( 'tax_input[at_biz_dir-location][]'  == $field_key ) {  $field_key = 'location'; }
                 if( 'admin_category_select[]'           == $field_key ) {  $field_key = 'category';  }
                 if( 'tax_input[at_biz_dir-tags][]'      == $field_key ) { $field_key = 'tag'; }
-                if( 'pricing' == $field['widget_name'] ) {  
-                    $this->importable_fields[ 'price' ] = 'Price';
-                    $this->importable_fields[ 'price_range' ] = 'Price Range';
-                    continue;
+                
+                if ( isset( $field['widget_name'] ) ) {
+                    if( 'pricing' == $field['widget_name'] ) {  
+                        $this->importable_fields[ 'price' ] = 'Price';
+                        $this->importable_fields[ 'price_range' ] = 'Price Range';
+                        continue;
+                        }
+                    if( 'map' == $field['widget_name'] ) {  
+                        $this->importable_fields[ 'manual_lat' ] = 'Map Latitude';
+                        $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
+                        $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
+                        continue;
                     }
-                if( 'map' == $field['widget_name'] ) {  
-                    $this->importable_fields[ 'manual_lat' ] = 'Map Latitude';
-                    $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
-                    $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
-                    continue;
                 }
-
+                
                 apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
             }
         }

@@ -6592,7 +6592,7 @@ function atbdp_get_listings_orderby_options($sort_by_items)
         'price-desc' => __("Price (high to low)", 'directorist'),
         'rand' => __("Random listings", 'directorist'),
     );
-
+    $sort_by_items 	= is_array( $sort_by_items ) ? $sort_by_items : [];
     if (!in_array('a_z', $sort_by_items)) {
         unset($options['title-asc']);
     }
@@ -6715,7 +6715,7 @@ function atbdp_get_listings_view_options($view_as_items)
     $display_map = get_directorist_option('display_map_field', 1);
     $select_listing_map = get_directorist_option('select_listing_map', 'google');
 
-
+    $view_as_items = is_array( $view_as_items ) ? $view_as_items : [];
     if (!in_array('listings_grid', $view_as_items)) {
         unset($options[0]);
     }
@@ -6756,7 +6756,7 @@ function atbdp_get_listings_view_options($view_as_items)
  */
 function atbdp_get_view_as($view)
 {
-    $views = atbdp_get_listings_view_options();
+    $views = atbdp_get_listings_view_options($view);
     $ways = '';
     foreach ($views as $value => $label) {
         $active_class = ($view == $value) ? ' active' : '';

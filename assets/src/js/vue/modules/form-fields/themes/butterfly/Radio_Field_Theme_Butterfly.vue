@@ -10,12 +10,12 @@
                 <div class="cptm-radio-area">
                     <div class="cptm-radio-item" v-for="( option, option_index ) in theOptions" :key="option_index">
                         <input type="radio" class="cptm-radio" 
-                            :id="getOptionID( option, option_index )"
+                            :id="getOptionID( option, option_index, sectionId )"
                             :name="name"
                             :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
                             v-model="local_value"
                         >
-                        <label :for="getOptionID( option, option_index )">
+                        <label :for="getOptionID( option, option_index, sectionId )">
                             {{ option.label }}
                         </label>
                     </div>

@@ -1,8 +1,7 @@
 <?php
 
-if ( ! class_exists( 'ATBDP_Multi_Directory_Migration' ) ) :
-
-class ATBDP_Multi_Directory_Migration {
+namespace Directorist;
+class Multi_Directory_Migration {
 
     public $multi_directory_manager = null;
 
@@ -1850,5 +1849,3 @@ class ATBDP_Multi_Directory_Migration {
     }
 
 }
-
-endif;

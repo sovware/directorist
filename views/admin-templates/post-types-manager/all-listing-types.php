@@ -1,4 +1,4 @@
-<?php $show_migration_button = apply_filters( 'directorist_show_migration_button', true ); ?>
+<?php $show_migration_button = apply_filters( 'directorist_show_migration_button', false ); ?>
 
 <div class="wrap">
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>

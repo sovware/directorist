@@ -387,24 +387,13 @@ class Enqueue_Assets {
 		];
 
 		// Other
-		$scripts['directorist-select2-public'] = [
+		$scripts['directorist-select2'] = [
 			'file_name' => 'select2.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
 			'has_min'   => false,
 			'deps'      => [],
 			'ver'       => self::$script_version,
-			'group'     => 'public',                      // public || admin  || global
-			'enable'    => true,
-			// 'shortcode' => ['directorist_add_listing'],
-		];
-
-		$scripts['directorist-select2-admin'] = [
-			'file_name' => 'select2.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
+			'group'     => 'global',                      // public || admin  || global
 			'enable'    => true,
 		];
 
@@ -650,8 +639,6 @@ class Enqueue_Assets {
 				'object_name' => 'atbdp_public_data',
 				'data' => Script_Helper::get_main_script_data()
 			],
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-			'shortcode'      => self::$all_shortcodes,
 		];
 
 		$scripts['directorist-releated-listings-slider'] = [

@@ -35,7 +35,7 @@
                                 function showPosition(position) {
                                         lat = position.coords.latitude;
                                         lon = position.coords.longitude;
-                                        displayLocation(lat, lon);
+                                        displayCurrentLocation(lat, lon);
                                         get_lat.value = lat;
                                         get_lng.value = lon;
                                 }
@@ -63,11 +63,9 @@
                                         const latlng = new google.maps.LatLng(latitude, longitude);
                                         geocoder.geocode({
                                                 latLng: latlng,
-                                                componentRestrictions: { country: 'GB' }},
-                                                function(
-                                                        results,
-                                                        status
-                                                ) {
+                                                componentRestrictions: { country: 'GB' }
+                                        },
+                                                function(results, status) {
                                                 if (status == google.maps.GeocoderStatus.OK) {
                                                         if (results[0]) {
                                                                 const add = results[0].formatted_address;
@@ -77,7 +75,34 @@
                                                                 country = value[count - 1];
                                                                 state = value[count - 2];
                                                                 city = value[count - 3];
-                                                                x.value = results[0].formatted_address;
+                                                                x.value = city;
+                                                        } else {
+                                                                x.value = 'address not found';
+                                                        }
+                                                } else {
+                                                        x.value = `Geocoder failed due to: ${status}`;
+                                                }
+                                        });
+                                }
+
+                                function displayCurrentLocation(latitude, longitude) {
+                                        let geocoder;
+                                        geocoder = new google.maps.Geocoder();
+                                        const latlng = new google.maps.LatLng(latitude, longitude);
+                                        geocoder.geocode({
+                                                latLng: latlng
+                                        },
+                                                function(results, status) {
+                                                if (status == google.maps.GeocoderStatus.OK) {
+                                                        if (results[0]) {
+                                                                const add = results[0].formatted_address;
+                                                                const value = add.split(',');
+
+                                                                count = value.length;
+                                                                country = value[count - 1];
+                                                                state = value[count - 2];
+                                                                city = value[count - 3];
+                                                                x.value = city;
                                                         } else {
                                                                 x.value = 'address not found';
                                                         }

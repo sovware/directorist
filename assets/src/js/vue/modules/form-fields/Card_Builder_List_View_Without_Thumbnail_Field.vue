@@ -443,7 +443,7 @@ export default {
             if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
             active_widgets_data[ widget.widget_key ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.widget_name } );
+            selectedWidgets.push( { section: section, area: area, widget: widget.widget_key } );
           }
         }
       }

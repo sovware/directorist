@@ -46,6 +46,10 @@ class Multi_Directory_Manager
 
     // init_sanitize_builder_data_structure
     public function init_sanitize_builder_data_structure() {
+
+        self::$builder_data_sanitizer->sanitize_builder_data_structure();
+        return;
+
         $is_sanitized = get_directorist_option( 'sanitized_builder_data_structure', false, true );
 
         if ( ! empty( $is_sanitized ) ) { return; }

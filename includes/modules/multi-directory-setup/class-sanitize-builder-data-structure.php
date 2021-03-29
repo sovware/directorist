@@ -17,6 +17,7 @@ class Builder_Data_Sanitizer {
             $this->sanitize_single_listings_contents_data_structure( $directory_type );
             $this->sanitize_search_form_fields_data_structure( $directory_type );
             $this->sanitize_listings_card_grid_view_data_structure( $directory_type );
+            $this->sanitize_listings_card_list_view_data_structure( $directory_type );
         }
     }
 
@@ -88,6 +89,17 @@ class Builder_Data_Sanitizer {
         update_term_meta( $directory_type->term_id, 'listings_card_grid_view', $listings_card_grid_view);
     }
 
+    // sanitize_listings_card_list_view_data_structure
+    public function sanitize_listings_card_list_view_data_structure( $directory_type = null ) {
+        if ( ! self::is_valid_term_object( $directory_type ) ) { return; }
+
+        $referable_field_keys    = self::get_referable_field_keys( $directory_type->term_id, 'submission_form_fields' );
+        $listings_card_list_view = get_term_meta( $directory_type->term_id, 'listings_card_list_view', true );
+        $listings_card_list_view = self::get_sanitized_card_builder_data( $listings_card_list_view, $referable_field_keys );
+
+        update_term_meta( $directory_type->term_id, 'listings_card_list_view', $listings_card_list_view);
+    }
+
     public static function get_sanitized_card_builder_data( $card_builder_data = [], $referable_field_keys = [] ) {
         if ( empty( $card_builder_data ) ) { return $card_builder_data; }
         if ( ! is_array( $card_builder_data ) ) { return $card_builder_data; }
@@ -95,6 +107,8 @@ class Builder_Data_Sanitizer {
 
         foreach ( $card_builder_data['template_data'] as $template_key => $template_args ) {
             if ( ! is_array( $template_args ) ) { continue; }
+            $active_widget_keys = [];
+
             foreach ( $template_args as $layout_key => $layout_args ) {
                 if ( ! is_array( $layout_args ) ) { continue; }
                 foreach ( $layout_args as $area_key => $area_args ) {
@@ -108,7 +122,13 @@ class Builder_Data_Sanitizer {
                             $widget_key = $_widget_args[ 'original_widget_key' ];
                             $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_key' ] = $widget_key;
                         }
-    
+
+                        if ( in_array( $widget_key, $active_widget_keys ) ) {
+                            unset( $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ] );
+                        }
+
+                        $active_widget_keys[] = $widget_key;
+
                         if ( ! empty( $referable_field_keys ) && is_array( $referable_field_keys ) && in_array( $widget_name, $referable_field_keys ) ) {
                             $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'original_widget_key' ] = $widget_key;
                         }
@@ -116,11 +136,13 @@ class Builder_Data_Sanitizer {
                         $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_name' ] = $widget_name;
                     }
                 }
+
+                // directorist_console_log( [
+                //     'template_key' => $template_key,
+                //     'template_data' => $card_builder_data['template_data'][ $template_key ],
+                // ] );
             }
         }
-        
-        // e_var_dump( ['$card_builder_data' => $card_builder_data, $referable_field_keys] );
-        // die;
 
         return $card_builder_data;
     }

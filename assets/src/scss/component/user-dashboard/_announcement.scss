@@ -17,25 +17,6 @@
             flex-direction: column;
         }
 
-        &:hover {
-            .directorist-announcement__close {
-                .close-announcement {
-                    background-color: $danger;
-
-                    i,
-                    span.fa,
-                    span.la,
-                    span.las,
-                    span.lab,
-                    span.lar,
-                    span.fas,
-                    span.la {
-                        color: #fff;
-                    }
-                }
-            }
-        }
-
         @include e(date) {
             flex: .4217;
             display: flex;
@@ -136,6 +117,21 @@
                     transition: .35s;
                     color: #474868;
                     font-weight: 900;
+                }
+
+                &:hover {
+                    background-color: $danger;
+
+                    i,
+                    span.fa,
+                    span.la,
+                    span.las,
+                    span.lab,
+                    span.lar,
+                    span.fas,
+                    span.la {
+                        color: #fff;
+                    }
                 }
             }
         }

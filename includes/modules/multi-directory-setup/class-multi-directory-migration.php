@@ -11,11 +11,6 @@ class Multi_Directory_Migration {
         }
     }
 
-    // Run Migration
-    public function run() {
-        $this->migrate();
-    }
-
     public function migrate( array $args = [] ) {
         $default = [];
         $args = array_merge( $default, $args );
@@ -30,6 +25,17 @@ class Multi_Directory_Migration {
         $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
         
         if ( $add_directory['status']['success'] ) {
+            $directory_types = get_terms([
+                'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            ]);
+    
+            if ( ! empty( $directory_types ) ) {
+                foreach ( $directory_types as $directory_type ) {
+                    update_term_meta( $directory_type->term_id, '_default', false );
+                }
+            }
+    
             update_term_meta( $add_directory['term_id'], '_default', true );
             update_option( 'atbdp_migrated', true );
 

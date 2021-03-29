@@ -662,7 +662,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'title' => [
                             'label' => __( 'Title', 'directorist' ),
                             'icon' => 'fa fa-text-height',
-                            // 'canTrash' => false,
+                            'canTrash' => false,
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -4280,9 +4280,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                     'groupSettings' => [
                         'defaultGroupLabel' => 'Section',
-                        // 'disableTrashIfGroupHasWidgets' => [ 
-                        //     [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
-                        // ],
+                        'disableTrashIfGroupHasWidgets' => [ 
+                            [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
+                        ],
                     ],
                     'groupFields' => [
                         'label' => [

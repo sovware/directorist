@@ -34,7 +34,7 @@ class Directorist_Listing_Search_Form {
 	public $popular_cat_title;
 	public $popular_cat_num;
 	public $show_popular_category;
-	public $directory_type; 
+	public $directory_type;
 	public $default_directory_type;
 
 	// Common - Search Shortcode and Listing Header
@@ -53,7 +53,7 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
-		
+
 		$this->type = $type;
 		$this->atts = $atts;
 
@@ -64,14 +64,14 @@ class Directorist_Listing_Search_Form {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
-		
+
 		if ( $listing_type ) {
 			$this->listing_type = (int) $listing_type;
 		}
 		else {
 			$this->listing_type = $this->get_default_listing_type();
 		}
-	
+
 		// Search result page
 		if ( $type == 'search_result' ) {
 			$this->update_options_for_search_result_page();
@@ -195,8 +195,8 @@ class Directorist_Listing_Search_Form {
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
-		$this->category_id             = 'at_biz_dir-category';
-		$this->category_class          = 'search_fields';
+		$this->category_id             = 'at_biz_dir-categoryas';
+		$this->category_class          = 'search_fields directorist-category-select';
 		$this->location_id             = 'at_biz_dir-location';
 		$this->location_class          = 'search_fields';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
@@ -238,7 +238,7 @@ class Directorist_Listing_Search_Form {
 			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
 			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
 		}
-		
+
 		if( $this->directory_type ) {
 			$current_id = true;
 			foreach( $this->directory_type as $value ) {
@@ -247,14 +247,14 @@ class Directorist_Listing_Search_Form {
 				if( $current == $term_id ) {
 					$current_id = null;
 					break;
-				} 
+				}
 			}
 			if( $current_id != null ) {
 				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
 				$current 		 = $directory_types->term_taxonomy_id;
 			}
 		}
-		
+
 		return (int) $current;
 	}
 
@@ -278,7 +278,7 @@ class Directorist_Listing_Search_Form {
 					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
 				}
 				$form_data[] = $section;
-			}			
+			}
 		}
 
 		return $form_data;
@@ -311,7 +311,7 @@ class Directorist_Listing_Search_Form {
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
 			'default_val' => $value
-		));	
+		));
 	}
 
 	public function get_pricing_type() {
@@ -344,7 +344,7 @@ class Directorist_Listing_Search_Form {
 		if ( strpos( $widget_name, '_') ) {
 			$widget_name = strtok( $widget_name, '_' );
 		}
-		
+
 		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );

@@ -85,33 +85,44 @@ class Builder_Data_Sanitizer {
         $listings_card_grid_view = get_term_meta( $directory_type->term_id, 'listings_card_grid_view', true );
         $listings_card_grid_view = self::get_sanitized_card_builder_data( $listings_card_grid_view, $referable_field_keys );
 
-        // update_term_meta( $directory_type->term_id, 'listings_card_grid_view', $listings_card_grid_view);
+        update_term_meta( $directory_type->term_id, 'listings_card_grid_view', $listings_card_grid_view);
     }
 
     public static function get_sanitized_card_builder_data( $card_builder_data = [], $referable_field_keys = [] ) {
         if ( empty( $card_builder_data ) ) { return $card_builder_data; }
         if ( ! is_array( $card_builder_data ) ) { return $card_builder_data; }
+        if ( ! isset( $card_builder_data['template_data'] ) ) { return $card_builder_data; }
 
-        foreach ( $card_builder_data as $layout_key => $layout_args ) {
-            if ( ! is_array( $layout_args ) ) { continue; }
-            foreach ( $layout_args as $area_key => $area_args ) {
-                if ( ! is_array( $area_args ) ) { continue; }
-                foreach ( $area_args as $widget_key => $widget_args ) {
-                    $widget_name = ( isset( $widget_args[ 'widget_name' ] ) ) ? $widget_args[ 'widget_name' ] : '';
-                    $widget_name = self::sanitize_widget_name( $widget_name );
-                    $widget_key  = ( isset( $widget_args[ 'widget_key' ] ) ) ? $widget_args[ 'widget_key' ] : '';
-                    
-                    if ( ! empty( $referable_field_keys ) && is_array( $referable_field_keys ) && in_array( $widget_name, $referable_field_keys ) ) {
-                        $card_builder_data[ $layout_key ][ $area_key ][ $widget_key ][ 'original_widget_key' ] = $widget_key;
+        foreach ( $card_builder_data['template_data'] as $template_key => $template_args ) {
+            if ( ! is_array( $template_args ) ) { continue; }
+            foreach ( $template_args as $layout_key => $layout_args ) {
+                if ( ! is_array( $layout_args ) ) { continue; }
+                foreach ( $layout_args as $area_key => $area_args ) {
+                    if ( ! is_array( $area_args ) ) { continue; }
+                    foreach ( $area_args as $_widget_key => $_widget_args ) {
+                        $widget_name = ( isset( $_widget_args[ 'widget_name' ] ) ) ? $_widget_args[ 'widget_name' ] : '';
+                        $widget_name = self::sanitize_widget_name( $widget_name );
+                        $widget_key  = ( isset( $_widget_args[ 'widget_key' ] ) ) ? $_widget_args[ 'widget_key' ] : '';
+                        
+                        if ( isset( $_widget_args[ 'original_widget_key' ] ) ) {
+                            $widget_key = $_widget_args[ 'original_widget_key' ];
+                            $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_key' ] = $widget_key;
+                        }
+    
+                        if ( ! empty( $referable_field_keys ) && is_array( $referable_field_keys ) && in_array( $widget_name, $referable_field_keys ) ) {
+                            $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'original_widget_key' ] = $widget_key;
+                        }
+    
+                        $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_name' ] = $widget_name;
                     }
-
-                    $card_builder_data[ $layout_key ][ $area_key ][ $widget_key ][ 'widget_name' ] = $widget_name;
                 }
             }
         }
-
-        // e_var_dump( ['$card_builder_data' => $card_builder_data] );
+        
+        // e_var_dump( ['$card_builder_data' => $card_builder_data, $referable_field_keys] );
         // die;
+
+        return $card_builder_data;
     }
 
     // get_referable_field_keys

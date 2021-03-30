@@ -261,6 +261,7 @@ class Directorist_Listing_Search_Form {
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
 			foreach ( $search_form_fields['fields'] as $key => $value) {
+				if ( ! is_array( $value) ) { continue; }
 				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			}
 		}

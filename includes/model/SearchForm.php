@@ -192,9 +192,9 @@ class Directorist_Listing_Search_Form {
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
-		$this->category_id             = 'at_biz_dir-categoryas';
+		$this->category_id             = '';
 		$this->category_class          = 'search_fields directorist-category-select';
-		$this->location_id             = 'at_biz_dir-location';
+		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
 		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));

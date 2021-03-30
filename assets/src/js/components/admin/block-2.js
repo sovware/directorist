@@ -16,30 +16,12 @@ $('#atbd_optional_field_check').on('change', function () {
         : $('.atbd_tagline_moto_field').fadeOut();
 });
 
-// price range
-/* $('#price_range').hide();
-const is_checked = $('#atbd_listing_pricing').val();
-if (is_checked === 'range') {
-    $('#price').hide();
-    $('#price_range').show();
-}
-$('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-    const $this = $(this);
-    if($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true){
-        $(`#${$this.data('option')}`).hide();
-    }else{
-        $(`#${$this.data('option')}`).show();
-    }
-    const $sibling = $this.parent().siblings('.directorist-checkbox');
-    $sibling.children('input[type=checkbox]').prop('checked', false);
-    $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
-}); */
-
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categorychecklist').on('change', function (event) {
     const length = $('#at_biz_dir-categorychecklist input:checked');
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
+    const from_single_directory = $('input[name="directory_type"]').val();
     length.each((el, index) => {
         id.push($(index).val());
     });
@@ -47,7 +29,7 @@ $('#at_biz_dir-categorychecklist').on('change', function (event) {
         action: 'atbdp_custom_fields_listings',
         post_id: $('#post_ID').val(),
         term_id: id,
-        directory_type,
+        directory_type: directory_type ? directory_type : from_single_directory,
     };
     $.post(atbdp_admin_data.ajaxurl, data, function (response) {
         if (response) {
@@ -95,6 +77,7 @@ $(document).ready(function () {
     const length = $('#at_biz_dir-categorychecklist input:checked');
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
+    const from_single_directory = $('input[name="directory_type"]').val();
     length.each((el, index) => {
         id.push($(index).val());
     });
@@ -102,7 +85,7 @@ $(document).ready(function () {
         action: 'atbdp_custom_fields_listings',
         post_id: $('#post_ID').val(),
         term_id: id,
-        directory_type,
+        directory_type: directory_type ? directory_type : from_single_directory,
     };
     $.post(atbdp_admin_data.ajaxurl, data, function (response) {
         if (response) {

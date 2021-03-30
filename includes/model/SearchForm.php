@@ -316,7 +316,6 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function field_template( $field_data) {
-		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 		if (isset($_GET['custom_field'])) {
@@ -336,9 +335,6 @@ class Directorist_Listing_Search_Form {
 		);
 
 		$widget_name = $field_data['widget_name'];
-		if ( strpos( $widget_name, '_') ) {
-			$widget_name = strtok( $widget_name, '_' );
-		}
 
 		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );

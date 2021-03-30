@@ -46,7 +46,7 @@ class Directorist_Listing_Author {
 	}
 
 	function prepare_data() {
-		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
+		$id       = ! empty( get_query_var( 'author_id' ) ) ? get_query_var( 'author_id' ) : get_current_user_id();
 		$this->id = intval( $id );
 
 		if ( ! $this->id ) {
@@ -147,10 +147,11 @@ class Directorist_Listing_Author {
 	}
 
 	public function author_listings_query() {
-		$category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
-		$paged    = atbdp_get_paged_num();
-		$paginate = get_directorist_option( 'paginate_author_listings', 1 );
-		$listing_type = ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : default_directory_type();
+		$category     = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
+		$paged        = atbdp_get_paged_num();
+		$paginate     = get_directorist_option( 'paginate_author_listings', 1 );
+		$listing_type = ! empty( get_query_var( 'directory_type' ) ) ? get_query_var( 'directory_type' ) : default_directory_type();
+		
 		if( ! is_numeric( $listing_type ) ) {
 			$term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
 			$listing_type = $term->term_id;

@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.3.2
+Stable tag: 7.0.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -349,6 +349,26 @@ Directorist is a complete directory solution and in combination with its advance
 29. Directorist Settings Panel
 
 == Changelog ==
+
+= 7.0.3.3 - Mar 31, 2021 =
+
+* Add - New parameter to show/hide popular category in search form
+* Fix - Search listing issue
+* Fix - Builder issues
+* Fix - Style issues
+* Fix - Compatibility issue with Event Calendar plugin
+* Fix - PHP error with Yoast plugin
+* Fix - Single Listing page address linking issue
+* Fix - Tagline issue
+* Fix - Dashboard thumbnail issue
+* Fix - Map widget (single)
+* Fix - Translation issues
+* Fix - Google map issue when address field not in use
+* Fix - Fit image with container in single listing
+* Fix - Decimal issue in custom field number
+* Fix - Radius search field in search
+* Fix - Announcement issues
+* Improve - Listing Export
 
 = 7.0.3.2 - Mar 19, 2021 =
 

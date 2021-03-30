@@ -214,53 +214,6 @@ $('.atbd_pricing_options label').on('click', function () {
     $(`#${$sibling.data('option')}`).hide();
 }); */
 
-// Load custom fields of the selected category in the custom post type "atbdp_listings"
-
-// ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
-$('#at_biz_dir-categorychecklist').on('change', function (event) {
-    $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
-
-    const length = $('#at_biz_dir-categorychecklist input:checked');
-    const id = [];
-    length.each((el, index) => {
-        id.push($(index).val());
-    });
-    const data = {
-        action: 'atbdp_custom_fields_listings',
-        post_id: $('#atbdp-custom-fields-list').data('post_id'),
-        term_id: id,
-    };
-    $.post(ajaxurl, data, function (response) {
-        if (response == ' 0') {
-            $('#atbdp-custom-fields-list').hide();
-        } else {
-            $('#atbdp-custom-fields-list').show();
-        }
-        $('#atbdp-custom-fields-list').html(response);
-    });
-    $('#atbdp-custom-fields-list-selected').hide();
-});
-
-var length = $('#at_biz_dir-categorychecklist input:checked');
-if (length) {
-    $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
-
-    var length = $('#at_biz_dir-categorychecklist input:checked');
-    const id = [];
-    length.each((el, index) => {
-        id.push($(index).val());
-    });
-    const data = {
-        action: 'atbdp_custom_fields_listings_selected',
-        post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-        term_id: id,
-    };
-
-    $.post(ajaxurl, data, function (response) {
-        $('#atbdp-custom-fields-list-selected').html(response);
-    });
-}
-
 const avg_review = $('#average_review_for_popular').hide();
 const logged_count = $('#views_for_popular').hide();
 if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<option value="<?php echo esc_attr( $value['option_value'] )?>" <?php selected( $value['option_value'], $data['value'] ); ?>><?php echo esc_attr( $value['option_label'] )?></option>
 
-		<?php endforeach ?>
+		<?php endforeach; ?>
 
 	</select>
 

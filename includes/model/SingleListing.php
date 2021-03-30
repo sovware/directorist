@@ -207,6 +207,27 @@ class Directorist_Single_Listing {
 	public function get_custom_field_value( $type, $data ) {
 		$result = '';
 		$value = is_array( $data['value'] ) ? join( ",",$data['value'] ) : $data['value'];
+
+		if ( ! isset( $data['original_data'] ) ) {
+			$data['original_data'] = [];
+		}
+		if ( ! is_array( $data['original_data'] ) ) {
+			$data['original_data'] = [];
+		}
+
+		$option_fields = [ 'select', 'checkbox', 'radio' ];
+		if ( in_array( $type, $option_fields ) ) {
+
+			if ( ! isset( $data['original_data']['options'] ) ) {
+				$data['original_data']['options'] = [];
+			}
+
+			if ( ! is_array( $data['original_data']['options'] ) ) {
+				$data['original_data']['options'] = [];
+			}
+
+			$data['original_data']['options'] = Helper::filter_input_field_options_data( $data['original_data']['options'] );
+		}
 		
 		switch ( $type ) {
 			case 'radio':

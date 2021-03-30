@@ -1729,6 +1729,21 @@ class Directorist_Listings {
 
 				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
 					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+
+					$type = ( isset( $original_field['type'] ) ) ? $original_field['type'] : '';
+					$option_fields = [ 'select', 'checkbox', 'radio' ];
+					if ( in_array( $type, $option_fields ) ) {
+			
+						if ( ! isset( $original_field['options'] ) ) {
+							$original_field['options'] = [];
+						}
+			
+						if ( ! is_array( $original_field['options'] ) ) {
+							$original_field['options'] = [];
+						}
+			
+						$original_field['options'] = Helper::filter_input_field_options_data( $original_field['options'] );
+					}
 				}
 				if ( ! empty( $original_field ) ) {
 					$field['original_field'] = $original_field;

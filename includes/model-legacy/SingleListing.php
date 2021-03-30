@@ -137,6 +137,28 @@ class Directorist_Single_Listing {
 			}
 		}
 
+		if ( ! isset( $data['original_data'] ) ) {
+			$data['original_data'] = [];
+		}
+		if ( ! is_array( $data['original_data'] ) ) {
+			$data['original_data'] = [];
+		}	
+
+		$type = ( isset( $data['original_data']['type'] ) ) ? $data['original_data']['type'] : '';
+		$option_fields = [ 'select', 'checkbox', 'radio' ];
+		if ( in_array( $type, $option_fields ) ) {
+
+			if ( ! isset( $data['original_data']['options'] ) ) {
+				$data['original_data']['options'] = [];
+			}
+
+			if ( ! is_array( $data['original_data']['options'] ) ) {
+				$data['original_data']['options'] = [];
+			}
+
+			$data['original_data']['options'] = Helper::filter_input_field_options_data( $data['original_data']['options'] );
+		}
+
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
 		

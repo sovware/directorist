@@ -654,6 +654,17 @@ class Directorist_Listing_Form {
 		$field_data['form'] = $this;
 		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 
+		$option_fields = [ 'select', 'checkbox', 'radio' ];
+		if ( isset( $field_data['type'] ) && in_array( $field_data['type'], $option_fields ) ){
+
+			if ( ! isset( $field_data['options'] ) || ! is_array( $field_data['options'] ) ) {
+				$field_data['options'] = [];
+			}
+		}
+
+		if ( isset( $field_data['options'] ) && is_array( $field_data['options'] ) ) {
+			$field_data['options'] = Helper::filter_input_field_options_data( $field_data['options'] );
+		}
 
 		if ( $this->is_custom_field( $field_data ) ) {
 

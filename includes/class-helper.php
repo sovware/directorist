@@ -17,6 +17,22 @@ class Helper {
 		return $legacy;
 	}
 
+	public static function filter_input_field_options_data( $options = [] ) {
+		if ( ! empty( $options ) && is_array( $options ) ) {
+			foreach( $options as $option_index => $option_args ) {
+				if ( empty( $option_args['option_label'] ) && ! empty( $option_args['option_value'] ) ) {
+					$options[ $option_index ]['option_label'] = $option_args['option_value'];
+				}
+
+				if ( empty( $option_args['option_value'] ) && ! empty( $option_args['option_label'] ) ) {
+					$options[ $option_index ]['option_value'] = $option_args['option_label'];
+				}
+			}
+		}
+
+		return $options;
+	}
+
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
 		$value = '';

@@ -49,9 +49,10 @@ class Directorist_Listing_Author {
 	}
 
 	function prepare_data() {
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
-		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
+		$this->listing_types        = $this->get_listing_types();
+		$this->current_listing_type = $this->get_current_listing_type();
+		$id                         = ! empty( get_query_var( 'author_id' ) ) ? get_query_var( 'author_id' ) : get_current_user_id();
+		
 		$this->id = intval( $id );
 
 		if ( ! $this->id ) {
@@ -87,8 +88,8 @@ class Directorist_Listing_Author {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( ! empty( get_query_var( 'directory_type' ) ) ) {
+			$current = get_query_var( 'directory_type' );
 		}
 		else {
 
@@ -103,8 +104,9 @@ class Directorist_Listing_Author {
 
 		if( ! is_numeric( $current ) ) {
 			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+			$current = ( ! empty( $term ) ) ? $term->term_id : 0;
 		}
+
 		return (int) $current;
 	}
 

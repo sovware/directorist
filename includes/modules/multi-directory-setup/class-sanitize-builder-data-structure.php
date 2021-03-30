@@ -123,13 +123,9 @@ class Builder_Data_Sanitizer {
                         $widget_name = self::sanitize_widget_name( $widget_name );
                         $widget_key  = ( isset( $_widget_args[ 'widget_key' ] ) ) ? $_widget_args[ 'widget_key' ] : '';
                         
-                        if ( isset( $_widget_args[ 'original_widget_key' ] ) ) {
-                            $widget_key = $_widget_args[ 'original_widget_key' ];
-                            $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ][ 'widget_key' ] = $widget_key;
-                        }
-
                         if ( in_array( $widget_key, $active_widget_keys ) ) {
                             unset( $card_builder_data['template_data'][ $template_key ][ $layout_key ][ $area_key ][ $_widget_key ] );
+                            continue;
                         }
 
                         $active_widget_keys[] = $widget_key;
@@ -176,6 +172,6 @@ class Builder_Data_Sanitizer {
     public static function sanitize_widget_name( $widget_name = '' ) {
         if ( ! is_string( $widget_name ) ) { return ''; }
         
-        return preg_replace( '/_.*$/', '', $widget_name );
+        return preg_replace( '/_\d+$/', '', $widget_name );
     }
 }

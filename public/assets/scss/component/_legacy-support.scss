@@ -42,7 +42,8 @@
 }
   
 // Button Type
-.directorist-btn {
+#directorist.atbd_wrapper{
+  .directorist-btn {
     &.directorist-btn-primary {
       background-color: $primary;
       color: #fff;
@@ -77,7 +78,9 @@
       background-color: $danger;
       color: #fff;
     }
+  }
 }
+
 
 // Common Classes
 .directorist-flex {
@@ -110,6 +113,10 @@
 
 .directorist-form-group textarea, .directorist-form-group textarea.directorist-form-element {
     min-height: 120px;
+}
+
+.directorist-mb-15{
+  margin-bottom: 15px;
 }
 
 /* Modal Core Styles */
@@ -521,6 +528,124 @@
 
         }
       }
+    }
+  }
+}
+
+// Directorist Checkbox & Radio Components
+
+.directorist-radio{
+    display: flex;
+    align-items: center;
+  
+    input[type="checkbox"],
+    input[type="radio"]{
+        display: none;
+
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            font-size: 14px;
+            display: flex;
+            flex-flow: column;
+            position: relative;
+            display: inline-block;
+            user-select: none;
+            padding-left: 30px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            font-weight: 400;
+            color: $body-color;
+
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 18px;
+                height: 18px;
+                border-radius: 3px;
+                content: "";
+                border: 1px solid #C6D0DC;
+                background-color: #fff;
+            }
+        }
+
+        &:checked {
+            & +.directorist-checkbox__label,
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: $dark;
+                    border-color: $dark;
+                }
+
+                &:before{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+// Directorist Radio Inner Element
+.directorist-radio{
+  input[type="radio"]{
+      & +.directorist-radio__label{
+          &:before{
+              position: absolute;
+              left: 6px;
+              top: 6px;
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: $dark !important;
+              border: 0 none;
+              opacity: 0;
+              visibility: hidden;
+              z-index: 2;
+              content: '';
+          }
+      }
+      &:checked{
+          & +.directorist-radio__label{
+              &:after{
+                  background-color: #fff;
+              }
+          }
+      }
+  }
+}
+
+// Directorist Checkbox & Radio Circle
+.directorist-checkbox.directorist-checkbox-circle,
+.directorist-radio.directorist-radio-circle{
+    input[type="checkbox"],
+    input[type="radio"]{
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            &:after{
+                border-radius: 50%;
+            }
+        }
+    }
+}
+#directorist.atbd_wrapper{
+  .directorist-booking-content-inner {
+    .directorist-booking-sortby-select{
+      .atbd-drop-select .atbd-dropdown-toggle{
+        &::after{
+          position: absolute;
+          top: 15px;
+        }
+      }
+    }
+  }
+}
+
+// Booking Extension Legacy Support
+#directorist.atbd_wrapper{
+  .directorist-booking-hour-selection{
+    .diretorist-booking-hour-remove{
+      margin: 10px;
     }
   }
 }

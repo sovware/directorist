@@ -34,7 +34,7 @@ class Directorist_Listing_Search_Form {
 	public $popular_cat_title;
 	public $popular_cat_num;
 	public $show_popular_category;
-	public $directory_type; 
+	public $directory_type;
 	public $default_directory_type;
 
 	// Common - Search Shortcode and Listing Header
@@ -53,7 +53,7 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
-		
+
 		$this->type = $type;
 		$this->atts = $atts;
 
@@ -72,7 +72,7 @@ class Directorist_Listing_Search_Form {
 			$this->prepare_search_data($atts);
 		}
 
-		
+
 
 		// Search result page
 		if ( $type == 'search_result' ) {
@@ -117,7 +117,7 @@ class Directorist_Listing_Search_Form {
 	// update_options_for_search_result_page
 	public function update_options_for_search_result_page() {
 		$this->options['more_filters_fields'] = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-		$this->options['search_filters']      = get_directorist_option('search_result_filters_button', array('search_reset_filters', 'search_apply_filters'));
+		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', [], true);
 
 		$this->options['more_filters_button'] = get_directorist_option( 'search_result_filters_button_display', 1 );
 
@@ -129,7 +129,7 @@ class Directorist_Listing_Search_Form {
 	public function update_options_for_search_form() {
 		$this->options['more_filters_fields'] = get_directorist_option('search_more_filters_fields', array( 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
 
-		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
+		$this->options['search_filters']             = get_directorist_option('search_filters', [], true );
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
@@ -175,7 +175,7 @@ class Directorist_Listing_Search_Form {
 		);
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
-		
+
 		$this->show_title_subtitle      = $this->params['show_title_subtitle'] == 'yes' ? true : false;
 		$this->has_search_button        = $this->params['search_button'] == 'yes' ? true : false;
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
@@ -206,7 +206,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function prepare_listing_data() {
-		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		$filters_buttons                = get_directorist_option( 'listings_filters_button', [], true );
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
@@ -238,7 +238,7 @@ class Directorist_Listing_Search_Form {
 			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
 			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
 		}
-		
+
 		if( $this->directory_type ) {
 			$current_id = true;
 			foreach( $this->directory_type as $value ) {
@@ -247,14 +247,14 @@ class Directorist_Listing_Search_Form {
 				if( $current == $term_id ) {
 					$current_id = null;
 					break;
-				} 
+				}
 			}
 			if( $current_id != null ) {
 				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
 				$current 		 = $directory_types->term_taxonomy_id;
 			}
 		}
-		
+
 		return (int) $current;
 	}
 
@@ -313,7 +313,7 @@ class Directorist_Listing_Search_Form {
 		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
 			'default_val' => $value
-		));	
+		));
 	}
 
 	public function get_pricing_type() {
@@ -426,7 +426,7 @@ class Directorist_Listing_Search_Form {
 
 	public function top_categories_template() {
 		if ( $this->show_popular_category ) {
-			
+
 			$top_categories = $this->top_categories();
 			if ( !empty($top_categories) ) {
 				$args = array(

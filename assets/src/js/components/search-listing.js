@@ -1,5 +1,26 @@
 (function ($) {
-    $('#at_biz_dir-location, #loc-type').select2({
+    $('#loc-type').select2({
+        placeholder: atbdp_search_listing.i18n_text.location_selection,
+        allowClear: true,
+        width: '100%',
+        templateResult: function (data) {
+            // We only really care if there is an element to pull classes from
+            if (!data.element) {
+                return data.text;
+            }
+
+            var $element = $(data.element);
+
+            var $wrapper = $('<span></span>');
+            $wrapper.addClass($element[0].className);
+
+            $wrapper.text(data.text);
+
+            return $wrapper;
+        }
+    });
+
+    $('.directorist-location-select').select2({
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
         width: '100%',
@@ -42,29 +63,27 @@
         },
         cache: true
     });
-    $('.directorist-category-select').each(function (ind, elem) {
-        $(this).select2({
-            placeholder: atbdp_search_listing.i18n_text.category_selection,
-            allowClear: true,
-            width: '100%',
-            templateResult: function (data) {
-                // We only really care if there is an element to pull classes from
-                if (!data.element) {
-                    return data.text;
-                }
+    $('.directorist-category-select').select2({
+        placeholder: atbdp_search_listing.i18n_text.category_selection,
+        allowClear: true,
+        width: '100%',
+        templateResult: function (data) {
+            // We only really care if there is an element to pull classes from
+            if (!data.element) {
+                return data.text;
+            }
 
-                var $element = $(data.element);
+            var $element = $(data.element);
 
-                var $wrapper = $('<span></span>');
-                $wrapper.addClass($element[0].className);
+            var $wrapper = $('<span></span>');
+            $wrapper.addClass($element[0].className);
 
-                $wrapper.text(data.text);
+            $wrapper.text(data.text);
 
-                return $wrapper;
-            },
-            cache: true,
-        });
-    })
+            return $wrapper;
+        },
+        cache: true,
+    });
 
     //ad search js
     /* var showMore = atbdp_search_listing.i18n_text.show_more;

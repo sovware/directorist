@@ -233,7 +233,7 @@ final class Directorist_Base
             self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager
-            self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
+            self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;
             self::$instance->multi_directory_manager->run();
 
             self::$instance->settings_panel = new ATBDP_Settings_Panel;

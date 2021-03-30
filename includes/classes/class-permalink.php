@@ -108,12 +108,10 @@ class ATBDP_Permalink {
             $link = get_permalink( $id );
             if( '' != get_option( 'permalink_structure' ) ) {
                 if( ! empty( $directory_type ) ) {
-                    $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id . '&directory_type=' . $directory_type );
+                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/' . $directory_type );
                 } else {
-                    $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id );
+                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id );
                 }
-            } else {
-                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_author_id ' => $author_id ), $link );
             }
         }
         return apply_filters('atbdp_edit_listing_page_url', $link );

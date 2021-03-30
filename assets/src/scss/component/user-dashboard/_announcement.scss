@@ -1,10 +1,11 @@
 // Userdashboard Announcement
 
-.atbd_announcement_wrapper{
+.directorist-announcement-wrapper {
     background-color: #fff;
     border-radius: 4px;
     padding: 25px 20px;
-    .atbdp-announcement{
+
+    .directorist-announcement {
         font-size: 15px;
         display: flex;
         align-items: center;
@@ -12,28 +13,17 @@
         margin-bottom: 15.5px;
         border-bottom: 1px solid #F1F2F6;
 
+        &:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: 0 none;
+        }
+
         @media (max-width: 479px) {
             flex-direction: column;
         }
 
-        &:hover{
-            .atbdp-announcement__close{
-                .close-announcement{
-                    background-color: $danger;
-                    i,
-                    span.fa,
-                    span.la,
-                    span.las,
-                    span.lab,
-                    span.lar,
-                    span.fas,
-                    span.la{
-                        color: #fff;
-                    }
-                }
-            }
-        }
-        @include e(date){
+        @include e(date) {
             flex: .4217;
             display: flex;
             flex-direction: column;
@@ -41,68 +31,79 @@
             background-color: #F5F6F8;
             border-radius: 6px;
             padding: 10.5px;
+
             @media (max-width: 1199px) {
                 flex: 1;
             }
+
             @media (max-width: 479px) {
                 flex: 100%;
                 width: 100%;
                 flex-direction: row;
                 justify-content: center;
             }
-            .atbdp-date-card-part-1{
+
+            @include e(part-one) {
                 font-size: 18px;
                 line-height: 1.2;
                 font-weight: 500;
                 color: #171B2E;
             }
-            .atbdp-date-card-part-2{
+
+            @include e(part-two) {
                 font-size: 14px;
                 font-weight: 400;
                 color: #5A5F7D;
             }
-            .atbdp-date-card-part-3{
+
+            @include e(part-three) {
                 font-size: 14px;
                 font-weight: 500;
                 color: #171B2E;
             }
         }
 
-        @include e(content){
+        @include e(content) {
             flex: 8;
             padding-left: 15px;
+
             @media (max-width: 1199px) {
                 flex: 6;
             }
+
             @media (max-width: 479px) {
                 padding-left: 0;
                 margin: 12px 0 6px;
                 text-align: center;
             }
-            .atbdp-announcement__title{
+
+            .directorist-announcement__title {
                 font-size: 18px;
                 font-weight: 500;
                 color: $dark;
                 margin-bottom: 6px;
                 margin-top: 0;
-                p{
+
+                p {
                     font-size: 14px;
                     font-weight: 400;
                     color: #69708E;
-                    &:empty{
+
+                    &:empty {
                         display: none;
                     }
                 }
             }
-            
-            p:empty{
+
+            p:empty {
                 display: none;
             }
         }
 
-        @include e(close){
+        @include e(close) {
             flex: 0;
-            .close-announcement{
+
+            .close-announcement {
                 height: 36px;
                 width: 36px;
                 border-radius: 50%;
@@ -110,6 +111,10 @@
                 border: 0 none;
                 padding: 0;
                 transition: .35s;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
                 i,
                 span.fa,
                 span.la,
@@ -117,12 +122,44 @@
                 span.lab,
                 span.lar,
                 span.fas,
-                span.la{
+                span.la {
                     transition: .35s;
                     color: #474868;
                     font-weight: 900;
                 }
+
+                &:hover {
+                    background-color: $danger;
+
+                    i,
+                    span.fa,
+                    span.la,
+                    span.las,
+                    span.lab,
+                    span.lar,
+                    span.fas,
+                    span.la {
+                        color: #fff;
+                    }
+                }
             }
         }
     }
+}
+
+.directorist-announcement-count {
+    display: none;
+    border-radius: 30px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    margin: 0 10px;
+    vertical-align: middle;
+    background-color: #ff3c3c;
+}
+
+.directorist-announcement-count.show {
+    display: inline-block;
 }

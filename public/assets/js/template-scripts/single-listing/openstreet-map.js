@@ -1,14 +1,15 @@
 (function($) {
         jQuery(document).ready(function() {
                 // Localized Data
-                const loc_default_latitude = parseFloat(localized_data.default_latitude);
+                const map_container         = ( localized_data.map_container_id ) ? localized_data.map_container_id : 'gmap';
+                const loc_default_latitude  = parseFloat(localized_data.default_latitude);
                 const loc_default_longitude = parseFloat(localized_data.default_longitude);
-                let loc_manual_lat = parseFloat(localized_data.manual_lat);
-                let loc_manual_lng = parseFloat(localized_data.manual_lng);
-                const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-                const { display_map_info } = localized_data;
-                const { cat_icon } = localized_data;
-                const { info_content } = localized_data;
+                let   loc_manual_lat        = parseFloat(localized_data.manual_lat);
+                let   loc_manual_lng        = parseFloat(localized_data.manual_lng);
+                const loc_map_zoom_level    = parseInt(localized_data.map_zoom_level);
+                const { display_map_info }  = localized_data;
+                const { cat_icon }          = localized_data;
+                const { info_content }      = localized_data;
 
                 loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
                 loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
@@ -28,7 +29,7 @@
                                 className: 'myDivIcon',
                         });
 
-                        const mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
+                        const mymap = L.map( map_container ).setView([lat, lon], loc_map_zoom_level);
 
                         if (display_map_info) {
                                 L.marker([lat, lon], { icon: fontAwesomeIcon })

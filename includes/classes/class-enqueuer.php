@@ -204,6 +204,7 @@ class ATBDP_Enqueuer {
         global $typenow, $post;
         $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
         $front_scripts_dependency = array( 'jquery' );
+
         // @Todo; make unminified css minified then enqueue them.
         wp_register_style( 'directorist-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false, ATBDP_VERSION );
         wp_enqueue_style( 'directorist-unicons' );
@@ -263,7 +264,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-        wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array(), ATBDP_VERSION , true );
         wp_register_script( 'atbdp-user-dashboard', ATBDP_PUBLIC_ASSETS . 'js/user-dashboard.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -371,7 +372,7 @@ class ATBDP_Enqueuer {
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 
         // enqueue the style and the scripts on the page when the post type is our registered post type.
-        if (  ( is_object( $post ) && ATBDP_POST_TYPE == $post->post_type ) || $force ) {
+        if ( true || ( is_object( $post ) && ATBDP_POST_TYPE == $post->post_type ) || $force ) {
             wp_enqueue_style( 'sweetalertcss' );
             wp_enqueue_script( 'sweetalert' );
             wp_enqueue_script( 'atbdp-public-script', ATBDP_PUBLIC_ASSETS . 'js/main.js', apply_filters( 'atbdp_front_script_dependency', $front_scripts_dependency ), ATBDP_VERSION, true );
@@ -387,7 +388,10 @@ class ATBDP_Enqueuer {
 
         // Template Scrips
         wp_register_script( 'atbdp-single-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-single-listing-osm-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-single-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-single-listing-gmap-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
+        
         wp_register_script( 'atbdp-add-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-add-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
 

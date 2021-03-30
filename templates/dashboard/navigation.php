@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.3.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -18,7 +18,7 @@ $counter = 1;
 
 			<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-				<li class="directorist-tab__nav__item"><!-- /.directorist-tab__nav__item--has-submenu -->
+				<li class="directorist-tab__nav__item">
 					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>">
 						<span class="directorist_menuItem-text">
 							<span class="directorist_menuItem-icon">
@@ -28,11 +28,7 @@ $counter = 1;
 						</span>
 					</a>
 				</li>
-				<?php
-			if (!empty($value['after_nav_hook'])) {
-				do_action($value['after_nav_hook']);
-			}
-			?>
+
 				<?php do_action( 'directorist_dashboard_navigation', $key, $dashboard ); ?>
 				<?php $counter++; ?>
 

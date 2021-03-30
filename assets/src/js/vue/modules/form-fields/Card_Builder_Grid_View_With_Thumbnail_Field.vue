@@ -405,12 +405,13 @@ export default {
           if ( show_if_cond_state.status ) {
             let widget_keys = [];
             for ( let matched_field of show_if_cond_state.matched_data ) {
-              
               let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              _main_widget.widget_key = current_key;
 
               if ( matched_field.widget_key ) {
                 _main_widget.original_widget_key = matched_field.widget_key;
+                // console.log( { widget, widget_key: matched_field.widget_key,  matched_field } );
               }
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
@@ -423,7 +424,7 @@ export default {
           }
         }
       }
-
+      
       return available_widgets;
     },
 
@@ -607,24 +608,24 @@ export default {
             if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
             active_widgets_data[ widget.widget_key ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.widget_name } );
+            selectedWidgets.push( { section: section, area: area, widget: widget.widget_key } );
           }
         }
       }
 
       // Load Active Widgets
-      for (let widget_key in active_widgets_data) {
-        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
+      for ( let widget_key in active_widgets_data ) {
+        if ( typeof this.theAvailableWidgets[widget_key] === "undefined" ) {
           continue;
         }
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-      
+        // let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+
         for ( let root_option in widgets_template ) {
           if ( 'options' === root_option ) { continue; }
-          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
-
+          if ( typeof active_widgets_data[ widget_key ][root_option] === 'undefined' ) { continue; }
+          
           widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
         }
 
@@ -650,6 +651,7 @@ export default {
         let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
+      
     },
 
     importWidgets() {

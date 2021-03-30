@@ -7,9 +7,14 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             // Cteate announcement post type
             add_action( 'init', [ $this, 'create_announcement_post_type' ] );
 
-            // Apply hooks
-            add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
-            add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
+            // Legacy template
+           // add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
+           // add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
+
+            // Non legacy template
+           // add_action( 'directorist_tab_after_favorite_listings', [ $this, 'non_legacy_add_dashboard_nav_link' ] );
+            //add_action( 'directorist_tab_content_after_favorite', [ $this, 'non_legacy_add_dashboard_nav_content' ] );
+
             add_action( 'atbdp_schedule_task', [ $this, 'delete_expaired_announcements' ] );
 
             // Handle ajax
@@ -18,9 +23,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'wp_ajax_atbdp_get_new_announcement_count', [ $this, 'response_new_announcement_count' ] );
             add_action( 'wp_ajax_atbdp_clear_seen_announcements', [ $this, 'clear_seen_announcements' ] );
 
-            // non legacy template 
-            add_action( 'directorist_tab_after_favorite_listings', [ $this, 'non_legacy_add_dashboard_nav_link' ] );
-            add_action( 'directorist_tab_content_after_favorite', [ $this, 'non_legacy_add_dashboard_nav_content' ] );
+
         }
 
         public function non_legacy_add_dashboard_nav_link() {
@@ -46,7 +49,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             echo ob_get_clean();
         }
 
-        public function non_legacy_add_dashboard_nav_content() {
+        // get_announcement_querys
+        public static function get_announcement_query_data() {
             $announcements = new WP_Query([
                 'post_type'      => 'listing-announcement',
                 'posts_per_page' => 20,
@@ -64,9 +68,18 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                     ]
                 ]
             ]);
-            
-            // directorist_console_log( [ 'announcements' => $announcements->posts ] );
-            // var_dump( $announcements );
+
+
+            return $announcements;
+        }
+
+        public function non_legacy_add_dashboard_nav_content() {
+            $announcements = self::get_announcement_query_data();
+
+            // directorist_console_log([
+            //     'announcements' => $announcements->posts,
+            //     'post_type_exists' => post_type_exists( 'listing-announcement' ),
+            // ]);
 
             $total_posts = count( $announcements->posts );
             $skipped_post_count = 0;
@@ -266,26 +279,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
         }
 
         public function add_dashboard_nav_content() {
-            $announcements = new WP_Query([
-                'post_type'      => 'listing-announcement',
-                'posts_per_page' => 20,
-                'meta_query' => [
-                    'relation' => 'AND',
-                    [
-                        'key'     => '_exp_date',
-                        'value'   => date('Y-m-d'),
-                        'compare' => '>'
-                    ],
-                    [
-                        'key'     => '_closed',
-                        'value'   => '1',
-                        'compare' => '!='
-                    ]
-                ]
-            ]);
-            
-            // directorist_console_log( [ 'announcements' => $announcements->posts ] );
-            // var_dump( $announcements );
+            $announcements = $announcements = self::get_announcement_query_data();
 
             $total_posts = count( $announcements->posts );
             $skipped_post_count = 0;
@@ -351,6 +345,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             $expiration    = ( isset( $_POST['expiration'] ) ) ? $_POST['expiration'] : '';
             $send_to_email = ( isset( $_POST['send_to_email'] ) ) ? $_POST['send_to_email'] : '';
 
+            if ( empty( $expiration ) ) {
+                $expiration = 365;
+            }
+
             $status = [
                 'success' => false,
                 'message' => __( 'Sorry, something went wrong, please try again' )
@@ -403,22 +401,25 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 wp_send_json( $status );
             }
 
+            $status['announcement'] = $announcement;
+
+            if ( 'all_user' !== $to ) {
+                update_post_meta( $announcement, '_recepents', $recepents );
+            } else {
+                update_post_meta( $announcement, '_recepents', '' );
+            }
+
             // Update the post meta
-            if ( is_numeric( $expiration  ) ) {
+            update_post_meta( $announcement, '_to', $to );
+            update_post_meta( $announcement, '_closed', false );
+            update_post_meta( $announcement, '_seen', false );
+
+            if ( is_numeric( $expiration ) ) {
                 $today = date("Y-m-d");
                 $exp_date = date('Y-m-d', strtotime( $today. " + {$expiration} days" ) );
 
-                if ( 'all_user' !== $to ) {
-                    update_post_meta( $announcement, '_recepents', $recepents );
-                } else {
-                    update_post_meta( $announcement, '_recepents', '' );
-                }
-
-                update_post_meta( $announcement, '_to', $to );
                 update_post_meta( $announcement, '_exp_in_days', $expiration );
                 update_post_meta( $announcement, '_exp_date', $exp_date );
-                update_post_meta( $announcement, '_closed', false );
-                update_post_meta( $announcement, '_seen', false );
             }
 
             // Send email if enabled

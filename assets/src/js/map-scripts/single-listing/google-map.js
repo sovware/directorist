@@ -101,6 +101,7 @@
         var map, info_window, saved_lat_lng, info_content;
 
         // Localized Data
+        var map_container         = ( localized_data.map_container_id ) ? localized_data.map_container_id : 'gmap';
         var loc_default_latitude  = parseFloat(localized_data.default_latitude);
         var loc_default_longitude = parseFloat(localized_data.default_longitude);
         var loc_manual_lat        = parseFloat(localized_data.manual_lat);
@@ -132,7 +133,7 @@
 
         function initMap() {
             /* Create new map instance*/
-            map = new google.maps.Map(document.getElementById('gmap'), {
+            map = new google.maps.Map(document.getElementById( map_container ), {
                 zoom: loc_map_zoom_level,
                 center: saved_lat_lng
             });

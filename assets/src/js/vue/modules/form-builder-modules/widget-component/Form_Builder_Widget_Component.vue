@@ -63,6 +63,11 @@ export default {
     },
 
     watch: {
+        widgetKey() {
+            if ( this.activeWidgetsIsUpdating ) { return; }
+            this.sync();
+        },
+
         activeWidgets() {
             this.activeWidgetsIsUpdating = true;
             this.sync();
@@ -156,11 +161,24 @@ export default {
             const widget_name = ( current_widget.widget_name ) ? current_widget.widget_name : '';
 
             if ( ! this.avilableWidgets[ widget_group ] ) { return ''; }
-            if ( ! this.avilableWidgets[ widget_group ][ widget_name ] ) { return ''; }
 
-            this.checkIfHasUntrashableWidget( widget_group, widget_name );
+            let the_current_widget = null;
+            let current_widget_name = '';
 
-            this.current_widget = this.avilableWidgets[ widget_group ][ widget_name ];
+            if ( this.avilableWidgets[ widget_group ][ widget_name ] ) {
+                the_current_widget = this.avilableWidgets[ widget_group ][ widget_name ];
+                current_widget_name = widget_name;
+            }
+
+            if ( this.avilableWidgets[ widget_group ][ this.widgetKey ] ) {
+                the_current_widget = this.avilableWidgets[ widget_group ][ this.widgetKey ];
+                current_widget_name = this.widgetKey;
+            }
+
+            if ( ! the_current_widget ) { return ''; }
+            this.checkIfHasUntrashableWidget( widget_group, current_widget_name );
+
+            this.current_widget = the_current_widget;
         },
 
         syncWidgetFields() {

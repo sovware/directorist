@@ -247,7 +247,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $submission_form_fields = $submission_form['fields'];
              }
              foreach( $submission_form_fields as $key => $value ){
-                $value['request_from_no_admin'] = true;
+                // $value['request_from_no_admin'] = true;
                 $category = !empty( $value['category'] ) ? $value['category'] : '';
                 if( $category ) {
                     if( in_array( $category, $categories ) ) {

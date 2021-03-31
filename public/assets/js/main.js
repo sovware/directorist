@@ -1048,11 +1048,11 @@
     // Closing the announcement
     var closing_announcement = false;
     $('.close-announcement').on('click', function ( e ) {
-        e.preventDefault;
+        e.preventDefault();
 
         if ( closing_announcement ) { console.log( 'Please wait...' ); return; }
 
-        var post_id = $( this ).data( 'post-id' );
+        var post_id = $( this ).closest('.atbdp-announcement').data( 'post-id' );
         var form_data = {
             action: 'atbdp_close_announcement',
             post_id: post_id,

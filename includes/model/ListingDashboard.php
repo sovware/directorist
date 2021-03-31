@@ -214,7 +214,7 @@ class Directorist_Listing_Dashboard {
 			$thumbnail_id = 0;
 		}
 
-		$image_src    = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+		$image_src    = is_array($thumbnail_img) ? $thumbnail_img['url'] : $thumbnail_img;
 		$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 		$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
 		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
@@ -347,9 +347,10 @@ class Directorist_Listing_Dashboard {
 		// Tabs
 		$dashboard_tabs = array();
 
-		$my_listing_tab   = get_directorist_option( 'my_listing_tab', 1 );
-		$my_profile_tab   = get_directorist_option( 'my_profile_tab', 1 );
-		$fav_listings_tab = get_directorist_option( 'fav_listings_tab', 1 );
+		$my_listing_tab     = get_directorist_option( 'my_listing_tab', 1 );
+		$my_profile_tab     = get_directorist_option( 'my_profile_tab', 1 );
+		$fav_listings_tab   = get_directorist_option( 'fav_listings_tab', 1 );
+		$announcement_tab 	= get_directorist_option( 'announcement_tab', 1 );
 
 		if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
@@ -359,7 +360,7 @@ class Directorist_Listing_Dashboard {
 
 			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-				'content'   => Helper::get_template_contents('dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
 				'icon'	    => atbdp_icon_type() . '-list',
 			);
 		}
@@ -368,21 +369,60 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
 				'icon'	    => atbdp_icon_type() . '-user',
-				'content'   => Helper::get_template_contents('dashboard/tab-profile', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
 
 		if ( $fav_listings_tab ) {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-				'content'   => Helper::get_template_contents('dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
+				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
 				'icon'		=> atbdp_icon_type() . '-heart-o',
-				'after_nav_hook'     => 'directorist_tab_after_favorite_listings',
-				'after_content_hook' => 'directorist_tab_content_after_favorite',
+			);
+		}
+
+		if ( $announcement_tab ) {
+			$dashboard_tabs['dashboard_announcement'] = array(
+				'title'    => $this->get_announcement_label(),
+				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
+				'icon'	   => atbdp_icon_type() . '-bullhorn',
 			);
 		}
 
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
+	}
+
+	public function get_announcement_label() {
+		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
+		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
+		if ( $new_announcements > 0 ) {
+			$announcement_label = $announcement_label . "<span class='directorist-announcement-count show'>{$new_announcements}</span>";
+		}
+		return apply_filters( 'directorist_announcement_label', $announcement_label );
+	}
+
+	public function get_announcements() {
+		$announcements       = [];
+		$announcements_query = \ATBDP()->announcement::get_announcement_query_data();
+		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
+
+		foreach ( $announcements_query->posts as $announcement ) {
+			$id = $announcement->ID;
+			$recepents = get_post_meta( $id, '_recepents', true );
+
+			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+				if ( ! in_array( $current_user_email, $recepents ) ) {
+					continue;
+				}
+			}
+
+			$announcements[$id] = [
+				'title'   => get_the_title( $id ),
+				'content' => $announcement->post_content,
+			];
+		}
+
+		return $announcements;
 	}
 
 	public function restrict_access_template() {

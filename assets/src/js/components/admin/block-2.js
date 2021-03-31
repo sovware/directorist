@@ -17,14 +17,24 @@ $('#atbd_optional_field_check').on('change', function () {
 });
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
-$('#at_biz_dir-categorychecklist').on('change', function (event) {
+$('#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop').on('change', function (event) {
     const length = $('#at_biz_dir-categorychecklist input:checked');
+    const length2 = $('#at_biz_dir-categorychecklist-pop input:checked');
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
     const from_single_directory = $('input[name="directory_type"]').val();
-    length.each((el, index) => {
-        id.push($(index).val());
-    });
+    if( length ){
+        length.each((el, index) => {
+            id.push($(index).val());
+        });
+    }
+    
+    if( length2 ){
+        length2.each((el, index) => {
+            id.push($(index).val());
+        });
+    }
+    
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('#post_ID').val(),
@@ -75,12 +85,21 @@ $('#at_biz_dir-categorychecklist').on('change', function (event) {
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $(document).ready(function () {
     const length = $('#at_biz_dir-categorychecklist input:checked');
+    const length2 = $('#at_biz_dir-categorychecklist-pop input:checked');
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
     const from_single_directory = $('input[name="directory_type"]').val();
-    length.each((el, index) => {
-        id.push($(index).val());
-    });
+    if( length ){
+        length.each((el, index) => {
+            id.push($(index).val());
+        });
+    }
+    
+    if( length2 ){
+        length2.each((el, index) => {
+            id.push($(index).val());
+        });
+    }
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('#post_ID').val(),

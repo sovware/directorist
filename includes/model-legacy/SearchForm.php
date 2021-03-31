@@ -264,6 +264,7 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		foreach ( $search_form_fields['fields'] as $key => $value) {
+			if ( ! is_array( $value) ) { continue; }
 			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 		}
 

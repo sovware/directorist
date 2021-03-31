@@ -53,6 +53,18 @@ class Directorist_Listing_Author {
 		$this->current_listing_type = $this->get_current_listing_type();
 		$id                         = ! empty( get_query_var( 'author_id' ) ) ? get_query_var( 'author_id' ) : get_current_user_id();
 		
+		$user_login = ( ! is_numeric( $id ) ) ? $id : '';
+		$id         = ( ! is_numeric( $id ) ) ? get_current_user_id() : $id;
+		$user       = '';
+		
+		if ( ! empty( $user_login ) ) {
+			$user = get_user_by( 'login', $user_login );
+			
+			if ( $user ) {
+				$id = $user->ID;
+			}
+		}
+		
 		$this->id = intval( $id );
 
 		if ( ! $this->id ) {

@@ -107,6 +107,9 @@ class ATBDP_Permalink {
         if( $id ) {
             $link = get_permalink( $id );
             if( '' != get_option( 'permalink_structure' ) ) {
+                $author = get_user_by( 'id', $author_id );
+				$author_id = ( $author ) ? $author->user_login : $author_id;
+                
                 if( ! empty( $directory_type ) ) {
                     $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/' . $directory_type );
                 } else {

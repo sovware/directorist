@@ -192,10 +192,10 @@ class Directorist_Listing_Search_Form {
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
-		$this->category_id             = 'at_biz_dir-categoryas';
+		$this->category_id             = '';
 		$this->category_class          = 'search_fields directorist-category-select';
-		$this->location_id             = 'at_biz_dir-location';
-		$this->location_class          = 'search_fields';
+		$this->location_id             = '';
+		$this->location_class          = 'search_fields directorist-location-select';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
 		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
 		$this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
@@ -261,6 +261,7 @@ class Directorist_Listing_Search_Form {
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
 			foreach ( $search_form_fields['fields'] as $key => $value) {
+				if ( ! is_array( $value) ) { continue; }
 				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			}
 		}
@@ -316,7 +317,6 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function field_template( $field_data) {
-		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 		if (isset($_GET['custom_field'])) {
@@ -336,9 +336,6 @@ class Directorist_Listing_Search_Form {
 		);
 
 		$widget_name = $field_data['widget_name'];
-		if ( strpos( $widget_name, '_') ) {
-			$widget_name = strtok( $widget_name, '_' );
-		}
 
 		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );

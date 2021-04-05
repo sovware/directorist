@@ -33,8 +33,8 @@
                                         const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
                                         document.body.dispatchEvent( event );
 
-                                        // Category 
-                                        $('#at_biz_dir-category').select2({
+                                        // Category
+                                        $('.directorist-category-select').select2({
                                                 placeholder: atbdp_search_listing.i18n_text.category_selection,
                                                 allowClear: true,
                                                 templateResult: function (data) {
@@ -42,20 +42,20 @@
                                                         if (!data.element) {
                                                                 return data.text;
                                                         }
-                                                
+
                                                         var $element = $(data.element);
-                                                
+
                                                         var $wrapper = $('<span></span>');
                                                         $wrapper.addClass($element[0].className);
-                                                
+
                                                         $wrapper.text(data.text);
-                                                
+
                                                         return $wrapper;
                                                 },
                                         });
 
                                         //location
-                                        $('#at_biz_dir-location').select2({
+                                        $('.directorist-location-select').select2({
                                                 placeholder: atbdp_search_listing.i18n_text.location_selection,
                                                 allowClear: true,
                                                 templateResult: function (data) {
@@ -125,7 +125,7 @@
         });
 
         // load custom fields of the selected category in the search form
-        $('body').on('change', '.bdas-category-search, #at_biz_dir-category', function() {
+        $('body').on('change', '.bdas-category-search, .directorist-category-select', function() {
                 const $search_elem = $(this)
                         .closest('form')
                         .find('.atbdp-custom-fields-search');
@@ -247,5 +247,5 @@
                         .next('.address_result')
                         .css({ display: 'none' });
         }
-        
+
 })(jQuery);

@@ -235,6 +235,7 @@
         position: relative;
 
         .directorist-listing-single__info--top {
+            margin: -4px;
             .directorist-badge.directorist-badge-close {
                 background-color: transparent;
                 color: $danger;
@@ -248,6 +249,12 @@
             .atbd_badge.atbd_badge_open {
                 background-color: transparent;
                 color: $success;
+            }
+        }
+
+        .directorist-listing-single__info--excerpt{
+            &:empty{
+                display: none;
             }
         }
 
@@ -303,8 +310,11 @@
         }
 
         .directorist-info-item,
-        .directorist-listing-title {
-            margin: 4px 0;
+        .directorist-listing-title{
+            margin: 4px;
+        }
+        .directorist-listing-tagline {
+            margin: 0 4px 1rem 4px;
         }
 
         .directorist-listing-title {

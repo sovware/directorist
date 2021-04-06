@@ -147,7 +147,7 @@ class Directorist_Listings {
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
-		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_header_title', __( 'Items Found', 'directorist' ) );
+		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['display_preview_image']           = ! empty( get_directorist_option( 'display_preview_image', 1 ) ) ? 'yes' : '';

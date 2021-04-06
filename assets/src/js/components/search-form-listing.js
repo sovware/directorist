@@ -22,6 +22,8 @@
                         data: form_data,
                         success(response) {
                                 if (response) {
+                                        let atbdp_search_listing = ( response['atbdp_search_listing'] ) ? response['atbdp_search_listing'] : atbdp_search_listing;
+                                        
                                         $('.directorist-search-form-box')
                                                 .empty()
                                                 .html( response['search_form'] );

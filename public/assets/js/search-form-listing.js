@@ -21,12 +21,60 @@
                         data: form_data,
                         success(response) {
                                 if (response) {
+                                        console.log( response );
+                                        let atbdp_search_listing = ( response['atbdp_search_listing'] ) ? response['atbdp_search_listing'] : atbdp_search_listing;
+                                        
                                         $('.atbdp-whole-search-form')
                                                 .empty()
                                                 .html( response['search_form'] );
                                         $('.atbdp_listing_top_category')
                                                 .empty()
                                                 .html( response['popular_categories'] );
+
+                                                const event = new CustomEvent('directorist-search-form-nav-tab-reloaded');
+                                                document.body.dispatchEvent( event );
+        
+                                                // Category
+                                                $('#at_biz_dir-category').select2({
+                                                        placeholder: atbdp_search_listing.i18n_text.category_selection,
+                                                        allowClear: true,
+                                                        templateResult: function (data) {
+                                                                // We only really care if there is an element to pull classes from
+                                                                if (!data.element) {
+                                                                        return data.text;
+                                                                }
+        
+                                                                var $element = $(data.element);
+        
+                                                                var $wrapper = $('<span></span>');
+                                                                $wrapper.addClass($element[0].className);
+        
+                                                                $wrapper.text(data.text);
+        
+                                                                return $wrapper;
+                                                        },
+                                                });
+        
+                                                //location
+                                                $('#at_biz_dir-location').select2({
+                                                        placeholder: atbdp_search_listing.i18n_text.location_selection,
+                                                        allowClear: true,
+                                                        templateResult: function (data) {
+                                                                // We only really care if there is an element to pull classes from
+                                                                if (!data.element) {
+                                                                        return data.text;
+                                                                }
+        
+                                                                var $element = $(data.element);
+        
+                                                                var $wrapper = $('<span></span>');
+                                                                $wrapper.addClass($element[0].className);
+        
+                                                                $wrapper.text(data.text);
+        
+                                                                return $wrapper;
+                                                        }
+                                                });
                                 }
                                 $('.atbdp-whole-search-form').removeClass('atbdp-form-fade');
                         },

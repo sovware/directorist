@@ -236,14 +236,14 @@ export default {
 
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
-      if ( ! this.value) { return; }
+      if ( ! this.value ) { return; }
       if ( typeof this.value !== "object" ) { return; }
 
       if ( ! this.value.fields) { return; }
       if ( typeof this.value.fields !== "object") { return; }
 
       let active_widget_fields =  Array.isArray( this.value.fields ) ? {} : this.value.fields;
-      active_widget_fields = this.formatActiveWidgetFields( active_widget_fields );
+      active_widget_fields = this.sanitizeActiveWidgetFields( active_widget_fields );
 
       this.active_widget_fields = active_widget_fields;
 
@@ -251,13 +251,22 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    // formatActiveWidgetFields
-    formatActiveWidgetFields( active_widget_fields ) {
+    // sanitizeActiveWidgetFields
+    sanitizeActiveWidgetFields( active_widget_fields ) {
       if ( ! active_widget_fields ) { return {} };
       if ( typeof active_widget_fields !== 'object' ) { return {} };
 
-      for ( let field_key in active_widget_fields ) {
-        active_widget_fields.field_key = field_key;
+      if ( typeof active_widget_fields.field_key !== 'undefined' ) {
+        delete active_widget_fields.field_key;
+      }
+
+      for ( let widget_key in active_widget_fields ) {
+
+        if ( typeof active_widget_fields[ widget_key ] !== 'object' ) {
+          delete active_widget_fields[ widget_key ];
+        }
+
+        active_widget_fields[ widget_key ].widget_key = widget_key;
       }
 
       return active_widget_fields;
@@ -265,17 +274,46 @@ export default {
 
     // setupActiveWidgetGroups
     setupActiveWidgetGroups() {
-      if (!this.value) {
-        return;
-      }
-      if (typeof this.value !== "object") {
-        return;
+      if ( ! this.value ) return;
+      if ( typeof this.value !== "object" ) return;
+
+      if ( Array.isArray( this.value.groups ) ) {
+        this.active_widget_groups = this.sanitizeActiveWidgetGroups( this.value.groups );
       }
 
-      if (Array.isArray(this.value.groups)) {
-        this.active_widget_groups = this.value.groups;
-      }
       this.$emit("active-group-updated");
+    },
+
+    // sanitizeActiveWidgetGroups
+    sanitizeActiveWidgetGroups( _active_widget_groups ) {
+      let active_widget_groups = _active_widget_groups;
+      if ( ! Array.isArray( active_widget_groups ) ) { 
+        active_widget_groups = [];
+      }
+
+      let group_index = 0;
+      for ( let widget_group of active_widget_groups ) {
+        if ( typeof widget_group.label === 'undefined' ) {
+          active_widget_groups[ group_index ].label = '';
+        }
+
+        if ( typeof widget_group.fields === 'undefined' || ! Array.isArray( widget_group.fields ) ) {
+          active_widget_groups[ group_index ].fields = [];
+        }
+
+        let field_index = 0;
+        for ( let field of widget_group.fields ) {
+          if ( typeof this.active_widget_fields[ field ] === 'undefined' ) {
+            delete active_widget_groups[ group_index ].fields[ field_index ];
+          }
+
+          field_index++;
+        }
+
+        group_index++;
+      }
+
+      return active_widget_groups;
     },
 
     // updateWidgetList

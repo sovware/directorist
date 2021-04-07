@@ -56,36 +56,15 @@ if ( !class_exists('BD_Search_Widget')) {
             $select_listing_map            = get_directorist_option('select_listing_map','google');
             $atbdp_legacy_template         = get_directorist_option( 'atbdp_legacy_template', false );
             
-            // wp_enqueue_script( 'directorist-search-form-listing' );
-            // wp_enqueue_script( 'directorist-range-slider' );
-            // wp_enqueue_script( 'directorist-search-listing' );
 
-            // $data = Directorist\Script_Helper::get_search_script_data();
-            // wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-            // wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-            //     'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-            //     'ajax_url' => admin_url('admin-ajax.php'),
-            // ]);
-            // wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-            // wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
-            
+            $listing_type = '';
+            $listing_type = default_directory_type();
+            $script_args  = ['directory_type_id' => $listing_type];
 
-            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
-            if (is_rtl()){
-                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-            }else{
-                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-            }
-            wp_localize_script('atbdp-search-listing','atbdp_search',array(
-                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
-                'ajax_url'           => admin_url( 'admin-ajax.php' ),
-            ));
-            if( empty( $atbdp_legacy_template ) ) {
-                wp_localize_script('atbdp-search-listing','atbdp_search_listing',array(
-                    'i18n_text'   => array(
-                        'select_listing_map' => $select_listing_map,
-                    ),
-                ));
+            if ( Directorist\Helper::is_legacy_mode() ) {
+                ATBDP()->enquirer->search_listing_scripts_styles( $script_args );
+            } else {
+                Directorist\Script_Helper::load_search_form_script( $script_args );
             }
 
             $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));

@@ -1,5 +1,6 @@
 (function ($) {
-    $('#at_biz_dir-location').select2({
+    // Location
+    let select2_args__location = {
         placeholder: atbdp_search_listing.i18n_text.location_selection,
         allowClear: true,
         templateResult: function (data) {
@@ -17,10 +18,14 @@
 
             return $wrapper;
         }
-    });
+    };
+
+    $('#at_biz_dir-location').select2( select2_args__location );
+    $('#loc-type').select2( select2_args__location );
+    $('.bdas-location-search').select2( select2_args__location );
 
     // Category
-    $('#at_biz_dir-category').select2({
+    let select2_args__category = {
         placeholder: atbdp_search_listing.i18n_text.category_selection,
         allowClear: true,
         templateResult: function (data) {
@@ -38,7 +43,11 @@
 
             return $wrapper;
         }
-    });
+    };
+
+    $('#at_biz_dir-category').select2( select2_args__category );
+    $('#cat-type').select2( select2_args__category );
+    $('.bdas-category-search').select2( select2_args__category );
 
     //ad search js
     var showMore = atbdp_search_listing.i18n_text.show_more;

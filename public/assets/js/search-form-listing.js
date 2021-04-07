@@ -22,7 +22,7 @@
                         success(response) {
                                 if (response) {
                                         console.log( response );
-                                        let atbdp_search_listing = ( response['atbdp_search_listing'] ) ? response['atbdp_search_listing'] : atbdp_search_listing;
+                                        var atbdp_search_listing = ( response['atbdp_search_listing'] ) ? response['atbdp_search_listing'] : atbdp_search_listing;
                                         
                                         $('.atbdp-whole-search-form')
                                                 .empty()

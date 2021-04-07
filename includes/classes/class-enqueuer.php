@@ -1004,7 +1004,13 @@ class ATBDP_Enqueuer {
 
     }
 
-    public function search_listing_scripts_styles() {
+    public function search_listing_scripts_styles( $args = [] ) {
+        $directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+        $directory_type_term_data = [
+            'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
+            'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),
+        ];
+
         $search_dependency = array( 'jquery', 'jquery-ui-slider',
             'select2script' );
         wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
@@ -1017,20 +1023,22 @@ class ATBDP_Enqueuer {
         wp_enqueue_script( $handel );
 
         /*Internationalization*/
-        $category_placeholder    = get_directorist_option( 'search_category_placeholder', __( 'Select a category', 'directorist' ) );
-        $location_placeholder    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+        $category_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
+        $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
         $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
+
         if ( 'kilometers' == $radius_search_unit ) {
             $miles = __( ' Kilometers', 'directorist' );
         } else {
             $miles = __( ' Miles', 'directorist' );
         }
+
         $data = array(
             'i18n_text'   => array(
-                'location_selection' => $location_placeholder,
-                'category_selection' => $category_placeholder,
+                'location_selection' => ! empty( $location_placeholder ) ? $location_placeholder : __( 'Select a location', 'directorist' ),
+                'category_selection' => ! empty( $category_placeholder ) ? $category_placeholder : __( 'Select a category', 'directorist' ),
                 'show_more'          => __( 'Show More', 'directorist' ),
                 'show_less'          => __( 'Show Less', 'directorist' ),
                 'added_favourite'    => __( 'Added to favorite', 'directorist' ),

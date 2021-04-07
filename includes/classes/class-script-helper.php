@@ -3,6 +3,32 @@ namespace Directorist;
 
 class Script_Helper {
     /**
+     * Load search form scripts
+     *
+     * @return array
+     */
+    public static function load_search_form_script( $args = [] ) {
+        wp_enqueue_script( 'directorist-search-form-listing' );
+		wp_enqueue_script( 'directorist-range-slider' );
+		wp_enqueue_script( 'directorist-search-listing' );
+
+        $directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
+		$data = self::get_search_script_data([
+            'directory_type_id' => $directory_type_id
+        ]);
+		
+        wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
+			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+			'ajax_url' => admin_url('admin-ajax.php'),
+		]);
+        
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
+    }
+
+
+    /**
      * Get Main Script Data
      *
      * @return array
@@ -190,7 +216,7 @@ class Script_Helper {
         );
 
         //get listing is if the screen in edit listing
-        $fm_plans   = get_post_meta( $listing_id, '_fm_plans', true );
+        $fm_plans = get_post_meta( $listing_id, '_fm_plans', true );
         $data = array(
             'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),

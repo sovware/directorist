@@ -93,11 +93,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ];
 
                 $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-                $recepents = [];
+                $recipient = [];
 
                 if ( ! empty( $users ) ) {
                     foreach ( $users as $user ) {
-                        $recepents[] = [
+                        $recipient[] = [
                             'value' => $user->user_email,
                             'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
                         ];
@@ -120,10 +120,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             ],
                             'value' => 'all_user',
                         ],
-                        'recepents' => [
+                        'recipient' => [
                             'type'    => 'checkbox',
-                            'label'   => 'Recepents',
-                            'options' => $recepents,
+                            'label'   => 'Recipients',
+                            'options' => $recipient,
                             'value'   => '',
                             'show-if' => [
                                 'where' => "self.to",

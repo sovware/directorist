@@ -94,9 +94,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                             $announcements->the_post();
 
                             // Check recepent restriction
-                            $recepents = get_post_meta( get_the_ID(), '_recepents', true );
-                            if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-                                if ( ! in_array( $current_user_email, $recepents ) ) {
+                            $recipient = get_post_meta( get_the_ID(), '_recepents', true );
+                            if ( ! empty( $recipient ) && is_array( $recipient )  ) {
+                                if ( ! in_array( $current_user_email, $recipient ) ) {
                                     $skipped_post_count++;
                                     continue;
                                 }
@@ -172,9 +172,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 while( $new_announcements->have_posts() ) {
                     $new_announcements->the_post();
                     // Check recepent restriction
-                    $recepents = get_post_meta( get_the_ID(), '_recepents', true );
-                    if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-                        if ( ! in_array( $current_user_email, $recepents ) ) {
+                    $recipient = get_post_meta( get_the_ID(), '_recepents', true );
+                    if ( ! empty( $recipient ) && is_array( $recipient )  ) {
+                        if ( ! in_array( $current_user_email, $recipient ) ) {
                             continue;
                         }
                     }
@@ -218,9 +218,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 while( $new_announcements->have_posts() ) {
                     $new_announcements->the_post();
                     // Check recepent restriction
-                    $recepents = get_post_meta( get_the_ID(), '_recepents', true );
-                    if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-                        if ( ! in_array( $current_user_email, $recepents ) ) {
+                    $recipient = get_post_meta( get_the_ID(), '_recepents', true );
+                    if ( ! empty( $recipient ) && is_array( $recipient )  ) {
+                        if ( ! in_array( $current_user_email, $recipient ) ) {
                             $skipped_post_count++;
                             continue;
                         }
@@ -294,9 +294,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                             $announcements->the_post();
 
                             // Check recepent restriction
-                            $recepents = get_post_meta( get_the_ID(), '_recepents', true );
-                            if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-                                if ( ! in_array( $current_user_email, $recepents ) ) {
+                            $recipient = get_post_meta( get_the_ID(), '_recepents', true );
+                            if ( ! empty( $recipient ) && is_array( $recipient )  ) {
+                                if ( ! in_array( $current_user_email, $recipient ) ) {
                                     $skipped_post_count++;
                                     continue;
                                 }
@@ -339,7 +339,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
         // send_announcement
         public function send_announcement() {
             $to            = ( isset( $_POST['to'] ) ) ? $_POST['to'] : '';
-            $recepents     = ( isset( $_POST['recepents'] ) ) ? $_POST['recepents'] : '';
+            $recipient     = ( isset( $_POST['recipient'] ) ) ? $_POST['recipient'] : '';
             $subject       = ( isset( $_POST['subject'] ) ) ? $_POST['subject'] : '';
             $message       = ( isset( $_POST['message'] ) ) ? $_POST['message'] : '';
             $expiration    = ( isset( $_POST['expiration'] ) ) ? $_POST['expiration'] : '';
@@ -354,25 +354,25 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 'message' => __( 'Sorry, something went wrong, please try again' )
             ];
 
-            // Get Recepents
+            // Get Recipient
             if ( 'selected_user' === $to ) {
-                $recepents = ( 'string' === gettype( $recepents ) ) ? explode(',', $recepents ) : null;
+                $recipient = ( 'string' === gettype( $recipient ) ) ? explode(',', $recipient ) : null;
             }
 
             if ( 'all_user' === $to ) {
                 $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-                $recepents = [];
+                $recipient = [];
 
                 if ( ! empty( $users ) ) {
                     foreach ( $users as $user ) {
-                        $recepents[] = $user->user_email;
+                        $recipient[] = $user->user_email;
                     }
                 }
             }
 
-            // Validate recepents
-            if ( empty( $recepents ) ) {
-                $status['message'] = __( 'No recepents found' );
+            // Validate recipient
+            if ( empty( $recipient ) ) {
+                $status['message'] = __( 'No recipient found' );
                 wp_send_json( $status );
             }
 
@@ -404,7 +404,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             $status['announcement'] = $announcement;
 
             if ( 'all_user' !== $to ) {
-                update_post_meta( $announcement, '_recepents', $recepents );
+                update_post_meta( $announcement, '_recepents', $recipient );
             } else {
                 update_post_meta( $announcement, '_recepents', '' );
             }
@@ -424,7 +424,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             // Send email if enabled
             if ( '1' == $send_to_email ) {
-                wp_mail( $recepents, $subject, $message );
+                wp_mail( $recipient, $subject, $message );
             }
 
             $status['success']  = true;

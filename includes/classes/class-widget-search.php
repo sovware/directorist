@@ -61,11 +61,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();
             $script_args  = ['directory_type_id' => $listing_type];
 
-            if ( Directorist\Helper::is_legacy_mode() ) {
-                ATBDP()->enquirer->search_listing_scripts_styles( $script_args );
-            } else {
-                Directorist\Script_Helper::load_search_form_script( $script_args );
-            }
+            ATBDP()->enquirer->search_listing_scripts_styles( $script_args );
 
             $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));
             $address_label           = get_directorist_option('address_label',__('Address','directorist'));

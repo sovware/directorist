@@ -32,8 +32,6 @@ echo '</div>';
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a Location', 'directorist' ),
-                    'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-location',
                     'name' 			     => 'in_loc',
                     'class'              => 'form-control bdas-location-search select-basic',
@@ -49,8 +47,6 @@ echo '</div>';
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a category', 'directorist' ),
-                    'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-category',
                     'name' 			     => 'in_cat',
                     'class'              => 'form-control bdas-category-search select-basic',

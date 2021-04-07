@@ -25,6 +25,15 @@ if (!class_exists('ATBDP_Cron')) :
             // schedule task run after every 5 minutes || use bellow line for debug
             //add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
+
+            add_action( 'save_post', [ $this, 'update_atbdp_schedule_tasks' ] );
+        }
+
+        // update_atbdp_schedule_tasks
+        function update_atbdp_schedule_tasks( $post_id = 0 ) {
+            if ( ATBDP_POST_TYPE !== get_post_type( $post_id ) ) { return; }
+
+            $this->atbdp_schedule_tasks();
         }
 
 
@@ -92,12 +101,12 @@ if (!class_exists('ATBDP_Cron')) :
                     'meta_query'     => array(
                         'relation' => 'AND',
                         array(
-                            'key'      => '_listing_status',
-                            'value'      => 'post_status',
+                            'key'   => '_listing_status',
+                            'value' => 'post_status',
                         ),
                         array(
-                            'key'      => '_featured',
-                            'value'      => 1,
+                            'key'   => '_featured',
+                            'value' => 1,
                         ),
                     )
                 );
@@ -129,12 +138,12 @@ if (!class_exists('ATBDP_Cron')) :
                 'meta_query'     => array(
                     'relation' => 'AND',
                     array(
-                        'key'      => '_listing_id',
-                        'value'      => $listing_id,
+                        'key'   => '_listing_id',
+                        'value' => $listing_id,
                     ),
                     array(
-                        'key'      => '_payment_status',
-                        'value'      => 'completed',
+                        'key'   => '_payment_status',
+                        'value' => 'completed',
                     ),
                 )
             );
@@ -156,7 +165,7 @@ if (!class_exists('ATBDP_Cron')) :
          */
         private function update_renewal_status()
         {
-            $can_renew       = get_directorist_option('can_renew_listing');
+            $can_renew = get_directorist_option('can_renew_listing');
             $renew_email_threshold = get_directorist_option('email_to_expire_day'); // before how many days of expiration, a renewal message should be sent
             if ($can_renew && $renew_email_threshold > 0) {
                 $renew_email_threshold_date = date('Y-m-d H:i:s', strtotime("+{$renew_email_threshold} days"));
@@ -169,19 +178,19 @@ if (!class_exists('ATBDP_Cron')) :
                     'meta_query'     => array(
                         'relation' => 'AND',
                         array(
-                            'key'      => '_listing_status',
-                            'value'      => 'post_status',
+                            'key'   => '_listing_status',
+                            'value' => 'post_status',
                         ),
                         array(
-                            'key'      => '_expiry_date',
-                            'value'      => $renew_email_threshold_date,
+                            'key'     => '_expiry_date',
+                            'value'   => $renew_email_threshold_date,
                             'compare' => '<=',
                             // _expiry_date > $renew_email_threshold_date,     '2018-04-15 09:24:00' < '2018-04-09 12:57:27'. eg. expiry date can not be greater than renewal threshold because threshold is the future date. expiration date should be equal to future date or less.
                             'type'    => 'DATETIME'
                         ),
                         array(
-                            'key'      => '_never_expire',
-                            'value' => 0,
+                            'key'   => '_never_expire',
+                            'value' => '',
                         )
                     )
                 );
@@ -221,14 +230,14 @@ if (!class_exists('ATBDP_Cron')) :
                 'meta_query'     => array(
                     'relation' => 'AND',
                     array(
-                        'key'      => '_expiry_date',
-                        'value'      => current_time('mysql'),
-                        'compare' => '<=', // eg. expire date 6 <= current date 7 will return the post
+                        'key'     => '_expiry_date',
+                        'value'   => current_time('mysql'),
+                        'compare' => '<=',                    // eg. expire date 6 <= current date 7 will return the post
                         'type'    => 'DATETIME'
                     ),
                     array(
-                        'key'      => '_never_expire',
-                        'value' => 0,
+                        'key'   => '_never_expire',
+                        'value' => '',
                     )
                 )
             );
@@ -238,8 +247,8 @@ if (!class_exists('ATBDP_Cron')) :
                 foreach ($listings->posts as $listing) {
                     // prepare the post meta data
                     $metas = array(
-                        '_listing_status' => 'expired',
-                        '_featured' => 0,
+                        '_listing_status'        => 'expired',
+                        '_featured'              => 0,
                         '_renewal_reminder_sent' => 0,
                     );
                     // delete expired listings?
@@ -252,9 +261,9 @@ if (!class_exists('ATBDP_Cron')) :
                         }
                     }
                     wp_update_post(array(
-                        'ID'           => $listing->ID,
-                        'post_status' => 'private', // update the status to private so that we do not run this func a second time
-                        'meta_input' => $metas, // insert all meta data once to reduce update meta query
+                        'ID'          => $listing->ID,
+                        'post_status' => 'private',      // update the status to private so that we do not run this func a second time
+                        'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
                     ));
                     // Hook for developers
                     do_action('atbdp_listing_expired', $listing->ID);
@@ -280,19 +289,19 @@ if (!class_exists('ATBDP_Cron')) :
                 $meta['renewed_by_admin'] = array(
                     'relation' => 'OR',
                     array(
-                        'key'      => '_expiry_date',
-                        'value'      => current_time('mysql'),
-                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post 
+                        'key'     => '_expiry_date',
+                        'value'   => current_time('mysql'),
+                        'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post 
                         'type'    => 'DATETIME'
                     ),
                     array(
-                        'key'      => '_never_expire',
+                        'key'   => '_never_expire',
                         'value' => 1,
                     )
                     );
                     $meta['get_expired'] = array(
-                        'key'      => '_listing_status',
-                        'value' => 'expired',
+                        'key'     => '_listing_status',
+                        'value'   => 'expired',
                         'compare' => '=',
                     );
             
@@ -302,13 +311,13 @@ if (!class_exists('ATBDP_Cron')) :
                 foreach ($listings->posts as $listing) {
                     // prepare the post meta data
                     $metas = array(
-                        '_listing_status' => 'post_status',
+                        '_listing_status'        => 'post_status',
                         '_renewal_reminder_sent' => 0,
                     );
                     wp_update_post(array(
-                        'ID'           => $listing->ID,
-                        'post_status' => 'publish', // update the status to private so that we do not run this func a second time
-                        'meta_input' => $metas, // insert all meta data once to reduce update meta query
+                        'ID'          => $listing->ID,
+                        'post_status' => 'publish',      // update the status to private so that we do not run this func a second time
+                        'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
                     ));
                 }
             }
@@ -322,8 +331,8 @@ if (!class_exists('ATBDP_Cron')) :
          */
         private function send_renewal_reminders()
         {
-            $can_renew              = get_directorist_option('can_renew_listing');
-            $email_renewal_day       = get_directorist_option('email_renewal_day');
+            $can_renew         = get_directorist_option('can_renew_listing');
+            $email_renewal_day = get_directorist_option('email_renewal_day');
 
             if ($can_renew && $email_renewal_day > 0) {
                 // Define the query
@@ -334,16 +343,16 @@ if (!class_exists('ATBDP_Cron')) :
                     'meta_query'     => array(
                         'relation' => 'AND',
                         array(
-                            'key'      => '_listing_status',
-                            'value'      => 'expired',
+                            'key'   => '_listing_status',
+                            'value' => 'expired',
                         ),
                         array(
-                            'key'      => '_renewal_reminder_sent',
-                            'value'      => 0,
-                        ),
-                        array(
-                            'key'      => '_never_expire',
+                            'key'   => '_renewal_reminder_sent',
                             'value' => 0,
+                        ),
+                        array(
+                            'key'   => '_never_expire',
+                            'value' => '',
                         )
                     )
                 );
@@ -354,9 +363,9 @@ if (!class_exists('ATBDP_Cron')) :
                 if ($listings->found_posts) {
                     foreach ($listings->posts as $listing) {
                         // Send emails
-                        $expiration_date = get_post_meta($listing->ID, '_expiry_date', true);
+                        $expiration_date      = get_post_meta($listing->ID, '_expiry_date', true);
                         $expiration_date_time = strtotime($expiration_date);
-                        $reminder_date_time = strtotime("+{$email_renewal_day} days", strtotime($expiration_date_time));
+                        $reminder_date_time   = strtotime("+{$email_renewal_day} days", strtotime($expiration_date_time));
 
                         if (current_time('timestamp') > $reminder_date_time) {
                             do_action('atbdp_send_renewal_reminder', $listing->ID);
@@ -389,17 +398,17 @@ if (!class_exists('ATBDP_Cron')) :
                 'meta_query'     => array(
                     'relation' => 'AND',
                     array(
-                        'key'      => '_listing_status',
-                        'value'      => 'expired',
+                        'key'   => '_listing_status',
+                        'value' => 'expired',
                     ),
                     array(
-                        'key'      => '_deletion_date',
-                        'value'      => current_time('mysql'),
+                        'key'     => '_deletion_date',
+                        'value'   => current_time('mysql'),
                         'compare' => '<',
                         'type'    => 'DATETIME'
                     ),
                     array(
-                        'key'      => '_never_expire',
+                        'key'   => '_never_expire',
                         'value' => 0,
                     )
                 )

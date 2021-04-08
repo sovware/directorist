@@ -17,6 +17,14 @@ class Helper {
 		return $legacy;
 	}
 
+	public static function get_directory_type_term_data( $post_id = '', string $term_key = '' ) {
+		$post_id        = ( ! empty( $post_id ) ) ? $post_id : get_the_ID();
+		$directory_type = get_post_meta( $post_id, '_directory_type', true );
+		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
+
+		return get_term_meta( $directory_type, $term_key, true );
+	} 
+
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
 		$value = '';

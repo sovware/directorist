@@ -1039,8 +1039,8 @@ class ATBDP_Enqueuer {
         ];
 
         /*Internationalization*/
-        $category_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
-        $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
+        $category_placeholder    = ( isset( $directory_type_term_data['search_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['search_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
+        $location_placeholder    = ( isset( $directory_type_term_data['search_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['search_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
         $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );

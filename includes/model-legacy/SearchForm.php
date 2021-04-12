@@ -358,7 +358,7 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 
-		$template = 'search-form/fields/' . $field_data['widget_name'];
+		$template = 'search/fields/' . $field_data['widget_name'];
 
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );

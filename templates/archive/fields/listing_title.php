@@ -11,5 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <h4 class="directorist-listing-title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h4>
 
 <?php if( !empty( $data['show_tagline'] ) && !empty( $listings->loop_get_title() ) ){ ?>
+    
 <p class="directorist-listing-tagline"><?php echo wp_kses_post( $listings->loop_get_tagline() );?></p>
+
 <?php }?>

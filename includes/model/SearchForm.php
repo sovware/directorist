@@ -316,9 +316,10 @@ class Directorist_Listing_Search_Form {
 		return $ptype;
 	}
 
-	public function field_template( $field_data) {
+	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+
 		if (isset($_GET['custom_field'])) {
 			foreach( $_GET['custom_field'] as $cf_key => $val ) {
 				if( $key === $cf_key ) {
@@ -335,11 +336,20 @@ class Directorist_Listing_Search_Form {
 			'original_field'    => $submission_form_fields,
 		);
 
-		$widget_name = $field_data['widget_name'];
+		if ( $this->is_custom_field( $field_data ) ) {
+			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+		}
+		else {
+			$template = 'search-form/fields/' . $field_data['widget_name'];
+		}
 
-		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
+	}
+
+	public function is_custom_field( $data ) {
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
 
 	public function get_listing_type_data() {

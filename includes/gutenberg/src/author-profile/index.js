@@ -13,7 +13,11 @@ import {
 	ToggleControl
 } from '@wordpress/components';
 
-import { getAttsForTransform } from '../functions'
+import {
+	getAttsForTransform,
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -43,9 +47,19 @@ registerBlockType( 'directorist/author-profile', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'author-profile' ) }</Fragment>
+		}
+
 		let { logged_in_user_only } = attributes;
 
 		return (

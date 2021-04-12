@@ -24,7 +24,11 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import { getAttsForTransform } from '../functions'
+import {
+	getAttsForTransform,
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -61,9 +65,19 @@ registerBlockType( 'directorist/location', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
+		}
+
 		let {
 			view,
 			header,
@@ -87,7 +101,7 @@ registerBlockType( 'directorist/location', {
 						<ToolbarButton isPressed={view === 'map'} icon={ mapMarker } label={ __( 'Map View', 'directorist' ) } onClick={ () => setAttributes( { view: 'map' } ) } />
 					</Toolbar>
 				</BlockControls>
-				
+
 				<InspectorControls>
 					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
 						<SelectControl

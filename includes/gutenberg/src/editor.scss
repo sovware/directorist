@@ -32,7 +32,7 @@
 .wp-block-directorist-tag {
     &.is-selected {
         position: relative;
-    
+
         &:before {
             content: "";
             position: absolute;
@@ -43,4 +43,10 @@
             z-index: 1;
         }
     }
+}
+
+.directorist-block-preview {
+    display: block;
+    width: 100%;
+    height: auto;
 }

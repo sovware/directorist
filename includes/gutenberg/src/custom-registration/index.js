@@ -1,7 +1,12 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
+import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+import {
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import './editor.scss';
 import getLogo from './../logo';
 
@@ -30,7 +35,19 @@ registerBlockType( 'directorist/custom-registration', {
 		]
 	},
 
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes(),
+
 	edit( { attributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'signin' ) }</Fragment>
+		}
+
 		return (
 			<div { ...useBlockProps() }>
 				{ __( 'This widget works only on Registration page.', 'directorist' ) }

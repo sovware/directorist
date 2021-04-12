@@ -259,8 +259,6 @@ class Directorist_Listing_Search_Form {
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		// e_var_dump($submission_form_fields);
-
 		if ( !empty( $search_form_fields['fields'] ) ) {
 			foreach ( $search_form_fields['fields'] as $key => $value ) {
 
@@ -300,8 +298,6 @@ class Directorist_Listing_Search_Form {
 				$form_data[] = $section;
 			}
 		}
-
-		// e_var_dump($form_data);
 
 		return $form_data;
 	}
@@ -346,20 +342,10 @@ class Directorist_Listing_Search_Form {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 
-		if (isset($_GET['custom_field'])) {
-			foreach( $_GET['custom_field'] as $cf_key => $val ) {
-				if( $key === $cf_key ) {
-					$value = $val;
-				}
-			}
-		}
-		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
-
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
 			'value'      		=> $value,
-			'original_field'    => $submission_form_fields,
 		);
 
 		if ( $this->is_custom_field( $field_data ) ) {

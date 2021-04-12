@@ -23,8 +23,19 @@ class ATBDP_Rewrite {
         if ( $id > 0 ) {
             $link = str_replace( $home, '', get_permalink( $id ) );
             $link = trim( $link, '/' );
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-all-listing' : $link;
 
             add_rewrite_rule( "$link/page/?([0-9]{1,})/?$", 'index.php?page_id='.$id.'&paged=$matches[1]', 'top' );
+        }
+
+        // Author profile page URL Rewrite
+        $id = get_directorist_option('author_profile_page');
+        if ( $id > 0 ) {
+            $link = str_replace( $home, '', get_permalink( $id ) );
+            $link = trim( $link, '/' );
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-profile' : $link;
+
+            add_rewrite_rule( "$link/([^/]+)?/?([^/]+)?/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]', 'top' );
         }
 
 
@@ -33,6 +44,7 @@ class ATBDP_Rewrite {
         if( $cp_id ) {
             $link = str_replace( $home, '', get_permalink( $cp_id ) );	// remove the home_url() from the link
             $link = trim( $link, '/' );	// remove slash / from the end and the start
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-checkout' : $link;
 
             add_rewrite_rule( "$link/submit/([0-9]{1,})/?$", 'index.php?page_id='.$cp_id.'&atbdp_action=submission&atbdp_listing_id=$matches[1]', 'top' );
             add_rewrite_rule( "$link/promote/([0-9]{1,})/?$", 'index.php?page_id='.$cp_id.'&atbdp_action=promotion&atbdp_listing_id=$matches[1]', 'top' );
@@ -45,6 +57,7 @@ class ATBDP_Rewrite {
         if( $prp_id ) {
             $link = str_replace( $home, '', get_permalink( $prp_id ) );
             $link = trim( $link, '/' );
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-payment-receipt' : $link;
 
             add_rewrite_rule( "$link/order/([0-9]{1,})/?$", 'index.php?page_id='.$prp_id.'&atbdp_action=order&atbdp_order_id=$matches[1]', 'top' );
         }
@@ -55,6 +68,7 @@ class ATBDP_Rewrite {
         if( $id  ) {
             $link = str_replace( $home, '', get_permalink( $id ) );
             $link = trim( $link, '/' );
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-add-listing' : $link;
 
             add_rewrite_rule( "$link/([^/]+)/([0-9]{1,})/?$", 'index.php?page_id='.$id.'&atbdp_action=$matches[1]&atbdp_listing_id=$matches[2]', 'top' );
         }
@@ -64,7 +78,7 @@ class ATBDP_Rewrite {
         if( $cat ) {
             $link = str_replace( $home, '', get_permalink( $cat ) );
             $link = trim( $link, '/' );
-
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-single-category' : $link;
 
             add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$cat.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$cat.'&atbdp_category=$matches[1]', 'top' );
@@ -75,7 +89,7 @@ class ATBDP_Rewrite {
         if( $loc ) {
             $link = str_replace( $home, '', get_permalink( $loc ) );
             $link = trim( $link, '/' );
-
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-single-location' : $link;
 
             add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]', 'top' );
@@ -86,13 +100,11 @@ class ATBDP_Rewrite {
         if( $tag ) {
             $link = str_replace( $home, '', get_permalink( $tag ) );
             $link = trim( $link, '/' );
-
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-single-tag' : $link;
 
             add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]&paged=$matches[2]', 'top' );
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]', 'top' );
         }
-
-
 
         // Rewrite tags (Making custom query var available throughout the application
         // WordPress by default does not understand the unknown query vars. It needs to be registered with WP for using it.
@@ -103,6 +115,8 @@ class ATBDP_Rewrite {
         add_rewrite_tag( '%atbdp_action%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_order_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%atbdp_listing_id%', '([0-9]{1,})' );
+        add_rewrite_tag( '%author_id%', '([^/]+)' );
+        add_rewrite_tag( '%directory_type%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_category%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_location%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_tag%', '([^/]+)' );

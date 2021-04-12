@@ -1,8 +1,7 @@
 <?php
 
-if ( ! class_exists( 'ATBDP_Multi_Directory_Migration' ) ) :
-
-class ATBDP_Multi_Directory_Migration {
+namespace Directorist;
+class Multi_Directory_Migration {
 
     public $multi_directory_manager = null;
 
@@ -10,11 +9,6 @@ class ATBDP_Multi_Directory_Migration {
         if ( isset( $args['multi_directory_manager'] ) ) {
             $this->multi_directory_manager = $args['multi_directory_manager'];
         }
-    }
-
-    // Run Migration
-    public function run() {
-        $this->migrate();
     }
 
     public function migrate( array $args = [] ) {
@@ -31,6 +25,17 @@ class ATBDP_Multi_Directory_Migration {
         $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
         
         if ( $add_directory['status']['success'] ) {
+            $directory_types = get_terms([
+                'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            ]);
+    
+            if ( ! empty( $directory_types ) ) {
+                foreach ( $directory_types as $directory_type ) {
+                    update_term_meta( $directory_type->term_id, '_default', false );
+                }
+            }
+    
             update_term_meta( $add_directory['term_id'], '_default', true );
             update_option( 'atbdp_migrated', true );
 
@@ -51,7 +56,7 @@ class ATBDP_Multi_Directory_Migration {
             }
 
             // Add directory type to all listings
-            $listings = new WP_Query([
+            $listings = new \WP_Query([
                 'post_type'      => ATBDP_POST_TYPE,
                 'status'         => 'publish',
                 'posts_per_page' => -1,
@@ -1848,7 +1853,4 @@ class ATBDP_Multi_Directory_Migration {
 
         return $options;
     }
-
 }
-
-endif;

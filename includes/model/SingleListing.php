@@ -72,6 +72,8 @@ class Directorist_Single_Listing {
 
 		if( !empty( $data['fields'] ) ) {
 			foreach ( $data['fields'] as $key => $value) {
+				if ( ! is_array( $value ) ) { continue; }
+				
 				$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 				if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
 				$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
@@ -253,7 +255,7 @@ class Directorist_Single_Listing {
 	public function get_address( $data ) {
 		$value = $data['value'];
 		if (!empty($data['address_link_with_map'])) {
-			$value = '<a target="google_map" href="https://www.google.de/maps/search/?' . esc_html($value) . '">' . esc_html($value) . '</a>';
+			$value = '<a target="google_map" href="https://www.google.com/maps/search/' . esc_html($value) . '">' . esc_html($value) . '</a>';
 		}
 		return $value;
 	}

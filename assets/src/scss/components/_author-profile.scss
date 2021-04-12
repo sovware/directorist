@@ -1,0 +1,187 @@
+// Author Profile Style
+.directorist-content-active .directorist-author-profile-content {
+    max-width: 100% !important;
+}
+
+.directorist-author-profile-wrap {
+    &.directorist-card {
+        border-color: #e3e6ef;
+    }
+
+    .directorist-card__body {
+        padding: 35px;
+        flex-wrap: wrap;
+    }
+
+    .directorist-author-avatar {
+        display: flex;
+        align-items: center;
+
+        img {
+            max-width: 95px !important;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .directorist-author-avatar__info {
+            .directorist-author-name {
+                font-size: 26px;
+                font-weight: 500;
+                line-height: 1.2;
+                color: #272b41;
+                letter-spacing: normal;
+                margin: 0 0 8px;
+            }
+
+            p {
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #7a82a6;
+                line-height: 24px;
+                text-align: left;
+            }
+        }
+    }
+
+    .directorist-author-meta-list {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        .directorist-author-meta-list__item {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+            position: relative;
+
+            .directorist-listing-rating-meta {
+                i {
+                    color: $warning;
+                    margin-left: 5px;
+                }
+            }
+
+            .directorist-review-count,
+            .directorist-listing-count {
+                color: $body-color;
+
+                span {
+                    display: block;
+                    color: $primary;
+                }
+            }
+        }
+
+        .directorist-info-meta {
+            margin-left: 18px;
+
+            &+.directorist-info-meta {
+                padding-left: 18px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: 0px;
+                    height: 100%;
+                    width: 1px;
+                    background-color: #e3e6ef;
+                }
+            }
+        }
+    }
+}
+
+// Directorist Author Widget
+.directorist-author-info-widget {
+    .directorist-author-info-list__item {
+        display: flex;
+        align-items: flex-start;
+        font-size: 15px;
+        color: #7a82a6;
+
+        &:not(:last-child) {
+            margin-bottom: 12px;
+        }
+
+        span.la,
+        span.fa {
+            margin-top: 2px;
+            font-size: 17px;
+            margin-right: 20px;
+        }
+
+        .directorist-info {
+            word-break: break-all;
+
+            a {
+                color: #7a82a6;
+            }
+        }
+    }
+}
+
+.directorist-author-info-widget,
+.directorist-single-author-info {
+    .directorist-author-social {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 15px;
+
+        .directorist-author-social-item {
+            display: inline-block;
+
+            a {
+                font-size: 15px;
+                margin: 5px;
+                display: block;
+                line-height: 35px;
+                width: 35px;
+                text-align: center;
+                background-color: $primary;
+                border-radius: 4px;
+                color: #ffffff;
+                overflow: hidden;
+                transition: all ease-in-out 300ms;
+            }
+        }
+    }
+}
+
+// Directorist Author Listings
+.directorist-author-listing-top {
+    margin-bottom: 30px;
+
+    @media only screen and (max-width: 767px) {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .directorist-dropdown__toggle {
+        background-color: #fff;
+        padding: 0 15px;
+    }
+
+    .directorist-dropdown__links {
+        top: 50px;
+    }
+
+    .directorist-author-listing-top__title {
+        flex: 1;
+        font-weight: 500;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    @include e(dropdown) {
+        margin-top: 10px;
+    }
+}
+
+.directorist-author-listing-type {
+    margin-top: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+}

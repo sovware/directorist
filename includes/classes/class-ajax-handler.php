@@ -94,6 +94,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action( 'wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
             add_action( 'wp_ajax_atbdp_user_type_approved', array( $this, 'atbdp_user_type_approved' ) );
             add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
+
+            add_action( 'wp_ajax_directorist_prepare_listings_export_file', [ $this, 'handle_prepare_listings_export_file_request' ] );
+        }
+
+        // handle_prepare_listings_export_file_request
+        public function handle_prepare_listings_export_file_request() {
+            $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
+
+            wp_send_json( $file );
         }
 
         public function atbdp_user_type_deny() {
@@ -228,7 +237,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function ajax_callback_custom_fields() {
 
             $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
-            $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : '';
+            $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : [];
             $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
             // wp_send_json($post_id);
             $template = '';
@@ -238,7 +247,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $submission_form_fields = $submission_form['fields'];
              }
              foreach( $submission_form_fields as $key => $value ){
-                $value['request_from_no_admin'] = true;
+                // $value['request_from_no_admin'] = true;
                 $category = !empty( $value['category'] ) ? $value['category'] : '';
                 if( $category ) {
                     if( in_array( $category, $categories ) ) {

@@ -147,7 +147,7 @@ class Directorist_Listings {
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
-		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_header_title', __( 'Items Found', 'directorist' ) );
+		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['display_preview_image']           = ! empty( get_directorist_option( 'display_preview_image', 1 ) ) ? 'yes' : '';
@@ -835,6 +835,45 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
+		if ( isset( $_GET['custom_field'] ) ) {
+			$cf = array_filter($_GET['custom_field']);
+
+			foreach ( $cf as $key => $values ) {
+				if ( is_array( $values ) ) {
+					if ( count( $values ) > 1 ) {
+						$sub_meta_queries = array();
+						foreach ( $values as $value ) {
+							$sub_meta_queries[] = array(
+								'key' => '_' . $key,
+								'value' => sanitize_text_field( $value ),
+								'compare' => 'LIKE'
+							);
+						}
+						$meta_queries[] = array_merge( array('relation' => 'OR'), $sub_meta_queries );
+					}
+					else {
+
+						$meta_queries[] = array(
+							'key' => '_' . $key,
+							'value' => sanitize_text_field( $values[0] ),
+							'compare' => 'LIKE'
+						);
+					}
+				}
+				else {
+
+					$field_type = get_post_meta( $key, 'type', true );
+					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					$meta_queries[] = array(
+						'key' => '_' . $key,
+						'value' => sanitize_text_field( $values ),
+						'compare' => $operator
+					);
+
+				}
+			}
+		}
+		
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
 			if ($n = count($price)) {
@@ -1544,6 +1583,10 @@ class Directorist_Listings {
 				$title = $this->loop['title'];
 			}
 			return $title;
+		}
+
+		public function loop_get_tagline() {
+			return $this->loop['tagline'];
 		}
 
 		public function item_found_title_for_search($count) {

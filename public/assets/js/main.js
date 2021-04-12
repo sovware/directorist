@@ -1048,11 +1048,11 @@
     // Closing the announcement
     var closing_announcement = false;
     $('.close-announcement').on('click', function ( e ) {
-        e.preventDefault;
+        e.preventDefault();
 
         if ( closing_announcement ) { console.log( 'Please wait...' ); return; }
 
-        var post_id = $( this ).data( 'post-id' );
+        var post_id = $( this ).closest('.atbdp-announcement').data( 'post-id' );
         var form_data = {
             action: 'atbdp_close_announcement',
             post_id: post_id,
@@ -1327,10 +1327,10 @@
 
 
   /* custom dropdown */
-  const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
+  var atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 
   // toggle dropdown
-  let clickCount = 0;
+  var clickCount = 0;
   if (atbdDropdown !== null) {
     atbdDropdown.forEach(function (el) {
         el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
@@ -1361,7 +1361,7 @@
   });
 
   //custom select
-  const atbdSelect = document.querySelectorAll('.atbd-drop-select');
+  var atbdSelect = document.querySelectorAll('.atbd-drop-select');
   if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
         el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
@@ -1378,7 +1378,7 @@
   }
 
   // select data-status
-  const atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
+  var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
         let ds = el.querySelector('.atbd-dropdown-toggle');
@@ -1389,8 +1389,8 @@
     });
   });
 
-  const flatWrapper = document.querySelector(".flatpickr-calendar");
-  const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
+  var flatWrapper = document.querySelector(".flatpickr-calendar");
+  var fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
   if (flatWrapper != null && fAvailableTime != null) {
     flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
   }

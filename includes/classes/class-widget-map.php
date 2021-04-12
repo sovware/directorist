@@ -62,7 +62,7 @@ if ( !class_exists('BD_Map_Widget')) {
                 if ( file_exists( $template_path ) ) {
                     include $template_path;
                 }
-            }
+            }           
         }
 
         /**

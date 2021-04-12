@@ -24,10 +24,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
         // initial_setup
         public function initial_setup() {
-
-            // $test = get_directorist_option( 'announcement' );
-            // var_dump( $test );
-
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
                 $fields['import_settings'] = [
@@ -87,12 +83,21 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'data'                       => [],
                 ];
 
+                $fields['sanitize_builder_data'] = [
+                    'type'                       => 'ajax-action',
+                    'action'                     => 'directorist_sanitize_builder_data_structure',
+                    'label'                      => 'Sanitize Builder Data',
+                    'button-label'               => 'Sanitize Builder Data',
+                    'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
+                    'data'                       => [],
+                ];
+
                 $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-                $recepents = [];
+                $recipient = [];
 
                 if ( ! empty( $users ) ) {
                     foreach ( $users as $user ) {
-                        $recepents[] = [
+                        $recipient[] = [
                             'value' => $user->user_email,
                             'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
                         ];
@@ -115,10 +120,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             ],
                             'value' => 'all_user',
                         ],
-                        'recepents' => [
+                        'recipient' => [
                             'type'    => 'checkbox',
-                            'label'   => 'Recepents',
-                            'options' => $recepents,
+                            'label'   => 'Recipients',
+                            'options' => $recipient,
                             'value'   => '',
                             'show-if' => [
                                 'where' => "self.to",
@@ -155,7 +160,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'save-option-data' => false,
                 ];
 
-                $fields['listing_export_button'] = [
+                $fields['listing_import_button'] = [
                     'type'            => 'button',
                     'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'open-in-new-tab' => true,
@@ -163,13 +168,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'button-label'    => __( 'Run Importer', 'directorist' ),
                 ];
 
-                $fields['listing_import_button'] = [
+                $fields['listing_export_button'] = [
                     'type'             => 'export-data',
                     'label'            => __( 'Export Listings', 'directorist' ),
                     'button-label'     => __( 'Export', 'directorist' ),
-                    'export-file-name' => __( 'listings', 'directorist' ),
-                    'export-as'        => 'csv', // csv | json
-                    'data' => Directorist\Listings_Export::get_listings_data(),
+                    'export-file-name' => __( 'listings-export-data', 'directorist' ),
+                    'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
                 ];
 
                 $c = '<b><span style="color:#c71585;">'; //color start
@@ -1579,6 +1583,17 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'toggle',
                     'label' => __('Display "Sort By" Dropdown', 'directorist'),
                     'value' => true,
+                ],
+                'sort_by_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Sort By" Text', 'directorist'),
+                    'value'         => __('Sort By', 'directorist'),
+                    'show-if' => [
+                        'where' => "display_sort_by",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'listings_sort_by_items' => [
                     'label' => __('"Sort By" Dropdown', 'directorist'),
@@ -4414,7 +4429,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
                                 ],
                             ] ),
@@ -5072,7 +5087,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections'  => apply_filters('atbdp_listings_import_controls', [
                                 'import_methods' => array(
                                     'fields' => apply_filters('atbdp_csv_import_settings_fields', [
-                                        'listing_export_button', 'listing_import_button',
+                                        'listing_import_button', 'listing_export_button',
                                     ]),
                                 ),
                             ]),
@@ -5089,6 +5104,17 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'restore_default' => [
                                     'title' => __( 'Restore Default', 'directorist' ),
                                     'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
+
+                        'other' => [
+                            'label' => __( 'Other', 'directorist' ),
+                            'icon' => '<i class="fa fa-list"></i>',
+                            'sections'  => apply_filters('atbdp_settings_tools_other_controls', [
+                                'builder-options' => [
+                                    'title' => __( 'Builder Options', 'directorist' ),
+                                    'fields' => [ 'sanitize_builder_data' ]
                                 ],
                             ]),
                         ],

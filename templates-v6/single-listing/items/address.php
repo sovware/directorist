@@ -6,7 +6,7 @@
  */
 
 if (!empty($data['address_link_with_map'])) {
-	$value = '<a target="google_map" href="https://www.google.de/maps/search/?' . esc_html($value) . '">' . esc_html($value) . '</a>';
+	$value = '<a target="google_map" href="https://www.google.com/maps/search/' . esc_html($value) . '">' . esc_html($value) . '</a>';
 }
 ?>
 

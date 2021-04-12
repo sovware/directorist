@@ -6,7 +6,11 @@ import { Fragment, useState } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { TypesControl } from '../controls';
 
-import { isMultiDirectoryEnabled } from '../functions'
+import {
+	isMultiDirectoryEnabled,
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import blockAttributes from './attributes.json';
 import './editor.scss';
 import getLogo from './../logo';
@@ -36,9 +40,19 @@ registerBlockType( 'directorist/add-listing', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
+		}
+
 		let { directory_type } = attributes;
 
 		let oldTypes = directory_type ? directory_type.split(',') : [];

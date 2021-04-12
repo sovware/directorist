@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 export function getAttsForTransform( attributes = {} ) {
     let _atts = {};
 
@@ -8,15 +10,15 @@ export function getAttsForTransform( attributes = {} ) {
                 if (typeof named[key] === 'undefined' ) {
                     return value.default;
                 }
-    
+
                 if (value.type === 'string') {
                     return String(named[key]);
                 }
-    
+
                 if (value.type === 'number') {
                     return Number(named[key]);
                 }
-    
+
                 if (value.type === 'boolen') {
                     return Boolean(named[key]);
                 }
@@ -29,7 +31,7 @@ export function getAttsForTransform( attributes = {} ) {
 
 export function sortItemsBySelected( items = [], selected = [], key = 'id' ) {
     const isSelectedItem = item => selected.includes( item[ key ] );
-    
+
     const itemsSlected = ( itemA, itemB ) => {
         const itemASelected = isSelectedItem( itemA );
         const itemBSelected = isSelectedItem( itemB );
@@ -56,4 +58,22 @@ export function sortItemsBySelected( items = [], selected = [], key = 'id' ) {
 
 export function isMultiDirectoryEnabled() {
     return !!directoristBlockConfig.multiDirectoryEnabled;
+}
+
+export function getWithSharedAttributes( attributes = {} ) {
+    attributes.isPreview = {
+        type: 'boolen',
+        default: false
+    }
+
+    return attributes;
+}
+
+export function getPreview(name) {
+    return (
+        <img
+        className="directorist-block-preview"
+        src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
+        alt={ __( 'Preview', 'directorist' ) } />
+    );
 }

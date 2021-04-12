@@ -2,6 +2,9 @@ import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
+import {
+	getWithSharedAttributes
+} from '../functions'
 import './editor.scss';
 import getLogo from './../logo';
 
@@ -30,7 +33,19 @@ registerBlockType( 'directorist/payment-receipt', {
 		]
 	},
 
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes(),
+
 	edit( { attributes } ) {
+		if ( attributes.isPreview ) {
+			return <div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
+		}
+
 		return (
 			<div { ...useBlockProps() }>
 				{ __( 'This widget works only on Payment Receipt page.', 'directorist' ) }

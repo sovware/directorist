@@ -12,7 +12,12 @@ import {
 	TextControl,
 } from '@wordpress/components';
 
-import { getAttsForTransform, isMultiDirectoryEnabled } from '../functions'
+import {
+	getAttsForTransform,
+	isMultiDirectoryEnabled,
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -42,9 +47,19 @@ registerBlockType( 'directorist/search-listing', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
+		}
+
 		let {
 			show_title_subtitle,
 			search_bar_title,

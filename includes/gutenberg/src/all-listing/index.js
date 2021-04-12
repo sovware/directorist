@@ -28,7 +28,9 @@ import {
 
 import {
 	getAttsForTransform,
-	isMultiDirectoryEnabled
+	isMultiDirectoryEnabled,
+	getWithSharedAttributes,
+	getPreview
 } from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
@@ -66,9 +68,19 @@ registerBlockType( 'directorist/all-listing', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
+		}
+
 		let {
 			view,
 			_featured,
@@ -103,7 +115,7 @@ registerBlockType( 'directorist/all-listing', {
 			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
 
 		const [ shouldRender, setShouldRender ] = useState( true );
-		
+
 		return (
 			<Fragment>
 				<BlockControls>
@@ -113,7 +125,7 @@ registerBlockType( 'directorist/all-listing', {
 						<ToolbarButton isPressed={view === 'map'} icon={ mapMarker } label={ __( 'Map View', 'directorist' ) } onClick={ () => setAttributes( { view: 'map' } ) } />
 					</Toolbar>
 				</BlockControls>
-				
+
 				<InspectorControls>
 					<PanelBody title={ __( 'Listing Layout', 'directorist' ) } initialOpen={ true }>
 						{ isMultiDirectoryEnabled() ? <TypesControl
@@ -260,7 +272,7 @@ registerBlockType( 'directorist/all-listing', {
 							setShouldRender( false );
 						}} selected={ oldCategories } />
 
-						<TagsControl shouldRender={ shouldRender } onChange={ tags => {							
+						<TagsControl shouldRender={ shouldRender } onChange={ tags => {
 							setAttributes( { tag: tags.join( ',' ) } );
 							setShouldRender( false );
 						}} selected={ oldTags } />

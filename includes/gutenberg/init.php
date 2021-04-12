@@ -44,6 +44,7 @@ function init_blocks() {
 			'tagTax'                => ATBDP_LOCATION,
 			'categoryTax'           => ATBDP_CATEGORY,
 			'typeTax'               => ATBDP_TYPE,
+			'previewUrl'            => plugin_dir_url( __FILE__ )
 		)
 	);
 
@@ -84,8 +85,16 @@ function init_blocks() {
 	);
 
 	foreach ( $blocks as $block ) {
-		$args['attributes'] = get_attributes_from_metadata( __DIR__ . '/src/' . $block );
-		
+		$args['attributes'] = array_merge(
+			get_attributes_from_metadata( __DIR__ . '/src/' . $block ),
+			array(
+				'isPreview' => array(
+					'type'    => 'boolean',
+					'default' => false,
+				)
+			)
+		);
+
 		register_block_type( 'directorist/' . $block, $args );
 	}
 }
@@ -93,9 +102,9 @@ add_action( 'init', __NAMESPACE__ . '\init_blocks' );
 
 /**
  * Register gutenberg block category.
- * 
+ *
  * @param array $categories
- * 
+ *
  * @return array Modified $categories
  */
 function register_category( $categories ) {
@@ -113,20 +122,21 @@ add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
 
 /**
  * Single listing dynamic render callback.
- * 
+ *
  * @param array $atts
  * @param string $content
- * 
+ *
  * @return string
  */
 function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode       = str_replace( array( '/', '-' ), '_', $instance->name );
 	$block_name      = str_replace( 'directorist/', '', $instance->name );
 	$registered_atts = get_attributes_from_metadata( __DIR__ . '/src/' . $block_name );
-	
+
 	foreach ( $atts as $_key => $_value ) {
 		if ( ! isset( $registered_atts[ $_key  ] ) || $_value === "" ) {
 			unset( $atts[ $_key ] );
+			continue;
 		}
 
 		if ( $registered_atts[ $_key ]['type'] === 'boolean' ) {
@@ -138,7 +148,7 @@ function dynamic_render_callback( $atts, $content, $instance ) {
 	}
 
 	$output = do_shortcode_callback( $shortcode, $atts, $content );
-	
+
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
 		return sprintf(
 			'<div>%s</div>',
@@ -173,10 +183,10 @@ function do_shortcode_callback( $tag, array $atts = array(), $content = null ) {
 
 /**
  * Enable rest api for all directorist taxonomies.
- * 
+ *
  * @param array $args Taxonomy arguments
  * @param string $name Taxonomy slug
- * 
+ *
  * @return array Modified $args
  */
 function tax_show_in_rest( $args, $name ) {
@@ -190,10 +200,10 @@ add_filter( 'register_taxonomy_args', __NAMESPACE__ . '\tax_show_in_rest', 10, 2
 
 /**
  * Enable rest api for directorist post type.
- * 
+ *
  * @param array $args Post type arguments
  * @param string $name Post type slug
- * 
+ *
  * @return array Modified $args
  */
 function post_type_show_in_rest( $args, $name ) {
@@ -207,9 +217,9 @@ add_filter( 'register_post_type_args', __NAMESPACE__ . '\post_type_show_in_rest'
 
 /**
  * Get block attributes map from json file.
- * 
+ *
  * @param string $file_or_folder JSON file path or directory
- * 
+ *
  * @return array Empty array if not found
  */
 function get_attributes_from_metadata( $file_or_folder ) {

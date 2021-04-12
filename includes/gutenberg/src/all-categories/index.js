@@ -19,7 +19,12 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import { getAttsForTransform, isMultiDirectoryEnabled } from '../functions'
+import {
+	getAttsForTransform,
+	isMultiDirectoryEnabled,
+	getWithSharedAttributes,
+	getPreview
+} from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from './../logo';
 import './editor.scss';
@@ -59,9 +64,19 @@ registerBlockType( 'directorist/all-categories', {
 		]
 	},
 
-	attributes: blockAttributes,
+	example: {
+		attributes: {
+			isPreview: true
+		}
+	},
+
+	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		if ( attributes.isPreview ) {
+			return <Fragment>{ getPreview( 'categories-grid' ) }</Fragment>
+		}
+
 		let {
 			view,
 			orderby,
@@ -88,7 +103,7 @@ registerBlockType( 'directorist/all-categories', {
 						<ToolbarButton isPressed={view === 'list'} icon={ list } label={ __( 'List View', 'directorist' ) } onClick={ () => setAttributes( { view: 'list' } ) } />
 					</Toolbar>
 				</BlockControls>
-				
+
 				<InspectorControls>
 					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
 						{ isMultiDirectoryEnabled() ? <TypesControl

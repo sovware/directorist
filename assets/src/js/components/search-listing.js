@@ -157,6 +157,16 @@
         height: '0',
     });
 
+    const adsItemHeight = $('.directorist-search-adv-filter .directorist-advanced-filter__advanced--element');
+    let adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
+    let adsItemsHeight;
+    for(let i = 0; i<= adsItemHeight.length; i++){
+        adsItemsHeight = adsItemHeight.innerHeight() * i;
+    }
+    if(isNaN(adsItemsHeight)){
+        adsItemsHeight = 0;
+    }
+
     var dFilterBtn = $('body').find('.directorist-filter-btn');
     dFilterBtn.each(function(ind, elm){
         var count = 0;
@@ -174,7 +184,7 @@
             } else {
                 $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                     visibility: 'visible',
-                    height: height - 70 + 'px',
+                    height: adsItemsHeight + adsFilterHeight + 70 + 'px',
                     transition: '0.3s ease',
                     opacity: '1',
                 });

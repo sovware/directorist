@@ -1,0 +1,190 @@
+// Directorist Gutenberg Style
+.block-editor-writing-flow{
+    ul{
+        padding: 0;
+        li{
+            list-style: none !important;
+        }
+    }
+    .directorist-row{
+        margin-left: -7.5px;
+        margin-right: -7.5px;
+        >*{
+            padding-right: 7.5px;
+            padding-left: 7.5px;
+        }
+    }
+    .directorist-container-fluid,
+    #directorist.atbd_wrapper{
+        padding: 0;
+    }
+    .directorist-listing-type-selection{
+        list-style: none !important;
+        padding: 0 !important;
+    }
+
+    // Search Form
+    .directorist-search-top{
+        .directorist-search-top__title{
+            margin: 0;
+        }
+    }
+    .directorist-search-field{
+        .directorist-select{
+            border-right: 1px solid;
+            select{
+                width: 100%;
+                border: 0 none;
+                font-size: 14px;
+                color: #999;
+            }
+        }
+    }
+
+    .directorist-search-contents {
+        padding: 60px 0 80px;
+        .directorist-search-form-top{
+            padding: 10px 10px 10px 10px;
+        }
+    }
+
+    // Add Listing Type
+    .directorist-add-listing-types{
+        margin-bottom: 60px;
+        .directorist-add-listing-types__single{
+            span{
+                font-size: 14px;
+                display: inline-block;
+                text-align: center;
+            }
+        }
+    }
+
+    .directorist-type-nav{
+        .directorist-type-nav__list{
+            list-style: none !important;
+            margin: 0 0 15px 0;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            li{
+                list-style: none;
+                .directorist-type-nav__link{
+                    font-size: 15px;
+                    text-decoration: none;
+                    display: block;
+                    padding: 0 10px 10px;
+                    font-weight: 500;
+                    color: #202428;
+                    border-bottom: 2px solid transparent;
+                    outline: 0;
+                }
+                &.current{
+                    .directorist-type-nav__link{
+                        border-bottom-color: #444752;
+                    }
+                }
+            }
+        }
+    }
+
+    // Listing Single
+    .directorist-listing-single {
+        .directorist-listing-single__thumb{
+            margin: 0;
+        }
+    }
+
+    // Author Profile
+    .directorist-author-profile-wrap {
+        .directorist-author-avatar {
+            img{
+                max-width: 80px;
+            }
+        }
+        .directorist-card__body{
+            padding: 25px;
+        }
+    }
+
+    .directorist-author-profile-content{
+        p{
+            margin-top: 0;
+        }
+    }
+
+    .directorist-author-info-list,
+    .directorist-author-social{
+        padding: 0;
+        margin: 0;
+    }
+
+    .directorist-author-info-list{
+        margin-bottom: 20px;
+    }
+
+    .directorist-author-info-widget {
+        .directorist-author-info-list__item{
+            span.la,
+            span.fas,
+            span.fab,
+            span.las,
+            span.lab,
+            i{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .directorist-author-listing-top {
+        .directorist-author-listing-top__dropdown{
+            .directorist-dropdown__toggle{
+                min-width: 165px;
+                font-size: 14px;
+                border-color: #444752 !important;
+            }
+        }
+    }
+
+    // All Categories
+    .atbd_all_categories {
+        .atbd_category_single{
+            &.atbd_category_no_image{
+                figure{
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    // Directorist Dashboard
+    .directorist-tab__nav__items,
+    .directorist-user-dashboard-tab__nav ul{
+        padding: 0;
+        margin: 0;
+    }
+
+    .directorist-tab__nav__items{
+        .atbdp_all_booking_nav-link{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding: 10px;
+            &:focus{
+                outline: 0;
+                box-shadow: 0 0;
+            }
+            i{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .directorist-tab__nav__action{
+        a{
+            color: #fff !important;
+        }
+    }
+}

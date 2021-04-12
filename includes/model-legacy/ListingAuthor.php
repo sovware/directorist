@@ -45,9 +45,25 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
+	// extract_user_id_from_query_var
+	public function extract_user_id( $user_id = '' ) {
+		$user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
+		
+		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
+			$user = get_user_by( 'login', $user_id );
+			
+			if ( $user ) {
+				$user_id = $user->ID;
+			}
+		}
+		
+		$user_id = intval( $user_id );
+
+		return $user_id;
+	}
+
 	function prepare_data() {
-		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
-		$this->id = intval( $id );
+		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
@@ -147,10 +163,11 @@ class Directorist_Listing_Author {
 	}
 
 	public function author_listings_query() {
-		$category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
-		$paged    = atbdp_get_paged_num();
-		$paginate = get_directorist_option( 'paginate_author_listings', 1 );
-		$listing_type = ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : default_directory_type();
+		$category     = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
+		$paged        = atbdp_get_paged_num();
+		$paginate     = get_directorist_option( 'paginate_author_listings', 1 );
+		$listing_type = ! empty( get_query_var( 'directory_type' ) ) ? get_query_var( 'directory_type' ) : default_directory_type();
+		
 		if( ! is_numeric( $listing_type ) ) {
 			$term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
 			$listing_type = $term->term_id;

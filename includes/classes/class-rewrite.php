@@ -28,6 +28,16 @@ class ATBDP_Rewrite {
             add_rewrite_rule( "$link/page/?([0-9]{1,})/?$", 'index.php?page_id='.$id.'&paged=$matches[1]', 'top' );
         }
 
+        // Author profile page URL Rewrite
+        $id = get_directorist_option('author_profile_page');
+        if ( $id > 0 ) {
+            $link = str_replace( $home, '', get_permalink( $id ) );
+            $link = trim( $link, '/' );
+            $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-profile' : $link;
+
+            add_rewrite_rule( "$link/([^/]+)?/?([^/]+)?/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]', 'top' );
+        }
+
 
         // Checkout page URL Rewrite
         $cp_id = get_directorist_option('checkout_page'); // get the checkout page id
@@ -105,6 +115,8 @@ class ATBDP_Rewrite {
         add_rewrite_tag( '%atbdp_action%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_order_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%atbdp_listing_id%', '([0-9]{1,})' );
+        add_rewrite_tag( '%author_id%', '([^/]+)' );
+        add_rewrite_tag( '%directory_type%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_category%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_location%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_tag%', '([^/]+)' );

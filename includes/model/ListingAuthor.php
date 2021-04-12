@@ -48,11 +48,28 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
+	// extract_user_id_from_query_var
+	public function extract_user_id( $user_id = '' ) {
+		$user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
+		
+		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
+			$user = get_user_by( 'login', $user_id );
+			
+			if ( $user ) {
+				$user_id = $user->ID;
+			}
+		}
+		
+		$user_id = intval( $user_id );
+
+		return $user_id;
+	}
+
 	function prepare_data() {
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
-		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
-		$this->id = intval( $id );
+		$this->listing_types        = $this->get_listing_types();
+		$this->current_listing_type = $this->get_current_listing_type();
+
+		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
@@ -87,8 +104,8 @@ class Directorist_Listing_Author {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( ! empty( get_query_var( 'directory_type' ) ) ) {
+			$current = get_query_var( 'directory_type' );
 		}
 		else {
 
@@ -103,8 +120,9 @@ class Directorist_Listing_Author {
 
 		if( ! is_numeric( $current ) ) {
 			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+			$current = ( ! empty( $term ) ) ? $term->term_id : 0;
 		}
+
 		return (int) $current;
 	}
 

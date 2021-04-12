@@ -57,7 +57,7 @@ registerBlockType( 'directorist/search-listing', {
 
 	edit( { attributes, setAttributes } ) {
 		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
+			return <Fragment>{ getPreview( 'search' ) }</Fragment>
 		}
 
 		let {

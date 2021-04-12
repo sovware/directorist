@@ -8,7 +8,8 @@ import { TypesControl } from '../controls';
 
 import {
 	isMultiDirectoryEnabled,
-	getWithSharedAttributes
+	getWithSharedAttributes,
+	getPreview
 } from '../functions'
 import blockAttributes from './attributes.json';
 import './editor.scss';
@@ -49,7 +50,7 @@ registerBlockType( 'directorist/add-listing', {
 
 	edit( { attributes, setAttributes } ) {
 		if ( attributes.isPreview ) {
-			return <div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
+			return <Fragment>{ getPreview( 'add-listing' ) }</Fragment>
 		}
 
 		let { directory_type } = attributes;

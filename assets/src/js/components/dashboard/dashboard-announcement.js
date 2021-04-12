@@ -1,7 +1,6 @@
 ;(function ($) {
-
+    
     // Clear seen Announcements
-
     var cleared_seen_announcements = false;
 
     $( '.directorist-tab__nav__link' ).on( 'click', function() {
@@ -9,14 +8,12 @@
         var target = $( this ).attr( 'target' );
 
         if ( 'dashboard_announcement' === target ) {
-            // console.log( target, 'clear seen announcements' );
 
             $.ajax({
                 type: "post",
                 url: atbdp_public_data.ajaxurl,
                 data: { action: 'atbdp_clear_seen_announcements' },
                 success: function( response ) {
-                    // console.log( response );
 
                     if ( response.success ) {
                         cleared_seen_announcements = true;

@@ -54,26 +54,24 @@ if ( $query->have_posts() ) {
 
 					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
 
-					<div class="directorist-dropdown">
+					<div class="directorist-dropdown directorist-dropdown-js directorist-dropdown-right">
 
-						<a href="#" class="directorist-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+						<a href="#" class="directorist-btn-more directorist-dropdown__toggle directorist-dropdown__toggle-js" type="button"><i class="la la-ellipsis-h"></i></a>
 
-						<div class="directorist-dropdown-menu directorist-dashboard-listing-actions">
-							<div class="directorist-dropdown-menu__list">
-
+						<div class="directorist-dropdown__links directorist-dropdown__links-js directorist-dashboard-listing-actions-js">
+							
 								<?php
 								$dropdown_items = $dashboard->get_action_dropdown_item();
 								
 								if( $dropdown_items ) {
 									foreach( $dropdown_items as $item ) {
 										?>
-										<a class="directorist-dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
+										<a class="directorist-dropdown__links--single <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
 										<?php
 									}
 								}
 								?>
 
-							</div>
 						</div>
 
 					</div>

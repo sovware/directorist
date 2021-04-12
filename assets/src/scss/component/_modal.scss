@@ -97,31 +97,87 @@
     visibility: visible;
     transition: 0.3s ease;
 }
-// .directorist-modal .directorist-modal__dialog .at-modal-close{
-//     width: 32px;
-//     height: 32px;
-//     top: 20px;
-//     right: 20px;
-//     position: absolute;
-//     transform: none;
-//     background: #444752;
-//     color: #fff;
-//     border-radius: 300px;
-//     opacity: 1;
-//     font-weight: 300;
-//     z-index: 2;
-//     font-size: 16px;
-//     padding: 0;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     text-decoration: none;
-// }
 
-// .directorist-modal .directorist-modal__content .close span{
-//     display: block;
-//     line-height: 0;
-// }
+// Modal Alert
+.directorist-modal-alert{
+    .directorist-modal__content{
+        .directorist-modal__body{
+            padding: 40px 25px;
+        
+            &.directorist-modal-alert-error{
+                .directorist-modal-alert-icon{
+                    border-color: $danger;
+                    i{
+                        color: $danger;
+                    }
+                }
+            }
+
+            &.directorist-modal-alert-success{
+                .directorist-modal-alert-icon{
+                    border-color: $success;
+                    i{
+                        color: $success;
+                    }
+                }
+            }
+
+            .directorist-modal-alert-icon{
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: 2px solid $warning;
+                margin: 0 auto 15px;
+                color: $warning;
+                i{
+                    font-size: 24px;
+                }
+            }
+            .directorist-modal-alert-text{
+                text-align: center;
+                h3{
+                    font-size: 30px;
+                    font-weight: 500;
+                    margin: 0 0 15px;
+                    &:empty{
+                        display: none;
+                    }
+                }
+                p{
+                    font-size: 18px;
+                    margin-bottom: 0;
+                    color: $body-color;
+                    &:empty{
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .directorist-modal__footer{
+            display: none;
+            &.directorist-modal-alert-action{
+                display: flex;
+                justify-content: center;
+                .directorist-btn{
+                    &+.directorist-btn{
+                        margin-left: 15px;
+                    }
+                }
+            }
+            .directorist-btn{
+                border: 1px solid;
+                &.directorist-btn-info{
+                    background-color: $info;
+                    border-color: $info;
+                }
+            }
+        }
+    }
+}
 
 /* Responsive CSS */
 

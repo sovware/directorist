@@ -107,3 +107,13 @@
 .directorist-dropdown-select-item {
     display: block;
 }
+
+// Dropdown Placement
+.directorist-dropdown {
+    &.directorist-dropdown-right{
+        .directorist-dropdown__links{
+            left: auto;
+            right: 0;
+        }
+    }
+}

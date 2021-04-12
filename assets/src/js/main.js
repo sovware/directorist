@@ -29,7 +29,7 @@ import './components/formValidation';
 import './components/atbdFavourite';
 import './components/login';
 import './components/tab';
-import './components/atbdDropdown';
+import './components/directorist-dropdown';
 import './components/atbdSelect';
 import './components/loc_cat';
 import './components/legacy-support';
@@ -37,11 +37,10 @@ import './components/legacy-support';
 // Dashboard Js
 import './components/dashboard/dashboardSidebar';
 import './components/dashboard/dashboardTab';
-import './components/dashboard/dashboardListing';
-import './components/dashboard/dashBoardMoreBtn';
+import './components/dashboard/dashboard-listing';
 import './components/dashboard/dashboardResponsive';
-import './components/dashboard/dashboardAnnouncement';
-import './components/dashboard/dashboardBecomeAuthor';
+import './components/dashboard/dashboard-announcement';
+import './components/dashboard/dashboard-become-author';
 
 // Booking
 // import './components/booking';

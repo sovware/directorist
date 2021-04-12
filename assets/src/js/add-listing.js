@@ -1,4 +1,5 @@
 import '../scss/component/add-listing.scss';
+import { directoristModalAlert } from "./components/directorist-modal-alert";
 
 /* eslint-disable */
 const $ = jQuery;
@@ -65,48 +66,36 @@ $('body').on('click', '#addNewSocial', function (e) {
 
 // remove the social field and then reset the ids while maintaining position
 $('body').on('click', '.directorist-form-social-fields__remove', function (e) {
+        e.preventDefault();
         const id = $(this).data('id');
         const elementToRemove = $(`div#socialID-${id}`);
-        /* Act on the event */
-        swal(
-                {
-                        title: localized_data.i18n_text.confirmation_text,
-                        text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#DD6B55',
-                        confirmButtonText: localized_data.i18n_text.confirm_delete,
-                        closeOnConfirm: false,
-                },
-                function (isConfirm) {
-                        if (isConfirm) {
-                                // user has confirmed, no remove the item and reset the ids
-                                elementToRemove.slideUp('fast', function () {
-                                        elementToRemove.remove();
-                                        // reorder the index
-                                        $('.directorist-form-social-fields').each(function (index, element) {
-                                                const e = $(element);
-                                                e.attr('id', `socialID-${index}`);
-                                                e.find('select').attr('name', `social[${index}][id]`);
-                                                e.find('.atbdp_social_input').attr(
-                                                        'name',
-                                                        `social[${index}][url]`
-                                                );
-                                                e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-                                        });
-                                });
-
-                                // show success message
-                                swal({
-                                        title: localized_data.i18n_text.deleted,
-                                        // text: "Item has been deleted.",
-                                        type: 'success',
-                                        timer: 200,
-                                        showConfirmButton: false,
-                                });
-                        }
-                }
-        );
+        
+        directoristModalAlert({
+                title: localized_data.i18n_text.confirmation_text,
+                text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                type: 'warning',
+                action: true,
+                okButtonText: localized_data.i18n_text.confirm_delete,
+                okButtonUniqueId: 'directorist-delete-social-ok'
+        });
+        
+        $('#directorist-delete-social-ok').on('click', function(){
+                // user has confirmed, no remove the item and reset the ids
+                elementToRemove.slideUp('fast', function () {
+                        elementToRemove.remove();
+                        // reorder the index
+                        $('.directorist-form-social-fields').each(function (index, element) {
+                            const e = $(element);
+                            e.attr('id', `socialID-${index}`);
+                            e.find('select').attr('name', `social[${index}][id]`);
+                            e.find('.atbdp_social_input').attr(
+                                'name',
+                                `social[${index}][url]`
+                            );
+                            e.find('.directorist-form-social-fields__remove').attr('data-id', index);
+                        });
+                });
+        });
 });
 
 /* This function handles all ajax request */

@@ -23,13 +23,13 @@
     "type":"boolean",
     "default":true
   },
-  "apply_filters_button":{
-    "type":"boolean",
-    "default":false
-  },
   "reset_filters_text":{
     "type":"string",
     "default":"Reset Filters"
+  },
+  "apply_filters_button":{
+    "type":"boolean",
+    "default":true
   },
   "apply_filters_text":{
     "type":"string",
@@ -42,5 +42,13 @@
   "logged_in_user_only":{
     "type":"boolean",
     "default":false
+  },
+  "directory_type":{
+    "type":"string",
+    "default":""
+  },
+  "default_directory_type":{
+    "type":"string",
+    "default":""
   }
 }

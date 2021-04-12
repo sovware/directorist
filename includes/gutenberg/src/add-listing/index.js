@@ -1,8 +1,13 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
+import { Fragment, useState } from '@wordpress/element';
+import { PanelBody } from '@wordpress/components';
+import { TypesControl } from '../controls';
 
+import { isMultiDirectoryEnabled } from '../functions'
+import blockAttributes from './attributes.json';
 import './editor.scss';
 import getLogo from './../logo';
 
@@ -31,14 +36,36 @@ registerBlockType( 'directorist/add-listing', {
 		]
 	},
 
-	edit( { attributes } ) {
+	attributes: blockAttributes,
+
+	edit( { attributes, setAttributes } ) {
+		let { directory_type } = attributes;
+
+		let oldTypes = directory_type ? directory_type.split(',') : [];
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		return (
-			<div { ...useBlockProps() }>
-				<ServerSideRender
-					block='directorist/add-listing'
-					attributes={ attributes }
-				/>
-			</div>
+			<Fragment>
+				<InspectorControls>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
+						{ isMultiDirectoryEnabled() ? <TypesControl
+							shouldRender={ shouldRender }
+							selected={ oldTypes }
+							showDefault={ false }
+							onChange={ types => {
+								setAttributes( { directory_type: types.join( ',' ) } );
+								setShouldRender( false );
+							} }  /> : '' }
+					</PanelBody>
+				</InspectorControls>
+
+				<div { ...useBlockProps() }>
+					<ServerSideRender
+						block='directorist/add-listing'
+						attributes={ attributes }
+					/>
+				</div>
+			</Fragment>
 		);
 	}
 } );

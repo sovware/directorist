@@ -3,7 +3,13 @@ import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/bloc
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
-import { LocationControl, CategoryControl, TagsControl, ListingControl } from '../controls';
+import {
+	LocationControl,
+	CategoryControl,
+	TagsControl,
+	ListingControl,
+	TypesControl
+} from '../controls';
 
 import {
 	list,
@@ -20,7 +26,10 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 
-import { getAttsForTransform } from '../functions'
+import {
+	getAttsForTransform,
+	isMultiDirectoryEnabled
+} from '../functions'
 import blockAttributes from './attributes.json';
 import getLogo from '../logo';
 import './editor.scss';
@@ -90,6 +99,7 @@ registerBlockType( 'directorist/all-listing', {
 		let oldLocations = location ? location.split(',') : [],
 			oldCategories = category ? category.split(',') : [],
 			oldTags = tag ? tag.split(',') : [],
+			oldTypes = directory_type ? directory_type.split(',') : [],
 			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
 
 		const [ shouldRender, setShouldRender ] = useState( true );
@@ -106,6 +116,17 @@ registerBlockType( 'directorist/all-listing', {
 				
 				<InspectorControls>
 					<PanelBody title={ __( 'Listing Layout', 'directorist' ) } initialOpen={ true }>
+						{ isMultiDirectoryEnabled() ? <TypesControl
+							shouldRender={ shouldRender }
+							selected={ oldTypes }
+							showDefault={ true }
+							defaultType={ default_directory_type }
+							onDefaultChange={ value => setAttributes( { default_directory_type: value } ) }
+							onChange={ types => {
+								setAttributes( { directory_type: types.join( ',' ) } );
+								setShouldRender( false );
+							} }  /> : '' }
+
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
 							labelPosition='side'

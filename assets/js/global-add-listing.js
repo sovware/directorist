@@ -110,7 +110,7 @@ var $ = jQuery;
 var localized_data = atbdp_public_data.add_listing_data;
 /* Show and hide manual coordinate input field */
 
-$(window).load(function () {
+$(window).on('load', function () {
   if ($('input#manual_coordinate').length) {
     $('input#manual_coordinate').each(function (index, element) {
       if (!$(element).is(':checked')) {
@@ -783,7 +783,7 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
   $("#directorist-quick-login").removeClass("show");
 }); // Custom Field Checkbox Button More
 
-$(window).load(function () {
+$(window).on('load', function () {
   if ($('.directorist-custom-field-btn-more').length) {
     $('.directorist-custom-field-btn-more').each(function (index, element) {
       var fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');

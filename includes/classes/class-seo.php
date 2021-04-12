@@ -818,10 +818,12 @@ if (!class_exists('ATBDP_SEO')) :
             $url        = $args['url'];
             $seo_meta   = $args['seo_meta'];
 
-            try {
-                $yoast_meta = YoastSEO()->meta->for_url( $url );
-            } catch ( Exception $e ) {
-                $yoast_meta = '';
+            if ( function_exists( 'YoastSEO' ) ) {
+                try {
+                    $yoast_meta = YoastSEO()->meta->for_url( $url );
+                } catch ( Exception $e ) {
+                    $yoast_meta = '';
+                }
             }
 
             if ( empty( $yoast_meta ) ) {

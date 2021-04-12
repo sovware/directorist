@@ -25221,13 +25221,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       var active_widget_fields = Array.isArray(this.value.fields) ? {} : this.value.fields;
-      active_widget_fields = this.formatActiveWidgetFields(active_widget_fields);
+      active_widget_fields = this.sanitizeActiveWidgetFields(active_widget_fields);
       this.active_widget_fields = active_widget_fields;
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
-    // formatActiveWidgetFields
-    formatActiveWidgetFields: function formatActiveWidgetFields(active_widget_fields) {
+    // sanitizeActiveWidgetFields
+    sanitizeActiveWidgetFields: function sanitizeActiveWidgetFields(active_widget_fields) {
       if (!active_widget_fields) {
         return {};
       }
@@ -25240,27 +25240,86 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       ;
 
-      for (var field_key in active_widget_fields) {
-        active_widget_fields.field_key = field_key;
+      if (typeof active_widget_fields.field_key !== 'undefined') {
+        delete active_widget_fields.field_key;
+      }
+
+      for (var widget_key in active_widget_fields) {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget_fields[widget_key]) !== 'object') {
+          delete active_widget_fields[widget_key];
+        }
+
+        active_widget_fields[widget_key].widget_key = widget_key;
       }
 
       return active_widget_fields;
     },
     // setupActiveWidgetGroups
     setupActiveWidgetGroups: function setupActiveWidgetGroups() {
-      if (!this.value) {
-        return;
-      }
-
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== "object") {
-        return;
-      }
+      if (!this.value) return;
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== "object") return;
 
       if (Array.isArray(this.value.groups)) {
-        this.active_widget_groups = this.value.groups;
+        this.active_widget_groups = this.sanitizeActiveWidgetGroups(this.value.groups);
       }
 
       this.$emit("active-group-updated");
+    },
+    // sanitizeActiveWidgetGroups
+    sanitizeActiveWidgetGroups: function sanitizeActiveWidgetGroups(_active_widget_groups) {
+      var active_widget_groups = _active_widget_groups;
+
+      if (!Array.isArray(active_widget_groups)) {
+        active_widget_groups = [];
+      }
+
+      var group_index = 0;
+
+      var _iterator = _createForOfIteratorHelper(active_widget_groups),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var widget_group = _step.value;
+
+          if (typeof widget_group.label === 'undefined') {
+            active_widget_groups[group_index].label = '';
+          }
+
+          if (typeof widget_group.fields === 'undefined' || !Array.isArray(widget_group.fields)) {
+            active_widget_groups[group_index].fields = [];
+          }
+
+          var field_index = 0;
+
+          var _iterator2 = _createForOfIteratorHelper(widget_group.fields),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var field = _step2.value;
+
+              if (typeof this.active_widget_fields[field] === 'undefined') {
+                delete active_widget_groups[group_index].fields[field_index];
+              }
+
+              field_index++;
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+
+          group_index++;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return active_widget_groups;
     },
     // updateWidgetList
     updateWidgetList: function updateWidgetList(widget_list) {
@@ -25546,18 +25605,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var group_fields = this.active_widget_groups[widget_group_key].fields;
 
       if (group_fields.length) {
-        var _iterator = _createForOfIteratorHelper(group_fields),
-            _step;
+        var _iterator3 = _createForOfIteratorHelper(group_fields),
+            _step3;
 
         try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var widget_key = _step.value;
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var widget_key = _step3.value;
             vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, widget_key);
           }
         } catch (err) {
-          _iterator.e(err);
+          _iterator3.e(err);
         } finally {
-          _iterator.f();
+          _iterator3.f();
         }
       }
 

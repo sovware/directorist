@@ -149,14 +149,22 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 	<?php else: ?>
 
-		<div class="directorist-alert directorist-alert-info">
+		<div class="directorist-card directorist-card-review-alert">
 
-			<div class="directorist-alert__content">
+			<div class="directorist-card__body">
 
-				<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
-				
-				<p><?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?></p>
-			
+				<div class="directorist-alert directorist-alert-info">
+
+					<div class="directorist-alert__content">
+
+						<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
+						
+						<p><?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?></p>
+
+					</div>
+
+				</div>
+
 			</div>
 
 		</div>

@@ -16,7 +16,6 @@ import '../../scss/component/_modal.scss';
 
     });
 
-    // Template Restructured
     // Modal
     let directoristModal = document.querySelector('.directorist-modal-js');
     $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {

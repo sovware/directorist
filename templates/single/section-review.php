@@ -141,6 +141,8 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 					</form>
 				</div>
 
+				<div class="directorist-modal directorist-modal-js directorist-fade directorist-modal-alert"></div>
+
 			</div>
 
 		<?php endif; ?>

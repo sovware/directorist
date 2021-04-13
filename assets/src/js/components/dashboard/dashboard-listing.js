@@ -48,7 +48,7 @@ import { directoristModalAlert } from "../directorist-modal-alert";
 	});
 
 	// Dashboard Tasks eg. delete
-	$('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function(event) {
+	$('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions-js a[data-task]', function(event) {
 		var task       = $(this).data('task');
 		var postid     = $(this).closest('tr').data('id');
 		var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');

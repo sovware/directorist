@@ -5,7 +5,6 @@
     $(".directorist-user-dashboard__toggle__link").on("click", function(e){
         e.preventDefault();
         $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
-        // $(".directorist-shade").toggleClass("directorist-active");
     });
     
     if($(window).innerWidth() < 767){

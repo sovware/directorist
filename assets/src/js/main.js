@@ -19,26 +19,26 @@ import './components/single-listing-page/slider';
 import './components/general';
 
 // Components
-import './components/atbdSorting';
-import './components/atbdAlert';
+import './components/directorist-sorting';
+import './components/directorist-alert';
 import './components/pureScriptTab';
-import './components/profileForm';
+import './components/profile-form';
 import './components/modal';
-import './components/gridResponsive';
-import './components/formValidation';
-import './components/atbdFavourite';
+import './components/grid-responsive';
+import './components/form-validation';
+import './components/listing-favourite';
 import './components/login';
 import './components/tab';
 import './components/directorist-dropdown';
 import './components/atbdSelect';
-import './components/loc_cat';
+import './components/multi-lavel-location-category';
 import './components/legacy-support';
 
 // Dashboard Js
-import './components/dashboard/dashboardSidebar';
-import './components/dashboard/dashboardTab';
+import './components/dashboard/dashboard-sidebar';
+import './components/dashboard/dashboard-tab';
 import './components/dashboard/dashboard-listing';
-import './components/dashboard/dashboardResponsive';
+import './components/dashboard/dashboard-responsive';
 import './components/dashboard/dashboard-announcement';
 import './components/dashboard/dashboard-become-author';
 

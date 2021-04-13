@@ -197,23 +197,6 @@ if ($('.change_listing_prv_img').attr('src') === '') {
     $('.remove_prev_img').show();
 }
 
-// price range
-/* $('#price_range').hide();
-const is_checked = $('#atbd_listing_pricing').val();
-if (is_checked === 'range') {
-    $('#price').hide();
-    $('#price_range').show();
-}
-$('.atbd_pricing_options label').on('click', function () {
-    const $this = $(this);
-    $this.children('input[type=checkbox]').prop('checked') == true
-        ? $(`#${$this.data('option')}`).show()
-        : $(`#${$this.data('option')}`).hide();
-    const $sibling = $this.siblings('label');
-    $sibling.children('input[type=checkbox]').prop('checked', false);
-    $(`#${$sibling.data('option')}`).hide();
-}); */
-
 const avg_review = $('#average_review_for_popular').hide();
 const logged_count = $('#views_for_popular').hide();
 if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
@@ -239,25 +222,6 @@ $('#listing_popular_by select[name="listing_popular_by"]').on('change', function
     }
 });
 
-/* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-$( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-
-if (frame) {
- frame.open();
- return;
-}
-
-// Create a new media frame
-frame = wp.media({
- title: atbdp_admin_data.i18n_text.upload_cat_image,
- button: {
-     text: atbdp_admin_data.i18n_text.choose_image
- },
- library: {type: 'image'}, // only allow image upload only
- multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-});
-frame.open();
-}); */
 /**
  * Display the media uploader for selecting an image.
  *
@@ -499,57 +463,6 @@ $('body').on('change', 'select[name="directory_type"]', function () {
         .closest('#poststuff')
         .find('#publishing-action')
         .addClass('directorist_disable');
-    
-    if( ! localized_data.is_admin ){
-        if($('#directorist-select-st-s-js').length){
-            pureScriptSelect('#directorist-select-st-s-js');
-        }
-        if($('#directorist-select-st-e-js').length){
-            pureScriptSelect('#directorist-select-st-e-js');
-        }
-    
-        if($('#directorist-select-sn-s-js').length){
-            pureScriptSelect('#directorist-select-sn-s-js');
-        }
-        if($('#directorist-select-mn-e-js').length){
-            pureScriptSelect('#directorist-select-sn-e-js');
-        }
-    
-        if($('#directorist-select-mn-s-js').length){
-            pureScriptSelect('#directorist-select-mn-s-js');
-        }
-        if($('#directorist-select-mn-e-js').length){
-            pureScriptSelect('#directorist-select-mn-e-js');
-        }
-    
-        if($('#directorist-select-tu-s-js').length){
-            pureScriptSelect('#directorist-select-tu-s-js');
-        }
-        if($('#directorist-select-tu-e-js').length){
-            pureScriptSelect('#directorist-select-tu-e-js');
-        }
-    
-        if($('#directorist-select-wd-s-js').length){
-            pureScriptSelect('#directorist-select-wd-s-js');
-        }
-        if($('#directorist-select-wd-e-js').length){
-            pureScriptSelect('#directorist-select-wd-e-js');
-        }
-    
-        if($('#directorist-select-th-s-js').length){
-            pureScriptSelect('#directorist-select-th-s-js');
-        }
-        if($('#directorist-select-th-e-js').length){
-            pureScriptSelect('#directorist-select-th-e-js');
-        }
-    
-        if($('#directorist-select-fr-s-js').length){
-            pureScriptSelect('#directorist-select-fr-s-js');
-        }
-        if($('#directorist-select-fr-e-js').length){
-            pureScriptSelect('#directorist-select-fr-e-js');
-        }
-    }
     
 });
 

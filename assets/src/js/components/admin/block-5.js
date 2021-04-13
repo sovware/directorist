@@ -24,25 +24,6 @@ $('body').on('click', '.directorist_settings-panel-shade', function () {
     $(this).removeClass('active');
 });
 
-// $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(){
-//   $('.directorist_dropdown-option').toggle();
-// });
-
-// // Select Option after click
-// $('body').on('click','.directorist_dropdown .directorist_dropdown-option ul li a', function(){
-//   console.log("works");
-//   let optionText = $(this).html();
-//   $('.directorist_dropdown .directorist_dropdown-toggle .directorist_dropdown-toggle__text').html(optionText);
-//   $('.directorist_dropdown-option').hide();
-// });
-
-// // Hide Clicked Anywhere
-// $(document).bind('click', function(e) {
-//   let clickedDom = $(e.target);
-//   if(!clickedDom.parents().hasClass('directorist_dropdown'))
-//   $('.directorist_dropdown-option').hide();
-// });
-
 // Directorist More Dropdown
 $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
     e.preventDefault();

@@ -43,6 +43,10 @@
         border-radius: 5px;
         z-index: 99999;
 
+        &.directorist-dashboard-listing-actions-js{
+            z-index: 9998;
+        }
+
         a {
             display: block;
             font-size: 14px;

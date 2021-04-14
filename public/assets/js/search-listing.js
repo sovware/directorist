@@ -1,46 +1,59 @@
 (function ($) {
-    $('#at_biz_dir-location').select2({
-        placeholder: atbdp_search_listing.i18n_text.location_selection,
-        allowClear: true,
-        templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if (!data.element) {
-                return data.text;
+    
+    init_select2_fields();
+
+    document.body.addEventListener( 'directorist-reload-select2-fields', init_select2_fields );
+
+    function init_select2_fields() {
+        let select2_args = {
+            allowClear: true,
+            templateResult: function (data) {
+                // We only really care if there is an element to pull classes from
+                if ( ! data.element ) {
+                    return data.text;
+                }
+                var $element = $(data.element);
+                var $wrapper = $('<span></span>');
+    
+                $wrapper.addClass($element[0].className);
+                $wrapper.text(data.text);
+    
+                return $wrapper;
             }
+        };
+    
+        let select2_fields = [
+            // Location
+            { elm: $('#at_biz_dir-location'), args: select2_args },
+            { elm: $('#loc-type') },
+            { elm: $('.bdas-location-search'), args: select2_args },
+    
+            // Category
+            { elm: $('#at_biz_dir-category'), args: select2_args },
+            { elm: $('#cat-type'), args: select2_args },
+            { elm: $('.bdas-category-search'), args: select2_args },
+        ];
 
-            var $element = $(data.element);
-
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
-
-            $wrapper.text(data.text);
-
-            return $wrapper;
+        for ( var field of select2_fields ) {
+            if ( ! field.elm ) { continue; }
+            if ( ! field.args ) { continue; }
+    
+            convert_to_select2( field );
         }
-    });
+    }
 
-    // Category
-    $('#at_biz_dir-category').select2({
-        placeholder: atbdp_search_listing.i18n_text.category_selection,
-        allowClear: true,
-        templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if (!data.element) {
-                return data.text;
-            }
+    function convert_to_select2( field ) {
+        var options = field.elm.find( 'option' );
+        var placeholder = ( options.length ) ? options[0].innerHTML: '';
 
-            var $element = $(data.element);
-
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
-
-            $wrapper.text(data.text);
-
-            return $wrapper;
+        if ( placeholder.length ) {
+            field.args.placeholder = placeholder;
         }
-    });
 
-    //ad search js
+        field.elm.select2( field.args );
+    }
+
+    // ad search js
     var showMore = atbdp_search_listing.i18n_text.show_more;
     var showLess = atbdp_search_listing.i18n_text.show_less;
     var checkbox = $(".bads-tags .custom-control");

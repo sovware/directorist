@@ -22,6 +22,8 @@
             data: form_data,
             success(response) {
                 if (response) {
+                    let atbdp_search_listing = (response['atbdp_search_listing']) ? response['atbdp_search_listing'] : atbdp_search_listing;
+
                     $('.directorist-search-form-box')
                         .empty()
                         .html(response['search_form']);
@@ -29,53 +31,14 @@
                         .empty()
                         .html(response['popular_categories']);
 
+                    let events = [
+                        new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                        new CustomEvent('directorist-reload-select2-fields'),
+                        new CustomEvent('directorist-reload-map-api-field'),
+                    ];
 
-                    const event_search_form_nav_tab_reloaded = new CustomEvent('directorist-search-form-nav-tab-reloaded');
-                    document.body.dispatchEvent(event_search_form_nav_tab_reloaded);
-
-                    const reload_map_api_field = new CustomEvent('directorist-reload-map-api-field');
-                    window.dispatchEvent(reload_map_api_field);
-
-                    // Category
-                    $('.directorist-category-select').select2({
-                        placeholder: atbdp_search_listing.i18n_text.category_selection,
-                        allowClear: true,
-                        templateResult: function (data) {
-                            // We only really care if there is an element to pull classes from
-                            if (!data.element) {
-                                return data.text;
-                            }
-
-                            var $element = $(data.element);
-
-                            var $wrapper = $('<span></span>');
-                            $wrapper.addClass($element[0].className);
-
-                            $wrapper.text(data.text);
-
-                            return $wrapper;
-                        },
-                    });
-
-                    //location
-                    $('.directorist-location-select').select2({
-                        placeholder: atbdp_search_listing.i18n_text.location_selection,
-                        allowClear: true,
-                        templateResult: function (data) {
-                            // We only really care if there is an element to pull classes from
-                            if (!data.element) {
-                                return data.text;
-                            }
-
-                            var $element = $(data.element);
-
-                            var $wrapper = $('<span></span>');
-                            $wrapper.addClass($element[0].className);
-
-                            $wrapper.text(data.text);
-
-                            return $wrapper;
-                        }
+                    events.forEach( event => {
+                        document.body.dispatchEvent( event );
                     });
                 }
 
@@ -165,30 +128,44 @@
 
     $('.address_result').hide();
 
-    window.addEventListener( 'load', init_map_api_field );
-    window.addEventListener( 'directorist-reload-map-api-field', init_map_api_field );
+
+    window.addEventListener('load', init_map_api_field);
+    document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
     function init_map_api_field() {
+
         if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
 
             function initialize() {
-                let opt = { 
-                    types: ['geocode'], 
-                    componentRestrictions: { 
-                        country: atbdp_search_listing.restricted_countries 
+                let opt = {
+                    types: ['geocode'],
+                    componentRestrictions: {
+                        country: atbdp_search_listing.restricted_countries
                     },
                 };
                 const options = atbdp_search_listing.countryRestriction ? opt : '';
 
-                const input = document.getElementById('address');
-                const autocomplete = new google.maps.places.Autocomplete(input, options);
+                let input_fields = [
+                    { input_id: 'address', lat_id: 'cityLat', lng_id: 'cityLng', options },
+                    { input_id: 'address_widget', lat_id: 'cityLat', lng_id: 'cityLng', options },
+                ];
 
-                console.log( { input, autocomplete } );
+                var setupAutocomplete = function( field ) {
+                    const input = document.getElementById( field.input_id );
+                    const autocomplete = new google.maps.places.Autocomplete( input, field.options );
 
-                google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                    const place = autocomplete.getPlace();
-                    document.getElementById('cityLat').value = place.geometry.location.lat();
-                    document.getElementById('cityLng').value = place.geometry.location.lng();
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        const place = autocomplete.getPlace();
+
+                        console.log( { place } );
+
+                        document.getElementById( field.lat_id ).value = place.geometry.location.lat();
+                        document.getElementById( field.lng_id ).value = place.geometry.location.lng();
+                    });
+                };
+
+                input_fields.forEach( field => {
+                    setupAutocomplete( field );
                 });
             }
 
@@ -196,38 +173,61 @@
 
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
 
-            $('#address, #q_addressss,.atbdp-search-address').on('keyup', function (event) {
-                event.preventDefault();
-                const search = $(this).val();
-                $(this)
-                    .next('.address_result')
-                    .css({ display: 'block' });
+            var getResultContainer = function ( context, field ) {
+                return $( context ).next( field.search_result_elm );
+            };
 
-                if (search === '') {
-                    $(this)
-                        .next('.address_result')
-                        .css({ display: 'none' });
-                }
+            let input_fields = [
+                { input_elm: '#address', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '#q_addressss', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '.atbdp-search-address', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer },
+            ];
 
-                let res = '';
-                $.ajax({
-                    url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                    type: 'POST',
-                    data: {},
-                    success(data) {
-                        for (let i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon
-                                }>${data[i].display_name}</a></li>`;
-                        }
-                        $(event.target)
-                            .next('.address_result')
-                            .html(`<ul>${res}</ul>`);
-                    },
-                    error(error) {
-                        console.log({ error });
+            input_fields.forEach( field => {
+
+                if ( ! $( field.input_elm ).length ) { return; }
+
+                $( field.input_elm ).on( 'keyup', function( event ) {
+                    event.preventDefault();
+                    const search = $(this).val();
+
+                    let result_container = $( this ).next( field.search_results );
+                    result_container.css({ display: 'block' });
+
+                    if ( search === '' ) {
+                        result_container.css({ display: 'none' });
                     }
+
+                    console.log( { result_container } );
+
+                    let res = '';
+                    $.ajax({
+                        url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                        type: 'POST',
+                        data: {},
+                        success(data) {
+
+                            for (let i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`;
+                            }
+
+                            result_container.html(`<ul>${res}</ul>`);
+
+                            if ( res.length ) {
+                                result_container.show();
+                            } else {
+                                result_container.hide();
+                            }
+                        },
+                        error(error) {
+                            console.log({ error });
+                        }
+                    });
                 });
             });
+
+            
             // hide address result when click outside the input field
             $(document).on('click', function (e) {
                 if (!$(e.target).closest('#address, #q_addressss,.atbdp-search-address').length) {
@@ -253,6 +253,8 @@
             });
         }
 
+
+
         if ($('#address, #q_addressss,.atbdp-search-address').val() === '') {
             $(this)
                 .parent()
@@ -260,4 +262,5 @@
                 .css({ display: 'none' });
         }
     }
+
 })(jQuery);

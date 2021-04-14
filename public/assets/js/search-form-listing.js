@@ -13,6 +13,7 @@
         form_data.append('action', 'atbdp_listing_types_form');
         form_data.append('listing_type', listing_type);
         $('.atbdp-whole-search-form').addClass('atbdp-form-fade');
+
         $.ajax({
             method: 'POST',
             processData: false,
@@ -21,20 +22,27 @@
             data: form_data,
             success(response) {
                 if (response) {
+                    var atbdp_search_listing = (response['atbdp_search_listing']) ? response['atbdp_search_listing'] : atbdp_search_listing;
+
                     $('.atbdp-whole-search-form')
                         .empty()
                         .html(response['search_form']);
                     $('.atbdp_listing_top_category')
                         .empty()
                         .html(response['popular_categories']);
+
+                    
+                    let events = [
+                        new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                        new CustomEvent('directorist-reload-select2-fields'),
+                        new CustomEvent('directorist-reload-map-api-field'),
+                    ];
+
+                    events.forEach( event => {
+                        window.dispatchEvent( event );
+                        document.body.dispatchEvent( event );
+                    });
                 }
-
-                var event_search_form_nav_tab_reloaded = new CustomEvent('directorist-search-form-nav-tab-reloaded');
-                document.body.dispatchEvent(event_search_form_nav_tab_reloaded);
-
-                var reload_map_api_field = new CustomEvent('directorist-reload-map-api-field');
-                window.dispatchEvent(reload_map_api_field);
-
                 $('.atbdp-whole-search-form').removeClass('atbdp-form-fade');
             },
             error(error) {
@@ -119,10 +127,12 @@
 
     $('.address_result').hide();
 
+
     window.addEventListener('load', init_map_api_field);
-    window.addEventListener('directorist-reload-map-api-field', init_map_api_field);
+    document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
     function init_map_api_field() {
+        
         if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
 
             function initialize() {
@@ -160,22 +170,26 @@
 
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
 
+            var getResultContainer = function ( context, field ) {
+                return $( context ).parent().next( field.search_result_elm );
+            };
+
             let input_fields = [
-                { input: $('#address'), search_results: '.address_result' },
-                { input: $('#q_addressss'), search_results: '.address_result' },
-                { input: $('.atbdp-search-address'), search_results: '.address_result' },
-                { input: $('#address_widget'), search_results: '#address_widget_result' },
+                { input_elm: '#address', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '#q_addressss', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '.atbdp-search-address', search_result_elm: '.address_result', getResultContainer },
+                { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer },
             ];
 
             input_fields.forEach( field => {
 
-                if ( ! field.input.length ) { return; }
+                if ( ! $( field.input_elm ).length ) { return; }
 
-                field.input.on( 'keyup', function( event ) {
+                $( field.input_elm ).on( 'keyup', function( event ) {
                     event.preventDefault();
                     const search = $(this).val();
 
-                    let result_container = $( event.target ).parent().next( field.search_results );
+                    let result_container = field.getResultContainer( this, field );
                     result_container.css({ display: 'block' });
 
                     if ( search === '' ) {
@@ -206,11 +220,6 @@
                     });
                 });
             });
-
-            $('#address, #q_addressss, #address_widget, .atbdp-search-address').on('keyup', function (event) {
-                
-            });
-
 
             // hide address result when click outside the input field
             $(document).on('click', function (e) {

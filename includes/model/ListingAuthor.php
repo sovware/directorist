@@ -364,7 +364,7 @@ class Directorist_Listing_Author {
 			'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
 			'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
 			'linkedin'       => get_user_meta($author_id, 'atbdp_linkedin', true),
-			'youtube'        => get_user_meta($author_id, 'youtube', true),
+			'youtube'        => get_user_meta($author_id, 'atbdp_youtube', true),
 		);
 
 		Helper::get_template( 'author/about', $args );

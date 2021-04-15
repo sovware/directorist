@@ -2067,7 +2067,7 @@ class Multi_Directory_Manager
                                 'options' => [
                                     [
                                         'label' => __('All Types', 'directorist'),
-                                        'value' => 'all',
+                                        'value' => 'all_types',
                                     ],
                                     // Image Format
                                     [

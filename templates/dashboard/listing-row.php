@@ -56,7 +56,7 @@ if ( $query->have_posts() ) {
 
 					<div class="directorist-dropdown">
 
-						<a href="#" class="directorist-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+						<a href="#" class="directorist-btn-more" type="button"><i class="fa fa-ellipsis-h"></i>More</a>
 
 						<div class="directorist-dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist-dropdown-menu__list">

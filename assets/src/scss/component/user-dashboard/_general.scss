@@ -1,6 +1,7 @@
 .directorist-user-dashboard {
     width: 100% !important;
     max-width: 100% !important;
+    overflow: hidden;
 
     @include e(contents) {
         display: flex;
@@ -155,6 +156,7 @@
             min-width: 260px;
             height: 36px;
             background-color: #F6F7F9;
+            margin-bottom: 0;
 
             &:focus {
                 outline: none;
@@ -201,7 +203,7 @@
                     }
                 }
 
-                &.directorist-table-plan {
+                &.directorist-table-listing-type {
                     min-width: 180px;
 
                     @media (max-width: 1399px) {
@@ -389,36 +391,18 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                height: 40px;
-                width: 40px;
-                border-radius: 50%;
                 background-color: #fff;
-
-                &.active {
-                    background-color: #F2F2F2;
-
-                    i,
-                    span,
-                    svg {
-                        color: #0A0B1E;
-                    }
-                }
-
-                &:hover {
-                    background-color: #F2F2F2;
-
-                    i,
-                    span,
-                    svg {
-                        color: #0A0B1E;
-                    }
-                }
+                font-weight: 500;
+                color: #51526e;
 
                 i,
                 span,
                 svg {
-                    font-size: 16px;
-                    color: #8F8E9F;
+                    position: relative;
+                    top: 1.5px;
+                    margin-right: 5px;
+                    font-size: 14px;
+                    color: #51526e;
                 }
             }
 
@@ -589,6 +573,48 @@
             i.la,
             svg {
                 color: #0A0B1E;
+            }
+        }
+    }
+}
+
+.directorist-user-dashboard__contents{
+    &.directorist-tab-content-grid-fix{
+        .directorist-user-dashboard-tabcontent {
+            .directorist-listing-table {
+                tr{
+                    th{
+                        &.directorist-table-listing{
+                            min-width: 220px;
+                        }
+                        &.directorist-table-listing-type{
+                            min-width: 95px;
+                        }
+                        &.directorist-table-ex-date{
+                            min-width: 152px;
+                        }
+                        &.directorist-table-status{
+                            min-width: 115px;
+                        }
+                        &.directorist_table-plan{
+                            min-width: 120px;
+                        }
+                        &.directorist-table-actions{
+                            min-width: 155px;
+                        }
+                    }
+                    td,
+                    th{
+                        padding: 12px;
+                    }
+                }
+                .directorist-actions {
+                    a{
+                        &.directorist-link-btn {
+                            margin-right: 15px;
+                        }
+                    }
+                }
             }
         }
     }

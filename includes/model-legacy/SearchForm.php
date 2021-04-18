@@ -263,19 +263,44 @@ class Directorist_Listing_Search_Form {
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
-		foreach ( $search_form_fields['fields'] as $key => $value) {
-			if ( ! is_array( $value) ) { continue; }
-			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+		if ( !empty( $search_form_fields['fields'] ) ) {
+			foreach ( $search_form_fields['fields'] as $key => $value ) {
+
+				if ( ! is_array( $value) ) {
+					continue;
+				}
+
+				$search_form_fields['fields'][$key]['field_key'] = '';
+				$search_form_fields['fields'][$key]['options'] = [];
+
+
+				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
+
+				unset( $search_form_fields['fields'][$key]['widget_key'] );
+				unset( $search_form_fields['fields'][$key]['original_widget_key'] );
+
+				if ( $form_key ) {
+					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
+						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+					}
+
+					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
+						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					}
+				}
+
+			}
 		}
 
-		foreach ( $search_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+		if ( !empty( $search_form_fields['groups'] ) ) {
+			foreach ( $search_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
 			}
-			$form_data[] = $section;
-
 		}
 
 		return $form_data;
@@ -324,31 +349,17 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function field_template( $field_data) {
-		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
-		if (isset($_GET['custom_field'])) {
-			foreach( $_GET['custom_field'] as $cf_key => $val ) {
-				if( $key === $cf_key ) {
-					$value = $val;
-				}
-			}
-		}
-		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
 			'value'      		=> $value,
-			'original_field'    => $submission_form_fields,
 		);
 
-		$widget_name = $field_data['widget_name'];
-		if ( strpos( $widget_name, '_') ) {
-			$widget_name = strtok( $widget_name, '_' );
-		}
+		$template = 'search/fields/' . $field_data['widget_name'];
 
-		$template = 'search/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
 	}

@@ -516,33 +516,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             return $plugin_key;
         }
 
-        // get_file_download_link
-        public static function get_file_download_link( $file_item ) {
-            $download_link = '';
-
-            if ( ! is_array( $file_item ) ) return $download_link;
-            if ( ! isset( $file_item['item_id'] ) ) return $download_link;
-            if ( ! isset( $file_item['license'] ) ) return $download_link;
-            if ( empty( $file_item['item_id'] ) || empty( $file_item['license'] ) ) return $download_link;
-
-            $route = 'https://directorist.com/wp-json/directorist/v1/licencing/';
-            $query_args = $file_item;
-
-            try { 
-                $response = wp_remote_get( $route, $query_args );
-                $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
-            } catch ( Exception $e ) {
-                return $download_link;
-            }
-
-            if ( ! is_array( $response_body ) ) return $download_link;
-            if ( ! isset( $response_body['download_link'] ) ) return $download_link;
-
-            return $response_body['download_link'];
-        }
-
-
-
         // get_extension_alias_key
         public static function get_extension_alias_key( string $plugin_key = '' ) {
             $extensions_aliases      = self::$extensions_aliases;
@@ -1909,6 +1882,31 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $status['response'] = $response_body;
 
             return $status;
+        }
+
+        // get_file_download_link
+        public static function get_file_download_link( $file_item ) {
+            $download_link = '';
+
+            if ( ! is_array( $file_item ) ) return $download_link;
+            if ( ! isset( $file_item['item_id'] ) ) return $download_link;
+            if ( ! isset( $file_item['license'] ) ) return $download_link;
+            if ( empty( $file_item['item_id'] ) || empty( $file_item['license'] ) ) return $download_link;
+
+            $route = 'https://directorist.com/wp-json/directorist/v1/licencing/';
+            $query_args = $file_item;
+
+            try { 
+                $response = wp_remote_get( $route, $query_args );
+                $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+            } catch ( Exception $e ) {
+                return $download_link;
+            }
+
+            if ( ! is_array( $response_body ) ) return $download_link;
+            if ( ! isset( $response_body['download_link'] ) ) return $download_link;
+
+            return $response_body['download_link'];
         }
 
         /**

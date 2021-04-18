@@ -46,7 +46,7 @@ class Directorist_Listing_Author {
 	}
 
 	function prepare_data() {
-		$this->id = Helper::extract_user_id( get_query_var( 'author_id' ) );
+		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );

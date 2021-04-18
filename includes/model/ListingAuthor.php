@@ -48,11 +48,28 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
+	// extract_user_id
+	public function extract_user_id( $_user_id = '' ) {
+		$user_id = ( is_numeric( $_user_id ) ) ? $_user_id : get_current_user_id();
+		
+		if ( is_string( $_user_id ) && ! empty( $_user_id ) ) {
+			$user = get_user_by( 'login', $_user_id );
+			
+			if ( $user ) {
+				$user_id = $user->ID;
+			}
+		}
+		
+		$user_id = intval( $user_id );
+
+		return $user_id;
+	}
+
 	function prepare_data() {
 		$this->listing_types        = $this->get_listing_types();
 		$this->current_listing_type = $this->get_current_listing_type();
 
-		$this->id = Helper::extract_user_id( get_query_var( 'author_id' ) );
+		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );

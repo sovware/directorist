@@ -17,6 +17,23 @@ class Helper {
 		return $legacy;
 	}
 
+	// extract_user_id
+	public static function extract_user_id( $_user_id = '' ) {
+		$user_id = ( is_numeric( $_user_id ) ) ? $_user_id : get_current_user_id();
+		
+		if ( is_string( $_user_id ) && ! empty( $_user_id ) ) {
+			$user = get_user_by( 'login', $_user_id );
+			
+			if ( $user ) {
+				$user_id = $user->ID;
+			}
+		}
+		
+		$user_id = intval( $user_id );
+
+		return $user_id;
+	}
+
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
 		$value = '';

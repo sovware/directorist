@@ -45,25 +45,8 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
-	// extract_user_id_from_query_var
-	public function extract_user_id( $user_id = '' ) {
-		$user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
-		
-		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
-			$user = get_user_by( 'login', $user_id );
-			
-			if ( $user ) {
-				$user_id = $user->ID;
-			}
-		}
-		
-		$user_id = intval( $user_id );
-
-		return $user_id;
-	}
-
 	function prepare_data() {
-		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
+		$this->id = Helper::extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );

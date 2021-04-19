@@ -26,6 +26,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
+                // $fields['script_debugging'] = [
+                //     'type'  => 'toggle',
+                //     'label' => 'Script debugging',
+                //     'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
+                // ];
+
                 $fields['import_settings'] = [
                     'type'         => 'import',
                     'label'        => 'Import Settings',
@@ -5138,42 +5144,34 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
 
-
-                        'cache_settings' => [
-                            'label'     => __('Caching', 'directorist'),
-                            'icon' => '<i class="fa fa-power-off"></i>',
+                        'miscellaneous' => [
+                            'label'     => __('Miscellaneous', 'directorist'),
+                            'icon' => '<i class="fas fa-thumbtack"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
-                                'caching' => [
-                                    'fields'      => [ 
-                                        'atbdp_enable_cache', 'atbdp_reset_cache',
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-                        'legacy' => [
-                            'label' => __( 'Legacy Mode', 'directorist' ),
-                            'icon' => '<i class="fa fa-bolt"></i>',
-                            'sections' => apply_filters( 'atbdp_legacy_sections', [
                                 'legacy' => [
+                                    'title' => __( 'Legacy', 'directorist' ),
                                     'fields'      => [ 
                                         'atbdp_legacy_template'
                                      ],
                                 ],
-                            ] ),
-                        ],
-
-                        'uninstall' => [
-                            'label' => __( 'Uninstall Setting', 'directorist' ),
-                            'icon' => '<i class="fa fa-trash"></i>',
-                            'sections'  => apply_filters('atbdp_uninstall_controls', [
+                                'caching' => [
+                                    'title' => __( 'Caching', 'directorist' ),
+                                    'fields'      => [ 
+                                        'atbdp_enable_cache', 'atbdp_reset_cache',
+                                     ],
+                                ],
+                                'debugging' => [
+                                    'title' => __( 'Debugging', 'directorist' ),
+                                    'fields'      => [ 
+                                        'script_debugging',
+                                     ],
+                                ],
                                 'uninstall' => [
+                                    'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]
                                 ],
-                        
-                            ]),
+                            ] ),
                         ],
-         
                     ]),
                 ],
 

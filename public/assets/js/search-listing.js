@@ -23,9 +23,12 @@
         };
     
         let select2_fields = [
+            // General
+            { elm: $('.select-basic'), args: select2_args },
+
             // Location
             { elm: $('#at_biz_dir-location'), args: select2_args },
-            { elm: $('#loc-type') },
+            { elm: $('#loc-type'), args: select2_args },
             { elm: $('.bdas-location-search'), args: select2_args },
     
             // Category
@@ -34,12 +37,12 @@
             { elm: $('.bdas-category-search'), args: select2_args },
         ];
 
-        for ( var field of select2_fields ) {
-            if ( ! field.elm ) { continue; }
-            if ( ! field.args ) { continue; }
+        select2_fields.forEach( field => {
+            if ( ! field.elm ) { return; }
+            if ( ! field.args ) { return; }
     
             convert_to_select2( field );
-        }
+        });
     }
 
     function convert_to_select2( field ) {

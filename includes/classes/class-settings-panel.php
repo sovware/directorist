@@ -26,11 +26,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
-                // $fields['script_debugging'] = [
-                //     'type'  => 'toggle',
-                //     'label' => 'Script debugging',
-                //     'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
-                // ];
+                $fields['script_debugging'] = [
+                    'type'  => 'toggle',
+                    'label' => 'Script debugging',
+                    'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
+                ];
 
                 $fields['import_settings'] = [
                     'type'         => 'import',
@@ -5160,12 +5160,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
                                 ],
-                                'debugging' => [
-                                    'title' => __( 'Debugging', 'directorist' ),
-                                    'fields'      => [ 
-                                        'script_debugging',
-                                     ],
-                                ],
+                                // 'debugging' => [
+                                //     'title' => __( 'Debugging', 'directorist' ),
+                                //     'fields'      => [ 
+                                //         'script_debugging',
+                                //      ],
+                                // ],
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]

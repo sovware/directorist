@@ -12,7 +12,6 @@ $post_id = ! empty( $listing_form->get_add_listing_id() ) ? $listing_form->get_a
 // wp_enqueue_script( 'atbdp-plupload-min' );
 // wp_enqueue_script( 'atbdp-plupload' );
 // wp_enqueue_script( 'atbdp-plupload' );
-$file_size         = get_post_meta( $post_id, 'file_size', true );
 $file_types        = ! empty( $data['file_type'] ) ? $data['file_type'] : 'all_types';
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
 $allowed_img_types = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );

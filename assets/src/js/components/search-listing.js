@@ -168,29 +168,30 @@
     }
 
     var dFilterBtn = $('body').find('.directorist-filter-btn');
-    dFilterBtn.each(function(ind, elm){
-        var count = 0;
-        $(elm).on("click", function (e) {
-            count++;
-            e.preventDefault();
-            var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-            if (count % 2 === 0) {
-                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                    visibility: 'hidden',
-                    opacity: '0',
-                    height: '0',
-                    transition: '.3s ease'
-                });
-            } else {
-                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                    visibility: 'visible',
-                    height: adsItemsHeight + adsFilterHeight + 70 + 'px',
-                    transition: '0.3s ease',
-                    opacity: '1',
-                });
-            }
-        });
+    
+    var count = 0;
+    $('body').on("click", '.directorist-filter-btn', function (e) {
+        count++;
+        e.preventDefault();
+        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
+        
+        if (count % 2 === 0) {
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                visibility: 'hidden',
+                opacity: '0',
+                height: '0',
+                transition: '.3s ease'
+            });
+        } else {
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                visibility: 'visible',
+                height: adsItemsHeight + adsFilterHeight + 70 + 'px',
+                transition: '0.3s ease',
+                opacity: '1',
+            });
+        }
     });
+
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
     dFilterBtn.each(function(ind, elm){

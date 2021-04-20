@@ -11,6 +11,7 @@
 // Form Element
 .directorist-form-group {
     .directorist-form-element {
+        position: relative;
         height: 42px;
         padding: 15px 20px;
         font-size: 14px;
@@ -68,7 +69,7 @@
         transform: translateY(-50%);
         line-height: 1.45;
         margin-top: -2px;
-
+        z-index: 99;
         i,
         span,
         svg {

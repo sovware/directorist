@@ -3,17 +3,17 @@
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $upgrade_notice_id           = 'migrate_to_7';
+    public $upgrade_notice_id       = 'migrate_to_7';
 
-    public $legacy_notice_id            = 'directorist_legacy_template';
+    public $legacy_notice_id        = 'directorist_legacy_template';
 
-    public $directorist_temp_options    = [];
+    public $directorist_notices     = [];
+
+    public $directorist_migration   = [];
 
     public function __construct()
     {
-        if ( !is_admin() ) {
-			return;
-		}
+        if ( !is_admin() ) return;
 
         add_action('admin_init', array($this, 'configure_notices'));
 
@@ -29,7 +29,7 @@ class ATBDP_Upgrade
 
         if( ! directorist_legacy_mode() ) return;
 
-        if ( ! empty( $this->directorist_temp_options[ $this->legacy_notice_id ] ) ) return;
+        if ( ! empty( $this->directorist_notices[ $this->legacy_notice_id ] ) ) return;
 
 		$text = '';
 
@@ -37,7 +37,7 @@ class ATBDP_Upgrade
 
 		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Deprication Notice!</span> You are using the legacy version of Directorist templates. It is highly recommended to use the non-legacy version since we will stop providing support for it in the next version. If you are facing any issues with the non-legacy template then please contact <a href="%s">support</a> </p>', 'directorist' ), $link );
 
-		$text .= sprintf( __( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Dismiss</a></p>', 'directorist' ), add_query_arg( 'directorist-depricated-notice', 1 ) );
+		$text .= sprintf( __( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Dismiss</a></p>', 'directorist' ), add_query_arg( 'directorist--depricated-notice', 1 ) );
 
 		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 
@@ -51,7 +51,7 @@ class ATBDP_Upgrade
 
         if( '7.0' !== ATBDP_VERSION ) return;
 
-        if ( get_user_meta( get_current_user_id(), $this->upgrade_notice_id, true ) || ! empty( $this->directorist_temp_options[ $this->upgrade_notice_id ] ) ) return;
+        if ( get_user_meta( get_current_user_id(), $this->upgrade_notice_id, true ) || ! empty( $this->directorist_migration[ $this->upgrade_notice_id ] ) ) return;
 
 		$text = '';
 
@@ -72,18 +72,20 @@ class ATBDP_Upgrade
 
     public function configure_notices(){
 
-        $this->directorist_temp_options = get_option( 'directorist_temp_options' );
+        $this->directorist_notices      = get_option( 'directorist_notices' );
+
+        $this->directorist_migration    = get_option( 'directorist_migration' );
 
         if ( isset( $_GET['directorist-v7'] ) ) {
-            $this->directorist_temp_options[ $this->upgrade_notice_id ] = 1;
+            $this->directorist_migration[ $this->upgrade_notice_id ] = 1;
+            update_option( 'directorist_migration', $this->directorist_migration );
 		}
 
-        if ( isset( $_GET['directorist-depricated-notice'] ) ) {
-            $this->directorist_temp_options[ $this->legacy_notice_id ] = 1;
-		}
+        if ( isset( $_GET['directorist--depricated-notice'] ) ) {
+            $this->directorist_notices[ $this->legacy_notice_id ] = 1;
+            update_option( 'directorist_notices', $this->directorist_notices );
 
-        if( ! empty( $_GET['directorist-v7'] ) ||  !empty( $_GET['directorist-depricated-notice'] ) )
-        update_option( 'directorist_temp_options', $this->directorist_temp_options );
+		}
     }
 
 }

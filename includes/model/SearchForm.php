@@ -618,8 +618,8 @@ class Directorist_Listing_Search_Form {
 
 		if ( ! empty( $terms ) ) {
 			return $terms;
+		} else {
+			return array();
 		}
-
-		return null;
 	}
 }

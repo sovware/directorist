@@ -1957,6 +1957,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public static function remote_activate_license( $license_item = [] ) {
             $status = ['success' => true];
 
+            if ( isset( $license_item['skip_licencing'] ) && ! empty( $license_item['skip_licencing'] ) ) {
+                return $status;
+            }
+
             $item_id = ( ! empty( $license_item['item_id'] ) ) ? $license_item['item_id'] : 0;
             $license = ( ! empty( $license_item['license'] ) ) ? $license_item['license'] : '';
 

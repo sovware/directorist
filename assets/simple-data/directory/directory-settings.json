@@ -76,7 +76,7 @@
     "edit_listing_status": "pending",
     "fix_js_conflict": false,
     "font_type": "line",
-    "default_expiration": 365,
+    "listing_expire_in_days": 365,
     "can_renew_listing": true,
     "email_to_expire_day": "7",
     "email_renewal_day": "7",

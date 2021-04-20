@@ -2,9 +2,10 @@
 
   //dashboard content responsive fix
   
-  var tabContentWidth = $(".atbd_dashboard_wrapper .atbd_tab-content").innerWidth();
-  if(tabContentWidth < 650){
-    $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
+  let tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
+  
+  if(tabContentWidth < 1399){
+    $(".directorist-user-dashboard .directorist-user-dashboard__contents").addClass("directorist-tab-content-grid-fix");
   }
 
   $(window)

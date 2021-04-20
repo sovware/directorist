@@ -72,7 +72,7 @@ class Directorist_Listing_Taxonomy {
 		$this->orderby             	 	 = $atts['orderby'];
 		$this->order               	 	 = $atts['order'];
 		$this->per_page            	     = ($type == 'category') ? $atts['cat_per_page'] : $atts['loc_per_page'];
-		$this->columns              	 = $atts['columns'];
+		$this->columns              	 = ! empty( $atts['columns'] ) ? $atts['columns'] : 3;
 		$this->slug                 	 = $atts['slug'];
 		$this->logged_in_user_only  	 = $atts['logged_in_user_only'];
 		$this->redirect_page_url    	 = $atts['redirect_page_url'];

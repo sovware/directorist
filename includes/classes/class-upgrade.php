@@ -3,13 +3,11 @@
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $upgrade_notice_id   = 'migrate_to_7';
+    public $upgrade_notice_id           = 'migrate_to_7';
 
-    public $legacy_notice_id    = 'directorist_legacy_template';
+    public $legacy_notice_id            = 'directorist_legacy_template';
 
-    public $directorist = 'directorist/directorist-base.php';
-
-    public $directorist_temp_options = [];
+    public $directorist_temp_options    = [];
 
     public function __construct()
     {

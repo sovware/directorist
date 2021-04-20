@@ -1693,7 +1693,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'outdated_plugins_key'                  => $outdated_plugins_key,
                 'all_installed_plugins_list'            => $all_installed_plugins_list,
                 'installed_extension_list'              => $installed_extensions,
-                'total_active_extensions'               => $total_outdated_extensions,
+                'total_active_extensions'               => $total_active_extensions,
                 'total_outdated_extensions'             => $total_outdated_extensions,
                 'extensions_promo_list'                 => $extensions_promo_list,
                 'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,

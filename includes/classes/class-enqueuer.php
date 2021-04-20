@@ -1004,37 +1004,61 @@ class ATBDP_Enqueuer {
 
     }
 
-    public function search_listing_scripts_styles() {
-        $search_dependency = array( 'jquery', 'jquery-ui-slider',
-            'select2script' );
+    public function search_listing_scripts_styles( $args = [] ) {
+        // CSS
+        if (is_rtl()){
+            wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+        } else{
+            wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+        }
+
+        // JS
+        // $search_dependency = array( 'jquery', 'jquery-ui-slider', 'select2script' );
+        wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
+        wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+        
+        wp_enqueue_style('select2style');
+        wp_enqueue_script('select2script');
+        
+        $search_dependency = array( );
         wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
-            /**
-             * @since 5.0.1
-             * It returns the dependencies for search form js
-             */
-            apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
+        
+        /**
+         * @since 5.0.1
+         * It returns the dependencies for search form js
+         */
+        apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
+        
         $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
         wp_enqueue_script( $handel );
 
+        $directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+        $directory_type_term_data = [
+            'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
+            'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),
+        ];
+
         /*Internationalization*/
-        $category_placeholder    = get_directorist_option( 'search_category_placeholder', __( 'Select a category', 'directorist' ) );
-        $location_placeholder    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+        $category_placeholder    = ( isset( $directory_type_term_data['search_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['search_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
+        $location_placeholder    = ( isset( $directory_type_term_data['search_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['search_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
         $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
+
         if ( 'kilometers' == $radius_search_unit ) {
             $miles = __( ' Kilometers', 'directorist' );
         } else {
             $miles = __( ' Miles', 'directorist' );
         }
+
         $data = array(
-            'i18n_text'   => array(
-                'location_selection' => $location_placeholder,
-                'category_selection' => $category_placeholder,
+            'i18n_text' => array(
+                'location_selection' => ! empty( $location_placeholder ) ? $location_placeholder : __( 'Select a location', 'directorist' ),
+                'category_selection' => ! empty( $category_placeholder ) ? $category_placeholder : __( 'Select a category', 'directorist' ),
                 'show_more'          => __( 'Show More', 'directorist' ),
                 'show_less'          => __( 'Show Less', 'directorist' ),
                 'added_favourite'    => __( 'Added to favorite', 'directorist' ),
-                'please_login'          => __( 'Please login first', 'directorist' ),
+                'please_login'       => __( 'Please login first', 'directorist' ),
                 'select_listing_map' => $select_listing_map,
                 'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             ),
@@ -1044,10 +1068,27 @@ class ATBDP_Enqueuer {
             'countryRestriction'    => get_directorist_option( 'country_restriction' ),
             'restricted_countries'  => get_directorist_option( 'restricted_countries' ),
         );
+
+
         wp_enqueue_script( 'atbdp_search_listing' );
+        wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
         wp_localize_script( 'atbdp-search-listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );
+        wp_localize_script( 'atbdp-search-listing','atbdp_search',array(
+            'ajaxnonce' => wp_create_nonce( 'bdas_ajax_nonce' ),
+            'ajax_url'  => admin_url( 'admin-ajax.php' ),
+        ));
+
+        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        if( empty( $atbdp_legacy_template ) ) {
+            wp_localize_script('atbdp-search-listing','atbdp_search_listing',array(
+                'i18n_text'   => array(
+                    'select_listing_map' => $select_listing_map,
+                ),
+            ));
+        }
     }
 }
 

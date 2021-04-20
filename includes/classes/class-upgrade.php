@@ -33,13 +33,13 @@ class ATBDP_Upgrade
 
 		$text = '';
 
-		$link = 'https://directorist.com/dashboard/?tab=support';
+		$link = 'https://directorist.com/contact/';
 
-		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Deprication Notice!</span> You are using the legacy version of Directorist templates. It is highly recommended to use the non-legacy version since we will stop providing support for it in the next version. If you are facing any issues with the non-legacy template then please contact <a href="%s">support</a> </p>', 'directorist' ), $link );
+		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Deprication Notice!</span> You are using the legacy version of Directorist templates. It is highly recommended to use the non-legacy version since we will stop providing support for it in the next version. If you are facing any issues with the non-legacy template then please contact <a target="_blank" href="%s">support</a> </p>', 'directorist' ), $link );
 
-		$text .= sprintf( __( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Dismiss</a></p>', 'directorist' ), add_query_arg( 'directorist--depricated-notice', 1 ) );
+		$text .= sprintf( __( '<p class=""><a href="%s" class="">Dismiss</a></p>', 'directorist' ), add_query_arg( 'directorist-depricated-notice', 1 ) );
 
-		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+		$notice = '<div class="notice notice-error is-dismissible directorist-plugin-updater-notice">' . $text . '</div>';
 
 		echo wp_kses_post( $notice );
 
@@ -81,7 +81,7 @@ class ATBDP_Upgrade
             update_option( 'directorist_migration', $this->directorist_migration );
 		}
 
-        if ( isset( $_GET['directorist--depricated-notice'] ) ) {
+        if ( isset( $_GET['directorist-depricated-notice'] ) ) {
             $this->directorist_notices[ $this->legacy_notice_id ] = 1;
             update_option( 'directorist_notices', $this->directorist_notices );
 

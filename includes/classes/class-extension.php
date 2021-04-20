@@ -1884,7 +1884,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'total_active_themes'               => $total_active_themes,
                 'total_outdated_themes'             => $total_outdated_themes,
                 'installed_theme_list'              => $installed_theme_list,
-                'currrent_active_theme_info'        => $current_active_theme_info,
+                'current_active_theme_info'         => $current_active_theme_info,
                 'themes_promo_list'                 => $themes_promo_list,
                 'themes_available_in_subscriptions' => $themes_available_in_subscriptions,
                 'total_available_themes'            => $total_available_themes,
@@ -2082,9 +2082,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
          */
         public function show_extension_view() {
 
-// delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
-
-// delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+            // delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+            // delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
 
             // Check Sassion
             $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
@@ -2115,7 +2114,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'total_active_themes'                   => $themes_overview['total_active_themes'],               // $my_active_themes,
                 'total_outdated_themes'                 => $themes_overview['total_outdated_themes'],             // $my_outdated_themes,
                 'installed_theme_list'                  => $themes_overview['installed_theme_list'],              // $installed_theme_list,
-                'currrent_active_theme_info'            => $themes_overview['currrent_active_theme_info'],        // $active_theme,
+                'current_active_theme_info'             => $themes_overview['current_active_theme_info'],         // $active_theme,
                 'themes_available_in_subscriptions'     => $themes_overview['themes_available_in_subscriptions'], // $themes_available_in_subscriptions,
                 'total_available_themes'                => $themes_overview['total_available_themes'],
                 'themes_promo_list'                     => $themes_overview['themes_promo_list'],

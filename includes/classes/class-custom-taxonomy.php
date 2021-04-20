@@ -228,10 +228,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 update_term_meta( $term_id, '_directory_type', array( $default_listing_type ) );
             }
 
-            if (!empty($_POST['category_icon'])) {
-                $category_icon = sanitize_text_field($_POST['category_icon']);
-                update_term_meta($term_id, 'category_icon', $category_icon);
-            }
+            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : ''; 
+            update_term_meta($term_id, 'category_icon', $icon );
 
             //UPDATED CATEGORY IMAGE
             if (isset($_POST['image']) && '' !== $_POST['image']) {
@@ -408,10 +406,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 add_term_meta( $term_id, '_directory_type', array( $default_listing_type ), true );
             }
 
-            if (!empty($_POST['category_icon'])) {
-                $category_icon = sanitize_text_field($_POST['category_icon']);
-                add_term_meta($term_id, 'category_icon', $category_icon, true);
-            }
+            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : ''; 
+            add_term_meta($term_id, 'category_icon', $icon, true);
+            
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }

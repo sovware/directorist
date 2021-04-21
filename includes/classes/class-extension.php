@@ -469,7 +469,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 return ['status' => $status];
             }
 
-            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $plugins_available_in_subscriptions = self::get_purchased_extension_list();
 
             // Update single
             if ( ! empty( $plugin_key ) ) {
@@ -681,7 +681,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 return ['status' => $status];
             }
 
-            $themes_available_in_subscriptions      = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $themes_available_in_subscriptions      = self::get_purchased_theme_list();
             $themes_available_in_subscriptions_keys = ( is_array( $themes_available_in_subscriptions ) ) ? array_keys( $themes_available_in_subscriptions ) : [];
 
             // Check if stylesheet is present
@@ -838,8 +838,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
 
-            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-            $themes_available_in_subscriptions  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $plugins_available_in_subscriptions = self::get_purchased_extension_list();
+            $themes_available_in_subscriptions  = self::get_purchased_theme_list();
             $has_previous_subscriptions         = ( ! empty( $plugins_available_in_subscriptions ) || ! empty( $themes_available_in_subscriptions ) ) ? true : false;
 
             if ( $previous_username === $username && $has_previous_subscriptions ) {
@@ -1099,11 +1099,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             if ( 'theme' === $type ) {
-                $available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+                $available_in_subscriptions = self::get_purchased_theme_list();
             }
 
             if ( 'plugin' === $type ) {
-                $available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+                $available_in_subscriptions = self::get_purchased_extension_list();
             }
 
             if ( empty( $available_in_subscriptions ) ) {
@@ -1709,7 +1709,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $installed_extensions      = ( ! empty( $args['installed_extensions'] ) ) ? $args['installed_extensions'] : [];
             $installed_extensions_keys = $this->get_sanitized_extensions_keys( $installed_extensions );
 
-            $extensions_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $extensions_available_in_subscriptions = self::get_purchased_extension_list();
             $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? $extensions_available_in_subscriptions : [];
 
             if ( ! empty( $extensions_available_in_subscriptions ) && is_array( $extensions_available_in_subscriptions ) ) {
@@ -1835,7 +1835,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $installed_themes_keys = ( is_array( $installed_theme_list ) ) ? array_keys( $installed_theme_list ) : [];
 
             // Themes available in subscriptions
-            $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $themes_available_in_subscriptions = self::get_purchased_theme_list();
             $themes_available_in_subscriptions = ( ! empty( $themes_available_in_subscriptions ) && is_array( $themes_available_in_subscriptions ) ) ? $themes_available_in_subscriptions : [];
 
             if ( ! empty( $themes_available_in_subscriptions ) ) {
@@ -2079,6 +2079,30 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             return $response_body['download_link'];
+        }
+
+        // get_purchased_extension_list
+        public static function get_purchased_extension_list() {
+            $extensions_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $directorist_purchased_extension_list = apply_filters( 'directorist_purchased_extension_list', $extensions_available_in_subscriptions );
+
+            if ( is_array( $directorist_purchased_extension_list ) ) {
+                return $directorist_purchased_extension_list;
+            }
+
+            return $extensions_available_in_subscriptions;
+        }
+
+        // get_purchased_theme_list
+        public static function get_purchased_theme_list() {
+            $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $directorist_purchased_theme_list = apply_filters( 'directorist_purchased_theme_list', $themes_available_in_subscriptions );
+
+            if ( is_array( $directorist_purchased_theme_list ) ) {
+                return $directorist_purchased_theme_list;
+            }
+
+            return $themes_available_in_subscriptions;
         }
 
         /**

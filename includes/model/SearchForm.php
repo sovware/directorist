@@ -519,7 +519,7 @@ class Directorist_Listing_Search_Form {
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
 
-		$data = Script_Helper::get_search_script_data();
+		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->listing_type ] );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -618,8 +618,8 @@ class Directorist_Listing_Search_Form {
 
 		if ( ! empty( $terms ) ) {
 			return $terms;
+		} else {
+			return array();
 		}
-
-		return null;
 	}
 }

@@ -4993,18 +4993,22 @@ img.atbdp-file-info {
 
 /* admin notice */
 .directorist__notice_new {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
+  margin-bottom: 2px !important;
 
   span {
     display: block;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 14px;
   }
 
   a {
     color: #3e62f5;
     font-weight: 700;
+  }
+  &+p{
+    margin-top: 0px !important;
   }
 }
 

@@ -2,13 +2,18 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$source = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
+$source     = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
 $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
+$tag_terms  = $searchform->listing_tag_terms( $tag_source );
+
+if ( !$tag_terms ) {
+	return;
+}
 ?>
 
 <div class="directorist-search-field">
@@ -20,7 +25,7 @@ $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
 	<div class="directorist-search-tags directorist-flex">
 		<?php
 		$rand = rand();
-		foreach ($searchform->listing_tag_terms($tag_source) as $term) {
+		foreach ( $tag_terms as $term ) {
 			$id = $rand . $term->term_id;
 			?>
 

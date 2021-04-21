@@ -1,4 +1,6 @@
 <?php
+$search_form_fields = Directorist\Helper::get_directory_type_term_data( get_the_ID(), 'search_form_fields' );
+
 echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';
 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
@@ -31,15 +33,15 @@ echo '</div>';
                 <?php } else { ?>
             <div class="form-group">
                 <?php
+                $location_placeholder = isset( $search_form_fields['fields']['location']['placeholder'] ) ? $search_form_fields['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );  
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a Location', 'directorist' ),
-                    'option_none_value'  => -1,
-                    'taxonomy'           => 'at_biz_dir-location',
-                    'name' 			     => 'in_loc',
-                    'class'              => 'form-control bdas-location-search select-basic',
-                    'orderby'            => 'date',
-                    'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
+                    'show_option_none' => $location_placeholder,
+                    'taxonomy' => 'at_biz_dir-location',
+                    'name'     => 'in_loc',
+                    'class'    => 'form-control bdas-location-search select-basic',
+                    'orderby'  => 'date',
+                    'order'    => 'ASC',
+                    'selected' => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                 ) );
                 ?>
             </div>
@@ -48,15 +50,15 @@ echo '</div>';
         <?php if(!empty($search_by_category)) {?>
             <div class="form-group">
                 <?php
+                $category_placeholder = isset( $search_form_fields['fields']['category']['placeholder'] ) ? $search_form_fields['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a category', 'directorist' ),
-                    'option_none_value'  => -1,
-                    'taxonomy'           => 'at_biz_dir-category',
-                    'name' 			     => 'in_cat',
-                    'class'              => 'form-control bdas-category-search select-basic',
-                    'orderby'            => 'date',
-                    'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
+                    'show_option_none' => $category_placeholder,
+                    'taxonomy' => 'at_biz_dir-category',
+                    'name'     => 'in_cat',
+                    'class'    => 'form-control bdas-category-search select-basic',
+                    'orderby'  => 'date',
+                    'order'    => 'ASC',
+                    'selected' => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
                 ) );
                 ?>
             </div>

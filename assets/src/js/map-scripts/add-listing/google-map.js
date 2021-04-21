@@ -154,7 +154,6 @@ import { get_dom_data } from '../../lib/helper';
                         const lng = document.getElementById('manual_lng').value;
                         const latLng = new google.maps.LatLng(lat, lng);
                         const opt = { location: latLng, address };
-
                         geocoder.geocode(opt, function(results, status) {
                                 if (status === 'OK') {
                                         // set the value of input field to save them to the database

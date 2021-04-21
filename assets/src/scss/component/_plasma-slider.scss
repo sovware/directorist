@@ -274,11 +274,12 @@ img.plasmaSlider__bgImgBlur {
 }
 
 .plasmaSliderIcon.psi-angle-right {
-  background-image: url('./../../images/angle-right-solid.svg');
+  // background-image: url('./../images/angle-right-solid.svg');
+  background-image: url('../../images/angle-right-solid.svg');
 }
 
 .plasmaSliderIcon.psi-angle-left {
-  background-image: url('./../../../images/angle-left-solid.svg');
+  background-image: url('../../images/angle-left-solid.svg');
 }
 
 @keyframes plasmaSliderZoomIn {

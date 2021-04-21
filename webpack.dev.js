@@ -9,7 +9,7 @@ const devConfig = {
     watch: true,
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "css/[name].css",
+        filename: "../css/[name].css",
         minify: false,
       }),
       new WebpackRTLPlugin({
@@ -18,7 +18,7 @@ const devConfig = {
     ],
 
     output: {
-      filename: "js/[name].js",
+      filename: "../js/[name].js",
     },
 
     devtool: 'source-map'

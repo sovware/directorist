@@ -119,11 +119,11 @@
   background-color: gainsboro;
 }
 
-.plasmaSlider__bgImg,
-.plasmaSlider__bgImgBlur {
+img.plasmaSlider__bgImg,
+img.plasmaSlider__bgImgBlur {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -274,11 +274,11 @@
 }
 
 .plasmaSliderIcon.psi-angle-right {
-  background-image: url('../../images/angle-right-solid.svg');
+  background-image: url('./../../images/angle-right-solid.svg');
 }
 
 .plasmaSliderIcon.psi-angle-left {
-  background-image: url('../../images/angle-left-solid.svg');
+  background-image: url('./../../../images/angle-left-solid.svg');
 }
 
 @keyframes plasmaSliderZoomIn {

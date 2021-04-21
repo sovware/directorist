@@ -139,7 +139,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 			),
 		);
 		return $fields;
-	}	
+	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
@@ -161,7 +161,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 
 		if ( Helper::multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
-				$atts['directory_type'] = implode( $settings['type'], ',' );
+				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}
 			if ( $settings['default_type'] ) {
 				$atts['default_directory_type'] = $settings['default_type'];

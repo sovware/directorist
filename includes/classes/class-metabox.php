@@ -216,7 +216,7 @@ class ATBDP_Metabox {
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta($post->ID, '_expiry_date', true);
-		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date();
+		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
 		$expiry_date            = atbdp_parse_mysql_date($e_d);
 
 		$featured               = get_post_meta($post->ID, '_featured', true);
@@ -299,7 +299,8 @@ class ATBDP_Metabox {
 			$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 	   }
 
-		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
+	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
+		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;
 		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){

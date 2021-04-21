@@ -509,7 +509,7 @@ class Directorist_Listing_Search_Form {
 		wp_enqueue_script( 'atbdp-search-listing' );
 		wp_localize_script('atbdp-search-listing', 'atbdp_search', $data );
 
-		ATBDP()->enquirer->search_listing_scripts_styles();
+		ATBDP()->enquirer->search_listing_scripts_styles( ['directory_type_id' => $this->listing_type] );
 
 		$bgimg = get_directorist_option('search_home_bg');
 
@@ -630,8 +630,8 @@ class Directorist_Listing_Search_Form {
 
 		if ( ! empty( $terms ) ) {
 			return $terms;
+		} else {
+			return array();
 		}
-
-		return null;
 	}
 }

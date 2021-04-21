@@ -3,55 +3,47 @@
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $notice_id = 'migrate_to_7';
+    public $upgrade_notice_id       = 'migrate_to_7';
 
-    public $directorist = 'directorist/directorist-base.php';
+    public $legacy_notice_id        = 'directorist_legacy_template';
+
+    public $directorist_notices     = [];
+
+    public $directorist_migration   = [];
 
     public function __construct()
     {
-        if ( !is_admin() ) {
-			return;
-		}
+        if ( !is_admin() ) return;
 
         add_action('admin_init', array($this, 'configure_notices'));
 
         add_action('admin_notices', array($this, 'upgrade_notice'), 100);
-        global $pagenow;
-        if ( 'plugins.php' === $pagenow )
-        {
-          add_action( 'in_plugin_update_message-'. $this->directorist, array($this, 'directorist_plugin_update_notice'), 20, 2 );
-        }
-    }
-  /**
-    * Displays an update message for plugin list screens.
-    *
-    * @param (array) $plugin_data
-    * @param (object) $response
-    * @return (string) $output
-    */
-    public function directorist_plugin_update_notice( $plugin_data, $response )
-   {
 
-       $new_version = $response->new_version;
-       if( '7.0' == $new_version ){
-           ob_start() ?>
-            <div class="directorist-admin-notice-content">
-                <span class="directorist-highlighted-text"><strong>Attention!</strong> This is a major upgrade that includes significant changes and improvements. Make sure you have a backup of your site before upgrading.</span>
-                <div></div>
-                <p class="directorist-update-label">Take a look at the notable features</p>
-                <ul class="directorist-update-list">
-                    <li>Multi directory</li>
-                    <li>Custom form and layout builder</li>
-                    <li>New settings panel</li>
-                    <li>Templating</li>
-                    <li>Admin debugger</li>
-                </ul>
-            </div>
-           <?php
-        $output = ob_get_clean();
-        return print $output;
-       }
-   }
+        add_action('admin_notices', array($this, 'legacy_depricated_notice'), 101);
+
+    }
+
+    public function legacy_depricated_notice()
+    {
+        if (! current_user_can('administrator')) return;
+
+        if( ! directorist_legacy_mode() ) return;
+
+        if ( ! empty( $this->directorist_notices[ $this->legacy_notice_id ] ) ) return;
+
+		$text = '';
+
+		$link = 'https://directorist.com/contact/';
+
+		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Deprication Notice!</span> You are using the legacy version of Directorist templates. It is highly recommended to use the non-legacy version since we will stop providing support for it in the next version. If you are facing any issues with the non-legacy template then please contact <a target="_blank" href="%s">support</a> </p>', 'directorist' ), $link );
+
+		$text .= sprintf( __( '<p class=""><a href="%s" class="">Dismiss</a></p>', 'directorist' ), add_query_arg( 'directorist-depricated-notice', 1 ) );
+
+		$notice = '<div class="notice notice-error is-dismissible directorist-plugin-updater-notice">' . $text . '</div>';
+
+		echo wp_kses_post( $notice );
+
+    }
 
     public function upgrade_notice()
     {
@@ -59,7 +51,7 @@ class ATBDP_Upgrade
 
         if( '7.0' !== ATBDP_VERSION ) return;
 
-        if ( ( get_user_meta( get_current_user_id(), $this->notice_id, true ) ) ) return;
+        if ( get_user_meta( get_current_user_id(), $this->upgrade_notice_id, true ) || ! empty( $this->directorist_migration[ $this->upgrade_notice_id ] ) ) return;
 
 		$text = '';
 
@@ -79,8 +71,20 @@ class ATBDP_Upgrade
     }
 
     public function configure_notices(){
+
+        $this->directorist_notices      = get_option( 'directorist_notices' );
+
+        $this->directorist_migration    = get_option( 'directorist_migration' );
+
         if ( isset( $_GET['directorist-v7'] ) ) {
-			update_user_meta( get_current_user_id(), $this->notice_id, 1 );
+            $this->directorist_migration[ $this->upgrade_notice_id ] = 1;
+            update_option( 'directorist_migration', $this->directorist_migration );
+		}
+
+        if ( isset( $_GET['directorist-depricated-notice'] ) ) {
+            $this->directorist_notices[ $this->legacy_notice_id ] = 1;
+            update_option( 'directorist_notices', $this->directorist_notices );
+
 		}
     }
 

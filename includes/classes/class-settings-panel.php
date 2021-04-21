@@ -26,6 +26,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
+                $fields['script_debugging'] = [
+                    'type'  => 'toggle',
+                    'label' => 'Script debugging',
+                    'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
+                ];
+
                 $fields['import_settings'] = [
                     'type'         => 'import',
                     'label'        => 'Import Settings',
@@ -1352,16 +1358,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'default_expiration' => [
+                'listing_expire_in_days' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
                     'value' => 365,
                     'placeholder' => '365',
-                    'rules' => [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 730,
-                    ],
+                    'description' => __('Here 0 means unlimited days.', 'directorist'),
                 ],
                 'can_renew_listing' => [
                     'label' => __('Can User Renew Listing?', 'directorist'),
@@ -4417,7 +4419,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'enable_multi_directory',
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
+                                        'font_type', 'listing_expire_in_days', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
                                     ],
                                 ],
                                
@@ -5138,42 +5140,34 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
 
-
-                        'cache_settings' => [
-                            'label'     => __('Caching', 'directorist'),
-                            'icon' => '<i class="fa fa-power-off"></i>',
+                        'miscellaneous' => [
+                            'label'     => __('Miscellaneous', 'directorist'),
+                            'icon' => '<i class="fas fa-thumbtack"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
-                                'caching' => [
-                                    'fields'      => [ 
-                                        'atbdp_enable_cache', 'atbdp_reset_cache',
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-                        'legacy' => [
-                            'label' => __( 'Legacy Mode', 'directorist' ),
-                            'icon' => '<i class="fa fa-bolt"></i>',
-                            'sections' => apply_filters( 'atbdp_legacy_sections', [
                                 'legacy' => [
+                                    'title' => __( 'Legacy', 'directorist' ),
                                     'fields'      => [ 
                                         'atbdp_legacy_template'
                                      ],
                                 ],
-                            ] ),
-                        ],
-
-                        'uninstall' => [
-                            'label' => __( 'Uninstall Setting', 'directorist' ),
-                            'icon' => '<i class="fa fa-trash"></i>',
-                            'sections'  => apply_filters('atbdp_uninstall_controls', [
+                                'caching' => [
+                                    'title' => __( 'Caching', 'directorist' ),
+                                    'fields'      => [ 
+                                        'atbdp_enable_cache', 'atbdp_reset_cache',
+                                     ],
+                                ],
+                                // 'debugging' => [
+                                //     'title' => __( 'Debugging', 'directorist' ),
+                                //     'fields'      => [ 
+                                //         'script_debugging',
+                                //      ],
+                                // ],
                                 'uninstall' => [
+                                    'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]
                                 ],
-                        
-                            ]),
+                            ] ),
                         ],
-         
                     ]),
                 ],
 

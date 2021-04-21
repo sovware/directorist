@@ -150,8 +150,8 @@ import { get_dom_data } from '../../lib/helper';
 
                 function geocodeAddress(geocoder, resultsMap) {
                         const address = address_input.value;
-                        const lat = document.getElementById('manual_lat').value;
-                        const lng = document.getElementById('manual_lng').value;
+                        const lat = parseFloat(document.getElementById('manual_lat').value);
+                        const lng = parseFloat(document.getElementById('manual_lng').value);
                         const latLng = new google.maps.LatLng(lat, lng);
                         const opt = { location: latLng, address };
                         geocoder.geocode(opt, function(results, status) {

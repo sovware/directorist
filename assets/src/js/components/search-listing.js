@@ -1,91 +1,63 @@
 (function ($) {
-    $('#loc-type').select2({
-        placeholder: atbdp_search_listing.i18n_text.location_selection,
-        allowClear: true,
-        width: '100%',
-        templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if (!data.element) {
-                return data.text;
-            }
 
-            var $element = $(data.element);
+    init_select2_fields();
 
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
+    document.body.addEventListener( 'directorist-reload-select2-fields', init_select2_fields );
 
-            $wrapper.text(data.text);
-
-            return $wrapper;
-        }
-    });
-
-    $('.directorist-location-select').select2({
-        placeholder: atbdp_search_listing.i18n_text.location_selection,
-        allowClear: true,
-        width: '100%',
-        templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if (!data.element) {
-                return data.text;
-            }
-
-            var $element = $(data.element);
-
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
-
-            $wrapper.text(data.text);
-
-            return $wrapper;
-        }
-    });
-
-    // Category
-    $('#cat-type').select2({
-        placeholder: atbdp_search_listing.i18n_text.category_selection,
-        allowClear: true,
-        width: '100%',
-        templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if (!data.element) {
-                return data.text;
-            }
-
-            var $element = $(data.element);
-
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
-
-            $wrapper.text(data.text);
-
-            return $wrapper;
-        },
-        cache: true
-    });
-    $('.directorist-category-select').each(function (ind, elem) {
-        $(this).select2({
-            placeholder: atbdp_search_listing.i18n_text.category_selection,
+    function init_select2_fields() {
+        let select2_args = {
             allowClear: true,
             width: '100%',
             templateResult: function (data) {
                 // We only really care if there is an element to pull classes from
-                if (!data.element) {
+                if ( ! data.element ) {
                     return data.text;
                 }
-
                 var $element = $(data.element);
-
                 var $wrapper = $('<span></span>');
+    
                 $wrapper.addClass($element[0].className);
-
                 $wrapper.text(data.text);
-
+    
                 return $wrapper;
-            },
-            cache: true,
+            }
+        };
+    
+        let select2_fields = [
+            // General
+            { elm: $('.select-basic'), args: select2_args },
+            
+            // Location
+            { elm: $('#at_biz_dir-location'), args: select2_args },
+            { elm: $('#loc-type'), args: select2_args },
+            { elm: $('.bdas-location-search'), args: select2_args },
+            { elm: $('.directorist-location-select'), args: select2_args },
+    
+            // Category
+            { elm: $('#at_biz_dir-category'), args: select2_args },
+            { elm: $('#cat-type'), args: select2_args },
+            { elm: $('.bdas-category-search'), args: select2_args },
+            { elm: $('.directorist-category-select'), args: select2_args },
+        ];
+
+        select2_fields.forEach( field => {
+            if ( ! field.elm ) { return; }
+            if ( ! field.args ) { return; }
+    
+            convert_to_select2( field );
         });
-    })
+    }
+
+    function convert_to_select2( field ) {
+        var options = field.elm.find( 'option' );
+        var placeholder = ( options.length ) ? options[0].innerHTML: '';
+
+        if ( placeholder.length ) {
+            field.args.placeholder = placeholder;
+        }
+
+        field.elm.select2( field.args );
+    }
 
     //ad search js
     /* var showMore = atbdp_search_listing.i18n_text.show_more;
@@ -122,7 +94,7 @@
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
-    $( window  ).load(function() {
+    $( window  ).on( 'load', function() {
 
         $('.directorist-btn-ml').each( (index, element) => {
             let item = $(element).closest('.atbdp_cf_checkbox, .direcorist-search-field-tag');
@@ -168,29 +140,30 @@
     }
 
     var dFilterBtn = $('body').find('.directorist-filter-btn');
-    dFilterBtn.each(function(ind, elm){
-        var count = 0;
-        $(elm).on("click", function (e) {
-            count++;
-            e.preventDefault();
-            var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-            if (count % 2 === 0) {
-                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                    visibility: 'hidden',
-                    opacity: '0',
-                    height: '0',
-                    transition: '.3s ease'
-                });
-            } else {
-                $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
-                    visibility: 'visible',
-                    height: adsItemsHeight + adsFilterHeight + 70 + 'px',
-                    transition: '0.3s ease',
-                    opacity: '1',
-                });
-            }
-        });
+    
+    var count = 0;
+    $('body').on("click", '.directorist-filter-btn', function (e) {
+        count++;
+        e.preventDefault();
+        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
+        
+        if (count % 2 === 0) {
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                visibility: 'hidden',
+                opacity: '0',
+                height: '0',
+                transition: '.3s ease'
+            });
+        } else {
+            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+                visibility: 'visible',
+                height: adsItemsHeight + adsFilterHeight + 70 + 'px',
+                transition: '0.3s ease',
+                opacity: '1',
+            });
+        }
     });
+
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
     dFilterBtn.each(function(ind, elm){
@@ -205,7 +178,7 @@
 
 
     //remove preload after window load
-    $(window).load(function () {
+    $(window).on( 'load', function () {
         $("body").removeClass("directorist-preload");
         $('.button.wp-color-result').attr('style', ' ');
     });

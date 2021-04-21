@@ -144,12 +144,27 @@ MarkerLabel.prototype.draw = function () {
         atbdp_center_map(map);
 
         // update map when contact details fields are updated in the custom post type 'acadp_listings'
-        const mcOptions = {
-            // imagePath: atbdp_map.plugin_url+'public/assets/images/m',
-            cssClass: 'marker-cluster-shape',
-        };
+        /* const mcOptions = {
+            imagePath: atbdp_map.plugin_url+'assets/images/m',
+            //cssClass: 'marker-cluster-shape',
+            styles:[{
+                url: atbdp_map.plugin_url+'assets/images/m1.png',
+                width: 53,
+                height:53,
+                textColor:"#ffffff",
+            }]
+        }; */
+        var mcOptions = new MarkerClusterer(map, [], {
+            imagePath: atbdp_map.plugin_url+'assets/images/m'
+        });
+        mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
+            style.textColor = '#fff';
+            return style;
+        }));
+
         if (map.type === 'markerclusterer') {
-            const markerCluster = new MarkerClusterer(map, map.markers, mcOptions);
+            //const markerCluster = new MarkerClusterer(map, map.markers, mcOptions);
+            mcOptions.addMarkers(map.markers);
         }
     }
 
@@ -277,7 +292,7 @@ MarkerLabel.prototype.draw = function () {
             atbdp_rander_map( $( this ) );
         });
     }
-    
+
     window.addEventListener( 'load', setup_map );
     window.addEventListener( 'load', setup_info_window );
 

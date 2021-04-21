@@ -1,3 +1,13 @@
 .directorist-form-section{
     font-size: 15px;
 }
+
+/* Display Each Grid Info on Single Line */
+.directorist-archive-contents .directorist-single-line .directorist-listing-title,
+.directorist-archive-contents .directorist-single-line .directorist-listing-tagline,
+.directorist-archive-contents .directorist-single-line .directorist-listing-single__info--list ul li div,
+.directorist-archive-contents .directorist-single-line .directorist-listing-single__info--excerpt p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

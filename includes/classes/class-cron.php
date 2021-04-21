@@ -188,9 +188,17 @@ if (!class_exists('ATBDP_Cron')) :
                             // _expiry_date > $renew_email_threshold_date,     '2018-04-15 09:24:00' < '2018-04-09 12:57:27'. eg. expiry date can not be greater than renewal threshold because threshold is the future date. expiration date should be equal to future date or less.
                             'type'    => 'DATETIME'
                         ),
-                        array(
-                            'key'   => '_never_expire',
-                            'value' => '',
+                        'expiration' => array(
+                            'relation' => 'OR',
+                            array(
+                                'key'     => '_never_expire',
+                                'value'   => [ '', '0' ],
+                                'compare' => 'IN',
+                            ),
+                            array(
+                                'key'     => '_never_expire',
+                                'compare' => 'NOT EXISTS',
+                            ),
                         )
                     )
                 );
@@ -235,9 +243,17 @@ if (!class_exists('ATBDP_Cron')) :
                         'compare' => '<=',                    // eg. expire date 6 <= current date 7 will return the post
                         'type'    => 'DATETIME'
                     ),
-                    array(
-                        'key'   => '_never_expire',
-                        'value' => '',
+                    'expiration' => array(
+                        'relation' => 'OR',
+                        array(
+                            'key'     => '_never_expire',
+                            'value'   => [ '', '0' ],
+                            'compare' => 'IN',
+                        ),
+                        array(
+                            'key'     => '_never_expire',
+                            'compare' => 'NOT EXISTS',
+                        ),
                     )
                 )
             );
@@ -350,9 +366,17 @@ if (!class_exists('ATBDP_Cron')) :
                             'key'   => '_renewal_reminder_sent',
                             'value' => 0,
                         ),
-                        array(
-                            'key'   => '_never_expire',
-                            'value' => '',
+                        'expiration' => array(
+                            'relation' => 'OR',
+                            array(
+                                'key'     => '_never_expire',
+                                'value'   => [ '', '0' ],
+                                'compare' => 'IN',
+                            ),
+                            array(
+                                'key'     => '_never_expire',
+                                'compare' => 'NOT EXISTS',
+                            ),
                         )
                     )
                 );
@@ -407,9 +431,17 @@ if (!class_exists('ATBDP_Cron')) :
                         'compare' => '<',
                         'type'    => 'DATETIME'
                     ),
-                    array(
-                        'key'   => '_never_expire',
-                        'value' => 0,
+                    'expiration' => array(
+                        'relation' => 'OR',
+                        array(
+                            'key'     => '_never_expire',
+                            'value'   => [ '', '0' ],
+                            'compare' => 'IN',
+                        ),
+                        array(
+                            'key'     => '_never_expire',
+                            'compare' => 'NOT EXISTS',
+                        ),
                     )
                 )
             );

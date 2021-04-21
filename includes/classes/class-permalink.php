@@ -110,7 +110,7 @@ class ATBDP_Permalink {
                 $author = get_user_by( 'id', $author_id );
 				$author_id = ( $author ) ? $author->user_login : $author_id;
                 
-                if( ! empty( $directory_type ) ) {
+                if( ! empty( $directory_type ) && Directorist\Helper::multi_directory_enabled() ) {
                     $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/' . $directory_type );
                 } else {
                     $link = user_trailingslashit( trailingslashit( $link ) . $author_id );

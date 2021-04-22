@@ -1119,13 +1119,21 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             $link = $installing_file['download_link'];
+            $download_args = ['url' => $link];
 
             if ( 'plugin' === $type ) {
-                $this->download_plugin( ['url' => $link] );
+                $download_status = $this->download_plugin( $download_args );
             }
 
             if ( 'theme' === $type ) {
-                $this->download_theme( ['url' => $link] );
+                $download_status = $this->download_theme( $download_args );
+            }
+
+            if ( ! $download_status['success'] ) {
+                $status['success'] = false;
+                $status['message'] = __( 'Installation failed', 'directorist' );
+
+                return ['status' => $status];
             }
 
             $status['success'] = true;
@@ -1186,28 +1194,38 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             $link = $download_item['download_link'];
+            $download_args = ['url' => $link];
 
             if ( 'plugin' === $type ) {
-                $this->download_plugin( ['url' => $link] );
+                $download_status = $this->download_plugin( $download_args );
             }
 
             if ( 'theme' === $type ) {
-                $this->download_theme( ['url' => $link] );
+                $download_status = $this->download_theme( $download_args );
             }
 
+            if ( ! $download_status['success'] ) {
+                $status['success'] = false;
+                $status['message'] = __( 'Installation failed', 'directorist' );
+
+                return ['status' => $status];
+            }
+
+            $status['success'] = true;
             $status['message'] = __( 'Donloaded', 'directorist' );
+            
             wp_send_json( ['status' => $status] );
         }
 
         // download_plugin
         public function download_plugin( array $args = [] ) {
-            $status = ['success' => true];
+            $status = ['success' => false];
 
             $default = ['url' => '', 'init_wp_filesystem' => true];
             $args    = array_merge( $default, $args );
 
             if ( empty( $default ) ) {
-                return;
+                return $status;
             }
 
             if ( empty( $args['url'] ) ) {
@@ -1310,13 +1328,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // download_theme
         public function download_theme( array $args = [] ) {
-            $status = ['success' => true];
+            $status = ['success' => false];
 
             $default = ['url' => '', 'init_wp_filesystem' => true];
             $args    = array_merge( $default, $args );
 
             if ( empty( $default ) ) {
-                return;
+                return $status;
             }
 
             if ( empty( $args['url'] ) ) {
@@ -1410,7 +1428,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 copy_dir( $new_temp_dest, $theme_path );
                 $wp_filesystem->delete( $temp_dest, true );
 
-                return;
+                $status['success'] = false;
+                $status['massage'] = __( 'The theme has been downloaded successfully', 'directorist' );
             }
 
             // Delete Previous Files If Exists

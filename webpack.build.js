@@ -10,10 +10,12 @@ const prodConfig = {
   
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [ 'css/*', 'js/*' ]
+      dry: false,
+      cleanOnceBeforeBuildPatterns: [ '../css/*', '../js/*' ],
+      dangerouslyAllowCleanPatternsOutsideProject: true,
     }),
     new MiniCssExtractPlugin({
-      filename: "css/[name].min.css",
+      filename: "../css/[name].min.css",
       minify: true,
     }),
     new WebpackRTLPlugin({
@@ -22,7 +24,7 @@ const prodConfig = {
   ],
 
   output: {
-    filename: "js/[name].min.js",
+    filename: "../js/[name].min.js",
   },
 };
 

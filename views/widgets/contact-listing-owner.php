@@ -6,7 +6,7 @@ echo '</div>';
 $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
 ?>
 <div class="atbdp directorist atbdp-widget-listing-contact">
-  <form id="<?php echo $form_id; ?>" class="form-vertical contact_listing_owner_form">
+  <form id="<?php echo $form_id; ?>" class="form-vertical directorist-contact-owner-form">
     <div class="form-group">
       <input type="text" class="form-control" name="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
     </div>
@@ -37,7 +37,7 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
 
     do_action('atbdp_before_contact_form_submit_button');
     ?>
-    <p class="atbdp-widget-elm atbdp-contact-message-display"></p>
+    <p class="atbdp-widget-elm directorist-contact-message-display"></p>
 
     <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
   </form>

@@ -1358,16 +1358,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'default_expiration' => [
+                'listing_expire_in_days' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
                     'value' => 365,
                     'placeholder' => '365',
-                    'rules' => [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 730,
-                    ],
+                    'description' => __('Here 0 means unlimited days.', 'directorist'),
                 ],
                 'can_renew_listing' => [
                     'label' => __('Can User Renew Listing?', 'directorist'),
@@ -4423,7 +4419,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'enable_multi_directory',
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
+                                        'font_type', 'listing_expire_in_days', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
                                     ],
                                 ],
                                

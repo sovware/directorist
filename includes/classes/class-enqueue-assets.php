@@ -393,8 +393,7 @@ class Enqueue_Assets {
 			'has_min'   => false,
 			'deps'      => [],
 			'ver'       => self::$script_version,
-			'group'     => 'global',                      // public || admin  || global
-			'enable'    => true,
+			'group'     => 'global',
 		];
 
 		$scripts['directorist-sweetalert'] = [

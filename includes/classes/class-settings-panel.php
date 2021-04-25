@@ -1306,11 +1306,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
-
-
-
-
-
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
@@ -1484,6 +1479,11 @@ Please remember that your order may be canceled if you do not make your payment 
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
                     ],
+                    'value' => false,
+                ],
+                'directorist_allow_custom_field_meta_key_editing' => [
+                    'label' => __('Allow custom field meta key editing', 'directorist'),
+                    'type'  => 'toggle',
                     'value' => false,
                 ],
                 'guest_listings' => [
@@ -5154,6 +5154,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title' => __( 'Caching', 'directorist' ),
                                     'fields'      => [ 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
+                                     ],
+                                ],
+                                'custom_field_settings' => [
+                                    'title' => __( 'Custom field settings', 'directorist' ),
+                                    'fields'      => [ 
+                                        'directorist_allow_custom_field_meta_key_editing',
                                      ],
                                 ],
                                 // 'debugging' => [

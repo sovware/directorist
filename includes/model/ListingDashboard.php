@@ -555,11 +555,13 @@ class Directorist_Listing_Dashboard {
 	public function get_action_dropdown_item() {
 		$dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
 
+		$post_id = get_the_ID();
+
 		if ( $this->can_renew() ) {
 			$dropdown_items['renew'] = array(
 				'class'			    => '',
 				'data_attr'			=>	'data-task="renew"',
-				'link'				=>	'#',
+				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_renewal_page_link( $post_id )) ),
 				'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
 				'label'				=>  __( 'Renew', 'directorist' )
 			);
@@ -569,7 +571,7 @@ class Directorist_Listing_Dashboard {
 			$dropdown_items['promote'] = array(
 				'class'			    => '',
 				'data_attr'			=>	'data-task="promote"',
-				'link'				=>	'#',
+				'link'				=>	ATBDP_Permalink::get_checkout_page_link( $post_id ),
 				'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
 				'label'				=>  __( 'Promote', 'directorist' )
 			);

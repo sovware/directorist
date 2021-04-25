@@ -2157,11 +2157,10 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                                 if (response.status && response.status.success) {
                                         $(self).html('Installed');
+                                        location.reload();
                                 } else {
                                         $(self).html('Failed');
                                 }
-
-                                location.reload();
                         },
                         error(error) {
                                 console.log(error);

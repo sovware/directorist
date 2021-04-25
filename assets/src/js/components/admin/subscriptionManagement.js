@@ -517,11 +517,10 @@ $('.file-install-btn').on('click', function (e) {
 
             if (response.status && response.status.success) {
                 $(self).html('Installed');
+                location.reload();
             } else {
                 $(self).html('Failed');
             }
-
-            location.reload();
         },
         error(error) {
             console.log(error);

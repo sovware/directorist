@@ -522,14 +522,16 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_action_dropdown_item() {
-		 $dropdown_items['delete'] = array(
+		$dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
+
+		$dropdown_items['delete'] = array(
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
 			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
 			'label'				=>  __( 'Delete Listing', 'directorist' )
-		 );
+		);
 
-		return apply_filters( 'directorist_dashboard_listing_action_items', $dropdown_items, $this );
+		return apply_filters( 'directorist_dashboard_listing_action_items_end', $dropdown_items, $this );
 	}
 }

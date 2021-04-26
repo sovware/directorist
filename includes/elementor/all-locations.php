@@ -133,7 +133,7 @@ class Directorist_All_Locations extends Custom_Widget_Base {
 			),
 		);
 		return $fields;
-	}	
+	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
@@ -145,12 +145,12 @@ class Directorist_All_Locations extends Custom_Widget_Base {
 			'orderby'             => $settings['order_by'],
 			'order'               => $settings['order_list'],
 			'logged_in_user_only' => $settings['user'] ? $settings['user'] : 'no',
-			'slug'                => $settings['slug'] ? implode( $settings['slug'], ',' ) : '',
+			'slug'                => $settings['slug'] ? implode( ',', $settings['slug'] ) : '',
 		);
 
 		if ( Helper::multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
-				$atts['directory_type'] = implode( $settings['type'], ',' );
+				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}
 			if ( $settings['default_type'] ) {
 				$atts['default_directory_type'] = $settings['default_type'];

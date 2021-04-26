@@ -355,7 +355,7 @@ class Directorist_Listing_Author {
 
 		$args = array(
 			'author'         => $this,
-			'bio'            => $bio,
+			'bio'            => nl2br( $bio ),
 			'address'        => get_user_meta($author_id, 'address', true),
 			'phone'          => get_user_meta($author_id, 'atbdp_phone', true),
 			'email_endabled' => $email_endabled,

@@ -63,7 +63,7 @@ class Directorist_Add_Listing extends Custom_Widget_Base {
 
 		if ( Helper::multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
-				$atts['directory_type'] = implode( $settings['type'], ',' );
+				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}
 		}
 

@@ -12,10 +12,8 @@ $post_id = ! empty( $listing_form->get_add_listing_id() ) ? $listing_form->get_a
 // wp_enqueue_script( 'atbdp-plupload-min' );
 // wp_enqueue_script( 'atbdp-plupload' );
 // wp_enqueue_script( 'atbdp-plupload' );
-$file_type         = get_post_meta( $post_id, 'file_type', true );
-$file_size         = get_post_meta( $post_id, 'file_size', true );
-$file_types        = ! empty( $file_type ) ? $file_type : 'all_types';
-$file_size         = ! empty( $file_size ) ? $file_size : '2mb';
+$file_types        = ! empty( $data['file_type'] ) ? $data['file_type'] : 'all_types';
+$file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
 $allowed_img_types = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
 // place js config array for plupload
 $plupload_init = array(
@@ -91,8 +89,8 @@ $id                 = $post_id;
 $is_required        = 0;
 $image_limit        = 0;
 $total_files        = 0;
-$allowed_file_types = ( 'all_types' == $file_types ) ? '*' : $file_types;
-$display_file_types = ( 'all_types' == $file_types ) ? '.*' : $file_types;
+$allowed_file_types = ( 'all_types' == $file_types || 'all' == $file_types ) ? '*' : $file_types;
+$display_file_types = ( 'all_types' == $file_types || 'all' == $file_types ) ? '.*' : $file_types;
 $multiple           = false;
 ?>
 <div class="directorist-form-group directorist-custom-field-file-upload">

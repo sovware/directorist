@@ -42,6 +42,14 @@ class ATBDP_Metabox {
 		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
 		$listing_locations =  ob_get_clean();
 
+		ob_start();
+		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_CATEGORY );
+		$listing_pop_categories =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
+		$listing_pop_locations =  ob_get_clean();
+
 
 		$required_script_src = [];
 
@@ -52,10 +60,12 @@ class ATBDP_Metabox {
 		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
 
 		wp_send_json_success( array(
-			'listing_meta_fields' => $listing_meta_fields,
-			'listing_categories'  => $listing_categories,
-			'listing_locations'   => $listing_locations,
-			'required_js_scripts' => $required_script_src,
+			'listing_meta_fields' 		=> $listing_meta_fields,
+			'listing_categories'  		=> $listing_categories,
+			'listing_pop_categories'  	=> $listing_pop_categories,
+			'listing_locations'   		=> $listing_locations,
+			'listing_pop_locations'   	=> $listing_pop_locations,
+			'required_js_scripts' 		=> $required_script_src,
 		) );
 
 	}
@@ -81,6 +91,34 @@ class ATBDP_Metabox {
 				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
 				if( in_array( $term_id, $directory_type) ) { ?>
 					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
+
+				<?php
+				}
+			}
+		}
+	}
+
+	public function render_listing_pop_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
+		$args = array(
+			'hide_empty' => 0,
+			'hierarchical' => false
+		);
+		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values    = array();
+		if( $saving_terms ) {
+			foreach( $saving_terms as $saving_term ) {
+				$saving_values[] = $saving_term->term_id;
+			}
+		}
+		$terms = get_terms( $taxonomy_id, $args);
+
+		if( $terms ) {
+			foreach( $terms as $term ) {
+				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
+				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
+				if( in_array( $term_id, $directory_type) ) { ?>
+					<li id="popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" class="popular-category"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" id="in-popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
 
 				<?php
 				}
@@ -178,7 +216,7 @@ class ATBDP_Metabox {
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta($post->ID, '_expiry_date', true);
-		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date();
+		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
 		$expiry_date            = atbdp_parse_mysql_date($e_d);
 
 		$featured               = get_post_meta($post->ID, '_featured', true);
@@ -261,7 +299,8 @@ class ATBDP_Metabox {
 			$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 	   }
 
-		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
+	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
+		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;
 		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){

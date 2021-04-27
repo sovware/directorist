@@ -45,21 +45,21 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
-	// extract_user_id_from_query_var
+	// extract_user_id
 	public function extract_user_id( $user_id = '' ) {
-		$user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
+		$extracted_user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
 		
 		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
 			$user = get_user_by( 'login', $user_id );
 			
 			if ( $user ) {
-				$user_id = $user->ID;
+				$extracted_user_id = $user->ID;
 			}
 		}
 		
-		$user_id = intval( $user_id );
+		$extracted_user_id = intval( $extracted_user_id );
 
-		return $user_id;
+		return $extracted_user_id;
 	}
 
 	function prepare_data() {
@@ -291,7 +291,7 @@ class Directorist_Listing_Author {
 
 		$args = array(
 			'author'         => $this,
-			'bio'            => $bio,
+			'bio'            => nl2br( $bio ),
 			'address'        => get_user_meta($author_id, 'address', true),
 			'phone'          => get_user_meta($author_id, 'atbdp_phone', true),
 			'email_endabled' => $email_endabled,
@@ -300,7 +300,7 @@ class Directorist_Listing_Author {
 			'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
 			'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
 			'linkedIn'       => get_user_meta($author_id, 'atbdp_linkedin', true),
-			'youtube'        => get_user_meta($author_id, 'youtube', true),
+			'youtube'        => get_user_meta($author_id, 'atbdp_youtube', true),
 		);
 
 		Helper::get_template( 'author/author-about', $args );

@@ -8,13 +8,13 @@
 
     .directorist-alert__content {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
 
         span.la,
         span.fa,
         i {
-            margin-right: 6px;
+            margin-right: 12px;
+            line-height: 1.65;
         }
 
         p {
@@ -30,12 +30,15 @@
         margin-left: auto !important;
         border: 0 none;
         box-shadow: none;
+        line-height: 1.2;
 
         .la,
         .fa,
-        i {
-            font-size: 14px;
-            margin-right: 5px;
+        i,
+        span {
+            font-size: 16px;
+            margin-left: 10px;
+            color: $danger;
         }
 
         &:focus {

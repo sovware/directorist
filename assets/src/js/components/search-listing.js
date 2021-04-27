@@ -129,7 +129,7 @@
         height: '0',
     });
 
-    const adsItemHeight = $('.directorist-search-adv-filter .directorist-advanced-filter__advanced--element');
+    const adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
     let adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
     for(let i = 0; i<= adsItemHeight.length; i++){

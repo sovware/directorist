@@ -41,7 +41,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
         
-        add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
+        add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
     }
 
     // init_sanitize_builder_data_structure
@@ -86,10 +86,12 @@ class Multi_Directory_Manager
 
     public function conditional_layouts( $layouts ) {
 
+        $updated_layouts = $layouts;
+
         if( ! directorist_multi_directory() ) {
-            unset( $layouts['general']['submenu']['general']['sections']['default_preview'] );
+            unset( $updated_layouts['general']['submenu']['general']['sections']['default_preview'] );
         }
-        return $layouts;
+        return $updated_layouts;
     }
 
     // get_cetagory_options

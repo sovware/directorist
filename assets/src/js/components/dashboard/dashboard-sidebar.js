@@ -1,7 +1,6 @@
 ;(function ($) {
 
     //dashboard sidebar nav toggler
-
     $(".directorist-user-dashboard__toggle__link").on("click", function(e){
         e.preventDefault();
         $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
@@ -13,7 +12,6 @@
     }
 
     //dashboard nav dropdown
-
     $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function(e){
       e.preventDefault();
       $(this).siblings("ul").slideToggle();

@@ -166,13 +166,11 @@
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
-    dFilterBtn.each(function(ind, elm){
-        $(elm).on("click", function (e) {
-            e.preventDefault();
-            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
-            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-            atbd_callingSlider();
-        });
+    $('body').on("click", '.directorist-filter-btn', function (e) {
+        e.preventDefault();
+        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
+        atbd_callingSlider();
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 

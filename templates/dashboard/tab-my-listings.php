@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</div>
 
 					<form id="directorist-dashboard-listing-searchform">
-						<input type="text" placeholder="Search listings" name="searchtext">
+						<input type="text" placeholder="<?php _e( 'Search listings', 'directorist' ); ?>" name="searchtext">
 					</form>
 
 				</div>

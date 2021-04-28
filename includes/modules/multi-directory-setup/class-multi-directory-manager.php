@@ -1482,8 +1482,6 @@ class Multi_Directory_Manager
                                     ],
                                 ],
                             ]),
-
-
                         ]
 
                     ],

@@ -416,7 +416,7 @@ class Directorist_Listing_Dashboard {
 			$renew_token_expired = $renew_succeed = false;
 		}
 		$confirmation_msg 		= '';
-		$listing_id				= !empty( $_GET['atbdp_listing_id'] ? $_GET['atbdp_listing_id'] : '' );
+		$listing_id				= !empty( $_GET['atbdp_listing_id'] ) ? $_GET['atbdp_listing_id'] : '' ;
 		$directory_type 		= get_post_meta( $listing_id, '_directory_type', true );
 		$new_listing_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
 		$edit_listing_status 	= get_term_meta( $directory_type, 'edit_listing_status', true );

@@ -152,6 +152,11 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
+        $this->run_multidirectory_migration();
+    }
+
+    // run_multidirectory_migration
+    public function run_multidirectory_migration() {
         $directory_types = get_terms( array(
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
@@ -1856,22 +1861,27 @@ class Multi_Directory_Manager
                                 ]
                             ],
                             'options' => [
-                                'type' => 'multi-fields',
+                                'type' => 'textarea',
                                 'label' => __('Options', 'directorist'),
-                                'add-new-button-label' => __( 'Add Option', 'directorist' ),
-                                'options' => [
-                                    'option_value' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Value', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                    'option_label' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Label', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                ]
+                                'value' => ''
                             ],
+                            // 'options' => [
+                            //     'type' => 'multi-fields',
+                            //     'label' => __('Options', 'directorist'),
+                            //     'add-new-button-label' => __( 'Add Option', 'directorist' ),
+                            //     'options' => [
+                            //         'option_value' => [
+                            //             'type'  => 'text',
+                            //             'label' => __( 'Option Value', 'directorist' ),
+                            //             'value' => '',
+                            //         ],
+                            //         'option_label' => [
+                            //             'type'  => 'text',
+                            //             'label' => __( 'Option Label', 'directorist' ),
+                            //             'value' => '',
+                            //         ],
+                            //     ]
+                            // ],
                             'description' => [
                                 'type'  => 'text',
                                 'label' => __( 'Description', 'directorist' ),

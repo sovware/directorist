@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.3.3
+Stable tag: 7.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -154,7 +154,7 @@ Location or address search is an important aspect of a business directory and cl
 
 More options for getting paid means more ways to earn revenue. By default, **Directorist Business Directory** allows you to use an offline payment method for free. You can set up a bank transfer method as an offline payment gateway using the free version.
 
-If you want to scale up your payment gateway using an online payment method, and you can use [PayPal](https://directorist.com/product/directorist-paypal/) or [Stripe](https://directorist.com/product/directorist-stripe/) by purchasing cost-effective extensions. In addition to this, using this WordPress directory plugin taxes and recurring options can be added into your online payment system respectively.
+If you want to scale up your payment gateway using an online payment method, and you can use [PayPal](https://directorist.com/product/directorist-paypal/) , [Stripe](https://directorist.com/product/directorist-stripe/) or [Authorize.Net](https://directorist.com/product/directorist-authorize-net/) by purchasing cost-effective extensions. In addition to this, using this WordPress directory plugin taxes and recurring options can be added into your online payment system respectively.
 
 == Easy to Use and Highly Customizable ==
 
@@ -211,6 +211,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 👉 **[PayPal Payment Gateway](https://directorist.com/product/directorist-paypal/)** - Get paid through the PayPal payment gateway on your directory listing website.
 
 👉 **[Stripe Payment Gateway](https://directorist.com/product/directorist-stripe/)** - Scale up your payment gateway by using Stripe Payment Gateway extension. This extension is used to accept payment through Credit Cards. David Cards, Visa Card, MasterCard, Apple Pay, Google Pay, AliPay, and many more. This 3D secured extension supports 135 currencies all through the world.
+
+👉 **[Authorize.Net Payment Gateway](https://directorist.com/product/directorist-authorize-net/)** - Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more.
 
 👉 **[Booking(Reservation & Appointment)](https://directorist.com/product/directorist-booking/)** - Set up a system for booking online shows, consultations, seminar, wedding invitations, training classes, restaurant, saloon reservations, doctor appointment, lawyer, consultancy firm, and so on.
 
@@ -349,6 +351,44 @@ Directorist is a complete directory solution and in combination with its advance
 29. Directorist Settings Panel
 
 == Changelog ==
+
+= 7.0.4 - Apr 28, 2021 =
+
+* Add - Pretty url in author profile page
+* Add - Missing setting
+* Fix - Custom field in search (checkbox, radio & select)
+* Fix - Custom field loading issue with mostly used categories
+* Fix - Author page responsive issue
+* Fix - Expired listings issue
+* Fix - Tagline issue in listings page
+* Fix - Builder issues
+* Fix - Translation issues
+* Fix - Columns validation issue of taxonomies page
+* Fix - Custom file upload field issue
+* Fix - Youtube missing issue on author page
+* Fix - Dashboard vertical scroll issue
+* Fix - Default expiration issues
+* Fix - Tag field in search form
+* Fix - Dynamic placeholder issue in select2 type fields
+* Fix - Location suggestion from map API
+* Fix - Category icon update issue
+* Fix - Contact Listing Owner widget
+* Fix - implode() deprecated notice
+* Fix - Rewrite rule issue with directory slug
+* Fix - Slider issues in single listing
+* Fix - Line breaking in author's bio section
+* Fix - Issue in logged_in_user_only
+* Fix - Subscription management issues
+* Fix - Listing filtering issue with category in Elementor
+* Fix - Advance filter sliding issues
+* Fix - Default preview image issue in single directory
+* Improve - Default icon of custom fields in card builder
+* Improve - Yoast compatibility
+* Improve - Review alert 
+* Improve - Google map
+* Improve - Search form style
+* Remove - Extra language file
+* Improve - Settings cleanup
 
 = 7.0.3.3 - Mar 31, 2021 =
 

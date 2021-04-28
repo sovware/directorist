@@ -261,12 +261,22 @@ trait Multi_Directory_Helper {
 
         if ( 'string' !== gettype( $string )  ) { return $string; }
 
+        if ( preg_match( '/\\\\n/', $string_alt ) ) {
+            $string_alt = preg_replace('/\\\\n/', '<br>', $string_alt);
+        }
+
         if ( preg_match( '/\\\\+/', $string_alt ) ) {
             $string_alt = preg_replace('/\\\\+/', '', $string_alt);
         }
 
         $string_alt = json_decode($string_alt, true);
         $string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
+
+        if ( ! is_null( $string ) ) {
+            $string = json_encode( $string );
+            $string =  preg_replace('/(<br>)/', "\\n", $string);
+            $string = json_decode($string, true);
+        }
 
         return $string;
     }

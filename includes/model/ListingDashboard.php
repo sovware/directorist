@@ -461,7 +461,8 @@ class Directorist_Listing_Dashboard {
 			return '';
 		}
 
-		$edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
+		$directory_type 		= default_directory_type();
+        $edit_listing_status    = get_term_meta( $directory_type, 'edit_listing_status', true );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;

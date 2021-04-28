@@ -229,7 +229,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 			'columns'               => $settings['columns'],
 			'listings_per_page'     => $settings['listing_number'],
 			'show_pagination'       => $settings['show_pagination'] ? $settings['show_pagination'] : 'no',
-			'cat'                   => $settings['cat'] ? implode( ',', $settings['cat'] ) : '',
+			'category'              => $settings['cat'] ? implode( ',', $settings['cat'] ) : '',
 			'tag'                   => $settings['tag'] ? implode( ',', $settings['tag'] ) : '',
 			'location'              => $settings['location'] ? implode( ',', $settings['location'] ) : '',
 			'featured_only'         => $settings['featured'] ? $settings['featured'] : 'no',

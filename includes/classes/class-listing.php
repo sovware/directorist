@@ -166,12 +166,11 @@ if (!class_exists('ATBDP_Listing')):
             if ( $pricing_plan_enabled ) { return; }; 
             if ( ! $featured_enabled ) { return; }; 
             
-            $listing_status = get_directorist_option('new_listing_status', 'pending');
-            $post_status = $listing_status;
+            $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+            $post_status = get_term_meta( $directory_type, 'new_listing_status', true );
+
             $order_meta = get_post_meta( $order_id );
             $payment_status = $order_meta['_payment_status'][0];
-
-            $post_status = get_directorist_option('new_listing_status', 'pending');
 
             if ( 'completed' !== $payment_status ) {
                 $post_status = 'pending';

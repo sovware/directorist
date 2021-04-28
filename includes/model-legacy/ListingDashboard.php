@@ -416,8 +416,10 @@ class Directorist_Listing_Dashboard {
 			$renew_token_expired = $renew_succeed = false;
 		}
 		$confirmation_msg 		= '';
-		$new_listing_status 	= get_directorist_option('new_listing_status', 'pending' );
-		$edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
+		$listing_id				= !empty( $_GET['atbdp_listing_id'] ) ? $_GET['atbdp_listing_id'] : '' ;
+		$directory_type 		= get_post_meta( $listing_id, '_directory_type', true );
+		$new_listing_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
+		$edit_listing_status 	= get_term_meta( $directory_type, 'edit_listing_status', true );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 

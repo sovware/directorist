@@ -108,7 +108,7 @@ class Directorist_Listing_Search_Form {
 		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'overlapping');
+		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
 
 		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
@@ -133,7 +133,7 @@ class Directorist_Listing_Search_Form {
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'overlapping');
+		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'sliding');
 
 		$this->options['reset_filters_text']      = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );

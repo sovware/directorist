@@ -147,7 +147,7 @@ class ATBDP_Metabox {
 		// show expiration date and featured listing.
 		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
-		$expire_in_days         = ! empty( $expiration ) ? $expiration : get_directorist_option('listing_expire_in_days');
+		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
 		$f_active               = get_directorist_option('enable_featured_listing');
 		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
@@ -272,7 +272,7 @@ class ATBDP_Metabox {
 		// show expiration date and featured listing.
 		$directory_type         = default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
-		$expire_in_days         = ! empty( $expiration ) ? $expiration : get_directorist_option('listing_expire_in_days');
+		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
 		$f_active               = get_directorist_option('enable_featured_listing');
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
@@ -298,7 +298,6 @@ class ATBDP_Metabox {
 	public function save_post_meta( $post_id, $post ) {
 		
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
-		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
 		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();

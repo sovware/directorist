@@ -29,8 +29,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $submission_confirmation = get_directorist_option('submission_confirmation', 1 );
 $pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 $publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
-$new_listing_status = get_directorist_option('new_listing_status', 'pending' );
-$edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+$listing_id				= !empty( $_GET['atbdp_listing_id'] ? $_GET['atbdp_listing_id'] : '' );
+$directory_type 		= get_post_meta( $listing_id, '_directory_type', true );
+$new_listing_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
+$edit_listing_status 	= get_term_meta( $directory_type, 'edit_listing_status', true );
+
+
 if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
     $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
 }else{

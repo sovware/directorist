@@ -1306,43 +1306,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
-
-
-
-
-
-                'new_listing_status' => [
-                    'label' => __('New Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-
-                'edit_listing_status' => [
-                    'label' => __('Edited Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-               
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -1357,13 +1320,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             'value' => 'line',
                         ],
                     ],
-                ],
-                'listing_expire_in_days' => [
-                    'label' => __('Default expiration in days', 'directorist'),
-                    'type'  => 'number',
-                    'value' => 365,
-                    'placeholder' => '365',
-                    'description' => __('Here 0 means unlimited days.', 'directorist'),
                 ],
                 'can_renew_listing' => [
                     'label' => __('Can User Renew Listing?', 'directorist'),
@@ -4417,9 +4373,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'general_settings' => [
                                     'fields'      => [
                                         'enable_multi_directory',
-                                        'new_listing_status',
-                                        'edit_listing_status', 
-                                        'font_type', 'listing_expire_in_days', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
+                                        'font_type', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
                                     ],
                                 ],
                                

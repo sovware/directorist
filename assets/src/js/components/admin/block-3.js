@@ -582,6 +582,9 @@ function admin_listing_form(directory_type) {
                 $('#at_biz_dir-locationchecklist-pop')
                 .empty()
                 .html( response.data['listing_pop_locations'] );
+            $('.misc-pub-atbdp-expiration-time')
+                .empty()
+                .html(response.data['listing_expiration']);    
             $('#listing_form_info')
                 .find('.directorist_loader')
                 .remove();

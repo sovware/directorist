@@ -129,7 +129,7 @@
         height: '0',
     });
 
-    const adsItemHeight = $('.directorist-search-adv-filter .directorist-advanced-filter__advanced--element');
+    const adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
     let adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
     for(let i = 0; i<= adsItemHeight.length; i++){
@@ -166,13 +166,11 @@
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
-    dFilterBtn.each(function(ind, elm){
-        $(elm).on("click", function (e) {
-            e.preventDefault();
-            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
-            $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-            atbd_callingSlider();
-        });
+    $('body').on("click", '.directorist-filter-btn', function (e) {
+        e.preventDefault();
+        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
+        $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
+        atbd_callingSlider();
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 

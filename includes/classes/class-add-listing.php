@@ -756,7 +756,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // update related post metas
                 update_post_meta($listing_id, '_expiry_date', $expiry_date);
                 update_post_meta($listing_id, '_listing_status', 'post_status');
-                $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
+                $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+                $exp_days = get_term_meta( $directory_type, 'default_expiration', true);
                 if ($exp_days <= 0) {
                     update_post_meta($listing_id, '_never_expire', 1);
                 } else {

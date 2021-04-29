@@ -152,11 +152,12 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
-        $this->run_multidirectory_migration();
+        $this->setup_multidirectory_migration();
+        $this->setup_builder_input_fields_option_data_migration();
     }
 
-    // run_multidirectory_migration
-    public function run_multidirectory_migration() {
+    // setup_multidirectory_migration
+    public function setup_multidirectory_migration() {
         $directory_types = get_terms( array(
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
@@ -191,6 +192,50 @@ class Multi_Directory_Manager
         if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
             $this->import_default_directory();
         }
+    }
+
+    // setup_builder_input_fields_option_data_migration
+    function setup_builder_input_fields_option_data_migration() {
+        $migrated      = get_directorist_option( 'builder_input_fields_option_data_migrated', false, true );
+        $force_migrate = apply_filters( 'migrate_builder_input_fields_option_data', false );
+        $run_migration = ( ! $migrated || $force_migrate ) ? true : false;
+
+        if ( ! $run_migration ) return;
+
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( empty( $directory_types ) ) return;
+
+        foreach ( $directory_types as $directory_type ) {
+            $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
+
+            if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) continue;
+            if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields']  ) ) continue;
+
+            foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+                if ( ! is_array( $field ) ) continue;
+                if ( ! isset( $field['widget_name'] ) ) continue;
+                if ( ! in_array( $field['widget_name'], [ 'checkbox', 'radio', 'select' ] ) ) continue;
+                if ( empty( $field['options'] ) || ! is_array( $field['options'] ) ) continue;
+
+                $old_value = $field['options'];
+                $new_value = '';
+
+                foreach ( $old_value as $value ) {
+                    $new_value .= "{$value['option_value']} : {$value['option_value']}\n";
+                }
+
+                $new_value = trim( $new_value );
+                $submission_form_fields['fields'][ $field_key ]['options'] = $new_value;
+            }
+
+            update_term_meta( $directory_type->term_id, 'submission_form_fields', $submission_form_fields);
+        }
+
+        update_directorist_option( 'builder_input_fields_option_data_migrated', true );
     }
 
     // handle_force_migration
@@ -1865,23 +1910,6 @@ class Multi_Directory_Manager
                                 'label' => __('Options', 'directorist'),
                                 'value' => ''
                             ],
-                            // 'options' => [
-                            //     'type' => 'multi-fields',
-                            //     'label' => __('Options', 'directorist'),
-                            //     'add-new-button-label' => __( 'Add Option', 'directorist' ),
-                            //     'options' => [
-                            //         'option_value' => [
-                            //             'type'  => 'text',
-                            //             'label' => __( 'Option Value', 'directorist' ),
-                            //             'value' => '',
-                            //         ],
-                            //         'option_label' => [
-                            //             'type'  => 'text',
-                            //             'label' => __( 'Option Label', 'directorist' ),
-                            //             'value' => '',
-                            //         ],
-                            //     ]
-                            // ],
                             'description' => [
                                 'type'  => 'text',
                                 'label' => __( 'Description', 'directorist' ),
@@ -1935,21 +1963,9 @@ class Multi_Directory_Manager
                                 ]
                             ],
                             'options' => [
-                                'type' => 'multi-fields',
+                                'type' => 'textarea',
                                 'label' => __('Options', 'directorist'),
-                                'add-new-button-label' => __( 'Add Option', 'directorist' ),
-                                'options' => [
-                                    'option_value' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Value', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                    'option_label' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Label', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                ]
+                                'value' => ''
                             ],
                             'description' => [
                                 'type'  => 'text',
@@ -2003,21 +2019,9 @@ class Multi_Directory_Manager
                                 ]
                             ],
                             'options' => [
-                                'type' => 'multi-fields',
+                                'type' => 'textarea',
                                 'label' => __('Options', 'directorist'),
-                                'add-new-button-label' => __( 'Add Option', 'directorist' ),
-                                'options' => [
-                                    'option_value' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Value', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                    'option_label' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Option Label', 'directorist' ),
-                                        'value' => '',
-                                    ],
-                                ]
+                                'value' => ''
                             ],
                             'description' => [
                                 'type'  => 'text',

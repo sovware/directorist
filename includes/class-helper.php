@@ -400,7 +400,7 @@ class Helper {
 		$options_data = [];
 
 		foreach ( $options as $option ) {
-			$opt = explode( ' : ', $option );
+			$opt = preg_split( "/\s*:\s*/", $option );
 			$options_data[] = [
 				'option_value' => $opt[0],
 				'option_label' => ( count( $opt ) > 1 ) ? $opt[1] : $opt[0],

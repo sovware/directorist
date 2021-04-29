@@ -3057,7 +3057,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'single_listing_page' => [
                     'label' => __('Single Listing Page', 'directorist'),
                     'type'  => 'select',
-                    'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),
+                    'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),
                     'value' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),

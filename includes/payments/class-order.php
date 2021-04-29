@@ -458,10 +458,11 @@ class ATBDP_Order
      */
     public function update_payment_status($action, $post_id)
     {
-        $old_status = get_post_meta($post_id, '_payment_status', true);
-        $new_l_status = get_directorist_option('new_listing_status', 'pending');
-        $new_status = str_replace('set_to_', '', $action);
-        $new_status = sanitize_key($new_status);
+        $old_status     = get_post_meta($post_id, '_payment_status', true);
+        $directory_type = get_post_meta( $post_id, '_directory_type', true );
+		$new_l_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
+        $new_status     = str_replace('set_to_', '', $action);
+        $new_status     = sanitize_key($new_status);
         if ($new_status == $old_status) return true;
         do_action('atbdp_order_status_changed', $new_status, $old_status, $post_id);
         $non_complete_statuses = array('created', 'pending', 'failed', 'cancelled', 'refunded');

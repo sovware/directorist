@@ -79,9 +79,9 @@
   }
 }
 
-.directorist-content-active .widget.atbd_widget[id^='bd'],
-.directorist-content-active .widget.atbd_widget[id^='dcl'],
-.directorist-content-active .widget.atbd_widget {
+.widget.atbd_widget[id^='bd'],
+.widget.atbd_widget[id^='dcl'],
+.widget.atbd_widget {
   a {
     text-decoration: none;
     color: $dark;
@@ -196,8 +196,8 @@
 
     .btn {
       color: #fff;
-      background-color: #444752;
-      border-color: #444752;
+      background-color: $primary;
+      border-color: $primary;
       text-decoration: none;
       padding: 8px 15px;
       display: inline-block;

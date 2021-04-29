@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use function YoastSEO_Vendor\GuzzleHttp\Psr7\str;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ATBDP_Shortcode {
@@ -58,7 +60,9 @@ class ATBDP_Shortcode {
 				'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
 				'directorist_listing_review'              => [ $this, 'empty_string' ],
 				'directorist_related_listings'            => [ $this, 'empty_string' ],
-	
+
+				'directorist_single_listings_header'  => [ $this, 'single_listings_header' ],
+				'directorist_single_listings_section' => [ $this, 'single_listings_section' ],
 			]);
 	
 			// Register Shorcodes
@@ -72,6 +76,42 @@ class ATBDP_Shortcode {
 
 	public function empty_string() {
 		return '';
+	}
+
+	// single_listings_header
+	public function single_listings_header( $atts ) {
+		$listing = Directorist_Single_Listing::instance();
+
+		ob_start();
+		echo '<div class="directorist-single-wrapper">';
+		$listing->header_template();
+		echo '<br>';
+		echo '</div>';
+
+		return ob_get_clean();
+	}
+
+	public function single_listings_section( $atts ) {
+		ob_start();
+		$listing = Directorist_Single_Listing::instance();
+
+		echo '<div class="directorist-single-wrapper">';
+		foreach ( $listing->content_data as $section ) {
+			$section_label = preg_replace( '/\s/', '-' , strtolower( $section['label'] ) );
+
+			$section_key = ( isset( $atts['section-key'] ) ) ? $atts['section-key'] : '';
+			$section_keys = preg_split( '/\s*[,]\s/', $section_key );
+
+			if ( ! empty( $section_keys ) && ! in_array( $section_label, $section_keys ) ) {
+				continue;
+			}
+
+			$listing->section_template( $section );
+			echo '<br>';
+		}
+		echo '</div>';
+
+		return ob_get_clean();
 	}
 
 	public function listing_archive( $atts ) {

@@ -77,6 +77,11 @@ class Directorist_Template_Hooks {
 				$content = Helper::get_template_contents( 'single-listing/content-wrapper' );
 			}
 
+			$single_listing_page = get_directorist_option( 'single_listing_page', '', true );
+			if ( ! empty( $single_listing_page ) && is_numeric( $single_listing_page ) ) {
+				$content_post = get_post( ( int ) $single_listing_page );
+				$content = do_shortcode( $content_post->post_content );
+			}
 		}
 
 		return $content;
@@ -98,7 +103,6 @@ class Directorist_Template_Hooks {
 		else {
 			$template_path = Helper::get_theme_template_path_for( 'page' );
 		}
-		
 		return $template_path;
 	}
 

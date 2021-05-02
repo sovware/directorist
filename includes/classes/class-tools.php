@@ -82,11 +82,11 @@
             $imported           = 0;
             $failed             = 0;
             $count              = 0;
-            $new_listing_status = get_directorist_option('new_listing_status', 'pending');
             $preview_image      = isset($_POST['listing_img']) ? sanitize_text_field($_POST['listing_img']) : '';
             $default_directory  = get_directorist_option( 'atbdp_default_derectory', '' );
             $directory_type     = isset($_POST['directory_type']) ? sanitize_text_field($_POST['directory_type']) : '';
             $directory_type     = ( empty( $directory_type ) ) ? $default_directory : $directory_type;
+            $new_listing_status = get_term_meta( $directory_type, 'new_listing_status', 'pending');
             $title              = isset($_POST['listing_title']) ? sanitize_text_field($_POST['listing_title']) : '';
             $delimiter          = isset($_POST['delimiter']) ? sanitize_text_field($_POST['delimiter']) : '';
             $description        = isset($_POST['listing_content']) ? sanitize_text_field($_POST['listing_content']) : '';

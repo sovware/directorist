@@ -25,7 +25,7 @@ $back_success_hover_color         = get_directorist_option('back_success_hover_c
 $border_success_color             = get_directorist_option('border_success_color', '#32cc6f');
 $border_success_hover_color       = get_directorist_option('border_success_hover_color', '#2ba251');
 $lighter_color                    = get_directorist_option('lighter_color', '#1A1B29');
-$lighter_hover_color              = get_directorist_option('lighter_hover_color', '#fff');
+$lighter_hover_color              = get_directorist_option('lighter_hover_color', '#1A1B29');
 $back_lighter_color               = get_directorist_option('back_lighter_color', '#F6F7F9');
 $back_lighter_hover_color         = get_directorist_option('lighter_color', '#F6F7F9');
 $border_lighter_color             = get_directorist_option('border_lighter_color', '#F6F7F9');
@@ -461,7 +461,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
 
     /* color hover */
     .directorist-btn.directorist-btn-lighter:hover {
-        color: <?php echo !empty($lighter_hover_color) ? $lighter_hover_color : '#fff'; ?> !important;
+        color: <?php echo !empty($lighter_hover_color) ? $lighter_hover_color : '#1A1B29'; ?> !important;
     }
 
     /* border color */

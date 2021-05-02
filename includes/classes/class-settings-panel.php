@@ -1044,7 +1044,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'lighter_hover_color' => [
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
-                    'value' => '#fff',
+                    'value' => '#1A1B29',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [

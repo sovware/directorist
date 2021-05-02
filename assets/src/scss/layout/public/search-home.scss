@@ -96,7 +96,7 @@
             position: relative;
 
             &:focus {
-                background-color: transparent !important;
+                background-color: transparent;
             }
 
             &::after {

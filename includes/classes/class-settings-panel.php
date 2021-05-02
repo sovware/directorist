@@ -1022,7 +1022,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'lighter_example' => [
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
-                    'default-img' => '',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2021/05/roomrent.png',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [

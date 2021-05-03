@@ -384,11 +384,11 @@ class Helper {
 
 	public static function get_listing_payment_status( $listing_id = '' ) {
 
-		$order_id = get_post_meta( $listing_id, '_swbd_order_id', true );
+		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );
 
 		if ( empty( $order_id ) ) {
 			$order_id = self::get_listing_order_id( $listing_id );
-			update_post_meta( $listing_id, '_swbd_order_id', $order_id );
+			update_post_meta( $listing_id, '_listing_order_id', $order_id );
 		}
 
 		$payment_status = get_post_meta( $order_id, '_payment_status', true );

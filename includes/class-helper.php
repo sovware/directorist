@@ -382,6 +382,39 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function get_listing_payment_status( $listing_id = '' ) {
+
+		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );
+
+		if ( empty( $order_id ) ) {
+			$order_id = self::get_listing_order_id( $listing_id );
+			update_post_meta( $listing_id, '_listing_order_id', $order_id );
+		}
+
+		$payment_status = get_post_meta( $order_id, '_payment_status', true );
+
+		return $payment_status;
+	}
+
+	// get_listing_order_id
+	public static function get_listing_order_id( $listing_id = '' ) {
+		$args = [
+			'post_type' => 'atbdp_orders',
+			'post_status' => 'publish',
+			'meta_query' => [
+				[
+					'key' => '_listing_id',
+					'value' => $listing_id,
+				]
+			]
+		];
+
+		$orders = new \WP_Query( $args );
+		$order_id = ( $orders->have_posts() ) ? $orders->post->ID : '';
+
+		return $order_id;
+	}
+
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }

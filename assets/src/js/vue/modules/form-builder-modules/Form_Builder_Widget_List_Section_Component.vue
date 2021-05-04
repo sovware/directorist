@@ -4,7 +4,7 @@
         <p class="cptm-description-text">{{ description }}</p>
 
         <ul class="cptm-form-builder-field-list" v-if="filtered_widget_list">
-            <draggable-list-item list-type="li" item-class-name="cptm-form-builder-field-list-item" v-for="(widget, widget_key) in filtered_widget_list" :key="widget_key" :drag-type="( allowMultiple ) ? 'clone' : 'move'"
+            <draggable-list-item list-type="li" item-class-name="cptm-form-builder-field-list-item" v-for="(widget, widget_key) in filtered_widget_list" :key="widget_key" :drag-type="( allowMultiple || widget.allowMultiple ) ? 'clone' : 'move'"
                 @drag-start="$emit( 'drag-start', { widget_key, widget } )"
                 @drag-end="$emit( 'drag-end', { widget_key, widget } )"
             >
@@ -201,6 +201,9 @@ export default {
             
             let new_widget_list = this.cloneObject( widget_list );
             for ( let widget_key in new_widget_list ) {
+
+                if ( new_widget_list[widget_key].allowMultiple ) { continue }
+
                 if ( selected_widget_keys.includes( widget_key  ) || active_widget_groups_keys.includes( widget_key ) ) { 
                     delete new_widget_list[ widget_key ];
                 }

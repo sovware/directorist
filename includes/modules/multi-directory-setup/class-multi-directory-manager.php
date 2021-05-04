@@ -2506,6 +2506,11 @@ class Multi_Directory_Manager
                         'icon' => 'la la-code',
                         'allowMultiple' => true,
                         'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => __( 'Label', 'directorist' ),
+                                'value' => 'Custom HTML / Shortcode',
+                            ],
                             'html' => [
                                 'type'  => 'textarea',
                                 'label' => __( 'HTML / Shortcode', 'directorist' ),

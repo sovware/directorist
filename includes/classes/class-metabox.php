@@ -42,6 +42,18 @@ class ATBDP_Metabox {
 		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
 		$listing_locations =  ob_get_clean();
 
+		ob_start();
+		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_CATEGORY );
+		$listing_pop_categories =  ob_get_clean();
+
+		ob_start();
+		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
+		$listing_pop_locations =  ob_get_clean();
+
+		ob_start();
+		$this->render_expire_date( $listing_id, $term_id );
+		$listing_expiration = ob_get_clean();
+
 
 		$required_script_src = [];
 
@@ -52,10 +64,13 @@ class ATBDP_Metabox {
 		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
 
 		wp_send_json_success( array(
-			'listing_meta_fields' => $listing_meta_fields,
-			'listing_categories'  => $listing_categories,
-			'listing_locations'   => $listing_locations,
-			'required_js_scripts' => $required_script_src,
+			'listing_meta_fields' 		=> $listing_meta_fields,
+			'listing_categories'  		=> $listing_categories,
+			'listing_pop_categories'  	=> $listing_pop_categories,
+			'listing_locations'   		=> $listing_locations,
+			'listing_pop_locations'   	=> $listing_pop_locations,
+			'required_js_scripts' 		=> $required_script_src,
+			'listing_expiration'		=> $listing_expiration
 		) );
 
 	}
@@ -88,6 +103,34 @@ class ATBDP_Metabox {
 		}
 	}
 
+	public function render_listing_pop_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
+		$args = array(
+			'hide_empty' => 0,
+			'hierarchical' => false
+		);
+		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values    = array();
+		if( $saving_terms ) {
+			foreach( $saving_terms as $saving_term ) {
+				$saving_values[] = $saving_term->term_id;
+			}
+		}
+		$terms = get_terms( $taxonomy_id, $args);
+
+		if( $terms ) {
+			foreach( $terms as $term ) {
+				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
+				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
+				if( in_array( $term_id, $directory_type) ) { ?>
+					<li id="popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" class="popular-category"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" id="in-popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
+
+				<?php
+				}
+			}
+		}
+	}
+
 	public function listing_metabox( $post ) {
 		add_meta_box('listing_form_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
 	}
@@ -97,6 +140,61 @@ class ATBDP_Metabox {
 		foreach ( $form_data as $section ) {
 			\Directorist\Directorist_Listing_Form::instance($id)->section_template( $section );
 		}
+	}
+
+	public function render_expire_date( $listing_id, $term_id )
+	{
+		// show expiration date and featured listing.
+		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
+		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
+		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
+		$f_active               = get_directorist_option('enable_featured_listing');
+		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
+		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
+
+		$e_d                    = get_post_meta( $listing_id, '_expiry_date', true );
+		$e_d                    = !empty( $e_d ) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
+		$expiry_date            = atbdp_parse_mysql_date( $e_d );
+
+		$featured               = get_post_meta( $listing_id, '_featured', true);
+		$listing_type           = get_post_meta( $listing_id, '_listing_type', true);
+		$listing_status         = get_post_meta( $listing_id, '_listing_status', true);
+		$default_expire_in_days = !empty( $default_expire_in_days ) ? $default_expire_in_days : '';
+		// load the meta fields
+		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
+
+		if( empty($never_expire) && isset( $expiry_date ) ) : ?>
+				<span id="atbdp-timestamp">
+					<strong><?php _e( "Expiration", 'directorist' ); ?></strong>
+					<?php _e( "Date & Time", 'directorist' ); ?>
+				</span>
+				<div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap">
+					<label>
+						<select id="atbdp-mm" name="exp_date[mm]">
+							<?php
+							$months = atbdp_get_months();// get an array of translatable month names
+							foreach( $months as $key => $month_name ) {
+								$key += 1;
+								printf( '<option value="%1$d" %2$s>%1$d-%3$s</option>', $key, selected($key, (int) $expiry_date['month']), $month_name );
+							}
+							?>
+						</select>
+					</label>
+					<label>
+						<input type="text" id="atbdp-jj" placeholder="day" name="exp_date[jj]" value="<?php echo $expiry_date['day']; ?>" size="2" maxlength="2" />
+					</label>,
+					<label>
+						<input type="text" id="atbdp-aa" placeholder="year" name="exp_date[aa]" value="<?php echo $expiry_date['year']; ?>" size="4" maxlength="4" />
+					</label>@
+					<label>
+						<input type="text" id="atbdp-hh" placeholder="hour" name="exp_date[hh]" value="<?php echo $expiry_date['hour']; ?>" size="2" maxlength="2" />
+					</label> :
+					<label>
+						<input type="text" id="atbdp-mn" placeholder="min" name="exp_date[mn]" value="<?php echo $expiry_date['min']; ?>" size="2" maxlength="2" />
+					</label>
+				</div>
+		<?php endif;
+		
 	}
 
 	public function listing_form_info_meta( $post ) {
@@ -172,13 +270,15 @@ class ATBDP_Metabox {
 	{
 		if(ATBDP_POST_TYPE !=$post->post_type) return; // vail if it is not our post type
 		// show expiration date and featured listing.
-		$expire_in_days         = get_directorist_option('listing_expire_in_days');
+		$directory_type         = default_directory_type();
+		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
+		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
 		$f_active               = get_directorist_option('enable_featured_listing');
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta($post->ID, '_expiry_date', true);
-		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date();
+		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
 		$expiry_date            = atbdp_parse_mysql_date($e_d);
 
 		$featured               = get_post_meta($post->ID, '_featured', true);
@@ -198,7 +298,6 @@ class ATBDP_Metabox {
 	public function save_post_meta( $post_id, $post ) {
 		
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
-		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
 		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();
@@ -261,7 +360,8 @@ class ATBDP_Metabox {
 			$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 	   }
 
-		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
+	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
+		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;
 		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){

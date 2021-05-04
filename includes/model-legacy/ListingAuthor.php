@@ -45,9 +45,25 @@ class Directorist_Listing_Author {
 		return $posts;
 	}
 
+	// extract_user_id
+	public function extract_user_id( $user_id = '' ) {
+		$extracted_user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
+		
+		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
+			$user = get_user_by( 'login', $user_id );
+			
+			if ( $user ) {
+				$extracted_user_id = $user->ID;
+			}
+		}
+		
+		$extracted_user_id = intval( $extracted_user_id );
+
+		return $extracted_user_id;
+	}
+
 	function prepare_data() {
-		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
-		$this->id = intval( $id );
+		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
@@ -147,10 +163,11 @@ class Directorist_Listing_Author {
 	}
 
 	public function author_listings_query() {
-		$category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
-		$paged    = atbdp_get_paged_num();
-		$paginate = get_directorist_option( 'paginate_author_listings', 1 );
-		$listing_type = ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : default_directory_type();
+		$category     = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
+		$paged        = atbdp_get_paged_num();
+		$paginate     = get_directorist_option( 'paginate_author_listings', 1 );
+		$listing_type = ! empty( get_query_var( 'directory_type' ) ) ? get_query_var( 'directory_type' ) : default_directory_type();
+		
 		if( ! is_numeric( $listing_type ) ) {
 			$term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
 			$listing_type = $term->term_id;
@@ -274,7 +291,7 @@ class Directorist_Listing_Author {
 
 		$args = array(
 			'author'         => $this,
-			'bio'            => $bio,
+			'bio'            => nl2br( $bio ),
 			'address'        => get_user_meta($author_id, 'address', true),
 			'phone'          => get_user_meta($author_id, 'atbdp_phone', true),
 			'email_endabled' => $email_endabled,
@@ -283,7 +300,7 @@ class Directorist_Listing_Author {
 			'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
 			'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
 			'linkedIn'       => get_user_meta($author_id, 'atbdp_linkedin', true),
-			'youtube'        => get_user_meta($author_id, 'youtube', true),
+			'youtube'        => get_user_meta($author_id, 'atbdp_youtube', true),
 		);
 
 		Helper::get_template( 'author/author-about', $args );

@@ -148,7 +148,7 @@ class Directorist_Listings {
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
-		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_header_title', __( 'Items Found', 'directorist' ) );
+		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['display_preview_image']           = ! empty( get_directorist_option( 'display_preview_image', 1 ) ) ? 'yes' : '';
@@ -1062,20 +1062,8 @@ class Directorist_Listings {
 	}
 
 	public function render_shortcode( $atts = [] ) {
-		wp_enqueue_script( 'directorist-search-form-listing' );
-		wp_enqueue_script( 'directorist-range-slider' );
-        wp_enqueue_script( 'directorist-search-listing' );
-
-		$data = Script_Helper::get_search_script_data();
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-			'ajax_url' => admin_url('admin-ajax.php'),
-			'added_favourite' => __('Added to favorite', 'directorist'),
-			'please_login' => __('Please login first', 'directorist')
-		]);
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
+		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
+		Script_Helper::load_search_form_script( $script_args );
 
 		ob_start();
 
@@ -1084,7 +1072,7 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		if ( $this->logged_in_user_only ) {
+		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 

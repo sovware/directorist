@@ -70,6 +70,10 @@ $mobile-width-3: 375px;
         width: 100%;
         flex: 0 0 100%;
     }
+
+    .directorist-author-profile-wrap .directorist-card__body {
+        justify-content: center;
+    }
 }
 
 // XX. Small Devices (less than 480px)
@@ -129,6 +133,23 @@ $mobile-width-3: 375px;
         img {
             margin-bottom: 15px;
         }
+    }
+
+    .directorist-author-profile-wrap .directorist-author-avatar {
+        text-align: center;
+    }
+
+    .directorist-author-profile-wrap .directorist-author-avatar .directorist-author-avatar__info {
+        text-align: center;
+
+        p {
+            text-align: center;
+        }
+    }
+
+    .directorist-author-profile-wrap .directorist-author-avatar img {
+        margin-right: 0;
+        display: inline-block;
     }
 }
 

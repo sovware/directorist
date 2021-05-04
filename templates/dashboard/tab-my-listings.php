@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</div>
 
 					<form id="directorist-dashboard-listing-searchform">
-						<input type="text" placeholder="Search listings" name="searchtext">
+						<input type="text" placeholder="<?php _e( 'Search listings', 'directorist' ); ?>" name="searchtext">
 					</form>
 
 				</div>
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 								<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
 
 								<?php if ( Helper::multi_directory_enabled() ): ?>
-									<th class="directorist-table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+									<th class="directorist-table-listing-type"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
 								<?php endif; ?>
 
 

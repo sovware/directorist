@@ -5,7 +5,7 @@ const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
 /* Show and hide manual coordinate input field */
-$( window ).load(function() {
+$( window ).on( 'load', function() {
         
         if($('input#manual_coordinate').length){
 
@@ -668,7 +668,7 @@ $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e)
 
 // Custom Field Checkbox Button More
 
-$( window  ).load(function() {
+$( window  ).on( 'load', function() {
         if($('.directorist-custom-field-btn-more').length){
                 $('.directorist-custom-field-btn-more').each( (index, element) => {
                         let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');

@@ -75,16 +75,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 do_action('atbdp_before_processing_submitted_listing_frontend', $info);
                     
                 $guest                 = get_directorist_option('guest_listings', 0);
-                $display_title_for     = get_directorist_option('display_title_for', 0);
-                $display_desc_for      = get_directorist_option('display_desc_for', 0);
                 $featured_enabled      = get_directorist_option('enable_featured_listing');
-                $display_prv_field     = get_directorist_option('display_prv_field', 1);
-                $display_prv_img_for   = get_directorist_option('display_prv_img_for', 0);
-                $display_gallery_field = get_directorist_option('display_gallery_field', 1);
-                $display_glr_img_for   = get_directorist_option('display_glr_img_for', 0);
-                $preview_enable        = get_directorist_option('preview_mode', 1);
-                $new_l_status          = get_directorist_option('new_listing_status', 'pending');
-                $edit_l_status         = get_directorist_option('edit_listing_status');
 
                  // data validation
                  $directory = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
@@ -95,10 +86,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $term                   = get_term_by( is_numeric( $directory ) ? 'id' : 'slug' , $directory, ATBDP_TYPE );
                     $directory_type         = $term->term_id;
                     $submission_form        = get_term_meta( $directory_type, 'submission_form_fields', true );
-                    if( directorist_multi_directory() ){
-                        $new_l_status           = get_term_meta( $directory_type, 'new_listing_status', true );
-                        $edit_l_status          = get_term_meta( $directory_type, 'edit_listing_status', true );
-                    }
+                    $new_l_status           = get_term_meta( $directory_type, 'new_listing_status', true );
+                    $edit_l_status          = get_term_meta( $directory_type, 'edit_listing_status', true );
+                    $default_expiration     = get_term_meta( $directory_type, 'default_expiration', true );
                     $preview_enable         = atbdp_is_truthy( get_term_meta( $directory_type, 'preview_mode', true ) );
                     $submission_form_fields = $submission_form['fields'];
                  }
@@ -299,14 +289,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 $args['tax_input'][$taxonomy] = $clean_terms;
                             }
                         }
-                        if (!empty($display_title_for)) {
-                            $args['post_title'] = get_the_title(absint($info['listing_id']));
-                        }
-                        if (!empty($display_desc_for)) {
-                            $post_object = get_post(absint($info['listing_id']));
-                            $content = apply_filters('get_the_content', $post_object->post_content);
-                            $args['post_content'] = $content;
-                        }
+
+                        $args['post_title'] = get_the_title(absint($info['listing_id']));
+
+                        $post_object = get_post(absint($info['listing_id']));
+                        $content = apply_filters('get_the_content', $post_object->post_content);
+                        $args['post_content'] = $content;
 
                         $post_id = wp_update_post($args);
                         update_post_meta($post_id, '_directory_type', $directory_type);
@@ -469,9 +457,14 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         //Every post with the published status should contain all the post meta keys so that we can include them in query.
                         if ('publish' == $new_l_status || 'pending' == $new_l_status) {
-                            $exp_dt = calc_listing_expiry_date();
-                            update_post_meta($post_id, '_expiry_date', $exp_dt);
-                            update_post_meta($post_id, '_never_expire', 0);
+
+                            if( ! $default_expiration ){
+                                update_post_meta($post_id, '_never_expire', 1);
+                            }else{
+                                $exp_dt = calc_listing_expiry_date( '', $default_expiration );
+                                update_post_meta($post_id, '_expiry_date', $exp_dt);
+                            }
+                           
                             update_post_meta($post_id, '_featured', 0);
                             update_post_meta($post_id, '_listing_status', 'post_status');
                             update_post_meta($post_id, '_admin_category_select', $admin_category_select);
@@ -596,19 +589,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $new_files_meta = [];
                     foreach ($files_meta as $key => $value) {
                         if ($key === 0 && $value['oldFile'] === 'true') {
-                            if (empty($display_prv_img_for) && !empty($display_prv_field)) {
-                                update_post_meta($post_id, '_listing_prv_img', $value['attachmentID']);
-                                set_post_thumbnail($post_id, $value['attachmentID']);
-                            }
+                            update_post_meta($post_id, '_listing_prv_img', $value['attachmentID']);
+                            set_post_thumbnail($post_id, $value['attachmentID']);
                         }
                         if ($key === 0 && $value['oldFile'] !== 'true') {
                             foreach ($attach_data as $item) {
                                 if ($item['name'] === $value['name']) {
                                     $id = $item['id'];
-                                    if (empty($display_prv_img_for) && !empty($display_prv_field)) {
-                                        update_post_meta($post_id, '_listing_prv_img', $id);
-                                        set_post_thumbnail($post_id, $id);
-                                    }
+                                    update_post_meta($post_id, '_listing_prv_img', $id);
+                                    set_post_thumbnail($post_id, $id);
                                 }
                             }
                         }
@@ -624,9 +613,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                     }
-                    if (empty($display_glr_img_for) && !empty($display_gallery_field)) {
-                        update_post_meta($post_id, '_listing_img', $new_files_meta);
-                    }                   
+                    update_post_meta($post_id, '_listing_img', $new_files_meta);
                     $permalink         = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
                     //no pay extension own yet let treat as general user
                     if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active() && ('featured' === $info['listing_type'] ) ) ) {
@@ -769,7 +756,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // update related post metas
                 update_post_meta($listing_id, '_expiry_date', $expiry_date);
                 update_post_meta($listing_id, '_listing_status', 'post_status');
-                $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
+                $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+                $exp_days = get_term_meta( $directory_type, 'default_expiration', true);
                 if ($exp_days <= 0) {
                     update_post_meta($listing_id, '_never_expire', 1);
                 } else {

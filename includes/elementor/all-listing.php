@@ -229,9 +229,9 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 			'columns'               => $settings['columns'],
 			'listings_per_page'     => $settings['listing_number'],
 			'show_pagination'       => $settings['show_pagination'] ? $settings['show_pagination'] : 'no',
-			'cat'                   => $settings['cat'] ? implode($settings['cat'], ',') : '',
-			'tag'                   => $settings['tag'] ? implode($settings['tag'], ',') : '',
-			'location'              => $settings['location'] ? implode($settings['location'], ',') : '',
+			'category'              => $settings['cat'] ? implode( ',', $settings['cat'] ) : '',
+			'tag'                   => $settings['tag'] ? implode( ',', $settings['tag'] ) : '',
+			'location'              => $settings['location'] ? implode( ',', $settings['location'] ) : '',
 			'featured_only'         => $settings['featured'] ? $settings['featured'] : 'no',
 			'popular_only'          => $settings['popular'] ? $settings['popular'] : 'no',
 			'logged_in_user_only'   => $settings['user'] ? $settings['user'] : 'no',
@@ -242,7 +242,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 
 		if ( Helper::multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
-				$atts['directory_type'] = implode( $settings['type'], ',' );
+				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}
 			if ( $settings['default_type'] ) {
 				$atts['default_directory_type'] = $settings['default_type'];

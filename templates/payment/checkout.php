@@ -131,7 +131,8 @@ use \Directorist\Helper;
             <p id="atbdp_checkout_errors" class="text-danger"></p>
 
             <?php wp_nonce_field('checkout_action', 'checkout_nonce');
-            $new_l_status        = get_directorist_option('new_listing_status', 'pending');
+            $directory_type 	 = get_post_meta( $listing_id, '_directory_type', true );
+		    $new_l_status 	     = get_term_meta( $directory_type, 'new_listing_status', true );
             $monitization        = get_directorist_option('enable_monetization',0);
             $featured_enabled    = get_directorist_option('enable_featured_listing',0);
             $submit_button_label = ( $selected_product > 0 && $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );

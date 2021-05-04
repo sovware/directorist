@@ -106,7 +106,7 @@ class Directorist_Listing_Search_Form {
 		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'overlapping');
+		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
 
 		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
@@ -129,7 +129,7 @@ class Directorist_Listing_Search_Form {
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'overlapping');
+		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'sliding');
 
 		$this->options['reset_filters_text']      = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
@@ -260,9 +260,31 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
-			foreach ( $search_form_fields['fields'] as $key => $value) {
-				if ( ! is_array( $value) ) { continue; }
-				$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+			foreach ( $search_form_fields['fields'] as $key => $value ) {
+
+				if ( ! is_array( $value) ) {
+					continue;
+				}
+
+				$search_form_fields['fields'][$key]['field_key'] = '';
+				$search_form_fields['fields'][$key]['options'] = [];
+
+
+				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
+
+				unset( $search_form_fields['fields'][$key]['widget_key'] );
+				unset( $search_form_fields['fields'][$key]['original_widget_key'] );
+
+				if ( $form_key ) {
+					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
+						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+					}
+
+					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
+						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					}
+				}
+
 			}
 		}
 
@@ -316,30 +338,30 @@ class Directorist_Listing_Search_Form {
 		return $ptype;
 	}
 
-	public function field_template( $field_data) {
+	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
-		if (isset($_GET['custom_field'])) {
-			foreach( $_GET['custom_field'] as $cf_key => $val ) {
-				if( $key === $cf_key ) {
-					$value = $val;
-				}
-			}
-		}
-		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
 			'value'      		=> $value,
-			'original_field'    => $submission_form_fields,
 		);
 
-		$widget_name = $field_data['widget_name'];
+		if ( $this->is_custom_field( $field_data ) ) {
+			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+		}
+		else {
+			$template = 'search-form/fields/' . $field_data['widget_name'];
+		}
 
-		$template = 'search-form/fields/' . $widget_name;
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
 		Helper::get_template( $template, $args );
+	}
+
+	public function is_custom_field( $data ) {
+		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
 
 	public function get_listing_type_data() {
@@ -497,7 +519,7 @@ class Directorist_Listing_Search_Form {
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
 
-		$data = Script_Helper::get_search_script_data();
+		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->listing_type ] );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -596,8 +618,8 @@ class Directorist_Listing_Search_Form {
 
 		if ( ! empty( $terms ) ) {
 			return $terms;
+		} else {
+			return array();
 		}
-
-		return null;
 	}
 }

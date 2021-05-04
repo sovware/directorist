@@ -26,6 +26,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
+                $fields['script_debugging'] = [
+                    'type'  => 'toggle',
+                    'label' => 'Script debugging',
+                    'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
+                ];
+
                 $fields['import_settings'] = [
                     'type'         => 'import',
                     'label'        => 'Import Settings',
@@ -93,11 +99,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ];
 
                 $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-                $recepents = [];
+                $recipient = [];
 
                 if ( ! empty( $users ) ) {
                     foreach ( $users as $user ) {
-                        $recepents[] = [
+                        $recipient[] = [
                             'value' => $user->user_email,
                             'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
                         ];
@@ -120,10 +126,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             ],
                             'value' => 'all_user',
                         ],
-                        'recepents' => [
+                        'recipient' => [
                             'type'    => 'checkbox',
-                            'label'   => 'Recepents',
-                            'options' => $recepents,
+                            'label'   => 'Recipients',
+                            'options' => $recipient,
                             'value'   => '',
                             'show-if' => [
                                 'where' => "self.to",
@@ -1300,43 +1306,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
-
-
-
-
-
-                'new_listing_status' => [
-                    'label' => __('New Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-
-                'edit_listing_status' => [
-                    'label' => __('Edited Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-               
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -1350,17 +1319,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Line Awesome', 'directorist'),
                             'value' => 'line',
                         ],
-                    ],
-                ],
-                'default_expiration' => [
-                    'label' => __('Default expiration in days', 'directorist'),
-                    'type'  => 'number',
-                    'value' => 365,
-                    'placeholder' => '365',
-                    'rules' => [
-                        'required' => true,
-                        'min' => 3,
-                        'max' => 730,
                     ],
                 ],
                 'can_renew_listing' => [
@@ -4415,9 +4373,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'general_settings' => [
                                     'fields'      => [
                                         'enable_multi_directory',
-                                        'new_listing_status',
-                                        'edit_listing_status', 
-                                        'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
+                                        'font_type', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 
                                     ],
                                 ],
                                
@@ -5138,42 +5094,34 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
 
-
-                        'cache_settings' => [
-                            'label'     => __('Caching', 'directorist'),
-                            'icon' => '<i class="fa fa-power-off"></i>',
+                        'miscellaneous' => [
+                            'label'     => __('Miscellaneous', 'directorist'),
+                            'icon' => '<i class="fas fa-thumbtack"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
-                                'caching' => [
-                                    'fields'      => [ 
-                                        'atbdp_enable_cache', 'atbdp_reset_cache',
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-                        'legacy' => [
-                            'label' => __( 'Legacy Mode', 'directorist' ),
-                            'icon' => '<i class="fa fa-bolt"></i>',
-                            'sections' => apply_filters( 'atbdp_legacy_sections', [
                                 'legacy' => [
+                                    'title' => __( 'Legacy', 'directorist' ),
                                     'fields'      => [ 
                                         'atbdp_legacy_template'
                                      ],
                                 ],
-                            ] ),
-                        ],
-
-                        'uninstall' => [
-                            'label' => __( 'Uninstall Setting', 'directorist' ),
-                            'icon' => '<i class="fa fa-trash"></i>',
-                            'sections'  => apply_filters('atbdp_uninstall_controls', [
+                                'caching' => [
+                                    'title' => __( 'Caching', 'directorist' ),
+                                    'fields'      => [ 
+                                        'atbdp_enable_cache', 'atbdp_reset_cache',
+                                     ],
+                                ],
+                                // 'debugging' => [
+                                //     'title' => __( 'Debugging', 'directorist' ),
+                                //     'fields'      => [ 
+                                //         'script_debugging',
+                                //      ],
+                                // ],
                                 'uninstall' => [
+                                    'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]
                                 ],
-                        
-                            ]),
+                            ] ),
                         ],
-         
                     ]),
                 ],
 

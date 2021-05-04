@@ -142,7 +142,7 @@ class ATBDP_User {
         $require_fname               = get_directorist_option('require_fname_reg',0);
         $display_lname               = get_directorist_option('display_lname_reg',1);
         $require_lname               = get_directorist_option('require_lname_reg',0);
-        $display_user_type           = get_directorist_option('display_user_type',1);
+        $display_user_type           = get_directorist_option('display_user_type',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
         $display_password            = get_directorist_option('display_password_reg',1);
@@ -265,7 +265,7 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_password            = get_directorist_option('display_password_reg',1);
         $require_password            = get_directorist_option('require_password_reg',0);
-        $display_user_type           = get_directorist_option( 'display_user_type', 1 );
+        $display_user_type           = get_directorist_option( 'display_user_type', 0 );
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
         $registration_privacy        = get_directorist_option('registration_privacy',1);

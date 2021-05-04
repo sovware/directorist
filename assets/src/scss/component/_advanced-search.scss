@@ -22,7 +22,7 @@
     .directorist-advanced-filter {
         border-radius: 3px;
         z-index: 10000;
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         position: absolute;
         left: 0;
@@ -30,6 +30,7 @@
         width: 100%;
         box-shadow: none;
         visibility: hidden;
+        height: 0;
     }
 }
 
@@ -61,6 +62,7 @@
             .directorist-form-group{
                 .directorist-filter-location-icon{
                     margin-top: 1px;
+                    z-index: 99;
                 }
             }
             .directorist-search-tags {

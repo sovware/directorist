@@ -2489,6 +2489,17 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
+                    'custom_html' => [
+                        'label' => __( 'Custom HTML / Shortcode', 'directorist' ),
+                        'icon' => 'la la-code',
+                        'options' => [
+                            'html' => [
+                                'type'  => 'textarea',
+                                'label' => __( 'HTML / Shortcode', 'directorist' ),
+                                'value' => '',
+                            ],
+                        ]
+                    ],
                     'review' => [ 
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),

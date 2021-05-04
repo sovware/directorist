@@ -262,7 +262,7 @@ trait Multi_Directory_Helper {
         if ( 'string' !== gettype( $string )  ) { return $string; }
 
         if ( preg_match( '/\\\\n/', $string_alt ) ) {
-            $string_alt = preg_replace('/\\\\n/', '<br>', $string_alt);
+            $string_alt = preg_replace('/\\\\n/', '<line-break>', $string_alt);
         }
 
         if ( preg_match( '/\\\\+/', $string_alt ) ) {
@@ -274,7 +274,7 @@ trait Multi_Directory_Helper {
 
         if ( ! is_null( $string ) ) {
             $string = json_encode( $string );
-            $string =  preg_replace('/(<br>)/', "\\n", $string);
+            $string =  preg_replace('/(<line-break>)/', "\\n", $string);
             $string = json_decode($string, true);
         }
 

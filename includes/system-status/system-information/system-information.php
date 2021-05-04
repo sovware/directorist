@@ -303,7 +303,7 @@ class ATBDP_System_Info
 			if ( file_exists( $located ) ) {
 				$theme_file = $located;
 			} elseif ( file_exists( get_stylesheet_directory() . '/' . $file ) ) {
-				$theme_file = get_stylesheet_directory() . '/' . $file;
+				//$theme_file = get_stylesheet_directory() . '/' . $file;
 			} elseif ( file_exists( get_stylesheet_directory() . '/' . 'directorist/' . $file ) ) {
 				$theme_file = get_stylesheet_directory() . '/' . 'directorist/' . $file;
 			} elseif ( file_exists( get_template_directory() . '/' . $file ) ) {

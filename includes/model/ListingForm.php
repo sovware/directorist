@@ -679,6 +679,10 @@ class Directorist_Listing_Form {
 		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
 
+		if ( isset( $field_data['options'] ) && is_string( $field_data['options'] ) ) {
+			$field_data['options'] = Helper::parse_input_field_options_string_to_array( $field_data['options'] );
+		}
+
 		$args = array(
 			'listing_form'  => $this,
 			'data'          => $field_data,

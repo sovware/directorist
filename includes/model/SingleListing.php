@@ -150,6 +150,10 @@ class Directorist_Single_Listing {
 	public function field_template( $data ) {
 		$value = Helper::get_widget_value( $this->id, $data );
 
+		if ( isset( $data['original_data']['options'] ) && is_string( $data['original_data']['options'] ) ) {
+			$data['original_data']['options'] = Helper::parse_input_field_options_string_to_array( $data['original_data']['options'] );
+		}
+
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
 			if( $tags ) {

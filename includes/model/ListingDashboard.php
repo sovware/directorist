@@ -522,15 +522,70 @@ class Directorist_Listing_Dashboard {
 		return ob_get_clean();
 	}
 
+	public function can_renew() {
+		$post_id = get_the_ID();
+		$status  = get_post_meta( $post_id, '_listing_status', true );
+
+		if ( 'renewal' == $status || 'expired' == $status ) {
+			$can_renew = get_directorist_option( 'can_renew_listing' );
+			if ( $can_renew ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function can_promote() {
+		$post_id = get_the_ID();
+		$status  = get_post_meta( $post_id, '_listing_status', true );
+		$featured_active = get_directorist_option( 'enable_featured_listing' );
+		$featured = get_post_meta( $post_id, '_featured', true );
+
+		if ( 'renewal' == $status || 'expired' == $status ) {
+			return false;
+		}
+
+		if ( $featured_active && empty( $featured ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public function get_action_dropdown_item() {
-		 $dropdown_items['delete'] = array(
+		$dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
+
+		$post_id = get_the_ID();
+
+		if ( $this->can_renew() ) {
+			$dropdown_items['renew'] = array(
+				'class'			    => '',
+				'data_attr'			=>	'',
+				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_renewal_page_link( $post_id )) ),
+				'icon'				=>  sprintf( '<i class="%s-hand-holding-usd"></i>', atbdp_icon_type() ),
+				'label'				=>  __( 'Renew', 'directorist' )
+			);
+		}
+
+		if ( $this->can_promote() ) {
+			$dropdown_items['promote'] = array(
+				'class'			    => '',
+				'data_attr'			=>	'',
+				'link'				=>	ATBDP_Permalink::get_checkout_page_link( $post_id ),
+				'icon'				=>  sprintf( '<i class="%s-ad"></i>', atbdp_icon_type() ),
+				'label'				=>  __( 'Promote', 'directorist' )
+			);
+		}
+
+		$dropdown_items['delete'] = array(
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
 			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
 			'label'				=>  __( 'Delete Listing', 'directorist' )
-		 );
+		);
 
-		return apply_filters( 'directorist_dashboard_listing_action_items', $dropdown_items, $this );
+		return apply_filters( 'directorist_dashboard_listing_action_items_end', $dropdown_items, $this );
 	}
 }

@@ -24,6 +24,12 @@ $back_success_color               = get_directorist_option('back_success_color',
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
 $border_success_color             = get_directorist_option('border_success_color', '#32cc6f');
 $border_success_hover_color       = get_directorist_option('border_success_hover_color', '#2ba251');
+$lighter_color                    = get_directorist_option('lighter_color', '#1A1B29');
+$lighter_hover_color              = get_directorist_option('lighter_hover_color', '#1A1B29');
+$back_lighter_color               = get_directorist_option('back_lighter_color', '#F6F7F9');
+$back_lighter_hover_color         = get_directorist_option('lighter_color', '#F6F7F9');
+$border_lighter_color             = get_directorist_option('border_lighter_color', '#F6F7F9');
+$border_lighter_hover_color       = get_directorist_option('border_lighter_hover_color', '#F6F7F9');
 $priout_color                     = get_directorist_option('priout_color', '#444752');
 $priout_hover_color               = get_directorist_option('priout_hover_color', '#444752');
 $back_priout_color                = get_directorist_option('back_priout_color', '#fff');
@@ -442,6 +448,40 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     /* background hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover {
         background: <?php echo !empty($back_danout_hover_color) ? $back_danout_hover_color : '#e23636'; ?> !important;
+    }
+
+    /* =======================================
+     Button: Lighter
+    ======================================== */
+
+    /* color */
+    .directorist-btn.directorist-btn-lighter {
+        color: <?php echo !empty($lighter_color) ? $lighter_color : '#1A1B29'; ?> !important;
+    }
+
+    /* color hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        color: <?php echo !empty($lighter_hover_color) ? $lighter_hover_color : '#1A1B29'; ?> !important;
+    }
+
+    /* border color */
+    .directorist-btn.directorist-btn-lighter {
+        border: 1px solid <?php echo !empty($border_lighter_color) ? $border_lighter_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* border color hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        border-color: <?php echo !empty($border_lighter_hover_color) ? $border_lighter_hover_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* background */
+    .directorist-btn.directorist-btn-lighter {
+        background: <?php echo !empty($back_lighter_color) ? $back_lighter_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* background hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        background: <?php echo !empty($back_lighter_hover_color) ? $back_lighter_hover_color : '#F6F7F9'; ?> !important;
     }
 
 

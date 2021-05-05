@@ -4497,7 +4497,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Locations Page Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
                                      ],
                                 ],
                             ] ),

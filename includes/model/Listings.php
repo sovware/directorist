@@ -436,7 +436,7 @@ class Directorist_Listings {
 			'value'   => 'expired',
 			'compare' => '!=',
 		);
-			
+
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
 				$meta_queries['_featured'] = array(
@@ -764,8 +764,6 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		// e_var_dump($args);
-		// die;
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 
@@ -1079,7 +1077,7 @@ class Directorist_Listings {
 		if ( ! empty( $atts['shortcode'] ) ) {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
-		
+
 		// Load the template
 		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
 
@@ -1111,7 +1109,7 @@ class Directorist_Listings {
 			$template = ( $active_template == 'list_view_with_thumbnail' ) ? 'loop-list' : 'loop-list-nothumb';
 			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
-		
+
 		wp_reset_postdata();
 	}
 
@@ -1704,7 +1702,7 @@ class Directorist_Listings {
 			}
 
 			$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
-			
+
 			return implode( ' ' , $class );
 		}
 
@@ -1751,7 +1749,7 @@ class Directorist_Listings {
 				if ( ! empty( $original_field ) ) {
 					$field['original_field'] = $original_field;
 				}
-				
+
 				$id = get_the_id();
 				$load_template = true;
 				$value = get_post_meta( $id, '_'.$field['widget_key'], true );
@@ -1840,7 +1838,7 @@ class Directorist_Listings {
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
-			
+
 			if( !empty( $fields ) ) {
 				foreach ( $fields as $field ) {
 					echo $before;$this->render_card_field( $field );echo $after;
@@ -1851,7 +1849,7 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
-			
+
 			// for development purpose
 			do_action( 'atbdp_all_listings_badge_template', $field );
 

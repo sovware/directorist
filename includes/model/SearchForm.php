@@ -299,8 +299,6 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		e_var_dump($form_data);
-
 		return $form_data;
 	}
 

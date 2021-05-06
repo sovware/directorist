@@ -58,7 +58,7 @@ class Directorist_Single_Listing {
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
 		// dvar_dump($this->content_data);
-		
+
 		$this->tagline               = get_post_meta( $id, '_tagline', true );
 		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
 		$this->price_range           = get_post_meta( $id, '_price_range', true );
@@ -95,8 +95,6 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		// e_var_dump($content_data);
-
 		return $content_data;
 	}
 
@@ -109,7 +107,7 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-		
+
 		if ( $section_data['type'] == 'general_group' ) {
 			Helper::get_template( 'single-listing/section-general', $args );
 		}
@@ -141,7 +139,7 @@ class Directorist_Single_Listing {
 
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
-		
+
 		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
@@ -210,7 +208,7 @@ class Directorist_Single_Listing {
 	public function slider_template() {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
-		
+
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
@@ -237,7 +235,7 @@ class Directorist_Single_Listing {
 
 		// Get the options
 		$background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-		
+
 		// Set the options
 		$data = array(
 			'images'             => [],
@@ -265,7 +263,7 @@ class Directorist_Single_Listing {
 
 			array_unshift( $data['images'], $preview_img );
 		}
-		
+
 		if ( count( $data['images'] ) < 1 ) {
 			$data['images'][] = [
 				'alt' => $listing_title,
@@ -328,7 +326,7 @@ class Directorist_Single_Listing {
 	public function has_price() {
 		$id         = $this->id;
 		$plan_price = is_fee_manager_active() ? is_plan_allowed_price( $this->fm_plan ) : true;
-		
+
 		return ( $this->price && $plan_price ) ? true : false;
 	}
 
@@ -462,12 +460,12 @@ class Directorist_Single_Listing {
 				if (!empty($shortcode['after']) && is_callable($shortcode['after'])) {
 					$shortcode['after']($id);
 				}
-				
+
 			}
 
 			$content = ob_get_clean();
 			$content = do_shortcode($content);
-			
+
 
 			$payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
 			$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
@@ -475,7 +473,7 @@ class Directorist_Single_Listing {
 
 			$display_preview = get_directorist_option('preview_enable', 1);
 			$submit_text = __('Continue', 'directorist');
-			$url = ''; 
+			$url = '';
 			if ($display_preview && $redirect) {
 				$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
 				$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
@@ -493,7 +491,7 @@ class Directorist_Single_Listing {
 				}
 			}
 			$header 				= get_term_meta( $type, 'single_listing_header', true );
-			
+
 			$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 			$confirmation_msg = '';
@@ -508,7 +506,7 @@ class Directorist_Single_Listing {
 					$confirmation_msg = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
 				}
 			}
-			
+
 			$args = array(
 				'author_id'         	  => get_post_field('post_author', $id),
 				'content'           	  => $content,
@@ -520,7 +518,7 @@ class Directorist_Single_Listing {
 				'url'               	  => $url,
 				'submit_text'       	  => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
 				'submission_confirmation' => get_directorist_option('submission_confirmation', 1 ),
-				'confirmation_msg' 		  => $confirmation_msg,		
+				'confirmation_msg' 		  => $confirmation_msg,
 			);
 			$html = Helper::get_template_contents('single-listing/content-wrapper', $args);
 			return $html;
@@ -535,7 +533,7 @@ class Directorist_Single_Listing {
 		$enable_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
 		$enable_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
 		$enable_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
-		
+
 		$args = array(
 			'listing'           => $this,
 			'section_title'     => $section_title,
@@ -545,7 +543,7 @@ class Directorist_Single_Listing {
 			'enable_tagline'    => $enable_tagline,
 			'enable_content'    => $enable_content,
 		);
-		
+
 		return Helper::get_template('single-listing/header', $args);
 	}
 

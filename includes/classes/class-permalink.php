@@ -111,7 +111,7 @@ class ATBDP_Permalink {
 				$author_id = ( $author ) ? $author->user_login : $author_id;
                 
                 if( ! empty( $directory_type ) && Directorist\Helper::multi_directory_enabled() ) {
-                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/' . $directory_type );
+                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/directory/' . $directory_type );
                 } else {
                     $link = user_trailingslashit( trailingslashit( $link ) . $author_id );
                 }

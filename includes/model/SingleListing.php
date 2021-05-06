@@ -133,12 +133,10 @@ class Directorist_Single_Listing {
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 
-		// e_var_dump($section_data);
-
 		if ( $section_data['type'] == 'general_group' ) {
-			//if ( $this->section_has_contents( $section_data ) ) {
+			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );
-			//}
+			}
 		}
 		else {
 			$template = 'single/section-'. $section_data['widget_name'];
@@ -151,7 +149,7 @@ class Directorist_Single_Listing {
 		$has_contents = false;
 
 		foreach ( $section_data['fields'] as $field ) {
-			$value = Helper::get_widget_value( $this->id, $field );
+			$value = $this->get_field_value( $field );
 
 			if ( $value ) {
 				$has_contents = true;
@@ -175,7 +173,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return $has_contents;
+		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
 	}
 
 	public function get_field_value( $data = [] ) {

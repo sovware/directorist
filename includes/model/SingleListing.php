@@ -78,6 +78,7 @@ class Directorist_Single_Listing {
 				}
 
 				$single_fields['fields'][$key]['field_key'] = '';
+				$single_fields['fields'][$key]['options'] = [];
 
 				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
 
@@ -88,6 +89,10 @@ class Directorist_Single_Listing {
 				if ( $form_key ) {
 					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
 						$single_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+					}
+
+					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
+						$single_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
 					}
 
 					if( !empty( $submission_form_fields['fields'][$form_key]['label'] ) ) {
@@ -186,7 +191,7 @@ class Directorist_Single_Listing {
 			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
 
 			if ( empty( $value ) ) {
-				$value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar - why double getmeta?
+				$value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar @todo - why double getmeta?
 			}
 		}
 
@@ -253,12 +258,12 @@ class Directorist_Single_Listing {
 
 	public function get_custom_field_value( $type, $data ) {
 		$result = '';
-		$value = is_array( $data['value'] ) ? join( ",",$data['value'] ) : $data['value'];
+		$value = is_array( $data['value'] ) ? join( ",", $data['value'] ) : $data['value'];
 
 		switch ( $type ) {
 			case 'radio':
 			case 'select':
-			foreach( $data['original_data']['options'] as $option ) {
+			foreach( $data['options'] as $option ) {
 				$key = $option['option_value'];
 				if( $key === $value ) {
 					$result = $option['option_label'];
@@ -269,7 +274,7 @@ class Directorist_Single_Listing {
 
 			case 'checkbox':
 			$option_value = [];
-			foreach( $data['original_data']['options'] as $option ) {
+			foreach( $data['options'] as $option ) {
 				$key = $option['option_value'];
 				if( in_array( $key, explode( ',', $value ) ) ) {
 					$space = str_repeat(' ', 1);

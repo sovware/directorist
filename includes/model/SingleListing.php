@@ -189,7 +189,7 @@ class Directorist_Single_Listing {
 			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
 
 			if ( empty( $value ) ) {
-				$value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar @todo - why double getmeta?
+				$value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar @todo - remove double getmeta later
 			}
 		}
 

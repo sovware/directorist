@@ -157,7 +157,7 @@
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         const place = autocomplete.getPlace();
 
-                        console.log( { place } );
+                        //console.log( { place } );
 
                         document.getElementById( field.lat_id ).value = place.geometry.location.lat();
                         document.getElementById( field.lng_id ).value = place.geometry.location.lng();
@@ -227,7 +227,7 @@
                 });
             });
 
-            
+
             // hide address result when click outside the input field
             $(document).on('click', function (e) {
                 if (!$(e.target).closest('#address, #q_addressss,.atbdp-search-address').length) {

@@ -428,8 +428,7 @@ class Multi_Directory_Manager
     public function prepare_settings() {
         $this->cetagory_options = $this->get_cetagory_options();
         $custom_field_meta_key_default_args = apply_filters( 'directorist_custom_field_meta_key_default_args', [
-            'type'     => 'text',
-            'disabled' => true,
+            'type'     => 'hidden',
             'label'    => __( 'Meta Key', 'directorist' ),
             'value'    => '',
             'rules'    => [

@@ -1747,7 +1747,12 @@ class Directorist_Listings {
 
 				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
 					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+
+					if ( isset( $original_field['options'] ) && is_string( $original_field['options'] ) ) {
+						$original_field['options'] = Helper::parse_input_field_options_string_to_array( $original_field['options'] );
+					}
 				}
+
 				if ( ! empty( $original_field ) ) {
 					$field['original_field'] = $original_field;
 				}

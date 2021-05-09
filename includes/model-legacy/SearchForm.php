@@ -352,6 +352,10 @@ class Directorist_Listing_Search_Form {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 
+		if ( isset( $field_data['options'] ) && is_string( $field_data['options'] ) ) {
+			$field_data['options'] = Helper::parse_input_field_options_string_to_array( $field_data['options'] );
+		}
+
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,

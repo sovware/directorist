@@ -2268,7 +2268,8 @@ input[type="tel"].cptm-form-control,
 input[type="text"].cptm-form-control,
 input[type="time"].cptm-form-control,
 input[type="url"].cptm-form-control,
-input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
+input[type="week"].cptm-form-control, 
+input[type="text"].cptm-form-control {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -2288,6 +2289,11 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
   &:hover {
     color: #23282d;
+  }
+  &:disabled, &:disabled:hover {
+    color: #676a6d;
+    cursor: text;
+    background-color: #f7f7f7;
   }
 }
 

@@ -1798,7 +1798,7 @@ class Multi_Directory_Migration {
             $field_group = [ 'radio', 'checkbox', 'select' ];
             if ( in_array( $field_type, $field_group ) ) {
                 $choices = get_post_meta($old_field_id, 'choices', true);
-                $field_data['options'] = $this->decode_custom_field_option_string( $choices );
+                $field_data['options'] = $choices;
             }
 
             if ( ('textarea' === $field_type) ) {

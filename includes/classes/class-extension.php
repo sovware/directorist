@@ -30,9 +30,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public $required_extensions = [];
 
         public function __construct() {
-            // Check for plugin update
-            wp_update_plugins();
-
             add_action( 'admin_menu', [$this, 'admin_menu'], 100 );
             add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'init', [$this, 'get_the_product_list'] );

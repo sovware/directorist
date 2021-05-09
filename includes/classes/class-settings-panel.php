@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 if ( ! class_exists('ATBDP_Settings_Panel') ) {
     class ATBDP_Settings_Panel
@@ -698,6 +698,10 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Solid Success', 'directorist'),
                         ],
                         [
+                            'value' => 'solid_lighter',
+                            'label' => __('Solid Lighter', 'directorist'),
+                        ],
+                        [
                             'value' => 'primary_outline',
                             'label' => __('Primary Outline', 'directorist'),
                         ],
@@ -1021,6 +1025,84 @@ Please remember that your order may be canceled if you do not make your payment 
                         'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                // solid lighter 
+                'lighter_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2021/05/roomrent.png',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'lighter_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#1A1B29',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'lighter_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#1A1B29',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'back_lighter_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'back_lighter_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'border_lighter_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'border_lighter_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
                         ],
                     ],
                 ],
@@ -4425,7 +4507,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Locations Page Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
                                      ],
                                 ],
                             ] ),
@@ -4950,7 +5032,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'button_type' => [
                                     'title' => __('Button Color', 'directorist'),
                                     'fields' => [
-                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
+                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'lighter_example', 'lighter_color', 'lighter_hover_color', 'back_lighter_color', 'back_lighter_hover_color', 'border_lighter_color', 'border_lighter_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
                                     ]
                                 ],
 

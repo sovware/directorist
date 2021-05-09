@@ -23,7 +23,7 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
-	} 
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -382,6 +382,39 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function get_listing_payment_status( $listing_id = '' ) {
+
+		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );
+
+		if ( empty( $order_id ) ) {
+			$order_id = self::get_listing_order_id( $listing_id );
+			update_post_meta( $listing_id, '_listing_order_id', $order_id );
+		}
+
+		$payment_status = get_post_meta( $order_id, '_payment_status', true );
+
+		return $payment_status;
+	}
+
+	// get_listing_order_id
+	public static function get_listing_order_id( $listing_id = '' ) {
+		$args = [
+			'post_type' => 'atbdp_orders',
+			'post_status' => 'publish',
+			'meta_query' => [
+				[
+					'key' => '_listing_id',
+					'value' => $listing_id,
+				]
+			]
+		];
+
+		$orders = new \WP_Query( $args );
+		$order_id = ( $orders->have_posts() ) ? $orders->post->ID : '';
+
+		return $order_id;
+	}
+
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }
@@ -390,6 +423,25 @@ class Helper {
 		?>
 		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
 		<?php
+	}
+
+	// parse_input_field_options_string_to_array
+	public static function parse_input_field_options_string_to_array( $options = '' ) {
+		if ( ! is_string( $options ) || empty( $options ) ) return [];
+		
+		$options = explode( "\n", $options );
+		$options_data = [];
+
+		foreach ( $options as $option ) {
+			$opt = preg_split( "/\s*:\s*/", $option );
+			$options_data[] = [
+				'option_value' => $opt[0],
+				'option_label' => ( count( $opt ) > 1 ) ? $opt[1] : $opt[0],
+			];
+		}
+		
+
+		return $options_data;
 	}
 
 	public static function add_shortcode_comment( string $shortcode = '' ) {

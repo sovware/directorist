@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 if ( ! class_exists('ATBDP_Settings_Panel') ) {
     class ATBDP_Settings_Panel
@@ -393,12 +393,22 @@ SWBD;
 
             if ( 'string' !== gettype( $string )  ) { return $string; }
 
+            if ( preg_match( '/\\\\n/', $string_alt ) ) {
+                $string_alt = preg_replace('/\\\\n/', '<line-break>', $string_alt);
+            }
+
             if ( preg_match( '/\\\\+/', $string_alt ) ) {
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
             }
 
             $string_alt = json_decode($string_alt, true);
-            $string     = (!is_null($string_alt)) ? $string_alt : $string;
+            $string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
+
+            if ( ! is_null( $string ) ) {
+                $string = json_encode( $string );
+                $string =  preg_replace('/(<line-break>)/', "\\n", $string);
+                $string = json_decode($string, true);
+            }
 
             return $string;
         }
@@ -686,6 +696,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         [
                             'value' => 'solid_success',
                             'label' => __('Solid Success', 'directorist'),
+                        ],
+                        [
+                            'value' => 'solid_lighter',
+                            'label' => __('Solid Lighter', 'directorist'),
                         ],
                         [
                             'value' => 'primary_outline',
@@ -1014,6 +1028,84 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                // solid lighter 
+                'lighter_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2021/05/roomrent.png',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'lighter_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#1A1B29',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'lighter_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#1A1B29',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'back_lighter_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'back_lighter_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'border_lighter_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
+                'border_lighter_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#F6F7F9',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
+                        ],
+                    ],
+                ],
                 // primary outline 
                 'priout_example' => [
                     'label'       => __('Button Example Outline', 'directorist'),
@@ -1306,6 +1398,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
+                
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -4415,7 +4508,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Locations Page Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
                                      ],
                                 ],
                             ] ),
@@ -4940,7 +5033,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'button_type' => [
                                     'title' => __('Button Color', 'directorist'),
                                     'fields' => [
-                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
+                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'lighter_example', 'lighter_color', 'lighter_hover_color', 'back_lighter_color', 'back_lighter_hover_color', 'border_lighter_color', 'border_lighter_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
                                     ]
                                 ],
 
@@ -5110,12 +5203,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
                                 ],
-                                // 'debugging' => [
-                                //     'title' => __( 'Debugging', 'directorist' ),
-                                //     'fields'      => [ 
-                                //         'script_debugging',
-                                //      ],
-                                // ],
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]

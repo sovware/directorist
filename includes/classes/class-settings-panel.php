@@ -1398,6 +1398,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
+                
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -5202,12 +5203,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
                                 ],
-                                // 'debugging' => [
-                                //     'title' => __( 'Debugging', 'directorist' ),
-                                //     'fields'      => [ 
-                                //         'script_debugging',
-                                //      ],
-                                // ],
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]

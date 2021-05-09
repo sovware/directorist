@@ -50,6 +50,9 @@ export default {
             type: [String, Number],
             default: '',
         },
+        disabled: {
+            default: false,
+        },
         buttonLabel: {
             type: String,
             default: '',

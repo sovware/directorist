@@ -23,7 +23,7 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
-	} 
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -423,6 +423,25 @@ class Helper {
 		?>
 		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
 		<?php
+	}
+
+	// parse_input_field_options_string_to_array
+	public static function parse_input_field_options_string_to_array( $options = '' ) {
+		if ( ! is_string( $options ) || empty( $options ) ) return [];
+		
+		$options = explode( "\n", $options );
+		$options_data = [];
+
+		foreach ( $options as $option ) {
+			$opt = preg_split( "/\s*:\s*/", $option );
+			$options_data[] = [
+				'option_value' => $opt[0],
+				'option_label' => ( count( $opt ) > 1 ) ? $opt[1] : $opt[0],
+			];
+		}
+		
+
+		return $options_data;
 	}
 
 	public static function add_shortcode_comment( string $shortcode = '' ) {

@@ -225,7 +225,7 @@ class Multi_Directory_Manager
                 $new_value = '';
 
                 foreach ( $old_value as $value ) {
-                    $new_value .= "{$value['option_value']} : {$value['option_value']}\n";
+                    $new_value .= "{$value['option_value']} : {$value['option_label']}\n";
                 }
 
                 $new_value = trim( $new_value );

@@ -1398,38 +1398,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
-                'new_listing_status' => [
-                    'label' => __('New Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-
-                'edit_listing_status' => [
-                    'label' => __('Edited Listing Default Status', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'pending',
-                    'options' => [
-                        [
-                            'label' => __('Pending', 'directorist'),
-                            'value' => 'pending',
-                        ],
-                        [
-                            'label' => __('Publish', 'directorist'),
-                            'value' => 'publish',
-                        ],
-                    ],
-                ],
-               
+                
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',

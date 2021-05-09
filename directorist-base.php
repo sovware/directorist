@@ -69,12 +69,12 @@ final class Directorist_Base
     public $taxonomy;
 
     /**
-     * ATBDP_Enqueuer Object.
+     * Enqueue_Assets Object.
      *
-     * @var object|ATBDP_Enqueuer
-     * @since 1.0
+     * @var object|Enqueue_Assets
+     * @since 7.0
      */
-    public $enquirer;
+    public $enqueue_assets;
 
     /**
      * ATBDP_Ajax_Handler Object.
@@ -228,8 +228,6 @@ final class Directorist_Base
 
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-
-            self::$instance->enquirer = new ATBDP_Enqueuer;
             self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
             // ATBDP_Listing_Type_Manager

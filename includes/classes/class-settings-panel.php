@@ -25,7 +25,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         // initial_setup
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
-                
                 $fields['script_debugging'] = [
                     'type'  => 'toggle',
                     'label' => 'Script debugging',
@@ -5180,12 +5179,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label'     => __('Miscellaneous', 'directorist'),
                             'icon' => '<i class="fas fa-thumbtack"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
-                                'legacy' => [
-                                    'title' => __( 'Legacy', 'directorist' ),
-                                    'fields'      => [ 
-                                        'atbdp_legacy_template'
-                                     ],
-                                ],
                                 'caching' => [
                                     'title' => __( 'Caching', 'directorist' ),
                                     'fields'      => [ 

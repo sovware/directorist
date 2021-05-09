@@ -1481,11 +1481,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'value' => false,
                 ],
-                'directorist_allow_custom_field_meta_key_editing' => [
-                    'label' => __('Allow custom field meta key editing', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => false,
-                ],
                 'guest_listings' => [
                     'label' => __('Guest Listing Submission', 'directorist'),
                     'type'  => 'toggle',
@@ -5156,18 +5151,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
                                 ],
-                                'custom_field_settings' => [
-                                    'title' => __( 'Custom field settings', 'directorist' ),
-                                    'fields'      => [ 
-                                        'directorist_allow_custom_field_meta_key_editing',
-                                     ],
-                                ],
-                                // 'debugging' => [
-                                //     'title' => __( 'Debugging', 'directorist' ),
-                                //     'fields'      => [ 
-                                //         'script_debugging',
-                                //      ],
-                                // ],
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]

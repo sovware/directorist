@@ -42,18 +42,6 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
         
         // add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
-
-        add_filter( 'directorist_custom_field_meta_key_default_args', [ $this, 'customize_custom_field_meta_key_default_args' ] );
-    }
-
-    // customize_custom_field_meta_key_default_args
-    public function customize_custom_field_meta_key_default_args( $args ) {
-        $allow_editing = get_directorist_option( 'directorist_allow_custom_field_meta_key_editing', false, true );
-
-        if ( ! $allow_editing ) return $args;
-        $args['disabled'] = false;
-
-        return $args;
     }
 
     // init_sanitize_builder_data_structure

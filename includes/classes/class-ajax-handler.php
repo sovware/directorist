@@ -96,6 +96,51 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
 
             add_action( 'wp_ajax_directorist_prepare_listings_export_file', [ $this, 'handle_prepare_listings_export_file_request' ] );
+
+            add_action('wp_ajax_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+            add_action('wp_ajax_nopriv_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+        }
+
+        // directorist_quick_ajax_login
+        public function directorist_quick_ajax_login()
+        {
+            if ( check_ajax_referer( 'ajax-login-nonce', false, false ) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message' => __('Invalid Nonce', 'directorist'),
+                ]);
+            }
+
+            if ( is_user_logged_in() ) {
+                wp_send_json([
+                    'loggedin' => true,
+                    'message' => __('Your are already loggedin', 'directorist'),
+                ]);
+            }
+
+            $keep_signed_in = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+
+            $info = [];
+            $info['user_login']    = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $info['remember']      = $keep_signed_in;
+
+            $user_signon = wp_signon( $info, false );
+
+            if ( is_wp_error($user_signon) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Wrong username or password.', 'directorist')
+                ]);
+
+            } else {
+                wp_set_current_user($user_signon->ID);
+
+                wp_send_json([
+                    'loggedin' => true,
+                    'message'  => __('Login successful, redirecting...', 'directorist')
+                ]);
+            }
         }
 
         // handle_prepare_listings_export_file_request

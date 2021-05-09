@@ -1388,7 +1388,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'default' => '#444752',
                 ],
 
-<<<<<<< HEAD
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
@@ -1421,8 +1420,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                
-=======
->>>>>>> upstream/alpha
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',

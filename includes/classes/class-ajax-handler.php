@@ -104,7 +104,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // directorist_quick_ajax_login
         public function directorist_quick_ajax_login()
         {
-            if ( check_ajax_referer( 'ajax-login-nonce', false, false ) ) {
+            if ( ! check_ajax_referer( 'ajax-login-nonce', 'security', false ) ) {
                 wp_send_json([
                     'loggedin' => false,
                     'message' => __('Invalid Nonce', 'directorist'),
@@ -117,30 +117,26 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'message' => __('Your are already loggedin', 'directorist'),
                 ]);
             }
-
-            $keep_signed_in = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
-
-            $info = [];
-            $info['user_login']    = $_POST['username'];
-            $info['user_password'] = $_POST['password'];
-            $info['remember']      = $keep_signed_in;
-
-            $user_signon = wp_signon( $info, false );
-
-            if ( is_wp_error($user_signon) ) {
-                wp_send_json([
+			
+			$user = get_user_by( 'login', $_POST['username'] );
+			$user = ( ! $user ) ? get_user_by( 'email', $_POST['username'] ) : $user;
+			$has_valid_password = ( wp_check_password( $_POST['password'], $user->data->user_pass, $user->ID ) ) ? true : false;
+			$is_valid_user = ( $user && $has_valid_password ) ? true : false;
+			$remember = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+							  
+			if ( ! $is_valid_user ) {
+				wp_send_json([
                     'loggedin' => false,
-                    'message'  => __('Wrong username or password.', 'directorist')
+                    'message'  => __('Wrong username or password.', 'directorist'),
                 ]);
-
-            } else {
-                wp_set_current_user($user_signon->ID);
-
-                wp_send_json([
-                    'loggedin' => true,
-                    'message'  => __('Login successful, redirecting...', 'directorist')
-                ]);
-            }
+			} 
+			
+			wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
+			
+			wp_send_json([
+				'loggedin' => true,
+				'message'  => __('Login successful, redirecting...', 'directorist'),
+			]);
         }
 
         // handle_prepare_listings_export_file_request

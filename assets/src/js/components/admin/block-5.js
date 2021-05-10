@@ -86,6 +86,26 @@ $(document).bind('click', function (e) {
     }
 });
 
+// Slug Edit
+$('.directorist-listing-slug__form').slideUp();
+$('body').on('input', 'input[name="directorist-slug-input"]', function (e) {
+    let slugOldText = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').text();
+    let slugUpdateText = $(this).value;
+    $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').text($(this).val());
+});
+
+// Edit Form Open
+$('body').on('click', '.directorist-listing-slug__edit', function (e) {
+    e.preventDefault();
+    $(this).siblings('.directorist-listing-slug__form').slideDown();
+});
+
+// Edit Form Remove
+$('body').on('click', '.directorist_listing-slug-formText-remove', function (e) {
+    e.preventDefault()
+    $(this).closest('.directorist-listing-slug__form').slideUp();
+});
+
 // Tab Content
 // ----------------------------------------------------------------------------------
 // Modular, classes has no styling, so reusable

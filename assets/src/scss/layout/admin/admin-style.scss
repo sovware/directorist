@@ -4585,6 +4585,84 @@ input.atbdp-form-control {
   }
 }
 
+// Slug Text Edit
+.directorist_listing-slug-text{
+  min-width: 120px;
+  display: inline-block;
+}
+.directorist-listing-slug-edit-wrap{
+  display: inline-block;
+  position: relative;
+}
+
+.directorist-listing-slug__edit{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 5px 10px #adb4d260;
+  margin-left: 10px;
+  i,
+  span.la,
+  span.las,
+  span.lab,
+  span.fab,
+  span.fas,
+  span.fa{
+    font-size: 15px;
+    color: $info;
+  }
+}
+
+.directorist-listing-slug__form{
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 100%;
+  min-width: 280px;
+  box-shadow: 0 5px 40px rgba(#9299B8,.25);
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 4px;
+  z-index: 22;
+  display: none;
+  .directorist_listing-slug__form--inline{
+    display: inline-flex;
+    align-items: center;
+    .directorist-form-element{
+      padding: 15px 10px;
+    }
+  }
+  .directorist_listing-slug__form--input{
+    margin-right: 12px;
+  }
+  .directorist_listing-slug__form--action{
+    display: inline-flex;
+    margin: -2px;
+    a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      margin: 2px;
+      border: 1px solid $border-color;
+      &.directorist_listing-slug-formText-add{
+        background-color: $info;
+        color: #fff;
+      }
+      &.directorist_listing-slug-formText-remove{
+        background-color: $danger;
+        color: #fff;
+      }
+    }
+  }
+}
+
 // Directorist Custom Checkbox
 .directorist_custom-checkbox {
   input {

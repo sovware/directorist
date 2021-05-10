@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 
 			<div class="directorist-checkbox directorist-checkbox-primary">
-				<input <?php checked( $value === $option[ 'option_value' ] ); ?> type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option['option_value'] ); ?>">
+				<input <?php checked( $value === $option[ 'option_value' ] ); ?> type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>][]" value="<?php echo esc_attr( $option['option_value'] ); ?>">
 				<label class="directorist-checkbox__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label>
 			</div>
 

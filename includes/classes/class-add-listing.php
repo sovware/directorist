@@ -290,12 +290,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
 
-                        $args['post_title'] = get_the_title(absint($info['listing_id']));
-
-                        $post_object = get_post(absint($info['listing_id']));
-                        $content = apply_filters('get_the_content', $post_object->post_content);
-                        $args['post_content'] = $content;
-
                         $post_id = wp_update_post($args);
                         update_post_meta($post_id, '_directory_type', $directory_type);
 

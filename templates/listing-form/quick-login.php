@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<input type="password" name="password" placeholder="Password" class="directorist-form-element">
 					</div>
 
-					<?php wp_nonce_field('ajax-login-nonce', 'security'); ?>
+					<?php wp_nonce_field('directorist-quick-login-nonce', 'directorist-quick-login-security'); ?>
 					<div class="directorist-form-feedback"></div>
 
 					<div class="directorist-form-actions directorist-text-center">

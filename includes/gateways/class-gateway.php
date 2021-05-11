@@ -340,7 +340,7 @@ class ATBDP_Gateway{
 
     static function gateways_markup()
     {
-        $active_gateways = get_directorist_option('active_gateways', array());
+        $active_gateways = get_directorist_option('active_gateways', [ 'bank_transfer' ]);
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
         if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
         
@@ -357,8 +357,8 @@ class ATBDP_Gateway{
         $markup = '<ul>';
         if( !empty( $active_gateways ) ) {
             foreach ($active_gateways as $gw_name){
-                $title = get_directorist_option($gw_name.'_title');
-                $desc = get_directorist_option($gw_name.'_description');
+                $title = get_directorist_option($gw_name.'_title', 'Bank Transfer');
+                $desc = get_directorist_option($gw_name.'_description', 'You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.');
                 $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
                 $checked = ( $gw_name == $default_gw ) ? ' checked': '';
                 $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");

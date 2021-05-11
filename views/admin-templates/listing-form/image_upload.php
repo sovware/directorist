@@ -4,7 +4,7 @@
  * @since   6.7
  * @version 6.7
  */
-$form                       = directorist_legacy_mode() ? $form : $listing_form;
+$form                       = $listing_form;
 $p_id                		= $form->get_add_listing_id();
 $listing_imgs		 		= get_post_meta($p_id, '_listing_img', true);
 $listing_prv_img_id	 		= get_post_meta($p_id, '_listing_prv_img', true);

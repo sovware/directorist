@@ -92,7 +92,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_css_scripts() {
 		$scripts = [];
-		$common_asset_group = 'global';
+		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
 
 		// Global
 		// ================================
@@ -227,7 +227,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_js_scripts() {
 		$scripts = [];
-		$common_asset_group = 'global';
+		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
 
 		// Global
 		// ================================
@@ -1024,7 +1024,8 @@ class Enqueue_Assets {
 	public static function add_global_js_scripts() {
 		$scripts = [];
 
-		$common_asset_group = 'global';
+		$atbdp_legacy_template = false;
+		$common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
 
 		$scripts['directorist-map-view'] = [
 			'file_name' => 'global-map-view',

@@ -697,7 +697,10 @@ $('body').on('submit', formID, function (e) {
 
   var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
   form_data.append('directory_type', directory_type);
-  form_data.append('plan_id', qs.plan);
+
+  if (qs.plan) {
+    form_data.append('plan_id', qs.plan);
+  }
 
   if (error_count) {
     on_processing = false;
@@ -716,9 +719,9 @@ $('body').on('submit', formID, function (e) {
     url: localized_data.ajaxurl,
     data: form_data,
     success: function success(response) {
-      // console.log( response );
-      // return;
+      console.log(response); // return;
       // show the error notice
+
       $('.directorist-form-submit__btn').attr('disabled', false); // var is_pending = response ? '&' : '?';
 
       var is_pending = response && response.pending ? '&' : '?';

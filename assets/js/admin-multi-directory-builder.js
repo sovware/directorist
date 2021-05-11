@@ -1459,6 +1459,9 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       default: ''
     },
+    disabled: {
+      default: false
+    },
     buttonLabel: {
       type: String,
       default: ''
@@ -40877,7 +40880,11 @@ var render = function() {
               ? _c("input", {
                   staticClass: "cptm-form-control",
                   class: _vm.formControlClass,
-                  attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+                  attrs: {
+                    disabled: _vm.disabled,
+                    type: _vm.input_type,
+                    placeholder: _vm.placeholder
+                  },
                   domProps: { value: _vm.value === false ? "" : _vm.value },
                   on: {
                     input: function($event) {
@@ -42354,7 +42361,11 @@ var render = function() {
         ? _c("input", {
             staticClass: "cptm-form-control",
             class: _vm.formControlClass,
-            attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+            attrs: {
+              disabled: _vm.disabled,
+              type: _vm.input_type,
+              placeholder: _vm.placeholder
+            },
             domProps: { value: _vm.value },
             on: {
               input: function($event) {

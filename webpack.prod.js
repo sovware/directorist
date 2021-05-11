@@ -3,14 +3,20 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackRTLPlugin     = require("webpack-rtl-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const prodConfig = {
   mode: "production", // production | development
   watch: false,
   
   plugins: [
+    new CleanWebpackPlugin({
+      dry: false,
+      cleanOnceBeforeBuildPatterns: [ '../css/*.map', '../js/*.map' ],
+      dangerouslyAllowCleanPatternsOutsideProject: true,
+    }),
     new MiniCssExtractPlugin({
-      filename: "css/[name].min.css",
+      filename: "../css/[name].min.css",
       minify: true,
     }),
     new WebpackRTLPlugin({
@@ -19,7 +25,7 @@ const prodConfig = {
   ],
 
   output: {
-    filename: "js/[name].min.js",
+    filename: "../js/[name].min.js",
   },
 };
 

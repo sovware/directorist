@@ -628,10 +628,6 @@ class Directorist_Listing_Form {
 		$field_data['form'] = $this;
 		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
 
-		if ( isset( $field_data['options'] ) && is_string( $field_data['options'] ) ) {
-			$field_data['options'] = Helper::parse_input_field_options_string_to_array( $field_data['options'] );
-		}
-
 		$args = array(
 			'form'  => $this,
 			'data'  => $field_data,

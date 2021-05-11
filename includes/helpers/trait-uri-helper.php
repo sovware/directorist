@@ -16,29 +16,12 @@ trait URI_Helper {
 	}
 
 	public static function template_directory() {
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
-
 		$dir = ATBDP_DIR. 'templates/';
-
-		if ( $legacy ) {
-			$dir = ATBDP_DIR. 'templates-v6/';
-		}
-
 		return $dir;
 	}
 
 	public static function theme_template_directory() {
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
-
-		if ( $legacy ) {
-			$dir = 'directorist-v6';
-		}
-		else {
-			$dir = 'directorist';
-		}
-
-		$dir = apply_filters( 'directorist_template_directory', $dir );
-
+		$dir = apply_filters( 'directorist_template_directory', 'directorist' );
 		return $dir;
 	}
 
@@ -64,20 +47,20 @@ trait URI_Helper {
 		}
 
 		// Load extension template if exist
-		
+
 		if ( ! empty( $shortcode_key ) ) {
 			$default = [ 'template_directory' => '', 'file_path' => '', 'base_directory' => '' ];
 			$ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
 			$ex_args = array_merge( $default, $ex_args );
-			
+
 			$extension_path = atbdp_get_extension_template_path( $ex_args['template_directory'], $ex_args['file_path'], $ex_args['base_directory'] );
 
 			if ( file_exists( $extension_path ) ) {
 				$old_template_data = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
 				$GLOBALS['atbdp_template_data'] = $args;
-	
+
 				include $extension_path;
-				
+
 				$GLOBALS['atbdp_template_data'] = $old_template_data;
 				return;
 			}

@@ -13,8 +13,7 @@ class Helper {
 	use Markup_Helper;
 
 	public static function is_legacy_mode() {
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
-		return $legacy;
+		return false;
 	}
 
 	public static function get_directory_type_term_data( $post_id = '', string $term_key = '' ) {
@@ -40,7 +39,7 @@ class Helper {
 				$value = get_post_meta( $post_id, $widget['field_key'], true );
 			}
 		}
-		
+
 		if ( isset( $widget['original_data'] ) && isset( $widget['original_data']['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_' . $widget['original_data']['field_key'], true );
 
@@ -222,7 +221,7 @@ class Helper {
 			$active_items = 1;
 			$price_range_text = __( 'Cheap', 'directorist' );
 			break;
-			
+
 			default:
 			$active_items = 4;
 			$price_range_text = __( 'Skimming', 'directorist' );
@@ -358,7 +357,7 @@ class Helper {
 			$default_img = get_directorist_option( 'default_preview_image' );
 			$default_image_src = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
 		}
-		
+
 		return $default_image_src;
 	}
 
@@ -418,34 +417,15 @@ class Helper {
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }
-		
+
 		$value = json_encode( $data );
 		?>
 		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
 		<?php
 	}
 
-	// parse_input_field_options_string_to_array
-	public static function parse_input_field_options_string_to_array( $options = '' ) {
-		if ( ! is_string( $options ) || empty( $options ) ) return [];
-		
-		$options = explode( "\n", $options );
-		$options_data = [];
-
-		foreach ( $options as $option ) {
-			$opt = preg_split( "/\s*:\s*/", $option );
-			$options_data[] = [
-				'option_value' => $opt[0],
-				'option_label' => ( count( $opt ) > 1 ) ? $opt[1] : $opt[0],
-			];
-		}
-		
-
-		return $options_data;
-	}
-
 	public static function add_shortcode_comment( string $shortcode = '' ) {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
 	}
-	
+
 }

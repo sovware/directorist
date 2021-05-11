@@ -260,6 +260,7 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
+
 			foreach ( $search_form_fields['fields'] as $key => $value ) {
 
 				if ( ! is_array( $value) ) {
@@ -268,7 +269,6 @@ class Directorist_Listing_Search_Form {
 
 				$search_form_fields['fields'][$key]['field_key'] = '';
 				$search_form_fields['fields'][$key]['options'] = [];
-
 
 				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
 
@@ -341,10 +341,6 @@ class Directorist_Listing_Search_Form {
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
-
-		if ( isset( $field_data['options'] ) && is_string( $field_data['options'] ) ) {
-			$field_data['options'] = Helper::parse_input_field_options_string_to_array( $field_data['options'] );
-		}
 
 		$args = array(
 			'searchform' 		=> $this,

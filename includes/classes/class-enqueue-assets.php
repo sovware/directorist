@@ -17,7 +17,7 @@ class Enqueue_Assets {
 
 		if ( is_null( self::$instance ) ) {
 			self::$instance = $this;
-			
+
 			// Load Assets
 			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
@@ -92,7 +92,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_css_scripts() {
 		$scripts = [];
-		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		// Global
 		// ================================
@@ -227,7 +227,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_js_scripts() {
 		$scripts = [];
-		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		// Global
 		// ================================
@@ -691,7 +691,7 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => 'search-form',
 		];
-		
+
 		$scripts['directorist-single-listing-openstreet-map-custom-script'] = [
 			'file_name'      => 'public-single-listing-openstreet-map-custom-script',
 			'base_path'      => DIRECTORIST_JS,
@@ -1024,8 +1024,7 @@ class Enqueue_Assets {
 	public static function add_global_js_scripts() {
 		$scripts = [];
 
-		$atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-		$common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		$scripts['directorist-map-view'] = [
 			'file_name' => 'global-map-view',
@@ -1326,7 +1325,7 @@ class Enqueue_Assets {
 
 		$disable = ( class_exists( 'Elementor\Plugin' ) ) ? true : DIRECTORIST_DISABLE_SHORTCODE_RESTRICTION_ON_SCRIPTS;
 		$disable = apply_filters( 'directorist_disable_shortcode_restriction_on_scripts', $disable );
-		
+
 		if ( $disable ) { return true; }
 
 		$match_found = 0;
@@ -1427,7 +1426,7 @@ class Enqueue_Assets {
 		$has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
 		$has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
-		
+
 		$load_min = apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES );
 		$is_rtl   =  is_rtl();
 

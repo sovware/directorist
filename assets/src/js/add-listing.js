@@ -732,14 +732,14 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
 
     var email = $(form).find('input[name="email"]');
     var password = $(form).find('input[name="password"]');
-    var security = $(form).find('input[name="security"]');
+    var security = $(form).find('input[name="directorist-quick-login-security"]');
 
     var form_data = {
         action: 'directorist_ajax_quick_login',
         username: email.val(),
         password: password.val(),
         rememberme: false,
-        security: security.val(),
+        ['directorist-quick-login-security']: security.val(),
     };
 
     var submit_button = $(this);

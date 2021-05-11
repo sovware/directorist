@@ -1806,22 +1806,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'display_preview_image' => [
-                    'type' => 'toggle',
-                    'label' => __('Show Preview Image', 'directorist'),
-                    'description' => __('Hide/show preview image from all listing page.', 'directorist'),
-                    'value' => true,
-                ],
                 'preview_image_quality' => [
-                    'label' => __('Image Quality', 'directorist'),
+                    'label' => __('Preview Image Quality', 'directorist'),
                     'type'  => 'select',
                     'value' => 'large',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'medium',
@@ -1841,12 +1829,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Image Size', 'directorist'),
                     'type'  => 'select',
                     'value' => 'cover',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
+                    
                     'options' => [
                         [
                             'value' => 'full',
@@ -1869,12 +1852,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
+                    
                 ],
                 'crop_height' => [
                     'label' => __('Container Height', 'directorist'),
@@ -1883,23 +1861,13 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
+                    
                 ],
                 'prv_container_size_by' => [
                     'label' => __('Container Size By', 'directorist'),
                     'type'  => 'select',
                     'value' => 'px',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
+                    
                     'options' => [
                         [
                             'value' => 'px',
@@ -1915,12 +1883,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Background', 'directorist'),
                     'type'  => 'select',
                     'value' => 'blur',
-                    'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
+                    
                     'options' => [
                         [
                             'value' => 'blur',
@@ -1948,12 +1911,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
-                     'show-if' => [
-                        'where' => "display_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                 ],
                 'info_display_in_single_line' => [
                     'type' => 'toggle',
@@ -4467,7 +4424,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
                                 ],
                             ] ),

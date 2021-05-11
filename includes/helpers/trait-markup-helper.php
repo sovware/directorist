@@ -45,12 +45,7 @@ trait Markup_Helper {
 	}
 
 	public static function search_filter_class( $display_type ) {
-		if( ! directorist_legacy_mode() ){
-			$result = ( 'overlapping' === $display_type ) ? 'directorist-search-float' : 'directorist-search-slide';
-		}else{
-			$result = ( 'overlapping' === $display_type ) ? 'ads_float' : 'ads_slide';
-
-		}
+		$result = ( 'overlapping' === $display_type ) ? 'directorist-search-float' : 'directorist-search-slide';
 		echo esc_attr( $result );
 	}
 }

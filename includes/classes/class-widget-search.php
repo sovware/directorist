@@ -54,8 +54,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_radius              = ! empty( $instance['search_by_radius'] ) ? 1 : 0;
             $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
             $select_listing_map            = get_directorist_option('select_listing_map','google');
-            $atbdp_legacy_template         = get_directorist_option( 'atbdp_legacy_template', false );
-            
+
             $listing_type = get_post_meta( get_the_ID(), '_directory_type', true );
             $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();
             $script_args  = ['directory_type_id' => $listing_type];

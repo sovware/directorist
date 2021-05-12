@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-details-info-wrap">
 			<?php
-			foreach ( $section_data['fields'] as $field ){
+			foreach ( $section_data['fields'] as $field ) {
 				$listing->field_template( $field );
 			}
 			?>
 		</div>
-		
+
 	</div>
-	
+
 </div>

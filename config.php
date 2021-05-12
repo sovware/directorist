@@ -38,7 +38,7 @@ if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DI
 // Plugin Admin Assets Path
 if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }
 // Plugin Public Assets Path
-if ( !defined('ATBDP_PUBLIC_ASSETS') ) { define('ATBDP_PUBLIC_ASSETS', ATBDP_URL.'public/assets/'); }
+if ( !defined('ATBDP_PUBLIC_ASSETS') ) { define('ATBDP_PUBLIC_ASSETS', DIRECTORIST_ASSETS); }
 // Plugin Language File Path
 if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_basename( __FILE__ ) ) . '/languages'); }
 // Plugin Name

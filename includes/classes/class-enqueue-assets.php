@@ -22,10 +22,8 @@ class Enqueue_Assets {
 			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
 
-			if ( ! Helper::is_legacy_mode() ) {
-				// Enqueue Public Scripts
-				add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
-			}
+			// Enqueue Public Scripts
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
 			// Enqueue Admin Scripts
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
@@ -92,7 +90,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_css_scripts() {
 		$scripts = [];
-		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		// Global
 		// ================================
@@ -227,7 +225,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_vendor_js_scripts() {
 		$scripts = [];
-		$common_asset_group = ( Helper::is_legacy_mode() ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		// Global
 		// ================================
@@ -1023,9 +1021,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_global_js_scripts() {
 		$scripts = [];
-
-		$atbdp_legacy_template = false;
-		$common_asset_group = ( $atbdp_legacy_template ) ? 'admin' : 'global';
+		$common_asset_group = 'global';
 
 		$scripts['directorist-map-view'] = [
 			'file_name' => 'global-map-view',

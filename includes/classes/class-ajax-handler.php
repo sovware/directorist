@@ -98,6 +98,46 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
 
             add_action( 'wp_ajax_directorist_prepare_listings_export_file', [ $this, 'handle_prepare_listings_export_file_request' ] );
+
+            add_action('wp_ajax_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+            add_action('wp_ajax_nopriv_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+        }
+
+        // directorist_quick_ajax_login
+        public function directorist_quick_ajax_login() {
+            if ( ! check_ajax_referer( 'directorist-quick-login-nonce', 'directorist-quick-login-security', false ) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message' => __('Invalid Nonce', 'directorist'),
+                ]);
+            }
+
+            if ( is_user_logged_in() ) {
+                wp_send_json([
+                    'loggedin' => true,
+                    'message' => __('Your are already loggedin', 'directorist'),
+                ]);
+            }
+
+			$user = get_user_by( 'login', $_POST['username'] );
+			$user = ( ! $user ) ? get_user_by( 'email', $_POST['username'] ) : $user;
+			$has_valid_password = ( wp_check_password( $_POST['password'], $user->data->user_pass, $user->ID ) ) ? true : false;
+			$is_valid_user = ( $user && $has_valid_password ) ? true : false;
+			$remember = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+
+			if ( ! $is_valid_user ) {
+				wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Wrong username or password.', 'directorist'),
+                ]);
+			} 
+
+			wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
+
+			wp_send_json([
+				'loggedin' => true,
+				'message'  => __('Login successful, redirecting...', 'directorist'),
+			]);
         }
 
         // handle_prepare_listings_export_file_request

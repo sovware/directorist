@@ -649,6 +649,27 @@ $('body').on('click', '.submitdefault', function (e) {
     });
 });
 
+// edit directory type slug
+$('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
+    e.preventDefault();
+    var type_id = $(this).data('type-id');
+        update_slug = $('.directorist-type-slug-' + type_id ).val();
+    $.ajax({
+        type: 'post',
+        url: atbdp_admin_data.ajaxurl,
+        data: {
+            action      : 'directorist_listing_slug_change',
+            type_id     : type_id,
+            update_slug : update_slug
+        },
+        success(response) {
+            if( response ) {
+                $('.directorist-slug-notice-' + type_id ).empty().html( response );
+            }
+        },
+    });
+});
+
 function assetsNeedToWorkInVirtualDom() {
     // price range
     $('#price_range').hide();

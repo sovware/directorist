@@ -93,7 +93,7 @@ class ATBDP_Enqueuer {
             );
 
             $disable_map = get_directorist_option( 'display_map_field' );
-            
+
             // === Added to the new enqueuer ===
             // get the map api from the user settings
             $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
@@ -122,7 +122,7 @@ class ATBDP_Enqueuer {
             // wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
             // wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
             // wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
-            
+
             // === Added to the new enqueuer ===
             /*Public Common Asset: */
             // wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -136,7 +136,7 @@ class ATBDP_Enqueuer {
             //@todo; later minify the bootstrap
             /*@todo; we can also load scripts and style using very strict checking like loading based on post.php or edit.php etc. For example, sweetalert should be included in the post.php file where the user will add/edit listing */
             /* enqueue all styles*/
-            
+
             // === Added to the new enqueuer ===
             // wp_enqueue_style( 'atbdp-admin-bootstrap-style' );
             // wp_enqueue_style( 'atbdp-font-awesome' );
@@ -146,7 +146,7 @@ class ATBDP_Enqueuer {
             // wp_enqueue_style( 'custom-colors' );
             /* WP COLOR PICKER */
             // wp_enqueue_style( 'wp-color-picker' );
-            
+
             // === Added to the new enqueuer ===
             /* Enqueue all scripts */
             //wp_enqueue_script('atbdp-bootstrap'); // maybe we do not need the bootstrap js in the admin panel at the moment.
@@ -391,7 +391,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp-single-listing-osm-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-single-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-single-listing-gmap-widget', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map-widget.js', array( 'jquery' ), ATBDP_VERSION, true );
-        
+
         wp_register_script( 'atbdp-add-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-add-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
 
@@ -1016,19 +1016,19 @@ class ATBDP_Enqueuer {
         // $search_dependency = array( 'jquery', 'jquery-ui-slider', 'select2script' );
         wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
         wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-        
+
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
-        
+
         $search_dependency = array( );
         wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
-        
+
         /**
          * @since 5.0.1
          * It returns the dependencies for search form js
          */
         apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
-        
+
         $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
         wp_enqueue_script( $handel );
 
@@ -1081,7 +1081,7 @@ class ATBDP_Enqueuer {
             'ajax_url'  => admin_url( 'admin-ajax.php' ),
         ));
 
-        $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
+        $atbdp_legacy_template = false;
         if( empty( $atbdp_legacy_template ) ) {
             wp_localize_script('atbdp-search-listing','atbdp_search_listing',array(
                 'i18n_text'   => array(

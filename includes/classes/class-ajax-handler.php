@@ -74,6 +74,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
             // default listing type
             add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
+            // listing type slug edit
+            add_action('wp_ajax_directorist_listing_slug_change', array($this, 'directorist_listing_slug_change'));
 
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
@@ -90,7 +92,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
 
-            //dashboard become author 
+            //dashboard become author
             add_action( 'wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
             add_action( 'wp_ajax_atbdp_user_type_approved', array( $this, 'atbdp_user_type_approved' ) );
             add_action( 'wp_ajax_atbdp_user_type_deny', array( $this, 'atbdp_user_type_deny' ) );
@@ -106,7 +108,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
 
         public function atbdp_user_type_deny() {
-            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_deny' ) ) { 
+            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_deny' ) ) {
                 $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
                 update_user_meta( $user_id, '_user_type', 'general' );
                 wp_send_json( array(
@@ -117,7 +119,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
 
         public function atbdp_user_type_approved() {
-            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_approve' ) ) { 
+            if ( wp_verify_nonce( $_POST['_nonce'], 'atbdp_user_type_approve' ) ) {
                 $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
                 update_user_meta( $user_id, '_user_type', 'author' );
                 wp_send_json( array(
@@ -128,7 +130,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
 
         public function atbdp_become_author() {
-            if ( wp_verify_nonce( $_POST['nonce'], 'atbdp_become_author' ) ) { 
+            if ( wp_verify_nonce( $_POST['nonce'], 'atbdp_become_author' ) ) {
                 $user_id = ! empty( $_POST['userId'] ) ? $_POST['userId'] : '';
                 do_action( 'atbdp_become_author', $user_id );
                 update_user_meta( $user_id, '_user_type', 'become_author' );
@@ -178,7 +180,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
             $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
-            $class           = directorist_legacy_mode() ? 'row atbdp-search-form atbdp-search-form-inline' : 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
+            $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
             // search form
             ob_start();
             ?>
@@ -209,12 +211,12 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $search_form =  ob_get_clean();
 
             ob_start();
-			
+
 			$searchform->top_categories_template();
-			
+
             $popular_categories = ob_get_clean();
-			
-            wp_send_json( array( 
+
+            wp_send_json( array(
                 'search_form'          => $search_form,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
                 'popular_categories'   => $popular_categories
@@ -234,6 +236,30 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
               }
             update_term_meta( $type_id, '_default', true );
             wp_send_json( 'Updated Successfully!' );
+        }
+
+        public function directorist_listing_slug_change() {
+            $type_id        = isset( $_POST[ 'type_id' ] ) ? sanitize_key( $_POST[ 'type_id' ] ) : '';
+            $update_slug    = isset( $_POST[ 'update_slug' ] ) ? sanitize_key( $_POST[ 'update_slug' ] ) : '';
+           
+            $directory_slugs = [];
+            $listing_types = get_terms( [
+                'taxonomy'   => ATBDP_TYPE,
+                ] );
+            if( $listing_types ) {
+                foreach( $listing_types as $listing_type ){
+                    $directory_slugs[] = $listing_type->slug;
+                }
+            }
+
+            if( in_array( $update_slug, $directory_slugs ) ) {
+                wp_send_json( __('This slug already in use.', 'directorist') );
+            } else {
+                $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );
+                if( $update_type_slug ) {
+                    wp_send_json( __('Slug Changes Successfully.', 'directorist') );
+                }
+            }
         }
 
         public function ajax_callback_custom_fields() {
@@ -386,7 +412,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $info['user_login'] = $_POST['username'];
             $info['user_password'] = $_POST['password'];
             $info['remember'] = $keep_signed_in;
-            
+
             $user_signon = wp_signon($info, $keep_signed_in);
             if (is_wp_error($user_signon)) {
                 echo json_encode(array(
@@ -1011,9 +1037,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         {
             $id = ( ! empty( $_POST['id'] ) ) ? absint( $_POST['id'] ) : 0;
 
-            $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-            $path = ( $atbdp_legacy_template ) ? 'forms/social-fields' : 'listing-form/social-item';
-            
+            $path = 'listing-form/social-item';
+
             Directorist\Helper::get_template( $path, array( 'id' => $id ) );
 
             die();

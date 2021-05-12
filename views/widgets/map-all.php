@@ -18,7 +18,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
     <?php
     if('google' == $select_listing_map) {
         $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 3;
-        wp_enqueue_script('atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
+        wp_enqueue_script('atbdp-map-view', DIRECTORIST_ASSETS . 'other/map-view.js');
         $data = array(
             'plugin_url' => ATBDP_URL,
             'zoom' => !empty($map_zoom_level) ? $map_zoom_level : 3

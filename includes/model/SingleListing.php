@@ -977,7 +977,7 @@ class Directorist_Single_Listing {
 		$display_direction_map          = get_directorist_option('display_direction_map', 1);
 
 		$listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
-		$default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+		$default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'small') : '';
 		$listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 		$img_url = !empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;

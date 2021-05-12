@@ -8060,7 +8060,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
-    $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+    $default_image_src = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
         $thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
@@ -8205,7 +8205,7 @@ function get_plasma_slider()
 
     // Get the default image
     $default_image = get_directorist_option(
-        'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
     );
 
     // Get the preview images

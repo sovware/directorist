@@ -138,7 +138,6 @@ class Script_Helper {
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
             'nonceName'                   => 'atbdp_nonce_js',
-            'PublicAssetPath'             => ATBDP_PUBLIC_ASSETS,
             'login_alert_message'         => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                         => is_rtl() ? 'true' : 'false',
             'warning'                     => __( 'WARNING!', 'directorist' ),
@@ -230,7 +229,6 @@ class Script_Helper {
                     'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
                 ]
             ]),
-            'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
             'create_new_loc'  => $new_loc,

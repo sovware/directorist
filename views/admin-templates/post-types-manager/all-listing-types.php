@@ -127,14 +127,15 @@
                                                             <form action="#">
                                                                 <div class="directorist_listing-slug__form--inline">
                                                                     <div class="directorist_listing-slug__form--input directorist-form-group">
-                                                                        <input type="text" class="directorist-form-element" name="directorist-slug-input" value="">
+                                                                        <input type="text" class="directorist-form-element directorist-type-slug-<?php echo $listing_type->term_id; ?>" name="directorist-slug-input" value="<?php echo ! empty( $listing_type->slug ) ? $listing_type->slug : '-'; ?>">
                                                                     </div>
                                                                     <div class="directorist_listing-slug__form--action">
-                                                                        <a href="#" class="directorist_listing-slug-formText-add"><i class="la la-check"></i></a>
+                                                                        <a href="#" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"><i class="la la-check"></i></a>
                                                                         <a href="#" class="directorist_listing-slug-formText-remove"><i class="la la-times"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                                            <p class='directorist-slug-notice directorist-slug-notice-<?php echo $listing_type->term_id; ?>'></p>
                                                         </div>
                                                     </div>
                                                 </td>

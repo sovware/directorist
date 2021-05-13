@@ -2227,6 +2227,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Threshold in Views Count', 'directorist'),
                     'value' => 5,
                 ],
+                'count_loggedin_user' => [
+                    'type' => 'toggle',
+                    'label' => __('Count Logged-in User View', 'directorist'),
+                    'value' => false,
+                ],
                 'average_review_for_popular' => [
                     'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
                     'type'  => 'number',
@@ -5020,7 +5025,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user'
                                     ],
                                 ],
                                 'featured_badge' => [

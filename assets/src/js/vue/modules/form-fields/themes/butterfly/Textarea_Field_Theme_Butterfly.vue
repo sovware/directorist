@@ -13,7 +13,7 @@
                     :section-id="sectionId"
                     :field-id="fieldId"
                     :root="root"
-                    :value="value" 
+                    :value="local_value" 
                     :rules="rules" 
                     v-model="validationLog" 
                     @validate="$emit( 'validate', $event )"

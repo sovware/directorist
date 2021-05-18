@@ -262,7 +262,7 @@ class Directorist_Listing_Dashboard {
 
 				}
 				if ( empty( $listing_img[0] ) && empty( $listing_prv_img ) ) {
-					$img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+					$img_src = DIRECTORIST_ASSETS . 'images/grid.jpg';
 				}
 
 				$fav_listing_items[] = array(

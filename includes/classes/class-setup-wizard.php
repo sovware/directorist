@@ -265,9 +265,9 @@ class SetupWizard
     public function enqueue_scripts()
     {
         wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
-        wp_enqueue_style('atbdp_setup_select2', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', ATBDP_VERSION, true);
+        wp_enqueue_style('atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', ATBDP_VERSION, true);
         wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
-        wp_register_script('directorist-select2', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array('jquery'), ATBDP_VERSION, true);
+        wp_register_script('directorist-select2', DIRECTORIST_VENDOR_JS . 'select2.min.js', array('jquery'), ATBDP_VERSION, true);
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
         $data = array(
@@ -734,7 +734,7 @@ class SetupWizard
     ?>
         <div class="atbdp-c-body">
             <div class="atbdp-c-logo">
-                <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+                <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
             </div>
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
             <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
@@ -811,7 +811,7 @@ class SetupWizard
         ?>
 
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
-            <li class="atbdsw-logo"><img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
+            <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
                         if ($step_key === $this->step && 'step-four' != $step_key ) {

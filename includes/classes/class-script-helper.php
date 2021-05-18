@@ -191,13 +191,10 @@ class Script_Helper {
             $listing_id = (int) $important;
         }
 
-        $submission_form = get_term_meta( $current_listing_type, 'submission_form_fields', true );
-        $new_tag         = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
-        $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
-        $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
-        $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
-        $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
-        $new_cat         = !empty( $submission_form['fields']['category']['create_new_cat'] ) ? $submission_form['fields']['category']['create_new_cat'] : '';
+        $submission_form  = get_term_meta( $current_listing_type, 'submission_form_fields', true );
+        $new_tag          = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
+        $new_loc          = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $new_cat          = !empty( $submission_form['fields']['category']['create_new_cat'] ) ? $submission_form['fields']['category']['create_new_cat'] : '';
         $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
         // Internationalization text for javascript file especially add-listing.js
 
@@ -207,9 +204,6 @@ class Script_Helper {
             'ask_conf_faqs_del_txt'   => __( 'Do you really want to remove this FAQ!', 'directorist' ),
             'confirm_delete'          => __( 'Yes, Delete it!', 'directorist' ),
             'deleted'                 => __( 'Deleted!', 'directorist' ),
-            'location_selection'      => esc_attr( $loc_placeholder ),
-            'tag_selection'           => esc_attr( $tag_placeholder ),
-            'cat_placeholder'         => esc_attr( $cat_placeholder ),
             'max_location_creation'   => esc_attr( $max_loc_creation ),
             'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
         );

@@ -1085,18 +1085,18 @@ class Directorist_Single_Listing {
 
 		$id = get_the_ID();
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
-		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
+		$atbd_location = get_the_terms($id, ATBDP_LOCATION);
 		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
+		$atbd_location_ids = array();
 
 		if (!empty($atbd_cats)) {
 			foreach ($atbd_cats as $atbd_cat) {
 				$atbd_cats_ids[] = $atbd_cat->term_id;
 			}
 		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
+		if (!empty($atbd_location)) {
+			foreach ($atbd_location as $atbd_tag) {
+				$atbd_location_ids[] = $atbd_tag->term_id;
 			}
 		}
 		$args = array(
@@ -1109,9 +1109,9 @@ class Directorist_Single_Listing {
 					'terms' => $atbd_cats_ids,
 				),
 				array(
-					'taxonomy' => ATBDP_TAGS,
+					'taxonomy' => ATBDP_LOCATION,
 					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
+					'terms' => $atbd_location_ids,
 				),
 			),
 			'posts_per_page' => (int)$number,

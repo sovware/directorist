@@ -663,7 +663,7 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
         type: 'post',
         url: atbdp_admin_data.ajaxurl,
         data: {
-            action      : 'directorist_listing_slug_change',
+            action      : 'directorist_type_slug_change',
             type_id     : type_id,
             update_slug : update_slug
         },

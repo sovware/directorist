@@ -2,7 +2,7 @@
 /**
  * @author  AazzTech
  * @since   6.7
- * @version 7.0.4.1
+ * @version 7.0.4.2
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
@@ -16,7 +16,7 @@ $current_tag_ids = $listing_form->add_listing_tag_ids();
 
 		<?php 
 		echo ( $data['type'] === 'single' ) ? '<option></option>' : '';
-		
+
 		foreach ($all_tags as $tag) {
 			$current = in_array($tag->term_id, $current_tag_ids) ? true : false;
 			?>

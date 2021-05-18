@@ -431,6 +431,15 @@ class ATBDP_Metabox {
 				}
 			}
 		}
+
+
+		if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
+			update_post_meta( $post_id, '_featured', false );
+		}
+
+		if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
+			update_post_meta( $post_id, '_listing_status', 'post_status' );
+		}
 	}
 
 

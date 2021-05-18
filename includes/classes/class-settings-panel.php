@@ -391,7 +391,7 @@ SWBD;
             if ( 'string' !== gettype( $input_data )  ) { return _sanitize_text_fields( $input_data, true ); }
             
             // Sanitize input data
-            $sanitized_data =  $input_data;
+            $sanitized_data = $input_data;
     
             if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
                 $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);

@@ -4333,7 +4333,7 @@ input.atbdp-form-control {
       }
 
       .directorist_all-listing-table {
-        padding-bottom: 60px;
+        padding-bottom: 75px;
       }
 
       .directorist_table {
@@ -4620,9 +4620,9 @@ input.atbdp-form-control {
 .directorist-listing-slug__form{
   position: absolute;
   right: 0;
-  top: 45px;
+  top: 42px;
   width: 100%;
-  min-width: 280px;
+  min-width: 290px;
   box-shadow: 0 5px 40px rgba(#9299B8,.25);
   background-color: #fff;
   padding: 12px;
@@ -4633,7 +4633,9 @@ input.atbdp-form-control {
     display: inline-flex;
     align-items: center;
     .directorist-form-element{
-      padding: 15px 10px;
+      padding: 12px 10px;
+      height: 34px;
+      line-height: 34px;
     }
   }
   .directorist_listing-slug__form--input{
@@ -4660,6 +4662,24 @@ input.atbdp-form-control {
         color: #fff;
       }
     }
+  }
+  .directorist_listing-slug__form--loader{
+    .directorist_loader{
+      width: 20px;
+      height: 20px;
+      display: block;
+      &:before{
+        right: 0;
+        top: 4px;
+        width: 15px;
+        height: 15px;
+        right: -3px;
+        top: 1px;
+      }
+    }
+  }
+  .directorist-slug-notice {
+    margin: 6px 0 0;
   }
 }
 

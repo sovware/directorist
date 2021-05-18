@@ -654,6 +654,11 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
     e.preventDefault();
     var type_id = $(this).data('type-id');
         update_slug = $('.directorist-type-slug-' + type_id ).val();
+    const addSlug = $(this);
+    addSlug
+        .closest('.directorist_listing-slug__form--action')
+        .siblings('.directorist_listing-slug__form--loader')
+        .append(`<span class="directorist_loader"></span>`);
     $.ajax({
         type: 'post',
         url: atbdp_admin_data.ajaxurl,
@@ -663,6 +668,11 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
             update_slug : update_slug
         },
         success(response) {
+            addSlug
+                .closest('.directorist_listing-slug__form--action')
+                .siblings('.directorist_listing-slug__form--loader')
+                .children('.directorist_loader')
+                .remove();
             if( response ) {
                 $('.directorist-slug-notice-' + type_id ).empty().html( response );
             }

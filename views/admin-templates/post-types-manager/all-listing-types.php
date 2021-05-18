@@ -133,6 +133,7 @@
                                                                         <a href="#" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"><i class="la la-check"></i></a>
                                                                         <a href="#" class="directorist_listing-slug-formText-remove"><i class="la la-times"></i></a>
                                                                     </div>
+                                                                    <div class="directorist_listing-slug__form--loader"></div>
                                                                 </div>
                                                             </form>
                                                             <p class='directorist-slug-notice directorist-slug-notice-<?php echo $listing_type->term_id; ?>'></p>

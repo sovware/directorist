@@ -387,27 +387,28 @@ SWBD;
 		}
 
         // maybe_json
-		public function maybe_json( $string )
-		{
-			$string_alt = $string;
-
-			if ( 'string' !== gettype( $string )  ) { return _sanitize_text_fields( $string, true ); }
-
-			if ( preg_match( '/\\\\+/', $string_alt ) ) {
-				$string_alt = preg_replace('/\\\\+/', '', $string_alt);
-			}
-
-			$string_alt = json_decode( $string_alt, true);
-			$string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
-
-            if ( 'string' === gettype( $string ) ) {
-                $string = preg_replace( '/\\\\"/', '"', $string );
-                $string = preg_replace( "/\\\\'/", "'", $string );
-                $string = _sanitize_text_fields( $string, true );
+		public function maybe_json( $input_data ) {
+            if ( 'string' !== gettype( $input_data )  ) { return _sanitize_text_fields( $input_data, true ); }
+            
+            // Sanitize input data
+            $sanitized_data =  $input_data;
+    
+            if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
+                $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
             }
-
-			return $string;
-		}
+    
+            $output_data = json_decode( $sanitized_data, true);
+            $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
+    
+            // Sanitize output data
+            if ( 'string' === gettype( $output_data ) ) {
+                $output_data = preg_replace( '/\\\\"/', '"', $output_data );
+                $output_data = preg_replace( "/\\\\'/", "'", $output_data );
+                $output_data = _sanitize_text_fields( $output_data, true );
+            }
+    
+            return $output_data;
+        }
 
 		// maybe_serialize
 		public function maybe_serialize($value = '')

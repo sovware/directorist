@@ -35,12 +35,12 @@ export default {
 
     watch: {
         local_value() {
-            this.$emit( 'update', this.getFilteredValue( this.local_value ) );
+            this.$emit( 'update', this.local_value );
         }
     },
 
     created() {
-        this.local_value = this.getFilteredValue( this.value );
+        this.local_value = this.value;
     },
 
     data() {
@@ -49,12 +49,4 @@ export default {
             validationLog: {},
         }
     },
-
-    methods: {
-        getFilteredValue( value ) {
-            if ( typeof value !== 'string' ) return value;
-
-            return value.replace( /\\"/g, '"' ).replace( /\\'/g, "'" );
-        },
-    }
 }

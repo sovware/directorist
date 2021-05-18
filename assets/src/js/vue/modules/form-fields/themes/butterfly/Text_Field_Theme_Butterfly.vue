@@ -7,14 +7,14 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof filteredValue !== 'object' ) ? true : false" :type="input_type" :value="( filteredValue === false ) ? '' : filteredValue" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
-                <input v-if="( typeof filteredValue === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( filteredValue )">
+                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+                <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
 
                 <form-field-validatior 
                     :section-id="sectionId"
                     :field-id="fieldId"
                     :root="root"
-                    :value="filteredValue" 
+                    :value="value" 
                     :rules="rules" 
                     v-model="validationLog" 
                     @validate="$emit( 'validate', $event )"

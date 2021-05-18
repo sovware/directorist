@@ -29,14 +29,6 @@ export default {
             return 'text';
         },
 
-        filteredValue() {
-            if ( typeof this.value !== 'string' ) return this.value;
-
-            let value = this.value.replace( /\\"/g, '"' ).replace( /\\'/g, "'" );
-
-            return value;
-        },
-
         formGroupClass() {
             var validation_classes = ( this.validationLog?.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
 

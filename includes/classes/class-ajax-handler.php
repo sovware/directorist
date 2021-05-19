@@ -285,6 +285,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $directory_slugs = [];
             $listing_types = get_terms( [
                 'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
                 ] );
             if( $listing_types ) {
                 foreach( $listing_types as $listing_type ){

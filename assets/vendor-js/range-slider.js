@@ -112,8 +112,6 @@ function atbd_callingSlider() {
     var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
 
     atbd_slider ('#atbdp-range-slider', config);
-
-    console.log( { config }, atbdp_range_slider );
 }
 
 window.addEventListener("load", function () {

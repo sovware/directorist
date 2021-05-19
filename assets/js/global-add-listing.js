@@ -527,6 +527,7 @@ if (uploaders) {
 var formID = $('#directorist-add-listing-form');
 var on_processing = false;
 var has_media = true;
+var quick_login_modal__success_callback = null;
 $('body').on('submit', formID, function (e) {
   if (localized_data.is_admin) return;
   e.preventDefault();
@@ -732,14 +733,24 @@ $('body').on('submit', formID, function (e) {
         on_processing = false;
 
         if (response.quick_login_required) {
-          var email = response.email;
-          console.log('Show login form');
           var modal = $('#directorist-quick-login');
-          modal.addClass('show');
-          modal.find('.directorist-email-label').html(email); // Show Alert
+          var email = response.email; // Prepare fields
 
-          var alert = '<div class="directorist-alert directorist-mb-10">' + response.error_msg + '</div>';
-          modal.find('.directorist-modal-alerts-area').html(alert);
+          modal.find('input[name="email"]').val(email);
+          modal.find('input[name="email"]').prop('disabled', true); // Show alert
+
+          var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
+          modal.find('.directorist-modal-alerts-area').html(alert); // Show the modal
+
+          modal.addClass('show');
+
+          quick_login_modal__success_callback = function quick_login_modal__success_callback(args) {
+            $('#guest_user_email').prop('disabled', true);
+            $('#listing_notifier').hide().html('');
+            args.elements.submit_button.remove();
+            var form_actions = args.elements.form.find('.directorist-form-actions');
+            form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+          };
         }
       } else {
         // preview on and no need to redirect to payment
@@ -780,10 +791,6 @@ $('body').on('submit', formID, function (e) {
       console.log(_error);
     }
   });
-});
-$('#directorist-quick-login .directorist-toggle-modal').on("click", function (e) {
-  e.preventDefault();
-  $("#directorist-quick-login").removeClass("show");
 }); // Custom Field Checkbox Button More
 
 $(window).on('load', function () {
@@ -813,6 +820,80 @@ $('body').on('click', '.directorist-custom-field-btn-more', function (event) {
     $(this).text("See More");
     $(customField).slice(20, customField.length).slideUp();
   }
+}); // ------------------------------
+// Quick Login
+// ------------------------------
+
+$('#directorist-quick-login .directorist-toggle-modal').on("click", function (e) {
+  e.preventDefault();
+  $("#directorist-quick-login").removeClass("show");
+});
+$('#quick-login-from-submit-btn').on('click', function (e) {
+  e.preventDefault();
+  var form_id = $(this).data('form');
+  var modal_id = $(this).data('form');
+  var modal = $(modal_id);
+  var form = $(form_id);
+  var form_feedback = form.find('.directorist-form-feedback');
+  var email = $(form).find('input[name="email"]');
+  var password = $(form).find('input[name="password"]');
+  var security = $(form).find('input[name="security"]');
+  var form_data = {
+    action: 'directorist_ajax_quick_login',
+    username: email.val(),
+    password: password.val(),
+    rememberme: false,
+    security: security.val()
+  };
+  var submit_button = $(this);
+  var submit_button_default_html = submit_button.html();
+  $.ajax({
+    method: 'POST',
+    url: atbdp_public_data.ajaxurl,
+    data: form_data,
+    beforeSend: function beforeSend() {
+      form_feedback.html('');
+      submit_button.prop('disabled', true);
+      submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+    },
+    success: function success(response) {
+      console.log({
+        response: response
+      });
+      submit_button.html(submit_button_default_html);
+
+      if (response.loggedin) {
+        password.prop('disabled', true);
+        var message = 'Successfully logged in, please continue to the listing submission';
+        var msg = '<div class="directorist-alert directorist-alert-success directorist-text-center directorist-mb-20">' + message + '</div>';
+        form_feedback.html(msg);
+
+        if (quick_login_modal__success_callback) {
+          var args = {
+            elements: {
+              modal_id: modal_id,
+              form: form,
+              email: email,
+              password: password,
+              submit_button: submit_button
+            }
+          };
+          quick_login_modal__success_callback(args);
+        }
+      } else {
+        var msg = '<div class="directorist-alert directorist-alert-danger directorist-text-center directorist-mb-20">' + response.message + '</div>';
+        form_feedback.html(msg);
+        submit_button.prop('disabled', false);
+      }
+    },
+    error: function error(_error2) {
+      console.log({
+        error: _error2
+      });
+      submit_button.prop('disabled', false);
+      submit_button.html(submit_button_default_html);
+    }
+  });
 });
 
 /***/ }),

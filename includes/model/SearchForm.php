@@ -260,6 +260,7 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
+
 			foreach ( $search_form_fields['fields'] as $key => $value ) {
 
 				if ( ! is_array( $value) ) {
@@ -268,7 +269,6 @@ class Directorist_Listing_Search_Form {
 
 				$search_form_fields['fields'][$key]['field_key'] = '';
 				$search_form_fields['fields'][$key]['options'] = [];
-
 
 				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
 

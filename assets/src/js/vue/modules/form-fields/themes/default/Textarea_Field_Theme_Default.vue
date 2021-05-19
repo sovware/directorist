@@ -9,7 +9,7 @@
             :section-id="sectionId"
             :field-id="fieldId"
             :root="root"
-            :value="local_value" 
+            :value="value" 
             :rules="rules" 
             v-model="validationLog" 
             @validate="$emit( 'validate', $event )"

@@ -388,7 +388,7 @@ SWBD;
 
         // maybe_json
 		public function maybe_json( $input_data ) {
-            if ( 'string' !== gettype( $input_data )  ) { return _sanitize_text_fields( $input_data, true ); }
+            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
             
             // Sanitize input data
             $sanitized_data = $input_data;

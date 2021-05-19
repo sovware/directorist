@@ -326,10 +326,13 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $data['default_radius_distance'];
 
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', array(
-			'Miles'       => $miles,
-			'default_val' => $value
-		));
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
+			'miles' => $miles,
+			'slider_config' => [
+				'minValue' => $value,
+				'maxValue' => 1000,
+			]
+		]));
 	}
 
 	public function get_pricing_type() {

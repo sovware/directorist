@@ -73,10 +73,13 @@ echo '</div>';
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('search_default_radius_distance', 0);
-            wp_localize_script( $handle, 'atbdp_range_slider', array(
-                'Miles'     =>  $miles,
-                'default_val'   =>  $default_radius_distance
-            ) );
+            wp_localize_script( $handle, 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
+                'miles' =>  $miles,
+                'slider_config' => [
+                    'minValue' => $default_radius_distance,
+                    'maxValue' => 500,
+                ]
+            ]));
             ?>
             <!--range slider-->
             <div class="form-group">

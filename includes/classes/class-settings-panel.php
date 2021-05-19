@@ -1904,7 +1904,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'default_preview_image' => [
                     'label'       => __('Select Listing Preview Image', 'directorist'),
                     'type'        => 'wp-media-picker',
-                    'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'default-img' => DIRECTORIST_ASSETS . 'images/grid.jpg',
                     'value'       => '',
                 ],
                 'info_display_in_single_line' => [
@@ -2227,6 +2227,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Threshold in Views Count', 'directorist'),
                     'value' => 5,
+                ],
+                'count_loggedin_user' => [
+                    'type' => 'toggle',
+                    'label' => __('Count Logged-in User View', 'directorist'),
+                    'value' => false,
                 ],
                 'average_review_for_popular' => [
                     'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
@@ -5021,7 +5026,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user'
                                     ],
                                 ],
                                 'featured_badge' => [
@@ -5138,6 +5143,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
                                 ],
+                                // 'debugging' => [
+                                //     'title' => __( 'Debugging', 'directorist' ),
+                                //     'fields'      => [
+                                //         'script_debugging',
+                                //      ],
+                                // ],
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]

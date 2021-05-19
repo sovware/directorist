@@ -69,12 +69,12 @@ final class Directorist_Base
 	public $taxonomy;
 
 	/**
-	 * ATBDP_Enqueuer Object.
+	 * Enqueue_Assets Object.
 	 *
-	 * @var object|ATBDP_Enqueuer
-	 * @since 1.0
+	 * @var object|Enqueue_Assets
+	 * @since 7.0
 	 */
-	public $enquirer;
+	public $enqueue_assets;
 
 	/**
 	 * ATBDP_Ajax_Handler Object.
@@ -229,7 +229,6 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
-			self::$instance->enquirer = new ATBDP_Enqueuer;
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
 			// ATBDP_Listing_Type_Manager
@@ -668,7 +667,7 @@ final class Directorist_Base
 								<a href="<?php echo esc_url(get_post_permalink($pop_post->ID)); ?>">
 									<?php
 									}
-									$default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+									$default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 									if (!empty($listing_prv_img)) {
 										echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="' . esc_html($pop_post->post_title) . '">';
 									} elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {

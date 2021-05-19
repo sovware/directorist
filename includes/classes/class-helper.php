@@ -25,7 +25,7 @@ if (!class_exists('ATBDP_Helper')) :
             $data          = [];
             $default_image = get_directorist_option(
                 'default_preview_image',
-                ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+                DIRECTORIST_ASSETS . 'images/grid.jpg'
             );
             $background_type = get_directorist_option('single_slider_background_type', 'custom-color');
 
@@ -37,7 +37,7 @@ if (!class_exists('ATBDP_Helper')) :
                 return '';
             }
 
-            $default_image                      = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+            $default_image                      = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
             $data['images']                     = [];
             $data['alt']                        = '';
             $data['background-size']            = get_directorist_option('single_slider_image_size', 'cover');
@@ -174,7 +174,7 @@ if (!class_exists('ATBDP_Helper')) :
                 }
                 $gallery_image .= '</div>';
             } elseif (!empty($args['display_prv_image'])) {
-                $default_image     = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                $default_image     = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                 $listing_prv_image = !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image;
                 $gallery_image .= '<div class="single_image">';
                 $gallery_image .= '<img src="' . $listing_prv_image . '"
@@ -208,7 +208,7 @@ if (!class_exists('ATBDP_Helper')) :
             $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
             $prv_image_src   = atbdp_get_image_source($listing_prv_img, 'medium');
 
-            $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+            $default_image_src = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
             if ('cover' === $image_size) {
                 $listing_img_src   = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];

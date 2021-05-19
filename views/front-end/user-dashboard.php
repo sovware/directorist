@@ -174,7 +174,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                                 $gallery_img = atbdp_get_image_source($listing_img[0], 'medium');
                                                 $gallery_img_full = atbdp_get_image_source($listing_img[0], 'full');
                                             }
-                                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                            $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
                                             ?>
 
@@ -406,7 +406,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                                                     <span
                                                                         class="ezmu__old-files-meta"
                                                                         data-attachment-id="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>"
-                                                                        data-url="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                                        data-url="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(DIRECTORIST_ASSETS . 'images/no-image.jpg'); ?>"
                                                                         data-type="image"
                                                                     ></span>
                                                             <?php
@@ -675,7 +675,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                                 }
                                                 if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                    $img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+                                                    $img_src = DIRECTORIST_ASSETS . 'images/grid.jpg';
 
                                                 }
 
@@ -731,4 +731,3 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
  * @since 5.9.3
  */
 do_action('atbdp_after_user_dashboard'); ?>
-

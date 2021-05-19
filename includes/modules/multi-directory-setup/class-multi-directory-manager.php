@@ -40,7 +40,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
-        
+
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
     }
 
@@ -107,16 +107,16 @@ class Multi_Directory_Manager
         if ( ! count( $terms ) ) { return $options; }
 
         foreach( $terms as $term ) {
-            $options[] = [ 
+            $options[] = [
                 'id'    => $term->term_id,
                 'value' => $term->term_id,
                 'label' => $term->name,
             ];
         }
 
-        return $options; 
+        return $options;
     }
-    
+
     // get_assign_to_field
     public function get_assign_to_field( array $args = [] ) {
         $default = [
@@ -174,7 +174,7 @@ class Multi_Directory_Manager
             'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
             'posts_per_page' => 1,
         ]);
-        
+
         $migrated          = get_option( 'atbdp_migrated', false );
         $has_listings      = false;
         $has_custom_fields = false;
@@ -251,9 +251,9 @@ class Multi_Directory_Manager
         if ( $general_directory ) {
             $args[ 'term_id' ] = $general_directory['term_id'];
         }
-        
+
         $migration_status = self::$migration->migrate( $args );
-        
+
         $status = [
             'success' => $migration_status['success'],
             'message' => ( $migration_status ) ? __( 'Migration Successful', 'directorist' ) : __( 'Migration Failed', 'directorist' ),
@@ -282,7 +282,7 @@ class Multi_Directory_Manager
             $listings = new \WP_Query([
                 'post_type' => ATBDP_POST_TYPE,
                 'status'    => 'publish',
-                'per_page'  => -1,                
+                'per_page'  => -1,
             ]);
 
             if ( $listings->have_posts() ) {
@@ -329,7 +329,7 @@ class Multi_Directory_Manager
 
             $response['status']['error_count']++;
         }
-    
+
         // Send respone if has error
         if ( $response['status']['error_count'] ) {
             $response['status']['success'] = false;
@@ -342,7 +342,7 @@ class Multi_Directory_Manager
             $directory_name = '';
         }
 
-        $add_directory = self::add_directory([ 
+        $add_directory = self::add_directory([
             'term_id'        => $term_id,
             'directory_name' => $directory_name,
             'fields_value'   => $file_contents,
@@ -383,7 +383,7 @@ class Multi_Directory_Manager
         }
 
         return $new_fields;
-    }   
+    }
 
     // save_post_type_data
     public function save_post_type_data()
@@ -443,7 +443,7 @@ class Multi_Directory_Manager
             $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
             $add_directory['redirect_url'] = $redirect_url;
         }
-        
+
         $add_directory['term_id'] = $add_directory['term_id'];
 
         wp_send_json( $add_directory );
@@ -471,6 +471,16 @@ class Multi_Directory_Manager
             'label'    => __( 'Meta Key', 'directorist' ),
             'value'    => '',
             'rules'    => [
+                'unique' => true,
+                'required' => true,
+            ]
+        ]);
+
+        $custom_field_meta_key_field = apply_filters( 'directorist_custom_field_meta_key_field_args', [
+            'type'  => 'hidden',
+            'label' => __( 'Key', 'directorist' ),
+            'value' => 'custom-text',
+            'rules' => [
                 'unique' => true,
                 'required' => true,
             ]
@@ -1001,7 +1011,7 @@ class Multi_Directory_Manager
 
 
                         ],
-                    ],   
+                    ],
 
                     'map' => [
                         'label' => 'Map',
@@ -1503,7 +1513,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Text',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-text',
                             ]),
                             'placeholder' => [
@@ -1552,7 +1562,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Textarea',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-textarea',
                             ]),
                             'rows' => [
@@ -1608,7 +1618,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Number',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-number',
                             ]),
                             'placeholder' => [
@@ -1659,7 +1669,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'URL',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-url',
                             ]),
                             'placeholder' => [
@@ -1715,7 +1725,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Date',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-date',
                             ]),
                             'placeholder' => [
@@ -1766,7 +1776,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Time',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-time',
                             ]),
                             'placeholder' => [
@@ -1817,7 +1827,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Color',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-color-picker',
                             ]),
                             'description' => [
@@ -1863,7 +1873,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Select',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-select',
                             ]),
                             'options' => [
@@ -1914,7 +1924,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Checkbox',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-checkbox',
                             ]),
                             'options' => [
@@ -1964,7 +1974,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Radio',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-radio',
                             ]),
                             'options' => [
@@ -2013,7 +2023,7 @@ class Multi_Directory_Manager
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'File Upload',
                             ],
-                            'field_key' => array_merge( $custom_field_meta_key_default_args, [
+                            'field_key' => array_merge( $custom_field_meta_key_field, [
                                 'value' => 'custom-file',
                             ]),
                             'file_type' => [
@@ -2050,7 +2060,7 @@ class Multi_Directory_Manager
                                         'label' => __('ico', 'directorist'),
                                         'value' => 'ico',
                                     ],
-                                    
+
                                     // Video Format
                                     [
                                         'label' => __('asf', 'directorist'),
@@ -2088,7 +2098,7 @@ class Multi_Directory_Manager
                                         'label' => __('3gp', 'directorist'),
                                         'value' => '3gp',
                                     ],
-                                    
+
                                     // Audio Format
                                     [
                                         'label' => __('ogg', 'directorist'),
@@ -2106,7 +2116,7 @@ class Multi_Directory_Manager
                                         'label' => __('wma', 'directorist'),
                                         'value' => 'wma',
                                     ],
-                                    
+
                                     // Text Format
                                     [
                                         'label' => __('css', 'directorist'),
@@ -2444,7 +2454,7 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
-                    'review' => [ 
+                    'review' => [
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),
                         'icon' => 'la la-star',
@@ -2801,7 +2811,7 @@ class Multi_Directory_Manager
                             ],
                         ]
                     ],
-                    
+
                     'text' => [
                         'options' => [
                             'label' => [
@@ -2969,7 +2979,7 @@ class Multi_Directory_Manager
                         ]
 
                     ],
-                    
+
                 ],
             ],
             'other_widgets' => [
@@ -3105,7 +3115,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             'posted_date' => [
                 'type' => "list-item",
                 'label' => __( "Posted Date", "directorist" ),
@@ -3438,7 +3448,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             // Custom Fields
             'text' => [
                 'type' => "list-item",
@@ -3467,7 +3477,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             'number' => [
                 'type' => "list-item",
                 'label' => __( "Number", "directorist" ),
@@ -3999,7 +4009,7 @@ class Multi_Directory_Manager
                 ],
                 'groupSettings' => [
                     'defaultGroupLabel' => 'Section',
-                    'disableTrashIfGroupHasWidgets' => [ 
+                    'disableTrashIfGroupHasWidgets' => [
                         [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
                     ],
                 ],
@@ -4088,7 +4098,7 @@ class Multi_Directory_Manager
                 'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
                 'value' => 'I agree to the %Privacy & Policy%',
             ],
-            
+
             'single_listings_contents' => [
                 'type'     => 'form-builder',
                 'widgets'  => $single_listings_contents_widgets,
@@ -4124,8 +4134,8 @@ class Multi_Directory_Manager
                 'name'    => 'similar_listings_logics',
                 'label' => __( 'Similar listings logics', 'directorist' ),
                 'options' => [
-                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and location', 'directorist' ), 'value' => 'AND'],
-                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or location', 'directorist' ), 'value' => 'OR'],
+                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
+                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
                 ],
                 'value'   => 'OR',
             ],
@@ -4294,7 +4304,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    
+
                     'listing_slider' => [
                         'type' => "thumbnail",
                         'label' => __( "Listings Slider", "directorist" ),
@@ -4341,7 +4351,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    
+
                     'reviews' => [
                         'type' => "reviews",
                         'label' => __( "Listings Reviews", "directorist" ),
@@ -4437,7 +4447,7 @@ class Multi_Directory_Manager
             ] ),
 
         ]);
-        
+
         self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
             'general' => [
                 'label' => 'General',
@@ -4478,7 +4488,7 @@ class Multi_Directory_Manager
                                     'preview_image',
                                 ],
                             ],
-                            
+
                             'export_import' => [
                                 'title'       => __('Export The Config File', 'directorist'),
                                 'description' => __('Export all the form, layout and settings', 'directorist'),
@@ -4488,7 +4498,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    
+
                 ]),
             ],
 
@@ -4766,7 +4776,7 @@ class Multi_Directory_Manager
             'options' => $this->options,
             'id'      => $listing_type_id,
         ];
-        
+
 
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
             wp_localize_script('directorist-multi-directory-builder', 'cptm_data', $cptm_data);
@@ -4919,7 +4929,7 @@ class Multi_Directory_Manager
 
 // include_files
 function include_files() {
-   
+
     if ( ! trait_exists( 'Directorist\Multi_Directory_Helper' ) ) {
         $file = trailingslashit( dirname( __FILE__ ) )  . 'trait-multi-directory-helper.php';
         if ( file_exists( $file ) ) {

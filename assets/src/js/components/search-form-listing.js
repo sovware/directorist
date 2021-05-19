@@ -173,15 +173,19 @@
 
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
 
-            var getResultContainer = function ( context, field ) {
+            const getResultContainer = function ( context, field ) {
                 return $( context ).next( field.search_result_elm );
+            };
+
+            const getWidgetResultContainer = function ( context, field ) {
+                return $( context ).parent().next( field.search_result_elm );
             };
 
             let input_fields = [
                 { input_elm: '#address', search_result_elm: '.address_result', getResultContainer },
                 { input_elm: '#q_addressss', search_result_elm: '.address_result', getResultContainer },
                 { input_elm: '.atbdp-search-address', search_result_elm: '.address_result', getResultContainer },
-                { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer },
+                { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer: getWidgetResultContainer },
             ];
 
             input_fields.forEach( field => {
@@ -192,14 +196,12 @@
                     event.preventDefault();
                     const search = $(this).val();
 
-                    let result_container = $( this ).next( field.search_results );
+                    let result_container = field.getResultContainer( this, field );
                     result_container.css({ display: 'block' });
 
                     if ( search === '' ) {
                         result_container.css({ display: 'none' });
                     }
-
-                    console.log( { result_container } );
 
                     let res = '';
                     $.ajax({
@@ -230,29 +232,40 @@
 
             // hide address result when click outside the input field
             $(document).on('click', function (e) {
-                if (!$(e.target).closest('#address, #q_addressss,.atbdp-search-address').length) {
+                if (!$(e.target).closest('#address, #q_addressss, .atbdp-search-address').length) {
                     $('.address_result').hide();
                 }
             });
 
-            $('body').on('click', '.address_result ul li a', function (event) {
+            const syncLatLngData = function( context, event, args ) {
                 event.preventDefault();
-                const text = $(this).text();
-                const lat = $(this).data('lat');
-                const lon = $(this).data('lon');
+
+                const text = $( context ).text();
+                const lat = $( context ).data('lat');
+                const lon = $( context ).data('lon');
 
                 $('#cityLat').val(lat);
                 $('#cityLng').val(lon);
 
-                $(this)
-                    .closest('.address_result')
+                const inp = $( context )
+                    .closest( args.result_list_container )
                     .parent()
-                    .find('#address, #q_addressss,.atbdp-search-address')
-                    .val(text);
-                $('.address_result').hide();
+                    .find('#address, #address_widget, #q_addressss, .atbdp-search-address');
+                
+                inp.val(text);
+
+                $( args.result_list_container ).hide();
+            };
+
+
+            $('body').on('click', '.address_result ul li a', function ( event ) {
+                syncLatLngData( this, event , { result_list_container: '.address_result' } );
+            });
+
+            $('body').on('click', '#address_widget_result ul li a', function ( event ) {
+                syncLatLngData( this, event, { result_list_container: '#address_widget_result' } );
             });
         }
-
 
 
         if ($('#address, #q_addressss,.atbdp-search-address').val() === '') {

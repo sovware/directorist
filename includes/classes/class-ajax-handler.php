@@ -103,7 +103,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // directorist_quick_ajax_login
         public function directorist_quick_ajax_login() {
-            if ( ! check_ajax_referer( 'ajax-login-nonce', 'security', false ) ) {
+            if ( ! check_ajax_referer( 'directorist-quick-login-nonce', 'directorist-quick-login-security', false ) ) {
                 wp_send_json([
                     'loggedin' => false,
                     'message' => __('Invalid Nonce', 'directorist'),

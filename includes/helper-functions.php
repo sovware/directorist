@@ -7037,9 +7037,7 @@ if (!function_exists('atbdp_deactivate_reasons')) {
  */
 function atbdp_is_page($atbdppages = '')
 {
-
-    global $wp_query, $post, $wp;
-    //if(!is_admin()):
+    global $post;
 
     $atbdppages = preg_replace( '/[-]/', '_', $atbdppages );
 

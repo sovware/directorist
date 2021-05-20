@@ -542,7 +542,8 @@ if (!class_exists('ATBDP_SEO')) :
 
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
-            $seo_meta_data       = $this->get_seo_meta_data();
+            $seo_meta_data = $this->get_seo_meta_data();
+
             $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',
@@ -680,28 +681,31 @@ if (!class_exists('ATBDP_SEO')) :
             $seo_meta['page'] = 'search-result';
 
             // Title
-            $query = (isset($_GET['q']) && ('' !== $_GET['q'])) ? ucfirst($_GET['q']) : '';
-            $category = (isset($_GET['in_cat']) && ('' !== $_GET['in_cat'])) ? ucfirst($_GET['in_cat']) : '';
-            $location = (isset($_GET['in_loc']) && ('' !== $_GET['in_loc'])) ? ucfirst($_GET['in_loc']) : '';
-            $category =  get_term_by('id', $category, ATBDP_CATEGORY);
-            $location =  get_term_by('id', $location, ATBDP_LOCATION);
+            $settings_title = get_directorist_option('search_result_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
 
-            $in_s_string_text = !empty($query) ? sprintf(__('%s', 'directorist'), $query) : '';
-            $in_cat_text      = !empty($category) ? sprintf(__(' %s %s ', 'directorist'), !empty($query) ? 'from' : '', $category->name) : '';
-            $in_loc_text      = !empty($location) ? sprintf(__('%s %s', 'directorist'), !empty($category) ? 'in' : '', $location->name) : '';
+            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( $_GET['q'] ) : '';
+            $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( $_GET['in_cat'] ) : '';
+            $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( $_GET['in_loc'] ) : '';
+            
+            $category = get_term_by( 'id', $category, ATBDP_CATEGORY );
+            $location = get_term_by( 'id', $location, ATBDP_LOCATION );
+
+            $in_s_string_text = ! empty($query) ? sprintf(__( '%s', 'directorist' ), $query ) : '';
+            $in_cat_text      = ! empty($category) ? sprintf(__( ' %s %s ', 'directorist' ), ! empty( $query ) ? 'from' : '', $category->name ) : '';
+            $in_loc_text      = ! empty($location) ? sprintf(__( '%s %s', 'directorist' ), ! empty( $category ) ? 'in' : '', $location->name ) : '';
 
             $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
             
-            if ('searched_value' === $how_to) {
-                if (!empty($query) || !empty($category) || !empty($location)) {
+            if ( 'searched_value' === $how_to ) {
+                if ( ! empty( $query ) || ! empty( $category ) || ! empty( $location ) ) {
                     $seo_meta['title'] = $in_s_string_text . $in_cat_text . $in_loc_text;
                 }
-            } else {
-                $seo_meta['title'] = (get_directorist_option('search_result_meta_title')) ? get_directorist_option('search_result_meta_title') : $seo_meta['title'];
             }
 
             // Description
-            $seo_meta['description'] = (get_directorist_option('search_result_meta_desc')) ? get_directorist_option('search_result_meta_desc') : $seo_meta['description'];
+            $settings_description = get_directorist_option('search_result_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
 
             $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
 
@@ -856,12 +860,12 @@ if (!class_exists('ATBDP_SEO')) :
 
             // Title
             $settings_title = get_directorist_option('single_category_meta_title');
-            if ( ! empty( $settings_title ) && ! empty( $term ) ) $seo_meta['title'] = $term->name;
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+            if ( ! empty( $term ) ) $seo_meta['title'] = $term->name;
 
             // Description
             $settings_description = get_directorist_option('single_category_meta_desc');
             if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
-            
             
             $CAT_page_ID = get_directorist_option('single_category_page');
 
@@ -896,7 +900,8 @@ if (!class_exists('ATBDP_SEO')) :
 
             // Title
             $settings_title = get_directorist_option('single_locations_meta_title');
-            if ( ! empty( $settings_title ) && ! empty( $term ) ) $seo_meta['title'] = $term->name;
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+            if ( ! empty( $term ) ) $seo_meta['title'] = $term->name;
 
             // Description
             $settings_description = get_directorist_option('single_locations_meta_desc');
@@ -1006,6 +1011,7 @@ if (!class_exists('ATBDP_SEO')) :
                 'single_location',
                 'single_tag',
                 'login',
+                'registration',
             ];
 
             $current_page = '';

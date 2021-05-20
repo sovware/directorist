@@ -10,6 +10,10 @@ if (!class_exists('ATBDP_SEO')) :
             if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) return;
 
             add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
+            add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
+            add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
+            add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
+            add_action('wp_head', array($this, 'atbdp_add_og_meta'), 10, 2);
 
             if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
@@ -20,12 +24,6 @@ if (!class_exists('ATBDP_SEO')) :
                 //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
 
                 remove_action('wp_head', 'rel_canonical');
-
-                add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
-                add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
-                add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
-                add_action('wp_head', array($this, 'atbdp_add_og_meta'), 10, 2);
-
                 /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
                 add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
             } else {
@@ -1011,7 +1009,7 @@ if (!class_exists('ATBDP_SEO')) :
             ];
 
             $current_page = '';
-            
+
             foreach( $all_directorist_pages as $page_name ) { 
 
                 if ( ! atbdp_is_page( $page_name ) ) continue;

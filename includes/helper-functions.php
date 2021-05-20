@@ -7041,6 +7041,8 @@ function atbdp_is_page($atbdppages = '')
     global $wp_query, $post, $wp;
     //if(!is_admin()):
 
+    $atbdppages = preg_replace( '/[-]/', '_', $atbdppages );
+
     switch ($atbdppages):
         case 'home':
             if (is_page() && get_the_ID() == get_directorist_option('search_listing')) {
@@ -7049,21 +7051,21 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
-        case 'search-result':
+        case 'search_result':
             if (is_page() && get_the_ID() == get_directorist_option('search_result_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_result')) {
                 return true;
             }
             break;
-        case 'add-listing':
+        case 'add_listing':
             if (is_page() && get_the_ID() == get_directorist_option('add_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_add_listing')) {
                 return true;
             }
             break;
-        case 'all-listing':
+        case 'all_listing':
             if (is_page() && get_the_ID() == get_directorist_option('all_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_listing')) {
@@ -7090,6 +7092,9 @@ function atbdp_is_page($atbdppages = '')
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_categories')) {
                 return true;
             }
+            break;
+        case 'single_listing':
+            return is_singular('at_biz_dir');
             break;
         case 'single_category':
             if (is_page() && get_the_ID() == get_directorist_option('single_category_page')) {

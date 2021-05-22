@@ -5096,4 +5096,15 @@ img.atbdp-file-info {
 @import '../../component/badge';
 @import '../../component/checkbox-radio';
 @import '../../component/switch';
-@import '../../component/pureSearchSelect';
+@import '../../component/drag_drop';
+
+
+// Layouts
+@import './directorist-plupload.scss';
+@import './plugins.scss';
+@import './setup-wizard.scss';
+
+@import './builder/builder_style';
+@import './builder/cptm_theme_butterfly';
+@import './builder/builder_style__settings_panel';
+@import './builder/settings_panel';

@@ -1,6 +1,3 @@
-// SASS
-import './../../scss/layout/admin/settings-manager.scss'
-
 import Vue from 'vue';
 import Vuex from 'vuex';
 import SlideUpDown from 'vue-slide-up-down';
@@ -8,10 +5,9 @@ import SlideUpDown from 'vue-slide-up-down';
 Vue.use(Vuex);
 Vue.component('slide-up-down', SlideUpDown);
 
-
-import './../vue/global-component';
-import store from './../vue/store/CPT_Manager_Store'
-import settings_manager_component from './../vue/apps/settings-manager/Settings_Manager.vue';
+import './vue/global-component';
+import store from './vue/store/CPT_Manager_Store'
+import settings_manager_component from './vue/apps/settings-manager/Settings_Manager.vue';
 
 const settings_panel_el = document.getElementById( 'atbdp-settings-manager' );
 if ( settings_panel_el ) {

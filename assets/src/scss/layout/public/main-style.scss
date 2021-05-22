@@ -33,6 +33,8 @@
 @import "./../../component/category-location";
 @import "./../../component/atmodal";
 @import "./../../component/lagacy-component";
+@import "./../../component/openstreet-map/index";
+@import "./../../component/payment/checkout-receipt";
 
 
 // Modules
@@ -40,12 +42,6 @@
 @import "../../module/listing-details";
 @import "../../module/user-dashboard";
 @import "../../module/home";
-
-// Layouts
-@import "./search-home";
-
-// Payments
-@import "./../../component/payment/checkout-receipt";
 
 
 .directorist-iframe {

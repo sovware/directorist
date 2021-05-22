@@ -100,7 +100,7 @@ class Enqueue_Assets {
 			'has_rtl'        => false,
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,                            // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -109,9 +109,9 @@ class Enqueue_Assets {
 			'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,
-			'has_min'        => false,                     // public || admin  || global
-			'has_rtl'        => false,                            // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'has_min'        => false,                                          // public || admin  || global
+			'has_rtl'        => false,                                          // public || admin  || global
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -121,8 +121,8 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,
 			'has_rtl'        => false,
-			'has_min'        => false,                           // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'has_min'        => false,                                          // public || admin  || global
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -148,13 +148,13 @@ class Enqueue_Assets {
 		// Public
 		// ================================
 		$scripts['directorist-bootstrap'] = [
-			'file_name' => 'bootstrap',
-			'base_path' => DIRECTORIST_VENDOR_CSS,
-			'has_rtl'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'enable'    => false
+			'file_name'    => 'bootstrap',
+			'base_path'    => DIRECTORIST_VENDOR_CSS,
+			'has_rtl'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                 // public || admin  || global
+			'load_on_init' => false
 		];
 
 		$scripts['directorist-font-awesome'] = [
@@ -176,29 +176,29 @@ class Enqueue_Assets {
 			'deps'           => [],
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,              // public || admin  || global
-			'enable'         => true,
+			'load_on_init'   => true,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-ez-media-uploader'] = [
-			'file_name' => 'ez-media-uploader',
-			'base_path' => DIRECTORIST_VENDOR_CSS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public',                                        // public || admin  || global
-			'enable'    => Script_Helper::is_enable__ez_media_uploader(),
+			'file_name'    => 'ez-media-uploader',
+			'base_path'    => DIRECTORIST_VENDOR_CSS,
+			'has_min'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                                        // public || admin  || global
+			'load_on_init' => Script_Helper::is_enable__ez_media_uploader(),
 		];
 
 		$scripts['directorist-slick'] = [
-			'file_name'      => 'slick',
-			'base_path'      => DIRECTORIST_VENDOR_CSS,
-			'has_min'        => false,
-			'has_rtl'        => false,
-			'deps'           => [],
-			'ver'            => self::$script_version,
-			'group'          => 'public',                         // public || admin  || global
-			'enable'         => is_singular( ATBDP_POST_TYPE ),
+			'file_name'    => 'slick',
+			'base_path'    => DIRECTORIST_VENDOR_CSS,
+			'has_min'      => false,
+			'has_rtl'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                         // public || admin  || global
+			'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-sweetalert'] = [
@@ -209,8 +209,8 @@ class Enqueue_Assets {
 			'deps'           => [],
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,              // public || admin  || global
-			'group'          => 'public',              // public || admin  || global
-			'enable'         => true,
+			'group'          => 'public',                         // public || admin  || global
+			'load_on_init'   => true,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -248,7 +248,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 
 		];
@@ -261,7 +261,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -273,7 +273,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -285,7 +285,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -297,7 +297,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -309,7 +309,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -321,7 +321,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -333,7 +333,7 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -345,19 +345,8 @@ class Enqueue_Assets {
 			'ver'       => '',
 			'group'     => $common_asset_group,
 			// 'section'   => '',
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'openstreet' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-openstreet-load-scripts'] = [
-			'file_name' => 'global-load-osm-map',
-			'base_path' => DIRECTORIST_JS,
-			'deps'      => [],
-			'has_min'   => true,
-			'ver'       => '',
-			'group'     => $common_asset_group,
-			'section'   => '__',
-			'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
 		];
 
 		// Google Map
@@ -368,7 +357,7 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,
 			'section'        => '',
-			'enable'         => Script_Helper::is_enable_map( 'google' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'google' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -380,7 +369,7 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,
 			'section'        => '',
-			'enable'         => Script_Helper::is_enable_map( 'google' ),
+			'load_on_init'   => Script_Helper::is_enable_map( 'google' ),
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -400,9 +389,9 @@ class Enqueue_Assets {
 			'has_min'        => false,
 			'deps'           => [],
 			'ver'            => self::$script_version,
-			'group'          => $common_asset_group, // public || admin  || global
+			'group'          => $common_asset_group,              // public || admin  || global
 			'section'        => '',
-			'enable'         => true,
+			'load_on_init'   => true,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -414,18 +403,18 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,              // public || admin  || global
 			'section'        => '',
-			'enable'         => true,
+			'load_on_init'   => true,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-popper'] = [
-			'file_name' => 'popper',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => $common_asset_group, // public || admin  || global
-			'section'   => '',
-			'enable'    => true,
+			'file_name'    => 'popper',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => $common_asset_group,     // public || admin  || global
+			'section'      => '',
+			'load_on_init' => true,
 		];
 
 		$scripts['directorist-range-slider'] = [
@@ -456,36 +445,36 @@ class Enqueue_Assets {
 		// Public
 		// ================================
 		$scripts['directorist-bootstrap'] = [
-			'file_name' => 'bootstrap.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => false,
+			'file_name'    => 'bootstrap.min',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_min'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                // public || admin  || global
+			'section'      => '',
+			'load_on_init' => false,
 		];
 
 		$scripts['directorist-grid'] = [
-			'file_name' => 'grid.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => false,
+			'file_name'    => 'grid.min',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_min'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                // public || admin  || global
+			'section'      => '',
+			'load_on_init' => false,
 		];
 
 		$scripts['directorist-jquery-barrating'] = [
-			'file_name' => 'jquery.barrating.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => true,
+			'file_name'    => 'jquery.barrating.min',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_min'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                 // public || admin  || global
+			'section'      => '',
+			'load_on_init' => true,
 		];
 
 		$scripts['directorist-slick'] = [
@@ -496,7 +485,7 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => 'public',                         // public || admin  || global
 			'section'        => '',
-			'enable'         => true,
+			'load_on_init'   => true,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
@@ -517,19 +506,19 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => 'public',                         // public || admin  || global
 			'section'        => '',
-			'enable'         => false,
+			'load_on_init'   => false,
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-validator'] = [
-			'file_name' => 'validator.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => false,
+			'file_name'    => 'validator.min',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_min'      => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                // public || admin  || global
+			'section'      => '',
+			'load_on_init' => false,
 		];
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
@@ -545,69 +534,31 @@ class Enqueue_Assets {
 	public static function add_public_css_scripts() {
 		$scripts = [];
 
-		$scripts['directorist-main-style'] = [
-			'file_name'      => 'public-main',
-			'base_path'      => DIRECTORIST_CSS,
+		$default = [
+			'base_path'      => DIRECTORIST_CSS . '/public/',
 			'deps'           => [],
 			'ver'            => self::$script_version,
 			'group'          => 'public',                       // public || admin  || global
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
-		$scripts['directorist-inline-style'] = [
+		$scripts['directorist-main-style'] = array_merge( $default, [
+			'file_name' => 'public-main'
+		]);
+
+		$scripts['directorist-inline-style'] = array_merge( $default, [
 			'file_name' => 'inline-style',
 			'base_path' => DIRECTORIST_ASSETS . 'other/',
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
 			'has_min'   => false,
 			'has_rtl'   => false,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
+		]);
 
-		$scripts['directorist-settings-style'] = [
+		$scripts['directorist-settings-style'] = array_merge( $default, [
 			'file_name' => 'settings-style',
 			'base_path' => DIRECTORIST_ASSETS . 'other/',
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
 			'has_min'   => false,
 			'has_rtl'   => false,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-atmodal'] = [
-			'file_name' => 'public-atmodal',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-		];
-
-		$scripts['directorist-search-style'] = [
-			'file_name' => 'public-search-style',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [ ],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'   => true,
-		];
-
-		$scripts['directorist-add-listing-public'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
+		]);
 
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
@@ -621,143 +572,49 @@ class Enqueue_Assets {
 	public static function add_public_js_scripts() {
 		$scripts = [];
 
-		$scripts['directorist-main-script'] = [
-			'file_name' => 'public-main',
-			'base_path' => DIRECTORIST_JS,
+		$default = [
+			'base_path' => DIRECTORIST_JS . '/public/',
 			'ver'       => self::$script_version,
 			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => true,
+		];
+
+		$scripts['directorist-main-script'] = array_merge( $default, [
+			'file_name' => 'public-main',
 			'localize_data' => [
 				'object_name' => 'atbdp_public_data',
 				'data' => Script_Helper::get_main_script_data()
 			],
-		];
+		]);
 
-		$scripts['directorist-releated-listings-slider'] = [
-			'file_name' => 'public-releated-listings-slider',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '__',
-			'enable'    => false,
-			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
+		$scripts['directorist-releated-listings-slider'] = array_merge( $default, [
+			'file_name'    => 'releated-listings-slider',
+			'load_on_init' => false,
+		]);
 
-		$scripts['directorist-atmodal'] = [
-			'file_name' => 'public-atmodal',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => true,
-		];
+		$scripts['directorist-atmodal'] = array_merge( $default, [
+			'file_name'    => 'atmodal',
+			'load_on_init' => true,
+		]);
 
-		$scripts['directorist-geolocation'] = [
-			'file_name' => 'global-geolocation',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-home',
-		];
+		$scripts['directorist-search-listing'] = array_merge( $default, [
+			'file_name'    => 'public-search-listing',
+			'load_on_init' => false,
+		]);
 
-		$scripts['directorist-geolocation-widget'] = [
-			'file_name' => 'public-geolocation-widget',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-home',
-		];
+		$scripts['directorist-search-form-listing'] = array_merge( $default, [
+			'file_name'    => 'public-search-form-listing',
+			'load_on_init' => false,
+		]);
 
-		$scripts['directorist-search-listing'] = [
-			'file_name' => 'public-search-listing',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-form',
-		];
+		$scripts['directorist-checkout'] = array_merge( $default, [
+			'file_name'    => 'checkout',
+			'load_on_init' => false,
+		]);
 
-		$scripts['directorist-search-form-listing'] = [
-			'file_name' => 'public-search-form-listing',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-form',
-		];
-
-		$scripts['directorist-single-listing-openstreet-map-custom-script'] = [
-			'file_name'      => 'public-single-listing-openstreet-map-custom-script',
-			'base_path'      => DIRECTORIST_JS,
-			'ver'            => self::$script_version,
-			'group'          => 'public',                                        // public || admin  || global
-			'section'        => 'single-listing-page',                           // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
-			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-single-listing-openstreet-map-widget-custom-script'] = [
-			'file_name'      => 'public-single-listing-openstreet-map-widget-custom-script',
-			'base_path'      => DIRECTORIST_JS,
-			'ver'            => self::$script_version,
-			'group'          => 'public',                                        // public || admin  || global
-			'section'        => 'single-listing-page',                           // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
-			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-single-listing-gmap-custom-script'] = [
-			'file_name'      => 'public-single-listing-gmap-custom-script',
-			'base_path'      => DIRECTORIST_JS,
-			'ver'            => self::$script_version,
-			'group'          => 'public',                                   // public || admin  || global
-			'section'        => 'single-listing-page',
-			'enable'         => Script_Helper::is_enable_map( 'google' ),
-			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-single-listing-gmap-widget-custom-script'] = [
-			'file_name'      => 'public-single-listing-gmap-widget-custom-script',
-			'base_path'      => DIRECTORIST_JS,
-			'ver'            => self::$script_version,
-			'group'          => 'public',                                   // public || admin  || global
-			'section'        => 'single-listing-page',
-			'enable'         => Script_Helper::is_enable_map( 'google' ),
-			// 'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-add-listing-public'] = [
-			'file_name'      => 'global-add-listing',
-			'base_path'      => DIRECTORIST_JS,
-			'ver'            => self::$script_version,
-			'group'          => 'public',                                           // public || admin  || global
-			'section'        => 'add_listing',
-			'before_enqueue' => [ Script_Helper::class, 'add_listing_brfore_enqueue_task' ],
-		];
-
-		$scripts['directorist-add-listing-openstreet-map-custom-script-public'] = [
-			'file_name' => 'global-add-listing-openstreet-map-custom-script',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section' => '__',
-			'enable'  => Script_Helper::is_enable_map( 'openstreet' ),
-		];
-
-		$scripts['directorist-add-listing-gmap-custom-script-public'] = [
-			'file_name' => 'global-add-listing-gmap-custom-script',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section' => '__',
-			'enable'  => Script_Helper::is_enable_map( 'google' ),
-		];
-
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
+		$scripts['directorist-geolocation-widget'] = array_merge( $default, [
+			'file_name'    => 'geolocation-widget',
+			'load_on_init' => false,
+		]);
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
 		self::$js_scripts = $scripts;
@@ -771,78 +628,22 @@ class Enqueue_Assets {
 	public static function add_admin_css_scripts() {
 		$scripts = [];
 
-		$scripts['directorist-admin-style'] = [
+		$default = [
+			'base_path' => DIRECTORIST_CSS . '/admin/',
+			'deps'      => [],
+			'ver'       => self::$script_version,
+			'group'     => 'admin',
+		];
+
+		$scripts['directorist-admin-style'] = array_merge( $default, [
 			'file_name' => 'admin-main',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			// 'page'      => 'plugins.php',
-		];
+		]);
 
-		$scripts['directorist-add-listing-admin'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
-			// 'page'      => [ 'post-new.php', 'post.php' ],
-		];
-
-		$scripts['directorist-plugins-css'] = [
-			'file_name' => 'admin-plugins',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			// 'page'      => 'plugins.php',
-			// 'enable'    => is_admin(),
-		];
-
-		$scripts['directorist-settings-manager'] = [
-			'file_name' => 'admin-settings-manager',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-settings',
-		];
-
-		$scripts['directorist-multi-directory-archive'] = [
-			'file_name' => 'admin-multi-directory-archive',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-directory-types',
-		];
-
-		$scripts['directorist-multi-directory-builder'] = [
-			'file_name' => 'admin-multi-directory-builder',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => [
-				'at_biz_dir_page_atbdp-layout-builder',
-				'at_biz_dir_page_atbdp-directory-types'
-			],
-		];
-
-		$scripts['directorist-plupload'] = [
-			'file_name' => 'global-directorist-plupload',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'global',
-			'section'   => '',
-			'page'      => '',
-		];
+		// $scripts['directorist-add-listing-admin'] = [];
+		// $scripts['directorist-plugins-css'] = [];
+		// $scripts['directorist-settings-manager'] = [];
+		// $scripts['directorist-multi-directory-archive'] = [];
+		// $scripts['directorist-multi-directory-builder'] = [];
 
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
@@ -855,14 +656,15 @@ class Enqueue_Assets {
 	 */
 	public static function add_admin_js_scripts() {
 		$scripts = [];
+		$default = [
+			'file_name' => 'admin-main',
+			'base_path' => DIRECTORIST_JS . '/admin/',
+			'ver'       => self::$script_version,
+			'group'     => 'admin',
+		];
 
-		$scripts['directorist-admin-script'] = [
+		$scripts['directorist-admin-script'] = array_merge( $default, [
 			'file_name'     => 'admin-main',
-			'base_path'     => DIRECTORIST_JS,
-			// 'deps'          => Script_Helper::get_admin_script_dependency(),
-			'ver'           => self::$script_version,
-			'group'         => 'admin',
-			'section'       => '',
 			'localize_data' => [
 				[
 					'object_name' => 'atbdp_admin_data',
@@ -873,50 +675,15 @@ class Enqueue_Assets {
 					'data' => Script_Helper::get_main_script_data()
 				],
 			],
-		];
+		]);
 
-		$scripts['directorist-add-listing-admin'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
-			// 'page'      => ['post-new.php', 'post.php'],
-		];
-
-		$scripts['directorist-multi-directory-archive'] = [
-			'file_name' => 'admin-multi-directory-archive',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
+		$scripts['directorist-multi-directory-archive'] = array_merge( $default, [
+			'file_name' => 'multi-directory-archive',
 			'page'      => ['at_biz_dir_page_atbdp-directory-types'],
-		];
+		]);
 
-		$scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = [
-			'file_name' => 'global-add-listing-openstreet-map-custom-script',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'admin',                                        // public || admin  || global
-			'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
-			'page'      => ['post-new.php', 'post.php'],
-			// 'section'   => '__',
-		];
-
-		$scripts['directorist-add-listing-gmap-custom-script-admin'] = [
-			'file_name' => 'global-add-listing-gmap-custom-script',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'admin',                                    // public || admin  || global
-			'enable'    => Script_Helper::is_enable_map( 'google' ),
-			'page'      => ['post-new.php', 'post.php'],
-			// 'section'   => '__',
-		];
-
-
-		$scripts['directorist-multi-directory-builder'] = [
-			'file_name'     => 'admin-multi-directory-builder',
-			'base_path'     => DIRECTORIST_JS,
-			'ver'           => self::$script_version,
-			'group'         => 'admin',
+		$scripts['directorist-multi-directory-builder'] = array_merge( $default, [
+			'file_name' => 'multi-directory-builder',
 			'page'          => [
 				'at_biz_dir_page_atbdp-layout-builder',
 				'at_biz_dir_page_atbdp-directory-types'
@@ -925,61 +692,60 @@ class Enqueue_Assets {
 				'object_name' => 'ajax_data',
 				'data' => [ 'ajax_url' => admin_url('admin-ajax.php') ]
 			],
-		];
+		]);
 
-		$scripts['directorist-settings-manager'] = [
-			'file_name'     => 'admin-settings-manager',
-			'base_path'     => DIRECTORIST_JS,
-			'ver'           => self::$script_version,
-			'group'         => 'admin',
-			'page'          => 'at_biz_dir_page_atbdp-settings',
+		$scripts['directorist-settings-manager'] = array_merge( $default, [
+			'file_name'    => 'settings-manager',
+			'page'         => 'at_biz_dir_page_atbdp-settings',
+			'load_on_init' => false,
 			'localize_data' => [
 				'object_name' => 'ajax_data',
 				'data' => [ 'ajax_url' => admin_url('admin-ajax.php') ]
 			],
-		];
+		]);
 
-		$scripts['directorist-plugins'] = [
-			'file_name' => 'admin-plugins',
-			'base_path' => DIRECTORIST_JS,
-			// 'deps'      => ['jquery'],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'plugins.php',
-			'enable'    => is_admin(),
-		];
-
-		$scripts['directorist-plupload-public'] = [
-			'file_name' => 'global-directorist-plupload',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public',
-			'section'   => '__',
-		];
-
-		$scripts['directorist-plupload-admin'] = [
-			'file_name' => 'global-directorist-plupload',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-		];
-
-		$scripts['directorist-import-export'] = [
-			'file_name'     => 'admin-import-export',
-			'base_path'     => DIRECTORIST_JS,
-			// 'deps'          => ['jquery'],
-			'ver'           => self::$script_version,
-			'group'         => 'admin',
-			'section'       => '',
-			'page'          => 'at_biz_dir_page_tools',
+		$scripts['directorist-plugins'] = array_merge( $default, [
+			'file_name'     => 'plugins',
+			'page'          => 'plugins.php',
 			'enable'        => is_admin(),
+			'load_on_init'  => false,
+			'localize_data' => [
+				'object_name' => 'ajax_data',
+				'data' => [ 'ajax_url' => admin_url('admin-ajax.php') ]
+			],
+		]);
+
+		$scripts['directorist-custom-field'] = array_merge( $default, [
+			'file_name'     => 'custom-field',
+			'load_on_init'  => false,
+		]);
+
+		$scripts['directorist-extension-update'] = array_merge( $default, [
+			'file_name'     => 'extension-update',
+			'load_on_init'  => false,
+		]);
+
+		$scripts['directorist-import-export'] = array_merge( $default, [
+			'file_name'    => 'import-export',
+			'enable'       => is_admin(),
+			'load_on_init' => false,
+			'page'         => 'at_biz_dir_page_tools',
 			'localize_data' => [
 				'object_name' => 'import_export_data',
 				'data' => [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
 			],
-		];
+		]);
+
+		$scripts['directorist-setup-wizard'] = array_merge( $default, [
+			'file_name'    => 'setup-wizard',
+			'load_on_init' => false,
+		]);
+
+		// $scripts['directorist-add-listing-openstreet-map-custom-script-admin'] = '';
+		// $scripts['directorist-add-listing-gmap-custom-script-admin'] = '';
+		// $scripts['directorist-add-listing-gmap-custom-script-admin'] = '';
+		// $scripts['directorist-plupload-public'] = '';
+		// $scripts['directorist-plupload-admin'] = '';
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
 		self::$js_scripts = $scripts;
@@ -991,19 +757,21 @@ class Enqueue_Assets {
 	 * @return void
 	 */
 	public static function add_global_css_scripts() {
-		// $scripts = [];
+		$scripts = [];
 
-		// $scripts['directorist-admin-style'] = [
-		//     'file_name' => 'admin-style',
-		//     'base_path' => DIRECTORIST_CSS,
-		//     'deps'      => [],
-		//     'ver'       => self::$script_version,
-		//     'group'     => 'global',
-		//     'section'   => '',
-		// ];
+		$default = [
+			'base_path' => DIRECTORIST_CSS . '/global/',
+		    'deps'      => [],
+		    'ver'       => self::$script_version,
+		    'group'     => 'global',
+		];
 
-		// $scripts = array_merge( self::$css_scripts, $scripts);
-		// self::$css_scripts = $scripts;
+		$scripts['directorist-global-style'] = array_merge( $default, [
+		    'file_name' => 'global-main',
+		]);
+
+		$scripts = array_merge( self::$css_scripts, $scripts);
+		self::$css_scripts = $scripts;
 	}
 
 	/**
@@ -1013,27 +781,88 @@ class Enqueue_Assets {
 	 */
 	public static function add_global_js_scripts() {
 		$scripts = [];
-		$common_asset_group = 'global';
 
-		$scripts['directorist-map-view'] = [
-			'file_name' => 'global-map-view',
-			'base_path' => DIRECTORIST_JS,
+		$default = [
+			'base_path' => DIRECTORIST_JS . '/global/',
 			'deps'      => [],
 			'ver'       => self::$script_version,
-			'group'     => $common_asset_group,
-			'section'   => '_',
-			'enable'    => Script_Helper::is_enable_map( 'google' )
+			'group'     => 'global',
 		];
 
-		$scripts['directorist-gmap-marker-clusterer'] = [
-			'file_name' => 'global-markerclusterer',
-			'base_path' => DIRECTORIST_JS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => $common_asset_group,
-			'section'   => '__',
-			'enable'    => Script_Helper::is_enable_map( 'google' )
-		];
+		$scripts['directorist-add-listing-public'] = array_merge( $default, [
+			'file_name'    => 'add-listing',
+			'load_on_init' => false,
+			'before_enqueue' => [ Script_Helper::class, 'add_listing_brfore_enqueue_task' ],
+		]);
+
+		$scripts['directorist-geolocation'] = array_merge( $default, [
+			'file_name'    => 'geolocation',
+			// 'load_on_init' => false,
+		]);
+
+		$scripts['directorist-add-listing-openstreet-map-custom-script-public'] = array_merge( $default, [
+			'file_name'      => 'add-listing-openstreet-map-custom-script',
+			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init'   => false,
+		]);
+
+		$scripts['directorist-add-listing-gmap-custom-script-public'] = array_merge( $default, [
+			'file_name'      => 'add-listing-gmap-custom-script',
+			'enable'         => Script_Helper::is_enable_map( 'google' ),
+			'load_on_init'   => false,
+		]);
+
+		$scripts['directorist-single-listing-openstreet-map-custom-script'] = array_merge( $default, [
+			'file_name'    => 'single-listing-openstreet-map-custom-script',
+			'enable'       => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init' => false,
+		]);
+
+		$scripts['directorist-single-listing-openstreet-map-widget-custom-script'] = array_merge( $default, [
+			'file_name'    => 'single-listing-openstreet-map-widget-custom-script',
+			'enable'       => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init' => false,
+		]);
+
+		$scripts['directorist-single-listing-gmap-custom-script'] = array_merge( $default, [
+			'file_name'    => 'single-listing-gmap-custom-script',
+			'enable'       => Script_Helper::is_enable_map( 'google' ),
+			'load_on_init' => false,
+		]);
+
+		$scripts['directorist-single-listing-gmap-widget-custom-script'] = array_merge( $default, [
+			'file_name'    => 'single-listing-gmap-widget-custom-script',
+			'enable'       => Script_Helper::is_enable_map( 'google' ),
+			'load_on_init' => false,
+		]);
+
+		$scripts['directorist-openstreet-load-scripts'] = array_merge( $default, [
+			'file_name'    => 'load-osm-map',
+			'enable'       => Script_Helper::is_enable_map( 'openstreet' ),
+			'load_on_init' => false,
+		]);
+
+		$scripts['directorist-map-view'] = array_merge( $default, [
+			'file_name'    => 'map-view',
+			'load_on_init' => false,
+			'load_on_init' => Script_Helper::is_enable_map( 'google' )
+		]);
+
+		$scripts['directorist-gmap-marker-clusterer'] = array_merge( $default, [
+			'file_name'    => 'markerclusterer',
+			'load_on_init' => false,
+			'load_on_init' => Script_Helper::is_enable_map( 'google' )
+		]);
+
+		$scripts['directorist-pure-select-public'] = array_merge( $default, [
+			'file_name' => 'pure-select',
+			// 'load_on_init' => false,
+		]);
+
+		$scripts['directorist-plupload'] = array_merge( $default, [
+			'file_name'    => 'directorist-plupload',
+			'load_on_init' => false,
+		]);
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
 		self::$js_scripts = $scripts;
@@ -1145,6 +974,11 @@ class Enqueue_Assets {
 		$args    = array_merge( $default, $args );
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
+			
+			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+				continue;
+			}
+
 			$default = [
 				'file_name' => $handle,
 				'base_path' => DIRECTORIST_CSS,
@@ -1176,7 +1010,7 @@ class Enqueue_Assets {
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
 
-			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+			if ( isset( $script_args['load_on_init'] ) && false === $script_args['load_on_init'] ) {
 				continue;
 			}
 
@@ -1198,8 +1032,6 @@ class Enqueue_Assets {
 				continue;
 			}
 
-			if ( ! empty( $script_args['section'] ) ) { continue; }
-
 			wp_enqueue_style( $handle );
 		}
 	}
@@ -1217,6 +1049,11 @@ class Enqueue_Assets {
 		$args    = array_merge( $default, $args );
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
+			
+			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+				continue;
+			}
+
 			$default = [
 				'file_name' => $handle,
 				'base_path' => DIRECTORIST_JS,
@@ -1249,7 +1086,7 @@ class Enqueue_Assets {
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
 
-			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+			if ( isset( $script_args['load_on_init'] ) && false === $script_args['load_on_init'] ) {
 				continue;
 			}
 
@@ -1272,9 +1109,6 @@ class Enqueue_Assets {
 			if (  ! self::script__verify_shortcode( $script_args, $handle ) ) {
 				continue;
 			}
-
-			if ( ! empty( $script_args['section'] ) ) { continue; }
-
 
 			if ( ! empty( $script_args['before_enqueue'] ) ) {
 				self::handle_script_before_enqueue_task( $script_args['before_enqueue'] );

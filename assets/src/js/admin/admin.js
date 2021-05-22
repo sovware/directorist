@@ -1,19 +1,14 @@
-import '../../scss/layout/admin/admin-style.scss';
+import './../../scss/layout/admin/admin-style.scss';
 
 // Modules
-import '../modules/pureScriptSearchSelect';
-import '../modules/utility';
+import './../modules/utility';
+import './../modules/modal';
 
-// Blocks
-import './../components/admin/block-1';
-import './../components/admin/block-2';
-import './../components/admin/block-3';
-import './../components/admin/block-4';
-import './../components/admin/block-5';
-import './../components/admin/admin-user';
-
-// subscriptionManagement
-import './../components/admin/subscriptionManagement';
-
-// Modal Components
-import '../components/modal';
+// Components
+import './components/block-1';
+import './components/block-2';
+import './components/block-3';
+import './components/block-4';
+import './components/block-5';
+import './components/admin-user';
+import './components/subscriptionManagement';

@@ -59,7 +59,10 @@ class ATBDP_Checkout
         if (!$enable_monetization) {
             return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');
         }
-        wp_enqueue_script('atbdp_checkout_script');
+
+        wp_enqueue_script('directorist-checkout');
+        wp_localize_script( 'directorist-checkout', 'atbdp_checkout', Directorist\Script_Helper::get_checkout_script_script_data() );
+
         // user logged in & monetization is active, so lets continue
         // get the listing id from the url query var
         $listing_id = get_query_var('atbdp_listing_id');

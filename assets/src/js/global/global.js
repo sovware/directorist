@@ -1,0 +1,1 @@
+import './../../scss/layout/global/global-style.scss';

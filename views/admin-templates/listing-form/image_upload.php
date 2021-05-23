@@ -64,7 +64,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                         </div>
                     <?php }  // ends foreach for looping image
                 } else { ?>
-                    <img src="<?php echo esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
+                    <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/no-image.png'); ?>"
                         alt="<?php esc_attr_e('No Image Found', 'directorist'); ?>">
                     <p><?php esc_attr_e('No Images', 'directorist'); ?></p>
                 <?php } //  ends if statement  ?>

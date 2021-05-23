@@ -207,18 +207,7 @@ class Directorist_Listing_Author {
 	}
 
 	private function enqueue_scripts() {
-		wp_enqueue_script( 'directorist-search-form-listing' );
-        wp_enqueue_script( 'directorist-search-listing' );
-
-		$data = Script_Helper::get_search_script_data();
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-			'ajax_url' => admin_url('admin-ajax.php'),
-			'added_favourite' => __('Added to favorite', 'directorist'),
-			'please_login' => __('Please login first', 'directorist')
-		]);
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
+		Script_Helper::load_search_form_script();
 	}
 
 	public function author_listings_query() {
@@ -413,7 +402,7 @@ class Directorist_Listing_Author {
 			return $redirect;
 		}
 
-		$this->enqueue_scripts();
+		// $this->enqueue_scripts();
 
 		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );

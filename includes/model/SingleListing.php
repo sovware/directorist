@@ -1026,6 +1026,8 @@ class Directorist_Single_Listing {
 			'cat_icon'              => $cat_icon,
 		);
 
+		Script_Helper::load_map_vendor_assets();
+
 		if ('openstreet' === $args['select_listing_map']) {
 			wp_localize_script('directorist-single-listing-openstreet-map-custom-script', 'localized_data', $args);
 			wp_enqueue_script('directorist-single-listing-openstreet-map-custom-script');

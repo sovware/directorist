@@ -16,8 +16,8 @@ echo '</div>';
         <?php if(!empty($search_by_location)) {
                 if('map_api' == $location_source) {
                     $select_listing_map = get_directorist_option('select_listing_map','google');
-                    wp_enqueue_script('atbdp-geolocation-widget');
-                    wp_localize_script('atbdp-geolocation-widget', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
+                    wp_enqueue_script('directorist-geolocation-widget');
+                    wp_localize_script('directorist-geolocation-widget', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
                     $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc_wid la la-crosshairs"></span>' : '<span class="atbd_get_loc_wid la la-crosshairs"></span>';
                     ?>
                     <div class="form-group">

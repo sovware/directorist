@@ -200,7 +200,7 @@ if (!class_exists('ATBDP_Custom_Post')) :
                 'show_ui'             => current_user_can('edit_others_at_biz_dirs') ? true : false, // show the menu only to the admin
                 'show_in_menu'        => true,
                 'menu_position'       => 20,
-                'menu_icon'           => ATBDP_ADMIN_ASSETS . 'images/menu_icon.png',
+                'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.png',
                 'show_in_admin_bar'   => true,
                 'show_in_nav_menus'   => true,
                 'can_export'          => true,

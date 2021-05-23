@@ -1056,12 +1056,14 @@ class Directorist_Listings {
 	}
 
 	public function render_shortcode( $atts = [] ) {
-		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
-		Script_Helper::load_search_form_script( $script_args );
+		// Script_Helper::load_search_form_script([ 
+		// 	'directory_type_id' => $this->current_listing_type,
+		// 	'map_vendor_args'   => [ 'marker-cluster' => true ]
+		// ]);
 
 		ob_start();
 
-		if (!empty($this->redirect_page_url)) {
+		if ( ! empty( $this->redirect_page_url ) ) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
 		}
@@ -1279,6 +1281,8 @@ class Directorist_Listings {
 	}
 
 	public function load_openstreet_map() {
+		Script_Helper::load_map_vendor_assets(  [ 'includes' => [ 'marker-cluster' => true] ] );
+
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 		$map_card_data = $this->get_osm_map_info_card_data();
@@ -1439,6 +1443,7 @@ class Directorist_Listings {
 	}
 
 	public function load_google_map() {
+		Script_Helper::load_map_vendor_assets(  [ 'includes' => [ 'marker-cluster' => true ] ] );
 		wp_enqueue_script('directorist-map-view');
 
 		$opt = $this->get_map_options();

@@ -8,7 +8,17 @@ class Script_Helper {
      * @return array
      */
     public static function load_search_form_script( $args = [] ) {
-        Script_Helper::load_map_vendor_assets();
+
+        $default = [ 'load_map_scripts' => true ];
+        $args = is_array( $args ) ? array_merge( $args ) : $default;
+
+        if ( ! empty( $args['load_map_scripts'] ) ) {
+            $map_vendor_args = isset( $args['map_vendor_args'] ) ? $args['map_vendor_args'] : [];
+            Script_Helper::load_map_vendor_assets( $map_vendor_args );
+        }
+
+		wp_enqueue_script( 'directorist-select2' );
+		wp_enqueue_style( 'directorist-select2' );
         wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
@@ -116,7 +126,7 @@ class Script_Helper {
             'nonceName'            => 'atbdp_nonce_js',
             'countryRestriction'   => get_directorist_option( 'country_restriction' ),
             'restricted_countries' => get_directorist_option( 'restricted_countries' ),
-            'AdminAssetPath'       => ATBDP_ADMIN_ASSETS,
+            'AdminAssetPath'       => DIRECTORIST_ASSETS,
             'i18n_text'            => $i18n_text,
             'icon_type'            => $icon_type
         );
@@ -350,13 +360,16 @@ class Script_Helper {
             wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
             wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
             wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
-            wp_enqueue_script( 'directorist-openstreet-libs-setup' );
-            wp_enqueue_script( 'directorist-openstreet-open-layers' );
-            wp_enqueue_script( 'directorist-openstreet-crosshairs' );
 
             if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) {
                 wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
             }
+
+            wp_enqueue_script( 'directorist-openstreet-libs-setup' );
+            wp_enqueue_script( 'directorist-openstreet-open-layers' );
+            wp_enqueue_script( 'directorist-openstreet-crosshairs' );
+            
+            
         }
 
         if ( self::is_enable_map( 'google' ) ) {

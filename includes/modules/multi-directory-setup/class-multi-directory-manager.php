@@ -27,7 +27,6 @@ class Multi_Directory_Manager
     public function run() {
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
-        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
@@ -214,7 +213,7 @@ class Multi_Directory_Manager
 
     // import_default_directory
     public function import_default_directory( array $args = [] ) {
-        $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/sample-data/directory/directory.json';
+        $file = DIRECTORIST_ASSETS  . 'sample-data/directory/directory.json';
         if ( ! file_exists( $file ) ) { return; }
         $file_contents = file_get_contents( $file );
 
@@ -4822,34 +4821,22 @@ class Multi_Directory_Manager
                 }
             }
         }
-
-        // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
-        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
-        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
-        // e_var_dump( $submission_form_fields['fields']['image_upload'] );
-        // e_var_dump( $all_term_meta['fields']['image_upload'] );
-        // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-        // e_var_dump( $test['fields']['video'] );
-        // e_var_dump( $test );
-        // e_var_dump( self::$fields[ 'single_listings_contents' ] );
-        // e_var_dump( json_decode( $test ) );
     }
 
     // handle_delete_listing_type_request
     public function handle_delete_listing_type_request()
     {
-
-        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'delete_listing_type')) {
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'delete_listing_type' ) ) {
             wp_die('Are you cheating? | _wpnonce');
         }
 
-        if (!current_user_can('manage_options')) {
-            wp_die('Are you cheating? | manage_options');
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( 'Are you cheating? | manage_options' );
         }
 
-        $term_id = isset($_REQUEST['listing_type_id']) ? absint($_REQUEST['listing_type_id']) : 0;
+        $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
 
-        $this->delete_listing_type($term_id);
+        $this->delete_listing_type( $term_id );
 
         wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types'));
         exit;
@@ -4858,7 +4845,7 @@ class Multi_Directory_Manager
     // delete_listing_type
     public function delete_listing_type($term_id = 0)
     {
-        if (wp_delete_term($term_id, 'atbdp_listing_types')) {
+        if ( wp_delete_term( $term_id, 'atbdp_listing_types' ) ) {
             atbdp_add_flush_alert([
                 'id'      => 'deleting_listing_type_status',
                 'page'    => 'all-listing-type',
@@ -4890,27 +4877,12 @@ class Multi_Directory_Manager
 
         $this->prepare_settings();
     }
-
-    // enqueue_scripts
-    public function enqueue_scripts( $page = '' )
-    {
-        wp_enqueue_media();
-        wp_enqueue_style('atbdp-unicons');
-        wp_enqueue_style('atbdp-font-awesome');
-        wp_enqueue_style('atbdp-line-awesome');
-        // wp_enqueue_style('atbdp-select2-style');
-        // wp_enqueue_style('atbdp-select2-bootstrap-style');
-        wp_enqueue_style('atbdp_admin_css');
-
-        wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
-        wp_enqueue_script('atbdp_admin_app');
-    }
 }
 
 
 // include_files
 function include_files() {
-   
+
     if ( ! trait_exists( 'Directorist\Multi_Directory_Helper' ) ) {
         $file = trailingslashit( dirname( __FILE__ ) )  . 'trait-multi-directory-helper.php';
         if ( file_exists( $file ) ) {
@@ -4918,10 +4890,4 @@ function include_files() {
         }
     }
 
-    // if ( ! class_exists( 'Directorist\Multi_Directory_Migration' ) ) {
-    //     $file = trailingslashit( dirname( __FILE__ ) )  . 'class-multi-directory-migration.php';
-    //     if ( file_exists( $file ) ) {
-    //         require_once( $file );
-    //     }
-    // }
 }

@@ -262,8 +262,8 @@ $info_content .= "<p> {$ad}</p></div>";
 </div>
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_enqueue_script( 'openstreet_layer' );
-    wp_enqueue_style('leaflet-css');
+    wp_enqueue_script( 'directorist-openstreet-layers' );
+    wp_enqueue_style('directorist-openstreet-map-leaflet');
 }
 ?>
 <script>

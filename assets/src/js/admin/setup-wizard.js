@@ -1,3 +1,5 @@
+import './../../scss/layout/admin/setup-wizard.scss';
+
 /* eslint-disable */
 jQuery(document).ready(function($) {
         const import_dummy = $('#atbdp_dummy_form');

@@ -8,10 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
-// wp_enqueue_style( 'atbdp-pluploadcss' );
-// wp_enqueue_script( 'atbdp-plupload-min' );
-// wp_enqueue_script( 'atbdp-plupload' );
-// wp_enqueue_script( 'atbdp-plupload' );
+wp_enqueue_script( 'directorist-plupload' );
 $file_types        = ! empty( $data['file_type'] ) ? $data['file_type'] : 'all_types';
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
 $allowed_img_types = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );

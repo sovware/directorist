@@ -57,6 +57,7 @@ class Directorist_Listing_Search_Form {
 		$this->type = $type;
 		$this->atts = $atts;
 
+		$this->search_listing_scripts_styles();
 		$this->set_default_options();
 
 		// Search form shortcode
@@ -514,8 +515,6 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		$this->search_listing_scripts_styles();
-
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
@@ -525,12 +524,13 @@ class Directorist_Listing_Search_Form {
 
 	public function search_listing_scripts_styles() {
 		Script_Helper::load_map_vendor_assets();
-		wp_enqueue_script( 'directorist-select2' );
+
+		wp_enqueue_script( 'directorist-pure-select' );
 		wp_enqueue_script( 'directorist-select2' );
 		wp_enqueue_style( 'directorist-select2' );
 		wp_enqueue_script( 'directorist-search-form-listing' );
-		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
+		wp_enqueue_script( 'directorist-range-slider' );
 
 		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->listing_type ] );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );

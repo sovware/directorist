@@ -354,7 +354,7 @@ class Script_Helper {
             wp_enqueue_script( 'directorist-openstreet-open-layers' );
             wp_enqueue_script( 'directorist-openstreet-crosshairs' );
 
-            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) ) {
+            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) {
                 wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
             }
         }
@@ -362,7 +362,7 @@ class Script_Helper {
         if ( self::is_enable_map( 'google' ) ) {
             wp_enqueue_script( 'directorist-google-map' );
 
-            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) ) {
+            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) {
                 wp_enqueue_script( 'directorist-markerclusterer' );
             }
         }

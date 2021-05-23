@@ -26,51 +26,50 @@ class ATBDP_Metabox {
 	}
 
 	public function atbdp_dynamic_admin_listing_form() {
-		$term_id 		= sanitize_text_field( $_POST['directory_type'] );
-		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
+		$term_id    = sanitize_text_field( $_POST['directory_type'] );
+		$listing_id = sanitize_text_field( $_POST['listing_id'] );
 
 		// listing meta fields
 		ob_start();
 		$this->render_listing_meta_fields( $term_id, $listing_id );
-		$listing_meta_fields =  ob_get_clean();
+		$listing_meta_fields = ob_get_clean();
 
 		ob_start();
 		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_CATEGORY );
-		$listing_categories =  ob_get_clean();
+		$listing_categories = ob_get_clean();
 
 		ob_start();
 		$this->render_listing_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
-		$listing_locations =  ob_get_clean();
+		$listing_locations = ob_get_clean();
 
 		ob_start();
 		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_CATEGORY );
-		$listing_pop_categories =  ob_get_clean();
+		$listing_pop_categories = ob_get_clean();
 
 		ob_start();
 		$this->render_listing_pop_taxonomies( $listing_id, $term_id, ATBDP_LOCATION );
-		$listing_pop_locations =  ob_get_clean();
+		$listing_pop_locations = ob_get_clean();
 
 		ob_start();
 		$this->render_expire_date( $listing_id, $term_id );
 		$listing_expiration = ob_get_clean();
 
-
 		$required_script_src = [];
 
 		$map_type = get_directorist_option('select_listing_map', 'openstreet');
-		$script_name = ( 'openstreet' === $map_type ) ? 'global-add-listing-openstreet-map-custom-script' : 'global-add-listing-gmap-custom-script';
+		$script_name = ( 'openstreet' === $map_type ) ? 'add-listing-openstreet-map-custom-script' : 'add-listing-gmap-custom-script';
 		
 		$ext = ( apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES ) ) ? '.min.js' : '.js';
-		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
+		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . '/global/' . $script_name . $ext;
 
 		wp_send_json_success( array(
-			'listing_meta_fields' 		=> $listing_meta_fields,
-			'listing_categories'  		=> $listing_categories,
-			'listing_pop_categories'  	=> $listing_pop_categories,
-			'listing_locations'   		=> $listing_locations,
-			'listing_pop_locations'   	=> $listing_pop_locations,
-			'required_js_scripts' 		=> $required_script_src,
-			'listing_expiration'		=> $listing_expiration
+			'listing_meta_fields'    => $listing_meta_fields,
+			'listing_categories'     => $listing_categories,
+			'listing_pop_categories' => $listing_pop_categories,
+			'listing_locations'      => $listing_locations,
+			'listing_pop_locations'  => $listing_pop_locations,
+			'required_js_scripts'    => $required_script_src,
+			'listing_expiration'     => $listing_expiration
 		) );
 
 	}
@@ -198,8 +197,14 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_form_info_meta( $post ) {
-		wp_enqueue_script( 'atbdp-google-map-front' );
-        wp_enqueue_script( 'atbdp-markerclusterer' );
+
+		Directorist\Script_Helper::load_map_vendor_assets();
+		wp_enqueue_script( 'directorist-add-listing' );
+
+		wp_localize_script( 'directorist-add-listing', 'atbdp_public_data', Directorist\Script_Helper::get_main_script_data() );
+		wp_localize_script( 'directorist-add-listing', 'atbdp_admin_data', Directorist\Script_Helper::get_admin_script_data() );
+
+
 		$all_types     	= directory_types();
 		$default     	= default_directory_type();
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );

@@ -55,9 +55,14 @@ if ( !class_exists('BD_Search_Widget')) {
             $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
             $select_listing_map            = get_directorist_option('select_listing_map','google');
 
+            wp_enqueue_script( 'directorist-select2' );
+		    wp_enqueue_style( 'directorist-select2' );
+            
             wp_enqueue_script( 'directorist-search-form-listing' );
             wp_enqueue_script( 'directorist-range-slider' );
             wp_enqueue_script( 'directorist-search-listing' );
+            wp_enqueue_script( 'directorist-search-listing' );
+            
 
             $listing_type = get_post_meta( get_the_ID(), '_directory_type', true );
             $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();

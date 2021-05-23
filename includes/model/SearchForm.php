@@ -524,6 +524,10 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function search_listing_scripts_styles() {
+		Script_Helper::load_map_vendor_assets();
+		wp_enqueue_script( 'directorist-select2' );
+		wp_enqueue_script( 'directorist-select2' );
+		wp_enqueue_style( 'directorist-select2' );
 		wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );

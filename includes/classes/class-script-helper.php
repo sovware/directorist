@@ -8,6 +8,7 @@ class Script_Helper {
      * @return array
      */
     public static function load_search_form_script( $args = [] ) {
+        Script_Helper::load_map_vendor_assets();
         wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
@@ -334,5 +335,36 @@ class Script_Helper {
     // add_listing_brfore_enqueue_task
     public static function add_listing_brfore_enqueue_task() {
         wp_enqueue_media();
+    }
+
+    // load_map_vendor_assets
+    public static function load_map_vendor_assets( $args = [] ) {
+        if ( self::is_enable_map( 'openstreet' ) ) {
+            // CSS
+            wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+            wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+
+            // JS
+            wp_enqueue_script( 'directorist-openstreet-layers' );
+            wp_enqueue_script( 'directorist-openstreet-unpkg' );
+            wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
+            wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
+            wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
+            wp_enqueue_script( 'directorist-openstreet-libs-setup' );
+            wp_enqueue_script( 'directorist-openstreet-open-layers' );
+            wp_enqueue_script( 'directorist-openstreet-crosshairs' );
+
+            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) ) {
+                wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
+            }
+        }
+
+        if ( self::is_enable_map( 'google' ) ) {
+            wp_enqueue_script( 'directorist-google-map' );
+
+            if ( isset( $args['includes'] ) && is_array( $args['includes'] ) && in_array( 'marker-cluster', $args['includes'] ) ) ) {
+                wp_enqueue_script( 'directorist-markerclusterer' );
+            }
+        }
     }
 }

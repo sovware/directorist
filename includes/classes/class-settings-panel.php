@@ -5213,7 +5213,9 @@ Please remember that your order may be canceled if you do not make your payment 
                 'config'  => $this->config,
             ];
 
-            wp_localize_script('directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
+            wp_enqueue_script( 'directorist-settings-manager' );
+            wp_localize_script( 'directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data );
+            wp_localize_script( 'directorist-settings-manager', 'ajax_data', [ 'ajax_url' => admin_url('admin-ajax.php') ] );
 
             /* $status = $this->update_settings_options([
                 'new_listing_status' => 'publish',

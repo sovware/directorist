@@ -4758,7 +4758,9 @@ class Multi_Directory_Manager
         
 
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
-            wp_localize_script('directorist-multi-directory-builder', 'cptm_data', $cptm_data);
+            wp_enqueue_script( 'directorist-multi-directory-builder' );
+            wp_localize_script( 'directorist-multi-directory-builder', 'cptm_data', $cptm_data );
+            wp_localize_script( 'directorist-multi-directory-builder', 'ajax_data', [ 'ajax_url' => admin_url('admin-ajax.php') ] );
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;
         }

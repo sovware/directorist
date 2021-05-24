@@ -27,7 +27,8 @@ if (!class_exists('ATBDP_SEO')) :
                 /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
                 add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
             } else {
-                add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
+                add_action('wp_head', array($this, 'add_texonomy_canonical'));
+                add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
             }
 
             // Rank Math Integration
@@ -397,16 +398,35 @@ if (!class_exists('ATBDP_SEO')) :
             return $title;
         }
 
-        public function atbdp_texonomy_canonical()
-        {
+        // remove_duplicate_canonical
+        public function remove_duplicate_canonical() {
             global $post;
 
-            if (!isset($post)) return;
+            if ( ! isset( $post ) ) return;
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
+
+            $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
+            if ( ! in_array( $post->ID, $targeted_pages ) ) return;
+
+            remove_action('wp_head', 'rel_canonical');
+        }
+
+        public function add_texonomy_canonical()
+        {
+            global $post;
+
+            $CAT_page_ID = get_directorist_option('single_category_page');
+            $LOC_page_ID = get_directorist_option('single_location_page');
+            $Tag_page_ID = get_directorist_option('single_tag_page');
+
+            $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
+            if ( ! in_array( $post->ID, $targeted_pages ) ) return;
+
             $url = get_permalink($post->ID);
+
             // Location page
             if ($post->ID == $LOC_page_ID) {
                 if ($slug = get_query_var('atbdp_location')) {
@@ -431,6 +451,7 @@ if (!class_exists('ATBDP_SEO')) :
                     $url = ATBDP_Permalink::atbdp_get_tag_page($term);
                 }
             }
+            
             echo "<link rel='canonical' href='" . esc_url($url) . "' />\n";
         }
 
@@ -641,6 +662,9 @@ if (!class_exists('ATBDP_SEO')) :
                 $seo_meta = call_user_func_array( [ $this, $callback ], [ $seo_meta ] );
             }
 
+            $title = $seo_meta['title'] . ' | ' . get_bloginfo('name');
+            $seo_meta['title'] = apply_filters( 'directorist_seo_meta_title', $title, $seo_meta['title'] );
+
             if ( ! empty( $seo_meta['description'] ) ) {
                 $seo_meta['description'] = stripslashes_deep( $seo_meta['description'] );
                 /**
@@ -722,7 +746,7 @@ if (!class_exists('ATBDP_SEO')) :
             if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
 
             // Description
-            $settings_description = get_directorist_option('add_listing_page_meta_title');
+            $settings_description = get_directorist_option('all_listing_meta_desc');
             if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
 
             $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
@@ -871,7 +895,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // show term description as meta description first
             if ( $post->ID == $CAT_page_ID && $slug && ! empty( $term ) ) {
-                $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
                 $thumb_id = get_term_meta( $term->term_id, 'image', true );
                 $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
             }
@@ -911,7 +935,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // show term description as meta description first
             if ( $post->ID == $LOC_page_ID && $slug && ! empty( $term ) ) {
-                $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
                 $thumb_id = get_term_meta( $term->term_id, 'image', true );
                 $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
             }
@@ -943,7 +967,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // show term description as meta description first
             if ( $post->ID == $TAG_page_ID && $slug && ! empty( $term ) ) {
-                $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
                 $thumb_id = get_term_meta( $term->term_id, 'image', true );
                 $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
             }

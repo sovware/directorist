@@ -170,7 +170,7 @@
         e.preventDefault();
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-        atbd_callingSlider();
+        directorist_init_radius_slider();
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
@@ -261,20 +261,20 @@ if(document.querySelector(".directorist-search-form #atbdp_reset") !== null){
     document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
-        atbd_callingSlider(0);
+        directorist_init_radius_slider(0);
     });
 }
 if(document.querySelector(".directorist-advanced-filter__form #atbdp_reset") !== null){
     document.querySelector(".directorist-advanced-filter__form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
-        atbd_callingSlider(0);
+        directorist_init_radius_slider(0);
     });
 }
 if(document.querySelector("#bdlm-search-area #atbdp_reset") !== null){
     document.querySelector("#bdlm-search-area #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
-        atbd_callingSlider(0);
+        directorist_init_radius_slider(0);
     })
 }

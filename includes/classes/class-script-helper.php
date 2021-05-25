@@ -350,10 +350,6 @@ class Script_Helper {
     // load_map_vendor_assets
     public static function load_map_vendor_assets( $args = [] ) {
         if ( self::is_enable_map( 'openstreet' ) ) {
-            // CSS
-            wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
-            wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
-
             // JS
             wp_enqueue_script( 'directorist-openstreet-layers' );
             wp_enqueue_script( 'directorist-openstreet-unpkg' );

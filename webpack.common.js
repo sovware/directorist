@@ -123,6 +123,7 @@ const MainConfig = {
     // Global
     // -------------------------------------------
     ['global-main']: ["./assets/src/js/global/global.js"],
+    ['global-range-slider']: ["./assets/src/js/global/range-slider.js"],
     ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 
     ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],

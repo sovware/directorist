@@ -1,3 +1,5 @@
+window.addEventListener( 'load', directorist_init_radius_slider );
+
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
     if($('.directorist-listing-no-thumb').innerWidth() <= 220 ){

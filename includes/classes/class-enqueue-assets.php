@@ -140,83 +140,58 @@ class Enqueue_Assets {
 
 		// Global
 		// ================================
-		$scripts['directorist-openstreet-map-leaflet'] = array_merge( $default, [
-			'group'        => 'global',
-			'file_name'    => 'leaflet',
-			'base_path'    => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
-			'has_min'      => false,
-			'has_rtl'      => false,
-			'enable'       => Script_Helper::is_enable_map( 'openstreet' ),
-			'load_on_init' => false,
-		]);
-
-		$scripts['directorist-openstreet-map-openstreet'] = array_merge( $default, [
-			'group'        => 'global',
-			'file_name'    => 'openstreet',
-			'base_path'    => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
-			'has_min'      => false,
-			'has_rtl'      => false,
-			'enable'       => Script_Helper::is_enable_map( 'openstreet' ),
-			'load_on_init' => false,
-		]);
-
-		$scripts['directorist-select2'] = array_merge( $default, [
-			'group'        => 'global',
-			'file_name'    => 'select2.min',
-			'base_path'    => DIRECTORIST_VENDOR_CSS,
-			'has_min'      => false,
-			'has_rtl'      => false,
+		$scripts['directorist-unicons'] = array_merge( $default, [
+			'group' => 'global',
+			'link'  => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
+			'ver'   => '3.0.3'
 			// 'load_on_init' => false,
 		]);
 
-		$scripts['directorist-unicons'] = array_merge( $default, [
-			'group'        => 'global',
-			'link'         => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
+		$scripts['directorist-select2'] = array_merge( $default, [
+			'group'     => 'global',
+			'file_name' => 'select2',
+			'base_path' => DIRECTORIST_VENDOR_CSS,
+			'has_unmin' => false,
+			'has_rtl'   => false,
 			// 'load_on_init' => false,
 		]);
 
 		$scripts['directorist-font-awesome'] = array_merge( $default, [
 			'group'     => 'global',
-			'file_name' => 'font-awesome.min',
-			'has_min'   => false,
+			'file_name' => 'font-awesome',
+			'has_unmin' => false,
 			'has_rtl'   => false,
 		]);
 
 		$scripts['directorist-line-awesome'] = array_merge( $default, [
 			'group'     => 'global',
-			'file_name' => 'line-awesome.min',
-			'has_min'   => false,
+			'file_name' => 'line-awesome',
+			'has_unmin' => false,
 			'has_rtl'   => false,
 		]);
 		
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = array_merge( $default, [
-			'group'     => 'public',
-			'file_name' => 'bootstrap',
-		]);
-
-		$scripts['directorist-ez-media-uploader'] = array_merge( $default, [
-			'group'     => 'public',
-			'file_name' => 'ez-media-uploader',
-			'has_min'   => false,
-		]);
-
 		$scripts['directorist-slick'] = array_merge( $default, [
 			'group'        => 'public',
 			'file_name'    => 'slick',
-			'has_min'      => false,
+			'has_unmin'    => false,
 			'has_rtl'      => false,
 			'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		]);
 
 		$scripts['directorist-sweetalert'] = array_merge( $default, [
-			'group'        => 'public',
-			'file_name'    => 'sweetalert.min',
-			'has_min'      => false,
-			'has_rtl'      => false,
+			'group'     => 'public',
+			'file_name' => 'sweetalert',
+			'has_unmin' => false,
 			// 'load_on_init' => is_singular( ATBDP_POST_TYPE ),
+		]);
+
+		$scripts['directorist-ez-media-uploader'] = array_merge( $default, [
+			'group'     => 'public',
+			'file_name' => 'ez-media-uploader',
+			'has_unmin' => false,
 		]);
 
 		$scripts = array_merge( self::$css_scripts, $scripts);
@@ -234,6 +209,15 @@ class Enqueue_Assets {
 
 		// Global
 		// ================================
+		$scripts['directorist-helpers'] = [
+			'file_name' => 'helpers',
+			'base_path' => DIRECTORIST_VENDOR_JS,
+			'deps'      => [],
+			'has_min'   => false,
+			'ver'       => '',
+			'group'     => 'global',
+		];
+
 		$scripts['directorist-no-script'] = [
 			'file_name' => 'no-script',
 			'base_path' => DIRECTORIST_VENDOR_JS,
@@ -367,7 +351,7 @@ class Enqueue_Assets {
 			'file_name'      => 'markerclusterer',
 			'base_path'      => DIRECTORIST_VENDOR_JS,
 			'deps'           => [],
-			'has_min'        => false,
+			'has_unmin'      => false,
 			'ver'            => self::$script_version,
 			'group'          => $common_asset_group,
 			'enable'         => Script_Helper::is_enable_map( 'google' ),
@@ -377,147 +361,86 @@ class Enqueue_Assets {
 
 		// Other
 		$scripts['directorist-select2'] = [
-			'file_name'      => 'select2.min',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'deps'           => [],
-			'ver'            => self::$script_version,
+			'file_name' => 'select2',
+			'base_path' => DIRECTORIST_VENDOR_JS,
+			'has_unmin' => false,
+			'deps'      => [],
+			'ver'       => self::$script_version,
+			'group'     => 'global',
 			// 'load_on_init'   => false,
-			'group'          => 'global',
 		];
 
 		$scripts['directorist-sweetalert'] = [
-			'file_name'      => 'sweetalert.min',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'deps'           => [],
-			'ver'            => self::$script_version,
-			'group'          => $common_asset_group,              // public || admin  || global
-			'section'        => '',
-			// 'load_on_init'   => false,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+			'file_name'    => 'sweetalert',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_unmin'    => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => $common_asset_group,
+			'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-tooltip'] = [
-			'file_name'      => 'tooltip',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'deps'           => [ 'directorist-popper' ],
-			'ver'            => self::$script_version,
-			'group'          => $common_asset_group,              // public || admin  || global
-			'section'        => '',
-			'load_on_init'   => true,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+			'file_name'    => 'tooltip',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_unmin'    => false,
+			'ver'          => self::$script_version,
+			'group'        => $common_asset_group,     // public || admin  || global
+			'section'      => '',
+			'load_on_init' => true,
 		];
 
 		$scripts['directorist-popper'] = [
 			'file_name'    => 'popper',
 			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_unmin'    => false,
 			'deps'         => [],
 			'ver'          => self::$script_version,
 			'group'        => $common_asset_group,     // public || admin  || global
-			'section'      => '',
 			'load_on_init' => true,
 		];
 
-		$scripts['directorist-range-slider'] = [
-			'file_name'    => 'range-slider',
-			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'deps'         => [],
-			'has_min'      => false,
-			'has_rtl'      => true,
-			'ver'          => self::$script_version,
-			'group'        => $common_asset_group,     // public || admin  || global
-			'load_on_init' => false,
-		];
-
 		$scripts['directorist-ez-media-uploader'] = [
-			'file_name'    => 'ez-media-uploader',
-			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'deps'         => [],
-			'has_min'      => false,
-			'ver'          => self::$script_version,
-			'group'        => 'public',                // public || admin  || global
+			'file_name' => 'ez-media-uploader',
+			'base_path' => DIRECTORIST_VENDOR_JS,
+			'deps'      => [],
+			'has_unmin' => false,
+			'ver'       => self::$script_version,
+			'group'     => 'public', // public || admin  || global
 			// 'load_on_init' => false,
 		];
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = [
-			'file_name'    => 'bootstrap.min',
-			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'has_min'      => false,
-			'deps'         => [],
-			'ver'          => self::$script_version,
-			'group'        => 'public',                // public || admin  || global
-			'section'      => '',
-			'load_on_init' => false,
-		];
-
-		$scripts['directorist-grid'] = [
-			'file_name'    => 'grid.min',
-			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'has_min'      => false,
-			'deps'         => [],
-			'ver'          => self::$script_version,
-			'group'        => 'public',                // public || admin  || global
-			'section'      => '',
-			'load_on_init' => false,
-		];
-
 		$scripts['directorist-jquery-barrating'] = [
-			'file_name'    => 'jquery.barrating.min',
+			'file_name'    => 'jquery.barrating',
 			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'has_min'      => false,
+			'has_unmin'    => false,
 			'deps'         => [],
 			'ver'          => self::$script_version,
-			'group'        => 'public',                 // public || admin  || global
+			'group'        => 'public',                         // public || admin  || global
 			'section'      => '',
-			'load_on_init' => true,
+			'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-slick'] = [
-			'file_name'      => 'slick.min',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'deps'           => [],
-			'ver'            => self::$script_version,
-			'group'          => 'public',                         // public || admin  || global
-			'section'        => '',
-			'load_on_init'   => true,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+			'file_name'    => 'slick',
+			'base_path'    => DIRECTORIST_VENDOR_JS,
+			'has_unmin'    => false,
+			'deps'         => [],
+			'ver'          => self::$script_version,
+			'group'        => 'public',                         // public || admin  || global
+			'section'      => '',
+			'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts['directorist-plasma-slider'] = [
-			'file_name'      => 'plasma-slider',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'ver'            => self::$script_version,
-			'group'          => 'public',
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-uikit'] = [
-			'file_name'      => 'uikit.min',
-			'base_path'      => DIRECTORIST_VENDOR_JS,
-			'has_min'        => false,
-			'deps'           => [],
-			'ver'            => self::$script_version,
-			'group'          => 'public',                         // public || admin  || global
-			'section'        => '',
-			'load_on_init'   => false,
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
-		$scripts['directorist-validator'] = [
-			'file_name'    => 'validator.min',
+			'file_name'    => 'plasma-slider',
 			'base_path'    => DIRECTORIST_VENDOR_JS,
-			'has_min'      => false,
-			'deps'         => [],
+			'has_unmin'    => false,
 			'ver'          => self::$script_version,
-			'group'        => 'public',                // public || admin  || global
-			'section'      => '',
-			'load_on_init' => false,
+			'group'        => 'public',
+			// 'load_on_init' => is_singular( ATBDP_POST_TYPE ),
 		];
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
@@ -546,14 +469,14 @@ class Enqueue_Assets {
 		]);
 
 		$scripts['directorist-inline-style'] = array_merge( $default, [
-			'file_name' => 'public-inline-style',
+			'file_name' => 'inline-style',
 			'base_path' => DIRECTORIST_ASSETS . 'other/',
 			'has_min'   => false,
 			'has_rtl'   => false,
 		]);
 
 		$scripts['directorist-settings-style'] = array_merge( $default, [
-			'file_name' => 'public-settings-style',
+			'file_name' => 'settings-style',
 			'base_path' => DIRECTORIST_ASSETS . 'other/',
 			'has_min'   => false,
 			'has_rtl'   => false,
@@ -774,6 +697,11 @@ class Enqueue_Assets {
 			'ver'       => self::$script_version,
 			'group'     => 'global',
 		];
+
+		$scripts['directorist-range-slider'] = array_merge( $default, [
+			'file_name' => 'global-range-slider',
+			// 'load_on_init'        => false,
+		]);
 
 		$scripts['directorist-add-listing'] = array_merge( $default, [
 			'file_name'      => 'global-add-listing',
@@ -1185,22 +1113,33 @@ class Enqueue_Assets {
 	 * @return $file_name
 	 */
 	public static function get_script_file_name( array $args = [] ) {
-		$default = [ 'has_min' => true, 'has_rtl' => true ];
+		$default = [ 
+			'has_min'             => true,
+			'has_unmin'           => true,
+			'has_rtl'             => true,
+			'rtl_prefix_position' => 'after_min'
+		];
 		$args    = array_merge( $default, $args );
 
-		$file_name  = ( ! empty( $args['file_name'] ) ) ? $args['file_name'] : '';
-		$has_min    = ( ! empty( $args['has_min'] ) ) ? true : false;
-		$has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
-
+		$file_name = ( ! empty( $args['file_name'] ) ) ? $args['file_name'] : '';
+		$has_unmin = ( ! empty( $args['has_unmin'] ) ) ? $args['has_unmin'] : false;
+		$has_min   = ( ! empty( $args['has_min'] ) ) ? true : false;
+		$has_rtl   = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
 		$load_min = apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES );
-		$is_rtl   =  is_rtl();
+		$is_rtl   = is_rtl();
+		$load_rtl = ( $has_rtl && $is_rtl ) ? true : false;
 
-		if ( $has_min && $load_min ) {
+
+		if ( 'before_min' === $args['rtl_prefix_position'] && $load_rtl ) {
+			$file_name = "{$file_name}.rtl";
+		}
+
+		if ( ! $args['has_unmin'] || ( $has_min && $load_min ) ) {
 			$file_name = "{$file_name}.min";
 		}
 
-		if ( $has_rtl && $is_rtl ) {
+		if ( 'after_min' === $args['rtl_prefix_position'] && $load_rtl ) {
 			$file_name = "{$file_name}.rtl";
 		}
 

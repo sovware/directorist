@@ -74,7 +74,7 @@ if ( !class_exists('BD_Search_Widget')) {
                 'ajax_url' => admin_url('admin-ajax.php'),
             ]);
             wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-            wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
+            wp_localize_script( 'directorist-helpers', 'directorist_radius_slider_config', apply_filters( 'directorist_radius_slider_config', $data['radius_slider_config'] ) );
 
             $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));
             $address_label           = get_directorist_option('address_label',__('Address','directorist'));

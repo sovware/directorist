@@ -315,7 +315,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function load_radius_search_scripts( $data ) {
-		$sliderjs = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+		$sliderjs = 'directorist-range-slider';
 		wp_enqueue_script( $sliderjs );
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
 		if ( 'kilometers' == $radius_search_unit ) {
@@ -327,12 +327,11 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $data['default_radius_distance'];
 
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
-			'miles' => $miles,
-			'slider_config' => [
-				'minValue' => $value,
-				'maxValue' => 1000,
-			]
+		wp_localize_script( 'directorist-helpers', 'directorist_radius_slider_config', apply_filters( 'directorist_radius_slider_config', [
+			'isRTL'          => is_rtl(),
+			'rangeUnitLabel' => $miles,
+			'minValue'       => $value,
+			'maxValue'       => 1000,
 		]));
 	}
 

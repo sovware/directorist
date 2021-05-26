@@ -22,10 +22,10 @@
             move = 'mousemove',
 
             div = `
-            <div class="atbd-slide1" draggable="true"></div>	
-            <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
-            <div class="atbd-child"></div>
-		`;
+                <div class="atbd-slide1" draggable="true"></div>	
+                <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
+                <div class="atbd-child"></div>
+            `;
 
         var touch = "ontouchstart" in document.documentElement;
         if (touch) {

@@ -84,9 +84,6 @@ const commonConfig = {
             loader: "sass-loader",
             options: {
               sourceMap: true,
-              sassOptions: {
-                outputStyle: 'compressed',
-              },
             },
           },
         ],

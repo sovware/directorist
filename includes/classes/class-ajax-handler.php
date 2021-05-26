@@ -277,17 +277,23 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
 
         public function ajax_callback_custom_fields() {
-
             $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
             $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : [];
             $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
             // wp_send_json($post_id);
             $template = '';
             $submission_form_fields = [];
-            if( $listing_type ){
+
+            if ( is_string( $listing_type ) && ! is_numeric( $listing_type ) ) {
+                $listing_term = get_term_by( 'slug', $listing_type, ATBDP_DIRECTORY_TYPE );
+                $listing_type = ( $listing_term ) ? $listing_term->term_id : $listing_type;
+            }
+
+            if ( $listing_type ) {
                 $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
                 $submission_form_fields = $submission_form['fields'];
-             }
+            }
+
              foreach( $submission_form_fields as $key => $value ){
                 // $value['request_from_no_admin'] = true;
                 $category = !empty( $value['category'] ) ? $value['category'] : '';

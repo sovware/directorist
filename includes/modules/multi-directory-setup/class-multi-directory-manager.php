@@ -552,7 +552,7 @@ class Multi_Directory_Manager
                             ],
                             'placeholder' => [
                                 'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
+                                'label' => __( 'Placeholder', 'directorist' ),
                                 'value' => '',
                             ],
                             'required' => [

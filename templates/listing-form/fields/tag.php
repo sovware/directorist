@@ -2,7 +2,7 @@
 /**
  * @author  AazzTech
  * @since   6.7
- * @version 7.0.4.1
+ * @version 7.0.4.2
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
@@ -12,12 +12,10 @@ $current_tag_ids = $listing_form->add_listing_tag_ids();
 <div class="directorist-form-group directorist-form-tag-field">
 	<?php $listing_form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['allow_new'] ) ? 'data-allow_new="'. $data['allow_new'] .'"' : '';  echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?>>
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" data-placeholder="<?php echo $data['placeholder']; ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['allow_new'] ) ? 'data-allow_new="'. $data['allow_new'] .'"' : '';  echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?>>
 
-		<?php
-		if ( $data['type'] != 'multiple' ) {
-			printf( '<option>%s</option>', __( 'Select Tag', 'directorist' ) );
-		}
+		<?php 
+		echo ( $data['type'] === 'single' ) ? '<option></option>' : '';
 
 		foreach ($all_tags as $tag) {
 			$current = in_array($tag->term_id, $current_tag_ids) ? true : false;

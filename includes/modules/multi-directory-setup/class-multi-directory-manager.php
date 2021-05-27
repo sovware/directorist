@@ -4113,8 +4113,8 @@ class Multi_Directory_Manager
                 'name'    => 'similar_listings_logics',
                 'label' => __( 'Similar listings logics', 'directorist' ),
                 'options' => [
-                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and location', 'directorist' ), 'value' => 'AND'],
-                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or location', 'directorist' ), 'value' => 'OR'],
+                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
+                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
                 ],
                 'value'   => 'OR',
             ],

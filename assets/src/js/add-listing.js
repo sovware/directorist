@@ -249,12 +249,13 @@ $(function () {
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categories').on('change', function () {
-    var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
+    var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
     const length = $('#at_biz_dir-categories option:selected');
     const id = [];
     length.each((el, index) => {
         id.push($(index).val());
     });
+
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('input[name="listing_id"]').val(),
@@ -263,11 +264,7 @@ $('#at_biz_dir-categories').on('change', function () {
     };
 
     $.post(localized_data.ajaxurl, data, function (response) {
-
         if (response) {
-
-
-
             $('.atbdp_category_custom_fields').empty().append(response);
             function atbdp_tooltip() {
                 var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
@@ -390,6 +387,7 @@ const qs = (function (a) {
     }
     return b;
 })(window.location.search.substr(1).split('&'));
+
 const uploaders = localized_data.media_uploader;
 let mediaUploaders = [];
 if (uploaders) {

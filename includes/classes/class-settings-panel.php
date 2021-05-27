@@ -386,22 +386,29 @@ SWBD;
 			return [ 'status' => $status ];
 		}
 
-		// maybe_json
-		public function maybe_json( $string )
-		{
-			$string_alt = $string;
-
-			if ( 'string' !== gettype( $string )  ) { return $string; }
-
-			if ( preg_match( '/\\\\+/', $string_alt ) ) {
-				$string_alt = preg_replace('/\\\\+/', '', $string_alt);
-			}
-
-			$string_alt = json_decode($string_alt, true);
-			$string     = (!is_null($string_alt)) ? $string_alt : $string;
-
-			return $string;
-		}
+        // maybe_json
+		public function maybe_json( $input_data ) {
+            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
+            
+            // Sanitize input data
+            $sanitized_data = $input_data;
+    
+            if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
+                $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
+            }
+    
+            $output_data = json_decode( $sanitized_data, true);
+            $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
+    
+            // Sanitize output data
+            if ( 'string' === gettype( $output_data ) ) {
+                $output_data = preg_replace( '/\\\\"/', '"', $output_data );
+                $output_data = preg_replace( "/\\\\'/", "'", $output_data );
+                $output_data = _sanitize_text_fields( $output_data, true );
+            }
+    
+            return $output_data;
+        }
 
 		// maybe_serialize
 		public function maybe_serialize($value = '')
@@ -2226,6 +2233,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Threshold in Views Count', 'directorist'),
                     'value' => 5,
+                ],
+                'count_loggedin_user' => [
+                    'type' => 'toggle',
+                    'label' => __('Count Logged-in User View', 'directorist'),
+                    'value' => false,
                 ],
                 'average_review_for_popular' => [
                     'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
@@ -5020,7 +5032,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user'
                                     ],
                                 ],
                                 'featured_badge' => [

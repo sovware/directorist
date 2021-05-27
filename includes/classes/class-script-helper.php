@@ -78,7 +78,7 @@ class Script_Helper {
             'directory_type'           => $directory_type,
             'directory_type_term_data' => $directory_type_term_data,
             'ajax_url'                 => admin_url( 'admin-ajax.php' ),
-            'Miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+            'miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             'default_val'              => $default_radius_distance,
             'countryRestriction'       => get_directorist_option( 'country_restriction' ),
             'restricted_countries'     => get_directorist_option( 'restricted_countries' ),

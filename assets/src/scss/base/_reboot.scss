@@ -4,6 +4,10 @@ body {
 
 a {
   text-decoration: none;
+  color: $primary;
+  &:focus {
+    outline: none;
+  }
 }
 
 .directorist-content-active {
@@ -21,14 +25,6 @@ a {
     li {
       list-style: none;
       margin: 0;
-    }
-  }
-
-  a,
-  button {
-    color: $primary;
-    &:focus {
-      outline: none;
     }
   }
 

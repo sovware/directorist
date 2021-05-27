@@ -58,10 +58,33 @@ const prodConfig = {
   },
 };
 
+const devConfig = {
+  mode: "development", // production | development
+  watch: true,
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "../css/[name].css",
+      minify: false,
+    }),
+    new WebpackRTLPlugin({
+      minify: false,
+    }),
+  ],
+
+  output: {
+    filename: "../js/[name].js",
+  },
+
+  devtool: 'source-map'
+};
+
 let configs = [];
 common.forEach(element => {
-  const _config = merge( element, prodConfig );
-  configs.push( _config );
+  const _prodConfig = merge( element, prodConfig );
+  configs.push( _prodConfig );
+  
+  const _devConfig = merge( element, devConfig );
+  configs.push( _devConfig );
 });
 
 module.exports = configs;

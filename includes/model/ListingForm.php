@@ -43,7 +43,7 @@ class Directorist_Listing_Form {
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
-	
+
 	public function get_add_listing_id() {
 		return $this->add_listing_id;
 	}
@@ -487,7 +487,7 @@ class Directorist_Listing_Form {
 		else {
 			$submit_label = get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) );
 		}
-		return $submit_label;	
+		return $submit_label;
 	}
 
 	public function submit_template() {
@@ -566,7 +566,7 @@ class Directorist_Listing_Form {
 		);
 		Helper::get_template( 'listing-form/field-description', $args );
 	}
-  
+
 	public function section_template( $section_data ) {
 		$args = array(
 			'listing_form' => $this,
@@ -586,11 +586,11 @@ class Directorist_Listing_Form {
 		if ( ! empty( $listing_id ) ) {
 
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
-	
+
 		}
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
-		
+
 		$args = array(
 			'listing_form' => $this,
 			'data'         => $field_data,
@@ -602,9 +602,9 @@ class Directorist_Listing_Form {
 		else {
 			$template = 'listing-form/fields/' . $field_data['widget_name'];
 		}
-		
+
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
-		
+
 		if ( is_admin() && empty( $field_data['request_from_no_admin'] ) ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
 			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
@@ -621,7 +621,7 @@ class Directorist_Listing_Form {
 				Helper::get_template( $template, $args );
 			}
 		}
-		
+
 	}
 
 	public function field_template( $field_data ) {
@@ -632,7 +632,7 @@ class Directorist_Listing_Form {
 
 		$listing_id = $this->get_add_listing_id();
 		$value = '';
-		
+
 		if ( ! empty( $listing_id ) ) {
 			if ( $field_data['widget_name'] == 'title' ) {
 				$value = $this->add_listing_post->post_title;
@@ -648,8 +648,8 @@ class Directorist_Listing_Form {
 				}
 			}
 		}
-		
-		
+
+
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		$field_data = apply_filters( 'directorist_form_field_data', $field_data );
@@ -676,7 +676,7 @@ class Directorist_Listing_Form {
 		else {
 			$template = 'listing-form/fields/' . $field_data['widget_name'];
 		}
-		
+
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
 
 		$args = array(
@@ -696,12 +696,12 @@ class Directorist_Listing_Form {
 			}
 		}
 		else {
-			
+
 			if ( empty( $field_data['only_for_admin'] ) ) {
 				Helper::get_template( $template, $args );
 			}
 		}
-		
+
 	}
 
 	public function is_custom_field( $data ) {
@@ -733,7 +733,7 @@ class Directorist_Listing_Form {
 					];
 					break;
 				}
-			} else {	
+			} else {
 				$listing_types[ $type->term_id ] = [
 					'term' => $type,
 					'name' => $type->name,
@@ -783,7 +783,7 @@ class Directorist_Listing_Form {
 					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
 				}
 				$form_data[] = $section;
-	
+
 			}
 		}
 		return $form_data;
@@ -807,7 +807,7 @@ class Directorist_Listing_Form {
 			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
 			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
 			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
-			'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
+			'map_icon'           => DIRECTORIST_ASSETS . 'images/map-icon.png',
 		);
 
 		return $data;
@@ -855,7 +855,7 @@ class Directorist_Listing_Form {
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
-			
+
 			return ob_get_clean();
 		} else {
 			// if no listing type exists
@@ -879,7 +879,7 @@ class Directorist_Listing_Form {
 
 				return ob_get_clean();
 			}
-			
+
 			// multiple directory available
 			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );

@@ -145,7 +145,6 @@ if (!localized_data.is_admin) {
     let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
     if (createLoc) {
         $("#at_biz_dir-location").select2({
-            placeholder: localized_data.i18n_text.location_selection,
             tags: true,
             maximumSelectionLength: maxLocationLength,
             language: {
@@ -157,7 +156,6 @@ if (!localized_data.is_admin) {
         });
     } else {
         $("#at_biz_dir-location").select2({
-            placeholder: localized_data.i18n_text.location_selection,
             allowClear: true,
             tags: false,
             maximumSelectionLength: maxLocationLength,
@@ -171,14 +169,12 @@ if (!localized_data.is_admin) {
     let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
     if (createTag) {
         $('#at_biz_dir-tags').select2({
-            placeholder: localized_data.i18n_text.tag_selection,
             tags: true,
             maximumSelectionLength: maxTagLength,
             tokenSeparators: [','],
         });
     } else {
         $('#at_biz_dir-tags').select2({
-            placeholder: localized_data.i18n_text.tag_selection,
             allowClear: true,
             maximumSelectionLength: maxTagLength,
             tokenSeparators: [','],
@@ -189,7 +185,6 @@ if (!localized_data.is_admin) {
     let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
     if (createCat) {
         $('#at_biz_dir-categories').select2({
-            placeholder: localized_data.i18n_text.cat_placeholder,
             allowClear: true,
             tags: true,
             maximumSelectionLength: maxCatLength,
@@ -197,7 +192,6 @@ if (!localized_data.is_admin) {
         });
     } else {
         $('#at_biz_dir-categories').select2({
-            placeholder: localized_data.i18n_text.cat_placeholder,
             maximumSelectionLength: maxCatLength,
             allowClear: true,
         });
@@ -255,12 +249,13 @@ $(function () {
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
 $('#at_biz_dir-categories').on('change', function () {
-    var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
+    var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
     const length = $('#at_biz_dir-categories option:selected');
     const id = [];
     length.each((el, index) => {
         id.push($(index).val());
     });
+
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('input[name="listing_id"]').val(),
@@ -269,11 +264,7 @@ $('#at_biz_dir-categories').on('change', function () {
     };
 
     $.post(localized_data.ajaxurl, data, function (response) {
-
         if (response) {
-
-
-
             $('.atbdp_category_custom_fields').empty().append(response);
             function atbdp_tooltip() {
                 var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
@@ -396,6 +387,7 @@ const qs = (function (a) {
     }
     return b;
 })(window.location.search.substr(1).split('&'));
+
 const uploaders = localized_data.media_uploader;
 let mediaUploaders = [];
 if (uploaders) {

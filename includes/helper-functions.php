@@ -7037,9 +7037,9 @@ if (!function_exists('atbdp_deactivate_reasons')) {
  */
 function atbdp_is_page($atbdppages = '')
 {
+    global $post;
 
-    global $wp_query, $post, $wp;
-    //if(!is_admin()):
+    $atbdppages = preg_replace( '/[-]/', '_', $atbdppages );
 
     switch ($atbdppages):
         case 'home':
@@ -7049,21 +7049,21 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
-        case 'search-result':
+        case 'search_result':
             if (is_page() && get_the_ID() == get_directorist_option('search_result_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_result')) {
                 return true;
             }
             break;
-        case 'add-listing':
+        case 'add_listing':
             if (is_page() && get_the_ID() == get_directorist_option('add_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_add_listing')) {
                 return true;
             }
             break;
-        case 'all-listing':
+        case 'all_listing':
             if (is_page() && get_the_ID() == get_directorist_option('all_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_listing')) {
@@ -7090,6 +7090,9 @@ function atbdp_is_page($atbdppages = '')
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_categories')) {
                 return true;
             }
+            break;
+        case 'single_listing':
+            return is_singular('at_biz_dir');
             break;
         case 'single_category':
             if (is_page() && get_the_ID() == get_directorist_option('single_category_page')) {
@@ -8060,7 +8063,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
-    $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+    $default_image_src = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
         $thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
@@ -8205,7 +8208,7 @@ function get_plasma_slider()
 
     // Get the default image
     $default_image = get_directorist_option(
-        'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
     );
 
     // Get the preview images

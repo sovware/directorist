@@ -112,7 +112,7 @@ class Directorist_Listing_Dashboard {
 			$args['s'] = $search;
 		}
 
-		$this->current_listings_query = new \WP_Query( $args );
+		$this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args ) );
 
 		return $this->current_listings_query;
 	}
@@ -262,7 +262,7 @@ class Directorist_Listing_Dashboard {
 
 				}
 				if ( empty( $listing_img[0] ) && empty( $listing_prv_img ) ) {
-					$img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+					$img_src = DIRECTORIST_ASSETS . 'images/grid.jpg';
 				}
 
 				$fav_listing_items[] = array(

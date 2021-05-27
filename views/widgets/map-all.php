@@ -18,7 +18,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
     <?php
     if('google' == $select_listing_map) {
         $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 3;
-        wp_enqueue_script('atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
+        wp_enqueue_script('atbdp-map-view', DIRECTORIST_ASSETS . 'other/map-view.js');
         $data = array(
             'plugin_url' => ATBDP_URL,
             'zoom' => !empty($map_zoom_level) ? $map_zoom_level : 3
@@ -47,7 +47,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
             }
             if (!empty($listing_img[0])) {
 
-                $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
+                $default_img = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
                 $gallery_img = atbdp_get_image_source($listing_img[0], 'medium');
 
             }
@@ -61,7 +61,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
                         <div class="media-left">
                             <a href="<?php the_permalink(); ?>">
                                 <?php
-                                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                                 if (!empty($listing_prv_img)) {
 
                                     echo '<img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.4.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<div class="directorist-form-group">
-		<input class="directorist-form-element" type="text" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+		<input class="directorist-form-element" type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 	</div>
-	
+
 </div>

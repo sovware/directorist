@@ -30,7 +30,7 @@ const atbd_slider = (selector, obj) => {
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        document.querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.Miles}`;
+        document.querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.miles}`;
 
         var x 			= null,
             count 		= 0,
@@ -89,7 +89,7 @@ const atbd_slider = (selector, obj) => {
             }
             if(slide1.classList.contains('atbd-active')){
                 slid1_val 	= Math.floor(max/ (width -19) * count);
-                document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.Miles}`;
+                document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.miles}`;
                 id.querySelector('.atbd-minimum').value = slid1_val;
                 document.querySelector('.atbdrs-value').value = slid1_val;
                 id.querySelector('.atbd-active').style.right = count +'px';
@@ -101,16 +101,20 @@ const atbd_slider = (selector, obj) => {
     });
 };
 
-function atbd_callingSlider(min = atbdp_range_slider.default_val) {
-    atbd_slider ('#atbdp-range-slider', {
+function atbd_callingSlider() {
+    var default_args = {
         maxValue: 1000,
-        minValue: min,
+        minValue: 0,
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',
         pointerColor: '#fff',
         pointerBorder: '4px solid #444752',
-    });
+    };
+
+    var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
+
+    atbd_slider ('#atbdp-range-slider', config);
 }
 
 window.addEventListener("load", function () {

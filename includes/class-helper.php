@@ -13,8 +13,7 @@ class Helper {
 	use Markup_Helper;
 
 	public static function is_legacy_mode() {
-		$legacy = get_directorist_option( 'atbdp_legacy_template', false );
-		return $legacy;
+		return false;
 	}
 
 	public static function get_directory_type_term_data( $post_id = '', string $term_key = '' ) {
@@ -23,7 +22,7 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
-	} 
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -40,7 +39,7 @@ class Helper {
 				$value = get_post_meta( $post_id, $widget['field_key'], true );
 			}
 		}
-		
+
 		if ( isset( $widget['original_data'] ) && isset( $widget['original_data']['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_' . $widget['original_data']['field_key'], true );
 
@@ -222,7 +221,7 @@ class Helper {
 			$active_items = 1;
 			$price_range_text = __( 'Cheap', 'directorist' );
 			break;
-			
+
 			default:
 			$active_items = 4;
 			$price_range_text = __( 'Skimming', 'directorist' );
@@ -358,7 +357,7 @@ class Helper {
 			$default_img = get_directorist_option( 'default_preview_image' );
 			$default_image_src = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
 		}
-		
+
 		return $default_image_src;
 	}
 
@@ -382,10 +381,43 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function get_listing_payment_status( $listing_id = '' ) {
+
+		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );
+
+		if ( empty( $order_id ) ) {
+			$order_id = self::get_listing_order_id( $listing_id );
+			update_post_meta( $listing_id, '_listing_order_id', $order_id );
+		}
+
+		$payment_status = get_post_meta( $order_id, '_payment_status', true );
+
+		return $payment_status;
+	}
+
+	// get_listing_order_id
+	public static function get_listing_order_id( $listing_id = '' ) {
+		$args = [
+			'post_type' => 'atbdp_orders',
+			'post_status' => 'publish',
+			'meta_query' => [
+				[
+					'key' => '_listing_id',
+					'value' => $listing_id,
+				]
+			]
+		];
+
+		$orders = new \WP_Query( $args );
+		$order_id = ( $orders->have_posts() ) ? $orders->post->ID : '';
+
+		return $order_id;
+	}
+
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }
-		
+
 		$value = json_encode( $data );
 		?>
 		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
@@ -395,5 +427,5 @@ class Helper {
 	public static function add_shortcode_comment( string $shortcode = '' ) {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
 	}
-	
+
 }

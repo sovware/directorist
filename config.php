@@ -1,6 +1,6 @@
 <?php
 // Plugin version.
-if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.0.4' );}
+if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.0.4.1' );}
 // Plugin Folder Path.
 if ( ! defined( 'ATBDP_DIR' ) ) { define( 'ATBDP_DIR', plugin_dir_path( __FILE__ ) ); }
 // Plugin Folder URL.
@@ -28,6 +28,7 @@ if ( ! defined( 'DIRECTORIST_DEBUG_SHORTCODE_SCRIPTS_SHOW_ALL' ) ) { define( 'DI
 
 // Public Assets Path
 if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_URL . 'assets/'); }
+if ( ! defined( 'ATBDP_PUBLIC_ASSETS') ) { define('ATBDP_PUBLIC_ASSETS', DIRECTORIST_ASSETS ); }
 if ( ! defined( 'DIRECTORIST_CSS' ) ) { define('DIRECTORIST_CSS', DIRECTORIST_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_JS' ) ) { define('DIRECTORIST_JS', DIRECTORIST_ASSETS . 'js/'); }
 
@@ -37,8 +38,6 @@ if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DI
 
 // Plugin Admin Assets Path
 if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }
-// Plugin Public Assets Path
-if ( !defined('ATBDP_PUBLIC_ASSETS') ) { define('ATBDP_PUBLIC_ASSETS', ATBDP_URL.'public/assets/'); }
 // Plugin Language File Path
 if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_basename( __FILE__ ) ) . '/languages'); }
 // Plugin Name

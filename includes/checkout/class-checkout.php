@@ -188,7 +188,7 @@ class ATBDP_Checkout
         $data['order_id']         = (!empty($order_id)) ? $order_id : '';
 
         \Directorist\Helper::add_shortcode_comment( 'directorist_payment_receipt' );
-        \Directorist\Helper::get_template( 'payment/payment-receipt', $data );
+        \Directorist\Helper::get_template( 'payment/payment-receipt', apply_filters( 'directorist_payment_receipt_data', $data, $order_id) );
 
         return ob_get_clean();
     }

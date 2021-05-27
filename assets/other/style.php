@@ -24,6 +24,12 @@ $back_success_color               = get_directorist_option('back_success_color',
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
 $border_success_color             = get_directorist_option('border_success_color', '#32cc6f');
 $border_success_hover_color       = get_directorist_option('border_success_hover_color', '#2ba251');
+$lighter_color                    = get_directorist_option('lighter_color', '#1A1B29');
+$lighter_hover_color              = get_directorist_option('lighter_hover_color', '#1A1B29');
+$back_lighter_color               = get_directorist_option('back_lighter_color', '#F6F7F9');
+$back_lighter_hover_color         = get_directorist_option('lighter_color', '#F6F7F9');
+$border_lighter_color             = get_directorist_option('border_lighter_color', '#F6F7F9');
+$border_lighter_hover_color       = get_directorist_option('border_lighter_hover_color', '#F6F7F9');
 $priout_color                     = get_directorist_option('priout_color', '#444752');
 $priout_hover_color               = get_directorist_option('priout_hover_color', '#444752');
 $back_priout_color                = get_directorist_option('back_priout_color', '#fff');
@@ -444,6 +450,40 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
         background: <?php echo !empty($back_danout_hover_color) ? $back_danout_hover_color : '#e23636'; ?> !important;
     }
 
+    /* =======================================
+     Button: Lighter
+    ======================================== */
+
+    /* color */
+    .directorist-btn.directorist-btn-lighter {
+        color: <?php echo !empty($lighter_color) ? $lighter_color : '#1A1B29'; ?> !important;
+    }
+
+    /* color hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        color: <?php echo !empty($lighter_hover_color) ? $lighter_hover_color : '#1A1B29'; ?> !important;
+    }
+
+    /* border color */
+    .directorist-btn.directorist-btn-lighter {
+        border: 1px solid <?php echo !empty($border_lighter_color) ? $border_lighter_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* border color hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        border-color: <?php echo !empty($border_lighter_hover_color) ? $border_lighter_hover_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* background */
+    .directorist-btn.directorist-btn-lighter {
+        background: <?php echo !empty($back_lighter_color) ? $back_lighter_color : '#F6F7F9'; ?> !important;
+    }
+
+    /* background hover */
+    .directorist-btn.directorist-btn-lighter:hover {
+        background: <?php echo !empty($back_lighter_hover_color) ? $back_lighter_hover_color : '#F6F7F9'; ?> !important;
+    }
+
 
     /*
         Badge Colors
@@ -504,6 +544,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
+    .directorist-author-info-widget .directorist-author-social .directorist-author-social-item a, 
+    .directorist-single-author-info .directorist-author-social .directorist-author-social-item a,
+    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a, 
+    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a, 
+    .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a,
+    .directorist-mark-as-favorite__btn.directorist-added-to-favorite,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: <?php echo !empty($primary_dark_back_color) ? $primary_dark_back_color : '#444752'; ?> !important;
@@ -514,6 +560,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
     .btn-checkbox label input:checked+span,
+    .directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
     .atbdpr-range .ui-slider-horizontal .ui-slider-handle,
     .custom-control .custom-control-input:checked~.check--select,
     .custom-control .custom-control-input:checked~.radio--select,

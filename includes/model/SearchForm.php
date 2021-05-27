@@ -260,6 +260,7 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
+
 			foreach ( $search_form_fields['fields'] as $key => $value ) {
 
 				if ( ! is_array( $value) ) {
@@ -268,7 +269,6 @@ class Directorist_Listing_Search_Form {
 
 				$search_form_fields['fields'][$key]['field_key'] = '';
 				$search_form_fields['fields'][$key]['options'] = [];
-
 
 				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
 
@@ -326,10 +326,13 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $data['default_radius_distance'];
 
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', array(
-			'Miles'       => $miles,
-			'default_val' => $value
-		));
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
+			'miles' => $miles,
+			'slider_config' => [
+				'minValue' => $value,
+				'maxValue' => 1000,
+			]
+		]));
 	}
 
 	public function get_pricing_type() {
@@ -340,7 +343,13 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
-		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+
+		if ( $this->is_custom_field( $field_data ) ) {
+			$value = !empty( $_GET['custom_field'][$key] ) ? $_GET['custom_field'][$key] : '';
+		}
+		else {
+			$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+		}
 
 		$args = array(
 			'searchform' 		=> $this,

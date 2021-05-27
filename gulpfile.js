@@ -5,6 +5,7 @@ const autoPrefixer = require('gulp-autoprefixer');
 const rtlcss = require('gulp-rtlcss');
 const rename = require('gulp-rename');
 const gulpfilter = require('gulp-filter');
+const wpPot = require('gulp-wp-pot');
 
 /* sass compiler */
 function compileSass(src, dest) {
@@ -88,4 +89,16 @@ gulp.task('rtl', function(done) {
                 .pipe(search_style.restore);
 
                 done();
+});
+
+gulp.task("make-pot", function() {
+  return gulp
+    .src("./**/*.php")
+    .pipe(
+      wpPot({
+        domain: "directorist",
+        package: "Directorist - Business Directory Plugin"
+      })
+    )
+    .pipe(gulp.dest("./languages/directorist.pot"));
 });

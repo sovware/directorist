@@ -75,7 +75,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             // default listing type
             add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
             // listing type slug edit
-            add_action('wp_ajax_directorist_listing_slug_change', array($this, 'directorist_listing_slug_change'));
+            add_action('wp_ajax_directorist_type_slug_change', array($this, 'directorist_type_slug_change'));
 
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
@@ -278,13 +278,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             wp_send_json( 'Updated Successfully!' );
         }
 
-        public function directorist_listing_slug_change() {
+        public function directorist_type_slug_change() {
             $type_id        = isset( $_POST[ 'type_id' ] ) ? sanitize_key( $_POST[ 'type_id' ] ) : '';
             $update_slug    = isset( $_POST[ 'update_slug' ] ) ? sanitize_key( $_POST[ 'update_slug' ] ) : '';
            
             $directory_slugs = [];
             $listing_types = get_terms( [
                 'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
                 ] );
             if( $listing_types ) {
                 foreach( $listing_types as $listing_type ){

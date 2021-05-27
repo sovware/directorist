@@ -28,24 +28,24 @@ const prodConfig = {
         onEnd: [
           {
             copy: [
-              { source: './admin', destination: './directorist/admin' },
-              { source: './assets', destination: './directorist/assets' },
-              { source: './languages', destination: './directorist/languages' },
-              { source: './includes', destination: './directorist/includes' },
-              { source: './templates', destination: './directorist/templates' },
-              { source: './views', destination: './directorist/views' },
-              { source: './*.php', destination: './directorist' },
-              { source: './readme.md', destination: './directorist/readme.md' },
-              { source: './readme.txt', destination: './directorist/readme.txt' },
+              { source: './admin', destination: './__build/directorist/directorist/admin' },
+              { source: './assets', destination: './__build/directorist/directorist/assets' },
+              { source: './languages', destination: './__build/directorist/directorist/languages' },
+              { source: './includes', destination: './__build/directorist/directorist/includes' },
+              { source: './templates', destination: './__build/directorist/directorist/templates' },
+              { source: './views', destination: './__build/directorist/directorist/views' },
+              { source: './*.php', destination: './__build/directorist/directorist' },
+              { source: './readme.md', destination: './__build/directorist/directorist/readme.md' },
+              { source: './readme.txt', destination: './__build/directorist/directorist/readme.txt' },
             ],
           },
           {
             archive: [
-              { source: './directorist', destination: './directorist.zip' },
+              { source: './__build/directorist', destination: './__build/directorist.zip' },
             ],
           },
           {
-            delete: ['./directorist'],
+            delete: ['./__build/directorist'],
           },
         ],
       },

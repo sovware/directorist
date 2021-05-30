@@ -1419,7 +1419,7 @@ class Directorist_Listings {
 
 				ob_start();
 
-				if (!empty($opt['display_map_info']) && (!empty($opt['display_image_map']) || !empty($opt['display_title_map']) || $opt['display_address_map']) || !empty($opt['display_direction_map'])) {
+				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
 					Helper::get_template( 'archive/fields/openstreet-map', $opt );
 				}
 

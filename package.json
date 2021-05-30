@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config webpack.dev.js",
-    "prod": "webpack --config webpack.prod.js"
+    "prod": "node pot.js && webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -56,7 +56,8 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.0.9"
+    "webpack-merge": "^5.0.9",
+    "wp-pot": "^1.9.8"
   },
   "engines": {
     "node": "14.16.0",

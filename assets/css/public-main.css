@@ -86,6 +86,10 @@ a:focus {
   word-wrap: break-word;
 }
 
+.directorist-mt-0 {
+  margin-top: 0 !important;
+}
+
 .directorist-mt-5 {
   margin-top: 5px !important;
 }
@@ -104,6 +108,10 @@ a:focus {
 
 .directorist-mt-30 {
   margin-top: 30px;
+}
+
+.directorist-mb-0 {
+  margin-bottom: 0 !important;
 }
 
 .directorist-mb-20 {
@@ -7645,6 +7653,11 @@ p.atbd-min {
 .atbd_google_map .gm-style .gm-style-iw button.gm-ui-hover-effect,
 .directorist-details-info-wrap .gm-style .gm-style-iw button.gm-ui-hover-effect {
   display: none !important;
+}
+.atbdp-map .gm-style .gm-style-iw .map-info-wrapper--show,
+.atbd_google_map .gm-style .gm-style-iw .map-info-wrapper--show,
+.directorist-details-info-wrap .gm-style .gm-style-iw .map-info-wrapper--show {
+  display: block !important;
 }
 .atbdp-map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn,
 .atbd_google_map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn,

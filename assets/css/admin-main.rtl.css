@@ -5277,6 +5277,10 @@ p.status:empty {
   word-wrap: break-word;
 }
 
+.directorist-mt-0 {
+  margin-top: 0 !important;
+}
+
 .directorist-mt-5 {
   margin-top: 5px !important;
 }
@@ -5295,6 +5299,10 @@ p.status:empty {
 
 .directorist-mt-30 {
   margin-top: 30px;
+}
+
+.directorist-mb-0 {
+  margin-bottom: 0 !important;
 }
 
 .directorist-mb-20 {

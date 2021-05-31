@@ -10,7 +10,7 @@
 
 	<?php if ( ! $map_is_disabled ) { ?>
 
-		<div class="map-info-wrapper">
+		<div class="map-info-wrapper" style="display:none;">
 
 			<?php if ( ! empty( $display_image_map ) ) { ?>
 				<div class="map-info-img">
@@ -32,7 +32,7 @@
 					}
 
 					if ( ! $disable_single_listing ) {
-						echo '</a>'; 
+						echo '</a>';
 					}
 					?>
 				</div>

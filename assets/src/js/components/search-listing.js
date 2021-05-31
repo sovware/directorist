@@ -15,24 +15,24 @@
                 }
                 var $element = $(data.element);
                 var $wrapper = $('<span></span>');
-    
+
                 $wrapper.addClass($element[0].className);
                 $wrapper.text(data.text);
-    
+
                 return $wrapper;
             }
         };
-    
+
         let select2_fields = [
             // General
             { elm: $('.select-basic'), args: select2_args },
-            
+
             // Location
             { elm: $('#at_biz_dir-location'), args: select2_args },
             { elm: $('#loc-type'), args: select2_args },
             { elm: $('.bdas-location-search'), args: select2_args },
             { elm: $('.directorist-location-select'), args: select2_args },
-    
+
             // Category
             { elm: $('#at_biz_dir-category'), args: select2_args },
             { elm: $('#cat-type'), args: select2_args },
@@ -43,7 +43,7 @@
         select2_fields.forEach( field => {
             if ( ! field.elm ) { return; }
             if ( ! field.args ) { return; }
-    
+
             convert_to_select2( field );
         });
     }
@@ -140,13 +140,13 @@
     }
 
     var dFilterBtn = $('body').find('.directorist-filter-btn');
-    
+
     var count = 0;
     $('body').on("click", '.directorist-filter-btn', function (e) {
         count++;
         e.preventDefault();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-        
+
         if (count % 2 === 0) {
             $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
                 visibility: 'hidden',

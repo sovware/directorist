@@ -673,6 +673,7 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
                 .siblings('.directorist_listing-slug__form--loader')
                 .children('.directorist_loader')
                 .remove();
+            console.log(response);
             if( response ) {
                 $('.directorist-slug-notice-' + type_id ).empty().html( response );
                 

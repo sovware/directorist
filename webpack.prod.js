@@ -5,6 +5,7 @@ const MiniCssExtractPlugin   = require("mini-css-extract-plugin");
 const WebpackRTLPlugin       = require("webpack-rtl-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FileManagerPlugin      = require('filemanager-webpack-plugin');
+const { vueEntries }         = require('./webpack-entry-list.js');
 
 const prodConfig = {
   mode: "production", // production | development
@@ -65,6 +66,7 @@ const prodConfig = {
 const devConfig = {
   mode: "development", // production | development
   watch: true,
+  entry: vueEntries,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "../css/[name].css",
@@ -74,7 +76,6 @@ const devConfig = {
       minify: false,
     }),
   ],
-
   output: {
     filename: "../js/[name].js",
   },

@@ -3,14 +3,12 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackRTLPlugin     = require("webpack-rtl-plugin");
+const { vueEntries }       = require('./webpack-entry-list.js');
 
 const devConfig = {
     mode: "development", // production | development
     watch: true,
-    entry: {
-      ['admin-multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
-      ['admin-settings-manager']: "./assets/src/js/admin/settings-manager.js",
-    },
+    entry: vueEntries,
     plugins: [
       new MiniCssExtractPlugin({
         filename: "../css/[name].css",

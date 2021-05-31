@@ -7,7 +7,13 @@ if (!class_exists('ATBDP_SEO')) :
     class ATBDP_SEO {
         public function __construct()
         {
-            if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) { return; }
+            if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) return;
+
+            add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
+            add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
+            add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
+            add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
+            add_action('wp_head', array($this, 'atbdp_add_og_meta'), 10, 2);
 
             if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
@@ -18,19 +24,12 @@ if (!class_exists('ATBDP_SEO')) :
                 //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
 
                 remove_action('wp_head', 'rel_canonical');
-
-                add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 100);
-                add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
-                add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
-                add_action('wp_head', array($this, 'atbdp_add_og_meta'), 100, 2);
-
                 /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
                 add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
             } else {
-                add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
+                add_action('wp_head', array($this, 'add_texonomy_canonical'));
+                add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
             }
-
-            add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
 
             // Rank Math Integration
             // --------------------------------------------
@@ -399,16 +398,35 @@ if (!class_exists('ATBDP_SEO')) :
             return $title;
         }
 
-        public function atbdp_texonomy_canonical()
-        {
+        // remove_duplicate_canonical
+        public function remove_duplicate_canonical() {
             global $post;
 
-            if (!isset($post)) return;
+            if ( ! isset( $post ) ) return;
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
+
+            $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
+            if ( ! in_array( $post->ID, $targeted_pages ) ) return;
+
+            remove_action('wp_head', 'rel_canonical');
+        }
+
+        public function add_texonomy_canonical()
+        {
+            global $post;
+
+            $CAT_page_ID = get_directorist_option('single_category_page');
+            $LOC_page_ID = get_directorist_option('single_location_page');
+            $Tag_page_ID = get_directorist_option('single_tag_page');
+
+            $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
+            if ( ! in_array( $post->ID, $targeted_pages ) ) return;
+
             $url = get_permalink($post->ID);
+
             // Location page
             if ($post->ID == $LOC_page_ID) {
                 if ($slug = get_query_var('atbdp_location')) {
@@ -433,6 +451,7 @@ if (!class_exists('ATBDP_SEO')) :
                     $url = ATBDP_Permalink::atbdp_get_tag_page($term);
                 }
             }
+            
             echo "<link rel='canonical' href='" . esc_url($url) . "' />\n";
         }
 
@@ -544,7 +563,8 @@ if (!class_exists('ATBDP_SEO')) :
 
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
-            $seo_meta_data       = $this->get_seo_meta_data();
+            $seo_meta_data = $this->get_seo_meta_data();
+
             $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',
@@ -601,9 +621,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             $og_metas = apply_filters( 'atbdp_og_metas', $og_metas );
 
-            if ( empty( $og_metas ) || ! is_array( $og_metas ) ) {
-                return;
-            }
+            if ( empty( $og_metas ) || ! is_array( $og_metas ) ) return;
 
             foreach ( $og_metas as $meta_key => $meta_attributes ) {
                 $props = '';
@@ -621,14 +639,13 @@ if (!class_exists('ATBDP_SEO')) :
         }
 
         // get_seo_meta_data
-        public function get_seo_meta_data()
-        {
-            global $wp, $post;
+        public function get_seo_meta_data() {
+            global $wp;
             
             $desc      = esc_html( get_the_excerpt() );
             $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
 
-            $seo_meta = [
+            $default_seo_meta = [
                 'site_name'    => get_bloginfo('name'),
                 'title'        => get_the_title(),
                 'description'  => $meta_desc,
@@ -637,162 +654,18 @@ if (!class_exists('ATBDP_SEO')) :
                 'image'        => '',
             ];
 
-            $meta_desc         = '';
-            $CAT_page_ID       = get_directorist_option('single_category_page');
-            $LOC_page_ID       = get_directorist_option('single_location_page');
-            $TAG_page_ID       = get_directorist_option('single_tag_page');
-            $home_page_id      = get_option('page_on_front');
-            $default_thumbnail = get_the_post_thumbnail_url();
-            $default_thumbnail = ! empty( $default_thumbnail ) ? $default_thumbnail : get_the_post_thumbnail_url( $home_page_id );
+            $current_page = self::get_current_page();
+            $callback = "get_{$current_page}_page_seo_meta";
+            $seo_meta = $default_seo_meta;
 
-            $seo_meta['image'] = $default_thumbnail;
-
-            if (is_singular('at_biz_dir')) {
-                $desc      = esc_html( get_the_excerpt() );
-                $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
-
-                $seo_meta['title']         = get_the_title();
-                $seo_meta['desc']          = esc_html( get_the_excerpt() );
-                $seo_meta['description']     = $meta_desc;
-                $seo_meta['image'] = get_the_post_thumbnail_url();
-                
-                if ( empty( $seo_meta['image'] ) ) {
-                    $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
-                    
-                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
-                        $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
-                        $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
-                    }
-                    
-                    $seo_meta['image'] = ( ! empty($listing_img_id) || is_string( $listing_img_id ) || is_int( $listing_img_id )) ? wp_get_attachment_url($listing_img_id) : '';
-                }
+            if ( method_exists( $this, $callback ) ) {
+                $seo_meta = call_user_func_array( [ $this, $callback ], [ $seo_meta ] );
             }
 
-            if (atbdp_is_page('home')) {
-                $seo_meta['page']      = 'home';
-                $seo_meta['title']     = (get_directorist_option('homepage_meta_title')) ? get_directorist_option('homepage_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('homepage_meta_desc')) ? get_directorist_option('homepage_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('search-result')) {
-                $seo_meta['page'] = 'search-result';
+            $title = $seo_meta['title'] . ' | ' . get_bloginfo('name');
+            $seo_meta['title'] = apply_filters( 'directorist_seo_meta_title', $title, $seo_meta['title'] );
 
-                $query = (isset($_GET['q']) && ('' !== $_GET['q'])) ? ucfirst($_GET['q']) : '';
-                $category = (isset($_GET['in_cat']) && ('' !== $_GET['in_cat'])) ? ucfirst($_GET['in_cat']) : '';
-                $location = (isset($_GET['in_loc']) && ('' !== $_GET['in_loc'])) ? ucfirst($_GET['in_loc']) : '';
-                $category =  get_term_by('id', $category, ATBDP_CATEGORY);
-                $location =  get_term_by('id', $location, ATBDP_LOCATION);
-
-
-                $in_s_string_text = !empty($query) ? sprintf(__('%s', 'directorist'), $query) : '';
-                $in_cat_text      = !empty($category) ? sprintf(__(' %s %s ', 'directorist'), !empty($query) ? 'from' : '', $category->name) : '';
-                $in_loc_text      = !empty($location) ? sprintf(__('%s %s', 'directorist'), !empty($category) ? 'in' : '', $location->name) : '';
-
-                $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
-                if ('searched_value' === $how_to) {
-                    if (!empty($query) || !empty($category) || !empty($location)) {
-                        $seo_meta['title'] = $in_s_string_text . $in_cat_text . $in_loc_text;
-                    }
-                } else {
-                    $seo_meta['title'] = (get_directorist_option('search_result_meta_title')) ? get_directorist_option('search_result_meta_title') : $seo_meta['title'];
-                }
-
-                $seo_meta['description'] = (get_directorist_option('search_result_meta_desc')) ? get_directorist_option('search_result_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('add-listing')) {
-                $seo_meta['page'] = 'add-listing';
-                $seo_meta['title'] = (get_directorist_option('add_listing_page_meta_title')) ? get_directorist_option('add_listing_page_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('add_listing_page_meta_desc')) ? get_directorist_option('add_listing_page_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('all-listing')) {
-                $seo_meta['page'] = 'all-listing';
-                $seo_meta['title'] = (get_directorist_option('all_listing_meta_title')) ? get_directorist_option('all_listing_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('all_listing_meta_desc')) ? get_directorist_option('all_listing_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('dashboard')) {
-                $seo_meta['page'] = 'dashboard';
-                $seo_meta['title'] = (get_directorist_option('dashboard_meta_title')) ? get_directorist_option('dashboard_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('dashboard_meta_desc')) ? get_directorist_option('dashboard_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('author')) {
-                $seo_meta['page'] = 'author';
-                $seo_meta['title'] = (get_directorist_option('author_profile_meta_title')) ? get_directorist_option('author_profile_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('author_page_meta_desc')) ? get_directorist_option('author_page_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('category')) {
-                $seo_meta['page'] = 'category';
-                $seo_meta['title'] = (get_directorist_option('category_meta_title')) ? get_directorist_option('category_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('category_meta_desc')) ? get_directorist_option('category_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('single_category')) {
-                $seo_meta['page'] = 'single_category';
-                $slug = get_query_var('atbdp_category');
-                $term = get_term_by('slug', $slug, ATBDP_CATEGORY);
-                $seo_meta['title'] = (get_directorist_option('single_category_meta_title')) ? get_directorist_option('single_category_meta_title') : (!empty($term) ? $term->name : $seo_meta['title']);
-                $seo_meta['description'] = (get_directorist_option('single_category_meta_desc')) ? get_directorist_option('single_category_meta_desc') : $seo_meta['description'];
-                
-                // show term description as meta description first
-                if ( $post->ID == $CAT_page_ID && $slug && ! empty( $term ) ) {
-                    $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
-                    $thumb_id = get_term_meta( $term->term_id, 'image', true );
-                    $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
-                }
-
-                if ( atbdp_yoast_is_active() ) {
-                    $seo_meta = $this->sync_with_yoast_seo_meta([
-                        'url'      => get_term_link( $slug, ATBDP_CATEGORY ),
-                        'seo_meta' => $seo_meta,
-                    ]);
-                }
-
-            } elseif (atbdp_is_page('all_locations')) {
-                $seo_meta['page'] = 'all_locations';
-                $seo_meta['title'] = (get_directorist_option('all_locations_meta_title')) ? get_directorist_option('all_locations_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('all_locations_meta_desc')) ? get_directorist_option('all_locations_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('single_location')) {
-                $atbdp_page = 'single_location';
-                $slug = get_query_var('atbdp_location');
-                $term = get_term_by('slug', $slug, ATBDP_LOCATION);
-                $seo_meta['title'] = (get_directorist_option('single_locations_meta_title')) ? get_directorist_option('single_locations_meta_title') : (!empty($term) ? $term->name : $seo_meta['title']);
-                $seo_meta['description'] = (get_directorist_option('single_locations_meta_desc')) ? get_directorist_option('single_locations_meta_desc') : $seo_meta['description'];
-                
-                // show term description as meta description first
-                if ($post->ID == $LOC_page_ID && $slug && ! empty( $term )) {
-                    $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
-                    $thumb_id = get_term_meta( $term->term_id, 'image', true );
-                    $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
-                }
-
-                if ( atbdp_yoast_is_active() ) {
-                    $seo_meta = $this->sync_with_yoast_seo_meta([
-                        'url'      => get_term_link( $slug, ATBDP_LOCATION ),
-                        'seo_meta' => $seo_meta,
-                    ]);
-                }
-
-            } elseif (atbdp_is_page('single_tag')) {
-                $seo_meta['page'] = 'single_tag';
-                $slug = get_query_var('atbdp_tag');
-                $term = get_term_by('slug', $slug, ATBDP_TAGS);
-                $seo_meta['title'] = !empty($term) ? $term->name : '';
-
-                // show term description as meta description first
-                if ($post->ID == $TAG_page_ID && $slug && ! empty( $term )) {
-                    $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
-                    $thumb_id = get_term_meta( $term->term_id, 'image', true );
-                    $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
-                }
-
-                if ( atbdp_yoast_is_active() ) {
-                    $seo_meta = $this->sync_with_yoast_seo_meta([
-                        'url'      => get_term_link( $slug, ATBDP_TAGS ),
-                        'seo_meta' => $seo_meta,
-                    ]);
-                }
-                
-            } elseif (atbdp_is_page('registration')) {
-                $seo_meta['page'] = 'registration';
-                $seo_meta['title'] = (get_directorist_option('registration_meta_title')) ? get_directorist_option('registration_meta_title') : $seo_meta['title'] ;
-                $seo_meta['description'] = (get_directorist_option('registration_meta_desc')) ? get_directorist_option('registration_meta_desc') : $seo_meta['description'];
-            } elseif (atbdp_is_page('login')) {
-                $seo_meta['page'] = 'login';
-                $seo_meta['title'] = (get_directorist_option('login_meta_title')) ? get_directorist_option('login_meta_title') : $seo_meta['title'];
-                $seo_meta['description'] = (get_directorist_option('login_meta_desc')) ? get_directorist_option('login_meta_desc') : $seo_meta['description'];
-            }
-
-            if ( $seo_meta['description'] ) {
+            if ( ! empty( $seo_meta['description'] ) ) {
                 $seo_meta['description'] = stripslashes_deep( $seo_meta['description'] );
                 /**
                  * Filter page description to replace variables.
@@ -806,6 +679,376 @@ if (!class_exists('ATBDP_SEO')) :
             }
             
             return $seo_meta;
+        }
+
+        // get_home_page_seo_meta
+        public function get_home_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'home';
+
+            // Title
+            $settings_title = get_directorist_option('homepage_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('homepage_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_search_result_page_seo_meta
+        public function get_search_result_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'search-result';
+
+            // Title
+            $settings_title = get_directorist_option('search_result_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( $_GET['q'] ) : '';
+            $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( $_GET['in_cat'] ) : '';
+            $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( $_GET['in_loc'] ) : '';
+            
+            $category = get_term_by( 'id', $category, ATBDP_CATEGORY );
+            $location = get_term_by( 'id', $location, ATBDP_LOCATION );
+
+            $in_s_string_text = ! empty($query) ? sprintf(__( '%s', 'directorist' ), $query ) : '';
+            $in_cat_text      = ! empty($category) ? sprintf(__( ' %s %s ', 'directorist' ), ! empty( $query ) ? 'from' : '', $category->name ) : '';
+            $in_loc_text      = ! empty($location) ? sprintf(__( '%s %s', 'directorist' ), ! empty( $category ) ? 'in' : '', $location->name ) : '';
+
+            $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
+            
+            if ( 'searched_value' === $how_to ) {
+                if ( ! empty( $query ) || ! empty( $category ) || ! empty( $location ) ) {
+                    $seo_meta['title'] = $in_s_string_text . $in_cat_text . $in_loc_text;
+                }
+            }
+
+            // Description
+            $settings_description = get_directorist_option('search_result_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_add_listing_page_seo_meta
+        public function get_add_listing_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'add-listing';
+
+            // Title
+            $settings_title = get_directorist_option('add_listing_page_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('all_listing_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_all_listing_page_seo_meta
+        public function get_all_listing_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'all-listing';
+
+            // Title
+            $settings_title = get_directorist_option('all_listing_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('all_listing_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_dashboard_page_seo_meta
+        public function get_dashboard_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'dashboard';
+
+            // Title
+            $settings_title = get_directorist_option('dashboard_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('dashboard_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_author_page_seo_meta
+        public function get_author_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'author';
+
+            // Title
+            $settings_title = get_directorist_option('author_profile_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('author_page_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_category_page_seo_meta
+        public function get_category_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'category';
+
+            // Title
+            $settings_title = get_directorist_option('category_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('category_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_all_locations_page_seo_meta
+        public function get_all_locations_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'all_locations';
+
+            // Title
+            $settings_title = get_directorist_option('all_locations_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('all_locations_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_single_listing_page_seo_meta
+        public function get_single_listing_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'all_locations';
+
+            $desc      = esc_html( get_the_excerpt() );
+            $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
+
+            $seo_meta['title']       = get_the_title();
+            $seo_meta['description'] = $meta_desc;
+            $seo_meta['image']       = get_the_post_thumbnail_url();
+            
+            if ( empty( $seo_meta['image'] ) ) {
+                $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
+                
+                if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
+                    $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
+                    $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
+                }
+                
+                $seo_meta['image'] = ( ! empty($listing_img_id) || is_string( $listing_img_id ) || is_int( $listing_img_id )) ? wp_get_attachment_url($listing_img_id) : '';
+            }
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_single_category_page_seo_meta
+        public function get_single_category_page_seo_meta( $default_seo_meta = [] ) {
+            global $post;
+
+            $seo_meta = [];
+            $seo_meta['page'] = 'single_category';
+
+            $slug = get_query_var('atbdp_category');
+            $term = get_term_by('slug', $slug, ATBDP_CATEGORY);
+
+            // Title
+            $settings_title = get_directorist_option('single_category_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+            if ( ! empty( $term ) ) $seo_meta['title'] = $term->name;
+
+            // Description
+            $settings_description = get_directorist_option('single_category_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+            
+            $CAT_page_ID = get_directorist_option('single_category_page');
+
+            // show term description as meta description first
+            if ( $post->ID == $CAT_page_ID && $slug && ! empty( $term ) ) {
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
+                $thumb_id = get_term_meta( $term->term_id, 'image', true );
+                $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
+            }
+
+            if ( atbdp_yoast_is_active() ) {
+                $seo_meta = $this->sync_with_yoast_seo_meta([
+                    'url'      => get_term_link( $slug, ATBDP_CATEGORY ),
+                    'seo_meta' => $seo_meta,
+                ]);
+            }
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_single_location_page_seo_meta
+        public function get_single_location_page_seo_meta( $default_seo_meta = [] ) {
+            global $post;
+
+            $seo_meta = [];
+            $seo_meta['page'] = 'single_location';
+
+            $slug = get_query_var('atbdp_location');
+            $term = get_term_by('slug', $slug, ATBDP_LOCATION);
+
+            // Title
+            $settings_title = get_directorist_option('single_locations_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+            if ( ! empty( $term ) ) $seo_meta['title'] = $term->name;
+
+            // Description
+            $settings_description = get_directorist_option('single_locations_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+            
+            $LOC_page_ID = get_directorist_option('single_location_page');
+
+            // show term description as meta description first
+            if ( $post->ID == $LOC_page_ID && $slug && ! empty( $term ) ) {
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
+                $thumb_id = get_term_meta( $term->term_id, 'image', true );
+                $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
+            }
+
+            if ( atbdp_yoast_is_active() ) {
+                $seo_meta = $this->sync_with_yoast_seo_meta([
+                    'url'      => get_term_link( $slug, ATBDP_LOCATION ),
+                    'seo_meta' => $seo_meta,
+                ]);
+            }
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_single_tag_page_seo_meta
+        public function get_single_tag_page_seo_meta( $default_seo_meta = [] ) {
+            global $post;
+
+            $seo_meta = [];
+            $seo_meta['page'] = 'single_tag';
+
+            $slug = get_query_var('atbdp_tag');
+            $term = get_term_by('slug', $slug, ATBDP_TAGS);
+            $seo_meta['title'] = !empty($term) ? $term->name : '';
+
+            $TAG_page_ID = get_directorist_option('single_tag_page');
+
+            // show term description as meta description first
+            if ( $post->ID == $TAG_page_ID && $slug && ! empty( $term ) ) {
+                if ( ! empty( $term->description ) ) $seo_meta['description'] = $term->description;
+                $thumb_id = get_term_meta( $term->term_id, 'image', true );
+                $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
+            }
+
+            if ( atbdp_yoast_is_active() ) {
+                $seo_meta = $this->sync_with_yoast_seo_meta([
+                    'url'      => get_term_link( $slug, ATBDP_TAGS ),
+                    'seo_meta' => $seo_meta,
+                ]);
+            }
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_registration_page_seo_meta
+        public function get_registration_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'all_locations';
+
+            // Title
+            $settings_title = get_directorist_option('registration_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('registration_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        // get_login_page_seo_meta
+        public function get_login_page_seo_meta( $default_seo_meta = [] ) {
+            $seo_meta = [];
+            $seo_meta['page'] = 'login';
+
+            // Title
+            $settings_title = get_directorist_option('login_meta_title');
+            if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
+
+            // Description
+            $settings_description = get_directorist_option('login_meta_desc');
+            if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
+
+            $seo_meta = ( is_array( $default_seo_meta ) ) ? array_merge( $default_seo_meta, $seo_meta ) : $seo_meta;
+
+            return $seo_meta;
+        }
+
+        public static function get_current_page() {
+            $all_directorist_pages = [
+                'home',
+                'search_result',
+                'add_listing',
+                'all_listing',
+                'dashboard',
+                'author',
+                'category',
+                'single_category',
+                'all_locations',
+                'single_listing',
+                'single_location',
+                'single_tag',
+                'login',
+                'registration',
+            ];
+
+            $current_page = '';
+
+            foreach( $all_directorist_pages as $page_name ) { 
+
+                if ( ! atbdp_is_page( $page_name ) ) continue;
+                $current_page = $page_name;
+                
+                break;
+            }
+
+            return $current_page;
         }
 
         // sync_with_yoast_seo_meta

@@ -35,9 +35,10 @@ const prodConfig = {
               { source: './templates', destination: './__build/directorist/directorist/templates' },
               { source: './views', destination: './__build/directorist/directorist/views' },
               { source: './*.php', destination: './__build/directorist/directorist' },
-              { source: './readme.md', destination: './__build/directorist/directorist/readme.md' },
-              { source: './readme.txt', destination: './__build/directorist/directorist/readme.txt' },
             ],
+          },
+          {
+            delete: ['./__build/directorist/directorist/assets/src'],
           },
           {
             archive: [

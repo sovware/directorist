@@ -1582,6 +1582,14 @@ body.stop-scrolling {
   margin-bottom: 10px;
 }
 
+.directorist-form-privacy,
+.directorist-form-terms {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 /* =============================
     backend add listing form
 ================================*/

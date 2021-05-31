@@ -6,6 +6,10 @@ body {
 
 a {
   text-decoration: none;
+  color: #444752;
+}
+a:focus {
+  outline: none;
 }
 
 .directorist-content-active article {
@@ -21,14 +25,6 @@ a {
 .directorist-content-active ul li {
   list-style: none;
   margin: 0;
-}
-.directorist-content-active a,
-.directorist-content-active button {
-  color: #444752;
-}
-.directorist-content-active a:focus,
-.directorist-content-active button:focus {
-  outline: none;
 }
 .directorist-content-active .entry-content h1,
 .directorist-content-active .entry-content h2,

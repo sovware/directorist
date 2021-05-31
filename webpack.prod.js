@@ -9,7 +9,10 @@ const FileManagerPlugin      = require('filemanager-webpack-plugin');
 const prodConfig = {
   mode: "production", // production | development
   watch: false,
-  
+  entry: {
+    ['admin-multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
+    ['admin-settings-manager']: "./assets/src/js/admin/settings-manager.js",
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "../css/[name].min.css",

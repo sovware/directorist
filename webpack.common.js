@@ -125,8 +125,6 @@ const MainConfig = {
     ['admin-plugins']: "./assets/src/js/admin/plugins.js",
     ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
     ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
-    ['admin-multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
-    ['admin-settings-manager']: "./assets/src/js/admin/settings-manager.js",
 
     // CSS
     ['admin-drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",

@@ -37,7 +37,6 @@ const prodConfig = {
               { source: './*.php', destination: './__build/directorist/directorist' },
               { source: './readme.md', destination: './__build/directorist/directorist/readme.md' },
               { source: './readme.txt', destination: './__build/directorist/directorist/readme.txt' },
-              { source: './pot.js', destination: './__build/directorist/directorist/pot.js' },
             ],
           },
           {
@@ -82,6 +81,7 @@ const devConfig = {
 let configs = [];
 common.forEach(element => {
   const _devConfig = merge( element, devConfig );
+  _devConfig.watch = false;
   configs.push( _devConfig );
 
   const _prodConfig = merge( element, prodConfig );

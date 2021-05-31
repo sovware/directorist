@@ -81,11 +81,11 @@ const devConfig = {
 
 let configs = [];
 common.forEach(element => {
-  const _prodConfig = merge( element, prodConfig );
-  configs.push( _prodConfig );
-  
   const _devConfig = merge( element, devConfig );
   configs.push( _devConfig );
+
+  const _prodConfig = merge( element, prodConfig );
+  configs.push( _prodConfig );
 });
 
 module.exports = configs;

@@ -651,7 +651,7 @@ $('body').on('click', '.submitdefault', function (e) {
 
 // edit directory type slug
 $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
-    e.preventDefault();
+    // e.preventDefault();
     var type_id = $(this).data('type-id');
         update_slug = $('.directorist-type-slug-' + type_id ).val();
     const addSlug = $(this);
@@ -675,9 +675,23 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
                 .remove();
             if( response ) {
                 $('.directorist-slug-notice-' + type_id ).empty().html( response );
+                
+                setTimeout(function(){ 
+                    addSlug
+                        .closest('.directorist-listing-slug__form')
+                        .css({"display": "none"})
+                        $('.directorist-slug-notice-' + type_id ).html("");
+                }, 1500);
             }
         },
     });
+});
+
+// Hide Slug Form outside click
+$(document).bind('click', function(e) {
+    let clickedDom = $(e.target);
+    if(!clickedDom.parents().hasClass('directorist-listing-slug-edit-wrap'))
+    $('.directorist-listing-slug__form').slideUp();
 });
 
 function assetsNeedToWorkInVirtualDom() {

@@ -245,7 +245,7 @@ MarkerLabel.prototype.draw = function () {
             bounds.extend(latlng);
         });
 
-        // only 1 marker??
+        // only 1 marker?
         /* if (map.markers.length !== 1) {
             // set center of map
             map.setCenter(bounds.getCenter());

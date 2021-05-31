@@ -43,6 +43,7 @@
                 }
 
                 $('.directorist-search-form-box').removeClass('atbdp-form-fade');
+                atbd_callingSlider();
             },
             error(error) {
                 console.log(error);

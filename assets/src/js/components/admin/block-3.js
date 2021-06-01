@@ -674,7 +674,11 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
                 .children('.directorist_loader')
                 .remove();
             if( response ) {
-                $('.directorist-slug-notice-' + type_id ).empty().html( response );
+                if( response.error) {
+                    $('.directorist-slug-notice-' + type_id ).empty().html( response.error );
+                } else {
+                    $('.directorist-slug-notice-' + type_id ).empty().html( response.success );
+                }
                 
                 setTimeout(function(){ 
                     addSlug

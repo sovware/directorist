@@ -294,11 +294,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             }
 
             if( in_array( $update_slug, $directory_slugs ) ) {
-                wp_send_json( __('This slug already in use.', 'directorist') );
+                wp_send_json( array(
+                    'error' => __('This slug already in use.', 'directorist')
+                ) );
             } else {
                 $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );
                 if( $update_type_slug ) {
-                    wp_send_json( __('Slug Changes Successfully.', 'directorist') );
+                    wp_send_json( array(
+                        'success' => __('Slug Changes Successfully.', 'directorist')
+                    ) );
                 }
             }
         }

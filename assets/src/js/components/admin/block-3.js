@@ -651,7 +651,7 @@ $('body').on('click', '.submitdefault', function (e) {
 
 // edit directory type slug
 $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
-    // e.preventDefault();
+    e.preventDefault();
     var type_id = $(this).data('type-id');
         update_slug = $('.directorist-type-slug-' + type_id ).val();
     const addSlug = $(this);
@@ -675,17 +675,24 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
                 .remove();
             if( response ) {
                 if( response.error) {
+                    
+                    $('.directorist-slug-notice-' + type_id ).removeClass('directorist-slug-notice-success');
+                    $('.directorist-slug-notice-' + type_id ).addClass('directorist-slug-notice-error');
                     $('.directorist-slug-notice-' + type_id ).empty().html( response.error );
+                    setTimeout(function(){ 
+                        $('.directorist-slug-notice-' + type_id ).empty().html( "" );
+                    }, 3000);
                 } else {
                     $('.directorist-slug-notice-' + type_id ).empty().html( response.success );
+                    $('.directorist-slug-notice-' + type_id ).removeClass('directorist-slug-notice-error');
+                    $('.directorist-slug-notice-' + type_id ).addClass('directorist-slug-notice-success');
+                    setTimeout(function(){ 
+                        addSlug
+                            .closest('.directorist-listing-slug__form')
+                            .css({"display": "none"})
+                            $('.directorist-slug-notice-' + type_id ).html("");
+                    }, 1500);
                 }
-                
-                setTimeout(function(){ 
-                    addSlug
-                        .closest('.directorist-listing-slug__form')
-                        .css({"display": "none"})
-                        $('.directorist-slug-notice-' + type_id ).html("");
-                }, 1500);
             }
         },
     });

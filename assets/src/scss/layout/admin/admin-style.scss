@@ -4706,6 +4706,12 @@ input.atbdp-form-control {
   }
   .directorist-slug-notice {
     margin: 6px 0 0;
+    &.directorist-slug-notice-error{
+      color: $danger;
+    }
+    &.directorist-slug-notice-success{
+      color: $success;
+    }
   }
 }
 

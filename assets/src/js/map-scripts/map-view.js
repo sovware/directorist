@@ -246,13 +246,18 @@ MarkerLabel.prototype.draw = function () {
         });
 
         // only 1 marker?
-        if (map.markers.length !== 1) {
+        /* if (map.markers.length !== 1) {
             // set center of map
             map.setCenter(bounds.getCenter());
             map.setZoom(parseInt(atbdp_map.zoom));
         } else {
             // fit to bounds
             map.fitBounds(bounds);
+        } */
+        if (map.markers.length > 0) {
+            // set center of map
+            map.setCenter(bounds.getCenter());
+            map.setZoom(parseInt(atbdp_map.zoom));
         }
     }
 
@@ -299,5 +304,8 @@ MarkerLabel.prototype.draw = function () {
     window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
     window.addEventListener( 'directorist-reload-listings-map-archive', setup_info_window );
 
+    $(document).ready(function(){
+        $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
+    });
 
 })(jQuery);

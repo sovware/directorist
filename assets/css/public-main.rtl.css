@@ -193,6 +193,10 @@ a:focus {
           justify-content: flex-end;
 }
 
+.directorist-display-none {
+  display: none;
+}
+
 .directorist-error .directorist-error__msg {
   color: #EF0000;
   font-size: 14px;

@@ -193,9 +193,9 @@
           $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
       }
       $(abc2).slice(4, abc2.length).hide();
-   });
+  });
   
-  $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+      $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
 
 
   $(window).on('load', function () {

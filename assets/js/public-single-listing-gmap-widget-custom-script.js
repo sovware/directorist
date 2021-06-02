@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/google-map-widget.js":
-/*!***********************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/google-map-widget.js ***!
-  \***********************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/google-map-widget.js":
+/*!******************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -261,13 +261,13 @@
 /***/ }),
 
 /***/ 7:
-/*!*****************************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/google-map-widget.js ***!
-  \*****************************************************************************/
+/*!************************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/google-map-widget.js */"./assets/src/js/map-scripts/single-listing/google-map-widget.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js */"./assets/src/js/global/map-scripts/single-listing/google-map-widget.js");
 
 
 /***/ })

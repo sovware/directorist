@@ -95,7 +95,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_setup_wizard_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/layout/admin/setup-wizard.scss */ "./assets/src/scss/layout/admin/setup-wizard.scss");
+/* harmony import */ var _scss_layout_admin_setup_wizard_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/setup-wizard.scss */ "./assets/src/scss/layout/admin/setup-wizard.scss");
 /* harmony import */ var _scss_layout_admin_setup_wizard_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_setup_wizard_scss__WEBPACK_IMPORTED_MODULE_0__);
 
 /* eslint-disable */

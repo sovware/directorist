@@ -1,4 +1,4 @@
-import '../../scss/layout/admin/admin-style.scss';
+import './../../scss/layout/admin/admin-style.scss'
 
 // Blocks
 import './components/block-1';

@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js":
-/*!***************************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js ***!
-  \***************************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js":
+/*!**********************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -147,13 +147,13 @@
 /***/ }),
 
 /***/ 5:
-/*!*********************************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js ***!
-  \*********************************************************************************/
+/*!****************************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js */"./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js */"./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
 
 
 /***/ })

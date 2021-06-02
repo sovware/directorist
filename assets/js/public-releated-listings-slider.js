@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/components/releated-listings-slider.js":
-/*!**************************************************************!*\
-  !*** ./assets/src/js/components/releated-listings-slider.js ***!
-  \**************************************************************/
+/***/ "./assets/src/js/public/releated-listings-slider.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/public/releated-listings-slider.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -131,13 +131,13 @@ jQuery(document).ready(function ($) {
 /***/ }),
 
 /***/ 9:
-/*!********************************************************************!*\
-  !*** multi ./assets/src/js/components/releated-listings-slider.js ***!
-  \********************************************************************/
+/*!****************************************************************!*\
+  !*** multi ./assets/src/js/public/releated-listings-slider.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/components/releated-listings-slider.js */"./assets/src/js/components/releated-listings-slider.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/releated-listings-slider.js */"./assets/src/js/public/releated-listings-slider.js");
 
 
 /***/ })

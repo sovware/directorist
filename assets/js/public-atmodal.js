@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/modules/atmodal.js":
-/*!******************************************!*\
-  !*** ./assets/src/js/modules/atmodal.js ***!
-  \******************************************/
+/***/ "./assets/src/js/public/atmodal.js":
+/*!*****************************************!*\
+  !*** ./assets/src/js/public/atmodal.js ***!
+  \*****************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -171,13 +171,13 @@ window.addEventListener('load', function () {
 /***/ }),
 
 /***/ 8:
-/*!************************************************!*\
-  !*** multi ./assets/src/js/modules/atmodal.js ***!
-  \************************************************/
+/*!***********************************************!*\
+  !*** multi ./assets/src/js/public/atmodal.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/modules/atmodal.js */"./assets/src/js/modules/atmodal.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/atmodal.js */"./assets/src/js/public/atmodal.js");
 
 
 /***/ })

@@ -4538,6 +4538,7 @@ input.atbdp-form-control {
   text-overflow: ellipsis;
   max-width: 120px;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .directorist-listing-slug-edit-wrap {

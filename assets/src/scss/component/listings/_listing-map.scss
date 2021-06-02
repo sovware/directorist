@@ -314,6 +314,9 @@
         }
 
         .map-info-wrapper {
+            @include m(show){
+                display: block !important;
+            }
             .iw-close-btn {
                 position: absolute;
                 width: 25px;

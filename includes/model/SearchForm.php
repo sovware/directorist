@@ -343,7 +343,14 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
-
+		$submission_form_fields = get_term_meta( 2, 'submission_form_fields', true );
+		$assign_to_cat = array();
+		foreach( $submission_form_fields['fields'] as $field ) {
+			if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' ) {
+				$assign_to_cat[] = $field['field_key'];
+			}
+		}
+		
 		if ( $this->is_custom_field( $field_data ) ) {
 			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';
 		}
@@ -357,7 +364,7 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 
-		if ( $this->is_custom_field( $field_data ) ) {
+		if ( $this->is_custom_field( $field_data ) && ! in_array( $field_data['field_key'], $assign_to_cat ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 		}
 		else {

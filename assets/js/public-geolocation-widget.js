@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/geolocation-widget.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/map-scripts/geolocation-widget.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/global/map-scripts/geolocation-widget.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/geolocation-widget.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -277,14 +277,14 @@
 
 /***/ }),
 
-/***/ 10:
-/*!***************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/geolocation-widget.js ***!
-  \***************************************************************/
+/***/ 15:
+/*!**********************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/geolocation-widget.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/geolocation-widget.js */"./assets/src/js/map-scripts/geolocation-widget.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/geolocation-widget.js */"./assets/src/js/global/map-scripts/geolocation-widget.js");
 
 
 /***/ })

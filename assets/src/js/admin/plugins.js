@@ -1,4 +1,4 @@
-import '../../scss/layout/admin/plugins.scss';
+import './../../scss/layout/admin/plugins.scss';
 
 jQuery(document).ready(function($) {
         const update = $( '#directorist-update' );

@@ -1016,19 +1016,19 @@ class Enqueue_Assets {
 	 * @return void
 	 */
 	public static function add_global_css_scripts() {
-		// $scripts = [];
+		$scripts = [];
 
-		// $scripts['directorist-admin-style'] = [
-		//     'file_name' => 'admin-style',
-		//     'base_path' => DIRECTORIST_CSS,
-		//     'deps'      => [],
-		//     'ver'       => self::$script_version,
-		//     'group'     => 'global',
-		//     'section'   => '',
-		// ];
+		$scripts['directorist-admin-setup-wizard'] = [
+			'file_name' => 'admin-setup-wizard',
+			'base_path' => DIRECTORIST_CSS,
+			'deps'      => [],
+			'ver'       => self::$script_version,
+			'group'     => 'global',
+			'section'   => '__',
+		];
 
-		// $scripts = array_merge( self::$css_scripts, $scripts);
-		// self::$css_scripts = $scripts;
+		$scripts = array_merge( self::$css_scripts, $scripts);
+		self::$css_scripts = $scripts;
 	}
 
 	/**
@@ -1058,6 +1058,14 @@ class Enqueue_Assets {
 			'group'     => $common_asset_group,
 			'section'   => '__',
 			'enable'    => Script_Helper::is_enable_map( 'google' )
+		];
+		
+		$scripts['directorist-admin-setup-wizard'] = [
+			'file_name' => 'admin-setup-wizard',
+			'base_path' => DIRECTORIST_JS,
+			'ver'       => self::$script_version,
+			'group'     => 'global',
+			'section'   => '__',
 		];
 
 		$scripts = array_merge( self::$js_scripts, $scripts);

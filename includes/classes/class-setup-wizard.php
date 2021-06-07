@@ -264,12 +264,14 @@ class SetupWizard
 
     public function enqueue_scripts()
     {
-        wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
         wp_enqueue_style('atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', ATBDP_VERSION, true);
-        wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
         wp_register_script('directorist-select2', DIRECTORIST_VENDOR_JS . 'select2.min.js', array('jquery'), ATBDP_VERSION, true);
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
+
+        wp_enqueue_style('directorist-admin-setup-wizard');
+        wp_enqueue_script('directorist-admin-setup-wizard');
+
         $data = array(
             'ajaxurl'        => admin_url('admin-ajax.php'),
         );

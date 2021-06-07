@@ -269,10 +269,13 @@ class SetupWizard
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
 
-        wp_enqueue_style('directorist-admin-setup-wizard');
-        wp_enqueue_script('directorist-admin-setup-wizard');
+        wp_register_style('directorist-admin-setup-wizard-style', DIRECTORIST_CSS . 'admin-setup-wizard.css', ATBDP_VERSION, true);
+        wp_register_script('directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
 
-        wp_localize_script('directorist-admin-setup-wizard', 'import_export_data', [ 'ajaxurl' => admin_url('admin-ajax.php') ] );
+        wp_enqueue_style('directorist-admin-setup-wizard-style');
+        wp_enqueue_script('directorist-admin-setup-wizard-script');
+
+        wp_localize_script('directorist-admin-setup-wizard-script', 'import_export_data', [ 'ajaxurl' => admin_url('admin-ajax.php') ] );
     }
 
     /**
@@ -784,7 +787,7 @@ class SetupWizard
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php esc_html_e('Directorist &rsaquo; Setup Wizard', 'directorist'); ?></title>
-            <?php wp_print_scripts('directorist-setup'); ?>
+            <?php wp_print_scripts('directorist-admin-setup-wizard-script'); ?>
             <?php wp_print_scripts('directorist-select2'); ?>
             <?php do_action('admin_print_styles'); ?>
             <?php do_action('admin_head'); ?>

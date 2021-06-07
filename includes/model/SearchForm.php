@@ -344,9 +344,10 @@ class Directorist_Listing_Search_Form {
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		$submission_form_fields = get_term_meta( 2, 'submission_form_fields', true );
+		$category_id = isset( $_POST['cat_id'] ) ? $_POST['cat_id'] : '';
 		$assign_to_cat = array();
 		foreach( $submission_form_fields['fields'] as $field ) {
-			if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' ) {
+			if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
 				$assign_to_cat[] = $field['field_key'];
 			}
 		}
@@ -364,7 +365,7 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 
-		if ( $this->is_custom_field( $field_data ) && ! in_array( $field_data['field_key'], $assign_to_cat ) ) {
+		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $assign_to_cat ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 		}
 		else {

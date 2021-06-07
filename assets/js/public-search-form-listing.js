@@ -135,6 +135,36 @@
       }
     });
   }); // Advance search
+
+  // category custom filed search form
+  $('body').on('change', '.directorist-category-select', function(event) {
+    var listing_type = $('#listing_type').val();
+    var cat_id       = $(this).val();
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_category_custom_field_seach');
+    form_data.append('listing_type', listing_type);
+    form_data.append('cat_id', cat_id);
+    $.ajax({
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      url: atbdp_search.ajax_url,
+      data: form_data,
+      success: function success(response) {
+        if (response) {
+          $('.directorist-search-form-box').empty().html(response['search_form']);
+        }
+        var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
+          events.forEach(function (event) {
+            document.body.dispatchEvent(event);
+          });
+
+      },
+      error: function error(_error) {
+        console.log(_error);
+      }
+    });
+  })
   // Populate atbdp child terms dropdown
 
   $('.bdas-terms').on('change', 'select', function (e) {

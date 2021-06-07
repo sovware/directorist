@@ -275,7 +275,7 @@ class SetupWizard
         $data = array(
             'ajaxurl'        => admin_url('admin-ajax.php'),
         );
-        wp_localize_script('directorist-setup', 'import_export_data', $data);
+        wp_localize_script('directorist-admin-setup-wizard', 'import_export_data', $data);
     }
 
     /**

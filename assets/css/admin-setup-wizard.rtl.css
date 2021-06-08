@@ -1,8 +1,28 @@
 .atbdp-setup {
   background: #F1F1F1;
-  height: 10000vh;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.directorist-setup-wizard-vh-none {
+  height: auto;
+}
+
+.directorist-setup-wizard-wrapper {
+  padding: 100px 0;
 }
 
 .atbdp-setup-content {
@@ -299,7 +319,7 @@
 .atbdp-setup-steps {
   font-family: arial;
   width: 450px;
-  margin: 100px auto 20px;
+  margin: 0 auto 20px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

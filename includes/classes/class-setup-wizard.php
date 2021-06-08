@@ -779,6 +779,7 @@ class SetupWizard
     public function setup_wizard_header()
     {
         set_current_screen();
+        $hide = ! isset( $_GET['step'] ) ? 'directorist-setup-wizard-vh' : 'directorist-setup-wizard-vh-none';
     ?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
@@ -794,7 +795,8 @@ class SetupWizard
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
+        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?> <?php echo $hide; ?>">
+            <div class="directorist-setup-wizard-wrapper">
             <?php
             /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
             ?>
@@ -851,7 +853,7 @@ class SetupWizard
         $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
         echo '<div class="atbdp-setup-content '. $introduction_class .'">';
         call_user_func($this->steps[$this->step]['view']);
-        echo '</div>';
+        echo '</div> </div>';
     }
 
     /**

@@ -1,10 +1,18 @@
 .atbdp-setup {
     background: #F1F1F1;
-    height: 10000vh;
+    height: 100vh;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
+.directorist-setup-wizard-vh-none{
+    height: auto;
+}
+.directorist-setup-wizard-wrapper{
+    padding: 100px 0;
+}
 .atbdp-setup-content {
     font-family: Arial;
     width: 700px;
@@ -255,7 +263,7 @@
 .atbdp-setup-steps {
     font-family: arial;
     width: 450px;
-    margin: 100px auto 20px;
+    margin: 0 auto 20px;
     display: flex;
     flex-wrap: wrap;
     padding: 0;

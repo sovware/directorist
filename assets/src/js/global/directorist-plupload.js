@@ -1,6 +1,6 @@
-import '../../scss/layout/admin/directorist-plupload.scss';
-import '../lib/helper';
-import { get_dom_data } from '../lib/helper';
+import './../../scss/layout/admin/directorist-plupload.scss';
+
+import { get_dom_data } from './../lib/helper';
 
 jQuery.fn.exists = function() {
     return jQuery(this).length > 0;

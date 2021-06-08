@@ -1,4 +1,5 @@
-import '../../scss/component/_modal.scss';
+import './../../../scss/component/_modal.scss';
+
 ;(function ($) {
     // Recovery Password Modal
     $("#recover-pass-modal").hide();

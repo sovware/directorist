@@ -81,24 +81,23 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/js/admin/directorist-plupload.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/js/global/directorist-plupload.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/admin/directorist-plupload.js":
-/*!*****************************************************!*\
-  !*** ./assets/src/js/admin/directorist-plupload.js ***!
-  \*****************************************************/
+/***/ "./assets/src/js/global/directorist-plupload.js":
+/*!******************************************************!*\
+  !*** ./assets/src/js/global/directorist-plupload.js ***!
+  \******************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/layout/admin/directorist-plupload.scss */ "./assets/src/scss/layout/admin/directorist-plupload.scss");
+/* harmony import */ var _scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/directorist-plupload.scss */ "./assets/src/scss/layout/admin/directorist-plupload.scss");
 /* harmony import */ var _scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/helper */ "./assets/src/js/lib/helper.js");
-
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
 
 
 

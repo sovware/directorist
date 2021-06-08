@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/openstreet-map.js":
-/*!********************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/openstreet-map.js ***!
-  \********************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -146,14 +146,14 @@
 
 /***/ }),
 
-/***/ 4:
-/*!**************************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/openstreet-map.js ***!
-  \**************************************************************************/
+/***/ 11:
+/*!*********************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/openstreet-map.js */"./assets/src/js/map-scripts/single-listing/openstreet-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js */"./assets/src/js/global/map-scripts/single-listing/openstreet-map.js");
 
 
 /***/ })

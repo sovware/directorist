@@ -81,62 +81,21 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/lib/helper.js":
-/*!*************************************!*\
-  !*** ./assets/src/js/lib/helper.js ***!
-  \*************************************/
-/*! exports provided: get_dom_data */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
-
-  if (!dom_content.length) {
-    return '';
-  }
-
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
-
-  if (!terget_content) {
-    return '';
-  }
-
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
-  }
-
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
-  }
-
-  return dom_data;
-}
-
-
-
-/***/ }),
-
-/***/ "./assets/src/js/map-scripts/load-osm-map.js":
-/*!***************************************************!*\
-  !*** ./assets/src/js/map-scripts/load-osm-map.js ***!
-  \***************************************************/
+/***/ "./assets/src/js/global/map-scripts/load-osm-map.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/load-osm-map.js ***!
+  \**********************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 
 var loc_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('loc_data');
 window.addEventListener('load', setup_map);
@@ -180,14 +139,55 @@ function load() {
 
 /***/ }),
 
-/***/ 17:
-/*!*********************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/load-osm-map.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/*! exports provided: get_dom_data */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
+function get_dom_data(key) {
+  var dom_content = document.body.innerHTML;
+
+  if (!dom_content.length) {
+    return '';
+  }
+
+  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
+  var terget_content = pattern.exec(dom_content);
+
+  if (!terget_content) {
+    return '';
+  }
+
+  if (typeof terget_content[2] === 'undefined') {
+    return '';
+  }
+
+  var dom_data = JSON.parse(terget_content[2]);
+
+  if (!dom_data) {
+    return '';
+  }
+
+  return dom_data;
+}
+
+
+
+/***/ }),
+
+/***/ 16:
+/*!****************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/load-osm-map.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/load-osm-map.js */"./assets/src/js/map-scripts/load-osm-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/load-osm-map.js */"./assets/src/js/global/map-scripts/load-osm-map.js");
 
 
 /***/ })

@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/google-map.js":
-/*!****************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/google-map.js ***!
-  \****************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/google-map.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/google-map.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -260,14 +260,14 @@
 
 /***/ }),
 
-/***/ 6:
-/*!**********************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/google-map.js ***!
-  \**********************************************************************/
+/***/ 13:
+/*!*****************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/google-map.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/google-map.js */"./assets/src/js/map-scripts/single-listing/google-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/google-map.js */"./assets/src/js/global/map-scripts/single-listing/google-map.js");
 
 
 /***/ })

@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/components/search-listing.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/components/search-listing.js ***!
-  \****************************************************/
+/***/ "./assets/src/js/public/search-listing.js":
+/*!************************************************!*\
+  !*** ./assets/src/js/public/search-listing.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -382,13 +382,13 @@ if (document.querySelector("#bdlm-search-area #atbdp_reset") !== null) {
 /***/ }),
 
 /***/ 2:
-/*!**********************************************************!*\
-  !*** multi ./assets/src/js/components/search-listing.js ***!
-  \**********************************************************/
+/*!******************************************************!*\
+  !*** multi ./assets/src/js/public/search-listing.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/components/search-listing.js */"./assets/src/js/components/search-listing.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/search-listing.js */"./assets/src/js/public/search-listing.js");
 
 
 /***/ })

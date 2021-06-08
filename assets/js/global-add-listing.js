@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/add-listing.js":
-/*!**************************************!*\
-  !*** ./assets/src/js/add-listing.js ***!
-  \**************************************/
+/***/ "./assets/src/js/global/add-listing.js":
+/*!*********************************************!*\
+  !*** ./assets/src/js/global/add-listing.js ***!
+  \*********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -97,7 +97,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scss/component/add-listing.scss */ "./assets/src/scss/component/add-listing.scss");
+/* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../scss/component/add-listing.scss */ "./assets/src/scss/component/add-listing.scss");
 /* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -935,14 +935,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 12:
-/*!********************************************!*\
-  !*** multi ./assets/src/js/add-listing.js ***!
-  \********************************************/
+/***/ 7:
+/*!***************************************************!*\
+  !*** multi ./assets/src/js/global/add-listing.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/add-listing.js */"./assets/src/js/add-listing.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/add-listing.js */"./assets/src/js/global/add-listing.js");
 
 
 /***/ })

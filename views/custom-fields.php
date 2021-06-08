@@ -20,7 +20,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         $field_meta = get_post_meta( $field_id );
         ?>
         
-        <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>"><div>
+        <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>"></div>
         <?php
         $value = '';
         if ( isset( $_GET['custom_field'][ $field_id ] ) ) {

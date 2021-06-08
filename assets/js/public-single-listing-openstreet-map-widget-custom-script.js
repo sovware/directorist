@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js":
-/*!***************************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js ***!
-  \***************************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js":
+/*!**********************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -146,14 +146,14 @@
 
 /***/ }),
 
-/***/ 5:
-/*!*********************************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js ***!
-  \*********************************************************************************/
+/***/ 12:
+/*!****************************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js */"./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js */"./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
 
 
 /***/ })

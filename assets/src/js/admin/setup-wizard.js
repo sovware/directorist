@@ -1,4 +1,4 @@
-import '../../scss/layout/admin/setup-wizard.scss';
+import './../../scss/layout/admin/setup-wizard.scss';
 
 /* eslint-disable */
 jQuery(document).ready(function($) {

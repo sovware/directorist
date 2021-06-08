@@ -21,14 +21,14 @@ class Enqueue_Assets {
 			add_filter( 'directorist_load_min_files', [ $this, 'manage_min_unmin_assets_switching' ] );
 
 			// Load Assets
-			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ] );
 
 			// Enqueue Public Scripts
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
 			// Enqueue Admin Scripts
-			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );	
 		}
 
 
@@ -1015,15 +1015,6 @@ class Enqueue_Assets {
 	 */
 	public static function add_global_css_scripts() {
 		// $scripts = [];
-
-		// $scripts['directorist-admin-style'] = [
-		//     'file_name' => 'admin-style',
-		//     'base_path' => DIRECTORIST_CSS,
-		//     'deps'      => [],
-		//     'ver'       => self::$script_version,
-		//     'group'     => 'global',
-		//     'section'   => '',
-		// ];
 
 		// $scripts = array_merge( self::$css_scripts, $scripts);
 		// self::$css_scripts = $scripts;

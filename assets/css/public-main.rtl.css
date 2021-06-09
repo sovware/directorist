@@ -20,10 +20,8 @@ a:focus {
 .directorist-content-active ul {
   padding: 0;
   margin: 0;
-  list-style-type: none;
 }
 .directorist-content-active ul li {
-  list-style: none;
   margin: 0;
 }
 .directorist-content-active .entry-content h1,
@@ -416,6 +414,10 @@ p.status:empty {
 
 .gateway_list input[type=radio] {
   margin-left: 5px;
+}
+
+.directorist-checkout-form ul {
+  list-style-type: none;
 }
 
 /* Directorist custom grid */
@@ -4717,6 +4719,7 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  list-style-type: none;
 }
 .directorist-author-profile-wrap .directorist-author-meta-list .directorist-author-meta-list__item {
   font-size: 14px;
@@ -7835,6 +7838,7 @@ p.atbd-min {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   margin: -0.5rem 0 0 0;
+  list-style-type: none;
 }
 .directorist-single-wrapper .directorist-card__body .directorist-details-info-wrap ul li {
   -webkit-box-flex: 33.333%;
@@ -9501,8 +9505,12 @@ p.atbd-min {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
+.directorist-user-dashboard__nav .directorist-tab__nav__items {
+  list-style-type: none;
+}
 .directorist-user-dashboard__nav .directorist-tab__nav__items li ul {
   display: none;
+  list-style-type: none;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__items li ul li a {
   padding-right: 25px;
@@ -9917,6 +9925,7 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  list-style-type: none;
 }
 .directorist-listing-type-selection .directorist-listing-type-selection__item {
   margin-bottom: 25px;

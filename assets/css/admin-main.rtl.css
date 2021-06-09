@@ -5458,6 +5458,10 @@ p.status:empty {
   margin-left: 5px;
 }
 
+.directorist-checkout-form ul {
+  list-style-type: none;
+}
+
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;

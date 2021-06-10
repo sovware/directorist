@@ -4105,6 +4105,11 @@ class Multi_Directory_Manager
                         'label'  => __( 'Custom block Classes', 'directorist' ),
                         'value' => '',
                     ],
+                    'shortcode' => [
+                        'type'  => 'shortcode',
+                        'label'  => __( 'Shortcode', 'directorist' ),
+                        'value' => '',
+                    ],
                 ],
                 'value' => [],
             ],
@@ -4117,6 +4122,12 @@ class Multi_Directory_Manager
                     ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
                 ],
                 'value'   => 'OR',
+            ],
+            'single_listing_shortcode' => [
+                'type'    => 'select',
+                'name'    => 'single_listing_shortcode',
+                'label' => __( 'Select a page', 'directorist' ),
+                'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),                'options' => $this->get_pages_vl_arrays(),
             ],
             'listing_from_same_author' => [
                 'type'  => 'toggle',
@@ -4573,6 +4584,11 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
+                            'page_settings' => [
+                                'fields' => [
+                                    'single_listing_shortcode',
+                                ],
+                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4581,7 +4597,7 @@ class Multi_Directory_Manager
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
                                 ],
-                            ]
+                            ],
                         ]
                     ],
                 ]
@@ -4887,6 +4903,29 @@ class Multi_Directory_Manager
         ]);
 
         $this->prepare_settings();
+    }
+
+    /**
+     * Get all the pages in an array where each page is an array of key:value:id and key:label:name
+     *
+     * Example : array(
+     *                  array('value'=> 1, 'label'=> 'page_name'),
+     *                  array('value'=> 50, 'label'=> 'page_name'),
+     *          )
+     * @return array page names with key value pairs in a multi-dimensional array
+     * @since 3.0.0
+     */
+    function get_pages_vl_arrays()
+    {
+        $pages = get_pages();
+        $pages_options = array();
+        if ($pages) {
+            foreach ($pages as $page) {
+                $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+            }
+        }
+
+        return $pages_options;
     }
 
     // enqueue_scripts

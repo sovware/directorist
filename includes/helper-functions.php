@@ -32,6 +32,16 @@ if ( ! function_exists( 'directorist_console_log' ) ) {
     }
 }
 
+
+if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
+    function directorist_get_listings_directory_type( $listing_id = '' ) {
+        $directory_type = wp_get_post_terms( $listing_id, ATBDP_DIRECTORY_TYPE );
+        if ( empty( $directory_type ) || ! is_array( $directory_type ) ) return '';
+
+        return $directory_type[0]->term_id;
+    }
+}
+
 if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
     // atbdp_redirect_after_login
     function atbdp_redirect_after_login( array $args = [] ) {

@@ -597,41 +597,6 @@ class Enqueue_Assets {
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
-		$scripts['directorist-atmodal'] = [
-			'file_name' => 'public-atmodal',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-		];
-
-		$scripts['directorist-search-style'] = [
-			'file_name' => 'public-search-style',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [ ],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'   => true,
-		];
-
-		$scripts['directorist-add-listing-public'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
 	}
@@ -802,69 +767,6 @@ class Enqueue_Assets {
 			'group'     => 'admin',
 			'section'   => '',
 			// 'page'      => 'plugins.php',
-		];
-
-		$scripts['directorist-add-listing-admin'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
-			// 'page'      => [ 'post-new.php', 'post.php' ],
-		];
-
-		$scripts['directorist-plugins-css'] = [
-			'file_name' => 'admin-plugins',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			// 'page'      => 'plugins.php',
-			// 'enable'    => is_admin(),
-		];
-
-		$scripts['directorist-settings-manager'] = [
-			'file_name' => 'admin-settings-manager',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-settings',
-		];
-
-		$scripts['directorist-multi-directory-archive'] = [
-			'file_name' => 'admin-multi-directory-archive',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-directory-types',
-		];
-
-		$scripts['directorist-multi-directory-builder'] = [
-			'file_name' => 'admin-multi-directory-builder',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => [
-				'at_biz_dir_page_atbdp-layout-builder',
-				'at_biz_dir_page_atbdp-directory-types'
-			],
-		];
-
-		$scripts['directorist-plupload'] = [
-			'file_name' => 'global-directorist-plupload',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'global',
-			'section'   => '',
-			'page'      => '',
 		];
 
 		$scripts = array_merge( self::$css_scripts, $scripts);

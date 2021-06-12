@@ -1,6 +1,3 @@
-// SASS
-import './../../scss/layout/admin/settings-manager.scss'
-
 import Vue from 'vue';
 import Vuex from 'vuex';
 import SlideUpDown from 'vue-slide-up-down';

@@ -4,7 +4,17 @@
 //mixins
 @import "./../../mixins/colors";
 @import "./../../mixins/general";
-// components
+
+
+// Component Import
+// ----------------------------------
+// Global Styles
+@import "./../../component/add-listing.scss";
+@import "./../../component/directorist-plupload";
+@import "./../../component/pureSearchSelect";
+@import "./../../component/openstreet-map/index.scss";
+
+// Public Styles
 @import "./../../component/plasma-slider";
 @import "./../../component/plasma-slider-custom";
 //@import "./../../component/pureSearchSelect";

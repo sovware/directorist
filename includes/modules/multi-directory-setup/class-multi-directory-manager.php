@@ -4108,6 +4108,14 @@ class Multi_Directory_Manager
                 ],
                 'value' => [],
             ],
+            'single_listing_page' => [
+                'label'             => __('Single Listing Page', 'directorist'),
+                'type'              => 'select',
+                'description'       => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),
+                'value'             => '',
+                'showDefaultOption' => true,
+                'options'           => directorist_get_all_page_list(),
+            ],
             'similar_listings_logics' => [
                 'type'    => 'radio',
                 'name'    => 'similar_listings_logics',
@@ -4573,6 +4581,12 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
+                            'page_settings' => [
+                                'title' => __( 'Page settings', 'directorist' ),
+                                'fields' => [
+                                    'single_listing_page',
+                                ],
+                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4581,7 +4595,7 @@ class Multi_Directory_Manager
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
                                 ],
-                            ]
+                            ],
                         ]
                     ],
                 ]

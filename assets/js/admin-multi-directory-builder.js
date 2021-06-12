@@ -95,32 +95,28 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/multi-directory-builder.scss */ "./assets/src/scss/layout/admin/multi-directory-builder.scss");
-/* harmony import */ var _scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue_slide_up_down__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-slide-up-down */ "./node_modules/vue-slide-up-down/dist/vue-slide-up-down.m.js");
-/* harmony import */ var _vue_global_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/global-component */ "./assets/src/js/admin/vue/global-component.js");
-/* harmony import */ var _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/store/CPT_Manager_Store */ "./assets/src/js/admin/vue/store/CPT_Manager_Store.js");
-/* harmony import */ var _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/apps/cpt-manager/CPT_Manager.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/CPT_Manager.vue");
-// SASS
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_slide_up_down__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slide-up-down */ "./node_modules/vue-slide-up-down/dist/vue-slide-up-down.m.js");
+/* harmony import */ var _vue_global_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/global-component */ "./assets/src/js/admin/vue/global-component.js");
+/* harmony import */ var _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/store/CPT_Manager_Store */ "./assets/src/js/admin/vue/store/CPT_Manager_Store.js");
+/* harmony import */ var _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/apps/cpt-manager/CPT_Manager.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/CPT_Manager.vue");
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('slide-up-down', vue_slide_up_down__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide_up_down__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 
 
 var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
 
 if (cpt_manager_el) {
-  new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
     el: '#atbdp-cpt-manager',
-    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__["default"],
+    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
     components: {
-      'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+      'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
     },
     data: function data() {
       return {
@@ -11041,17 +11037,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
     }
   }
 }));
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/admin/multi-directory-builder.scss":
-/*!*******************************************************************!*\
-  !*** ./assets/src/scss/layout/admin/multi-directory-builder.scss ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

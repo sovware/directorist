@@ -69,7 +69,7 @@ msgstr ""
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1430, ../includes/helper-functions.php:7965, ../includes/classes/class-setup-wizard.php:379, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1073, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:160
+#: ../directorist-base.php:1430, ../includes/helper-functions.php:7965, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1073, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:160
 msgid "Login"
 msgstr ""
 
@@ -213,11 +213,11 @@ msgstr ""
 msgid "Cheap"
 msgstr ""
 
-#: ../includes/custom-actions.php:23, ../includes/classes/class-settings-panel.php:4635, ../includes/classes/class-setup-wizard.php:435, ../includes/classes/class-setup-wizard.php:485
+#: ../includes/custom-actions.php:23, ../includes/classes/class-settings-panel.php:4635, ../includes/classes/class-setup-wizard.php:437, ../includes/classes/class-setup-wizard.php:487
 msgid "Privacy Policy"
 msgstr ""
 
-#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:479, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4521
+#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:481, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4521
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -373,39 +373,39 @@ msgstr ""
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:7921, ../includes/classes/class-settings-panel.php:4556, ../includes/classes/class-setup-wizard.php:403, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:7921, ../includes/classes/class-settings-panel.php:4556, ../includes/classes/class-setup-wizard.php:405, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:7925, ../includes/classes/class-setup-wizard.php:323
+#: ../includes/helper-functions.php:7925, ../includes/classes/class-setup-wizard.php:325
 msgid "Add Listing"
 msgstr ""
 
-#: ../includes/helper-functions.php:7929, ../includes/classes/class-settings-panel.php:4428, ../includes/classes/class-setup-wizard.php:331, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:7929, ../includes/classes/class-settings-panel.php:4428, ../includes/classes/class-setup-wizard.php:333, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:7937, ../includes/classes/class-setup-wizard.php:339, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:7937, ../includes/classes/class-setup-wizard.php:341, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:7945, ../includes/classes/class-setup-wizard.php:347, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:7945, ../includes/classes/class-setup-wizard.php:349, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:7949, ../includes/classes/class-setup-wizard.php:355, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:7949, ../includes/classes/class-setup-wizard.php:357, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:7953, ../includes/classes/class-setup-wizard.php:363
+#: ../includes/helper-functions.php:7953, ../includes/classes/class-setup-wizard.php:365
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:7957, ../includes/classes/class-settings-panel.php:4729, ../includes/classes/class-setup-wizard.php:371, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:7957, ../includes/classes/class-settings-panel.php:4729, ../includes/classes/class-setup-wizard.php:373, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:7961, ../includes/classes/class-setup-wizard.php:387, ../includes/elementor/custom-registration.php:15
+#: ../includes/helper-functions.php:7961, ../includes/classes/class-setup-wizard.php:389, ../includes/elementor/custom-registration.php:15
 msgid "Registration"
 msgstr ""
 
@@ -790,7 +790,7 @@ msgstr ""
 msgid "Search Location"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:531, ../includes/classes/class-setup-wizard.php:419, ../includes/classes/class-setup-wizard.php:473
+#: ../includes/classes/class-custom-taxonomy.php:531, ../includes/classes/class-setup-wizard.php:421, ../includes/classes/class-setup-wizard.php:475
 msgid "All Locations"
 msgstr ""
 
@@ -1661,7 +1661,7 @@ msgstr ""
 msgid "You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:441, ../includes/classes/class-setup-wizard.php:537, ../includes/gateways/class-gateway.php:143
+#: ../includes/classes/class-settings-panel.php:441, ../includes/classes/class-setup-wizard.php:539, ../includes/gateways/class-gateway.php:143
 msgid "Enable Monetization Feature"
 msgstr ""
 
@@ -1669,7 +1669,7 @@ msgstr ""
 msgid "Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:449, ../includes/classes/class-setup-wizard.php:545, ../includes/gateways/class-gateway.php:116, ../includes/gateways/class-gateway.php:164
+#: ../includes/classes/class-settings-panel.php:449, ../includes/classes/class-setup-wizard.php:547, ../includes/gateways/class-gateway.php:116, ../includes/gateways/class-gateway.php:164
 msgid "Monetize by Featured Listing"
 msgstr ""
 
@@ -2241,7 +2241,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1787, ../includes/classes/class-settings-panel.php:3028, ../includes/classes/class-setup-wizard.php:553, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93, ../views/admin-templates/listing-form/add-listing.php:70
+#: ../includes/classes/class-settings-panel.php:1787, ../includes/classes/class-settings-panel.php:3028, ../includes/classes/class-setup-wizard.php:555, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93, ../views/admin-templates/listing-form/add-listing.php:70
 msgid "Price"
 msgstr ""
 
@@ -2585,7 +2585,7 @@ msgstr ""
 msgid "Guest Review Submission"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2355, ../includes/classes/class-setup-wizard.php:526
+#: ../includes/classes/class-settings-panel.php:2355, ../includes/classes/class-setup-wizard.php:528
 msgid "Select Map"
 msgstr ""
 
@@ -2597,7 +2597,7 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2371, ../includes/classes/class-setup-wizard.php:533
+#: ../includes/classes/class-settings-panel.php:2371, ../includes/classes/class-setup-wizard.php:535
 msgid "Google Map API key"
 msgstr ""
 
@@ -2785,7 +2785,7 @@ msgstr ""
 msgid "Search Button Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2695, ../includes/classes/class-settings-panel.php:4544, ../includes/classes/class-setup-wizard.php:395, ../includes/elementor/search-listing.php:77, ../includes/model/SearchForm.php:99
+#: ../includes/classes/class-settings-panel.php:2695, ../includes/classes/class-settings-panel.php:4544, ../includes/classes/class-setup-wizard.php:397, ../includes/elementor/search-listing.php:77, ../includes/model/SearchForm.php:99
 msgid "Search Listing"
 msgstr ""
 
@@ -4037,123 +4037,123 @@ msgstr ""
 msgid "No data found"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:290
+#: ../includes/classes/class-setup-wizard.php:292
 msgid "Introduction"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:294
+#: ../includes/classes/class-setup-wizard.php:296
 msgid "Step One"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:299
+#: ../includes/classes/class-setup-wizard.php:301
 msgid "Step Two"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:304
+#: ../includes/classes/class-setup-wizard.php:306
 msgid "Step Three"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:309
+#: ../includes/classes/class-setup-wizard.php:311
 msgid "Step Four"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:317
+#: ../includes/classes/class-setup-wizard.php:319
 msgid "Recommended Pages"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:411, ../includes/classes/class-setup-wizard.php:467
+#: ../includes/classes/class-setup-wizard.php:413, ../includes/classes/class-setup-wizard.php:469
 msgid "All Categories"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:427
+#: ../includes/classes/class-setup-wizard.php:429
 msgid "Terms & Conditions"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:445, ../includes/classes/class-setup-wizard.php:564, ../includes/classes/class-setup-wizard.php:684
+#: ../includes/classes/class-setup-wizard.php:447, ../includes/classes/class-setup-wizard.php:566, ../includes/classes/class-setup-wizard.php:686
 msgid "Skip this step"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:447, ../includes/classes/class-setup-wizard.php:566, ../includes/classes/class-setup-wizard.php:686, ../templates/listing-form/quick-login.php:45, ../templates/single/top-actions.php:28, ../views/admin-templates/import-export/step-one.php:79, ../views/admin-templates/import-export/step-one.php:79
+#: ../includes/classes/class-setup-wizard.php:449, ../includes/classes/class-setup-wizard.php:568, ../includes/classes/class-setup-wizard.php:688, ../templates/listing-form/quick-login.php:45, ../templates/single/top-actions.php:28, ../views/admin-templates/import-export/step-one.php:79, ../views/admin-templates/import-export/step-one.php:79
 msgid "Continue"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:520
+#: ../includes/classes/class-setup-wizard.php:522
 msgid "Fill out the form to get maps and monetization feature to work right away"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:528
+#: ../includes/classes/class-setup-wizard.php:530
 msgid "Openstreet"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:529
+#: ../includes/classes/class-setup-wizard.php:531
 msgid "Google"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:534
+#: ../includes/classes/class-setup-wizard.php:536
 msgid "* API Key is required for Google Map to work properly"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:637
+#: ../includes/classes/class-setup-wizard.php:639
 msgid "Import Dummy Data"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:644
+#: ../includes/classes/class-setup-wizard.php:646
 msgid "Number of Listings to import"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:656
+#: ../includes/classes/class-setup-wizard.php:658
 msgid "Import images"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:665, ../views/admin-templates/import-export/step-two.php:100
+#: ../includes/classes/class-setup-wizard.php:667, ../views/admin-templates/import-export/step-two.php:100
 msgid "Importing"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:667, ../views/admin-templates/import-export/step-two.php:102
+#: ../includes/classes/class-setup-wizard.php:669, ../views/admin-templates/import-export/step-two.php:102
 msgid "Your listing are now being imported..."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:671, ../views/admin-templates/import-export/step-two.php:106
+#: ../includes/classes/class-setup-wizard.php:673, ../views/admin-templates/import-export/step-two.php:106
 msgid "Please don't reload the page"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:711
+#: ../includes/classes/class-setup-wizard.php:713
 msgid "Great, your directory is ready!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:713
+#: ../includes/classes/class-setup-wizard.php:715
 msgid "Visit Directorist Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:714
+#: ../includes/classes/class-setup-wizard.php:716
 msgid "Create your First Listing"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:719, ../includes/classes/class-setup-wizard.php:862
+#: ../includes/classes/class-setup-wizard.php:721, ../includes/classes/class-setup-wizard.php:864
 msgid "Return to the WordPress Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:739
+#: ../includes/classes/class-setup-wizard.php:741
 msgid "Welcome to the world of Directorist!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:740
+#: ../includes/classes/class-setup-wizard.php:742
 msgid "Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:741
+#: ../includes/classes/class-setup-wizard.php:743
 msgid "If you don't want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:745
+#: ../includes/classes/class-setup-wizard.php:747
 msgid "Not right now"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:746
+#: ../includes/classes/class-setup-wizard.php:748
 msgid "Let's Go!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:787
+#: ../includes/classes/class-setup-wizard.php:789
 msgid "Directorist &rsaquo; Setup Wizard"
 msgstr ""
 

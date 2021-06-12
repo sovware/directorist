@@ -42,6 +42,21 @@ if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
     }
 }
 
+if ( ! function_exists( 'directorist_get_all_page_list' ) ) {
+    function directorist_get_all_page_list( $listing_id = '' ) {
+        $pages = get_pages();
+        $pages_options = [];
+
+        if ( empty( $pages ) || ! is_array( $pages ) ) return $pages_options;
+
+        foreach ($pages as $page) {
+            $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+        }
+
+        return $pages_options;
+    }
+}
+
 if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
     // atbdp_redirect_after_login
     function atbdp_redirect_after_login( array $args = [] ) {

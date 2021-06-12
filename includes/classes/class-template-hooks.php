@@ -66,9 +66,17 @@ class Directorist_Template_Hooks {
 				$content = Helper::get_template_contents( 'single-listing/content-wrapper' );
 			}
 
-			$single_listing_page = get_directorist_option( 'single_listing_page', '', true );
-			if ( ! empty( $single_listing_page ) && is_numeric( $single_listing_page ) ) {
-				$content_post = get_post( ( int ) $single_listing_page );
+			$single_listing_page_id = get_directorist_option( 'single_listing_page', '', true );
+
+			$directory_type_id = directorist_get_listings_directory_type( get_the_ID() );
+			$single_listing_page_id_by_type = get_term_meta( $directory_type_id, 'single_listing_page', true );
+
+			if ( ! empty( $single_listing_page_id_by_type ) ) {
+				$single_listing_page_id = $single_listing_page_id_by_type;
+			}
+			
+			if ( ! empty( $single_listing_page_id ) && is_numeric( $single_listing_page_id ) ) {
+				$content_post = get_post( ( int ) $single_listing_page_id );
 				$content = do_shortcode( $content_post->post_content );
 			}
 		}

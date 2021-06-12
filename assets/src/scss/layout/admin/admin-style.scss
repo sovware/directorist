@@ -4169,17 +4169,26 @@ input.atbdp-form-control {
   }
 
   .directorist_builder__content--left {
-    width: 400px;
+    width: 360px;
     margin-right: 30px;
     margin-top: 38px;
 
-    @media only screen and (max-width: 1440px) {
+    @media only screen and (max-width: 1599px) {
       width: 320px;
       margin-right: 20px;
     }
 
+    @media only screen and (max-width: 1499px) {
+      width: 240px;
+      margin-right: 15px;
+    }
+
     @media only screen and (max-width: 1399px) {
       width: 200px;
+    }
+
+    @media only screen and (max-width: 1299px) {
+      width: 140px;
     }
 
     @media only screen and (max-width: 1199px) {
@@ -4236,6 +4245,7 @@ input.atbdp-form-control {
       .directorist_link-text {
         display: block;
         font-size: 16px;
+        line-height: 1.5;
         font-weight: 500;
         color: #fff;
         margin-top: 15px;
@@ -4333,7 +4343,7 @@ input.atbdp-form-control {
       }
 
       .directorist_all-listing-table {
-        padding-bottom: 60px;
+        padding-bottom: 75px;
       }
 
       .directorist_table {
@@ -4450,8 +4460,13 @@ input.atbdp-form-control {
               color: #5A5F7D;
               padding: 15px 20px;
 
-              @media only screen and (max-width: 1399px) {
-                padding: 15px 10px;
+              @media only screen and (max-width: 1499px) {
+                padding: 15px 8.5px;
+              }
+
+              @media only screen and (max-width: 1299px) {
+                padding: 15px 5.5px;
+                position: relative;
               }
 
               &:first-child {
@@ -4581,6 +4596,138 @@ input.atbdp-form-control {
           }
         }
       }
+    }
+  }
+}
+
+// Slug Text Edit
+.directorist_listing-slug-text{
+  min-width: 120px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  @media only screen and (max-width: 1499px) {
+    min-width: 110px;
+  }
+  @media only screen and (max-width: 1299px) {
+    min-width: 90px;
+  }
+}
+.directorist-listing-slug-edit-wrap{
+  display: inline-block;
+  position: relative;
+  @media only screen and (max-width: 1299px) {
+    position: initial;
+    margin-top: 6px;
+  }
+}
+
+.directorist-listing-slug__edit{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 5px 10px #adb4d260;
+  margin-left: 10px;
+  i,
+  span.la,
+  span.las,
+  span.lab,
+  span.fab,
+  span.fas,
+  span.fa{
+    font-size: 15px;
+    color: $info;
+  }
+  @media only screen and (max-width: 1399px) {
+    width: 30px;
+    height: 30px;
+    margin-left: 6px;
+  }
+  @media only screen and (max-width: 1299px) {
+    width: 26px;
+    height: 26px;
+    margin-left: 6px;
+  }
+}
+
+.directorist-listing-slug__form{
+  position: absolute;
+  right: 0;
+  top: 42px;
+  width: 100%;
+  min-width: 290px;
+  box-shadow: 0 5px 40px rgba(#9299B8,.25);
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 4px;
+  z-index: 22;
+  display: none;
+  @media only screen and (max-width: 1299px) {
+    top: auto;
+    bottom: -54px;
+  }
+  .directorist_listing-slug__form--inline{
+    display: inline-flex;
+    align-items: center;
+    .directorist-form-element{
+      padding: 12px 10px;
+      height: 34px;
+      line-height: 34px;
+    }
+  }
+  .directorist_listing-slug__form--input{
+    margin-right: 12px;
+  }
+  .directorist_listing-slug__form--action{
+    display: inline-flex;
+    margin: -2px;
+    a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      margin: 2px;
+      border: 1px solid $border-color;
+      &.directorist_listing-slug-formText-add{
+        background-color: $info;
+        color: #fff;
+      }
+      &.directorist_listing-slug-formText-remove{
+        background-color: $danger;
+        color: #fff;
+      }
+    }
+  }
+  .directorist_listing-slug__form--loader{
+    .directorist_loader{
+      width: 20px;
+      height: 20px;
+      display: block;
+      &:before{
+        right: 0;
+        top: 4px;
+        width: 15px;
+        height: 15px;
+        right: -3px;
+        top: 1px;
+      }
+    }
+  }
+  .directorist-slug-notice {
+    margin: 6px 0 0;
+    &.directorist-slug-notice-error{
+      color: $danger;
+    }
+    &.directorist-slug-notice-success{
+      color: $success;
     }
   }
 }

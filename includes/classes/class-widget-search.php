@@ -54,13 +54,22 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_radius              = ! empty( $instance['search_by_radius'] ) ? 1 : 0;
             $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
             $select_listing_map            = get_directorist_option('select_listing_map','google');
-            $atbdp_legacy_template         = get_directorist_option( 'atbdp_legacy_template', false );
-            
+
+            wp_enqueue_script( 'directorist-search-form-listing' );
+            wp_enqueue_script( 'directorist-range-slider' );
+            wp_enqueue_script( 'directorist-search-listing' );
+
             $listing_type = get_post_meta( get_the_ID(), '_directory_type', true );
             $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();
-            $script_args  = ['directory_type_id' => $listing_type];
 
-            ATBDP()->enquirer->search_listing_scripts_styles( $script_args );
+            $data = Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type ] );
+            wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
+            wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
+                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+            ]);
+            wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
+            wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
 
             $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));
             $address_label           = get_directorist_option('address_label',__('Address','directorist'));

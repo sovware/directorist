@@ -471,7 +471,7 @@ if ('openstreet' == $select_listing_map) {
         <?php }elseif('openstreet' == $select_listing_map) { ?>
         function mapLeaflet (lat, lon)	 {
             const fontAwesomeIcon = L.icon({
-                iconUrl: "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>",
+                iconUrl: "<?php echo DIRECTORIST_ASSETS . 'images/map-icon.png'; ?>",
                 iconSize: [20, 25],
             });
             var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>);
@@ -635,4 +635,3 @@ if ('openstreet' == $select_listing_map) {
     }
 
  </style>
-

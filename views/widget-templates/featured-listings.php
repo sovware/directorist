@@ -37,7 +37,7 @@ $featured_listings = new WP_Query($featured_args);
                     <li>
                         <div class="atbd_left_img">
                             <?php
-                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                            $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                             if (!empty($listing_prv_img)) {
                                 echo '<a href="'.get_the_permalink().'"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
                             } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {

@@ -35,7 +35,20 @@ class ATBDP_Rewrite {
             $link = trim( $link, '/' );
             $link = ( preg_match( '/([?])/', $link ) ) ? 'directory-profile' : $link;
 
-            add_rewrite_rule( "$link/([^/]+)?/?([^/]+)?/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]', 'top' );
+            // Link > Page
+            add_rewrite_rule( "$link/page/(\d+)/?$", 'index.php?page_id='.$id.'&paged=$matches[1]', 'top' );
+            
+            // Link > Author > Page
+            add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&paged=$matches[2]', 'top' );
+            
+            // Link > Author > Directory > Page
+            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]&paged=$matches[3]', 'top' );
+            
+            // Link > Directory > Page
+            add_rewrite_rule( "$link/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&directory_type=$matches[1]', 'top' );
+            add_rewrite_rule( "$link/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&directory_type=$matches[1]&paged=$matches[2]', 'top' );
         }
 
 

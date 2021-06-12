@@ -33,7 +33,7 @@ echo '</div>';
                 <?php } else { ?>
             <div class="form-group">
                 <?php
-                $location_placeholder = isset( $search_form_fields['fields']['location']['placeholder'] ) ? $search_form_fields['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );  
+                $location_placeholder = isset( $search_form_fields['fields']['location']['placeholder'] ) ? $search_form_fields['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
                 bdas_dropdown_terms( array(
                     'show_option_none' => $location_placeholder,
                     'taxonomy' => 'at_biz_dir-location',
@@ -64,8 +64,7 @@ echo '</div>';
             </div>
         <?php } ?>
         <?php if('map_api' == $location_source && !empty($search_by_radius)) {
-            $atbdp_legacy_template = get_directorist_option( 'atbdp_legacy_template', false );
-            $handle                = ! empty( $atbdp_legacy_template ) ? 'atbdp-range-slider' : 'directorist-range-slider';
+            $handle                = 'directorist-range-slider';
             wp_enqueue_script( $handle );
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
@@ -74,14 +73,17 @@ echo '</div>';
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('search_default_radius_distance', 0);
-            wp_localize_script( $handle, 'atbdp_range_slider', array(
-                'Miles'     =>  $miles,
-                'default_val'   =>  $default_radius_distance
-            ) );
+            wp_localize_script( $handle, 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
+                'miles' =>  $miles,
+                'slider_config' => [
+                    'minValue' => $default_radius_distance,
+                    'maxValue' => 500,
+                ]
+            ]));
             ?>
             <!--range slider-->
             <div class="form-group">
-                <?php 
+                <?php
                 if( ! empty( $handle ) ) {
                 ?>
                 <div class="atbdp-range-slider-wrapper atbdp-range-slider-widget">

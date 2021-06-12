@@ -25,7 +25,7 @@ class Directorist_Template_Hooks {
 		// Listing Archive
 		add_action( 'directorist_archive_header',    array( '\Directorist\Directorist_Listings', 'archive_type' ) );
 		add_action( 'directorist_archive_header',    array( '\Directorist\Directorist_Listings', 'archive_header' ), 15 );
-		
+
 		// Listings Badges - Grid View
 		add_filter( 'atbdp_grid_lower_badges', array( '\Directorist\Directorist_Listings', 'featured_badge') );
 		add_filter( 'atbdp_grid_lower_badges', array( '\Directorist\Directorist_Listings', 'popular_badge'), 15 );
@@ -46,17 +46,6 @@ class Directorist_Template_Hooks {
 		// Single Listing
 		add_filter( 'template_include', [ $this, 'single_template_path' ] );
 		add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
-
-		// Legacy
-		if ( Helper::is_legacy_mode() ) {
-			$author = Directorist_Listing_Author::instance();
-			add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
-			add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
-			add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
-
-			// add_filter('the_content', array( '\Directorist\Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
-		}
-
 	}
 
 	// instance
@@ -103,6 +92,7 @@ class Directorist_Template_Hooks {
 		else {
 			$template_path = Helper::get_theme_template_path_for( 'page' );
 		}
+		
 		return $template_path;
 	}
 

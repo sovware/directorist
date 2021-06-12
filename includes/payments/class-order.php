@@ -458,8 +458,9 @@ class ATBDP_Order
      */
     public function update_payment_status($action, $post_id)
     {
-        $old_status     = get_post_meta($post_id, '_payment_status', true);
-        $directory_type = get_post_meta( $post_id, '_directory_type', true );
+        $old_status     = get_post_meta( $post_id, '_payment_status', true);
+        $listing_id     = get_post_meta( $post_id, '_listing_id', true);
+        $directory_type = get_post_meta( $listing_id, '_directory_type', true );
 		$new_l_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
         $new_status     = str_replace('set_to_', '', $action);
         $new_status     = sanitize_key($new_status);
@@ -468,7 +469,6 @@ class ATBDP_Order
         $non_complete_statuses = array('created', 'pending', 'failed', 'cancelled', 'refunded');
         // If the order has featured
         $featured = get_post_meta($post_id, '_featured', true);
-        $listing_id = get_post_meta($post_id, '_listing_id', true);
         if (!empty($featured)) {
             if ('completed' == $old_status && in_array($new_status, $non_complete_statuses)) {
                 update_post_meta($listing_id, '_featured', 0);

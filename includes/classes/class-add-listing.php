@@ -290,12 +290,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
 
-                        $args['post_title'] = get_the_title(absint($info['listing_id']));
-
-                        $post_object = get_post(absint($info['listing_id']));
-                        $content = apply_filters('get_the_content', $post_object->post_content);
-                        $args['post_content'] = $content;
-
                         $post_id = wp_update_post($args);
                         update_post_meta($post_id, '_directory_type', $directory_type);
 
@@ -614,46 +608,63 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     update_post_meta($post_id, '_listing_img', $new_files_meta);
-                    $permalink         = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
+                    $permalink = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
                     //no pay extension own yet let treat as general user
-                    if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active() && ('featured' === $info['listing_type'] ) ) ) {
-                        $data['redirect_url']   =  ATBDP_Permalink::get_checkout_page_link($post_id);
-                        $data['need_payment']   = true;
+
+                    $submission_notice = get_directorist_option('submission_confirmation', 1);
+                    $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                    
+                    if ('view_listing' == $redirect_page) {
+                        $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink ;
                     } else {
-                        //yep! listing is saved to db and redirect user to admin panel or listing itself
-                        $redirect_page     = get_directorist_option('edit_listing_redirect', 'view_listing');
-                        $submission_notice = get_directorist_option('submission_confirmation', 1);
-                  
-                        if ('view_listing' == $redirect_page) {
-                            $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink ;
-                            $data['success'] = true;
-                        } else {
-                            $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
-                            $data['success'] = true;
+                        $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
+                    }
+
+                    $states = [];
+                    $states['monetization_is_enable'] = get_directorist_option('enable_monetization');
+                    $states['featured_enabled']       = $featured_enabled;
+                    $states['listing_is_featured']    = ('featured' === $info['listing_type'] ) ? true : false;
+                    $states['is_monetizable']         = ( $states['monetization_is_enable'] && $states['featured_enabled'] && $states['listing_is_featured'] ) ? true : false;
+
+                    if ( $states['is_monetizable'] ) {
+                        $payment_status = Directorist\Helper::get_listing_payment_status( $post_id );
+                        $rejectable_payment_status = [ 'failed', 'cancelled', 'refunded' ];
+
+                        if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status ) ) {
+                            $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
+                            $data['need_payment'] = true;
                         }
                     }
+
+                    $data['success'] = true;
 
                 } else {
                     $data['redirect_url'] = site_url() . '?error=true';
                     $data['error'] = true;
                 }
+
                 if (!empty($data['success']) && $data['success'] === true) {
                     $data['success_msg'] = __('Your Submission is Completed! redirecting..', 'directorist');
                 }
+
                 if (!empty($data['error']) && $data['error'] === true) {
                     $data['error_msg'] = isset($data['error_msg']) ? $data['error_msg'] : __('Sorry! Something Wrong with Your Submission', 'directorist');
-                }else{
+                } else{
                     $data['preview_url'] = $permalink;
                 }
+
                 if (!empty($data['need_payment']) && $data['need_payment'] === true) {
                     $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
                 }
+
                 if ($preview_enable) {
                     $data['preview_mode'] = true;
                 }
+
                 if ($info['listing_id']) {
                     $data['edited_listing'] = true;
                 }
+
                 wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
         }
 

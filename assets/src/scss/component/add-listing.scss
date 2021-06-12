@@ -413,7 +413,7 @@
 
 .directorist-modal-header {
     display: flex;
-    padding: 20px;
+    padding: 10px 20px;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #e4e4e4;
@@ -424,7 +424,7 @@
 }
 
 .directorist-modal-header .directorist-modal-title {
-    margin: 0;
+    margin-bottom: 0 !important;
     font-size: 24px;
 }
 
@@ -442,6 +442,10 @@
     margin-bottom: 10px;
 }
 
+.directorist-form-privacy,
+.directorist-form-terms{
+    display: flex;
+}
 
 /* =============================
     backend add listing form

@@ -126,14 +126,14 @@ function atbdp_add_flush_alert( array $args = [] ) {
         'dismissible' => true,
         'message'     => '',
     ];
-    
+
     $args = array_merge( $default, $args );
-    
+
     if ( empty( $args['id'] ) ) { return; }
-    
+
     $id = $args['id'];
     unset( $args['id'] );
-    
+
     $fulsh_messages = get_transient( 'atbdp_flush_alerts' );
 
     if ( ! $fulsh_messages ) {
@@ -191,7 +191,7 @@ function atbdp_render_the_flush_alert( array $alert = [] ) {
     ?>
     <div class="<?php echo $classes; ?>">
         <p><strong><?php echo $alert['message'] ?></strong></p>
-    </div> 
+    </div>
     <?php
 }
 
@@ -216,7 +216,7 @@ if ( !function_exists('get_help') ) {
             $helper = new ATBDP_Helper;
             return $helper;
         }
-        
+
         return null;
     }
 }
@@ -226,7 +226,7 @@ if ( ! function_exists( 'atbdp_polylang_is_active' ) ) :
         if ( class_exists('Polylang') ) {
             $pll_current_language = pll_current_language();
             $pll_default_language = pll_default_language();
-            
+
             if ( $pll_current_language !== $pll_default_language ) {
                 return true;
             }
@@ -263,9 +263,9 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $default = ['id' => '', 'edited' => true];
     $args = array_merge( $default, $args );
 
-    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;  
+    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
     $listing_id = $args['id'];
-    
+
     $new_l_status   = $args['new_l_status'];
     $edit_l_status  = $args['edit_l_status'];
     $edited         = $args['edited'];
@@ -274,7 +274,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $monitization          = get_directorist_option('enable_monetization', 0);
     $featured_enabled      = get_directorist_option('enable_featured_listing');
     $pricing_plans_enabled = is_fee_manager_active();
-    
+
     $post_status =  $listing_status;
 
     // If Pricing Plans are Enabled
@@ -286,7 +286,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
 
         $_listing_id    = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
-        
+
         $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
     }
 
@@ -625,7 +625,7 @@ if (!function_exists('get_directorist_option')) {
         $v = (array_key_exists($name, $options))
             ? $v = $options[sanitize_key($name)]
             : null;
-        
+
         $newvalue = apply_filters( 'directorist_option', $v, $name );
 
         if ( $newvalue != $v ) {
@@ -4679,7 +4679,7 @@ if ( ! function_exists('get_fa_icons') ) {
             'fas fa-x-ray',
             'fas fa-yen-sign',
             'fas fa-yin-yang',
-            
+
             'far fa-address-book',
             'far fa-address-card',
             'far fa-angry',
@@ -5828,7 +5828,7 @@ function directorist_icon( $icon, $echo = true ) {
 
 if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
     function atbdp_get_term_icon( array $args = [] )
-    {  
+    {
         $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
@@ -5836,7 +5836,7 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
         $icon = ( ! empty( $icon ) ) ?  'la ' . $icon : '';
         $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
-        if ( ! $args['echo'] ) { return $icon; } 
+        if ( ! $args['echo'] ) { return $icon; }
 
         echo $icon;
     }
@@ -6679,7 +6679,7 @@ function atbdp_calculate_column( $number ) {
             break;
         case 2:
             $columns = 6;
-            break;  
+            break;
         case 3:
             $columns = 4;
             break;
@@ -6692,7 +6692,7 @@ function atbdp_calculate_column( $number ) {
         case 6:
             $columns = 2;
             break;
-            default:  
+            default:
             $columns = 3;
     }
 
@@ -7037,9 +7037,9 @@ if (!function_exists('atbdp_deactivate_reasons')) {
  */
 function atbdp_is_page($atbdppages = '')
 {
+    global $post;
 
-    global $wp_query, $post, $wp;
-    //if(!is_admin()):
+    $atbdppages = preg_replace( '/[-]/', '_', $atbdppages );
 
     switch ($atbdppages):
         case 'home':
@@ -7049,21 +7049,21 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
-        case 'search-result':
+        case 'search_result':
             if (is_page() && get_the_ID() == get_directorist_option('search_result_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_result')) {
                 return true;
             }
             break;
-        case 'add-listing':
+        case 'add_listing':
             if (is_page() && get_the_ID() == get_directorist_option('add_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_add_listing')) {
                 return true;
             }
             break;
-        case 'all-listing':
+        case 'all_listing':
             if (is_page() && get_the_ID() == get_directorist_option('all_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_listing')) {
@@ -7090,6 +7090,9 @@ function atbdp_is_page($atbdppages = '')
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_categories')) {
                 return true;
             }
+            break;
+        case 'single_listing':
+            return is_singular('at_biz_dir');
             break;
         case 'single_category':
             if (is_page() && get_the_ID() == get_directorist_option('single_category_page')) {
@@ -7682,7 +7685,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 }
 
 function add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = array())
-{   
+{
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -7703,7 +7706,7 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
     );
 
     $terms             = get_terms($taxonomy_id, $args);
-    
+
     $html = '';
 
     if (count($terms) > 0) {
@@ -7957,7 +7960,7 @@ function atbdp_create_required_pages(){
         'custom_registration' => array(
             'title' => __('Registration', 'directorist'),
             'content' => '[directorist_custom_registration]'
-        ), 
+        ),
         'user_login' => array(
             'title' => __('Login', 'directorist'),
             'content' => '[directorist_user_login]'
@@ -7981,7 +7984,7 @@ function atbdp_create_required_pages(){
         // $op_name is the page option name in the database.
         // if we do not have the page id assigned in the settings with the given page option name, then create an page
         // and update the option.
-        
+
         if (empty($options[$op_name]) || !get_post($options[$op_name])) {
 
             $id = wp_insert_post(
@@ -8060,7 +8063,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
-    $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+    $default_image_src = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
         $thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
@@ -8092,7 +8095,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
     $image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
     $image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
-    
+
     // Extend Default
     if ( isset($args['image']) ) {
         $image_src = esc_html(stripslashes($args['image']));
@@ -8148,7 +8151,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
-    // Card Contain 
+    // Card Contain
     $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
     $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
@@ -8187,14 +8190,14 @@ function get_plasma_slider()
 {
     $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
     $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
-    
+
     if ( ! $slider_is_enabled ) { return ''; }
 
     global $post;
     $listing_id    = $post->ID;
     $listing_title = get_the_title( $post->ID );
     $data          = array();
-    
+
     // Check if gallery is allowed or not
     $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
     $show_gallery = true;
@@ -8205,9 +8208,9 @@ function get_plasma_slider()
 
     // Get the default image
     $default_image = get_directorist_option(
-        'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
     );
-    
+
     // Get the preview images
     $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
     $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
@@ -8231,7 +8234,7 @@ function get_plasma_slider()
 
     // Get the options
     $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-    
+
     // Set the options
     $data['images']             = [];
     $data['alt']                = $listing_title;
@@ -8257,7 +8260,7 @@ function get_plasma_slider()
 
         array_unshift( $data['images'], $preview_img );
     }
-    
+
     if ( count( $data['images'] ) < 1 ) {
         $data['images'][] = [
             'alt' => $listing_title,
@@ -8389,11 +8392,11 @@ function dvar_dump($data){
 if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
     function atbdp_field_assigned_plan( $field_data, $selected_plan = NULL ) {
         if( ! $field_data ) return false;
-    
+
         $quired_plan = ! empty( $_GET['plan'] ) ? sanitize_key( $_GET['plan'] ) : '';
         $selected_plan = ! empty( $selected_plan ) ? $selected_plan : $quired_plan;
         $plans = !empty( $field_data['plans'] ) ? $field_data['plans'] : [];
-        
+
         if( $plans ) {
             foreach ( $plans as $plan ) {
                 if( $plan['plan_id'] == $selected_plan ) {
@@ -8452,7 +8455,7 @@ if( !function_exists('get_listing_types') ){
 if( !function_exists('directorist_get_form_fields_by_directory_type') ){
     function directorist_get_form_fields_by_directory_type( $field = 'id', $value = '' ) {
         $term                   = get_term_by( $field, $value, ATBDP_TYPE );
-        $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );   
+        $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = $submission_form['fields'];
         return $submission_form_fields;
     }
@@ -8460,7 +8463,7 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
 
 if( !function_exists('directorist_legacy_mode') ){
     function directorist_legacy_mode() {
-        return get_directorist_option( 'atbdp_legacy_template', false );
+        return false;
     }
 }
 
@@ -8605,4 +8608,3 @@ if( ! function_exists( 'directorist_warnings' ) ) {
         return $warnings;
     }
 }
-

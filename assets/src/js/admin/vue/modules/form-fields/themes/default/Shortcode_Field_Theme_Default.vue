@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import Button_Card_Widget from '../../../../../../../../../../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue';
 import text_feild from '../../../../mixins/form-fields/shortcode-field';
 
 export default {

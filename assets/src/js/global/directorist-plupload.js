@@ -1,5 +1,3 @@
-import './../../scss/layout/admin/directorist-plupload.scss';
-
 import { get_dom_data } from './../lib/helper';
 
 jQuery.fn.exists = function() {

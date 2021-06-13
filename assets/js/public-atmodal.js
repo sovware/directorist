@@ -90,13 +90,9 @@
 /*!*****************************************!*\
   !*** ./assets/src/js/public/atmodal.js ***!
   \*****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/atmodal.scss */ "./assets/src/scss/layout/public/atmodal.scss");
-/* harmony import */ var _scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_atmodal_scss__WEBPACK_IMPORTED_MODULE_0__);
 /*
 		Name:  ATModal
 		Version: 1.0
@@ -105,8 +101,6 @@ __webpack_require__.r(__webpack_exports__);
 	*/
 
 /* disable-eslint */
-
-
 var aazztechModal1 = function aazztechModal1(selector) {
   var element = document.querySelectorAll(selector);
   element.forEach(function (el, index) {
@@ -156,17 +150,6 @@ window.addEventListener('load', function () {
     initModal();
   }, 500);
 });
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/public/atmodal.scss":
-/*!****************************************************!*\
-  !*** ./assets/src/scss/layout/public/atmodal.scss ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

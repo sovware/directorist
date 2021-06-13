@@ -86,75 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue":
-/*!***************************************************************************************************************************************************!*\
-  !*** /Users/rafiq/Local Sites/directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue ***!
-  \***************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Button_Card_Widget.vue?vue&type=template&id=1c940574& */ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574&");
-/* harmony import */ var _Button_Card_Widget_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button_Card_Widget.vue?vue&type=script&lang=js& */ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../../../../../directorist-dev/app/public/wp-content/plugins/directorist/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Button_Card_Widget_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** /Users/rafiq/Local Sites/directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _directorist_dev_app_public_wp_content_plugins_directorist_node_modules_babel_loader_lib_index_js_ref_3_0_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_Card_Widget_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../../../directorist-dev/app/public/wp-content/plugins/directorist/node_modules/babel-loader/lib??ref--3-0!../../../../../../../../../../../../directorist-dev/app/public/wp-content/plugins/directorist/node_modules/vue-loader/lib??vue-loader-options!./Button_Card_Widget.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_babel_loader_lib_index_js_ref_3_0_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_Card_Widget_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** /Users/rafiq/Local Sites/directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574& ***!
-  \**********************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../../../directorist-dev/app/public/wp-content/plugins/directorist/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../../../../../directorist-dev/app/public/wp-content/plugins/directorist/node_modules/vue-loader/lib??vue-loader-options!./Button_Card_Widget.vue?vue&type=template&id=1c940574& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_directorist_dev_app_public_wp_content_plugins_directorist_node_modules_vue_loader_lib_index_js_vue_loader_options_Button_Card_Widget_vue_vue_type_template_id_1c940574___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./assets/src/js/admin/multi-directory-builder.js":
 /*!********************************************************!*\
   !*** ./assets/src/js/admin/multi-directory-builder.js ***!
@@ -164,32 +95,28 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/multi-directory-builder.scss */ "./assets/src/scss/layout/admin/multi-directory-builder.scss");
-/* harmony import */ var _scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_multi_directory_builder_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue_slide_up_down__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-slide-up-down */ "./node_modules/vue-slide-up-down/dist/vue-slide-up-down.m.js");
-/* harmony import */ var _vue_global_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/global-component */ "./assets/src/js/admin/vue/global-component.js");
-/* harmony import */ var _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/store/CPT_Manager_Store */ "./assets/src/js/admin/vue/store/CPT_Manager_Store.js");
-/* harmony import */ var _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/apps/cpt-manager/CPT_Manager.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/CPT_Manager.vue");
-// SASS
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_slide_up_down__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slide-up-down */ "./node_modules/vue-slide-up-down/dist/vue-slide-up-down.m.js");
+/* harmony import */ var _vue_global_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/global-component */ "./assets/src/js/admin/vue/global-component.js");
+/* harmony import */ var _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/store/CPT_Manager_Store */ "./assets/src/js/admin/vue/store/CPT_Manager_Store.js");
+/* harmony import */ var _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/apps/cpt-manager/CPT_Manager.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/CPT_Manager.vue");
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('slide-up-down', vue_slide_up_down__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide_up_down__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 
 
 var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
 
 if (cpt_manager_el) {
-  new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
     el: '#atbdp-cpt-manager',
-    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__["default"],
+    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
     components: {
-      'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+      'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
     },
     data: function data() {
       return {
@@ -11415,17 +11342,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
 
 /***/ }),
 
-/***/ "./assets/src/scss/layout/admin/multi-directory-builder.scss":
-/*!*******************************************************************!*\
-  !*** ./assets/src/scss/layout/admin/multi-directory-builder.scss ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
@@ -13461,111 +13377,6 @@ module.exports = {
   stripBOM: stripBOM
 };
 
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!/Users/rafiq/Local Sites/directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'button-card-widget',
-  props: {
-    label: {
-      type: String
-    },
-    options: {
-      type: Object
-    },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit('drag');
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit('dragend');
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit('drop');
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
-    }
-  }
-});
 
 /***/ }),
 
@@ -27312,7 +27123,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -28855,8 +28666,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _directoria_app_public_wp_content_plugins_directorist_assets_src_js_vue_modules_card_widgets_Button_Card_Widget_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../../../../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue */ "../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue");
-/* harmony import */ var _mixins_form_fields_shortcode_field__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../mixins/form-fields/shortcode-field */ "./assets/src/js/admin/vue/mixins/form-fields/shortcode-field.js");
+/* harmony import */ var _mixins_form_fields_shortcode_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/shortcode-field */ "./assets/src/js/admin/vue/mixins/form-fields/shortcode-field.js");
 //
 //
 //
@@ -28878,14 +28688,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Button_Card_Widget: _directoria_app_public_wp_content_plugins_directorist_assets_src_js_vue_modules_card_widgets_Button_Card_Widget_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Button_Card_Widget: Button_Card_Widget
   },
   name: 'shortcode-field-theme-default',
-  mixins: [_mixins_form_fields_shortcode_field__WEBPACK_IMPORTED_MODULE_1__["default"]]
+  mixins: [_mixins_form_fields_shortcode_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 /***/ }),
@@ -30771,89 +30580,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../../../../../../directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!/Users/rafiq/Local Sites/directoria/app/public/wp-content/plugins/directorist/assets/src/js/vue/modules/card-widgets/Button_Card_Widget.vue?vue&type=template&id=1c940574& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-        },
-        [
-          _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
-          _c("widget-action-tools", {
-            attrs: {
-              canEdit: _vm.canEdit,
-              canMove: _vm.canMove,
-              canTrash: _vm.canTrash
-            },
-            on: {
-              drag: function($event) {
-                return _vm.dragStart()
-              },
-              dragend: function($event) {
-                return _vm.dragEnd()
-              },
-              edit: function($event) {
-                return _vm.$emit("edit")
-              },
-              trash: function($event) {
-                return _vm.$emit("trash")
-              }
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("span", {
-        staticClass: "cptm-widget-card-drop-append",
-        class: _vm.dropAppendClass,
-        on: {
-          dragover: function($event) {
-            $event.preventDefault()
-          },
-          dragenter: function($event) {
-            return _vm.handleDragEnter()
-          },
-          dragleave: function($event) {
-            return _vm.handleDragLeave()
-          },
-          drop: function($event) {
-            return _vm.handleDrop()
-          }
-        }
-      })
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
 
 /***/ }),
 
@@ -39710,7 +39436,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

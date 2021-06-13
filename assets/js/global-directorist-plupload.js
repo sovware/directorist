@@ -95,26 +95,23 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/directorist-plupload.scss */ "./assets/src/scss/layout/admin/directorist-plupload.scss");
-/* harmony import */ var _scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_directorist_plupload_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
-
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
 
 
 jQuery.fn.exists = function () {
   return jQuery(this).length > 0;
 };
 
-var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["get_dom_data"])('atbdp_plupload_params');
-var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["get_dom_data"])('atbdp_params');
+var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');
+var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 var $ = jQuery; // Init
 
 jQuery(document).ready(init);
 window.addEventListener('directorist-reload-plupload', init);
 
 function init() {
-  atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["get_dom_data"])('atbdp_plupload_params');
-  atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["get_dom_data"])('atbdp_params');
+  atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');
+  atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 
   if ($(".plupload-upload-uic").exists()) {
     var pconfig = false;
@@ -568,17 +565,6 @@ function get_dom_data(key) {
 }
 
 
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/admin/directorist-plupload.scss":
-/*!****************************************************************!*\
-  !*** ./assets/src/scss/layout/admin/directorist-plupload.scss ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ })
 

@@ -736,7 +736,7 @@ class SetupWizard
     ?>
         <div class="atbdp-c-body">
             <div class="atbdp-c-logo">
-                <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+                <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist">
             </div>
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
             <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
@@ -779,6 +779,7 @@ class SetupWizard
     public function setup_wizard_header()
     {
         set_current_screen();
+        $hide = ! isset( $_GET['step'] ) ? 'directorist-setup-wizard-vh' : 'directorist-setup-wizard-vh-none';
     ?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
@@ -794,9 +795,10 @@ class SetupWizard
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
+        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?> <?php echo $hide; ?>">
+            <div class="directorist-setup-wizard-wrapper">
             <?php
-            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
+            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
             ?>
             <!--<h1 id="atbdp-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
         <?php
@@ -813,7 +815,7 @@ class SetupWizard
         ?>
 
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
-            <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
+            <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
                         if ($step_key === $this->step && 'step-four' != $step_key ) {
@@ -851,7 +853,7 @@ class SetupWizard
         $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
         echo '<div class="atbdp-setup-content '. $introduction_class .'">';
         call_user_func($this->steps[$this->step]['view']);
-        echo '</div>';
+        echo '</div> </div>';
     }
 
     /**

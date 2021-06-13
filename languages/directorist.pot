@@ -217,7 +217,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:481, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4521
+#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:481, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4532
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -910,7 +910,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:649, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2225, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2234, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2248, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2257, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2266, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2275, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2284, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2293, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2302, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2316, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2325, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2334, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2343, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2352, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2361, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2370, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2379, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2388, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2397, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2406, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2415, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2424, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2487, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3086, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3108, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3140, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3168, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3196, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3224, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3252, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3280, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3308, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3401, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3448, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3476, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3504, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3532, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3560, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3588, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3611, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3639, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3667, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3913, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4203, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4265, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4280
+#: ../includes/classes/class-custom-taxonomy.php:649, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2225, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2234, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2248, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2257, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2266, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2275, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2284, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2293, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2302, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2316, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2325, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2334, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2343, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2352, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2361, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2370, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2379, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2388, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2397, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2406, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2415, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2424, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2487, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3086, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3108, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3140, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3168, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3196, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3224, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3252, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3280, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3308, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3401, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3448, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3476, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3504, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3532, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3560, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3588, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3611, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3639, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3667, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3913, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4214, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4276, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4291
 msgid "Icon"
 msgstr ""
 
@@ -1377,7 +1377,7 @@ msgstr ""
 msgid "Listing Information"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:168, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4456, ../views/front-end/user-dashboard.php:275, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
+#: ../includes/classes/class-metabox.php:168, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4467, ../views/front-end/user-dashboard.php:275, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
 msgid "Expiration"
 msgstr ""
 
@@ -1385,7 +1385,7 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:211, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4884
+#: ../includes/classes/class-metabox.php:211, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4900
 msgid "Listing Type"
 msgstr ""
 
@@ -1693,7 +1693,7 @@ msgstr ""
 msgid "Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:488, ../includes/classes/class-settings-panel.php:3943, ../includes/gateways/class-gateway.php:171, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:473, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1467, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1523, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1574, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1630, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1681, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1732, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1778, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1841, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1904, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1966, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2193, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4232
+#: ../includes/classes/class-settings-panel.php:488, ../includes/classes/class-settings-panel.php:3943, ../includes/gateways/class-gateway.php:171, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:473, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1467, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1523, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1574, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1630, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1681, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1732, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1778, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1841, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1904, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1966, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2193, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4243
 msgid "Description"
 msgstr ""
 
@@ -3141,7 +3141,7 @@ msgstr ""
 msgid "Hide Empty Locations"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3621, ../includes/classes/class-settings-panel.php:3631, ../includes/classes/class-settings-panel.php:3653, ../includes/classes/class-settings-panel.php:3663, ../includes/classes/class-settings-panel.php:3690, ../includes/classes/class-settings-panel.php:3717, ../includes/classes/class-settings-panel.php:3744, ../includes/classes/class-settings-panel.php:3771, ../includes/classes/class-settings-panel.php:3798, ../includes/classes/class-settings-panel.php:3869, ../includes/classes/class-settings-panel.php:3874, ../includes/classes/class-settings-panel.php:3884, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:455, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:502, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:550, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:586, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:710, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:751, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:788, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:857, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:914, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1013, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1052, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1093, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1134, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1175, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1216, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1257, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1298, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1390, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1431, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1454, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1505, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1561, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1612, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1668, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1719, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1770, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1816, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1879, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1941, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2002, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2460, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2482, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2509, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2545, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2566, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2587, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2618, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2678, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2698, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2718, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2738, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2758, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2778, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2798, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2818, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2839, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2860, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2881, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2902, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2918, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2934, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2950, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2975, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2986, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4057, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4075, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4095, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4198
+#: ../includes/classes/class-settings-panel.php:3621, ../includes/classes/class-settings-panel.php:3631, ../includes/classes/class-settings-panel.php:3653, ../includes/classes/class-settings-panel.php:3663, ../includes/classes/class-settings-panel.php:3690, ../includes/classes/class-settings-panel.php:3717, ../includes/classes/class-settings-panel.php:3744, ../includes/classes/class-settings-panel.php:3771, ../includes/classes/class-settings-panel.php:3798, ../includes/classes/class-settings-panel.php:3869, ../includes/classes/class-settings-panel.php:3874, ../includes/classes/class-settings-panel.php:3884, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:455, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:502, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:550, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:586, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:710, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:751, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:788, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:857, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:914, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1013, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1052, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1093, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1134, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1175, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1216, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1257, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1298, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1390, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1431, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1454, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1505, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1561, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1612, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1668, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1719, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1770, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1816, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1879, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:1941, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2002, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2460, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2482, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2509, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2545, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2566, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2587, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2618, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2678, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2698, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2718, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2738, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2758, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2778, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2798, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2818, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2839, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2860, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2881, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2902, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2918, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2934, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2950, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2975, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2986, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4057, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4075, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4095, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4209
 msgid "Label"
 msgstr ""
 
@@ -3149,7 +3149,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3625, ../includes/classes/class-settings-panel.php:3657, ../includes/classes/class-settings-panel.php:3684, ../includes/classes/class-settings-panel.php:3711, ../includes/classes/class-settings-panel.php:3738, ../includes/classes/class-settings-panel.php:3765, ../includes/classes/class-settings-panel.php:3792, ../includes/classes/class-settings-panel.php:3819, ../includes/classes/class-settings-panel.php:3829, ../includes/classes/class-settings-panel.php:3878, ../includes/classes/class-settings-panel.php:3899, ../includes/classes/class-settings-panel.php:3926, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4047, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4065, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4184
+#: ../includes/classes/class-settings-panel.php:3625, ../includes/classes/class-settings-panel.php:3657, ../includes/classes/class-settings-panel.php:3684, ../includes/classes/class-settings-panel.php:3711, ../includes/classes/class-settings-panel.php:3738, ../includes/classes/class-settings-panel.php:3765, ../includes/classes/class-settings-panel.php:3792, ../includes/classes/class-settings-panel.php:3819, ../includes/classes/class-settings-panel.php:3829, ../includes/classes/class-settings-panel.php:3878, ../includes/classes/class-settings-panel.php:3899, ../includes/classes/class-settings-panel.php:3926, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4047, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4065, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4195
 msgid "Enable"
 msgstr ""
 
@@ -3685,7 +3685,7 @@ msgstr ""
 msgid "Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4415, ../includes/classes/class-settings-panel.php:4776, ../includes/elementor/add-listing.php:36, ../includes/elementor/all-categories.php:45, ../includes/elementor/all-listing.php:63, ../includes/elementor/all-locations.php:45, ../includes/elementor/author-profile.php:25, ../includes/elementor/category.php:25, ../includes/elementor/checkout.php:25, ../includes/elementor/custom-registration.php:25, ../includes/elementor/location.php:25, ../includes/elementor/payment-receipt.php:26, ../includes/elementor/search-listing.php:36, ../includes/elementor/search-result.php:25, ../includes/elementor/tag.php:25, ../includes/elementor/transaction-failure.php:26, ../includes/elementor/user-dashboard.php:25, ../includes/elementor/user-login.php:25, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4436
+#: ../includes/classes/class-settings-panel.php:4415, ../includes/classes/class-settings-panel.php:4776, ../includes/elementor/add-listing.php:36, ../includes/elementor/all-categories.php:45, ../includes/elementor/all-listing.php:63, ../includes/elementor/all-locations.php:45, ../includes/elementor/author-profile.php:25, ../includes/elementor/category.php:25, ../includes/elementor/checkout.php:25, ../includes/elementor/custom-registration.php:25, ../includes/elementor/location.php:25, ../includes/elementor/payment-receipt.php:26, ../includes/elementor/search-listing.php:36, ../includes/elementor/search-result.php:25, ../includes/elementor/tag.php:25, ../includes/elementor/transaction-failure.php:26, ../includes/elementor/user-dashboard.php:25, ../includes/elementor/user-login.php:25, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4447
 msgid "General"
 msgstr ""
 
@@ -3949,7 +3949,7 @@ msgstr ""
 msgid "Builder Options"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:5127, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4161
+#: ../includes/classes/class-settings-panel.php:5127, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4172
 msgid "Advanced"
 msgstr ""
 
@@ -4129,7 +4129,7 @@ msgstr ""
 msgid "Create your First Listing"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:721, ../includes/classes/class-setup-wizard.php:864
+#: ../includes/classes/class-setup-wizard.php:721, ../includes/classes/class-setup-wizard.php:866
 msgid "Return to the WordPress Dashboard"
 msgstr ""
 
@@ -4153,7 +4153,7 @@ msgstr ""
 msgid "Let's Go!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:789
+#: ../includes/classes/class-setup-wizard.php:790
 msgid "Directorist &rsaquo; Setup Wizard"
 msgstr ""
 
@@ -4429,7 +4429,7 @@ msgstr ""
 msgid "Directorist - Similar Listings"
 msgstr ""
 
-#: ../includes/classes/class-widget-similar-listings.php:38, ../includes/classes/class-widget-similar-listings.php:58, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4577
+#: ../includes/classes/class-widget-similar-listings.php:38, ../includes/classes/class-widget-similar-listings.php:58, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4593
 msgid "Similar Listings"
 msgstr ""
 
@@ -5510,7 +5510,7 @@ msgstr ""
 msgid "User agent"
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:288, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4502, ../includes/system-status/system-information/system-information-template.php:35, ../views/admin-templates/settings-manager/settings.php:6
+#: ../includes/system-status/system-info-template.php:288, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4513, ../includes/system-status/system-information/system-information-template.php:35, ../views/admin-templates/settings-manager/settings.php:6
 msgid "Settings"
 msgstr ""
 
@@ -6110,15 +6110,15 @@ msgstr ""
 msgid "Radius Search"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3014, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4213
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3014, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4224
 msgid "Listing Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3024, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4215
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3024, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4226
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3028, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4224
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3028, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4235
 msgid "Show Tagline"
 msgstr ""
 
@@ -6138,7 +6138,7 @@ msgstr ""
 msgid "Read More Text"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3072, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4357
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3072, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4368
 msgid "Listings Location"
 msgstr ""
 
@@ -6214,7 +6214,7 @@ msgstr ""
 msgid "Listings Address Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3322, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4305
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3322, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4316
 msgid "Listings Price"
 msgstr ""
 
@@ -6302,7 +6302,7 @@ msgstr ""
 msgid "Radio Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3695, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3811, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4371
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3695, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3811, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4382
 msgid "Top Right"
 msgstr ""
 
@@ -6366,277 +6366,289 @@ msgstr ""
 msgid "Block/Section Icon"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4114
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4110
+msgid "Shortcode"
+msgstr ""
+
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4119
 msgid "Similar listings logics"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4116
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4121
 msgid "Must match category and tag"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4117
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4122
 msgid "Must match category or tag"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4123
-msgid "Listing from same author"
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4129
+msgid "Select a page"
 msgstr ""
 
 #: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4130
+msgid "Following shortcodes can be in the selected page %s"
+msgstr ""
+
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4134
+msgid "Listing from same author"
+msgstr ""
+
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4141
 msgid "Number of listings to show"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4137
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4148
 msgid "Number of columns"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4155
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4166
 msgid "Basic"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4178
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4189
 msgid "Back"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4180
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4191
 msgid "Back Button Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4192
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4203
 msgid "Section Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4194
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4205
 msgid "Section Title Options"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4219
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4230
 msgid "Show Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4234
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4245
 msgid "Description Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4238
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4249
 msgid "Show Description"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4253
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4264
 msgid "Bookmark"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4258, ../templates/single/fields/share.php:11
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4269, ../templates/single/fields/share.php:11
 msgid "Share"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4261
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4272
 msgid "Share Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4273, ../templates/single/fields/report.php:11
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4284, ../templates/single/fields/report.php:11
 msgid "Report"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4276
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4287
 msgid "Report Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4289
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4300
 msgid "Listings Slider"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4293
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4304
 msgid "Listings Slider Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4297
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4308
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4310
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4321
 msgid "Badges"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4317
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4328
 msgid "Display New Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4322
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4333
 msgid "Display Popular Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4327
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4338
 msgid "Display Featured Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4336
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4347
 msgid "Listings Reviews"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4341
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4352
 msgid "Listings Ratings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4346
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4357
 msgid "Listings Category"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4377
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4388
 msgid "Thumbnail"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4383
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4394
 msgid "Quick info"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4396, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4414
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4407, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4425
 msgid "With Preview Image"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4402, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4420
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4413, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4431
 msgid "Without Preview Image"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4439
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4450
 msgid "Labels"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4447
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4458
 msgid "Default Status"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4448
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4459
 msgid "Need help?"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4457
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4468
 msgid "Default time to expire a listing."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4464
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4475
 msgid "Default Preview"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4465
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4476
 msgid "This image will be used when listing preview image is not present. Leave empty to hide the preview image completely."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4472
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4483
 msgid "Export The Config File"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4473
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4484
 msgid "Export all the form, layout and settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4485
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4496
 msgid "Submission Form"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4489
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4500
 msgid "Form Fields"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4493
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4504
 msgid "Select or create fields for this listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4494, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4566, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4614, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4631
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4505, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4577, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4630, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4647
 msgid "need help?"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4505
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4516
 msgid "Submission Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4530
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4541
 msgid "Privacy and Policy"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4544
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4555
 msgid "Single Page Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4548, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4552
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4559, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4563
 msgid "Listing Header"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4561, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4565
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4572, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4576
 msgid "Contents"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4574
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4585
 msgid "Other Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4590
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4606
 msgid "Listings Card Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4594
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4610
 msgid "Listings Card Grid Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4598
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4614
 msgid "Create and customize the listing card for grid view"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4600
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4616
 msgid "need help? Read the documentation or open a ticket in our helpdesk."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4608
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4624
 msgid "Listings Card List Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4612
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4628
 msgid "Create and customize the listing card for listing view"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4625
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4641
 msgid "Search Forms"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4630
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4646
 msgid "Customize the search form for this listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4646
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4662
 msgid "Guest Email Label"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4652
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4668
 msgid "Guest Email Placeholder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4658
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4674
 msgid "Guest Submission"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4703, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4707
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4719, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4723
 msgid "Directory Builder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4870
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4886
 msgid "Failed to delete the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4863
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4879
 msgid "Successfully Deleted the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4881
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4897
 msgctxt "taxonomy general name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4882
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4898
 msgctxt "taxonomy singular name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4883
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4899
 msgid "Search Listing Type"
 msgstr ""
 

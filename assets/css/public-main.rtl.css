@@ -7940,6 +7940,7 @@ p.atbd-min {
   width: 180px;
   -webkit-box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
           box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
+  list-style-type: none;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
   padding: 11px 20px;
@@ -9849,6 +9850,10 @@ p.atbd-min {
 .directorist-search-form-box input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.directorist-content-active .directorist-listing-category-top ul {
+  list-style-type: none;
 }
 
 .directorist-search-top {

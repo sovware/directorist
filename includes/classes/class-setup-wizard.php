@@ -798,7 +798,7 @@ class SetupWizard
         <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?> <?php echo $hide; ?>">
             <div class="directorist-setup-wizard-wrapper">
             <?php
-            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
+            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
             ?>
             <!--<h1 id="atbdp-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
         <?php
@@ -815,7 +815,7 @@ class SetupWizard
         ?>
 
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
-            <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
+            <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
                         if ($step_key === $this->step && 'step-four' != $step_key ) {

@@ -4131,12 +4131,6 @@ class Multi_Directory_Manager
                 ],
                 'value'   => 'OR',
             ],
-            'single_listing_shortcode' => [
-                'type'    => 'select',
-                'name'    => 'single_listing_shortcode',
-                'label' => __( 'Select a page', 'directorist' ),
-                'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),                'options' => $this->get_pages_vl_arrays(),
-            ],
             'listing_from_same_author' => [
                 'type'  => 'toggle',
                 'label' => __( 'Listing from same author', 'directorist' ),
@@ -4594,13 +4588,12 @@ class Multi_Directory_Manager
                         'sections' => [
                             'page_settings' => [
                                 'fields' => [
-                                    'single_listing_shortcode',
+                                    'single_listing_page',
                                 ],
                             ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
-                                    'single_listing_page',
                                     'similar_listings_logics',
                                     'listing_from_same_author',
                                     'similar_listings_number_of_listings_to_show',

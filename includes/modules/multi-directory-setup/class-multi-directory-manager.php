@@ -4108,7 +4108,7 @@ class Multi_Directory_Manager
                     'shortcode' => [
                         'type'  => 'shortcode',
                         'label' => __( 'Shortcode', 'directorist' ),
-                        'value' => '[directorist_single_listings_section section-key="@@%%shortcode_key%%@@"]',
+                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
                         'filters' => [
                             [
                                 'type'         => 'replace',

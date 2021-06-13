@@ -2,6 +2,15 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
+    function directorist_get_listings_directory_type( $listing_id = '' ) {
+        $directory_type = wp_get_post_terms( $listing_id, ATBDP_DIRECTORY_TYPE );
+        if ( empty( $directory_type ) || ! is_array( $directory_type ) ) return '';
+
+        return $directory_type[0]->term_id;
+    }
+}
+
 if ( ! function_exists( 'atbdp_is_truthy' ) ) {
     function atbdp_is_truthy( $data ) {
 

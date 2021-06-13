@@ -701,7 +701,11 @@ atbdSelectData.forEach(function (el) {
   $('.directorist-dashboard__nav--close, .directorist-shade').on('click', function () {
     $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
     $(".directorist-shade").removeClass("directorist-active");
-  });
+  }); // Profile Responsive
+
+  if ($('#user_profile_form').width() < 800) {
+    $('#user_profile_form').addClass('directorist-profile-responsive');
+  }
 })(jQuery);
 
 /***/ }),

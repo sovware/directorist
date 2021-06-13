@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/map-scripts/single-listing/google-map-widget.js":
-/*!***********************************************************************!*\
-  !*** ./assets/src/js/map-scripts/single-listing/google-map-widget.js ***!
-  \***********************************************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/google-map-widget.js":
+/*!******************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -260,14 +260,14 @@
 
 /***/ }),
 
-/***/ 7:
-/*!*****************************************************************************!*\
-  !*** multi ./assets/src/js/map-scripts/single-listing/google-map-widget.js ***!
-  \*****************************************************************************/
+/***/ 14:
+/*!************************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/map-scripts/single-listing/google-map-widget.js */"./assets/src/js/map-scripts/single-listing/google-map-widget.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js */"./assets/src/js/global/map-scripts/single-listing/google-map-widget.js");
 
 
 /***/ })

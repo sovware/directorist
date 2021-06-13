@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/checkout.js":
-/*!***********************************!*\
-  !*** ./assets/src/js/checkout.js ***!
-  \***********************************/
+/***/ "./assets/src/js/public/checkout.js":
+/*!******************************************!*\
+  !*** ./assets/src/js/public/checkout.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -160,13 +160,13 @@
 /***/ }),
 
 /***/ 1:
-/*!*****************************************!*\
-  !*** multi ./assets/src/js/checkout.js ***!
-  \*****************************************/
+/*!************************************************!*\
+  !*** multi ./assets/src/js/public/checkout.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/checkout.js */"./assets/src/js/checkout.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/checkout.js */"./assets/src/js/public/checkout.js");
 
 
 /***/ })

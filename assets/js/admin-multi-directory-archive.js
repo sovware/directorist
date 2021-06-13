@@ -86,35 +86,9 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/admin/multi-directory-archive.js":
-/*!********************************************************!*\
-  !*** ./assets/src/js/admin/multi-directory-archive.js ***!
-  \********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/multi-directory-archive.scss */ "./assets/src/scss/layout/admin/multi-directory-archive.scss");
-/* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_admin_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/admin/import-directory-modal */ "./assets/src/js/components/admin/import-directory-modal.js");
-/* harmony import */ var _components_admin_import_directory_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_admin_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_admin_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/admin/delete-directory-modal */ "./assets/src/js/components/admin/delete-directory-modal.js");
-/* harmony import */ var _components_admin_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_admin_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_admin_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/admin/directory-migration-modal */ "./assets/src/js/components/admin/directory-migration-modal.js");
-/* harmony import */ var _components_admin_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_admin_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3__);
-// SASS
- // Scrips
-
-
-
-
-
-/***/ }),
-
-/***/ "./assets/src/js/components/admin/delete-directory-modal.js":
+/***/ "./assets/src/js/admin/components/delete-directory-modal.js":
 /*!******************************************************************!*\
-  !*** ./assets/src/js/components/admin/delete-directory-modal.js ***!
+  !*** ./assets/src/js/admin/components/delete-directory-modal.js ***!
   \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -136,9 +110,9 @@ $('.atbdp-directory-delete-link').on('click', function (e) {
 
 /***/ }),
 
-/***/ "./assets/src/js/components/admin/directory-migration-modal.js":
+/***/ "./assets/src/js/admin/components/directory-migration-modal.js":
 /*!*********************************************************************!*\
-  !*** ./assets/src/js/components/admin/directory-migration-modal.js ***!
+  !*** ./assets/src/js/admin/components/directory-migration-modal.js ***!
   \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -202,9 +176,9 @@ $('.atbdp-directory-migration-link').on('click', function (e) {
 
 /***/ }),
 
-/***/ "./assets/src/js/components/admin/import-directory-modal.js":
+/***/ "./assets/src/js/admin/components/import-directory-modal.js":
 /*!******************************************************************!*\
-  !*** ./assets/src/js/components/admin/import-directory-modal.js ***!
+  !*** ./assets/src/js/admin/components/import-directory-modal.js ***!
   \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -298,6 +272,32 @@ $('.cptm-import-directory-form').on('submit', function (e) {
     $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
   });
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/multi-directory-archive.js":
+/*!********************************************************!*\
+  !*** ./assets/src/js/admin/multi-directory-archive.js ***!
+  \********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/multi-directory-archive.scss */ "./assets/src/scss/layout/admin/multi-directory-archive.scss");
+/* harmony import */ var _scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_multi_directory_archive_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/import-directory-modal */ "./assets/src/js/admin/components/import-directory-modal.js");
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/delete-directory-modal */ "./assets/src/js/admin/components/delete-directory-modal.js");
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/directory-migration-modal */ "./assets/src/js/admin/components/directory-migration-modal.js");
+/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_3__);
+// SASS
+ // Scrips
+
+
+
+
 
 /***/ }),
 

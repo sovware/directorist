@@ -1,4 +1,4 @@
-import '../scss/component/add-listing.scss';
+import './../../scss/component/add-listing.scss';
 
 /* eslint-disable */
 const $ = jQuery;

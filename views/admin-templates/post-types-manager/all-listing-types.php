@@ -117,7 +117,29 @@
                                                     </a>
                                                     <span class="directorist_listing-id">ID: #<?php echo ! empty( $listing_type->term_id ) ? $listing_type->term_id : ''; ?></span>
                                                 </td>
-                                                <td><span class="directorist_listing-slug"><?php echo $listing_type->slug; ?></span></td>
+                                                <td>
+                                                    <span class="directorist_listing-slug-text"><?php echo $listing_type->slug; ?></span>
+                                                    <div class="directorist-listing-slug-edit-wrap">
+                                                        <a href="" class="directorist-listing-slug__edit">
+                                                            <i class="la la-edit"></i>
+                                                        </a>
+                                                        <div class="directorist-listing-slug__form">
+                                                            <form action="#">
+                                                                <div class="directorist_listing-slug__form--inline">
+                                                                    <div class="directorist_listing-slug__form--input directorist-form-group">
+                                                                        <input type="text" class="directorist-form-element directorist-type-slug-<?php echo $listing_type->term_id; ?>" name="directorist-slug-input" value="<?php echo ! empty( $listing_type->slug ) ? $listing_type->slug : '-'; ?>">
+                                                                    </div>
+                                                                    <div class="directorist_listing-slug__form--action">
+                                                                        <a href="#" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"><i class="la la-check"></i></a>
+                                                                        <a href="#" class="directorist_listing-slug-formText-remove"><i class="la la-times"></i></a>
+                                                                    </div>
+                                                                    <div class="directorist_listing-slug__form--loader"></div>
+                                                                </div>
+                                                            </form>
+                                                            <p class='directorist-slug-notice directorist-slug-notice-<?php echo $listing_type->term_id; ?>'></p>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
                                                 <td><?php
                                                 if( $created_time ) {

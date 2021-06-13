@@ -1,4 +1,5 @@
-import '../../scss/component/pureSearchSelect.scss';
+import './../../scss/component/pureSearchSelect.scss';
+
 /*  Plugin: PureScriptSearchSelect
     Author: SovWare
     URI: https://github.com/woadudakand/pureScriptSelect

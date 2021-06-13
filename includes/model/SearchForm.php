@@ -115,7 +115,7 @@ class Directorist_Listing_Search_Form {
 	// update_options_for_search_result_page
 	public function update_options_for_search_result_page() {
 		$this->options['more_filters_fields']     = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', [], true);
+		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
 		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
 		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
@@ -125,7 +125,7 @@ class Directorist_Listing_Search_Form {
 	public function update_options_for_search_form() {
 		$this->options['more_filters_fields'] = get_directorist_option('search_more_filters_fields', array( 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
 
-		$this->options['search_filters']             = get_directorist_option('search_filters', [], true );
+		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'), true );
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
@@ -202,7 +202,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function prepare_listing_data() {
-		$filters_buttons                = get_directorist_option( 'listings_filters_button', [], true );
+		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ), true );
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
@@ -324,7 +324,7 @@ class Directorist_Listing_Search_Form {
 			$miles = __( ' Miles', 'directorist' );
 		}
 
-		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $data['default_radius_distance'];
+		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
 
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
 			'miles' => $miles,
@@ -345,10 +345,10 @@ class Directorist_Listing_Search_Form {
 		$key = $field_data['field_key'];
 
 		if ( $this->is_custom_field( $field_data ) ) {
-			$value = !empty( $_GET['custom_field'][$key] ) ? $_GET['custom_field'][$key] : '';
+			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';
 		}
 		else {
-			$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+			$value = $key && isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : '';
 		}
 
 		$args = array(
@@ -488,18 +488,18 @@ class Directorist_Listing_Search_Form {
 
 	public function price_value($arg) {
 		if ( $arg == 'min' ) {
-			return isset( $_GET['price'] ) ? $_GET['price'][0] : '';
+			return isset( $_REQUEST['price'] ) ? $_REQUEST['price'][0] : '';
 		}
 
 		if ( $arg == 'max' ) {
-			return isset( $_GET['price'] ) ? $_GET['price'][1] : '';
+			return isset( $_REQUEST['price'] ) ? $_REQUEST['price'][1] : '';
 		}
 
 		return '';
 	}
 
 	public function the_price_range_input($range) {
-		$checked = ! empty( $_GET['price_range'] ) && $_GET['price_range'] == $range ? ' checked="checked"' : '';
+		$checked = ! empty( $_REQUEST['price_range'] ) && $_REQUEST['price_range'] == $range ? ' checked="checked"' : '';
 		printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
 	}
 
@@ -569,27 +569,27 @@ class Directorist_Listing_Search_Form {
 				'label'    => __( 'Select Ratings', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_GET['search_by_rating'] ) && '5' == $_GET['search_by_rating'] ) ? ' selected' : '',
+				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '5' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
 				'value'    => '5',
 				'label'    => __( '5 Star', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_GET['search_by_rating'] ) && '4' == $_GET['search_by_rating'] ) ? ' selected' : '',
+				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '4' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
 				'value'    => '4',
 				'label'    => __( '4 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_GET['search_by_rating'] ) && '3' == $_GET['search_by_rating'] ) ? ' selected' : '',
+				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '3' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
 				'value'    => '3',
 				'label'    => __( '3 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_GET['search_by_rating'] ) && '2' == $_GET['search_by_rating'] ) ? ' selected' : '',
+				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '2' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
 				'value'    => '2',
 				'label'    => __( '2 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_GET['search_by_rating'] ) && '1' == $_GET['search_by_rating'] ) ? ' selected' : '',
+				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '1' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
 				'value'    => '1',
 				'label'    => __( '1 Star & Up', 'directorist' ),
 			),
@@ -607,11 +607,11 @@ class Directorist_Listing_Search_Form {
 			'tax_query' => array(
 				array(
 					'taxonomy' => ATBDP_CATEGORY,
-					'terms'    => ! empty( $_GET['in_cat'] ) ? $_GET['in_cat'] : $category_id,
+					'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
 				),
 			),
 		);
-		$category_select = ! empty( $_GET['in_cat'] ) ? $_GET['in_cat'] : $category_id;
+		$category_select = ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id;
 		$tag_posts       = get_posts( $tag_args );
 		if ( ! empty( $tag_posts ) ) {
 			foreach ( $tag_posts as $tag_post ) {

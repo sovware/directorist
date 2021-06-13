@@ -16,5 +16,4 @@ function get_dom_data ( key ) {
     return dom_data;
 }
 
-
 export { get_dom_data };

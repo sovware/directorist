@@ -14,7 +14,9 @@ if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
 if ( ! function_exists( 'directorist_get_all_page_list' ) ) {
     function directorist_get_all_page_list( $listing_id = '' ) {
         $pages = get_pages();
-        $pages_options = [];
+        $pages_options = [
+           ['value' => '', 'label' => 'Select...']
+        ];
 
         if ( empty( $pages ) || ! is_array( $pages ) ) return $pages_options;
 

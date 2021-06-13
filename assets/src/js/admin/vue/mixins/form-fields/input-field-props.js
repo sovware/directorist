@@ -11,6 +11,9 @@ export default {
         root: {
             required: false,
         },
+        filters: {
+            required: false,
+        },
         data: {
             required: false,
         },

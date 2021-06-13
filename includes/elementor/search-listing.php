@@ -42,6 +42,32 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'default'   => 'yes',
 			),
 			array(
+				'type'      => Controls_Manager::CHOOSE,
+				'id'        => 'title_subtitle_alignment',
+				'label'     => __( 'Title/Subtitle Alignment', 'directorist' ),
+				'options'   => array(
+					'left'   => array(
+						'title' => __( 'Left', 'directorist' ),
+						'icon'  => 'fa fa-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'directorist' ),
+						'icon'  => 'fa fa-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'directorist' ),
+						'icon'  => 'fa fa-align-right',
+					),
+				),
+				'default'   => 'left',
+				'toggle'    => true,
+				'selectors' => array(
+					'{{WRAPPER}} .directorist-search-top__title' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .directorist-search-top__subtitle' => 'text-align: {{VALUE}}',
+				),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
 				'type'      => Controls_Manager::TEXTAREA,
 				'id'        => 'title',
 				'label'     => __( 'Search Form Title', 'directorist' ),
@@ -135,31 +161,6 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'default'   => 'no',
 			),
 			array(
-				'type'      => Controls_Manager::CHOOSE,
-				'id'        => 'title_subtitle_alignment',
-				'label'     => __( 'Alignment', 'directorist' ),
-				'options'   => array(
-					'left'   => array(
-						'title' => __( 'Left', 'directorist' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'directorist' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right'  => array(
-						'title' => __( 'Right', 'directorist' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'default'   => 'Left',
-				'toggle'    => true,
-				'selectors' => array(
-					'{{WRAPPER}} .directorist-search-top__title' => 'text-align: {{VALUE}}',
-					'{{WRAPPER}} .directorist-search-top__subtitle' => 'text-align: {{VALUE}}',
-				),
-			),
-			array(
 				'mode' => 'section_end',
 			),
 			array(
@@ -172,13 +173,50 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'id'        => 'title_color',
 				'label'     => __( 'Title', 'directorist' ),
+				'default'   => '#51526e',
 				'selectors' => array( '{{WRAPPER}} .directorist-search-top__title' => 'color: {{VALUE}}' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
 			),
 			array(
 				'type'      => Controls_Manager::COLOR,
 				'id'        => 'subtitle_color',
 				'label'     => __( 'Subtitle', 'directorist' ),
+				'default'   => '#51526e',
 				'selectors' => array( '{{WRAPPER}} .directorist-search-top__subtitle' => 'color: {{VALUE}}' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
+				'label' => __( 'Search Button', 'directorist' ),
+				'type'  => Controls_Manager::HEADING,
+				'id'    => 'button_color_heading',
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'btn_search_color',
+				'label'     => __( 'Text', 'directorist' ),
+				'default'   => '#FFFFFF',
+				'selectors' => array( '{{WRAPPER}} .directorist-btn-search' => 'color: {{VALUE}}!important' ),
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'btn_search_color_hover',
+				'label'     => __( 'Text Hover', 'directorist' ),
+				'default'   => '#FFFFFF',
+				'selectors' => array( '{{WRAPPER}} .directorist-btn-search:hover' => 'color: {{VALUE}}!important' ),
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'btn_search_bg_color',
+				'label'     => __( 'Background', 'directorist' ),
+				'default'   => '#444752',
+				'selectors' => array( '{{WRAPPER}} .directorist-btn-search' => 'background-color: {{VALUE}}!important' ),
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'btn_search_bg_color_hover',
+				'label'     => __( 'Background Hover', 'directorist' ),
+				'default'   => '#222222',
+				'selectors' => array( '{{WRAPPER}} .directorist-btn-search:hover' => 'background-color: {{VALUE}}!important' ),
 			),
 			array(
 				'mode' => 'section_end',
@@ -188,6 +226,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'id'    => 'sec_style_type',
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'label' => __( 'Typography', 'directorist' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
 			),
 			array(
 				'mode'     => 'group',

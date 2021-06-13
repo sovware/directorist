@@ -5205,6 +5205,7 @@ p.atbd-min {
 }
 .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn .directorist-pf-range {
   cursor: pointer;
+  height: 100%;
   min-height: 42px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -5440,8 +5441,8 @@ p.atbd-min {
 }
 .directorist-pagination .page-numbers.current {
   border-width: 2px;
-  border-color: #202428;
-  color: #202428;
+  border-color: #444752;
+  color: #fff;
 }
 
 #directorist.atbd_wrapper .atbd_category_wrapper span.fa {
@@ -9580,6 +9581,13 @@ p.atbd-min {
   display: block;
 }
 
+#dashboard_profile #user_profile_form.directorist-profile-responsive .directorist-col-lg-3 {
+  width: 100%;
+}
+#dashboard_profile #user_profile_form.directorist-profile-responsive .directorist-col-lg-9 {
+  width: 100%;
+}
+
 .directorist-image-profile-wrap {
   padding: 25px;
   background-color: #fff;
@@ -9928,6 +9936,9 @@ p.atbd-min {
 }
 .directorist-search-form-wrap .directorist-search-form-box .directorist-search-query {
   padding-right: 2px;
+}
+.directorist-search-form-wrap .directorist-search-form-box .directorist-form-group .directorist-form-element {
+  background-image: none !important;
 }
 
 .directorist-listing-type-selection {

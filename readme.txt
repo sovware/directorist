@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.4
+Stable tag: 7.0.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -319,6 +319,29 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+= 7.0.4.1 - May 24, 2021 =
+
+* Fix - Fatal error form membership management page
+* Fix - Author listing pagination is not working
+* Fix - Settings Color issue
+* Fix - Edit listing redirect url issue with checkout
+* Fix - Multiple times file upload custom field issue in add listing
+* Fix - No result found searching from checkbox
+* Fix - Title and description editing issue
+* Fix - Quick login issue
+* Fix - Listings disappearing from listings page
+* Fix - Settings panel slashing issue
+* Fix - Settings panel slashing issue
+* Fix - Custom fields issue in search form
+* Fix - Number field autoplay
+* Fix - Asset loading issue with page builders
+* Add - Buttons (renew and promote) in user dashboard
+* Add - Filter hook to range slider and dashboard query arguments
+* Tweak - Options panel
+* Improve - Form Builder
+* Improve - Dummy CSV file
+* Remove - Legacy template support
 
 = 7.0.4 - Apr 28, 2021 =
 

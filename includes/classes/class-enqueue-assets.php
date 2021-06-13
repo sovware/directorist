@@ -18,15 +18,17 @@ class Enqueue_Assets {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = $this;
 
+			add_filter( 'directorist_load_min_files', [ $this, 'manage_min_unmin_assets_switching' ] );
+
 			// Load Assets
-			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ] );
 
 			// Enqueue Public Scripts
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
 			// Enqueue Admin Scripts
-			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );	
 		}
 
 
@@ -47,7 +49,7 @@ class Enqueue_Assets {
 		}
 
 		// Set Script Version
-		$script_version = ( DIRECTORIST_LOAD_MIN_FILES ) ? DIRECTORIST_SCRIPT_VERSION : md5( time() );
+		$script_version = ( self::load_min_files() ) ? DIRECTORIST_SCRIPT_VERSION : md5( time() );
 		self::$script_version = apply_filters( 'directorist_script_version', $script_version );
 
 		// Load Vendor Assets
@@ -71,6 +73,27 @@ class Enqueue_Assets {
 
 		// Apply Hook to Scripts
 		self::apply_hook_to_scripts();
+	}
+
+	/**
+	 * Manage min unmin assets switching
+	 *
+	 * @return void
+	 */
+	public function manage_min_unmin_assets_switching( $default ) {
+		$script_debug = get_directorist_option( 'script_debugging', false, true );
+		$load_min = ( $script_debug ) ? false : $default;
+
+		return $load_min;
+	}
+
+	/**
+	 * Load min files
+	 *
+	 * @return void
+	 */
+	public static function load_min_files() {
+		return apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES );
 	}
 
 	/**
@@ -993,15 +1016,6 @@ class Enqueue_Assets {
 	public static function add_global_css_scripts() {
 		// $scripts = [];
 
-		// $scripts['directorist-admin-style'] = [
-		//     'file_name' => 'admin-style',
-		//     'base_path' => DIRECTORIST_CSS,
-		//     'deps'      => [],
-		//     'ver'       => self::$script_version,
-		//     'group'     => 'global',
-		//     'section'   => '',
-		// ];
-
 		// $scripts = array_merge( self::$css_scripts, $scripts);
 		// self::$css_scripts = $scripts;
 	}
@@ -1416,7 +1430,7 @@ class Enqueue_Assets {
 		$has_rtl    = ( ! empty( $args['has_rtl'] ) ) ? true : false;
 
 
-		$load_min = apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES );
+		$load_min = self::load_min_files();
 		$is_rtl   =  is_rtl();
 
 		if ( $has_min && $load_min ) {

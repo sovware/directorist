@@ -74,6 +74,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
             // default listing type
             add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
+            // listing type slug edit
+            add_action('wp_ajax_directorist_type_slug_change', array($this, 'directorist_type_slug_change'));
 
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
@@ -276,18 +278,53 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             wp_send_json( 'Updated Successfully!' );
         }
 
-        public function ajax_callback_custom_fields() {
+        public function directorist_type_slug_change() {
+            $type_id        = isset( $_POST[ 'type_id' ] ) ? sanitize_key( $_POST[ 'type_id' ] ) : '';
+            $update_slug    = isset( $_POST[ 'update_slug' ] ) ? sanitize_key( $_POST[ 'update_slug' ] ) : '';
+           
+            $directory_slugs = [];
+            $listing_types = get_terms( [
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
+                ] );
+            if( $listing_types ) {
+                foreach( $listing_types as $listing_type ){
+                    $directory_slugs[] = $listing_type->slug;
+                }
+            }
 
+            if( in_array( $update_slug, $directory_slugs ) ) {
+                wp_send_json( array(
+                    'error' => __('This slug already in use.', 'directorist')
+                ) );
+            } else {
+                $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );
+                if( $update_type_slug ) {
+                    wp_send_json( array(
+                        'success' => __('Slug Changes Successfully.', 'directorist')
+                    ) );
+                }
+            }
+        }
+
+        public function ajax_callback_custom_fields() {
             $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
             $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : [];
             $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
             // wp_send_json($post_id);
             $template = '';
             $submission_form_fields = [];
-            if( $listing_type ){
+
+            if ( is_string( $listing_type ) && ! is_numeric( $listing_type ) ) {
+                $listing_term = get_term_by( 'slug', $listing_type, ATBDP_DIRECTORY_TYPE );
+                $listing_type = ( $listing_term ) ? $listing_term->term_id : $listing_type;
+            }
+
+            if ( $listing_type ) {
                 $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
                 $submission_form_fields = $submission_form['fields'];
-             }
+            }
+
              foreach( $submission_form_fields as $key => $value ){
                 // $value['request_from_no_admin'] = true;
                 $category = !empty( $value['category'] ) ? $value['category'] : '';

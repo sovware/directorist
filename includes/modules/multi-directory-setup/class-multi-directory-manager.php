@@ -4107,8 +4107,31 @@ class Multi_Directory_Manager
                     ],
                     'shortcode' => [
                         'type'  => 'shortcode',
-                        'label'  => __( 'Shortcode', 'directorist' ),
-                        'value' => '',
+                        'label' => __( 'Shortcode', 'directorist' ),
+                        'value' => '[directorist_single_listings_section section-key="@@%%shortcode_key%%@@"]',
+                        'filters' => [
+                            [
+                                'type'         => 'replace',
+                                'find'         => '%%shortcode_key%%',
+                                'replace_from' => 'self.label',
+                            ],
+                            [
+                                'type'       => 'lowercase',
+                                'find_regex' => '@@.+@@',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'look_for'   => '@@.+@@',
+                                'find_regex' => '\\s',
+                                'replace'    => '-',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'find_regex' => '@@(.+)@@',
+                                'replace'    => '$1',
+                            ],
+                        ],
+
                     ],
                 ],
                 'value' => [],

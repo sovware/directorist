@@ -99,7 +99,7 @@ class ATBDP_Shortcode {
 		foreach ( $listing->content_data as $section ) {
 			$section_label = preg_replace( '/\s/', '-' , strtolower( $section['label'] ) );
 
-			$section_key = ( isset( $atts['section-key'] ) ) ? $atts['section-key'] : '';
+			$section_key = ( isset( $atts['key'] ) ) ? $atts['key'] : '';
 			$section_keys = preg_split( '/\s*[,]\s/', $section_key );
 
 			if ( ! empty( $section_keys ) && ! in_array( $section_label, $section_keys ) ) {

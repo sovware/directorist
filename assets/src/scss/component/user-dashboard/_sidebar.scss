@@ -54,9 +54,11 @@
     }
 
     .directorist-tab__nav__items {
+        list-style-type: none;
         li {
             ul {
                 display: none;
+                list-style-type: none;
 
                 li a {
                     padding-left: 25px;

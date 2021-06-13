@@ -269,10 +269,10 @@ class SetupWizard
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
 
-        wp_register_style('directorist-admin-setup-wizard-style', DIRECTORIST_CSS . 'admin-setup-wizard.css', ATBDP_VERSION, true);
+        wp_register_style('directorist-admin-style', DIRECTORIST_CSS . 'admin-main.css', ATBDP_VERSION, true);
         wp_register_script('directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
 
-        wp_enqueue_style('directorist-admin-setup-wizard-style');
+        wp_enqueue_style('directorist-admin-style');
         wp_enqueue_script('directorist-admin-setup-wizard-script');
 
         wp_localize_script('directorist-admin-setup-wizard-script', 'import_export_data', [ 'ajaxurl' => admin_url('admin-ajax.php') ] );

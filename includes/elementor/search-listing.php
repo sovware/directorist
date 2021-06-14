@@ -168,6 +168,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'id'    => 'sec_style',
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'label' => __( 'Color', 'directorist' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
 			),
 			array(
 				'type'      => Controls_Manager::COLOR,
@@ -184,39 +185,6 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'default'   => '#51526e',
 				'selectors' => array( '{{WRAPPER}} .directorist-search-top__subtitle' => 'color: {{VALUE}}' ),
 				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
-			),
-			array(
-				'label' => __( 'Search Button', 'directorist' ),
-				'type'  => Controls_Manager::HEADING,
-				'id'    => 'button_color_heading',
-			),
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'id'        => 'btn_search_color',
-				'label'     => __( 'Text', 'directorist' ),
-				'default'   => '#FFFFFF',
-				'selectors' => array( '{{WRAPPER}} .directorist-btn-search' => 'color: {{VALUE}}!important' ),
-			),
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'id'        => 'btn_search_color_hover',
-				'label'     => __( 'Text Hover', 'directorist' ),
-				'default'   => '#FFFFFF',
-				'selectors' => array( '{{WRAPPER}} .directorist-btn-search:hover' => 'color: {{VALUE}}!important' ),
-			),
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'id'        => 'btn_search_bg_color',
-				'label'     => __( 'Background', 'directorist' ),
-				'default'   => '#444752',
-				'selectors' => array( '{{WRAPPER}} .directorist-btn-search' => 'background-color: {{VALUE}}!important' ),
-			),
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'id'        => 'btn_search_bg_color_hover',
-				'label'     => __( 'Background Hover', 'directorist' ),
-				'default'   => '#222222',
-				'selectors' => array( '{{WRAPPER}} .directorist-btn-search:hover' => 'background-color: {{VALUE}}!important' ),
 			),
 			array(
 				'mode' => 'section_end',

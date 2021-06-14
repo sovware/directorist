@@ -1,5 +1,3 @@
-import './../../scss/layout/admin/plugins.scss';
-
 jQuery(document).ready(function($) {
         const update = $( '#directorist-update' );
         const main_div = $('[data-slug="directorist"]');

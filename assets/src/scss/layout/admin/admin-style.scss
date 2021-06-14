@@ -5236,7 +5236,16 @@ img.atbdp-file-info {
 @import '../../base/general';
 @import '../../base/utility';
 
-// Component Import
+// Components
+// ----------------------------------
+// Global Styles
+@import '../../component/add-listing';
+@import '../../component/directorist-plupload';
+@import '../../component/pureSearchSelect';
+@import '../../component/openstreet-map/index.scss';
+
+// Admin Style
+@import '../../component/drag_drop';
 @import '../../component/form';
 @import '../../component/button';
 @import '../../component/modal';
@@ -5244,3 +5253,9 @@ img.atbdp-file-info {
 @import '../../component/checkbox-radio';
 @import '../../component/switch';
 @import '../../component/pureSearchSelect';
+
+@import './multi-directory-archive.scss';
+@import './multi-directory-builder.scss';
+@import './settings-manager.scss';
+@import './plugins.scss';
+@import './setup-wizard.scss';

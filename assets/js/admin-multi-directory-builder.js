@@ -1417,6 +1417,9 @@ __webpack_require__.r(__webpack_exports__);
     root: {
       required: false
     },
+    filters: {
+      required: false
+    },
     data: {
       required: false
     },
@@ -2206,9 +2209,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
-/* harmony import */ var lodash_lowerCase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/lowerCase */ "./node_modules/lodash/lowerCase.js");
-/* harmony import */ var lodash_lowerCase__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_lowerCase__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -2217,18 +2225,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
     prop: 'value',
     event: 'update'
   },
   computed: {
     shortcode: function shortcode() {
-      if (!this.root) return '';
-      if (!this.root.label) return '';
-      if (!this.root.label.length) return '';
-      var label = lodash_lowerCase__WEBPACK_IMPORTED_MODULE_2___default()(this.root.label).replace(/\s/g, '-');
-      return '[directorist_single_listings_section section-key="' + label + '"]';
+      var shortcode = this.applyFilters(this.value, this.filters);
+      return shortcode;
     },
     formGroupClass: function formGroupClass() {
       var _this$validationLog;
@@ -2255,6 +2260,93 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     };
   },
   methods: {
+    applyFilters: function applyFilters(value, filters) {
+      if (!filters) return value;
+      var filterd_value = value;
+
+      var _iterator = _createForOfIteratorHelper(filters),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var filter = _step.value;
+          if (typeof this[filter.type] !== 'function') continue;
+          filterd_value = this[filter.type](filterd_value, filter);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return filterd_value;
+    },
+    replace: function replace(value, args) {
+      if (!args.find && !args.find_regex) return value;
+      if (!args.replace && !args.replace_from) return value;
+      var replace_text = '';
+      var pattern_find = '';
+
+      if (args.find) {
+        pattern_find = args.find;
+      }
+
+      if (args.find_regex) {
+        pattern_find = new RegExp(args.find_regex, "g");
+      }
+
+      if (args.replace && typeof args.replace === 'string') {
+        replace_text = args.replace;
+      }
+
+      if (args.replace_from && typeof args.replace_from === 'string') {
+        replace_text = this.getTergetFields({
+          root: this.root,
+          path: args.replace_from
+        });
+      }
+
+      if (args.look_for) {
+        var pattern_look_for = new RegExp(args.look_for, 'g');
+        var subject = pattern_look_for.exec(value);
+        if (!subject) return value;
+
+        if (Array.isArray(subject)) {
+          subject = subject[0];
+        }
+
+        subject = subject.replace(pattern_find, replace_text);
+        value = value.replace(pattern_look_for, subject);
+      } else {
+        value = value.replace(pattern_find, replace_text);
+      }
+
+      ;
+      return value;
+    },
+    lowercase: function lowercase(value, args) {
+      if (!args.find && !args.find_regex) return value;
+      var pattern_find = '';
+
+      if (args.find) {
+        pattern_find = args.find;
+      }
+
+      if (args.find_regex) {
+        pattern_find = new RegExp(args.find_regex, "g");
+      }
+
+      var subject = pattern_find.exec(value);
+      if (!subject) return value;
+
+      if (Array.isArray(subject)) {
+        subject = subject[0];
+      }
+
+      subject = subject.toLowerCase();
+      value = value.replace(pattern_find, subject);
+      return value;
+    },
     copyToClip: function copyToClip() {
       if (document.selection) {
         document.getSelection().removeAllRanges();
@@ -27939,15 +28031,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'shortcode-field-theme-butterfly',
@@ -28678,21 +28761,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Button_Card_Widget: Button_Card_Widget
-  },
   name: 'shortcode-field-theme-default',
   mixins: [_mixins_form_fields_shortcode_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
@@ -29955,44 +30025,6 @@ function isSymbol(value) {
 }
 
 module.exports = isSymbol;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/lowerCase.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/lowerCase.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createCompounder = __webpack_require__(/*! ./_createCompounder */ "./node_modules/lodash/_createCompounder.js");
-
-/**
- * Converts `string`, as space separated words, to lower case.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the lower cased string.
- * @example
- *
- * _.lowerCase('--Foo-Bar--');
- * // => 'foo bar'
- *
- * _.lowerCase('fooBar');
- * // => 'foo bar'
- *
- * _.lowerCase('__FOO_BAR__');
- * // => 'foo bar'
- */
-var lowerCase = createCompounder(function(result, word, index) {
-  return result + (index ? ' ' : '') + word.toLowerCase();
-});
-
-module.exports = lowerCase;
 
 
 /***/ }),
@@ -41356,59 +41388,33 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "atbdp-col atbdp-col-8" },
-          [
-            (typeof _vm.value !== "object"
-            ? true
-            : false)
-              ? _c("input", {
-                  staticClass: "cptm-form-control",
-                  class: _vm.formControlClass,
-                  attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
-                  domProps: { value: _vm.value === false ? "" : _vm.value },
-                  on: {
-                    input: function($event) {
-                      return _vm.$emit("update", $event.target.value)
-                    }
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            (typeof _vm.value === "object"
-            ? true
-            : false)
-              ? _c("input", {
-                  attrs: { type: "hidden" },
-                  domProps: { value: JSON.stringify(_vm.value) }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("form-field-validatior", {
-              attrs: {
-                "section-id": _vm.sectionId,
-                "field-id": _vm.fieldId,
-                root: _vm.root,
-                value: _vm.value,
-                rules: _vm.rules
-              },
-              on: {
-                validate: function($event) {
-                  return _vm.$emit("validate", $event)
-                }
-              },
-              model: {
-                value: _vm.validationLog,
-                callback: function($$v) {
-                  _vm.validationLog = $$v
+        _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
+          !_vm.generateShortcode
+            ? _c("input", {
+                staticClass: "cptm-btn cptm-generate-shortcode-button",
+                attrs: { type: "button", value: "Generate Shortcode" },
+                on: { click: _vm.generate }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.generateShortcode
+            ? _c(
+                "div",
+                {
+                  ref: "shortcode",
+                  staticClass: "cptm-shortcode",
+                  on: { click: _vm.copyToClip }
                 },
-                expression: "validationLog"
-              }
-            })
-          ],
-          1
-        )
+                [_vm._v(_vm._s(_vm.shortcode))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.successMsg.length
+            ? _c("div", { staticClass: "cptm-info-text cptm-info-success" }, [
+                _vm._v(_vm._s(_vm.successMsg))
+              ])
+            : _vm._e()
+        ])
       ])
     ]
   )
@@ -42960,31 +42966,8 @@ var render = function() {
         ? _c("div", { staticClass: "cptm-info-text cptm-info-success" }, [
             _vm._v(_vm._s(_vm.successMsg))
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("form-field-validatior", {
-        attrs: {
-          "section-id": _vm.sectionId,
-          "field-id": _vm.fieldId,
-          root: _vm.root,
-          value: _vm.value,
-          rules: _vm.rules
-        },
-        on: {
-          validate: function($event) {
-            return _vm.$emit("validate", $event)
-          }
-        },
-        model: {
-          value: _vm.validationLog,
-          callback: function($$v) {
-            _vm.validationLog = $$v
-          },
-          expression: "validationLog"
-        }
-      })
-    ],
-    1
+        : _vm._e()
+    ]
   )
 }
 var staticRenderFns = []

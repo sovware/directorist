@@ -1,8 +1,8 @@
 import props from './input-field-props.js';
-import lowerCase from 'lodash/lowerCase';
+import helpers from './../helpers';
 
 export default {
-    mixins: [ props ],
+    mixins: [ props, helpers ],
     model: {
         prop: 'value',
         event: 'update'
@@ -10,13 +10,9 @@ export default {
 
     computed: {
         shortcode() {
-            if ( ! this.root ) return '';
-            if ( ! this.root.label ) return '';
-            if ( ! this.root.label.length ) return '';
+            let shortcode = this.applyFilters( this.value, this.filters );
 
-            let label = lowerCase( this.root.label ).replace( /\s/g, '-' );
-
-            return '[directorist_single_listings_section section-key="'+ label +'"]';
+            return shortcode;
         },
 
         formGroupClass() {
@@ -47,6 +43,89 @@ export default {
     },
 
     methods: {
+        applyFilters( value, filters ) {
+            if ( ! filters ) return value;
+
+            let filterd_value = value;
+
+            for ( let filter of filters ) {
+                if ( typeof this[ filter.type ] !== 'function' ) continue;
+                filterd_value = this[ filter.type ]( filterd_value, filter );
+            }
+
+            return filterd_value;
+        },
+
+        replace( value, args ) {
+            if ( ! args.find && ! args.find_regex ) return value;
+            if ( ! args.replace && ! args.replace_from ) return value;
+            
+            let replace_text = '';
+            let pattern_find = '';
+
+            if ( args.find ) {
+                pattern_find = args.find;
+            }
+
+            if ( args.find_regex ) {
+                pattern_find = new RegExp( args.find_regex, "g" );
+            }
+
+            if ( args.replace && typeof args.replace === 'string' ) {
+                replace_text = args.replace;
+            }
+
+            if ( args.replace_from && typeof args.replace_from === 'string' ) {
+                replace_text = this.getTergetFields( { root: this.root, path: args.replace_from } );
+            }
+
+            if ( args.look_for ) {
+                let pattern_look_for = new RegExp( args.look_for, 'g' );
+                let subject = pattern_look_for.exec( value );
+
+                if ( ! subject ) return value;
+
+                if ( Array.isArray( subject ) ) {
+                    subject = subject[0];
+                }
+
+                subject = subject.replace( pattern_find, replace_text );
+                
+                value = value.replace( pattern_look_for, subject );
+            } else {
+                value = value.replace( pattern_find, replace_text );
+            };
+
+            return value;
+        },
+
+        lowercase( value, args ) {
+            if ( ! args.find && ! args.find_regex ) return value;
+            
+            let pattern_find = '';
+
+            if ( args.find ) {
+                pattern_find = args.find;
+            }
+
+            if ( args.find_regex ) {
+                pattern_find = new RegExp( args.find_regex, "g" );
+            }
+
+            let subject = pattern_find.exec( value );
+
+            if ( ! subject ) return value;
+
+            if ( Array.isArray( subject ) ) {
+                subject = subject[0];
+            }
+
+            subject = subject.toLowerCase();
+            value = value.replace( pattern_find, subject );
+
+            return value;
+        },
+
         copyToClip() {
             if (document.selection) {
                 document.getSelection().removeAllRanges();  

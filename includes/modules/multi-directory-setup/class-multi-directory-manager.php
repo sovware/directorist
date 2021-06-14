@@ -4107,11 +4107,42 @@ class Multi_Directory_Manager
                     ],
                     'shortcode' => [
                         'type'  => 'shortcode',
-                        'label'  => __( 'Shortcode', 'directorist' ),
-                        'value' => '',
+                        'label' => __( 'Shortcode', 'directorist' ),
+                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
+                        'filters' => [
+                            [
+                                'type'         => 'replace',
+                                'find'         => '%%shortcode_key%%',
+                                'replace_from' => 'self.label',
+                            ],
+                            [
+                                'type'       => 'lowercase',
+                                'find_regex' => '@@.+@@',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'look_for'   => '@@.+@@',
+                                'find_regex' => '\\s',
+                                'replace'    => '-',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'find_regex' => '@@(.+)@@',
+                                'replace'    => '$1',
+                            ],
+                        ],
+
                     ],
                 ],
                 'value' => [],
+            ],
+            'single_listing_page' => [
+                'label'             => __('Single Listing Page', 'directorist'),
+                'type'              => 'select',
+                'description'       => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section key="section-label-in-lowercase-with-no-space"]</div>'),
+                'value'             => '',
+                'showDefaultOption' => true,
+                'options'           => directorist_get_all_page_list(),
             ],
             'similar_listings_logics' => [
                 'type'    => 'radio',
@@ -4122,12 +4153,6 @@ class Multi_Directory_Manager
                     ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
                 ],
                 'value'   => 'OR',
-            ],
-            'single_listing_shortcode' => [
-                'type'    => 'select',
-                'name'    => 'single_listing_shortcode',
-                'label' => __( 'Select a page', 'directorist' ),
-                'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section section-key="section-label-in-lowercase-with-no-space"]</div>'),                'options' => $this->get_pages_vl_arrays(),
             ],
             'listing_from_same_author' => [
                 'type'  => 'toggle',
@@ -4586,7 +4611,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'page_settings' => [
                                 'fields' => [
-                                    'single_listing_shortcode',
+                                    'single_listing_page',
                                 ],
                             ],
                             'other' => [

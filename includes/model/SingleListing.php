@@ -350,7 +350,7 @@ class Directorist_Single_Listing {
 			),
 		);
 
-		return $result;
+		return apply_filters( 'directorist_single_listing_social_sharing_items', $result );
 	}
 
 	public function quick_actions_template() {

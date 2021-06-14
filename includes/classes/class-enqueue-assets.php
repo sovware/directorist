@@ -21,14 +21,14 @@ class Enqueue_Assets {
 			add_filter( 'directorist_load_min_files', [ $this, 'manage_min_unmin_assets_switching' ] );
 
 			// Load Assets
-			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets'] );
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets'] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ] );
 
 			// Enqueue Public Scripts
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
 			// Enqueue Admin Scripts
-			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );	
 		}
 
 
@@ -597,41 +597,6 @@ class Enqueue_Assets {
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 
-		$scripts['directorist-atmodal'] = [
-			'file_name' => 'public-atmodal',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-		];
-
-		$scripts['directorist-search-style'] = [
-			'file_name' => 'public-search-style',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [ ],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'   => true,
-		];
-
-		$scripts['directorist-add-listing-public'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
 	}
@@ -804,69 +769,6 @@ class Enqueue_Assets {
 			// 'page'      => 'plugins.php',
 		];
 
-		$scripts['directorist-add-listing-admin'] = [
-			'file_name' => 'global-add-listing',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin', // public || admin  || global
-			// 'page'      => [ 'post-new.php', 'post.php' ],
-		];
-
-		$scripts['directorist-plugins-css'] = [
-			'file_name' => 'admin-plugins',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			// 'page'      => 'plugins.php',
-			// 'enable'    => is_admin(),
-		];
-
-		$scripts['directorist-settings-manager'] = [
-			'file_name' => 'admin-settings-manager',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-settings',
-		];
-
-		$scripts['directorist-multi-directory-archive'] = [
-			'file_name' => 'admin-multi-directory-archive',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => 'at_biz_dir_page_atbdp-directory-types',
-		];
-
-		$scripts['directorist-multi-directory-builder'] = [
-			'file_name' => 'admin-multi-directory-builder',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'admin',
-			'section'   => '',
-			'page'      => [
-				'at_biz_dir_page_atbdp-layout-builder',
-				'at_biz_dir_page_atbdp-directory-types'
-			],
-		];
-
-		$scripts['directorist-plupload'] = [
-			'file_name' => 'global-directorist-plupload',
-			'base_path' => DIRECTORIST_CSS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'global',
-			'section'   => '',
-			'page'      => '',
-		];
-
 		$scripts = array_merge( self::$css_scripts, $scripts);
 		self::$css_scripts = $scripts;
 	}
@@ -1016,15 +918,6 @@ class Enqueue_Assets {
 	public static function add_global_css_scripts() {
 		// $scripts = [];
 
-		// $scripts['directorist-admin-style'] = [
-		//     'file_name' => 'admin-style',
-		//     'base_path' => DIRECTORIST_CSS,
-		//     'deps'      => [],
-		//     'ver'       => self::$script_version,
-		//     'group'     => 'global',
-		//     'section'   => '',
-		// ];
-
 		// $scripts = array_merge( self::$css_scripts, $scripts);
 		// self::$css_scripts = $scripts;
 	}
@@ -1114,6 +1007,26 @@ class Enqueue_Assets {
 		$style = str_replace( ['<style>', '</style>'], '', $style );
 		$style = self::minify_css( $style );
 		return $style;
+	}
+
+	/**
+	 * Enqueue Global Scripts
+	 *
+	 * @return void
+	 */
+	public static function enqueue_global_scripts( $page = '', $fource_enqueue = false ) {
+		// Other
+		self::enqueue_custom_color_picker_scripts();
+		// wp_enqueue_script( 'jquery' );
+
+		// CSS
+		self::register_css_scripts();
+		self::enqueue_css_scripts_by_group( [ 'group' => 'global', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
+		wp_add_inline_style( 'directorist-inline-style', self::dynamic_style() );
+
+		// JS
+		self::register_js_scripts();
+		self::enqueue_js_scripts_by_group( [ 'group' => 'global', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
 	}
 
 	/**

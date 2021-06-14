@@ -3,23 +3,13 @@ module.exports = {
         // Public
         // -------------------------------------------
         // JS
-        ['public-main']: ["./assets/src/js/main.js"],
-        ['public-checkout']: ["./assets/src/js/checkout.js"],
-        ['public-search-listing']: ["./assets/src/js/components/search-listing.js"],
-        ['public-search-form-listing']: ["./assets/src/js/components/search-form-listing.js"],
+        ['public-main']: ["./assets/src/js/public/main.js"],
+        ['public-checkout']: ["./assets/src/js/public/checkout.js"],
+        ['public-search-listing']: ["./assets/src/js/public/search-listing.js"],
+        ['public-search-form-listing']: ["./assets/src/js/public/search-form-listing.js"],
 
-        ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map.js"],
-        ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/map-scripts/single-listing/openstreet-map-widget.js"],
-        ['public-single-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map.js"],
-        ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/map-scripts/single-listing/google-map-widget.js"],
-
-        ['public-atmodal']: ["./assets/src/js/modules/atmodal.js"],
-        ['public-releated-listings-slider']: ["./assets/src/js/components/releated-listings-slider.js"],
-        ['public-geolocation-widget']: ["./assets/src/js/map-scripts/geolocation-widget.js"],
-
-        // CSS
-        ['public-search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
-
+        ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
+        ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
 
         // Admin
         // -------------------------------------------
@@ -31,25 +21,25 @@ module.exports = {
         ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
         ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
 
-        // CSS
-        ['admin-drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
-
         // Global
         // -------------------------------------------
         // JS
-        ['global-add-listing']: ["./assets/src/js/add-listing.js"],
-        ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/map-scripts/add-listing/openstreet-map.js"],
-        ['global-add-listing-gmap-custom-script']: ["./assets/src/js/map-scripts/add-listing/google-map.js"],
-        ['global-geolocation']: ["./assets/src/js/map-scripts/geolocation.js"],
+        ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 
-        ['global-directorist-plupload']: "./assets/src/js/admin/directorist-plupload.js",
-        ['global-pure-select']: ["./assets/src/js/modules/pureScriptSearchSelect.js"],
-        ['global-load-osm-map']: ["./assets/src/js/map-scripts/load-osm-map.js"],
-        ['global-map-view']: ["./assets/src/js/map-scripts/map-view.js"],
-        ['global-markerclusterer']: ["./assets/src/js/map-scripts/markerclusterer.js"],
+        ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
+        ['global-add-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
+        ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],
+        ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
+        ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],
+        ['public-single-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
+        ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
+        ['public-geolocation-widget']: ["./assets/src/js/global/map-scripts/geolocation-widget.js"],
+        ['global-load-osm-map']: ["./assets/src/js/global/map-scripts/load-osm-map.js"],
+        ['global-map-view']: ["./assets/src/js/global/map-scripts/map-view.js"],
+        ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
 
-        // CSS
-        ['global-openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
+        ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
+        ['global-pure-select']: ["./assets/src/js/global/pureScriptSearchSelect.js"],
     },
 
     vueEntries: {

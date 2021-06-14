@@ -1,3 +1,16 @@
+// Profile Responsive 
+#dashboard_profile{
+    #user_profile_form{
+        &.directorist-profile-responsive{
+            .directorist-col-lg-3{
+                width: 100%;
+            }
+            .directorist-col-lg-9{
+                width: 100%;
+            }
+        }
+    }
+}
 // User Profile Image
 
 .directorist-image-profile-wrap {

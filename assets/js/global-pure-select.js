@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/modules/pureScriptSearchSelect.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/modules/pureScriptSearchSelect.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/global/pureScriptSearchSelect.js":
+/*!********************************************************!*\
+  !*** ./assets/src/js/global/pureScriptSearchSelect.js ***!
+  \********************************************************/
 /*! exports provided: pureScriptSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -98,15 +98,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pureScriptSelect", function() { return pureScriptSelect; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/component/pureSearchSelect.scss */ "./assets/src/scss/component/pureSearchSelect.scss");
-/* harmony import */ var _scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_pureSearchSelect_scss__WEBPACK_IMPORTED_MODULE_1__);
 
 
 /*  Plugin: PureScriptSearchSelect
     Author: SovWare
     URI: https://github.com/woadudakand/pureScriptSelect
 */
-
 function pureScriptSelect(selector) {
   var selectors = document.querySelectorAll(selector);
 
@@ -550,17 +547,6 @@ function pureScriptSelect(selector) {
 
 /***/ }),
 
-/***/ "./assets/src/scss/component/pureSearchSelect.scss":
-/*!*********************************************************!*\
-  !*** ./assets/src/scss/component/pureSearchSelect.scss ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
@@ -588,14 +574,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 16:
-/*!***************************************************************!*\
-  !*** multi ./assets/src/js/modules/pureScriptSearchSelect.js ***!
-  \***************************************************************/
+/***/ 18:
+/*!**************************************************************!*\
+  !*** multi ./assets/src/js/global/pureScriptSearchSelect.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/modules/pureScriptSearchSelect.js */"./assets/src/js/modules/pureScriptSearchSelect.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/pureScriptSearchSelect.js */"./assets/src/js/global/pureScriptSearchSelect.js");
 
 
 /***/ })

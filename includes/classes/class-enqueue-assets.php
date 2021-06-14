@@ -28,7 +28,7 @@ class Enqueue_Assets {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
 			// Enqueue Admin Scripts
-			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );	
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
 		}
 
 
@@ -573,7 +573,7 @@ class Enqueue_Assets {
 			'base_path'      => DIRECTORIST_CSS,
 			'deps'           => [],
 			'ver'            => self::$script_version,
-			'group'          => 'public',                       // public || admin  || global
+			'group'          => 'global',                       // public || admin  || global
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 

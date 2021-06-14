@@ -154,11 +154,12 @@
         if (response) {
           $('.directorist-search-form-box').empty().html(response['search_form']);
         }
+         $('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
         var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
           events.forEach(function (event) {
             document.body.dispatchEvent(event);
           });
-
+         
       },
       error: function error(_error) {
         console.log(_error);

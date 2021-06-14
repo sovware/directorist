@@ -7,18 +7,9 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
-                <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
-
-                <form-field-validatior 
-                    :section-id="sectionId"
-                    :field-id="fieldId"
-                    :root="root"
-                    :value="value" 
-                    :rules="rules" 
-                    v-model="validationLog" 
-                    @validate="$emit( 'validate', $event )"
-                />
+                <input type="button" v-if="! generateShortcode" class="cptm-btn cptm-generate-shortcode-button" value="Generate Shortcode" @click="generate">
+                <div v-if="generateShortcode" class="cptm-shortcode" ref="shortcode" @click="copyToClip">{{ shortcode }}</div>
+                <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>
             </div>
         </div>
     </div>

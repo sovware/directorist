@@ -314,8 +314,8 @@ SWBD;
 			// wp_send_json([
 			//     'status' => false,
 			//     'active_gateways' => $_POST['active_gateways'],
-			//     'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
-			//     'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
+			//     'active_gateways_decoded' =>  Directorist\Helper::maybe_json( $_POST['active_gateways'] ),
+			//     'active_gateways_decoded_type' => gettype(  Directorist\Helper::maybe_json( $_POST['active_gateways'] ) ),
 			//     'status_log' => [
 			//         'name_is_missing' => [
 			//             'type' => 'error',
@@ -326,7 +326,7 @@ SWBD;
 
 
 			$status = [ 'success' => false, 'status_log' => [] ];
-			$field_list = ( ! empty( $_POST['field_list'] ) ) ? $this->maybe_json( $_POST['field_list'] ) : [];
+			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
 			if ( empty( $field_list ) || ! is_array( $field_list ) ) {
@@ -370,7 +370,7 @@ SWBD;
 			foreach ( $options as $option_key => $option_value ) {
 				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
 
-				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value );
+				$atbdp_options[ $option_key ] = Directorist\Helper::maybe_json( $option_value );
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );
@@ -386,34 +386,10 @@ SWBD;
 			return [ 'status' => $status ];
 		}
 
-        // maybe_json
-		public function maybe_json( $input_data ) {
-            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
-            
-            // Sanitize input data
-            $sanitized_data = $input_data;
-    
-            if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
-                $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
-            }
-    
-            $output_data = json_decode( $sanitized_data, true);
-            $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
-    
-            // Sanitize output data
-            if ( 'string' === gettype( $output_data ) ) {
-                $output_data = preg_replace( '/\\\\"/', '"', $output_data );
-                $output_data = preg_replace( "/\\\\'/", "'", $output_data );
-                $output_data = _sanitize_text_fields( $output_data, true );
-            }
-    
-            return $output_data;
-        }
-
 		// maybe_serialize
 		public function maybe_serialize($value = '')
 		{
-			return maybe_serialize($this->maybe_json($value));
+			return maybe_serialize( Directorist\Helper::maybe_json( $value ) );
 		}
 
 		// prepare_settings

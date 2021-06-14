@@ -13703,6 +13703,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     },
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
+      if (!value) return value;
 
       if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value)) {
         value = JSON.stringify(value);

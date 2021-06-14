@@ -434,15 +434,25 @@ class Helper {
         // Sanitize input data
         $sanitized_data = $input_data;
 
+        if ( preg_match( '/\\\\n/', $sanitized_data ) ) {
+            $sanitized_data = preg_replace( '/\\\\n/', '<line-break>', $sanitized_data );
+        }
+
         if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
             $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
         }
 
         $output_data = json_decode( $sanitized_data, true);
-        $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
+
+		if ( ! is_null( $output_data ) ) {
+			$output_data = json_encode( $output_data );
+            $output_data = preg_replace( '/<line-break>/', "\\n", $output_data );
+			$output_data = json_decode( $output_data, true );
+		}
 
         // Sanitize output data
         if ( 'string' === gettype( $output_data ) ) {
+			$output_data = preg_replace( '/<line-break>/', "\\n", $output_data );
             $output_data = preg_replace( '/\\\\"/', '"', $output_data );
             $output_data = preg_replace( "/\\\\'/", "'", $output_data );
             $output_data = _sanitize_text_fields( $output_data, true );

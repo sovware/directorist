@@ -152,6 +152,9 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
+
+        // $this->import_default_directory( [ 'fource_import' => true ] );
+
         $directory_types = get_terms( array(
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
@@ -214,14 +217,17 @@ class Multi_Directory_Manager
 
     // import_default_directory
     public function import_default_directory( array $args = [] ) {
+
         $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/sample-data/directory/directory.json';
         if ( ! file_exists( $file ) ) { return; }
         $file_contents = file_get_contents( $file );
 
+        $default_directory = term_exists( 'General', 'atbdp_listing_types' );
         $add_directory = self::add_directory([
             'directory_name' => 'General',
             'fields_value'   => $file_contents,
-            'is_json'        => true
+            'is_json'        => true,
+            'term_id'        => ( $args['fource_import'] && $default_directory ) ? $default_directory['term_id'] : ''
         ]);
 
         if ( $add_directory['status']['success'] ) {
@@ -464,6 +470,11 @@ class Multi_Directory_Manager
                                 'type'  => 'toggle',
                                 'label'  => __( 'Required', 'directorist' ),
                                 'value' => true,
+                            ],
+                            'test' => [
+                                'type'  => 'textarea',
+                                'label'  => __( 'test', 'directorist' ),
+                                'value' => '',
                             ],
 
                         ],

@@ -225,6 +225,8 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
+            if ( ! value ) return value;
+
             if ( 'object' === typeof value && Object.keys( value ) ) {
                 value = JSON.stringify( value );
             }

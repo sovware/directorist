@@ -347,12 +347,16 @@ class Directorist_Listing_Search_Form {
 		$category_id = isset( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
 		$custom_field_key = array();
 		$assign_to_cat = array();
-		foreach( $submission_form_fields['fields'] as $field ) {
-			if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
-				$custom_field_key[] = $field['field_key'];
-				$assign_to_cat[]	= $field['category'];
+
+		if( $submission_form_fields['fields'] ) {
+			foreach( $submission_form_fields['fields'] as $field ) {
+				if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
+					$custom_field_key[] = $field['field_key'];
+					$assign_to_cat[]	= $field['category'];
+				}
 			}
 		}
+
 		$category_custom_field = array( 
 			'custom_field_key'	=> $custom_field_key,
 			'assign_to_cat'		=> $assign_to_cat,

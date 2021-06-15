@@ -2437,6 +2437,7 @@ class Multi_Directory_Manager
                         'type' => 'widget',
                         'label' => __( 'Custom Content', 'directorist' ),
                         'icon' => 'la la-align-right',
+                        'allowMultiple' => true,
                         'options' => [
                             'label' => [
                                 'type'  => 'text',

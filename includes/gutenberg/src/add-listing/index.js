@@ -1,7 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment, useState } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { TypesControl } from '../controls';
@@ -49,40 +48,31 @@ registerBlockType( 'directorist/add-listing', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
+		let { directory_type } = attributes;
+
+		let oldTypes = directory_type ? directory_type.split(',') : [];
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		return (
-			<div { ...useBlockProps() }>
-				<div>{ getPreview( 'add-listing' ) }</div>
-				<div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div>
-			</div>
+			<Fragment>
+				{ isMultiDirectoryEnabled() && <InspectorControls>
+					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
+						<TypesControl
+							shouldRender={ shouldRender }
+							selected={ oldTypes }
+							showDefault={ false }
+							onChange={ types => {
+								setAttributes( { directory_type: types.join( ',' ) } );
+								setShouldRender( false );
+							} }  />
+					</PanelBody>
+				</InspectorControls> }
+
+				<div { ...useBlockProps() }>
+					<div>{ getPreview( 'add-listing' ) }</div>
+					<div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div>
+				</div>
+			</Fragment>
 		);
-
-		// let { directory_type } = attributes;
-
-		// let oldTypes = directory_type ? directory_type.split(',') : [];
-		// const [ shouldRender, setShouldRender ] = useState( true );
-
-		// return (
-		// 	<Fragment>
-		// 		<InspectorControls>
-		// 			<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
-		// 				{ isMultiDirectoryEnabled() ? <TypesControl
-		// 					shouldRender={ shouldRender }
-		// 					selected={ oldTypes }
-		// 					showDefault={ false }
-		// 					onChange={ types => {
-		// 						setAttributes( { directory_type: types.join( ',' ) } );
-		// 						setShouldRender( false );
-		// 					} }  /> : '' }
-		// 			</PanelBody>
-		// 		</InspectorControls>
-
-		// 		<div { ...useBlockProps() }>
-		// 			<ServerSideRender
-		// 				block='directorist/add-listing'
-		// 				attributes={ attributes }
-		// 			/>
-		// 		</div>
-		// 	</Fragment>
-		// );
 	}
 } );

@@ -41,7 +41,7 @@ function init_blocks() {
 			'multiDirectoryEnabled' => (bool) Helper::multi_directory_enabled(),
 			'postType'              => ATBDP_POST_TYPE,
 			'locationTax'           => ATBDP_LOCATION,
-			'tagTax'                => ATBDP_LOCATION,
+			'tagTax'                => ATBDP_TAGS,
 			'categoryTax'           => ATBDP_CATEGORY,
 			'typeTax'               => ATBDP_TYPE,
 			'previewUrl'            => plugin_dir_url( __FILE__ )

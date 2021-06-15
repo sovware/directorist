@@ -45,6 +45,9 @@ export default {
         showIf: {
             required: false,
         },
+        show_if: {
+            required: false,
+        },
         type: {
             type: String,
             default: '',

@@ -4490,9 +4490,7 @@ class Multi_Directory_Manager
                             'labels' => [
                                 'title'       => __('Labels', 'directorist'),
                                 'description' => '',
-                                'fields'      => [
-                                    'test', 'icon',
-                                ],
+                                'fields'      => [ 'icon' ],
                             ],
 
                             'listing_status' => [

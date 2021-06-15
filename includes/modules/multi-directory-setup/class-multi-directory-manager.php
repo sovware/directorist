@@ -4143,14 +4143,13 @@ class Multi_Directory_Manager
                 'value' => [],
             ],
             'enable_single_listing_page' => [
-                'type'  => 'toggle',
-                'label' => __( 'Show single listing in page', 'directorist' ),
-                'value' => false,
+                'type'          => 'toggle',
+                'label'         => __( 'Show single listing in page', 'directorist' ),
+                'value'         => false,
             ],
             'single_listing_page' => [
                 'label'             => __('Single listing page', 'directorist'),
                 'type'              => 'select',
-                'description'       => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section key="section-label-in-lowercase-with-no-space"]</div>'),
                 'value'             => '',
                 'showDefaultOption' => true,
                 'options'           => directorist_get_all_page_list(),

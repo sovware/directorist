@@ -1,8 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 
 import {
 	getWithSharedAttributes,
@@ -44,17 +42,11 @@ registerBlockType( 'directorist/user-dashboard', {
 
 	attributes: getWithSharedAttributes(),
 
-	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'dashboard' ) }</Fragment>
-		}
-
+	edit() {
 		return (
 			<div { ...useBlockProps() }>
-				<ServerSideRender
-					block='directorist/user-dashboard'
-					attributes={ attributes }
-				/>
+				<div>{ getPreview( 'dashboard' ) }</div>
+				<div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div>
 			</div>
 		);
 	}

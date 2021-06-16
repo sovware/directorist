@@ -24,10 +24,13 @@ $settings-primary-color: #3e62f5;
     }
 
     .cptm-section {
+        border: 1px solid #F1F2F6;
+        border-radius: 10px;
+        margin-bottom: 50px !important;
         .cptm-title-area {
             border-bottom: 1px solid #F1F2F6;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            padding: 20px 25px;
+            margin-bottom: 0;
             &.directorist-no-header{
                 border-bottom: 0 none;
                 margin-bottom: 0;
@@ -36,8 +39,11 @@ $settings-primary-color: #3e62f5;
             .cptm-title {
                 font-size: 18px;
                 font-weight: 500;
-                color: $settings-primary-color;
-            }   
+                color: #272b41;
+            }
+        }
+        .cptm-form-fields{
+            padding: 20px 25px 0;
         }
     }
 }

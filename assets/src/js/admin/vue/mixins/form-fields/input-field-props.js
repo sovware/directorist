@@ -11,6 +11,9 @@ export default {
         root: {
             required: false,
         },
+        filters: {
+            required: false,
+        },
         data: {
             required: false,
         },
@@ -40,6 +43,9 @@ export default {
             default: false,
         },
         showIf: {
+            required: false,
+        },
+        show_if: {
             required: false,
         },
         type: {

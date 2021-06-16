@@ -4525,7 +4525,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'form_fields' => [
                                 'title' => __( 'Select or create fields for this listing type', 'directorist' ),
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => __( 'Need help? ', 'directorist' ),
                                 'fields' => [
                                     'submission_form_fields'
                                 ],
@@ -4783,6 +4783,10 @@ class Multi_Directory_Manager
             $this->update_fields_with_old_data( $listing_type_id );
         }
 
+        if ( ! $enable_multi_directory || ( ! empty( $action ) && ( 'add_new' === $action ) ) ) {
+            $this->update_fields_with_default_data();
+        }
+
         $data = [
             'add_new_link' => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
         ];
@@ -4839,6 +4843,64 @@ class Multi_Directory_Manager
         foreach (self::$config['fields_group'] as $group_key => $group_fields) {
             if (array_key_exists($group_key, $all_term_meta)) {
                 $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
+                $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
+
+                foreach ($group_fields as $field_index => $field_key) {
+
+                    if ( ! key_exists( $field_key, $group_value ) ) { continue; }
+
+                    if ( 'string' === gettype($field_key) && array_key_exists($field_key, self::$fields)) {
+                        self::$fields[$field_key]['value'] = $group_value[$field_key];
+                    }
+
+                    if ('array' === gettype($field_key)) {
+                        foreach ($field_key as $sub_field_key) {
+                            if (array_key_exists($sub_field_key, self::$fields)) {
+                                self::$fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
+        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
+        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
+        // e_var_dump( $submission_form_fields['fields']['image_upload'] );
+        // e_var_dump( $all_term_meta['fields']['image_upload'] );
+        // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
+        // e_var_dump( $test['fields']['video'] );
+        // e_var_dump( $test );
+        // e_var_dump( self::$fields[ 'single_listings_contents' ] );
+        // e_var_dump( json_decode( $test ) );
+    }
+
+    // update_fields_with_old_data
+    public function update_fields_with_default_data()
+    {
+        $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/sample-data/directory/directory.json';
+        if ( ! file_exists( $file ) ) { return; }
+            $all_term_meta = file_get_contents( $file );
+
+            $all_term_meta = json_decode( $all_term_meta, true );
+
+        if ( ! is_array( $all_term_meta ) ) { return; }
+
+        foreach ( $all_term_meta as $meta_key => $meta_value ) {
+          
+            if ( isset( self::$fields[$meta_key] ) ) {
+               
+                $value = self::maybe_json( $meta_value );
+              
+                self::$fields[ $meta_key ]['value'] = $value;
+            }
+        }
+        // e_var_dump(self::$fields);
+
+        foreach (self::$config['fields_group'] as $group_key => $group_fields) {
+            if (array_key_exists($group_key, $all_term_meta)) {
+                $_group_meta_value = $all_term_meta[$group_key];
                 $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
 
                 foreach ($group_fields as $field_index => $field_key) {

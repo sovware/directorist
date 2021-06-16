@@ -572,7 +572,7 @@ class Enqueue_Assets {
 			'base_path'      => DIRECTORIST_CSS,
 			'deps'           => [],
 			'ver'            => self::$script_version,
-			'group'          => 'global',                       // public || admin  || global
+			'group'          => ['public', 'block-editor'],                       // public || admin  || global
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 		];
 

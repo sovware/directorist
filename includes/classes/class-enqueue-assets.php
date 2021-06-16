@@ -1133,39 +1133,7 @@ class Enqueue_Assets {
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
 
-			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
-				continue;
-			}
-
-			if ( isset( $script_args['group'] ) ) {
-				if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
-					continue;
-				}
-	
-				if (  ! ( is_string( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-					continue;
-				}
-
-				if (  ! ( is_array( $script_args['group'] ) && ( in_array( $args['group'], $script_args['group'] ) || in_array( 'global', $script_args['group'] ) ) ) ) {
-					continue;
-				}
-			}
-
-			if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {
-				wp_enqueue_style( $handle );
-				continue;
-			}
-			
-			if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
-				if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
-				if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
-			}
-
-			if (  ! self::script__verify_shortcode( $script_args, $handle ) ) {
-				continue;
-			}
-
-			if ( ! empty( $script_args['section'] ) ) { continue; }
+			if ( ! self::can_enqueue_asset( $handle, $script_args, $args ) ) continue;
 
 			wp_enqueue_style( $handle );
 		}
@@ -1216,42 +1184,7 @@ class Enqueue_Assets {
 
 		foreach( $args['scripts'] as $handle => $script_args ) {
 
-			if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
-				continue;
-			}
-
-			if ( isset( $script_args['group'] ) ) {
-				if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
-					continue;
-				}
-	
-				if (  ! ( is_string( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-					continue;
-				}
-
-				if (  ! ( is_array( $script_args['group'] ) && ( in_array( $args['group'], $script_args['group'] ) || in_array( 'global', $script_args['group'] ) ) ) ) {
-					continue;
-				}
-			}
-
-			if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {
-				wp_enqueue_script( $handle );
-				self::add_localize_data_to_script( $handle, $script_args );
-
-				continue;
-			}
-
-			if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
-				if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
-				if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }
-			}
-
-			if (  ! self::script__verify_shortcode( $script_args, $handle ) ) {
-				continue;
-			}
-
-			if ( ! empty( $script_args['section'] ) ) { continue; }
-
+			if ( ! self::can_enqueue_asset( $handle, $script_args, $args ) ) continue;
 
 			if ( ! empty( $script_args['before_enqueue'] ) ) {
 				self::handle_script_before_enqueue_task( $script_args['before_enqueue'] );
@@ -1260,6 +1193,48 @@ class Enqueue_Assets {
 			wp_enqueue_script( $handle );
 			self::add_localize_data_to_script( $handle, $script_args );
 		}
+	}
+
+	// can_enqueue_asset
+	public static function can_enqueue_asset( $script_id = '', $script_args = [], $group_args = [] ) {
+		if ( isset( $script_args['group'] ) ) {
+			if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
+				return true;
+			}
+
+			if (  is_array( $script_args['group'] ) && in_array( 'global', $script_args['group'] )  ) {
+				return true;
+			}
+
+			if ( is_string( $script_args['group'] ) &&  ( $group_args['group'] !== $script_args['group'] ) ) {
+				return false;
+			}
+
+			if ( is_array( $script_args['group'] ) && ! in_array( $group_args['group'], $script_args['group'] ) ) {
+				return false;
+			}
+		}
+
+		if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $group_args['fource_enqueue'] ) ) {
+			return true;
+		}
+
+		if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+			return false;
+		}
+
+		if ( isset( $group_args['page'] ) && isset( $script_args[ 'page' ] ) ) {
+			if ( is_string( $script_args[ 'page' ] ) && $group_args['page'] !== $script_args[ 'page' ] ) return false;
+			if ( is_array( $script_args[ 'page' ] ) && ! in_array( $group_args['page'], $script_args[ 'page' ] ) ) return false;
+		}
+
+		if (  ! self::script__verify_shortcode( $script_args, $script_id ) ) {
+			return false;
+		}
+
+		if ( ! empty( $script_args['section'] ) ) return false;
+
+		return true;
 	}
 
 	// handle_script_before_enqueue_task
@@ -1275,8 +1250,6 @@ class Enqueue_Assets {
 				$class->$method_name( $args );
 			}
 		}
-
-
 	}
 
 	// script__verify_shortcode

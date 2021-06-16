@@ -4921,17 +4921,6 @@ class Multi_Directory_Manager
                 }
             }
         }
-
-        // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
-        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
-        // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
-        // e_var_dump( $submission_form_fields['fields']['image_upload'] );
-        // e_var_dump( $all_term_meta['fields']['image_upload'] );
-        // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-        // e_var_dump( $test['fields']['video'] );
-        // e_var_dump( $test );
-        // e_var_dump( self::$fields[ 'single_listings_contents' ] );
-        // e_var_dump( json_decode( $test ) );
     }
 
     // handle_delete_listing_type_request

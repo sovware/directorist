@@ -59,7 +59,6 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 						'icon'  => 'fa fa-align-right',
 					),
 				),
-				'default'   => 'left',
 				'toggle'    => true,
 				'selectors' => array(
 					'{{WRAPPER}} .directorist-search-top__title' => 'text-align: {{VALUE}}',

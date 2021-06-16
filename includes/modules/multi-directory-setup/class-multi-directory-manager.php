@@ -4525,7 +4525,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'form_fields' => [
                                 'title' => __( 'Select or create fields for this listing type', 'directorist' ),
-                                'description' => __( 'Need help? ', 'directorist' ),
+                                'description' => __( 'Need help?', 'directorist' ),
                                 'fields' => [
                                     'submission_form_fields'
                                 ],

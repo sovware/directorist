@@ -116,16 +116,6 @@ class Enqueue_Assets {
 
 		// Global
 		// ================================
-		$scripts['directorist-openstreet-map'] = [
-			'file_name'      => 'global-openstreet-map',
-			'base_path'      => DIRECTORIST_CSS,
-			'has_rtl'        => false,
-			'ver'            => self::$script_version,
-			'group'          => $common_asset_group,                            // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
 		$scripts['directorist-openstreet-map-leaflet'] = [
 			'file_name'      => 'leaflet',
 			'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',

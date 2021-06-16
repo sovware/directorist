@@ -326,7 +326,24 @@ class Directorist_Single_Listing {
 		return $tags;
 	}
 
+	public function single_page_enabled() {
+		return get_directorist_type_option( $this->type, 'enable_single_listing_page', false );
+	}
 
+	public function single_page_content() {
+		$page_id = get_directorist_type_option( $this->type, 'single_listing_page' );
+
+		if ( !$page_id ) {
+			return '';
+		}
+
+		$post    = get_post( $page_id );
+		$content = $post->post_content;
+		// $content = apply_filters( 'the_content', $content );
+		$content = do_shortcode( $content );
+
+		return $content;
+	}
 
 	public function social_share_data() {
 		$title = get_the_title();

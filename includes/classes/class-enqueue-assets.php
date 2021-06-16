@@ -20,10 +20,6 @@ class Enqueue_Assets {
 
 			add_filter( 'directorist_load_min_files', [ $this, 'manage_min_unmin_assets_switching' ] );
 
-			// Load Assets
-			add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ] );
-			add_action( 'admin_enqueue_scripts', [ $this, 'load_assets' ] );
-
 			// Enqueue Public Scripts
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
@@ -1038,6 +1034,9 @@ class Enqueue_Assets {
 	 * @return void
 	 */
 	public static function enqueue_public_scripts( $page = '', $fource_enqueue = false ) {
+		// Load Assets
+		self::load_assets();
+
 		// Other
 		self::enqueue_custom_color_picker_scripts();
 		// wp_enqueue_script( 'jquery' );
@@ -1059,6 +1058,9 @@ class Enqueue_Assets {
 	 * @return void
 	 */
 	public static function enqueue_admin_scripts( $page = '' ) {
+		// Load Assets
+		self::load_assets();
+
 		// Other
 		self::enqueue_custom_color_picker_scripts();
 		wp_enqueue_script( 'jquery' );
@@ -1138,7 +1140,6 @@ class Enqueue_Assets {
 			wp_enqueue_style( $handle );
 		}
 	}
-
 
 
 	/**

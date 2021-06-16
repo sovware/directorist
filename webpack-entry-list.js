@@ -11,10 +11,6 @@ module.exports = {
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
         ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
 
-        // CSS
-        ['public-search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
-
-
         // Admin
         // -------------------------------------------
         ['admin-main']: "./assets/src/js/admin/admin.js",
@@ -24,9 +20,6 @@ module.exports = {
         ['admin-plugins']: "./assets/src/js/admin/plugins.js",
         ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
         ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
-
-        // CSS
-        ['admin-drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
 
         // Global
         // -------------------------------------------
@@ -47,9 +40,6 @@ module.exports = {
 
         ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
         ['global-pure-select']: ["./assets/src/js/global/pureScriptSearchSelect.js"],
-        
-        // CSS
-        ['global-openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
     },
 
     vueEntries: {

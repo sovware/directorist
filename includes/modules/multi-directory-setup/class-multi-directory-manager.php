@@ -4105,8 +4105,44 @@ class Multi_Directory_Manager
                         'label'  => __( 'Custom block Classes', 'directorist' ),
                         'value' => '',
                     ],
+                    'shortcode' => [
+                        'type'  => 'shortcode',
+                        'label' => __( 'Shortcode', 'directorist' ),
+                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
+                        'filters' => [
+                            [
+                                'type'         => 'replace',
+                                'find'         => '%%shortcode_key%%',
+                                'replace_from' => 'self.label',
+                            ],
+                            [
+                                'type'       => 'lowercase',
+                                'find_regex' => '@@.+@@',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'look_for'   => '@@.+@@',
+                                'find_regex' => '\\s',
+                                'replace'    => '-',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'find_regex' => '@@(.+)@@',
+                                'replace'    => '$1',
+                            ],
+                        ],
+
+                    ],
                 ],
                 'value' => [],
+            ],
+            'single_listing_page' => [
+                'label'             => __('Single Listing Page', 'directorist'),
+                'type'              => 'select',
+                'description'       => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section key="section-label-in-lowercase-with-no-space"]</div>'),
+                'value'             => '',
+                'showDefaultOption' => true,
+                'options'           => directorist_get_all_page_list(),
             ],
             'similar_listings_logics' => [
                 'type'    => 'radio',
@@ -4438,9 +4474,7 @@ class Multi_Directory_Manager
                             'labels' => [
                                 'title'       => __('Labels', 'directorist'),
                                 'description' => '',
-                                'fields'      => [
-                                    'test', 'icon',
-                                ],
+                                'fields'      => [ 'icon' ],
                             ],
 
                             'listing_status' => [
@@ -4573,6 +4607,11 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
+                            'page_settings' => [
+                                'fields' => [
+                                    'single_listing_page',
+                                ],
+                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4581,7 +4620,7 @@ class Multi_Directory_Manager
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
                                 ],
-                            ]
+                            ],
                         ]
                     ],
                 ]
@@ -4887,6 +4926,29 @@ class Multi_Directory_Manager
         ]);
 
         $this->prepare_settings();
+    }
+
+    /**
+     * Get all the pages in an array where each page is an array of key:value:id and key:label:name
+     *
+     * Example : array(
+     *                  array('value'=> 1, 'label'=> 'page_name'),
+     *                  array('value'=> 50, 'label'=> 'page_name'),
+     *          )
+     * @return array page names with key value pairs in a multi-dimensional array
+     * @since 3.0.0
+     */
+    function get_pages_vl_arrays()
+    {
+        $pages = get_pages();
+        $pages_options = array();
+        if ($pages) {
+            foreach ($pages as $page) {
+                $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+            }
+        }
+
+        return $pages_options;
     }
 
     // enqueue_scripts

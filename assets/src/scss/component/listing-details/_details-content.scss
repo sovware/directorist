@@ -33,6 +33,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 margin: -0.5rem 0 0 0;
+                list-style-type: none;
 
                 li {
                     flex: 33.333%;
@@ -118,6 +119,7 @@
             border-radius: 4px;
             width: 180px;
             box-shadow: 0 5px 20px rgb(167 178 199 / 30%);
+            list-style-type: none;
 
             .directorist-social-links__item {
                 a {

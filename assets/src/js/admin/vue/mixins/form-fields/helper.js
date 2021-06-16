@@ -12,14 +12,16 @@ export default {
         canShow() {
             let is_visible = true;
 
-            if ( this.showIf ) {
+            if ( this.showIf || this.show_if ) {
+                let show_if_condition = ( this.showIf ) ? this.showIf : this.show_if;
                 let show_if_cond = this.checkShowIfCondition({
-                    condition: this.showIf,
+                    condition: show_if_condition,
                     root: this.root,
                 });
                 
                 is_visible = show_if_cond.status;
             }
+            
 
             this.$emit( 'is-visible', is_visible );
             return is_visible;

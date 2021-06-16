@@ -116,16 +116,6 @@ class Enqueue_Assets {
 
 		// Global
 		// ================================
-		$scripts['directorist-openstreet-map'] = [
-			'file_name'      => 'global-openstreet-map',
-			'base_path'      => DIRECTORIST_CSS,
-			'has_rtl'        => false,
-			'ver'            => self::$script_version,
-			'group'          => $common_asset_group,                            // public || admin  || global
-			'enable'         => Script_Helper::is_enable_map( 'openstreet' ),
-			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
-		];
-
 		$scripts['directorist-openstreet-map-leaflet'] = [
 			'file_name'      => 'leaflet',
 			'base_path'      => DIRECTORIST_VENDOR_CSS . 'openstreet-map/',
@@ -1198,33 +1188,39 @@ class Enqueue_Assets {
 
 	// can_enqueue_asset
 	public static function can_enqueue_asset( $script_id = '', $script_args = [], $group_args = [] ) {
+
+		$in_group = true;
 		if ( isset( $script_args['group'] ) ) {
-			if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
-				return true;
-			}
-
-			if (  is_array( $script_args['group'] ) && in_array( 'global', $script_args['group'] )  ) {
-				return true;
-			}
-
-			if ( is_string( $script_args['group'] ) &&  ( $group_args['group'] !== $script_args['group'] ) ) {
-				return false;
+			if ( is_string( $script_args['group'] ) && ( $group_args['group'] !== $script_args['group'] ) ) {
+				$in_group = false;
 			}
 
 			if ( is_array( $script_args['group'] ) && ! in_array( $group_args['group'], $script_args['group'] ) ) {
-				return false;
+				$in_group = false;
+			}
+
+			if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
+				$in_group = true;
+			}
+
+			if (  is_array( $script_args['group'] ) && in_array( 'global', $script_args['group'] )  ) {
+				$in_group = true;
 			}
 		}
 
-		if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $group_args['fource_enqueue'] ) ) {
+		if ( ! $in_group ) return false;
+
+		if ( ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $group_args['fource_enqueue'] ) ) ) {
 			return true;
 		}
 
-		if ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) {
+		if ( ( isset( $script_args['enable'] ) && false === $script_args['enable'] ) ) {
 			return false;
 		}
 
-		if ( isset( $group_args['page'] ) && isset( $script_args[ 'page' ] ) ) {
+		if ( ! empty( $script_args['section'] ) ) return false;
+
+		if ( ( isset( $group_args['page'] ) && isset( $script_args[ 'page' ] ) ) ) {
 			if ( is_string( $script_args[ 'page' ] ) && $group_args['page'] !== $script_args[ 'page' ] ) return false;
 			if ( is_array( $script_args[ 'page' ] ) && ! in_array( $group_args['page'], $script_args[ 'page' ] ) ) return false;
 		}
@@ -1232,8 +1228,6 @@ class Enqueue_Assets {
 		if (  ! self::script__verify_shortcode( $script_args, $script_id ) ) {
 			return false;
 		}
-
-		if ( ! empty( $script_args['section'] ) ) return false;
 
 		return true;
 	}

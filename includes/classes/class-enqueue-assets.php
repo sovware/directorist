@@ -1137,8 +1137,18 @@ class Enqueue_Assets {
 				continue;
 			}
 
-			if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-				continue;
+			if ( isset( $script_args['group'] ) ) {
+				if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
+					continue;
+				}
+	
+				if (  ! ( is_string( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
+					continue;
+				}
+
+				if (  ! ( is_array( $script_args['group'] ) && ( in_array( $args['group'], $script_args['group'] ) || in_array( 'global', $script_args['group'] ) ) ) ) {
+					continue;
+				}
 			}
 
 			if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {
@@ -1210,8 +1220,18 @@ class Enqueue_Assets {
 				continue;
 			}
 
-			if (  ! ( isset( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
-				continue;
+			if ( isset( $script_args['group'] ) ) {
+				if (  is_string( $script_args['group'] ) && 'global' === $script_args['group']  ) {
+					continue;
+				}
+	
+				if (  ! ( is_string( $script_args['group'] ) && ( $args['group'] === $script_args['group'] || 'global' === $script_args['group'] ) ) ) {
+					continue;
+				}
+
+				if (  ! ( is_array( $script_args['group'] ) && ( in_array( $args['group'], $script_args['group'] ) || in_array( 'global', $script_args['group'] ) ) ) ) {
+					continue;
+				}
 			}
 
 			if ( ! empty( $script_args['fource_enqueue'] ) || ! empty( $args['fource_enqueue'] ) ) {

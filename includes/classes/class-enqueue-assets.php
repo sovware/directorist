@@ -29,6 +29,9 @@ class Enqueue_Assets {
 
 			// Enqueue Admin Scripts
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
+
+			// Enqueue Block Editor Scripts
+			add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
 		}
 
 
@@ -1070,6 +1073,24 @@ class Enqueue_Assets {
 		self::enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page ] );
 	}
 
+	/**
+	 * Enqueue Block Editor Scripts
+	 *
+	 * @return void
+	 */
+	public static function enqueue_block_editor_assets( $page = '' ) {
+
+		self::load_assets();
+
+		// CSS
+		self::register_css_scripts();
+		self::enqueue_css_scripts_by_group( [ 'group' => 'block-editor', 'page' => $page ] );
+
+		// JS
+		self::register_js_scripts();
+		self::enqueue_js_scripts_by_group( [ 'group' => 'block-editor', 'page' => $page ] );
+	}
+
 
 	/**
 	 * Register CSS Scripts
@@ -1124,7 +1145,7 @@ class Enqueue_Assets {
 				wp_enqueue_style( $handle );
 				continue;
 			}
-
+			
 			if ( isset( $args['page'] ) && isset( $script_args[ 'page' ] ) ) {
 				if ( is_string( $script_args[ 'page' ] ) && $args['page'] !== $script_args[ 'page' ] ) { continue; }
 				if ( is_array( $script_args[ 'page' ] ) && ! in_array( $args['page'], $script_args[ 'page' ] ) ) { continue; }

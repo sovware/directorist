@@ -430,7 +430,6 @@ class Directorist_Listing_Author {
 		
 		ob_start();
 		$all_authors = get_users();
-		e_var_dump( $all_authors );
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'author/archive' );
 

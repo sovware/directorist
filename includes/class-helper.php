@@ -381,6 +381,25 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function builder_selected_single_pages() {
+		// @cache @kowsar
+		$pages = [];
+
+		$types = get_terms( array(
+			'taxonomy' => 'atbdp_listing_types',
+			'hide_empty' => false,
+		) );
+
+		foreach ( $types as $type ) {
+			$page_id = get_directorist_type_option( $type->term_id, 'single_listing_page' );
+			if ( $page_id ) {
+				$pages[$page_id] = $type->name;
+			}
+		}
+
+		return $pages;
+	}
+
 	public static function get_listing_payment_status( $listing_id = '' ) {
 
 		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );

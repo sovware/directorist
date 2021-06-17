@@ -337,10 +337,12 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		$post    = get_post( $page_id );
-		$content = $post->post_content;
-		// $content = apply_filters( 'the_content', $content );
-		$content = do_shortcode( $content );
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $page_id ) ) {
+			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
+		} else {
+			$content = get_post_field( 'post_content', $page_id );
+			$content = do_shortcode( $content );
+		}
 
 		return $content;
 	}

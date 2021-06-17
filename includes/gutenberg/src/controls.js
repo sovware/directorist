@@ -5,11 +5,11 @@ import { without, truncate } from 'lodash';
 import { Fragment } from '@wordpress/element';
 
 const {
-	postType: POST_TYPE,
-	locationTax: LOCATION_TAX,
-	tagTax: TAG_TAX,
 	categoryTax: CATEGORY_TAX,
-	typeTax: TYPE_TAX
+	locationTax: LOCATION_TAX,
+	postType   : POST_TYPE,
+	tagTax     : TAG_TAX,
+	typeTax    : TYPE_TAX
 } = directoristBlockConfig;
 
 import {
@@ -49,7 +49,7 @@ export const LocationControl = withSelect( select => {
 	} else {
 		choices = [ <li><Spinner /></li> ]
 	}
-	
+
 	return (
 		<BaseControl label={ __( 'Locations', 'directorist' ) } className="directorist-gb-cb-list-control">
 			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
@@ -87,7 +87,7 @@ export const CategoryControl = withSelect( select => {
 	} else {
 		choices = [ <li><Spinner /></li> ]
 	}
-	
+
 	return (
 		<BaseControl label={ __( 'Categories', 'directorist' ) } className="directorist-gb-cb-list-control">
 			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
@@ -139,7 +139,7 @@ export const ListingControl = withSelect( select => {
 		orderby: 'title',
 		order: 'asc'
 	}
-	
+
 	return {
 		items: select( 'core' ).getEntityRecords( 'postType', POST_TYPE, args )
 	}
@@ -165,7 +165,7 @@ export const ListingControl = withSelect( select => {
 	}
 
 	return (
-		<BaseControl 
+		<BaseControl
             label={ __( 'Listing Items', 'directorist' ) }
             help={ __( 'When manually selecting listing items make sure to deselect categories, tags and locations.', 'directorist' ) }
             className="directorist-gb-cb-list-control">
@@ -202,7 +202,7 @@ export const TypesControl = withSelect( select => {
 				/>
 			</li>
 		));
-		
+
 		if ( props.showDefault ) {
 			defaultDirChoices = props.items.filter( item => props.selected.includes( item.slug ) ).map( item => {
 				return {

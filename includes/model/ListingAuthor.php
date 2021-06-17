@@ -425,4 +425,15 @@ class Directorist_Listing_Author {
 
 		return ob_get_clean();
 	}
+
+	public function render_shortcode_author_archive( $atts = [] ) {
+		
+		ob_start();
+		$all_authors = get_users();
+		e_var_dump( $all_authors );
+		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
+		echo Helper::get_template_contents( 'author/archive' );
+
+		return ob_get_clean();
+	}
 }

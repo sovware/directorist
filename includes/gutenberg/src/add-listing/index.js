@@ -69,8 +69,7 @@ registerBlockType( 'directorist/add-listing', {
 				</InspectorControls> }
 
 				<div { ...useBlockProps() }>
-					<div>{ getPreview( 'add-listing' ) }</div>
-					<div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div>
+					{ getPreview( 'add-listing', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

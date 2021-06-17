@@ -42,13 +42,9 @@ registerBlockType( 'directorist/payment-receipt', {
 	attributes: getWithSharedAttributes(),
 
 	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
-		}
-
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This widget works only on Payment Receipt page.', 'directorist' ) }
+				<div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
 			</div>
 		);
 	}

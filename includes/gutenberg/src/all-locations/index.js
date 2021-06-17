@@ -2,7 +2,6 @@ import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 import { LocationControl, TypesControl } from '../controls';
 
 import {
@@ -73,10 +72,6 @@ registerBlockType( 'directorist/all-locations', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'locations-grid' ) }</Fragment>
-		}
-
 		let {
 			view,
 			orderby,
@@ -186,10 +181,7 @@ registerBlockType( 'directorist/all-locations', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block="directorist/all-locations"
-						attributes={ attributes }
-					/>
+					{ getPreview( 'locations-grid', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

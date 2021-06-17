@@ -1,7 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 
 import {
 	useBlockProps,
@@ -67,10 +66,6 @@ registerBlockType( 'directorist/search-result', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
-		}
-
 		let {
 			view,
 			header,
@@ -206,10 +201,7 @@ registerBlockType( 'directorist/search-result', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block='directorist/search-result'
-						attributes={ attributes }
-					/>
+					{ getPreview( 'listing-grid', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

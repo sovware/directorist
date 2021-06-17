@@ -42,13 +42,9 @@ registerBlockType( 'directorist/transaction-failure', {
 	attributes: getWithSharedAttributes(),
 
 	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
-		}
-
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This widget works only on Transaction Failure page.', 'directorist' ) }
+				<div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
 			</div>
 		);
 	}

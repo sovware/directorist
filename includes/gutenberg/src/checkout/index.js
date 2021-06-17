@@ -44,13 +44,9 @@ registerBlockType( 'directorist/checkout', {
 	attributes: getWithSharedAttributes(),
 
 	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'checkout' ) }</Fragment>
-		}
-
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This block works only on Checkout page.', 'directorist' ) }
+				{ getPreview( 'checkout', attributes.isPreview ) }
 			</div>
 		);
 	}

@@ -1,7 +1,6 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 
 import {
 	useBlockProps,
@@ -74,10 +73,6 @@ registerBlockType( 'directorist/tag', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'listing-grid' ) }</Fragment>
-		}
-
 		let {
 			view,
 			header,
@@ -202,10 +197,7 @@ registerBlockType( 'directorist/tag', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block='directorist/tag'
-						attributes={ attributes }
-					/>
+					{ getPreview( 'listing-grid', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

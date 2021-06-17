@@ -2,7 +2,6 @@ import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 import { TypesControl } from '../controls';
 
 import {
@@ -56,10 +55,6 @@ registerBlockType( 'directorist/search-listing', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'search' ) }</Fragment>
-		}
-
 		let {
 			show_title_subtitle,
 			search_bar_title,
@@ -166,10 +161,7 @@ registerBlockType( 'directorist/search-listing', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block='directorist/search-listing'
-						attributes={ attributes }
-					/>
+					{ getPreview( 'search', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

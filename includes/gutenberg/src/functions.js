@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { Fragment } from '@wordpress/element';
 
 export function getAttsForTransform( attributes = {} ) {
     let _atts = {};
@@ -69,11 +70,14 @@ export function getWithSharedAttributes( attributes = {} ) {
     return attributes;
 }
 
-export function getPreview(name) {
+export function getPreview(name, isPreviewPopup = false) {
     return (
-        <img
-        className="directorist-block-preview"
-        src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
-        alt={ __( 'Preview', 'directorist' ) } />
+        <Fragment>
+            <img
+            className="directorist-block-preview"
+            src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
+            alt={ __( 'Preview', 'directorist' ) } />
+            { ! isPreviewPopup && <div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div> }
+        </Fragment>
     );
 }

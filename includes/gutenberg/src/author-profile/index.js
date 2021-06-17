@@ -1,7 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 
 import {
 	useBlockProps,
@@ -56,10 +55,6 @@ registerBlockType( 'directorist/author-profile', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'author-profile' ) }</Fragment>
-		}
-
 		let { logged_in_user_only } = attributes;
 
 		return (
@@ -75,10 +70,7 @@ registerBlockType( 'directorist/author-profile', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block='directorist/author-profile'
-						attributes={ attributes }
-					/>
+					{ getPreview( 'author-profile', attributes.isPreview) }
 				</div>
 			</Fragment>
 		);

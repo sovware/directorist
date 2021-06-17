@@ -42,11 +42,10 @@ registerBlockType( 'directorist/user-dashboard', {
 
 	attributes: getWithSharedAttributes(),
 
-	edit() {
+	edit( { attributes } ) {
 		return (
 			<div { ...useBlockProps() }>
-				<div>{ getPreview( 'dashboard' ) }</div>
-				<div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div>
+				{ getPreview( 'dashboard', attributes.isPreview ) }
 			</div>
 		);
 	}

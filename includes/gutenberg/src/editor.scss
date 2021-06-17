@@ -19,30 +19,6 @@
     margin-top: 10px;
 }
 
-// .wp-block-directorist-add-listing,
-// .wp-block-directorist-search-listing,
-// .wp-block-directorist-search-result,
-// .wp-block-directorist-author-profile,
-// .wp-block-directorist-all-locations,
-// .wp-block-directorist-all-categories,
-// .wp-block-directorist-user-dashboard,
-// .wp-block-directorist-all-listing,
-// .wp-block-directorist-category,
-// .wp-block-directorist-location,
-// .wp-block-directorist-tag {
-//     position: relative;
-
-//     &:before {
-//         content: "";
-//         position: absolute;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         top: 0;
-//         z-index: 1;
-//     }
-// }
-
 [class*="wp-block-directorist-"] {
     position: relative;
 

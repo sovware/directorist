@@ -44,13 +44,9 @@ registerBlockType( 'directorist/custom-registration', {
 	attributes: getWithSharedAttributes(),
 
 	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'signin' ) }</Fragment>
-		}
-
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This widget works only on Registration page.', 'directorist' ) }
+				{ getPreview( 'signin', attributes.isPreview ) }
 			</div>
 		);
 	}

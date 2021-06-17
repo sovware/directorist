@@ -2,7 +2,6 @@ import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
 import { CategoryControl, TypesControl } from '../controls';
 
 import {
@@ -73,10 +72,6 @@ registerBlockType( 'directorist/all-categories', {
 	attributes: getWithSharedAttributes( blockAttributes ),
 
 	edit( { attributes, setAttributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'categories-grid' ) }</Fragment>
-		}
-
 		let {
 			view,
 			orderby,
@@ -186,10 +181,7 @@ registerBlockType( 'directorist/all-categories', {
 				</InspectorControls>
 
 				<div { ...useBlockProps() }>
-					<ServerSideRender
-						block="directorist/all-categories"
-						attributes={ attributes }
-					/>
+					{ getPreview( 'categories-grid', attributes.isPreview ) }
 				</div>
 			</Fragment>
 		);

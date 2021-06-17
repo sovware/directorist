@@ -44,13 +44,9 @@ registerBlockType( 'directorist/user-login', {
 	attributes: getWithSharedAttributes(),
 
 	edit( { attributes } ) {
-		if ( attributes.isPreview ) {
-			return <Fragment>{ getPreview( 'signin' ) }</Fragment>
-		}
-
 		return (
 			<div { ...useBlockProps() }>
-				{ __( 'This block works only on Login page.', 'directorist' ) }
+				{ getPreview( 'signin', attributes.isPreview) }
 			</div>
 		);
 	}

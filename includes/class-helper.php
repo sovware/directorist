@@ -386,8 +386,14 @@ class Helper {
 		$pages = [];
 
 		$types = get_terms( array(
-			'taxonomy' => 'atbdp_listing_types',
+			'taxonomy'   => 'atbdp_listing_types',
 			'hide_empty' => false,
+			'meta_query' => array(
+				array(
+					'key'     => 'single_listing_page',
+					'compare' => 'EXISTS',
+				),
+			),
 		) );
 
 		foreach ( $types as $type ) {

@@ -22,7 +22,7 @@ import {
 	ToggleControl,
 	TextControl,
 	Toolbar,
-	ToolbarButton,
+	ToolbarButton
 } from '@wordpress/components';
 
 import {
@@ -100,14 +100,15 @@ registerBlockType( 'directorist/all-listing', {
 			map_height,
 			map_zoom_level,
 			directory_type,
-			default_directory_type
+			default_directory_type,
+			query_type
 		} = attributes;
 
-		let oldLocations = location ? location.split(',') : [],
-			oldCategories = category ? category.split(',') : [],
-			oldTags = tag ? tag.split(',') : [],
-			oldTypes = directory_type ? directory_type.split(',') : [],
-			oldIds = ids ? ids.split(',').map(id => Number(id)) : [];
+		let oldLocations  = location ? location.split(',') : [],
+		    oldCategories = category ? category.split(',') : [],
+		    oldTags       = tag ? tag.split(',') : [],
+		    oldTypes      = directory_type ? directory_type.split(',') : [],
+		    oldIds        = ids ? ids.split(',').map(id => Number(id)) : [];
 
 		const [ shouldRender, setShouldRender ] = useState( true );
 
@@ -257,25 +258,51 @@ registerBlockType( 'directorist/all-listing', {
 							className='directorist-gb-fixed-control'
 						/>
 
-						<ListingControl shouldRender={ shouldRender } onChange={ ids => {
+						<SelectControl
+							label={ __( 'Query Type', 'directorist' ) }
+							labelPosition='side'
+							value={ query_type }
+							options={ [
+								{ label: __( 'Regular', 'directorist' ), value: 'regular' },
+								{ label: __( 'Selective', 'directorist' ), value: 'selective' },
+							] }
+							onChange={ newState => {
+								let states = {
+									query_type: newState
+								}
+
+								if (newState === 'selective') {
+									states.category = '';
+									states.tag = '';
+									states.location = '';
+								} else if (newState === 'regular') {
+									states.ids = '';
+								}
+
+								setAttributes( states )
+							} }
+							className='directorist-gb-fixed-control'
+						/>
+
+						{ query_type === 'selective' && <ListingControl shouldRender={ shouldRender } onChange={ ids => {
 							setAttributes( { ids: ids.join( ',' ) } );
 							setShouldRender( false );
-						}} selected={ oldIds } />
+						}} selected={ oldIds } /> }
 
-						<CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+						{ query_type !== 'selective' && <CategoryControl shouldRender={ shouldRender } onChange={ categories => {
 							setAttributes( { category: categories.join( ',' ) } );
 							setShouldRender( false );
-						}} selected={ oldCategories } />
+						}} selected={ oldCategories } /> }
 
-						<TagsControl shouldRender={ shouldRender } onChange={ tags => {
+						{ query_type !== 'selective' && <TagsControl shouldRender={ shouldRender } onChange={ tags => {
 							setAttributes( { tag: tags.join( ',' ) } );
 							setShouldRender( false );
-						}} selected={ oldTags } />
+						}} selected={ oldTags } /> }
 
-						<LocationControl shouldRender={ shouldRender } onChange={ locations => {
+						{ query_type !== 'selective' && <LocationControl shouldRender={ shouldRender } onChange={ locations => {
 							setAttributes( { location: locations.join( ',' ) } );
 							setShouldRender( false );
-						}} selected={ oldLocations } />
+						}} selected={ oldLocations } /> }
 					</PanelBody>
 				</InspectorControls>
 

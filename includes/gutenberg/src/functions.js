@@ -67,6 +67,11 @@ export function getWithSharedAttributes( attributes = {} ) {
         default: false
     }
 
+    attributes.query_type = {
+        type: 'string',
+        default: 'regular'
+    }
+
     return attributes;
 }
 

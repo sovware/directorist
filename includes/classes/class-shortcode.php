@@ -80,6 +80,11 @@ class ATBDP_Shortcode {
 
 	// single_listings_header
 	public function single_listings_header( $atts ) {
+
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return '';
+		}
+
 		$listing = Directorist_Single_Listing::instance();
 
 		ob_start();
@@ -92,6 +97,11 @@ class ATBDP_Shortcode {
 	}
 
 	public function single_listings_section( $atts ) {
+
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return '';
+		}
+
 		ob_start();
 		$listing = Directorist_Single_Listing::instance();
 

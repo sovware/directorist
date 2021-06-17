@@ -66,7 +66,7 @@ class Directorist_Template_Hooks {
 		// Put a dummy content for selected single pages
 		$selected_single_pages = Helper::builder_selected_single_pages();
 
-		if( is_page( array_keys( $selected_single_pages ) ) ) {
+		if( !empty( $selected_single_pages ) && in_the_loop() && is_main_query() && is_page( array_keys( $selected_single_pages ) ) ) {
 			$page_id = get_the_id();
 			$type_name = $selected_single_pages[$page_id];
 			$content = sprintf( __( 'This page is currently selected as the Single Listing Page for \'%s\' Listing Type', 'directorist' ) , $type_name );

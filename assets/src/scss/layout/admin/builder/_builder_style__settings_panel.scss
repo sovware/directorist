@@ -24,11 +24,11 @@ $settings-primary-color: #3e62f5;
     }
 
     .cptm-section {
-        border: 1px solid #F1F2F6;
+        border: 1px solid #E3E6EF;
         border-radius: 10px;
         margin-bottom: 50px !important;
         .cptm-title-area {
-            border-bottom: 1px solid #F1F2F6;
+            border-bottom: 1px solid #E3E6EF;
             padding: 20px 25px;
             margin-bottom: 0;
             &.directorist-no-header{
@@ -37,13 +37,16 @@ $settings-primary-color: #3e62f5;
                 padding-bottom: 0;
             }
             .cptm-title {
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: 500;
-                color: #272b41;
+                color: #000000;
             }
         }
         .cptm-form-fields{
             padding: 20px 25px 0 25px;
+            .cptm-form-group label{
+                font-size: 15px;
+            }
         }
     }
 }

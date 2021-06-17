@@ -19113,12 +19113,12 @@ input[type=radio] {
   margin-bottom: 50px;
 }
 .atbdp-settings-panel .cptm-section {
-  border: 1px solid #F1F2F6;
+  border: 1px solid #E3E6EF;
   border-radius: 10px;
   margin-bottom: 50px !important;
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area {
-  border-bottom: 1px solid #F1F2F6;
+  border-bottom: 1px solid #E3E6EF;
   padding: 20px 25px;
   margin-bottom: 0;
 }
@@ -19128,12 +19128,15 @@ input[type=radio] {
   padding-bottom: 0;
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area .cptm-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  color: #272b41;
+  color: #000000;
 }
 .atbdp-settings-panel .cptm-section .cptm-form-fields {
   padding: 20px 25px 0 25px;
+}
+.atbdp-settings-panel .cptm-section .cptm-form-fields .cptm-form-group label {
+  font-size: 15px;
 }
 
 /* settings panel css */

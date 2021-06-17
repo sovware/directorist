@@ -19133,7 +19133,7 @@ input[type=radio] {
   color: #272b41;
 }
 .atbdp-settings-panel .cptm-section .cptm-form-fields {
-  padding: 20px 25px 0;
+  padding: 20px 25px 0 25px;
 }
 
 /* settings panel css */

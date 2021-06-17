@@ -21,19 +21,27 @@ $listing = Directorist_Single_Listing::instance();
 
 			<div class="<?php Helper::directorist_single_column(); ?>">
 
-				<?php Helper::get_template( 'single/top-actions' ); ?>
+				<?php if ( $listing->single_page_enabled() ): ?>
 
-				<div class="directorist-single-wrapper">
+					<?php echo $listing->single_page_content(); ?>
 
-					<?php
-					$listing->header_template();
+				<?php else: ?>
 
-					foreach ( $listing->content_data as $section ) {
-						$listing->section_template( $section );
-					}
-					?>
+					<?php Helper::get_template( 'single/top-actions' ); ?>
 
-				</div>
+					<div class="directorist-single-wrapper">
+
+						<?php
+						$listing->header_template();
+
+						foreach ( $listing->content_data as $section ) {
+							$listing->section_template( $section );
+						}
+						?>
+
+					</div>
+
+				<?php endif; ?>
 
 			</div>
 

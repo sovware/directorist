@@ -2433,6 +2433,29 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
+                    'custom_content' => [ 
+                        'type' => 'widget',
+                        'label' => __( 'Custom Content', 'directorist' ),
+                        'icon' => 'la la-align-right',
+                        'allowMultiple' => true,
+                        'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label'  => __( 'Icon', 'directorist' ),
+                                'value' => 'la la-align-right',
+                            ],
+                            'content' => [
+                                'type'  => 'textarea',
+                                'label'  => __( 'Content', 'directorist' ),
+                                'value' => '',
+                            ],
+                        ],
+                    ],
                     'review' => [ 
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),

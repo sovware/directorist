@@ -1,8 +1,10 @@
-import { withSelect, select } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { sortItemsBySelected } from './functions'
-import { without, truncate } from 'lodash';
-import { Fragment } from '@wordpress/element';
+import { sortItemsBySelected, remapTaxTerms, remapPosts } from './functions'
+import { without, truncate, isEmpty, uniqBy, pluck } from 'lodash';
+import { Fragment, useState, useMemo } from '@wordpress/element';
+import TokenMultiSelectControl from './vendors/token-multiselect-control';
+import apiFetch from '@wordpress/api-fetch';
 
 const {
 	categoryTax: CATEGORY_TAX,
@@ -230,3 +232,70 @@ export const TypesControl = withSelect( select => {
 		</Fragment>
 	);
 } );
+
+const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
+	const args = {
+		per_page: 10,
+		order   : 'asc',
+		orderby : 'name'
+	};
+
+	const selected = props.getSelected();
+
+	if ( ! isEmpty( selected ) ) {
+		args.slug     = selected;
+		args.orderby  = 'include_slugs';
+		args.per_page = selected.length;
+	}
+
+	return {
+		items: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
+	}
+})( props => {
+	if ( isEmpty( props.items ) ) {
+		return <Spinner />
+	}
+
+	const defaultOptions          = remapTaxTerms( props.items );
+	const [ options, setOptions ] = useState( defaultOptions );
+	const [ value, setValue ]     = useState( [] );
+
+	return (
+		<TokenMultiSelectControl
+			className="directorist-gb-multiselect"
+			maxSuggestions={ 10 }
+			label={ props.label }
+			value={ value }
+			options={ options }
+			onChange={ value => {
+				setValue( value );
+				// props.onChange( value );
+			} }
+			onInputChange={ term => {
+				apiFetch( { path: `wp/v2/${props.taxonomy}?per_page=10&search=${term}` } )
+				.then( ( results ) => {
+					const serachedOptions = remapTaxTerms( results )
+					setOptions( uniqBy( options.concat(...serachedOptions ), 'value' ) )
+				} );
+			} }
+		/>
+	);
+} );
+
+export const TagsTaxControl = props => (
+	<TaxonomyMultiSelectControl {...props } taxonomy={ TAG_TAX } label={ __( 'Select Tags', 'directorist' ) } />
+);
+
+export const WithSelectComp = (
+	withSelect( ( select, props ) => {
+		const args = {
+			per_page: 10,
+			order   : 'asc',
+			orderby : 'name'
+		};
+
+		return {
+			items: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
+		}
+	})
+)

@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
+import { truncate, unescape } from 'lodash';
 
 export function getAttsForTransform( attributes = {} ) {
     let _atts = {};
@@ -86,3 +87,22 @@ export function getPreview(name, isPreviewPopup = false) {
         </Fragment>
     );
 }
+
+export function remapTaxTerms( terms, ignorables = [] ) {
+    return terms.map( term => {
+        return {
+            value: term.slug,
+            label: truncate( unescape( term.name ), { length: 30 } ),
+        }
+    } )
+}
+
+export function remapPosts( posts, ignorables = [] ) {
+    return posts.map( post => {
+        return {
+            value: post.title.rendered,
+            label: truncate( unescape( post.title.rendered ), { length: 30 } ),
+        }
+    } )
+}
+

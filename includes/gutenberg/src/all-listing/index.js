@@ -7,7 +7,9 @@ import {
 	CategoryControl,
 	TagsControl,
 	ListingControl,
-	TypesControl
+	TypesControl,
+	TagsTaxControl,
+	WithSelectComp
 } from '../controls';
 
 import {
@@ -134,6 +136,12 @@ registerBlockType( 'directorist/all-listing', {
 								setAttributes( { directory_type: types.join( ',' ) } );
 								setShouldRender( false );
 							} }  /> : '' }
+
+
+						<TagsTaxControl onChange={ tags => {
+							setAttributes( { tag: tags.join( ',' ) } );
+							// setShouldRender( false );
+						}} getSelected={() => oldTags } />
 
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }

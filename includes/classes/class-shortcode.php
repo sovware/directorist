@@ -80,6 +80,11 @@ class ATBDP_Shortcode {
 
 	// single_listings_header
 	public function single_listings_header( $atts ) {
+
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return '';
+		}
+
 		$listing = Directorist_Single_Listing::instance();
 
 		ob_start();
@@ -92,10 +97,14 @@ class ATBDP_Shortcode {
 	}
 
 	public function single_listings_section( $atts ) {
+
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return '';
+		}
+
 		ob_start();
 		$listing = Directorist_Single_Listing::instance();
 
-		echo '<div class="directorist-single-wrapper">';
 		foreach ( $listing->content_data as $section ) {
 			$section_label = preg_replace( '/\s/', '-' , strtolower( $section['label'] ) );
 
@@ -107,9 +116,7 @@ class ATBDP_Shortcode {
 			}
 
 			$listing->section_template( $section );
-			echo '<br>';
 		}
-		echo '</div>';
 
 		return ob_get_clean();
 	}

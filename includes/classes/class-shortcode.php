@@ -105,7 +105,6 @@ class ATBDP_Shortcode {
 		ob_start();
 		$listing = Directorist_Single_Listing::instance();
 
-		echo '<div class="directorist-single-wrapper">';
 		foreach ( $listing->content_data as $section ) {
 			$section_label = preg_replace( '/\s/', '-' , strtolower( $section['label'] ) );
 
@@ -117,9 +116,7 @@ class ATBDP_Shortcode {
 			}
 
 			$listing->section_template( $section );
-			echo '<br>';
 		}
-		echo '</div>';
 
 		return ob_get_clean();
 	}

@@ -4154,18 +4154,34 @@ class Multi_Directory_Manager
                                 'replace'    => '$1',
                             ],
                         ],
+                        'show_if' => [
+                            'where' => "enable_single_listing_page",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
 
                     ],
                 ],
                 'value' => [],
             ],
+            'enable_single_listing_page' => [
+                'type'          => 'toggle',
+                'label'         => __( 'Show single listing in page', 'directorist' ),
+                'value'         => false,
+            ],
             'single_listing_page' => [
-                'label'             => __('Single Listing Page', 'directorist'),
+                'label'             => __('Single listing page', 'directorist'),
                 'type'              => 'select',
-                'description'       => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section key="section-label-in-lowercase-with-no-space"]</div>'),
                 'value'             => '',
                 'showDefaultOption' => true,
                 'options'           => directorist_get_all_page_list(),
+                'show_if' => [
+                    'where' => "enable_single_listing_page",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => true],
+                    ],
+                ],
             ],
             'similar_listings_logics' => [
                 'type'    => 'radio',
@@ -4632,6 +4648,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'page_settings' => [
                                 'fields' => [
+                                    'enable_single_listing_page',
                                     'single_listing_page',
                                 ],
                             ],

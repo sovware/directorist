@@ -27222,7 +27222,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -39476,7 +39476,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   )
                 ]
               )

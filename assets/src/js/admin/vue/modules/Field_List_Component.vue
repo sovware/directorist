@@ -86,11 +86,13 @@ export default {
             }
             
             for ( let field_key in new_fields ) {
-                if ( ! new_fields[ field_key ].show_if ) { continue; }
+                if ( ! ( new_fields[ field_key ].showIf || new_fields[ field_key ].show_if ) ) { continue; }
+
+                let show_if_condition = ( new_fields[ field_key ].showIf ) ? new_fields[ field_key ].showIf : new_fields[ field_key ].show_if;
 
                 let checkShowIfCondition = this.checkShowIfCondition({ 
                     root: new_fields, 
-                    condition: new_fields[ field_key ].show_if
+                    condition: show_if_condition
                 });
 
                 if ( ! checkShowIfCondition.status ) {

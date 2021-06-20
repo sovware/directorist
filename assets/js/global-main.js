@@ -81,82 +81,111 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js":
-/*!***************************************************************************!*\
-  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
-  \***************************************************************************/
+/***/ "./assets/src/js/global/components/modal.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/global/components/modal.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+;
+
 (function ($) {
-  jQuery(document).ready(function () {
-    // Localized Data
-    var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
-    var loc_default_latitude = parseFloat(localized_data.default_latitude);
-    var loc_default_longitude = parseFloat(localized_data.default_longitude);
-    var loc_manual_lat = parseFloat(localized_data.manual_lat);
-    var loc_manual_lng = parseFloat(localized_data.manual_lng);
-    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var _localized_data = localized_data,
-        display_map_info = _localized_data.display_map_info;
-    var _localized_data2 = localized_data,
-        cat_icon = _localized_data2.cat_icon;
-    var _localized_data3 = localized_data,
-        info_content = _localized_data3.info_content;
-    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-    $manual_lat = $('#manual_lat');
-    $manual_lng = $('#manual_lng');
-    saved_lat_lng = {
-      lat: loc_manual_lat,
-      lng: loc_manual_lng
-    };
+  // Recovery Password Modal
+  $("#recover-pass-modal").hide();
+  $(".atbdp_recovery_pass").on("click", function (e) {
+    e.preventDefault();
+    $("#recover-pass-modal").slideToggle().show();
+  }); // Contact form [on modal closed]
 
-    function mapLeaflet(lat, lon) {
-      var fontAwesomeIcon = L.divIcon({
-        html: "<div class=\"atbd_map_shape\"><span class=\"".concat(cat_icon, "\"></span></div>"),
-        iconSize: [20, 20],
-        className: 'myDivIcon'
-      });
-      var mymap = L.map(map_container).setView([lat, lon], loc_map_zoom_level);
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  }); // Template Restructured
+  // Modal
 
-      if (display_map_info) {
-        L.marker([lat, lon], {
-          icon: fontAwesomeIcon
-        }).addTo(mymap).bindPopup(info_content);
-      } else {
-        L.marker([lat, lon], {
-          icon: fontAwesomeIcon
-        }).addTo(mymap);
-      }
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(mymap);
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr("data-directorist_target");
+    $('.' + data_target).toggleClass('directorist-show');
+  });
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
+    e.preventDefault();
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+  });
+  $(document).bind('click', function (e) {
+    if (e.target == directoristModal) {
+      directoristModal.classList.remove('directorist-show');
     }
-
-    mapLeaflet(loc_manual_lat, loc_manual_lng);
   });
 })(jQuery);
 
 /***/ }),
 
-/***/ 11:
-/*!*********************************************************************************!*\
-  !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
-  \*********************************************************************************/
+/***/ "./assets/src/js/global/components/utility.js":
+/*!****************************************************!*\
+  !*** ./assets/src/js/global/components/utility.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var $ = jQuery;
+document.querySelectorAll('.la-icon i').forEach(function (item) {
+  className.push(item.getAttribute('class'));
+}); // Handle Disabled Link Action
+
+$('.atbdp-disabled').on('click', function (e) {
+  e.preventDefault();
+}); // Toggle Modal
+
+$('.cptm-modal-toggle').on('click', function (e) {
+  e.preventDefault();
+  var target_class = $(this).data('target');
+  $('.' + target_class).toggleClass('active');
+}); // Change label on file select/change
+
+$('.cptm-file-field').on('change', function (e) {
+  var target_id = $(this).attr('id');
+  $('label[for=' + target_id + ']').text('Change');
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/global/global.js":
+/*!****************************************!*\
+  !*** ./assets/src/js/global/global.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/utility */ "./assets/src/js/global/components/utility.js");
+/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_utility__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/***/ }),
+
+/***/ 6:
+/*!**********************************************!*\
+  !*** multi ./assets/src/js/global/global.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js */"./assets/src/js/global/map-scripts/single-listing/openstreet-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/global.js */"./assets/src/js/global/global.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=public-single-listing-openstreet-map-custom-script.js.map
+//# sourceMappingURL=global-main.js.map

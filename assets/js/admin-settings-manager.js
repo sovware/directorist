@@ -1199,9 +1199,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     canShow: function canShow() {
       var is_visible = true;
 
-      if (this.showIf) {
+      if (this.showIf || this.show_if) {
+        var show_if_condition = this.showIf ? this.showIf : this.show_if;
         var show_if_cond = this.checkShowIfCondition({
-          condition: this.showIf,
+          condition: show_if_condition,
           root: this.root
         });
         is_visible = show_if_cond.status;
@@ -1377,6 +1378,9 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     },
     showIf: {
+      required: false
+    },
+    show_if: {
       required: false
     },
     type: {
@@ -14472,13 +14476,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       for (var _field_key2 in new_fields) {
-        if (!new_fields[_field_key2].show_if) {
+        if (!(new_fields[_field_key2].showIf || new_fields[_field_key2].show_if)) {
           continue;
         }
 
+        var show_if_condition = new_fields[_field_key2].showIf ? new_fields[_field_key2].showIf : new_fields[_field_key2].show_if;
         var checkShowIfCondition = this.checkShowIfCondition({
           root: new_fields,
-          condition: new_fields[_field_key2].show_if
+          condition: show_if_condition
         });
 
         if (!checkShowIfCondition.status) {
@@ -27255,7 +27260,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -39631,7 +39636,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   )
                 ]
               )

@@ -157,10 +157,9 @@ registerBlockType( 'directorist/all-locations', {
 							onChange={ newState => setAttributes( { orderby: newState } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						{ orderby === 'slug' ? <LocationControl shouldRender={ shouldRender } onChange={ locations => {
+						{ orderby === 'slug' ? <LocationControl onChange={ locations => {
 							setAttributes( { slug: locations.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldLocations } /> : '' }
+						}} value={ oldLocations } /> : '' }
 						<SelectControl
 							label={ __( 'Order', 'directorist' ) }
 							labelPosition='side'

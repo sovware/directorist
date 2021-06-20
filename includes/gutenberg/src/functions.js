@@ -92,7 +92,7 @@ export function remapTaxTerms( terms, ignorables = [] ) {
     return terms.map( term => {
         return {
             value: term.slug,
-            label: truncate( unescape( term.name ), { length: 30 } ),
+            label: truncate( decodeHTML( term.name ), { length: 30 } ),
         }
     } )
 }
@@ -100,9 +100,14 @@ export function remapTaxTerms( terms, ignorables = [] ) {
 export function remapPosts( posts, ignorables = [] ) {
     return posts.map( post => {
         return {
-            value: post.title.rendered,
-            label: truncate( unescape( post.title.rendered ), { length: 30 } ),
+            value: post.id,
+            label: truncate( decodeHTML( post.title.rendered ), { length: 30 } ),
         }
     } )
 }
 
+export function decodeHTML( text ) {
+    const textarea = document.createElement( 'textarea' );
+    textarea.innerHTML = text;
+    return textarea.textContent;
+}

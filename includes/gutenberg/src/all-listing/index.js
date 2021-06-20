@@ -8,8 +8,6 @@ import {
 	TagsControl,
 	ListingControl,
 	TypesControl,
-	TagsTaxControl,
-	WithSelectComp
 } from '../controls';
 
 import {
@@ -136,11 +134,6 @@ registerBlockType( 'directorist/all-listing', {
 								setAttributes( { directory_type: types.join( ',' ) } );
 								setShouldRender( false );
 							} }  /> : '' }
-
-
-						<TagsTaxControl onChange={ tags => {
-							setAttributes( { tag: tags.join( ',' ) } );
-						}} value={ oldTags } />
 
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }
@@ -291,25 +284,21 @@ registerBlockType( 'directorist/all-listing', {
 							className='directorist-gb-fixed-control'
 						/>
 
-						{ query_type === 'selective' && <ListingControl shouldRender={ shouldRender } onChange={ ids => {
+						{ query_type === 'selective' && <ListingControl onChange={ ids => {
 							setAttributes( { ids: ids.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldIds } /> }
+						}} value={ oldIds } /> }
 
-						{ query_type !== 'selective' && <CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+						{ query_type !== 'selective' && <CategoryControl onChange={ categories => {
 							setAttributes( { category: categories.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldCategories } /> }
+						}} value={ oldCategories } /> }
 
-						{ query_type !== 'selective' && <TagsControl shouldRender={ shouldRender } onChange={ tags => {
+						{ query_type !== 'selective' && <TagsControl onChange={ tags => {
 							setAttributes( { tag: tags.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldTags } /> }
+						}} value={ oldTags } /> }
 
-						{ query_type !== 'selective' && <LocationControl shouldRender={ shouldRender } onChange={ locations => {
+						{ query_type !== 'selective' && <LocationControl onChange={ locations => {
 							setAttributes( { location: locations.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldLocations } /> }
+						}} value={ oldLocations } /> }
 					</PanelBody>
 				</InspectorControls>
 

@@ -157,10 +157,9 @@ registerBlockType( 'directorist/all-categories', {
 							onChange={ orderby => setAttributes( { orderby } ) }
 							className='directorist-gb-fixed-control'
 						/>
-						{ orderby === 'slug' ? <CategoryControl shouldRender={ shouldRender } onChange={ categories => {
+						{ orderby === 'slug' ? <CategoryControl onChange={ categories => {
 							setAttributes( { slug: categories.join( ',' ) } );
-							setShouldRender( false );
-						}} selected={ oldCategories } /> : '' }
+						}} value={ oldCategories } /> : '' }
 						<SelectControl
 							label={ __( 'Order', 'directorist' ) }
 							labelPosition='side'

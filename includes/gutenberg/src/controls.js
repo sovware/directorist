@@ -1,8 +1,8 @@
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { sortItemsBySelected, remapTaxTerms, remapPosts } from './functions'
-import { without, truncate, isEmpty, uniqBy, pluck } from 'lodash';
-import { Fragment, useState, useMemo } from '@wordpress/element';
+import { sortItemsBySelected, remapTaxTerms, remapPosts, decodeHTML } from './functions'
+import { without, truncate, isEmpty, uniqBy, isEqual } from 'lodash';
+import { Fragment, Component } from '@wordpress/element';
 import TokenMultiSelectControl from './vendors/token-multiselect-control';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -20,161 +20,6 @@ import {
 	BaseControl,
 	Spinner
 } from '@wordpress/components';
-
-export const LocationControl = withSelect( select => {
-	const args = {
-		per_page: -1,
-		order: 'asc',
-		orderby: 'name'
-	}
-
-	return {
-		items: select('core').getEntityRecords( 'taxonomy', LOCATION_TAX, args )
-	}
-})( props => {
-	let choices = [];
-
-	if ( props.items ) {
-		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
-			<li key={ item.id }>
-				<CheckboxControl
-					label={ truncate( item.name, { length: 30 } ) }
-					checked={ props.selected.includes( item.slug ) }
-					onChange={ updated => {
-						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
-
-						props.onChange( values );
-					} }
-				/>
-			</li>
-		));
-	} else {
-		choices = [ <li><Spinner /></li> ]
-	}
-
-	return (
-		<BaseControl label={ __( 'Locations', 'directorist' ) } className="directorist-gb-cb-list-control">
-			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
-		</BaseControl>
-	);
-});
-
-export const CategoryControl = withSelect( select => {
-	const args = {
-		per_page: -1,
-		order: 'asc',
-		orderby: 'name'
-	}
-
-	return {
-		items: select('core').getEntityRecords( 'taxonomy', CATEGORY_TAX, args )
-	}
-})( props => {
-	let choices = [];
-
-	if ( props.items ) {
-		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
-			<li key={ item.id }>
-				<CheckboxControl
-					label={ truncate( item.name, { length: 30 } ) }
-					checked={ props.selected.includes( item.slug ) }
-					onChange={ updated => {
-						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
-
-						props.onChange( values );
-					} }
-				/>
-			</li>
-		));
-	} else {
-		choices = [ <li><Spinner /></li> ]
-	}
-
-	return (
-		<BaseControl label={ __( 'Categories', 'directorist' ) } className="directorist-gb-cb-list-control">
-			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
-		</BaseControl>
-	);
-});
-
-export const TagsControl = withSelect( select => {
-	const args = {
-		per_page: -1,
-		order: 'asc',
-		orderby: 'name'
-	}
-
-	return {
-		items: select('core').getEntityRecords( 'taxonomy', TAG_TAX, args )
-	}
-})( props => {
-	let choices = [];
-
-	if ( props.items ) {
-		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
-			<li key={ item.id }>
-				<CheckboxControl
-					label={ truncate( item.name, { length: 30 } ) }
-					checked={ props.selected.includes( item.slug ) }
-					onChange={ updated => {
-						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
-
-						props.onChange( values );
-					} }
-				/>
-			</li>
-		));
-	} else {
-		choices = [ <li><Spinner /></li> ]
-	}
-
-	return (
-		<BaseControl label={ __( 'Tags', 'directorist' ) } className="directorist-gb-cb-list-control">
-			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
-		</BaseControl>
-	);
-});
-
-export const ListingControl = withSelect( select => {
-	const args = {
-		per_page: -1,
-		orderby: 'title',
-		order: 'asc'
-	}
-
-	return {
-		items: select( 'core' ).getEntityRecords( 'postType', POST_TYPE, args )
-	}
-})( props => {
-	let choices = [];
-
-	if ( props.items ) {
-		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'id' ) : props.items ).map( item => (
-			<li key={ item.id }>
-				<CheckboxControl
-					label={ truncate( item.title.rendered, { length: 30 } ) }
-					checked={ props.selected.includes( item.id ) }
-					onChange={ updated => {
-						const values = updated ? [ ...props.selected, item.id ] : without( props.selected, item.id );
-
-						props.onChange( values );
-					} }
-				/>
-			</li>
-		));
-	} else {
-		choices = [ <li><Spinner /></li> ]
-	}
-
-	return (
-		<BaseControl
-            label={ __( 'Listing Items', 'directorist' ) }
-            help={ __( 'When manually selecting listing items make sure to deselect categories, tags and locations.', 'directorist' ) }
-            className="directorist-gb-cb-list-control">
-			<ul className="editor-post-taxonomies__hierarchical-terms-list">{ choices }</ul>
-		</BaseControl>
-	);
-});
 
 export const TypesControl = withSelect( select => {
 	const args = {
@@ -194,7 +39,7 @@ export const TypesControl = withSelect( select => {
 		choices = ( props.shouldRender ? sortItemsBySelected( props.items, props.selected, 'slug' ) : props.items ).map( item => (
 			<li key={ item.id }>
 				<CheckboxControl
-					label={ truncate( item.name, { length: 30 } ) }
+					label={ truncate( decodeHTML( item.name ), { length: 30 } ) }
 					checked={ props.selected.includes( item.slug ) }
 					onChange={ updated => {
 						const values = updated ? [ ...props.selected, item.slug ] : without( props.selected, item.slug );
@@ -208,7 +53,7 @@ export const TypesControl = withSelect( select => {
 		if ( props.showDefault ) {
 			defaultDirChoices = props.items.filter( item => props.selected.includes( item.slug ) ).map( item => {
 				return {
-					label: truncate( item.name, { length: 30 } ),
+					label: truncate( decodeHTML( item.name ), { length: 30 } ),
 					value: item.slug
 				}
 			} );
@@ -233,7 +78,63 @@ export const TypesControl = withSelect( select => {
 	);
 } );
 
-const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
+class TermsMultiSelectComponent extends Component {
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			options: [],
+			value: this.props.value,
+			isLoading: true
+		}
+	}
+
+	static getDerivedStateFromProps( props, state ) {
+		if ( ! isEmpty( props.options ) || ! isEmpty( state.options ) ) {
+			return {
+				options: uniqBy( state.options.concat( props.options ), 'value' ),
+				isLoading: false,
+			}
+		}
+		return null;
+	}
+
+	render() {
+		if ( this.state.isLoading ) {
+			return (
+				<BaseControl label={ this.props.label }>
+					<Spinner />
+				</BaseControl>
+			);
+		}
+
+		return (
+			<TokenMultiSelectControl
+				maxSuggestions={ 10 }
+				label={ this.props.label }
+				value={ this.state.value }
+				options={ this.state.options }
+				onChange={ value => {
+					this.setState( {
+						value: value,
+						isLoading: false
+					} );
+
+					this.props.onChange( value );
+				} }
+				onInputChange={ term => {
+					apiFetch( { path: `wp/v2/${this.props.taxonomy}?per_page=10&search=${term}` } )
+					.then( ( terms ) => {
+						const options = remapTaxTerms( terms )
+						this.setState( { options } )
+					} );
+				} }
+			/>
+		);
+	}
+}
+
+const TermsMultiSelectControl = withSelect( ( select, props ) => {
 	const args = {
 		per_page: 10,
 		order   : 'asc',
@@ -246,40 +147,101 @@ const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
 		args.per_page = props.value.length;
 	}
 
+	const terms = select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
+
 	return {
-		terms: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
+		options: ( ! isEmpty( terms ) ) ? remapTaxTerms( terms ) : []
 	}
-})( props => {
-	if ( isEmpty( props.terms ) ) {
-		return <Spinner />
+})( TermsMultiSelectComponent );
+
+export const TagsControl = props => (
+	<TermsMultiSelectControl {...props } taxonomy={ TAG_TAX } label={ __( 'Select Tags', 'directorist' ) } />
+);
+
+export const CategoryControl = props => (
+	<TermsMultiSelectControl {...props } taxonomy={ CATEGORY_TAX } label={ __( 'Select Categories', 'directorist' ) } />
+);
+
+export const LocationControl = props => (
+	<TermsMultiSelectControl {...props } taxonomy={ LOCATION_TAX } label={ __( 'Select Locations', 'directorist' ) } />
+);
+
+class PostsMultiSelectComponent extends Component {
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			options: [],
+			value: this.props.value,
+			isLoading: true
+		}
 	}
 
-	const defaultOptions          = remapTaxTerms( props.terms );
-	const [ options, setOptions ] = useState( defaultOptions );
-	const [ value, setValue ]     = useState( props.value );
+	static getDerivedStateFromProps( props, state ) {
+		if ( ! isEmpty( props.options ) || ! isEmpty( state.options ) ) {
+			return {
+				options: uniqBy( state.options.concat( props.options ), 'value' ),
+				isLoading: false,
+			}
+		}
+		return null;
+	}
 
-	return (
-		<TokenMultiSelectControl
-			className="directorist-gb-multiselect"
-			maxSuggestions={ 10 }
-			label={ props.label }
-			value={ value }
-			options={ options }
-			onChange={ value => {
-				setValue( value );
-				props.onChange( value );
-			} }
-			onInputChange={ term => {
-				apiFetch( { path: `wp/v2/${props.taxonomy}?per_page=10&search=${term}` } )
-				.then( ( results ) => {
-					const serachedOptions = remapTaxTerms( results )
-					setOptions( uniqBy( options.concat(...serachedOptions ), 'value' ) )
-				} );
-			} }
-		/>
-	);
-} );
+	render() {
+		if ( this.state.isLoading ) {
+			return (
+				<BaseControl label={ this.props.label }>
+					<Spinner />
+				</BaseControl>
+			);
+		}
 
-export const TagsTaxControl = props => (
-	<TaxonomyMultiSelectControl {...props } taxonomy={ TAG_TAX } label={ __( 'Select Tags', 'directorist' ) } />
+		return (
+			<TokenMultiSelectControl
+				maxSuggestions={ 10 }
+				label={ this.props.label }
+				value={ this.state.value }
+				options={ this.state.options }
+				onChange={ value => {
+					this.setState( {
+						value: value,
+						isLoading: false
+					} );
+
+					this.props.onChange( value );
+				} }
+				onInputChange={ term => {
+					apiFetch( { path: `wp/v2/${this.props.postType}?per_page=10&search=${term}` } )
+					.then( ( posts ) => {
+						const options = remapPosts( posts )
+						this.setState( { options } )
+					} );
+				} }
+			/>
+		);
+	}
+}
+
+const PostsMultiSelectControl = withSelect( ( select, props ) => {
+	const args = {
+		per_page: 10,
+		order   : 'desc',
+		orderby : 'date'
+	};
+
+	if ( ! isEmpty( props.value ) ) {
+		args.include  = props.value;
+		args.orderby  = 'include';
+		args.per_page = props.value.length;
+	}
+
+	const posts =  select( 'core' ).getEntityRecords( 'postType', props.postType, args )
+
+	return {
+		options: ( ! isEmpty( posts ) ) ? remapPosts( posts ) : []
+	}
+})( PostsMultiSelectComponent );
+
+export const ListingControl = props => (
+	<PostsMultiSelectControl {...props } postType={ POST_TYPE } label={ __( 'Select Listings', 'directorist' ) } />
 );

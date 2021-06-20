@@ -644,7 +644,7 @@ class TokenMultiSelectControl extends Component {
 		);
 
 		let tokenFieldProps = {
-			className: 'components-form-token-field ',
+			className: 'components-form-token-field directorist-gb-multiselect',
 			tabIndex: '-1',
 		};
 		const matchingSuggestions = this.getMatchingSuggestions();

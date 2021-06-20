@@ -140,8 +140,7 @@ registerBlockType( 'directorist/all-listing', {
 
 						<TagsTaxControl onChange={ tags => {
 							setAttributes( { tag: tags.join( ',' ) } );
-							// setShouldRender( false );
-						}} getSelected={() => oldTags } />
+						}} value={ oldTags } />
 
 						<SelectControl
 							label={ __( 'View As', 'directorist' ) }

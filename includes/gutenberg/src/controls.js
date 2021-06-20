@@ -240,25 +240,23 @@ const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
 		orderby : 'name'
 	};
 
-	const selected = props.getSelected();
-
-	if ( ! isEmpty( selected ) ) {
-		args.slug     = selected;
+	if ( ! isEmpty( props.value ) ) {
+		args.slug     = props.value;
 		args.orderby  = 'include_slugs';
-		args.per_page = selected.length;
+		args.per_page = props.value.length;
 	}
 
 	return {
-		items: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
+		terms: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
 	}
 })( props => {
-	if ( isEmpty( props.items ) ) {
+	if ( isEmpty( props.terms ) ) {
 		return <Spinner />
 	}
 
-	const defaultOptions          = remapTaxTerms( props.items );
+	const defaultOptions          = remapTaxTerms( props.terms );
 	const [ options, setOptions ] = useState( defaultOptions );
-	const [ value, setValue ]     = useState( [] );
+	const [ value, setValue ]     = useState( props.value );
 
 	return (
 		<TokenMultiSelectControl
@@ -269,7 +267,7 @@ const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
 			options={ options }
 			onChange={ value => {
 				setValue( value );
-				// props.onChange( value );
+				props.onChange( value );
 			} }
 			onInputChange={ term => {
 				apiFetch( { path: `wp/v2/${props.taxonomy}?per_page=10&search=${term}` } )
@@ -285,17 +283,3 @@ const TaxonomyMultiSelectControl = withSelect( ( select, props ) => {
 export const TagsTaxControl = props => (
 	<TaxonomyMultiSelectControl {...props } taxonomy={ TAG_TAX } label={ __( 'Select Tags', 'directorist' ) } />
 );
-
-export const WithSelectComp = (
-	withSelect( ( select, props ) => {
-		const args = {
-			per_page: 10,
-			order   : 'asc',
-			orderby : 'name'
-		};
-
-		return {
-			items: select( 'core' ).getEntityRecords( 'taxonomy', props.taxonomy, args )
-		}
-	})
-)

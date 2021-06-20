@@ -23,7 +23,11 @@ $listing = Directorist_Single_Listing::instance();
 
 				<?php if ( $listing->single_page_enabled() ): ?>
 
-					<?php echo $listing->single_page_content(); ?>
+					<div class="directorist-single-wrapper">
+
+						<?php echo $listing->single_page_content(); ?>
+
+					</div>
 
 				<?php else: ?>
 

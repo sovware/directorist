@@ -95,7 +95,6 @@ registerBlockType( 'directorist/all-listing', {
 			popular_only,
 			advanced_filter,
 			display_preview_image,
-			action_before_after_loop,
 			logged_in_user_only,
 			map_height,
 			map_zoom_level,
@@ -162,11 +161,12 @@ registerBlockType( 'directorist/all-listing', {
 							className='directorist-gb-fixed-control'
 						/> : '' }
 						<TextControl
-							label={ __( 'Number Of Listing', 'directorist' ) }
+							label={ __( 'Listings Per Page', 'directorist' ) }
 							type='number'
 							value={ listings_per_page }
 							onChange={ newState => setAttributes( { listings_per_page: newState } ) }
 							className='directorist-gb-fixed-control'
+							help={ __( 'Set the number of listings to show per page.', 'directorist' ) }
 						/>
 						<ToggleControl
 							label={ __( 'Show Pagination?', 'directorist' ) }
@@ -184,7 +184,7 @@ registerBlockType( 'directorist/all-listing', {
 							onChange={ newState => setAttributes( { header: newState } ) }
 						/>
 						{ header ? <TextControl
-							label={ __( 'Header Title', 'directorist' ) }
+							label={ __( 'Listings Found Text', 'directorist' ) }
 							type='text'
 							value={ header_title }
 							onChange={ newState => setAttributes( { header_title: newState } ) }
@@ -203,11 +203,6 @@ registerBlockType( 'directorist/all-listing', {
 							label={ __( 'Show Preview Image?', 'directorist' ) }
 							checked={ display_preview_image }
 							onChange={ newState => setAttributes( { display_preview_image: newState } ) }
-						/>
-						<ToggleControl
-							label={ __( 'Enable Before After Hook?', 'directorist' ) }
-							checked={ action_before_after_loop }
-							onChange={ newState => setAttributes( { action_before_after_loop: newState } ) }
 						/>
 						<ToggleControl
 							label={ __( 'Logged In User Only?', 'directorist' ) }

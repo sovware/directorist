@@ -71,10 +71,6 @@
       "type":"boolean",
       "default":true
     },
-    "action_before_after_loop":{
-      "type":"boolean",
-      "default":false
-    },
     "logged_in_user_only":{
       "type":"boolean",
       "default":false

@@ -126,11 +126,12 @@ registerBlockType( 'directorist/tag', {
 							className='directorist-gb-fixed-control'
 						/> : '' }
 						<TextControl
-							label={ __( 'Number Of Listing', 'directorist' ) }
+							label={ __( 'Listings Per Page', 'directorist' ) }
 							type='number'
 							value={ listings_per_page }
 							onChange={ newState => setAttributes( { listings_per_page: newState } ) }
 							className='directorist-gb-fixed-control'
+							help={ __( 'Set the number of listings to show per page.', 'directorist' ) }
 						/>
 						<SelectControl
 							label={ __( 'Order By', 'directorist' ) }
@@ -167,7 +168,7 @@ registerBlockType( 'directorist/tag', {
 							onChange={ newState => setAttributes( { header: newState } ) }
 						/>
 						{ header ? <TextControl
-							label={ __( 'Header Title', 'directorist' ) }
+							label={ __( 'Listings Found Text', 'directorist' ) }
 							type='text'
 							value={ header_title }
 							onChange={ newState => setAttributes( { header_title: newState } ) }

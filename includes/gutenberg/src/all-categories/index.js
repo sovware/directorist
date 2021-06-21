@@ -138,11 +138,12 @@ registerBlockType( 'directorist/all-categories', {
 							className='directorist-gb-fixed-control'
 						/> : '' }
 						<TextControl
-							label={ __( 'Number Of Listing', 'directorist' ) }
+							label={ __( 'Listings Per Page', 'directorist' ) }
 							type='number'
 							value={ cat_per_page }
 							onChange={ cat_per_page => setAttributes( { cat_per_page } ) }
 							className='directorist-gb-fixed-control'
+							help={ __( 'Set the number of listings to show per page.', 'directorist' ) }
 						/>
 						<SelectControl
 							label={ __( 'Order By', 'directorist' ) }

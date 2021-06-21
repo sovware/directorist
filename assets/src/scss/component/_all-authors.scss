@@ -1,0 +1,71 @@
+
+/* Directorist all authors card */
+.directorist-authors{
+    @include e(nav){
+        margin-bottom: 30px;
+        ul{
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            li{
+                a{
+                    display: block;
+                    line-height: 20px;
+                    padding: 0 17px;
+                    font-size: 15px;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    @include e(card){
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 20px;
+        background: #fff;
+        @include e(img){
+            margin-bottom: 15px;
+            img{
+                border-radius: 10px;
+                width: 100%;
+            }
+        }
+        h2{
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0 0 5px 0 !important;
+        }
+        h3{
+            font-size: 14px;
+            font-weight: 400;
+            color: #8F8E9F;
+            margin: 0 0 15px 0 !important;
+        }
+        ul{
+            list-style-type: none;
+            margin-bottom: 10px;
+            li{
+                font-size: 14px;
+                color: #767792;
+                &:not(:last-child){
+                    margin-bottom: 5px;
+                }
+                i{
+                   width: 16px;
+                   font-size: 16px;
+                   display: inline-block;
+                   margin-right: 5px;
+                }
+            }
+        }
+        p{
+            font-size: 14px;
+            color: #767792;
+            margin-bottom: 20px;
+        }
+    }
+}

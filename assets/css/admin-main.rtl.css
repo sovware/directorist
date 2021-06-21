@@ -8756,6 +8756,10 @@ for shortable field*/
 .directorist-btn.directorist-btn-px-15 {
   padding: 0 15px;
 }
+.directorist-btn.directorist-btn-block {
+  width: 100%;
+  display: block;
+}
 
 /* Modal Core Styles */
 .directorist-modal {

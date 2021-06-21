@@ -9585,7 +9585,7 @@ p.atbd-min {
   color: #767792;
 }
 .directorist-authors__card ul li:not(:last-child) {
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 .directorist-authors__card ul li i {
   width: 16px;

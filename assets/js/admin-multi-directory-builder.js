@@ -2503,6 +2503,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   watch: {
     local_value: function local_value() {
       this.$emit('update', this.local_value);
+    },
+    value: function value() {
+      this.local_value = this.value;
     }
   },
   created: function created() {
@@ -13495,6 +13498,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -13607,33 +13616,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       this.$store.commit('updateOptionsField', payload);
     },
-    updateData: function updateData() {
-      var fields = this.getFieldsValue();
-      var submission_url = this.$store.state.config.submission.url;
-      var submission_with = this.$store.state.config.submission.with;
-      var form_data = new FormData();
-
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === 'object') {
-        for (var _data_key in submission_with) {
-          form_data.append(_data_key, submission_with[_data_key]);
-        }
-      }
-
-      if (this.listing_type_id) {
-        form_data.append('listing_type_id', this.listing_type_id);
-        this.footer_actions.save.label = 'Update';
-      }
-
-      for (var field_key in fields) {
-        var value = this.maybeJSON(fields[data_key]);
-        form_data.append(data_key, value);
-      }
-
-      console.log({
-        submission_url: submission_url,
-        submission_with: submission_with
-      });
-    },
     saveData: function saveData() {
       var options = this.$store.state.options;
       var fields = this.$store.state.fields;
@@ -13652,9 +13634,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         var value = this.maybeJSON(options[field].value);
         form_data.append(field, value);
         options_field_list.push(field);
-      }
+      } // Get Form Fields Data
 
-      form_data.append('field_list', JSON.stringify(field_list)); // Get Form Fields Data
 
       var field_list = [];
 
@@ -13665,7 +13646,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         field_list.push(_field);
       }
 
-      form_data.append('field_list', JSON.stringify(field_list));
+      var field_list_encoded = this.maybeJSON(field_list);
+      form_data.append('field_list', field_list_encoded);
       this.status_messages = [];
       this.footer_actions.save.showLoading = true;
       this.footer_actions.save.isDisabled = true;
@@ -13673,8 +13655,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       axios.post(ajax_data.ajax_url, form_data).then(function (response) {
         self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false; // console.log( response );
-        // return;
+        self.footer_actions.save.isDisabled = false;
+        console.log(response); // return;
 
         if (response.data.term_id && !isNaN(response.data.term_id)) {
           self.listing_type_id = response.data.term_id;
@@ -13708,15 +13690,86 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value)) {
-        value = JSON.stringify(value);
-      }
-
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value)) {
-        value = '';
+      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var value_stringify = JSON.stringify(value);
+        var value_base64 = btoa(value_stringify);
+        value = value_base64;
       }
 
       return value;
+    },
+    sazitizeForJSON: function sazitizeForJSON(data) {
+      var sazitizedData = data;
+
+      if (typeof sazitizedData == 'string') {
+        sazitizedData = this.sazitizeString(sazitizedData);
+      }
+
+      if (sazitizedData && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(sazitizedData) == 'object') {
+        sazitizedData = this.sazitizeObject(sazitizedData);
+      }
+
+      if (Array.isArray(sazitizedData)) {
+        sazitizedData = this.sazitizeArray(sazitizedData);
+      }
+
+      return sazitizedData;
+    },
+    sazitizeObject: function sazitizeObject(objectData) {
+      var sazitizedData = objectData;
+
+      for (var data_key in sazitizedData) {
+        if (typeof sazitizedData[data_key] == 'string') {
+          sazitizedData[data_key] = this.sazitizeString(sazitizedData[data_key]);
+        }
+
+        if (sazitizedData[data_key] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(sazitizedData[data_key]) == 'object') {
+          sazitizedData[data_key] = this.sazitizeObject(sazitizedData[data_key]);
+        }
+
+        if (Array.isArray(sazitizedData[data_key])) {
+          sazitizedData[data_key] = this.sazitizeArray(sazitizedData[data_key]);
+        }
+      }
+
+      return sazitizedData;
+    },
+    sazitizeArray: function sazitizeArray(arrayData) {
+      var sazitizedData = arrayData;
+      var count = 0;
+
+      var _iterator = _createForOfIteratorHelper(sazitizedData),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var data_item = _step.value;
+
+          if (typeof data_item == 'string') {
+            sazitizedData[count] = this.sazitizeString(sazitizedData[count]);
+          }
+
+          if (sazitizedData[count] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(sazitizedData[count]) == 'object') {
+            sazitizedData[count] = this.sazitizeObject(sazitizedData[count]);
+          }
+
+          if (Array.isArray(sazitizedData[count])) {
+            sazitizedData[count] = this.sazitizeArray(sazitizedData[count]);
+          }
+
+          count++;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return sazitizedData;
+    },
+    sazitizeString: function sazitizeString(stringData) {
+      return stringData.replace(/"/g, '`DRST_QT'); // return stringData.replace( /"/g, '`');
+      // return stringData.replace( /"/g, '`');
     },
     insertParam: function insertParam(key, value) {
       key = encodeURIComponent(key);
@@ -27222,7 +27275,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -39476,7 +39529,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

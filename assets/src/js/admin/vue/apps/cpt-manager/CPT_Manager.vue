@@ -115,33 +115,6 @@ export default {
             this.$store.commit( 'updateOptionsField', payload );
         },      
 
-        updateData() {
-            let fields = this.getFieldsValue();
-
-            let submission_url = this.$store.state.config.submission.url;
-            let submission_with = this.$store.state.config.submission.with;
-
-            let form_data = new FormData();
-
-            if ( submission_with && typeof submission_with === 'object' ) {
-                for ( let data_key in submission_with ) {
-                    form_data.append( data_key, submission_with[ data_key ] );
-                }
-            }
-            
-            if ( this.listing_type_id ) {
-                form_data.append( 'listing_type_id', this.listing_type_id );
-                this.footer_actions.save.label = 'Update';
-            }
-
-            for ( let field_key in fields ) {
-                let value = this.maybeJSON( fields[ data_key ] );
-                form_data.append( data_key,  value );
-            }
-
-            console.log( { submission_url, submission_with } );
-        },
-
         saveData() {
             let options = this.$store.state.options;
             let fields  = this.$store.state.fields;
@@ -163,8 +136,6 @@ export default {
                 options_field_list.push( field );
             }
 
-            form_data.append( 'field_list', JSON.stringify( field_list ) );
-
             // Get Form Fields Data
             let field_list = [];
             for ( let field in fields ) {
@@ -174,7 +145,8 @@ export default {
                 field_list.push( field );
             }
 
-            form_data.append( 'field_list', JSON.stringify( field_list ) );
+            let field_list_encoded = this.maybeJSON( field_list )
+            form_data.append( 'field_list', field_list_encoded );
 
             this.status_messages = [];
             this.footer_actions.save.showLoading = true;
@@ -187,7 +159,7 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    // console.log( response );
+                    console.log( response );
                     // return;
                     
                     if ( response.data.term_id && ! isNaN( response.data.term_id ) ) {
@@ -225,15 +197,81 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
-            if ( 'object' === typeof value && Object.keys( value ) ) {
-                value = JSON.stringify( value );
-            }
-            
-            if ( 'object' === typeof value && ! Object.keys( value ) ) {
-                value = '';
+            if ( 'object' === typeof value && Object.keys( value ) || Array.isArray( value ) ) {
+                let value_stringify = JSON.stringify( value );
+                let value_base64 = btoa( value_stringify );
+                value = value_base64;
             }
 
             return value;
+        },
+
+        sazitizeForJSON( data ) {
+            let sazitizedData = data;
+            
+            if ( typeof sazitizedData == 'string' ) {
+                sazitizedData = this.sazitizeString( sazitizedData );
+            }
+            
+            if ( sazitizedData && typeof sazitizedData == 'object' ) {
+                sazitizedData = this.sazitizeObject( sazitizedData );
+            }
+            
+            if ( Array.isArray( sazitizedData ) ) {
+                sazitizedData = this.sazitizeArray( sazitizedData );
+            }
+        
+            return sazitizedData;
+        },
+        
+        sazitizeObject( objectData ) {
+            let sazitizedData = objectData;
+        
+            for ( let data_key in sazitizedData ) {
+
+                if ( typeof sazitizedData[ data_key ] == 'string' ) {
+                    sazitizedData[ data_key ] = this.sazitizeString( sazitizedData[ data_key ] );
+                }
+            
+                if (  sazitizedData[ data_key ] && typeof sazitizedData[ data_key ] == 'object' ) {
+                    sazitizedData[ data_key ] = this.sazitizeObject( sazitizedData[ data_key ] );
+                }
+                
+                if ( Array.isArray( sazitizedData[ data_key ] ) ) {
+                    sazitizedData[ data_key ] = this.sazitizeArray( sazitizedData[ data_key ] );
+                }
+            }
+        
+            return sazitizedData;
+        },
+        
+        sazitizeArray( arrayData ) {
+            let sazitizedData = arrayData;
+            
+            let count = 0;
+            for ( let data_item of sazitizedData ) {
+                if ( typeof data_item == 'string' ) {
+                    sazitizedData[ count ] = this.sazitizeString( sazitizedData[ count ] );
+                }
+            
+                if (  sazitizedData[ count ] && typeof sazitizedData[ count ] == 'object' ) {
+                    sazitizedData[ count ] = this.sazitizeObject( sazitizedData[ count ] );
+                }
+                
+                if ( Array.isArray( sazitizedData[ count ] ) ) {
+                    sazitizedData[ count ] = this.sazitizeArray( sazitizedData[ count ] );
+                }
+                
+                count++;
+            }
+        
+            return sazitizedData;
+        },
+
+        sazitizeString( stringData ) {
+            return stringData.replace( /"/g, '`DRST_QT');
+            // return stringData.replace( /"/g, '`');
+            // return stringData.replace( /"/g, '`');
         },
 
         insertParam(key, value) {

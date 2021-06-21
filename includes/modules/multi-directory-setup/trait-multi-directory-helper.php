@@ -257,21 +257,21 @@ trait Multi_Directory_Helper {
     public static function maybe_json( $input_data ) {
         if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
         
-        // Sanitize input data
-        $sanitized_data = $input_data;
+        $output_data = $input_data;
 
-        if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
-            $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
+        // JSON
+        $decode_json = json_decode( $input_data, true );
+        
+        // Base64 JSON
+        $decode_base64 = base64_decode( $input_data );
+        $decode_base64_json = json_decode( $decode_base64, true );
+
+        if ( ! is_null( $decode_json ) ) {
+            $output_data = $decode_json;
         }
 
-        $output_data = json_decode( $sanitized_data, true);
-        $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
-
-        // Sanitize output data
-        if ( 'string' === gettype( $output_data ) ) {
-            $output_data = preg_replace( '/\\\\"/', '"', $output_data );
-            $output_data = preg_replace( "/\\\\'/", "'", $output_data );
-            $output_data = _sanitize_text_fields( $output_data, true );
+        if ( ! is_null( $decode_base64_json ) ) {
+            $output_data = $decode_base64_json;
         }
 
         return $output_data;

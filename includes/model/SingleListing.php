@@ -326,7 +326,26 @@ class Directorist_Single_Listing {
 		return $tags;
 	}
 
+	public function single_page_enabled() {
+		return get_directorist_type_option( $this->type, 'enable_single_listing_page', false );
+	}
 
+	public function single_page_content() {
+		$page_id = get_directorist_type_option( $this->type, 'single_listing_page' );
+
+		if ( !$page_id ) {
+			return '';
+		}
+
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $page_id ) ) {
+			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
+		} else {
+			$content = get_post_field( 'post_content', $page_id );
+			$content = do_shortcode( $content );
+		}
+
+		return $content;
+	}
 
 	public function social_share_data() {
 		$title = get_the_title();
@@ -350,7 +369,7 @@ class Directorist_Single_Listing {
 			),
 		);
 
-		return $result;
+		return apply_filters( 'directorist_single_listing_social_sharing_items', $result );
 	}
 
 	public function quick_actions_template() {

@@ -11,10 +11,6 @@ module.exports = {
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
         ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
 
-        // CSS
-        ['public-search-style']: ["./assets/src/scss/layout/public/search-style.scss"],
-
-
         // Admin
         // -------------------------------------------
         ['admin-main']: "./assets/src/js/admin/admin.js",
@@ -25,12 +21,10 @@ module.exports = {
         ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
         ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
 
-        // CSS
-        ['admin-drag-drop']: "./assets/src/scss/layout/admin/drag_drop.scss",
-
         // Global
         // -------------------------------------------
         // JS
+        ['global-main']: ["./assets/src/js/global/global.js"],
         ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 
         ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
@@ -47,9 +41,6 @@ module.exports = {
 
         ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
         ['global-pure-select']: ["./assets/src/js/global/pureScriptSearchSelect.js"],
-        
-        // CSS
-        ['global-openstreet-map']: ["./assets/src/scss/component/openstreet-map/index.scss"],
     },
 
     vueEntries: {

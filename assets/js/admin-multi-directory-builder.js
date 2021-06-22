@@ -13665,7 +13665,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         field_list.push(_field);
       }
 
-      form_data.append('field_list', JSON.stringify(field_list));
+      form_data.append('field_list', this.maybeJSON(field_list));
       this.status_messages = [];
       this.footer_actions.save.showLoading = true;
       this.footer_actions.save.isDisabled = true;
@@ -13673,8 +13673,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       axios.post(ajax_data.ajax_url, form_data).then(function (response) {
         self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false; // console.log( response );
-        // return;
+        self.footer_actions.save.isDisabled = false;
+        console.log(response); // return;
 
         if (response.data.term_id && !isNaN(response.data.term_id)) {
           self.listing_type_id = response.data.term_id;
@@ -13708,12 +13708,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value)) {
-        value = JSON.stringify(value);
-      }
-
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value)) {
-        value = '';
+      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var json_encoded_value = JSON.stringify(value);
+        var base64_encoded_value = btoa(json_encoded_value);
+        value = base64_encoded_value;
       }
 
       return value;

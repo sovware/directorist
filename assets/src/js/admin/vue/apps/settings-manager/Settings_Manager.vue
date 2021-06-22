@@ -316,7 +316,7 @@ export default {
                 });
             }
 
-            form_data.append( 'field_list', JSON.stringify( field_list ) );
+            form_data.append( 'field_list', this.maybeJSON( field_list ) );
 
             // console.log( error_count );
             if ( error_count ) {
@@ -403,12 +403,10 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
-            if ( 'object' === typeof value && Object.keys( value ).length ) {
-                value = JSON.stringify( value );
-            }
-            
-            if ( 'object' === typeof value && ! Object.keys( value ).length ) {
-                value = '';
+            if ( 'object' === typeof value && Object.keys( value ) || Array.isArray( value ) ) {
+                let json_encoded_value = JSON.stringify( value );
+                let base64_encoded_value = btoa( json_encoded_value );
+                value = base64_encoded_value;
             }
 
             return value;

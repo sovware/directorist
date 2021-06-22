@@ -2439,11 +2439,21 @@ class Multi_Directory_Manager
                         'icon' => 'la la-align-right',
                         'allowMultiple' => true,
                         'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label'  => __( 'Icon', 'directorist' ),
+                                'value' => '',
+                            ],
                             'content' => [
-                                'type'        => 'textarea',
-                                'label'       => __( 'Content', 'directorist' ),
-                                'value'       => '',
-                                'description' => __( 'You can use any text or shortcode', 'directorist' ) ,
+                                'type'  => 'textarea',
+                                'label'  => __( 'Content', 'directorist' ),
+                                'value' => '',
+                                'description' => __( 'You can use any text or shortcode', 'directorist' ),
                             ],
                         ],
                     ],

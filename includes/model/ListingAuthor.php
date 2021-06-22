@@ -430,8 +430,12 @@ class Directorist_Listing_Author {
 		
 		ob_start();
 		$all_authors = get_users();
+		$args = array(
+			'all_authors' => get_users(),
+			'alphabets'	  => range( 'A', 'Z' )
+		);
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'author/archive' );
+		echo Helper::get_template_contents( 'author/archive', $args );
 
 		return ob_get_clean();
 	}

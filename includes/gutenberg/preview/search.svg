@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="163" viewBox="0 0 400 163">
+  <defs>
+    <clipPath id="clip-_09_Search_Field">
+      <rect width="400" height="163"/>
+    </clipPath>
+  </defs>
+  <g id="_09_Search_Field" data-name="09_Search Field" clip-path="url(#clip-_09_Search_Field)">
+    <rect width="400" height="163" fill="#fff"/>
+    <g id="Rectangle_80" data-name="Rectangle 80" fill="#fff" stroke="#ebebef" stroke-width="1">
+      <rect width="400" height="163" stroke="none"/>
+      <rect x="0.5" y="0.5" width="399" height="162" fill="none"/>
+    </g>
+    <g id="Group_25" data-name="Group 25">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="350" height="28" rx="14" transform="translate(25 75)" fill="#eaebed"/>
+      <rect id="Rectangle_9" data-name="Rectangle 9" width="26" height="5" rx="2.5" transform="translate(135 60)" fill="#d7d9de"/>
+      <rect id="Rectangle_83" data-name="Rectangle 83" width="46" height="5" rx="2.5" transform="translate(40 87)" fill="#d7d9de"/>
+      <rect id="Rectangle_84" data-name="Rectangle 84" width="46" height="5" rx="2.5" transform="translate(140 87)" fill="#d7d9de"/>
+      <rect id="Rectangle_85" data-name="Rectangle 85" width="46" height="5" rx="2.5" transform="translate(240 87)" fill="#d7d9de"/>
+      <rect id="Rectangle_10" data-name="Rectangle 10" width="26" height="5" rx="2.5" transform="translate(166 60)" fill="#d7d9de"/>
+      <rect id="Rectangle_11" data-name="Rectangle 11" width="26" height="5" rx="2.5" transform="translate(197 60)" fill="#d7d9de"/>
+      <rect id="Rectangle_12" data-name="Rectangle 12" width="26" height="5" rx="2.5" transform="translate(228 60)" fill="#d7d9de"/>
+      <rect id="Rectangle_13" data-name="Rectangle 13" width="45" height="20" rx="10" transform="translate(326 79)" fill="#d7d9de"/>
+      <path id="credit-card-search" d="M45.4,37.914a4.5,4.5,0,1,0-3.843,2.157,4.577,4.577,0,0,0,2.346-.66l1.8,1.812a1.052,1.052,0,1,0,1.487-1.487Zm-2.095-.6a2.482,2.482,0,0,1-3.425,0,2.422,2.422,0,1,1,3.425,0Z" transform="translate(305.948 52.936)" fill="#a1a7b2"/>
+    </g>
+  </g>
+</svg>

@@ -61,20 +61,15 @@ class Directorist_Template_Hooks {
 
 		if ( is_singular( ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() && $single_template != 'directorist_template' ) {
 			$content = Helper::get_template_contents( 'single-contents' );
+		}
 
-			$single_listing_page_id = get_directorist_option( 'single_listing_page', '', true );
+		// Put a dummy content for selected single pages
+		$selected_single_pages = Helper::builder_selected_single_pages();
 
-			$directory_type_id = directorist_get_listings_directory_type( get_the_ID() );
-			$single_listing_page_id_by_type = get_term_meta( $directory_type_id, 'single_listing_page', true );
-
-			if ( ! empty( $single_listing_page_id_by_type ) ) {
-				$single_listing_page_id = $single_listing_page_id_by_type;
-			}
-			
-			if ( ! empty( $single_listing_page_id ) && is_numeric( $single_listing_page_id ) ) {
-				$content_post = get_post( ( int ) $single_listing_page_id );
-				$content = do_shortcode( $content_post->post_content );
-			}
+		if( !empty( $selected_single_pages ) && in_the_loop() && is_main_query() && is_page( array_keys( $selected_single_pages ) ) ) {
+			$page_id = get_the_id();
+			$type_name = $selected_single_pages[$page_id];
+			$content = sprintf( __( 'This page is currently selected as the Single Listing Page for \'%s\' Listing Type', 'directorist' ) , $type_name );
 		}
 
 		return $content;

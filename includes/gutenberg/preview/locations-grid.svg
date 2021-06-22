@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="228" viewBox="0 0 400 228">
+  <defs>
+    <clipPath id="clip-_03_All_Locations">
+      <rect width="400" height="228"/>
+    </clipPath>
+  </defs>
+  <g id="_03_All_Locations" data-name="03_All Locations" clip-path="url(#clip-_03_All_Locations)">
+    <rect width="400" height="228" fill="#fff"/>
+    <g id="Rectangle_80" data-name="Rectangle 80" fill="#fff" stroke="#ebebef" stroke-width="1">
+      <rect width="400" height="228" stroke="none"/>
+      <rect x="0.5" y="0.5" width="399" height="227" fill="none"/>
+    </g>
+    <rect id="Rectangle_9" data-name="Rectangle 9" width="40" height="6" rx="3" transform="translate(25 30)" fill="#eaebed"/>
+    <rect id="Rectangle_10" data-name="Rectangle 10" width="40" height="6" rx="3" transform="translate(75 30)" fill="#eaebed"/>
+    <rect id="Rectangle_11" data-name="Rectangle 11" width="40" height="6" rx="3" transform="translate(125 30)" fill="#eaebed"/>
+    <rect id="Rectangle_12" data-name="Rectangle 12" width="40" height="6" rx="3" transform="translate(175 30)" fill="#eaebed"/>
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="40" height="6" rx="3" transform="translate(225 30)" fill="#eaebed"/>
+    <rect id="Rectangle_1459" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(25 51)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-2" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(25 128)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-3" data-name="Rectangle 1459" width="83" height="70" rx="2" transform="translate(114 51)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-4" data-name="Rectangle 1459" width="83" height="70" rx="2" transform="translate(114 128)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-5" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(204 51)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-6" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(204 128)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-7" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(293 51)" fill="#eaebed"/>
+    <rect id="Rectangle_1459-8" data-name="Rectangle 1459" width="82" height="70" rx="2" transform="translate(293 128)" fill="#eaebed"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="42" height="6" transform="translate(45 83)" fill="#d7d9de"/>
+    <rect id="Rectangle_18" data-name="Rectangle 18" width="42" height="6" transform="translate(45 160)" fill="#d7d9de"/>
+    <rect id="Rectangle_15" data-name="Rectangle 15" width="42" height="6" transform="translate(135 83)" fill="#d7d9de"/>
+    <rect id="Rectangle_19" data-name="Rectangle 19" width="42" height="6" transform="translate(135 160)" fill="#d7d9de"/>
+    <rect id="Rectangle_16" data-name="Rectangle 16" width="42" height="6" transform="translate(224 83)" fill="#d7d9de"/>
+    <rect id="Rectangle_20" data-name="Rectangle 20" width="42" height="6" transform="translate(224 160)" fill="#d7d9de"/>
+    <rect id="Rectangle_17" data-name="Rectangle 17" width="42" height="6" transform="translate(313 83)" fill="#d7d9de"/>
+    <rect id="Rectangle_21" data-name="Rectangle 21" width="42" height="6" transform="translate(313 160)" fill="#d7d9de"/>
+  </g>
+</svg>

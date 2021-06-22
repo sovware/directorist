@@ -13751,7 +13751,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         });
       }
 
-      form_data.append('field_list', JSON.stringify(field_list)); // console.log( error_count );
+      form_data.append('field_list', this.maybeJSON(field_list)); // console.log( error_count );
 
       if (error_count) {
         this.status_message = {
@@ -13831,12 +13831,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value).length) {
-        value = JSON.stringify(value);
-      }
-
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value).length) {
-        value = '';
+      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var json_encoded_value = JSON.stringify(value);
+        var base64_encoded_value = btoa(json_encoded_value);
+        value = base64_encoded_value;
       }
 
       return value;
@@ -27260,7 +27258,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -39636,7 +39634,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

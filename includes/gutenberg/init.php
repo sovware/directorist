@@ -240,3 +240,19 @@ function get_attributes_from_metadata( $file_or_folder ) {
 
 	return $metadata;
 }
+
+/**
+ * Disable gutenberg editor or block editor for our directory post type.
+ *
+ * @param bool $current_status
+ * @param string $post_type
+ *
+ * @return bool
+ */
+function disable_block_editor( $current_status, $post_type ) {
+    if ( $post_type === ATBDP_POST_TYPE ) {
+		return false;
+	}
+    return $current_status;
+}
+add_filter( 'use_block_editor_for_post_type', __NAMESPACE__ . '\disable_block_editor', 10, 2 );

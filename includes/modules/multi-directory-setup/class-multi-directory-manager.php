@@ -1438,7 +1438,7 @@ class Multi_Directory_Manager
 
             'custom' => [
                 'title' => __( 'Custom Fields', 'directorist' ),
-                'description' => __( 'Click on a field type you want to create', 'directorist' ),
+                'description' => __( 'Click on a field type you want to create. Need help?', 'directorist' ),
                 'allowMultiple' => true,
                 'widgets' => apply_filters('atbdp_form_custom_widgets', [
                     'text' => [
@@ -3910,7 +3910,7 @@ class Multi_Directory_Manager
 
         self::$fields = apply_filters('atbdp_listing_type_settings_field_list', [
             'icon' => [
-                'label' => __( 'Icon', 'directorist' ),
+                'label' => '',
                 'type'  => 'icon',
                 'value' => '',
                 'rules' => [
@@ -4025,7 +4025,7 @@ class Multi_Directory_Manager
 
             // Submission Settings
             'preview_mode' => [
-                'label' => __('Enable Preview', 'directorist'),
+                'label' => __('Enable Listing Preview', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
@@ -4483,56 +4483,49 @@ class Multi_Directory_Manager
             'general' => [
                 'label' => 'General',
                 'icon' => '<i class="uil uil-estate"></i>',
-                'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
-                    'general' => [
-                        'label' => __('General', 'directorist'),
-                        'sections' => [
-                            'labels' => [
-                                'title'       => __('Labels', 'directorist'),
-                                'description' => '',
-                                'fields'      => [ 'icon' ],
-                            ],
+                'sections' => [
+                    'labels' => [
+                        'title'       => __('Directory icon', 'directorist'),
+                        'description' => __('Need help?', 'directorist'),
+                        'fields'      => [ 'icon' ],
+                    ],
 
-                            'listing_status' => [
-                                'title' => __('Default Status', 'directorist'),
-                                'description' => __('Need help?', 'directorist'),
-                                'fields'      => [
-                                    'new_listing_status',
-                                    'edit_listing_status',
-                                ],
-                            ],
+                    'listing_status' => [
+                        'title' => __('Default listing status', 'directorist'),
+                        'fields'      => [
+                            'new_listing_status',
+                            'edit_listing_status',
+                        ],
+                    ],
 
-                            'expiration' => [
-                                'title'       => __('Expiration', 'directorist'),
-                                'description' => __('Default time to expire a listing.', 'directorist'),
-                                'fields'      => [
-                                    'default_expiration',
-                                ],
-                            ],
+                    'expiration' => [
+                        'title'       => __('Expiration', 'directorist'),
+                        'description' => __('Default time to expire a listing.', 'directorist'),
+                        'fields'      => [
+                            'default_expiration',
+                        ],
+                    ],
 
-                            'default_preview' => [
-                                'title'       => __('Default Preview', 'directorist'),
-                                'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                'fields'      => [
-                                    'preview_image',
-                                ],
-                            ],
-                            
-                            'export_import' => [
-                                'title'       => __('Export The Config File', 'directorist'),
-                                'description' => __('Export all the form, layout and settings', 'directorist'),
-                                'fields'      => [
-                                    'import_export',
-                                ],
-                            ],
+                    'default_preview' => [
+                        'title'       => __('Default Preview', 'directorist'),
+                        'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                        'fields'      => [
+                            'preview_image',
                         ],
                     ],
                     
-                ]),
+                    'export_import' => [
+                        'title'       => __('Export The Config File', 'directorist'),
+                        'description' => __('Export all the form, layout and settings', 'directorist'),
+                        'fields'      => [
+                            'import_export',
+                        ],
+                    ],
+                ],
             ],
 
             'submission_form' => [
-                'label' => __( 'Submission Form', 'directorist' ),
+                'label' => __( 'Add Listing Form', 'directorist' ),
                 'icon' => '<span class="uil uil-file-edit-alt"></span>',
                 'submenu' => [
                     'form_fields' => [
@@ -4540,7 +4533,7 @@ class Multi_Directory_Manager
                         'container' => 'wide',
                         'sections' => [
                             'form_fields' => [
-                                'title' => __( 'Select or create fields for this listing type', 'directorist' ),
+                                'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
                                 'description' => __( 'need help?', 'directorist' ),
                                 'fields' => [
                                     'submission_form_fields'
@@ -4551,22 +4544,6 @@ class Multi_Directory_Manager
                     'settings' => [
                         'label' => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'submittion_settings' => [
-                                'title' => __('Submission Settings', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
-                                    'preview_mode',
-                                    'submit_button_label',
-                                ],
-                            ],
-                            /* 'guest_submission' => [
-                                'title' => __('Guest Submission', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
-                                    'guest_email_label',
-                                    'guest_email_placeholder',
-                                ],
-                            ], */
                             'terms_and_conditions' => [
                                 'title' => __('Terms and Conditions', 'directorist'),
                                 'container' => 'short-width',
@@ -4583,6 +4560,14 @@ class Multi_Directory_Manager
                                     'listing_privacy',
                                     'require_privacy',
                                     'privacy_label',
+                                ],
+                            ],
+                            'submittion_settings' => [
+                                'title' => __('Submission Settings', 'directorist'),
+                                'container' => 'short-width',
+                                'fields' => [
+                                    'preview_mode',
+                                    'submit_button_label',
                                 ],
                             ],
                         ] ),
@@ -4643,11 +4628,11 @@ class Multi_Directory_Manager
                 ]
             ],
             'listings_card_layout' => [
-                'label' => __( 'Listings Card Layout', 'directorist' ),
+                'label' => __( 'All Listing Layout', 'directorist' ),
                 'icon' => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
-                        'label' => __( 'Listings Card Grid Layout', 'directorist' ),
+                        'label' => __( 'All Listing Grid Layout', 'directorist' ),
                         'container' => 'wide',
                         'sections' => [
                             'listings_card' => [
@@ -4661,7 +4646,7 @@ class Multi_Directory_Manager
                         ],
                     ],
                     'list_view' => [
-                        'label' => __( 'Listings Card List Layout', 'directorist' ),
+                        'label' => __( 'All Listing List Layout', 'directorist' ),
                         'container' => 'full-width',
                         'sections' => [
                             'listings_card' => [
@@ -4711,8 +4696,9 @@ class Multi_Directory_Manager
             ];
 
             self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
-                'title' => __('Guest Submission', 'directorist'),
-                'container' => 'short-width',
+                'title'         => __('Guest Listing Submission', 'directorist'),
+                'description'   => __('Need Help?', 'directorist'),
+                'container'     => 'short-width',
                 'fields' => [
                     'guest_email_label',
                     'guest_email_placeholder',

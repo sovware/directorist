@@ -70,6 +70,12 @@
         .directorist-search-query{
             padding-right: 2px;
         }
+
+        .directorist-form-group{
+            .directorist-form-element{
+                background-image: none !important;
+            }
+        }
     }
 }
 
@@ -78,6 +84,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    list-style-type: none;
 
     .directorist-listing-type-selection__item {
         margin-bottom: 25px;

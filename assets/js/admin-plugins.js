@@ -90,13 +90,8 @@
 /*!****************************************!*\
   !*** ./assets/src/js/admin/plugins.js ***!
   \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_plugins_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/plugins.scss */ "./assets/src/scss/layout/admin/plugins.scss");
-/* harmony import */ var _scss_layout_admin_plugins_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_plugins_scss__WEBPACK_IMPORTED_MODULE_0__);
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 jQuery(document).ready(function ($) {
   var update = $('#directorist-update');
@@ -145,17 +140,6 @@ jQuery(document).ready(function ($) {
     $('.directorist-extensions').hide();
   }
 });
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/admin/plugins.scss":
-/*!***************************************************!*\
-  !*** ./assets/src/scss/layout/admin/plugins.scss ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ })
 

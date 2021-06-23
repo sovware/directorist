@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="341" viewBox="0 0 400 341">
+  <defs>
+    <clipPath id="clip-_07_Checkout">
+      <rect width="400" height="341"/>
+    </clipPath>
+  </defs>
+  <g id="_07_Checkout" data-name="07_Checkout" clip-path="url(#clip-_07_Checkout)">
+    <rect width="400" height="341" fill="#fff"/>
+    <g id="Rectangle_80" data-name="Rectangle 80" fill="#fff" stroke="#ebebef" stroke-width="1">
+      <rect width="400" height="341" stroke="none"/>
+      <rect x="0.5" y="0.5" width="399" height="340" fill="none"/>
+    </g>
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="350" height="84" rx="2" transform="translate(25 30)" fill="#eaebed"/>
+    <rect id="Rectangle_65" data-name="Rectangle 65" width="350" height="146" rx="2" transform="translate(25 129)" fill="#eaebed"/>
+    <path id="Rectangle_64" data-name="Rectangle 64" d="M2,0H348a2,2,0,0,1,2,2V25a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(25 30)" fill="#d7d9de"/>
+    <rect id="Rectangle_9" data-name="Rectangle 9" width="34" height="5" rx="2.5" transform="translate(200 65)" fill="#d7d9de"/>
+    <rect id="Rectangle_70" data-name="Rectangle 70" width="54" height="5" rx="2.5" transform="translate(58 167)" fill="#d7d9de"/>
+    <rect id="Rectangle_77" data-name="Rectangle 77" width="54" height="5" rx="2.5" transform="translate(58 217)" fill="#d7d9de"/>
+    <rect id="Rectangle_75" data-name="Rectangle 75" width="274" height="5" rx="2.5" transform="translate(58 181)" fill="#d7d9de"/>
+    <rect id="Rectangle_78" data-name="Rectangle 78" width="274" height="5" rx="2.5" transform="translate(58 231)" fill="#d7d9de"/>
+    <rect id="Rectangle_76" data-name="Rectangle 76" width="204" height="5" rx="2.5" transform="translate(58 192)" fill="#d7d9de"/>
+    <rect id="Rectangle_79" data-name="Rectangle 79" width="204" height="5" rx="2.5" transform="translate(58 242)" fill="#d7d9de"/>
+    <rect id="Rectangle_61" data-name="Rectangle 61" width="34" height="5" rx="2.5" transform="translate(327 65)" fill="#d7d9de"/>
+    <rect id="Rectangle_10" data-name="Rectangle 10" width="34" height="5" rx="2.5" transform="translate(200 82)" fill="#d7d9de"/>
+    <rect id="Rectangle_62" data-name="Rectangle 62" width="34" height="5" rx="2.5" transform="translate(327 82)" fill="#d7d9de"/>
+    <rect id="Rectangle_11" data-name="Rectangle 11" width="34" height="5" rx="2.5" transform="translate(200 99)" fill="#d7d9de"/>
+    <rect id="Rectangle_63" data-name="Rectangle 63" width="34" height="5" rx="2.5" transform="translate(327 99)" fill="#d7d9de"/>
+    <rect id="Rectangle_12" data-name="Rectangle 12" width="36" height="5" rx="2.5" transform="translate(39 40)" fill="#a1a7b2"/>
+    <rect id="Rectangle_73" data-name="Rectangle 73" width="106" height="5" rx="2.5" transform="translate(39 141)" fill="#d7d9de"/>
+    <rect id="Rectangle_60" data-name="Rectangle 60" width="40" height="5" rx="2.5" transform="translate(250 40)" fill="#a1a7b2"/>
+    <path id="compact-disc" d="M8,2a6,6,0,1,0,6,6A6,6,0,0,0,8,2ZM8,12.8A4.8,4.8,0,1,1,12.8,8,4.8,4.8,0,0,1,8,12.8ZM8,6.2A1.8,1.8,0,1,0,9.8,8,1.8,1.8,0,0,0,8,6.2ZM8,8.6A.6.6,0,1,1,8.6,8,.6.6,0,0,1,8,8.6Z" transform="translate(37 165)" fill="#a1a7b2"/>
+    <path id="compact-disc-2" data-name="compact-disc" d="M8,2a6,6,0,1,0,6,6A6,6,0,0,0,8,2ZM8,12.8A4.8,4.8,0,1,1,12.8,8,4.8,4.8,0,0,1,8,12.8ZM8,6.2A1.8,1.8,0,1,0,9.8,8,1.8,1.8,0,0,0,8,6.2ZM8,8.6A.6.6,0,1,1,8.6,8,.6.6,0,0,1,8,8.6Z" transform="translate(37 215)" fill="#acacb5"/>
+    <rect id="Rectangle_82" data-name="Rectangle 82" width="64" height="22" rx="2" transform="translate(311 289)" fill="#d7d9de"/>
+    <rect id="Rectangle_81" data-name="Rectangle 81" width="64" height="22" rx="2" transform="translate(239 289)" fill="#d7d9de"/>
+  </g>
+</svg>

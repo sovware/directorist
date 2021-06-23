@@ -42,6 +42,31 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'default'   => 'yes',
 			),
 			array(
+				'type'      => Controls_Manager::CHOOSE,
+				'id'        => 'title_subtitle_alignment',
+				'label'     => __( 'Title/Subtitle Alignment', 'directorist' ),
+				'options'   => array(
+					'left'   => array(
+						'title' => __( 'Left', 'directorist' ),
+						'icon'  => 'fa fa-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'directorist' ),
+						'icon'  => 'fa fa-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'directorist' ),
+						'icon'  => 'fa fa-align-right',
+					),
+				),
+				'toggle'    => true,
+				'selectors' => array(
+					'{{WRAPPER}} .directorist-search-top__title' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .directorist-search-top__subtitle' => 'text-align: {{VALUE}}',
+				),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
 				'type'      => Controls_Manager::TEXTAREA,
 				'id'        => 'title',
 				'label'     => __( 'Search Form Title', 'directorist' ),
@@ -133,6 +158,56 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'id'        => 'user',
 				'label'     => __( 'Show only for logged in user?', 'directorist' ),
 				'default'   => 'no',
+			),
+			array(
+				'mode' => 'section_end',
+			),
+			array(
+				'mode'  => 'section_start',
+				'id'    => 'sec_style',
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'label' => __( 'Color', 'directorist' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'title_color',
+				'label'     => __( 'Title', 'directorist' ),
+				'default'   => '#51526e',
+				'selectors' => array( '{{WRAPPER}} .directorist-search-top__title' => 'color: {{VALUE}}' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'id'        => 'subtitle_color',
+				'label'     => __( 'Subtitle', 'directorist' ),
+				'default'   => '#51526e',
+				'selectors' => array( '{{WRAPPER}} .directorist-search-top__subtitle' => 'color: {{VALUE}}' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
+				'mode' => 'section_end',
+			),
+			array(
+				'mode'  => 'section_start',
+				'id'    => 'sec_style_type',
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'label' => __( 'Typography', 'directorist' ),
+				'condition' => array( 'show_subtitle' => array( 'yes' ) ),
+			),
+			array(
+				'mode'     => 'group',
+				'type'     => \Elementor\Group_Control_Typography::get_type(),
+				'id'       => 'title_typo',
+				'label'    => __( 'Title', 'directorist' ),
+				'selector' => '{{WRAPPER}} .directorist-search-top__title',
+			),
+			array(
+				'mode'     => 'group',
+				'type'     => \Elementor\Group_Control_Typography::get_type(),
+				'id'       => 'subtitle_typo',
+				'label'    => __( 'Subtitle', 'directorist' ),
+				'selector' => '{{WRAPPER}} .directorist-search-top__subtitle',
 			),
 			array(
 				'mode' => 'section_end',

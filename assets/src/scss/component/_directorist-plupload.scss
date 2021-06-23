@@ -1,0 +1,172 @@
+.upload-error {
+    background: red;
+    border: 3px #000 dashed;
+    display: block !important;
+    clear: both;
+    padding: 3px 0;
+    color: #fff;
+    font-weight: bold
+}
+
+#upload-msg {
+    display: block;
+    clear: both
+}
+
+#content .category_grid_view li a.post_img {
+    height: 65px;
+    width: 90%;
+    overflow: hidden
+}
+
+#content .category_grid_view li a.post_img img {
+    margin: 0 auto;
+    display: block;
+    height: 65px
+}
+
+#content .category_list_view li a.post_img {
+    height: 110px;
+    width: 165px;
+    overflow: hidden
+}
+
+#content .category_list_view li a.post_img img {
+    margin: 0 auto;
+    display: block;
+    height: 110px
+}
+
+#sidebar .recent_comments li img.thumb {
+    width: 40px
+}
+
+.post_img_tiny img {
+    width: 35px
+}
+
+.single_post_blog img.alignleft {
+    width: 96%;
+    height: auto
+}
+
+.ecu_images {
+    width: 100%
+}
+
+.filelist {
+    width: 100%
+}
+
+.filelist .file {
+    padding: 5px;
+    background: #ececec;
+    border: solid 1px #ccc;
+    margin-bottom: 4px;
+    clear: both;
+    text-align: left
+}
+
+.filelist .fileprogress {
+    width: 0%;
+    background: #3385ff;
+    height: 5px
+}
+
+
+.plupload-upload-uic{
+    .directorist-btn{
+        padding: 0 1.44em;
+        line-height: 2.65;
+        font-size: 14px;
+    }
+}
+
+.plupload-thumbs {
+    clear: both;
+    margin: 20px 0px;
+    overflow: hidden;
+}
+
+.plupload-thumbs .thumb {
+    border: 1px solid #ebebeb;
+    float: left;
+    height: 100px !important;
+    width: 100px !important;
+    position: relative;
+    padding: 3px;
+    margin: 2px;
+    box-sizing: content-box
+}
+
+.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
+    display: block
+}
+
+.plupload-thumbs .atbdp-thumb-actions {
+    background-color: rgba(0, 0, 0, .5);
+    margin-top: -25px;
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    display: none;
+    z-index: 3;
+    line-height: 0
+}
+
+.plupload-thumbs .atbdp-thumb-actions .thumbeditlink, .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
+    width: 50%;
+    display: inline-block;
+    cursor: pointer
+}
+
+.plupload-thumbs .thumb.atbdp_file {
+    border: none;
+    width: auto
+}
+
+.atbdp-add-files .plupload-thumbs .thumb img,
+.plupload-thumbs .thumb i.atbdp-file-info {
+    cursor: move;
+    width: 100%;
+    height: 100%;
+    z-index: 1
+}
+
+.plupload-thumbs .thumb i.atbdp-file-info {
+    font-size: 50px;
+    padding-top: 10%;
+    z-index: 1
+}
+
+.plupload-thumbs .thumb .thumbi {
+    position: absolute;
+    right: -10px;
+    top: -8px;
+    height: 18px;
+    width: 18px
+}
+
+.plupload-thumbs .thumb .thumbi a {
+    // background: url(../../../images/delete.png) no-repeat 0px 0px;
+    text-indent: -8000px;
+    display: block
+}
+
+.plupload-thumbs .atbdp-title-preview, .plupload-thumbs .atbdp-caption-preview {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    font-size: 10px;
+    line-height: 10px;
+    padding: 1px;
+    background: rgba(255, 255, 255, .5);
+    z-index: 2;
+    overflow: hidden;
+    height: 10px
+}
+
+.plupload-thumbs .atbdp-caption-preview {
+    top: auto;
+    bottom: 10px
+}

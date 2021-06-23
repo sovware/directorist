@@ -1438,7 +1438,7 @@ class Multi_Directory_Manager
 
             'custom' => [
                 'title' => __( 'Custom Fields', 'directorist' ),
-                'description' => __( 'Click on a field type you want to create', 'directorist' ),
+                'description' => __( 'Click on a field type you want to create. Need help?', 'directorist' ),
                 'allowMultiple' => true,
                 'widgets' => apply_filters('atbdp_form_custom_widgets', [
                     'text' => [
@@ -2433,6 +2433,30 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
+                    'custom_content' => [ 
+                        'type' => 'widget',
+                        'label' => __( 'Custom Content', 'directorist' ),
+                        'icon' => 'la la-align-right',
+                        'allowMultiple' => true,
+                        'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label'  => __( 'Icon', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'content' => [
+                                'type'  => 'textarea',
+                                'label'  => __( 'Content', 'directorist' ),
+                                'value' => '',
+                                'description' => __( 'You can use any text or shortcode', 'directorist' ),
+                            ],
+                        ],
+                    ],
                     'review' => [ 
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),
@@ -3910,9 +3934,10 @@ class Multi_Directory_Manager
 
         self::$fields = apply_filters('atbdp_listing_type_settings_field_list', [
             'icon' => [
-                'label' => __( 'Icon', 'directorist' ),
+                'label' => '',
                 'type'  => 'icon',
                 'value' => '',
+                'placeholder' => __('fa fa-home', 'directorist'),
                 'rules' => [
                     'required' => false,
                 ],
@@ -4025,7 +4050,7 @@ class Multi_Directory_Manager
 
             // Submission Settings
             'preview_mode' => [
-                'label' => __('Enable Preview', 'directorist'),
+                'label' => __('Enable Listing Preview', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
@@ -4105,8 +4130,60 @@ class Multi_Directory_Manager
                         'label'  => __( 'Custom block Classes', 'directorist' ),
                         'value' => '',
                     ],
+                    'shortcode' => [
+                        'type'  => 'shortcode',
+                        'label' => __( 'Shortcode', 'directorist' ),
+                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
+                        'filters' => [
+                            [
+                                'type'         => 'replace',
+                                'find'         => '%%shortcode_key%%',
+                                'replace_from' => 'self.label',
+                            ],
+                            [
+                                'type'       => 'lowercase',
+                                'find_regex' => '@@.+@@',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'look_for'   => '@@.+@@',
+                                'find_regex' => '\\s',
+                                'replace'    => '-',
+                            ],
+                            [
+                                'type'       => 'replace',
+                                'find_regex' => '@@(.+)@@',
+                                'replace'    => '$1',
+                            ],
+                        ],
+                        'show_if' => [
+                            'where' => "enable_single_listing_page",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+
+                    ],
                 ],
                 'value' => [],
+            ],
+            'enable_single_listing_page' => [
+                'type'          => 'toggle',
+                'label'         => __( 'Show single listing in page', 'directorist' ),
+                'value'         => false,
+            ],
+            'single_listing_page' => [
+                'label'             => __('Single listing page', 'directorist'),
+                'type'              => 'select',
+                'value'             => '',
+                'showDefaultOption' => true,
+                'options'           => directorist_get_all_page_list(),
+                'show_if' => [
+                    'where' => "enable_single_listing_page",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => true],
+                    ],
+                ],
             ],
             'similar_listings_logics' => [
                 'type'    => 'radio',
@@ -4431,58 +4508,48 @@ class Multi_Directory_Manager
             'general' => [
                 'label' => 'General',
                 'icon' => '<i class="uil uil-estate"></i>',
-                'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
-                    'general' => [
-                        'label' => __('General', 'directorist'),
-                        'sections' => [
-                            'labels' => [
-                                'title'       => __('Labels', 'directorist'),
-                                'description' => '',
-                                'fields'      => [
-                                    'test', 'icon',
-                                ],
-                            ],
+                'sections' => [
+                    'labels' => [
+                        'title'       => __('Directory icon', 'directorist'),
+                        'fields'      => [ 'icon' ],
+                    ],
 
-                            'listing_status' => [
-                                'title' => __('Default Status', 'directorist'),
-                                'description' => __('Need help?', 'directorist'),
-                                'fields'      => [
-                                    'new_listing_status',
-                                    'edit_listing_status',
-                                ],
-                            ],
+                    'listing_status' => [
+                        'title' => __('Default listing status', 'directorist'),
+                        'fields'      => [
+                            'new_listing_status',
+                            'edit_listing_status',
+                        ],
+                    ],
 
-                            'expiration' => [
-                                'title'       => __('Expiration', 'directorist'),
-                                'description' => __('Default time to expire a listing.', 'directorist'),
-                                'fields'      => [
-                                    'default_expiration',
-                                ],
-                            ],
+                    'expiration' => [
+                        'title'       => __('Expiration', 'directorist'),
+                        'description' => __('Default time to expire a listing.', 'directorist'),
+                        'fields'      => [
+                            'default_expiration',
+                        ],
+                    ],
 
-                            'default_preview' => [
-                                'title'       => __('Default Preview', 'directorist'),
-                                'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                'fields'      => [
-                                    'preview_image',
-                                ],
-                            ],
-                            
-                            'export_import' => [
-                                'title'       => __('Export The Config File', 'directorist'),
-                                'description' => __('Export all the form, layout and settings', 'directorist'),
-                                'fields'      => [
-                                    'import_export',
-                                ],
-                            ],
+                    'default_preview' => [
+                        'title'       => __('Default Preview', 'directorist'),
+                        'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                        'fields'      => [
+                            'preview_image',
                         ],
                     ],
                     
-                ]),
+                    'export_import' => [
+                        'title'       => __('Export The Config File', 'directorist'),
+                        'description' => __('Export all the form, layout and settings', 'directorist'),
+                        'fields'      => [
+                            'import_export',
+                        ],
+                    ],
+                ],
             ],
 
             'submission_form' => [
-                'label' => __( 'Submission Form', 'directorist' ),
+                'label' => __( 'Add Listing Form', 'directorist' ),
                 'icon' => '<span class="uil uil-file-edit-alt"></span>',
                 'submenu' => [
                     'form_fields' => [
@@ -4490,8 +4557,8 @@ class Multi_Directory_Manager
                         'container' => 'wide',
                         'sections' => [
                             'form_fields' => [
-                                'title' => __( 'Select or create fields for this listing type', 'directorist' ),
-                                'description' => __( 'need help?', 'directorist' ),
+                                'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'submission_form_fields'
                                 ],
@@ -4501,22 +4568,6 @@ class Multi_Directory_Manager
                     'settings' => [
                         'label' => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'submittion_settings' => [
-                                'title' => __('Submission Settings', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
-                                    'preview_mode',
-                                    'submit_button_label',
-                                ],
-                            ],
-                            /* 'guest_submission' => [
-                                'title' => __('Guest Submission', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
-                                    'guest_email_label',
-                                    'guest_email_placeholder',
-                                ],
-                            ], */
                             'terms_and_conditions' => [
                                 'title' => __('Terms and Conditions', 'directorist'),
                                 'container' => 'short-width',
@@ -4533,6 +4584,14 @@ class Multi_Directory_Manager
                                     'listing_privacy',
                                     'require_privacy',
                                     'privacy_label',
+                                ],
+                            ],
+                            'submittion_settings' => [
+                                'title' => __('Submission Settings', 'directorist'),
+                                'container' => 'short-width',
+                                'fields' => [
+                                    'preview_mode',
+                                    'submit_button_label',
                                 ],
                             ],
                         ] ),
@@ -4563,7 +4622,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'contents' => [
                                 'title' => __( 'Contents', 'directorist' ),
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/single-listings-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'single_listings_contents'
                                 ],
@@ -4573,6 +4632,12 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
+                            'page_settings' => [
+                                'fields' => [
+                                    'enable_single_listing_page',
+                                    'single_listing_page',
+                                ],
+                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4581,23 +4646,23 @@ class Multi_Directory_Manager
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
                                 ],
-                            ]
+                            ],
                         ]
                     ],
                 ]
             ],
             'listings_card_layout' => [
-                'label' => __( 'Listings Card Layout', 'directorist' ),
+                'label' => __( 'All Listing Layout', 'directorist' ),
                 'icon' => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
-                        'label' => __( 'Listings Card Grid Layout', 'directorist' ),
+                        'label' => __( 'All Listing Grid Layout', 'directorist' ),
                         'container' => 'wide',
                         'sections' => [
                             'listings_card' => [
                                 'title' => __('Create and customize the listing card for grid view', 'directorist'),
                                 'title_align' => 'center',
-                                'description' => __( 'need help? Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_grid_view'
                                 ],
@@ -4605,13 +4670,13 @@ class Multi_Directory_Manager
                         ],
                     ],
                     'list_view' => [
-                        'label' => __( 'Listings Card List Layout', 'directorist' ),
+                        'label' => __( 'All Listing List Layout', 'directorist' ),
                         'container' => 'full-width',
                         'sections' => [
                             'listings_card' => [
                                 'title' => __('Create and customize the listing card for listing view', 'directorist'),
                                 'title_align' => 'center',
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
                                 ],
@@ -4628,7 +4693,7 @@ class Multi_Directory_Manager
                 'sections' => [
                     'form_fields' => [
                         'title' => __('Customize the search form for this listing type', 'directorist'),
-                        'description' => __( 'need help?', 'directorist' ),
+                        'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/search-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                         'fields' => [
                             'search_form_fields'
                         ],
@@ -4655,8 +4720,9 @@ class Multi_Directory_Manager
             ];
 
             self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
-                'title' => __('Guest Submission', 'directorist'),
-                'container' => 'short-width',
+                'title'         => __('Guest Listing Submission', 'directorist'),
+                'description'   => __('Need Help?', 'directorist'),
+                'container'     => 'short-width',
                 'fields' => [
                     'guest_email_label',
                     'guest_email_placeholder',
@@ -4887,6 +4953,29 @@ class Multi_Directory_Manager
         ]);
 
         $this->prepare_settings();
+    }
+
+    /**
+     * Get all the pages in an array where each page is an array of key:value:id and key:label:name
+     *
+     * Example : array(
+     *                  array('value'=> 1, 'label'=> 'page_name'),
+     *                  array('value'=> 50, 'label'=> 'page_name'),
+     *          )
+     * @return array page names with key value pairs in a multi-dimensional array
+     * @since 3.0.0
+     */
+    function get_pages_vl_arrays()
+    {
+        $pages = get_pages();
+        $pages_options = array();
+        if ($pages) {
+            foreach ($pages as $page) {
+                $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+            }
+        }
+
+        return $pages_options;
     }
 
     // enqueue_scripts

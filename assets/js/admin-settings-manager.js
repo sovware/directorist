@@ -13751,7 +13751,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         });
       }
 
-      form_data.append('field_list', JSON.stringify(field_list)); // console.log( error_count );
+      form_data.append('field_list', this.maybeJSON(field_list)); // console.log( error_count );
 
       if (error_count) {
         this.status_message = {
@@ -13831,12 +13831,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value).length) {
-        value = JSON.stringify(value);
-      }
-
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value).length) {
-        value = '';
+      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var json_encoded_value = JSON.stringify(value);
+        var base64_encoded_value = btoa(json_encoded_value);
+        value = base64_encoded_value;
       }
 
       return value;
@@ -17951,6 +17949,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var new_widget_list = this.cloneObject(widget_list);
 
       for (var widget_key in new_widget_list) {
+        if (new_widget_list[widget_key].allowMultiple) continue;
+
         if (selected_widget_keys.includes(widget_key) || active_widget_groups_keys.includes(widget_key)) {
           delete new_widget_list[widget_key];
         }
@@ -33911,7 +33911,8 @@ var render = function() {
                 attrs: {
                   "list-type": "li",
                   "item-class-name": "cptm-form-builder-field-list-item",
-                  "drag-type": _vm.allowMultiple ? "clone" : "move"
+                  "drag-type":
+                    _vm.allowMultiple || widget.allowMultiple ? "clone" : "move"
                 },
                 on: {
                   "drag-start": function($event) {

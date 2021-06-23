@@ -185,6 +185,10 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
+		if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
+			return $data['content'];
+		}
+
 		if ( isset( $data['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
 

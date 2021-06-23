@@ -901,8 +901,11 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             if ( atbdp_yoast_is_active() ) {
+                $url = get_term_link( $slug, ATBDP_CATEGORY );
+                $url = ( is_string( $url ) ) ? $url : '';
+
                 $seo_meta = $this->sync_with_yoast_seo_meta([
-                    'url'      => get_term_link( $slug, ATBDP_CATEGORY ),
+                    'url'      => $url,
                     'seo_meta' => $seo_meta,
                 ]);
             }
@@ -941,8 +944,11 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             if ( atbdp_yoast_is_active() ) {
+                $url = get_term_link( $slug, ATBDP_LOCATION );
+                $url = ( is_string( $url ) ) ? $url : '';
+                
                 $seo_meta = $this->sync_with_yoast_seo_meta([
-                    'url'      => get_term_link( $slug, ATBDP_LOCATION ),
+                    'url'      => $url,
                     'seo_meta' => $seo_meta,
                 ]);
             }
@@ -973,8 +979,11 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             if ( atbdp_yoast_is_active() ) {
+                $url = get_term_link( $slug, ATBDP_TAGS );
+                $url = ( is_string( $url ) ) ? $url : '';
+                
                 $seo_meta = $this->sync_with_yoast_seo_meta([
-                    'url'      => get_term_link( $slug, ATBDP_TAGS ),
+                    'url'      => $url,
                     'seo_meta' => $seo_meta,
                 ]);
             }
@@ -1061,7 +1070,7 @@ if (!class_exists('ATBDP_SEO')) :
             $url        = $args['url'];
             $seo_meta   = $args['seo_meta'];
 
-            if ( function_exists( 'YoastSEO' ) ) {
+            if ( function_exists( 'YoastSEO' ) && is_string( $url ) ) {
                 try {
                     $yoast_meta = YoastSEO()->meta->for_url( $url );
                 } catch ( Exception $e ) {

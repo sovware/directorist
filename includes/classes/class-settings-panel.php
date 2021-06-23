@@ -4744,6 +4744,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'become_author_button', 'become_author_button_text'
                                         ],
                                 ],
+                                'all_authors' => [
+                                    'title'       => __('All Authors', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        ''
+                                        ],
+                                ],
                             ] ),
                         ],
                     ]),

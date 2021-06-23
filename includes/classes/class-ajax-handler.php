@@ -151,7 +151,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $all_authors = get_users();
                 $args = array(
                     'all_authors' => get_users(),
-                    'alphabets'	  => range( 'A', 'Z' )
+                    'alphabets'	  => range( 'A', 'Z' ),
+                    'sorting'     => true
                 );
                 echo Helper::get_template_contents( 'author/archive', $args );
                 wp_die();

@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="directorist-w-100" id="directorist-all-authors">
+<div class="<?php echo ! empty( $args['sorting'] ) ? 'directorist-all-authors' : 'directorist-w-100'; ?>" id="<?php echo ! empty( $args['sorting'] ) ? 'directorist-authors-wrapper' : 'directorist-all-authors'; ?>">
     <div class="directorist-container">
         <div class="directorist-authors">
             <?php if( $args['alphabets' ] ) { ?>

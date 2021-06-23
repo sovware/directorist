@@ -353,6 +353,7 @@ atbdSelectData.forEach(function (el) {
 // author sorting
 (function ($) {
   $('body').on('click', '.directorist-alphabet', function () {
+    var alphabet = $(this).attr("data-alphabet");
     $('#directorist-all-authors').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',
@@ -365,6 +366,7 @@ atbdSelectData.forEach(function (el) {
       success: function success(response) {
         $('#directorist-all-authors').empty().append(response);
         $('#directorist-all-authors').removeClass('atbdp-form-fade');
+        $('.' + alphabet).parent().addClass('active');
       },
       error: function error(_error) {
         console.log(_error);

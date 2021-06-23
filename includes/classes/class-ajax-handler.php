@@ -146,17 +146,31 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // directorist_author_alpha_sorting
         public function directorist_author_alpha_sorting() {
+            ob_start();
             if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
-               // ob_start();
-                $all_authors = get_users();
+                $all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
+                $all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
+                $args = array();
+                if( ! empty( $all_authors_role ) && 'all' != $all_authors_select_role ) {
+                    $args = array( 'role__in' => array( $all_authors_select_role ) );
+                }
                 $args = array(
-                    'all_authors' => get_users(),
-                    'alphabets'	  => range( 'A', 'Z' ),
-                    'sorting'     => true
+                    'all_authors'                       => get_users( $args ),
+                    'alphabets'	                        => range( 'A', 'Z' ),
+                    'sorting'                           => true,
+                    'all_authors_sorting'				=> get_directorist_option( 'all_authors_sorting', true ),
+                    'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
+                    'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
+                    'all_authors_role'					=> $all_authors_role,
+                    'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
+                    'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
+                    'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
+                    'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
                 );
                 echo Helper::get_template_contents( 'author/archive', $args );
                 wp_die();
             }
+            return ob_get_clean();
         }
 
         // handle_prepare_listings_export_file_request

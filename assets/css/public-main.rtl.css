@@ -8478,8 +8478,8 @@ p.atbd-min {
   height: 34px;
   padding: 0 11.5px;
   background-color: #fff;
-  color: #81879E;
-  border: 1px solid #E1E4EC;
+  color: #81879e;
+  border: 1px solid #e1e4ec;
   border-radius: 4px;
   margin: 4px;
 }
@@ -8492,6 +8492,7 @@ p.atbd-min {
   border-width: 2px;
   border-color: #444752;
   color: #fff;
+  background-color: #444752;
 }
 
 #directorist.atbd_wrapper .atbd_category_wrapper span.fa {

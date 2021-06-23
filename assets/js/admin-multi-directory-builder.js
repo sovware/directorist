@@ -13655,8 +13655,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       axios.post(ajax_data.ajax_url, form_data).then(function (response) {
         self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false;
-        console.log(response); // return;
+        self.footer_actions.save.isDisabled = false; // console.log( response );
+        // return;
 
         if (response.data.term_id && !isNaN(response.data.term_id)) {
           self.listing_type_id = response.data.term_id;

@@ -13757,9 +13757,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var self = this; // Submit the form
 
       axios.post(submission_url, form_data).then(function (response) {
-        console.log({
-          response: response
-        });
+        // console.log( { response } );
         self.form_is_processing = false;
         self.submit_button.is_disabled = false;
         self.submit_button.label = self.submit_button.label_default;

@@ -187,7 +187,7 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    console.log( response );
+                    // console.log( response );
                     // return;
                     
                     if ( response.data.term_id && ! isNaN( response.data.term_id ) ) {

@@ -1,5 +1,8 @@
 
 /* Directorist all authors card */
+.directorist-authors-section{
+    position: relative;
+}
 .directorist-authors{
     @include e(nav){
         margin-bottom: 30px;
@@ -13,10 +16,16 @@
                 a{
                     display: block;
                     line-height: 20px;
-                    padding: 0 17px;
+                    padding: 0 17px 10px;
+                    border-bottom: 2px solid transparent;
                     font-size: 15px;
                     font-weight: 500;
                     text-transform: uppercase;
+                }
+                &.active{
+                    a{
+                        border-bottom-color: $primary;
+                    }
                 }
             }
         }

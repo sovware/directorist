@@ -9260,6 +9260,10 @@ p.atbd-min {
   }
 }
 /* Directorist all authors card */
+.directorist-authors-section {
+  position: relative;
+}
+
 .directorist-authors__nav {
   margin-bottom: 30px;
 }
@@ -9284,10 +9288,14 @@ p.atbd-min {
 .directorist-authors__nav ul li a {
   display: block;
   line-height: 20px;
-  padding: 0 17px;
+  padding: 0 17px 10px;
+  border-bottom: 2px solid transparent;
   font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
+}
+.directorist-authors__nav ul li.active a {
+  border-bottom-color: #444752;
 }
 .directorist-authors__card {
   border: 1px solid #eee;
@@ -12780,7 +12788,15 @@ p.atbd-min {
 .directorist-search-form-wrap .directorist-search-form-box {
   position: relative;
 }
-.directorist-search-form-wrap .directorist-search-form-box.atbdp-form-fade:before {
+.directorist-search-form-wrap .directorist-search-form-box .directorist-search-query {
+  padding-left: 2px;
+}
+.directorist-search-form-wrap .directorist-search-form-box .directorist-form-group .directorist-form-element {
+  background-image: none !important;
+}
+
+/* loading effect */
+.atbdp-form-fade:before {
   position: absolute;
   content: "";
   width: 40px;
@@ -12798,7 +12814,7 @@ p.atbd-min {
   animation: atbd_spin 2s linear infinite;
   z-index: 9999;
 }
-.directorist-search-form-wrap .directorist-search-form-box.atbdp-form-fade:after {
+.atbdp-form-fade:after {
   position: absolute;
   content: "";
   width: 100%;
@@ -12807,12 +12823,6 @@ p.atbd-min {
   top: 0;
   background: rgba(255, 255, 255, 0.8);
   z-index: 1;
-}
-.directorist-search-form-wrap .directorist-search-form-box .directorist-search-query {
-  padding-left: 2px;
-}
-.directorist-search-form-wrap .directorist-search-form-box .directorist-form-group .directorist-form-element {
-  background-image: none !important;
 }
 
 .directorist-listing-type-selection {

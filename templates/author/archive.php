@@ -6,28 +6,34 @@
  */
 ?>
 
-<div class="directorist-w-100">
+<div class="directorist-w-100" id="directorist-all-authors">
     <div class="directorist-container">
         <div class="directorist-authors">
             <?php if( $args['alphabets' ] ) { ?>
             <div class="directorist-authors__nav">
                 <ul>
                     <?php foreach( $args['alphabets'] as $alphabet ) { ?>
-                    <li><a class="directorist-alphabet" data-alphabet="<?php echo $alphabet; ?>"><?php echo $alphabet; ?></a></li>
+                    <li><a class="directorist-alphabet" data-nonce="<?php echo wp_create_nonce( 'directorist_author_sorting' ); ?>" data-alphabet="<?php echo $alphabet; ?>"><?php echo $alphabet; ?></a></li>
                     <?php } ?>
                 </ul>
             </div><!-- ends: .directorist-authors__nav -->
             <?php } ?>
             <div class="directorist-authors__cards">
                 <div class="directorist-row">
-                    <?php foreach( $args['all_authors'] as $author ) { 
+                    <?php
+                    $no_author_founds      = true;
+                    foreach( $args['all_authors'] as $author ) {
                         $avatar_url           = get_avatar_url( $author->id );
                         $pro_pic              = get_user_meta( $author->id, 'pro_pic', true );
                         $u_pro_pic            = ! empty( $pro_pic ) ? wp_get_attachment_image_src( $pro_pic, 'thumbnail' ) : '';
                         $author_image_src     = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : $avatar_url;
-                        $description          = get_user_meta( $author->id, 'user_description', true );
+                        $description          = get_user_meta( $author->id, 'description', true );
                         $atbdp_phone          = get_user_meta( $author->id, 'atbdp_phone', true );
                         $user_email           = get_user_meta( $author->id, 'user_email', true );
+                        $display_name         = ucfirst( $author->data->display_name );
+                        $firstCharacter       = $display_name[0];
+                        if(  empty( $_REQUEST['alphabet'] ) || ( ! empty( $_REQUEST['alphabet'] ) && $firstCharacter == $_REQUEST['alphabet'] ) ) {
+                        $no_author_founds      = false;
                     ?>
                     <div class="directorist-col-md-3">
                         <div class="directorist-authors__card">
@@ -37,8 +43,8 @@
                             </div>
                             <?php } ?>
                             <div class="directorist-authors__card__details">
-                                <?php if( $author->data->display_name ) { ?>
-                                <h2><?php echo $author->data->display_name; ?></h2>
+                                <?php if( $display_name ) { ?>
+                                <h2><?php echo $display_name; ?></h2>
                                 <?php } ?>
                                 <?php if( $author->roles[0] ) { ?>
                                 <h3><?php echo $author->roles[0]; ?></h3>
@@ -52,12 +58,15 @@
                                     <?php } ?>
                                 </ul>
                                 <?php if( $description ) { ?>
-                                <p><?php echo $description; ?></p>
+                                <p><?php echo wp_trim_words( $description, 13 ); ?></p>
                                 <?php } ?>
-                                <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->id );?>" class="directorist-btn directorist-btn-light directorist-btn-block">View All listings</a>
+                                <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->id );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php _e( "View All listings", "directorist" );?></a>
                             </div>
                         </div>
                     </div>
+                    <?php } } ?>
+                    <?php if( ! empty( $no_author_founds ) ) { ?>
+                        <p><?php _e( 'No author founds', 'directorist' ); ?></p>
                     <?php } ?>
                 </div>
             </div><!-- ends: .directorist-authors__cards -->

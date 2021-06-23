@@ -344,7 +344,7 @@ export default {
             // Submit the form
             axios.post( submission_url, form_data )
                 .then( response => {
-                    // console.log( { response } );
+                    console.log( { response } );
 
                     self.form_is_processing        = false;
                     self.submit_button.is_disabled = false;

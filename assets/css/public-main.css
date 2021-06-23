@@ -2827,10 +2827,6 @@ body.stop-scrolling {
   min-height: 26px;
 }
 
-.select2-container--open .select2-dropdown.select2-dropdown--below {
-  top: 30px;
-}
-
 /* hide contact owner */
 .directorist-hide-owner-field.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
   font-size: 15px;
@@ -5295,8 +5291,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 
 .select2-container--open .select2-dropdown.select2-dropdown--below {
-  top: 30px;
+  top: 0px;
   border-color: #eff1f6;
+}
+
+.logged-in .select2-container--open .select2-dropdown.select2-dropdown--below {
+  top: 30px;
 }
 
 /* Container within container spacing issue fix */

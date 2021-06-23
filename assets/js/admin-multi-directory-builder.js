@@ -17909,6 +17909,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var new_widget_list = this.cloneObject(widget_list);
 
       for (var widget_key in new_widget_list) {
+        if (new_widget_list[widget_key].allowMultiple) continue;
+
         if (selected_widget_keys.includes(widget_key) || active_widget_groups_keys.includes(widget_key)) {
           delete new_widget_list[widget_key];
         }
@@ -27218,7 +27220,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -33746,7 +33748,8 @@ var render = function() {
                 attrs: {
                   "list-type": "li",
                   "item-class-name": "cptm-form-builder-field-list-item",
-                  "drag-type": _vm.allowMultiple ? "clone" : "move"
+                  "drag-type":
+                    _vm.allowMultiple || widget.allowMultiple ? "clone" : "move"
                 },
                 on: {
                   "drag-start": function($event) {
@@ -39471,7 +39474,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   )
                 ]
               )

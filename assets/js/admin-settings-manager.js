@@ -3702,6 +3702,7 @@ var map = {
 	"./draggable-list-modules/Draggable_List_Item.vue": "./assets/src/js/admin/vue/modules/draggable-list-modules/Draggable_List_Item.vue",
 	"./draggable-list-modules/Draggable_List_Item_Wrapper.vue": "./assets/src/js/admin/vue/modules/draggable-list-modules/Draggable_List_Item_Wrapper.vue",
 	"./form-builder-modules/Form_Builder_Droppable_Placeholder.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Droppable_Placeholder.vue",
+	"./form-builder-modules/Form_Builder_Fields_Group.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue",
 	"./form-builder-modules/Form_Builder_Widget_List_Section_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue",
 	"./form-builder-modules/widget-component/Form_Builder_Widget_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Component.vue",
 	"./form-builder-modules/widget-component/Form_Builder_Widget_Titlebar_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Titlebar_Component.vue",
@@ -6003,6 +6004,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Droppable_Placeholder_vue_vue_type_template_id_a1b560d6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Droppable_Placeholder_vue_vue_type_template_id_a1b560d6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue":
+/*!********************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form_Builder_Fields_Group.vue?vue&type=template&id=28334683& */ "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683&");
+/* harmony import */ var _Form_Builder_Fields_Group_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Fields_Group.vue?vue&type=script&lang=js& */ "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Form_Builder_Fields_Group_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Fields_Group_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder_Fields_Group.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Fields_Group_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683&":
+/*!***************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder_Fields_Group.vue?vue&type=template&id=28334683& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Fields_Group_vue_vue_type_template_id_28334683___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -17698,6 +17768,520 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+var _methods;
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'form-builder-fields-group',
+  props: {
+    fieldId: {
+      required: false
+    },
+    value: {
+      required: false
+    },
+    activeWidgetFields: {
+      required: false
+    },
+    avilableWidgets: {
+      required: false
+    },
+    generalSettings: {
+      required: false
+    },
+    groupFields: {
+      required: false
+    },
+    isEnabledGroupDragging: {
+      required: false
+    },
+    incomingDraggingGroup: {
+      required: false
+    },
+    incomingDraggingWidget: {
+      required: false
+    }
+  },
+  created: function created() {
+    this.setupActiveWidgetGroups();
+  },
+  computed: {
+    widgetIsDragging: function widgetIsDragging() {
+      return this.current_dragging_widget ? true : false;
+    },
+    groupSettingsProp: function groupSettingsProp() {
+      if (!this.generalSettings) {
+        return this.groupSettings;
+      } // if (typeof this.generalSettings.minGroup === "undefined") {
+      //     return this.groupSettings;
+      // }
+      // if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
+      //     this.groupSettings.canTrash = false;
+      // }
+
+
+      return this.groupSettings;
+    },
+    showAddNewGroupButton: function showAddNewGroupButton() {
+      var show_button = true;
+
+      if (this.generalSettings && typeof this.generalSettings.allowAddNewGroup !== "undefined" && !this.generalSettings.allowAddNewGroup) {
+        show_button = false;
+      }
+
+      return show_button;
+    },
+    addNewGroupButtonLabel: function addNewGroupButtonLabel() {
+      var button_label = "Add New";
+
+      if (this.generalSettings && this.generalSettings.addNewGroupButtonLabel) {
+        button_label = this.generalSettings.addNewGroupButtonLabel;
+      }
+
+      return button_label;
+    }
+  },
+  watch: {
+    incomingDraggingGroup: function incomingDraggingGroup() {
+      if (!this.incomingDraggingGroup) return;
+      this.current_dragging_group = this.incomingDraggingGroup;
+    },
+    incomingDraggingWidget: function incomingDraggingWidget() {
+      if (!this.incomingDraggingWidget) return;
+      this.current_dragging_widget = this.incomingDraggingWidget;
+    }
+  },
+  data: function data() {
+    return {
+      active_widget_groups: [],
+      current_dragging_group: null,
+      current_dragging_widget: null,
+      default_group: [{
+        type: "general_group",
+        label: this.groupSettings && this.groupSettings.defaultGroupLabel ? this.groupSettings.defaultGroupLabel : "Section",
+        fields: []
+      }]
+    };
+  },
+  methods: (_methods = {
+    // setupActiveWidgetGroups
+    setupActiveWidgetGroups: function setupActiveWidgetGroups() {
+      // console.log( this.value );
+      // console.log( this.avilableWidgets );
+      if (!this.value) return;
+      if (!Array.isArray(this.value)) return;
+      this.active_widget_groups = this.sanitizeActiveWidgetGroups(this.value);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("active-group-updated");
+    },
+    // sanitizeActiveWidgetGroups
+    sanitizeActiveWidgetGroups: function sanitizeActiveWidgetGroups(_active_widget_groups) {
+      var active_widget_groups = _active_widget_groups;
+
+      if (!Array.isArray(active_widget_groups)) {
+        active_widget_groups = [];
+      }
+
+      var group_index = 0;
+
+      var _iterator = _createForOfIteratorHelper(active_widget_groups),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var widget_group = _step.value;
+
+          if (typeof widget_group.label === 'undefined') {
+            active_widget_groups[group_index].label = '';
+          }
+
+          if (typeof widget_group.fields === 'undefined' || !Array.isArray(widget_group.fields)) {
+            active_widget_groups[group_index].fields = [];
+          }
+
+          var field_index = 0;
+
+          var _iterator2 = _createForOfIteratorHelper(widget_group.fields),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var field = _step2.value;
+
+              if (typeof this.activeWidgetFields[field] === 'undefined') {
+                delete active_widget_groups[group_index].fields[field_index];
+              }
+
+              field_index++;
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+
+          group_index++;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return active_widget_groups;
+    },
+    updateGroupField: function updateGroupField(widget_group_key, payload) {
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_groups[widget_group_key], payload.key, payload.value);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("group-field-updated");
+    },
+    updateWidgetField: function updateWidgetField(payload) {
+      this.$emit("update-widget-field", payload);
+      this.$emit("updated");
+      this.$emit("widget-field-updated");
+    },
+    trashWidget: function trashWidget(widget_group_key, payload) {
+      var index = this.active_widget_groups[widget_group_key].fields.indexOf(payload.widget_key);
+      this.active_widget_groups[widget_group_key].fields.splice(index, 1);
+      this.$emit("trash-widget", payload);
+      this.$emit("updated");
+      this.$emit("widget-field-trashed");
+      this.$emit("active-widgets-updated");
+    },
+    trashGroup: function trashGroup(widget_group_key) {
+      var group_fields = this.active_widget_groups[widget_group_key].fields;
+
+      if (group_fields.length) {
+        var _iterator3 = _createForOfIteratorHelper(group_fields),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var widget_key = _step3.value;
+            this.$emit("trash-widget", {
+              widget_key: widget_key
+            });
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widget_groups, widget_group_key);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("group-updated");
+      this.$emit("group-trashed");
+      this.$emit("active-widgets-updated");
+    },
+    handleWidgetDragStart: function handleWidgetDragStart(widget_group_key, payload) {
+      this.current_dragging_widget = {
+        from: "active_widgets",
+        widget_group_key: widget_group_key,
+        widget_index: payload.widget_index,
+        widget_key: payload.widget_key
+      };
+    },
+    handleWidgetDragEnd: function handleWidgetDragEnd() {
+      this.current_dragging_widget = null;
+      this.$emit("widget-drag-end");
+    },
+    handleGroupDragStart: function handleGroupDragStart(widget_group_key) {
+      this.current_dragging_group = {
+        from: "active_widgets",
+        widget_group_key: widget_group_key
+      };
+    },
+    handleGroupDragEnd: function handleGroupDragEnd() {
+      this.current_dragging_group = null;
+      this.$emit("group-drag-end");
+    },
+    handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
+      var dropped_in = {
+        widget_group_key: widget_group_key,
+        drop_direction: payload.drop_direction
+      };
+
+      if ("active_widgets" === this.current_dragging_group.from) {
+        this.handleGroupReorderFromActiveWidgets(this.current_dragging_group, dropped_in);
+      }
+
+      if ("available_widgets" === this.current_dragging_group.from) {
+        this.handleGroupInsertFromAvailableWidgets(this.current_dragging_group, dropped_in);
+      }
+
+      this.current_dragging_group = null;
+      this.$emit("group-drag-end");
+    },
+    handleGroupReorderFromActiveWidgets: function handleGroupReorderFromActiveWidgets(from, to) {
+      var origin_data = this.active_widget_groups[from.widget_group_key];
+      var dest_index = from.widget_group_key < to.widget_group_key ? to.widget_group_key - 1 : to.widget_group_key;
+      dest_index = "after" === to.drop_direction ? dest_index + 1 : dest_index;
+      this.active_widget_groups.splice(from.widget_group_key, 1);
+      this.active_widget_groups.splice(dest_index, 0, origin_data);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("group-reordered");
+    },
+    handleGroupInsertFromAvailableWidgets: function handleGroupInsertFromAvailableWidgets(from, to) {
+      var group = JSON.parse(JSON.stringify(this.default_group[0]));
+      var widget = from.widget;
+      var option_data = this.getOptionDataFromWidget(widget);
+      delete widget.options;
+      Object.assign(group, widget);
+      Object.assign(group, option_data);
+      var dest_index = "before" === to.drop_direction ? to.widget_group_key - 1 : to.widget_group_key;
+      dest_index = "after" === to.drop_direction ? to.widget_group_key + 1 : to.widget_group_key;
+      dest_index = dest_index < 0 ? 0 : dest_index;
+      dest_index = dest_index >= this.active_widget_groups.length ? this.active_widget_groups.length : dest_index;
+      this.active_widget_groups.splice(dest_index, 0, group);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("widget-inserted");
+    },
+    getOptionDataFromWidget: function getOptionDataFromWidget(widget) {
+      var field_data_options = {};
+
+      if (widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(widget.options) === "object") {
+        for (var option_key in widget.options) {
+          field_data_options[option_key] = typeof widget.options[option_key].value !== "undefined" ? widget.options[option_key].value : "";
+        }
+      }
+
+      return field_data_options;
+    },
+    handleAppendWidget: function handleAppendWidget(widget_group_key) {
+      if (!this.current_dragging_widget) {
+        return;
+      }
+
+      var payload = {
+        widget_index: this.active_widget_groups[widget_group_key].fields.length - 1
+      };
+      this.handleWidgetDrop(widget_group_key, payload);
+    },
+    handleWidgetDrop: function handleWidgetDrop(widget_group_key, payload) {
+      var dropped_in = {
+        widget_group_key: widget_group_key,
+        widget_key: payload.widget_key,
+        widget_index: payload.widget_index,
+        drop_direction: payload.drop_direction
+      }; // handleWidgetReorderFromActiveWidgets
+
+      if ("active_widgets" === this.current_dragging_widget.from) {
+        this.handleWidgetReorderFromActiveWidgets(this.current_dragging_widget, dropped_in);
+        this.current_dragging_widget = null;
+        this.$emit("widget-drag-end");
+        return;
+      } // handleWidgetInsertFromAvailableWidgets
+
+
+      if ("available_widgets" === this.current_dragging_widget.from) {
+        this.handleWidgetInsertFromAvailableWidgets(this.current_dragging_widget, dropped_in);
+        this.current_dragging_widget = null;
+        this.$emit("widget-drag-end");
+      }
+    },
+    handleWidgetReorderFromActiveWidgets: function handleWidgetReorderFromActiveWidgets(from, to) {
+      var from_fields = this.active_widget_groups[from.widget_group_key].fields;
+      var to_fields = this.active_widget_groups[to.widget_group_key].fields; // If Reordering in same group
+
+      if (from.widget_group_key === to.widget_group_key) {
+        var _origin_data = from_fields[from.widget_index];
+
+        var _dest_index = from.widget_index < to.widget_index ? to.widget_index - 1 : to.widget_index;
+
+        _dest_index = "after" === to.drop_direction ? _dest_index + 1 : _dest_index;
+        this.active_widget_groups[from.widget_group_key].fields.splice(from.widget_index, 1);
+        this.active_widget_groups[to.widget_group_key].fields.splice(_dest_index, 0, _origin_data);
+        this.$emit("input", this.active_widget_groups);
+        return;
+      } // If Reordering to diffrent group
+
+
+      var origin_data = from_fields[from.widget_index];
+      var dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
+      dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
+      dest_index = dest_index < 0 ? 0 : dest_index;
+      dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
+      this.active_widget_groups[from.widget_group_key].fields.splice(from.widget_index, 1);
+      this.active_widget_groups[to.widget_group_key].fields.splice(dest_index, 0, origin_data);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("active-widgets-updated");
+    },
+    handleWidgetInsertFromAvailableWidgets: function handleWidgetInsertFromAvailableWidgets(from, to) {
+      var field_data_options = this.getOptionDataFromWidget(from.widget);
+      var inserting_widget_key = this.genarateWidgetKeyForActiveWidgets(from.widget_key);
+
+      if (field_data_options.field_key) {
+        var unique_field_key = this.genarateFieldKeyForActiveWidgets(field_data_options);
+        field_data_options.field_key = unique_field_key;
+      }
+
+      field_data_options.widget_key = inserting_widget_key;
+      this.$emit("insert-widget", {
+        widget_key: inserting_widget_key,
+        options: field_data_options
+      });
+      var to_fields = this.active_widget_groups[to.widget_group_key].fields;
+      var dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
+      dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
+      dest_index = dest_index < 0 ? 0 : dest_index;
+      dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
+      this.active_widget_groups[to.widget_group_key].fields.splice(dest_index, 0, inserting_widget_key);
+      this.$emit("input", this.active_widget_groups);
+      this.$emit("updated");
+      this.$emit("widget-inserted");
+    }
+  }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_methods, "getOptionDataFromWidget", function getOptionDataFromWidget(widget) {
+    var field_data_options = {};
+
+    if (widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(widget.options) === "object") {
+      for (var option_key in widget.options) {
+        field_data_options[option_key] = typeof widget.options[option_key].value !== "undefined" ? widget.options[option_key].value : "";
+      }
+    }
+
+    return field_data_options;
+  }), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_methods, "genarateWidgetKeyForActiveWidgets", function genarateWidgetKeyForActiveWidgets(widget_key) {
+    if (typeof this.activeWidgetFields[widget_key] !== "undefined") {
+      var matched_keys = Object.keys(this.activeWidgetFields);
+
+      var getUniqueKey = function getUniqueKey(current_key, new_key) {
+        if (matched_keys.includes(new_key)) {
+          var field_id = new_key.match(/[_](\d+)$/);
+          field_id = field_id ? parseInt(field_id[1]) : 1;
+          var new_field_key = current_key + '_' + (field_id + 1);
+          return getUniqueKey(current_key, new_field_key);
+        }
+
+        return new_key;
+      };
+
+      var new_widget_key = getUniqueKey(widget_key, widget_key);
+      return new_widget_key;
+    }
+
+    return widget_key;
+  }), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_methods, "genarateFieldKeyForActiveWidgets", function genarateFieldKeyForActiveWidgets(field_data_options) {
+    if (!field_data_options.field_key) {
+      return '';
+    }
+
+    var current_field_key = field_data_options.field_key;
+    var field_keys = [];
+
+    for (var key in this.activeWidgetFields) {
+      if (!this.activeWidgetFields[key].field_key) {
+        continue;
+      }
+
+      field_keys.push(this.activeWidgetFields[key].field_key);
+    }
+
+    var getUniqueKey = function getUniqueKey(field_key) {
+      if (field_keys.includes(field_key)) {
+        var field_id = field_key.match(/[-](\d+)$/);
+        field_id = field_id ? parseInt(field_id[1]) : 1;
+        var new_field_key = current_field_key + '-' + (field_id + 1);
+        return getUniqueKey(new_field_key);
+      }
+
+      return field_key;
+    };
+
+    var unique_field_key = getUniqueKey(current_field_key);
+    return unique_field_key;
+  }), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_methods, "addNewGroup", function addNewGroup() {
+    var group = JSON.parse(JSON.stringify(this.default_group[0]));
+
+    if (this.groupSettings) {
+      Object.assign(group, this.groupSettings);
+    }
+
+    var dest_index = this.active_widget_groups.length;
+    this.active_widget_groups.splice(dest_index, 0, group);
+    this.$emit("input", this.active_widget_groups);
+    this.$emit("updated");
+  }), _methods)
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue?vue&type=script&lang=js& ***!
@@ -17782,6 +18366,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   watch: {
     activeWidgetGroups: function activeWidgetGroups() {
+      this.filtereWidgetList();
+    },
+    selectedWidgets: function selectedWidgets() {
       this.filtereWidgetList();
     }
   },
@@ -18052,6 +18639,13 @@ __webpack_require__.r(__webpack_exports__);
       this.activeWidgetsIsUpdating = false;
     },
     groupDataFields: function groupDataFields() {
+      if (this.activeWidgetsIsUpdating) {
+        return;
+      }
+
+      this.sync();
+    },
+    avilableWidgets: function avilableWidgets() {
       if (this.activeWidgetsIsUpdating) {
         return;
       }
@@ -25370,47 +25964,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -25494,10 +26047,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {
-    this.setupActiveWidgetFields();
-  },
-  mounted: function mounted() {
-    this.setupActiveWidgetGroups();
+    this.setup();
   },
   watch: {
     finalValue: function finalValue() {
@@ -25511,24 +26061,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         groups: this.active_widget_groups
       };
     },
-    widgetIsDragging: function widgetIsDragging() {
-      return this.currentDraggingWidget ? true : false;
-    },
-    groupSettingsProp: function groupSettingsProp() {
-      if (!this.generalSettings) {
-        return this.groupSettings;
-      }
-
-      if (typeof this.generalSettings.minGroup === "undefined") {
-        return this.groupSettings;
-      }
-
-      if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
-        this.groupSettings.canTrash = false;
-      }
-
-      return this.groupSettings;
-    },
     showGroupDragToggleButton: function showGroupDragToggleButton() {
       var show_button = true;
 
@@ -25541,24 +26073,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       return show_button;
-    },
-    showAddNewGroupButton: function showAddNewGroupButton() {
-      var show_button = true;
-
-      if (this.generalSettings && typeof this.generalSettings.allowAddNewGroup !== "undefined" && !this.generalSettings.allowAddNewGroup) {
-        show_button = false;
-      }
-
-      return show_button;
-    },
-    addNewGroupButtonLabel: function addNewGroupButtonLabel() {
-      var button_label = "Add New";
-
-      if (this.generalSettings && this.generalSettings.addNewGroupButtonLabel) {
-        button_label = this.generalSettings.addNewGroupButtonLabel;
-      }
-
-      return button_label;
     }
   },
   data: function data() {
@@ -25642,66 +26156,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== "object") return;
 
       if (Array.isArray(this.value.groups)) {
-        this.active_widget_groups = this.sanitizeActiveWidgetGroups(this.value.groups);
+        this.active_widget_groups = this.value.groups;
       }
 
       this.$emit("active-group-updated");
-    },
-    // sanitizeActiveWidgetGroups
-    sanitizeActiveWidgetGroups: function sanitizeActiveWidgetGroups(_active_widget_groups) {
-      var active_widget_groups = _active_widget_groups;
-
-      if (!Array.isArray(active_widget_groups)) {
-        active_widget_groups = [];
-      }
-
-      var group_index = 0;
-
-      var _iterator = _createForOfIteratorHelper(active_widget_groups),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var widget_group = _step.value;
-
-          if (typeof widget_group.label === 'undefined') {
-            active_widget_groups[group_index].label = '';
-          }
-
-          if (typeof widget_group.fields === 'undefined' || !Array.isArray(widget_group.fields)) {
-            active_widget_groups[group_index].fields = [];
-          }
-
-          var field_index = 0;
-
-          var _iterator2 = _createForOfIteratorHelper(widget_group.fields),
-              _step2;
-
-          try {
-            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-              var field = _step2.value;
-
-              if (typeof this.active_widget_fields[field] === 'undefined') {
-                delete active_widget_groups[group_index].fields[field_index];
-              }
-
-              field_index++;
-            }
-          } catch (err) {
-            _iterator2.e(err);
-          } finally {
-            _iterator2.f();
-          }
-
-          group_index++;
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      return active_widget_groups;
     },
     // updateWidgetList
     updateWidgetList: function updateWidgetList(widget_list) {
@@ -25723,113 +26181,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.avilable_widgets, widget_list.widget_group, widget_list.base_widget_list);
     },
-    updateGroupField: function updateGroupField(widget_group_key, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_groups[widget_group_key], payload.key, payload.value);
-      this.$emit("update", this.finalValue);
-      this.$emit("updated-state");
-      this.$emit("group-field-updated");
-    },
     updateWidgetField: function updateWidgetField(payload) {
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
       this.$emit("update", this.finalValue);
       this.$emit("updated-state");
       this.$emit("widget-field-updated");
     },
-    // Widget Tasks
-    handleAppendWidget: function handleAppendWidget(widget_group_key) {
-      if (!this.currentDraggingWidget) {
-        return;
-      }
-
-      var payload = {
-        widget_index: this.active_widget_groups[widget_group_key].fields.length - 1
-      };
-      this.handleWidgetDrop(widget_group_key, payload);
-    },
-    handleWidgetDragStart: function handleWidgetDragStart(widget_group_key, payload) {
-      this.currentDraggingWidget = {
-        from: "active_widgets",
-        widget_group_key: widget_group_key,
-        widget_index: payload.widget_index,
-        widget_key: payload.widget_key
-      };
-    },
     handleWidgetDragEnd: function handleWidgetDragEnd() {
       this.currentDraggingWidget = null;
     },
-    handleWidgetDrop: function handleWidgetDrop(widget_group_key, payload) {
-      var dropped_in = {
-        widget_group_key: widget_group_key,
-        widget_key: payload.widget_key,
-        widget_index: payload.widget_index,
-        drop_direction: payload.drop_direction
-      }; // handleWidgetReorderFromActiveWidgets
-
-      if ("active_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetReorderFromActiveWidgets(this.currentDraggingWidget, dropped_in);
-        this.currentDraggingWidget = null;
-        return;
-      } // handleWidgetInsertFromAvailableWidgets
-
-
-      if ("available_widgets" === this.currentDraggingWidget.from) {
-        this.handleWidgetInsertFromAvailableWidgets(this.currentDraggingWidget, dropped_in);
-        this.currentDraggingWidget = null;
-      }
-    },
-    handleWidgetReorderFromActiveWidgets: function handleWidgetReorderFromActiveWidgets(from, to) {
-      var from_fields = this.active_widget_groups[from.widget_group_key].fields;
-      var to_fields = this.active_widget_groups[to.widget_group_key].fields; // If Reordering in same group
-
-      if (from.widget_group_key === to.widget_group_key) {
-        var _origin_data = from_fields[from.widget_index];
-
-        var _dest_index = from.widget_index < to.widget_index ? to.widget_index - 1 : to.widget_index;
-
-        _dest_index = "after" === to.drop_direction ? _dest_index + 1 : _dest_index;
-        this.active_widget_groups[from.widget_group_key].fields.splice(from.widget_index, 1);
-        this.active_widget_groups[to.widget_group_key].fields.splice(_dest_index, 0, _origin_data);
-        return;
-      } // If Reordering to diffrent group
-
-
-      var origin_data = from_fields[from.widget_index];
-      var dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
-      dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
-      dest_index = dest_index < 0 ? 0 : dest_index;
-      dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
-      this.active_widget_groups[from.widget_group_key].fields.splice(from.widget_index, 1);
-      this.active_widget_groups[to.widget_group_key].fields.splice(dest_index, 0, origin_data);
-      this.$emit("updated-state");
-      this.$emit("active-widgets-updated");
-    },
-    handleWidgetInsertFromAvailableWidgets: function handleWidgetInsertFromAvailableWidgets(from, to) {
-      var field_data_options = this.getOptionDataFromWidget(from.widget);
-      var inserting_widget_key = this.genarateWidgetKeyForActiveWidgets(from.widget_key);
-
-      if (field_data_options.field_key) {
-        var unique_field_key = this.genarateFieldKeyForActiveWidgets(field_data_options);
-        field_data_options.field_key = unique_field_key;
-      }
-
-      field_data_options.widget_key = inserting_widget_key;
-
-      if (Array.isArray(this.active_widget_fields)) {
-        this.active_widget_fields = {};
-      }
-
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields, inserting_widget_key, field_data_options);
-      var to_fields = this.active_widget_groups[to.widget_group_key].fields;
-      var dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
-      dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
-      dest_index = dest_index < 0 ? 0 : dest_index;
-      dest_index = dest_index >= to_fields.length ? to_fields.length : dest_index;
-      this.active_widget_groups[to.widget_group_key].fields.splice(dest_index, 0, inserting_widget_key);
-      this.$emit("updated-state");
-      this.$emit("active-widgets-updated");
-    },
     handleWidgetListItemDragStart: function handleWidgetListItemDragStart(widget_group_key, payload) {
-      // console.log( 'handleWidgetListItemDragStart', { widget_group_key, payload } );
       if (payload.widget && typeof payload.widget.type !== "undefined" && "section" === payload.widget.type) {
         this.currentDraggingGroup = {
           from: "available_widgets",
@@ -25853,160 +26214,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.currentDraggingWidget = null;
       this.currentDraggingGroup = null;
     },
-    trashWidget: function trashWidget(widget_group_key, payload) {
-      var index = this.active_widget_groups[widget_group_key].fields.indexOf(payload.widget_key);
-      this.active_widget_groups[widget_group_key].fields.splice(index, 1);
+    insertWidget: function insertWidget(payload) {
+      if (Array.isArray(this.active_widget_fields)) {
+        this.active_widget_fields = {};
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields, payload.widget_key, payload.options);
+    },
+    trashWidget: function trashWidget(payload) {
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, payload.widget_key);
       this.$emit("updated-state");
       this.$emit("widget-field-trashed");
       this.$emit("active-widgets-updated");
     },
-    getOptionDataFromWidget: function getOptionDataFromWidget(widget) {
-      var field_data_options = {};
-
-      if (widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(widget.options) === "object") {
-        for (var option_key in widget.options) {
-          field_data_options[option_key] = typeof widget.options[option_key].value !== "undefined" ? widget.options[option_key].value : "";
-        }
-      }
-
-      return field_data_options;
-    },
-    genarateWidgetKeyForActiveWidgets: function genarateWidgetKeyForActiveWidgets(widget_key) {
-      if (typeof this.active_widget_fields[widget_key] !== "undefined") {
-        var matched_keys = Object.keys(this.active_widget_fields);
-
-        var getUniqueKey = function getUniqueKey(current_key, new_key) {
-          if (matched_keys.includes(new_key)) {
-            var field_id = new_key.match(/[_](\d+)$/);
-            field_id = field_id ? parseInt(field_id[1]) : 1;
-            var new_field_key = current_key + '_' + (field_id + 1);
-            return getUniqueKey(current_key, new_field_key);
-          }
-
-          return new_key;
-        };
-
-        var new_widget_key = getUniqueKey(widget_key, widget_key);
-        return new_widget_key;
-      }
-
-      return widget_key;
-    },
-    genarateFieldKeyForActiveWidgets: function genarateFieldKeyForActiveWidgets(field_data_options) {
-      if (!field_data_options.field_key) {
-        return '';
-      }
-
-      var current_field_key = field_data_options.field_key;
-      var field_keys = [];
-
-      for (var key in this.active_widget_fields) {
-        if (!this.active_widget_fields[key].field_key) {
-          continue;
-        }
-
-        field_keys.push(this.active_widget_fields[key].field_key);
-      }
-
-      var getUniqueKey = function getUniqueKey(field_key) {
-        if (field_keys.includes(field_key)) {
-          var field_id = field_key.match(/[-](\d+)$/);
-          field_id = field_id ? parseInt(field_id[1]) : 1;
-          var new_field_key = current_field_key + '-' + (field_id + 1);
-          return getUniqueKey(new_field_key);
-        }
-
-        return field_key;
-      };
-
-      var unique_field_key = getUniqueKey(current_field_key);
-      return unique_field_key;
-    },
-    handleGroupDragStart: function handleGroupDragStart(widget_group_key) {
-      this.currentDraggingGroup = {
-        from: "active_widgets",
-        widget_group_key: widget_group_key
-      };
-    },
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
-    },
-    handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
-      var dropped_in = {
-        widget_group_key: widget_group_key,
-        drop_direction: payload.drop_direction
-      };
-
-      if ("active_widgets" === this.currentDraggingGroup.from) {
-        this.handleGroupReorderFromActiveWidgets(this.currentDraggingGroup, dropped_in);
-      }
-
-      if ("available_widgets" === this.currentDraggingGroup.from) {
-        this.handleGroupInsertFromAvailableWidgets(this.currentDraggingGroup, dropped_in);
-      }
-
-      this.currentDraggingGroup = null;
-    },
-    addNewGroup: function addNewGroup() {
-      var group = JSON.parse(JSON.stringify(this.default_group[0]));
-
-      if (this.groupSettings) {
-        Object.assign(group, this.groupSettings);
-      }
-
-      var dest_index = this.active_widget_groups.length;
-      this.active_widget_groups.splice(dest_index, 0, group);
-      this.$emit("updated-state");
-    },
-    handleGroupReorderFromActiveWidgets: function handleGroupReorderFromActiveWidgets(from, to) {
-      var origin_data = this.active_widget_groups[from.widget_group_key];
-      var dest_index = from.widget_group_key < to.widget_group_key ? to.widget_group_key - 1 : to.widget_group_key;
-      dest_index = "after" === to.drop_direction ? dest_index + 1 : dest_index;
-      this.active_widget_groups.splice(from.widget_group_key, 1);
-      this.active_widget_groups.splice(dest_index, 0, origin_data);
-      this.$emit("updated-state");
-      this.$emit("group-reordered");
-    },
-    handleGroupInsertFromAvailableWidgets: function handleGroupInsertFromAvailableWidgets(from, to) {
-      var group = JSON.parse(JSON.stringify(this.default_group[0]));
-      var widget = from.widget;
-      var option_data = this.getOptionDataFromWidget(widget);
-      delete widget.options;
-      Object.assign(group, widget);
-      Object.assign(group, option_data);
-      var dest_index = "before" === to.drop_direction ? to.widget_group_key - 1 : to.widget_group_key;
-      dest_index = "after" === to.drop_direction ? to.widget_group_key + 1 : to.widget_group_key;
-      dest_index = dest_index < 0 ? 0 : dest_index;
-      dest_index = dest_index >= this.active_widget_groups.length ? this.active_widget_groups.length : dest_index;
-      this.active_widget_groups.splice(dest_index, 0, group);
-      this.$emit("updated-state");
-      this.$emit("active-widgets-updated");
-    },
-    trashGroup: function trashGroup(widget_group_key) {
-      var group_fields = this.active_widget_groups[widget_group_key].fields;
-
-      if (group_fields.length) {
-        var _iterator3 = _createForOfIteratorHelper(group_fields),
-            _step3;
-
-        try {
-          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-            var widget_key = _step3.value;
-            vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, widget_key);
-          }
-        } catch (err) {
-          _iterator3.e(err);
-        } finally {
-          _iterator3.f();
-        }
-      }
-
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_groups, widget_group_key);
-      this.$emit("updated-state");
-      this.$emit("group-updated");
-      this.$emit("group-trashed");
-      this.$emit("active-widgets-updated");
     },
     // Other Tasks
     toggleEnableWidgetGroupDragging: function toggleEnableWidgetGroupDragging() {
@@ -33875,6 +34097,125 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Fields_Group.vue?vue&type=template&id=28334683& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.active_widget_groups
+    ? _c(
+        "div",
+        { staticClass: "cptm-form-builder-active-fields-container" },
+        [
+          _vm._l(_vm.active_widget_groups, function(
+            widget_group,
+            widget_group_key
+          ) {
+            return _c(
+              "draggable-list-item-wrapper",
+              {
+                key: widget_group_key,
+                attrs: {
+                  "list-id": "widget-group",
+                  "is-dragging-self":
+                    _vm.current_dragging_group &&
+                    widget_group_key ===
+                      _vm.current_dragging_group.widget_group_key,
+                  droppable: _vm.current_dragging_group
+                },
+                on: {
+                  drop: function($event) {
+                    return _vm.handleGroupDrop(widget_group_key, $event)
+                  }
+                }
+              },
+              [
+                _c("form-builder-widget-group-component", {
+                  attrs: {
+                    "group-key": widget_group_key,
+                    "field-id": _vm.fieldId,
+                    "active-widgets": _vm.activeWidgetFields,
+                    "avilable-widgets": _vm.avilableWidgets,
+                    "group-data": widget_group,
+                    "group-settings": _vm.groupSettingsProp,
+                    "group-fields": _vm.groupFields,
+                    "widget-is-dragging": _vm.widgetIsDragging,
+                    "current-dragging-group": _vm.current_dragging_group,
+                    "current-dragging-widget": _vm.current_dragging_widget,
+                    "is-enabled-group-dragging": _vm.isEnabledGroupDragging
+                  },
+                  on: {
+                    "update-group-field": function($event) {
+                      return _vm.updateGroupField(widget_group_key, $event)
+                    },
+                    "update-widget-field": _vm.updateWidgetField,
+                    "trash-widget": function($event) {
+                      return _vm.trashWidget(widget_group_key, $event)
+                    },
+                    "trash-group": function($event) {
+                      return _vm.trashGroup(widget_group_key)
+                    },
+                    "widget-drag-start": function($event) {
+                      return _vm.handleWidgetDragStart(widget_group_key, $event)
+                    },
+                    "widget-drag-end": function($event) {
+                      return _vm.handleWidgetDragEnd()
+                    },
+                    "drop-widget": function($event) {
+                      return _vm.handleWidgetDrop(widget_group_key, $event)
+                    },
+                    "group-drag-start": function($event) {
+                      return _vm.handleGroupDragStart(widget_group_key)
+                    },
+                    "group-drag-end": function($event) {
+                      return _vm.handleGroupDragEnd()
+                    },
+                    "append-widget": function($event) {
+                      return _vm.handleAppendWidget(widget_group_key)
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _vm.showAddNewGroupButton
+            ? _c(
+                "div",
+                { staticClass: "cptm-form-builder-active-fields-footer" },
+                [
+                  _c("button", {
+                    staticClass: "cptm-btn cptm-btn-secondery",
+                    attrs: { type: "button" },
+                    domProps: { innerHTML: _vm._s(_vm.addNewGroupButtonLabel) },
+                    on: { click: _vm.addNewGroup }
+                  })
+                ]
+              )
+            : _vm._e()
+        ],
+        2
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue?vue&type=template&id=3c063243&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue?vue&type=template&id=3c063243& ***!
@@ -39239,138 +39580,69 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-builder cptm-row" }, [
     _c("div", { staticClass: "cptm-col-6" }, [
-      _c("div", { staticClass: "cptm-form-builder-active-fields" }, [
-        _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Active Fields")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "cptm-description-text" }, [
-          _vm._v(
-            "\n        Click on a field to edit, Drag & Drop to reorder\n      "
-          )
-        ]),
-        _vm._v(" "),
-        _vm.showGroupDragToggleButton
-          ? _c(
-              "button",
-              {
-                staticClass: "cptm-btn",
-                class: _vm.forceExpandStateTo ? "cptm-btn-primary" : "",
-                attrs: { type: "button" },
-                on: { click: _vm.toggleEnableWidgetGroupDragging }
-              },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(
-                      _vm.forceExpandStateTo
-                        ? "Disable Section Dragging"
-                        : "Enable Section Dragging"
-                    ) +
-                    "\n      "
-                )
-              ]
+      _c(
+        "div",
+        { staticClass: "cptm-form-builder-active-fields" },
+        [
+          _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Active Fields")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "cptm-description-text" }, [
+            _vm._v(
+              "\n        Click on a field to edit, Drag & Drop to reorder\n      "
             )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "cptm-form-builder-active-fields-container" },
-          [
-            _vm._l(_vm.active_widget_groups, function(
-              widget_group,
-              widget_group_key
-            ) {
-              return _c(
-                "draggable-list-item-wrapper",
+          ]),
+          _vm._v(" "),
+          _vm.showGroupDragToggleButton
+            ? _c(
+                "button",
                 {
-                  key: widget_group_key,
-                  attrs: {
-                    "list-id": "widget-group",
-                    "is-dragging-self":
-                      _vm.currentDraggingGroup &&
-                      widget_group_key ===
-                        _vm.currentDraggingGroup.widget_group_key,
-                    droppable: _vm.currentDraggingGroup
-                  },
-                  on: {
-                    drop: function($event) {
-                      return _vm.handleGroupDrop(widget_group_key, $event)
-                    }
-                  }
+                  staticClass: "cptm-btn",
+                  class: _vm.forceExpandStateTo ? "cptm-btn-primary" : "",
+                  attrs: { type: "button" },
+                  on: { click: _vm.toggleEnableWidgetGroupDragging }
                 },
                 [
-                  _c("form-builder-widget-group-component", {
-                    attrs: {
-                      "group-key": widget_group_key,
-                      "field-id": _vm.fieldId,
-                      "active-widgets": _vm.active_widget_fields,
-                      "avilable-widgets": _vm.avilable_widgets,
-                      "group-data": widget_group,
-                      "group-settings": _vm.groupSettingsProp,
-                      "group-fields": _vm.groupFields,
-                      "widget-is-dragging": _vm.widgetIsDragging,
-                      "current-dragging-group": _vm.currentDraggingGroup,
-                      "current-dragging-widget": _vm.currentDraggingWidget,
-                      "is-enabled-group-dragging": _vm.isEnabledGroupDragging
-                    },
-                    on: {
-                      "update-group-field": function($event) {
-                        return _vm.updateGroupField(widget_group_key, $event)
-                      },
-                      "update-widget-field": _vm.updateWidgetField,
-                      "trash-widget": function($event) {
-                        return _vm.trashWidget(widget_group_key, $event)
-                      },
-                      "trash-group": function($event) {
-                        return _vm.trashGroup(widget_group_key)
-                      },
-                      "widget-drag-start": function($event) {
-                        return _vm.handleWidgetDragStart(
-                          widget_group_key,
-                          $event
-                        )
-                      },
-                      "widget-drag-end": function($event) {
-                        return _vm.handleWidgetDragEnd()
-                      },
-                      "drop-widget": function($event) {
-                        return _vm.handleWidgetDrop(widget_group_key, $event)
-                      },
-                      "group-drag-start": function($event) {
-                        return _vm.handleGroupDragStart(widget_group_key)
-                      },
-                      "group-drag-end": function($event) {
-                        return _vm.handleGroupDragEnd()
-                      },
-                      "append-widget": function($event) {
-                        return _vm.handleAppendWidget(widget_group_key)
-                      }
-                    }
-                  })
-                ],
-                1
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(
+                        _vm.forceExpandStateTo
+                          ? "Disable Section Dragging"
+                          : "Enable Section Dragging"
+                      ) +
+                      "\n      "
+                  )
+                ]
               )
-            }),
-            _vm._v(" "),
-            _vm.showAddNewGroupButton
-              ? _c(
-                  "div",
-                  { staticClass: "cptm-form-builder-active-fields-footer" },
-                  [
-                    _c("button", {
-                      staticClass: "cptm-btn cptm-btn-secondery",
-                      attrs: { type: "button" },
-                      domProps: {
-                        innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
-                      },
-                      on: { click: _vm.addNewGroup }
-                    })
-                  ]
-                )
-              : _vm._e()
-          ],
-          2
-        )
-      ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("form-builder-fields-group", {
+            attrs: {
+              "general-settings": _vm.generalSettings,
+              activeWidgetFields: _vm.active_widget_fields,
+              "avilable-widgets": _vm.avilable_widgets,
+              "group-fields": _vm.groupFields,
+              "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
+              "incoming-dragging-widget": _vm.currentDraggingWidget,
+              "incoming-dragging-group": _vm.currentDraggingGroup
+            },
+            on: {
+              "update-widget-field": _vm.updateWidgetField,
+              "insert-widget": _vm.insertWidget,
+              "trash-widget": _vm.trashWidget,
+              "group-drag-end": _vm.handleGroupDragEnd,
+              "widget-drag-end": _vm.handleWidgetDragEnd
+            },
+            model: {
+              value: _vm.active_widget_groups,
+              callback: function($$v) {
+                _vm.active_widget_groups = $$v
+              },
+              expression: "active_widget_groups"
+            }
+          })
+        ],
+        1
+      )
     ]),
     _vm._v(" "),
     _c(

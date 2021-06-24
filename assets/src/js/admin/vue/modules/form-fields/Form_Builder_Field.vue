@@ -20,6 +20,7 @@
         <form-builder-fields-group
           v-model="active_widget_groups"
           :general-settings="generalSettings"
+          :group-settings="groupSettings"
           :activeWidgetFields="active_widget_fields"
           :avilable-widgets="avilable_widgets"
           :group-fields="groupFields"

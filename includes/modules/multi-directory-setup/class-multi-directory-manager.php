@@ -4079,8 +4079,9 @@ class Multi_Directory_Manager
             ],
             
             'single_listings_contents' => [
-                'type'     => 'form-builder',
-                'widgets'  => $single_listings_contents_widgets,
+                'type'            => 'form-builder',
+                'enableTab'       => true,
+                'widgets'         => $single_listings_contents_widgets,
                 'generalSettings' => [
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],

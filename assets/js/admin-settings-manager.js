@@ -17859,6 +17859,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     generalSettings: {
       required: false
     },
+    groupSettings: {
+      required: false
+    },
     groupFields: {
       required: false
     },
@@ -17880,15 +17883,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return this.current_dragging_widget ? true : false;
     },
     groupSettingsProp: function groupSettingsProp() {
-      if (!this.generalSettings) {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.groupSettings) !== 'object') {
         return this.groupSettings;
-      } // if (typeof this.generalSettings.minGroup === "undefined") {
-      //     return this.groupSettings;
-      // }
-      // if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
-      //     this.groupSettings.canTrash = false;
-      // }
+      }
 
+      if (typeof this.groupSettings.minGroup === "undefined") {
+        return this.groupSettings;
+      }
+
+      if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
+        this.groupSettings.canTrash = false;
+      }
 
       return this.groupSettings;
     },
@@ -25964,6 +25969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
+//
 //
 //
 //
@@ -39618,6 +39624,7 @@ var render = function() {
           _c("form-builder-fields-group", {
             attrs: {
               "general-settings": _vm.generalSettings,
+              "group-settings": _vm.groupSettings,
               activeWidgetFields: _vm.active_widget_fields,
               "avilable-widgets": _vm.avilable_widgets,
               "group-fields": _vm.groupFields,

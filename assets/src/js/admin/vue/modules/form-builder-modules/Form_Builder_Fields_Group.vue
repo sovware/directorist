@@ -65,6 +65,9 @@ export default {
         generalSettings: {
             required: false,
         },
+        groupSettings: {
+            required: false,
+        },
         groupFields: {
             required: false,
         },
@@ -89,16 +92,17 @@ export default {
         },
 
         groupSettingsProp() {
-            if (!this.generalSettings) {
+            if ( typeof this.groupSettings !== 'object' ) {
                 return this.groupSettings;
             }
-            // if (typeof this.generalSettings.minGroup === "undefined") {
-            //     return this.groupSettings;
-            // }
 
-            // if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
-            //     this.groupSettings.canTrash = false;
-            // }
+            if ( typeof this.groupSettings.minGroup === "undefined" ) {
+                return this.groupSettings;
+            }
+
+            if (this.active_widget_groups.length <= this.groupSettings.minGroup) {
+                this.groupSettings.canTrash = false;
+            }
 
             return this.groupSettings;
         },

@@ -389,24 +389,20 @@ SWBD;
         // maybe_json
 		public function maybe_json( $input_data ) {
             if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
+        
+            $output_data = $input_data;
+
+            // JSON Docode
+            $decode_json = json_decode( $input_data, true );
+
+            if ( ! is_null( $decode_json ) ) return $decode_json;
             
-            // Sanitize input data
-            $sanitized_data = $input_data;
-    
-            if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
-                $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
-            }
-    
-            $output_data = json_decode( $sanitized_data, true);
-            $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
-    
-            // Sanitize output data
-            if ( 'string' === gettype( $output_data ) ) {
-                $output_data = preg_replace( '/\\\\"/', '"', $output_data );
-                $output_data = preg_replace( "/\\\\'/", "'", $output_data );
-                $output_data = _sanitize_text_fields( $output_data, true );
-            }
-    
+            // JSON Decode from Base64
+            $decode_base64 = base64_decode( $input_data );
+            $decode_base64_json = json_decode( $decode_base64, true );
+
+            if ( ! is_null( $decode_base64_json ) ) return $decode_base64_json;
+
             return $output_data;
         }
 
@@ -3099,14 +3095,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                'single_listing_page' => [
-                    'label' => __('Single Listing Page', 'directorist'),
-                    'type'  => 'select',
-                    'description' => sprintf(__('Following shortcodes can be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_single_listings_header], [directorist_single_listings_section key="section-label-in-lowercase-with-no-space"]</div>'),
-                    'value' => atbdp_get_option('single_listing_page', 'atbdp_general'),
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
                 'all_listing_page' => [
                     'label' => __('All Listings Page', 'directorist'),
                     'type'  => 'select',
@@ -4538,7 +4526,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'single_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),

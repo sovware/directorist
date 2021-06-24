@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="543" viewBox="0 0 400 543">
+  <defs>
+    <clipPath id="clip-_10_Add_Listing_Form">
+      <rect width="400" height="543"/>
+    </clipPath>
+  </defs>
+  <g id="_10_Add_Listing_Form" data-name="10_Add Listing Form" clip-path="url(#clip-_10_Add_Listing_Form)">
+    <rect width="400" height="543" fill="#fff"/>
+    <g id="Rectangle_80" data-name="Rectangle 80" fill="#fff" stroke="#ebebef" stroke-width="1">
+      <rect width="400" height="543" stroke="none"/>
+      <rect x="0.5" y="0.5" width="399" height="542" fill="none"/>
+    </g>
+    <rect id="Rectangle_4" data-name="Rectangle 4" width="350" height="95" rx="2" transform="translate(25 100)" fill="#eaebed"/>
+    <g id="Group_23" data-name="Group 23">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="350" height="30" rx="2" transform="translate(25 42)" fill="#eaebed"/>
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="90" height="6" rx="3" transform="translate(25 30)" fill="#eaebed"/>
+    </g>
+    <g id="Group_34" data-name="Group 34" transform="translate(0 331)">
+      <rect id="Rectangle_1-2" data-name="Rectangle 1" width="350" height="30" rx="2" transform="translate(25 42)" fill="#eaebed"/>
+      <rect id="Rectangle_2-2" data-name="Rectangle 2" width="90" height="6" rx="3" transform="translate(25 30)" fill="#eaebed"/>
+    </g>
+    <rect id="Rectangle_1-3" data-name="Rectangle 1" width="350" height="122" rx="2" transform="translate(25 223)" fill="#eaebed"/>
+    <rect id="Rectangle_2-3" data-name="Rectangle 2" width="90" height="6" rx="3" transform="translate(25 211)" fill="#eaebed"/>
+    <rect id="Rectangle_3" data-name="Rectangle 3" width="90" height="6" rx="3" transform="translate(25 88)" fill="#eaebed"/>
+    <path id="cloud-upload" d="M48.035,15.8a19.618,19.618,0,0,0-37.443,5.3,11.21,11.21,0,0,0,2.634,22.113,2.8,2.8,0,1,0,0-5.605,5.605,5.605,0,0,1,0-11.21,2.8,2.8,0,0,0,2.8-2.8A14.013,14.013,0,0,1,43.3,19.083a2.8,2.8,0,0,0,2.186,1.878,8.408,8.408,0,0,1,.673,16.367,2.807,2.807,0,1,0,1.4,5.437A14.013,14.013,0,0,0,48.035,15.8Zm-16,5.8a2.9,2.9,0,0,0-3.98,0l-8.408,8.408a2.814,2.814,0,0,0,3.98,3.98l3.615-3.643V46.016a2.8,2.8,0,0,0,5.605,0V30.349l3.615,3.643a2.814,2.814,0,1,0,3.98-3.98Z" transform="translate(170.009 257.987)" fill="#c1c5ce"/>
+    <rect id="Rectangle_6" data-name="Rectangle 6" width="80" height="6" transform="translate(47 427)" fill="#eaebed"/>
+    <rect id="Rectangle_86" data-name="Rectangle 86" width="80" height="6" transform="translate(47 451)" fill="#eaebed"/>
+    <rect id="Rectangle_5" data-name="Rectangle 5" width="350" height="32" rx="2" transform="translate(25 481)" fill="#c9ccd5"/>
+    <rect id="Rectangle_8" data-name="Rectangle 8" width="14" height="14" rx="2" transform="translate(25 423)" fill="#eaebed"/>
+    <rect id="Rectangle_87" data-name="Rectangle 87" width="14" height="14" rx="2" transform="translate(25 447)" fill="#eaebed"/>
+    <path id="check" d="M12.795,7.083a.569.569,0,0,0-.808,0L7.746,11.329,5.964,9.542a.582.582,0,1,0-.808.837l2.186,2.186a.569.569,0,0,0,.808,0l4.645-4.645a.569.569,0,0,0,0-.837Z" transform="translate(23.022 420.086)" fill="#b5b5b5"/>
+    <path id="check-2" data-name="check" d="M12.795,7.083a.569.569,0,0,0-.808,0L7.746,11.329,5.964,9.542a.582.582,0,1,0-.808.837l2.186,2.186a.569.569,0,0,0,.808,0l4.645-4.645a.569.569,0,0,0,0-.837Z" transform="translate(23.022 444.086)" fill="#b5b5b5"/>
+  </g>
+</svg>

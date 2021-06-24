@@ -6790,10 +6790,6 @@ body.stop-scrolling {
   min-height: 26px;
 }
 
-.select2-container--open .select2-dropdown.select2-dropdown--below {
-  top: 30px;
-}
-
 /* hide contact owner */
 .directorist-hide-owner-field.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
   font-size: 15px;
@@ -19112,10 +19108,15 @@ input[type=radio] {
   color: #23282d;
   margin-bottom: 50px;
 }
+.atbdp-settings-panel .cptm-section {
+  border: 1px solid #E3E6EF;
+  border-radius: 10px;
+  margin-bottom: 50px !important;
+}
 .atbdp-settings-panel .cptm-section .cptm-title-area {
-  border-bottom: 1px solid #F1F2F6;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  border-bottom: 1px solid #E3E6EF;
+  padding: 20px 25px;
+  margin-bottom: 0;
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area.directorist-no-header {
   border-bottom: 0 none;
@@ -19123,9 +19124,15 @@ input[type=radio] {
   padding-bottom: 0;
 }
 .atbdp-settings-panel .cptm-section .cptm-title-area .cptm-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  color: #3e62f5;
+  color: #000000;
+}
+.atbdp-settings-panel .cptm-section .cptm-form-fields {
+  padding: 20px 25px 0 25px;
+}
+.atbdp-settings-panel .cptm-section .cptm-form-fields .cptm-form-group label {
+  font-size: 15px;
 }
 
 /* settings panel css */

@@ -122,6 +122,8 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function get_taxonomy_page_title( $default_title, $page_id )
         {
+            
+            if ( is_admin() ) { return $default_title; }
             if ( ! is_int( $page_id ) ) { return $default_title; }
 
             $category_page_id = get_directorist_option( 'single_category_page', 0 );

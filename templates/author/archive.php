@@ -23,13 +23,13 @@
                     <?php
                     $no_author_founds      = true;
                     foreach( $args['all_authors'] as $author ) {
-                        $avatar_url           = get_avatar_url( $author->id );
-                        $pro_pic              = get_user_meta( $author->id, 'pro_pic', true );
+                        $avatar_url           = get_avatar_url( $author->data->ID );
+                        $pro_pic              = get_user_meta( $author->data->ID, 'pro_pic', true );
                         $u_pro_pic            = ! empty( $pro_pic ) ? wp_get_attachment_image_src( $pro_pic, 'thumbnail' ) : '';
                         $author_image_src     = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : $avatar_url;
-                        $description          = get_user_meta( $author->id, 'description', true );
-                        $atbdp_phone          = get_user_meta( $author->id, 'atbdp_phone', true );
-                        $user_email           = get_user_meta( $author->id, 'user_email', true );
+                        $description          = get_user_meta( $author->data->ID, 'description', true );
+                        $atbdp_phone          = get_user_meta( $author->data->ID, 'atbdp_phone', true );
+                        $user_email           = get_user_meta( $author->data->ID, 'user_email', true );
                         $display_name         = ucfirst( $author->data->display_name );
                         $firstCharacter       = $display_name[0];
                         if(  empty( $_REQUEST['alphabet'] ) || ( ! empty( $_REQUEST['alphabet'] ) && $firstCharacter == $_REQUEST['alphabet'] ) ) {
@@ -63,7 +63,7 @@
                                 <p><?php echo wp_trim_words( $description, $all_authors_description_limit ); ?></p>
                                 <?php } ?>
                                 <?php if( ! empty( $args['all_authors_button'] ) ) { ?>
-                                <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->id );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo ! empty( $args['all_authors_button_text'] ) ? $args['all_authors_button_text'] : ''; ?></a>
+                                <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->data->ID );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo ! empty( $args['all_authors_button_text'] ) ? $args['all_authors_button_text'] : ''; ?></a>
                                 <?php } ?>
                             </div>
                         </div>

@@ -11,6 +11,9 @@
 # Gutenberg
 /includes/gutenberg/                                              @obiPlabon
 
+# Appsero
+/includes/modules/appsero/                                        @obiPlabon
+
 # Others
 /includes/classes/class-shortcode.php                             @kowsar89
 /includes/classes/class-template-hooks.php                        @kowsar89

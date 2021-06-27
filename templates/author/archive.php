@@ -13,7 +13,7 @@
             <div class="directorist-authors__nav">
                 <ul>
                     <?php foreach( $args['alphabets'] as $alphabet ) { ?>
-                    <li class=""><a class="directorist-alphabet <?php echo $alphabet; ?>" data-nonce="<?php echo wp_create_nonce( 'directorist_author_sorting' ); ?>" data-alphabet="<?php echo $alphabet; ?>"><?php echo $alphabet; ?></a></li>
+                    <li class=""><a href="#" class="directorist-alphabet <?php echo $alphabet; ?>" data-nonce="<?php echo wp_create_nonce( 'directorist_author_sorting' ); ?>" data-alphabet="<?php echo $alphabet; ?>"><?php echo $alphabet; ?></a></li>
                     <?php } ?>
                 </ul>
             </div><!-- ends: .directorist-authors__nav -->
@@ -35,7 +35,7 @@
                         if(  empty( $_REQUEST['alphabet'] ) || ( ! empty( $_REQUEST['alphabet'] ) && $firstCharacter == $_REQUEST['alphabet'] ) ) {
                         $no_author_founds      = false;
                     ?>
-                    <div class="directorist-col-md-3">
+                    <div class="directorist-col-md-4">
                         <div class="directorist-authors__card">
                             <?php if( $author_image_src && ! empty( $args['all_authors_image'] ) ) { ?>
                             <div class="directorist-authors__card__img">
@@ -50,18 +50,29 @@
                                 <h3><?php echo $author->roles[0]; ?></h3>
                                 <?php } ?>
                                 <?php if( ! empty( $args['all_authors_info'] ) ) { ?>
-                                <ul>
+                                <ul class="directorist-authors__card__info-list">
                                     <?php if( $atbdp_phone ) { ?>
                                     <li><i class="la la-phone"></i> <?php echo $atbdp_phone; ?></li>
                                     <?php } ?>
                                     <?php if( $author->data->user_email ) { ?>
-                                    <li><i class="la la-envelope"></i> <?php echo $author->data->user_email; ?></li>
+                                    <li><i class="la la-envelope"></i> <a href="mailto:<?php echo $author->data->user_email; ?>"><?php echo $author->data->user_email; ?></a></li>
                                     <?php } ?>
+                                    <li><i class="la la-map-marker"></i> 139, TPL Complex, Shantidhara, Dhaka</li>
+                                    <li><i class="la la-globe"></i> <a href="#">http://www.sovware.com</a></li>
                                 </ul>
                                 <?php } ?>
                                 <?php if( $description && ! empty( $args['all_authors_description'] ) ) { ?>
                                 <p><?php echo wp_trim_words( $description, $all_authors_description_limit ); ?></p>
                                 <?php } ?>
+                                <ul class="directorist-author-social directorist-author-social--light">
+                                    <li class="directorist-author-social-item"><a target="_blank" href="#"><span class="la la-facebook"></span></a></li>
+
+                                    <li class="directorist-author-social-item"><a target="_blank" href="#"><span class="la la-twitter"></span></a></li>
+
+                                    <li class="directorist-author-social-item"><a target="_blank" href="#"><span class="la la-linkedin"></span></a></li>
+
+                                    <li class="directorist-author-social-item"><a target="_blank" href="#"><span class="la la-youtube"></span></a></li>
+						        </ul>
                                 <?php if( ! empty( $args['all_authors_button'] ) ) { ?>
                                 <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->data->ID );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo ! empty( $args['all_authors_button_text'] ) ? $args['all_authors_button_text'] : ''; ?></a>
                                 <?php } ?>

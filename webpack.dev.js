@@ -1,4 +1,4 @@
-const common = require("./webpack.common");
+const commonConfig = require("./webpack.common");
 const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -24,11 +24,4 @@ const devConfig = {
     devtool: 'source-map'
 };
 
-let configs = [];
-
-common.forEach(element => {
-  const _config = merge( element, devConfig );
-  configs.push( _config );
-});
-
-module.exports = configs;
+module.exports = merge( commonConfig, devConfig );

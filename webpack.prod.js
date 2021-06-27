@@ -1,13 +1,13 @@
-const common    = require("./webpack.common");
-const { merge } = require('webpack-merge');
+const commonConfig = require("./webpack.common");
+let   devVueConfig = require("./webpack.dev");
+const { merge }    = require('webpack-merge');
 
 const MiniCssExtractPlugin   = require("mini-css-extract-plugin");
 const WebpackRTLPlugin       = require("webpack-rtl-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FileManagerPlugin      = require('filemanager-webpack-plugin');
-const { vueEntries }         = require('./webpack-entry-list.js');
 
-const prodConfig = {
+let prodConfig = {
   mode: "production", // production | development
   watch: false,
   entry: {
@@ -63,34 +63,15 @@ const prodConfig = {
   },
 };
 
-const devConfig = {
-  mode: "development", // production | development
-  watch: true,
-  entry: vueEntries,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "../css/[name].css",
-      minify: false,
-    }),
-    new WebpackRTLPlugin({
-      minify: false,
-    }),
-  ],
-  output: {
-    filename: "../js/[name].js",
-  },
 
-  devtool: 'source-map'
-};
 
 let configs = [];
-common.forEach(element => {
-  const _devConfig = merge( element, devConfig );
-  _devConfig.watch = false;
-  configs.push( _devConfig );
 
-  const _prodConfig = merge( element, prodConfig );
-  configs.push( _prodConfig );
-});
+devVueConfig = merge( commonConfig, devVueConfig );
+devVueConfig.watch = false;
+configs.push( devVueConfig );
+
+prodConfig = merge( commonConfig, prodConfig );
+configs.push( prodConfig );
 
 module.exports = configs;

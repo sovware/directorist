@@ -54,8 +54,8 @@
                                     <?php if( $atbdp_phone ) { ?>
                                     <li><i class="la la-phone"></i> <?php echo $atbdp_phone; ?></li>
                                     <?php } ?>
-                                    <?php if( $user_email ) { ?>
-                                    <li><i class="la la-envelope"></i> <?php echo $user_email; ?></li>
+                                    <?php if( $author->data->user_email ) { ?>
+                                    <li><i class="la la-envelope"></i> <?php echo $author->data->user_email; ?></li>
                                     <?php } ?>
                                 </ul>
                                 <?php } ?>

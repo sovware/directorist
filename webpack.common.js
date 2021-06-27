@@ -1,7 +1,7 @@
 const path                 = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin      = require('vue-loader/lib/plugin');
-const { commonEntries }    = require('./webpack-entry-list.js');
+const { commonEntries }    = require('./webpack.entry-list.js');
 
 // Main Config
 module.exports = {

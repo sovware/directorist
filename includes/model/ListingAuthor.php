@@ -445,6 +445,7 @@ class Directorist_Listing_Author {
 			'all_authors_info'					=> get_directorist_option( 'all_authors_info', true ),
 			'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
 			'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
+			'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),
 			'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
 			'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
 		);

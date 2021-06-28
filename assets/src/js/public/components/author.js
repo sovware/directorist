@@ -1,6 +1,7 @@
 // author sorting
 (function ($) {
-    $('body').on( 'click', '.directorist-alphabet', function() {
+    $('body').on( 'click', '.directorist-alphabet', function(e) {
+        e.preventDefault();
         var alphabet   = $(this).attr("data-alphabet");
         $('#directorist-all-authors').addClass('atbdp-form-fade');
         $.ajax({

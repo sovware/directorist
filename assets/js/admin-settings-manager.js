@@ -27753,8 +27753,8 @@ __webpack_require__.r(__webpack_exports__);
     this.initSetup();
   },
   watch: {
-    finalValue: function finalValue() {
-      this.$emit("update", this.finalValue);
+    active_widget_groups: function active_widget_groups() {
+      this.sync();
     }
   },
   computed: {
@@ -27782,6 +27782,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       local_value: {},
+      isSyncing: false,
       active_widget_fields: {},
       active_widget_groups: [],
       avilable_widgets: {},
@@ -27796,6 +27797,15 @@ __webpack_require__.r(__webpack_exports__);
     initSetup: function initSetup() {
       this.setupActiveWidgetFields();
       this.setupActiveWidgetGroups();
+    },
+    sync: function sync() {
+      if (this.isSyncing) {
+        return;
+      }
+
+      this.isSyncing = true;
+      this.$emit("update", this.finalValue);
+      this.isSyncing = false;
     },
     // setupActiveWidgetFields
     setupActiveWidgetFields: function setupActiveWidgetFields() {
@@ -27818,6 +27828,7 @@ __webpack_require__.r(__webpack_exports__);
       var active_widget_fields = Array.isArray(this.value.fields) ? {} : this.value.fields;
       active_widget_fields = this.sanitizeActiveWidgetFields(active_widget_fields);
       this.active_widget_fields = active_widget_fields;
+      this.sync();
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
@@ -27855,6 +27866,7 @@ __webpack_require__.r(__webpack_exports__);
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== "object") return;
       if (!this.valueHasValidGroupData()) return;
       this.active_widget_groups = this.value.groups;
+      this.sync();
       this.$emit("active-group-updated");
     },
     valueHasValidGroupData: function valueHasValidGroupData() {
@@ -27885,6 +27897,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateWidgetField: function updateWidgetField(payload) {
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
+      this.sync();
       this.$emit("updated-state");
       this.$emit("widget-field-updated");
     },
@@ -27920,10 +27933,12 @@ __webpack_require__.r(__webpack_exports__);
         this.active_widget_fields = {};
       }
 
+      this.sync();
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields, payload.widget_key, payload.options);
     },
     trashWidget: function trashWidget(payload) {
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, payload.widget_key);
+      this.sync();
       this.$emit("updated-state");
       this.$emit("widget-field-trashed");
       this.$emit("active-widgets-updated");

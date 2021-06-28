@@ -89,9 +89,9 @@ export default {
   },
 
   watch: {
-    finalValue() {
-      this.$emit("update", this.finalValue);
-    },
+    active_widget_groups() {
+      this.sync();
+    }
   },
 
   computed: {
@@ -122,6 +122,7 @@ export default {
   data() {
     return {
       local_value: {},
+      isSyncing: false,
 
       active_widget_fields: {},
       active_widget_groups: [],
@@ -141,6 +142,16 @@ export default {
       this.setupActiveWidgetGroups();
     },
 
+    sync() {
+      if ( this.isSyncing ) {
+        return;
+      }
+
+      this.isSyncing = true;
+      this.$emit( "update", this.finalValue );
+      this.isSyncing = false;
+    },
+
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
       if ( ! this.value ) { return; }
@@ -154,6 +165,7 @@ export default {
 
       this.active_widget_fields = active_widget_fields;
 
+      this.sync();
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
@@ -186,7 +198,7 @@ export default {
       if ( ! this.valueHasValidGroupData() ) return;
 
       this.active_widget_groups = this.value.groups;
-
+      this.sync();
       this.$emit("active-group-updated");
     },
 
@@ -215,6 +227,7 @@ export default {
         payload.payload.value
       );
 
+      this.sync();
       this.$emit("updated-state");
       this.$emit("widget-field-updated");
     },
@@ -250,12 +263,14 @@ export default {
           this.active_widget_fields = {};
       }
 
+      this.sync();
       Vue.set( this.active_widget_fields, payload.widget_key, payload.options );
     },
 
     trashWidget(payload) {
       Vue.delete(this.active_widget_fields, payload.widget_key);
 
+      this.sync();
       this.$emit("updated-state");
       this.$emit("widget-field-trashed");
       this.$emit("active-widgets-updated");

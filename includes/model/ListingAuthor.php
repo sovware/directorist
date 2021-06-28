@@ -438,6 +438,7 @@ class Directorist_Listing_Author {
 		$args = array(
 			'all_authors' 						=> get_users( $args ),
 			'alphabets'	  						=> range( 'A', 'Z' ),
+			'all_authors_columns'				=> get_directorist_option( 'all_authors_columns', 3 ),
 			'all_authors_sorting'				=> get_directorist_option( 'all_authors_sorting', true ),
 			'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
 			'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),

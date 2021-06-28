@@ -4,6 +4,9 @@
  * @since   7.0.6
  * @version 7.0.6
  */
+
+use \Directorist\Helper;
+$columns = floor( 12 / $args['all_authors_columns'] );
 ?>
 
 <div class="<?php echo ! empty( $args['sorting'] ) ? 'directorist-all-authors' : 'directorist-w-100 directorist-authors-section'; ?>" id="<?php echo ! empty( $args['sorting'] ) ? 'directorist-authors-wrapper' : 'directorist-all-authors'; ?>">
@@ -66,7 +69,7 @@
                         $no_author_founds      = false;
                         
                     ?>
-                    <div class="directorist-col-md-4">
+                    <div class="<?php Helper::directorist_column( $columns ); ?>">
                         <div class="directorist-authors__card">
                             <?php if( $author_image_src && ! empty( $args['all_authors_image'] ) ) { ?>
                             <div class="directorist-authors__card__img">

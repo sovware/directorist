@@ -1,66 +1,11 @@
 <template>
-  <div class="cptm-form-builder cptm-row">
-    <div class="cptm-col-6">
-      <div class="cptm-form-builder-active-fields">
-        <h3 class="cptm-title-3">Active Fields</h3>
-        <p class="cptm-description-text">
-          Click on a field to edit, Drag & Drop to reorder
-        </p>
-
-        <button
-          type="button"
-          class="cptm-btn"
-          v-if="showGroupDragToggleButton"
-          :class="forceExpandStateTo ? 'cptm-btn-primary' : ''"
-          @click="toggleEnableWidgetGroupDragging"
-        >
-          {{ forceExpandStateTo ? "Disable Section Dragging" : "Enable Section Dragging" }}
-        </button>
-        
-        <form-builder-fields-group
-          v-model="active_widget_groups"
-          :general-settings="generalSettings"
-          :group-settings="groupSettings"
-          :activeWidgetFields="active_widget_fields"
-          :avilable-widgets="avilable_widgets"
-          :group-fields="groupFields"
-          :is-enabled-group-dragging="isEnabledGroupDragging"
-          :incoming-dragging-widget="currentDraggingWidget"
-          :incoming-dragging-group="currentDraggingGroup"
-          @update-widget-field="updateWidgetField"
-          @insert-widget="insertWidget"
-          @trash-widget="trashWidget"
-          @group-drag-end="handleGroupDragEnd"
-          @widget-drag-end="handleWidgetDragEnd"
-        />
-      </div>
-    </div>
-
-    <div class="cptm-col-6 cptm-col-sticky">
-      <template v-for="(widget_group, widget_group_key) in widgets">
-        <form-builder-widget-list-section-component
-          :key="widget_group_key"
-          :field-id="fieldId"
-          v-bind="widget_group"
-          :widget-group="widget_group_key"
-          :selected-widgets="active_widget_fields"
-          :active-widget-groups="active_widget_groups"
-          @update-widget-list="updateWidgetList"
-          @drag-start="handleWidgetListItemDragStart(widget_group_key, $event)"
-          @drag-end="handleWidgetListItemDragEnd(widget_group_key, $event)"
-        />
-      </template>
-    </div>
-  </div>
+  <component :is="templateName" v-bind="$props" @update="syncData"/>
 </template>
 
 <script>
-import Vue from "vue";
-import helpers from "../../mixins/helpers";
 
 export default {
-  name: "form-builder",
-  mixins: [helpers],
+  name: "form-builder-field",
   props: {
     fieldId: {
       type: [String, Number],
@@ -69,6 +14,12 @@ export default {
     },
     widgets: {
       default: false,
+    },
+    template: {
+      default: false,
+    },
+    templateOptions: {
+      required: false,
     },
     generalSettings: {
       default: false,
@@ -84,196 +35,49 @@ export default {
     },
   },
 
-  created() {
-    this.setup();
-  },
-
-  watch: {
-    finalValue() {
-      this.$emit("update", this.finalValue);
-    },
-  },
-
   computed: {
-    finalValue() {
-      return {
-        fields: this.active_widget_fields,
-        groups: this.active_widget_groups,
-      };
-    },
-    
-    showGroupDragToggleButton() {
-      let show_button = true;
+    templateName() {
+      const default_template = 'form-builder-field-default-view';
 
-      if (!this.active_widget_groups) {
-        show_button = false;
+      if ( ! this.template ) {
+        return default_template;
       }
 
-      if ( this.groupSettings && typeof this.groupSettings.draggable !== "undefined" && !this.groupSettings.draggable ) {
-        show_button = false;
+      if ( typeof this.template !== 'string' ) {
+        return default_template;
       }
 
-      return show_button;
+      return `form-builder-field-${this.template}`;
     },
   },
 
-  data() {
-    return {
-      local_value: {},
+  methods: { 
+    syncData( value ) {
 
-      active_widget_fields: {},
-      active_widget_groups: [],
-      avilable_widgets: {},
-
-      default_group: [
-        {
-          type: "general_group",
-          label:
-            this.groupSettings && this.groupSettings.defaultGroupLabel
-              ? this.groupSettings.defaultGroupLabel
-              : "Section",
-          fields: [],
-        },
-      ],
-
-      forceExpandStateTo: "", // expand | 'collapse'
-      isEnabledGroupDragging: false,
-
-      currentDraggingGroup: null,
-      currentDraggingWidget: null,
-    };
-  },
-
-  methods: {
-    setup() {
-      this.setupActiveWidgetFields();
-      this.setupActiveWidgetGroups();
-    },
-
-    // setupActiveWidgetFields
-    setupActiveWidgetFields() {
-      if ( ! this.value ) { return; }
-      if ( typeof this.value !== "object" ) { return; }
-
-      if ( ! this.value.fields) { return; }
-      if ( typeof this.value.fields !== "object") { return; }
-
-      let active_widget_fields =  Array.isArray( this.value.fields ) ? {} : this.value.fields;
-      active_widget_fields = this.sanitizeActiveWidgetFields( active_widget_fields );
-
-      this.active_widget_fields = active_widget_fields;
-
-      this.$emit("updated-state");
-      this.$emit("active-widgets-updated");
-    },
-
-    // sanitizeActiveWidgetFields
-    sanitizeActiveWidgetFields( active_widget_fields ) {
-      if ( ! active_widget_fields ) { return {} };
-      if ( typeof active_widget_fields !== 'object' ) { return {} };
-
-      if ( typeof active_widget_fields.field_key !== 'undefined' ) {
-        delete active_widget_fields.field_key;
-      }
-
-      for ( let widget_key in active_widget_fields ) {
-
-        if ( typeof active_widget_fields[ widget_key ] !== 'object' ) {
-          delete active_widget_fields[ widget_key ];
-        }
-
-        active_widget_fields[ widget_key ].widget_key = widget_key;
-      }
-
-      return active_widget_fields;
-    },
-
-    // setupActiveWidgetGroups
-    setupActiveWidgetGroups() {
-
-      if ( ! this.value ) return;
-      if ( typeof this.value !== "object" ) return;
-
-      if ( Array.isArray( this.value.groups ) ) {
-        this.active_widget_groups = this.value.groups;
-      }
-
-      this.$emit("active-group-updated");
-    },
-
-    // updateWidgetList
-    updateWidgetList(widget_list) {
-      if ( ! widget_list) { return; }
-      if (typeof widget_list !== "object") { return; }
-      if (typeof widget_list.widget_group === "undefined") { return; }
-      if (typeof widget_list.base_widget_list === "undefined") { return; }
-
-      Vue.set( this.avilable_widgets, widget_list.widget_group, widget_list.base_widget_list );
-    },
-
-    updateWidgetField(payload) {
-      Vue.set(
-        this.active_widget_fields[payload.widget_key],
-        payload.payload.key,
-        payload.payload.value
-      );
-
-      this.$emit("update", this.finalValue);
-      this.$emit("updated-state");
-      this.$emit("widget-field-updated");
-    },
-
-    handleWidgetDragEnd() {
-      this.currentDraggingWidget = null;
-    },
-
-    handleWidgetListItemDragStart(widget_group_key, payload) {
-      if ( payload.widget && typeof payload.widget.type !== "undefined" && "section" === payload.widget.type ) {
-        this.currentDraggingGroup = { 
-          from: "available_widgets", widget_group_key, widget_key: payload.widget_key, widget: payload.widget 
-        };
-
-        this.forceExpandStateTo = "collapse";
-        this.isEnabledGroupDragging = true;
-
+      if ( ! this.isValidObject( value ) ) {
         return;
       }
 
-      this.currentDraggingWidget = {
-        from: "available_widgets", widget_group_key, widget_key: payload.widget_key, widget: payload.widget,
-      };
-    },
+      const old_value = JSON.parse( JSON.stringify( this.value ) );
+      const new_value = JSON.parse( JSON.stringify( value ) );
 
-    handleWidgetListItemDragEnd() {
-      this.currentDraggingWidget = null;
-      this.currentDraggingGroup = null;
-    },
-
-    insertWidget( payload ) {
-      if ( Array.isArray( this.active_widget_fields ) ) {
-          this.active_widget_fields = {};
+      // If has no valid old value
+      if ( ! this.isValidObject( old_value ) ) {
+        old_value = {};
       }
 
-      Vue.set( this.active_widget_fields, payload.widget_key, payload.options );
+      const final_value = { ...old_value, ...new_value };
+
+      this.$emit('update', final_value);
     },
 
-    trashWidget(payload) {
-      Vue.delete(this.active_widget_fields, payload.widget_key);
+    isValidObject( data ) {
+      if ( data && typeof data === 'object' ) {
+        return true;
+      }
 
-      this.$emit("updated-state");
-      this.$emit("widget-field-trashed");
-      this.$emit("active-widgets-updated");
-    },
-
-    handleGroupDragEnd() {
-      this.currentDraggingGroup = null;
-    },
-
-    // Other Tasks
-    toggleEnableWidgetGroupDragging() {
-      this.forceExpandStateTo = !this.forceExpandStateTo ? "collapse" : ""; // expand | 'collapse'
-      this.isEnabledGroupDragging = !this.isEnabledGroupDragging;
-    },
-  },
+      return false;
+    }
+  }
 };
 </script>

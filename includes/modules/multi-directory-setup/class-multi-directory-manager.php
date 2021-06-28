@@ -4080,7 +4080,6 @@ class Multi_Directory_Manager
             
             'single_listings_contents' => [
                 'type'            => 'form-builder',
-                'enableTab'       => true,
                 'widgets'         => $single_listings_contents_widgets,
                 'generalSettings' => [
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
@@ -4864,7 +4863,9 @@ class Multi_Directory_Manager
             }
         }
 
-        // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
+        // $test = get_term_meta( $listing_type_id, 'single_listings_contents', true );
+        // e_var_dump( $test );
+
         // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
         // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
         // e_var_dump( $submission_form_fields['fields']['image_upload'] );

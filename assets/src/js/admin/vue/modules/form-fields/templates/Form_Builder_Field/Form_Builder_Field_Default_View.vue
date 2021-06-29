@@ -90,7 +90,7 @@ export default {
 
   watch: {
     active_widget_groups() {
-      this.sync();
+      this.sync()
     }
   },
 

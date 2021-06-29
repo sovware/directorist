@@ -153,12 +153,12 @@
 .directorist-sortable-list-item-drop-prepend-area {
     top: 0;
     bottom: 50%;
-    right: 0;
-    left: 0;
+    right: -100%;
+    left: -100%;
     background-color: rgba(153, 112, 51, 0.178);
     &.drop-horizontal {
-        top: 0;
-        bottom: 0;
+        top: -100%;
+        bottom: -100%;
         left: 0;
         right: 50%;
     }
@@ -170,12 +170,12 @@
 .directorist-sortable-list-item-drop-append-area {
     top: 50%;
     bottom: -5px;
-    right: 0;
-    left: 0;
+    right: -100%;
+    left: -100%;
     background-color: rgba(102, 51, 153, 0.178);
     &.drop-horizontal {
-        top: 0;
-        bottom: 0;
+        top: -100%;
+        bottom: -100%;
         right: 0;
         left: 50%;
     }

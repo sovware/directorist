@@ -234,13 +234,13 @@ a:focus {
 .directorist-sortable-list-item-drop-prepend-area {
   top: 0;
   bottom: 50%;
-  left: 0;
-  right: 0;
+  left: -100%;
+  right: -100%;
   background-color: rgba(153, 112, 51, 0.178);
 }
 .directorist-sortable-list-item-drop-prepend-area.drop-horizontal {
-  top: 0;
-  bottom: 0;
+  top: -100%;
+  bottom: -100%;
   right: 0;
   left: 50%;
 }
@@ -251,13 +251,13 @@ a:focus {
 .directorist-sortable-list-item-drop-append-area {
   top: 50%;
   bottom: -5px;
-  left: 0;
-  right: 0;
+  left: -100%;
+  right: -100%;
   background-color: rgba(102, 51, 153, 0.178);
 }
 .directorist-sortable-list-item-drop-append-area.drop-horizontal {
-  top: 0;
-  bottom: 0;
+  top: -100%;
+  bottom: -100%;
   left: 0;
   right: 50%;
 }

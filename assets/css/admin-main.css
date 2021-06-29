@@ -5368,6 +5368,82 @@ a:focus {
   margin-right: 5px;
 }
 
+.general-list {
+  margin: 10px 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -5px;
+}
+
+.general-list-item {
+  list-style: none;
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: #0a0a0a;
+  background-color: #f2f2f2;
+}
+
+.directorist-sortable-list-item {
+  cursor: pointer;
+  position: relative;
+}
+.directorist-sortable-list-item.is-dragging::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #E0ECF9;
+  z-index: 999;
+}
+
+.directorist-sortable-list-item-drop-prepend-area,
+.directorist-sortable-list-item-drop-append-area {
+  position: absolute;
+}
+
+.directorist-sortable-list-item-drop-prepend-area {
+  top: 0;
+  bottom: 50%;
+  right: 0;
+  left: 0;
+  background-color: rgba(153, 112, 51, 0.178);
+}
+.directorist-sortable-list-item-drop-prepend-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+}
+.directorist-sortable-list-item-drop-prepend-area.drag-enter {
+  background-color: rgba(153, 112, 51, 0.452);
+}
+
+.directorist-sortable-list-item-drop-append-area {
+  top: 50%;
+  bottom: -5px;
+  right: 0;
+  left: 0;
+  background-color: rgba(102, 51, 153, 0.178);
+}
+.directorist-sortable-list-item-drop-append-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+}
+.directorist-sortable-list-item-drop-append-area.drag-enter {
+  background-color: rgba(102, 51, 153, 0.5);
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;
@@ -11198,6 +11274,82 @@ for shortable field*/
   margin-right: 5px;
 }
 
+.general-list {
+  margin: 10px 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -5px;
+}
+
+.general-list-item {
+  list-style: none;
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: #0a0a0a;
+  background-color: #f2f2f2;
+}
+
+.directorist-sortable-list-item {
+  cursor: pointer;
+  position: relative;
+}
+.directorist-sortable-list-item.is-dragging::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #E0ECF9;
+  z-index: 999;
+}
+
+.directorist-sortable-list-item-drop-prepend-area,
+.directorist-sortable-list-item-drop-append-area {
+  position: absolute;
+}
+
+.directorist-sortable-list-item-drop-prepend-area {
+  top: 0;
+  bottom: 50%;
+  right: 0;
+  left: 0;
+  background-color: rgba(153, 112, 51, 0.178);
+}
+.directorist-sortable-list-item-drop-prepend-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+}
+.directorist-sortable-list-item-drop-prepend-area.drag-enter {
+  background-color: rgba(153, 112, 51, 0.452);
+}
+
+.directorist-sortable-list-item-drop-append-area {
+  top: 50%;
+  bottom: -5px;
+  right: 0;
+  left: 0;
+  background-color: rgba(102, 51, 153, 0.178);
+}
+.directorist-sortable-list-item-drop-append-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+}
+.directorist-sortable-list-item-drop-append-area.drag-enter {
+  background-color: rgba(102, 51, 153, 0.5);
+}
+
 .directorist-draggable-list-item {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -14374,6 +14526,82 @@ input[type=radio] {
 
 .directorist-addon-icon {
   margin-right: 5px;
+}
+
+.general-list {
+  margin: 10px 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -5px;
+}
+
+.general-list-item {
+  list-style: none;
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: #0a0a0a;
+  background-color: #f2f2f2;
+}
+
+.directorist-sortable-list-item {
+  cursor: pointer;
+  position: relative;
+}
+.directorist-sortable-list-item.is-dragging::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #E0ECF9;
+  z-index: 999;
+}
+
+.directorist-sortable-list-item-drop-prepend-area,
+.directorist-sortable-list-item-drop-append-area {
+  position: absolute;
+}
+
+.directorist-sortable-list-item-drop-prepend-area {
+  top: 0;
+  bottom: 50%;
+  right: 0;
+  left: 0;
+  background-color: rgba(153, 112, 51, 0.178);
+}
+.directorist-sortable-list-item-drop-prepend-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+}
+.directorist-sortable-list-item-drop-prepend-area.drag-enter {
+  background-color: rgba(153, 112, 51, 0.452);
+}
+
+.directorist-sortable-list-item-drop-append-area {
+  top: 50%;
+  bottom: -5px;
+  right: 0;
+  left: 0;
+  background-color: rgba(102, 51, 153, 0.178);
+}
+.directorist-sortable-list-item-drop-append-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+}
+.directorist-sortable-list-item-drop-append-area.drag-enter {
+  background-color: rgba(102, 51, 153, 0.5);
 }
 
 .directorist-draggable-list-item {
@@ -17557,6 +17785,82 @@ input[type=radio] {
 
 .directorist-addon-icon {
   margin-right: 5px;
+}
+
+.general-list {
+  margin: 10px 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -5px;
+}
+
+.general-list-item {
+  list-style: none;
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: #0a0a0a;
+  background-color: #f2f2f2;
+}
+
+.directorist-sortable-list-item {
+  cursor: pointer;
+  position: relative;
+}
+.directorist-sortable-list-item.is-dragging::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #E0ECF9;
+  z-index: 999;
+}
+
+.directorist-sortable-list-item-drop-prepend-area,
+.directorist-sortable-list-item-drop-append-area {
+  position: absolute;
+}
+
+.directorist-sortable-list-item-drop-prepend-area {
+  top: 0;
+  bottom: 50%;
+  right: 0;
+  left: 0;
+  background-color: rgba(153, 112, 51, 0.178);
+}
+.directorist-sortable-list-item-drop-prepend-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+}
+.directorist-sortable-list-item-drop-prepend-area.drag-enter {
+  background-color: rgba(153, 112, 51, 0.452);
+}
+
+.directorist-sortable-list-item-drop-append-area {
+  top: 50%;
+  bottom: -5px;
+  right: 0;
+  left: 0;
+  background-color: rgba(102, 51, 153, 0.178);
+}
+.directorist-sortable-list-item-drop-append-area.drop-horizontal {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+}
+.directorist-sortable-list-item-drop-append-area.drag-enter {
+  background-color: rgba(102, 51, 153, 0.5);
 }
 
 .directorist-draggable-list-item {

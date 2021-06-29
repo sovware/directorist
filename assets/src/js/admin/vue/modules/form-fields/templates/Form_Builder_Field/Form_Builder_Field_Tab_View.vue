@@ -30,13 +30,19 @@
 
             <!-- directorist-tab-menu -->
             <div class="directorist-tab-menu directorist-space-top-30">
-              <div 
-                class="directorist-tab-menu-item has-directorist-control-bar"
-                :class="{ active: ( active_tab_index === tab_index ) ? true : false }"
-                v-for="( tab, tab_index ) in active_widget_tabs"
+              <sortable-list
+                classNames="directorist-tab-menu-item has-directorist-control-bar"
+                v-for="(tab, tab_index) in active_widget_tabs" 
+                v-model="active_widget_tabs"
+                drop-direction="horizontal"
+                gutter="5px"
+                :classList="{ active: ( active_tab_index === tab_index ) ? true : false }"
                 :key="tab_index"
+                :index="tab_index"
+                :current-dragging-item="currentDraggingMenuItem"
+                @change-dragging-item="currentDraggingMenuItem = $event"
                 @click="switchTab( tab_index )"
-              >
+            >
                 <span class="directorist-tab-menu-label" v-html="tab.label"></span>
 
                 <!-- directorist-control-bar -->
@@ -56,7 +62,7 @@
                     </button>
                   </div>
                 </div>
-              </div>
+            </sortable-list>
             </div>
 
             <slide-up-down :active="( current_editing_tab_index != null  ) ? true : false" :duration="500">
@@ -245,6 +251,8 @@ export default {
   data() {
     return {
       local_value: {},
+
+      currentDraggingMenuItem: null,
 
       active_tab_index: 0,
 
@@ -534,7 +542,7 @@ export default {
       if ( this.active_tab_index === tab_index ) {
         this.active_tab_index = 0;
       }
-      
+
       this.current_editing_tab_index = null;
 
       this.resetTabTrashIndex();

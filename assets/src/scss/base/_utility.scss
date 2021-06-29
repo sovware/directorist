@@ -109,3 +109,77 @@
 .directorist-addon-icon {
     margin-right: 5px;
 }
+
+
+
+.general-list {
+    margin: 10px 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+}
+
+.general-list-item {
+    list-style: none;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 3px;
+    @include theme-light;
+}
+
+
+.directorist-sortable-list-item {
+    cursor: pointer;
+    position: relative;
+
+    &.is-dragging::before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: #E0ECF9;
+        z-index: 999;
+    }
+}
+
+.directorist-sortable-list-item-drop-prepend-area,
+.directorist-sortable-list-item-drop-append-area {
+    position: absolute;
+}
+
+.directorist-sortable-list-item-drop-prepend-area {
+    top: 0;
+    bottom: 50%;
+    right: 0;
+    left: 0;
+    background-color: rgba(153, 112, 51, 0.178);
+    &.drop-horizontal {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 50%;
+    }
+
+    &.drag-enter {
+        background-color: rgba(153, 112, 51, 0.452);
+    }
+}
+.directorist-sortable-list-item-drop-append-area {
+    top: 50%;
+    bottom: -5px;
+    right: 0;
+    left: 0;
+    background-color: rgba(102, 51, 153, 0.178);
+    &.drop-horizontal {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 50%;
+    }
+    &.drag-enter {
+        background-color: rgba(102, 51, 153, 0.5);
+    }
+}

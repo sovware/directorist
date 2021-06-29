@@ -2433,6 +2433,30 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
+                    'custom_content' => [ 
+                        'type' => 'widget',
+                        'label' => __( 'Custom Content', 'directorist' ),
+                        'icon' => 'la la-align-right',
+                        'allowMultiple' => true,
+                        'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label'  => __( 'Icon', 'directorist' ),
+                                'value' => '',
+                            ],
+                            'content' => [
+                                'type'  => 'textarea',
+                                'label'  => __( 'Content', 'directorist' ),
+                                'value' => '',
+                                'description' => __( 'You can use any text or shortcode', 'directorist' ),
+                            ],
+                        ],
+                    ],
                     'review' => [ 
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),
@@ -3913,6 +3937,7 @@ class Multi_Directory_Manager
                 'label' => '',
                 'type'  => 'icon',
                 'value' => '',
+                'placeholder' => __('fa fa-home', 'directorist'),
                 'rules' => [
                     'required' => false,
                 ],
@@ -4486,7 +4511,6 @@ class Multi_Directory_Manager
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),
-                        'description' => __('Need help?', 'directorist'),
                         'fields'      => [ 'icon' ],
                     ],
 
@@ -4534,7 +4558,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'form_fields' => [
                                 'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'submission_form_fields'
                                 ],
@@ -4598,7 +4622,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'contents' => [
                                 'title' => __( 'Contents', 'directorist' ),
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/single-listings-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'single_listings_contents'
                                 ],
@@ -4638,7 +4662,7 @@ class Multi_Directory_Manager
                             'listings_card' => [
                                 'title' => __('Create and customize the listing card for grid view', 'directorist'),
                                 'title_align' => 'center',
-                                'description' => __( 'need help? Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_grid_view'
                                 ],
@@ -4652,7 +4676,7 @@ class Multi_Directory_Manager
                             'listings_card' => [
                                 'title' => __('Create and customize the listing card for listing view', 'directorist'),
                                 'title_align' => 'center',
-                                'description' => __( 'need help?', 'directorist' ),
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
                                 ],
@@ -4669,7 +4693,7 @@ class Multi_Directory_Manager
                 'sections' => [
                     'form_fields' => [
                         'title' => __('Customize the search form for this listing type', 'directorist'),
-                        'description' => __( 'need help?', 'directorist' ),
+                        'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/search-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                         'fields' => [
                             'search_form_fields'
                         ],

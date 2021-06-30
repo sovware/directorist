@@ -6,8 +6,8 @@
             :is="field.type + '-field'"
             :section-id="sectionId"
             :field-id="field_key"
-            :root="rootFields"
-            v-bind="field"
+            :root="fieldList"
+            v-bind="excludeShowIfCondition( field )"
             @update="update( { key: field_key, value: $event } )"
         />
     </div>
@@ -69,6 +69,27 @@ export default {
     methods: {
         filtereFieldList() {
             this.field_list = this.getFiltereFieldList( this.fieldList );
+        },
+
+        excludeShowIfCondition( field ) {
+
+            if ( ! field ) {
+                return field;
+            }
+
+            if ( typeof field !== 'object' ) {
+                return field;
+            }
+
+            if ( field.showIf ) {
+                delete field['showIf'];
+            }
+
+            if ( field.show_if ) {
+                delete field['show_if'];
+            }
+
+            return field;
         },
 
         getFiltereFieldList( field_list ) {

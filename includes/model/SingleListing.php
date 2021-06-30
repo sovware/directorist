@@ -547,7 +547,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_form_disabled() {
-		return get_post_meta( $this->id, '_hide_contact_owner', true);
+		return get_post_meta( $this->id, '_hide_contact_owner', true );
 	}
 
 	public function has_price() {

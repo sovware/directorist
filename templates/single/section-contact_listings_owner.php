@@ -6,6 +6,10 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+if( $listing->hide_contact_owner_form() ){
+	return;
+}
 ?>
 
 <div class="directorist-card directorist-card-contact-owner <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>

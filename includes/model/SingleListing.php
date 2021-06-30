@@ -546,6 +546,13 @@ class Directorist_Single_Listing {
 		return $result;
 	}
 
+	public function hide_contact_owner_form() {
+		$id         = $this->id;
+		$allow = get_post_meta( $id, '_hide_contact_owner', true);
+
+		return $allow;
+	}
+
 	public function has_price() {
 		$id         = $this->id;
 		$plan_price = is_fee_manager_active() ? is_plan_allowed_price( $this->fm_plan ) : true;

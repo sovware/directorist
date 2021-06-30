@@ -396,6 +396,10 @@ a:focus {
     width: 100%;
   }
 }
+.directorist-address-field #result ul,
+.directorist-form-address-field #result ul {
+  list-style-type: none;
+}
 .directorist-address-field #result ul li,
 .directorist-form-address-field #result ul li {
   margin-bottom: 0;

@@ -424,6 +424,91 @@ p.status:empty {
   list-style-type: none;
 }
 
+.select2-container--open .select2-dropdown--above {
+  top: 32px;
+  border-color: #ececec;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+  outline: 0;
+}
+
+.custom-checkbox input {
+  display: none;
+}
+.custom-checkbox input[type=checkbox] + .check--select + label,
+.custom-checkbox input[type=radio] + .radio--select + label {
+  min-width: 18px;
+  min-height: 18px;
+  font-size: 14px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  position: relative;
+  padding-right: 28px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 0;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #5A5F7D;
+}
+.custom-checkbox input[type=checkbox] + .check--select + label:before,
+.custom-checkbox input[type=radio] + .radio--select + label:before {
+  position: absolute;
+  font-size: 10px;
+  right: 5px;
+  top: 5px;
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  display: block;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  z-index: 2;
+}
+.custom-checkbox input[type=checkbox] + .check--select + label:after,
+.custom-checkbox input[type=radio] + .radio--select + label:after {
+  position: absolute;
+  right: 0;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  content: "";
+  background-color: #fff;
+  border: 2px solid #C6D0DC;
+}
+.custom-checkbox input[type=radio] + .radio--select + label:before {
+  top: 8px;
+  font-size: 9px;
+}
+.custom-checkbox input[type=radio] + .radio--select + label:after {
+  border-radius: 50%;
+}
+.custom-checkbox input[type=radio] + .radio--select + label span {
+  color: #eee;
+}
+.custom-checkbox input[type=radio] + .radio--select + label span.active {
+  color: #fa8b0c;
+}
+.custom-checkbox input[type=checkbox]:checked + .check--select + label:after,
+.custom-checkbox input[type=radio]:checked + .radio--select + label:after {
+  background-color: #00B158;
+  border-color: #00B158;
+}
+.custom-checkbox input[type=checkbox]:checked + .check--select + label:before,
+.custom-checkbox input[type=radio]:checked + .radio--select + label:before {
+  opacity: 1;
+  color: #fff;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,
@@ -6379,6 +6464,129 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .directorist-sidebar .atbd_widget .default-ad-search .atbd-slide1 {
   width: 1em;
   height: 1em;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group label {
+  font-size: 15px;
+  margin-bottom: 5px;
+  display: block;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group input[type=text] {
+  border: 1px solid #ececec;
+  height: 42px;
+  margin: 0;
+  border-radius: 4px;
+  font-size: 15px;
+  width: 100%;
+  padding: 0 15px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group input[type=text]:focus {
+  outline: 0;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group .price_ranges {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 -5px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group .price_ranges div {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 0 5px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group .select2.select2-container .select2-selection--single .select2-selection__arrow {
+  font-size: 15px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group .select2.select2-container .select2-selection--single .select2-selection__rendered {
+  font-size: 15px;
+  line-height: 40px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group.submit_btn .btn {
+  font-size: 15px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .form-group.submit_btn #atbdp_reset {
+  border: 1px solid #ececec !important;
+  background: none !important;
+  color: #5a5f7d !important;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn .btn-checkbox {
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label {
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label input {
+  position: absolute;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  outline: 0;
+  border: 0 none;
+  background: transparent !important;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label input:checked + span {
+  background-color: #444752;
+  border-color: #444752;
+  color: #fff;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label input:checked + span i {
+  color: #fff;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label input:before {
+  display: none;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label span {
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  padding: 10px 18px;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid #ececec;
+  border-radius: 4px;
+  color: #767792;
+}
+.directorist-sidebar .atbd_widget .default-ad-search .check-btn label span i {
+  font-size: 15px;
+  color: #7a82a6;
+  margin-left: 5px;
+  margin-top: -1px;
+  width: auto;
+  height: auto;
+  top: 0;
 }
 .directorist-sidebar .widget > * {
   margin-top: 0;

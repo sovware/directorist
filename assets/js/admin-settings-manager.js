@@ -14436,6 +14436,25 @@ __webpack_require__.r(__webpack_exports__);
     filtereFieldList: function filtereFieldList() {
       this.field_list = this.getFiltereFieldList(this.fieldList);
     },
+    excludeShowIfCondition: function excludeShowIfCondition(field) {
+      if (!field) {
+        return field;
+      }
+
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field) !== 'object') {
+        return field;
+      }
+
+      if (field.showIf) {
+        delete field['showIf'];
+      }
+
+      if (field.show_if) {
+        delete field['show_if'];
+      }
+
+      return field;
+    },
     getFiltereFieldList: function getFiltereFieldList(field_list) {
       if (!field_list) {
         return field_list;
@@ -27242,7 +27261,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -31469,7 +31488,7 @@ var render = function() {
                 attrs: {
                   "section-id": _vm.sectionId,
                   "field-id": field_key,
-                  root: _vm.rootFields
+                  root: _vm.fieldList
                 },
                 on: {
                   update: function($event) {
@@ -31478,7 +31497,7 @@ var render = function() {
                 }
               },
               "component",
-              field,
+              _vm.excludeShowIfCondition(field),
               false
             )
           )
@@ -39619,7 +39638,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   )
                 ]
               )

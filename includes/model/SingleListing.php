@@ -341,7 +341,7 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $page_id ) ) {
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
 			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
 		} else {
 			$content = get_post_field( 'post_content', $page_id );
@@ -544,6 +544,10 @@ class Directorist_Single_Listing {
 		$result = sprintf('<div class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="%s">%s</div>', ucfirst( $this->price_range ), $output);
 
 		return $result;
+	}
+
+	public function contact_owner_form_disabled() {
+		return get_post_meta( $this->id, '_hide_contact_owner', true );
 	}
 
 	public function has_price() {

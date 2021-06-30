@@ -9,7 +9,8 @@ if (!class_exists('ATBDP_SEO')) :
         {
             if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) return;
 
-            add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
+            add_filter( 'the_title', array( $this, 'update_taxonomy_page_title' ), 10, 2 );
+            add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
             add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
             add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
             add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
@@ -105,22 +106,36 @@ if (!class_exists('ATBDP_SEO')) :
             return $title;
         }
 
-        public function atbdp_title_update($title, $id = null)
+        public function update_taxonomy_page_title($title, $id = null)
         {
+            if ( is_null( $id ) ) return $title;
+
+            return $this->get_taxonomy_page_title( $title, $id );
+        }
+
+        public function update_taxonomy_single_page_title( $title, $post )
+        {
+            if ( is_null( $post ) ) return $title;
+
+            return $this->get_taxonomy_page_title( $title, $post->ID );
+        }
+
+        public function get_taxonomy_page_title( $default_title, $page_id )
+        {
+            if ( is_admin() ) { return $default_title; }
+            if ( ! is_int( $page_id ) ) { return $default_title; }
+
             $category_page_id = get_directorist_option( 'single_category_page', 0 );
             $location_page_id = get_directorist_option( 'single_location_page', 0 );
 
-            if ( ! ( $category_page_id == $id || $location_page_id == $id ) ) {
-                return $title;
+            if ( ! ( $category_page_id == $page_id || $location_page_id == $page_id ) ) {
+                return $default_title;
             }
 
-            // global $post;
-            if (!is_admin() && !is_null($id)) {
-                $term = $this->get_taxonomy_term();
-                $title = (!empty($term)) ? $term->name : $title;
-            }
+            $term = $this->get_taxonomy_term();
+            $page_title = ( ! empty( $term ) ) ? $term->name : $default_title;
 
-            return $title;
+            return $page_title;
         }
 
         public function wpseo_metadesc($desc)

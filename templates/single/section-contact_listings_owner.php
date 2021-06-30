@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if( $listing->hide_contact_owner_form() ){
+if( $listing->contact_owner_form_disabled() ) {
 	return;
 }
 ?>

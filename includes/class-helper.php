@@ -342,16 +342,11 @@ class Helper {
 	}
 
 	public static function default_preview_image_src( $type ) {
-		if ( self::multi_directory_enabled() ) {
-			$type_general = get_term_meta( $type, 'general_config', true );
+		
+		$type_general = get_term_meta( $type, 'general_config', true );
 
-			if ( ! empty( $type_general['preview_image'] ) ) {
-				$default_image_src = $type_general['preview_image'];
-			}
-			else {
-				$default_img = get_directorist_option( 'default_preview_image' );
-				$default_image_src = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
-			}
+		if ( ! empty( $type_general['preview_image'] ) ) {
+			$default_image_src = $type_general['preview_image'];
 		}
 		else {
 			$default_img = get_directorist_option( 'default_preview_image' );

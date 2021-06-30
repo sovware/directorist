@@ -1,0 +1,6 @@
+{
+    "directory_type":{
+      "type":"string",
+      "default":""
+    }
+}

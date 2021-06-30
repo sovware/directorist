@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.7
 Requires PHP: 7.0
-Stable tag: 7.0.4.1
+Stable tag: 7.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -319,6 +319,23 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+= 7.0.5 - Jun 21, 2021 =
+
+Add - 16 Gutenberg blocks
+Add - Text alignment & atyle option in Elementor search form widget
+Add - Single listing shortcode template
+Add - Option to edit directory type slug 
+Add - Unmimified assets and debug mode
+Fix - Placeholder issue in add listing form
+Fix - Style issues
+Fix - SEO issues
+Fix - Map info window issue of OpenStreetMap
+Fix - Radius field issue on search form
+Fix - Zoom and markup preload issue fixed in google map view
+Fix - Closing tag issue in custom field template
+Fix - Search forms default button issues
+Tweak - GET method replaced by REQUEST method on search query
 
 = 7.0.4.1 - May 24, 2021 =
 

@@ -1271,9 +1271,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     canShow: function canShow() {
       var is_visible = true;
 
-      if (this.showIf) {
+      if (this.showIf || this.show_if) {
+        var show_if_condition = this.showIf ? this.showIf : this.show_if;
         var show_if_cond = this.checkShowIfCondition({
-          condition: this.showIf,
+          condition: show_if_condition,
           root: this.root
         });
         is_visible = show_if_cond.status;
@@ -1449,6 +1450,9 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     },
     showIf: {
+      required: false
+    },
+    show_if: {
       required: false
     },
     type: {
@@ -11191,12 +11195,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -11205,8 +11205,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   // state
   state: {
     active_nav_index: 0,
@@ -11269,7 +11269,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
 
       for (var menu_key in state.layouts) {
         var status = 0 === menu_count ? true : false;
-        vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu_key], 'active', status);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], 'active', status);
 
         if (state.layouts[menu_key].sections) {
           prepare_section_fields({
@@ -11284,7 +11284,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
           for (var submenu_key in state.layouts[menu_key].submenu) {
             var _status = 0 === menu_count && 0 === submenu_count ? true : false;
 
-            vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', _status);
+            vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', _status);
             submenu_count++;
 
             if (state.layouts[menu_key].submenu[submenu_key].sections) {
@@ -11332,10 +11332,10 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
 
 
       for (var menu in state.layouts) {
-        vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu], 'active', false);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu], 'active', false);
       }
 
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu_key], 'active', true); // Active Sub Menu
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], 'active', true); // Active Sub Menu
 
       if (!submenu_key && state.layouts[menu_key].submenu) {
         var submenu_keys = Object.keys(state.layouts[menu_key].submenu);
@@ -11351,10 +11351,10 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
       }
 
       for (var submenu in state.layouts[menu_key].submenu) {
-        vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu_key].submenu[submenu], 'active', false);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu], 'active', false);
       }
 
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', true);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', true);
       hash = payload.hash ? '#' + payload.hash : '#' + menu_key + '__' + submenu_key;
       highlight_active_field(hash);
       window.location.hash = hash;
@@ -11363,10 +11363,10 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
       state.active_nav_index = index;
     },
     setMetaKey: function setMetaKey(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.metaKeys, payload.key, payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.metaKeys, payload.key, payload.value);
     },
     removeMetaKey: function removeMetaKey(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(state.metaKeys, payload.key);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].delete(state.metaKeys, payload.key);
     },
     updateOptionsField: function updateOptionsField(state, payload) {
       state.options[payload.field].value = payload.value;
@@ -11387,10 +11387,10 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
       state.form_fields = value;
     },
     updateFieldValue: function updateFieldValue(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.fields[payload.field_key], 'value', payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], 'value', payload.value);
     },
     updateFieldData: function updateFieldData(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.fields[payload.field_key], payload.option_key, payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], payload.option_key, payload.value);
     },
     updateGeneralSectionData: function updateGeneralSectionData(state, payload) {
       state.layouts.general.submenu.general.sections[payload.section_key].fields[payload.field_key].value = payload.value;
@@ -11401,30 +11401,16 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
           continue;
         }
 
-        vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(state.fields[field_key], 'value', importing_fields[field_key]);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[field_key], 'value', importing_fields[field_key]);
       }
     }
   },
   getters: {
     getFieldsValue: function getFieldsValue(state) {
-      var maybeJSON = function maybeJSON(data) {
-        var value = typeof data === 'undefined' ? '' : data;
-
-        if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value).length) {
-          value = JSON.stringify(value);
-        }
-
-        if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value).length) {
-          value = '';
-        }
-
-        return value;
-      };
-
       var form_data = {};
 
       for (var field in state.fields) {
-        form_data[field] = maybeJSON(state.fields[field].value);
+        form_data[field] = state.fields[field].value;
       }
 
       return form_data;
@@ -13661,7 +13647,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         field_list.push(_field);
       }
 
-      form_data.append('field_list', JSON.stringify(field_list));
+      form_data.append('field_list', this.maybeJSON(field_list));
       this.status_messages = [];
       this.footer_actions.save.showLoading = true;
       this.footer_actions.save.isDisabled = true;
@@ -13704,12 +13690,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === 'undefined' ? '' : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value)) {
-        value = JSON.stringify(value);
-      }
-
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && !Object.keys(value)) {
-        value = '';
+      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var json_encoded_value = JSON.stringify(value);
+        var base64_encoded_value = btoa(json_encoded_value);
+        value = base64_encoded_value;
       }
 
       return value;
@@ -14412,6 +14396,25 @@ __webpack_require__.r(__webpack_exports__);
     filtereFieldList: function filtereFieldList() {
       this.field_list = this.getFiltereFieldList(this.fieldList);
     },
+    excludeShowIfCondition: function excludeShowIfCondition(field) {
+      if (!field) {
+        return field;
+      }
+
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field) !== 'object') {
+        return field;
+      }
+
+      if (field.showIf) {
+        delete field['showIf'];
+      }
+
+      if (field.show_if) {
+        delete field['show_if'];
+      }
+
+      return field;
+    },
     getFiltereFieldList: function getFiltereFieldList(field_list) {
       if (!field_list) {
         return field_list;
@@ -14432,13 +14435,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       for (var _field_key2 in new_fields) {
-        if (!new_fields[_field_key2].show_if) {
+        if (!(new_fields[_field_key2].showIf || new_fields[_field_key2].show_if)) {
           continue;
         }
 
+        var show_if_condition = new_fields[_field_key2].showIf ? new_fields[_field_key2].showIf : new_fields[_field_key2].show_if;
         var checkShowIfCondition = this.checkShowIfCondition({
           root: new_fields,
-          condition: new_fields[_field_key2].show_if
+          condition: show_if_condition
         });
 
         if (!checkShowIfCondition.status) {
@@ -17906,6 +17910,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var new_widget_list = this.cloneObject(widget_list);
 
       for (var widget_key in new_widget_list) {
+        if (new_widget_list[widget_key].allowMultiple) continue;
+
         if (selected_widget_keys.includes(widget_key) || active_widget_groups_keys.includes(widget_key)) {
           delete new_widget_list[widget_key];
         }
@@ -31319,7 +31325,7 @@ var render = function() {
                 attrs: {
                   "section-id": _vm.sectionId,
                   "field-id": field_key,
-                  root: _vm.rootFields
+                  root: _vm.fieldList
                 },
                 on: {
                   update: function($event) {
@@ -31328,7 +31334,7 @@ var render = function() {
                 }
               },
               "component",
-              field,
+              _vm.excludeShowIfCondition(field),
               false
             )
           )
@@ -33743,7 +33749,8 @@ var render = function() {
                 attrs: {
                   "list-type": "li",
                   "item-class-name": "cptm-form-builder-field-list-item",
-                  "drag-type": _vm.allowMultiple ? "clone" : "move"
+                  "drag-type":
+                    _vm.allowMultiple || widget.allowMultiple ? "clone" : "move"
                 },
                 on: {
                   "drag-start": function($event) {

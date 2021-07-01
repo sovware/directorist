@@ -6,13 +6,27 @@
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
             <div class="atbdp-col atbdp-col-4 directorist-text-right">
-                <input type="button" class="cptm-btn cptm-generate-shortcode-button" :value="buttonLabel" @click="generateShortcode">
+                <input 
+                    type="button" 
+                    class="cptm-btn cptm-generate-shortcode-button"
+                    v-if="! shortcodes.length"
+                    :value="buttonLabel" 
+                    @click="generateShortcode"
+                >
+
+                <input 
+                    type="button" 
+                    class="cptm-btn cptm-generate-shortcode-button"
+                    v-if="shortcodes.length"
+                    value="Copy all" 
+                    @click="copyToClip('all-shortcodes')"
+                >
             </div>
         </div>
         
         <div v-if="dirty">
-            <div v-if="shortcodes.length" class="cptm-shortcodes">
-                <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>
+            <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>
+            <div v-if="shortcodes.length" class="cptm-shortcodes" ref="all-shortcodes">
                 <p class="directorist-alert" v-for="( shortcode, i ) in shortcodes" :key="i" v-html="shortcode" ref="shortcodes"></p>
             </div>
 

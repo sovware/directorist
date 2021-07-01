@@ -39,6 +39,8 @@ export default {
 
     methods: {
         generateShortcode() {
+            this.shortcodes = [];
+
             if ( typeof this.value === 'string' ) {
                 this.shortcodes.push( this.value );
                 return;

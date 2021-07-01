@@ -4214,6 +4214,13 @@ class Multi_Directory_Manager
                         ],
                     ],
                 ],
+
+                'show_if' => [
+                    'where' => "enable_single_listing_page",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => true],
+                    ],
+                ],
             ],
 
             'similar_listings_logics' => [

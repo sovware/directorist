@@ -89,7 +89,7 @@ class Multi_Directory_Manager
         $updated_layouts = $layouts;
 
         if( ! directorist_multi_directory() ) {
-            unset( $updated_layouts['general']['submenu']['general']['sections']['default_preview'] );
+            unset( $updated_layouts['general']['sections']['default_preview'] );
         }
         return $updated_layouts;
     }

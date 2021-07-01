@@ -11694,7 +11694,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   // state
   state: {
-    active_nav_index: 2,
+    active_nav_index: 0,
     fields: {},
     layouts: {},
     options: {},

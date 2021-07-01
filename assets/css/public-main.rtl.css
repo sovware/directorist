@@ -84,6 +84,23 @@ a:focus {
   word-wrap: break-word;
 }
 
+.cptm-shortcodes {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.directorist-text-right {
+  text-align: left;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+.directorist-text-left {
+  text-align: right;
+}
+
 .directorist-mt-0 {
   margin-top: 0 !important;
 }

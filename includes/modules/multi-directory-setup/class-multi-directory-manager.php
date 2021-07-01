@@ -4185,6 +4185,37 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
+
+            'single_listing_shortcodes' => [
+                'type'        => 'shortcode-list',
+                'buttonLabel' => 'Generate',
+                'label'       => __( 'Generate shortcodes', 'directorist' ),
+                'description' => __( 'Generate single listing shortcodes', 'directorist' ),
+                'value'       => [
+                    '[directorist_single_listings_header]',
+                    [
+                        'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                        'mapAtts' => [
+                            [
+                                'mapAll' => 'single_listings_contents.value.groups',
+                                'where' => [
+                                    'key' => 'label',
+                                        'applyFilter' => [
+                                            ['type' => 'lowercase'],
+                                            [
+                                                'type'       => 'replace',
+                                                'find_regex' => '\\s',
+                                                'replace'    => '-',
+                                            ],
+                                        ],
+                                        'mapTo' => '@@shortcode_key@@'
+                                ]
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
             'similar_listings_logics' => [
                 'type'    => 'radio',
                 'name'    => 'similar_listings_logics',
@@ -4636,6 +4667,7 @@ class Multi_Directory_Manager
                                 'fields' => [
                                     'enable_single_listing_page',
                                     'single_listing_page',
+                                    'single_listing_shortcodes',
                                 ],
                             ],
                             'other' => [

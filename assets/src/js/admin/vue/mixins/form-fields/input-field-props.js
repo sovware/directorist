@@ -11,6 +11,9 @@ export default {
         root: {
             required: false,
         },
+        mapAtts: {
+            required: false,
+        },
         filters: {
             required: false,
         },

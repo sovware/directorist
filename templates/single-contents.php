@@ -21,6 +21,8 @@ $listing = Directorist_Single_Listing::instance();
 
 			<div class="<?php Helper::directorist_single_column(); ?>">
 
+				<?php Helper::get_template( 'single/top-actions' ); ?>
+
 				<?php if ( $listing->single_page_enabled() ): ?>
 
 					<div class="directorist-single-wrapper">
@@ -30,8 +32,6 @@ $listing = Directorist_Single_Listing::instance();
 					</div>
 
 				<?php else: ?>
-
-					<?php Helper::get_template( 'single/top-actions' ); ?>
 
 					<div class="directorist-single-wrapper">
 

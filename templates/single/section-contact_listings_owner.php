@@ -2,10 +2,14 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.0.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+if( $listing->contact_owner_form_disabled() ) {
+	return;
+}
 ?>
 
 <div class="directorist-card directorist-card-contact-owner <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>

@@ -40,10 +40,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
 		// initial_setup
 		public function initial_setup() {
-            if ( ! self::in_settings_page() ) {
-                return;
-            }
-           
 			add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
 				$fields['script_debugging'] = [
 					'type'  => 'toggle',
@@ -434,10 +430,6 @@ SWBD;
 		// prepare_settings
 		public function prepare_settings()
 		{
-            if ( ! self::in_settings_page() ) {
-                return;
-            }
-
 			$business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
 			$bank_transfer_instruction = "

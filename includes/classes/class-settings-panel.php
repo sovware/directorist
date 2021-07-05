@@ -22,10 +22,29 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 			$this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
 		}
 
+        public static function in_settings_page() {
+            if ( ! is_admin() ) {
+                return false;
+            }
+
+            if ( ! isset( $_REQUEST['post_type'] ) && ! isset( $_REQUEST['page'] ) ) {
+                return false;
+            }
+
+            if ( 'at_biz_dir' !== $_REQUEST['post_type'] && 'atbdp-settings' !== $_REQUEST['page'] ) {
+                return false;
+            }
+
+            return true;
+        }
+
 		// initial_setup
 		public function initial_setup() {
+            if ( ! self::in_settings_page() ) {
+                return;
+            }
+           
 			add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
-
 				$fields['script_debugging'] = [
 					'type'  => 'toggle',
 					'label' => 'Script debugging',
@@ -415,6 +434,10 @@ SWBD;
 		// prepare_settings
 		public function prepare_settings()
 		{
+            if ( ! self::in_settings_page() ) {
+                return;
+            }
+
 			$business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
 			$bank_transfer_instruction = "

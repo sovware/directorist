@@ -36,14 +36,17 @@ if ( ! defined( 'ABSPATH' ) ) {
              * @param array $instance Saved values from database.
              */
             public function widget($args, $instance) {
+            
                 if( is_singular(ATBDP_POST_TYPE)) {
                     $plan_permission = true;
                     global $post;
                     $email = get_post_meta($post->ID, '_email', true);
+                    $hide_form = get_post_meta( $post->ID, '_hide_contact_owner', true);
+
                     if (is_fee_manager_active()){
                         $plan_permission = is_plan_allowed_owner_contact_widget(get_post_meta($post->ID, '_fm_plans', true));
                     }
-                    if ($plan_permission) {
+                    if ( $plan_permission && ! $hide_form ) {
                         $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', 'directorist');
                         
                         $template_path = atbdp_get_widget_template_path( 'contact-listing-owner' );

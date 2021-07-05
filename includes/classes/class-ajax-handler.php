@@ -290,12 +290,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if( $listing_types ) {
                 foreach( $listing_types as $listing_type ){
                     $directory_slugs[] = $listing_type->slug;
+                    if( $type_id == $listing_type->term_id ) {
+                        $old_slug = $listing_type->slug; 
+                    }
                 }
             }
 
             if( in_array( $update_slug, $directory_slugs ) ) {
                 wp_send_json( array(
-                    'error' => __('This slug already in use.', 'directorist')
+                    'error' => __('This slug already in use.', 'directorist'),
+                    'old_slug' => ! empty( $old_slug ) ? $old_slug : '',
                 ) );
             } else {
                 $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );

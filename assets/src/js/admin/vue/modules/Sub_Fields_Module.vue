@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-fields" v-if="option_fields">
-        <div v-for="( field_key, field_index ) in Object.keys( option_fields )" :class="fieldWrapperClass( field_key, option_fields[ field_key ] )">
+        <div v-for="( field_key, field_index ) in Object.keys( option_fields )" :key="field_index" :class="fieldWrapperClass( field_key, option_fields[ field_key ] )">
             <component
                 :root="option_fields"
                 :is="option_fields[ field_key ].type + '-field'" 

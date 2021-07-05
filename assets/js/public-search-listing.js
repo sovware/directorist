@@ -184,7 +184,7 @@
   if (checkbox.length <= 4) {
       show_more.remove();
   }
-      var item = $('.custom-control').closest('.bads-custom-checks');
+    var item = $('.custom-control').closest('.bads-custom-checks');
   item.each(function (index, el) {
       var count = 0;
       var abc = $(el)[0];
@@ -193,9 +193,9 @@
           $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
       }
       $(abc2).slice(4, abc2.length).hide();
-    });
+   });
   
-      $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+  $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
 
 
   $(window).on('load', function () {
@@ -314,6 +314,50 @@
         }
       });
     });
+  }); //reset fields
+
+  function resetFields() {
+    var inputArray = document.querySelectorAll('.search-area input');
+    inputArray.forEach(function (input) {
+      if (input.getAttribute("type") !== "hidden" || input.getAttribute("id") === "atbd_rs_value") {
+        input.value = "";
+      }
+    });
+    var textAreaArray = document.querySelectorAll('.search-area textArea');
+    textAreaArray.forEach(function (textArea) {
+      textArea.innerHTML = "";
+    });
+    var range = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-range");
+    var rangePos = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-handle");
+    var rangeAmount = document.querySelector(".atbdpr_amount");
+
+    if (range) {
+      range.setAttribute("style", "width: 0;");
+    }
+
+    if (rangePos) {
+      rangePos.setAttribute("style", "left: 0;");
+    }
+
+    if (rangeAmount) {
+      rangeAmount.innerText = "0 Mile";
+    }
+
+    var checkBoxes = document.querySelectorAll('.directorist-advanced-filter input[type="checkbox"]');
+    checkBoxes.forEach(function (el, ind) {
+      el.checked = false;
+    });
+    var radios = document.querySelectorAll('.directorist-advanced-filter input[type="radio"]');
+    radios.forEach(function (el, ind) {
+      el.checked = false;
+    });
+    $('.search-area select').prop('selectedIndex', 0);
+    $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
+  }
+
+  $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
+    e.preventDefault();
+    resetFields();
   });
 })(jQuery);
 /* advanced search form reset */

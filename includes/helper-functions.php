@@ -7536,6 +7536,16 @@ function atbdp_disable_overwrite_yoast() {
     atbdp_can_overwrite_yoast();
 }
 
+if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
+    function directorist_is_active_rankmath() {
+        if ( ! class_exists( 'RankMath' ) ) {
+            return false;
+        }
+
+        return true;
+    }
+}
+
 
 if (!function_exists('atbdp_page')) {
     function atbdp_page()

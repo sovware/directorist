@@ -4668,7 +4668,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'login_form' => [
                             'label' => __('Login Form', 'directorist'),
                             'icon' => '<i class="fa fa-mail-bulk"></i>',
-                            'sections' => apply_filters( 'atbdp_login_form_templates_settings_sections', [
+                            'sections' => apply_filters( 'directorist_login_form_templates_settings_sections', [
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
                                     'description' => '',

@@ -747,7 +747,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -792,7 +792,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -819,7 +819,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -845,7 +845,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -871,7 +871,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -897,7 +897,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -923,7 +923,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -949,7 +949,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -1032,7 +1032,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'meta_type' => 'term_meta',
                     'term_id'   => $term->term_id,
                     'seo_meta'  => $seo_meta,
@@ -1085,7 +1085,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'meta_type' => 'term_meta',
                     'term_id'   => $term->term_id,
                     'seo_meta'  => $seo_meta,
@@ -1129,7 +1129,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'meta_type' => 'term_meta',
                     'term_id'   => $term->term_id,
                     'seo_meta'  => $seo_meta,
@@ -1159,7 +1159,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -1185,7 +1185,7 @@ if (!class_exists('ATBDP_SEO')) :
 
             // If Rank math is active
             if ( directorist_is_active_rankmath() ) {
-                $seo_meta = $this->sync_with_rank_math_term_seo_meta([
+                $seo_meta = $this->sync_with_rank_math_seo_meta([
                     'post_id'  => get_the_ID(),
                     'seo_meta' => $seo_meta,
                 ]);
@@ -1225,8 +1225,8 @@ if (!class_exists('ATBDP_SEO')) :
             return $current_page;
         }
 
-        // sync_with_rank_math_term_seo_meta
-        public function sync_with_rank_math_term_seo_meta( $args = [] ) {
+        // sync_with_rank_math_seo_meta
+        public function sync_with_rank_math_seo_meta( $args = [] ) {
             $default = [ 
                 'meta_type' => 'post_meta',
                 'post_id'   => '',

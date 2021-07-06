@@ -5287,9 +5287,6 @@ img.atbdp-file-info {
   margin-bottom: 35px;
 }
 
-.directorist-content-active a {
-  text-decoration: none !important;
-}
 .directorist-content-active .primary-menu > li {
   margin: 0.8rem 1.6rem 0 0;
 }
@@ -8868,7 +8865,7 @@ for shortable field*/
   right: 0;
   top: 0;
   z-index: -1;
-  overflow: hidden;
+  overflow: auto;
   outline: 0;
 }
 

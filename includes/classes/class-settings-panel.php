@@ -312,7 +312,7 @@ SWBD;
 		public function handle_save_settings_data_request()
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
-			$field_list = ( ! empty( $_POST['field_list'] ) ) ? $this->maybe_json( $_POST['field_list'] ) : [];
+			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
 			if ( empty( $field_list ) || ! is_array( $field_list ) ) {
@@ -356,7 +356,7 @@ SWBD;
 			foreach ( $options as $option_key => $option_value ) {
 				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
 
-				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value, true );
+				$atbdp_options[ $option_key ] = Directorist\Helper::maybe_json( $option_value, true );
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );
@@ -372,36 +372,10 @@ SWBD;
 			return [ 'status' => $status ];
 		}
 
-        // maybe_json
-		public function maybe_json( $input_data, $return_first_item = false ) {
-            if ( 'string' !== gettype( $input_data )  ) { 
-                return $input_data;
-            }
-        
-            $output_data = $input_data;
-
-            // JSON Docode
-            $decode_json = json_decode( $input_data, true );
-
-            if ( ! is_null( $decode_json ) ) {
-                return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
-            }
-            
-            // JSON Decode from Base64
-            $decode_base64 = base64_decode( $input_data );
-            $decode_base64_json = json_decode( $decode_base64, true );
-
-            if ( ! is_null( $decode_base64_json ) ) {
-                return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
-            }
-
-            return $output_data;
-        }
-
 		// maybe_serialize
 		public function maybe_serialize($value = '')
 		{
-			return maybe_serialize($this->maybe_json($value));
+			return maybe_serialize(Directorist\Helper::maybe_json($value));
 		}
 
 		// prepare_settings

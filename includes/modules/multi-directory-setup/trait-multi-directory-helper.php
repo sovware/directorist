@@ -204,7 +204,7 @@ trait Multi_Directory_Helper {
 
         if ( is_array( $fields ) ) {
             foreach ( $fields as $_field_key => $_field_value ) {
-                $fields[ $_field_key ] = self::maybe_json( $_field_value );
+                $fields[ $_field_key ] = Helper::maybe_json( $_field_value );
             }
         }
 
@@ -254,33 +254,8 @@ trait Multi_Directory_Helper {
         return $response;
     }
 
-    public static function maybe_json( $input_data, $return_first_item = false ) {
-        if ( 'string' !== gettype( $input_data )  ) { 
-            return $input_data;
-        }
-    
-        $output_data = $input_data;
-
-        // JSON Docode
-        $decode_json = json_decode( $input_data, true );
-
-        if ( ! is_null( $decode_json ) ) {
-            return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
-        }
-        
-        // JSON Decode from Base64
-        $decode_base64 = base64_decode( $input_data );
-        $decode_base64_json = json_decode( $decode_base64, true );
-
-        if ( ! is_null( $decode_base64_json ) ) {
-            return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
-        }
-
-        return $output_data;
-    }
-
     // maybe_serialize
     public function maybe_serialize( $value = '' ) {
-        return maybe_serialize( self::maybe_json( $value ) );
+        return maybe_serialize( Helper::maybe_json( $value ) );
     }
 }

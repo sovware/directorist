@@ -356,11 +356,11 @@ class Multi_Directory_Manager
         $directory_name = $_POST['name'];
 
         $fields     = [];
-        $field_list = self::maybe_json( $_POST['field_list'] );
+        $field_list = Helper::maybe_json( $_POST['field_list'] );
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = self::maybe_json( $_POST[$field_key], true );
+                $fields[ $field_key ] = Helper::maybe_json( $_POST[$field_key], true );
             }
         }
 
@@ -396,7 +396,7 @@ class Multi_Directory_Manager
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
 
-        $value = self::maybe_json($value);
+        $value = Helper::maybe_json($value);
         update_term_meta($term_id, $field_key, $value);
     }
 

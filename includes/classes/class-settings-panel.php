@@ -311,20 +311,6 @@ SWBD;
 		// handle_save_settings_data_request
 		public function handle_save_settings_data_request()
 		{
-			// wp_send_json([
-			//     'status' => false,
-			//     'active_gateways' => $_POST['active_gateways'],
-			//     'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
-			//     'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
-			//     'status_log' => [
-			//         'name_is_missing' => [
-			//             'type' => 'error',
-			//             'message' => 'Debugging',
-			//         ],
-			//     ],
-			// ], 200 );
-
-
 			$status = [ 'success' => false, 'status_log' => [] ];
 			$field_list = ( ! empty( $_POST['field_list'] ) ) ? $this->maybe_json( $_POST['field_list'] ) : [];
 
@@ -335,7 +321,7 @@ SWBD;
 					'message' => __( 'No changes made', 'directorist' ),
 				];
 
-				wp_send_json( [ 'status' => $status, '$field_list' => $field_list ] );
+				wp_send_json( [ 'status' => $status, 'field_list' => $field_list ] );
 			}
 
 			$options = [];

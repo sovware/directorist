@@ -373,7 +373,7 @@ class Multi_Directory_Manager
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = $_POST[$field_key];
+                $fields[ $field_key ] = self::maybe_json( $_POST[$field_key], true );
             }
         }
 

@@ -14200,7 +14200,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var field_list = [];
 
       for (var _field in fields) {
-        var _value = this.maybeJSON(fields[_field].value);
+        var _value = this.maybeJSON([fields[_field].value]);
 
         form_data.append(_field, _value);
         field_list.push(_field);
@@ -14251,11 +14251,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
         var json_encoded_value = JSON.stringify(value);
-        var base64_encoded_value = btoa(json_encoded_value);
+        var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
       }
 
       return value;
+    },
+    encodeUnicodedToBase64: function encodeUnicodedToBase64(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
     }
   })
 });

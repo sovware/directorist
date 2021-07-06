@@ -168,7 +168,7 @@ export default {
             // Get Form Fields Data
             let field_list = [];
             for ( let field in fields ) {
-                let value = this.maybeJSON( fields[ field ].value );
+                let value = this.maybeJSON( [fields[ field ].value] );
 
                 form_data.append( field, value );
                 field_list.push( field );
@@ -227,12 +227,22 @@ export default {
 
             if ( 'object' === typeof value && Object.keys( value ) || Array.isArray( value ) ) {
                 let json_encoded_value = JSON.stringify( value );
-                let base64_encoded_value = btoa( json_encoded_value );
+                let base64_encoded_value = this.encodeUnicodedToBase64( json_encoded_value );
                 value = base64_encoded_value;
             }
 
             return value;
         },
+
+        encodeUnicodedToBase64(str) {
+            // first we use encodeURIComponent to get percent-encoded UTF-8,
+            // then we convert the percent encodings into raw bytes which
+            // can be fed into btoa.
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+                function toSolidBytes(match, p1) {
+                    return String.fromCharCode('0x' + p1);
+            }));
+        }
     }
 }
 </script>

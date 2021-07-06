@@ -14255,8 +14255,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       if (this.form_is_processing) {
         console.log('Please wait...');
         return;
-      } // console.log( 'updateData' );
-
+      }
 
       var fields = this.getFieldsValue();
       var submission_url = this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ? this.$store.state.config.submission.url : '';
@@ -14273,8 +14272,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var error_count = 0;
 
       for (var field_key in fields) {
-        // let new_value    = this.maybeJSON( fields[ field_key ] );
-        // let cahced_value = this.maybeJSON( this.cached_fields[ field_key ].value );
         var new_value = fields[field_key];
         var cahced_value = this.cached_fields[field_key].value;
 
@@ -14294,7 +14291,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         });
       }
 
-      form_data.append('field_list', this.maybeJSON(field_list)); // console.log( error_count );
+      form_data.append('field_list', this.maybeJSON(field_list));
 
       if (error_count) {
         this.status_message = {
@@ -14318,7 +14315,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var self = this; // Submit the form
 
       axios.post(submission_url, form_data).then(function (response) {
-        // console.log( { response } );
         self.form_is_processing = false;
         self.submit_button.is_disabled = false;
         self.submit_button.label = self.submit_button.label_default;

@@ -279,7 +279,6 @@ export default {
 
         updateData( args ) {
             if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
-            // console.log( 'updateData' );
 
             let fields = this.getFieldsValue();
 
@@ -298,8 +297,6 @@ export default {
             let error_count = 0;
 
             for ( let field_key in fields ) {
-                // let new_value    = this.maybeJSON( fields[ field_key ] );
-                // let cahced_value = this.maybeJSON( this.cached_fields[ field_key ].value );
                 let new_value    = fields[ field_key ];
                 let cahced_value = this.cached_fields[ field_key ].value;
 
@@ -320,7 +317,6 @@ export default {
 
             form_data.append( 'field_list', this.maybeJSON( field_list ) );
 
-            // console.log( error_count );
             if ( error_count ) {
                 this.status_message = {
                     type: 'error',
@@ -346,8 +342,6 @@ export default {
             // Submit the form
             axios.post( submission_url, form_data )
                 .then( response => {
-                    // console.log( { response } );
-
                     self.form_is_processing        = false;
                     self.submit_button.is_disabled = false;
                     self.submit_button.label       = self.submit_button.label_default;

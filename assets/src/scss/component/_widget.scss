@@ -79,6 +79,15 @@
   }
 }
 
+
+.directorist-content-active .widget.atbd_widget{
+  ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 .widget.atbd_widget[id^='bd'],
 .widget.atbd_widget[id^='dcl'],
 .widget.atbd_widget {

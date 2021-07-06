@@ -338,19 +338,6 @@ class Multi_Directory_Manager
     // save_post_type_data
     public function save_post_type_data()
     {
-        /* wp_send_json([
-            'single_listings_contents' => self::maybe_json( $_POST['single_listings_contents'] ),
-            'status' => [
-                'success' => false,
-                'status_log' => [
-                    'debugging' => [
-                        'type' => 'error',
-                        'message' => 'Name is missing',
-                    ],
-                ],
-            ],
-        ], 200 ); */
-
         if ( empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [

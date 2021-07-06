@@ -370,7 +370,7 @@ SWBD;
 			foreach ( $options as $option_key => $option_value ) {
 				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
 
-				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value );
+				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value, true );
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );
@@ -387,21 +387,27 @@ SWBD;
 		}
 
         // maybe_json
-		public function maybe_json( $input_data ) {
-            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
+		public function maybe_json( $input_data, $return_first_item = false ) {
+            if ( 'string' !== gettype( $input_data )  ) { 
+                return $input_data;
+            }
         
             $output_data = $input_data;
 
             // JSON Docode
             $decode_json = json_decode( $input_data, true );
 
-            if ( ! is_null( $decode_json ) ) return $decode_json;
+            if ( ! is_null( $decode_json ) ) {
+                return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+            }
             
             // JSON Decode from Base64
             $decode_base64 = base64_decode( $input_data );
             $decode_base64_json = json_decode( $decode_base64, true );
 
-            if ( ! is_null( $decode_base64_json ) ) return $decode_base64_json;
+            if ( ! is_null( $decode_base64_json ) ) {
+                return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+            }
 
             return $output_data;
         }

@@ -7538,11 +7538,8 @@ function atbdp_disable_overwrite_yoast() {
 
 if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
     function directorist_is_active_rankmath() {
-        if ( ! class_exists( 'RankMath' ) ) {
-            return false;
-        }
-
-        return true;
+        
+        return class_exists( 'RankMath' );
     }
 }
 

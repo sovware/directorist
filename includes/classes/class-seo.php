@@ -14,7 +14,7 @@ if (!class_exists('ATBDP_SEO')) :
             add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
             add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
             add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
-            add_action('wp_head', array($this, 'atbdp_add_og_meta'), 10, 2);
+            add_action('wp_head', array($this, 'add_opengraph_meta'), 10, 2);
 
             if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
@@ -32,39 +32,48 @@ if (!class_exists('ATBDP_SEO')) :
                 add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
             }
 
-            // Rank Math Integration
-            // --------------------------------------------
-            // Meta Title
-            add_filter( 'rank_math/frontend/title', function( $title ) {
-                $current_directorist_page = $this->get_directorist_current_page();
-                if ( ! empty( $current_directorist_page ) ) {
-                    return '';
-                }
-                
-                return $title;
-            });
+            /**
+             * Removes Rank Math SEO meta data
+             * 
+             * Rank math SEO meta data has been integrated
+             * to add_opengraph_meta function. So we are removing
+             * meta data's from Rank Math to prevent printing 
+             * duplicate meta data on frontend
+             */
+            $this->disable_rankmath_for_directorist_pages();
+        }
 
-            // Meta Description
-            add_filter( 'rank_math/frontend/description', function( $description ) {
-                $current_directorist_page = $this->get_directorist_current_page();
-                if ( ! empty( $current_directorist_page ) ) {
-                    return '';
-                }
-                
-                return $description;
-            });
+
+        // Disable rankmath for directorist pages
+        public function disable_rankmath_for_directorist_pages() {
+            // Meta Title
+            add_filter( 'rank_math/frontend/title', [ $this, 'disable_rankmath_frontend_meta_for_directorist_pages' ], 20, 1 );
+            add_filter( 'rank_math/frontend/description', [ $this, 'disable_rankmath_frontend_meta_for_directorist_pages' ], 20, 1);
 
             // Opengraph
-            add_action( 'rank_math/head', function() {
-                $current_directorist_page = $this->get_directorist_current_page();
+            add_action( 'rank_math/head', [ $this, 'disable_rankmath_opengraph_meta_for_directorist_pages' ], 20, 0 );
+        }
 
-                if ( empty( $current_directorist_page ) ) {
-                    return;
-                }
+        // Disable rankmath frontend meta for directorist pages
+        public function disable_rankmath_frontend_meta_for_directorist_pages( $content ) {
+            $current_directorist_page = $this->get_directorist_current_page();
+            if ( ! empty( $current_directorist_page ) ) {
+                return '';
+            }
+            
+            return $content;
+        }
 
-                remove_all_actions( 'rank_math/opengraph/facebook' );
-                remove_all_actions( 'rank_math/opengraph/twitter' );
-            });
+        // Disable rankmath opengraph meta for directorist pages
+        public function disable_rankmath_opengraph_meta_for_directorist_pages() {
+            $current_directorist_page = $this->get_directorist_current_page();
+
+            if ( empty( $current_directorist_page ) ) {
+                return;
+            }
+
+            remove_all_actions( 'rank_math/opengraph/facebook' );
+            remove_all_actions( 'rank_math/opengraph/twitter' );
         }
 
         // yoast_sitemap_exclude_taxonomy
@@ -594,8 +603,8 @@ if (!class_exists('ATBDP_SEO')) :
             return apply_filters('atbdp_seo_meta_title', __($title, 'directorist'), $page, $sep);
         }
 
-        // atbdp_add_og_meta
-        public function atbdp_add_og_meta() {
+        // add_opengraph_meta
+        public function add_opengraph_meta() {
             $seo_meta_data = $this->get_seo_meta_data();
 
             $og_metas = [

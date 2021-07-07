@@ -12,27 +12,6 @@ a:focus {
   outline: none;
 }
 
-.directorist-content-active article {
-  margin-bottom: 0;
-  border: 0;
-  padding-bottom: 0;
-}
-.directorist-content-active ul {
-  padding: 0;
-  margin: 0;
-}
-.directorist-content-active ul li {
-  margin: 0;
-}
-.directorist-content-active .entry-content h1,
-.directorist-content-active .entry-content h2,
-.directorist-content-active .entry-content h3,
-.directorist-content-active .entry-content h4,
-.directorist-content-active .entry-content h5,
-.directorist-content-active .entry-content h6 {
-  margin-bottom: 10px;
-}
-
 @-webkit-keyframes rotate360 {
   0% {
     -webkit-transform: rotate(0deg);
@@ -262,9 +241,6 @@ a:focus {
   margin-bottom: 35px;
 }
 
-.directorist-content-active a {
-  text-decoration: none !important;
-}
 .directorist-content-active .primary-menu > li {
   margin: 0.8rem 1.6rem 0 0;
 }
@@ -5518,6 +5494,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
           transform: translateY(-50%);
 }
 
+.directorist-content-active .widget.atbd_widget ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .widget.atbd_widget[id^=bd],
 .widget.atbd_widget[id^=dcl],
 .widget.atbd_widget {
@@ -7460,7 +7442,7 @@ p.atbd-min {
   right: 0;
   top: 0;
   z-index: -1;
-  overflow: hidden;
+  overflow: auto;
   outline: 0;
 }
 
@@ -10876,6 +10858,7 @@ p.atbd-min {
           flex-wrap: wrap;
   margin: -0.5rem 0 0 0;
   list-style-type: none;
+  padding: 0;
 }
 .directorist-single-wrapper .directorist-card__body .directorist-details-info-wrap ul li {
   -webkit-box-flex: 33.333%;
@@ -10978,6 +10961,7 @@ p.atbd-min {
   -webkit-box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
           box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
   list-style-type: none;
+  padding: 0;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
   padding: 11px 20px;
@@ -12545,6 +12529,7 @@ p.atbd-min {
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__items {
   list-style-type: none;
+  padding: 0;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__items li ul {
   display: none;

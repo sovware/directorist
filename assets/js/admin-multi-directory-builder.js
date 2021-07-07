@@ -14200,7 +14200,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var field_list = [];
 
       for (var _field in fields) {
-        var _value = this.maybeJSON(fields[_field].value);
+        var _value = this.maybeJSON([fields[_field].value]);
 
         form_data.append(_field, _value);
         field_list.push(_field);
@@ -14251,36 +14251,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
         var json_encoded_value = JSON.stringify(value);
-        var base64_encoded_value = btoa(json_encoded_value);
+        var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
       }
 
       return value;
     },
-    insertParam: function insertParam(key, value) {
-      key = encodeURIComponent(key);
-      value = encodeURIComponent(value); // kvp looks like ['key1=value1', 'key2=value2', ...]
-
-      var kvp = document.location.search.substr(1).split('&');
-      var i = 0;
-
-      for (; i < kvp.length; i++) {
-        if (kvp[i].startsWith(key + '=')) {
-          var pair = kvp[i].split('=');
-          pair[1] = value;
-          kvp[i] = pair.join('=');
-          break;
-        }
-      }
-
-      if (i >= kvp.length) {
-        kvp[kvp.length] = [key, value].join('=');
-      } // can return this or...
-
-
-      var params = kvp.join('&'); // reload page with new params
-
-      document.location.search = params;
+    encodeUnicodedToBase64: function encodeUnicodedToBase64(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
     }
   })
 });

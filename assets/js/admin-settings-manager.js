@@ -14255,8 +14255,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       if (this.form_is_processing) {
         console.log('Please wait...');
         return;
-      } // console.log( 'updateData' );
-
+      }
 
       var fields = this.getFieldsValue();
       var submission_url = this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ? this.$store.state.config.submission.url : '';
@@ -14273,8 +14272,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var error_count = 0;
 
       for (var field_key in fields) {
-        var new_value = this.maybeJSON(fields[field_key]);
-        var cahced_value = this.maybeJSON(this.cached_fields[field_key].value);
+        var new_value = fields[field_key];
+        var cahced_value = this.cached_fields[field_key].value;
 
         if (this.fields[field_key].validationState && this.fields[field_key].validationState.hasError) {
           error_count++;
@@ -14284,7 +14283,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           continue;
         }
 
-        form_data.append(field_key, new_value);
+        form_data.append(field_key, this.maybeJSON([new_value]));
         field_list.push(field_key);
         this.$store.commit('updateCachedFieldData', {
           key: field_key,
@@ -14292,7 +14291,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         });
       }
 
-      form_data.append('field_list', this.maybeJSON(field_list)); // console.log( error_count );
+      form_data.append('field_list', this.maybeJSON(field_list));
 
       if (error_count) {
         this.status_message = {
@@ -14316,7 +14315,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var self = this; // Submit the form
 
       axios.post(submission_url, form_data).then(function (response) {
-        // console.log( { response } );
         self.form_is_processing = false;
         self.submit_button.is_disabled = false;
         self.submit_button.label = self.submit_button.label_default;
@@ -14374,11 +14372,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
         var json_encoded_value = JSON.stringify(value);
-        var base64_encoded_value = btoa(json_encoded_value);
+        var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
       }
 
       return value;
+    },
+    encodeUnicodedToBase64: function encodeUnicodedToBase64(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
     }
   })
 });

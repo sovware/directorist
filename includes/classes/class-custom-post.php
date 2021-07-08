@@ -212,7 +212,7 @@ if (!class_exists('ATBDP_Custom_Post')) :
                 'menu_position'       => 5,
             ];
 
-            $slug = get_directorist_option('atbdp_listing_slug', 'at_biz_dir');
+            $slug = get_directorist_option('atbdp_listing_slug', 'directory');
 
             if (get_directorist_option('single_listing_slug_with_directory_type', false)) {
                 $slug = ATBDP_Permalink::get_listing_slug();

@@ -338,19 +338,6 @@ class Multi_Directory_Manager
     // save_post_type_data
     public function save_post_type_data()
     {
-        /* wp_send_json([
-            'single_listings_contents' => self::maybe_json( $_POST['single_listings_contents'] ),
-            'status' => [
-                'success' => false,
-                'status_log' => [
-                    'debugging' => [
-                        'type' => 'error',
-                        'message' => 'Name is missing',
-                    ],
-                ],
-            ],
-        ], 200 ); */
-
         if ( empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [
@@ -369,11 +356,11 @@ class Multi_Directory_Manager
         $directory_name = $_POST['name'];
 
         $fields     = [];
-        $field_list = self::maybe_json( $_POST['field_list'] );
+        $field_list = Helper::maybe_json( $_POST['field_list'] );
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = $_POST[$field_key];
+                $fields[ $field_key ] = Helper::maybe_json( $_POST[$field_key], true );
             }
         }
 
@@ -409,7 +396,7 @@ class Multi_Directory_Manager
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
 
-        $value = self::maybe_json($value);
+        $value = Helper::maybe_json($value);
         update_term_meta($term_id, $field_key, $value);
     }
 
@@ -4185,6 +4172,44 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
+
+            'single_listings_shortcodes' => [
+                'type'        => 'shortcode-list',
+                'buttonLabel' => 'Generate',
+                'label'       => __( 'Generate shortcodes', 'directorist' ),
+                'description' => __( 'Generate single listing shortcodes', 'directorist' ),
+                'value'       => [
+                    '[directorist_single_listings_header]',
+                    [
+                        'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                        'mapAtts' => [
+                            [
+                                'mapAll' => 'single_listings_contents.value.groups',
+                                'where' => [
+                                    'key' => 'label',
+                                        'applyFilter' => [
+                                            ['type' => 'lowercase'],
+                                            [
+                                                'type'       => 'replace',
+                                                'find_regex' => '\\s',
+                                                'replace'    => '-',
+                                            ],
+                                        ],
+                                        'mapTo' => '@@shortcode_key@@'
+                                ]
+                            ],
+                        ],
+                    ],
+                ],
+
+                'show_if' => [
+                    'where' => "enable_single_listing_page",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => true],
+                    ],
+                ],
+            ],
+
             'similar_listings_logics' => [
                 'type'    => 'radio',
                 'name'    => 'similar_listings_logics',
@@ -4636,6 +4661,7 @@ class Multi_Directory_Manager
                                 'fields' => [
                                     'enable_single_listing_page',
                                     'single_listing_page',
+                                    'single_listings_shortcodes',
                                 ],
                             ],
                             'other' => [

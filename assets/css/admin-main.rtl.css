@@ -5287,9 +5287,6 @@ img.atbdp-file-info {
   margin-bottom: 35px;
 }
 
-.directorist-content-active a {
-  text-decoration: none !important;
-}
 .directorist-content-active .primary-menu > li {
   margin: 0.8rem 1.6rem 0 0;
 }
@@ -5561,6 +5558,23 @@ p.status:empty {
 .directorist-content-active span {
   word-break: break-word;
   word-wrap: break-word;
+}
+
+.cptm-shortcodes {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.directorist-text-right {
+  text-align: left;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+.directorist-text-left {
+  text-align: right;
 }
 
 .directorist-mt-0 {
@@ -8851,7 +8865,7 @@ for shortable field*/
   right: 0;
   top: 0;
   z-index: -1;
-  overflow: hidden;
+  overflow: auto;
   outline: 0;
 }
 
@@ -8997,6 +9011,96 @@ for shortable field*/
     width: calc(100% - 30px);
   }
 }
+/* Alerts style */
+.directorist-alert {
+  font-size: 16px;
+  border-radius: 3px;
+  background: #f4f4f4;
+  padding: 15px 20px;
+}
+.directorist-alert .directorist-alert__content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.directorist-alert .directorist-alert__content span.la,
+.directorist-alert .directorist-alert__content span.fa,
+.directorist-alert .directorist-alert__content i {
+  margin-left: 12px;
+  line-height: 1.65;
+}
+.directorist-alert .directorist-alert__content p {
+  margin-bottom: 0;
+}
+.directorist-alert .directorist-alert__close {
+  padding: 0 5px;
+  font-size: 20px !important;
+  background: none;
+  text-decoration: none;
+  margin-right: auto !important;
+  border: 0 none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  line-height: 1.2;
+}
+.directorist-alert .directorist-alert__close .la,
+.directorist-alert .directorist-alert__close .fa,
+.directorist-alert .directorist-alert__close i,
+.directorist-alert .directorist-alert__close span {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #EF0000;
+}
+.directorist-alert .directorist-alert__close:focus {
+  background-color: transparent;
+  outline: none;
+}
+
+.directorist-alert.directorist-alert-primary {
+  background: rgba(68, 71, 82, 0.1);
+  color: #444752;
+}
+.directorist-alert.directorist-alert-primary .directorist-alert__close {
+  color: #444752;
+}
+.directorist-alert.directorist-alert-info {
+  background: #DCEBFE;
+  color: #157CF6;
+}
+.directorist-alert.directorist-alert-info .directorist-alert__close {
+  color: #157CF6;
+}
+.directorist-alert.directorist-alert-warning {
+  background: #FEE9D9;
+  color: #F56E00;
+}
+.directorist-alert.directorist-alert-warning .directorist-alert__close {
+  color: #F56E00;
+}
+.directorist-alert.directorist-alert-danger {
+  background: #FCD9D9;
+  color: #E80000;
+}
+.directorist-alert.directorist-alert-danger .directorist-alert__close {
+  color: #E80000;
+}
+.directorist-alert.directorist-alert-success {
+  background: #D9EFDC;
+  color: #009114;
+}
+.directorist-alert.directorist-alert-success .directorist-alert__close {
+  color: #009114;
+}
+
+.alert-danger {
+  background: rgba(232, 0, 0, 0.3);
+}
+
 .directorist-badge {
   display: inline-block;
   font-size: 10px;
@@ -9800,6 +9904,23 @@ for shortable field*/
 .directorist-content-active span {
   word-break: break-word;
   word-wrap: break-word;
+}
+
+.cptm-shortcodes {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.directorist-text-right {
+  text-align: left;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+.directorist-text-left {
+  text-align: right;
 }
 
 .directorist-mt-0 {
@@ -12926,6 +13047,23 @@ input[type=radio] {
 .directorist-content-active span {
   word-break: break-word;
   word-wrap: break-word;
+}
+
+.cptm-shortcodes {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.directorist-text-right {
+  text-align: left;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+.directorist-text-left {
+  text-align: right;
 }
 
 .directorist-mt-0 {
@@ -16057,6 +16195,23 @@ input[type=radio] {
 .directorist-content-active span {
   word-break: break-word;
   word-wrap: break-word;
+}
+
+.cptm-shortcodes {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.directorist-text-right {
+  text-align: left;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+.directorist-text-left {
+  text-align: right;
 }
 
 .directorist-mt-0 {

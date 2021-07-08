@@ -254,6 +254,8 @@ $('#at_biz_dir-categories').on('change', function () {
         id.push($(index).val());
     });
 
+    $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
+
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('input[name="listing_id"]').val(),

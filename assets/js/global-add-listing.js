@@ -336,7 +336,8 @@ $('#listing_t_c').on('click', function (e) {
 });
 $(function () {
   $('#color_code2').wpColorPicker().empty();
-}); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+});
+$('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
 $('#at_biz_dir-categories').on('change', function () {
   var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
@@ -345,7 +346,6 @@ $('#at_biz_dir-categories').on('change', function () {
   length.each(function (el, index) {
     id.push($(index).val());
   });
-  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
   var data = {
     action: 'atbdp_custom_fields_listings',
     post_id: $('input[name="listing_id"]').val(),

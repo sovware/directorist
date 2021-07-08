@@ -7,21 +7,13 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="! shortcodes.length"
-                    :value="buttonLabel" 
-                    @click="generateShortcode"
-                >
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
+                    <span v-html="generateButtonLabel"></span>
+                </button>
 
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="shortcodes.length"
-                    value="Copy all" 
-                    @click="copyToClip('all-shortcodes')"
-                >
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes.length" @click="copyToClip('all-shortcodes')">
+                    <span v-html="copyButtonLabel"></span>
+                </button>
 
                 <div v-if="dirty">
                     <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>

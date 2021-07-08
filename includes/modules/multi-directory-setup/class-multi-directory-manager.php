@@ -4118,9 +4118,33 @@ class Multi_Directory_Manager
                         'value' => '',
                     ],
                     'shortcode' => [
-                        'type'  => 'shortcode',
-                        'label' => __( 'Shortcode', 'directorist' ),
-                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
+                        'type'        => 'shortcode-list',
+                        'label'       => __( 'Shortcode', 'directorist' ),
+                        'buttonLabel' => '<i class="fas fa-magic"></i>',
+                        'value' => [
+                            [
+                                'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                                'mapAtts' => [
+                                    [
+                                        'map' => 'self.label',
+                                        'where' => [
+                                            'key' => 'value',
+                                                'applyFilter' => [
+                                                    ['type' => 'lowercase'],
+                                                    [
+                                                        'type'       => 'replace',
+                                                        'find_regex' => '\\s',
+                                                        'replace'    => '-',
+                                                    ],
+                                                ],
+                                                'mapTo' => '@@shortcode_key@@'
+                                        ]
+                                    ],
+                                ],
+                            ],
+                        ],
+
+                        '__value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
                         'filters' => [
                             [
                                 'type'         => 'replace',
@@ -4175,7 +4199,7 @@ class Multi_Directory_Manager
 
             'single_listings_shortcodes' => [
                 'type'        => 'shortcode-list',
-                'buttonLabel' => 'Generate',
+                'buttonLabel' => '<i class="fas fa-magic"></i>',
                 'label'       => __( 'Generate shortcodes', 'directorist' ),
                 'description' => __( 'Generate single listing shortcodes', 'directorist' ),
                 'value'       => [

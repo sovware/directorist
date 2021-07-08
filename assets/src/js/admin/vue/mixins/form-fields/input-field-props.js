@@ -63,6 +63,10 @@ export default {
             type: String,
             default: '',
         },
+        copyButtonLabel: {
+            type: String,
+            default: '<i class="far fa-copy"></i>',
+        },
         exportFileName: {
             type: String,
             default: 'data',

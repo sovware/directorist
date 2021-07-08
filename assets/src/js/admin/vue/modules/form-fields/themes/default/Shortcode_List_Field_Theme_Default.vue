@@ -1,26 +1,19 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
         <div class="atbdp-row">
-            <div class="atbdp-col atbdp-col-8">
+            <div class="atbdp-col atbdp-col-6">
                 <label v-if="( label.length )">{{ label }}</label>
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
-            <div class="atbdp-col atbdp-col-4 directorist-text-right">
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="! shortcodes.length"
-                    :value="buttonLabel" 
-                    @click="generateShortcode"
-                >
+            
+            <div class="atbdp-col atbdp-col-6 directorist-text-right">
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
+                    <span v-html="generateButtonLabel"></span>
+                </button>
 
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="shortcodes.length"
-                    value="Copy all" 
-                    @click="copyToClip('all-shortcodes')"
-                >
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes.length" @click="copyToClip('all-shortcodes')">
+                    <span v-html="copyButtonLabel"></span>
+                </button>
             </div>
         </div>
         

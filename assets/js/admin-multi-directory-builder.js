@@ -42276,20 +42276,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
-          _c(
-            "button",
-            {
-              staticClass: "cptm-btn cptm-generate-shortcode-button",
-              attrs: { type: "button" },
-              on: { click: _vm.generateShortcode }
-            },
-            [
-              _c("span", {
-                domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
-              })
-            ]
-          ),
-          _vm._v(" "),
           _vm.shortcodes.length
             ? _c(
                 "button",
@@ -42309,6 +42295,20 @@ var render = function() {
                 ]
               )
             : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "cptm-btn cptm-generate-shortcode-button",
+              attrs: { type: "button" },
+              on: { click: _vm.generateShortcode }
+            },
+            [
+              _c("span", {
+                domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
+              })
+            ]
+          ),
           _vm._v(" "),
           _vm.dirty
             ? _c("div", [
@@ -43942,20 +43942,6 @@ var render = function() {
           "div",
           { staticClass: "atbdp-col atbdp-col-6 directorist-text-right" },
           [
-            _c(
-              "button",
-              {
-                staticClass: "cptm-btn cptm-generate-shortcode-button",
-                attrs: { type: "button" },
-                on: { click: _vm.generateShortcode }
-              },
-              [
-                _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
-                })
-              ]
-            ),
-            _vm._v(" "),
             _vm.shortcodes.length
               ? _c(
                   "button",
@@ -43974,7 +43960,21 @@ var render = function() {
                     })
                   ]
                 )
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "cptm-btn cptm-generate-shortcode-button",
+                attrs: { type: "button" },
+                on: { click: _vm.generateShortcode }
+              },
+              [
+                _c("span", {
+                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
+                })
+              ]
+            )
           ]
         )
       ]),

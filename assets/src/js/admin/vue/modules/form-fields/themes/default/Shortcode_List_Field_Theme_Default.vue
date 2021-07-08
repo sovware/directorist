@@ -7,12 +7,12 @@
             </div>
             
             <div class="atbdp-col atbdp-col-6 directorist-text-right">
-                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
-                    <span v-html="generateButtonLabel"></span>
-                </button>
-
                 <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes.length" @click="copyToClip('all-shortcodes')">
                     <span v-html="copyButtonLabel"></span>
+                </button>
+
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
+                    <span v-html="generateButtonLabel"></span>
                 </button>
             </div>
         </div>

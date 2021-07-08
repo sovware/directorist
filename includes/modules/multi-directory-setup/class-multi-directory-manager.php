@@ -4143,30 +4143,7 @@ class Multi_Directory_Manager
                                 ],
                             ],
                         ],
-
-                        '__value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
-                        'filters' => [
-                            [
-                                'type'         => 'replace',
-                                'find'         => '%%shortcode_key%%',
-                                'replace_from' => 'self.label',
-                            ],
-                            [
-                                'type'       => 'lowercase',
-                                'find_regex' => '@@.+@@',
-                            ],
-                            [
-                                'type'       => 'replace',
-                                'look_for'   => '@@.+@@',
-                                'find_regex' => '\\s',
-                                'replace'    => '-',
-                            ],
-                            [
-                                'type'       => 'replace',
-                                'find_regex' => '@@(.+)@@',
-                                'replace'    => '$1',
-                            ],
-                        ],
+                        
                         'show_if' => [
                             'where' => "enable_single_listing_page",
                             'conditions' => [

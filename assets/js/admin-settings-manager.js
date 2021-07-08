@@ -2344,10 +2344,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
   computed: {
     formGroupClass: function formGroupClass() {
       var _this$validationLog;
@@ -2379,6 +2375,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       this.shortcodes = [];
 
       if (typeof this.value === 'string') {
+        this.dirty = true;
         this.shortcodes.push(this.value);
         return;
       }

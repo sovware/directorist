@@ -4173,7 +4173,7 @@ class Multi_Directory_Manager
                 ],
             ],
 
-            'single_listing_shortcodes' => [
+            'single_listings_shortcodes' => [
                 'type'        => 'shortcode-list',
                 'buttonLabel' => 'Generate',
                 'label'       => __( 'Generate shortcodes', 'directorist' ),
@@ -4661,7 +4661,7 @@ class Multi_Directory_Manager
                                 'fields' => [
                                     'enable_single_listing_page',
                                     'single_listing_page',
-                                    'single_listing_shortcodes',
+                                    'single_listings_shortcodes',
                                 ],
                             ],
                             'other' => [

@@ -24,3 +24,5 @@
 	<?php $listing_form->field_description_template( $data ); ?>
 
 </div>
+
+<div class="atbdp_category_custom_fields"></div>

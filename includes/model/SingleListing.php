@@ -443,7 +443,7 @@ class Directorist_Single_Listing {
 			'height'             => get_directorist_option('gallery_crop_height', 750),
 			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
 			'thumbnail-bg-color' => '#fff',
-			'show-thumbnails'    => get_directorist_option('dsiplay_thumbnail_img', true) ? '1' : '0',
+			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',
 			'gallery'            => true,
 			'rtl'                => is_rtl() ? '1' : '0',
 		);

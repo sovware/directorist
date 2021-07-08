@@ -2484,13 +2484,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         return value;
       }
 
-      console.log({
-        args: args,
-        value: value,
-        source: source,
-        root: this.root
-      }); // return;
-
       if (args.where && !Array.isArray(args.where)) {
         var _shortcode2 = shortcode;
         var key = source[args.where.key];

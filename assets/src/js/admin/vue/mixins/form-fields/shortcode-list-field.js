@@ -111,10 +111,6 @@ export default {
 
             if ( ! source ) { return value; }
 
-            console.log( { args, value, source, root: this.root } );
-
-            // return;
-
             if ( args.where && ! Array.isArray( args.where ) ) {
                 let _shortcode = shortcode;
                 let key = source[ args.where.key ];

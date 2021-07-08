@@ -3,11 +3,6 @@ import helpers from './../helpers';
 
 export default {
     mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'update'
-    },
-
     computed: {
         formGroupClass() {
             var validation_classes = ( this.validationLog?.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
@@ -42,6 +37,7 @@ export default {
             this.shortcodes = [];
 
             if ( typeof this.value === 'string' ) {
+                this.dirty = true;
                 this.shortcodes.push( this.value );
                 return;
             }

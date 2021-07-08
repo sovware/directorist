@@ -1394,6 +1394,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       default: ''
     },
+    labelType: {
+      type: [String],
+      default: 'span'
+    },
     buttonLabel: {
       type: String,
       default: ''
@@ -28186,6 +28190,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ajax-action-field-theme-butterfly',
@@ -28223,6 +28230,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'button-field-theme-butterfly',
@@ -28241,6 +28251,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_checkbox_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/checkbox-field */ "./assets/src/js/admin/vue/mixins/form-fields/checkbox-field.js");
+//
+//
+//
 //
 //
 //
@@ -28333,6 +28346,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'color-field-theme-butterfly',
@@ -28351,6 +28367,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/export-data-field */ "./assets/src/js/admin/vue/mixins/form-fields/export-data-field.js");
+//
+//
+//
 //
 //
 //
@@ -28412,6 +28431,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'export-field-theme-butterfly',
@@ -28430,6 +28452,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_import_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/import-field */ "./assets/src/js/admin/vue/mixins/form-fields/import-field.js");
+//
+//
+//
 //
 //
 //
@@ -28544,6 +28569,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'radio-field-theme-butterfly',
@@ -28610,6 +28638,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'range-field-theme-butterfly',
@@ -28628,6 +28659,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_restore_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/restore-field */ "./assets/src/js/admin/vue/mixins/form-fields/restore-field.js");
+//
+//
+//
 //
 //
 //
@@ -28726,6 +28760,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-butterfly',
@@ -28761,6 +28798,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'shortcode-field-theme-butterfly',
@@ -28779,6 +28819,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_shortcode_list_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/shortcode-list-field */ "./assets/src/js/admin/vue/mixins/form-fields/shortcode-list-field.js");
+//
+//
+//
 //
 //
 //
@@ -28855,6 +28898,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'text-field-theme-butterfly',
@@ -28898,6 +28944,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textarea-field-theme-butterfly',
@@ -28916,6 +28965,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/toggle-field */ "./assets/src/js/admin/vue/mixins/form-fields/toggle-field.js");
+//
+//
+//
 //
 //
 //
@@ -29018,6 +29070,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'wp-media-picker-field-theme-butterfly',
@@ -29058,6 +29113,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ajax-action-field-theme-default',
@@ -29076,6 +29134,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_checkbox_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/checkbox-field */ "./assets/src/js/admin/vue/mixins/form-fields/checkbox-field.js");
+//
+//
 //
 //
 //
@@ -29168,6 +29228,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'color-field-theme-default',
@@ -29186,6 +29249,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_export_data_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/export-data-field */ "./assets/src/js/admin/vue/mixins/form-fields/export-data-field.js");
+//
+//
+//
 //
 //
 //
@@ -29235,6 +29301,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'export-field-theme-butterfly',
@@ -29253,6 +29322,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_import_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/import-field */ "./assets/src/js/admin/vue/mixins/form-fields/import-field.js");
+//
+//
+//
 //
 //
 //
@@ -29355,6 +29427,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'radio-field-theme-default',
@@ -29415,6 +29490,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'range-field-theme-default',
@@ -29433,6 +29511,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_restore_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/restore-field */ "./assets/src/js/admin/vue/mixins/form-fields/restore-field.js");
+//
+//
+//
 //
 //
 //
@@ -29512,6 +29593,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-default',
@@ -29541,6 +29625,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'shortcode-field-theme-default',
@@ -29559,6 +29646,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_shortcode_list_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/shortcode-list-field */ "./assets/src/js/admin/vue/mixins/form-fields/shortcode-list-field.js");
+//
+//
+//
 //
 //
 //
@@ -29629,6 +29719,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'text-field-theme-default',
@@ -29647,6 +29740,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/textarea-field */ "./assets/src/js/admin/vue/mixins/form-fields/textarea-field.js");
+//
+//
+//
 //
 //
 //
@@ -29723,6 +29819,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'toggle-field-theme-default',
@@ -29741,6 +29840,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/wp-media-picker-field */ "./assets/src/js/admin/vue/mixins/form-fields/wp-media-picker-field.js");
+//
+//
+//
 //
 //
 //
@@ -41227,9 +41329,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -41305,7 +41413,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41353,7 +41471,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group cptm-theme-butterfly" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _c("label", [_vm._v(_vm._s(_vm.label))]),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41508,9 +41636,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -41602,7 +41736,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41653,7 +41797,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41730,7 +41884,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41848,7 +42012,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _c("label", [_vm._v(_vm._s(_vm.label))]),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -41987,9 +42161,15 @@ var render = function() {
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
         _vm.label.length
-          ? _c("label", { attrs: { for: _vm.name } }, [
-              _vm._v(_vm._s(_vm.label))
-            ])
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
           : _vm._e(),
         _vm._v(" "),
         _vm.description.length
@@ -42101,7 +42281,17 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -42183,7 +42373,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           _vm.label.length
-            ? _c("label", [_vm._v(_vm._s(_vm.label))])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -42376,10 +42574,16 @@ var render = function() {
     [
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-          "hidden" !== _vm.input_type && _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+          _vm.label.length
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -42450,7 +42654,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           _vm.label.length
-            ? _c("label", [_vm._v(_vm._s(_vm.label))])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -42562,9 +42774,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           "hidden" !== _vm.input_type && _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -42660,10 +42878,16 @@ var render = function() {
     [
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-          "hidden" !== _vm.input_type && _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+          _vm.label.length
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -42762,9 +42986,17 @@ var render = function() {
     [
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-          _c("label", { attrs: { for: _vm.name } }, [
-            _vm._v(_vm._s(_vm.label))
-          ]),
+          _vm.label.length
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm.description.length
             ? _c("p", {
@@ -42917,9 +43149,15 @@ var render = function() {
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
         _vm.label.length
-          ? _c("label", { attrs: { for: _vm.name } }, [
-              _vm._v(_vm._s(_vm.label))
-            ])
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
           : _vm._e(),
         _vm._v(" "),
         _vm.description.length
@@ -43044,7 +43282,15 @@ var render = function() {
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
       _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length
@@ -43112,7 +43358,17 @@ var render = function() {
     "div",
     { staticClass: "cptm-form-group" },
     [
-      _c("label", [_vm._v(_vm._s(_vm.label))]),
+      _vm.label.length
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.description.length
         ? _c("p", {
@@ -43260,9 +43516,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
           _vm.label.length
-            ? _c("label", { attrs: { for: _vm.name } }, [
-                _vm._v(_vm._s(_vm.label))
-              ])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -43367,7 +43629,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
-    _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+    _vm.label.length
+      ? _c(
+          "label",
+          [
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.description.length
       ? _c("p", {
@@ -43412,7 +43682,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
-    _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+    _vm.label.length
+      ? _c(
+          "label",
+          [
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.description.length
       ? _c("p", {
@@ -43481,7 +43759,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
-    _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+    _vm.label.length
+      ? _c(
+          "label",
+          [
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.description.length
       ? _c("p", {
@@ -43594,7 +43880,17 @@ var render = function() {
     "div",
     { staticClass: "cptm-form-group" },
     [
-      _c("label", [_vm._v(_vm._s(_vm.label))]),
+      _vm.label.length
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.description.length
         ? _c("p", {
@@ -43721,7 +44017,15 @@ var render = function() {
     { staticClass: "cptm-form-group" },
     [
       _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length
@@ -43824,7 +44128,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
-    _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+    _vm.label.length
+      ? _c(
+          "label",
+          [
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.description.length
       ? _c("p", {
@@ -43897,7 +44209,17 @@ var render = function() {
     "div",
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
-      _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+      _vm.label.length
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.description.length
         ? _c("p", {
@@ -44046,7 +44368,15 @@ var render = function() {
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
       _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length
@@ -44113,7 +44443,15 @@ var render = function() {
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-6" }, [
           _vm.label.length
-            ? _c("label", [_vm._v(_vm._s(_vm.label))])
+            ? _c(
+                "label",
+                [
+                  _c(_vm.labelType, { tag: "component" }, [
+                    _vm._v(_vm._s(_vm.label))
+                  ])
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.description.length
@@ -44225,7 +44563,15 @@ var render = function() {
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
       "hidden" !== _vm.input_type && _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length
@@ -44312,7 +44658,15 @@ var render = function() {
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
       "hidden" !== _vm.input_type && _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length
@@ -44402,7 +44756,17 @@ var render = function() {
     { staticClass: "cptm-form-group" },
     [
       _c("div", { staticClass: "cptm-input-toggle-wrap" }, [
-        _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))]),
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label))
+                ])
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.description.length
           ? _c("p", {
@@ -44548,7 +44912,15 @@ var render = function() {
     { staticClass: "cptm-form-group" },
     [
       _vm.label.length
-        ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        ? _c(
+            "label",
+            [
+              _c(_vm.labelType, { tag: "component" }, [
+                _vm._v(_vm._s(_vm.label))
+              ])
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.description.length

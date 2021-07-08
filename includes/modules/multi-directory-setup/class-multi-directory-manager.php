@@ -4179,9 +4179,10 @@ class Multi_Directory_Manager
                 'value' => [],
             ],
             'enable_single_listing_page' => [
-                'type'          => 'toggle',
-                'label'         => __( 'Show single listing in page', 'directorist' ),
-                'value'         => false,
+                'type'      => 'toggle',
+                'label'     => __( 'Custom Single Listing Page', 'directorist' ),
+                'labelType' => 'h3',
+                'value'     => false,
             ],
             'single_listing_page' => [
                 'label'             => __('Single listing page', 'directorist'),
@@ -4681,13 +4682,6 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
-                            'page_settings' => [
-                                'fields' => [
-                                    'enable_single_listing_page',
-                                    'single_listing_page',
-                                    'single_listings_shortcodes',
-                                ],
-                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4695,6 +4689,13 @@ class Multi_Directory_Manager
                                     'listing_from_same_author',
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
+                                ],
+                            ],
+                            'page_settings' => [
+                                'fields' => [
+                                    'enable_single_listing_page',
+                                    'single_listing_page',
+                                    'single_listings_shortcodes',
                                 ],
                             ],
                         ]

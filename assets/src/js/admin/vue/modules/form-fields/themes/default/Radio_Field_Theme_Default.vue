@@ -1,6 +1,9 @@
 <template>
     <div class="cptm-form-group">
-        <label>{{label}}</label>
+        <label v-if="( label.length )">
+            <component :is="labelType">{{ label }}</component>
+        </label>
+        
         <p class="cptm-info-text" v-if="description.length" v-html="description"></p>
 
         <div class="cptm-radio-area">

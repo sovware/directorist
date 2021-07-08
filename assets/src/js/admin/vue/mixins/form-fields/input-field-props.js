@@ -59,6 +59,10 @@ export default {
             type: [String, Number],
             default: '',
         },
+        labelType: {
+            type: [String],
+            default: 'span',
+        },
         buttonLabel: {
             type: String,
             default: '',

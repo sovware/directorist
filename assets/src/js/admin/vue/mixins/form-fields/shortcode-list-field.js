@@ -310,7 +310,7 @@ export default {
                 range.select().createTextRange();
                 document.execCommand("copy");
 
-                this.successMsg = 'Copied to clipboard';
+                this.successMsg = 'Copied';
                 setTimeout( this.clearSuccessMessage, 2000 );
 
               } else if (window.getSelection) {
@@ -320,7 +320,7 @@ export default {
                 window.getSelection().addRange(range);
                 document.execCommand("copy");
 
-                this.successMsg = 'Copied to clipboard';
+                this.successMsg = 'Copied';
                 setTimeout( this.clearSuccessMessage, 2000 );
               }
         },

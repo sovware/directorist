@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
-        <label v-if="( 'hidden' !== input_type && label.length )">
+        <label v-if="( label.length )">
             <component :is="labelType">{{ label }}</component>
         </label>
         

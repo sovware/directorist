@@ -10,16 +10,19 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes.length" @click="copyToClip('all-shortcodes')">
-                    <span v-html="copyButtonLabel"></span>
-                </button>
+                <div class="directorist-mb-n20">
+                    <span v-if="successMsg.length" class="cptm-info-text cptm-info-success directorist-center-content-inline" v-html="successMsg"></span>
 
-                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
-                    <span v-html="generateButtonLabel"></span>
-                </button>
+                    <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes.length" @click="copyToClip('all-shortcodes')">
+                        <span v-html="copyButtonLabel"></span>
+                    </button>
+
+                    <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
+                        <span v-html="generateButtonLabel"></span>
+                    </button>
+                </div>
 
                 <div v-if="dirty">
-                    <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>
                     <div v-if="shortcodes.length" class="cptm-shortcodes">
                         <p class="directorist-alert" v-for="( shortcode, i ) in shortcodes" :key="i" v-html="shortcode" ref="shortcodes"></p>
                     </div>

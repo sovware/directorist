@@ -2727,7 +2727,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         range.moveToElementText(ref_elm);
         range.select().createTextRange();
         document.execCommand("copy");
-        this.successMsg = 'Copied to clipboard';
+        this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
         var range = document.createRange();
@@ -2735,7 +2735,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand("copy");
-        this.successMsg = 'Copied to clipboard';
+        this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       }
     },
@@ -28854,6 +28854,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'shortcode-list-field-theme-butterfly',
@@ -29646,6 +29649,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_shortcode_list_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/shortcode-list-field */ "./assets/src/js/admin/vue/mixins/form-fields/shortcode-list-field.js");
+//
 //
 //
 //
@@ -42674,50 +42678,52 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
-          _vm.shortcodes.length
-            ? _c(
-                "button",
-                {
-                  staticClass: "cptm-btn cptm-generate-shortcode-button",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.copyToClip("all-shortcodes")
+          _c("div", { staticClass: "directorist-mb-n20" }, [
+            _vm.successMsg.length
+              ? _c("span", {
+                  staticClass:
+                    "cptm-info-text cptm-info-success directorist-center-content-inline",
+                  domProps: { innerHTML: _vm._s(_vm.successMsg) }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.shortcodes.length
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "cptm-btn cptm-generate-shortcode-button",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.copyToClip("all-shortcodes")
+                      }
                     }
-                  }
-                },
-                [
-                  _c("span", {
-                    domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) }
-                  })
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "cptm-btn cptm-generate-shortcode-button",
-              attrs: { type: "button" },
-              on: { click: _vm.generateShortcode }
-            },
-            [
-              _c("span", {
-                domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
-              })
-            ]
-          ),
+                  },
+                  [
+                    _c("span", {
+                      domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) }
+                    })
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "cptm-btn cptm-generate-shortcode-button",
+                attrs: { type: "button" },
+                on: { click: _vm.generateShortcode }
+              },
+              [
+                _c("span", {
+                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
+                })
+              ]
+            )
+          ]),
           _vm._v(" "),
           _vm.dirty
             ? _c("div", [
-                _vm.successMsg.length
-                  ? _c(
-                      "div",
-                      { staticClass: "cptm-info-text cptm-info-success" },
-                      [_vm._v(_vm._s(_vm.successMsg))]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
                 _vm.shortcodes.length
                   ? _c(
                       "div",
@@ -44464,8 +44470,19 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "atbdp-col atbdp-col-6 directorist-text-right" },
+          {
+            staticClass:
+              "atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20"
+          },
           [
+            _vm.successMsg.length
+              ? _c("span", {
+                  staticClass:
+                    "cptm-info-text cptm-info-success directorist-center-content-inline",
+                  domProps: { innerHTML: _vm._s(_vm.successMsg) }
+                })
+              : _vm._e(),
+            _vm._v(" "),
             _vm.shortcodes.length
               ? _c(
                   "button",
@@ -44505,12 +44522,6 @@ var render = function() {
       _vm._v(" "),
       _vm.dirty
         ? _c("div", [
-            _vm.successMsg.length
-              ? _c("div", { staticClass: "cptm-info-text cptm-info-success" }, [
-                  _vm._v(_vm._s(_vm.successMsg))
-                ])
-              : _vm._e(),
-            _vm._v(" "),
             _vm.shortcodes.length
               ? _c(
                   "div",
@@ -44657,7 +44668,7 @@ var render = function() {
     "div",
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
-      "hidden" !== _vm.input_type && _vm.label.length
+      _vm.label.length
         ? _c(
             "label",
             [

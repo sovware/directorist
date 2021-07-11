@@ -1,6 +1,9 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
-        <label v-if="( label.length )" :for="name">{{ label }}</label>
+        <label v-if="( label.length )">
+            <component :is="labelType">{{ label }}</component>
+        </label>
+        
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
         <input type="button" v-if="! generateShortcode" class="cptm-btn cptm-generate-shortcode-button" value="Generate Shortcode" @click="generate">

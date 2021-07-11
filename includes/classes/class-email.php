@@ -91,6 +91,7 @@ if (!class_exists('ATBDP_Email')):
             $site_url = site_url();
             $l_title = get_the_title($listing_id);
             $listing_url = get_permalink($listing_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($listing_id, $listing_url);
             $l_edit_url = admin_url("post.php?post={$listing_id}&action=edit");
             $user_dashboard = admin_url("users.php");
             $date_format = get_option('date_format');
@@ -558,8 +559,15 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_expired($listing_id)
         {
-            //if (get_directorist_option('disable_email_notification')) return false;
-            // if(! in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ) return false;
+            if( empty($listing_id ) ) {
+                return false;
+            }
+            if( get_directorist_option( 'disable_email_notification' ) ) {
+                return false;
+            }
+            if( ! in_array( 'listing_expired', get_directorist_option( 'notify_user', array() ) ) ) {
+                return false;
+            }
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user, true);

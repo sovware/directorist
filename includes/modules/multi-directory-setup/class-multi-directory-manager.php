@@ -4118,31 +4118,33 @@ class Multi_Directory_Manager
                         'value' => '',
                     ],
                     'shortcode' => [
-                        'type'  => 'shortcode',
-                        'label' => __( 'Shortcode', 'directorist' ),
-                        'value' => '[directorist_single_listings_section key="@@%%shortcode_key%%@@"]',
-                        'filters' => [
+                        'type'        => 'shortcode-list',
+                        'label'       => __( 'Shortcode', 'directorist' ),
+                        'description' => __( 'Click the wizerd button to generate the shortcode. This shortcode depends on the Label field, so make sure to regenarate the shortcode if you update the section Label', 'directorist' ),
+                        'buttonLabel' => '<i class="fas fa-magic"></i>',
+                        'value'       => [
                             [
-                                'type'         => 'replace',
-                                'find'         => '%%shortcode_key%%',
-                                'replace_from' => 'self.label',
-                            ],
-                            [
-                                'type'       => 'lowercase',
-                                'find_regex' => '@@.+@@',
-                            ],
-                            [
-                                'type'       => 'replace',
-                                'look_for'   => '@@.+@@',
-                                'find_regex' => '\\s',
-                                'replace'    => '-',
-                            ],
-                            [
-                                'type'       => 'replace',
-                                'find_regex' => '@@(.+)@@',
-                                'replace'    => '$1',
+                                'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                                'mapAtts' => [
+                                    [
+                                        'map' => 'self.label',
+                                        'where' => [
+                                            'key' => 'value',
+                                                'applyFilter' => [
+                                                    ['type' => 'lowercase'],
+                                                    [
+                                                        'type'       => 'replace',
+                                                        'find_regex' => '\\s',
+                                                        'replace'    => '-',
+                                                    ],
+                                                ],
+                                                'mapTo' => '@@shortcode_key@@'
+                                        ]
+                                    ],
+                                ],
                             ],
                         ],
+                        
                         'show_if' => [
                             'where' => "enable_single_listing_page",
                             'conditions' => [
@@ -4155,9 +4157,10 @@ class Multi_Directory_Manager
                 'value' => [],
             ],
             'enable_single_listing_page' => [
-                'type'          => 'toggle',
-                'label'         => __( 'Show single listing in page', 'directorist' ),
-                'value'         => false,
+                'type'      => 'toggle',
+                'label'     => __( 'Custom Single Listing Page', 'directorist' ),
+                'labelType' => 'h3',
+                'value'     => false,
             ],
             'single_listing_page' => [
                 'label'             => __('Single listing page', 'directorist'),
@@ -4175,7 +4178,7 @@ class Multi_Directory_Manager
 
             'single_listings_shortcodes' => [
                 'type'        => 'shortcode-list',
-                'buttonLabel' => 'Generate',
+                'buttonLabel' => '<i class="fas fa-magic"></i>',
                 'label'       => __( 'Generate shortcodes', 'directorist' ),
                 'description' => __( 'Generate single listing shortcodes', 'directorist' ),
                 'value'       => [
@@ -4657,13 +4660,6 @@ class Multi_Directory_Manager
                     'similar_listings' => [
                         'label' => __( 'Other Settings', 'directorist' ),
                         'sections' => [
-                            'page_settings' => [
-                                'fields' => [
-                                    'enable_single_listing_page',
-                                    'single_listing_page',
-                                    'single_listings_shortcodes',
-                                ],
-                            ],
                             'other' => [
                                 'title' => __( 'Similar Listings', 'directorist' ),
                                 'fields' => [
@@ -4671,6 +4667,13 @@ class Multi_Directory_Manager
                                     'listing_from_same_author',
                                     'similar_listings_number_of_listings_to_show',
                                     'similar_listings_number_of_columns',
+                                ],
+                            ],
+                            'page_settings' => [
+                                'fields' => [
+                                    'enable_single_listing_page',
+                                    'single_listing_page',
+                                    'single_listings_shortcodes',
                                 ],
                             ],
                         ]

@@ -320,7 +320,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 7.0.5 - Jul 12, 2021 =
+= 7.0.5 - Jul 13, 2021 =
 
 * Add - Custom shortcode/HTML support in single listing
 * Add - Single listing shortcode template

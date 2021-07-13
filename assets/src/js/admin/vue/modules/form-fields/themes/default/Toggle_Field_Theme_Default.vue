@@ -1,7 +1,10 @@
 <template>
     <div class="cptm-form-group">
         <div class="cptm-input-toggle-wrap">
-            <label :for="name">{{ label }}</label>
+            <label v-if="( label.length )">
+                <component :is="labelType">{{ label }}</component>
+            </label>
+            
             <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
             <div class="directorist_vertical-align-m">

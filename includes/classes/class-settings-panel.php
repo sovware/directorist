@@ -311,22 +311,8 @@ SWBD;
 		// handle_save_settings_data_request
 		public function handle_save_settings_data_request()
 		{
-			// wp_send_json([
-			//     'status' => false,
-			//     'active_gateways' => $_POST['active_gateways'],
-			//     'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
-			//     'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
-			//     'status_log' => [
-			//         'name_is_missing' => [
-			//             'type' => 'error',
-			//             'message' => 'Debugging',
-			//         ],
-			//     ],
-			// ], 200 );
-
-
 			$status = [ 'success' => false, 'status_log' => [] ];
-			$field_list = ( ! empty( $_POST['field_list'] ) ) ? $this->maybe_json( $_POST['field_list'] ) : [];
+			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
 			if ( empty( $field_list ) || ! is_array( $field_list ) ) {
@@ -335,7 +321,7 @@ SWBD;
 					'message' => __( 'No changes made', 'directorist' ),
 				];
 
-				wp_send_json( [ 'status' => $status, '$field_list' => $field_list ] );
+				wp_send_json( [ 'status' => $status, 'field_list' => $field_list ] );
 			}
 
 			$options = [];
@@ -370,7 +356,7 @@ SWBD;
 			foreach ( $options as $option_key => $option_value ) {
 				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
 
-				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value );
+				$atbdp_options[ $option_key ] = Directorist\Helper::maybe_json( $option_value, true );
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );
@@ -386,30 +372,10 @@ SWBD;
 			return [ 'status' => $status ];
 		}
 
-        // maybe_json
-		public function maybe_json( $input_data ) {
-            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
-        
-            $output_data = $input_data;
-
-            // JSON Docode
-            $decode_json = json_decode( $input_data, true );
-
-            if ( ! is_null( $decode_json ) ) return $decode_json;
-            
-            // JSON Decode from Base64
-            $decode_base64 = base64_decode( $input_data );
-            $decode_base64_json = json_decode( $decode_base64, true );
-
-            if ( ! is_null( $decode_base64_json ) ) return $decode_base64_json;
-
-            return $output_data;
-        }
-
 		// maybe_serialize
 		public function maybe_serialize($value = '')
 		{
-			return maybe_serialize($this->maybe_json($value));
+			return maybe_serialize(Directorist\Helper::maybe_json($value));
 		}
 
 		// prepare_settings

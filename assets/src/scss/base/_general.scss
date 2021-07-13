@@ -90,10 +90,6 @@
 
 // General Style
 .directorist-content-active {
-    a {
-        text-decoration: none !important;
-    }
-
     .primary-menu>li {
         margin: 0.8rem 0 0 1.6rem;
 
@@ -125,6 +121,9 @@
             margin-bottom: 8px !important;
         }
     }
+    a{
+        text-decoration: none;
+    }
 }
 
 .atbd_login_btn_wrapper {
@@ -136,6 +135,11 @@
         .directorist-checkbox__label {
             color: $dark;
         }
+    }
+}
+.atbdp_login_form_shortcode{
+    a{
+        text-decoration: none;
     }
 }
 

@@ -5314,12 +5314,19 @@ img.atbdp-file-info {
   font-weight: 600;
   margin-bottom: 8px !important;
 }
+.directory_register_form_wrap a {
+  text-decoration: none;
+}
 
 .atbd_login_btn_wrapper .directorist-btn {
   line-height: 2.55;
 }
 .atbd_login_btn_wrapper .keep_signed.directorist-checkbox .directorist-checkbox__label {
   color: #202428;
+}
+
+.atbdp_login_form_shortcode a {
+  text-decoration: none;
 }
 
 .directory_register_form_wrap .directorist-btn {
@@ -6813,6 +6820,7 @@ body.stop-scrolling {
   color: #fff !important;
   font-size: 17px !important;
   min-height: 118px;
+  text-decoration: none;
 }
 .directorist-add-listing-types__single__link i {
   display: inline-block;
@@ -7253,6 +7261,10 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+.directorist-form-privacy a,
+.directorist-form-terms a {
+  text-decoration: none;
 }
 
 /* =============================

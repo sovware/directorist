@@ -1,5 +1,5 @@
 // Favourite Listings Style
-.directorist-favourite-items-wrap{ 
+.directorist-favourite-items-wrap{
 
     .directorist-favourirte-items{
 
@@ -8,9 +8,9 @@
         border-radius: 4px;
 
     }
-    .directorist-dashboard-items-list{ 
+    .directorist-dashboard-items-list{
         font-size: 15px;
-        
+
         @include e(single){
 
             display: flex;
@@ -32,14 +32,14 @@
                 border-radius: 5px;
 
                 .directorist-dashboard-items-list__single--action{
-                    
+
                     .directorist-favourite-remove-btn{
                         opacity: 1;
                         visibility: visible;
                     }
                 }
             }
-            
+
             .directorist-listing-img{
 
                 margin-right: 20px;
@@ -68,11 +68,13 @@
                     margin: 0 0 6px;
                     a{
                         color: $dark;
+                        text-decoration: none;
                     }
                 }
 
                 .directorist-listing-category{
                     color: $primary;
+                    text-decoration: none;
                     span.la,
                     span.fa,
                     span.fas,
@@ -98,7 +100,7 @@
             @include m(action){
 
                 .directorist-favourite-remove-btn{
-                    
+
                     font-weight: 500;
                     display: inline-block;
                     border-radius: 6px;

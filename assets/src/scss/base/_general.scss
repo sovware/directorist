@@ -121,6 +121,9 @@
             margin-bottom: 8px !important;
         }
     }
+    a{
+        text-decoration: none;
+    }
 }
 
 .atbd_login_btn_wrapper {
@@ -132,6 +135,11 @@
         .directorist-checkbox__label {
             color: $dark;
         }
+    }
+}
+.atbdp_login_form_shortcode{
+    a{
+        text-decoration: none;
     }
 }
 

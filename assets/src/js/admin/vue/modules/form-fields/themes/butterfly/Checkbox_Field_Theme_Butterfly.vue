@@ -2,7 +2,10 @@
     <div class="cptm-form-group cptm-theme-butterfly">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
-                <label>{{label}}</label>
+                <label v-if="( label.length )">
+                    <component :is="labelType">{{ label }}</component>
+                </label>
+                
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 

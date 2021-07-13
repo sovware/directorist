@@ -3,11 +3,6 @@ import helpers from './../helpers';
 
 export default {
     mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'update'
-    },
-
     computed: {
         formGroupClass() {
             var validation_classes = ( this.validationLog?.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
@@ -26,7 +21,15 @@ export default {
             }
             
             return class_names;
-        }
+        },
+
+        generateButtonLabel() {
+            if ( this.buttonLabel && this.buttonLabel.length ) {
+                return this.buttonLabel;
+            }
+            
+            return '<i class="fas fa-magic"></i>';
+        },
     },
 
     data() {
@@ -42,6 +45,7 @@ export default {
             this.shortcodes = [];
 
             if ( typeof this.value === 'string' ) {
+                this.dirty = true;
                 this.shortcodes.push( this.value );
                 return;
             }
@@ -88,6 +92,11 @@ export default {
             var mapped_shortcode = shortcode_args.shortcode;
 
             for ( let map of shortcode_args.mapAtts  ) {
+                if ( map.map ) {
+                    mapped_shortcode = this.applyMap( map, mapped_shortcode );
+                    continue
+                }
+
                 if ( map.mapAll ) {
                     mapped_shortcode = this.applyMapAll( map, mapped_shortcode );
                 }
@@ -96,11 +105,61 @@ export default {
             return mapped_shortcode;
         },
 
+        applyMap( args, value ) {
+            var shortcode = value;
+            const source = this.getTergetFields( { root: this.root, path: args.map } );
+
+            if ( ! source ) { return value; }
+
+            if ( args.where && ! Array.isArray( args.where ) ) {
+                let _shortcode = shortcode;
+                let key = source[ args.where.key ];
+
+                if ( typeof key !== 'string' ) {
+                    return shortcode;
+                }
+
+                if ( args.where.applyFilter ) {
+                    key = this.applyFilters( key, args.where.applyFilter );
+                }
+
+                if ( args.where.mapTo ) {
+                    _shortcode = _shortcode.replace( args.where.mapTo, key );
+                }
+
+                shortcode = _shortcode;
+
+                return shortcode;
+            }
+
+            if ( args.where && Array.isArray( args.where ) ) {
+                var _shortcode = shortcode;
+
+                for ( let cond of args.where ) {
+                    let key = source[ cond.key ];
+
+                    if ( typeof key !== 'string' ) { continue; }
+
+                    if ( cond.applyFilter ) {
+                        key = this.applyFilters( key, cond.applyFilter );
+                    }
+
+                    if ( cond.mapTo ) {
+                        _shortcode = _shortcode.replace( cond.mapTo, key );
+                    }
+                }
+
+                shortcode = _shortcode;
+                return shortcode;
+            }
+        },
+
         applyMapAll( args, value ) {
             let shortcodes = [];
             const source = this.getTergetFields( { root: this.root, path: args.mapAll } );
 
             if ( ! source ) { return value; }
+            if ( Array.isArray( ! source ) ) { return value; }
 
             for ( let group of source ) {
                 if ( args.where &&  ! Array.isArray( args.where ) ) {
@@ -247,7 +306,7 @@ export default {
                 range.select().createTextRange();
                 document.execCommand("copy");
 
-                this.successMsg = 'Copied to clipboard';
+                this.successMsg = 'Copied';
                 setTimeout( this.clearSuccessMessage, 2000 );
 
               } else if (window.getSelection) {
@@ -257,7 +316,7 @@ export default {
                 window.getSelection().addRange(range);
                 document.execCommand("copy");
 
-                this.successMsg = 'Copied to clipboard';
+                this.successMsg = 'Copied';
                 setTimeout( this.clearSuccessMessage, 2000 );
               }
         },

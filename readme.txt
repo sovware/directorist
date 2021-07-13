@@ -45,7 +45,7 @@ Directorist Business Directory is one of the leading and fast-growing business d
 
 👉 **Live Chat*:** Integrate private messaging system on your directory listing website that allows users to have a real-time private conversation with business owners.
 
-👉 **Gutenberg Blocks:** Directorist offers 16 blocks/widgets for the Gutenberg editor, which is the default visual interface for editing WordPress posts and pages. Now, using Gutenberg, you can create and edit Directorist template pages like the add listing, all listing, search home, all locations, all categories and many others.
+🔥 **Gutenberg Blocks:** Directorist offers 16 blocks/widgets for the Gutenberg editor, which is the default visual interface for editing WordPress posts and pages. Now, using Gutenberg, you can create and edit Directorist template pages like the add listing, all listing, search home, all locations, all categories and many others.
 
 Let’s take a look at some of the core features that make this WordPress directory plugin exclusive from others available in the market:
 
@@ -245,7 +245,7 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
-👉 **[Oxygen Builder Integration](https://directorist.com/product/directorist-compare-listings/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.🔖 
+🔥 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
 
 Apart from purchasing above mentioned individual extensions, you can get all of the **Directorist Business Directory** extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
 
@@ -275,7 +275,7 @@ If you want to contribute to the project, you’re most welcome to make it happe
 
 
 == Privacy Policy ==
-Directorist &#8211; Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
 

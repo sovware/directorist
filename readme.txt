@@ -45,6 +45,8 @@ Directorist Business Directory is one of the leading and fast-growing business d
 
 👉 **Live Chat*:** Integrate private messaging system on your directory listing website that allows users to have a real-time private conversation with business owners.
 
+🔥 **Gutenberg Blocks:** Directorist offers 16 blocks/widgets for the Gutenberg editor, which is the default visual interface for editing WordPress posts and pages. Now, using Gutenberg, you can create and edit Directorist template pages like the add listing, all listing, search home, all locations, all categories and many others.
+
 Let’s take a look at some of the core features that make this WordPress directory plugin exclusive from others available in the market:
 
 == CORE DIRECTORIST FEATURES AT A GLANCE ==
@@ -53,6 +55,7 @@ Let’s take a look at some of the core features that make this WordPress direct
 * CSV Bulk Importer (listing, category, location, tag, media etc.).
 * Highly-optimized and rocket-fast performance to ensure scalability.
 * 25+ Elementor Page Builder widgets.
+* Gutenberg support and 16 Gutenberg blocks. 
 * Advanced search filters to narrow down and yield accurate search results and with addition of custom fields filter, elevate the search experience to a greater level.
 * Front-end and Back-end listing submission.
 * Front-end user dashboard to manage listings.
@@ -242,6 +245,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
+🔥 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
+
 Apart from purchasing above mentioned individual extensions, you can get all of the **Directorist Business Directory** extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
@@ -270,14 +275,9 @@ If you want to contribute to the project, you’re most welcome to make it happe
 
 
 == Privacy Policy ==
-Directorist &#8211; Business Directory Plugin uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
-
-Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
+Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
-
-Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
-
 
 == Installation ==
 
@@ -320,22 +320,32 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 7.0.5 - Jun 21, 2021 =
+= 7.0.5 - Jul 13, 2021 =
 
-Add - 16 Gutenberg blocks
-Add - Text alignment & atyle option in Elementor search form widget
-Add - Single listing shortcode template
-Add - Option to edit directory type slug 
-Add - Unmimified assets and debug mode
-Fix - Placeholder issue in add listing form
-Fix - Style issues
-Fix - SEO issues
-Fix - Map info window issue of OpenStreetMap
-Fix - Radius field issue on search form
-Fix - Zoom and markup preload issue fixed in google map view
-Fix - Closing tag issue in custom field template
-Fix - Search forms default button issues
-Tweak - GET method replaced by REQUEST method on search query
+* Add - Custom shortcode/HTML support in single listing
+* Add - Single listing shortcode template
+* Add - Text alignment & atyle option in Elementor search form widget
+* Add - 16 Gutenberg blocks 
+* Add - Option to edit directory type slug 
+* Add - Unmimified assets
+* Fix - Placeholder issue in add listing form
+* Fix - Style issues
+* Fix - SEO issues
+* Fix - Map info window issue of OpenStreetMap
+* Fix - Radius field issue on search form
+* Fix - Zoom and markup preload issue fixed in google map view
+* Fix - Closing tag issue in custom field template
+* Fix - Search forms default button issues
+* Fix - Deprecated notice from Elementor plugin
+* Fix - Contact Listing Owner Form issue
+* Fix - Custom fields assigned with category in listing form
+* Fix - Single listing slider’s thumbnail issue
+* Fix - Settings panel quotation issue
+* Fix - Expired listing notification issue
+* Fix - Listing URL issue at email templates
+* Fix - Review form issue for listing author
+* Improve - Filter hook ( ‘atbdp_email_templates_settings_sections’ to ‘directorist_login_form_templates_settings_sections’ )
+* Improve - GET method replaced by REQUEST method on search query
 
 = 7.0.4.1 - May 24, 2021 =
 

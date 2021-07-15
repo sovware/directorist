@@ -320,9 +320,13 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 7.0.5 - Jul 13, 2021 =
+7.0.5.1 – JUL 14, 2021
 
-* Add - Custom shortcode/HTML support in single listing
+* Fix – Empty placeholder warning issues in add listing form
+
+7.0.5 – JUL 14, 2021
+
+* Add – Custom shortcode/HTML support in single listing
 * Add - Single listing shortcode template
 * Add - Text alignment & atyle option in Elementor search form widget
 * Add - 16 Gutenberg blocks 

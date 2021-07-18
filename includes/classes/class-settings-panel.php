@@ -78,6 +78,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 					'type'  => 'toggle',
 					'label' => __('Listing Slug with Directory Type', 'directorist'),
 					'value' => get_directorist_option( 'enable_multi_directory' ),
+                    'show-if' => [
+						'where' => "enable_multi_directory",
+						'conditions' => [
+							['key' => 'value', 'compare' => '=', 'value' => true],
+						],
+					],
 				];
 
 				$fields['regenerate_pages'] = [

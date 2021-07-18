@@ -67,6 +67,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        shortcodes: {
+            type: [Array, String],
+            default: '',
+        },
         buttonLabel: {
             type: String,
             default: '',

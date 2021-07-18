@@ -1474,6 +1474,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       default: false
     },
+    shortcodes: {
+      type: [Array, String],
+      default: ''
+    },
     buttonLabel: {
       type: String,
       default: ''
@@ -2456,23 +2460,23 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      shortcodes: [],
+      shortcodes_list: [],
       successMsg: '',
       dirty: false
     };
   },
   methods: {
     generateShortcode: function generateShortcode() {
-      this.shortcodes = [];
+      this.shortcodes_list = [];
 
-      if (typeof this.value === 'string') {
+      if (typeof this.shortcodes === 'string') {
         this.dirty = true;
-        this.shortcodes.push(this.value);
+        this.shortcodes_list.push(this.shortcodes);
         return;
       }
 
-      if (Array.isArray(this.value)) {
-        var _iterator = _createForOfIteratorHelper(this.value),
+      if (Array.isArray(this.shortcodes)) {
+        var _iterator = _createForOfIteratorHelper(this.shortcodes),
             _step;
 
         try {
@@ -2480,7 +2484,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
             var shortcode_item = _step.value;
 
             if (typeof shortcode_item === 'string') {
-              this.shortcodes.push(shortcode_item);
+              this.shortcodes_list.push(shortcode_item);
               continue;
             }
 
@@ -2496,12 +2500,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
               }
 
               if (typeof _shortcode === 'string') {
-                this.shortcodes.push(_shortcode);
+                this.shortcodes_list.push(_shortcode);
                 continue;
               }
 
               if (Array.isArray(_shortcode)) {
-                this.shortcodes = this.shortcodes.concat(_shortcode);
+                this.shortcodes_list = this.shortcodes_list.concat(_shortcode);
               }
             }
           }
@@ -42502,7 +42506,7 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "button",
                   {
@@ -42539,11 +42543,11 @@ var render = function() {
           _vm._v(" "),
           _vm.dirty
             ? _c("div", [
-                _vm.shortcodes.length
+                _vm.shortcodes_list.length
                   ? _c(
                       "div",
                       { staticClass: "cptm-shortcodes" },
-                      _vm._l(_vm.shortcodes, function(shortcode, i) {
+                      _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                         return _c("p", {
                           key: i,
                           ref: "shortcodes",
@@ -44302,7 +44306,7 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "button",
                   {
@@ -44341,11 +44345,11 @@ var render = function() {
       _vm._v(" "),
       _vm.dirty
         ? _c("div", [
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "div",
                   { ref: "all-shortcodes", staticClass: "cptm-shortcodes" },
-                  _vm._l(_vm.shortcodes, function(shortcode, i) {
+                  _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                     return _c("p", {
                       key: i,
                       ref: "shortcodes",

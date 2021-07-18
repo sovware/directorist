@@ -32,6 +32,7 @@ class Multi_Directory_Manager
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
+        add_action( 'init', [$this, 'add_missing_single_listing_setion_id'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -42,6 +43,46 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
         
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+    }
+
+    // add_missing_single_listing_setion_id
+    public function add_missing_single_listing_setion_id() {
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( empty( $directory_types ) ) {
+            return;
+        }
+
+        foreach ( $directory_types as $directory_type ) {
+            $single_listings_contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+            $need_to_update = false;
+
+            if ( empty( $single_listings_contents ) ) {
+                continue;
+            }
+
+            if ( empty( $single_listings_contents['groups'] ) ) {
+                continue;
+            }
+
+            foreach ( $single_listings_contents['groups'] as $group_index => $group ) {
+                if ( ! empty( $group['section_id'] ) ) {
+                    continue;
+                }
+
+                $group['section_id'] = Helper::getTimeInMillisecond();
+                $single_listings_contents['groups'][ $group_index ] = $group;
+                $need_to_update = true;
+            }
+
+            if ( $need_to_update ) {
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
+            }
+        }
+        
     }
 
     // init_sanitize_builder_data_structure

@@ -69,11 +69,15 @@ class Multi_Directory_Manager
             }
 
             foreach ( $single_listings_contents['groups'] as $group_index => $group ) {
-                if ( ! empty( $group['section_id'] ) ) {
+                $has_section_id = ( ! empty( $group['section_id'] ) ) ? true : false;
+                $renew = ( $has_section_id ) ? false : true;
+                $renew = apply_filters( 'directorist_renew_single_listing_section_id', $renew );
+
+                if ( ! $renew ) {
                     continue;
                 }
 
-                $group['section_id'] = Helper::getTimeInMillisecond();
+                $group['section_id'] = Helper::getTimeInMillisecond() + $group_index;
                 $single_listings_contents['groups'][ $group_index ] = $group;
                 $need_to_update = true;
             }

@@ -63,6 +63,10 @@ export default {
             type: [String],
             default: 'span',
         },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
         buttonLabel: {
             type: String,
             default: '',

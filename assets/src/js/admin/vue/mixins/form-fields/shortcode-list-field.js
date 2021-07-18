@@ -115,10 +115,6 @@ export default {
                 let _shortcode = shortcode;
                 let key = source[ args.where.key ];
 
-                if ( typeof key !== 'string' ) {
-                    return shortcode;
-                }
-
                 if ( args.where.applyFilter ) {
                     key = this.applyFilters( key, args.where.applyFilter );
                 }

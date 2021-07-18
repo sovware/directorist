@@ -1398,6 +1398,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String],
       default: 'span'
     },
+    disable: {
+      type: Boolean,
+      default: false
+    },
     buttonLabel: {
       type: String,
       default: ''
@@ -2487,10 +2491,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       if (args.where && !Array.isArray(args.where)) {
         var _shortcode2 = shortcode;
         var key = source[args.where.key];
-
-        if (typeof key !== 'string') {
-          return shortcode;
-        }
 
         if (args.where.applyFilter) {
           key = this.applyFilters(key, args.where.applyFilter);
@@ -26608,6 +26608,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         Object.assign(group, this.groupSettings);
       }
 
+      if (this.groupFields && this.groupFields.section_id) {
+        group.section_id = Date.now();
+      }
+
       var dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
       this.$emit("updated-state");
@@ -40250,7 +40254,11 @@ var render = function() {
                       domProps: {
                         innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
                       },
-                      on: { click: _vm.addNewGroup }
+                      on: {
+                        click: function($event) {
+                          return _vm.addNewGroup()
+                        }
+                      }
                     })
                   ]
                 )
@@ -42802,7 +42810,11 @@ var render = function() {
               ? _c("input", {
                   staticClass: "cptm-form-control",
                   class: _vm.formControlClass,
-                  attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+                  attrs: {
+                    type: _vm.input_type,
+                    placeholder: _vm.placeholder,
+                    disabled: _vm.disable
+                  },
                   domProps: { value: _vm.value === false ? "" : _vm.value },
                   on: {
                     input: function($event) {
@@ -44591,7 +44603,11 @@ var render = function() {
         ? _c("input", {
             staticClass: "cptm-form-control",
             class: _vm.formControlClass,
-            attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+            attrs: {
+              type: _vm.input_type,
+              placeholder: _vm.placeholder,
+              disabled: _vm.disable
+            },
             domProps: { value: _vm.value },
             on: {
               input: function($event) {

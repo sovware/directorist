@@ -61,7 +61,7 @@
             <button
               type="button"
               class="cptm-btn cptm-btn-secondery"
-              @click="addNewGroup"
+              @click="addNewGroup()"
               v-html="addNewGroupButtonLabel"
             ></button>
           </div>
@@ -633,6 +633,10 @@ export default {
 
       if (this.groupSettings) {
         Object.assign(group, this.groupSettings);
+      }
+
+      if ( this.groupFields && this.groupFields.section_id ) {
+        group.section_id = Date.now();
       }
 
       let dest_index = this.active_widget_groups.length;

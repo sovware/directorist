@@ -4097,6 +4097,12 @@ class Multi_Directory_Manager
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
                 'groupFields' => [
+                    'section_id' => [
+                        'type'    => 'text',
+                        'disable' => true,
+                        'label'   => 'Section ID',
+                        'value'   => '',
+                    ],
                     'icon' => [
                         'type'  => 'icon',
                         'label'  => __( 'Block/Section Icon', 'directorist' ),
@@ -4127,18 +4133,10 @@ class Multi_Directory_Manager
                                 'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
                                 'mapAtts' => [
                                     [
-                                        'map' => 'self.label',
+                                        'map' => 'self.section_id',
                                         'where' => [
                                             'key' => 'value',
-                                                'applyFilter' => [
-                                                    ['type' => 'lowercase'],
-                                                    [
-                                                        'type'       => 'replace',
-                                                        'find_regex' => '\\s',
-                                                        'replace'    => '-',
-                                                    ],
-                                                ],
-                                                'mapTo' => '@@shortcode_key@@'
+                                            'mapTo' => '@@shortcode_key@@'
                                         ]
                                     ],
                                 ],
@@ -4189,16 +4187,8 @@ class Multi_Directory_Manager
                             [
                                 'mapAll' => 'single_listings_contents.value.groups',
                                 'where' => [
-                                    'key' => 'label',
-                                        'applyFilter' => [
-                                            ['type' => 'lowercase'],
-                                            [
-                                                'type'       => 'replace',
-                                                'find_regex' => '\\s',
-                                                'replace'    => '-',
-                                            ],
-                                        ],
-                                        'mapTo' => '@@shortcode_key@@'
+                                    'key' => 'section_id',
+                                    'mapTo' => '@@shortcode_key@@'
                                 ]
                             ],
                         ],

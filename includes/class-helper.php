@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {
@@ -22,6 +24,23 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
+	}
+
+	/**
+	 * Get Time In Millisecond
+	 * 
+	 * This function is only available on operating 
+	 * systems that support the gettimeofday() system call.
+	 * @link https://www.php.net/manual/en/function.microtime.php
+	 * 
+	 * @return int
+	 */
+	public static function getTimeInMillisecond() {
+		try {
+			return ( int ) ( microtime( true ) * 1000 );
+		} catch ( Exception $e ) {
+			return 0;
+		}
 	}
 
 	/**

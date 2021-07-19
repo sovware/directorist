@@ -931,7 +931,12 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
+
+                $reviews_meta = get_post_meta( $_POST['post_id'], '__directorist_reviews', true );
+                $review_id = ( ! empty( $reviews_meta ) && isset( $reviews_meta['review_id'] ) ) ? $reviews_meta['review_id'] : 0;
+
                 $data = array(
+                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
@@ -952,6 +957,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
 
                     $required = [
+                        'review_id' => $id,
                         'post_id' => $_POST['post_id'],
                         'reviewer_id' => $reviewer_id,
                         'rating' => floatval($_POST['rating']),

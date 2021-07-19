@@ -98,7 +98,7 @@ class ATBDP_Shortcode {
 
 	public function single_listings_section( $atts ) {
 
-		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return '';
 		}
 
@@ -106,12 +106,12 @@ class ATBDP_Shortcode {
 		$listing = Directorist_Single_Listing::instance();
 
 		foreach ( $listing->content_data as $section ) {
-			$section_label = preg_replace( '/\s/', '-' , strtolower( $section['label'] ) );
+			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
 
 			$section_key = ( isset( $atts['key'] ) ) ? $atts['key'] : '';
 			$section_keys = preg_split( '/\s*[,]\s/', $section_key );
 
-			if ( ! empty( $section_keys ) && ! in_array( $section_label, $section_keys ) ) {
+			if ( ! empty( $section_keys ) && ! in_array( $section_id, $section_keys ) ) {
 				continue;
 			}
 

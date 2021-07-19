@@ -4175,13 +4175,20 @@ class Multi_Directory_Manager
                         'buttonLabel' => '<i class="fas fa-magic"></i>',
                         'shortcodes' => [
                             [
-                                'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                                'shortcode' => '[directorist_single_listings_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                                 'mapAtts' => [
                                     [
                                         'map' => 'self.section_id',
                                         'where' => [
                                             'key' => 'value',
                                             'mapTo' => '@@shortcode_key@@'
+                                        ]
+                                    ],
+                                    [
+                                        'map' => 'self.label',
+                                        'where' => [
+                                            'key' => 'value',
+                                            'mapTo' => '@@shortcode_label@@'
                                         ]
                                     ],
                                 ],
@@ -4227,13 +4234,19 @@ class Multi_Directory_Manager
                 'shortcodes' => [
                     '[directorist_single_listings_header]',
                     [
-                        'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                        'shortcode' => '[directorist_single_listings_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                         'mapAtts' => [
                             [
                                 'mapAll' => 'single_listings_contents.value.groups',
                                 'where' => [
-                                    'key' => 'section_id',
-                                    'mapTo' => '@@shortcode_key@@'
+                                    [
+                                        'key' => 'section_id',
+                                        'mapTo' => '@@shortcode_key@@'
+                                    ],
+                                    [
+                                        'key' => 'label',
+                                        'mapTo' => '@@shortcode_label@@'
+                                    ],
                                 ]
                             ],
                         ],

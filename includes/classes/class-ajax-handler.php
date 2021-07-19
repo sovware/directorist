@@ -957,21 +957,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-
-                    $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
-
-                    $required = [
-                        'review_id' => $id,
-                        'post_id' => $_POST['post_id'],
-                        'reviewer_id' => $reviewer_id,
-                        'rating' => floatval($_POST['rating']),
-                        'status' => 'published',
-                    ];
-
-                    $review_meta = array_merge( $data, $required );
-
-                    Helper::add_listings_review_meta( $review_meta );
-
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
 

@@ -520,13 +520,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
 
             if ( empty( $outdated_plugins_key ) ) {
-                $status['massage'] = __( 'All plugins are up to date', 'directorist' );
+                $status['message'] = __( 'All plugins are up to date', 'directorist' );
 
                 return ['status' => $status];
             }
 
             if ( ! empty( $plugin_key ) && ! in_array( $plugin_key, $outdated_plugins_key ) ) {
-                $status['massage'] = __( 'The plugin is up to date', 'directorist' );
+                $status['message'] = __( 'The plugin is up to date', 'directorist' );
 
                 return ['status' => $status];
             }
@@ -543,12 +543,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
-                    $status['massage'] = __( 'The plugin could not update', 'directorist' );
-                    $status['log']     = $download_status['massage'];
+                    $status['message'] = __( 'The plugin could not update', 'directorist' );
+                    $status['log']     = $download_status['message'];
                 } else {
                     $status['success'] = true;
-                    $status['massage'] = __( 'The plugin has been updated successfully', 'directorist' );
-                    $status['log']     = $download_status['massage'];
+                    $status['message'] = __( 'The plugin has been updated successfully', 'directorist' );
+                    $status['log']     = $download_status['message'];
                 }
 
                 return ['status' => $status];
@@ -578,17 +578,17 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( ! empty( $updated_plugins ) && ! empty( $update_failed_plugins ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Some of the plugin could not update', 'directorist' );
+                $status['message'] = __( 'Some of the plugin could not update', 'directorist' );
             }
 
             if ( empty( $update_failed_plugins ) ) {
                 $status['success'] = true;
-                $status['massage'] = __( 'All the plugins are updated successfully', 'directorist' );
+                $status['message'] = __( 'All the plugins are updated successfully', 'directorist' );
             }
 
             if ( empty( $updated_plugins ) ) {
                 $status['success'] = true;
-                $status['massage'] = __( 'No plugins could not update', 'directorist' );
+                $status['message'] = __( 'No plugins could not update', 'directorist' );
             }
 
             return ['status' => $status];
@@ -731,13 +731,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             if ( empty( $outdated_themes_key ) ) {
-                $status['massage'] = __( 'All themes are up to date', 'directorist' );
+                $status['message'] = __( 'All themes are up to date', 'directorist' );
 
                 return ['status' => $status];
             }
 
             if ( ! empty( $theme_stylesheet ) && ! in_array( $theme_stylesheet, $outdated_themes_key ) ) {
-                $status['massage'] = __( 'The theme is up to date', 'directorist' );
+                $status['message'] = __( 'The theme is up to date', 'directorist' );
 
                 return ['status' => $status];
             }
@@ -762,12 +762,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
-                    $status['massage'] = __( 'The theme could not update', 'directorist' );
-                    $status['log']     = $download_status['massage'];
+                    $status['message'] = __( 'The theme could not update', 'directorist' );
+                    $status['log']     = $download_status['message'];
                 } else {
                     $status['success'] = true;
-                    $status['massage'] = __( 'The theme has been updated successfully', 'directorist' );
-                    $status['log']     = $download_status['massage'];
+                    $status['message'] = __( 'The theme has been updated successfully', 'directorist' );
+                    $status['log']     = $download_status['message'];
                 };
 
                 return ['status' => $status];
@@ -800,17 +800,17 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( ! empty( $updated_themes ) && ! empty( $update_failed_themes ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Some of the theme could not update', 'directorist' );
+                $status['message'] = __( 'Some of the theme could not update', 'directorist' );
             }
 
             if ( empty( $update_failed_themes ) ) {
                 $status['success'] = true;
-                $status['massage'] = __( 'All the themes are updated successfully', 'directorist' );
+                $status['message'] = __( 'All the themes are updated successfully', 'directorist' );
             }
 
             if ( empty( $updated_themes ) ) {
                 $status['success'] = true;
-                $status['massage'] = __( 'No themes could not update', 'directorist' );
+                $status['message'] = __( 'No themes could not update', 'directorist' );
             }
 
             return ['status' => $status];
@@ -862,7 +862,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Validate response
             if ( ! $response['success'] ) {
                 $status['success']      = false;
-                $default_status_massage = ( isset( $response['massage'] ) ) ? $response['massage'] : '';
+                $default_status_message = ( isset( $response['message'] ) ) ? $response['message'] : '';
 
                 if ( isset( $response['log'] ) && isset( $response['log']['errors'] ) && is_array( $response['log']['errors'] ) ) {
                     foreach ( $response['log']['errors'] as $error_key => $error_value ) {
@@ -875,7 +875,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 } else {
                     $status['log']['unknown_error'] = [
                         'type'    => 'error',
-                        'message' => ( ! empty( $default_status_massage ) ) ? $default_status_massage : __( 'Something went wrong', 'directorist' ),
+                        'message' => ( ! empty( $default_status_message ) ) ? $default_status_message : __( 'Something went wrong', 'directorist' ),
                     ];
                 }
 
@@ -968,7 +968,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Validate response
             if ( ! $authentication['success'] ) {
                 $status['success'] = false;
-                $status['massage'] = $auth_response['massage'];
+                $status['message'] = $auth_response['message'];
 
                 return ['status' => $status, 'response_body' => $auth_response];
             }
@@ -1292,7 +1292,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( empty( $args['url'] ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Download link not found', 'directorist' );
+                $status['message'] = __( 'Download link not found', 'directorist' );
 
                 return $status;
             }
@@ -1318,7 +1318,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $status['success']  = false;
                 $status['tmp_file'] = $tmp_file;
                 $status['file_url'] = $file_url;
-                $status['massage']  = 'Could not download the file';
+                $status['message']  = 'Could not download the file';
 
                 return $status;
             }
@@ -1332,7 +1332,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( ! file_exists( $temp_dest ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Could not create temp directory', 'directorist' );
+                $status['message'] = __( 'Could not create temp directory', 'directorist' );
 
                 return $status;
             }
@@ -1354,7 +1354,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 copy( $tmp_file, $file_path );
             } catch ( Exception $e ) {
                 $status['success'] = false;
-                $status['massage'] = $e->getMessage();
+                $status['message'] = $e->getMessage();
 
                 return $status;
             }
@@ -1383,7 +1383,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $wp_filesystem->delete( $temp_dest, true );
 
             $status['success'] = true;
-            $status['massage'] = __( 'The plugin has been downloaded successfully', 'directorist' );
+            $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
 
             return $status;
         }
@@ -1401,7 +1401,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( empty( $args['url'] ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Download link not found', 'directorist' );
+                $status['message'] = __( 'Download link not found', 'directorist' );
 
                 return $status;
             }
@@ -1427,7 +1427,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $status['success']  = false;
                 $status['tmp_file'] = $tmp_file;
                 $status['file_url'] = $file_url;
-                $status['massage']  = 'Could not download the file';
+                $status['message']  = 'Could not download the file';
 
                 return $status;
             }
@@ -1441,7 +1441,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( ! file_exists( $temp_dest ) ) {
                 $status['success'] = false;
-                $status['massage'] = __( 'Could not create temp directory', 'directorist' );
+                $status['message'] = __( 'Could not create temp directory', 'directorist' );
 
                 return $status;
             }
@@ -1463,7 +1463,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 copy( $tmp_file, $file_path );
             } catch ( Exception $e ) {
                 $status['success'] = false;
-                $status['massage'] = $e->getMessage();
+                $status['message'] = $e->getMessage();
 
                 return $status;
             }
@@ -1491,7 +1491,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $wp_filesystem->delete( $temp_dest, true );
 
                 $status['success'] = false;
-                $status['massage'] = __( 'The theme has been downloaded successfully', 'directorist' );
+                $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
             }
 
             // Delete Previous Files If Exists
@@ -1503,7 +1503,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $wp_filesystem->delete( $temp_dest, true );
 
             $status['success'] = true;
-            $status['massage'] = __( 'The theme has been downloaded successfully', 'directorist' );
+            $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
 
             return $status;
         }

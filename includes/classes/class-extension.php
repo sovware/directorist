@@ -142,8 +142,20 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $is_installed = file_exists( $plugin_dir_path . $extension );
                 $is_installed_alias = ( ! empty( $extension_alias ) && file_exists( $plugin_dir_path . $extension_alias ) ) ? true : false;
 
+
+                $base = "{$extension}/{$extension}.php";
+
+                if ( ! empty( $this->extensions[ $extension ] ) && ! empty( $this->extensions[ $extension ]['base'] ) ) {
+                    $base = $this->extensions[ $extension ]['base'];
+                }
+
+                if ( ! empty( $this->extensions[ $extension_alias ] ) && ! empty( $this->extensions[ $extension_alias ]['base'] ) ) {
+                    $base = $this->extensions[ $extension_alias ]['base'];
+                }
+
                 $recommandation[$extension]              = [];
                 $recommandation[$extension]['ref']       = $recommanded_by;
+                $recommandation[$extension]['base']      = $base;
                 $recommandation[$extension]['purchased'] = ( $is_purchased || $is_purchased_alias ) ? true : false;
                 $recommandation[$extension]['installed'] = ( $is_installed || $is_installed_alias ) ? true : false;
             }
@@ -221,6 +233,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-listings-with-map/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/06_Listings-With-Map-1.png',
+                    'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
                 ],
                 'directorist-pricing-plans' => [
@@ -291,6 +304,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-business-hours/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
+                    'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
                 ],
                 'directorist-slider-carousel' => [
@@ -298,6 +312,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-slider-carousel/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
+                    'base'        => 'directorist-slider-carousel/bd-directorist-slider.php',
                     'active'      => true,
                 ],
                 'directorist-live-chat' => [
@@ -319,6 +334,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-gallery/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
+                    'base'        => 'directorist-gallery/bd-directorist-gallery.php',
                     'active'      => true,
                 ],
                 'directorist-adverts-manager' => [

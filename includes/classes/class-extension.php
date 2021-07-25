@@ -124,29 +124,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public function prepare_the_final_requred_extension_list( array $args = [] ) {
             $recommandation = [];
 
-            $required_extensions_list              = $this->get_required_extension_list();
-            $extensions_available_in_subscriptions = ( ! empty( $args['extensions_available_in_subscriptions'] ) ) ? $args['extensions_available_in_subscriptions'] : [];
-            $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? array_keys( $extensions_available_in_subscriptions ) : [];
-            $installed_extension_list              = ( ! empty( $args['installed_extension_list'] ) ) ? $args['installed_extension_list'] : [];
-            $installed_extension_list              = ( is_array( $installed_extension_list ) ) ? array_keys( $installed_extension_list ) : [];
+            $required_extensions_list = $this->get_required_extension_list();
+            $purchased_extension_list = self::get_purchased_extension_list();
+            $purchased_extensions     = ( ! empty( $purchased_extension_list ) && is_array( $purchased_extension_list ) ) ? array_keys( $purchased_extension_list ) : [];
+            $plugin_dir_path          = trailingslashit( dirname( ATBDP_DIR ) );
 
             foreach ( $required_extensions_list as $extension => $recommanded_by ) {
-
                 $extension_alias = $this->get_extension_alias_key( $extension );
 
-                if ( is_plugin_active( "{$extension}/{$extension}.php" ) ) {
+                if ( $this->has_match_in_active_plugins( [ $extension, $extension_alias ] ) ) {
                     continue;
                 }
 
-                if ( is_plugin_active( "{$extension_alias}/{$extension_alias}.php" ) ) {
-                    continue;
-                }
+                $is_purchased       = ( in_array( $extension, $purchased_extensions ) ) ? true : false;
+                $is_purchased_alias = ( in_array( $extension_alias, $purchased_extensions ) ) ? true : false;
 
-                $is_purchased       = ( in_array( $extension, $extensions_available_in_subscriptions ) ) ? true : false;
-                $is_purchased_alias = ( in_array( $extension_alias, $extensions_available_in_subscriptions ) ) ? true : false;
-
-                $is_installed       = ( in_array( "{$extension}/{$extension}.php", $installed_extension_list ) ) ? true : false;
-                $is_installed_alias = ( in_array( "{$extension_alias}/{$extension_alias}.php", $installed_extension_list ) ) ? true : false;
+                $is_installed = file_exists( $plugin_dir_path . $extension );
+                $is_installed_alias = ( ! empty( $extension_alias ) && file_exists( $plugin_dir_path . $extension_alias ) ) ? true : false;
 
                 $recommandation[$extension]              = [];
                 $recommandation[$extension]['ref']       = $recommanded_by;
@@ -155,6 +149,40 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             return $recommandation;
+        }
+
+        public function has_match_in_active_plugins( $plugin_name = '' ) {
+            $match_found = false;
+
+            $active_plugins = get_option( 'active_plugins', array() );
+            
+            if ( empty( $plugin_name ) ) {
+                return false;
+            }
+
+            if ( empty( $active_plugins ) ) {
+                return false;
+            }
+
+            if ( ! is_array( $active_plugins ) ) {
+                return false;
+            }
+
+            foreach ( $active_plugins as $plugin_path ) {
+                if ( empty( $plugin_name ) && ( false !== strpos( $plugin_path, $plugin_name ) ) ) {
+                    return true;
+                }
+
+                if ( is_array( $plugin_name ) ) {
+                    foreach ( $plugin_name as $plugin_key ) {
+                        if ( is_string( $plugin_key ) && ! empty( $plugin_key ) && false !== strpos( $plugin_path, $plugin_key ) ) {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return $match_found;
         }
 
         // get_the_products_list

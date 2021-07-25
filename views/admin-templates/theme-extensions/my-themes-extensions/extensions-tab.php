@@ -262,7 +262,7 @@
                                             <div class="ext-action ext-action-<?php echo $extension_base; ?>">
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
                                                 <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo "{$extension_base}/{$extension_base}.php" ?>">
-                                                    <?php _e('Active', 'directorist') ?>
+                                                    <?php _e('Activate', 'directorist') ?>
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">

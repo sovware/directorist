@@ -756,8 +756,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     return ['status' => $status];
                 }
 
-                $theme_item      = $themes_available_in_subscriptions_keys[$theme_stylesheet];
-                $url             = self::get_file_download_link( $theme_item, 'theme' );
+                $theme_item = $themes_available_in_subscriptions_keys[$theme_stylesheet];
+                $url        = self::get_file_download_link( $theme_item, 'theme' );
+                $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
+                
                 $download_status = $this->download_theme( ['url' => $url] );
 
                 if ( ! $download_status['success'] ) {

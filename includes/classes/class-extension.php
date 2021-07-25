@@ -300,6 +300,27 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
                     'active'      => true,
                 ],
+                'directorist-buddyboss-integration' => [
+                    'name'        => 'BuddyBoss Integration',
+                    'description' => __( 'Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-buddyboss-integration/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/07/BuddyBoss-Integration.png',
+                    'active'      => true,
+                ],
+                'directorist-oxygen-integration' => [
+                    'name'        => 'Directorist Oxygen',
+                    'description' => __( 'Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-oxygen-integration/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/06/Oxygen-Builder.png',
+                    'active'      => true,
+                ],
+                'directorist-authorize-net' => [
+                    'name'        => 'Authorize.net Payment Gateway',
+                    'description' => __( 'Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-authorize-net/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/04/21_Authorize.net2_.png',
+                    'active'      => true,
+                ],
             ] );
 
             $this->themes = apply_filters( 'atbdp_theme_list', [

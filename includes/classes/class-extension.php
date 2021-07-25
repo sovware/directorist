@@ -1863,6 +1863,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_themes_overview
         public function get_themes_overview() {
+            // Check form theme update
+            $current_theme = wp_get_theme();
+            get_theme_update_available( $current_theme->stylesheet );
+
             $sovware_themes       = ( is_array( $this->themes ) ) ? array_keys( $this->themes ) : [];
             $theme_updates        = get_site_transient( 'update_themes' );
             $outdated_themes      = $theme_updates->response;
@@ -1964,19 +1968,21 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_current_active_theme_info
         public function get_current_active_theme_info( array $args = [] ) {
-            $outdated_themes_keys = ( ! empty( $args['outdated_themes_keys'] ) ) ? $args['outdated_themes_keys'] : [];
-
             // Get Current Active Theme Info
             $current_active_theme = wp_get_theme();
             $customizer_link      = "customize.php?theme={$current_active_theme->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
             $customizer_link      = admin_url( $customizer_link );
 
+            // Check form theme update
+            $current_theme   = wp_get_theme();
+            $has_update_link = get_theme_update_available( $current_theme->stylesheet );
+            
             $active_theme_info = [
                 'name'            => $current_active_theme->name,
                 'version'         => $current_active_theme->version,
                 'thumbnail'       => $current_active_theme->get_screenshot(),
                 'customizer_link' => $customizer_link,
-                'has_update'      => ( in_array( $current_active_theme->stylesheet, $outdated_themes_keys ) ) ? true : false,
+                'has_update'      => $has_update_link,
                 'stylesheet'      => $current_active_theme->stylesheet,
             ];
 

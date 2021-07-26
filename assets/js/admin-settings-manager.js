@@ -19595,7 +19595,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     updateValue: function updateValue(value) {
       var old_value = this.value; // If has no old value
 
-      if (!old_value) {
+      if (!(old_value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(old_value) == 'object')) {
+        old_value = {};
+      }
+
+      if (Array.isArray(old_value)) {
         old_value = {};
       } // Update Active Template ID
 

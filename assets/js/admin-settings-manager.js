@@ -1398,6 +1398,14 @@ __webpack_require__.r(__webpack_exports__);
       type: [String],
       default: 'span'
     },
+    disable: {
+      type: Boolean,
+      default: false
+    },
+    shortcodes: {
+      type: [Array, String],
+      default: ''
+    },
     buttonLabel: {
       type: String,
       default: ''
@@ -2380,23 +2388,23 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      shortcodes: [],
+      shortcodes_list: [],
       successMsg: '',
       dirty: false
     };
   },
   methods: {
     generateShortcode: function generateShortcode() {
-      this.shortcodes = [];
+      this.shortcodes_list = [];
 
-      if (typeof this.value === 'string') {
+      if (typeof this.shortcodes === 'string') {
         this.dirty = true;
-        this.shortcodes.push(this.value);
+        this.shortcodes_list.push(this.shortcodes);
         return;
       }
 
-      if (Array.isArray(this.value)) {
-        var _iterator = _createForOfIteratorHelper(this.value),
+      if (Array.isArray(this.shortcodes)) {
+        var _iterator = _createForOfIteratorHelper(this.shortcodes),
             _step;
 
         try {
@@ -2404,7 +2412,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
             var shortcode_item = _step.value;
 
             if (typeof shortcode_item === 'string') {
-              this.shortcodes.push(shortcode_item);
+              this.shortcodes_list.push(shortcode_item);
               continue;
             }
 
@@ -2420,12 +2428,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
               }
 
               if (typeof _shortcode === 'string') {
-                this.shortcodes.push(_shortcode);
+                this.shortcodes_list.push(_shortcode);
                 continue;
               }
 
               if (Array.isArray(_shortcode)) {
-                this.shortcodes = this.shortcodes.concat(_shortcode);
+                this.shortcodes_list = this.shortcodes_list.concat(_shortcode);
               }
             }
           }
@@ -2487,10 +2495,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       if (args.where && !Array.isArray(args.where)) {
         var _shortcode2 = shortcode;
         var key = source[args.where.key];
-
-        if (typeof key !== 'string') {
-          return shortcode;
-        }
 
         if (args.where.applyFilter) {
           key = this.applyFilters(key, args.where.applyFilter);
@@ -26608,9 +26612,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         Object.assign(group, this.groupSettings);
       }
 
+      if (this.groupFields && this.groupFields.section_id) {
+        group.section_id = this.getUniqueSectionID();
+      }
+
       var dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
       this.$emit("updated-state");
+    },
+    getUniqueSectionID: function getUniqueSectionID() {
+      var existing_ids = [];
+
+      if (!Array.isArray(this.active_widget_groups)) {
+        return 1;
+      }
+
+      var _iterator3 = _createForOfIteratorHelper(this.active_widget_groups),
+          _step3;
+
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var group = _step3.value;
+
+          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(group.section_id) !== undefined && !isNaN(group.section_id)) {
+            existing_ids.push(parseInt(group.section_id));
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+
+      if (existing_ids.length) {
+        return Math.max.apply(Math, existing_ids) + 1;
+      }
+
+      return 1;
     },
     handleGroupReorderFromActiveWidgets: function handleGroupReorderFromActiveWidgets(from, to) {
       var origin_data = this.active_widget_groups[from.widget_group_key];
@@ -26623,6 +26661,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     handleGroupInsertFromAvailableWidgets: function handleGroupInsertFromAvailableWidgets(from, to) {
       var group = JSON.parse(JSON.stringify(this.default_group[0]));
+
+      if (this.groupSettings) {
+        Object.assign(group, this.groupSettings);
+      }
+
+      if (this.groupFields && this.groupFields.section_id) {
+        group.section_id = this.getUniqueSectionID();
+      }
+
       var widget = from.widget;
       var option_data = this.getOptionDataFromWidget(widget);
       delete widget.options;
@@ -26640,18 +26687,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var group_fields = this.active_widget_groups[widget_group_key].fields;
 
       if (group_fields.length) {
-        var _iterator3 = _createForOfIteratorHelper(group_fields),
-            _step3;
+        var _iterator4 = _createForOfIteratorHelper(group_fields),
+            _step4;
 
         try {
-          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-            var widget_key = _step3.value;
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var widget_key = _step4.value;
             vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, widget_key);
           }
         } catch (err) {
-          _iterator3.e(err);
+          _iterator4.e(err);
         } finally {
-          _iterator3.f();
+          _iterator4.f();
         }
       }
 
@@ -40250,7 +40297,11 @@ var render = function() {
                       domProps: {
                         innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
                       },
-                      on: { click: _vm.addNewGroup }
+                      on: {
+                        click: function($event) {
+                          return _vm.addNewGroup()
+                        }
+                      }
                     })
                   ]
                 )
@@ -42680,7 +42731,7 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "button",
                   {
@@ -42717,11 +42768,11 @@ var render = function() {
           _vm._v(" "),
           _vm.dirty
             ? _c("div", [
-                _vm.shortcodes.length
+                _vm.shortcodes_list.length
                   ? _c(
                       "div",
                       { staticClass: "cptm-shortcodes" },
-                      _vm._l(_vm.shortcodes, function(shortcode, i) {
+                      _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                         return _c("p", {
                           key: i,
                           ref: "shortcodes",
@@ -42802,7 +42853,11 @@ var render = function() {
               ? _c("input", {
                   staticClass: "cptm-form-control",
                   class: _vm.formControlClass,
-                  attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+                  attrs: {
+                    type: _vm.input_type,
+                    placeholder: _vm.placeholder,
+                    disabled: _vm.disable
+                  },
                   domProps: { value: _vm.value === false ? "" : _vm.value },
                   on: {
                     input: function($event) {
@@ -44476,7 +44531,7 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "button",
                   {
@@ -44515,11 +44570,11 @@ var render = function() {
       _vm._v(" "),
       _vm.dirty
         ? _c("div", [
-            _vm.shortcodes.length
+            _vm.shortcodes_list.length
               ? _c(
                   "div",
                   { ref: "all-shortcodes", staticClass: "cptm-shortcodes" },
-                  _vm._l(_vm.shortcodes, function(shortcode, i) {
+                  _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                     return _c("p", {
                       key: i,
                       ref: "shortcodes",
@@ -44591,7 +44646,11 @@ var render = function() {
         ? _c("input", {
             staticClass: "cptm-form-control",
             class: _vm.formControlClass,
-            attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
+            attrs: {
+              type: _vm.input_type,
+              placeholder: _vm.placeholder,
+              disabled: _vm.disable
+            },
             domProps: { value: _vm.value },
             on: {
               input: function($event) {

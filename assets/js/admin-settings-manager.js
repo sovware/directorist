@@ -26613,12 +26613,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       if (this.groupFields && this.groupFields.section_id) {
-        group.section_id = Date.now();
+        // group.section_id = Date.now();
+        group.section_id = this.getUniqueSectionID();
       }
 
       var dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
       this.$emit("updated-state");
+    },
+    getUniqueSectionID: function getUniqueSectionID() {
+      var existing_ids = [];
+
+      if (!Array.isArray(this.active_widget_groups)) {
+        return 1;
+      }
+
+      var _iterator3 = _createForOfIteratorHelper(this.active_widget_groups),
+          _step3;
+
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var group = _step3.value;
+
+          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(group.section_id) !== undefined && !isNaN(group.section_id)) {
+            existing_ids.push(parseInt(group.section_id));
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+
+      if (existing_ids.length) {
+        return Math.max.apply(Math, existing_ids) + 1;
+      }
+
+      return 1;
     },
     handleGroupReorderFromActiveWidgets: function handleGroupReorderFromActiveWidgets(from, to) {
       var origin_data = this.active_widget_groups[from.widget_group_key];
@@ -26648,18 +26679,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var group_fields = this.active_widget_groups[widget_group_key].fields;
 
       if (group_fields.length) {
-        var _iterator3 = _createForOfIteratorHelper(group_fields),
-            _step3;
+        var _iterator4 = _createForOfIteratorHelper(group_fields),
+            _step4;
 
         try {
-          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-            var widget_key = _step3.value;
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var widget_key = _step4.value;
             vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, widget_key);
           }
         } catch (err) {
-          _iterator3.e(err);
+          _iterator4.e(err);
         } finally {
-          _iterator3.f();
+          _iterator4.f();
         }
       }
 

@@ -636,13 +636,35 @@ export default {
       }
 
       if ( this.groupFields && this.groupFields.section_id ) {
-        group.section_id = Date.now();
+        // group.section_id = Date.now();
+        group.section_id = this.getUniqueSectionID();
       }
 
       let dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
 
       this.$emit("updated-state");
+    },
+
+    getUniqueSectionID() {
+      let existing_ids = [];
+
+      if ( ! Array.isArray( this.active_widget_groups ) ) {
+        return 1;
+      }
+
+      for ( let group of this.active_widget_groups ) {
+
+        if ( typeof group.section_id !== undefined && ! isNaN( group.section_id ) ) {
+          existing_ids.push( parseInt( group.section_id ) );
+        }
+      }
+
+      if ( existing_ids.length ) {
+        return Math.max( ...existing_ids ) + 1;
+      }
+
+      return 1;      
     },
 
     handleGroupReorderFromActiveWidgets(from, to) {

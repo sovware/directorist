@@ -4171,7 +4171,7 @@ class Multi_Directory_Manager
                     'shortcode' => [
                         'type'        => 'shortcode-list',
                         'label'       => __( 'Shortcode', 'directorist' ),
-                        'description' => __( 'Click the wizerd button to generate the shortcode. This shortcode depends on the Label field, so make sure to regenarate the shortcode if you update the section Label', 'directorist' ),
+                        'description' => __( 'Click the wizerd button to generate the shortcode.', 'directorist' ),
                         'buttonLabel' => '<i class="fas fa-magic"></i>',
                         'shortcodes' => [
                             [

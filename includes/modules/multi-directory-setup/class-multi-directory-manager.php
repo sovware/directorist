@@ -77,7 +77,7 @@ class Multi_Directory_Manager
                     continue;
                 }
 
-                $group['section_id'] = Helper::getTimeInMillisecond() + $group_index;
+                $group['section_id'] = $group_index + 1;
                 $single_listings_contents['groups'][ $group_index ] = $group;
                 $need_to_update = true;
             }

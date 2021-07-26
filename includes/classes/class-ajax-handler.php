@@ -932,8 +932,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
 
+                $post_id = esc_sql( $_POST['post_id'] );
+                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
+
                 global $wpdb;
-                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$_POST['post_id']} LIMIT 1");
+                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
 	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
 
                 $data = array(

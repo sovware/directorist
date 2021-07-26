@@ -28,7 +28,7 @@ class Multi_Directory_Manager
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
-        add_action( 'init', [$this, 'add_missing_single_listing_setion_id'] );
+        add_action( 'init', [$this, 'add_missing_single_listing_section_id'] );
 
         if ( ! is_admin() ) {
             return;
@@ -50,8 +50,8 @@ class Multi_Directory_Manager
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
     }
 
-    // add_missing_single_listing_setion_id
-    public function add_missing_single_listing_setion_id() {
+    // add_missing_single_listing_section_id
+    public function add_missing_single_listing_section_id() {
         $directory_types = get_terms([
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,

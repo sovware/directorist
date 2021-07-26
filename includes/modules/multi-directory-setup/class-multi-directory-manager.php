@@ -32,6 +32,7 @@ class Multi_Directory_Manager
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
+        add_action( 'init', [$this, 'add_missing_single_listing_setion_id'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -42,6 +43,50 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
         
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+    }
+
+    // add_missing_single_listing_setion_id
+    public function add_missing_single_listing_setion_id() {
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( empty( $directory_types ) ) {
+            return;
+        }
+
+        foreach ( $directory_types as $directory_type ) {
+            $single_listings_contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+            $need_to_update = false;
+
+            if ( empty( $single_listings_contents ) ) {
+                continue;
+            }
+
+            if ( empty( $single_listings_contents['groups'] ) ) {
+                continue;
+            }
+
+            foreach ( $single_listings_contents['groups'] as $group_index => $group ) {
+                $has_section_id = ( ! empty( $group['section_id'] ) ) ? true : false;
+                $renew = ( $has_section_id ) ? false : true;
+                $renew = apply_filters( 'directorist_renew_single_listing_section_id', $renew );
+
+                if ( ! $renew ) {
+                    continue;
+                }
+
+                $group['section_id'] = $group_index + 1;
+                $single_listings_contents['groups'][ $group_index ] = $group;
+                $need_to_update = true;
+            }
+
+            if ( $need_to_update ) {
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
+            }
+        }
+        
     }
 
     // init_sanitize_builder_data_structure
@@ -4097,6 +4142,12 @@ class Multi_Directory_Manager
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
                 'groupFields' => [
+                    'section_id' => [
+                        'type'    => 'text',
+                        'disable' => true,
+                        'label'   => 'Section ID',
+                        'value'   => '',
+                    ],
                     'icon' => [
                         'type'  => 'icon',
                         'label'  => __( 'Block/Section Icon', 'directorist' ),
@@ -4120,25 +4171,24 @@ class Multi_Directory_Manager
                     'shortcode' => [
                         'type'        => 'shortcode-list',
                         'label'       => __( 'Shortcode', 'directorist' ),
-                        'description' => __( 'Click the wizerd button to generate the shortcode. This shortcode depends on the Label field, so make sure to regenarate the shortcode if you update the section Label', 'directorist' ),
+                        'description' => __( 'Click the wizerd button to generate the shortcode.', 'directorist' ),
                         'buttonLabel' => '<i class="fas fa-magic"></i>',
-                        'value'       => [
+                        'shortcodes' => [
                             [
-                                'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                                'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                                 'mapAtts' => [
+                                    [
+                                        'map' => 'self.section_id',
+                                        'where' => [
+                                            'key' => 'value',
+                                            'mapTo' => '@@shortcode_key@@'
+                                        ]
+                                    ],
                                     [
                                         'map' => 'self.label',
                                         'where' => [
                                             'key' => 'value',
-                                                'applyFilter' => [
-                                                    ['type' => 'lowercase'],
-                                                    [
-                                                        'type'       => 'replace',
-                                                        'find_regex' => '\\s',
-                                                        'replace'    => '-',
-                                                    ],
-                                                ],
-                                                'mapTo' => '@@shortcode_key@@'
+                                            'mapTo' => '@@shortcode_label@@'
                                         ]
                                     ],
                                 ],
@@ -4181,24 +4231,22 @@ class Multi_Directory_Manager
                 'buttonLabel' => '<i class="fas fa-magic"></i>',
                 'label'       => __( 'Generate shortcodes', 'directorist' ),
                 'description' => __( 'Generate single listing shortcodes', 'directorist' ),
-                'value'       => [
+                'shortcodes' => [
                     '[directorist_single_listings_header]',
                     [
-                        'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                        'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                         'mapAtts' => [
                             [
                                 'mapAll' => 'single_listings_contents.value.groups',
                                 'where' => [
-                                    'key' => 'label',
-                                        'applyFilter' => [
-                                            ['type' => 'lowercase'],
-                                            [
-                                                'type'       => 'replace',
-                                                'find_regex' => '\\s',
-                                                'replace'    => '-',
-                                            ],
-                                        ],
+                                    [
+                                        'key' => 'section_id',
                                         'mapTo' => '@@shortcode_key@@'
+                                    ],
+                                    [
+                                        'key' => 'label',
+                                        'mapTo' => '@@shortcode_label@@'
+                                    ],
                                 ]
                             ],
                         ],

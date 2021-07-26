@@ -26550,7 +26550,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       if (this.groupFields && this.groupFields.section_id) {
-        // group.section_id = Date.now();
         group.section_id = this.getUniqueSectionID();
       }
 
@@ -26599,6 +26598,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     handleGroupInsertFromAvailableWidgets: function handleGroupInsertFromAvailableWidgets(from, to) {
       var group = JSON.parse(JSON.stringify(this.default_group[0]));
+
+      if (this.groupSettings) {
+        Object.assign(group, this.groupSettings);
+      }
+
+      if (this.groupFields && this.groupFields.section_id) {
+        group.section_id = this.getUniqueSectionID();
+      }
+
       var widget = from.widget;
       var option_data = this.getOptionDataFromWidget(widget);
       delete widget.options;

@@ -682,6 +682,14 @@ export default {
     handleGroupInsertFromAvailableWidgets(from, to) {
       let group = JSON.parse(JSON.stringify(this.default_group[0]));
 
+      if (this.groupSettings) {
+        Object.assign(group, this.groupSettings);
+      }
+
+      if ( this.groupFields && this.groupFields.section_id ) {
+        group.section_id = this.getUniqueSectionID();
+      }
+
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);
       delete widget.options;

@@ -29,6 +29,7 @@ class Multi_Directory_Manager
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
         add_action( 'init', [$this, 'add_missing_single_listing_section_id'] );
+        add_action( 'init', [$this, 'register_terms'] );
 
         if ( ! is_admin() ) {
             return;
@@ -37,7 +38,6 @@ class Multi_Directory_Manager
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
         // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
-        add_action( 'init', [$this, 'register_terms'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 

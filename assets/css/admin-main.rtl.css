@@ -3033,6 +3033,9 @@ input.atbdp-form-control {
   padding: 12px 15px;
   min-width: 300px;
 }
+.et-wrapper .et-contents .ext-wrapper table .extension-name .directorist-checkbox .directorist-checkbox__label {
+  padding-right: 30px;
+}
 .et-wrapper .et-contents .ext-wrapper table .extension-name input {
   margin-left: 20px !important;
 }

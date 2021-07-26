@@ -71,8 +71,8 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = $_GET['post_type'];
             }
-            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['directory_type'])) {
-                $value = isset($_GET['directory_type']) ? sanitize_text_field($_GET['directory_type']) : '';
+            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['directory_type']) && ! empty( $_GET['directory_type'] ) ) {
+                $value = sanitize_text_field($_GET['directory_type']);
                 $tax_query = array(
                     'relation' => 'AND',
                     array(

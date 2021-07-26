@@ -931,7 +931,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
+
+                $post_id = esc_sql( $_POST['post_id'] );
+                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
+
+                global $wpdb;
+                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
+	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
+
                 $data = array(
+                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
@@ -948,20 +957,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-
-                    $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
-
-                    $required = [
-                        'post_id' => $_POST['post_id'],
-                        'reviewer_id' => $reviewer_id,
-                        'rating' => floatval($_POST['rating']),
-                        'status' => 'published',
-                    ];
-
-                    $review_meta = array_merge( $data, $required );
-
-                    Helper::add_listings_review_meta( $review_meta );
-
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
 

@@ -14,6 +14,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 		// run
 		public function run()
 		{
+            if ( ! is_admin() ) {
+                return;
+            }
+
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
 
@@ -348,6 +352,9 @@ SWBD;
 
 				$options[ $field_key ] = $_POST[ $field_key ];
 			}
+            
+            // Prepare Settings
+            $this->prepare_settings();
 
 			$update_settings_options = $this->update_settings_options( $options );
 
@@ -371,13 +378,9 @@ SWBD;
 			// Update the options
 			$atbdp_options = get_option('atbdp_option');
 			foreach ( $options as $option_key => $option_value ) {
-<<<<<<< HEAD
-				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value );
-=======
 				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
 
 				$atbdp_options[ $option_key ] = Directorist\Helper::maybe_json( $option_value, true );
->>>>>>> upstream/alpha
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );

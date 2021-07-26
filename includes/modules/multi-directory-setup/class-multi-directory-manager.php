@@ -25,13 +25,18 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
+        add_action( 'init', [$this, 'setup_migration'] );
+        add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
+        add_action( 'init', [$this, 'update_default_directory_type_option'] );
+
+        if ( ! is_admin() ) {
+            return;
+        }
+
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
         // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'init', [$this, 'register_terms'] );
-        add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
-        add_action( 'init', [$this, 'update_default_directory_type_option'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 

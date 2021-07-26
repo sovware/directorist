@@ -636,7 +636,6 @@ export default {
       }
 
       if ( this.groupFields && this.groupFields.section_id ) {
-        // group.section_id = Date.now();
         group.section_id = this.getUniqueSectionID();
       }
 

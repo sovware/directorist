@@ -13942,9 +13942,25 @@ p.atbd-min {
   .directorist-all-listing-col {
     width: 33.33% !important;
   }
+
+  .directorist-all-listing-col.directorist-col-12 {
+    width: 100% !important;
+  }
+
+  .directorist-all-listing-col.directorist-col-6 {
+    width: 50% !important;
+  }
 }
 @media only screen and (max-width: 767px) {
   .directorist-all-listing-col {
+    width: 50% !important;
+  }
+
+  .directorist-all-listing-col.directorist-col-12 {
+    width: 100% !important;
+  }
+
+  .directorist-all-listing-col.directorist-col-6 {
     width: 50% !important;
   }
 }
@@ -13957,6 +13973,14 @@ p.atbd-min {
   }
 
   .directorist-all-listing-col {
+    width: 100% !important;
+  }
+
+  .directorist-all-listing-col.directorist-col-12 {
+    width: 100% !important;
+  }
+
+  .directorist-all-listing-col.directorist-col-6 {
     width: 100% !important;
   }
 

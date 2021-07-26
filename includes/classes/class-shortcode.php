@@ -48,8 +48,8 @@ class ATBDP_Shortcode {
 				'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 
 				// Single
-				'directorist_single_listings_header'  => [ $this, 'single_listings_header' ],
-				'directorist_single_listings_section' => [ $this, 'single_listings_section' ],
+				'directorist_single_listings_header' => [ $this, 'single_listings_header' ],
+				'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
 	
 				// Single -- legacy shortcode
 				'directorist_listing_top_area'            => [ $this, 'empty_string' ],
@@ -96,19 +96,21 @@ class ATBDP_Shortcode {
 		return ob_get_clean();
 	}
 
-	public function single_listings_section( $atts ) {
+	public function single_listing_section( $atts ) {
 
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return '';
 		}
 
 		ob_start();
-		$listing = Directorist_Single_Listing::instance();
+		$post_id = ( isset( $atts['id'] ) && is_numeric( $atts['id'] ) ) ? ( int ) esc_attr( $atts['id'] ) : 0;
+		$listing = Directorist_Single_Listing::instance( $post_id );
 
 		foreach ( $listing->content_data as $section ) {
 			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
 
-			$section_key = ( isset( $atts['key'] ) ) ? $atts['key'] : '';
+			$section_key  = ( isset( $atts['key'] ) ) ? $atts['key'] : '';
+			$section_key  = trim( preg_replace( '/\s{2,}/', ' ', $section_key ) );
 			$section_keys = preg_split( '/\s*[,]\s/', $section_key );
 
 			if ( ! empty( $section_keys ) && ! in_array( $section_id, $section_keys ) ) {

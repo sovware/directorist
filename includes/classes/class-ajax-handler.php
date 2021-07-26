@@ -1185,6 +1185,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_email = get_bloginfo('admin_email');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1239,6 +1240,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1281,8 +1283,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
              */
             do_action('atbdp_before_processing_contact_to_owner');
             $data = array('error' => 0);
-            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array()));
-            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array()));
+            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array( 'listing_contact_form' )));
+            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array( 'listing_contact_form' )));
             $disable_all_email = get_directorist_option('disable_email_notification');
             $data['sendOwner'] = $sendOwner;
             $data['sendAdmin'] = $sendAdmin;

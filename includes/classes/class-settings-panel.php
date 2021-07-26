@@ -59,6 +59,18 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'export-file-name' => 'directory-settings',
             ];
 
+            $fields['single_listing_slug_with_directory_type'] = [
+                'type'  => 'toggle',
+                'label' => __('Listing Slug with Directory Type', 'directorist'),
+                'value' => get_directorist_option( 'enable_multi_directory' ),
+                'show-if' => [
+                    'where' => "enable_multi_directory",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => true],
+                    ],
+                ],
+            ];
+
             $fields['restore_default_settings'] = [
                 'type'         => 'restore',
                 'label'        => 'Restore Default Settings',
@@ -86,12 +98,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'show'  => get_directorist_option( 'enable_multi_directory', false ),
                     ]
                 ]
-            ];
-
-            $fields['single_listing_slug_with_directory_type'] = [
-                'type'  => 'toggle',
-                'label' => __('Listing Slug with Directory Type', 'directorist'),
-                'value' => get_directorist_option( 'enable_multi_directory' ),
             ];
 
             $fields['regenerate_pages'] = [
@@ -324,7 +330,7 @@ SWBD;
 		public function handle_save_settings_data_request()
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
-			$field_list = ( ! empty( $_POST['field_list'] ) ) ? $this->maybe_json( $_POST['field_list'] ) : [];
+			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
 			if ( empty( $field_list ) || ! is_array( $field_list ) ) {
@@ -333,7 +339,7 @@ SWBD;
 					'message' => __( 'No changes made', 'directorist' ),
 				];
 
-				wp_send_json( [ 'status' => $status, '$field_list' => $field_list ] );
+				wp_send_json( [ 'status' => $status, 'field_list' => $field_list ] );
 			}
 
 			$options = [];
@@ -365,7 +371,13 @@ SWBD;
 			// Update the options
 			$atbdp_options = get_option('atbdp_option');
 			foreach ( $options as $option_key => $option_value ) {
+<<<<<<< HEAD
 				$atbdp_options[ $option_key ] = $this->maybe_json( $option_value );
+=======
+				if ( ! isset( $this->fields[ $option_key ] ) ) { continue; }
+
+				$atbdp_options[ $option_key ] = Directorist\Helper::maybe_json( $option_value, true );
+>>>>>>> upstream/alpha
 			}
 
 			update_option( 'atbdp_option', $atbdp_options );
@@ -381,30 +393,10 @@ SWBD;
 			return [ 'status' => $status ];
 		}
 
-        // maybe_json
-		public function maybe_json( $input_data ) {
-            if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
-        
-            $output_data = $input_data;
-
-            // JSON Docode
-            $decode_json = json_decode( $input_data, true );
-
-            if ( ! is_null( $decode_json ) ) return $decode_json;
-            
-            // JSON Decode from Base64
-            $decode_base64 = base64_decode( $input_data );
-            $decode_base64_json = json_decode( $decode_base64, true );
-
-            if ( ! is_null( $decode_base64_json ) ) return $decode_base64_json;
-
-            return $output_data;
-        }
-
 		// maybe_serialize
 		public function maybe_serialize($value = '')
 		{
-			return maybe_serialize($this->maybe_json($value));
+			return maybe_serialize(Directorist\Helper::maybe_json($value));
 		}
 
 		// prepare_settings
@@ -4663,7 +4655,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'login_form' => [
                             'label' => __('Login Form', 'directorist'),
                             'icon' => '<i class="fa fa-mail-bulk"></i>',
-                            'sections' => apply_filters( 'atbdp_email_templates_settings_sections', [
+                            'sections' => apply_filters( 'directorist_login_form_templates_settings_sections', [
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
                                     'description' => '',

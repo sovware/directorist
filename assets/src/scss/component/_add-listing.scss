@@ -19,6 +19,7 @@
       color: #fff !important;
       font-size: 17px !important;
       min-height: 118px;
+      text-decoration: none;
 
       i {
         display: inline-block;
@@ -442,6 +443,9 @@
 .directorist-form-privacy,
 .directorist-form-terms {
   display: flex;
+  a{
+    text-decoration: none;
+  }
 }
 
 /* =============================

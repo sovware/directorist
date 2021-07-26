@@ -97,13 +97,8 @@ class ATBDP_Shortcode {
 	}
 
 	public function single_listing_section( $atts ) {
-
-		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
-			return '';
-		}
-
 		ob_start();
-		$post_id = ( isset( $atts['id'] ) && is_numeric( $atts['id'] ) ) ? ( int ) esc_attr( $atts['id'] ) : 0;
+		$post_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
 		$listing = Directorist_Single_Listing::instance( $post_id );
 
 		foreach ( $listing->content_data as $section ) {

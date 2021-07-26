@@ -4175,7 +4175,7 @@ class Multi_Directory_Manager
                         'buttonLabel' => '<i class="fas fa-magic"></i>',
                         'shortcodes' => [
                             [
-                                'shortcode' => '[directorist_single_listings_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
+                                'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                                 'mapAtts' => [
                                     [
                                         'map' => 'self.section_id',
@@ -4234,7 +4234,7 @@ class Multi_Directory_Manager
                 'shortcodes' => [
                     '[directorist_single_listings_header]',
                     [
-                        'shortcode' => '[directorist_single_listings_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
+                        'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                         'mapAtts' => [
                             [
                                 'mapAll' => 'single_listings_contents.value.groups',

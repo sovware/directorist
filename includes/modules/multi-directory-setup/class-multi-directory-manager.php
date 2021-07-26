@@ -4853,10 +4853,8 @@ class Multi_Directory_Manager
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
             $this->prepare_settings();
 
-            if ( ! empty( $_REQUEST['listing_type_id'] ) ) {
-                $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $_REQUEST['listing_type_id'];
-                $this->update_fields_with_old_data( $listing_type_id );
-            }
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : default_directory_type();
+            $this->update_fields_with_old_data( $listing_type_id );
 
             $cptm_data = [
                 'fields'  => self::$fields,

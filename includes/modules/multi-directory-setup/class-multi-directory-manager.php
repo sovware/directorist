@@ -25,10 +25,10 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
+        add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
-        add_action( 'init', [$this, 'register_terms'] );
 
         if ( ! is_admin() ) {
             return;
@@ -204,7 +204,6 @@ class Multi_Directory_Manager
 
         $migrated = get_option( 'atbdp_migrated', false );
         $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
-        
         if ( $need_migration ) {
             $this->prepare_settings();
             self::$migration->migrate();
@@ -280,11 +279,15 @@ class Multi_Directory_Manager
         if ( ! file_exists( $file ) ) { return; }
         $file_contents = file_get_contents( $file );
 
+        
+
         $add_directory = self::add_directory([
             'directory_name' => 'General',
             'fields_value'   => $file_contents,
             'is_json'        => true
         ]);
+
+        var_dump(  $add_directory );
 
         if ( $add_directory['status']['success'] ) {
             update_option( 'atbdp_has_multidirectory', true );

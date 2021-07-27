@@ -201,6 +201,26 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
+
+        
+        $listings = new \WP_Query([
+            'post_type'      => ATBDP_POST_TYPE,
+            'status'         => 'publish',
+            'posts_per_page' => 5,
+            'fields'         => 'ids',
+        ]);
+
+        
+        $ids = wp_parse_id_list( $listings->posts );
+        var_dump( $ids );
+
+        // if ( $listings->have_posts() ) {
+        //     while( $listings->have_posts() ) {
+        //         var_dump( get_the_ID() );
+        //     }
+        // }
+
+
         $migrated = get_option( 'atbdp_migrated', false );
         $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
         

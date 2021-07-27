@@ -32,6 +32,12 @@ $mobile-width-3: 375px;
     .directorist-all-listing-col {
         width: 33.33% !important;
     }
+    .directorist-all-listing-col.directorist-col-12{
+        width: 100% !important;
+    }
+    .directorist-all-listing-col.directorist-col-6{
+        width: 50% !important;
+    }
 }
 
 // XX. Medium Devices (less than 991px)
@@ -40,6 +46,12 @@ $mobile-width-3: 375px;
 // XX. Medium Devices (less than 768px)
 @media only screen and (max-width: #{$tablet-width-2}) {
     .directorist-all-listing-col {
+        width: 50% !important;
+    }
+    .directorist-all-listing-col.directorist-col-12{
+        width: 100% !important;
+    }
+    .directorist-all-listing-col.directorist-col-6{
         width: 50% !important;
     }
 }
@@ -51,6 +63,13 @@ $mobile-width-3: 375px;
     }
 
     .directorist-all-listing-col {
+        width: 100% !important;
+    }
+    .directorist-all-listing-col.directorist-col-12{
+        width: 100% !important;
+    }
+
+    .directorist-all-listing-col.directorist-col-6{
         width: 100% !important;
     }
 

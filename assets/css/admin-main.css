@@ -3033,6 +3033,9 @@ input.atbdp-form-control {
   padding: 12px 15px;
   min-width: 300px;
 }
+.et-wrapper .et-contents .ext-wrapper table .extension-name .directorist-checkbox .directorist-checkbox__label {
+  padding-left: 30px;
+}
 .et-wrapper .et-contents .ext-wrapper table .extension-name input {
   margin-right: 20px !important;
 }
@@ -13086,6 +13089,7 @@ input[type=radio] {
   display: none;
   position: absolute;
   width: 100%;
+  max-height: 350px;
   left: 0;
   top: 44px;
   padding: 15px;
@@ -13094,6 +13098,7 @@ input[type=radio] {
           box-shadow: 0 10px 40px #868EAE30;
   border-radius: 5px;
   z-index: 99999;
+  overflow-y: auto;
 }
 .directorist_dropdown .directorist_dropdown-option.--show {
   display: block !important;
@@ -16271,6 +16276,7 @@ input[type=radio] {
   display: none;
   position: absolute;
   width: 100%;
+  max-height: 350px;
   left: 0;
   top: 44px;
   padding: 15px;
@@ -16279,6 +16285,7 @@ input[type=radio] {
           box-shadow: 0 10px 40px #868EAE30;
   border-radius: 5px;
   z-index: 99999;
+  overflow-y: auto;
 }
 .directorist_dropdown .directorist_dropdown-option.--show {
   display: block !important;
@@ -19461,6 +19468,7 @@ input[type=radio] {
   display: none;
   position: absolute;
   width: 100%;
+  max-height: 350px;
   left: 0;
   top: 44px;
   padding: 15px;
@@ -19469,6 +19477,7 @@ input[type=radio] {
           box-shadow: 0 10px 40px #868EAE30;
   border-radius: 5px;
   z-index: 99999;
+  overflow-y: auto;
 }
 .directorist_dropdown .directorist_dropdown-option.--show {
   display: block !important;

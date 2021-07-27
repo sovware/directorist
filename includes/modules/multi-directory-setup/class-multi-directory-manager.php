@@ -4911,7 +4911,7 @@ class Multi_Directory_Manager
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
-            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : default_directory_type();
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : 0;
             $this->update_fields_with_old_data( $listing_type_id );
 
             $cptm_data = [
@@ -4935,8 +4935,12 @@ class Multi_Directory_Manager
     // update_fields_with_old_data
     public function update_fields_with_old_data( $listing_type_id = 0 )
     {
-        // $listing_type_id = absint($_REQUEST['listing_type_id']);
-        $term      = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term($listing_type_id, 'atbdp_listing_types');
+
+        if ( is_wp_error( $term ) || empty( $term ) ) {
+            return;
+        }
+
         $term_name = ( $term ) ? $term->name : '';
         $term_id   = ( $term ) ? $term->term_id : 0;
 
@@ -4944,7 +4948,6 @@ class Multi_Directory_Manager
 
         $all_term_meta = get_term_meta( $term_id );
         $test_migration = apply_filters( 'atbdp_test_migration', false );
-        // $test_migration = apply_filters( 'atbdp_test_migration', true );
 
         if ( $test_migration ) {
             $all_term_meta = self::$migration->get_fields_data();

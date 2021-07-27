@@ -202,42 +202,51 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
-        $directory_types = get_terms( array(
-            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-            'hide_empty' => false,
-        ));
-
-        $has_multidirectory = ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;
-
-        $get_listings = new \WP_Query([
-            'post_type' => ATBDP_POST_TYPE,
-            'posts_per_page' => 1,
-        ]);
-
-        $get_custom_fields = new \WP_Query([
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'posts_per_page' => 1,
-        ]);
+        $migrated = get_option( 'atbdp_migrated', false );
+        $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
         
-        $migrated          = get_option( 'atbdp_migrated', false );
-        $has_listings      = false;
-        $has_custom_fields = false;
-
-        $has_listings        = $get_listings->post_count;
-        $has_custom_fields   = $get_custom_fields->post_count;
-        $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
-        $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
-
         if ( $need_migration ) {
             $this->prepare_settings();
             self::$migration->migrate();
             return;
         }
 
+        $need_import_default = ( ! self::has_multidirectory() ) ? true : false;
+        
         if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
             $this->prepare_settings();
             $this->import_default_directory();
         }
+    }
+
+    // has_multidirectory
+    public static function has_multidirectory() {
+        $directory_types = get_terms( array(
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ));
+
+        return ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;
+    }
+
+    // has_old_listings_data
+    public static function has_old_listings_data() {
+        $get_listings = new \WP_Query([
+            'post_type'      => ATBDP_POST_TYPE,
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+        ]);
+
+        $get_custom_fields = new \WP_Query([
+            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+        ]);
+
+        $has_listings          = $get_listings->post_count;
+        $has_custom_fields     = $get_custom_fields->post_count;
+
+        return ( $has_listings || $has_custom_fields ) ? true : false;
     }
 
     // handle_force_migration

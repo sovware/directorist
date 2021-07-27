@@ -28,7 +28,6 @@ class Multi_Directory_Manager
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
-        add_action( 'init', [$this, 'add_missing_single_listing_section_id'] );
         add_action( 'init', [$this, 'register_terms'] );
 
         if ( ! is_admin() ) {
@@ -57,7 +56,7 @@ class Multi_Directory_Manager
             'hide_empty' => false,
         ]);
 
-        if ( empty( $directory_types ) ) {
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
             return;
         }
 
@@ -4909,6 +4908,7 @@ class Multi_Directory_Manager
 
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
             $this->prepare_settings();
+            $this->add_missing_single_listing_section_id();
 
             $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : default_directory_type();
             $this->update_fields_with_old_data( $listing_type_id );

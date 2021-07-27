@@ -63,7 +63,6 @@ class Multi_Directory_Migration {
                 'fields'         => 'ids',
             ]);
 
-
             $listings_ids = ( ! is_wp_error( $listings ) )? wp_parse_id_list( $listings->posts ) : [];
 
             if ( ! empty( $listings_ids ) ) {

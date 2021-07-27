@@ -25,10 +25,10 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
+        add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
-        add_action( 'init', [$this, 'register_terms'] );
 
         if ( ! is_admin() ) {
             return;

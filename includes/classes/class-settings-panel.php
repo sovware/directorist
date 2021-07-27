@@ -637,7 +637,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'announcement_send_to_email' => [
                     'label'   => __('Send a copy to email', 'directorist'),
                     'type'    => 'toggle',
-                    'default' => true,
+                    'value' => true,
                 ],
 
                 'button_type' => [
@@ -1354,13 +1354,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 'primary_dark_back_color' => [
                     'type' => 'color',
                     'label' => __('Background Color', 'directorist'),
-                    'default' => '#444752',
+                    'value' => '#444752',
                 ],
 
                 'primary_dark_border_color' => [
                     'type' => 'color',
                     'label' => __('Border Color', 'directorist'),
-                    'default' => '#444752',
+                    'value' => '#444752',
                 ],
 
                 'font_type' => [

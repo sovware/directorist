@@ -650,7 +650,7 @@ class Enqueue_Assets {
 			'file_name'      => 'public-search-listing',
 			'base_path'      => DIRECTORIST_JS,
 			'ver'            => self::$script_version,
-			'group'          => 'public',                         // public || admin  || global
+			'group'          => 'public', // public || admin  || global
 			'section'        => 'search-form',
 			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
 			'localize_data'  => [
@@ -660,7 +660,7 @@ class Enqueue_Assets {
 				]),
 			],
 		];
-		
+
 		$scripts['directorist-search-form-listing'] = [
 			'file_name' => 'public-search-form-listing',
 			'base_path' => DIRECTORIST_JS,

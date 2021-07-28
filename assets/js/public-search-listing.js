@@ -418,7 +418,11 @@
           labelElm.innerText = "";
         }
       });
-    }
+    } // Reset Select2 Fields
+
+
+    var select2Fields = $(adsForm).find('.select2-hidden-accessible');
+    select2Fields.val(null).trigger('change');
   }
 
   if ($(".directorist-search-form #atbdp_reset") !== null) {

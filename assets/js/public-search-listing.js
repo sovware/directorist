@@ -412,7 +412,11 @@
 
     if (directoristSelect !== null) {
       directoristSelect.forEach(function (el, id) {
-        el.querySelector('.directorist-select__label').innerText = "";
+        var labelElm = el.querySelector('.directorist-select__label');
+
+        if (null !== labelElm) {
+          labelElm.innerText = "";
+        }
       });
     }
   }

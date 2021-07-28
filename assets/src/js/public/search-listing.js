@@ -312,7 +312,11 @@
         let directoristSelect = adsForm.querySelectorAll('.directorist-select:not(.directorist-search-category)');
         if(directoristSelect !== null){
             directoristSelect.forEach(function(el, id) {
-                el.querySelector('.directorist-select__label').innerText = "";
+                const labelElm = el.querySelector('.directorist-select__label');
+
+                if ( null !== labelElm) {
+                    labelElm.innerText = "";
+                }
             })
         }
 

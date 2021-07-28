@@ -276,6 +276,10 @@
             adsForm = document.querySelector(".atbd_ads-form");
         }
 
+        if ( ! adsForm ) {
+            return;
+        }
+
         adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
             el.value = "";
         });

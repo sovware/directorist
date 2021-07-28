@@ -5483,6 +5483,14 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-align: center !important;
 }
 
+/* Login/Signup Form */
+.directorist-login-wrapper #recover-pass-modal .directorist-btn {
+  margin-top: 15px;
+}
+.directorist-login-wrapper #recover-pass-modal .directorist-btn:hover {
+  text-decoration: none;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;
@@ -10887,9 +10895,16 @@ p.atbd-min {
   text-align: left;
 }
 
+.directorist-rated-stars ul,
+.atbd_rated_stars ul {
+  margin: 0;
+  padding: 0;
+}
 .directorist-rated-stars ul li,
 .atbd_rated_stars ul li {
   display: inline-block;
+  padding: 0;
+  margin: 0;
 }
 .directorist-rated-stars ul li span,
 .atbd_rated_stars ul li span {
@@ -11502,6 +11517,9 @@ p.atbd-min {
   margin-right: 10px;
   margin: 0 10px 0 0;
 }
+.directorist-rating-given-block .directorist-rating-given-block__stars .br-widget a {
+  text-decoration: none;
+}
 .directorist-rating-given-block .directorist-rating-given-block__stars .br-widget a:before {
   content: "";
   font-size: 14px;
@@ -11529,8 +11547,14 @@ p.atbd-min {
   display: inline-block;
   vertical-align: middle;
 }
+.directorist-review-current-rating .directorist-review-current-rating__stars ul {
+  margin: 0;
+  padding: 0;
+}
 .directorist-review-current-rating .directorist-review-current-rating__stars ul li {
   display: inline-block;
+  margin: 0;
+  padding: 0;
 }
 .directorist-review-current-rating .directorist-review-current-rating__stars ul li span {
   color: #d4d3f3;
@@ -12845,6 +12869,7 @@ p.atbd-min {
   background-color: #F5F6F8;
   border-radius: 6px;
   padding: 10.5px;
+  min-width: 120px;
 }
 @media (max-width: 1199px) {
   .directorist-announcement-wrapper .directorist-announcement__date {
@@ -13320,9 +13345,15 @@ p.atbd-min {
   max-height: 300px;
   overflow-y: scroll;
 }
+.directorist-search-field #address + .address_result ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
 .directorist-search-field #address + .address_result ul li {
   border-bottom: 1px solid #eff1f6;
   padding: 10px 15px 10px !important;
+  margin: 0;
 }
 .directorist-search-field #address + .address_result ul li a {
   font-size: 14px;

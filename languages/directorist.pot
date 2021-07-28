@@ -1397,7 +1397,7 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:211, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5048
+#: ../includes/classes/class-metabox.php:211, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5053
 msgid "Listing Type"
 msgstr ""
 
@@ -4829,7 +4829,7 @@ msgstr ""
 msgid "You can customize all the settings related to your offline gateway. After switching any option, Do not forget to save the changes."
 msgstr ""
 
-#: ../includes/gutenberg/init.php:156
+#: ../includes/gutenberg/init.php:169
 msgid "Current block is %s and it is empty! Maybe the block is used incorrectly or there is something wrong."
 msgstr ""
 
@@ -6678,25 +6678,25 @@ msgstr ""
 msgid "Directory Builder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5034
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5039
 msgid "Failed to delete the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5027
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5032
 msgid "Successfully Deleted the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5045
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5050
 msgctxt "taxonomy general name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5046
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5051
 msgctxt "taxonomy singular name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5047
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5052
 msgid "Search Listing Type"
 msgstr ""
 

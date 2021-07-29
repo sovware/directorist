@@ -151,8 +151,8 @@ class ATBDP_Shortcode {
 
 	public function location_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$tag_slug         = get_query_var('atbdp_location');
-		$atts['location'] = sanitize_title_for_query( $tag_slug );
+		$location_slug    = get_query_var('atbdp_location');
+		$atts['location'] = sanitize_title_for_query( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
 

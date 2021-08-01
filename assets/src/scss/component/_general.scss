@@ -171,3 +171,15 @@
 .directorist-text-center {
   text-align: center !important;
 }
+
+/* Login/Signup Form */
+.directorist-login-wrapper{
+  #recover-pass-modal{
+      .directorist-btn{
+          margin-top: 15px;
+          &:hover{
+            text-decoration: none;
+          }
+      }
+  }
+}

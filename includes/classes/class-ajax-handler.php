@@ -290,12 +290,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if( $listing_types ) {
                 foreach( $listing_types as $listing_type ){
                     $directory_slugs[] = $listing_type->slug;
+                    if( $type_id == $listing_type->term_id ) {
+                        $old_slug = $listing_type->slug; 
+                    }
                 }
             }
 
             if( in_array( $update_slug, $directory_slugs ) ) {
                 wp_send_json( array(
-                    'error' => __('This slug already in use.', 'directorist')
+                    'error' => __('This slug already in use.', 'directorist'),
+                    'old_slug' => ! empty( $old_slug ) ? $old_slug : '',
                 ) );
             } else {
                 $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );
@@ -927,7 +931,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
+
+                $post_id = esc_sql( $_POST['post_id'] );
+                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
+
+                global $wpdb;
+                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
+	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
+
                 $data = array(
+                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
@@ -944,20 +957,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-
-                    $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
-
-                    $required = [
-                        'post_id' => $_POST['post_id'],
-                        'reviewer_id' => $reviewer_id,
-                        'rating' => floatval($_POST['rating']),
-                        'status' => 'published',
-                    ];
-
-                    $review_meta = array_merge( $data, $required );
-
-                    Helper::add_listings_review_meta( $review_meta );
-
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
 
@@ -1181,6 +1180,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_email = get_bloginfo('admin_email');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1235,6 +1235,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1277,8 +1278,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
              */
             do_action('atbdp_before_processing_contact_to_owner');
             $data = array('error' => 0);
-            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array()));
-            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array()));
+            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array( 'listing_contact_form' )));
+            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array( 'listing_contact_form' )));
             $disable_all_email = get_directorist_option('disable_email_notification');
             $data['sendOwner'] = $sendOwner;
             $data['sendAdmin'] = $sendAdmin;

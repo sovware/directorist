@@ -220,59 +220,126 @@
         })
     });
 
+    //reset fields
+    function resetFields(){
+        var inputArray = document.querySelectorAll('.search-area input');
+        inputArray.forEach(function (input){
+            if(input.getAttribute("type") !== "hidden" || input.getAttribute("id") === "atbd_rs_value"){
+                input.value = "";
+            }
+        });
+
+        var textAreaArray = document.querySelectorAll('.search-area textArea');
+        textAreaArray.forEach(function (textArea){
+            textArea.innerHTML = "";
+        });
+
+        var range = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-range");
+        var rangePos = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-handle");
+        var rangeAmount = document.querySelector(".atbdpr_amount");
+        if(range){
+            range.setAttribute("style", "width: 0;");
+        }
+        if(rangePos){
+            rangePos.setAttribute("style", "left: 0;");
+        }
+        if(rangeAmount){
+            rangeAmount.innerText = "0 Mile";
+        }
+
+        var checkBoxes = document.querySelectorAll('.directorist-advanced-filter input[type="checkbox"]');
+        checkBoxes.forEach(function(el, ind) {
+            el.checked = false;
+        })
+        var radios = document.querySelectorAll('.directorist-advanced-filter input[type="radio"]');
+        radios.forEach(function(el, ind) {
+            el.checked = false;
+        })
+        $('.search-area select').prop('selectedIndex',0);
+        $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
+
+    }
+    $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
+        e.preventDefault();
+        resetFields();
+    });
+
+    /* advanced search form reset */
+    function adsFormReset() {
+        let adsForm = document.querySelector(".directorist-search-form");
+
+        if ( ! adsForm ) {
+            adsForm = document.querySelector(".directorist-advanced-filter__form");
+        }
+
+        if ( ! adsForm ) {
+            adsForm = document.querySelector(".atbd_ads-form");
+        }
+
+        adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
+            el.value = "";
+        });
+        adsForm.querySelectorAll("input[type='date']").forEach(function (el) {
+            el.value = "";
+        });
+        adsForm.querySelectorAll("input[type='time']").forEach(function (el) {
+            el.value = "";
+        });
+        adsForm.querySelectorAll("input[type='url']").forEach(function (el) {
+            el.value = "";
+        });
+        adsForm.querySelectorAll("input[type='number']").forEach(function (el) {
+            el.value = "";
+        });
+        adsForm.querySelectorAll("input[type='radio']").forEach(function (el) {
+            el.checked = false;
+        });
+        adsForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+            el.checked = false;
+        });
+        adsForm.querySelectorAll("select").forEach(function (el) {
+            el.selectedIndex = 0;
+        });
+        const irisPicker = adsForm.querySelector("input.wp-picker-clear");
+        if(irisPicker !== null){
+            irisPicker.click();
+        }
+        const rangeValue = adsForm.querySelector(".atbd-current-value span");
+        if(rangeValue !== null){
+            rangeValue.textContent = "0";
+        }
+
+        let directoristSelect = adsForm.querySelectorAll('.directorist-select:not(.directorist-search-category)');
+        if(directoristSelect !== null){
+            directoristSelect.forEach(function(el, id) {
+                el.querySelector('.directorist-select__label').innerText = "";
+            })
+        }
+
+
+
+    }
+    if($(".directorist-search-form #atbdp_reset") !== null){
+        $("body").on("click", ".directorist-search-form #atbdp_reset", function (e) {
+            e.preventDefault();
+            adsFormReset();
+            atbd_callingSlider(0);
+        });
+    }
+    if($(".directorist-advanced-filter__form #atbdp_reset") !== null){
+        $(".directorist-advanced-filter__form #atbdp_reset").on("click", function (e) {
+            e.preventDefault();
+            adsFormReset();
+            atbd_callingSlider(0);
+        });
+    }
+    if($("#bdlm-search-area #atbdp_reset") !== null){
+        $("#bdlm-search-area #atbdp_reset").on("click", function (e) {
+            e.preventDefault();
+            adsFormReset();
+            atbd_callingSlider(0);
+        })
+    }
+
+
 })(jQuery);
-
-/* advanced search form reset */
-function adsFormReset() {
-    let adsForm = document.querySelector(".directorist-search-form");
-
-    if ( ! adsForm ) {
-        adsForm = document.querySelector(".directorist-advanced-filter__form");
-    }
-
-    if ( ! adsForm ) {
-        adsForm = document.querySelector(".atbd_ads-form");
-    }
-
-    adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
-        el.value = "";
-    });
-    adsForm.querySelectorAll("input[type='radio']").forEach(function (el) {
-        el.checked = false;
-    });
-    adsForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
-        el.checked = false;
-    });
-    adsForm.querySelectorAll("select").forEach(function (el) {
-        el.selectedIndex = 0;
-    });
-    const irisPicker = adsForm.querySelector("input.wp-picker-clear");
-    if(irisPicker !== null){
-        irisPicker.click();
-    }
-    const rangeValue = adsForm.querySelector(".atbd-current-value span");
-    if(rangeValue !== null){
-        rangeValue.textContent = "0";
-    }
-}
-if(document.querySelector(".directorist-search-form #atbdp_reset") !== null){
-    document.querySelector(".directorist-search-form #atbdp_reset").addEventListener("click", function (e) {
-        e.preventDefault();
-        adsFormReset();
-        atbd_callingSlider(0);
-    });
-}
-if(document.querySelector(".directorist-advanced-filter__form #atbdp_reset") !== null){
-    document.querySelector(".directorist-advanced-filter__form #atbdp_reset").addEventListener("click", function (e) {
-        e.preventDefault();
-        adsFormReset();
-        atbd_callingSlider(0);
-    });
-}
-if(document.querySelector("#bdlm-search-area #atbdp_reset") !== null){
-    document.querySelector("#bdlm-search-area #atbdp_reset").addEventListener("click", function (e) {
-        e.preventDefault();
-        adsFormReset();
-        atbd_callingSlider(0);
-    })
-}

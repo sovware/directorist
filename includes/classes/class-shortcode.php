@@ -132,7 +132,7 @@ class ATBDP_Shortcode {
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
 		$category_slug    = get_query_var('atbdp_category');
-		$atts['category'] = sanitize_text_field( $category_slug );
+		$atts['category'] = sanitize_title_for_query( $category_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_category';
 
@@ -142,7 +142,7 @@ class ATBDP_Shortcode {
 	public function tag_archive( $atts ) {
 		$atts        = !empty( $atts ) ? $atts : array();
 		$tag_slug    = get_query_var('atbdp_tag');
-		$atts['tag'] = sanitize_text_field( $tag_slug );
+		$atts['tag'] = sanitize_title_for_query( $tag_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_tag';
 
@@ -150,9 +150,9 @@ class ATBDP_Shortcode {
 	}
 
 	public function location_archive( $atts ) {
-		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = get_query_var('atbdp_location');
-		$atts['location'] = sanitize_text_field( $tag_slug );
+		$atts             = !empty( $atts ) ? $atts : array();
+		$location_slug    = get_query_var('atbdp_location');
+		$atts['location'] = sanitize_title_for_query( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
 

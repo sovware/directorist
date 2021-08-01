@@ -8786,6 +8786,8 @@ p.atbd-min {
 }
 #directorist.atbd_wrapper .atbd_category_wrapper .atbdp_child_category {
   padding-right: 15px;
+  list-style: none;
+  margin: 0;
 }
 #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid {
   position: relative;

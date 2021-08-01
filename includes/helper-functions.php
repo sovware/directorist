@@ -6073,6 +6073,7 @@ if (!function_exists('calc_listing_expiry_date')) {
     function calc_listing_expiry_date($start_date = NULL, $expire = NULL)
     {
         $exp_days = get_term_meta( default_directory_type(), 'default_expiration', true );
+        $exp_days = !empty( $exp_days ) ? $exp_days : 0;
         $expired_date = !empty($expire) ? $expire : $exp_days;
         // Current time
         $start_date = !empty($start_date) ? $start_date : current_time('mysql');
@@ -7534,6 +7535,13 @@ function atbdp_can_overwrite_yoast()
 
 function atbdp_disable_overwrite_yoast() {
     atbdp_can_overwrite_yoast();
+}
+
+if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
+    function directorist_is_active_rankmath() {
+        
+        return class_exists( 'RankMath' );
+    }
 }
 
 

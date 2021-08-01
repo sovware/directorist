@@ -328,6 +328,7 @@
                 a {
                     color: #0A0B1E;
                     box-shadow: none;
+                    text-decoration: none;
                 }
             }
 
@@ -776,5 +777,15 @@
     &.directorist-active {
         display: block;
         z-index: 21;
+    }
+}
+.table.atbd_single_saved_item{
+    .action{
+        a.btn{
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
     }
 }

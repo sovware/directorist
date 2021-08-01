@@ -1,6 +1,8 @@
 <template>
     <div class="cptm-form-group">
-        <label>{{label}}</label>
+        <label v-if="( label.length )">
+            <component :is="labelType">{{ label }}</component>
+        </label>
 
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 

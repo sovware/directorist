@@ -18,13 +18,16 @@
 
             .media-body {
                 padding: 10px 15px;
-
+                a{
+                    text-decoration: none;
+                }
                 h3 a {
                     font-weight: 500;
                     line-height: 1.2;
                     color: #272b41;
                     letter-spacing: normal;
                     font-size: 18px;
+                    text-decoration: none;
                 }
             }
 

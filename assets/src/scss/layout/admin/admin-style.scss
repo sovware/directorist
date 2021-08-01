@@ -3188,6 +3188,12 @@ input.atbdp-form-control {
           padding: 12px 15px;
           min-width: 300px;
 
+          .directorist-checkbox{
+            .directorist-checkbox__label{
+              padding-left: 30px;
+            }
+          }
+
           input {
             margin-right: 20px !important;
           }
@@ -5249,6 +5255,7 @@ img.atbdp-file-info {
 @import '../../component/form';
 @import '../../component/button';
 @import '../../component/modal';
+@import '../../component/alert';
 @import '../../component/badge';
 @import '../../component/checkbox-radio';
 @import '../../component/switch';

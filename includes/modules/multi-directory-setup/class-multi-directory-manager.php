@@ -25,13 +25,18 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
-        add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
-
-        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
         add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
+
+        if ( ! is_admin() ) {
+            return;
+        }
+
+        add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
+
+        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -42,6 +47,50 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
         
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+    }
+
+    // add_missing_single_listing_section_id
+    public function add_missing_single_listing_section_id() {
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+            return;
+        }
+
+        foreach ( $directory_types as $directory_type ) {
+            $single_listings_contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+            $need_to_update = false;
+
+            if ( empty( $single_listings_contents ) ) {
+                continue;
+            }
+
+            if ( empty( $single_listings_contents['groups'] ) ) {
+                continue;
+            }
+
+            foreach ( $single_listings_contents['groups'] as $group_index => $group ) {
+                $has_section_id = ( ! empty( $group['section_id'] ) ) ? true : false;
+                $renew = ( $has_section_id ) ? false : true;
+                $renew = apply_filters( 'directorist_renew_single_listing_section_id', $renew );
+
+                if ( ! $renew ) {
+                    continue;
+                }
+
+                $group['section_id'] = $group_index + 1;
+                $single_listings_contents['groups'][ $group_index ] = $group;
+                $need_to_update = true;
+            }
+
+            if ( $need_to_update ) {
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
+            }
+        }
+        
     }
 
     // init_sanitize_builder_data_structure
@@ -152,40 +201,52 @@ class Multi_Directory_Manager
 
     // setup_migration
     public function setup_migration() {
+
+        $migrated = get_option( 'atbdp_migrated', false );
+        $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
+        
+        if ( $need_migration ) {
+            $this->prepare_settings();
+            self::$migration->migrate();
+            return;
+        }
+
+        $need_import_default = ( ! self::has_multidirectory() ) ? true : false;
+        
+        if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
+            $this->prepare_settings();
+            $this->import_default_directory();
+        }
+    }
+
+    // has_multidirectory
+    public static function has_multidirectory() {
         $directory_types = get_terms( array(
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
         ));
 
-        $has_multidirectory = ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;
+        return ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;
+    }
 
+    // has_old_listings_data
+    public static function has_old_listings_data() {
         $get_listings = new \WP_Query([
-            'post_type' => ATBDP_POST_TYPE,
+            'post_type'      => ATBDP_POST_TYPE,
             'posts_per_page' => 1,
+            'fields'         => 'ids',
         ]);
 
         $get_custom_fields = new \WP_Query([
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
             'posts_per_page' => 1,
+            'fields'         => 'ids',
         ]);
-        
-        $migrated          = get_option( 'atbdp_migrated', false );
-        $has_listings      = false;
-        $has_custom_fields = false;
 
-        $has_listings        = $get_listings->post_count;
-        $has_custom_fields   = $get_custom_fields->post_count;
-        $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
-        $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
+        $has_listings          = $get_listings->post_count;
+        $has_custom_fields     = $get_custom_fields->post_count;
 
-        if ( $need_migration ) {
-            self::$migration->migrate();
-            return;
-        }
-
-        if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
-            $this->import_default_directory();
-        }
+        return ( $has_listings || $has_custom_fields ) ? true : false;
     }
 
     // handle_force_migration
@@ -202,6 +263,7 @@ class Multi_Directory_Manager
             $args[ 'term_id' ] = $general_directory['term_id'];
         }
         
+        $this->prepare_settings();
         $migration_status = self::$migration->migrate( $args );
         
         $status = [
@@ -292,6 +354,8 @@ class Multi_Directory_Manager
             $directory_name = '';
         }
 
+        $this->prepare_settings();
+        
         $add_directory = self::add_directory([ 
             'term_id'        => $term_id,
             'directory_name' => $directory_name,
@@ -363,6 +427,8 @@ class Multi_Directory_Manager
                 $fields[ $field_key ] = Helper::maybe_json( $_POST[$field_key], true );
             }
         }
+
+        $this->prepare_settings();
 
         $add_directory = self::add_directory([
             'term_id'        => $term_id,
@@ -4097,6 +4163,12 @@ class Multi_Directory_Manager
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
                 'groupFields' => [
+                    'section_id' => [
+                        'type'    => 'text',
+                        'disable' => true,
+                        'label'   => 'Section ID',
+                        'value'   => '',
+                    ],
                     'icon' => [
                         'type'  => 'icon',
                         'label'  => __( 'Block/Section Icon', 'directorist' ),
@@ -4120,25 +4192,24 @@ class Multi_Directory_Manager
                     'shortcode' => [
                         'type'        => 'shortcode-list',
                         'label'       => __( 'Shortcode', 'directorist' ),
-                        'description' => __( 'Click the wizerd button to generate the shortcode. This shortcode depends on the Label field, so make sure to regenarate the shortcode if you update the section Label', 'directorist' ),
+                        'description' => __( 'Click the wizerd button to generate the shortcode.', 'directorist' ),
                         'buttonLabel' => '<i class="fas fa-magic"></i>',
-                        'value'       => [
+                        'shortcodes' => [
                             [
-                                'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                                'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                                 'mapAtts' => [
+                                    [
+                                        'map' => 'self.section_id',
+                                        'where' => [
+                                            'key' => 'value',
+                                            'mapTo' => '@@shortcode_key@@'
+                                        ]
+                                    ],
                                     [
                                         'map' => 'self.label',
                                         'where' => [
                                             'key' => 'value',
-                                                'applyFilter' => [
-                                                    ['type' => 'lowercase'],
-                                                    [
-                                                        'type'       => 'replace',
-                                                        'find_regex' => '\\s',
-                                                        'replace'    => '-',
-                                                    ],
-                                                ],
-                                                'mapTo' => '@@shortcode_key@@'
+                                            'mapTo' => '@@shortcode_label@@'
                                         ]
                                     ],
                                 ],
@@ -4181,24 +4252,22 @@ class Multi_Directory_Manager
                 'buttonLabel' => '<i class="fas fa-magic"></i>',
                 'label'       => __( 'Generate shortcodes', 'directorist' ),
                 'description' => __( 'Generate single listing shortcodes', 'directorist' ),
-                'value'       => [
+                'shortcodes' => [
                     '[directorist_single_listings_header]',
                     [
-                        'shortcode' => '[directorist_single_listings_section key="@@shortcode_key@@"]',
+                        'shortcode' => '[directorist_single_listing_section label="@@shortcode_label@@" key="@@shortcode_key@@"]',
                         'mapAtts' => [
                             [
                                 'mapAll' => 'single_listings_contents.value.groups',
                                 'where' => [
-                                    'key' => 'label',
-                                        'applyFilter' => [
-                                            ['type' => 'lowercase'],
-                                            [
-                                                'type'       => 'replace',
-                                                'find_regex' => '\\s',
-                                                'replace'    => '-',
-                                            ],
-                                        ],
+                                    [
+                                        'key' => 'section_id',
                                         'mapTo' => '@@shortcode_key@@'
+                                    ],
+                                    [
+                                        'key' => 'label',
+                                        'mapTo' => '@@shortcode_label@@'
+                                    ],
                                 ]
                             ],
                         ],
@@ -4834,25 +4903,27 @@ class Multi_Directory_Manager
         $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
         $listing_type_id = 0;
 
-        if ( ! $enable_multi_directory || ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] ) ) ) {
-            $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $_REQUEST['listing_type_id'];
-            $this->update_fields_with_old_data( $listing_type_id );
-        }
-
         $data = [
             'add_new_link' => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
         ];
 
-        $cptm_data = [
-            'fields'  => self::$fields,
-            'layouts' => self::$layouts,
-            'config'  => self::$config,
-            'options' => $this->options,
-            'id'      => $listing_type_id,
-        ];
-        
-
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
+            $this->prepare_settings();
+            $this->add_missing_single_listing_section_id();
+
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : 0;
+            $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $listing_type_id;
+            
+            $this->update_fields_with_old_data( $listing_type_id );
+
+            $cptm_data = [
+                'fields'  => self::$fields,
+                'layouts' => self::$layouts,
+                'config'  => self::$config,
+                'options' => $this->options,
+                'id'      => $listing_type_id,
+            ];
+            
             wp_localize_script('directorist-multi-directory-builder', 'cptm_data', $cptm_data);
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;
@@ -4866,8 +4937,12 @@ class Multi_Directory_Manager
     // update_fields_with_old_data
     public function update_fields_with_old_data( $listing_type_id = 0 )
     {
-        // $listing_type_id = absint($_REQUEST['listing_type_id']);
-        $term      = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term($listing_type_id, 'atbdp_listing_types');
+
+        if ( is_wp_error( $term ) || empty( $term ) ) {
+            return;
+        }
+
         $term_name = ( $term ) ? $term->name : '';
         $term_id   = ( $term ) ? $term->term_id : 0;
 
@@ -4875,7 +4950,6 @@ class Multi_Directory_Manager
 
         $all_term_meta = get_term_meta( $term_id );
         $test_migration = apply_filters( 'atbdp_test_migration', false );
-        // $test_migration = apply_filters( 'atbdp_test_migration', true );
 
         if ( $test_migration ) {
             $all_term_meta = self::$migration->get_fields_data();
@@ -4980,8 +5054,6 @@ class Multi_Directory_Manager
             ],
             'show_ui' => false,
         ]);
-
-        $this->prepare_settings();
     }
 
     /**

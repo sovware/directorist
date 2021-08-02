@@ -2097,7 +2097,7 @@ $('.ext-update-btn').on('click', function (e) {
         location.reload();
       } else {
         $(self).html(button_default_html);
-        alert(response.status.massage);
+        alert(response.status.message);
       }
     },
     error: function error(_error3) {

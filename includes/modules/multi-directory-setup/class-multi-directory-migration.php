@@ -60,16 +60,16 @@ class Multi_Directory_Migration {
                 'post_type'      => ATBDP_POST_TYPE,
                 'status'         => 'publish',
                 'posts_per_page' => -1,
+                'fields'         => 'ids',
             ]);
 
-            if ( $listings->have_posts() ) {
-                while ( $listings->have_posts() ) {
-                    $listings->the_post();
+            $listings_ids = ( ! is_wp_error( $listings ) )? wp_parse_id_list( $listings->posts ) : [];
 
+            if ( ! empty( $listings_ids ) ) {
+                foreach( $listings_ids as $listings_id ) {
                     // Set Directory Type
-                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
-                    update_post_meta( get_the_id(), '_directory_type', $add_directory['term_id'] );
-
+                    wp_set_object_terms( $listings_id, $add_directory['term_id'], 'atbdp_listing_types' );
+                    update_post_meta( $listings_id, '_directory_type', $add_directory['term_id'] );
                 }
             }
 

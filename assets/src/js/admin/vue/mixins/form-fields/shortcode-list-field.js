@@ -34,7 +34,7 @@ export default {
 
     data() {
         return {
-            shortcodes: [],
+            shortcodes_list: [],
             successMsg: '',
             dirty: false,
         }
@@ -42,18 +42,18 @@ export default {
 
     methods: {
         generateShortcode() {
-            this.shortcodes = [];
+            this.shortcodes_list = [];
 
-            if ( typeof this.value === 'string' ) {
+            if ( typeof this.shortcodes === 'string' ) {
                 this.dirty = true;
-                this.shortcodes.push( this.value );
+                this.shortcodes_list.push( this.shortcodes );
                 return;
             }
 
-            if ( Array.isArray( this.value ) ) {
-                for ( let shortcode_item of this.value ) {
+            if ( Array.isArray( this.shortcodes ) ) {
+                for ( let shortcode_item of this.shortcodes ) {
                     if ( typeof shortcode_item === 'string' ) {
-                        this.shortcodes.push( shortcode_item );
+                        this.shortcodes_list.push( shortcode_item );
                         continue;
                     }
 
@@ -66,12 +66,12 @@ export default {
                         } 
 
                         if ( typeof _shortcode === 'string' ) {
-                            this.shortcodes.push( _shortcode );
+                            this.shortcodes_list.push( _shortcode );
                             continue;
                         }
 
                         if ( Array.isArray( _shortcode ) ) {
-                            this.shortcodes = this.shortcodes.concat( _shortcode );
+                            this.shortcodes_list = this.shortcodes_list.concat( _shortcode );
                         }
                     }
                 }
@@ -114,10 +114,6 @@ export default {
             if ( args.where && ! Array.isArray( args.where ) ) {
                 let _shortcode = shortcode;
                 let key = source[ args.where.key ];
-
-                if ( typeof key !== 'string' ) {
-                    return shortcode;
-                }
 
                 if ( args.where.applyFilter ) {
                     key = this.applyFilters( key, args.where.applyFilter );

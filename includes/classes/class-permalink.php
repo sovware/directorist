@@ -17,7 +17,8 @@ if (!class_exists('ATBDP_Permalink')):
 class ATBDP_Permalink {
     // atbdp_get_listing_permalink
     public static function get_listing_permalink( $post_id = 0, $permalink = '' ) {
-        
+        $permalink = ( empty( $permalink ) ) ? get_the_permalink( $post_id ) : $permalink;
+
         if ( empty( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) ) {
             return $permalink;
         }

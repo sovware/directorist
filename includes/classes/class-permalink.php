@@ -45,23 +45,6 @@ class ATBDP_Permalink {
             $directory_type = !empty( $get_the_terms ) ? $get_the_terms->slug : '';
         }
 
-        // // wp_set_post_terms( $post_id, 15, ATBDP_DIRECTORY_TYPE );
-        // // wp_remove_object_terms( $post_id, 16, ATBDP_DIRECTORY_TYPE );
-        // // wp_set_object_terms( get_the_id(), 15, ATBDP_DIRECTORY_TYPE );
-        // $new_get_the_terms  = get_the_terms( $post_id, ATBDP_DIRECTORY_TYPE );
-
-        // directorist_console_log([ 
-        //     '$post_type'           => $post_type,
-        //     'post_id'              => $post_id,
-        //     'listing_slug'         => $listing_slug,
-        //     'base_link'            => $base_link,
-        //     'directory_type'       => $directory_type,
-        //     'get_the_terms'        => $get_the_terms,
-        //     'new_get_the_terms'    => $new_get_the_terms,
-        //     '_directory_type'      => $_directory_type,
-        //     'ATBDP_DIRECTORY_TYPE' => ATBDP_DIRECTORY_TYPE,
-        // ]);
-
         $new_link = str_replace( "%" . ATBDP_DIRECTORY_TYPE ."%", $directory_type, $permalink );
         return $new_link;
     }

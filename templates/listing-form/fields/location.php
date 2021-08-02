@@ -16,7 +16,7 @@ $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 
 		<?php
 		if ($data['type'] != 'multiple') {
-			echo '<option></option>';
+			echo '<option value=""></option>';
 		}
 		echo $listing_form->add_listing_location_fields();
 		?>

@@ -329,9 +329,9 @@ atbdSelectData.forEach(function (el) {
 ;
 
 (function ($) {
-  // Sorting Js 
+  // Sorting Js
   $('.directorist-dropdown__links--single-js').click(function () {
-    var href = $(this).attr('data');
+    var href = $(this).attr('data-link');
     $('#directorsit-listing-sort').attr('action', href);
     $('#directorsit-listing-sort').submit();
   }); //sorting toggle

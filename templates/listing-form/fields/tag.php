@@ -16,9 +16,9 @@ $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['allow_new'] ) ? 'data-allow_new="'. $data['allow_new'] .'"' : '';  echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?>>
 
-		<?php 
+		<?php
 		if ($data['type'] != 'multiple') {
-			echo '<option></option>';
+			echo '<option value=""></option>';
 		}
 
 		foreach ($all_tags as $tag) {

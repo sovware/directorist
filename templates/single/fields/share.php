@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div href="javascript:void(0)" class="directorist-single-listing-action directorist-social-share directorist-tooltip" aria-label="<?php esc_html_e( 'Share', 'directorist' ); ?>">
+<div class="directorist-single-listing-action directorist-social-share directorist-tooltip" aria-label="<?php esc_html_e( 'Share', 'directorist' ); ?>">
 
 	<?php directorist_icon( $icon );?>
 
@@ -19,5 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</li>
 		<?php endforeach; ?>
 	</ul>
-	
+
 </div>

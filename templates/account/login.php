@@ -106,7 +106,7 @@ use \Directorist\Helper;
                                 </div>
 
                                 <div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15">
-                                    <button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo $log_button; ?>" name="submit" /><?php echo $log_button; ?></button>
+                                    <button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo $log_button; ?>" name="submit"><?php echo $log_button; ?></button>
                                     <?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
                                 </div>
                                 <p class="status"></p>

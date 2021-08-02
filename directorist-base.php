@@ -648,7 +648,6 @@ final class Directorist_Base
 	{
 		$popular_listings = $this->get_popular_listings($count);
 
-
 		if ($popular_listings->have_posts()) { ?>
 			<div class="atbd_categorized_listings">
 				<ul class="listings">
@@ -658,6 +657,7 @@ final class Directorist_Base
 						$listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
 						$listing_prv_img = get_post_meta($pop_post->ID, '_listing_prv_img', true);
 						$cats = get_the_terms($pop_post->ID, ATBDP_CATEGORY);
+						$post_link = ATBDP_Permalink::get_listing_permalink( $pop_post->ID );
 						?>
 						<li>
 							<div class="atbd_left_img">
@@ -665,7 +665,7 @@ final class Directorist_Base
 								$disable_single_listing = get_directorist_option('disable_single_listing');
 								if (empty($disable_single_listing)){
 								?>
-								<a href="<?php echo esc_url(get_post_permalink($pop_post->ID)); ?>">
+								<a href="<?php echo esc_url( $post_link ); ?>">
 									<?php
 									}
 									$default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
@@ -687,7 +687,7 @@ final class Directorist_Base
 										<?php
 										if (empty($disable_single_listing)) {
 											?>
-											<a href="<?php echo esc_url(get_post_permalink($pop_post->ID)); ?>"><?php echo esc_html($pop_post->post_title); ?></a>
+											<a href="<?php echo esc_url($post_link); ?>"><?php echo esc_html($pop_post->post_title); ?></a>
 											<?php
 										} else {
 											echo esc_html($pop_post->post_title);

@@ -648,7 +648,6 @@ final class Directorist_Base
 	{
 		$popular_listings = $this->get_popular_listings($count);
 
-
 		if ($popular_listings->have_posts()) { ?>
 			<div class="atbd_categorized_listings">
 				<ul class="listings">

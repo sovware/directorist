@@ -23,7 +23,9 @@ $get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type
 			<?php foreach ( $listings->listing_types as $id => $value ): 
 				$nav_link = add_query_arg( [ 'directory_type' => $value['term']->slug ], get_permalink( get_the_ID() ) ); 
 				?>
-				<li class="<?php echo ( $listings->current_listing_type == $value['term']->term_id && 'all' != $get_current_url_type ) ? 'current': ''; ?>"><a class="directorist-type-nav__link" href="<?php echo esc_url( $nav_link ); ?>"><span class="<?php echo esc_html( $value['data']['icon'] );?>"></span> <?php echo esc_html( $value['name'] );?></a></li>
+				<li class="<?php echo ( $listings->current_listing_type == $value['term']->term_id && 'all' != $get_current_url_type ) ? 'current': ''; ?>">
+					<a class="directorist-type-nav__link" href="<?php echo esc_url( $nav_link ); ?>"><span class="<?php echo esc_html( $value['data']['icon'] );?>"></span> <?php echo esc_html( $value['name'] );?></a>
+				</li>
 				
 			<?php endforeach; ?>
 			

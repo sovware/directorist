@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.7
+Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.5
+Stable tag: 7.0.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -319,6 +319,28 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.5.2 – Aug 2, 2021
+
+Fix - Compatibility issue with WP v5.8
+Fix - Alignment issue in subscription management page
+Fix - Listings grid responsive issue
+Fix - Single listing shortcode module
+Fix - Performance issue (reduced MySQL queries)
+Fix - Listing updating issue from admin listing form, (if directory default expire set to NaN)
+Fix - Listing search returns no result on admin dashboard
+Fix - Edited review creates new review
+Fix - Listing gets published when saving as draft from backend
+Fix - PHP notice on 404 page
+Fix - Builder saving issue (environment specific)
+Fix - Invalid key declaration in settings panel
+Fix - Add to favourite is not working on related listings section
+Fix - Wrong html end tag in several template files
+Fix - Single category, location & tag page not working when term name/slug is not in English
+Fix - Single listing permalink issue in widgets area
+Fix - Permalink issue in all listing directory type nav 
+Fix - Style issues
+Improve - Select field in settings panel and builder
 
 7.0.5.1 – JUL 14, 2021
 

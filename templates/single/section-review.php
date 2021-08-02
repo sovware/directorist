@@ -109,7 +109,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 							<div class="directorist-form-group directorist-form-group-guest-user">
 
-								<label for="guest_user"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
+								<label for="guest_user_email"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
 
 								<input type="text" id="guest_user_email" name="guest_user_email" required class="directorist-form-element" placeholder="<?php echo esc_attr($listing->guest_email_placeholder()); ?>"/>
 

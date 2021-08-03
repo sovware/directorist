@@ -303,7 +303,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
 
                     case 'date'  :
                         echo '<div>';
-                        printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                        printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                         echo '</div>';
                         break;
 
@@ -327,7 +327,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                         break;
                     case 'time'  :
                         echo '<div>';
-                        printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                        printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                         echo '</div>';
                         break;
                     case 'file'  :

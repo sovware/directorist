@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-form-group directorist-mb-15">
 
-			<label for="guest_user"><?php echo esc_html( $guest_email_label ); ?>:<span class="directorist-form-required"> *</span></label>
+			<label for="guest_user_email"><?php echo esc_html( $guest_email_label ); ?>:<span class="directorist-form-required"> *</span></label>
 
 			<input type="text" id="guest_user_email" name="guest_user_email" class="directorist-form-element directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
 		</div>

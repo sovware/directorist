@@ -240,7 +240,7 @@ $('#listing_t_c').on('click', function (e) {
 });
 
 $(function () {
-    $('#color_code2')
+    $('.my-color-field')
         .wpColorPicker()
         .empty();
 });

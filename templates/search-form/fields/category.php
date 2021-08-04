@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<select name="in_cat" id="<?php echo !empty($searchform->category_id) ? esc_attr($searchform->category_id) : "notEmptyId"; ?>" class="<?php echo esc_attr($searchform->category_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 			<?php
-				echo '<option value="">'+ esc_attr($data['placeholder']) +'</option>';
+				echo '<option value="">Select Category</option>';
 				echo $searchform->categories_fields;
 			?>
 		</select>

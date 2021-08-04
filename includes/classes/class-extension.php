@@ -859,7 +859,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             // Get licencing data
             $authentication = self::remote_authenticate_user( ['user' => $username, 'password' => $password] );
-            $response       = ( $authentication['success'] ) ? $authentication['response'] : [];
+            $response       = ( $authentication['success'] ) ? $authentication['response'] : $authentication;
 
             // Validate response
             if ( ! $response['success'] ) {
@@ -965,7 +965,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             // Get licencing data
             $authentication = self::remote_authenticate_user( ['user' => $username, 'password' => $password] );
-            $auth_response  = ( $authentication['success'] ) ? $authentication['response'] : [];
+            $auth_response  = ( $authentication['success'] ) ? $authentication['response'] : $authentication;
 
             // Validate response
             if ( ! $authentication['success'] ) {
@@ -2105,9 +2105,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'body'        => $user_credentials, // [ 'user' => '', 'password' => '']
             ];
 
+            $response_body = [];
+
             try {
-                $response      = wp_remote_get( $url, $config );
-                $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+                $response = wp_remote_get( $url, $config );
+
+                if ( is_wp_error( $response ) ) {
+                    $status['success'] = false;
+                    $status['message'] = Directorist\Helper::get_first_wp_error_message( $response );
+                } else {
+                    $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+                }
+                
             } catch ( Exception $e ) {
                 $status['success'] = false;
                 $status['message'] = $e->getMessage();

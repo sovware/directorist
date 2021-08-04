@@ -249,8 +249,6 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 🔥 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
 
-🔥 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - It is used to integrate the giant Directorist with the popular BuddyPress plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyPress platform.
-
 🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
 👉 **[Directoria](https://directorist.com/product/directoria/)** - Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.
@@ -261,9 +259,9 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 🎉 🎉 🎉  Coming soon...
 
-* dLawyer
-* dDoctor
-* dRestaurant
+* dLawyer - Lawyers professional directory
+* dDoctor - A complete doctor directory
+* dRestaurant - Restaurant directory with reservation
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -340,25 +338,25 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.0.5.2 – Aug 2, 2021
 
-Fix - Compatibility issue with WP v5.8
-Fix - Alignment issue in subscription management page
-Fix - Listings grid responsive issue
-Fix - Single listing shortcode module
-Fix - Performance issue (reduced MySQL queries)
-Fix - Listing updating issue from admin listing form, (if directory default expire set to NaN)
-Fix - Listing search returns no result on admin dashboard
-Fix - Edited review creates new review
-Fix - Listing gets published when saving as draft from backend
-Fix - PHP notice on 404 page
-Fix - Builder saving issue (environment specific)
-Fix - Invalid key declaration in settings panel
-Fix - Add to favourite is not working on related listings section
-Fix - Wrong html end tag in several template files
-Fix - Single category, location & tag page not working when term name/slug is not in English
-Fix - Single listing permalink issue in widgets area
-Fix - Permalink issue in all listing directory type nav 
-Fix - Style issues
-Improve - Select field in settings panel and builder
+* Fix - Compatibility issue with WP v5.8
+* Fix - Alignment issue in subscription management page
+* Fix - Listings grid responsive issue
+* Fix - Single listing shortcode module
+* Fix - Performance issue (reduced MySQL queries)
+* Fix - Listing updating issue from admin listing form, (if directory default expire set to NaN)
+* Fix - Listing search returns no result on admin dashboard
+* Fix - Edited review creates new review
+* Fix - Listing gets published when saving as draft from backend
+* Fix - PHP notice on 404 page
+* Fix - Builder saving issue (environment specific)
+* Fix - Invalid key declaration in settings panel
+* Fix - Add to favourite is not working on related listings section
+* Fix - Wrong html end tag in several template files
+* Fix - Single category, location & tag page not working when term name/slug is not in English
+* Fix - Single listing permalink issue in widgets area
+* Fix - Permalink issue in all listing directory type nav 
+* Fix - Style issues
+* Improve - Select field in settings panel and builder
 
 7.0.5.1 – JUL 14, 2021
 

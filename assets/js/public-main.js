@@ -703,7 +703,7 @@ atbdSelectData.forEach(function (el) {
     $(".directorist-shade").removeClass("directorist-active");
   }); // Profile Responsive
 
-  if ($('#user_profile_form').width() < 800) {
+  if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
     $('#user_profile_form').addClass('directorist-profile-responsive');
   }
 })(jQuery);

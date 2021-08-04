@@ -2124,6 +2124,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( empty( $response_body['success'] ) ) {
                 $status['success'] = false;
+                $status['message'] = ( ! empty( $response_body['message'] ) ) ? $response_body['message'] : '';
+            }
+
+            if ( empty( $response_body['message'] ) ) {
+                $status['message'] = $response_body['message'];
             }
 
             $status['response'] = $response_body;

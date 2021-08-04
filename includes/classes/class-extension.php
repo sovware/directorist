@@ -1264,10 +1264,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             if ( ! $download_status['success'] ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Installation failed', 'directorist' );
-
-                return ['status' => $status];
+                return $download_status;
             }
 
             $status['success'] = true;

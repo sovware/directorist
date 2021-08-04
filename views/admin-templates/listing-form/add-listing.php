@@ -318,11 +318,11 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                         ?>
                         <script>
                             jQuery(document).ready(function ($) {
-                                $('.my-color-field2').wpColorPicker().empty();
+                                $('.directorist-color-field2-js').wpColorPicker().empty();
                             });
                         </script>
                         <?php
-                        printf('<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value);
+                        printf('<input type="color" name="custom_field[%d]" class="directorist-color-field2-js" value="%s" />', $post->ID, $value);
                         echo '</div>';
                         break;
                     case 'time'  :

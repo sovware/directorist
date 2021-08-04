@@ -240,7 +240,7 @@ $('#listing_t_c').on('click', function (e) {
 });
 
 $(function () {
-    $('.my-color-field')
+    $('.directorist-color-field-js')
         .wpColorPicker()
         .empty();
 });

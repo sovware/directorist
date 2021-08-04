@@ -858,8 +858,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             // Get licencing data
-            $authentication = self::remote_authenticate_user( ['user' => $username, 'password' => $password] );
-            $response       = ( $authentication['success'] ) ? $authentication['response'] : $authentication;
+            $response = self::remote_authenticate_user( ['user' => $username, 'password' => $password] );
 
             // Validate response
             if ( ! $response['success'] ) {
@@ -965,17 +964,16 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             // Get licencing data
             $authentication = self::remote_authenticate_user( ['user' => $username, 'password' => $password] );
-            $auth_response  = ( $authentication['success'] ) ? $authentication['response'] : $authentication;
 
             // Validate response
             if ( ! $authentication['success'] ) {
                 $status['success'] = false;
-                $status['message'] = $auth_response['message'];
+                $status['message'] = $authentication['message'];
 
-                return ['status' => $status, 'response_body' => $auth_response];
+                return ['status' => $status, 'response_body' => $authentication];
             }
 
-            $license_data = $auth_response['license_data'];
+            $license_data = $authentication['license_data'];
 
             // Update user meta
             if ( ! empty( $license_data['themes'] ) ) {
@@ -2122,13 +2120,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $status['message'] = $e->getMessage();
             }
 
+            if ( is_array( $response_body ) ) {
+                $status = array_merge(  $status, $response_body );
+            }
+            
             if ( empty( $response_body['success'] ) ) {
                 $status['success'] = false;
-                $status['message'] = ( ! empty( $response_body['message'] ) ) ? $response_body['message'] : '';
-            }
-
-            if ( empty( $response_body['message'] ) ) {
-                $status['message'] = $response_body['message'];
             }
 
             $status['response'] = $response_body;

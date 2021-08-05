@@ -88,6 +88,7 @@
 
     .directorist-listing-type-selection__item {
         margin-bottom: 25px;
+        list-style: none;
 
         &:not(:last-child) {
             margin-right: 25px;
@@ -146,6 +147,7 @@
             align-items: flex-start;
             min-width: 200px;
             margin: 5px 0;
+            padding-bottom: 0;
 
             &:not(:last-child) {
                 border-right: 1px solid $border-color;
@@ -195,6 +197,8 @@
 
         .directorist-search-form-action {
             display: flex;
+            align-items: center;
+            
             @media only screen and (max-width: 375px) {
                 flex-direction: column;
             }
@@ -209,6 +213,16 @@
             button {
                 text-decoration: none;
                 text-transform: capitalize;
+
+                i,
+                span.la,
+                span.las,
+                span.lar,
+                span.fas,
+                span.fab,
+                span.far{
+                    margin-right: 4px;
+                }
             }
 
             @include e(filter) {

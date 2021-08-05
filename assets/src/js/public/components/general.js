@@ -5,7 +5,11 @@
     }
 
     // Auhtor Profile Listing responsive fix
-    if($('.directorist-author-listing-content').innerWidth() <= 650){
+    if($('.directorist-author-listing-content').innerWidth() <= 750){
         $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
+    }
+    // Directorist Archive responsive fix
+    if($('.directorist-archive-grid-view').innerWidth() <= 500){
+        $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
     }
 })(jQuery)

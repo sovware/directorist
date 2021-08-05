@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.0.5.2
  */
 
 use \Directorist\Helper;
@@ -23,7 +23,11 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 		<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
 
-			<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star"></span><span id="directorist-review-counter"><?php echo esc_html( $listing->review_count() ); ?></span> <?php echo esc_html( $listing->review_count_text() );?></h4>
+			<h4 class="directorist-card__header--title">
+				<span class="<?php atbdp_icon_type( true ); ?>-star"></span>
+				<span id="directorist-review-counter"><?php echo esc_html( $listing->review_count() ); ?></span>
+				<?php echo esc_html( $listing->review_count_text() );?>
+			</h4>
 
 			<?php if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
 				<label for="review_content" class="directorist-btn directorist-btn-primary directorist-btn-xs directorist-btn-add-review"><?php esc_html_e( 'Add a review', 'directorist' ); ?></label>
@@ -47,7 +51,10 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 			<div class="directorist-card directorist-card-rating-block">
 
 				<div class="directorist-card__header">
-					<h4 class="directorist-card__header--title"><span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span><?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?></h4>
+					<h4 class="directorist-card__header--title">
+						<span class="<?php atbdp_icon_type( true ); ?>-star" aria-hidden="true"></span>
+						<?php echo $listing->current_review() ? esc_html__( 'Update Review', 'directorist' ) : esc_html__( 'Leave a Review', 'directorist' ); ?>
+					</h4>
 				</div>
 
 				<div class="directorist-card__body directorist-review-area">
@@ -102,16 +109,16 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 
 							<div class="directorist-form-group directorist-form-group-guest-user">
 
-								<label for="guest_user"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
+								<label for="guest_user_email"><?php echo esc_html( $listing->guest_email_label() ); ?>:<span class="directorist-star-red">*</span></label>
 
 								<input type="text" id="guest_user_email" name="guest_user_email" required class="directorist-form-element" placeholder="<?php echo esc_attr($listing->guest_email_placeholder()); ?>"/>
 
 							</div>
 
 						<?php endif; ?>
-						
+
 						<div class="directorist-review-form-action">
-							
+
 							<?php if ($listing->current_review()): ?>
 
 								<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
@@ -135,7 +142,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
 
 							<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo $listing->review_is_duplicate() ? 'yes' : '';?>">
-							
+
 						</div>
 
 					</form>
@@ -156,7 +163,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 					<div class="directorist-alert__content">
 
 						<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
-						
+
 						<p><?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?></p>
 
 					</div>

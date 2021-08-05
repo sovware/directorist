@@ -323,10 +323,13 @@
             overflow-y: scroll;
 
             ul {
+                padding:0;
+                margin: 0;
+                list-style-type: none;
                 li {
                     border-bottom: 1px solid $border-color;
                     padding: 10px 15px 10px !important;
-
+                    margin: 0;
                     a {
                         font-size: 14px;
                         color: #7a82a6;

@@ -118,7 +118,7 @@
                                                     <span class="directorist_listing-id">ID: #<?php echo ! empty( $listing_type->term_id ) ? $listing_type->term_id : ''; ?></span>
                                                 </td>
                                                 <td>
-                                                    <span class="directorist_listing-slug-text"><?php echo $listing_type->slug; ?></span>
+                                                    <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>"><?php echo $listing_type->slug; ?></span>
                                                     <div class="directorist-listing-slug-edit-wrap">
                                                         <a href="" class="directorist-listing-slug__edit">
                                                             <i class="la la-edit"></i>

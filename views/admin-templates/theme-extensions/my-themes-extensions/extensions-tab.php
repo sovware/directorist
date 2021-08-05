@@ -217,7 +217,7 @@
                                             <div class="extension-name">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
-                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo "{$extension_base}/{$extension_base}.php"; ?>" class="extension-name-checkbox extension-activate-checkbox">
+                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension[ 'base']; ?>" class="extension-name-checkbox extension-activate-checkbox">
                                                     <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                     <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
@@ -261,8 +261,8 @@
                                         <td>
                                             <div class="ext-action ext-action-<?php echo $extension_base; ?>">
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
-                                                <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo "{$extension_base}/{$extension_base}.php" ?>">
-                                                    <?php _e('Active', 'directorist') ?>
+                                                <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension[ 'base' ] ?>">
+                                                    <?php _e('Activate', 'directorist') ?>
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">

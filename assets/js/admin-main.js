@@ -1365,6 +1365,7 @@ $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
           $('.directorist-slug-notice-' + type_id).removeClass('directorist-slug-notice-success');
           $('.directorist-slug-notice-' + type_id).addClass('directorist-slug-notice-error');
           $('.directorist-slug-notice-' + type_id).empty().html(response.error);
+          $('.directorist-slug-text-' + type_id).text(response.old_slug);
           setTimeout(function () {
             $('.directorist-slug-notice-' + type_id).empty().html("");
           }, 3000);
@@ -2096,7 +2097,7 @@ $('.ext-update-btn').on('click', function (e) {
         location.reload();
       } else {
         $(self).html(button_default_html);
-        alert(response.status.massage);
+        alert(response.status.message);
       }
     },
     error: function error(_error3) {

@@ -191,9 +191,13 @@ export default {
 
     updateValue(value) {
       var old_value = this.value;
-
+      
       // If has no old value
-      if (!old_value) {
+      if ( ! ( old_value && typeof old_value == 'object' ) ) {
+        old_value = {};
+      }
+
+      if ( Array.isArray( old_value ) ) {
         old_value = {};
       }
 
@@ -201,7 +205,7 @@ export default {
       old_value.active_template = this.template_id;
 
       // Update Template Data
-      if (!old_value.template_data) {
+      if ( ! old_value.template_data ) {
         old_value.template_data = {};
       }
 

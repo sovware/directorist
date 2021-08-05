@@ -8,7 +8,7 @@
     left: 0;
     top: 0;
     z-index: -1;
-    overflow: hidden;
+    overflow: auto;
     outline: 0;
 }
 
@@ -164,4 +164,3 @@
         width: calc(100% - 30px);
     }
 }
-

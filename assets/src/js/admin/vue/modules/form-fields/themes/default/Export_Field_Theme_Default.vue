@@ -1,6 +1,9 @@
 <template>
     <div class="cptm-form-group">
-        <label v-if="label.length">{{ label }}</label>
+        <label v-if="( label.length )">
+            <component :is="labelType">{{ label }}</component>
+        </label>
+        
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
         <button type="button" class="cptm-btn cptm-btn-secondery" @click="exportJSON()">

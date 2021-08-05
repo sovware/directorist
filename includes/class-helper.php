@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {
@@ -23,6 +25,83 @@ class Helper {
 
 		return get_term_meta( $directory_type, $term_key, true );
 	}
+
+
+	/**
+	 * Get first wp error message
+	 * 
+	 * @param object $wp_error
+	 * @return string $message
+	 */
+	public static function get_first_wp_error_message( $wp_error ) {
+		if ( ! is_wp_error( $wp_error ) ) {
+			return '';
+		}
+
+		$error_keys = ( is_array( $wp_error->errors ) ) ? array_keys( $wp_error->errors ) : [];
+		$error_key  = ( ! empty( $error_keys ) ) ? $error_keys[0] : '';
+		$message    = ( ! empty( $error_key ) && is_array( $wp_error->errors[ $error_key ] ) && ! empty( $wp_error->errors[ $error_key ] ) ) ? $wp_error->errors[ $error_key ][0] : '';
+
+		return $message;
+	}
+
+	/**
+	 * Get Time In Millisecond
+	 * 
+	 * This function is only available on operating 
+	 * systems that support the gettimeofday() system call.
+	 * @link https://www.php.net/manual/en/function.microtime.php
+	 * 
+	 * @return int
+	 */
+	public static function getTimeInMillisecond() {
+		try {
+			return ( int ) ( microtime( true ) * 1000 );
+		} catch ( Exception $e ) {
+			return 0;
+		}
+	}
+
+	/**
+	 * Maybe JSON
+	 * 
+	 * Converts input to an array if contains valid json string
+	 * 
+	 * If input contains base64 encoded json string, then it
+	 * can decode it as well
+	 * 
+	 * @param $input_data
+	 * @param $return_first_item
+	 * 
+	 * Returns first item of the array if $return_first_item is set to true
+	 * Returns original input if it is not decodable
+	 * 
+	 * @return mixed
+	 */
+	public static function maybe_json( $input_data = '', $return_first_item = false ) {
+        if ( 'string' !== gettype( $input_data )  ) { 
+            return $input_data;
+        }
+    
+        $output_data = $input_data;
+
+        // JSON Docode
+        $decode_json = json_decode( $input_data, true );
+
+        if ( ! is_null( $decode_json ) ) {
+            return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+        }
+        
+        // JSON Decode from Base64
+        $decode_base64 = base64_decode( $input_data );
+        $decode_base64_json = json_decode( $decode_base64, true );
+
+        if ( ! is_null( $decode_base64_json ) ) {
+            return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+        }
+
+        return $output_data;
+    }
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {

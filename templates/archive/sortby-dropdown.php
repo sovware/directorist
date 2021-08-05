@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="directorist-dropdown__links directorist-dropdown__links-js directorist-dropdown__links--right">
 
-		<form id="directorsit-listing-sort" method="post" action="">
+		<form id="directorsit-listing-sort" method="post" action="#">
 			<?php
 			$current_order = !empty($_GET['sort']) ? $_GET['sort'] : '';
 			foreach ($listings->get_sort_by_link_list() as $key => $value) {
 				$active_class = ( $value['key'] == $current_order ) ? ' active' : '';
 				?>
-				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data="<?php echo $value['link']; ?>"><?php echo esc_html($value['label']);?></a>
+				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo $value['link']; ?>"><?php echo esc_html($value['label']);?></a>
 				<?php
 			}
 			?>

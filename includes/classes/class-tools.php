@@ -170,7 +170,9 @@
                         $directory_type = ( ! empty( $directory_type_term ) ) ? $directory_type_term->term_id : $directory_type;
                     }
                     
-                    update_post_meta($post_id, '_directory_type', $directory_type);
+                    update_post_meta( $post_id, '_directory_type', $directory_type );
+                    wp_set_object_terms( $post_id, $directory_type, ATBDP_DIRECTORY_TYPE );
+
                     $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
                     $preview_url = explode( ',', $preview_url );
 

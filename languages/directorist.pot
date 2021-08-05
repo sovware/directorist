@@ -65,15 +65,15 @@ msgstr ""
 msgid " Review"
 msgstr ""
 
-#: ../directorist-base.php:1314, ../templates/single/section-review.php:29
+#: ../directorist-base.php:1314, ../templates/single/section-review.php:33
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1431, ../includes/helper-functions.php:7999, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1100, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:160
+#: ../directorist-base.php:1431, ../includes/helper-functions.php:7999, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1100, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:164
 msgid "Login"
 msgstr ""
 
-#: ../directorist-base.php:1432, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3812, ../includes/classes/class-settings-panel.php:3903, ../includes/model/SingleListing.php:1101, ../templates/account/login.php:94
+#: ../directorist-base.php:1432, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3812, ../includes/classes/class-settings-panel.php:3903, ../includes/model/Account.php:71, ../includes/model/SingleListing.php:1101, ../templates/account/login.php:94
 msgid "Sign Up"
 msgstr ""
 
@@ -81,23 +81,23 @@ msgstr ""
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: ../directorist-base.php:1340, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:50
+#: ../directorist-base.php:1340, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:54
 msgid "Update Review"
 msgstr ""
 
-#: ../directorist-base.php:1340, ../templates/single/section-review.php:50
+#: ../directorist-base.php:1340, ../templates/single/section-review.php:54
 msgid "Leave a Review"
 msgstr ""
 
-#: ../directorist-base.php:1372, ../templates/single/section-review.php:62
+#: ../directorist-base.php:1372, ../templates/single/section-review.php:66
 msgid "Current Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1380, ../templates/single/section-review.php:81
+#: ../directorist-base.php:1380, ../templates/single/section-review.php:85
 msgid "Update Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1380, ../templates/single/section-review.php:81
+#: ../directorist-base.php:1380, ../templates/single/section-review.php:85
 msgid "Your Rating:"
 msgstr ""
 
@@ -117,15 +117,15 @@ msgstr ""
 msgid "example@gmail.com"
 msgstr ""
 
-#: ../directorist-base.php:1419, ../templates/single/section-review.php:123
+#: ../directorist-base.php:1419, ../templates/single/section-review.php:127
 msgid "Submit Review"
 msgstr ""
 
-#: ../directorist-base.php:1414, ../templates/single/section-review.php:117, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
+#: ../directorist-base.php:1414, ../templates/single/section-review.php:121, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
 msgid "Update"
 msgstr ""
 
-#: ../directorist-base.php:1416, ../templates/single/section-review.php:119, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
+#: ../directorist-base.php:1416, ../templates/single/section-review.php:123, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
 msgid "Remove"
 msgstr ""
 
@@ -3157,7 +3157,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3608, ../includes/classes/class-settings-panel.php:4565, ../includes/classes/class-settings-panel.php:4663
+#: ../includes/classes/class-settings-panel.php:3608, ../includes/classes/class-settings-panel.php:4565, ../includes/classes/class-settings-panel.php:4663, ../includes/model/Account.php:54
 msgid "Username"
 msgstr ""
 
@@ -3165,7 +3165,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3618, ../includes/classes/class-settings-panel.php:3861, ../includes/classes/class-settings-panel.php:4572, ../includes/classes/class-settings-panel.php:4670, ../templates/account/login.php:82
+#: ../includes/classes/class-settings-panel.php:3618, ../includes/classes/class-settings-panel.php:3861, ../includes/classes/class-settings-panel.php:4572, ../includes/classes/class-settings-panel.php:4670, ../includes/model/Account.php:55, ../templates/account/login.php:82
 msgid "Password"
 msgstr ""
 
@@ -3173,23 +3173,23 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3640, ../includes/classes/class-settings-panel.php:4579, ../includes/classes/class-settings-panel.php:4743, ../includes/classes/class-widget-search.php:77, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/widgets/search.php:149, ../views/admin-templates/listing-form/contact-info.php:203
+#: ../includes/classes/class-settings-panel.php:3640, ../includes/classes/class-settings-panel.php:4579, ../includes/classes/class-settings-panel.php:4743, ../includes/classes/class-widget-search.php:77, ../includes/model/Account.php:58, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/widgets/search.php:149, ../views/admin-templates/listing-form/contact-info.php:203
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3650, ../includes/classes/class-settings-panel.php:4586, ../includes/classes/class-widget-search.php:78, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/widgets/search.php:144, ../views/admin-templates/listing-form/contact-info.php:212
+#: ../includes/classes/class-settings-panel.php:3650, ../includes/classes/class-settings-panel.php:4586, ../includes/classes/class-widget-search.php:78, ../includes/model/Account.php:60, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/widgets/search.php:144, ../views/admin-templates/listing-form/contact-info.php:212
 msgid "Website"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3677, ../includes/classes/class-settings-panel.php:4593, ../templates/dashboard/tab-profile.php:65, ../views/front-end/user-dashboard.php:481
+#: ../includes/classes/class-settings-panel.php:3677, ../includes/classes/class-settings-panel.php:4593, ../includes/model/Account.php:63, ../templates/dashboard/tab-profile.php:65, ../views/front-end/user-dashboard.php:481
 msgid "First Name"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3704, ../includes/classes/class-settings-panel.php:4600, ../templates/dashboard/tab-profile.php:73, ../views/front-end/user-dashboard.php:489
+#: ../includes/classes/class-settings-panel.php:3704, ../includes/classes/class-settings-panel.php:4600, ../includes/model/Account.php:66, ../templates/dashboard/tab-profile.php:73, ../views/front-end/user-dashboard.php:489
 msgid "Last Name"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3731
+#: ../includes/classes/class-settings-panel.php:3731, ../includes/model/Account.php:69
 msgid "About/bio"
 msgstr ""
 
@@ -5230,23 +5230,23 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: ../includes/review-rating/class-review-custom-post.php:179, ../templates/single/section-review.php:85
+#: ../includes/review-rating/class-review-custom-post.php:179, ../templates/single/section-review.php:89
 msgid "1"
 msgstr ""
 
-#: ../includes/review-rating/class-review-custom-post.php:180, ../templates/single/section-review.php:86
+#: ../includes/review-rating/class-review-custom-post.php:180, ../templates/single/section-review.php:90
 msgid "2"
 msgstr ""
 
-#: ../includes/review-rating/class-review-custom-post.php:181, ../templates/single/section-review.php:87
+#: ../includes/review-rating/class-review-custom-post.php:181, ../templates/single/section-review.php:91
 msgid "3"
 msgstr ""
 
-#: ../includes/review-rating/class-review-custom-post.php:182, ../templates/single/section-review.php:88
+#: ../includes/review-rating/class-review-custom-post.php:182, ../templates/single/section-review.php:92
 msgid "4"
 msgstr ""
 
-#: ../includes/review-rating/class-review-custom-post.php:183, ../templates/single/section-review.php:89
+#: ../includes/review-rating/class-review-custom-post.php:183, ../templates/single/section-review.php:93
 msgid "5"
 msgstr ""
 
@@ -6928,7 +6928,7 @@ msgstr ""
 msgid "Password will be e-mailed to you."
 msgstr ""
 
-#: ../templates/archive/directory-type-nav.php:21, ../views/admin-templates/post-types-manager/all-listing-types.php:83
+#: ../templates/archive/directory-type-nav.php:26, ../views/admin-templates/post-types-manager/all-listing-types.php:83
 msgid "All"
 msgstr ""
 
@@ -6960,7 +6960,7 @@ msgstr ""
 msgid "No items found"
 msgstr ""
 
-#: ../templates/dashboard/listing-row.php:55, ../templates/single/top-actions.php:31, ../views/front-end/user-dashboard.php:334, ../views/admin-templates/post-types-manager/all-listing-types.php:151
+#: ../templates/dashboard/listing-row.php:55, ../templates/single/top-actions.php:33, ../views/front-end/user-dashboard.php:334, ../views/admin-templates/post-types-manager/all-listing-types.php:151
 msgid "Edit"
 msgstr ""
 
@@ -7204,7 +7204,7 @@ msgstr ""
 msgid "Your Transaction was not successful. Please contact support"
 msgstr ""
 
-#: ../templates/single/section-author_info.php:104, ../views/widgets/author-info.php:113
+#: ../templates/single/section-author_info.php:107, ../views/widgets/author-info.php:113
 msgid "View Profile"
 msgstr ""
 
@@ -7216,15 +7216,15 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ../templates/single/section-review.php:160
+#: ../templates/single/section-review.php:164
 msgid "You need to <a href=\"%s\">%s</a> or <a href=\"%s\">%s</a> to submit a review"
 msgstr ""
 
-#: ../templates/single/section-review.php:160
+#: ../templates/single/section-review.php:164
 msgid " Sign Up"
 msgstr ""
 
-#: ../templates/single/top-actions.php:37, ../templates/single/top-actions.php:21
+#: ../templates/single/top-actions.php:40, ../templates/single/top-actions.php:21
 msgid "Go Back"
 msgstr ""
 

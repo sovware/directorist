@@ -329,9 +329,9 @@ atbdSelectData.forEach(function (el) {
 ;
 
 (function ($) {
-  // Sorting Js 
+  // Sorting Js
   $('.directorist-dropdown__links--single-js').click(function () {
-    var href = $(this).attr('data');
+    var href = $(this).attr('data-link');
     $('#directorsit-listing-sort').attr('action', href);
     $('#directorsit-listing-sort').submit();
   }); //sorting toggle
@@ -703,7 +703,7 @@ atbdSelectData.forEach(function (el) {
     $(".directorist-shade").removeClass("directorist-active");
   }); // Profile Responsive
 
-  if ($('#user_profile_form').width() < 800) {
+  if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
     $('#user_profile_form').addClass('directorist-profile-responsive');
   }
 })(jQuery);

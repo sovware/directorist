@@ -4824,7 +4824,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                         'all_authors' => [
                             'label' => __('All Authors', 'directorist'),
-                            'icon' => '<i class="fa fa-chart-bar"></i>',
+                            'icon' => '<i class="fa fa-users"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'all_authors' => [
                                     'title'       => __('All Authors', 'directorist'),

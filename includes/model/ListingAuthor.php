@@ -307,13 +307,13 @@ class Directorist_Listing_Author {
 
 	public function review_count_html() {
 		$review_count = $this->total_review;
-		$review_count_html = sprintf( _nx( '<span>%s</span>Review', '<span>%s</span>Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
+		$review_count_html = sprintf( _nx( '<span>%s</span> Review', '<span>%s</span> Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
 		return $review_count_html;
 	}
 
 	public function listing_count_html() {
 		$listing_count = ! empty( $this->all_listings ) ? $this->all_listings->total : '';
-		$listing_count_html = sprintf( _nx( '<span>%s</span>Listing', '<span>%s</span>Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
+		$listing_count_html = sprintf( _nx( '<span>%s</span> Listing', '<span>%s</span> Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
 		return $listing_count_html;
 	}
 

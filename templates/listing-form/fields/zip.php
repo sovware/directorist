@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-form-group" class="directorist-form-zip-field">
+<div class="directorist-form-group directorist-form-zip-field">
 
 	<?php $listing_form->field_label_template( $data );?>
 

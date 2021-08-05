@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.7
+Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.5
+Stable tag: 7.0.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages or Tripadvisor on your WordPress site? Well, if the answer is **YES**, you have come to the right place. Directorist streamlines the process of creating powerful business directories or classified websites.
 
-👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
+👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
 
 Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code. You can also make classified websites like a car selling directory, booking directory, land selling directory, team directory, job portal, directory portal, staff directory, medical directory, doctor directory, address book, and what not!
 
@@ -203,9 +203,9 @@ We aim to provide you with the best professional business directory plugin. Our 
 
 Getting Started with the **Directorist Business Directory** is only a matter of few clicks. Check out the [detailed guide through our documentation](https://directorist.com/documentation/) on our official website in order to operate the plugin in the best possible way.
 
-== Paid Extensions to Boost Your Business Directory ==
+== Paid Extensions and Themes to Boost Your Business Directory ==
 
-Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/product/category/extensions/) to extend the functionalities of your directory listing website.
+🎉 **Extensions:** Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/extensions/) to extend the functionalities of your directory listing website.
 
 👉 **[Pricing Plans](https://directorist.com/product/directorist-pricing-plans/)** - This feature extension allows you to create unlimited pricing plans with no time. In addition to this you can add different sets of features including private plans for specific users that can keep hidden from the rest of users. You also can set up recurring payments to your system which enhances your pricing plans on your directory listing website.
 
@@ -247,7 +247,23 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
 
-Apart from purchasing above mentioned individual extensions, you can get all of the **Directorist Business Directory** extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
+🔥 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
+
+🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+
+👉 **[Directoria](https://directorist.com/product/directoria/)** - Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.
+
+👉 **[dList](https://directorist.com/product/dlist/)** - dList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.
+
+👉 **[dService](https://directorist.com/product/dservice/)** - dService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform.
+
+🎉 🎉 🎉  Coming soon...
+
+* dLawyer - Lawyers professional directory
+* dDoctor - A complete doctor directory
+* dRestaurant - Restaurant directory with reservation
+
+Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
 
@@ -319,6 +335,28 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.5.2 – Aug 2, 2021
+
+* Fix - Compatibility issue with WP v5.8
+* Fix - Alignment issue in subscription management page
+* Fix - Listings grid responsive issue
+* Fix - Single listing shortcode module
+* Fix - Performance issue (reduced MySQL queries)
+* Fix - Listing updating issue from admin listing form, (if directory default expire set to NaN)
+* Fix - Listing search returns no result on admin dashboard
+* Fix - Edited review creates new review
+* Fix - Listing gets published when saving as draft from backend
+* Fix - PHP notice on 404 page
+* Fix - Builder saving issue (environment specific)
+* Fix - Invalid key declaration in settings panel
+* Fix - Add to favourite is not working on related listings section
+* Fix - Wrong html end tag in several template files
+* Fix - Single category, location & tag page not working when term name/slug is not in English
+* Fix - Single listing permalink issue in widgets area
+* Fix - Permalink issue in all listing directory type nav 
+* Fix - Style issues
+* Improve - Select field in settings panel and builder
 
 7.0.5.1 – JUL 14, 2021
 

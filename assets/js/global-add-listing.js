@@ -335,7 +335,7 @@ $('#listing_t_c').on('click', function (e) {
   $('#tc_container').toggleClass('active');
 });
 $(function () {
-  $('#color_code2').wpColorPicker().empty();
+  $('.directorist-color-field-js').wpColorPicker().empty();
 });
 $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 

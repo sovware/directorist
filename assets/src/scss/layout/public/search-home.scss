@@ -153,6 +153,7 @@
 
             .directorist-form-element {
                 border: 0 none;
+                background-color: transparent;
             }
 
             .directorist-select .directorist-select__label {
@@ -194,6 +195,9 @@
 
         .directorist-search-form-action {
             display: flex;
+            @media only screen and (max-width: 375px) {
+                flex-direction: column;
+            }
 
             .directorist-btn.directorist-btn-lg {
                 border-radius: 6px;

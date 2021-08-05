@@ -216,6 +216,9 @@
             text-decoration: none;
             letter-spacing: 0;
             font-weight: 400;
+            @media only screen and (max-width: 375px){
+                padding: 0 14.5px;
+            }
         }
     }
 }

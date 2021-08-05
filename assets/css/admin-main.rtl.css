@@ -5482,6 +5482,14 @@ p.status:empty {
   outline: 0;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+  margin-right: 0;
+  margin-top: 8.5px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li .select2-search__field {
+  margin: 0;
+}
+
 .custom-checkbox input {
   display: none;
 }
@@ -6898,6 +6906,9 @@ body.stop-scrolling {
   font-size: 15px;
   font-weight: 700;
 }
+.directorist-form-pricing-field .directorist-form-element {
+  min-width: 100%;
+}
 .directorist-form-pricing-field select.directorist-form-element {
   padding: 0 20px;
 }
@@ -7129,6 +7140,10 @@ body.stop-scrolling {
   margin: 0 10px 0 0;
   position: relative;
   top: 4px;
+}
+.directorist-add-listing-form__action label {
+  line-height: 1.25;
+  margin-bottom: 0;
 }
 .directorist-add-listing-form__action #listing_notifier {
   margin-top: 10px;

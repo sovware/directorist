@@ -8805,7 +8805,18 @@ for shortable field*/
 
 /* Directorist button styles */
 .directorist-btn {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-size: 15px;
   font-weight: 500;
   color: #202428;
@@ -8816,12 +8827,15 @@ for shortable field*/
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
-  padding: 0 26px;
-  line-height: 2.95;
+  padding: 11px 26px;
+  min-height: 45px;
+  line-height: 1.5;
   border-radius: 5px;
   background: #EEF1F3;
   border-color: transparent;
   text-decoration: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-btn:focus {
   outline: 0 !important;
@@ -8912,16 +8926,22 @@ for shortable field*/
 }
 
 .directorist-btn.directorist-btn-lg {
-  line-height: 3.35;
+  min-height: 50px;
 }
 .directorist-btn.directorist-btn-sm {
-  line-height: 2.7;
+  min-height: 40px;
 }
 .directorist-btn.directorist-btn-xs {
-  line-height: 2.3;
+  min-height: 35px;
 }
 .directorist-btn.directorist-btn-px-15 {
   padding: 0 15px;
+}
+.directorist-btn.directorist-btn-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 /* Modal Core Styles */
@@ -9961,6 +9981,60 @@ for shortable field*/
 }
 .directorist-select.directorist-select-multi .directorist-select__container.directorist-error .directorist-select__label {
   border-color: #EF0000;
+}
+
+.select2-selection__arrow,
+.select2-selection__clear {
+  display: none;
+}
+
+.directorist-select2-addons-area {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  z-index: 8;
+}
+
+.directorist-select2-addon {
+  padding: 0 5px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.directorist-select2-dropdown-toggle {
+  height: 30px;
+  width: 25px;
+}
+
+.directorist-select2-dropdown-close {
+  height: 30px;
+  width: 25px;
 }
 
 .reset-pseudo-link:visited, .atbdp-nav-link:visited, .cptm-modal-action-link:visited, .cptm-header-action-link:visited, .cptm-sub-nav__item-link:visited, .cptm-form-builder-header-action-link:visited, .cptm-link-light:visited, .cptm-header-nav__list-item-link:visited, .cptm-btn:visited, .reset-pseudo-link:active, .atbdp-nav-link:active, .cptm-modal-action-link:active, .cptm-header-action-link:active, .cptm-sub-nav__item-link:active, .cptm-form-builder-header-action-link:active, .cptm-link-light:active, .cptm-header-nav__list-item-link:active, .cptm-btn:active, .reset-pseudo-link:focus, .atbdp-nav-link:focus, .cptm-modal-action-link:focus, .cptm-header-action-link:focus, .cptm-sub-nav__item-link:focus, .cptm-form-builder-header-action-link:focus, .cptm-link-light:focus, .cptm-header-nav__list-item-link:focus, .cptm-btn:focus {

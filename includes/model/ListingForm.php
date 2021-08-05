@@ -55,12 +55,12 @@ class Directorist_Listing_Form {
 	public function load_color_picker_script( $data ) {
 		if( !empty( $data['value'] ) ) {
 			?>
-			<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
+			<script> jQuery(document).ready(function ($) { $('.directorist-color-field-js').wpColorPicker(); }); </script>
 			<?php
 		}
 		else {
 			?>
-			<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker().empty(); }); </script>
+			<script> jQuery(document).ready(function ($) { $('.directorist-color-field-js').wpColorPicker().empty(); }); </script>
 			<?php
 		}
 	}
@@ -250,7 +250,7 @@ class Directorist_Listing_Form {
 				break;
 			case 'color':
 				echo '<div>';
-				printf( '<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $id, $value );
+				printf( '<input type="text" name="custom_field[%d]" class="directorist-color-field-js" value="%s"/>', $id, $value );
 				echo '</div>';
 				break;
 

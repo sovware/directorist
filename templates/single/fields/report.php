@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js"  class="atbdp-require-login" data-directorist_target="directorist-report-abuse-modal" aria-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
+<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js atbdp-require-login" data-directorist_target="directorist-report-abuse-modal" data-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
 
 	<?php if ( atbdp_logged_in_user() ): ?>
 		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>

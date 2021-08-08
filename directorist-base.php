@@ -1399,7 +1399,7 @@ final class Directorist_Base
 								if ($guest_review && !atbdp_logged_in_user()){
 								?>
 								<div class="form-group">
-									<label for="guest_user"><?php
+									<label for="guest_user_email"><?php
 										$guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
 										$guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
 										esc_html_e($guest_email_label . ':', 'directorist');

@@ -74,7 +74,7 @@
             font-size: 17px;
         }
 
-        &.directorist-tooltip[aria-label]:after {
+        &.directorist-tooltip[data-label]:after {
             line-height: 1.75;
         }
 

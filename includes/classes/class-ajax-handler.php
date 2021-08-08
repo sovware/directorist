@@ -1023,6 +1023,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
 
             $placeholders = array(
                 '{site_name}' => $site_name,
@@ -1071,6 +1072,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
 
             $placeholders = array(
                 '{site_name}' => $site_name,
@@ -1142,6 +1144,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
+            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
 
             $placeholders = array(
                 '{site_name}' => $site_name,

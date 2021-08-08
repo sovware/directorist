@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.2
  */
 
 use \Directorist\Directorist_Single_Listing;

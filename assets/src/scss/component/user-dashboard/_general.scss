@@ -780,6 +780,11 @@
     }
 }
 .table.atbd_single_saved_item{
+    margin: 0;
+    background: #fff;
+    & *{
+        border-color: #ececec;
+    }
     .action{
         a.btn{
             text-decoration: none;

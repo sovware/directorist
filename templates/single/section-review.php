@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.0.5.2
  */
 
 use \Directorist\Helper;
@@ -116,9 +116,9 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 							</div>
 
 						<?php endif; ?>
-						
+
 						<div class="directorist-review-form-action">
-							
+
 							<?php if ($listing->current_review()): ?>
 
 								<button class="directorist-btn directorist-btn-primary directorist-btn-sm" type="submit" id="directorist-review-form-submit"><?php esc_html_e( 'Update', 'directorist' ); ?></button>
@@ -142,7 +142,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo $listing->review_approve_immediately() ? 'yes' : 'no';?>">
 
 							<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo $listing->review_is_duplicate() ? 'yes' : '';?>">
-							
+
 						</div>
 
 					</form>
@@ -163,7 +163,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 					<div class="directorist-alert__content">
 
 						<span class="<?php atbdp_icon_type( true ); ?>-info-circle" aria-hidden="true"></span>
-						
+
 						<p><?php printf(__('You need to <a href="%s">%s</a> or <a href="%s">%s</a> to submit a review', 'directorist'), ATBDP_Permalink::get_login_page_link(), esc_html__( 'Login', 'directorist' ), ATBDP_Permalink::get_registration_page_link(), esc_html__(' Sign Up', 'directorist' ) );?></p>
 
 					</div>

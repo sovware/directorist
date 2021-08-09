@@ -128,6 +128,97 @@
 
 /***/ }),
 
+/***/ "./assets/src/js/global/components/select2-custom-control.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/global/components/select2-custom-control.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var $ = jQuery;
+window.addEventListener('load', function () {
+  // Add custom dropdown toggle button
+  selec2_add_custom_dropdown_toggle_button(); // Add custom close button
+
+  selec2_add_custom_close_button(); // Add space for addons
+
+  selec2_add_space_for_addons();
+});
+
+function selec2_add_custom_dropdown_toggle_button() {
+  // Remove Default
+  $('.select2-selection__arrow').css({
+    'display': 'none'
+  });
+  var addon_container = selec2_get_addon_container(); // Add Dropdown Toggle Button
+
+  addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
+  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
+  // -----------------------------
+
+  $('.select2-hidden-accessible').on('select2:open', function (e) {
+    var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
+    dropdown_btn.addClass('--is-open');
+  });
+  $('.select2-hidden-accessible').on('select2:close', function (e) {
+    var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
+    dropdown_btn.removeClass('--is-open');
+  }); // Toggle Dropdown
+  // -----------------------------
+
+  selec2_custom_dropdown.on('click', function (e) {
+    var isOpen = $(this).hasClass('--is-open');
+    var field = $(this).closest(".select2-container").siblings('select:enabled');
+
+    if (isOpen) {
+      field.select2('close');
+    } else {
+      field.select2('open');
+    }
+  });
+}
+
+function selec2_add_custom_close_button() {
+  // Remove Default
+  $('.select2-selection__clear').css({
+    'display': 'none'
+  });
+  var addon_container = selec2_get_addon_container(); // Add Close
+
+  addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
+  var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
+  selec2_custom_close.on('click', function (e) {
+    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    field.val(null).trigger('change');
+  });
+}
+
+function selec2_get_addon_container() {
+  var container = $('.select2-container').find('.directorist-select2-addons-area');
+
+  if (!container.length) {
+    $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
+    container = $('.select2-container').find('.directorist-select2-addons-area');
+  }
+
+  return container;
+}
+
+function selec2_add_space_for_addons() {
+  var container = $('.select2-container').find('.directorist-select2-addons-area');
+
+  if (!container.length) {
+    return;
+  }
+
+  var width = container.outerWidth();
+  $('.select2-container').find('.select2-selection__rendered').css({
+    'padding-right': width + 'px'
+  });
+}
+
+/***/ }),
+
 /***/ "./assets/src/js/global/components/utility.js":
 /*!****************************************************!*\
   !*** ./assets/src/js/global/components/utility.js ***!
@@ -170,6 +261,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_utility__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 

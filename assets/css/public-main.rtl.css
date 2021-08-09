@@ -12082,6 +12082,10 @@ p.atbd-min {
   color: #090E30;
   text-align: left;
 }
+.directorist-review-content .directorist-review-content__reviews, .directorist-review-content .directorist-review-content__reviews ul {
+  padding: 0;
+  margin: 0;
+}
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single {
   padding: 25px;
 }
@@ -12194,13 +12198,14 @@ p.atbd-min {
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__feedback a {
   margin: 5px;
+  font-size: 13px;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply {
   margin-top: 20px;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a {
   color: #8C90A4;
-  font-size: 14px;
+  font-size: 13px;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment {
   padding-right: 50px;

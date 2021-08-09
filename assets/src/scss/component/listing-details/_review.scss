@@ -389,12 +389,17 @@
         }
 
         @include e(reviews) {
+            &, ul {
+                padding: 0;
+                margin: 0;
+            }
+
             .directorist-review-single {
+                padding: 25px;
+
                 &:not(:last-child) {
                     border-bottom: 1px solid #EFF1F6;
                 }
-
-                padding: 25px;
 
                 .directorist-review-single__contents-wrap {
                     .directorist-review-single__header {
@@ -483,6 +488,7 @@
 
                     a {
                         margin: 5px;
+                        font-size: 13px;
                     }
                 }
 
@@ -491,7 +497,7 @@
 
                     a {
                         color: #8C90A4;
-                        font-size: 14px;
+                        font-size: 13px;
                     }
                 }
 

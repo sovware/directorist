@@ -7539,7 +7539,7 @@ function atbdp_disable_overwrite_yoast() {
 
 if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
     function directorist_is_active_rankmath() {
-        
+
         return class_exists( 'RankMath' );
     }
 }
@@ -8641,4 +8641,12 @@ if( ! function_exists( 'directorist_warnings' ) ) {
 
         return $warnings;
     }
+}
+
+function directorist_get_directory_type_url( $type = 'all', $base_url = '' ) {
+	if ( empty( $base_url ) ) {
+		$base_url = remove_query_arg( [ 'page', 'paged' ] );
+	}
+
+	return add_query_arg( [ 'directory_type' => $type ] );
 }

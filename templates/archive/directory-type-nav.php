@@ -1,8 +1,11 @@
 <?php
 /**
+ * Multi directory navigation template.
+ * Mostly used on listings archive view.
+ *
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.2
+ * @version 7.0.5.3
  */
 
 use \Directorist\Helper;

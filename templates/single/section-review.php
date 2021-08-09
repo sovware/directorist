@@ -13,6 +13,9 @@ if ( !Helper::is_review_enabled() ) {
 	return;
 }
 
+comments_template();
+return;
+
 $review_placeholder = $listing->current_review() ? esc_html__( 'Update your review.....', 'directorist' ) : esc_html__( 'Write your review.....', 'directorist' );
 $review_content = $listing->current_review() ? $listing->current_review()->content : '';
 ?>

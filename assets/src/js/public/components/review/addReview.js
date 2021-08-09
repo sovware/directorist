@@ -74,7 +74,7 @@
 
         var _data = { action: 'save_listing_review' };
         _data = prepear_form_data( $form, field_field_map, _data );
-        
+
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
         jQuery.post(atbdp_public_data.ajaxurl, _data, function(response) {
@@ -189,5 +189,6 @@
 
         return false;
     });
-    
+
+
 })(jQuery);

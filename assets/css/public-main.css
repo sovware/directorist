@@ -13588,6 +13588,7 @@ p.atbd-min {
   color: #7a82a6;
   line-height: 22px;
   display: block;
+  text-decoration: none;
 }
 .directorist-search-field #address + .address_result ul li a:hover {
   color: #444752;

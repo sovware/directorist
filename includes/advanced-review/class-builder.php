@@ -25,6 +25,10 @@ class Builder {
 	}
 
 	private function __construct( $post_id ) {
+		$this->load_data( $post_id );
+	}
+
+	public function load_data( $post_id )  {
 		$type = get_post_meta( $post_id, '_directory_type', true );
 		$this->fields = get_term_meta( $type, 'review_config', true );
 	}

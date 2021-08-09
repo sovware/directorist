@@ -306,14 +306,14 @@
         };
     }
 
-    class AjaxComment {
+    class Ajax_Comment {
 
         constructor() {
-            this.bindEvents();
+            this.bind_events();
         }
 
-        bindEvents() {
-            $(document).on('submit', '#commentform', this.onSubmit);
+        bind_events() {
+            $( document ).on('submit', '#commentform', this.on_submit );
         }
 
         static getErrorMsg($dom) {
@@ -331,12 +331,11 @@
             form.prepend($error)
         }
 
-        onSubmit(e) {
-            e.preventDefault();
+        on_submit( event ) {
+            event.preventDefault();
 
-            const form = $('#commentform');
-            // const do_comment = $.post(form.attr('action'), form.serialize());
-            const ori_btn_val = $('#commentform').find('[type="submit"]').val();
+            const form = $( "#commentform" );
+            const ori_btn_val = form.find( "[type='submit']" ).val();
 
             const do_comment = $.ajax({
                 url        : form.attr('action'),
@@ -347,73 +346,89 @@
                 data       : new FormData(form[0])
             });
 
-            $('#comment').prop('disabled',true);
-            $('#commentform').find('[type="submit"]').prop('disabled',true).val('Loading');
+            $( "#comment" ).prop( "disabled", true );
+
+            form.find( "[type='submit']" ).prop( "disabled", true ).val( 'loading' );
 
             do_comment.success(
-                function(data, status, request) {
-                    const body = $('<div></div>');
-                    body.append(data);
+                function ( data, status, request ) {
 
-                    if (body.find('.wp-die-message').length) {
-                        AjaxComment.showError(form, body.find('.wp-die-message'));
-                    } else {
-                        let comment_section = '.directorist-review-content';
-                        let comments        = body.find(comment_section);
+                    var body = $( "<div></div>" );
+                    body.append( data );
+                    var comment_section = ".directorist-review-container";
+                    var comments = body.find( comment_section );
 
-                        let commentslists = comments.find('li');
-                        let new_comment_id = false;
+                    // if ( comments.length < 1 ) {
+                    //     comment_section = '.commentlist';
+                    //     comments = body.find( comment_section );
+                    // }
 
-                        // catch the new comment id by comparing to old dom.
-                        commentslists.each(
-                            function (index) {
-                                var _this = $(commentslists[index]);
-                                if ($('#' + _this.attr('id') ).length == 0) {
-                                    new_comment_id = _this.attr('id');
-                                }
+                    var commentslists = comments.find( ".commentlist li" );
+
+                    var new_comment_id = false;
+
+                    // catch the new comment id by comparing to old dom.
+                    commentslists.each(
+                        function ( index ) {
+                            var _this = $( commentslists[ index ] );
+                            if ( $( "#" + _this.attr( "id" ) ).length == 0 ) {
+                                new_comment_id = _this.attr( "id" );
                             }
-                        );
-
-                        $(comment_section).replaceWith(comments);
-
-                        // scroll to comment
-                        if (new_comment_id) {
-                            let commentTop = $('#' + new_comment_id).offset().top;
-
-                            if ($('body').hasClass('admin-bar')) {
-                                commentTop = commentTop - $('#wpadminbar').height();
-                            }
-
-                            $('body, html').animate(
-                                {
-                                    scrollTop: commentTop
-                                },
-                                600
-                            );
                         }
+                    );
+
+                    $( comment_section ).replaceWith( comments );
+
+                    var commentTop = $( "#" + new_comment_id ).offset().top;
+
+                    // if ( $( 'body' ).hasClass( 'sticky-header' ) ) {
+                    //     commentTop = $( "#" + new_comment_id ).offset().top - $( '#masthead' ).height();
+                    // }
+
+                    if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
+                        commentTop = commentTop - $( '#wpadminbar' ).height();
+                    }
+
+                    // scroll to comment
+                    if ( new_comment_id ) {
+                        $( "body, html" ).animate(
+                            {
+                                scrollTop: commentTop
+                            },
+                            600
+                        );
                     }
                 }
             );
 
             do_comment.fail(
-                function(data) {
-                    let body = $('<div></div>');
-                    body.append(data.responseText);
+                function ( data ) {
+                    var body = $( "<div></div>" );
+                    body.append( data.responseText );
+                    body.find( "style,meta,title,a" ).remove();
+                    body = body.find( '.wp-die-message p' ).text(); // clean text
 
-                    AjaxComment.showError(form, body.find('.wp-die-message'));
+                    console.log(body);
+                    // if ( typeof bb_vue_loader == 'object' &&
+                    //     typeof bb_vue_loader.common == 'object' &&
+                    //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
+                    //     bb_vue_loader.common.showSnackbar( body )
+                    // } else {
+                    //     alert( body );
+                    // }
                 }
             );
 
             do_comment.always(
-                function() {;
-                    $('#comment').prop('disabled',false);
-                    $('#commentform').find('[type="submit"]').prop('disabled',false).val(ori_btn_val);
+                function () {
+                    $( "#comment" ).prop( "disabled", false );
+                    $( "#commentform" ).find( "[type='submit']" ).prop( "disabled", false ).val( ori_btn_val );
                 }
             );
         }
     }
 
-    class AdvancedReview {
+    class Advanced_Review {
         constructor() {
             this.form = document.querySelector('#commentform');
 
@@ -421,18 +436,19 @@
                 return;
             }
 
-            this.setFormEncoding();
+            this.set_form_encoding();
 
-            new AttachmentPreview(this.form);
-            new CommentActivity(new ActivityStorage());
-            new ReplyFormObserver();
-            new AjaxComment();
+            // new AttachmentPreview(this.form);
+            // new CommentActivity(new ActivityStorage());
+            // new ReplyFormObserver();
+            new Ajax_Comment();
         }
 
-        setFormEncoding() {
+        set_form_encoding() {
             this.form.encoding = 'multipart/form-data';
         }
     }
 
-    const advancedReview = new AdvancedReview();
+    const advanced_review = new Advanced_Review();
+
 }(jQuery));

@@ -2131,25 +2131,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     return ReplyFormObserver;
   }();
 
-  var AjaxComment = /*#__PURE__*/function () {
-    function AjaxComment() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, AjaxComment);
+  var Ajax_Comment = /*#__PURE__*/function () {
+    function Ajax_Comment() {
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Ajax_Comment);
 
-      this.bindEvents();
+      this.bind_events();
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(AjaxComment, [{
-      key: "bindEvents",
-      value: function bindEvents() {
-        $(document).on('submit', '#commentform', this.onSubmit);
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Ajax_Comment, [{
+      key: "bind_events",
+      value: function bind_events() {
+        $(document).on('submit', '#commentform', this.on_submit);
       }
     }, {
-      key: "onSubmit",
-      value: function onSubmit(e) {
-        e.preventDefault();
-        var form = $('#commentform'); // const do_comment = $.post(form.attr('action'), form.serialize());
-
-        var ori_btn_val = $('#commentform').find('[type="submit"]').val();
+      key: "on_submit",
+      value: function on_submit(event) {
+        event.preventDefault();
+        var form = $("#commentform");
+        var ori_btn_val = form.find("[type='submit']").val();
         var do_comment = $.ajax({
           url: form.attr('action'),
           type: 'POST',
@@ -2158,51 +2157,60 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           processData: false,
           data: new FormData(form[0])
         });
-        $('#comment').prop('disabled', true);
-        $('#commentform').find('[type="submit"]').prop('disabled', true).val('Loading');
+        $("#comment").prop("disabled", true);
+        form.find("[type='submit']").prop("disabled", true).val('loading');
         do_comment.success(function (data, status, request) {
-          var body = $('<div></div>');
+          var body = $("<div></div>");
           body.append(data);
+          var comment_section = ".directorist-review-container";
+          var comments = body.find(comment_section); // if ( comments.length < 1 ) {
+          //     comment_section = '.commentlist';
+          //     comments = body.find( comment_section );
+          // }
 
-          if (body.find('.wp-die-message').length) {
-            AjaxComment.showError(form, body.find('.wp-die-message'));
-          } else {
-            var comment_section = '.directorist-review-content';
-            var comments = body.find(comment_section);
-            var commentslists = comments.find('li');
-            var new_comment_id = false; // catch the new comment id by comparing to old dom.
+          var commentslists = comments.find(".commentlist li");
+          var new_comment_id = false; // catch the new comment id by comparing to old dom.
 
-            commentslists.each(function (index) {
-              var _this = $(commentslists[index]);
+          commentslists.each(function (index) {
+            var _this = $(commentslists[index]);
 
-              if ($('#' + _this.attr('id')).length == 0) {
-                new_comment_id = _this.attr('id');
-              }
-            });
-            $(comment_section).replaceWith(comments); // scroll to comment
-
-            if (new_comment_id) {
-              var commentTop = $('#' + new_comment_id).offset().top;
-
-              if ($('body').hasClass('admin-bar')) {
-                commentTop = commentTop - $('#wpadminbar').height();
-              }
-
-              $('body, html').animate({
-                scrollTop: commentTop
-              }, 600);
+            if ($("#" + _this.attr("id")).length == 0) {
+              new_comment_id = _this.attr("id");
             }
+          });
+          $(comment_section).replaceWith(comments);
+          var commentTop = $("#" + new_comment_id).offset().top; // if ( $( 'body' ).hasClass( 'sticky-header' ) ) {
+          //     commentTop = $( "#" + new_comment_id ).offset().top - $( '#masthead' ).height();
+          // }
+
+          if ($('body').hasClass('admin-bar')) {
+            commentTop = commentTop - $('#wpadminbar').height();
+          } // scroll to comment
+
+
+          if (new_comment_id) {
+            $("body, html").animate({
+              scrollTop: commentTop
+            }, 600);
           }
         });
         do_comment.fail(function (data) {
-          var body = $('<div></div>');
+          var body = $("<div></div>");
           body.append(data.responseText);
-          AjaxComment.showError(form, body.find('.wp-die-message'));
+          body.find("style,meta,title,a").remove();
+          body = body.find('.wp-die-message p').text(); // clean text
+
+          console.log(body); // if ( typeof bb_vue_loader == 'object' &&
+          //     typeof bb_vue_loader.common == 'object' &&
+          //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
+          //     bb_vue_loader.common.showSnackbar( body )
+          // } else {
+          //     alert( body );
+          // }
         });
         do_comment.always(function () {
-          ;
-          $('#comment').prop('disabled', false);
-          $('#commentform').find('[type="submit"]').prop('disabled', false).val(ori_btn_val);
+          $("#comment").prop("disabled", false);
+          $("#commentform").find("[type='submit']").prop("disabled", false).val(ori_btn_val);
         });
       }
     }], [{
@@ -2228,12 +2236,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }]);
 
-    return AjaxComment;
+    return Ajax_Comment;
   }();
 
-  var AdvancedReview = /*#__PURE__*/function () {
-    function AdvancedReview() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, AdvancedReview);
+  var Advanced_Review = /*#__PURE__*/function () {
+    function Advanced_Review() {
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Advanced_Review);
 
       this.form = document.querySelector('#commentform');
 
@@ -2241,24 +2249,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
 
-      this.setFormEncoding();
-      new AttachmentPreview(this.form);
-      new CommentActivity(new ActivityStorage());
-      new ReplyFormObserver();
-      new AjaxComment();
+      this.set_form_encoding(); // new AttachmentPreview(this.form);
+      // new CommentActivity(new ActivityStorage());
+      // new ReplyFormObserver();
+
+      new Ajax_Comment();
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(AdvancedReview, [{
-      key: "setFormEncoding",
-      value: function setFormEncoding() {
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Advanced_Review, [{
+      key: "set_form_encoding",
+      value: function set_form_encoding() {
         this.form.encoding = 'multipart/form-data';
       }
     }]);
 
-    return AdvancedReview;
+    return Advanced_Review;
   }();
 
-  var advancedReview = new AdvancedReview();
+  var advanced_review = new Advanced_Review();
 })(jQuery);
 
 /***/ }),

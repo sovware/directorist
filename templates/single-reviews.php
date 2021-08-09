@@ -148,7 +148,7 @@ Bootstrap::load_walker();
 		);
 
 		$comment_field = array();
-		$comment_field[] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
+		// $comment_field[] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
 
 		$comment_field[] = sprintf(
 			'<div class="directorist-form-group form-group-comment">%s %s</div>',
@@ -174,7 +174,7 @@ Bootstrap::load_walker();
 			'title_reply_after'  => '</h3></div>',
 			'class_form'         => 'comment-form directorist-review-submit__form',
 			'class_submit'       => 'directorist-btn directorist-btn-primary',
-			'label_submit'       => __( 'Submit your review', 'directorist' ),
+			'label_submit'       => __( 'Submit review', 'directorist' ),
 			'format'             => 'html5',
 			'submit_field'       => '<div class="directorist-form-group">%1$s %2$s</div>',
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',

@@ -99,7 +99,7 @@ class Comment {
 				// Validate owner is sharing review or not
 				$post_author_id = (int) get_post_field( 'post_author', absint( $_POST['comment_post_ID'] ) );
 
-				if ( ! $rating_is_missing && ! get_directorist_option( 'enable_owner_review' ) && $post_author_id === $comment_data['user_ID'] ) {
+				if ( ! $rating_is_missing && ! get_directorist_option( 'enable_owner_review', true ) && $post_author_id === $comment_data['user_ID'] ) {
 					$errors[] = __( '<strong>Error</strong>: You are not allowed to share review on your own listing.', 'directorist' );
 				}
 

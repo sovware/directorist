@@ -658,7 +658,7 @@ final class Directorist_Base
 						$listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
 						$listing_prv_img = get_post_meta($pop_post->ID, '_listing_prv_img', true);
 						$cats = get_the_terms($pop_post->ID, ATBDP_CATEGORY);
-						$post_link = ATBDP_Permalink::get_listing_permalink( $pop_post->ID );
+						$post_link = get_the_permalink( $pop_post->ID );
 						?>
 						<li>
 							<div class="atbd_left_img">

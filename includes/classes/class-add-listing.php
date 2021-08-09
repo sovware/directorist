@@ -608,7 +608,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     update_post_meta($post_id, '_listing_img', $new_files_meta);
-                    $permalink = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
+                    $permalink = get_permalink( $post_id );
                     //no pay extension own yet let treat as general user
 
                     $submission_notice = get_directorist_option('submission_confirmation', 1);

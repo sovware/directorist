@@ -91,7 +91,6 @@ if (!class_exists('ATBDP_Email')):
             $site_url = site_url();
             $l_title = get_the_title($listing_id);
             $listing_url = get_permalink($listing_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($listing_id, $listing_url);
             $l_edit_url = admin_url("post.php?post={$listing_id}&action=edit");
             $user_dashboard = admin_url("users.php");
             $date_format = get_option('date_format');

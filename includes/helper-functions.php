@@ -8643,10 +8643,24 @@ if( ! function_exists( 'directorist_warnings' ) ) {
     }
 }
 
-function directorist_get_directory_type_url( $type = 'all', $base_url = '' ) {
+/**
+ * Get directory type url.
+ *
+ * @since 7.0.5.3
+ *
+ * @param string $type Directory type slug.
+ * @param string|null|mixed $base_url Base url for type url.
+ *
+ * @return string Directory type url.
+ */
+function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null ) {
 	if ( empty( $base_url ) ) {
 		$base_url = remove_query_arg( [ 'page', 'paged' ] );
+		$base_url = preg_replace( '~/page/(\d+)/?~', '', $base_url );
+		$base_url = preg_replace( '~/paged/(\d+)/?~', '', $base_url );
 	}
 
-	return add_query_arg( [ 'directory_type' => $type ] );
+	$url = add_query_arg( [ 'directory_type' => $type ], $base_url );
+
+	return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 }

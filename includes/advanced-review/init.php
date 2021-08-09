@@ -30,6 +30,8 @@ class Bootstrap {
 
 		if ( is_admin() ) {
 			require_once 'class-metabox.php';
+			require_once 'class-settings-panel.php';
+			require_once 'class-builder-panel.php';
 		}
 	}
 

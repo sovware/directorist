@@ -2725,11 +2725,6 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Price Range Max Placeholder', 'directorist' ),
                                 'value' => 'Max',
                             ],
-                            'label'                       => array(
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Pricing',
-                            ),
                         ]
                     ],
 

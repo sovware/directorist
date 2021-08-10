@@ -1,6 +1,6 @@
 <?php
 /**
- * Advance review walker class.
+ * Reviews walker class.
  *
  * @package wpWax\Directorist
  * @subpackage Review
@@ -72,8 +72,6 @@ class Walker extends Walker_Comment {
 	/**
 	 * Outputs a comment in the HTML5 format.
 	 *
-	 * @since 3.6.0
-	 *
 	 * @see wp_list_comments()
 	 *
 	 * @param WP_Comment $comment Comment to display.
@@ -93,9 +91,9 @@ class Walker extends Walker_Comment {
 		}
 
 		if ( $comment->comment_type === 'review' ) {
-			$moderation_note = sprintf( $moderation_note, 'review' );
+			$moderation_note = sprintf( $moderation_note, __( 'review', 'directorist' ) );
 		} else {
-			$moderation_note = sprintf( $moderation_note, 'comment' );
+			$moderation_note = sprintf( $moderation_note, __( 'comment', 'directorist' ) );
 		}
 
 		$comment_class = 'directorist-review-single';
@@ -126,23 +124,23 @@ class Walker extends Walker_Comment {
 							<div class="directorist-review-single__author__details">
 								<h2 class="fn"><?php comment_author_link(); ?> <time datetime="<?php echo esc_attr( get_comment_date( 'Y-m-d H:i:s' ) ); ?>"><?php comment_date( apply_filters( 'directorist_review_date_format', 'F Y' ) ); ?></time></h2>
 
-								<?php /* if ( ! $has_parent && $rating ) : ?>
+								<?php if ( ! $has_parent && $rating ) : ?>
 									<span class="directorist-rating-stars">
 										<?php Markup::show_rating_stars( $rating ); ?>
 									</span>
-								<?php endif; */ ?>
+								<?php endif; ?>
 							</div>
 						</div>
-						<?php /* if ( ! $has_parent ) : ?>
+						<?php if ( ! $has_parent ) : ?>
 							<div class="directorist-review-single__report">
 								<a <?php self::add_activity_prop( 'report' ); ?> href="#"><i class="la la-flag"></i> Report</a>
 							</div>
-						<?php endif; */ ?>
+						<?php endif; ?>
 					</header>
 					<div class="directorist-review-single__content">
 						<?php comment_text(); ?>
 
-						<?php /* if ( $builder->is_attachments_enabled() && ! empty( $attachments ) && is_array( $attachments ) ) : ?>
+						<?php if ( $builder->is_attachments_enabled() && ! empty( $attachments ) && is_array( $attachments ) ) : ?>
 							<div class="directorist-review-single__content__img">
 								<?php
 								$dir = wp_get_upload_dir();
@@ -151,19 +149,16 @@ class Walker extends Walker_Comment {
 								}
 								?>
 							</div>
-						<?php endif; */ ?>
+						<?php endif; ?>
 					</div>
 				</div>
-				<?php
-				if ( $comment->comment_approved == '0' ) { ?>
-					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p><?php
-				} ?>
-				<?php /*
+				<?php if ( $comment->comment_approved == '0' ) : ?>
+					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
+				<?php endif; ?>
 				<footer class="directorist-review-single__feedback">
 					<a <?php self::add_activity_prop( 'helpful' ); ?> role="button" data-count="<?php echo $helpful; ?>" href="#" class="directorist-btn-feedback"><i class="far fa-thumbs-up"></i> <?php echo esc_html_x( 'Helpful', 'comment feedback button', 'directorist' ); ?> (<span><?php echo $helpful; ?></span>)</a>
 					<a <?php self::add_activity_prop( 'unhelpful' ); ?> role="button" data-count="<?php echo $unhelpful; ?>" href="#" class="directorist-btn-feedback"><i class="far fa-thumbs-down"></i> <?php echo esc_html_x( 'Not Helpful', 'comment feedback button', 'directorist' ); ?> (<span><?php echo $unhelpful; ?></span>)</a>
 				</footer>
-				*/?>
 
 				<?php comment_reply_link(
 					array_merge(

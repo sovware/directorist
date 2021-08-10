@@ -1,6 +1,6 @@
 <?php
 /**
- * Single view advanced review template.
+ * Comment and review template for single view.
  *
  * @author  wpWax
  * @since   x
@@ -9,7 +9,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-use Directorist\Helper;
 use wpWax\Directorist\Review\Markup;
 use wpWax\Directorist\Review\Builder;
 use wpWax\Directorist\Review\Bootstrap;
@@ -147,10 +146,10 @@ Bootstrap::load_walker();
 			),
 		);
 
-		$comment_field = array();
-		// $comment_field[] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
+		$comment_fields = array();
+		$comment_fields['criteria'] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
 
-		$comment_field[] = sprintf(
+		$comment_fields['content'] = sprintf(
 			'<div class="directorist-form-group form-group-comment">%s %s</div>',
 			sprintf(
 				'<label for="comment">%s</label>',
@@ -162,12 +161,14 @@ Bootstrap::load_walker();
 		);
 
 		if ( $builder->is_attachments_enabled() ) {
-			$comment_field[] = Markup::get_attachments_uploader( $builder );
+			$comment_fields['attachments'] = Markup::get_attachments_uploader( $builder );
 		}
+
+		$comment_fields = (array) apply_filters( 'directorist_review_form_comment_fields', $comment_fields );
 
 		$args = array(
 			'fields'             => $fields,
-			'comment_field'      => implode( "\n", $comment_field ),
+			'comment_field'      => implode( "\n", $comment_fields ),
 			'class_container'    => 'directorist-review-submit',
 			'title_reply'        => __( 'Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',
@@ -180,7 +181,7 @@ Bootstrap::load_walker();
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',
 		);
 
-		comment_form( $args );
+		comment_form( apply_filters( 'directorist_review_form_args', $args ) );
 	}
 	?>
 </div>

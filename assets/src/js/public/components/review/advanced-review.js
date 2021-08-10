@@ -1,26 +1,26 @@
 ;(function($) {
     'use strict';
 
-    class AttachmentPreview {
-        constructor(form) {
-            this.$form = $(form);
-            this.$input = this.$form.find('.directorist-review-images');
-            this.$preview = this.$form.find('.directorist-review-img-gallery');
+    class Attachments_Preview {
+        constructor( form ) {
+            this.$form = $( form );
+            this.$input = this.$form.find( '.directorist-review-images' );
+            this.$preview = this.$form.find( '.directorist-review-img-gallery' );
 
-            this.bindEvents();
+            this.init();
         }
 
-        bindEvents() {
+        init() {
             const self = this;
 
-            this.$input.on('change', function() {
-                self.showPreview(this);
-            });
+            this.$input.on( 'change', function() {
+                self.showPreview( this );
+            } );
 
-            this.$form.on('click', '.directorist-btn-delete', function(e) {
+            this.$form.on( 'click', '.directorist-btn-delete', function(e) {
                 e.preventDefault();
-                $(this).parent().remove();
-            });
+                $( this ).parent().remove();
+            } );
         }
 
         // deleteFromFileList(fileField, index) {
@@ -82,26 +82,26 @@
 
     class ActivityStorage {
 
-        add(commentId, activity) {
-            if (this.has(commentId, activity)) {
+        add( commentId, activity ) {
+            if ( this.has( commentId, activity ) ) {
                 return false;
             }
             const activities = this.getActivities();
 
-            if (typeof activities[commentId] === 'undefined') {
-                activities[commentId] = {};
+            if ( typeof activities[ commentId ] === 'undefined' ) {
+                activities[ commentId ] = {};
             }
 
-            if (typeof activities[commentId][activity] === 'undefined' || !activities[commentId][activity]) {
+            if ( typeof activities[ commentId ][ activity ] === 'undefined' || ! activities[ commentId ][ activity ] ) {
                 activities[commentId][activity] = 1;
             }
 
-            this.saveActivities(activities);
+            this.saveActivities( activities );
 
             return true;
         }
 
-        has(commentId, activity) {
+        has( commentId, activity ) {
             const activities = this.getActivities();
 
             if (typeof activities[commentId] === 'undefined') {
@@ -160,15 +160,16 @@
         }
     }
 
-    class CommentActivity {
-        constructor(activityStorage) {
+    class Comment_Activity {
+        constructor( storage ) {
             this.selector = '[data-directorist-activity]';
             this.$wrap    = $('.directorist-review-content__reviews');
-            this.storage = activityStorage;
-            this.events();
+            this.storage  = storage;
+
+            this.init();
         }
 
-        events() {
+        init() {
             this.$wrap.on(
                 'click.onDirectoristActivity',
                 this.selector,
@@ -309,10 +310,10 @@
     class Ajax_Comment {
 
         constructor() {
-            this.bind_events();
+            this.init();
         }
 
-        bind_events() {
+        init() {
             $( document ).on('submit', '#commentform', this.on_submit );
         }
 
@@ -337,6 +338,8 @@
             const form = $( "#commentform" );
             const ori_btn_val = form.find( "[type='submit']" ).val();
 
+            $( document ).trigger( 'directorist_reviews_before_submit', form );
+
             const do_comment = $.ajax({
                 url        : form.attr('action'),
                 type       : 'POST',
@@ -358,6 +361,15 @@
                     var comment_section = ".directorist-review-container";
                     var comments = body.find( comment_section );
 
+                    const errorMsg = body.find( '.wp-die-message' );
+                    if (errorMsg.length > 0) {
+                        console.log( errorMsg.text() );
+
+                        $( document ).trigger( 'directorist_reviews_update_failed', body );
+
+                        return;
+                    }
+
                     // if ( comments.length < 1 ) {
                     //     comment_section = '.commentlist';
                     //     comments = body.find( comment_section );
@@ -378,6 +390,8 @@
                     );
 
                     $( comment_section ).replaceWith( comments );
+
+                    $( document ).trigger( 'directorist_reviews_updated', data );
 
                     var commentTop = $( "#" + new_comment_id ).offset().top;
 
@@ -406,9 +420,10 @@
                     var body = $( "<div></div>" );
                     body.append( data.responseText );
                     body.find( "style,meta,title,a" ).remove();
-                    body = body.find( '.wp-die-message p' ).text(); // clean text
+                    body = body.find( '.wp-die-message' ).text(); // clean text
 
                     console.log(body);
+
                     // if ( typeof bb_vue_loader == 'object' &&
                     //     typeof bb_vue_loader.common == 'object' &&
                     //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
@@ -416,6 +431,8 @@
                     // } else {
                     //     alert( body );
                     // }
+
+                    $( document ).trigger( 'directorist_reviews_update_failed', body );
                 }
             );
 
@@ -425,26 +442,46 @@
                     $( "#commentform" ).find( "[type='submit']" ).prop( "disabled", false ).val( ori_btn_val );
                 }
             );
+
+            $( document ).trigger( 'directorist_reviews_after_submit', form );
         }
     }
 
     class Advanced_Review {
         constructor() {
-            this.form = document.querySelector('#commentform');
+            this.form = document.querySelector( '#commentform' );
 
             if (!this.form) {
                 return;
             }
 
-            this.set_form_encoding();
+            this.setFormEncoding();
 
-            // new AttachmentPreview(this.form);
-            // new CommentActivity(new ActivityStorage());
-            // new ReplyFormObserver();
+            this.init();
+        }
+
+        init() {
+            this.setupComponents();
+
+            $( document ).on( 'directorist_reviews_updated', function() {
+                $(".directorist-stars").barrating({
+                    theme: 'fontawesome-stars'
+                });
+
+                $('.directorist-review-criteria-select').barrating({
+                    theme: 'fontawesome-stars'
+                });
+            } );
+        }
+
+        setupComponents() {
+            this.preview = new Attachments_Preview( this.form );
+            new Comment_Activity(new ActivityStorage());
+            new ReplyFormObserver();
             new Ajax_Comment();
         }
 
-        set_form_encoding() {
+        setFormEncoding() {
             this.form.encoding = 'multipart/form-data';
         }
     }

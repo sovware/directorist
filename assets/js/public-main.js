@@ -738,9 +738,11 @@ atbdSelectData.forEach(function (el) {
     $(".directorist-shade").removeClass("directorist-active");
   }); // Profile Responsive
 
-  if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
-    $('#user_profile_form').addClass('directorist-profile-responsive');
-  }
+  $('.directorist-tab__nav__link').on('click', function () {
+    if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
+      $('#user_profile_form').addClass('directorist-profile-responsive');
+    }
+  });
 })(jQuery);
 
 /***/ }),
@@ -906,6 +908,16 @@ atbdSelectData.forEach(function (el) {
 (function ($) {
   if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
     $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
+  } // Auhtor Profile Listing responsive fix
+
+
+  if ($('.directorist-author-listing-content').innerWidth() <= 750) {
+    $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
+  } // Directorist Archive responsive fix
+
+
+  if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
+    $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
   }
 })(jQuery);
 

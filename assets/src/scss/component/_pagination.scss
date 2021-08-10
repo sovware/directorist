@@ -30,4 +30,11 @@
       background-color: $primary;
     }
   }
+  a.page-numbers {
+    span{
+      border: 0 none;
+      min-width: auto;
+      margin: 0;
+    }
+  }
 }

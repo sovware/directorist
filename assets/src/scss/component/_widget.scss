@@ -964,8 +964,13 @@
       }
 
       &.submit_btn{
+        margin-bottom: -10px;
         .btn{
           font-size: 15px;
+          margin-bottom: 10px;
+          @media only screen and (max-width: 991px){
+            font-size: 14px;
+          }
         }
         #atbdp_reset{
           border: 1px solid #ececec !important;

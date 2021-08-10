@@ -298,6 +298,29 @@ p.status:empty {
     outline: 0;
 }
 
+.select2-container--default{
+    .select2-selection--multiple{
+        .select2-selection__rendered{
+            li{
+                margin-left: 0;
+                margin-top: 8.5px;
+                &.select2-search--inline{
+                    &.form-group{
+                        margin-bottom: 0;
+                        padding: 0;
+                        .form-control{
+                            height: 24.5px;
+                        }
+                    }
+                }
+                .select2-search__field{
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
 // Directorist Custom Checkbox
 .custom-checkbox {
     input {

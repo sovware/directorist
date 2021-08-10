@@ -1215,7 +1215,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_email = get_bloginfo('admin_email');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1270,7 +1269,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');

@@ -38,7 +38,7 @@
 
     .directorist-listing-single__thumb {
         position: relative;
-        margin-bottom: 0;
+        margin: 0;
 
         .directorist-thumnail-card {
             position: relative;
@@ -417,6 +417,7 @@
         justify-content: space-between;
 
         .directorist-listing-single__meta--left {
+            margin-right: 5px;
             .directorist-listing-category {
                 a {
                     text-decoration: none;
@@ -748,6 +749,18 @@
             .directorist-mark-as-favorite,
             .directorist-badge {
                 margin: 3px;
+            }
+        }
+    }
+}
+
+// Directorist Archive Grid Fix
+.directorist-archive-grid-view{
+    &.directorist-archive-grid--fix{
+        .directorist-all-listing-col{
+            width: 50% !important;
+            @media only screen and (max-width: 575px) {
+                width: 100% !important;
             }
         }
     }

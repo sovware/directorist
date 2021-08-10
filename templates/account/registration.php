@@ -68,11 +68,11 @@ use \Directorist\Helper;
                             <form action="<?php echo esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="directorist-form-group directorist-mb-15">
                                     <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong class="directorist-form-required">*</strong></label>
-                                    <input id="username" class="directorist-form-element" type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
+                                    <input id="username" class="directorist-form-element" type="text" name="username" value="<?php echo ( isset( $_REQUEST['username'] ) ? esc_attr($_REQUEST['username']) : null ); ?>">
                                 </div>
                                 <div class="directorist-form-group directorist-mb-15">
                                     <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong class="directorist-form-required">*</strong></label>
-                                    <input id="email" class="directorist-form-element" type="text" name="email" value="<?php echo ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
+                                    <input id="email" class="directorist-form-element" type="text" name="email" value="<?php echo ( isset( $_REQUEST['email']) ? $_REQUEST['email'] : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_password_reg)) {?>
                                     <div class="directorist-form-group directorist-mb-15">
@@ -88,28 +88,28 @@ use \Directorist\Helper;
                                     <label for="fname"><?php printf(__('%s ', 'directorist'),$first_name);
                                         echo !empty($require_fname) ? '<strong class="directorist-form-required">*</strong>': '';
                                     ?></label>
-                                    <input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
+                                    <input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo ( isset( $_REQUEST['fname']) ? esc_attr($_REQUEST['fname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_lname)) {?>
                                 <div class="directorist-form-group directorist-mb-15">
                                     <label for="lname"><?php printf(__('%s ', 'directorist'),$last_name);
                                         echo !empty($require_lname) ? '<strong class="directorist-form-required">*</strong>': '';
                                     ?></label>
-                                    <input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
+                                    <input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo ( isset( $_REQUEST['lname']) ? esc_attr($_REQUEST['lname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_website)) { ?>
                                     <div class="directorist-form-group directorist-mb-15">
                                         <label for="website"><?php printf(__('%s ', 'directorist'),$website);
                                             echo !empty($require_website) ? '<strong class="directorist-form-required">*</strong>': '';
                                             ?></label>
-                                        <input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
+                                        <input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo ( isset( $_REQUEST['website']) ? esc_url($_REQUEST['website']) : null ); ?>">
                                     </div>
                                 <?php } if(!empty($display_bio)) { ?>
                                 <div class="directorist-form-group directorist-mb-15">
                                     <label for="bio"><?php printf(__('%s ', 'directorist'),$bio);
                                         echo !empty($require_bio) ? '<strong class="directorist-form-required">*</strong>': '';
                                     ?></label>
-                                    <textarea id="bio" class="directorist-form-element" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
+                                    <textarea id="bio" class="directorist-form-element" name="bio" rows="10"><?php echo ( isset( $_REQUEST['bio']) ? esc_textarea($_REQUEST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php }
 

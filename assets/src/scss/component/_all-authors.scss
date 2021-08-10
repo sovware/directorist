@@ -66,6 +66,7 @@
             }
             @include e(info-list){
                 list-style-type: none;
+                padding: 0;
                 margin-bottom: 15px !important;
                 li{
                     font-size: 14px;
@@ -106,6 +107,20 @@
             .directorist-btn{
                 border: 0 none;
                 box-shadow: none;
+            }
+        }
+    }
+}
+
+/* Directorist All author Grid */
+.directorist-authors{
+    @include e(cards){
+        .directorist-col-4{
+            @media (max-width: 991px) {
+                width: 50%;
+            }
+            @media (max-width: 575px) {
+                width: 100%;
             }
         }
     }

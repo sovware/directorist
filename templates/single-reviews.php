@@ -28,7 +28,7 @@ Bootstrap::load_walker();
 <div class="directorist-review-container">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header">
-			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), get_comments_number() ); ?></h3>
+			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) ); ?></h3>
 			<?php if ( is_user_logged_in() || get_directorist_option( 'guest_review', 0 ) ) : ?>
 				<a href="#respond" class="directorist-btn directorist-btn-primary"><span class="fa fa-star"></span> <?php esc_html_e( 'Write a review', 'directorist' ); ?></a>
 			<?php endif; ?>
@@ -169,6 +169,7 @@ Bootstrap::load_walker();
 		$args = array(
 			'fields'             => $fields,
 			'comment_field'      => implode( "\n", $comment_fields ),
+			'logged_in_as'       => '',
 			'class_container'    => 'directorist-review-submit',
 			'title_reply'        => __( 'Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',

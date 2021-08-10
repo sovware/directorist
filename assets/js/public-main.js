@@ -2118,6 +2118,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               } finally {
                 _iterator4.f();
               }
+
+              var alert = form.querySelector('.directorist-alert');
+
+              if (alert) {
+                alert.style.display = 'none';
+              }
             }
           }
         } catch (err) {
@@ -2141,11 +2147,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Ajax_Comment, [{
       key: "init",
       value: function init() {
-        $(document).on('submit', '#commentform', this.on_submit);
+        $(document).on('submit', '#commentform', this.onSubmit);
       }
     }, {
-      key: "on_submit",
-      value: function on_submit(event) {
+      key: "onSubmit",
+      value: function onSubmit(event) {
         event.preventDefault();
         var form = $("#commentform");
         var ori_btn_val = form.find("[type='submit']").val();
@@ -2168,8 +2174,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var errorMsg = body.find('.wp-die-message');
 
           if (errorMsg.length > 0) {
-            console.log(errorMsg.text());
-            $(document).trigger('directorist_reviews_update_failed', body);
+            Ajax_Comment.showError(form, errorMsg);
+            $(document).trigger('directorist_reviews_update_failed');
             return;
           } // if ( comments.length < 1 ) {
           //     comment_section = '.commentlist';
@@ -2208,9 +2214,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var body = $("<div></div>");
           body.append(data.responseText);
           body.find("style,meta,title,a").remove();
-          body = body.find('.wp-die-message').text(); // clean text
-
-          console.log(body); // if ( typeof bb_vue_loader == 'object' &&
+          Ajax_Comment.showError(form, body.find('.wp-die-message')); // console.log(body.find( '.wp-die-message' ).);
+          // if ( typeof bb_vue_loader == 'object' &&
           //     typeof bb_vue_loader.common == 'object' &&
           //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
           //     bb_vue_loader.common.showSnackbar( body )
@@ -2218,7 +2223,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           //     alert( body );
           // }
 
-          $(document).trigger('directorist_reviews_update_failed', body);
+          $(document).trigger('directorist_reviews_update_failed');
         });
         do_comment.always(function () {
           $("#comment").prop("disabled", false);
@@ -2230,10 +2235,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       key: "getErrorMsg",
       value: function getErrorMsg($dom) {
         if ($dom.find('p').length) {
-          return $dom.find('p').html();
+          return $dom.find('p').text();
         }
 
-        return $dom.html();
+        return $dom.text();
       }
     }, {
       key: "showError",
@@ -2244,7 +2249,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         var $error = $('<div />', {
           class: 'directorist-alert directorist-alert-danger'
-        }).html(AjaxComment.getErrorMsg($dom));
+        }).html(Ajax_Comment.getErrorMsg($dom));
         form.prepend($error);
       }
     }]);
@@ -2278,6 +2283,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             theme: 'fontawesome-stars'
           });
         });
+        $(document).on('click', 'a[href="#respond"]', this.onWriteReivewClick);
+      }
+    }, {
+      key: "onWriteReivewClick",
+      value: function onWriteReivewClick(event) {
+        event.preventDefault();
+        var respondTop = $('#respond').offset().top;
+
+        if ($('body').hasClass('admin-bar')) {
+          respondTop = respondTop - $('#wpadminbar').height();
+        }
+
+        $("body, html").animate({
+          scrollTop: respondTop
+        }, 600);
       }
     }, {
       key: "setupComponents",

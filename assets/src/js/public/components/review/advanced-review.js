@@ -302,6 +302,11 @@
                     for (const rating of ratings) {
                         rating.setAttribute('disabled', 'disabled');
                     }
+
+                    const alert = form.querySelector('.directorist-alert');
+                    if (alert) {
+                        alert.style.display = 'none';
+                    }
                 }
             }
         };
@@ -314,25 +319,25 @@
         }
 
         init() {
-            $( document ).on('submit', '#commentform', this.on_submit );
+            $( document ).on('submit', '#commentform', this.onSubmit );
         }
 
         static getErrorMsg($dom) {
             if ($dom.find('p').length) {
-                return $dom.find('p').html();
+                return $dom.find('p').text();
             }
-            return $dom.html();
+            return $dom.text();
         }
 
         static showError(form, $dom) {
             if (form.find('.directorist-alert').length) {
                 form.find('.directorist-alert').remove();
             }
-            const $error = $('<div />', {class: 'directorist-alert directorist-alert-danger'}).html(AjaxComment.getErrorMsg($dom));
+            const $error = $('<div />', {class: 'directorist-alert directorist-alert-danger'}).html(Ajax_Comment.getErrorMsg($dom));
             form.prepend($error)
         }
 
-        on_submit( event ) {
+        onSubmit( event ) {
             event.preventDefault();
 
             const form = $( "#commentform" );
@@ -363,9 +368,9 @@
 
                     const errorMsg = body.find( '.wp-die-message' );
                     if (errorMsg.length > 0) {
-                        console.log( errorMsg.text() );
+                        Ajax_Comment.showError(form, errorMsg);
 
-                        $( document ).trigger( 'directorist_reviews_update_failed', body );
+                        $( document ).trigger( 'directorist_reviews_update_failed' );
 
                         return;
                     }
@@ -420,9 +425,9 @@
                     var body = $( "<div></div>" );
                     body.append( data.responseText );
                     body.find( "style,meta,title,a" ).remove();
-                    body = body.find( '.wp-die-message' ).text(); // clean text
 
-                    console.log(body);
+                    Ajax_Comment.showError(form, body.find( '.wp-die-message' ));
+                    // console.log(body.find( '.wp-die-message' ).);
 
                     // if ( typeof bb_vue_loader == 'object' &&
                     //     typeof bb_vue_loader.common == 'object' &&
@@ -432,7 +437,7 @@
                     //     alert( body );
                     // }
 
-                    $( document ).trigger( 'directorist_reviews_update_failed', body );
+                    $( document ).trigger( 'directorist_reviews_update_failed' );
                 }
             );
 
@@ -472,6 +477,25 @@
                     theme: 'fontawesome-stars'
                 });
             } );
+
+            $( document ).on( 'click', 'a[href="#respond"]', this.onWriteReivewClick );
+        }
+
+        onWriteReivewClick(event) {
+            event.preventDefault();
+
+            var respondTop = $( '#respond' ).offset().top;
+
+            if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
+                respondTop = respondTop - $( '#wpadminbar' ).height();
+            }
+
+            $( "body, html" ).animate(
+                {
+                    scrollTop: respondTop
+                },
+                600
+            );
         }
 
         setupComponents() {

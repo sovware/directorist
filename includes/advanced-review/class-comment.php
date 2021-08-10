@@ -105,7 +105,7 @@ class Comment {
 
 				// Validate if sharing multiple reviews
 				if ( ! $rating_is_missing && self::review_exists_by( $comment_data['user_ID'], absint( $_POST['comment_post_ID'] ) ) ) {
-					$errors[] = __( '<strong>Error</strong>: Sharing multiple reviews is not allowed.', 'directorist' );
+					$errors[] = __( '<strong>Error</strong>: You already shared a review.', 'directorist' );
 				}
 
 				if ( count( $errors ) > 0 ) {
@@ -146,6 +146,8 @@ class Comment {
 					throw new Exception( implode( '<br>', $errors ), 400 );
 				}
 			}
+
+			do_action( 'directorist_review_validate_data', $comment_data );
 		} catch( Exception $e ) {
 			wp_die( $e->getMessage(), $e->getCode() );
 			exit;

@@ -14,14 +14,14 @@ class Builder {
 
 	protected $fields = array();
 
-	private static $instance = array();
+	private static $instance = null;
 
 	public static function get( $post_id ) {
-		if ( ! isset( self::$instance[ $post_id ] ) || is_null( self::$instance[ $post_id ] ) ) {
-			self::$instance[ $post_id ] = new self( $post_id );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $post_id );
 		}
 
-		return self::$instance[ $post_id ];
+		return self::$instance;
 	}
 
 	private function __construct( $post_id ) {
@@ -59,12 +59,23 @@ class Builder {
 		$criteria = array();
 
 		if ( ! empty( $this->get_field( 'rating_criteria', '' ) ) ) {
-			$_criteria = array_filter( explode( PHP_EOL, $this->get_field( 'rating_criteria', '' ) ) );
+			$lines = array_filter( explode( PHP_EOL, $this->get_field( 'rating_criteria', '' ) ) );
 
-			if ( ! empty( $_criteria ) ) {
-				foreach ( $_criteria as $_criterion ) {
-					$key = 'criteria_' . sanitize_key( $_criterion );
-					$criteria[ $key ] = strip_tags( $_criterion );
+			if ( ! empty( $lines ) ) {
+				foreach ( $lines as $line ) {
+					if ( strpos( $line, '|' ) === false ) {
+						continue;
+					}
+
+					list( $key, $label ) = explode( '|', $line, 2 );
+					$key   = sanitize_key( trim( $key ) );
+					$label = strip_tags( trim( $label ) );
+
+					if ( empty( $key ) || empty( $label ) ) {
+						continue;
+					}
+
+					$criteria[ $key ] = $label;
 				}
 			}
 		}

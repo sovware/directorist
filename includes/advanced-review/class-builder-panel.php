@@ -13,138 +13,176 @@ defined( 'ABSPATH' ) || die();
 class Builder_Panel {
 
 	public static function init() {
-		add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_fields' ] );
+		add_filter( 'directorist_builder_config', [ __CLASS__, 'add_config' ] );
+		add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_form' ] );
+		add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
 	}
 
-	public static function register_fields( $layout ) {
-		if ( isset( $layout['review'] ) ) {
-			$layout['review']['sections']['labels']['fields'] = ['enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'];
-		} else {
-			$layout['review'] = [
-				'label' => __('Review', 'directorist'),
-				'icon' => '<i class="fa fa-star"></i>',
-				'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-					'labels' => [
-						'fields' => [
-							'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
-						],
-					],
-				] ),
-			];
-		}
+	public static function add_config( $config ) {
+		$config['fields_group']['review_config'] = array_keys( self::get_fields() );
 
-		return $layout;
+		return $config;
 	}
 
-	public static function register( $fields ) {
-		$_fields = [
-			// review settings
-			'enable_review' => [
-				'type' => 'toggle',
-				'label' => __('Enable Reviews & Rating', 'directorist'),
-				'value' => true,
-			],
-			'enable_owner_review' => [
-				'type' => 'toggle',
-				'label' => __('Enable Owner Review', 'directorist'),
-				'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
-				'value' => true,
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
+	public static function register_form( $layout ) {
+		$group = [
+			'rating_fields' => [
+				'title'     => __( 'Rating', 'directorist' ),
+				'container' => 'short-width',
+				'fields'    => [
+					'review_rating_type',
+					'review_rating_criteria',
 				],
 			],
-			'approve_immediately' => [
-				'type' => 'toggle',
-				'label' => __('Approve Immediately?', 'directorist'),
-				'value' => true,
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
+			'attachment_fields' => [
+				'title'     => __( 'Images', 'directorist' ),
+				'container' => 'short-width',
+				'fields'    => [
+					'review_enable_attachments',
+					'review_max_attachments',
+					'review_attachments_size',
+					'review_attachments_required',
 				],
 			],
-			'review_approval_text' => [
-				'type' => 'textarea',
-				'label' => __('Approval Notification Text', 'directorist'),
-				'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-				'value' => __('We have received your review. It requires approval.', 'directorist'),
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-			'enable_reviewer_img' => [
-				'type' => 'toggle',
-				'label' => __('Enable Reviewer Image', 'directorist'),
-				'value' => true,
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-			'enable_reviewer_content' => [
-				'type' => 'toggle',
-				'label' => __('Enable Reviewer content', 'directorist'),
-				'value' => true,
-				'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-			'required_reviewer_content' => [
-				'type' => 'toggle',
-				'label' => __('Required Reviewer content', 'directorist'),
-				'value' => true,
-				'description' => __('Allow to Require the content of reviewer on single listing page.', 'directorist'),
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-			'review_num' => [
-				'label' => __('Number of Reviews', 'directorist'),
-				'description' => __('Enter how many reviews to show on Single listing page.', 'directorist'),
-				'type'  => 'number',
-				'value' => '5',
-				'min' => '1',
-				'max' => '20',
-				'step' => '1',
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-			'guest_review' => [
-				'type' => 'toggle',
-				'label' => __('Guest Review Submission', 'directorist'),
-				'value' => false,
-				'show-if' => [
-					'where' => "enable_review",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
+			'regular_fields' => [
+				'title'     => __( 'Regular Fields', 'directorist' ),
+				'container' => 'short-width',
+				'fields'    => [
+					'review_comment_label',
+					'review_comment_placeholder',
+					'review_email_label',
+					'review_email_placeholder',
+					'review_name_label',
+					'review_name_placeholder',
+					'review_website_label',
+					'review_website_placeholder',
 				],
 			],
 		];
 
-		return array_merge( $fields, $_fields );
+		$layout['review_form'] = [
+			'label'     => __( 'Review Form', 'directorist' ),
+			'icon'      => '<span class="uil uil-star"></span>',
+			'container' => 'wide',
+			'sections'  => apply_filters( 'directorist_review_form_fields_group', $group ),
+		];
+
+		return $layout;
+	}
+
+	public static function get_fields() {
+		return [
+			// Rating fields
+			'review_rating_type' => [
+				'type' => 'select',
+				'label' => __( 'Rating Type', 'directorist' ),
+				'options' => [
+					[ 'value' => 'single' , 'label' => __( 'Single', 'directorist' ) ],
+					[ 'value' => 'multiple' , 'label' => __( 'Multiple', 'directorist' ) ],
+				],
+				'value' => 'single'
+			],
+			'review_rating_criteria' => [
+				'type' => 'textarea',
+				'label' => __( 'Rating Criteria', 'directorist' ),
+				'description' => __( 'Make sure to write criteria in <code>key | Label</code> pairs with valid keys (<code>a-z,0-9,_,-</code>) and separate each of them with a new line. Removing or changing <code>key</code> may cause data lose.', 'directorist' ),
+				'show_if' => [
+					'where' => 'review_rating_type',
+					'conditions' => [
+						['key' => 'value', 'compare' => '=', 'value' => 'multiple'],
+					],
+				],
+				'value' => "service | Service\nlocation | Location\nprice | Price\n",
+			],
+
+			// Attachment fields
+			'review_enable_attachments' => [
+				'label' => __( 'Enable', 'directorist' ),
+				'type'  => 'toggle',
+				'value' => true,
+			],
+			'review_max_attachments' => [
+				'label' => __( 'Number of Images', 'directorist' ),
+				'type'  => 'number',
+				'value' => 3,
+				'show_if' => [
+					'where' => 'review_enable_attachments',
+					'conditions' => [
+						['key' => 'value', 'compare' => '=', 'value' => true],
+					],
+				],
+			],
+			'review_attachments_size' => [
+				'label' => __( 'Total Size (MB)', 'directorist' ),
+				'type'  => 'text',
+				'value' => 2,
+				'show_if' => [
+					'where' => 'review_enable_attachments',
+					'conditions' => [
+						['key' => 'value', 'compare' => '=', 'value' => true],
+					],
+				],
+			],
+			'review_attachments_required' => [
+				'label' => __( 'Required', 'directorist' ),
+				'type'  => 'toggle',
+				'value' => false,
+				'show_if' => [
+					'where' => 'review_enable_attachments',
+					'conditions' => [
+						['key' => 'value', 'compare' => '=', 'value' => true],
+					],
+				],
+			],
+
+			// Regular fields
+			'review_comment_label' => [
+				'label' => __( 'Comment Label', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Comment', 'directorist' ),
+			],
+			'review_comment_placeholder' => [
+				'label' => __( 'Comment Placeholder', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Leave a review', 'directorist' ),
+			],
+			'review_email_label' => [
+				'label' => __( 'Email Label', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Email', 'directorist' ),
+			],
+			'review_email_placeholder' => [
+				'label' => __( 'Email Placeholder', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Your Email', 'directorist' ),
+			],
+			'review_name_label' => [
+				'label' => __( 'Name Label', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Name', 'directorist' ),
+			],
+			'review_name_placeholder' => [
+				'label' => __( 'Name Placeholder', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Your Name', 'directorist' ),
+			],
+			'review_website_label' => [
+				'label' => __( 'Website Label', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Website', 'directorist' ),
+			],
+			'review_website_placeholder' => [
+				'label' => __( 'Website Placeholder', 'directorist' ),
+				'type'  => 'text',
+				'value' => __( 'Website url', 'directorist' ),
+			],
+		];
+	}
+
+	public static function register_fields( $fields ) {
+		return array_merge( $fields, self::get_fields() );
 	}
 
 }
 
-Settings_Panel::init();
+Builder_Panel::init();

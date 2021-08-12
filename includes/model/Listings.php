@@ -1394,6 +1394,8 @@ class Directorist_Listings {
 					'lon' => $ls_data['manual_lng']
 				];
 
+				$ls_data['lat_lon'] = $lat_lon;
+
 				if ( ! empty( $ls_data['listing_prv_img']) ) {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
@@ -1434,8 +1436,17 @@ class Directorist_Listings {
 			wp_reset_postdata();
 		endif;
 
+		$cord = [
+			'lat' => $this->options['default_latitude'],
+			'lon' => $this->options['default_longitude']
+		];
+
+		if ( ! empty( $listings_data ) ) {
+			$cord = $listings_data[0]['lat_lon'];
+		}
+
 		return [
-			'lat_lon'       => $lat_lon,
+			'lat_lon'       => $cord,
 			'listings_data' => $listings_data,
 		];
 	}

@@ -67,7 +67,7 @@ class Custom_Widget_Base extends Widget_Base {
 		echo do_shortcode( $html );
 	}
 
-	protected function register_controls() {
+	protected function _register_controls() {
 		$fields = $this->az_fields();
 		foreach ( $fields as $field ) {
 			if ( isset( $field['mode'] ) && $field['mode'] == 'section_start' ) {

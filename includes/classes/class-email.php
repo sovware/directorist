@@ -457,8 +457,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_submitted($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_submitted', get_directorist_option('notify_user', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_user_listing_submitted', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
@@ -476,8 +479,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_published($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_published', get_directorist_option('notify_admin', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_admin_listing_published', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_admin', array()) ) ){
+                return false;
+            }
+
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
 
@@ -498,8 +504,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_published($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_published', get_directorist_option('notify_user', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_user_listing_published', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_pub_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_pub_listing"), null, $listing_id, $user);
@@ -720,8 +729,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_submitted($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_submitted', get_directorist_option('notify_admin', array()))) return false;
+            $notify = apply_filters( 'directo_listing_submitted', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_admin', array()) ) ){
+                return false;
+            }
+
             $s = __('[==SITE_NAME==] A new listing has been submitted on your website', 'directorist');
             $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
@@ -730,6 +742,10 @@ This email is sent automatically for information purpose only. Please do not res
             $body = atbdp_email_html($sub, $message);
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
 
+        }
+
+        private function disable_notification(){
+            return get_directorist_option( 'disable_email_notification' );
         }
 
         /**

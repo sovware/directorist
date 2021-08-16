@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {
@@ -22,6 +24,42 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
+	}
+
+
+	/**
+	 * Get first wp error message
+	 * 
+	 * @param object $wp_error
+	 * @return string $message
+	 */
+	public static function get_first_wp_error_message( $wp_error ) {
+		if ( ! is_wp_error( $wp_error ) ) {
+			return '';
+		}
+
+		$error_keys = ( is_array( $wp_error->errors ) ) ? array_keys( $wp_error->errors ) : [];
+		$error_key  = ( ! empty( $error_keys ) ) ? $error_keys[0] : '';
+		$message    = ( ! empty( $error_key ) && is_array( $wp_error->errors[ $error_key ] ) && ! empty( $wp_error->errors[ $error_key ] ) ) ? $wp_error->errors[ $error_key ][0] : '';
+
+		return $message;
+	}
+
+	/**
+	 * Get Time In Millisecond
+	 * 
+	 * This function is only available on operating 
+	 * systems that support the gettimeofday() system call.
+	 * @link https://www.php.net/manual/en/function.microtime.php
+	 * 
+	 * @return int
+	 */
+	public static function getTimeInMillisecond() {
+		try {
+			return ( int ) ( microtime( true ) * 1000 );
+		} catch ( Exception $e ) {
+			return 0;
+		}
 	}
 
 	/**

@@ -59,9 +59,25 @@ export default {
             type: [String, Number],
             default: '',
         },
+        labelType: {
+            type: [String],
+            default: 'span',
+        },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
+        shortcodes: {
+            type: [Array, String],
+            default: '',
+        },
         buttonLabel: {
             type: String,
             default: '',
+        },
+        copyButtonLabel: {
+            type: String,
+            default: '<i class="far fa-copy"></i>',
         },
         exportFileName: {
             type: String,

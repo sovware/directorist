@@ -168,6 +168,11 @@ if (!class_exists('ATBDP_SEO')) :
         public function wpseo_metadesc($desc)
         {
             global $post;
+
+            if ( empty( $post ) ) {
+                return $desc;
+            }
+
             $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
             if (!isset($post)) return $desc;
 
@@ -307,6 +312,11 @@ if (!class_exists('ATBDP_SEO')) :
         public function wpseo_title($title, $id = null)
         {
             global $post;
+
+            if ( empty( $post ) ) {
+                return $title;
+            }
+
             $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
             if (!isset($post)) return $title;
 
@@ -444,7 +454,9 @@ if (!class_exists('ATBDP_SEO')) :
         public function remove_duplicate_canonical() {
             global $post;
 
-            if ( ! isset( $post ) ) return;
+            if ( empty( $post ) ) {
+                return;
+            }
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
@@ -459,6 +471,10 @@ if (!class_exists('ATBDP_SEO')) :
         public function add_texonomy_canonical()
         {
             global $post;
+
+            if ( empty( $post ) ) {
+                return;
+            }
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
@@ -508,7 +524,10 @@ if (!class_exists('ATBDP_SEO')) :
         public function wpseo_canonical($url)
         {
             global $post;
-            if (!isset($post)) return $url;
+
+            if ( empty( $post ) ) {
+                return $url;
+            }
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
@@ -999,6 +1018,10 @@ if (!class_exists('ATBDP_SEO')) :
         public function get_single_category_page_seo_meta( $default_seo_meta = [] ) {
             global $post;
 
+            if ( empty( $post ) ) {
+                return $default_seo_meta;
+            }
+
             $seo_meta = [];
             $seo_meta['page'] = 'single_category';
 
@@ -1057,6 +1080,10 @@ if (!class_exists('ATBDP_SEO')) :
         public function get_single_location_page_seo_meta( $default_seo_meta = [] ) {
             global $post;
 
+            if ( empty( $post ) ) {
+                return $default_seo_meta;
+            }
+
             $seo_meta = [];
             $seo_meta['page'] = 'single_location';
 
@@ -1109,6 +1136,10 @@ if (!class_exists('ATBDP_SEO')) :
         // get_single_tag_page_seo_meta
         public function get_single_tag_page_seo_meta( $default_seo_meta = [] ) {
             global $post;
+
+            if ( empty( $post ) ) {
+                return $default_seo_meta;
+            }
 
             $seo_meta = [];
             $seo_meta['page'] = 'single_tag';

@@ -992,6 +992,10 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
   color: gray;
 }
 
+.cptm-info-success {
+  color: #00B158;
+}
+
 
 .cptm-mb-0 {
   margin-bottom: 0 !important;
@@ -2754,6 +2758,7 @@ input[type=radio] {
     display: none;
     position: absolute;
     width: 100%;
+    max-height: 350px;
     left: 0;
     top: 44px;
     padding: 15px;
@@ -2761,6 +2766,7 @@ input[type=radio] {
     box-shadow: 0 10px 40px #868EAE30;
     border-radius: 5px;
     z-index: 99999;
+    overflow-y: auto;
 
     &.--show {
       display: block !important;

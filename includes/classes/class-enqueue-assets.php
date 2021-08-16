@@ -647,11 +647,18 @@ class Enqueue_Assets {
 		];
 
 		$scripts['directorist-search-listing'] = [
-			'file_name' => 'public-search-listing',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-form',
+			'file_name'      => 'public-search-listing',
+			'base_path'      => DIRECTORIST_JS,
+			'ver'            => self::$script_version,
+			'group'          => 'public', // public || admin  || global
+			'section'        => 'search-form',
+			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+			'localize_data'  => [
+				'object_name' => 'atbdp_search_listing',
+				'data'        => Script_Helper::get_search_script_data([
+					'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
+				]),
+			],
 		];
 
 		$scripts['directorist-search-form-listing'] = [

@@ -1,33 +1,30 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
         <div class="atbdp-row">
-            <div class="atbdp-col atbdp-col-8">
-                <label v-if="( label.length )">{{ label }}</label>
+            <div class="atbdp-col atbdp-col-6">
+                <label v-if="( label.length )">
+                    <component :is="labelType">{{ label }}</component>
+                </label>
+
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
-            <div class="atbdp-col atbdp-col-4 directorist-text-right">
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="! shortcodes.length"
-                    :value="buttonLabel" 
-                    @click="generateShortcode"
-                >
+            
+            <div class="atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20">
+                <span v-if="successMsg.length" class="cptm-info-text cptm-info-success directorist-center-content-inline" v-html="successMsg"></span>
+                
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" v-if="shortcodes_list.length" @click="copyToClip('all-shortcodes')">
+                    <span v-html="copyButtonLabel"></span>
+                </button>
 
-                <input 
-                    type="button" 
-                    class="cptm-btn cptm-generate-shortcode-button"
-                    v-if="shortcodes.length"
-                    value="Copy all" 
-                    @click="copyToClip('all-shortcodes')"
-                >
+                <button type="button" class="cptm-btn cptm-generate-shortcode-button" @click="generateShortcode">
+                    <span v-html="generateButtonLabel"></span>
+                </button>
             </div>
         </div>
         
         <div v-if="dirty">
-            <div v-if="successMsg.length" class="cptm-info-text cptm-info-success">{{ successMsg }}</div>
-            <div v-if="shortcodes.length" class="cptm-shortcodes" ref="all-shortcodes">
-                <p class="directorist-alert" v-for="( shortcode, i ) in shortcodes" :key="i" v-html="shortcode" ref="shortcodes"></p>
+            <div v-if="shortcodes_list.length" class="cptm-shortcodes" ref="all-shortcodes">
+                <p class="directorist-alert" v-for="( shortcode, i ) in shortcodes_list" :key="i" v-html="shortcode" ref="shortcodes"></p>
             </div>
 
             <div v-else>

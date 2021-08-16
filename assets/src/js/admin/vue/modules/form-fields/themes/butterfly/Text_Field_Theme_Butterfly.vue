@@ -2,12 +2,15 @@
     <div class="cptm-form-group" :class="formGroupClass">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
-                <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
+                <label v-if="( 'hidden' !== input_type && label.length )">
+                    <component :is="labelType">{{ label }}</component>
+                </label>
+                
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+                <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" :disabled="disable" @input="$emit('update', $event.target.value)">
                 <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
 
                 <form-field-validatior 

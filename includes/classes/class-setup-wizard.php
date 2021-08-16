@@ -459,6 +459,7 @@ class SetupWizard
         $_post_data = wp_unslash( $_POST );
         $all_categories     = !empty( $_post_data['all_categories'] ) ? $_post_data['all_categories'] : '';
         $all_locations      = !empty( $_post_data['all_locations'] ) ? $_post_data['all_locations'] : '';
+        $all_authors        = !empty( $_post_data['all_authors'] ) ? $_post_data['all_authors'] : '';
         $terms_conditions   = !empty( $_post_data['terms_conditions'] ) ? $_post_data['terms_conditions'] : '';
         $privacy_policy     = !empty( $_post_data['privacy_policy'] ) ? $_post_data['privacy_policy'] : '';
 
@@ -474,6 +475,12 @@ class SetupWizard
             $create_pages['all_locations_page'] = array(
                 'post_title' => __('All Locations', 'directorist'),
                 'post_content' => '[directorist_all_locations]'
+            );
+        }
+        if ( ! empty( $all_authors ) ) {
+            $create_pages['all_authors_page'] = array(
+                'post_title' => __('All Authors', 'directorist'),
+                'post_content' => '[directorist_all_authors]'
             );
         }
         if ( ! empty( $terms_conditions ) ) {

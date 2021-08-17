@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.1
+ * @version 7.0.5.3
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );

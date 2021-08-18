@@ -61,7 +61,7 @@
             <button
               type="button"
               class="cptm-btn cptm-btn-secondery"
-              @click="addNewGroup"
+              @click="addNewGroup()"
               v-html="addNewGroupButtonLabel"
             ></button>
           </div>
@@ -635,10 +635,35 @@ export default {
         Object.assign(group, this.groupSettings);
       }
 
+      if ( this.groupFields && this.groupFields.section_id ) {
+        group.section_id = this.getUniqueSectionID();
+      }
+
       let dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
 
       this.$emit("updated-state");
+    },
+
+    getUniqueSectionID() {
+      let existing_ids = [];
+
+      if ( ! Array.isArray( this.active_widget_groups ) ) {
+        return 1;
+      }
+
+      for ( let group of this.active_widget_groups ) {
+
+        if ( typeof group.section_id !== undefined && ! isNaN( group.section_id ) ) {
+          existing_ids.push( parseInt( group.section_id ) );
+        }
+      }
+
+      if ( existing_ids.length ) {
+        return Math.max( ...existing_ids ) + 1;
+      }
+
+      return 1;      
     },
 
     handleGroupReorderFromActiveWidgets(from, to) {
@@ -656,6 +681,14 @@ export default {
 
     handleGroupInsertFromAvailableWidgets(from, to) {
       let group = JSON.parse(JSON.stringify(this.default_group[0]));
+
+      if (this.groupSettings) {
+        Object.assign(group, this.groupSettings);
+      }
+
+      if ( this.groupFields && this.groupFields.section_id ) {
+        group.section_id = this.getUniqueSectionID();
+      }
 
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);

@@ -91,7 +91,6 @@ if (!class_exists('ATBDP_Email')):
             $site_url = site_url();
             $l_title = get_the_title($listing_id);
             $listing_url = get_permalink($listing_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($listing_id, $listing_url);
             $l_edit_url = admin_url("post.php?post={$listing_id}&action=edit");
             $user_dashboard = admin_url("users.php");
             $date_format = get_option('date_format');
@@ -458,8 +457,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_submitted($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_submitted', get_directorist_option('notify_user', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
@@ -477,8 +479,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_published($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_published', get_directorist_option('notify_admin', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_admin_listing_published', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_admin', array()) ) ){
+                return false;
+            }
+
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
 
@@ -499,8 +504,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_published($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_published', get_directorist_option('notify_user', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_pub_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_pub_listing"), null, $listing_id, $user);
@@ -540,9 +548,12 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_to_expire($listing_id)
         {
-            if (empty($listing_id)) return false;
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_to_expire', get_directorist_option('notify_user', array()))) return false;
+
+            $notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_to_expire', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_to_expire_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_expire_listing"), null, $listing_id, $user, true);
@@ -559,15 +570,12 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_listing_expired($listing_id)
         {
-            if( empty($listing_id ) ) {
+
+            $notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ){
                 return false;
             }
-            if( get_directorist_option( 'disable_email_notification' ) ) {
-                return false;
-            }
-            if( ! in_array( 'listing_expired', get_directorist_option( 'notify_user', array() ) ) ) {
-                return false;
-            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user, true);
@@ -584,8 +592,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_to_renew($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('remind_to_renew', get_directorist_option('notify_user', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'remind_to_renew', get_directorist_option('notify_user', array()) ) ){
+                return false;
+            }
+
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_to_renewal_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_renewal_listing"), null, $listing_id, $user, true);
@@ -721,8 +732,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_submitted($listing_id)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_submitted', get_directorist_option('notify_admin', array()))) return false;
+            $notify = apply_filters( 'directorist_notify_admin_listing_submitted', true, $listing_id );
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_admin', array()) ) ){
+                return false;
+            }
+
             $s = __('[==SITE_NAME==] A new listing has been submitted on your website', 'directorist');
             $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
@@ -731,6 +745,10 @@ This email is sent automatically for information purpose only. Please do not res
             $body = atbdp_email_html($sub, $message);
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
 
+        }
+
+        private function disable_notification(){
+            return get_directorist_option( 'disable_email_notification' );
         }
 
         /**

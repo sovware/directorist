@@ -6,7 +6,7 @@
         
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
         
-        <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+        <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" :disabled="disable" @input="$emit('update', $event.target.value)">
         <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
             
         <form-field-validatior 

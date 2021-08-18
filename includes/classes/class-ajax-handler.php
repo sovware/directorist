@@ -101,6 +101,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             add_action('wp_ajax_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
             add_action('wp_ajax_nopriv_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+
+            //author sorting 
+            add_action('wp_ajax_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
+            add_action('wp_ajax_nopriv_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
         }
 
         // directorist_quick_ajax_login
@@ -138,6 +142,37 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 				'loggedin' => true,
 				'message'  => __('Login successful, redirecting...', 'directorist'),
 			]);
+        }
+
+        // directorist_author_alpha_sorting
+        public function directorist_author_alpha_sorting() {
+            ob_start();
+            if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
+                $all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
+                $all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
+                $args = array();
+                if( ! empty( $all_authors_role ) && 'all' != $all_authors_select_role ) {
+                    $args = array( 'role__in' => array( $all_authors_select_role ) );
+                }
+                $args = array(
+                    'all_authors'                       => get_users( $args ),
+                    'alphabets'	                        => range( 'A', 'Z' ),
+                    'sorting'                           => true,
+                    'all_authors_columns'				=> get_directorist_option( 'all_authors_columns', 3 ),
+                    'all_authors_sorting'				=> get_directorist_option( 'all_authors_sorting', true ),
+                    'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
+                    'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
+                    'all_authors_role'					=> $all_authors_role,
+                    'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
+                    'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
+                    'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),
+                    'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
+                    'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
+                );
+                echo Helper::get_template_contents( 'author/archive', $args );
+                wp_die();
+            }
+            return ob_get_clean();
         }
 
         // handle_prepare_listings_export_file_request
@@ -931,7 +966,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
+
+                $post_id = esc_sql( $_POST['post_id'] );
+                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
+
+                global $wpdb;
+                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
+	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
+
                 $data = array(
+                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
@@ -948,20 +992,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-
-                    $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
-
-                    $required = [
-                        'post_id' => $_POST['post_id'],
-                        'reviewer_id' => $reviewer_id,
-                        'rating' => floatval($_POST['rating']),
-                        'status' => 'published',
-                    ];
-
-                    $review_meta = array_merge( $data, $required );
-
-                    Helper::add_listings_review_meta( $review_meta );
-
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
 
@@ -1185,7 +1215,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_email = get_bloginfo('admin_email');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
@@ -1240,7 +1269,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $site_url = get_bloginfo('url');
             $listing_title = get_the_title($post_id);
             $listing_url = get_permalink($post_id);
-            $listing_url = ATBDP_Permalink::get_listing_permalink($post_id, $listing_url);
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');

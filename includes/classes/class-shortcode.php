@@ -35,7 +35,7 @@ class ATBDP_Shortcode {
 	
 				// Author
 				'directorist_author_profile' => [ $this, 'author_profile' ],
-				// 'directorist_all_authors' 	 => [ $this, 'author_archive' ],
+			    'directorist_all_authors' 	 => [ $this, 'author_archive' ],
 				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
 	
 				// Forms

@@ -163,6 +163,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
                     'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
                     'all_authors_role'					=> $all_authors_role,
+			        'all_authors_info'					=> get_directorist_option( 'all_authors_info', true ),
                     'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
                     'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
                     'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),

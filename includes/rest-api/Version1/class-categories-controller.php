@@ -53,15 +53,15 @@ class Categories_Controller extends Terms_Controller {
 			'description' => $item->description,
 			'image'       => null,
 			'icon'        => $icon,
-			'type'        => null,
+			'directories' => null,
 			'count'       => (int) $item->count,
 		);
 
 		// Category directory type.
 		if ( get_directorist_option( 'enable_multi_directory' ) ) {
-			$type = get_term_meta( $item->term_id, '_directory_type', true );
-			if ( ! empty( $type ) && is_array( $type ) ) {
-				$data['type'] = array_map( 'absint', $type );
+			$directories = get_term_meta( $item->term_id, '_directory_type', true );
+			if ( ! empty( $directories ) && is_array( $directories ) ) {
+				$data['directories'] = array_map( 'absint', $directories );
 			}
 		}
 
@@ -205,12 +205,12 @@ class Categories_Controller extends Terms_Controller {
 						'sanitize_callback' => 'sanitize_text_field',
 					),
 				),
-				'type' => array(
+				'directories' => array(
 					'description' => __( 'Directory type ids for this resource.', 'directorist' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'count'       => array(
+				'count' => array(
 					'description' => __( 'Number of published listings for the resource.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
@@ -240,7 +240,7 @@ class Categories_Controller extends Terms_Controller {
 		}
 
 		// Save directory types
-		if ( isset( $request['type'] ) ) {
+		if ( isset( $request['directories'] ) ) {
 			if ( ! get_directorist_option( 'enable_multi_directory' ) ) {
 				return new WP_Error(
 					'directorist_rest_invalid_multi_directory_request',
@@ -249,12 +249,12 @@ class Categories_Controller extends Terms_Controller {
 				);
 			}
 
-			$type_ids = array_map( 'absint', $request['type'] );
-			$types    = get_terms( array(
-				'include' => $type_ids,
+			$directory_ids = array_map( 'absint', $request['directories'] );
+			$directories   = get_terms( array(
+				'include' => $directory_ids,
 			) );
 
-			if ( is_wp_error( $types ) || empty( $types ) ) {
+			if ( is_wp_error( $directories ) || empty( $directories ) ) {
 				return new WP_Error(
 					'directorist_rest_invalid_directory_types',
 					__( 'Directory types do not exist.', 'directorist' ),
@@ -262,8 +262,8 @@ class Categories_Controller extends Terms_Controller {
 				);
 			}
 
-			$_types = wp_list_filter( $types, array( 'taxonomy' => ATBDP_TYPE ) );
-			if ( count( $types ) !== count( $_types ) ) {
+			$_directories = wp_list_filter( $directories, array( 'taxonomy' => ATBDP_TYPE ) );
+			if ( count( $directories ) !== count( $_directories ) ) {
 				return new WP_Error(
 					'directorist_rest_invalid_directory_types',
 					__( 'Some directory types do not exist.', 'directorist' ),
@@ -271,7 +271,7 @@ class Categories_Controller extends Terms_Controller {
 				);
 			}
 
-			update_term_meta( $id, '_directory_type', $request['dir_type'] );
+			update_term_meta( $id, '_directory_type', $directory_ids );
 		}
 
 		// Save category image.

@@ -90,10 +90,6 @@
 
 // General Style
 .directorist-content-active {
-    a {
-        text-decoration: none !important;
-    }
-
     .primary-menu>li {
         margin: 0.8rem 0 0 1.6rem;
 
@@ -125,6 +121,9 @@
             margin-bottom: 8px !important;
         }
     }
+    a{
+        text-decoration: none;
+    }
 }
 
 .atbd_login_btn_wrapper {
@@ -136,6 +135,11 @@
         .directorist-checkbox__label {
             color: $dark;
         }
+    }
+}
+.atbdp_login_form_shortcode{
+    a{
+        text-decoration: none;
     }
 }
 
@@ -254,6 +258,7 @@
 .directorist-form-address-field {
     #result {
         ul {
+            list-style-type: none;
             li {
                 margin-bottom: 0;
                 border-bottom: 1px solid #eee;
@@ -282,4 +287,113 @@ p.status:empty {
 //checkout
 .directorist-checkout-form ul{
     list-style-type: none;
+}
+
+//select 2
+.select2-container--open .select2-dropdown--above{
+    top: 32px;
+    border-color: #ececec;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field:focus{
+    outline: 0;
+}
+
+.select2-container--default{
+    .select2-selection--multiple{
+        .select2-selection__rendered{
+            li{
+                margin-left: 0;
+                margin-top: 8.5px;
+                &.select2-search--inline{
+                    &.form-group{
+                        margin-bottom: 0;
+                        padding: 0;
+                        .form-control{
+                            height: 24.5px;
+                        }
+                    }
+                }
+                .select2-search__field{
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+// Directorist Custom Checkbox
+.custom-checkbox {
+    input {
+        display: none;
+    }
+
+    input[type=checkbox]+.check--select+label,
+    input[type=radio]+.radio--select+label {
+        min-width: 18px;
+        min-height: 18px;
+        font-size: 14px;
+        display: flex;
+        flex-flow: column;
+        position: relative;
+        padding-left: 28px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        margin-bottom: 0;
+        line-height: 1.2;
+        font-weight: 400;
+        color: #5A5F7D;
+
+        &:before {
+            position: absolute;
+            font-size: 10px;
+            left: 5px;
+            top: 5px;
+            font-weight: 900;
+            font-family: 'Font Awesome 5 Free';
+            content: "\f00c";
+            display: block;
+            opacity: 0;
+            transition: all .3s ease 0s;
+            z-index: 2;
+        }
+
+        &:after {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            content: "";
+            background-color: #fff;
+            border: 2px solid #C6D0DC;
+        }
+    }
+    input[type=radio]+.radio--select+label{
+        &:before{
+            top: 8px;
+            font-size: 9px;
+        }
+        &:after{
+            border-radius: 50%;
+        }
+        span{
+            color: #eee;
+            &.active{
+                color: $rating-color;
+            }
+        }
+    }
+
+    input[type=checkbox]:checked+.check--select+label,
+    input[type=radio]:checked+.radio--select+label {
+        &:after {
+            background-color: #00B158;
+            border-color: #00B158;
+        }
+
+        &:before {
+            opacity: 1;
+            color: #fff;
+        }
+    }
 }

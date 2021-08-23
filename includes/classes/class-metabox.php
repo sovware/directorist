@@ -356,9 +356,7 @@ class ATBDP_Metabox {
 			wp_set_object_terms($post_id, (int)$listing_type, ATBDP_TYPE);
 		}
 
-		if( ! is_fee_manager_active() ){
-			$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-	   }
+		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;
@@ -411,7 +409,7 @@ class ATBDP_Metabox {
 					if (($expired_date > $current_d) || !empty($is_never_expaired)) {
 						wp_update_post( array(
 							'ID'           => $post_id,
-							'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+							'post_status' => $post_status, // update the status to private so that we do not run this func a second time
 							'meta_input' => array(
 								'_listing_status' => 'post_status',
 							), // insert all meta data once to reduce update meta query
@@ -423,7 +421,7 @@ class ATBDP_Metabox {
 				if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
 					wp_update_post( array(
 						'ID'           => $post_id,
-						'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+						'post_status' => $post_status, // update the status to private so that we do not run this func a second time
 						'meta_input' => array(
 							'_listing_status' => 'post_status',
 						), // insert all meta data once to reduce update meta query

@@ -101,9 +101,12 @@
 .directorist-rated-stars,
 .atbd_rated_stars {
     ul {
+        margin: 0;
+        padding: 0;
         li {
             display: inline-block;
-
+            padding: 0;
+            margin: 0;
             span {
                 color: #d4d3f3;
 
@@ -130,4 +133,10 @@
 
 .directorist-single-listing-notice {
     margin-bottom: 15px;
+}
+
+.directorist-single-tag-list{
+    a{
+        text-decoration: none;
+    }
 }

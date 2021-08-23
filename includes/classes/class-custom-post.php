@@ -37,10 +37,9 @@ if (!class_exists('ATBDP_Custom_Post')) :
         }
 
         // customize_listing_slug
-        public function customize_listing_slug($post_link = '')
+        public function customize_listing_slug( $post_link = '', $post )
         {
-            $post_link = ATBDP_Permalink::get_listing_permalink(get_the_ID(), $post_link);
-
+            $post_link = ATBDP_Permalink::get_listing_permalink( $post->ID, $post_link);
             return $post_link;
         }
 
@@ -212,7 +211,7 @@ if (!class_exists('ATBDP_Custom_Post')) :
                 'menu_position'       => 5,
             ];
 
-            $slug = get_directorist_option('atbdp_listing_slug', 'at_biz_dir');
+            $slug = get_directorist_option('atbdp_listing_slug', 'directory');
 
             if (get_directorist_option('single_listing_slug_with_directory_type', false)) {
                 $slug = ATBDP_Permalink::get_listing_slug();

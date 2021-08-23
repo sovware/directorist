@@ -329,15 +329,50 @@ atbdSelectData.forEach(function (el) {
 ;
 
 (function ($) {
-  // Sorting Js 
+  // Sorting Js
   $('.directorist-dropdown__links--single-js').click(function () {
-    var href = $(this).attr('data');
+    var href = $(this).attr('data-link');
     $('#directorsit-listing-sort').attr('action', href);
     $('#directorsit-listing-sort').submit();
   }); //sorting toggle
 
   $('.sorting span').on('click', function () {
     $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/author.js":
+/*!***************************************************!*\
+  !*** ./assets/src/js/public/components/author.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// author sorting
+(function ($) {
+  $('body').on('click', '.directorist-alphabet', function (e) {
+    e.preventDefault();
+    var alphabet = $(this).attr("data-alphabet");
+    $('#directorist-all-authors').addClass('atbdp-form-fade');
+    $.ajax({
+      method: 'POST',
+      url: atbdp_public_data.ajaxurl,
+      data: {
+        action: 'directorist_author_alpha_sorting',
+        _nonce: $(this).attr("data-nonce"),
+        alphabet: $(this).attr("data-alphabet")
+      },
+      success: function success(response) {
+        $('#directorist-all-authors').empty().append(response);
+        $('#directorist-all-authors').removeClass('atbdp-form-fade');
+        $('.' + alphabet).parent().addClass('active');
+      },
+      error: function error(_error) {
+        console.log(_error);
+      }
+    });
   });
 })(jQuery);
 
@@ -703,9 +738,11 @@ atbdSelectData.forEach(function (el) {
     $(".directorist-shade").removeClass("directorist-active");
   }); // Profile Responsive
 
-  if ($('#user_profile_form').width() < 800) {
-    $('#user_profile_form').addClass('directorist-profile-responsive');
-  }
+  $('.directorist-tab__nav__link').on('click', function () {
+    if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
+      $('#user_profile_form').addClass('directorist-profile-responsive');
+    }
+  });
 })(jQuery);
 
 /***/ }),
@@ -871,6 +908,16 @@ atbdSelectData.forEach(function (el) {
 (function ($) {
   if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
     $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
+  } // Auhtor Profile Listing responsive fix
+
+
+  if ($('.directorist-author-listing-content').innerWidth() <= 750) {
+    $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
+  } // Directorist Archive responsive fix
+
+
+  if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
+    $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
   }
 })(jQuery);
 
@@ -1952,20 +1999,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/author */ "./assets/src/js/public/components/author.js");
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_author__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
     Plugin: Directorist - Business Directory Plugin
@@ -1976,6 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
  // Single Listing Page
 
  // General Components
+
 
 
 

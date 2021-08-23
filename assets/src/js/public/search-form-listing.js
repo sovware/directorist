@@ -230,7 +230,7 @@
                 });
             });
 
-            
+
             // hide address result when click outside the input field
             $(document).on('click', function (e) {
                 if (!$(e.target).closest('#address, #q_addressss, .atbdp-search-address').length) {
@@ -252,7 +252,7 @@
                     .closest( args.result_list_container )
                     .parent()
                     .find('#address, #address_widget, #q_addressss, .atbdp-search-address');
-                
+
                 inp.val(text);
 
                 $( args.result_list_container ).hide();

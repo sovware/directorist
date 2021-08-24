@@ -102,7 +102,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 						</div>
 
 						<div class="directorist-form-group directorist-form-group-review-text">
-							<textarea name="content" id="review_content" class="directorist-form-element" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( $review_content ); ?></textarea>
+							<textarea name="content" id="review_content" class="directorist-form-element" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( stripslashes( wp_specialchars_decode( $review_content ) ) ); ?></textarea>
 						</div>
 
 						<?php if ( $listing->guest_review_enabled() && !atbdp_logged_in_user() ): ?>

@@ -63,6 +63,14 @@ export default {
             type: [String],
             default: 'span',
         },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
+        shortcodes: {
+            type: [Array, String],
+            default: '',
+        },
         buttonLabel: {
             type: String,
             default: '',

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.3
  */
 
 use \Directorist\Helper;
@@ -56,7 +56,7 @@ if ( $query->have_posts() ) {
 
 					<div class="directorist-dropdown">
 
-						<a href="#" class="directorist-btn-more" type="button"><i class="<?php atbdp_icon_type( true );?>-ellipsis-h"></i><?php esc_html_e( 'More', 'directorist' ); ?></a>
+						<a href="#" class="directorist-btn-more"><i class="<?php atbdp_icon_type( true );?>-ellipsis-h"></i><?php esc_html_e( 'More', 'directorist' ); ?></a>
 
 						<div class="directorist-dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist-dropdown-menu__list">

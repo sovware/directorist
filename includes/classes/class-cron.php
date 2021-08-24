@@ -258,7 +258,7 @@ if (!class_exists('ATBDP_Cron')) :
                 )
             );
 
-            $listings  = new WP_Query($args);
+            $listings  = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments ', $args ) );
             if ($listings->found_posts) {
                 foreach ($listings->posts as $listing) {
                     // prepare the post meta data

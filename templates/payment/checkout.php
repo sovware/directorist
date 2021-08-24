@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author  wpWax
+ * @since   7.0
+ * @version 7.0.5.3
+ */
+
 extract( $checkout );
 use \Directorist\Helper;
 ('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>
@@ -7,7 +13,7 @@ use \Directorist\Helper;
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-8 directorist-offset-md-2">
         <?php do_action('atbdp_before_checkout_form_start'); ?>
-        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
+        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#" role="form">
             <?php do_action('atbdp_after_checkout_form_start'); ?>
             <div class="directorist-alert directorist-alert-info directorist-mb-15" role="alert">
                 <div class="directorist-alert__content">

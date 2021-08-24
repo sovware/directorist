@@ -223,6 +223,13 @@ MarkerLabel.prototype.draw = function () {
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
                 if (atbdp_map.disable_info_window === 'no') {
+                    let marker_childrens = $( $marker ).children();
+
+                    if ( marker_childrens.length ) {
+                        let marker_content = marker_childrens[0];
+                        $( marker_content ).addClass( 'map-info-wrapper--show' );
+                    }
+                    
                     infowindow.setContent($marker.html());
                     infowindow.open(map, marker);
                 }

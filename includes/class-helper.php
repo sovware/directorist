@@ -477,7 +477,8 @@ class Helper {
 
 		foreach ( $types as $type ) {
 			$page_id = get_directorist_type_option( $type->term_id, 'single_listing_page' );
-			if ( $page_id ) {
+			$is_enable = get_directorist_type_option( $type->term_id, 'enable_single_listing_page' );
+			if ( $page_id  && $is_enable ) {
 				$pages[$page_id] = $type->name;
 			}
 		}

@@ -37,7 +37,7 @@ if (!class_exists('ATBDP_Custom_Post')) :
         }
 
         // customize_listing_slug
-        public function customize_listing_slug( $post_link = '', $post )
+        public function customize_listing_slug( $post_link, $post )
         {
             $post_link = ATBDP_Permalink::get_listing_permalink( $post->ID, $post_link);
             return $post_link;

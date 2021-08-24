@@ -1,4 +1,5 @@
-import { convertToSelect2 } from './../lib/helper';
+import { convertToSelect2 } from './../../lib/helper';
+
 const $ = jQuery;
 
 window.addEventListener('load', initSelect2 );

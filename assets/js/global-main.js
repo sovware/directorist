@@ -301,7 +301,7 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module './../lib/helper'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 
 var $ = jQuery;
 window.addEventListener('load', initSelect2);
@@ -357,7 +357,7 @@ function initSelect2() {
     elm: $('.directorist-category-select')
   }];
   select_fields.forEach(function (field) {
-    !(function webpackMissingModule() { var e = new Error("Cannot find module './../lib/helper'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(field);
+    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["convertToSelect2"])(field);
   });
 }
 
@@ -412,6 +412,125 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/*! exports provided: get_dom_data, convertToSelect2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+
+var $ = jQuery;
+
+function get_dom_data(key) {
+  var dom_content = document.body.innerHTML;
+
+  if (!dom_content.length) {
+    return '';
+  }
+
+  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
+  var terget_content = pattern.exec(dom_content);
+
+  if (!terget_content) {
+    return '';
+  }
+
+  if (typeof terget_content[2] === 'undefined') {
+    return '';
+  }
+
+  var dom_data = JSON.parse(terget_content[2]);
+
+  if (!dom_data) {
+    return '';
+  }
+
+  return dom_data;
+}
+
+function convertToSelect2(field) {
+  if (!field) {
+    return;
+  }
+
+  if (!field.elm) {
+    return;
+  }
+
+  if (!field.elm.length) {
+    return;
+  }
+
+  var default_args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      // We only really care if there is an element to pull classes from
+      if (!data.element) {
+        return data.text;
+      }
+
+      var $element = $(data.element);
+      var $wrapper = $('<span></span>');
+      $wrapper.addClass($element[0].className);
+      $wrapper.text(data.text);
+      return $wrapper;
+    }
+  };
+  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+  var options = field.elm.find('option');
+  var placeholder = options.length ? options[0].innerHTML : '';
+
+  if (placeholder.length) {
+    args.placeholder = placeholder;
+  }
+
+  field.elm.select2(args);
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 

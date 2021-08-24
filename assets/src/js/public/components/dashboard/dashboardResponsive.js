@@ -25,8 +25,10 @@
   })
 
   // Profile Responsive
-  if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
-    $('#user_profile_form').addClass('directorist-profile-responsive');
-  }
+  $('.directorist-tab__nav__link').on('click',function(){
+    if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
+      $('#user_profile_form').addClass('directorist-profile-responsive');
+    }
+  });
 
 })(jQuery);

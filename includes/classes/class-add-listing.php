@@ -225,7 +225,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     $listing_id = absint( $info['listing_id'] );
                     $_args = [ 'id' => $listing_id, 'edited' => true, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
-                    $post_status = atbdp_get_listing_status_after_submission( $_args );
+                    $post_status = $edit_l_status;
 
                     $args['post_status'] = $post_status;
 
@@ -370,8 +370,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs') && (!isset($data['error']))) {
-                        $_args = [ 'id' => '', 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
-                        $post_status = atbdp_get_listing_status_after_submission( $_args );
+                        // $_args = [ 'id' => '', 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
+                        $post_status = $new_l_status;
                         
                         $args['post_status'] = $post_status;
 
@@ -379,7 +379,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $data['pending'] = true;
                         }
                         
-                        $monitization = get_directorist_option('enable_monetization', 0);
+                        // $monitization = get_directorist_option('enable_monetization', 0);
                         //if listing under a purchased package
                         // if (is_fee_manager_active()) {
                         //     if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
@@ -390,11 +390,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                         //         $args['post_status'] = 'pending';
                         //     }
                         // } 
-                        if (!empty($featured_enabled && $monitization) && ('featured' === $info['listing_type'] ) ) {
-                            $args['post_status'] = 'pending';
-                        } else {
-                            $args['post_status'] = $post_status;
-                        }
+                        // if (!empty($featured_enabled && $monitization) && ('featured' === $info['listing_type'] ) ) {
+                        //     $args['post_status'] = 'pending';
+                        // } else {
+                        //     $args['post_status'] = $post_status;
+                        // }
                         if (!empty($preview_enable)) {
                             $args['post_status'] = 'private';
                         }
@@ -608,7 +608,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     update_post_meta($post_id, '_listing_img', $new_files_meta);
-                    $permalink = ATBDP_Permalink::get_listing_permalink( $post_id, get_permalink( $post_id ) );
+                    $permalink = get_permalink( $post_id );
                     //no pay extension own yet let treat as general user
 
                     $submission_notice = get_directorist_option('submission_confirmation', 1);
@@ -633,6 +633,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status ) ) {
                             $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                             $data['need_payment'] = true;
+
+                            wp_update_post([
+                                'ID' => $post_id,
+                                'post_status' => 'pending',
+                            ]);
                         }
                     }
 

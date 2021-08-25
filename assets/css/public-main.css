@@ -6109,6 +6109,21 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
     max-width: 800px;
   }
 }
+.widget .default-ad-search .directorist-advanced-filter__basic {
+  display: block;
+}
+.widget .default-ad-search .directorist-advanced-filter__basic .directorist-advanced-filter__basic--element {
+  width: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.widget .default-ad-search .directorist-advanced-filter__basic .directorist-advanced-filter__basic--element .directorist-search-field {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .directorist-sidebar .atbd_widget .default-ad-search .custom-control input[type=radio],
 .directorist-sidebar .atbd_widget .default-ad-search .custom-control input[type=checkbox] {
   display: none;

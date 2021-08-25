@@ -221,21 +221,19 @@ MarkerLabel.prototype.draw = function () {
 
     $markers.each(function () {
       atbdp_add_marker($(this), map, infowindow);
-    }); // center map
+    });
+    var cord = {
+      lat: Number(atbdp_map.default_latitude) ? Number(atbdp_map.default_latitude) : 40.7127753,
+      lng: Number(atbdp_map.default_longitude) ? Number(atbdp_map.default_longitude) : -74.0059728
+    };
 
-    atbdp_center_map(map); // update map when contact details fields are updated in the custom post type 'acadp_listings'
+    if ($markers.length) {
+      cord.lat = Number($markers[0].getAttribute('data-latitude'));
+      cord.lng = Number($markers[0].getAttribute('data-longitude'));
+    } // center map
 
-    /* const mcOptions = {
-        imagePath: atbdp_map.plugin_url+'assets/images/m',
-        //cssClass: 'marker-cluster-shape',
-        styles:[{
-            url: atbdp_map.plugin_url+'assets/images/m1.png',
-            width: 53,
-            height:53,
-            textColor:"#ffffff",
-        }]
-    }; */
 
+    atbdp_center_map(map, cord);
     var mcOptions = new MarkerClusterer(map, [], {
       imagePath: atbdp_map.plugin_url + 'assets/images/m'
     });
@@ -323,29 +321,9 @@ MarkerLabel.prototype.draw = function () {
    */
 
 
-  function atbdp_center_map(map) {
-    // vars
-    var bounds = new google.maps.LatLngBounds(); // loop through all markers and create bounds
-
-    $.each(map.markers, function (i, marker) {
-      var latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-      bounds.extend(latlng);
-    }); // only 1 marker?
-
-    /* if (map.markers.length !== 1) {
-        // set center of map
-        map.setCenter(bounds.getCenter());
-        map.setZoom(parseInt(atbdp_map.zoom));
-    } else {
-        // fit to bounds
-        map.fitBounds(bounds);
-    } */
-
-    if (map.markers.length > 0) {
-      // set center of map
-      map.setCenter(bounds.getCenter());
-      map.setZoom(parseInt(atbdp_map.zoom));
-    }
+  function atbdp_center_map(map, cord) {
+    map.setCenter(cord);
+    map.setZoom(parseInt(atbdp_map.zoom));
   }
 
   function setup_info_window() {

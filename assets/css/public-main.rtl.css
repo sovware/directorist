@@ -279,15 +279,6 @@ a:focus {
   margin-bottom: 35px;
 }
 
-.directorist-content-active .primary-menu > li {
-  margin: 0.8rem 1.6rem 0 0;
-}
-@media (min-width: 1220px) {
-  .directorist-content-active .primary-menu > li {
-    margin: 0.8rem 2.5rem 0 0;
-  }
-}
-
 #directorist-dashboard-preloader {
   display: none;
 }

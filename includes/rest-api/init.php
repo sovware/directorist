@@ -21,7 +21,7 @@ function register_controllers() {
 	// Base controller.
 	require_once $dir . 'Version1/class-abstract-controller.php';
 
-	// Taxonomy controllers.
+	// Taxonomies controllers.
 	require_once $dir . 'Version1/class-abstract-terms-controller.php';
 	require_once $dir . 'Version1/class-categories-controller.php';
 	require_once $dir . 'Version1/class-tags-controller.php';
@@ -35,5 +35,11 @@ function register_controllers() {
 
 	$locations = new \Directorist\Rest_Api\Controllers\Version1\Locations_Controller();
 	$locations->register_routes();
+
+	// Users controllers.
+	require_once $dir . 'Version1/class-users-controller.php';
+
+	$users = new \Directorist\Rest_Api\Controllers\Version1\Users_Controller();
+	$users->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

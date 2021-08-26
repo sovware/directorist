@@ -264,3 +264,27 @@ function directorist_bool_to_string( $bool ) {
 	}
 	return true === $bool ? 'yes' : 'no';
 }
+
+
+/**
+ * Check permissions of users on REST API.
+ *
+ * Copied from wc_rest_check_user_permissions
+ *
+ * @param string $context   Request context.
+ * @param int    $object_id Post ID.
+ * @return bool
+ */
+function directorist_rest_check_user_permissions( $context = 'read', $object_id = 0 ) {
+	$contexts = array(
+		'read'   => 'list_users',
+		'create' => 'promote_users',
+		'edit'   => 'edit_users',
+		'delete' => 'delete_users',
+		'batch'  => 'promote_users',
+	);
+
+	$permission = current_user_can( $contexts[ $context ], $object_id );
+
+	return apply_filters( 'directorist_rest_check_permissions', $permission, $context, $object_id, 'user' );
+}

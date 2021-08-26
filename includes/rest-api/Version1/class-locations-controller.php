@@ -201,6 +201,9 @@ class Locations_Controller extends Terms_Controller {
 						'type'   => 'integer',
 					),
 					'context'     => array( 'view', 'edit' ),
+					'arg_options' => array(
+						'sanitize_callback' => 'wp_parse_id_list',
+					),
 				),
 				'count'       => array(
 					'description' => __( 'Number of published listings for the resource.', 'directorist' ),

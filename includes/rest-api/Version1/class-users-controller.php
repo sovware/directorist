@@ -531,6 +531,7 @@ class Users_Controller extends Abstract_Controller {
 			'address'        => get_user_meta( $id, 'address', true ),
 			'avater'         => null,
 			'social_links'   => null,
+			'favorite'       => null,
 			'roles'          => array_values( $user->roles ),
 			'listings_count' => (int) count_user_posts( $id, ATBDP_POST_TYPE, true ),
 		);
@@ -551,6 +552,12 @@ class Users_Controller extends Abstract_Controller {
 				'date_modified_gmt' => directorist_rest_prepare_date_response( $attachment->post_modified_gmt ),
 				'src'               => wp_get_attachment_url( $image_id ),
 			);
+		}
+
+		// User favorite.
+		$favorites = get_user_meta( $id, 'atbdp_favourites', true );
+		if ( ! empty( $favorites ) ) {
+			$data['favorite'] = wp_parse_id_list( $favorites );
 		}
 
 		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
@@ -818,6 +825,15 @@ class Users_Controller extends Abstract_Controller {
 							'context'     => array( 'view', 'edit' ),
 						),
 					),
+				),
+				'favorite' =>  array(
+					'description' => __( 'User favorite listing ids.', 'directorist' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type' => 'integer',
+					),
+					'context'     => array( 'view' ),
+					'readonly'    => true,
 				),
 				'listings_count' => array(
 					'description' => __( 'Quantity of listings created by the user.', 'directorist' ),

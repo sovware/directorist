@@ -1556,7 +1556,10 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Initialize appsero tracking
+	 * Initialize appsero tracking.
+	 *
+	 * Removed custom plugins meta data field in 7.0.5.4
+	 * since Appsero made this builtin.
 	 *
 	 * @see https://github.com/Appsero/client
 	 *
@@ -1567,65 +1570,10 @@ final class Directorist_Base
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist &#8211; Business Directory Plugin', __FILE__ );
+		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist - Business Directory Plugin', __FILE__ );
 
 		// Active insights
-		$client->insights()
-			->add_extra( function() {
-				return array(
-					'used_active_plugins' => $this->get_used_active_plugins()
-				);
-			} )
-			->init();
-	}
-
-	/**
-	 * Get the list of active plugins
-	 *
-	 * @return array
-	 */
-	protected function get_used_active_plugins() {
-		// Ensure get_plugins function is loaded
-		if ( ! function_exists( 'get_plugins' ) ) {
-			include ABSPATH . '/wp-admin/includes/plugin.php';
-		}
-
-		$plugins             = get_plugins();
-		$active_plugins_keys = get_option( 'active_plugins', array() );
-		$active_plugins      = array();
-
-		foreach ( $plugins as $k => $v ) {
-			// Take care of formatting the data how we want it.
-			$formatted = array();
-			$formatted['name'] = strip_tags( $v['Name'] );
-
-			// Remove self reference
-			if ( strpos( __FILE__, $k ) !== false ) {
-				continue;
-			}
-
-			if ( isset( $v['Version'] ) ) {
-				$formatted['version'] = strip_tags( $v['Version'] );
-			}
-
-			if ( isset( $v['Author'] ) ) {
-				$formatted['author'] = strip_tags( $v['Author'] );
-			}
-
-			if ( isset( $v['Network'] ) ) {
-				$formatted['network'] = strip_tags( $v['Network'] );
-			}
-
-			if ( isset( $v['PluginURI'] ) ) {
-				$formatted['plugin_uri'] = strip_tags( $v['PluginURI'] );
-			}
-
-			if ( in_array( $k, $active_plugins_keys ) ) {
-				$active_plugins[$k] = $formatted;
-			}
-		}
-
-		return $active_plugins;
+		$client->insights()->init();
 	}
 
 } // ends Directorist_Base

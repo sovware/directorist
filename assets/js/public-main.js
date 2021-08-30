@@ -268,7 +268,7 @@ if (atbdSelect !== null) {
       $(".directorist-favorite-tooltip").hide();
       $.post(atbdp_public_data.ajaxurl, data, function (response) {
         var post_id = data['post_id'].toString();
-        var staElement = $('#directorist_favourite_' + post_id);
+        var staElement = $('.directorist_favourite_' + post_id);
 
         if ('false' === response) {
           staElement.remove();

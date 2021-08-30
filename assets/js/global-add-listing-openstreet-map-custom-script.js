@@ -101,7 +101,10 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   $(document).ready(function () {
-    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
+    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
+    console.log({
+      localized_data: localized_data
+    }); // Localized Data
 
     var loc_default_latitude = parseFloat(localized_data.default_latitude);
     var loc_default_longitude = parseFloat(localized_data.default_longitude);

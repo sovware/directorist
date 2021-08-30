@@ -5,6 +5,8 @@ import { get_dom_data } from './../../../lib/helper';
     $(document).ready(function () {
         var localized_data = get_dom_data( 'map_data' );
 
+        console.log( { localized_data } );
+
         // Localized Data
         var loc_default_latitude = parseFloat(localized_data.default_latitude);
         var loc_default_longitude = parseFloat(localized_data.default_longitude);

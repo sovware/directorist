@@ -135,7 +135,6 @@
       }
     });
   }); // Advance search
-
   // category custom filed search form
   $('body').on('change', '.directorist-category-select', function(event) {
     var listing_type = $('#listing_type').val();
@@ -146,7 +145,7 @@
       return;
     }
     $('.directorist-search-form-box').addClass('atbdp-form-fade');
-    form_data.append('action', 'directorist_category_custom_field_seach');
+    form_data.append('action', 'directorist_category_custom_field_search');
     form_data.append('listing_type', listing_type);
     form_data.append('cat_id', cat_id);
     $.ajax({

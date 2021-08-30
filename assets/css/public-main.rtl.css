@@ -7779,7 +7779,8 @@ p.atbd-min {
 }
 
 .directorist-author-info-widget .directorist-author-social,
-.directorist-single-author-info .directorist-author-social {
+.directorist-single-author-info .directorist-author-social,
+.directorist-authors-section .directorist-author-social {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -7791,11 +7792,13 @@ p.atbd-min {
   padding: 0;
 }
 .directorist-author-info-widget .directorist-author-social-item,
-.directorist-single-author-info .directorist-author-social-item {
+.directorist-single-author-info .directorist-author-social-item,
+.directorist-authors-section .directorist-author-social-item {
   display: inline-block;
 }
 .directorist-author-info-widget .directorist-author-social-item a,
-.directorist-single-author-info .directorist-author-social-item a {
+.directorist-single-author-info .directorist-author-social-item a,
+.directorist-authors-section .directorist-author-social-item a {
   font-size: 15px;
   margin: 5px;
   display: block;
@@ -7810,12 +7813,14 @@ p.atbd-min {
   transition: all ease-in-out 300ms;
 }
 .directorist-author-info-widget--light .directorist-author-social-item,
-.directorist-single-author-info--light .directorist-author-social-item {
+.directorist-single-author-info--light .directorist-author-social-item,
+.directorist-authors-section--light .directorist-author-social-item {
   display: inline-block;
   margin: 0;
 }
 .directorist-author-info-widget--light .directorist-author-social-item a,
-.directorist-single-author-info--light .directorist-author-social-item a {
+.directorist-single-author-info--light .directorist-author-social-item a,
+.directorist-authors-section--light .directorist-author-social-item a {
   font-size: 15px;
   margin: 5px;
   display: block;

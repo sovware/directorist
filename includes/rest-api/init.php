@@ -41,5 +41,11 @@ function register_controllers() {
 
 	$users = new \Directorist\Rest_Api\Controllers\Version1\Users_Controller();
 	$users->register_routes();
+
+	// Directory types
+	require_once $dir . 'Version1/class-directory-types-controller.php';
+
+	$directories = new \Directorist\Rest_Api\Controllers\Version1\Directory_Types_Controller();
+	$directories->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

@@ -197,7 +197,7 @@ function selec2_add_custom_dropdown_toggle_button() {
 function selec2_add_custom_close_button_if_needed() {
   var select2_fields = $('.select2-hidden-accessible');
 
-  if (!select2_fields.length) {
+  if (!select2_fields && !select2_fields.length) {
     return;
   }
 

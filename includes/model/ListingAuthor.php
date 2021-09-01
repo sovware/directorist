@@ -426,6 +426,19 @@ class Directorist_Listing_Author {
 		return ob_get_clean();
 	}
 
+	public static function author_meta( $id, $key ) { 
+		$value  = get_user_meta( $id, $key, true );
+	
+		return ! empty( $value ) ? $value : '';
+	}
+
+	public static function author_profile_pic( $id, $key ) { 
+		$pro_pic  			  = get_user_meta( $id, $key, true );
+		$u_pro_pic            = ! empty( $pro_pic ) ? wp_get_attachment_image_src( $pro_pic, 'thumbnail' ) : '';
+		$author_image_src     = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : get_avatar_url( $id );
+		return ! empty( $author_image_src ) ? $author_image_src : '';
+	}
+
 	public function render_shortcode_author_archive( $atts = [] ) {
 		
 		ob_start();

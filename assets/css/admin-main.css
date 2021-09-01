@@ -5570,12 +5570,6 @@ p.status:empty {
           box-shadow: none;
 }
 
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
-}
-
 .cptm-shortcodes {
   max-height: 300px;
   overflow: scroll;
@@ -9297,12 +9291,6 @@ for shortable field*/
           box-shadow: none;
 }
 
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
-}
-
 .cptm-shortcodes {
   max-height: 300px;
   overflow: scroll;
@@ -12482,12 +12470,6 @@ input[type=radio] {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {
@@ -15674,12 +15656,6 @@ input[type=radio] {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {

@@ -228,7 +228,7 @@ MarkerLabel.prototype.draw = function () {
                         let marker_content = marker_childrens[0];
                         $( marker_content ).addClass( 'map-info-wrapper--show' );
                     }
-                    
+
                     infowindow.setContent($marker.html());
                     infowindow.open(map, marker);
                 }

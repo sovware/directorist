@@ -44,7 +44,8 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		add_filter( 'template_include', [ $this, 'single_template_path' ] );
+		// Set high priority to override page builders.
+		add_filter( 'template_include', [ $this, 'single_template_path' ], 999 );
 		add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
 	}
 

@@ -111,7 +111,7 @@
   if (checkbox.length <= 4) {
       show_more.remove();
   }
-    var item = $('.custom-control').closest('.bads-custom-checks');
+      var item = $('.custom-control').closest('.bads-custom-checks');
   item.each(function (index, el) {
       var count = 0;
       var abc = $(el)[0];
@@ -120,9 +120,9 @@
           $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
       }
       $(abc2).slice(4, abc2.length).hide();
-   });
+    });
   
-  $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+      $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
   $(window).on('load', function () {
     $('.directorist-btn-ml').each(function (index, element) {
       var item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
@@ -215,7 +215,7 @@
       $(".directorist-favorite-tooltip").hide();
       $.post(atbdp_search_listing.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
-        var staElement = $('#directorist-fav_' + post_id);
+        var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
 
         if (response === "login_required") {

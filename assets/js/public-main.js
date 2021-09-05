@@ -355,7 +355,7 @@ atbdSelectData.forEach(function (el) {
   $('body').on('click', '.directorist-alphabet', function (e) {
     e.preventDefault();
     var alphabet = $(this).attr("data-alphabet");
-    $('#directorist-all-authors').addClass('atbdp-form-fade');
+    $('body').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,
@@ -366,7 +366,7 @@ atbdSelectData.forEach(function (el) {
       },
       success: function success(response) {
         $('#directorist-all-authors').empty().append(response);
-        $('#directorist-all-authors').removeClass('atbdp-form-fade');
+        $('body').removeClass('atbdp-form-fade');
         $('.' + alphabet).parent().addClass('active');
       },
       error: function error(_error) {

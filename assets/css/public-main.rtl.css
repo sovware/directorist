@@ -51,6 +51,26 @@ a:focus {
             transform: rotate(-360deg);
   }
 }
+@-webkit-keyframes atbd_spin2 {
+  0% {
+    -webkit-transform: translate(50%, -50%) rotate(0deg);
+            transform: translate(50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(50%, -50%) rotate(-360deg);
+            transform: translate(50%, -50%) rotate(-360deg);
+  }
+}
+@keyframes atbd_spin2 {
+  0% {
+    -webkit-transform: translate(50%, -50%) rotate(0deg);
+            transform: translate(50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(50%, -50%) rotate(-360deg);
+            transform: translate(50%, -50%) rotate(-360deg);
+  }
+}
 .reset-pseudo-link:visited, .reset-pseudo-link:active, .reset-pseudo-link:focus {
   outline: none;
   -webkit-box-shadow: none;
@@ -9275,6 +9295,8 @@ p.atbd-min {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 .directorist-content-active .directorist-authors__nav ul li {
   list-style: none;
@@ -9289,6 +9311,12 @@ p.atbd-min {
   text-transform: uppercase;
   -webkit-box-shadow: none;
           box-shadow: none;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-content-active .directorist-authors__nav ul li a:hover {
+  border-bottom-color: #444752;
 }
 .directorist-content-active .directorist-authors__nav ul li.active a {
   border-bottom-color: #444752;
@@ -9307,7 +9335,7 @@ p.atbd-min {
   width: 100%;
 }
 .directorist-content-active .directorist-authors__card h2 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   margin: 0 0 5px 0 !important;
   line-height: normal;
@@ -9327,6 +9355,7 @@ p.atbd-min {
 .directorist-content-active .directorist-authors__card__info-list {
   list-style-type: none;
   padding: 0;
+  margin: 0;
   margin-bottom: 15px !important;
 }
 .directorist-content-active .directorist-authors__card__info-list li {
@@ -9339,15 +9368,17 @@ p.atbd-min {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin: 0;
 }
 .directorist-content-active .directorist-authors__card__info-list li:not(:last-child) {
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 }
 .directorist-content-active .directorist-authors__card__info-list li a {
   color: #767792;
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  text-decoration: none;
 }
 .directorist-content-active .directorist-authors__card__info-list li i {
   width: 16px;
@@ -9359,10 +9390,16 @@ p.atbd-min {
 .directorist-content-active .directorist-authors__card .directorist-author-social {
   margin: -5px -5px 15px;
 }
+.directorist-content-active .directorist-authors__card .directorist-author-social li {
+  margin: 0;
+}
 .directorist-content-active .directorist-authors__card .directorist-author-social a {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+.directorist-content-active .directorist-authors__card .directorist-author-social a:hover {
+  background: #000;
 }
 .directorist-content-active .directorist-authors__card p {
   font-size: 14px;
@@ -9373,6 +9410,12 @@ p.atbd-min {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-content-active .directorist-authors__card .directorist-btn:hover {
+  background: #000;
+  color: #fff;
 }
 
 /* Directorist All author Grid */
@@ -12990,6 +13033,11 @@ p.atbd-min {
 }
 
 /* loading effect */
+.atbdp-form-fade {
+  position: relative;
+  overflow: hidden;
+  padding-left: 17px;
+}
 .atbdp-form-fade:before {
   position: absolute;
   content: "";
@@ -12998,14 +13046,12 @@ p.atbd-min {
   border: 2px solid #0A0B1E;
   border-top-color: transparent;
   border-radius: 50%;
-  z-index: 2;
   right: 50%;
   top: 50%;
-  margin-right: -20px;
-  margin-top: -20px;
-  -webkit-animation: atbd_spin 2s linear infinite;
-  /* Safari */
-  animation: atbd_spin 2s linear infinite;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  -webkit-animation: atbd_spin2 2s linear infinite;
+          animation: atbd_spin2 2s linear infinite;
   z-index: 9999;
 }
 .atbdp-form-fade:after {
@@ -13015,8 +13061,8 @@ p.atbd-min {
   height: 100%;
   right: 0;
   top: 0;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
 }
 
 .directorist-listing-type-selection {

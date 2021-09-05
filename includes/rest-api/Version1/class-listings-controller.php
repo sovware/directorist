@@ -77,7 +77,7 @@ class Listings_Controller extends Posts_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_item' ),
-					'permission_callback' => array( $this, 'get_item_permissions_check' ),
+					// 'permission_callback' => array( $this, 'get_item_permissions_check' ),
 					'args'                => array(
 						'context' => $this->get_context_param(
 							array(
@@ -178,7 +178,6 @@ class Listings_Controller extends Posts_Controller {
 	/**
 	 * Prepare objects query.
 	 *
-	 * @since  3.0.0
 	 * @param  WP_REST_Request $request Full details about the request.
 	 * @return array
 	 */

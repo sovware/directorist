@@ -197,12 +197,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		$filtered_data = apply_filters( 'directorist_single_listing_widget_data', [
-			'data'  => $data,
-			'value' => $value,
-		]);
-
-		return ( is_array( $filtered_data ) && isset( $filtered_data['value'] ) ) ? $filtered_data['value'] : $value;
+		return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
 	}
 
 	public function field_template( $data ) {

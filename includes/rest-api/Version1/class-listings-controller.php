@@ -515,7 +515,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['phone'] = get_post_meta( $listing->ID, '_phone', true );
 					break;
 				case 'phone_2':
-					$base_data['_phone2'] = get_post_meta( $listing->ID, '_phone2', true );
+					$base_data['phone_2'] = get_post_meta( $listing->ID, '_phone2', true );
 					break;
 				case 'fax':
 					$base_data['fax'] = get_post_meta( $listing->ID, '_fax', true );

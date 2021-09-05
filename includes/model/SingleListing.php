@@ -197,7 +197,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return $value;
+		return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
 	}
 
 	public function field_template( $data ) {

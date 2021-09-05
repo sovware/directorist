@@ -1,43 +1,20 @@
 <?php
 /**
- * REST controller abstract class.
+ * Rest posts Controller
+ *
+ * @package Directorist\Rest_Api
+ * @version  1.0.0
  */
-namespace wpWax\Directorist\RestApi;
 
-defined( 'ABSPATH' ) || die();
+namespace Directorist\Rest_Api\Controllers\Version1;
 
-use WP_REST_Controller;
+defined( 'ABSPATH' ) || exit;
+
 use WP_Error;
+use WP_Query;
+use WP_REST_Server;
 
-abstract class Controller extends WP_REST_Controller {
-
-	/**
-	 * Endpoint namespace.
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'directorist/v1';
-
-	/**
-	 * Route base.
-	 *
-	 * @var string
-	 */
-	protected $rest_base = '';
-
-	/**
-	 * Post type.
-	 *
-	 * @var string
-	 */
-	protected $post_type = '';
-
-	/**
-	 * Controls visibility on frontend.
-	 *
-	 * @var string
-	 */
-	protected $public = false;
+abstract class Posts_Controller extends Abstract_Controller {
 
 	/**
 	 * Get all the WP Query vars that are allowed for the API request.
@@ -121,7 +98,6 @@ abstract class Controller extends WP_REST_Controller {
 	 * @return array          $query_args
 	 */
 	protected function prepare_items_query( $prepared_args = array(), $request = null ) {
-
 		$valid_vars = array_flip( $this->get_allowed_query_vars() );
 		$query_args = array();
 		foreach ( $valid_vars as $var => $index ) {

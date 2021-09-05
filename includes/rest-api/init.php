@@ -12,12 +12,6 @@ require_once trailingslashit( __DIR__ ) . 'class-datetime.php';
 function register_controllers() {
 	$dir = trailingslashit( __DIR__ );
 
-	// require_once $dir . 'class-abstract-controller.php';
-	// require_once $dir . 'class-listings-rest-controller.php';
-
-	// $listings = new Listings_REST_Controller();
-	// $listings->register_routes();
-
 	// Base controller.
 	require_once $dir . 'Version1/class-abstract-controller.php';
 
@@ -47,5 +41,12 @@ function register_controllers() {
 
 	$directories = new \Directorist\Rest_Api\Controllers\Version1\Directory_Types_Controller();
 	$directories->register_routes();
+
+	// Listings
+	require_once $dir . 'Version1/class-abstract-posts-controller.php';
+	require_once $dir . 'Version1/class-listings-controller.php';
+
+	$listings = new \Directorist\Rest_Api\Controllers\Version1\Listings_Controller();
+	$listings->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

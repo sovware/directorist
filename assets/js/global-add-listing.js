@@ -372,6 +372,7 @@ $('#at_biz_dir-categories').on('change', function () {
       }
 
       atbdp_tooltip();
+      customFieldSeeMore();
     } else {
       $('.atbdp_category_custom_fields').empty();
     }
@@ -788,18 +789,22 @@ $('body').on('submit', formID, function (e) {
   });
 }); // Custom Field Checkbox Button More
 
-$(window).on('load', function () {
+function customFieldSeeMore() {
   if ($('.directorist-custom-field-btn-more').length) {
     $('.directorist-custom-field-btn-more').each(function (index, element) {
       var fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
       var customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
       $(customField).slice(20, customField.length).slideUp();
 
-      if (customField.length < 20) {
+      if (customField.length <= 20) {
         $(element).slideUp();
       }
     });
   }
+}
+
+$(window).on('load', function () {
+  customFieldSeeMore();
 });
 $('body').on('click', '.directorist-custom-field-btn-more', function (event) {
   event.preventDefault();

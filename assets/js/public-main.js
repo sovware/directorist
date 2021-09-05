@@ -1360,7 +1360,11 @@ document.body.addEventListener('click', function (e) {
         submit_button.removeAttr('disabled');
         console.log(response);
       }
-    }); // prevent the from submitting
+    }); // remove notice after five second
+
+    setTimeout(function () {
+      $("#directorist-prifile-notice .directorist-alert").remove();
+    }, 5000); // prevent the from submitting
 
     return false;
   });

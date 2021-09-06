@@ -197,6 +197,8 @@ class Directorist_Listings {
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
+		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
+		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 	}
 
 	// update_search_options
@@ -1392,6 +1394,8 @@ class Directorist_Listings {
 					'lon' => $ls_data['manual_lng']
 				];
 
+				$ls_data['lat_lon'] = $lat_lon;
+
 				if ( ! empty( $ls_data['listing_prv_img']) ) {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
@@ -1432,8 +1436,17 @@ class Directorist_Listings {
 			wp_reset_postdata();
 		endif;
 
+		$cord = [
+			'lat' => $this->options['default_latitude'],
+			'lon' => $this->options['default_longitude']
+		];
+
+		if ( ! empty( $listings_data ) ) {
+			$cord = $listings_data[0]['lat_lon'];
+		}
+
 		return [
-			'lat_lon'       => $lat_lon,
+			'lat_lon'       => $cord,
 			'listings_data' => $listings_data,
 		];
 	}
@@ -1455,6 +1468,8 @@ class Directorist_Listings {
 			'plugin_url'          => ATBDP_URL,
 			'disable_info_window' => $disable_info_window,
 			'zoom'                => $opt['zoom'],
+			'default_latitude'    => $this->options['default_latitude'],
+			'default_longitude'   => $this->options['default_longitude'],
 		);
 
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );

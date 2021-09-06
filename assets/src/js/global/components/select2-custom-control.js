@@ -60,12 +60,12 @@ function selec2_add_custom_dropdown_toggle_button() {
 function selec2_add_custom_close_button_if_needed () {
     var select2_fields = $('.select2-hidden-accessible');
 
-    if ( ! select2_fields.length ) { return; }
+    if ( ! select2_fields && ! select2_fields.length ) { return; }
 
     for ( var field of select2_fields ) {
         var value = $(field).children("option:selected").val();
 
-        if ( ! value.length ) { continue; }
+        if ( ! value && ! value.length ) { continue; }
 
         selec2_add_custom_close_button( field );
     }

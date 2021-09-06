@@ -142,6 +142,7 @@
 
     .directorist-author-social-item {
         display: inline-block;
+        margin: 0;
 
         a {
             font-size: 15px;
@@ -219,5 +220,20 @@
 .directorist-type-nav__list{
     li{
         margin: 0;
+    }
+}
+
+// Auhtor Content Fix
+.directorist-author-listing-content {
+    &.directorist-author-listing-grid--fix{
+        .directorist-col-lg-3{
+            width: 33.3333333333%;
+            @media only screen and (max-width: 767px) {
+                width: 50%;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 100%;
+            }
+        }
     }
 }

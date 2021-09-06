@@ -89,15 +89,6 @@
 }
 
 // General Style
-.directorist-content-active {
-    .primary-menu>li {
-        margin: 0.8rem 0 0 1.6rem;
-
-        @media (min-width: 1220px) {
-            margin: 0.8rem 0 0 2.5rem;
-        }
-    }
-}
 
 #directorist-dashboard-preloader {
     display: none;
@@ -259,9 +250,12 @@
     #result {
         ul {
             list-style-type: none;
+            margin: 0;
+            padding: 0;
             li {
                 margin-bottom: 0;
                 border-bottom: 1px solid #eee;
+                list-style: none;
 
                 a {
                     color: $body-color;
@@ -296,6 +290,29 @@ p.status:empty {
 }
 .select2-container--default .select2-search--dropdown .select2-search__field:focus{
     outline: 0;
+}
+
+.select2-container--default{
+    .select2-selection--multiple{
+        .select2-selection__rendered{
+            li{
+                margin-left: 0;
+                margin-top: 8.5px;
+                &.select2-search--inline{
+                    &.form-group{
+                        margin-bottom: 0;
+                        padding: 0;
+                        .form-control{
+                            height: 24.5px;
+                        }
+                    }
+                }
+                .select2-search__field{
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
 
 // Directorist Custom Checkbox

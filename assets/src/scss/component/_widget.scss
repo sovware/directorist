@@ -866,6 +866,20 @@
   }
 }
 
+.widget .default-ad-search{
+  .directorist-advanced-filter__basic{
+    display: block;
+    .directorist-advanced-filter__basic--element{
+      width: 100%;
+      flex: 0 0 100%;
+      .directorist-search-field{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  }
+}
+
 .directorist-sidebar {
   .atbd_widget .default-ad-search {
     .custom-control {
@@ -964,8 +978,13 @@
       }
 
       &.submit_btn{
+        margin-bottom: -10px;
         .btn{
           font-size: 15px;
+          margin-bottom: 10px;
+          @media only screen and (max-width: 991px){
+            font-size: 14px;
+          }
         }
         #atbdp_reset{
           border: 1px solid #ececec !important;

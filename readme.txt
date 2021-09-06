@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.5.2
+Stable tag: 7.0.5.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -335,6 +335,20 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.5.3 – Aug 12, 2021
+
+* Add - Autofill in user registration form
+* Add - Missing FontAwesome and LineAwesome icons
+* Add - New hooks
+* Fix - Listing permalink issues
+* Fix - Spacing issue
+* Fix - Responsive issues with popular themes
+* Fix - Select2 issue
+* Improve - HTML markup
+* Improve - Listing importer
+* Improve - Error handing in subscription management page
+* Improve - Compatibility with BuddyPress and BuddyBoss
 
 7.0.5.2 – Aug 2, 2021
 

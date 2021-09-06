@@ -96,7 +96,10 @@
     position: relative;
     padding: 3px;
     margin: 2px;
-    box-sizing: content-box
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author  wpWax
+ * @since   7.0
+ * @version 7.0.5.3
+ */
+
 extract( $checkout );
 use \Directorist\Helper;
 ('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>

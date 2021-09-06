@@ -12,7 +12,7 @@
 
         form_data.append('action', 'atbdp_listing_types_form');
         form_data.append('listing_type', listing_type);
-        $('.directorist-search-form-box').addClass('atbdp-form-fade');
+        $('body').addClass('atbdp-form-fade');
 
         $.ajax({
             method: 'POST',

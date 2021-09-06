@@ -3,7 +3,7 @@
     $('body').on( 'click', '.directorist-alphabet', function(e) {
         e.preventDefault();
         var alphabet   = $(this).attr("data-alphabet");
-        $('#directorist-all-authors').addClass('atbdp-form-fade');
+        $('body').addClass('atbdp-form-fade');
         $.ajax({
             method: 'POST',
             url: atbdp_public_data.ajaxurl,
@@ -14,8 +14,8 @@
             },
             success( response ) {
                $('#directorist-all-authors').empty().append( response );
-               $('#directorist-all-authors').removeClass('atbdp-form-fade');
-               $( '.' + alphabet ).parent().addClass('active');        
+               $('body').removeClass('atbdp-form-fade');
+               $( '.' + alphabet ).parent().addClass('active');
             },
             error(error) {
                 console.log(error);

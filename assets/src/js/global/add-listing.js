@@ -369,6 +369,10 @@ function setup_form_data(form_data, type, field) {
     }
 }
 
+function scrollToEl( selector ){
+    document.querySelector( selector ).scrollIntoView({ behavior: 'smooth' })
+}
+
 function atbdp_element_value(element) {
     const field = $(element);
     if (field.length) {

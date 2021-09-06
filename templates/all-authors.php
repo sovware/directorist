@@ -6,26 +6,24 @@
  */
 
 use \Directorist\Helper;
-use \Directorist\Directorist_Listing_Author as Author;
+use \Directorist\Directorist_All_Authors as Author;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$columns = floor( 12 / $args['all_authors_columns'] );
 ?>
 
-<div class="<?php echo ! empty( $args['sorting'] ) ? 'directorist-all-authors' : 'directorist-w-100 directorist-authors-section'; ?>" id="<?php echo ! empty( $args['sorting'] ) ? 'directorist-authors-wrapper' : 'directorist-all-authors'; ?>">
+<div class="directorist-w-100 directorist-authors-section" id="directorist-all-authors">
 
 	<div class="directorist-container">
 
 		<div class="directorist-authors">
 
-			<?php if( $args['alphabets' ] && ! empty( $args['all_authors_sorting'] ) ): ?>
+			<?php if( $authors->display_sorting() ): ?>
 
 				<div class="directorist-authors__nav">
 					<ul>
-						<?php foreach( $args['alphabets'] as $alphabet ): ?>
+						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 							<li>
-								<a href="#" class="directorist-alphabet <?php echo $alphabet; ?>" data-nonce="<?php echo wp_create_nonce( 'directorist_author_sorting' ); ?>" data-alphabet="<?php echo $alphabet; ?>"><?php echo $alphabet; ?></a>
+								<a href="#" class="directorist-alphabet <?php echo esc_attr( $value ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="<?php echo esc_attr( $value ); ?>"><?php echo esc_html( $value ); ?></a>
 							</li>
 						<?php endforeach; ?>
 					</ul>
@@ -34,17 +32,18 @@ $columns = floor( 12 / $args['all_authors_columns'] );
 			<?php endif; ?>
 
 			<div class="directorist-authors__cards">
+
 				<div class="directorist-row">
 
 					<?php
 					$no_author_founds = true;
-					foreach( $args['all_authors'] as $author ):
+					foreach( $authors->author_list() as $author ):
 
 						if( empty( $_REQUEST['alphabet'] ) || ( ! empty( $_REQUEST['alphabet'] ) && ucfirst( $author->data->display_name )[0] == $_REQUEST['alphabet'] ) ):
 							$no_author_founds = false;
 							?>
 
-							<div class="<?php Helper::directorist_column( $columns ); ?>">
+							<div class="<?php Helper::directorist_column( $authors->get_columns() ); ?>">
 
 								<div class="directorist-authors__card">
 
@@ -87,26 +86,34 @@ $columns = floor( 12 / $args['all_authors_columns'] );
 										<?php endif; ?>
 
 										<?php if( Author::author_meta( $author->data->ID, 'description' ) && ! empty( $args['all_authors_description'] ) ): ?>
-											<p><?php echo wp_trim_words( Author::author_meta( $author->data->ID, 'description' ), $all_authors_description_limit ); ?></p>
+											<p><?php echo wp_trim_words( Author::author_meta( $author->data->ID, 'description' ), $args['all_authors_description_limit']); ?></p>
 										<?php endif; ?>
 
 										<?php if( ! empty( $all_authors_social_info ) ): ?>
 											<ul class="directorist-author-social directorist-author-social--light">
 
 												<?php if( Author::author_meta( $author->data->ID, 'atbdp_facebook' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_facebook' ); ?>"><span class="la la-facebook"></span></a></li>
+													<li class="directorist-author-social-item">
+														<a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_facebook' ); ?>"><span class="la la-facebook"></span></a>
+													</li>
 												<?php endif; ?>
 
 												<?php if( Author::author_meta( $author->data->ID, 'atbdp_twitter' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_twitter' ); ?>"><span class="la la-twitter"></span></a></li>
+													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_twitter' ); ?>">
+														<span class="la la-twitter"></span></a>
+													</li>
 												<?php endif; ?>
 
 												<?php if( Author::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_linkedin' ); ?>"><span class="la la-linkedin"></span></a></li>
+													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_linkedin' ); ?>">
+														<span class="la la-linkedin"></span></a>
+													</li>
 												<?php endif; ?>
 
 												<?php if( Author::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_youtube' ); ?>"><span class="la la-youtube"></span></a></li>
+													<li class="directorist-author-social-item">
+														<a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_youtube' ); ?>"><span class="la la-youtube"></span></a>
+													</li>
 												<?php endif; ?>
 
 											</ul>

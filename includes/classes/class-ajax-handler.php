@@ -2,6 +2,7 @@
 defined('ABSPATH') || die('Direct access is not allowed.');
 
 use \Directorist\Helper;
+use \Directorist\Directorist_All_Authors;
 
 if (!class_exists('ATBDP_Ajax_Handler')) :
 
@@ -148,6 +149,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_author_alpha_sorting() {
             ob_start();
             if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
+            	$authors = Directorist_All_Authors::instance();
+
                 $all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
                 $all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
                 $args = array();
@@ -170,7 +173,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
                     'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
                 );
-                echo Helper::get_template_contents( 'author/archive', $args );
+                echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors, 'args' => $args ) );
                 wp_die();
             }
             return ob_get_clean();

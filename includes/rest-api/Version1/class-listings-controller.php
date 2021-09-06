@@ -1072,8 +1072,41 @@ class Listings_Controller extends Posts_Controller {
 	public function get_collection_params() {
 		$params = parent::get_collection_params();
 
-		// $params['orderby']['enum'] = array_merge( $params['orderby']['enum'], array( 'menu_order' ) );
+		$params['context']['default'] = 'view';
 
+		$params['exclude'] = array(
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'directorist' ),
+			'type'              => 'string',
+			'sanitize_callback' => 'wp_parse_id_list',
+			'validate_callback'  => 'rest_validate_request_arg',
+		);
+		$params['include'] = array(
+			'description'       => __( 'Limit result set to specific IDs.', 'directorist' ),
+			'type'              => 'string',
+			'sanitize_callback' => 'wp_parse_id_list',
+			'validate_callback'  => 'rest_validate_request_arg',
+		);
+		$params['offset'] = array(
+			'description'        => __( 'Offset the result set by a specific number of items.', 'directorist' ),
+			'type'               => 'integer',
+			'sanitize_callback'  => 'absint',
+			'validate_callback'  => 'rest_validate_request_arg',
+		);
+		$params['order'] = array(
+			'default'            => 'desc',
+			'description'        => __( 'Order sort attribute ascending or descending.', 'directorist' ),
+			'enum'               => array( 'asc', 'desc' ),
+			'sanitize_callback'  => 'sanitize_key',
+			'type'               => 'string',
+			'validate_callback'  => 'rest_validate_request_arg',
+		);
+		$params['orderby'] = array(
+			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
+			// 'enum'               => array_keys( $this->get_orderby_possibles() ),
+			'sanitize_callback'  => 'sanitize_key',
+			'type'               => 'string',
+			'validate_callback'  => 'rest_validate_request_arg',
+		);
 		$params['slug'] = array(
 			'description'       => __( 'Limit result set to listings with a specific slug.', 'directorist' ),
 			'type'              => 'string',
@@ -1093,19 +1126,19 @@ class Listings_Controller extends Posts_Controller {
 			'sanitize_callback' => 'directorist_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
-		$params['category'] = array(
+		$params['categories'] = array(
 			'description'       => __( 'Limit result set to listings assigned a specific category ID.', 'directorist' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
-		$params['tag'] = array(
+		$params['tags'] = array(
 			'description'       => __( 'Limit result set to listings assigned a specific tag ID.', 'directorist' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
-		$params['location'] = array(
+		$params['locations'] = array(
 			'description'       => __( 'Limit result set to listings assigned a specific location ID.', 'directorist' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
@@ -1131,6 +1164,12 @@ class Listings_Controller extends Posts_Controller {
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
+		$params['directory'] = array(
+			'description'       => __( 'Limit result set to listings assigned a specific directory.', 'directorist' ),
+			'type'              => 'string',
+			'sanitize_callback' => 'wp_parse_id_list',
+			'validate_callback' => 'rest_validate_request_arg',
+		);
 		$params['author'] = array(
 			'description'       => __( 'Limit result set to listings specific to author ID.', 'directorist' ),
 			'type'              => 'string',
@@ -1138,6 +1177,16 @@ class Listings_Controller extends Posts_Controller {
 		);
 
 		return $params;
+	}
+
+	protected function get_orderby_possibles() {
+		return array(
+			'id'              => 'ID',
+			'include'         => 'include',
+			'name'            => 'display_name',
+			'registered_date' => 'registered',
+			// 'listings_count'  => 'listings_count',
+		);
 	}
 
 	/**

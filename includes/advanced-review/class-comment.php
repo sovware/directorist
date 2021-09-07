@@ -147,7 +147,7 @@ class Comment {
 				}
 			}
 
-			do_action( 'directorist_review_validate_data', $comment_data );
+			do_action( 'directorist_validate_comment_data', $comment_data );
 		} catch( Exception $e ) {
 			wp_die( $e->getMessage(), $e->getCode() );
 			exit;

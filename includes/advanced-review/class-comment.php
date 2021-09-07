@@ -55,7 +55,8 @@ class Comment {
 				$open = false;
 			}
 		}
-		return $open;
+
+		return apply_filters( 'directorist_review_comments_open', $open, $post_id );
 	}
 
 	/**
@@ -147,7 +148,7 @@ class Comment {
 				}
 			}
 
-			do_action( 'directorist_validate_comment_data', $comment_data );
+			do_action( 'directorist_review_validate_comment_data', $comment_data );
 		} catch( Exception $e ) {
 			wp_die( $e->getMessage(), $e->getCode() );
 			exit;
@@ -224,6 +225,7 @@ class Comment {
 				}
 
 				$stats = (object) $stats;
+
 				set_transient( 'directorist_count_comments', $stats );
 			}
 		}
@@ -253,6 +255,8 @@ class Comment {
 			( ( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) || ( $builder->is_rating_type_criteria() && count( array_filter( $_POST['rating'] ) ) > 0 ) ) ) {
 			$comment_data['comment_type'] = 'review';
 		}
+
+		$comment_data = apply_filters( 'directorist_review_preprocess_comment_data', $comment_data );
 
 		return $comment_data;
 	}
@@ -325,6 +329,8 @@ class Comment {
 		Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
 		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 		Review_Meta::update_criteria_rating( $listing_id, self::get_criteria_rating_for_listing( $listing_id ) );
+
+		do_action( 'directorist_review_maybe_clear_transients', $listing_id );
 	}
 
 	/**

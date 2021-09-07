@@ -223,7 +223,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 if ( ! is_wp_error( $response ) ) {
                     $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
-                    var_dump($response_body);
                     $extensions = $response_body['extensions'];
                     $themes = $response_body['themes'];
 

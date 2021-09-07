@@ -143,9 +143,12 @@
                                 if( !is_wp_error( $result ) ){
                                     $term_id = $result['term_id'];
                                     wp_set_object_terms($post_id, $term_id, $taxonomy);
+                                    update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
                                 }
                             }else{
                                 wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                                update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
+
                             }
                         }
                     }

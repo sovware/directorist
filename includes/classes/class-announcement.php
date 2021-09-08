@@ -68,7 +68,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                     ]
                 ]
             ]);
-
+            wp_reset_query();
 
             return $announcements;
         }

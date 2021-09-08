@@ -421,7 +421,7 @@ class Directorist_Listing_Dashboard {
 				'content' => $announcement->post_content,
 			];
 		}
-		
+
 		return $announcements;
 	}
 

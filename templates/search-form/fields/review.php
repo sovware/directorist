@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 " data-isSearch="true">
 			<?php
 				foreach ( $searchform->rating_field_data() as $option ) {
-					printf('<option value="%s"%s>%s</option>', $option['value'], $option['selected'], $option['label']);
+					printf('<option value="%s" %s>%s</option>', $option['value'], $option['selected'], $option['label']);
 				}
 			?>
 		</select>

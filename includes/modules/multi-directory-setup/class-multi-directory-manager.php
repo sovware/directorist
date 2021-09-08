@@ -282,6 +282,7 @@ class Multi_Directory_Manager
 
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
                 }
+                wp_reset_postdata();
             }
         }
     }

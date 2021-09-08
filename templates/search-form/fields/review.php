@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 	<div class="directorist-select" id="directorist-review-select-js">
-		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-placeholder="<?php echo __('Select ', 'directorist') . esc_attr($data['label']); ?>" data-isSearch="true">
+		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-placeholder="<?php echo esc_attr( sprintf( _x( 'Select %s', 'Rating search select placeholder', 'directorist' ), $data['label'] ) ); ?>
+" data-isSearch="true">
 			<?php
 				foreach ( $searchform->rating_field_data() as $option ) {
 					printf('<option value="%s"%s>%s</option>', $option['value'], $option['selected'], $option['label']);

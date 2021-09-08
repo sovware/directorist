@@ -13,19 +13,44 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 
 == Description ==
 
-== The Most Intuitive WordPress Business Directory Plugin ==
+Want to build an online directory of business listings similar to Yelp, Yellow-Pages, or Tripadvisor on your WordPress site? If the answer is YES, you have come to the right place. Directorist simplifies the process of creating powerful business directories or classified websites of any kind. The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
 
-Want to build an online directory of business listings similar to Yelp, Yellow-Pages or Tripadvisor on your WordPress site? Well, if the answer is **YES**, you have come to the right place. Directorist streamlines the process of creating powerful business directories or classified websites.
+== THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
 
-👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
+👉 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 👈
 
-Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code. You can also make classified websites like a car selling directory, booking directory, land selling directory, team directory, job portal, directory portal, staff directory, medical directory, doctor directory, address book, and what not!
+Meet our powerful Directorist Business Directory plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code.
+
+== TYPES OF WEBSITES YOU CAN BUILD ==
+
+You can create classifieds websites and directorist like a local business directory, car selling directory, booking directory, land selling directory, team directory, job portal, directory portal, staff directory, medical directory, doctor directory, address book, review sites, restaurant directory, real estate, and many more! 
 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
 Directorist Business Directory is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allows you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
+
+[youtube https://www.youtube.com/watch?v=iPZFpAqS7Ok]
+
+== Here’s What Users Say about Directorist - Business Directory Plugin ==
+
+>👨 __Simply the BEST directory plugin__
+
+>10 stars – no joke.
+>I tried several plugins, including paid ones on that canyon costing over 60 bucks, they did not satisfy at all. Directorist is super customizable, the devs are really helpful and the prices or their extensions are very reasonable. Would recommend to anyone who is looking for a directory plugin. Even without paid upgrades, it’s a true beast!
+- By @collin43
+
+>💁 __Perfect for our project!__
+
+>This free plugin does what Classifieds premium themes don’t. It is very well thought out and personalized. I needed support and had a service note 10.
+- By @barenco
+
+>👨 __Amazing Plugin and Excellent Support__
+
+>The best ad plugin I have used. The simplicity and fluidity of use allows you to improve the user experience. Excellent support, I had a lot of questions and a lot of problems but the support was always by my side.
+- By @wadi2a
 
 == WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN? ==
 
@@ -249,7 +274,11 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 🔥 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
 
+🔥 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+
 🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+
+🔥 **[dLawyers](https://directorist.com/product/dlawyers/)** - dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.
 
 👉 **[Directoria](https://directorist.com/product/directoria/)** - Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.
 
@@ -257,33 +286,21 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 👉 **[dService](https://directorist.com/product/dservice/)** - dService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform.
 
-🎉 🎉 🎉  Coming soon...
+== 🎉 🎉 🎉  Coming soon... ==
 
-* dLawyer - Lawyers professional directory
+* dEvent - An event directory with venue
 * dDoctor - A complete doctor directory
 * dRestaurant - Restaurant directory with reservation
+* WooCommerce Subscription Integration
+* Advance Review System
+* Mobile App
+* Rest API endpoint
+* Directory Type linking
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
 
-== Here’s What Users Say about Directorist - Business Directory Plugin ==
-
->👨 __Simply the BEST directory plugin__
-
->10 stars – no joke.
->I tried several plugins, including paid ones on that canyon costing over 60 bucks, they did not satisfy at all. Directorist is super customizable, the devs are really helpful and the prices or their extensions are very reasonable. Would recommend to anyone who is looking for a directory plugin. Even without paid upgrades, it’s a true beast!
-- By @collin43
-
->💁 __Perfect for our project!__
-
->This free plugin does what Classifieds premium themes don’t. It is very well thought out and personalized. I needed support and had a service note 10.
-- By @barenco
-
->👨 __Amazing Plugin and Excellent Support__
-
->The best ad plugin I have used. The simplicity and fluidity of use allows you to improve the user experience. Excellent support, I had a lot of questions and a lot of problems but the support was always by my side.
-- By @wadi2a
 
 == Contribute to Directorist - The Best Business Directory Plugin ==
 
@@ -336,6 +353,36 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.0.5.4 – Sep 8, 2021
+
+New - Some hooks
+Fix - Search widget
+Fix - HTML 5 validation issue in add listing form (location, category, tag)
+Fix - Single Listing custom page
+Fix - Elementor’s deprecated method
+Fix - PHP notice
+Fix - BuddyBoss compatibility issue
+Fix - Duplicate ID issue
+Fix - Select2 issue on add listing page
+Fix - tagDiv page builder single template override issue
+Fix - Listing type nav responsive issue
+Fix - Category, Location and Tag importing issues
+Fix - Console error when image uploader has invalid data
+Fix - Icon issue
+Fix - Extra padding in add listing openStreetMap geo suggestions
+Fix - Extra padding in single listing map info window
+Fix - Extra padding on uploader file in add listing form
+Fix - Custom field’s “See More” link
+Fix - Review placeholder issue in search form
+Tweak - Single listing social share open in a new tab
+Tweak - Profile update notification hide automatically after few seconds 
+Improve - Announcement data query
+Improve - Subscription page
+Improve - Extensions compatibility
+Improve - Google map view
+Update - Appsero client lib
+Remove - Builder data sanitisation option
+
 7.0.5.3 – Aug 12, 2021
 
 * Add - Autofill in user registration form
@@ -369,7 +416,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Single category, location & tag page not working when term name/slug is not in English
 * Fix - Single listing permalink issue in widgets area
 * Fix - Permalink issue in all listing directory type nav 
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Improve - Select field in settings panel and builder
 
 7.0.5.1 – JUL 14, 2021
@@ -385,7 +433,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Add - Option to edit directory type slug 
 * Add - Unmimified assets
 * Fix - Placeholder issue in add listing form
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - SEO issues
 * Fix - Map info window issue of OpenStreetMap
 * Fix - Radius field issue on search form
@@ -460,7 +509,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Improve - Yoast compatibility
 * Improve - Review alert 
 * Improve - Google map
-* Improve - Search form style
+* Improve - Search form Update - Appsero client lib
+e
 * Remove - Extra language file
 * Improve - Settings cleanup
 
@@ -469,7 +519,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Add - New parameter to show/hide popular category in search form
 * Fix - Search listing issue
 * Fix - Builder issues
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Compatibility issue with Event Calendar plugin
 * Fix - PHP error with Yoast plugin
 * Fix - Single Listing page address linking issue
@@ -492,12 +543,14 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Responsive issue
 * Fix - Login issue in subscription management
 * Fix - Popular category issue
-* Fix - Theme header style modifying issue
+* Fix - Theme header Update - Appsero client lib
+e modifying issue
 * Fix - Fixed locations widget count issue
 * Fix - New location creation
 * Fix - Builder saving issue
 * Fix - Custom field in search form
-* Fix - Style compatibility with Elementor
+* Fix - Update - Appsero client lib
+e compatibility with Elementor
 * Add - Tolltip dependency
 * Add - excluded custom taxonomy links (native) from YOAST sitemap
 * Improve - Search form fields
@@ -534,7 +587,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Renewal listing disappearance issue
 * Fix - Featured listing issue form admin listing form
 * Fix - Custom fields issue
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Listing exporter's issue
 * Fix - All categories bug
 * Fix - New listing default status issue
@@ -627,7 +681,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Orderby rand parameter is not working if cache is enabled
 * Fix - Tag creation issue with settings
 * Fix - Filtering issue with pagination
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 
 = 6.5.3 - Oct 8, 2020 =
 
@@ -652,7 +707,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Add - Open Graph SEO metas for custom pages
 * Add - Image validation and sanitization of add listing form
 * Fix - Grid View's price disappearing issue  
-* Fix - Style issues when preview image disabled
+* Fix - Update - Appsero client lib
+e issues when preview image disabled
 * Improve - Cleaned up admin menus 
 
 = 6.5.1 - Aug 1, 2020 =
@@ -679,7 +735,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Add listing form issue with Post Your Need extension
 * Fix - Listing renewal link issue
 * Fix - Listing tag widget's issue
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Improve - Database Query
 * Improve - Page loading time
 * Improve - Listings thumbnail
@@ -692,7 +749,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Review submitting issue with emoji
 * Fix - Conflict with Deep theme
 * Fix - Translation issues
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Remove - White space
 * Improve - Expired listings of User Dashboard page
 
@@ -703,7 +761,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Saving issue of payment receipt shortcode
 * Fix - Validation issue of review submission 
 * Fix - Review pagination
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Remove - Redirection of add listing page when error happens
 * Improve - "Search Listings" widget
 * Improve - Yoast SEO plugin compatibility
@@ -720,7 +779,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Email's "From Email" settings
 * Fix - "Only Admin Use" issue of Custom field
 * Fix - Pending listing status issue
-* Fix - Style issue in RTL
+* Fix - Update - Appsero client lib
+e issue in RTL
 * Improve - Post Type Capability
 * Change - "Pay & Submit" buttom text to "Continue"
 
@@ -743,12 +803,14 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Review delete issue 
 * Fix - Review image issue
 * Fix - PHP notice
-* Fix - Style issue
+* Fix - Update - Appsero client lib
+e issue
 
 = 6.3.4 - Apr 9, 2020 =
 
 * Fix - Redius serarch issue in mobile view
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Improve - Data type sanitization
 * Improve - Code
 
@@ -759,7 +821,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Errors in PHP v7.4.1
 * Fix - Listing status
 * Fix - Minor issue on single listing's map
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Conflict of radius search
 * Fix - Mail sending issue of Contact owner form
 * Fix - Category and location not saving issue on add listing form
@@ -774,7 +837,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Advanced filter issues
 * Fix - Disable single listing view settings is not applying on map's info window
 * Improve - Advanced filter reset in search result page
-* Improve - Card style in User Dashboard page
+* Improve - Card Update - Appsero client lib
+e in User Dashboard page
 * Remove - Repeated JS codes
 * Remove - Login form markup
 * Remove - Unnecessary settings
@@ -785,7 +849,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Add Listing form redirection issue
 * Fix - Issues of PHP older version
 * Fix - Price formatting issue
-* Fix - Style settings
+* Fix - Update - Appsero client lib
+e settings
 * Fix - Typos
 * Fix - Tag and Category issues of add listing form
 * Add - Options to customize single listing slider
@@ -836,7 +901,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Translation issues
 * Fix - Zoom issue of OpenStreetMap map
 * Fix - Ordering issue of Location widget
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Typos
 
 
@@ -855,7 +921,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Featured image issue on single listing's header
 * Fix - Listing Status when user skips payment for featuring a listing
 * Fix - Listing form field validation errors
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 
 = 6.2.1 - Nov 23, 2019 =
 
@@ -917,14 +984,16 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Password label issue of Registration form
 * Fix - Author image linking issue
 * Fix - Translation issue
-* Fix - Text color issue of Style Settings
+* Fix - Text color issue of Update - Appsero client lib
+e Settings
 * Improve - Single listing slider (If there is one slider image, it won't show slider thumbnail)
 
 
 
 = 6.0.0 - Oct 14, 2019 =
 
-* Add - Style Settings
+* Add - Update - Appsero client lib
+e Settings
 * Add - Radius search
 * Add - Listing Bookmark/Mark as Favourite on listings page
 * Add - Address finder in location search field
@@ -943,7 +1012,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Extra space issue of excerpt field
 * Fix - Currency Symbol issue
 * Fix - Translation issues
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Improve - Settings Panel
 * Improve - Social Media icons of single listing page
 * Improve - Listings page header title
@@ -984,7 +1054,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Listing status after renewal
 * Fix - Search by Ratings issue
 * Fix - Alphabetically ordering issue of Listings locations
-* Fix - Styling issues
+* Fix - Update - Appsero client lib
+ing issues
 * Tweak - The email address to send from
 * Improve - Compatibility with Directorist WooCommerce Pricing Plans
 * Improve - Code (white spacing, deprecated function etc.)
@@ -998,7 +1069,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Tweak - OpenStreetMap
 * Fix - Custom fields issue on Listings Search and Result pages
 * Fix - Price format of payment system
-* Fix - Styling issues
+* Fix - Update - Appsero client lib
+ing issues
 * Revert - "Not Now" button of checkout page
 
 = 5.7.0 - Aug 17, 2019 =
@@ -1020,7 +1092,8 @@ Directorist is a complete directory solution and in combination with its advance
 
 * Fix - Translation issue
 * Fix - Listings count
-* Fix - Styling issues
+* Fix - Update - Appsero client lib
+ing issues
 * Fix - Preview image issue
 
 = 5.6.1 - Aug 07, 2019 =
@@ -1039,7 +1112,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Assigning tag capability of frontend user
 * Fix - Location Saving issue of frontend user
 * Fix - New user notification email
-* Fix - Styling issues
+* Fix - Update - Appsero client lib
+ing issues
 * Add -  orderby='rand' to display listings randomly ([directorist_all_listing orderby='rand'])
 * Add - Options to change the labels of User Dashboard tabs
 * Add - New shortcode to display author information on single listing page
@@ -1058,7 +1132,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Add - Connected WordPress user bio with the plugin's user bio
 * Add - Alt attribute to category and location images
 * Add - Option to hide Back Link
-* Improve - Styling on several places
+* Improve - Update - Appsero client lib
+ing on several places
 
 = 5.5.1 - Jul 18, 2019 =
 
@@ -1066,7 +1141,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Preview image issue
 * Fix - Category icons issue
 * Fix - Custom Fields issue
-* Improve - Styling on several places
+* Improve - Update - Appsero client lib
+ing on several places
 
 = 5.5.0 - Jul 17, 2019 =
 
@@ -1091,7 +1167,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Assigning tag capability of frontend user
 * Fix - Location Saving issue of frontend user
 * Fix - New user notification email
-* Fix - Styling issues
+* Fix - Update - Appsero client lib
+ing issues
 * Add -  orderby='rand' to display listings randomly ([directorist_all_listing orderby='rand'])
 * Add - Options to change the labels of User Dashboard tabs
 * Add - New shortcode to display author information on single listing page
@@ -1191,7 +1268,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Add - Search listing by Custom Fields value
 * Fix - Translation issue
 * Fix - Extra 'n' generation on few themes
-* Fix - Style issue of custom field's checkbox
+* Fix - Update - Appsero client lib
+e issue of custom field's checkbox
 * Fix - Display Edit Listing button only for logged-in listing author
 * Fix - Automatically listing publish when payment status changed to Completed of Offline Payment Gateway
 
@@ -1204,7 +1282,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Translation issues
 * Fix - Title and subtitle issues on search
 * Fix - Review badge issue
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Listing form's Social field responsive issue
 * Fix - Removed extra 'Z' from edit listing button
 * Tweak - Location field of listing form
@@ -1218,7 +1297,8 @@ Directorist is a complete directory solution and in combination with its advance
 
 * Add - Redirection to home page after logging out from User Dashboard
 * Fix - Capitalization issues
-* Fix - Various style issues
+* Fix - Various Update - Appsero client lib
+e issues
 * Fix - Registration confirmation massage
 * Fix - Page title of single location and category pages
 * Improve - Listings header
@@ -1234,7 +1314,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Advanced search/filter responsiveness and rating issues
 * Fix - Clickable preview image on user dashboard
 * Fix - Sort by Popular Listings
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Tweak - Improved Settings panel
 
 = 5.0.1 - April 25, 2019 =
@@ -1267,7 +1348,8 @@ Directorist is a complete directory solution and in combination with its advance
 * Tweak - Changed Location icon
 * Fix - Listing expiration
 * Fix - Image uploading issue of Add Listing form
-* Fix - Style issues
+* Fix - Update - Appsero client lib
+e issues
 * Fix - Listing pricing
 * Fix - Map issue on single listing
 * Fix - Translate issue
@@ -1544,7 +1626,8 @@ Fix – Category in listings
 * Added a currency setting for displaying price
 * Added a currency setting for accepting payments
 * Added Extra information about a listing on the user dashboard
-* Added a new style of featured listings and they appear on top of other listings on search result page and all listings page
+* Added a new Update - Appsero client lib
+e of featured listings and they appear on top of other listings on search result page and all listings page
 * Change Location value of a listing on all listings and search result page to location category with a link to their respective archive
 * Made a few missing strings translatable
 * Added New Columns on listings list page in the backend

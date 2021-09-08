@@ -182,6 +182,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
                     update_post_meta( get_the_ID(), '_seen', true );
                 }
+                wp_reset_postdata();
             }
 
             wp_send_json([ 'success' => true ]);
@@ -227,6 +228,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                         }
                     }
                 }
+                wp_reset_postdata();
             }
 
             $new_posts = $total_posts - $skipped_post_count;
@@ -253,6 +255,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 $expaired_announcements->the_post();
                 wp_delete_post( get_the_ID(), true );
             }
+            wp_reset_postdata();
         }
 
         // add_dashboard_nav_link

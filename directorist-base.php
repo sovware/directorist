@@ -786,6 +786,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -825,6 +826,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -844,6 +846,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -879,6 +882,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);

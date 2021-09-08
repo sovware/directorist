@@ -421,8 +421,6 @@ class Directorist_Listing_Dashboard {
 				'content' => $announcement->post_content,
 			];
 		}
-
-		wp_reset_postdata();
 		
 		return $announcements;
 	}

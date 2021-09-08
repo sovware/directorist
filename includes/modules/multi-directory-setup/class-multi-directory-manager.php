@@ -11,7 +11,6 @@ class Multi_Directory_Manager
     public static $layouts = [];
     public static $config  = [];
 
-    public static $builder_data_sanitizer = null;
     public static $migration = null;
 
     public $default_form      = [];
@@ -20,7 +19,6 @@ class Multi_Directory_Manager
 
     public function __construct() {
         self::$migration = new Multi_Directory_Migration([ 'multi_directory_manager' => $this ]);
-        self::$builder_data_sanitizer = new Builder_Data_Sanitizer();
     }
 
     // run

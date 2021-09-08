@@ -68,7 +68,6 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                     ]
                 ]
             ]);
-            wp_reset_query();
 
             return $announcements;
         }
@@ -120,7 +119,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 </button>
                             </div>
                         </div>
-                        <?php endwhile; ?>
+                        <?php endwhile; 
+                        wp_reset_postdata();
+                        ?>
                     </div>
                     <?php else: ?>
                         <div class="directorist_not-found"><p><?php _e( 'No announcement found', 'directorist' ) ?></p></div>
@@ -320,7 +321,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 </button>
                             </div>
                         </div>
-                        <?php endwhile; ?>
+                        <?php endwhile; 
+                        wp_reset_postdata();
+                        ?>
                     </div>
                     <?php else: ?>
                         <div class="directorist_not-found"><p><?php _e( 'No announcement found', 'directorist' ) ?></p></div>

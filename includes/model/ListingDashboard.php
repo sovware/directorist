@@ -422,6 +422,8 @@ class Directorist_Listing_Dashboard {
 			];
 		}
 
+		wp_reset_postdata();
+		
 		return $announcements;
 	}
 

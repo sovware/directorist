@@ -103,6 +103,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //author sorting
             add_action('wp_ajax_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
             add_action('wp_ajax_nopriv_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
+
+            //author paginate
+            add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
+            add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
         }
 
         // directorist_quick_ajax_login
@@ -146,33 +150,21 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_author_alpha_sorting() {
             ob_start();
             if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
-            	$authors = Directorist_All_Authors::instance();
-
-                $all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
-                $all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
-                $args = array();
-                if( ! empty( $all_authors_role ) && 'all' != $all_authors_select_role ) {
-                    $args = array( 'role__in' => array( $all_authors_select_role ) );
-                }
-                $args = array(
-                    'all_authors'                       => get_users( $args ),
-                    'alphabets'	                        => range( 'A', 'Z' ),
-                    'sorting'                           => true,
-                    'all_authors_columns'				=> get_directorist_option( 'all_authors_columns', 3 ),
-                    'all_authors_sorting'				=> get_directorist_option( 'all_authors_sorting', true ),
-                    'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
-                    'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
-                    'all_authors_info'					=> get_directorist_option( 'all_authors_info', true ),
-                    'all_authors_role'					=> $all_authors_role,
-                    'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
-                    'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
-                    'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),
-                    'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
-                    'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
-                );
-                echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors, 'args' => $args ) );
+            	$authors            = Directorist_All_Authors::instance();
+        
+                echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
                 wp_die();
             }
+            return ob_get_clean();
+        }
+
+        // directorist_author_pagination
+        public function author_pagination() {
+            ob_start();
+            $authors            = Directorist_All_Authors::instance();
+    
+            echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
+            wp_die();
             return ob_get_clean();
         }
 

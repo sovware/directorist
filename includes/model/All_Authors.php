@@ -40,7 +40,7 @@ class Directorist_All_Authors {
 	}
 
 	public function display_image() {
-		return get_directorist_option( 'all_authors_name', true );
+		return get_directorist_option( 'all_authors_image', true );
 	}
 
 	public function display_name() {
@@ -59,12 +59,20 @@ class Directorist_All_Authors {
 		return get_directorist_option( 'all_authors_description', true );
 	}
 
+	public function description_limit() {
+		return get_directorist_option( 'all_authors_description_limit', 13 );
+	}
+
 	public function display_social_info() {
 		return get_directorist_option( 'all_authors_social_info', true );
 	}
 
 	public function display_btn() {
 		return get_directorist_option( 'all_authors_button', true );
+	}
+
+	public function btn_text() {
+		return get_directorist_option( 'all_authors_button_text', 'View All Listings' );
 	}
 
 	public function get_columns() {
@@ -74,35 +82,51 @@ class Directorist_All_Authors {
 	public function author_list( $alphabet = '' ) {
 		$args = array();
 		$all_authors_select_role = get_directorist_option( 'all_authors_select_role', 'all' );
+		$paged = atbdp_get_paged_num();
+
+		$args['number'] = 2;
+		$args['paged'] = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
+
 		if( 'all' != $all_authors_select_role ) {
-			$args = array( 'role__in' => array( $all_authors_select_role ) );
+			$args['role__in']	= array( $all_authors_select_role );
 		}
+
+		if( ! empty( $_REQUEST['alphabet'] ) ) {
+			$letterAfter = chr( ord( $_REQUEST['alphabet'] ) + 1 );
+
+			$args['meta_query'] = array(
+				array(
+					'key' => 'first_name',
+					'value' => array( $_REQUEST['alphabet'], $letterAfter ),
+					'compare' => 'BETWEEN'
+				)
+			);
+
+		}
+
 		return get_users( $args );
+	}
+
+	public function author_pagination( $base = '', $paged = '' ) {
+		$query = get_users();
+		$paged = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
+		$big   = 999999999;
+
+		$links = paginate_links( array(
+			'base'      => ! empty( $_REQUEST['paged'] ) ? 'page/%#%' : str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+			'format'    => '?paged=%#%',
+			'current'   => max( 1, $paged ),
+			'total'     => count( $query ),
+			'prev_text' => '<i class="la la-arrow-left"></i>',
+			'next_text' => '<i class="la la-arrow-right"></i>',
+		) );
+
+		return $links;
 	}
 
 	public function render_shortcode_all_authors() {
 
-		$all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
-		$all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
-		$args = array();
-		if( ! empty( $all_authors_role ) && 'all' != $all_authors_select_role ) {
-			$args = array( 'role__in' => array( $all_authors_select_role ) );
-		}
-		$args = array(
-			'all_authors' 						=> get_users( $args ),
-			'all_authors_columns'				=> get_directorist_option( 'all_authors_columns', 3 ),
-			'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
-			'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
-			'all_authors_role'					=> $all_authors_role,
-			'all_authors_info'					=> get_directorist_option( 'all_authors_info', true ),
-			'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
-			'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
-			'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),
-			'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
-			'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
-		);
-
-		Helper::get_template( 'all-authors', array( 'authors' => $this, 'args' => $args ) );
+		Helper::get_template( 'all-authors', array( 'authors' => $this ) );
 	}
 
 }

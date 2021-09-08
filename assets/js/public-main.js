@@ -374,6 +374,30 @@ atbdSelectData.forEach(function (el) {
       }
     });
   });
+  $('body').on('click', '.directorist-authors-pagination a', function (e) {
+    e.preventDefault();
+    var paged = $(this).attr('href');
+    paged = paged.split('/page/')[1];
+    paged = parseInt(paged);
+    console.log(paged);
+    paged = paged !== undefined ? paged : 1;
+    $('body').addClass('atbdp-form-fade');
+    $.ajax({
+      method: 'POST',
+      url: atbdp_public_data.ajaxurl,
+      data: {
+        action: 'directorist_author_pagination',
+        paged: paged
+      },
+      success: function success(response) {
+        $('body').removeClass('atbdp-form-fade');
+        $('#directorist-all-authors').empty().append(response);
+      },
+      error: function error(_error2) {
+        console.log(_error2);
+      }
+    });
+  });
 })(jQuery);
 
 /***/ }),

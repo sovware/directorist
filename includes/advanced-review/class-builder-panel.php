@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || die();
 class Builder_Panel {
 
 	public static function init() {
-		add_filter( 'directorist_builder_config', [ __CLASS__, 'add_config' ] );
-		add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_form' ] );
-		add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
+		add_filter( 'directorist/builder/config', [ __CLASS__, 'add_config' ] );
+		add_filter( 'directorist/builder/fields', [ __CLASS__, 'register_fields' ] );
+		add_filter( 'directorist/builder/layouts', [ __CLASS__, 'register_layout' ] );
 	}
 
 	public static function add_config( $config ) {
@@ -24,7 +24,7 @@ class Builder_Panel {
 		return $config;
 	}
 
-	public static function register_form( $layout ) {
+	public static function register_layout( $layouts ) {
 		$group = [
 			'rating_fields' => [
 				'title'     => __( 'Rating', 'directorist' ),
@@ -60,14 +60,14 @@ class Builder_Panel {
 			],
 		];
 
-		$layout['review_form'] = [
+		$layouts['review_form'] = [
 			'label'     => __( 'Review Form', 'directorist' ),
 			'icon'      => '<span class="uil uil-star"></span>',
 			'container' => 'wide',
 			'sections'  => apply_filters( 'directorist_review_form_fields_group', $group ),
 		];
 
-		return $layout;
+		return $layouts;
 	}
 
 	public static function get_fields() {

@@ -124,8 +124,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									</div>
 								</div>
 
-						<?php 
-						endforeach; 
+						<?php
+						endforeach;
 					} else { ?>
 
 					<p><?php _e( 'No author founds', 'directorist' ); ?></p>
@@ -134,7 +134,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				</div>
 
-				<div class="directorist-authors-pagination">
+				<div class="directorist-pagination directorist-authors__pagination">
 						<?php echo $authors->author_pagination(); ?>
 				</div>
 

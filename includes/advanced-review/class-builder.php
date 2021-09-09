@@ -2,11 +2,11 @@
 /**
  * Comment from builder class.
  *
- * @package wpWax\Directorist
- * @subpackage Review
- * @since 7.x
+ * @package Directorist\Review
+ *
+ * @since 7.0.6
  */
-namespace wpWax\Directorist\Review;
+namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 

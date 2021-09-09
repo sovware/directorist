@@ -1,31 +1,40 @@
 <?php
 /**
- * Builder panel class.
+ * Builder screen class.
  *
- * @package wpWax\Directorist
- * @subpackage Review
- * @since 7.x
+ * @package Directorist\Review
+ * @since 7.0.6
  */
 namespace wpWax\Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
-class Builder_Panel {
+class Builder_Screen {
 
 	public static function init() {
-		add_filter( 'directorist/builder/config', [ __CLASS__, 'add_config' ] );
+		add_filter( 'directorist/builder/config', [ __CLASS__, 'register_config' ] );
 		add_filter( 'directorist/builder/fields', [ __CLASS__, 'register_fields' ] );
 		add_filter( 'directorist/builder/layouts', [ __CLASS__, 'register_layout' ] );
 	}
 
-	public static function add_config( $config ) {
+	public static function register_config( $config ) {
 		$config['fields_group']['review_config'] = array_keys( self::get_fields() );
-
 		return $config;
 	}
 
 	public static function register_layout( $layouts ) {
-		$group = [
+		$layouts['review_form'] = [
+			'label'     => __( 'Review Form', 'directorist' ),
+			'icon'      => '<span class="uil uil-star"></span>',
+			'container' => 'wide',
+			'sections'  => apply_filters( 'directorist/builder/sections/review_form', self::get_sections() ),
+		];
+
+		return $layouts;
+	}
+
+	protected static function get_sections() {
+		return [
 			'rating_fields' => [
 				'title'     => __( 'Rating', 'directorist' ),
 				'container' => 'short-width',
@@ -59,15 +68,6 @@ class Builder_Panel {
 				],
 			],
 		];
-
-		$layouts['review_form'] = [
-			'label'     => __( 'Review Form', 'directorist' ),
-			'icon'      => '<span class="uil uil-star"></span>',
-			'container' => 'wide',
-			'sections'  => apply_filters( 'directorist_review_form_fields_group', $group ),
-		];
-
-		return $layouts;
 	}
 
 	public static function get_fields() {
@@ -182,7 +182,6 @@ class Builder_Panel {
 	public static function register_fields( $fields ) {
 		return array_merge( $fields, self::get_fields() );
 	}
-
 }
 
-Builder_Panel::init();
+Builder_Screen::init();

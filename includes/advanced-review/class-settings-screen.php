@@ -1,16 +1,15 @@
 <?php
 /**
- * Settings panel class.
+ * Settings screen class.
  *
- * @package wpWax\Directorist
- * @subpackage Review
- * @since 7.x
+ * @package Directorist\Review
+ * @since 7.0.6
  */
-namespace wpWax\Directorist\Review;
+namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
-class Settings_Panel {
+class Settings_Screen {
 
 	public static function init() {
 		// add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_layout' ] );
@@ -148,4 +147,4 @@ class Settings_Panel {
 	}
 }
 
-Settings_Panel::init();
+Settings_Screen::init();

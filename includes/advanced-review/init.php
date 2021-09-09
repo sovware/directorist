@@ -2,11 +2,10 @@
 /**
  * Advance review system init file.
  *
- * @package wpWax\Directorist
- * @subpackage Review
- * @since 7.x
+ * @package Directorist\Review
+ * @since 7.0.6
  */
-namespace wpWax\Directorist\Review;
+namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
@@ -30,8 +29,8 @@ class Bootstrap {
 
 		if ( is_admin() ) {
 			require_once 'class-metabox.php';
-			require_once 'class-settings-panel.php';
-			require_once 'class-builder-panel.php';
+			require_once 'class-settings-screen.php';
+			require_once 'class-builder-screen.php';
 		}
 	}
 

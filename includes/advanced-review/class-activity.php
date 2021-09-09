@@ -2,11 +2,11 @@
 /**
  * Advance review activity class
  *
- * @package wpWax\Directorist
- * @subpackage Review
+ * @package Directorist\Review
+ *
  * @since 7.x
  */
-namespace wpWax\Directorist\Review;
+namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 

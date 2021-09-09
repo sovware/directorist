@@ -86,7 +86,7 @@ class Bootstrap {
 	}
 
 	public static function load_walker() {
-		require_once ATBDP_INC_DIR . 'advanced-review/class-walker.php';
+		require_once ATBDP_INC_DIR . 'review/class-walker.php';
 	}
 }
 

@@ -4,7 +4,7 @@
  *
  * @package Directorist\Review
  *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
@@ -139,6 +139,8 @@ class Walker extends Walker_Comment {
 					</header>
 					<div class="directorist-review-single__content">
 						<?php comment_text(); ?>
+
+						<?php do_action( 'directorist/review/after_comment_text' ); ?>
 
 						<?php if ( $builder->is_attachments_enabled() && ! empty( $attachments ) && is_array( $attachments ) ) : ?>
 							<div class="directorist-review-single__content__img">

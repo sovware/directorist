@@ -470,7 +470,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
-			ATBDP_INC_DIR . 'advanced-review/init',
+			ATBDP_INC_DIR . 'review/init',
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');

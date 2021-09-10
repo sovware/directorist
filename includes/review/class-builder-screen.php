@@ -5,7 +5,7 @@
  * @package Directorist\Review
  * @since 7.0.6
  */
-namespace wpWax\Directorist\Review;
+namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
@@ -85,7 +85,7 @@ class Builder_Screen {
 			'review_rating_criteria' => [
 				'type' => 'textarea',
 				'label' => __( 'Rating Criteria', 'directorist' ),
-				'description' => __( 'Make sure to write criteria in <code>key | Label</code> pairs with valid keys (<code>a-z,0-9,_,-</code>) and separate each of them with a new line. Removing or changing <code>key</code> may cause data lose.', 'directorist' ),
+				'description' => __( 'Make sure to write criteria in <code>key | Label</code> pairs with valid keys (<code>a-z,0-9,_,-</code>) and separate each of them with a new line. Removing or changing <code>key</code> may cause data loss.', 'directorist' ),
 				'show_if' => [
 					'where' => 'review_rating_type',
 					'conditions' => [

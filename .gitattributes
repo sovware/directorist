@@ -20,5 +20,6 @@
 
 /webpack-entry-list.js export-ignore
 /webpack.common.js export-ignore
+/webpack.dev.js export-ignore
 /webpack.dev.vue.js export-ignore
 /webpack.prod.js export-ignore

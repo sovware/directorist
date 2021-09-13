@@ -134,8 +134,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				</div>
 				
-				<?php if( $authors->display_pagination() ) { ?>
-					<div class="directorist-pagination directorist-authors__pagination">
+				<?php if( $authors->display_pagination( 'page/%#%', ) ) { ?>
+					<div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
 							<?php echo $authors->author_pagination(); ?>
 					</div>
 				<?php } ?>

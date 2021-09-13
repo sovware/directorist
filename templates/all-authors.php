@@ -133,10 +133,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php } ?>
 
 				</div>
-
-				<div class="directorist-authors-pagination">
-						<?php echo $authors->author_pagination(); ?>
-				</div>
+				
+				<?php if( $authors->display_pagination() ) { ?>
+					<div class="directorist-authors-pagination">
+							<?php echo $authors->author_pagination(); ?>
+					</div>
+				<?php } ?>
 
 			</div>
 

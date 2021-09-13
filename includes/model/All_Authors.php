@@ -79,14 +79,24 @@ class Directorist_All_Authors {
 		return floor( 12 / get_directorist_option( 'all_authors_columns', 3 ) );
 	}
 
+	public function display_pagination() {
+		return get_directorist_option( 'all_authors_pagination', true );
+	}
+
 	public function author_list( $alphabet = '' ) {
 		$args = array();
 		$all_authors_select_role = get_directorist_option( 'all_authors_select_role', 'all' );
-		$paged = atbdp_get_paged_num();
+		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
 
-		$args['number'] = 2;
-		$args['paged'] = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
+		if( $this->display_pagination() ) {
+			$paged					 = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
+			$offset 				 = ( $paged - 1 ) * $all_authors_per_page;
+			$args['paged'] 			 = $paged;
+			$args['offset'] 		 = $offset;
+		}
 
+		$args['number'] 		 = $all_authors_per_page;
+		
 		if( 'all' != $all_authors_select_role ) {
 			$args['role__in']	= array( $all_authors_select_role );
 		}
@@ -108,15 +118,17 @@ class Directorist_All_Authors {
 	}
 
 	public function author_pagination( $base = '', $paged = '' ) {
+		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
 		$query = get_users();
 		$paged = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
 		$big   = 999999999;
+		$total_pages = intval( count( $query ) / $all_authors_per_page ) + 1;
 
 		$links = paginate_links( array(
 			'base'      => ! empty( $_REQUEST['paged'] ) ? 'page/%#%' : str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format'    => '?paged=%#%',
 			'current'   => max( 1, $paged ),
-			'total'     => count( $query ),
+			'total'     => $total_pages,
 			'prev_text' => '<i class="la la-arrow-left"></i>',
 			'next_text' => '<i class="la la-arrow-right"></i>',
 		) );

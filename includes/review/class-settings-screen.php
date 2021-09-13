@@ -7,7 +7,9 @@
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Settings_Screen {
 

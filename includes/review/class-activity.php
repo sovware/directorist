@@ -1,14 +1,15 @@
 <?php
 /**
- * Advance review activity class
+ * Review activity class.
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Activity {
 

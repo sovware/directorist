@@ -2,34 +2,33 @@
 /**
  * Comment and review template for single view.
  *
- * @author  wpWax
- * @since   x
- * @version x
+ * @since   7.0.6
+ * @version 7.0.6
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-use wpWax\Directorist\Review\Markup;
-use wpWax\Directorist\Review\Builder;
-use wpWax\Directorist\Review\Bootstrap;
-use wpWax\Directorist\Review\Review_Meta;
-use wpWax\Directorist\Review\Walker as Review_Walker;
-use Directorist\Directorist_Single_Listing as Directorist_Listing;
+use Directorist\Review\Markup;
+use Directorist\Review\Builder;
+use Directorist\Review\Bootstrap;
+use Directorist\Review\Walker as Review_Walker;
+use Directorist\Review\Listing_Review_Meta as Review_Meta;
 
-$builder         = Builder::get( get_the_ID() );
-// $listing         = Directorist_Listing::instance();
-$review_rating   = Review_Meta::get_rating( get_the_ID() );
-$review_count    = Review_Meta::get_review_count( get_the_ID() );
+$builder       = Builder::get( get_the_ID() );
+$review_rating = Review_Meta::get_rating( get_the_ID() );
+$review_count  = Review_Meta::get_review_count( get_the_ID() );
 
 // Load walker class
 Bootstrap::load_walker();
-?>
 
+?>
 <div class="directorist-review-container">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header">
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) ); ?></h3>
-			<?php if ( is_user_logged_in() || get_directorist_option( 'guest_review', 0 ) ) : ?>
+			<?php if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) : ?>
 				<a href="#respond" class="directorist-btn directorist-btn-primary"><span class="fa fa-star"></span> <?php esc_html_e( 'Write a review', 'directorist' ); ?></a>
 			<?php endif; ?>
 		</div><!-- ends: .directorist-review-content__header -->
@@ -42,24 +41,6 @@ Bootstrap::load_walker();
 						<?php Markup::show_rating_stars( $review_rating ); ?>
 					</span>
 					<span class="directorist-rating-overall"><?php printf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) ); ?></span>
-				</div>
-				<div class="directorist-review-content__overview__benchmarks">
-					<?php
-					if ( $builder->is_rating_type_criteria() ) :
-						$criteria_rating = Review_Meta::get_criteria_rating( get_the_ID() );
-
-						foreach ( $builder->get_rating_criteria() as $criterion_key => $criterion_label ) :
-							$_rating = isset( $criteria_rating[ $criterion_key ] ) ? $criteria_rating[ $criterion_key ] : 0;
-							?>
-							<div class="directorist-benchmark-single">
-								<label><?php echo $criterion_label; ?></label>
-								<progress value="<?php echo esc_attr( $_rating ); ?>" max="5"><?php echo $_rating; ?></progress>
-								<strong><?php echo $_rating; ?></strong>
-							</div>
-							<?php
-						endforeach;
-					endif;
-					?>
 				</div>
 			</div><!-- ends: .directorist-review-content__overview -->
 
@@ -86,7 +67,7 @@ Bootstrap::load_walker();
 			<div class="directorist-review-content__reviews">
 				<p class="directorist-review-single directorist-noreviews">
 					<?php
-					if ( ! get_directorist_option( 'guest_review', 0 ) ) {
+					if ( ! directorist_is_guest_review_enabled() ) {
 						esc_html_e( 'There are no reviews yet.', 'directorist' );
 					} else {
 						printf( esc_html__( 'There are no reviews yet. %1$sBe the first reviewer%2$s.', 'directorist' ), '<a href="#respond">', '</a>' );
@@ -98,7 +79,7 @@ Bootstrap::load_walker();
 	</div><!-- ends: .directorist-review-content -->
 
 	<?php
-	if ( is_user_logged_in() || get_directorist_option( 'guest_review', 0 ) ) {
+	if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) {
 		$commenter = wp_get_current_commenter();
 		$req       = get_option( 'require_name_email' );
 		$html_req  = ( $req ? " required='required'" : '' );
@@ -159,10 +140,6 @@ Bootstrap::load_walker();
 				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) )
 			)
 		);
-
-		if ( $builder->is_attachments_enabled() ) {
-			$comment_fields['attachments'] = Markup::get_attachments_uploader( $builder );
-		}
 
 		$comment_fields = (array) apply_filters( 'directorist_review_form_comment_fields', $comment_fields );
 

@@ -3,12 +3,13 @@
  * Reviews walker class.
  *
  * @package Directorist\Review
- *
  * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 use Walker_Comment;
 
@@ -105,11 +106,6 @@ class Walker extends Walker_Comment {
 		if ( $has_parent ) {
 			$comment_class .= ' directorist-review-single--comment';
 		}
-
-		$helpful     = Comment_Meta::get_helpful( get_comment_ID(), 0 );
-		$unhelpful   = Comment_Meta::get_unhelpful( get_comment_ID(), 0 );
-		$attachments = Comment_Meta::get_attachments( get_comment_ID() );
-		$builder     = Builder::get( $comment->comment_post_ID );
 		?>
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $comment_class ); ?>>
 			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
@@ -117,9 +113,11 @@ class Walker extends Walker_Comment {
 					<header class="directorist-review-single__header">
 						<div class="directorist-review-single__author">
 							<div class="directorist-review-single__author__img comment-author vcard">
-								<?php if ( $args['avatar_size'] != 0 ) {
+								<?php
+								if ( $args['avatar_size'] != 0 ) {
 									echo get_avatar( $comment, $args['avatar_size'] );
-								} ?>
+								}
+								?>
 							</div>
 							<div class="directorist-review-single__author__details">
 								<h2 class="fn"><?php comment_author_link(); ?> <time datetime="<?php echo esc_attr( get_comment_date( 'Y-m-d H:i:s' ) ); ?>"><?php comment_date( apply_filters( 'directorist_review_date_format', 'F Y' ) ); ?></time></h2>
@@ -141,33 +139,18 @@ class Walker extends Walker_Comment {
 						<?php comment_text(); ?>
 
 						<?php do_action( 'directorist/review/after_comment_text' ); ?>
-
-						<?php if ( $builder->is_attachments_enabled() && ! empty( $attachments ) && is_array( $attachments ) ) : ?>
-							<div class="directorist-review-single__content__img">
-								<?php
-								$dir = wp_get_upload_dir();
-								foreach ( $attachments as $attachment ) {
-									printf( '<img src="%s" alt="comment attachment image" />', $dir['baseurl'] . '/' . $attachment );
-								}
-								?>
-							</div>
-						<?php endif; ?>
 					</div>
 				</div>
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
 				<?php endif; ?>
-				<footer class="directorist-review-single__feedback">
-					<a <?php self::add_activity_prop( 'helpful' ); ?> role="button" data-count="<?php echo $helpful; ?>" href="#" class="directorist-btn-feedback"><i class="far fa-thumbs-up"></i> <?php echo esc_html_x( 'Helpful', 'comment feedback button', 'directorist' ); ?> (<span><?php echo $helpful; ?></span>)</a>
-					<a <?php self::add_activity_prop( 'unhelpful' ); ?> role="button" data-count="<?php echo $unhelpful; ?>" href="#" class="directorist-btn-feedback"><i class="far fa-thumbs-down"></i> <?php echo esc_html_x( 'Not Helpful', 'comment feedback button', 'directorist' ); ?> (<span><?php echo $unhelpful; ?></span>)</a>
-				</footer>
 
 				<?php comment_reply_link(
 					array_merge(
 						$args,
 						array(
 							/* translators: 1: is the reply icon */
-							'reply_text' => sprintf( esc_html( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+							'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
 							'depth'      => $depth,
 							'max_depth'  => $args['max_depth'],
 							'add_below'  => 'div-comment',

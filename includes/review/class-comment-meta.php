@@ -3,48 +3,37 @@
  * Comment meta class
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Comment_Meta {
 
 	const FIELD_RATING = 'rating';
 
-	const FIELD_CRITERIA_RATING = 'criteria_rating';
-
-	const FIELD_HELPFUL = 'helpful';
-
-	const FIELD_UNHELPFUL = 'unhelpful';
-
 	const FIELD_REPORT = 'reported';
 
-	const FIELD_ATTACHMENTS = 'attachments';
-
-	static $valid_fields = array(
+	static $valid_fields = [
 		self::FIELD_RATING,
-		self::FIELD_CRITERIA_RATING,
-		self::FIELD_HELPFUL,
-		self::FIELD_UNHELPFUL,
 		self::FIELD_REPORT,
-		self::FIELD_ATTACHMENTS,
-	);
+	];
 
 	protected static function is_valid_field( $field_key ) {
 		return in_array( $field_key, self::$valid_fields, true );
 	}
 
-	protected static function get_data( $comment_id, $field_key, $default_value ) {
+	protected static function get_data( $comment_id, $field_key, $default = '' ) {
 		if ( ! self::is_valid_field( $field_key ) ) {
 			return '';
 		}
 
 		$value = get_comment_meta( $comment_id, $field_key, true );
 
-		return ( $value !== '' ? $value : $default_value );
+		return ( $value !== '' ? $value : $default );
 	}
 
 	protected static function set_data( $comment_id, $field_key, $new_value ) {

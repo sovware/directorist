@@ -1,21 +1,42 @@
 <?php
 /**
- * Comment metabox class.
+ * Admin functionality class.
+ * Handles metabox, admin menu etc.
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Metabox {
 
 	public static function init() {
-		add_action( 'add_meta_boxes_comment', array( __CLASS__, 'register' ) );
-		add_action( 'edit_comment', array( __CLASS__, 'on_edit_comment' ), 10, 2 );
-		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
+		add_action( 'admin_menu', [ __CLASS__, 'add_menu' ] );
+		add_action( 'add_meta_boxes_comment', [ __CLASS__, 'register' ] );
+		add_action( 'edit_comment', [ __CLASS__, 'on_edit_comment' ], 10, 2 );
+		add_action( 'add_meta_boxes', [ __CLASS__, 'rename_comment_metabox' ], 20 );
+		add_filter( 'admin_comment_types_dropdown', [ __CLASS__, 'add_comment_types_in_dropdown' ] );
+	}
+
+	public static function add_comment_types_in_dropdown( $comment_types ) {
+		if ( ! isset( $comment_types['review'] ) ) {
+			$comment_types['review'] = __( 'Review', 'directorist' );
+		}
+		return $comment_types;
+	}
+
+	public static function rename_comment_metabox() {
+		global $post;
+
+		// Comments/Reviews.
+		if ( isset( $post ) && ( 'publish' === $post->post_status || 'private' === $post->post_status ) && post_type_supports( ATBDP_POST_TYPE, 'comments' ) ) {
+			remove_meta_box( 'commentsdiv', ATBDP_POST_TYPE, 'normal' );
+			add_meta_box( 'commentsdiv', __( 'Reviews', 'directorist' ), 'post_comment_meta_box', ATBDP_POST_TYPE, 'normal' );
+		}
 	}
 
 	public static function add_menu() {
@@ -29,7 +50,6 @@ class Metabox {
 			'edit_posts',
 			$submenu_slug
 			);
-
 
 		// Make sure "Reviews" menu is active
 		global $submenu, $pagenow;

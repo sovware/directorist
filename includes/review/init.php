@@ -1,13 +1,15 @@
 <?php
 /**
- * Advance review system init file.
+ * Review bootstrap class.
  *
  * @package Directorist\Review
  * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 use Directorist\Helper;
 
@@ -19,16 +21,18 @@ class Bootstrap {
 	}
 
 	public static function includes() {
+		require_once 'review-functions.php';
+
 		require_once 'class-email.php';
 		require_once 'class-markup.php';
 		require_once 'class-builder.php';
 		require_once 'class-comment.php';
 		require_once 'class-activity.php';
-		require_once 'class-review-meta.php';
 		require_once 'class-comment-meta.php';
+		require_once 'class-listing-review-meta.php';
 
 		if ( is_admin() ) {
-			require_once 'class-metabox.php';
+			require_once 'class-admin.php';
 			require_once 'class-settings-screen.php';
 			require_once 'class-builder-screen.php';
 		}
@@ -36,10 +40,8 @@ class Bootstrap {
 
 	public static function hooks() {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ) );
-		add_action( 'add_meta_boxes', array( __CLASS__, 'rename_comment_metabox' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
-		add_filter( 'admin_comment_types_dropdown', array( __CLASS__, 'add_comment_types_in_dropdown' ) );
 	}
 
 	public static function add_comment_support( $args, $post_type ) {
@@ -52,23 +54,6 @@ class Bootstrap {
 		}
 
 		return $args;
-	}
-
-	public static function rename_comment_metabox() {
-		global $post;
-
-		// Comments/Reviews.
-		if ( isset( $post ) && ( 'publish' === $post->post_status || 'private' === $post->post_status ) && post_type_supports( ATBDP_POST_TYPE, 'comments' ) ) {
-			remove_meta_box( 'commentsdiv', ATBDP_POST_TYPE, 'normal' );
-			add_meta_box( 'commentsdiv', __( 'Reviews', 'directorist' ), 'post_comment_meta_box', ATBDP_POST_TYPE, 'normal' );
-		}
-	}
-
-	public static function add_comment_types_in_dropdown( $comment_types ) {
-		if ( ! isset( $comment_types['review'] ) ) {
-			$comment_types['review'] = __( 'Review', 'directorist' );
-		}
-		return $comment_types;
 	}
 
 	public static function enqueue_comment_scripts() {

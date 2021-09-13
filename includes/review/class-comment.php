@@ -72,12 +72,12 @@ class Comment {
 
 		try {
 			// Exit when review is disabled.
-			if ( ! \Directorist\Helper::is_review_enabled() ) {
+			if ( ! directorist_is_review_enabled() ) {
 				throw new Exception( __( '<strong>Error</strong>: Review is disabled.', 'directorist' ), 400 );
 			}
 
 			// Exit when guest review is disabled.
-			if ( ! is_user_logged_in() && get_directorist_option( 'guest_review', 0 ) ) {
+			if ( ! is_user_logged_in() && directorist_is_guest_review_enabled() ) {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 
@@ -87,10 +87,7 @@ class Comment {
 			if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
 				$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) ) {
 
-				$rating_is_missing = (
-					( $builder->is_rating_type_single() && empty( $_POST['rating'] ) ) ||
-					( $builder->is_rating_type_criteria() && count( array_filter( $_POST['rating'] ) ) < 1 )
-				);
+				$rating_is_missing = ( $builder->is_rating_type_single() && empty( $_POST['rating'] ) );
 
 				// Validate review is shared or not
 				if ( $rating_is_missing ) {
@@ -100,47 +97,13 @@ class Comment {
 				// Validate owner is sharing review or not
 				$post_author_id = (int) get_post_field( 'post_author', absint( $_POST['comment_post_ID'] ) );
 
-				if ( ! $rating_is_missing && ! get_directorist_option( 'enable_owner_review', true ) && $post_author_id === $comment_data['user_ID'] ) {
+				if ( ! $rating_is_missing && ! directorist_is_owner_review_enabled() && $post_author_id === $comment_data['user_ID'] ) {
 					$errors[] = __( '<strong>Error</strong>: You are not allowed to share review on your own listing.', 'directorist' );
 				}
 
 				// Validate if sharing multiple reviews
 				if ( ! $rating_is_missing && self::review_exists_by( $comment_data['user_ID'], absint( $_POST['comment_post_ID'] ) ) ) {
 					$errors[] = __( '<strong>Error</strong>: You already shared a review.', 'directorist' );
-				}
-
-				if ( count( $errors ) > 0 ) {
-					throw new Exception( implode( '<br>', $errors ), 400 );
-				}
-			}
-
-			if ( $builder->is_attachments_enabled() && $builder->is_attachments_required() && ! self::attachments_exists() ) {
-				throw new Exception( __( '<strong>Error</strong>: Attachment is missing! Please upload required attachments.', 'directorist' ), 400 );
-			}
-
-			if ( $builder->is_attachments_enabled() && self::attachments_exists() ) {
-				$size            = array_sum( $_FILES['review_attachments']['size'] );
-				$types           = $_FILES['review_attachments']['type'];
-				$allowed_size    = $builder->get_attachments_upload_size();
-				$max_number      = $builder->get_max_number_attachments();
-				$ignorable_types = array_diff( $types, $builder->get_accepted_attachments_types() );
-
-				$errors = array();
-
-				if ( count( $_FILES['review_attachments']['name'] ) > $max_number ) {
-					$errors[] = sprintf( __( '<strong>Error</strong>: Attachments limit exceeded, only %1$s is allowed.', 'directorist' ), $max_number );
-				}
-
-				if ( count( $ignorable_types ) > 0 ) {
-					$errors[] = __( '<strong>Error</strong>: Uploaded attachments contain unsupported file type.', 'directorist' );
-				}
-
-				if ( $size > $allowed_size ) {
-					$errors[] = sprintf(
-						__( '<strong>Error</strong>: Uploaded attachments size (%1$s) exceeds the limit (%2$s).', 'directorist' ),
-						size_format( $size, 2 ),
-						size_format( $allowed_size )
-					);
 				}
 
 				if ( count( $errors ) > 0 ) {
@@ -252,7 +215,7 @@ class Comment {
 
 		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
 			$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) &&
-			( ( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) || ( $builder->is_rating_type_criteria() && count( array_filter( $_POST['rating'] ) ) > 0 ) ) ) {
+			( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) ) {
 			$comment_data['comment_type'] = 'review';
 		}
 
@@ -277,11 +240,11 @@ class Comment {
 			return $approved;
 		}
 
-		if ( get_directorist_option( 'approve_immediately', 1 ) && $approved === 0 ) {
+		if ( directorist_is_immediate_review_approve_enabled() && $approved === 0 ) {
 			$approved = 1; // set to approved
 		}
 
-		if ( ! get_directorist_option( 'approve_immediately', 1 ) && $approved === 1 ) {
+		if ( ! directorist_is_immediate_review_approve_enabled() && $approved === 1 ) {
 			$approved = 0; // set to pending
 		}
 
@@ -306,7 +269,6 @@ class Comment {
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
 			self::post_rating( $comment_id, $comment_data );
-			self::post_attachments( $comment_id, $comment_data );
 
 			self::clear_transients( $post_id );
 		}
@@ -325,10 +287,9 @@ class Comment {
 	}
 
 	public static function maybe_clear_transients( $listing_id ) {
-		Review_Meta::update_rating_counts( $listing_id, self::get_rating_counts_for_listing( $listing_id ) );
-		Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
-		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
-		Review_Meta::update_criteria_rating( $listing_id, self::get_criteria_rating_for_listing( $listing_id ) );
+		Listing_Review_Meta::update_rating_counts( $listing_id, self::get_rating_counts_for_listing( $listing_id ) );
+		Listing_Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
+		Listing_Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 
 		do_action( 'directorist_review_maybe_clear_transients', $listing_id );
 	}
@@ -413,7 +374,7 @@ class Comment {
 	public static function get_average_rating_for_listing( $post_id ) {
 		global $wpdb;
 
-		$count = Review_Meta::get_review_count( $post_id );
+		$count = Listing_Review_Meta::get_review_count( $post_id );
 
 		if ( $count ) {
 			$ratings = $wpdb->get_var(
@@ -478,81 +439,15 @@ class Comment {
 		return $counts;
 	}
 
-	private static function get_criteria_rating_for_listing( $post_id ) {
-		$builder = Builder::get( $post_id );
-
-		if ( ! $builder->is_rating_type_criteria() ) {
-			return array();
-		}
-
-		global $wpdb;
-
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				"
-			SELECT meta_value FROM $wpdb->commentmeta
-			LEFT JOIN $wpdb->comments ON $wpdb->commentmeta.comment_id = $wpdb->comments.comment_ID
-			WHERE meta_key = 'criteria_rating'
-			AND comment_post_ID = %d
-			AND comment_approved = '1'
-			AND meta_value != ''
-				",
-				$post_id
-			)
-		);
-
-		if ( empty( $results ) ) {
-			return array();
-		}
-
-		$results = array_map( function( $row ) {
-			return maybe_unserialize( $row->meta_value );
-		}, $results );
-
-		$rating_map = array();
-
-		foreach ( $builder->get_rating_criteria() as $key => $v ) {
-			$criteria = array_column( $results, $key );
-
-			if ( $criteria ) {
-				$rating_map[ $key ] = number_format( array_sum( $criteria ) / count( $criteria ), 2, '.', '' );
-			}
-		}
-
-		return $rating_map;
-	}
-
 	public static function post_rating( $comment_id, $comment_data ) {
 		if ( $comment_data['comment_type'] !== 'review' || empty( $_POST['rating'] ) ) {
 			return;
 		}
 
 		$builder = Builder::get( $comment_data['comment_post_ID'] );
+		$rating  = 0;
 
-		$rating = 0;
-
-		if ( is_array( $_POST['rating'] ) && $builder->is_rating_type_criteria() ) {
-			$criteria_meta = array();
-
-			foreach( $builder->get_rating_criteria() as $key => $_v ) {
-				if ( empty( $_POST['rating'][ $key ] ) ) {
-					continue;
-				}
-
-				// Base max rating is "5" and min is "0", make sure given rating is not out of the range
-				$criteria_meta[ $key ] = max( 0, min( 5, intval( $_POST['rating'][ $key ] ) ) );
-			}
-
-			$total = array_sum( $criteria_meta );
-			$count = count( $criteria_meta );
-
-			if ( $count ) {
-				$rating = number_format( $total / $count, 2, '.', '' );
-				Comment_Meta::set_criteria_rating( $comment_id, $criteria_meta );
-			} else {
-				delete_comment_meta( $comment_id, 'criteria_rating' );
-			}
-		} else if ( is_array( $_POST['rating'] ) && $builder->is_rating_type_single() ) {
+		if ( is_array( $_POST['rating'] ) && $builder->is_rating_type_single() ) {
 			$rating = current( $_POST['rating'] );
 
 			// Base max rating is "5" and min is "0", make sure given rating is not out of the range
@@ -571,57 +466,8 @@ class Comment {
 		}
 	}
 
-	private static function attachments_exists() {
-		if ( ! isset( $_FILES['review_attachments'], $_FILES['review_attachments']['name'] ) ||
-			empty( $_FILES['review_attachments']['name'] ) ||
-			count( array_filter( $_FILES['review_attachments']['name'] ) ) < 1 ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	private static function get_attachment_storable_path_only( $image_url ) {
-		$dir = wp_get_upload_dir();
-		return str_replace( $dir['basedir'] . '/', '', $image_url );
-	}
-
-	private static function post_attachments( $comment_id, $comment_data ) {
-		$post_id = $comment_data['comment_post_ID'];
-		$builder = Builder::get( $post_id );
-
-		if ( ! $builder->is_attachments_enabled() || ! self::attachments_exists() ) {
-			return;
-		}
-
-		$length = count( $_FILES['review_attachments']['name'] );
-		$images = array();
-
-		for ( $i = 0; $i < $length; $i++ ) {
-			$data = wp_upload_bits(
-				$_FILES['review_attachments']['name'][ $i ],
-				null,
-				file_get_contents( $_FILES['review_attachments']['tmp_name'][ $i ] )
-			);
-
-			if ( ! $data['error'] ) {
-				$images[] = self::get_attachment_storable_path_only( $data['file'] );
-			}
-		}
-
-		if ( ! empty( $images ) ) {
-			Comment_Meta::set_attachments( $comment_id, $images );
-		}
-	}
-
 	public static function get_rating( $comment_id ) {
 		return (float) Comment_Meta::get_rating( $comment_id, 0 );
-	}
-
-	public static function get_criteria_rating( $comment_id ) {
-		$rating = Comment_Meta::get_criteria_rating( $comment_id, array() );
-
-		return ( ! empty( $rating ) && is_array( $rating ) ) ? array_map( 'intval', $rating ) : array();
 	}
 }
 

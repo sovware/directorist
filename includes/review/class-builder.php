@@ -1,14 +1,15 @@
 <?php
 /**
- * Comment from builder class.
+ * Review form builder data class.
  *
  * @package Directorist\Review
- *
  * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Builder {
 
@@ -44,75 +45,6 @@ class Builder {
 
 	public function is_rating_type_single() {
 		return $this->get_field( 'rating_type', 'single' ) === 'single';
-	}
-
-	public function is_rating_type_criteria() {
-		return ( $this->get_rating_type() === 'multiple' && count( $this->get_rating_criteria() ) > 0 );
-	}
-
-	/**
-	 * Get the list of criteria.
-	 *
-	 * @return array
-	 */
-	public function get_rating_criteria() {
-		$criteria = array();
-
-		if ( ! empty( $this->get_field( 'rating_criteria', '' ) ) ) {
-			$lines = array_filter( explode( PHP_EOL, $this->get_field( 'rating_criteria', '' ) ) );
-
-			if ( ! empty( $lines ) ) {
-				foreach ( $lines as $line ) {
-					if ( strpos( $line, '|' ) === false ) {
-						continue;
-					}
-
-					list( $key, $label ) = explode( '|', $line, 2 );
-					$key   = sanitize_key( trim( $key ) );
-					$label = strip_tags( trim( $label ) );
-
-					if ( empty( $key ) || empty( $label ) ) {
-						continue;
-					}
-
-					$criteria[ $key ] = $label;
-				}
-			}
-		}
-
-		return $criteria;
-	}
-
-	public function is_attachments_enabled() {
-		return $this->get_field( 'enable_attachments', false );
-	}
-
-	public function is_attachments_required() {
-		return $this->get_field( 'attachments_required', false );
-	}
-
-	public function get_max_number_attachments() {
-		return absint( $this->get_field( 'max_attachments', 3 ) );
-	}
-
-	/**
-	 * Get the supported media mime types.
-	 *
-	 * @return array
-	 */
-	public function get_accepted_attachments_types() {
-		return array(
-			'image/jpeg',
-			'image/jpg',
-			'image/png',
-		);
-	}
-
-	public function get_attachments_upload_size() {
-		$size  = absint( $this->get_field( 'attachments_size', 2 ) );
-		$size .= 'MB';
-
-		return min( wp_convert_hr_to_bytes( WP_MEMORY_LIMIT ), wp_convert_hr_to_bytes( $size ) );
 	}
 
 	public function get_name_label( $default = '' ) {

@@ -3,20 +3,21 @@
  * Comment email manager class.
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Email {
 
 	public static function init() {
-		add_action( 'comment_post', array( __CLASS__, 'notify_owner' ) );
-		add_action( 'comment_post', array( __CLASS__, 'notify_admin' ) );
+		add_action( 'comment_post', [ __CLASS__, 'notify_owner' ] );
+		add_action( 'comment_post', [ __CLASS__, 'notify_admin' ] );
 
-		add_action( 'comment_post', array( __CLASS__, 'maybe_disable_default_email' ), 0 );
+		add_action( 'comment_post', [ __CLASS__, 'maybe_disable_default_email' ], 0 );
 	}
 
 	public static function maybe_disable_default_email() {

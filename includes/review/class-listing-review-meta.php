@@ -1,22 +1,21 @@
 <?php
 /**
- * Advance review class
+ * Listing review data class.
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-class Review_Meta {
+class Listing_Review_Meta {
 
 	const FIELD_RATING_COUNTS = '_directorist_listing_rating_counts';
 
 	const FIELD_AVG_RATING = '_directorist_listing_rating';
-
-	const FIELD_AVG_CRITERIA_RATING = '_directorist_listing_criteria_rating';
 
 	const FIELD_REVIEW_COUNT = '_directorist_listing_review_count';
 
@@ -36,14 +35,6 @@ class Review_Meta {
 
 	public static function update_rating( $listing_id, $rating ) {
 		update_post_meta( $listing_id, self::FIELD_AVG_RATING, $rating );
-	}
-
-	public static function get_criteria_rating( $listing_id ) {
-		return get_post_meta( $listing_id, self::FIELD_AVG_CRITERIA_RATING, true );
-	}
-
-	public static function update_criteria_rating( $listing_id, $criteria_rating ) {
-		update_post_meta( $listing_id, self::FIELD_AVG_CRITERIA_RATING, $criteria_rating );
 	}
 
 	public static function get_review_count( $listing_id ) {

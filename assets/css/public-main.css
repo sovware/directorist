@@ -9474,6 +9474,9 @@ p.atbd-min {
     width: 100%;
   }
 }
+.directorist-authors__pagination {
+  margin-top: 25px;
+}
 
 .select2-selection__arrow,
 .select2-selection__clear {

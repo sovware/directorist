@@ -382,7 +382,7 @@ class Listings_Controller extends Posts_Controller {
 	 *
 	 * @return array
 	 */
-	protected function get_taxonomy_terms( $post_id, $taxonomy = 'cat' ) {
+	protected function get_taxonomy_terms( $post_id, $taxonomy = '' ) {
 		$terms = array();
 
 		foreach ( directorist_get_object_terms( $post_id, $taxonomy ) as $term ) {
@@ -391,6 +391,10 @@ class Listings_Controller extends Posts_Controller {
 				'name' => $term->name,
 				'slug' => $term->slug,
 			);
+
+			if ( $taxonomy === ATBDP_CATEGORY ) {
+				$terms['icon'] = get_term_meta( $term->term_id, 'category_icon', true );
+			}
 		}
 
 		return $terms;
@@ -906,6 +910,12 @@ class Listings_Controller extends Posts_Controller {
 							),
 							'slug' => array(
 								'description' => __( 'Category slug.', 'directorist' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'icon' => array(
+								'description' => __( 'Category icon.', 'directorist' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,

@@ -316,8 +316,6 @@ function initSelect2() {
   }, {
     elm: $('#directorist-search-category-js')
   }, {
-    elm: $('#directorist-search-select-js')
-  }, {
     elm: $('#directorist-select-st-s-js')
   }, {
     elm: $('#directorist-select-sn-s-js')

@@ -355,34 +355,35 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.0.5.4 – Sep 8, 2021
+7.0.5.4 – Sep 13, 2021
 
-Fix - Search widget compatibility issue with directory builder
-Fix - HTML 5 validation issue in add listing form (location, category, tag)
-Fix - Single Listing custom page
-Fix - Elementor’s deprecated method
-Fix - PHP notice in some pages
-Fix - BuddyBoss theme menu compatibility issue
-Fix - Duplicate HTML ID issue
-Fix - Select2 issue on add listing page
-Fix - tagDiv page builder single template override issue
-Fix - Listing type nav responsive issue
-Fix - Category, Location, and Tag importing issues
-Fix - Console error when image uploader has invalid data
-Fix - Icon issue in all listings page for logged out user
-Fix - Extra padding in add listing OpenStreetMap geo suggestions
-Fix - Extra padding in single listing map info window
-Fix - Extra padding on uploader file in add listing form
-Fix - Custom field’s “See More” link
-Fix - Review placeholder issue in the search form
-Tweak - Single listing social share open in a new tab
-Tweak - Profile update notification hide automatically after few seconds 
-Improve - WP Query
-Improve - Member subscription page
-Improve - Extensions compatibility
-Improve - Google map view
-Update - Appsero client lib
-Remove - Builder data sanitization option
+* Fix - Search widget compatibility issue with directory builder
+* Fix - HTML 5 validation issue in add listing form (location, category, tag)
+* Fix - Single Listing custom page
+* Fix - Select custom field issue in search listing form
+* Fix - Elementor’s deprecated method
+* Fix - PHP notice in some pages
+* Fix - BuddyBoss theme menu compatibility issue
+* Fix - Duplicate HTML ID issue
+* Fix - Select2 issue on add listing page
+* Fix - tagDiv page builder single template override issue
+* Fix - Listing type nav responsive issue
+* Fix - Category, Location, and Tag importing issues
+* Fix - Console error when image uploader has invalid data
+* Fix - Icon issue in all listings page for logged out user
+* Fix - Extra padding in add listing OpenStreetMap geo suggestions
+* Fix - Extra padding in single listing map info window
+* Fix - Extra padding on uploader file in add listing form
+* Fix - Custom field’s “See More” link
+* Fix - Review placeholder issue in the search form
+* Tweak - Single listing social share open in a new tab
+* Tweak - Profile update notification hide automatically after few seconds 
+* Improve - WP Query
+* Improve - Member subscription page
+* Improve - Extensions compatibility
+* Improve - Google map view
+* Update - Appsero client lib
+* Remove - Builder data sanitization option
 
 7.0.5.3 – Aug 12, 2021
 

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 
-	<div class="directorist-select" id="directorist-search-select-js">
+	<div class="directorist-select">
 
 		<select name='custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 

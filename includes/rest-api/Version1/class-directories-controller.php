@@ -18,7 +18,7 @@ use WP_Error;
  * @package Directorist\Rest_Api
  * @extends Directorist\Rest_Api\Controllers\Version1\Terms_Controller
  */
-class Directory_Types_Controller extends Terms_Controller {
+class Directories_Controller extends Terms_Controller {
 
 	/**
 	 * Route base.

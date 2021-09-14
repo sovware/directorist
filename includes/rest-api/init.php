@@ -15,6 +15,13 @@ function register_controllers() {
 	// Base controller.
 	require_once $dir . 'Version1/class-abstract-controller.php';
 
+	// Listings
+	require_once $dir . 'Version1/class-abstract-posts-controller.php';
+	require_once $dir . 'Version1/class-listings-controller.php';
+
+	$listings = new \Directorist\Rest_Api\Controllers\Version1\Listings_Controller();
+	$listings->register_routes();
+
 	// Taxonomies controllers.
 	require_once $dir . 'Version1/class-abstract-terms-controller.php';
 	require_once $dir . 'Version1/class-categories-controller.php';
@@ -37,16 +44,9 @@ function register_controllers() {
 	$users->register_routes();
 
 	// Directory types
-	require_once $dir . 'Version1/class-directory-types-controller.php';
+	require_once $dir . 'Version1/class-directories-controller.php';
 
-	$directories = new \Directorist\Rest_Api\Controllers\Version1\Directory_Types_Controller();
+	$directories = new \Directorist\Rest_Api\Controllers\Version1\Directories_Controller();
 	$directories->register_routes();
-
-	// Listings
-	require_once $dir . 'Version1/class-abstract-posts-controller.php';
-	require_once $dir . 'Version1/class-listings-controller.php';
-
-	$listings = new \Directorist\Rest_Api\Controllers\Version1\Listings_Controller();
-	$listings->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

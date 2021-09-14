@@ -124,6 +124,7 @@
           var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
           events.forEach(function (event) {
             document.body.dispatchEvent(event);
+            window.dispatchEvent(event);
           });
         }
 

@@ -37,8 +37,9 @@
                         new CustomEvent('directorist-reload-map-api-field'),
                     ];
 
-                    events.forEach( event => {
-                        document.body.dispatchEvent( event );
+                    events.forEach(event => {
+                        document.body.dispatchEvent(event);
+                        window.dispatchEvent(event);
                     });
                 }
 
@@ -151,22 +152,22 @@
                     { input_id: 'address_widget', lat_id: 'cityLat', lng_id: 'cityLng', options },
                 ];
 
-                var setupAutocomplete = function( field ) {
-                    const input = document.getElementById( field.input_id );
-                    const autocomplete = new google.maps.places.Autocomplete( input, field.options );
+                var setupAutocomplete = function (field) {
+                    const input = document.getElementById(field.input_id);
+                    const autocomplete = new google.maps.places.Autocomplete(input, field.options);
 
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         const place = autocomplete.getPlace();
 
-                        console.log( { place } );
+                        console.log({ place });
 
-                        document.getElementById( field.lat_id ).value = place.geometry.location.lat();
-                        document.getElementById( field.lng_id ).value = place.geometry.location.lng();
+                        document.getElementById(field.lat_id).value = place.geometry.location.lat();
+                        document.getElementById(field.lng_id).value = place.geometry.location.lng();
                     });
                 };
 
-                input_fields.forEach( field => {
-                    setupAutocomplete( field );
+                input_fields.forEach(field => {
+                    setupAutocomplete(field);
                 });
             }
 
@@ -174,12 +175,12 @@
 
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
 
-            const getResultContainer = function ( context, field ) {
-                return $( context ).next( field.search_result_elm );
+            const getResultContainer = function (context, field) {
+                return $(context).next(field.search_result_elm);
             };
 
-            const getWidgetResultContainer = function ( context, field ) {
-                return $( context ).parent().next( field.search_result_elm );
+            const getWidgetResultContainer = function (context, field) {
+                return $(context).parent().next(field.search_result_elm);
             };
 
             let input_fields = [
@@ -189,18 +190,18 @@
                 { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer: getWidgetResultContainer },
             ];
 
-            input_fields.forEach( field => {
+            input_fields.forEach(field => {
 
-                if ( ! $( field.input_elm ).length ) { return; }
+                if (!$(field.input_elm).length) { return; }
 
-                $( field.input_elm ).on( 'keyup', function( event ) {
+                $(field.input_elm).on('keyup', function (event) {
                     event.preventDefault();
                     const search = $(this).val();
 
-                    let result_container = field.getResultContainer( this, field );
+                    let result_container = field.getResultContainer(this, field);
                     result_container.css({ display: 'block' });
 
-                    if ( search === '' ) {
+                    if (search === '') {
                         result_container.css({ display: 'none' });
                     }
 
@@ -217,7 +218,7 @@
 
                             result_container.html(`<ul>${res}</ul>`);
 
-                            if ( res.length ) {
+                            if (res.length) {
                                 result_container.show();
                             } else {
                                 result_container.hide();
@@ -238,33 +239,33 @@
                 }
             });
 
-            const syncLatLngData = function( context, event, args ) {
+            const syncLatLngData = function (context, event, args) {
                 event.preventDefault();
 
-                const text = $( context ).text();
-                const lat = $( context ).data('lat');
-                const lon = $( context ).data('lon');
+                const text = $(context).text();
+                const lat = $(context).data('lat');
+                const lon = $(context).data('lon');
 
                 $('#cityLat').val(lat);
                 $('#cityLng').val(lon);
 
-                const inp = $( context )
-                    .closest( args.result_list_container )
+                const inp = $(context)
+                    .closest(args.result_list_container)
                     .parent()
                     .find('#address, #address_widget, #q_addressss, .atbdp-search-address');
 
                 inp.val(text);
 
-                $( args.result_list_container ).hide();
+                $(args.result_list_container).hide();
             };
 
 
-            $('body').on('click', '.address_result ul li a', function ( event ) {
-                syncLatLngData( this, event , { result_list_container: '.address_result' } );
+            $('body').on('click', '.address_result ul li a', function (event) {
+                syncLatLngData(this, event, { result_list_container: '.address_result' });
             });
 
-            $('body').on('click', '#address_widget_result ul li a', function ( event ) {
-                syncLatLngData( this, event, { result_list_container: '#address_widget_result' } );
+            $('body').on('click', '#address_widget_result ul li a', function (event) {
+                syncLatLngData(this, event, { result_list_container: '#address_widget_result' });
             });
         }
 

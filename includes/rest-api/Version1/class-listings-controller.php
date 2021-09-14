@@ -410,6 +410,11 @@ class Listings_Controller extends Posts_Controller {
 		// Add featured image.
 		if ( has_post_thumbnail( $listing ) ) {
 			$attachment_ids[] = get_post_thumbnail_id( $listing );
+		} else {
+			$thumbnail_id = get_post_meta( $listing->ID, '_listing_prv_img', true );
+			if ( ! empty( $thumbnail_id ) ) {
+				$attachment_ids[] = (int) $thumbnail_id;
+			}
 		}
 
 		// Add gallery images.

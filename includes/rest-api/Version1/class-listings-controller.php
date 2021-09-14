@@ -386,15 +386,17 @@ class Listings_Controller extends Posts_Controller {
 		$terms = array();
 
 		foreach ( directorist_get_object_terms( $post_id, $taxonomy ) as $term ) {
-			$terms[] = array(
+			$_term = array(
 				'id'   => $term->term_id,
 				'name' => $term->name,
 				'slug' => $term->slug,
 			);
 
 			if ( $taxonomy === ATBDP_CATEGORY ) {
-				$terms['icon'] = get_term_meta( $term->term_id, 'category_icon', true );
+				$_term['icon'] = get_term_meta( $term->term_id, 'category_icon', true );
 			}
+
+			$terms[] = $_term;
 		}
 
 		return $terms;

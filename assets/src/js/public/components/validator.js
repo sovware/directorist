@@ -14,6 +14,13 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    const addListingForm = document.getElementById('directorist-add-listing-form');
+    addListingForm.addEventListener('submit', function(){
+        if(addListingForm.querySelector('input').hasAttribute('required')){
+            alert('sdfgsdf');
+        }
+    })
+
     // @kowsar @todo rebuild validation
     /*
     $('.directorist-form-submit__btn').on('click', function (e) {

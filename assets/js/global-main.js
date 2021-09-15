@@ -197,7 +197,7 @@ function selec2_add_custom_dropdown_toggle_button() {
 function selec2_add_custom_close_button_if_needed() {
   var select2_fields = $('.select2-hidden-accessible');
 
-  if (!select2_fields.length) {
+  if (!select2_fields && !select2_fields.length) {
     return;
   }
 
@@ -209,7 +209,7 @@ function selec2_add_custom_close_button_if_needed() {
       var field = _step.value;
       var value = $(field).children("option:selected").val();
 
-      if (!value.length) {
+      if (!value && !value.length) {
         continue;
       }
 
@@ -315,8 +315,6 @@ function initSelect2() {
     elm: $('#directorist-select-js')
   }, {
     elm: $('#directorist-search-category-js')
-  }, {
-    elm: $('#directorist-search-select-js')
   }, {
     elm: $('#directorist-select-st-s-js')
   }, {

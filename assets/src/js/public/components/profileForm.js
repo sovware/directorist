@@ -84,6 +84,10 @@
                 console.log(response);
             }
         });
+        // remove notice after five second
+        setTimeout(() => {
+            $("#directorist-prifile-notice .directorist-alert").remove();
+        }, 5000);
 
         // prevent the from submitting
         return false;

@@ -347,13 +347,14 @@
             margin-top: 16px;
 
             ul {
-                list-style: none;
+                list-style-type: none;
                 padding: 0;
                 margin: 0;
 
                 li {
                     color: $body-color;
                     margin: 0;
+                    list-style: none;
 
                     &:not(:last-child) {
                         margin: 0 0 10px;

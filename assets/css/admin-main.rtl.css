@@ -5439,11 +5439,14 @@ img.atbdp-file-info {
 .directorist-address-field #result ul,
 .directorist-form-address-field #result ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 .directorist-address-field #result ul li,
 .directorist-form-address-field #result ul li {
   margin-bottom: 0;
   border-bottom: 1px solid #eee;
+  list-style: none;
 }
 .directorist-address-field #result ul li a,
 .directorist-form-address-field #result ul li a {
@@ -5568,12 +5571,6 @@ p.status:empty {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {
@@ -7498,6 +7495,18 @@ body.stop-scrolling {
   margin: 2px;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {
@@ -9295,12 +9304,6 @@ for shortable field*/
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {
@@ -12482,12 +12485,6 @@ input[type=radio] {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {
@@ -15674,12 +15671,6 @@ input[type=radio] {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-.directorist-content-active a,
-.directorist-content-active span {
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 .cptm-shortcodes {

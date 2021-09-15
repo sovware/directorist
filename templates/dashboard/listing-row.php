@@ -86,11 +86,10 @@ if ( $query->have_posts() ) {
 		</tr>
 		<?php
 	}
+	wp_reset_postdata();
 }
 else {
 	?>
 	<tr><td colspan="5"><?php esc_html_e( 'No items found', 'directorist' ); ?></td></tr>
 	<?php
 }
-
-wp_reset_postdata();

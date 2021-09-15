@@ -12,7 +12,6 @@ function initSelect2() {
         { elm: $('.directorist-select').find( 'select' ) },
         { elm: $('#directorist-select-js') },
         { elm: $('#directorist-search-category-js') },
-        { elm: $('#directorist-search-select-js') },
         { elm: $('#directorist-select-st-s-js') },
         { elm: $('#directorist-select-sn-s-js') },
         { elm: $('#directorist-select-mn-e-js') },

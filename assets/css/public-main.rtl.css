@@ -2855,6 +2855,13 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
+.directorist-add-listing-form .directorist-alert-required,
+#directiost-listing-fields_wrapper .directorist-alert-required {
+  display: block;
+  margin-top: 5px;
+  color: #E80000;
+  font-size: 13px;
+}
 
 /* ==========================
     add listing form fields
@@ -7154,6 +7161,9 @@ p.atbd-min {
 }
 .directorist-alert.directorist-alert-success .directorist-alert__close {
   color: #009114;
+}
+.directorist-alert--sm {
+  padding: 10px 20px;
 }
 
 .alert-danger {
@@ -13338,9 +13348,41 @@ p.atbd-min {
 .directorist-payment-gateways {
   background: #fff;
 }
+.directorist-payment-gateways ul {
+  margin: 0;
+  padding: 0;
+}
+.directorist-payment-gateways ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.directorist-payment-gateways ul li .gateway_list {
+  margin-bottom: 10px;
+}
 
 .directorist-payment-action {
-  text-align: left;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -7px;
+}
+.directorist-payment-action .directorist-btn {
+  margin: 7px;
+  max-width: none;
+  width: auto;
 }
 
 .atbd_payment_recipt .atbd_payment_summary {

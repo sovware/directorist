@@ -9,8 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $p_id                	= $listing_form->get_add_listing_id();
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );
-
-
 $maximum                = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
 $unlimited              = !empty( $data['unlimited'] ) ? $data['unlimited'] : '';
 $limit					= $unlimited ? '0' : $maximum;

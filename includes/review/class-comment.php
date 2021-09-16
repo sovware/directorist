@@ -77,7 +77,7 @@ class Comment {
 			}
 
 			// Exit when guest review is disabled.
-			if ( ! is_user_logged_in() && directorist_is_guest_review_enabled() ) {
+			if ( is_user_logged_in() || ( ! is_user_logged_in() && ! directorist_is_guest_review_enabled() ) ) {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 

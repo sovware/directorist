@@ -247,16 +247,7 @@
         if(rangeValue !== null){
             rangeValue.textContent = "0";
         }
-
-        let directoristSelect = adsForm.querySelectorAll('.directorist-select:not(.directorist-search-category)');
-        if(directoristSelect !== null){
-            directoristSelect.forEach(function(el, id) {
-                el.querySelector('.directorist-select__label').innerText = "";
-            })
-        }
-
-
-
+        $("select").val('').trigger('change');
     }
     if($(".directorist-search-form #atbdp_reset") !== null){
         $("body").on("click", ".directorist-search-form #atbdp_reset", function (e) {

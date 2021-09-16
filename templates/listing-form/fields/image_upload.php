@@ -11,9 +11,9 @@ $p_id                	= $listing_form->get_add_listing_id();
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );
 
 
-$limit                  = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
+$maximum                = !empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
 $unlimited              = !empty( $data['unlimited'] ) ? $data['unlimited'] : '';
-$limit					= $unlimited ? '0' : $limit;
+$limit					= $unlimited ? '0' : $maximum;
 $max_file_size          = $data['max_per_image_limit'];
 $max_total_file_size    = $data['max_total_image_limit'];
 $max_file_size_kb       = (float) $max_file_size * 1024;//
@@ -26,7 +26,7 @@ $required               = $data['required'] ? '1' : '';
 	<div id="_listing_gallery" 
 		class="ez-media-uploader" 
 		data-type="jpg, jpeg, png, gif" 
-		data-max-file-items="<?php echo '0'; ?>"
+		data-max-file-items="<?php echo esc_attr( $limit ); ?>"
         data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
         data-min-file-items="<?php echo esc_attr( $required ); ?>"
         data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>"

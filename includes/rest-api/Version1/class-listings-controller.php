@@ -587,6 +587,15 @@ class Listings_Controller extends Posts_Controller {
 				case 'status':
 					$base_data['status'] = $listing->post_status;
 					break;
+				case 'reviews_allowed':
+					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
+					break;
+				case 'average_rating':
+					$base_data['average_rating'] = ATBDP()->review->get_average( $listing->ID );
+					break;
+				case 'rating_count':
+					$base_data['rating_count'] = ATBDP()->review->db->count( array( 'post_id' => $listing->ID ) );
+					break;
 				case 'categories':
 					$base_data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
 					break;

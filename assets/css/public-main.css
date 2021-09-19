@@ -8371,7 +8371,8 @@ p.atbd-min {
 .directorist-form-group .form-group label {
   min-width: 150px;
 }
-.directorist-form-group .form-group .check-btn {
+
+.check-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8380,17 +8381,17 @@ p.atbd-min {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.directorist-form-group .form-group .check-btn .btn-checkbox {
+.check-btn .btn-checkbox {
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
 }
-.directorist-form-group .form-group .check-btn label {
+.check-btn label {
   width: 100%;
   margin: 0;
   position: relative;
 }
-.directorist-form-group .form-group .check-btn label input {
+.check-btn label input {
   position: absolute;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -8400,22 +8401,22 @@ p.atbd-min {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  outline: 0;
+  outline: 0 !important;
   border: 0 none;
   background: transparent !important;
 }
-.directorist-form-group .form-group .check-btn label input:checked + span {
+.check-btn label input:checked + span {
   background-color: #444752;
   border-color: #444752;
   color: #fff;
 }
-.directorist-form-group .form-group .check-btn label input:checked + span i {
+.check-btn label input:checked + span i {
   color: #fff;
 }
-.directorist-form-group .form-group .check-btn label input:before {
+.check-btn label input:before, .check-btn label input:after {
   display: none;
 }
-.directorist-form-group .form-group .check-btn label span {
+.check-btn label span {
   text-align: center;
   display: -webkit-box;
   display: -webkit-flex;
@@ -8437,8 +8438,9 @@ p.atbd-min {
   border: 1px solid #ececec;
   border-radius: 4px;
   color: #767792;
+  cursor: pointer;
 }
-.directorist-form-group .form-group .check-btn label span i {
+.check-btn label span i {
   font-size: 15px;
   color: #7a82a6;
   margin-right: 5px;
@@ -13033,6 +13035,9 @@ p.atbd-min {
 .directorist-search-form-wrap.directorist-with-search-border .directorist-search-form-top {
   border: 1px solid #ECECEC;
 }
+.directorist-search-form-wrap.directorist-with-search-border .directorist-search-form-top .open_now > label {
+  display: none;
+}
 .directorist-search-form-wrap .directorist-search-form-box {
   position: relative;
 }
@@ -13136,7 +13141,8 @@ p.atbd-min {
           flex-wrap: wrap;
   margin: -5px 0;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field,
+.directorist-search-contents .directorist-search-form-top .open_now {
   -webkit-box-flex: 1;
   -webkit-flex: auto;
       -ms-flex: auto;
@@ -13154,23 +13160,29 @@ p.atbd-min {
   margin: 5px 0;
   padding-bottom: 0;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field:not(:last-child) {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field:not(:last-child),
+.directorist-search-contents .directorist-search-form-top .open_now:not(:last-child) {
   border-right: 1px solid #eff1f6;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-form-element {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-form-element,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-form-element {
   border: 0 none;
   background-color: transparent;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-select .directorist-select__label {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-select .directorist-select__label,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-select .directorist-select__label {
   border: 0 none;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field > label {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field > label,
+.directorist-search-contents .directorist-search-form-top .open_now > label {
   display: none;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .wp-picker-container .wp-picker-input-wrap label {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .wp-picker-container .wp-picker-input-wrap label,
+.directorist-search-contents .directorist-search-form-top .open_now .wp-picker-container .wp-picker-input-wrap label {
   display: none;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-search-tags {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-search-tags,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-search-tags {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -13178,14 +13190,17 @@ p.atbd-min {
           flex-direction: column;
   padding: 10px 15px;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-search-tags .directorist-checkbox {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-search-tags .directorist-checkbox,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-search-tags .directorist-checkbox {
   margin-bottom: 10px;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-range-slider-wrap {
   padding: 10px 15px;
   min-width: 220px;
 }
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-btn-ml {
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-btn-ml,
+.directorist-search-contents .directorist-search-form-top .open_now .directorist-btn-ml {
   font-size: 14px;
   color: #7a82a6;
   text-decoration: none;

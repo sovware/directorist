@@ -29,6 +29,11 @@
     &.directorist-with-search-border {
         .directorist-search-form-top {
             border: 1px solid #ECECEC;
+            .open_now{
+                &>label{
+                    display: none;
+                }
+            }
         }
     }
 
@@ -141,7 +146,8 @@
         flex-wrap: wrap;
         margin: -5px 0;
 
-        .directorist-search-field {
+        .directorist-search-field,
+        .open_now {
             flex: auto;
             flex-direction: column;
             align-items: flex-start;
@@ -198,7 +204,7 @@
         .directorist-search-form-action {
             display: flex;
             align-items: center;
-            
+
             @media only screen and (max-width: 375px) {
                 flex-direction: column;
             }

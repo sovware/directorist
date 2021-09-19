@@ -8,7 +8,7 @@ var atbd_slider = (selector, obj) => {
         move 		= 'mousemove',
 
         div = `
-            <div class="atbd-slide1" draggable="true"></div>	
+            <div class="atbd-slide1" draggable="true"></div>
             <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
             <div class="atbd-child"></div>
 		`;

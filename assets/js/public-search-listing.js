@@ -286,8 +286,8 @@
   });
   /* advanced search form reset */
 
-  function adsFormReset() {
-    var adsForm = document.querySelector(".directorist-search-form");
+  function adsFormReset(selector) {
+    var adsForm = document.querySelector(selector);
 
     if (!adsForm) {
       adsForm = document.querySelector(".directorist-advanced-filter__form");
@@ -327,19 +327,18 @@
       irisPicker.click();
     }
 
+    $("select").val('').trigger('change');
     var rangeValue = adsForm.querySelector(".atbd-current-value span");
 
     if (rangeValue !== null) {
-      rangeValue.textContent = "0";
+      rangeValue.innerHTML = "0";
     }
-
-    $("select").val('').trigger('change');
   }
 
   if ($(".directorist-search-form #atbdp_reset") !== null) {
     $("body").on("click", ".directorist-search-form #atbdp_reset", function (e) {
       e.preventDefault();
-      adsFormReset();
+      adsFormReset('.directorist-search-form');
       atbd_callingSlider(0);
     });
   }
@@ -347,7 +346,7 @@
   if ($(".directorist-advanced-filter__form #atbdp_reset") !== null) {
     $(".directorist-advanced-filter__form #atbdp_reset").on("click", function (e) {
       e.preventDefault();
-      adsFormReset();
+      adsFormReset('.directorist-search-form');
       atbd_callingSlider(0);
     });
   }
@@ -355,7 +354,15 @@
   if ($("#bdlm-search-area #atbdp_reset") !== null) {
     $("#bdlm-search-area #atbdp_reset").on("click", function (e) {
       e.preventDefault();
-      adsFormReset();
+      adsFormReset('.directorist-search-form');
+      atbd_callingSlider(0);
+    });
+  }
+
+  if ($(".atbd_widget .search-area #atbdp_reset") !== null) {
+    $(".atbd_widget .search-area #atbdp_reset").on("click", function (e) {
+      e.preventDefault();
+      adsFormReset('.widget .search-area');
       atbd_callingSlider(0);
     });
   }

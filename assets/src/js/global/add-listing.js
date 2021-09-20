@@ -1,3 +1,4 @@
+import './../public/components/validator';
 /* eslint-disable */
 const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;

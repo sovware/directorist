@@ -33,8 +33,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'admin_menu', [$this, 'admin_menu'], 100 );
 
             if( ! empty( $_GET['page'] ) && ( 'atbdp-extension' === $_GET['page'] ) ){
-                add_action( 'init', [$this, 'initial_setup'] );
-                add_action( 'init', [$this, 'get_the_product_list'] );
+                add_action( 'admin_init', [$this, 'initial_setup'] );
+                add_action( 'admin_init', [$this, 'get_the_product_list'] );
             }
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', [$this, 'authenticate_the_customer'] );

@@ -203,7 +203,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public function get_the_product_list() {
 
 
-            $url     = 'https://directorist.com/wp-json/directorist/v1/directorist-get-remote-products';
+            $url     = 'https://directorist.com/wp-json/directorist/v1/get-remote-products';
             $headers = [
                 'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
                 'Accept'     => 'application/json',

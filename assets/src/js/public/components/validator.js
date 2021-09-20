@@ -49,7 +49,6 @@ jQuery(document).ready(function ($) {
                 if($(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').length === 0){
                     $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
                 }
-
             }
         })
 
@@ -66,8 +65,7 @@ jQuery(document).ready(function ($) {
     /* Toggle required notification in Input fields */
     addListingInputs.forEach((elm, ind) =>{
         elm.addEventListener('keydown', ()=>{
-            console.log(elm.value.length);
-            if(elm.hasAttribute('required') && elm.value.length >= 0){
+            if(elm.hasAttribute('required')){
                 $(elm).siblings('.directorist-alert-required').remove();
             }
         })
@@ -80,18 +78,27 @@ jQuery(document).ready(function ($) {
         })
     })
 
-    /* Toggle required notification in color fields */
+    /* Toggle required notification in Color fields */
     addListingInputColor.forEach((elm, ind) =>{
         elm.addEventListener('keydown', ()=>{
-            if($(elm).attr('required') && $(elm).val() !== ''){
+            if(elm.hasAttribute('required')){
                 $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').remove();
             }
         })
-        /* elm.addEventListener('reset keyup', ()=>{
+        $(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder').find('.iris-square, .ui-slider, .iris-palette-container a').on('click', function(){
+            $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').remove();
+        })
+
+        elm.addEventListener('keyup', ()=>{
             if(elm.hasAttribute('required') && elm.value === ""){
                 $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
             }
-        }) */
+        })
+        $(elm).closest('.wp-picker-input-wrap').find('.wp-picker-clear').on('click', function(){
+            if($(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').length === 0){
+                $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
+            }
+        })
     })
 
     /* Toggle required notification in Input=date/time Fields */

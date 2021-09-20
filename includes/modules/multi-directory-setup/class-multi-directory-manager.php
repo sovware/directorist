@@ -610,8 +610,8 @@ class Multi_Directory_Manager
                                 'type'   => 'hidden',
                                 'value'  => 'pricing',
                                 'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
+                                    'unique'    => true,
+                                    'required'  => false,
                                 ]
                             ],
                             'label' => [

@@ -4765,7 +4765,7 @@ class Multi_Directory_Manager
 
             ],
             'search_forms' => [
-                'label' => __( 'Search Forms', 'directorist' ),
+                'label' => __( 'Search Form', 'directorist' ),
                 'icon' => '<span class="uil uil-search"></span>',
                 'container' => 'wide',
                 'sections' => [

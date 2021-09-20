@@ -550,6 +550,10 @@ p.status:empty {
   color: #fff;
 }
 
+div#wp-listing_content-wrap .mce-widget button {
+  background: transparent;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

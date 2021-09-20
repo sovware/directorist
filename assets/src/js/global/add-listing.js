@@ -591,6 +591,7 @@ $('body').on('submit', formID, function (e) {
 
             if (response.error === true) {
                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
+
                 $('.directorist-form-submit__btn').removeClass('atbd_loading');
                 on_processing = false;
 

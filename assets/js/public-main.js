@@ -939,10 +939,18 @@ atbdSelectData.forEach(function (el) {
 
   var addListingForm = document.getElementById('directorist-add-listing-form');
   var addListingBtn = document.querySelector('.directorist-form-submit__btn');
-  var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element)'); //let addListingSelects = addListingForm.querySelectorAll('select');
+  var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element)');
+  var addListingSelect2 = addListingForm.querySelectorAll('.directorist-form-element--select2');
+  var addListingInputDateTime = addListingForm.querySelectorAll('.directorist-form-element[type="date"], .directorist-form-element[type="time"]');
 
   if (typeof addListingForm != 'undefined' && addListingForm != 'null') {
     document.querySelector('html').style.scrollBehavior = "smooth";
+  }
+  /* Insert alert after select2 element */
+
+
+  function insertAfterSelect2(elm) {
+    $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).siblings('.select2-container'));
   }
 
   function formValidate() {
@@ -958,18 +966,55 @@ atbdSelectData.forEach(function (el) {
         }
       }
     });
-    /* addListingSelects.forEach((elm, ind) =>{
-        if(elm.hasAttribute('required') && elm.value === ''){
-            if($(elm).siblings('.directorist-alert-required').length === 0){
-                $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);
-            }
+    addListingSelect2.forEach(function (elm, ind) {
+      if (elm.hasAttribute('required') && elm.value === '') {
+        if ($(elm).siblings('.directorist-alert-required').length === 0) {
+          insertAfterSelect2(elm);
         }
-    }) */
+      }
+    });
   }
+  /* Remove alert on keydown */
+
+
+  function removeAlertOnKeyDown(selector) {
+    selector.forEach(function (elm, ind) {
+      elm.addEventListener('keydown', function () {
+        $(elm).siblings('.directorist-alert-required').remove();
+      });
+    });
+  } //removeAlertOnKeyDown(addListingInputs);
+
+  /* Input=text validation */
+
 
   addListingInputs.forEach(function (elm, ind) {
     elm.addEventListener('keydown', function () {
       $(elm).siblings('.directorist-alert-required').remove();
+    });
+    elm.addEventListener('keyup', function () {
+      if ($(elm).val() === "") {
+        $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);
+      }
+    });
+  });
+  /* Input=date/time validation */
+
+  addListingInputDateTime.forEach(function (elm, id) {
+    elm.addEventListener('change', function () {
+      $(elm).siblings('.directorist-alert-required').remove();
+    });
+  });
+  /* Select2 validation */
+
+  $(".directorist-form-element--select2").each(function (id, elm) {
+    $(elm).on('select2:select', function () {
+      $(elm).siblings('.directorist-alert-required').remove();
+    });
+    $(elm).on('select2:unselect', function () {
+      if ($(this).select2('data').length === 0) {
+        insertAfterSelect2(elm);
+      }
     });
   });
   addListingBtn.addEventListener('click', formValidate);

@@ -12,7 +12,6 @@
  */
 
 // Exit if accessed directly
-
 if ( ! defined( 'ABSPATH' ) ) {
     die( 'Direct access is not allowed.' );
 }
@@ -167,7 +166,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $match_found = false;
 
             $active_plugins = get_option( 'active_plugins', array() );
-            
+
             if ( empty( $plugin_name ) ) {
                 return false;
             }
@@ -229,7 +228,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     $this->extensions = apply_filters( 'atbdp_extension_list', $extensions );
                     $this->themes = apply_filters( 'atbdp_theme_list', $themes );
                 }
-                
+
             } catch ( Exception $e ) {
 
             }
@@ -599,7 +598,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $theme_item = $themes_available_in_subscriptions_keys[$theme_stylesheet];
                 $url        = self::get_file_download_link( $theme_item, 'theme' );
                 $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
-                
+
                 $download_status = $this->download_theme( ['url' => $url] );
 
                 if ( ! $download_status['success'] ) {
@@ -1808,7 +1807,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Check form theme update
             $current_theme   = wp_get_theme();
             $has_update_link = get_theme_update_available( $current_theme->stylesheet );
-            
+
             $active_theme_info = [
                 'name'            => $current_active_theme->name,
                 'version'         => $current_active_theme->version,
@@ -1948,7 +1947,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 } else {
                     $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
                 }
-                
+
             } catch ( Exception $e ) {
                 $status['success'] = false;
                 $status['message'] = $e->getMessage();
@@ -1957,7 +1956,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             if ( is_array( $response_body ) ) {
                 $status = array_merge(  $status, $response_body );
             }
-            
+
             if ( empty( $response_body['success'] ) ) {
                 $status['success'] = false;
             }

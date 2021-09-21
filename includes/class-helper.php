@@ -344,7 +344,7 @@ class Helper {
 		
 		$value = 'tel:';
 
-		if( ! empty( $data['whatsapp'] ) ){
+		if( ! empty( $data['form_field']['whatsapp'] ) ){
 			$value = 'https://api.whatsapp.com/send?phone=';
 		}
 

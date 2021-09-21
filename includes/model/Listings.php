@@ -1782,7 +1782,10 @@ class Directorist_Listings {
 					$load_template = false;
 				}
 
-				$label = !empty( $field['show_label'] ) ? $field['label']: '';
+				$label 		= !empty( $field['show_label'] ) ? $field['label']: '';
+				$form_key 	= isset( $field['original_widget_key'] ) ? $field['original_widget_key'] : '';
+				$form_field = !empty( $submission_form_fields['fields'][$form_key] ) ? $submission_form_fields['fields'][$form_key] : '';
+
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
@@ -1791,6 +1794,7 @@ class Directorist_Listings {
 					'label'    => $label,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 					'original_field' => $submission_form_fields,
+					'form_field' => $form_field,
 				);
 
 				$widget_name = $field['widget_name'];

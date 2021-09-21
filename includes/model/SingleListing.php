@@ -85,7 +85,7 @@ class Directorist_Single_Listing {
 				unset( $single_fields['fields'][$key]['widget_key'] );
 				unset( $single_fields['fields'][$key]['original_widget_key'] );
 
-				// Added field_key, label, widget_group from submission form
+				// Added form_field, field_key, label, widget_group from submission form
 				if ( $form_key ) {
 					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
 						$single_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
@@ -101,6 +101,10 @@ class Directorist_Single_Listing {
 
 					if( !empty( $submission_form_fields['fields'][$form_key]['widget_group'] ) ) {
 						$single_fields['fields'][$key]['widget_group'] = $submission_form_fields['fields'][$form_key]['widget_group'];
+					}
+
+					if( !empty( $submission_form_fields['fields'][$form_key] ) ) {
+						$single_fields['fields'][$key]['form_field'] = $submission_form_fields['fields'][$form_key];
 					}
 				}
 			}

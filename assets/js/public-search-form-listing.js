@@ -117,10 +117,20 @@
       data: form_data,
       success: function success(response) {
         if (response) {
-          var _atbdp_search_listing = response['atbdp_search_listing'] ? response['atbdp_search_listing'] : _atbdp_search_listing;
+          var content_area = $('.directorist-search-contents');
+          var new_inserted_elm = '<div class="directorist_search_temp"><div>';
+          $(content_area).before(new_inserted_elm).remove();
+          $('.directorist_search_temp').after(response['search_form']).remove();
+          $(".search_listing_types").each(function () {
+            var type = $(this).attr('data-listing_type');
 
-          $('.directorist-search-form-box').empty().html(response['search_form']);
-          $('.directorist-listing-category-top').empty().html(response['popular_categories']);
+            if (listing_type === type) {
+              $(this).addClass('directorist-listing-type-selection__link--current');
+              $('#listing_type').val(listing_type);
+            } else {
+              $(this).removeClass('directorist-listing-type-selection__link--current');
+            }
+          });
           var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
           events.forEach(function (event) {
             document.body.dispatchEvent(event);

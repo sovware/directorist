@@ -953,8 +953,11 @@ jQuery(document).ready(function ($) {
   }
 
   function formValidate() {
-    //Validate input fields
+    var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)'); //Validate input fields
+
     addListingInputs.forEach(function (elm, ind) {
+      console.log(elm);
+
       if (elm.hasAttribute('required') && elm.value === '') {
         if ($(elm).siblings('.directorist-alert-required').length === 0) {
           $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);

@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
     =================================== */
     const addListingForm = document.getElementById('directorist-add-listing-form');
     const addListingBtn = document.querySelector('.directorist-form-submit__btn');
-    let addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)');
+    var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)');
     let addListingInputColor = addListingForm.querySelectorAll('.directorist-color-field-js');
     let addListingSelect2 = addListingForm.querySelectorAll('.directorist-form-element--select2');
     let addListingInputDateTime = addListingForm.querySelectorAll('.directorist-form-element[type="date"], .directorist-form-element[type="time"]')
@@ -34,8 +34,10 @@ jQuery(document).ready(function ($) {
 
 
     function formValidate() {
+        var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)');
         //Validate input fields
         addListingInputs.forEach((elm, ind) =>{
+            console.log(elm);
             if(elm.hasAttribute('required') && elm.value === ''){
                 if($(elm).siblings('.directorist-alert-required').length === 0){
                     $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);

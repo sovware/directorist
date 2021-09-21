@@ -259,7 +259,10 @@ final class Directorist_Base
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			new ATBDP_Extensions();
+			
+			if( is_admin() ){
+				new ATBDP_Extensions();
+			}
 			/*Initiate Review and Rating Features*/
 			self::$instance->review = new ATBDP_Review_Rating;
 			//activate rewrite api

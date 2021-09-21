@@ -1146,8 +1146,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Link with WhatsApp', 'directorist' ),
                                 'value' => false,
                             ],
-
-
                         ],
                     ],
 
@@ -1192,7 +1190,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Link with WhatsApp', 'directorist' ),
                                 'value' => false,
                             ],
-
                         ],
                     ],
 
@@ -2308,7 +2305,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Icon', 'directorist' ),
                                 'value' => 'la la-phone',
                             ],
-                            
                         ]
                     ],
                     'phone2' => [
@@ -2318,7 +2314,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Icon', 'directorist' ),
                                 'value' => 'la la-phone',
                             ],
-                            
                         ]
                     ],
                     'fax' => [
@@ -3325,7 +3320,6 @@ class Multi_Directory_Manager
                             'label' => __( "Show Label", "directorist" ),
                             'value' => false,
                         ],
-                        
                     ],
                 ],
             ],
@@ -3354,7 +3348,6 @@ class Multi_Directory_Manager
                             'label' => __( "Show Label", "directorist" ),
                             'value' => false,
                         ],
-                        
                     ],
                 ],
             ],

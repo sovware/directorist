@@ -2299,6 +2299,11 @@ class Multi_Directory_Manager
                                 'label' => __( 'Icon', 'directorist' ),
                                 'value' => 'la la-phone',
                             ],
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
+                            ],
                         ]
                     ],
                     'phone2' => [
@@ -2307,6 +2312,11 @@ class Multi_Directory_Manager
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
                                 'value' => 'la la-phone',
+                            ],
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
                             ],
                         ]
                     ],
@@ -3314,6 +3324,11 @@ class Multi_Directory_Manager
                             'label' => __( "Show Label", "directorist" ),
                             'value' => false,
                         ],
+                        'whatsapp' => [
+                            'type'  => 'toggle',
+                            'label' => __( 'Link with WhatsApp', 'directorist' ),
+                            'value' => false,
+                        ],
                     ],
                 ],
             ],
@@ -3340,6 +3355,11 @@ class Multi_Directory_Manager
                         'show_label' => [
                             'type' => "toggle",
                             'label' => __( "Show Label", "directorist" ),
+                            'value' => false,
+                        ],
+                        'whatsapp' => [
+                            'type'  => 'toggle',
+                            'label' => __( 'Link with WhatsApp', 'directorist' ),
                             'value' => false,
                         ],
                     ],

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.0.6
  */
 
 use \Directorist\Helper;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 	
 	<div class="directorist-single-info__value">
-		<a href="tel:<?php Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a>
+		<a href="<?php Helper::phone_linked_with( $data ) . Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a>
 	</div>
 	
 </div>

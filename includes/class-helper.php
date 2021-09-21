@@ -340,6 +340,22 @@ class Helper {
 		}
 	}
 
+	public static function phone_linked_with( $data = '', $echo = true ) {
+		
+		$value = 'tel:';
+
+		if( ! empty( $data['whatsapp'] ) ){
+			$value = 'https://api.whatsapp.com/send?phone=';
+		}
+
+		if ( ! $echo ) {
+			return $value;
+		}
+		else {
+			echo $value;
+		}
+	}
+
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 

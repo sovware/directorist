@@ -3,41 +3,41 @@
  * Advance review comment class
  *
  * @package Directorist\Review
- *
- * @since 7.x
+ * @since 7.0.6
  */
 namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
 use Exception;
+use Directorist\Review\Listing_Review_Meta as Review_Meta;
 
 class Comment {
 
 	public static function init() {
 		// Rating posts.
-		add_filter( 'comments_open', array( __CLASS__, 'comments_open' ), 10, 2 );
-		add_filter( 'preprocess_comment', array( __CLASS__, 'validate_comment_data' ), 0 );
-		add_action( 'comment_post', array( __CLASS__, 'on_comment_post' ) , 10, 3 );
+		add_filter( 'comments_open', [ __CLASS__, 'comments_open' ], 10, 2 );
+		add_filter( 'preprocess_comment', [ __CLASS__, 'validate_comment_data' ], 0 );
+		add_action( 'comment_post', [ __CLASS__, 'on_comment_post' ], 10, 3 );
 
 		// Support avatars for `review` comment type.
-		add_filter( 'get_avatar_comment_types', array( __CLASS__, 'set_avater_comment_types' ) );
+		add_filter( 'get_avatar_comment_types', [ __CLASS__, 'set_avater_comment_types' ] );
 
 		// Clear transients.
-		add_action( 'wp_update_comment_count', array( __CLASS__, 'clear_transients' ) );
+		add_action( 'wp_update_comment_count', [ __CLASS__, 'clear_transients'] );
 
 		// Set comment type.
-		add_filter( 'preprocess_comment', array( __CLASS__, 'update_comment_data' ), 1 );
+		add_filter( 'preprocess_comment', [ __CLASS__, 'preprocess_comment_data' ], 1 );
 
 		// Set comment approval
-		add_filter( 'pre_comment_approved', array( __CLASS__, 'set_comment_status' ), 10, 2 );
+		add_filter( 'pre_comment_approved', [ __CLASS__, 'set_comment_status' ], 10, 2 );
 
 		// Count comments.
-		add_filter( 'wp_count_comments', array( __CLASS__, 'wp_count_comments' ), 10, 2 );
+		add_filter( 'wp_count_comments', [ __CLASS__, 'wp_count_comments' ], 10, 2 );
 
 		// Delete comments count cache whenever there is a new comment or a comment status changes.
-		add_action( 'wp_insert_comment', array( __CLASS__, 'delete_comments_count_cache' ) );
-		add_action( 'wp_set_comment_status', array( __CLASS__, 'delete_comments_count_cache' ) );
+		add_action( 'wp_insert_comment', [ __CLASS__, 'delete_comments_count_cache' ] );
+		add_action( 'wp_set_comment_status', [ __CLASS__, 'delete_comments_count_cache' ] );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Comment {
 			}
 		}
 
-		return apply_filters( 'directorist_review_comments_open', $open, $post_id );
+		return apply_filters( 'directorist/review/comments_open', $open, $post_id );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Comment {
 				}
 			}
 
-			do_action( 'directorist_review_validate_comment_data', $comment_data );
+			do_action( 'directorist/review/validate_comment_data', $comment_data );
 		} catch( Exception $e ) {
 			wp_die( $e->getMessage(), $e->getCode() );
 			exit;
@@ -133,7 +133,6 @@ class Comment {
 	/**
 	 * Remove order notes and webhook delivery logs from wp_count_comments().
 	 *
-	 * @since  2.2
 	 * @param  object $stats   Comment stats.
 	 * @param  int    $post_id Post ID.
 	 * @return object
@@ -206,7 +205,7 @@ class Comment {
 		return array_merge( $comment_types, array( 'review' ) );
 	}
 
-	public static function update_comment_data( $comment_data ) {
+	public static function preprocess_comment_data( $comment_data ) {
 		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
 			return $comment_data;
 		}
@@ -219,7 +218,7 @@ class Comment {
 			$comment_data['comment_type'] = 'review';
 		}
 
-		$comment_data = apply_filters( 'directorist_review_preprocess_comment_data', $comment_data );
+		$comment_data = apply_filters( 'directorist/review/preprocess_comment_data', $comment_data );
 
 		return $comment_data;
 	}
@@ -268,8 +267,9 @@ class Comment {
 		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0; // WPCS: input var ok, CSRF ok.
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
-			self::post_rating( $comment_id, $comment_data );
+			do_action( 'directorist/review/save_comment' );
 
+			self::post_rating( $comment_id, $comment_data );
 			self::clear_transients( $post_id );
 		}
 	}
@@ -287,11 +287,11 @@ class Comment {
 	}
 
 	public static function maybe_clear_transients( $listing_id ) {
-		Listing_Review_Meta::update_rating_counts( $listing_id, self::get_rating_counts_for_listing( $listing_id ) );
-		Listing_Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
-		Listing_Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
+		Review_Meta::update_rating_counts( $listing_id, self::get_rating_counts_for_listing( $listing_id ) );
+		Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
+		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 
-		do_action( 'directorist_review_maybe_clear_transients', $listing_id );
+		do_action( 'directorist/review/maybe_clear_transients', $listing_id );
 	}
 
 	/**
@@ -374,7 +374,7 @@ class Comment {
 	public static function get_average_rating_for_listing( $post_id ) {
 		global $wpdb;
 
-		$count = Listing_Review_Meta::get_review_count( $post_id );
+		$count = Review_Meta::get_review_count( $post_id );
 
 		if ( $count ) {
 			$ratings = $wpdb->get_var(
@@ -390,6 +390,7 @@ class Comment {
 					$post_id
 				)
 			);
+
 			$average = number_format( $ratings / $count, 2, '.', '' );
 		} else {
 			$average = 0;

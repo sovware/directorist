@@ -24,3 +24,7 @@ function directorist_is_owner_review_enabled() {
 function directorist_is_immediate_review_approve_enabled() {
 	return get_directorist_option( 'approve_immediately', 1 );
 }
+
+function directorist_get_review_per_page() {
+	return get_directorist_option( 'review_num', 5 );
+}

@@ -42,6 +42,14 @@ class Bootstrap {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
+
+		add_filter( 'option_comments_per_page', function( $pre ) {
+			if ( is_single( ATBDP_POST_TYPE ) ) {
+				return $pre;
+			}
+
+			return 1;
+		} );
 	}
 
 	public static function add_comment_support( $args, $post_type ) {

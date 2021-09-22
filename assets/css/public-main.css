@@ -3140,6 +3140,25 @@ body.stop-scrolling {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.directorist-add-listing-form__action .directorist-checkbox {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-add-listing-form__action .directorist-checkbox .directorist-form-required {
+  line-height: 1;
+}
+.directorist-add-listing-form__action .directorist-checkbox .directorist-alert-required {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  text-align: center;
+}
 .directorist-add-listing-form__action .directorist-form-submit {
   margin-top: 15px;
 }
@@ -3289,7 +3308,7 @@ body.stop-scrolling {
 }
 
 .directorist-form-privacy {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .directorist-form-privacy,

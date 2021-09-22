@@ -282,6 +282,22 @@ $('#at_biz_dir-categories').on('change', function () {
             }
             atbdp_tooltip();
             customFieldSeeMore();
+
+            setTimeout(() => {
+                document.querySelectorAll('.iris-picker .iris-square, .wp-picker-holder .ui-slider, .wp-picker-holder .iris-palette-container a').forEach(elm =>{
+                    elm.addEventListener('click', ()=>{
+                        $(elm).closest('.wp-picker-holder').siblings('.directorist-alert-required').remove();
+                    })
+                })
+
+                document.querySelectorAll('.wp-picker-input-wrap .wp-picker-clear').forEach(elm =>{
+                    elm.addEventListener('click', ()=>{
+                        if($(elm).siblings('label').children('input').attr('required') && $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').length === 0){
+                            $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
+                        }
+                    })
+                })
+            }, 1000);
         } else {
             $('.atbdp_category_custom_fields').empty();
         }

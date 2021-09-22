@@ -377,6 +377,20 @@ $('#at_biz_dir-categories').on('change', function () {
 
       atbdp_tooltip();
       customFieldSeeMore();
+      setTimeout(function () {
+        document.querySelectorAll('.iris-picker .iris-square, .wp-picker-holder .ui-slider, .wp-picker-holder .iris-palette-container a').forEach(function (elm) {
+          elm.addEventListener('click', function () {
+            $(elm).closest('.wp-picker-holder').siblings('.directorist-alert-required').remove();
+          });
+        });
+        document.querySelectorAll('.wp-picker-input-wrap .wp-picker-clear').forEach(function (elm) {
+          elm.addEventListener('click', function () {
+            if ($(elm).siblings('label').children('input').attr('required') && $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').length === 0) {
+              $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
+            }
+          });
+        });
+      }, 1000);
     } else {
       $('.atbdp_category_custom_fields').empty();
     }
@@ -921,15 +935,6 @@ jQuery(document).ready(function ($) {
       scrollTop: $(top).offset().top
     }, 1000);
   }
-  /* need_post = false;
-  if ($("input[name='need_post']").length > 0) {
-      $("input[name='need_post']").on('change', function () {
-          if ('yes' === this.value) {
-              need_post = true;
-          }
-      });
-  } */
-
   /* ================================
       * Add listing form validation
   =================================== */
@@ -937,10 +942,7 @@ jQuery(document).ready(function ($) {
 
   var addListingForm = document.getElementById('directorist-add-listing-form');
   var addListingBtn = document.querySelector('.directorist-form-submit__btn');
-  var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)');
-  var addListingInputColor = addListingForm.querySelectorAll('.directorist-color-field-js');
   var addListingSelect2 = addListingForm.querySelectorAll('.directorist-form-element--select2');
-  var addListingInputDateTime = addListingForm.querySelectorAll('.directorist-form-element[type="date"], .directorist-form-element[type="time"]');
 
   if (typeof addListingForm != 'undefined' && addListingForm != 'null') {
     document.querySelector('html').style.scrollBehavior = "smooth";
@@ -951,13 +953,28 @@ jQuery(document).ready(function ($) {
   function insertAfterSelect2(elm) {
     $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).siblings('.select2-container'));
   }
+  /* Event delegation */
+
+
+  function eventDelegation(event, selector, program) {
+    console.log(selector);
+    document.body.addEventListener(event, function (e) {
+      document.querySelectorAll(selector).forEach(function (elem) {
+        if (e.target === elem) {
+          program(e);
+        }
+      });
+    });
+  }
+  /* Form validate function */
+
 
   function formValidate() {
-    var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)'); //Validate input fields
+    var addListingInputs = addListingForm.querySelectorAll('.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)');
+    var addListingInputColor = addListingForm.querySelectorAll('.directorist-color-field-js');
+    var formActionCheckboxes = addListingForm.querySelectorAll('.directorist-add-listing-form__action input[type="checkbox"]'); //Validate input fields
 
     addListingInputs.forEach(function (elm, ind) {
-      console.log(elm);
-
       if (elm.hasAttribute('required') && elm.value === '') {
         if ($(elm).siblings('.directorist-alert-required').length === 0) {
           $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);
@@ -979,65 +996,70 @@ jQuery(document).ready(function ($) {
           insertAfterSelect2(elm);
         }
       }
+    }); //form action checkbox validation
+
+    formActionCheckboxes.forEach(function (elm) {
+      if (elm.hasAttribute('required') && !elm.checked) {
+        if ($(elm).siblings('.directorist-alert-required').length === 0) {
+          $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).siblings('.directorist-form-required'));
+        }
+      }
     });
   }
   /* Toggle required notification in Input fields */
 
 
-  addListingInputs.forEach(function (elm, ind) {
-    elm.addEventListener('keydown', function () {
-      if (elm.hasAttribute('required')) {
-        $(elm).siblings('.directorist-alert-required').remove();
+  eventDelegation('keydown', '.directorist-form-element:not(select.directorist-form-element--select2):not(.directorist-color-field-js)', function (e) {
+    if (e.target.hasAttribute('required')) {
+      $(e.target).siblings('.directorist-alert-required').remove();
+    }
+  });
+  eventDelegation('keyup', '.directorist-form-element:not(select.directorist-form-element):not(.directorist-color-field-js)', function (e) {
+    if (e.target.hasAttribute('required') && e.target.value === "") {
+      if ($(e.target).siblings('.directorist-alert-required').length === 0) {
+        $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(e.target));
       }
-    });
-    elm.addEventListener('keyup', function () {
-      if (elm.hasAttribute('required') && elm.value === "") {
-        if ($(elm).siblings('.directorist-alert-required').length === 0) {
-          $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter(elm);
-        }
-      }
-    });
+    }
   });
   /* Toggle required notification in Color fields */
 
-  addListingInputColor.forEach(function (elm, ind) {
-    elm.addEventListener('keydown', function () {
-      if (elm.hasAttribute('required')) {
-        $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').remove();
-      }
-    });
-    $(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder').find('.iris-square, .ui-slider, .iris-palette-container a').on('click', function () {
-      $(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').remove();
-    });
-    elm.addEventListener('keyup', function () {
-      if (elm.hasAttribute('required') && elm.value === "") {
-        $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
-      }
-    });
-    $(elm).closest('.wp-picker-input-wrap').find('.wp-picker-clear').on('click', function () {
-      if ($(elm).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').length === 0) {
-        $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(elm).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
-      }
-    });
+  eventDelegation('keydown', '.directorist-color-field-js', function (e) {
+    if (e.target.hasAttribute('required')) {
+      $(e.target).closest('.wp-picker-input-wrap').siblings('.directorist-alert-required').remove();
+    }
+  });
+  eventDelegation('keyup', '.directorist-color-field-js', function (e) {
+    if (e.target.hasAttribute('required') && e.target.value === "") {
+      $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(e.target).closest('.wp-picker-input-wrap').siblings('.wp-picker-holder'));
+    }
   });
   /* Toggle required notification in Input=date/time Fields */
 
-  addListingInputDateTime.forEach(function (elm, id) {
-    elm.addEventListener('change', function () {
-      $(elm).siblings('.directorist-alert-required').remove();
-    });
+  eventDelegation('change', '.directorist-form-element[type="date"]', function (e) {
+    $(e.target).siblings('.directorist-alert-required').remove();
   });
   /* Toggle required notification in Select2 fields */
 
   $(".directorist-form-element--select2").each(function (id, elm) {
-    $(elm).on('select2:select', function () {
-      $(elm).siblings('.directorist-alert-required').remove();
-    });
-    $(elm).on('select2:unselect', function () {
-      if ($(this).select2('data').length === 0) {
-        insertAfterSelect2(elm);
-      }
-    });
+    if ($(elm).attr('required')) {
+      $(elm).on('select2:select', function () {
+        $(elm).siblings('.directorist-alert-required').remove();
+      });
+      $(elm).on('select2:unselect', function () {
+        if ($(this).select2('data').length === 0) {
+          insertAfterSelect2(elm);
+        }
+      });
+    }
+  });
+  /* Toggle required notification in form action checkboxes */
+
+  eventDelegation('change', '.directorist-add-listing-form__action input[type="checkbox"]', function (e) {
+    if (e.target.checked) {
+      $(e.target).siblings('.directorist-alert-required').remove();
+    } else if (e.target.hasAttribute('required') && !e.target.checked) {
+      $('<span class="directorist-alert-required">This Field is Required</span>').insertAfter($(e.target).siblings('.directorist-form-required'));
+    }
   });
   addListingBtn.addEventListener('click', formValidate);
 });

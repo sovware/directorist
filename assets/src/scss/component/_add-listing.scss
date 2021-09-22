@@ -306,6 +306,18 @@
   align-items: center;
   justify-content: center;
 
+  .directorist-checkbox{
+    flex-wrap: wrap;
+    justify-content: center;
+    .directorist-form-required{
+      line-height: 1;
+    }
+    .directorist-alert-required{
+      flex: 0 0 100%;
+      text-align: center;
+    }
+  }
+
   .directorist-form-submit {
     margin-top: 15px;
 
@@ -450,7 +462,7 @@
 }
 
 .directorist-form-privacy {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .directorist-form-privacy,

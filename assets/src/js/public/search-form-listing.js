@@ -47,6 +47,7 @@
                     ];
 
                     events.forEach( event => {
+                        window.dispatchEvent( event );
                         document.body.dispatchEvent( event );
                     });
                 }

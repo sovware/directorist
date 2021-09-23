@@ -378,10 +378,10 @@ class Directorist_Listings {
 
 	public function get_review_data() {
 		// Review
-		$average           = ATBDP()->review->get_average(get_the_ID());
+		$average           = \Directorist\Review\Listing_Review_Meta::get_rating( get_the_ID() );
 		$average           = (int) $average;
 		$average_with_zero = number_format( $average, 1 );
-		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
+		$reviews_count     = \Directorist\Review\Listing_Review_Meta::get_review_count( get_the_ID() );
 		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
 
 		// Icons

@@ -652,11 +652,15 @@ class Directorist_Single_Listing {
 	}
 
 	public function get_review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		// TODO: remove the following line
+		// return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return \Directorist\Review\Listing_Review_Meta::get_review_count( $this->id );
 	}
 
 	public function get_rating_count() {
-		return ATBDP()->review->get_average( $this->id );
+		// TODO: remove the following line
+		// return ATBDP()->review->get_average( $this->id );
+		return \Directorist\Review\Listing_Review_Meta::get_rating( $this->id );
 	}
 
 	public function submit_link() {

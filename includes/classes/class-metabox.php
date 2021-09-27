@@ -268,6 +268,7 @@ class ATBDP_Metabox {
 	 */
 	public function post_submitbox_meta($post)
 	{
+
 		if(ATBDP_POST_TYPE !=$post->post_type) return; // vail if it is not our post type
 		// show expiration date and featured listing.
 		$directory_type         = default_directory_type();
@@ -287,7 +288,10 @@ class ATBDP_Metabox {
 		$default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
-		ATBDP()->load_template('admin-templates/listing-form/expiration-featured-fields', array('data'=> $data));
+		
+		if( apply_filters( 'directorist_before_featured_expire_metabox', true, $post ) ){
+			ATBDP()->load_template('admin-templates/listing-form/expiration-featured-fields', array('data'=> $data));
+		}
 	}
 
 	/**

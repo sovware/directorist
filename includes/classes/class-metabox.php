@@ -395,38 +395,15 @@ class ATBDP_Metabox {
 
 		// let's check is listing need to update
 		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
-			// check is plans module active
-			if (is_fee_manager_active()){
-				$package_id = 'null' != $_POST['admin_plan'] ? esc_attr($_POST['admin_plan']):'';
-				if (!empty($package_id)){
-					$package_length = get_post_meta($package_id, 'fm_length', true);
-					// Current time
-					// Calculate new date
-					$date = new DateTime($current_d);
-					$date->add(new DateInterval("P{$package_length}D")); // set the interval in days
-					$expired_date = $date->format('Y-m-d H:i:s');
-					$is_never_expaired = get_post_meta($package_id, 'fm_length_unl', true);
-					if (($expired_date > $current_d) || !empty($is_never_expaired)) {
-						wp_update_post( array(
-							'ID'           => $post_id,
-							'post_status' => $post_status, // update the status to private so that we do not run this func a second time
-							'meta_input' => array(
-								'_listing_status' => 'post_status',
-							), // insert all meta data once to reduce update meta query
-						) );
-					}
-				}
-			}else{
-				// no plans extension active so update the listing status if admin manually change the listing expire date
-				if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
-					wp_update_post( array(
-						'ID'           => $post_id,
-						'post_status' => $post_status, // update the status to private so that we do not run this func a second time
-						'meta_input' => array(
-							'_listing_status' => 'post_status',
-						), // insert all meta data once to reduce update meta query
-					) );
-				}
+			
+			if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
+				wp_update_post( array(
+					'ID'           => $post_id,
+					'post_status' => $post_status, // update the status to private so that we do not run this func a second time
+					'meta_input' => array(
+						'_listing_status' => 'post_status',
+					), // insert all meta data once to reduce update meta query
+				) );
 			}
 		}
 

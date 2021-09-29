@@ -108,6 +108,14 @@
     var form_data = new FormData();
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
+    var atts = $(this).closest('.directorist-search-contents').next('.shortcode-atts-directorist_search_listing');
+    var atts_decoded = {};
+
+    if (atts.length) {
+      atts_decoded = btoa($(atts).html());
+    }
+
+    form_data.append('atts', atts_decoded);
     $('.directorist-search-form-box').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',

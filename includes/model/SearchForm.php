@@ -503,6 +503,10 @@ class Directorist_Listing_Search_Form {
 		printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
 	}
 
+	public function get_atts_data() {
+		return json_encode( $this->params );
+	}
+
 	public function render_search_shortcode( $atts = [] ) {
 
 		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
@@ -519,14 +523,8 @@ class Directorist_Listing_Search_Form {
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
-		
-		$this->attach_atts();
 
 		return ob_get_clean();
-	}
-
-	public function attach_atts() {
-		echo "<div style='display: none' class='directorist-shortcode-atts shortcode-atts-directorist_search_listing'>". json_encode( $this->params ) ."</div>";
 	}
 
 	public function search_listing_scripts_styles() {

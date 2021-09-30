@@ -249,12 +249,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type    = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
             // search form
             ob_start();
+
             ?>
 				<div class="<?php echo esc_attr( $class ); ?>">
                     <?php

@@ -279,6 +279,13 @@
             atbd_callingSlider(0);
         })
     }
+    if($("#directorist-search-area-form #atbdp_reset") !== null){
+        $("#directorist-search-area-form #atbdp_reset").on("click", function (e) {
+            e.preventDefault();
+            adsFormReset('#directorist-search-area-form');
+            atbd_callingSlider(0);
+        })
+    }
 
 
 })(jQuery);

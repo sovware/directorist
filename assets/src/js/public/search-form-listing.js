@@ -1,18 +1,17 @@
 (function ($) {
     $('body').on('click', '.search_listing_types', function (event) {
         event.preventDefault();
+        let _this = $(this);
         const listing_type = $(this).attr('data-listing_type');
-        const type_current = $('.directorist-listing-type-selection__link--current');
-        if (type_current.length) {
-            type_current.removeClass('directorist-listing-type-selection__link--current');
-        }
-        $('#listing_type').val(listing_type);
+        console.log(_this.parent().siblings());
+        _this.parent('.directorist-listing-type-selection__item').siblings().children('.search_listing_types').removeClass('directorist-listing-type-selection__link--current');
+        _this.parent().parents('.directorist-search-form').find('.listing_type').val(listing_type);
         $(this).addClass('directorist-listing-type-selection__link--current');
         const form_data = new FormData();
 
         form_data.append('action', 'atbdp_listing_types_form');
         form_data.append('listing_type', listing_type);
-        $('.directorist-search-form-box').addClass('atbdp-form-fade');
+        _this.parent().parents('.directorist-search-form').find('.directorist-search-form-box').addClass('atbdp-form-fade');
 
         $.ajax({
             method: 'POST',
@@ -24,10 +23,10 @@
                 if (response) {
                     let atbdp_search_listing = (response['atbdp_search_listing']) ? response['atbdp_search_listing'] : atbdp_search_listing;
 
-                    $('.directorist-search-form-box')
+                    _this.parent().parents('.directorist-search-form').find('.directorist-search-form-box')
                         .empty()
                         .html(response['search_form']);
-                    $('.directorist-listing-category-top')
+                        _this.parent().parents('.directorist-search-form').siblings('.directorist-listing-category-top')
                         .empty()
                         .html(response['popular_categories']);
 
@@ -42,7 +41,7 @@
                     });
                 }
 
-                $('.directorist-search-form-box').removeClass('atbdp-form-fade');
+                _this.parent().parents('.directorist-search-form').find('.directorist-search-form-box').removeClass('atbdp-form-fade');
                 atbd_callingSlider();
             },
             error(error) {

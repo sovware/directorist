@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php if ( $searchform->search_bar_sub_title ): ?>
 					<p class="directorist-search-top__subtitle"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
 				<?php endif; ?>
-				
+
 			</div>
 
 		<?php endif; ?>
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<?php $searchform->directory_type_nav_template(); ?>
 
-				<input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
+				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
 				<div class="directorist-search-form-box">
 
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php do_action('directorist_search_listing_after_search_bar'); ?>
 
 		<?php $searchform->top_categories_template(); ?>
-		
+
 	</div>
-	
+
 </div>

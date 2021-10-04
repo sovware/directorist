@@ -251,15 +251,15 @@
             rangeValue.innerHTML = "0";
         }
     }
-    if($(".directorist-search-form #atbdp_reset") !== null){
-        $("body").on("click", ".directorist-search-form #atbdp_reset", function (e) {
+    if($(".directorist-search-form .directorist-btn-reset-js") !== null){
+        $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
             e.preventDefault();
             adsFormReset('.directorist-search-form');
             atbd_callingSlider(0);
         });
     }
-    if($(".directorist-advanced-filter__form #atbdp_reset") !== null){
-        $(".directorist-advanced-filter__form #atbdp_reset").on("click", function (e) {
+    if($(".directorist-advanced-filter__form .directorist-btn-reset-js") !== null){
+        $(".directorist-advanced-filter__form .directorist-btn-reset-js").on("click", function (e) {
             e.preventDefault();
             adsFormReset('.directorist-search-form');
             atbd_callingSlider(0);

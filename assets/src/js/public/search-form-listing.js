@@ -1,6 +1,7 @@
 (function ($) {
     $('body').on('click', '.search_listing_types', function (event) {
         event.preventDefault();
+        let _this = $(this);
         const parent = $(this).closest('.directorist-search-contents');
         let parentInd = parent.index();
         const listing_type = $(this).attr('data-listing_type');
@@ -35,22 +36,25 @@
                     document.querySelectorAll('.directorist-search-contents').forEach((el, index)=>{
                         if(index === parentInd){
                             let content_area = $(el);
+                            let __this = _this;
                             let new_inserted_elm = '<div class="directorist_search_temp"><div>';
 
                             $(content_area).before(new_inserted_elm).remove();
                             $('.directorist_search_temp').after( response['search_form'] ).remove();
 
-
-
-                            $(".search_listing_types").each(function() {
-                                let type = $(this).attr('data-listing_type');
-                                if( listing_type === type ){
-                                    $(this).addClass('directorist-listing-type-selection__link--current');
-                                    $('#listing_type').val(listing_type);
-                                }else{
-                                    $(this).removeClass('directorist-listing-type-selection__link--current');
+                            $('.directorist-listing-type-selection').each(function(id, elm){
+                                if(id === parentInd){
+                                    $(elm).find('.search_listing_types').each(function(idx, elmnts){
+                                        let type = $(elmnts).attr('data-listing_type');
+                                        if( listing_type === type ){
+                                            $(elmnts).addClass('directorist-listing-type-selection__link--current');
+                                            $('#listing_type').val(listing_type);
+                                        }else{
+                                            $(elmnts).removeClass('directorist-listing-type-selection__link--current');
+                                        }
+                                    })
                                 }
-                            });
+                            })
 
                             let events = [
                                 new CustomEvent('directorist-search-form-nav-tab-reloaded'),

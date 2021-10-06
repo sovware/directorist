@@ -96,6 +96,9 @@
 (function ($) {
   $('body').on('click', '.search_listing_types', function (event) {
     event.preventDefault();
+
+    var _this = $(this);
+
     var parent = $(this).closest('.directorist-search-contents');
     var parentInd = parent.index();
     var listing_type = $(this).attr('data-listing_type');
@@ -125,17 +128,22 @@
           document.querySelectorAll('.directorist-search-contents').forEach(function (el, index) {
             if (index === parentInd) {
               var content_area = $(el);
+              var __this = _this;
               var new_inserted_elm = '<div class="directorist_search_temp"><div>';
               $(content_area).before(new_inserted_elm).remove();
               $('.directorist_search_temp').after(response['search_form']).remove();
-              $(".search_listing_types").each(function () {
-                var type = $(this).attr('data-listing_type');
+              $('.directorist-listing-type-selection').each(function (id, elm) {
+                if (id === parentInd) {
+                  $(elm).find('.search_listing_types').each(function (idx, elmnts) {
+                    var type = $(elmnts).attr('data-listing_type');
 
-                if (listing_type === type) {
-                  $(this).addClass('directorist-listing-type-selection__link--current');
-                  $('#listing_type').val(listing_type);
-                } else {
-                  $(this).removeClass('directorist-listing-type-selection__link--current');
+                    if (listing_type === type) {
+                      $(elmnts).addClass('directorist-listing-type-selection__link--current');
+                      $('#listing_type').val(listing_type);
+                    } else {
+                      $(elmnts).removeClass('directorist-listing-type-selection__link--current');
+                    }
+                  });
                 }
               });
               var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];

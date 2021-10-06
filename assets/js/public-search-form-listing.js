@@ -96,9 +96,6 @@
 (function ($) {
   $('body').on('click', '.search_listing_types', function (event) {
     event.preventDefault();
-
-    var _this = $(this);
-
     var parent = $(this).closest('.directorist-search-contents');
     var parentInd = parent.index();
     var listing_type = $(this).attr('data-listing_type');
@@ -128,7 +125,6 @@
           document.querySelectorAll('.directorist-search-contents').forEach(function (el, index) {
             if (index === parentInd) {
               var content_area = $(el);
-              var __this = _this;
               var new_inserted_elm = '<div class="directorist_search_temp"><div>';
               $(content_area).before(new_inserted_elm).remove();
               $('.directorist_search_temp').after(response['search_form']).remove();
@@ -139,7 +135,7 @@
 
                     if (listing_type === type) {
                       $(elmnts).addClass('directorist-listing-type-selection__link--current');
-                      $('#listing_type').val(listing_type);
+                      $(content_area).find('.listing_type').val(listing_type);
                     } else {
                       $(elmnts).removeClass('directorist-listing-type-selection__link--current');
                     }

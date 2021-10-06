@@ -2,6 +2,7 @@
     $('body').on('click', '.search_listing_types', function (event) {
         event.preventDefault();
         const parent = $(this).closest('.directorist-search-contents');
+        let parentInd = parent.index();
         const listing_type = $(this).attr('data-listing_type');
         const type_current = parent.find('.directorist-listing-type-selection__link--current');
 
@@ -10,7 +11,7 @@
             $(this).addClass('directorist-listing-type-selection__link--current');
         }
 
-        $('#listing_type').val(listing_type);
+        parent.find('#listing_type').val(listing_type);
 
         const form_data = new FormData();
         form_data.append('action', 'atbdp_listing_types_form');
@@ -31,33 +32,39 @@
             data: form_data,
             success(response) {
                 if (response) {
+                    document.querySelectorAll('.directorist-search-contents').forEach((el, index)=>{
+                        if(index === parentInd){
+                            let content_area = $(el);
+                            let new_inserted_elm = '<div class="directorist_search_temp"><div>';
 
-                    let content_area = $( '.directorist-search-contents' );
-                    let new_inserted_elm = '<div class="directorist_search_temp"><div>';
+                            $(content_area).before(new_inserted_elm).remove();
+                            $('.directorist_search_temp').after( response['search_form'] ).remove();
 
-                    $( content_area ).before( new_inserted_elm ).remove();
-                    $( '.directorist_search_temp' ).after( response['search_form'] ).remove();
+                            $('.directorist-listing-type-selection').each(function(id, elm){
+                                if(id === parentInd){
+                                    $(elm).find('.search_listing_types').each(function(idx, elmnts){
+                                        let type = $(elmnts).attr('data-listing_type');
+                                        if( listing_type === type ){
+                                            $(elmnts).addClass('directorist-listing-type-selection__link--current');
+                                            $(content_area).find('.listing_type').val(listing_type);
+                                        }else{
+                                            $(elmnts).removeClass('directorist-listing-type-selection__link--current');
+                                        }
+                                    })
+                                }
+                            })
 
+                            let events = [
+                                new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                                new CustomEvent('directorist-reload-select2-fields'),
+                                new CustomEvent('directorist-reload-map-api-field'),
+                            ];
 
-                    $(".search_listing_types").each(function() {
-                        let type = $(this).attr('data-listing_type');
-                        if( listing_type === type ){
-                            $(this).addClass('directorist-listing-type-selection__link--current');
-                            $('#listing_type').val(listing_type);
-                        }else{
-                            $(this).removeClass('directorist-listing-type-selection__link--current');
+                            events.forEach( event => {
+                                document.body.dispatchEvent(event);
+                                window.dispatchEvent(event);
+                            });
                         }
-                    });
-
-                    let events = [
-                        new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                        new CustomEvent('directorist-reload-select2-fields'),
-                        new CustomEvent('directorist-reload-map-api-field'),
-                    ];
-
-                    events.forEach( event => {
-                        document.body.dispatchEvent(event);
-                        window.dispatchEvent(event);
                     });
                 }
 

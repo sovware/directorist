@@ -99,7 +99,7 @@ if (atbdSelect !== null) {
             $(".atbd_dropdown").removeClass("atbd_drop--active");
         }
     });
-    
+
     $('body').on( 'click', '.atbd_dropdown-toggle', function( e ) {
         e.preventDefault();
     });

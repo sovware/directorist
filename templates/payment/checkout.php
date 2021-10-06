@@ -103,13 +103,7 @@ use \Directorist\Helper;
                         <h4 class="atbdp_ch_total_text"><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
-                        <div id="atbdp_checkout_total_amount">
-                        <?php
-                            echo $before;
-                            echo esc_html( atbdp_format_payment_amount( $subtotal ) );
-                            echo $after;
-                        ?>
-                        </div>
+                        <?php echo $before; ?><span id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></span><?php echo $after; ?>
                         <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo $subtotal ?>">
                     </td>
                 </tr>

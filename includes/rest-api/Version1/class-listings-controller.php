@@ -210,12 +210,26 @@ class Listings_Controller extends Posts_Controller {
 			}
 		}
 
+		// Set author query.
+		if ( isset( $request['author'] ) ) {
+			$args['author'] = $request['author'];
+		}
+
 		$meta_query = [];
-		// Set featured listings.
+		// Set featured query.
 		if ( isset( $request['featured'] ) && $request['featured'] ) {
 			$meta_query['_featured'] = array(
 				'key'     => '_featured',
 				'value'   => 1,
+				'compare' => '=',
+			);
+		}
+
+		// Set directory type query.
+		if ( isset( $request['directory'] ) ) {
+			$meta_query['_directory_type'] = array(
+				'key'     => '_directory_type',
+				'value'   => $request['directory'],
 				'compare' => '=',
 			);
 		}
@@ -1256,14 +1270,15 @@ class Listings_Controller extends Posts_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['directory'] = array(
-			'description'       => __( 'Limit result set to listings assigned a specific directory.', 'directorist' ),
-			'type'              => 'string',
-			'sanitize_callback' => 'wp_parse_id_list',
+			'description'       => __( 'Limit result set to listings to sepecific directory type.', 'directorist' ),
+			'type'              => 'integar',
+			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['author'] = array(
 			'description'       => __( 'Limit result set to listings specific to author ID.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'integer',
+			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 

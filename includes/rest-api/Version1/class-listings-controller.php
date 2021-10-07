@@ -209,8 +209,22 @@ class Listings_Controller extends Posts_Controller {
 			}
 		}
 
-		$tax_query = [];
+		$meta_query = [];
+		// Set featured listings.
+		if ( isset( $request['featured'] ) && $request['featured'] ) {
+			$meta_query['_featured'] = array(
+				'key'     => '_featured',
+				'value'   => 1,
+				'compare' => '=',
+			);
+		}
 
+		if ( ! empty( $meta_query ) ) {
+			$args['meta_query'] = $meta_query;
+		}
+
+		// Taxonomy query.
+		$tax_query = [];
 		// Set categories query.
 		if ( isset( $request['categories'] ) ) {
 			$tax_query['tax_query'][] = [
@@ -1169,7 +1183,7 @@ class Listings_Controller extends Posts_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['status'] = array(
-			'default'           => 'any',
+			'default'           => 'publish',
 			'description'       => __( 'Limit result set to listings assigned a specific status.', 'directorist' ),
 			'type'              => 'string',
 			'enum'              => array_merge( array( 'any', 'future', 'trash' ), array_keys( get_post_statuses() ) ),

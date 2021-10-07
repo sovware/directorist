@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 use WP_Error;
 use WP_Query;
 use WP_REST_Server;
+use Directorist\Helper;
 
 /**
  * Listings controller class.
@@ -628,6 +629,12 @@ class Listings_Controller extends Posts_Controller {
 				case 'featured':
 					$base_data['featured'] = (bool) get_post_meta( $listing->ID, '_featured', true );
 					break;
+				case 'new':
+					$base_data['new'] = (bool) Helper::is_new( $listing->ID );
+					break;
+				case 'popular':
+					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
+					break;
 				case 'status':
 					$base_data['status'] = $listing->post_status;
 					break;
@@ -912,6 +919,20 @@ class Listings_Controller extends Posts_Controller {
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
+				),
+				'new'              => array(
+					'description' => __( 'New listing.', 'directorist' ),
+					'type'        => 'boolean',
+					'default'     => false,
+					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
+				),
+				'popular'              => array(
+					'description' => __( 'Popular listing.', 'directorist' ),
+					'type'        => 'boolean',
+					'default'     => false,
+					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'status'     => array(
 					'description' => __( 'Listing status.', 'directorist' ),

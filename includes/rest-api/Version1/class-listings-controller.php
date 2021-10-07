@@ -209,8 +209,42 @@ class Listings_Controller extends Posts_Controller {
 			}
 		}
 
-		// Force the post_type argument, since it's not a user input variable.
-		$args['post_type'] = $this->post_type;
+		$tax_query = [];
+
+		// Set categories query.
+		if ( isset( $request['categories'] ) ) {
+			$tax_query['tax_query'][] = [
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'term_id',
+				'terms'            => $request['categories'],
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			];
+		}
+
+		// Set locations query.
+		if ( isset( $request['locations'] ) ) {
+			$tax_query['tax_query'][] = array(
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'term_id',
+				'terms'            => $request['locations'],
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		// Set locations query.
+		if ( isset( $request['tags'] ) ) {
+			$tax_query['tax_query'][] = array(
+				'taxonomy'         => ATBDP_TAGS,
+				'field'            => 'term_id',
+				'terms'            => $request['tags'],
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( ! empty( $tax_query ) ) {
+			$tax_query[]['relation'] = 'AND';
+			$args['tax_query']  = $tax_query;
+		}
 
 		/**
 		 * Filter the query arguments for a request.
@@ -222,6 +256,9 @@ class Listings_Controller extends Posts_Controller {
 		 * @param WP_REST_Request $request The request used.
 		 */
 		$args = apply_filters( "directorist_rest_{$this->post_type}_object_query", $args, $request );
+
+		// Force the post_type argument, since it's not a user input variable.
+		$args['post_type'] = $this->post_type;
 
 		return $this->prepare_items_query( $args, $request );
 	}

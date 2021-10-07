@@ -33,13 +33,6 @@ class Listings_Controller extends Posts_Controller {
 	 */
 	protected $post_type = ATBDP_POST_TYPE;
 
-	// /**
-	//  * Initialize product actions.
-	//  */
-	// public function __construct() {
-	// 	add_action( "woocommerce_rest_insert_{$this->post_type}_object", array( $this, 'clear_transients' ) );
-	// }
-
 	/**
 	 * Register the routes for products.
 	 */
@@ -51,7 +44,7 @@ class Listings_Controller extends Posts_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
-					// 'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 					'args'                => $this->get_collection_params(),
 				),
 				array(
@@ -77,7 +70,7 @@ class Listings_Controller extends Posts_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_item' ),
-					// 'permission_callback' => array( $this, 'get_item_permissions_check' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 					'args'                => array(
 						'context' => $this->get_context_param(
 							array(

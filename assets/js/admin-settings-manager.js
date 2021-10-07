@@ -18508,6 +18508,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var _widget_group = template_fields[widget_key].widget_group;
         var _widget_name = template_fields[widget_key].widget_name;
 
+        var _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ? this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+
         if (!widget_list[_widget_name]) {
           continue;
         }
@@ -18529,7 +18531,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widget_label = widget_list[_widget_name].label ? widget_list[_widget_name].label : "";
         var template_widget_label = template_fields[widget_key].label && template_fields[widget_key].label.length ? template_fields[widget_key].label : widget_label;
         widget_label = widget_label && widget_label.length ? widget_label : template_widget_label;
-        template_root_options.label = widget_label;
+        template_root_options.label = widget_label.length ? widget_label : _widget_label;
         var new_widget_list = this.cloneObject(widget_list);
         Object.assign(new_widget_list[_widget_name], template_root_options);
 

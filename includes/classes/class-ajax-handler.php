@@ -50,9 +50,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites'));
             add_action('wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites'));
 
-            add_action('wp_ajax_atbdp_submit-uninstall-reason', array($this, 'atbdp_deactivate_reason'));
-            add_action('wp_ajax_nopriv_atbdp_submit-uninstall-reason', array($this, 'atbdp_deactivate_reason'));
-
             // location & category child term
             add_action('wp_ajax_bdas_public_dropdown_terms', array($this, 'bdas_dropdown_terms'));
             add_action('wp_ajax_nopriv_bdas_public_dropdown_terms', array($this, 'bdas_dropdown_terms'));
@@ -102,7 +99,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
             add_action('wp_ajax_nopriv_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
 
-            //author sorting 
+            //author sorting
             add_action('wp_ajax_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
             add_action('wp_ajax_nopriv_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
         }
@@ -134,7 +131,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'loggedin' => false,
                     'message'  => __('Wrong username or password.', 'directorist'),
                 ]);
-			} 
+			}
 
 			wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
 
@@ -252,12 +249,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type    = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
             // search form
             ob_start();
+
             ?>
 				<div class="<?php echo esc_attr( $class ); ?>">
                     <?php
@@ -316,7 +315,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_type_slug_change() {
             $type_id        = isset( $_POST[ 'type_id' ] ) ? sanitize_key( $_POST[ 'type_id' ] ) : '';
             $update_slug    = isset( $_POST[ 'update_slug' ] ) ? sanitize_key( $_POST[ 'update_slug' ] ) : '';
-           
+
             $directory_slugs = [];
             $listing_types = get_terms( [
                 'taxonomy'   => ATBDP_TYPE,
@@ -326,7 +325,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 foreach( $listing_types as $listing_type ){
                     $directory_slugs[] = $listing_type->slug;
                     if( $type_id == $listing_type->term_id ) {
-                        $old_slug = $listing_type->slug; 
+                        $old_slug = $listing_type->slug;
                     }
                 }
             }
@@ -1359,53 +1358,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             do_action('atbdp_listing_contact_owner_submitted');
             echo wp_json_encode($data);
             die();
-        }
-
-
-        public function atbdp_deactivate_reason_mail()
-        {
-            global $wpdb;
-
-            if (!isset($_POST['reason_id'])) {
-                wp_send_json_error();
-            }
-            $site_name = get_bloginfo('name');
-            $current_user = wp_get_current_user();
-
-            $data = array(
-                'reason_id' => sanitize_text_field($_POST['reason_id']),
-                'url' => home_url(),
-                'user_email' => $current_user->user_email,
-                'user_name' => $current_user->display_name,
-                'reason_info' => isset($_REQUEST['reason_info']) ? trim(stripslashes($_REQUEST['reason_info'])) : '',
-                'software' => $_SERVER['SERVER_SOFTWARE'],
-                'php_version' => phpversion(),
-                'mysql_version' => $wpdb->db_version(),
-                'wp_version' => get_bloginfo('version'),
-                'locale' => get_locale(),
-                'multisite' => is_multisite() ? 'Yes' : 'No'
-            );
-            $to = 'support@aazztech.com';
-            $subject = 'Deactivate directorist plugin';
-            $message = $data['reason_info'];
-            $headers = 'From ' . $data['user_email'];
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-        }
-
-        public function atbdp_deactivate_reason()
-        {
-
-            $data = array('error' => 0);
-
-            if ($this->atbdp_deactivate_reason_mail()) {
-
-
-                $data['message'] = __('Thanks for information', 'directorist');
-            }
-
-
-            echo wp_json_encode($data);
-            wp_die();
         }
 
         public function bdas_dropdown_terms()

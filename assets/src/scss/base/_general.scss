@@ -89,15 +89,6 @@
 }
 
 // General Style
-.directorist-content-active {
-    .primary-menu>li {
-        margin: 0.8rem 0 0 1.6rem;
-
-        @media (min-width: 1220px) {
-            margin: 0.8rem 0 0 2.5rem;
-        }
-    }
-}
 
 #directorist-dashboard-preloader {
     display: none;
@@ -259,9 +250,12 @@
     #result {
         ul {
             list-style-type: none;
+            margin: 0;
+            padding: 0;
             li {
                 margin-bottom: 0;
                 border-bottom: 1px solid #eee;
+                list-style: none;
 
                 a {
                     color: $body-color;

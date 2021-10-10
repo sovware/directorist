@@ -69,7 +69,12 @@ class Directorist_Listing_Dashboard {
 
 	public function listing_task( $task, $taskdata ){
 		if ( $task == 'delete' ) {
-			wp_delete_post( $taskdata );
+			$status = apply_filters('directorist_delete_listings_from_dashboard', 'delete');
+			if( $status == 'delete' ){
+				wp_delete_post( $taskdata );
+			}else{
+				wp_trash_post( $taskdata );
+			}
 		}
 	}
 

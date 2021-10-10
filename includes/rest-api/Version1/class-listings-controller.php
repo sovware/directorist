@@ -130,7 +130,7 @@ class Listings_Controller extends Posts_Controller {
 		$response->header( 'X-WP-Total', $query_results['total'] );
 		$response->header( 'X-WP-TotalPages', (int) $max_pages );
 
-		$base = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $base ) ) );
+		$base = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ) );
 
 		if ( $page > 1 ) {
 			$prev_page = $page - 1;
@@ -176,23 +176,27 @@ class Listings_Controller extends Posts_Controller {
 	 * @return array
 	 */
 	protected function prepare_objects_query( $request ) {
-		$args                        = array();
-		$args['offset']              = $request['offset'];
-		$args['order']               = $request['order'];
-		$args['orderby']             = $request['orderby'];
-		$args['paged']               = $request['page'];
-		$args['post__in']            = $request['include'];
-		$args['post__not_in']        = $request['exclude'];
-		$args['posts_per_page']      = $request['per_page'];
-		$args['name']                = $request['slug'];
-		$args['s']                   = $request['search'];
-		$args['fields']              = $this->get_fields_for_response( $request );
+		$args             		= [];
+		$args['offset']         = $request['offset'];
+		$args['order']          = $request['order'];
+		$args['orderby']        = $request['orderby'];
+		$args['paged']          = $request['page'];
+		$args['post__in']       = $request['include'];
+		$args['post__not_in']   = $request['exclude'];
+		$args['posts_per_page'] = $request['per_page'];
+		$args['name']           = $request['slug'];
+		$args['s']              = $request['search'];
+		$args['fields']         = $this->get_fields_for_response( $request );
 
-		if ( 'date' === $args['orderby'] ) {
-			$args['orderby'] = 'date ID';
-		}
+		$is_featured = ( isset( $request['featured'] ) && $request['featured'] );
 
-		$args['date_query'] = array();
+		// Taxonomy query.
+		$tax_query = [];
+		// Meta query.
+		$meta_query = [];
+		// Date query.
+		$args['date_query'] = [];
+
 		// Set before into date query. Date query must be specified as an array of an array.
 		if ( isset( $request['before'] ) ) {
 			$args['date_query'][0]['before'] = $request['before'];
@@ -215,31 +219,24 @@ class Listings_Controller extends Posts_Controller {
 			$args['author'] = $request['author'];
 		}
 
-		$meta_query = [];
 		// Set featured query.
-		if ( isset( $request['featured'] ) && $request['featured'] ) {
-			$meta_query['_featured'] = array(
+		if ( $is_featured ) {
+			$meta_query['_featured'] = [
 				'key'     => '_featured',
 				'value'   => 1,
 				'compare' => '=',
-			);
+			];
 		}
 
 		// Set directory type query.
 		if ( isset( $request['directory'] ) ) {
-			$meta_query['_directory_type'] = array(
+			$meta_query['_directory_type'] = [
 				'key'     => '_directory_type',
 				'value'   => $request['directory'],
 				'compare' => '=',
-			);
+			];
 		}
 
-		if ( ! empty( $meta_query ) ) {
-			$args['meta_query'] = $meta_query;
-		}
-
-		// Taxonomy query.
-		$tax_query = [];
 		// Set categories query.
 		if ( isset( $request['categories'] ) ) {
 			$tax_query['tax_query'][] = [
@@ -252,27 +249,99 @@ class Listings_Controller extends Posts_Controller {
 
 		// Set locations query.
 		if ( isset( $request['locations'] ) ) {
-			$tax_query['tax_query'][] = array(
+			$tax_query['tax_query'][] = [
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'term_id',
 				'terms'            => $request['locations'],
 				'include_children' => true, /*@todo; Add option to include children or exclude it*/
-			);
+			];
 		}
 
 		// Set locations query.
 		if ( isset( $request['tags'] ) ) {
-			$tax_query['tax_query'][] = array(
+			$tax_query['tax_query'][] = [
 				'taxonomy'         => ATBDP_TAGS,
 				'field'            => 'term_id',
 				'terms'            => $request['tags'],
 				'include_children' => true, /*@todo; Add option to include children or exclude it*/
-			);
+			];
+		}
+
+		switch ( $args['orderby'] ) {
+			case 'id':
+				$args['orderby'] = 'ID';
+				break;
+
+			case 'include':
+				$args['orderby'] = 'post__in';
+				break;
+
+			case 'title':
+				if ( $is_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = [
+						'meta_value_num' => 'DESC',
+						'title'          => $args['order'],
+					];
+				}
+				break;
+
+			case 'date':
+				if ( $is_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = [
+						'meta_value_num' => 'DESC',
+						'date'           => $args['order'],
+					];
+				}
+				break;
+
+			case 'price':
+				if ( $is_featured ) {
+					$meta_query['price'] = [
+						'key'     => '_price',
+						'type'    => 'NUMERIC',
+						'compare' => 'EXISTS',
+					];
+
+					$args['orderby'] = [
+						'_featured' => 'DESC',
+						'price'     => $args['orderby'],
+					];
+				} else {
+					$args['meta_key'] = '_price';
+					$args['orderby']  = 'meta_value_num';
+					$args['order']    = $args['orderby'];
+				}
+				break;
+
+			case 'popular':
+				$meta_query['views'] = [
+					'key'     => '_atbdp_post_views_count',
+					'value'   => get_directorist_option( 'views_for_popular', 4 ),
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				];
+
+				if ( $is_featured ) {
+					$args['orderby'] = [
+						'_featured' => $args['order'],
+						'views'     => $args['order'],
+					];
+				} else {
+					$args['orderby'] = [
+						'views' => $args['order'],
+					];
+				}
+		}
+
+		if ( ! empty( $meta_query ) ) {
+			$args['meta_query'] = $meta_query;
 		}
 
 		if ( ! empty( $tax_query ) ) {
 			$tax_query[]['relation'] = 'AND';
-			$args['tax_query']  = $tax_query;
+			$args['tax_query']       = $tax_query;
 		}
 
 		/**
@@ -1207,7 +1276,7 @@ class Listings_Controller extends Posts_Controller {
 		);
 		$params['orderby'] = array(
 			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
-			// 'enum'               => array_keys( $this->get_orderby_possibles() ),
+			'enum'               => array_keys( $this->get_orderby_possibles() ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
 			'validate_callback'  => 'rest_validate_request_arg',
@@ -1287,11 +1356,13 @@ class Listings_Controller extends Posts_Controller {
 
 	protected function get_orderby_possibles() {
 		return array(
-			'id'              => 'ID',
-			'include'         => 'include',
-			'name'            => 'display_name',
-			'registered_date' => 'registered',
-			// 'listings_count'  => 'listings_count',
+			'id'      => 'ID',
+			'include' => 'include',
+			'title'   => 'title',
+			'date'    => 'date',
+			// 'rating'  => 'rating',
+			'popular' => 'popular',
+			'price'   => 'price',
 		);
 	}
 

@@ -209,7 +209,7 @@ function selec2_add_custom_close_button_if_needed() {
       var field = _step.value;
       var value = $(field).children("option:selected").val();
 
-      if (!value || !value.length) {
+      if (!value) {
         continue;
       }
 

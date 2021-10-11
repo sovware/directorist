@@ -65,7 +65,7 @@ function selec2_add_custom_close_button_if_needed () {
     for ( var field of select2_fields ) {
         var value = $(field).children("option:selected").val();
 
-        if ( ! value || ! value.length ) { continue; }
+        if ( ! value ) { continue; }
 
         selec2_add_custom_close_button( field );
     }

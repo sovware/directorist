@@ -95,9 +95,9 @@
 
 (function ($) {
   $('body').on('click', '.search_listing_types', function (event) {
+    // console.log($('.directorist-search-contents'));
     event.preventDefault();
     var parent = $(this).closest('.directorist-search-contents');
-    var parentInd = parent.index();
     var listing_type = $(this).attr('data-listing_type');
     var type_current = parent.find('.directorist-listing-type-selection__link--current');
 
@@ -106,7 +106,7 @@
       $(this).addClass('directorist-listing-type-selection__link--current');
     }
 
-    parent.find('#listing_type').val(listing_type);
+    parent.find('.listing_type').val(listing_type);
     var form_data = new FormData();
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
@@ -122,32 +122,23 @@
       data: form_data,
       success: function success(response) {
         if (response) {
-          document.querySelectorAll('.directorist-search-contents').forEach(function (el, index) {
-            if (index === parentInd) {
-              var content_area = $(el);
-              var new_inserted_elm = '<div class="directorist_search_temp"><div>';
-              $(content_area).before(new_inserted_elm).remove();
-              $('.directorist_search_temp').after(response['search_form']).remove();
-              $('.directorist-listing-type-selection').each(function (id, elm) {
-                if (id === parentInd) {
-                  $(elm).find('.search_listing_types').each(function (idx, elmnts) {
-                    var type = $(elmnts).attr('data-listing_type');
+          // Add Temp Element
+          var new_inserted_elm = '<div class="directorist_search_temp"><div>';
+          parent.before(new_inserted_elm); // Remove Old Parent
 
-                    if (listing_type === type) {
-                      $(elmnts).addClass('directorist-listing-type-selection__link--current');
-                      $(content_area).find('.listing_type').val(listing_type);
-                    } else {
-                      $(elmnts).removeClass('directorist-listing-type-selection__link--current');
-                    }
-                  });
-                }
-              });
-              var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
-              events.forEach(function (event) {
-                document.body.dispatchEvent(event);
-                window.dispatchEvent(event);
-              });
-            }
+          parent.remove(); // Insert New Parent
+
+          $('.directorist_search_temp').after(response['search_form']);
+          var newParent = $('.directorist_search_temp').next(); // Toggle Active Class
+
+          newParent.find('.directorist-listing-type-selection__link--current').removeClass('directorist-listing-type-selection__link--current');
+          newParent.find("[data-listing_type='" + listing_type + "']").addClass('directorist-listing-type-selection__link--current'); // Remove Temp Element
+
+          $('.directorist_search_temp').remove();
+          var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
+          events.forEach(function (event) {
+            document.body.dispatchEvent(event);
+            window.dispatchEvent(event);
           });
         }
 

@@ -43,6 +43,12 @@ function register_controllers() {
 	$users = new \Directorist\Rest_Api\Controllers\Version1\Users_Controller();
 	$users->register_routes();
 
+	// Users activities controller.
+	require_once $dir . 'Version1/class-users-activities-controller.php';
+
+	$user_activities = new \Directorist\Rest_Api\Controllers\Version1\User_Activities_Controller();
+	$user_activities->register_routes();
+
 	// Directory types
 	require_once $dir . 'Version1/class-directories-controller.php';
 

@@ -5672,7 +5672,7 @@ if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
         $font_type = get_directorist_option('font_type', 'line');
-        $font_type = ('line' === $font_type) ? "la la" : "fa fa";
+        $font_type = ('line' === $font_type) ? "las la" : "fas fa";
         if ($echo) {
             echo $font_type;
         } else {

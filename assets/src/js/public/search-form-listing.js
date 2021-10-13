@@ -1,24 +1,24 @@
 (function ($) {
     $('body').on('click', '.search_listing_types', function (event) {
+        // console.log($('.directorist-search-contents'));
         event.preventDefault();
         const parent = $(this).closest('.directorist-search-contents');
-        let parentInd = parent.index();
         const listing_type = $(this).attr('data-listing_type');
         const type_current = parent.find('.directorist-listing-type-selection__link--current');
 
-        if ( type_current.length ) {
+        if (type_current.length) {
             type_current.removeClass('directorist-listing-type-selection__link--current');
             $(this).addClass('directorist-listing-type-selection__link--current');
         }
 
-        parent.find('#listing_type').val(listing_type);
+        parent.find('.listing_type').val(listing_type);
 
         const form_data = new FormData();
         form_data.append('action', 'atbdp_listing_types_form');
         form_data.append('listing_type', listing_type);
 
         const atts = parent.attr('data-atts');
-        atts_decoded = btoa( atts );
+        atts_decoded = btoa(atts);
 
         form_data.append('atts', atts_decoded);
 
@@ -32,39 +32,34 @@
             data: form_data,
             success(response) {
                 if (response) {
-                    document.querySelectorAll('.directorist-search-contents').forEach((el, index)=>{
-                        if(index === parentInd){
-                            let content_area = $(el);
-                            let new_inserted_elm = '<div class="directorist_search_temp"><div>';
+                    // Add Temp Element
+                    let new_inserted_elm = '<div class="directorist_search_temp"><div>';
+                    parent.before(new_inserted_elm);
 
-                            $(content_area).before(new_inserted_elm).remove();
-                            $('.directorist_search_temp').after( response['search_form'] ).remove();
+                    // Remove Old Parent
+                    parent.remove();
 
-                            $('.directorist-listing-type-selection').each(function(id, elm){
-                                if(id === parentInd){
-                                    $(elm).find('.search_listing_types').each(function(idx, elmnts){
-                                        let type = $(elmnts).attr('data-listing_type');
-                                        if( listing_type === type ){
-                                            $(elmnts).addClass('directorist-listing-type-selection__link--current');
-                                            $(content_area).find('.listing_type').val(listing_type);
-                                        }else{
-                                            $(elmnts).removeClass('directorist-listing-type-selection__link--current');
-                                        }
-                                    })
-                                }
-                            })
+                    // Insert New Parent
+                    $('.directorist_search_temp').after(response['search_form']);
+                    let newParent = $('.directorist_search_temp').next();
 
-                            let events = [
-                                new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                                new CustomEvent('directorist-reload-select2-fields'),
-                                new CustomEvent('directorist-reload-map-api-field'),
-                            ];
 
-                            events.forEach( event => {
-                                document.body.dispatchEvent(event);
-                                window.dispatchEvent(event);
-                            });
-                        }
+                    // Toggle Active Class
+                    newParent.find('.directorist-listing-type-selection__link--current').removeClass('directorist-listing-type-selection__link--current');
+                    newParent.find("[data-listing_type='" + listing_type + "']").addClass('directorist-listing-type-selection__link--current');
+
+                    // Remove Temp Element
+                    $('.directorist_search_temp').remove();
+
+                    let events = [
+                        new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                        new CustomEvent('directorist-reload-select2-fields'),
+                        new CustomEvent('directorist-reload-map-api-field'),
+                    ];
+
+                    events.forEach(event => {
+                        document.body.dispatchEvent(event);
+                        window.dispatchEvent(event);
                     });
                 }
 
@@ -73,10 +68,9 @@
             },
             error(error) {
                 console.log(error);
-            },
+            }
         });
     });
-
 
 
     // Advance search
@@ -172,27 +166,38 @@
                 };
                 const options = atbdp_search_listing.countryRestriction ? opt : '';
 
-                let input_fields = [
-                    { input_id: 'address', lat_id: 'cityLat', lng_id: 'cityLng', options },
-                    { input_id: 'address_widget', lat_id: 'cityLat', lng_id: 'cityLng', options },
+                let input_fields = [{
+                        input_id: 'address',
+                        lat_id: 'cityLat',
+                        lng_id: 'cityLng',
+                        options
+                    },
+                    {
+                        input_id: 'address_widget',
+                        lat_id: 'cityLat',
+                        lng_id: 'cityLng',
+                        options
+                    },
                 ];
 
-                var setupAutocomplete = function( field ) {
-                    const input = document.getElementById( field.input_id );
-                    const autocomplete = new google.maps.places.Autocomplete( input, field.options );
+                var setupAutocomplete = function (field) {
+                    const input = document.getElementById(field.input_id);
+                    const autocomplete = new google.maps.places.Autocomplete(input, field.options);
 
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         const place = autocomplete.getPlace();
 
-                        console.log( { place } );
+                        console.log({
+                            place
+                        });
 
-                        document.getElementById( field.lat_id ).value = place.geometry.location.lat();
-                        document.getElementById( field.lng_id ).value = place.geometry.location.lng();
+                        document.getElementById(field.lat_id).value = place.geometry.location.lat();
+                        document.getElementById(field.lng_id).value = place.geometry.location.lng();
                     });
                 };
 
-                input_fields.forEach( field => {
-                    setupAutocomplete( field );
+                input_fields.forEach(field => {
+                    setupAutocomplete(field);
                 });
             }
 
@@ -200,34 +205,55 @@
 
         } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
 
-            const getResultContainer = function ( context, field ) {
-                return $( context ).next( field.search_result_elm );
+            const getResultContainer = function (context, field) {
+                return $(context).next(field.search_result_elm);
             };
 
-            const getWidgetResultContainer = function ( context, field ) {
-                return $( context ).parent().next( field.search_result_elm );
+            const getWidgetResultContainer = function (context, field) {
+                return $(context).parent().next(field.search_result_elm);
             };
 
-            let input_fields = [
-                { input_elm: '#address', search_result_elm: '.address_result', getResultContainer },
-                { input_elm: '#q_addressss', search_result_elm: '.address_result', getResultContainer },
-                { input_elm: '.atbdp-search-address', search_result_elm: '.address_result', getResultContainer },
-                { input_elm: '#address_widget', search_result_elm: '#address_widget_result', getResultContainer: getWidgetResultContainer },
+            let input_fields = [{
+                    input_elm: '#address',
+                    search_result_elm: '.address_result',
+                    getResultContainer
+                },
+                {
+                    input_elm: '#q_addressss',
+                    search_result_elm: '.address_result',
+                    getResultContainer
+                },
+                {
+                    input_elm: '.atbdp-search-address',
+                    search_result_elm: '.address_result',
+                    getResultContainer
+                },
+                {
+                    input_elm: '#address_widget',
+                    search_result_elm: '#address_widget_result',
+                    getResultContainer: getWidgetResultContainer
+                },
             ];
 
-            input_fields.forEach( field => {
+            input_fields.forEach(field => {
 
-                if ( ! $( field.input_elm ).length ) { return; }
+                if (!$(field.input_elm).length) {
+                    return;
+                }
 
-                $( field.input_elm ).on( 'keyup', function( event ) {
+                $(field.input_elm).on('keyup', function (event) {
                     event.preventDefault();
                     const search = $(this).val();
 
-                    let result_container = field.getResultContainer( this, field );
-                    result_container.css({ display: 'block' });
+                    let result_container = field.getResultContainer(this, field);
+                    result_container.css({
+                        display: 'block'
+                    });
 
-                    if ( search === '' ) {
-                        result_container.css({ display: 'none' });
+                    if (search === '') {
+                        result_container.css({
+                            display: 'none'
+                        });
                     }
 
                     let res = '';
@@ -243,14 +269,16 @@
 
                             result_container.html(`<ul>${res}</ul>`);
 
-                            if ( res.length ) {
+                            if (res.length) {
                                 result_container.show();
                             } else {
                                 result_container.hide();
                             }
                         },
                         error(error) {
-                            console.log({ error });
+                            console.log({
+                                error
+                            });
                         }
                     });
                 });
@@ -264,33 +292,37 @@
                 }
             });
 
-            const syncLatLngData = function( context, event, args ) {
+            const syncLatLngData = function (context, event, args) {
                 event.preventDefault();
 
-                const text = $( context ).text();
-                const lat = $( context ).data('lat');
-                const lon = $( context ).data('lon');
+                const text = $(context).text();
+                const lat = $(context).data('lat');
+                const lon = $(context).data('lon');
 
                 $('#cityLat').val(lat);
                 $('#cityLng').val(lon);
 
-                const inp = $( context )
-                    .closest( args.result_list_container )
+                const inp = $(context)
+                    .closest(args.result_list_container)
                     .parent()
                     .find('#address, #address_widget, #q_addressss, .atbdp-search-address');
 
                 inp.val(text);
 
-                $( args.result_list_container ).hide();
+                $(args.result_list_container).hide();
             };
 
 
-            $('body').on('click', '.address_result ul li a', function ( event ) {
-                syncLatLngData( this, event , { result_list_container: '.address_result' } );
+            $('body').on('click', '.address_result ul li a', function (event) {
+                syncLatLngData(this, event, {
+                    result_list_container: '.address_result'
+                });
             });
 
-            $('body').on('click', '#address_widget_result ul li a', function ( event ) {
-                syncLatLngData( this, event, { result_list_container: '#address_widget_result' } );
+            $('body').on('click', '#address_widget_result ul li a', function (event) {
+                syncLatLngData(this, event, {
+                    result_list_container: '#address_widget_result'
+                });
             });
         }
 
@@ -299,7 +331,9 @@
             $(this)
                 .parent()
                 .next('.address_result')
-                .css({ display: 'none' });
+                .css({
+                    display: 'none'
+                });
         }
     }
 

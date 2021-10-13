@@ -2855,6 +2855,13 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
+.directorist-add-listing-form .directorist-alert-required,
+#directiost-listing-fields_wrapper .directorist-alert-required {
+  display: block;
+  margin-top: 5px;
+  color: #E80000;
+  font-size: 13px;
+}
 
 /* ==========================
     add listing form fields
@@ -7164,6 +7171,9 @@ p.atbd-min {
 .directorist-alert.directorist-alert-success .directorist-alert__close {
   color: #009114;
 }
+.directorist-alert--sm {
+  padding: 10px 20px;
+}
 
 .alert-danger {
   background: rgba(232, 0, 0, 0.3);
@@ -8361,7 +8371,8 @@ p.atbd-min {
 .directorist-form-group .form-group label {
   min-width: 150px;
 }
-.directorist-form-group .form-group .check-btn {
+
+.check-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8370,17 +8381,17 @@ p.atbd-min {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.directorist-form-group .form-group .check-btn .btn-checkbox {
+.check-btn .btn-checkbox {
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
 }
-.directorist-form-group .form-group .check-btn label {
+.check-btn label {
   width: 100%;
   margin: 0;
   position: relative;
 }
-.directorist-form-group .form-group .check-btn label input {
+.check-btn label input {
   position: absolute;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -8390,22 +8401,22 @@ p.atbd-min {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  outline: 0;
+  outline: 0 !important;
   border: 0 none;
   background: transparent !important;
 }
-.directorist-form-group .form-group .check-btn label input:checked + span {
+.check-btn label input:checked + span {
   background-color: #444752;
   border-color: #444752;
   color: #fff;
 }
-.directorist-form-group .form-group .check-btn label input:checked + span i {
+.check-btn label input:checked + span i {
   color: #fff;
 }
-.directorist-form-group .form-group .check-btn label input:before {
+.check-btn label input:before, .check-btn label input:after {
   display: none;
 }
-.directorist-form-group .form-group .check-btn label span {
+.check-btn label span {
   text-align: center;
   display: -webkit-box;
   display: -webkit-flex;
@@ -8427,8 +8438,9 @@ p.atbd-min {
   border: 1px solid #ececec;
   border-radius: 4px;
   color: #767792;
+  cursor: pointer;
 }
-.directorist-form-group .form-group .check-btn label span i {
+.check-btn label span i {
   font-size: 15px;
   color: #7a82a6;
   margin-right: 5px;
@@ -13349,9 +13361,41 @@ p.atbd-min {
 .directorist-payment-gateways {
   background: #fff;
 }
+.directorist-payment-gateways ul {
+  margin: 0;
+  padding: 0;
+}
+.directorist-payment-gateways ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.directorist-payment-gateways ul li .gateway_list {
+  margin-bottom: 10px;
+}
 
 .directorist-payment-action {
-  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: -7px;
+}
+.directorist-payment-action .directorist-btn {
+  margin: 7px;
+  max-width: none;
+  width: auto;
 }
 
 .atbd_payment_recipt .atbd_payment_summary {

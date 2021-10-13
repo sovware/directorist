@@ -10,7 +10,7 @@ function get_dom_data ( key ) {
 
     if ( ! terget_content ) { return ''; }
     if ( typeof terget_content[2] === 'undefined' ) { return ''; }
-    
+
     var dom_data = JSON.parse( terget_content[2] );
 
     if ( ! dom_data ) { return ''; }
@@ -27,14 +27,14 @@ function convertToSelect2( field ) {
         allowClear: true,
         width: '100%',
         templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if ( ! data.element ) {
+            // We only really care if there is an field to pull classes from
+            if ( ! data.field ) {
                 return data.text;
             }
-            var $element = $(data.element);
+            var $field = $(data.field);
             var $wrapper = $('<span></span>');
 
-            $wrapper.addClass($element[0].className);
+            $wrapper.addClass($field[0].className);
             $wrapper.text(data.text);
 
             return $wrapper;
@@ -50,7 +50,8 @@ function convertToSelect2( field ) {
         args.placeholder = placeholder;
     }
 
-    field.elm.select2( args );
+    field.elm.select2( args )
+
 }
 
 export { get_dom_data, convertToSelect2 };

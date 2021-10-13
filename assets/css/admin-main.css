@@ -4833,7 +4833,6 @@ input.atbdp-form-control {
 .directorist_dropdown {
   border: 1px solid #EFF1F6;
   border-radius: 5px;
-  height: 40px;
   position: relative;
 }
 .directorist_dropdown .directorist_dropdown-toggle {
@@ -4852,7 +4851,7 @@ input.atbdp-form-control {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 10px 15px;
-  width: 100%;
+  width: auto !important;
   height: 100%;
   position: relative;
 }

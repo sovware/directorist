@@ -3,7 +3,6 @@
         // console.log($('.directorist-search-contents'));
         event.preventDefault();
         const parent = $(this).closest('.directorist-search-contents');
-
         const listing_type = $(this).attr('data-listing_type');
         const type_current = parent.find('.directorist-listing-type-selection__link--current');
 

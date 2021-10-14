@@ -1,6 +1,6 @@
 <?php
 /**
- * User activities Rest Controller.
+ * User favorites Rest Controller.
  *
  * @package Directorist\Rest_Api
  * @version  1.0.0
@@ -14,21 +14,42 @@ use WP_Error;
 use WP_REST_Server;
 
 /**
- * User activities controller class.
+ * User favorites controller class.
  */
-class User_Activities_Controller extends Abstract_Controller {
+class User_Favorites_Controller extends Abstract_Controller {
 
 	/**
 	 * Route base.
 	 *
 	 * @var string
 	 */
-	protected $rest_base = 'users/(?P<user_id>[\d]+)/favorite';
+	protected $rest_base = 'users/(?P<user_id>[\d]+)/favorites';
 
 	/**
 	 * Register the routes for terms.
 	 */
 	public function register_routes() {
+		register_rest_route( $this->namespace, '/' . $this->rest_base,
+			array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_item' ),
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
+					'args'                => array_merge(
+						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+						array(
+							'id' => array(
+								'type'        => 'integer',
+								'description' => __( 'Directory listing id.', 'directorist' ),
+								'required'    => true,
+							),
+						)
+					),
+				),
+				'schema' => array( $this, 'get_public_item_schema' ),
+			)
+		);
+
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 			'args' => array(
 				'user_id' => array(
@@ -41,35 +62,29 @@ class User_Activities_Controller extends Abstract_Controller {
 				),
 			),
 			array(
-				'methods'             => WP_REST_Server::EDITABLE,
-				'callback'            => array( $this, 'update_item' ),
-				'permission_callback' => array( $this, 'update_item_permissions_check' ),
-				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
-			),
-			array(
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => array( $this, 'delete_item' ),
 				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::DELETABLE ),
+				'args'                => array(),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
 	}
 
 	/**
-	 * Check if a given request has access to update an activity.
+	 * Check if a given request has access to create a user.
 	 *
 	 * @param  WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|boolean
 	 */
-	public function update_item_permissions_check( $request ) {
-		$permissions = $this->check_permissions( $request, 'edit' );
+	public function create_item_permissions_check( $request ) {
+		$permissions = $this->check_permissions( $request, 'create' );
 		if ( is_wp_error( $permissions ) ) {
 			return $permissions;
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -105,7 +120,7 @@ class User_Activities_Controller extends Abstract_Controller {
 		return true; //TODO: remove when done!
 
 		// Check permissions for a single user.
-		$id = intval( $request['id'] );
+		$id = intval( $request['user_id'] );
 		if ( $id ) {
 			$user = get_userdata( $id );
 
@@ -120,12 +135,12 @@ class User_Activities_Controller extends Abstract_Controller {
 	}
 
 	/**
-	 * Update a single activity.
+	 * Create user favorites.
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
-	public function update_item( $request ) {
+	public function create_item( $request ) {
 		$user_id   = (int) $request['user_id'];
 		$user_data = get_userdata( $user_id );
 
@@ -158,6 +173,7 @@ class User_Activities_Controller extends Abstract_Controller {
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $listing_id, $request );
 		$response = rest_ensure_response( $response );
+		$response->set_status( 201 );
 
 		return $response;
 	}
@@ -211,7 +227,7 @@ class User_Activities_Controller extends Abstract_Controller {
 	 * @return WP_REST_Response Response object.
 	 */
 	public function prepare_item_for_response( $listing_id, $request ) {
-		$data     = [ $listing_id ];
+		$data     = ['id' => [$listing_id] ];
 		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -221,7 +237,7 @@ class User_Activities_Controller extends Abstract_Controller {
 		 * Filters user data returned from the REST API.
 		 *
 		 * @param WP_REST_Response $response The response object.
-		 * @param array            $listing_id     Listing id used to create response objects.
+		 * @param integer          $listing_id     Listing id used to create response objects.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
 		return apply_filters( 'directorist_rest_prepare_user_favorite', $response, $listing_id, $request );
@@ -240,21 +256,23 @@ class User_Activities_Controller extends Abstract_Controller {
 	}
 
 	/**
-	 * Get the User's schema, conforming to JSON Schema.
+	 * Get the User's favorite schema, conforming to JSON Schema.
 	 *
 	 * @return array
 	 */
 	public function get_item_schema() {
 		$schema = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'favorite',
+			'title'      => 'favorites',
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the listing.', 'directorist' ),
-					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
+					'description' => __( 'User favorite listing ids.', 'directorist' ),
+					'type'        => 'array',
+					'items'       => array(
+						'type' => 'integer',
+					),
+					'context' => array( 'view', 'edit' ),
 				),
 			),
 		);

@@ -405,6 +405,8 @@ if (!class_exists('ATBDP_Helper')) :
             ];
             asort($s);
 
+            $s = apply_filters( 'directorist_default_social_links', $s );
+
             return $s;
         }
 

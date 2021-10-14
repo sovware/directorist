@@ -4155,10 +4155,6 @@ input.atbdp-form-control {
   display: none;
 }
 
-#wpbody-content * {
-  box-sizing: border-box;
-}
-
 // Directorist Builder Tab Style
 .directorist_builder__content {
   display: flex;
@@ -4871,7 +4867,6 @@ input.atbdp-form-control {
 .directorist_dropdown {
   border: 1px solid #EFF1F6;
   border-radius: 5px;
-  height: 40px;
   position: relative;
 
   .directorist_dropdown-toggle {
@@ -4881,7 +4876,7 @@ input.atbdp-form-control {
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
-    width: 100%;
+    width: auto !important;
     height: 100%;
     position: relative;
 

@@ -302,14 +302,14 @@ function convertToSelect2(field) {
     allowClear: true,
     width: '100%',
     templateResult: function templateResult(data) {
-      // We only really care if there is an element to pull classes from
-      if (!data.element) {
+      // We only really care if there is an field to pull classes from
+      if (!data.field) {
         return data.text;
       }
 
-      var $element = $(data.element);
+      var $field = $(data.field);
       var $wrapper = $('<span></span>');
-      $wrapper.addClass($element[0].className);
+      $wrapper.addClass($field[0].className);
       $wrapper.text(data.text);
       return $wrapper;
     }

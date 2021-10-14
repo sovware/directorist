@@ -17,99 +17,99 @@ msgstr ""
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: ../directorist-base.php:522, ../directorist-base.php:535
+#: ../directorist-base.php:525, ../directorist-base.php:538
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:549
+#: ../directorist-base.php:552
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:551
+#: ../directorist-base.php:554
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:611, ../includes/classes/class-settings-panel.php:5224
+#: ../directorist-base.php:614, ../includes/classes/class-settings-panel.php:5224
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:617
+#: ../directorist-base.php:620
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:623, ../directorist-base.php:629
+#: ../directorist-base.php:626, ../directorist-base.php:632
 msgid "Listings Import"
 msgstr ""
 
-#: ../directorist-base.php:1128
+#: ../directorist-base.php:1131
 msgid " Reviews"
 msgstr ""
 
-#: ../directorist-base.php:1128
+#: ../directorist-base.php:1131
 msgid " Review"
 msgstr ""
 
-#: ../directorist-base.php:1140, ../templates/single/section-review.php:33
+#: ../directorist-base.php:1143, ../templates/single/section-review.php:33
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1257, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1100, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:167
+#: ../directorist-base.php:1260, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1100, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:167
 msgid "Login"
 msgstr ""
 
-#: ../directorist-base.php:1258, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1101, ../templates/account/login.php:100
+#: ../directorist-base.php:1261, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1101, ../templates/account/login.php:100
 msgid "Sign Up"
 msgstr ""
 
-#: ../directorist-base.php:1260
+#: ../directorist-base.php:1263
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: ../directorist-base.php:1166, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:56
+#: ../directorist-base.php:1169, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:56
 msgid "Update Review"
 msgstr ""
 
-#: ../directorist-base.php:1166, ../templates/single/section-review.php:56
+#: ../directorist-base.php:1169, ../templates/single/section-review.php:56
 msgid "Leave a Review"
 msgstr ""
 
-#: ../directorist-base.php:1198, ../templates/single/section-review.php:69
+#: ../directorist-base.php:1201, ../templates/single/section-review.php:69
 msgid "Current Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1206, ../templates/single/section-review.php:88
+#: ../directorist-base.php:1209, ../templates/single/section-review.php:88
 msgid "Update Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1206, ../templates/single/section-review.php:88
+#: ../directorist-base.php:1209, ../templates/single/section-review.php:88
 msgid "Your Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1221, ../templates/single/section-review.php:16
+#: ../directorist-base.php:1224, ../templates/single/section-review.php:16
 msgid "Update your review....."
 msgstr ""
 
-#: ../directorist-base.php:1221, ../templates/single/section-review.php:16
+#: ../directorist-base.php:1224, ../templates/single/section-review.php:16
 msgid "Write your review....."
 msgstr ""
 
-#: ../directorist-base.php:1229, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:849, ../includes/model/SingleListing.php:1096
+#: ../directorist-base.php:1232, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:849, ../includes/model/SingleListing.php:1096
 msgid "Your Email"
 msgstr ""
 
-#: ../directorist-base.php:1230, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1097
+#: ../directorist-base.php:1233, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1097
 msgid "example@gmail.com"
 msgstr ""
 
-#: ../directorist-base.php:1245, ../templates/single/section-review.php:130
+#: ../directorist-base.php:1248, ../templates/single/section-review.php:130
 msgid "Submit Review"
 msgstr ""
 
-#: ../directorist-base.php:1240, ../templates/single/section-review.php:124, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
+#: ../directorist-base.php:1243, ../templates/single/section-review.php:124, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
 msgid "Update"
 msgstr ""
 
-#: ../directorist-base.php:1242, ../templates/single/section-review.php:126, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
+#: ../directorist-base.php:1245, ../templates/single/section-review.php:126, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
 msgid "Remove"
 msgstr ""
 
@@ -509,11 +509,11 @@ msgstr ""
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:132, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:507, ../templates/account/login.php:83
+#: ../includes/classes/class-ajax-handler.php:132, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:472, ../templates/account/login.php:83
 msgid "Wrong username or password."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:140, ../includes/classes/class-ajax-handler.php:244, ../includes/classes/class-ajax-handler.php:489, ../includes/classes/class-ajax-handler.php:514
+#: ../includes/classes/class-ajax-handler.php:140, ../includes/classes/class-ajax-handler.php:244, ../includes/classes/class-ajax-handler.php:454, ../includes/classes/class-ajax-handler.php:479
 msgid "Login successful, redirecting..."
 msgstr ""
 
@@ -529,87 +529,87 @@ msgstr ""
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:340
+#: ../includes/classes/class-ajax-handler.php:305
 msgid "Slug Changes Successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:333
+#: ../includes/classes/class-ajax-handler.php:298
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:468
+#: ../includes/classes/class-ajax-handler.php:433
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:479
+#: ../includes/classes/class-ajax-handler.php:444
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:684
+#: ../includes/classes/class-ajax-handler.php:649
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:682
+#: ../includes/classes/class-ajax-handler.php:647
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:811
+#: ../includes/classes/class-ajax-handler.php:776
 msgid "No reviews found. Be the first to post a review !"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:793
+#: ../includes/classes/class-ajax-handler.php:758
 msgid "%s ago"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:866
+#: ../includes/classes/class-ajax-handler.php:831
 msgid "Previous 5 Pages"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:879, ../includes/classes/class-ajax-handler.php:887
+#: ../includes/classes/class-ajax-handler.php:844, ../includes/classes/class-ajax-handler.php:852
 msgid "Next 5 Pages"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:936
+#: ../includes/classes/class-ajax-handler.php:901
 msgid "Email already exists!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1039, ../includes/classes/class-ajax-handler.php:1087
+#: ../includes/classes/class-ajax-handler.php:1004, ../includes/classes/class-ajax-handler.php:1052
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1042
+#: ../includes/classes/class-ajax-handler.php:1007
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1090
+#: ../includes/classes/class-ajax-handler.php:1055
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1158
+#: ../includes/classes/class-ajax-handler.php:1123
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1161
+#: ../includes/classes/class-ajax-handler.php:1126
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1184, ../includes/classes/class-ajax-handler.php:1336, ../includes/classes/class-ajax-handler.php:1344
+#: ../includes/classes/class-ajax-handler.php:1149, ../includes/classes/class-ajax-handler.php:1301, ../includes/classes/class-ajax-handler.php:1309
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1180, ../includes/classes/class-ajax-handler.php:1349
+#: ../includes/classes/class-ajax-handler.php:1145, ../includes/classes/class-ajax-handler.php:1314
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1287
+#: ../includes/classes/class-ajax-handler.php:1252
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1289
+#: ../includes/classes/class-ajax-handler.php:1254
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1320, ../includes/classes/class-ajax-handler.php:1327
+#: ../includes/classes/class-ajax-handler.php:1285, ../includes/classes/class-ajax-handler.php:1292
 msgid "Sorry! Something wrong."
 msgstr ""
 
@@ -1081,151 +1081,151 @@ msgstr ""
 msgid "Registration Confirmation!"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:363
+#: ../includes/classes/class-extension.php:365
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:369
+#: ../includes/classes/class-extension.php:371
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:390
+#: ../includes/classes/class-extension.php:392
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:386
+#: ../includes/classes/class-extension.php:388
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:421
+#: ../includes/classes/class-extension.php:423
 msgid "Some of the plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:426
+#: ../includes/classes/class-extension.php:428
 msgid "All the plugins are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:431
+#: ../includes/classes/class-extension.php:433
 msgid "No plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:527
+#: ../includes/classes/class-extension.php:529
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:544
+#: ../includes/classes/class-extension.php:546
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:574
+#: ../includes/classes/class-extension.php:576
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:580
+#: ../includes/classes/class-extension.php:582
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:594
+#: ../includes/classes/class-extension.php:596
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:611
+#: ../includes/classes/class-extension.php:613
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:607
+#: ../includes/classes/class-extension.php:609
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:645
+#: ../includes/classes/class-extension.php:647
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:650
+#: ../includes/classes/class-extension.php:652
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:655
+#: ../includes/classes/class-extension.php:657
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:719
+#: ../includes/classes/class-extension.php:721
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:787
+#: ../includes/classes/class-extension.php:789
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:798
+#: ../includes/classes/class-extension.php:800
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:830
+#: ../includes/classes/class-extension.php:832
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:970
+#: ../includes/classes/class-extension.php:972
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:977
+#: ../includes/classes/class-extension.php:979
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:984
+#: ../includes/classes/class-extension.php:986
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:999
+#: ../includes/classes/class-extension.php:1001
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1006
+#: ../includes/classes/class-extension.php:1008
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1018
+#: ../includes/classes/class-extension.php:1020
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1039
+#: ../includes/classes/class-extension.php:1041
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1075, ../includes/classes/class-extension.php:1910
+#: ../includes/classes/class-extension.php:1077, ../includes/classes/class-extension.php:1912
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1111
+#: ../includes/classes/class-extension.php:1113
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1129, ../includes/classes/class-extension.php:1238
+#: ../includes/classes/class-extension.php:1131, ../includes/classes/class-extension.php:1240
 msgid "Download link not found"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1169, ../includes/classes/class-extension.php:1278
+#: ../includes/classes/class-extension.php:1171, ../includes/classes/class-extension.php:1280
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1220
+#: ../includes/classes/class-extension.php:1222
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1328, ../includes/classes/class-extension.php:1340
+#: ../includes/classes/class-extension.php:1330, ../includes/classes/class-extension.php:1342
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1535
+#: ../includes/classes/class-extension.php:1537
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1536
+#: ../includes/classes/class-extension.php:1538
 msgid "<span>Themes & Extensions</span>"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1868
+#: ../includes/classes/class-extension.php:1870
 msgid "Nothing to activate"
 msgstr ""
 
@@ -1297,11 +1297,11 @@ msgstr ""
 msgid "Show Less"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:72, ../includes/model/ListingAuthor.php:218
+#: ../includes/classes/class-script-helper.php:72, ../includes/model/ListingAuthor.php:217
 msgid "Added to favorite"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:73, ../includes/model/ListingAuthor.php:219
+#: ../includes/classes/class-script-helper.php:73, ../includes/model/ListingAuthor.php:218
 msgid "Please login first"
 msgstr ""
 
@@ -4749,18 +4749,18 @@ msgstr ""
 msgid "Registration page is only for unregistered user. <a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:304, ../templates/single/section-author_info.php:44, ../views/widgets/author-info.php:29
+#: ../includes/model/ListingAuthor.php:303, ../templates/single/section-author_info.php:44, ../views/widgets/author-info.php:29
 msgid "Member since %s ago"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:310
+#: ../includes/model/ListingAuthor.php:309
 msgctxt "author review count"
 msgid "<span>%s</span> Review"
 msgid_plural "<span>%s</span> Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingAuthor.php:316
+#: ../includes/model/ListingAuthor.php:315
 msgctxt "author review count"
 msgid "<span>%s</span> Listing"
 msgid_plural "<span>%s</span> Listings"
@@ -4871,27 +4871,27 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:569
+#: ../includes/model/SearchForm.php:573
 msgid "Select Ratings"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:574
+#: ../includes/model/SearchForm.php:578
 msgid "5 Star"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:579
+#: ../includes/model/SearchForm.php:583
 msgid "4 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:584
+#: ../includes/model/SearchForm.php:588
 msgid "3 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:589
+#: ../includes/model/SearchForm.php:593
 msgid "2 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:594
+#: ../includes/model/SearchForm.php:598
 msgid "1 Star & Up"
 msgstr ""
 

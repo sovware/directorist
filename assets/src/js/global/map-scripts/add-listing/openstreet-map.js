@@ -42,7 +42,7 @@ import { get_dom_data } from './../../../lib/helper';
                     type: 'POST',
                     data: {},
                     success: function (data) {
-                        $('#address').val(data.display_name);
+                        $('.directorist-location-js').val(data.display_name);
                     }
                 });
             });
@@ -52,47 +52,49 @@ import { get_dom_data } from './../../../lib/helper';
             }).addTo(mymap);
         }
 
-        $('#address').on('keyup', function (event) {
-            event.preventDefault();
-            if (event.keyCode !== 40 && event.keyCode !== 38) {
-                var search = $('#address').val();
-                $('#result').css({ 'display': 'block' });
-                if (search === "") {
-                    $('#result').css({ 'display': 'none' });
-                }
-                var res = "";
-                $.ajax({
-                    url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                    type: 'POST',
-                    data: {},
-                    success: function (data) {
-                        //console.log(data);
-                        for (var i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
-                        }
-                        $('#result ul').html(res);
+        $('.directorist-location-js').each(function(id, elm){
+            $(elm).on('keyup', function (event) {
+                event.preventDefault();
+                if (event.keyCode !== 40 && event.keyCode !== 38) {
+                    var search = $(elm).val();
+                    $(elm).siblings('.address_result').css({ 'display': 'block' });
+                    if (search === "") {
+                        $(elm).siblings('.address_result').css({ 'display': 'none' });
                     }
-                });
-            }
-        });
+                    var res = "";
+                    $.ajax({
+                        url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                        type: 'POST',
+                        data: {},
+                        success: function (data) {
+                            //console.log(data);
+                            for (var i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                            }
+                            $(elm).siblings('.address_result').find('ul').html(res);
+                        }
+                    });
+                }
+            });
+        })
 
         var lat = loc_manual_lat,
             lon = loc_manual_lng;
 
         mapLeaflet(lat, lon);
 
-        $('body').on('click', '#result ul li a', function (event) {
+        $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
             document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             event.preventDefault();
-            let text = $(this).text(),
+            let text = $(this).text(), 
                 lat = $(this).data('lat'),
                 lon = $(this).data('lon');
 
             $('#manual_lat').val(lat);
             $('#manual_lng').val(lon);
 
-            $('#address').val(text);
-            $('#result').css({ 'display': 'none' });
+            $('.directorist-location-js').val(text);
+            $('.address_result').css({ 'display': 'none' });
 
             mapLeaflet(lat, lon);
         });
@@ -106,9 +108,9 @@ import { get_dom_data } from './../../../lib/helper';
 
         // Popup controller by keyboard
         var index = 0;
-        $('#address').on('keyup', function (event) {
+        $('.directorist-location-js').on('keyup', function (event) {
             event.preventDefault();
-            var length = $('#directorist.atbd_wrapper #result ul li a').length;
+            var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
             if (event.keyCode === 40) {
                 index++;
                 if (index > length) {
@@ -122,13 +124,13 @@ import { get_dom_data } from './../../../lib/helper';
                 ;
             }
 
-            if ($('#directorist.atbd_wrapper #result ul li a').length > 0) {
+            if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
 
-                $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
-                $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+                $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active')
+                $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
 
                 if (event.keyCode === 13) {
-                    $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+                    $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
                     event.preventDefault();
                     index = 0;
                     return false;

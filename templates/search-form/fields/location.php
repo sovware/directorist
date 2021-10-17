@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.3
+ * @version 7.0.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -13,7 +13,7 @@ if ( $location_source == 'listing' ) { ?>
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
-			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc"; ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 				<?php
 					echo '<option value="">Select Location</option>';
 					echo $searchform->locations_fields;
@@ -35,7 +35,7 @@ elseif ( $location_source == 'map' ) {
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">
 		<span class="directorist-input-icon directorist-filter-location-icon"><span class="la la-crosshairs"></span></span>
-		<input type="text" name="address" id="address" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element directorist-location-js location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 		<div class="address_result" style="display: none"></div>
 		<input type="hidden" id="cityLat" name="cityLat" value="<?php echo esc_attr($cityLat); ?>" />

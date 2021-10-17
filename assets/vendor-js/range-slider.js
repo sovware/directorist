@@ -29,7 +29,7 @@ var atbd_slider = (selector, obj) => {
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        document.querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.miles}`;
+        id.closest('.directorist-range-slider-wrap').querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.miles}`;
 
         var x 			= null,
             count 		= 0,
@@ -67,7 +67,7 @@ var atbd_slider = (selector, obj) => {
         count = (width / max);
         if(slide1.classList.contains('atbd-active1')){
             var onLoadValue 	= count * min;
-            document.querySelector('.atbd-current-value span').innerHTML = obj.minValue;
+            id.closest('.directorist-range-slider-wrap').querySelector('.atbd-current-value span').innerHTML = obj.minValue;
             id.querySelector('.atbd-minimum').value = obj.minValue;
             id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
@@ -87,9 +87,9 @@ var atbd_slider = (selector, obj) => {
             }
             if(slide1.classList.contains('atbd-active')){
                 slid1_val 	= Math.floor(max/ (width -18) * count);
-                document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.miles}`;
+                id.closest('.directorist-range-slider-wrap').querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.miles}`;
                 id.querySelector('.atbd-minimum').value = slid1_val;
-                document.querySelector('.atbdrs-value').value = slid1_val;
+                id.closest('.directorist-range-slider-wrap').querySelector('.atbdrs-value').value = slid1_val;
                 id.querySelector('.atbd-active').style.left = count +'px';
                 id.querySelector('.atbd-child').style.width = count+'px';
             }
@@ -111,7 +111,7 @@ function atbd_callingSlider() {
 
     var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
 
-    atbd_slider ('#atbdp-range-slider', config);
+    atbd_slider ('.atbdp-range-slider', config);
 }
 
 window.addEventListener("load", function () {

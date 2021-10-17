@@ -249,49 +249,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type    = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
-            $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
-            // search form
-            ob_start();
-            ?>
-				<div class="<?php echo esc_attr( $class ); ?>">
-                    <?php
-                    foreach ( $searchform->form_data[0]['fields'] as $field ){
-                        $searchform->field_template( $field );
-                    }
-                    if ( $searchform->more_filters_display !== 'always_open' ){
-                        $searchform->more_buttons_template();
-                    }
-                    ?>
-
-                </div>
-
-                <?php
-                if ( $searchform->more_filters_display == 'always_open' ){
-                    $searchform->advanced_search_form_fields_template();
-                }
-                else {
-                    if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                            <?php $searchform->advanced_search_form_fields_template();?>
-                        </div>
-                        <?php
-                    }
-                }
-            $search_form =  ob_get_clean();
-
-            ob_start();
-
-			$searchform->top_categories_template();
-
-            $popular_categories = ob_get_clean();
-
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
+            $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
                 'search_form'          => $search_form,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
-                'popular_categories'   => $popular_categories
              ) );
         }
 

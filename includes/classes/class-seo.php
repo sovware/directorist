@@ -607,7 +607,7 @@ if (!class_exists('ATBDP_SEO')) :
             
             $seo_meta = $this->get_seo_meta_data();
             $page = $seo_meta['page'];
-            if ( ! empty( $seo_meta['title'] ) ) {
+            if ( ! empty( $seo_meta['title'] ) && ! empty( $page ) ) {
                 $title = $seo_meta['title'];
             }
             

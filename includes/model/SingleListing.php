@@ -855,10 +855,9 @@ class Directorist_Single_Listing {
 
 	// TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.
 	public function get_contents() {
-		$post    = $this->post;
-		// TODO: Remove `get_the_content` hook when it's certain that no one else is using it.
-		$content = apply_filters('get_the_content', $post->post_content);
-		$content = do_shortcode( wpautop( $content ) );
+		$content = $this->post->post_content;
+		$content = wpautop( $content );
+		$content = do_shortcode( $content );
 
 		// TODO: Make it compatible with wp core `the_content` hook.
 		return apply_filters( 'directorist_the_content', $content );

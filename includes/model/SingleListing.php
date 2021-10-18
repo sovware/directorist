@@ -916,8 +916,7 @@ class Directorist_Single_Listing {
 			break;
 
 			default:
-				$content = apply_filters('get_the_content', $field_details);
-				$result = do_shortcode( $content );
+				$result = do_shortcode( $field_details );
 				break;
 		}
 

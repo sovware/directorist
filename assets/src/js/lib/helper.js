@@ -4,18 +4,19 @@ function get_dom_data( key, parent ) {
     var elmKey = 'directorist-dom-data-' + key;
     var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
 
+    console.log({dataElm});
+
     if ( ! dataElm ) {
         return '';
     }
 
-    let dataValue = atob( dataElm[0].dataset.value );
-
     try {
+        let dataValue = atob( dataElm[0].dataset.value );
         dataValue = JSON.parse( dataValue );
 
         return dataValue;
     } catch (error) {
-        console.log(error);
+        console.log({key,dataElm,error});
         return '';
     }
 }

@@ -10,14 +10,12 @@ function get_dom_data( key, parent ) {
         return '';
     }
 
-    let dataValue = atob( dataElm[0].dataset.value );
-
     try {
+        let dataValue = atob( dataElm[0].dataset.value );
         dataValue = JSON.parse( dataValue );
-
         return dataValue;
     } catch (error) {
-        console.log(error);
+        console.log({key,dataElm,error});
         return '';
     }
 }

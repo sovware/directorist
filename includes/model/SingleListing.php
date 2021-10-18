@@ -853,12 +853,15 @@ class Directorist_Single_Listing {
 		return get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) );
 	}
 
-
+	// TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.
 	public function get_contents() {
 		$post    = $this->post;
+		// TODO: Remove `get_the_content` hook when it's certain that no one else is using it.
 		$content = apply_filters('get_the_content', $post->post_content);
-		$content = do_shortcode(wpautop($content));
-		return $content;
+		$content = do_shortcode( wpautop( $content ) );
+
+		// TODO: Make it compatible with wp core `the_content` hook.
+		return apply_filters( 'directorist_the_content', $content );
 	}
 
 	public function get_custom_field_type_value($field_id, $field_type, $field_details)

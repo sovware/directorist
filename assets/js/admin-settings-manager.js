@@ -18569,6 +18569,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           type: "hidden",
           value: widget_key
         };
+
+        if (!new_widget_list[_widget_name].label) {
+          new_widget_list[_widget_name].label = 'Not available';
+        }
+
         new_widget_list[_widget_name].options = widgets_options;
         template_widgets[widget_key] = new_widget_list[_widget_name];
       }

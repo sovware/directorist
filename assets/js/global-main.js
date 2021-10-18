@@ -209,7 +209,7 @@ function selec2_add_custom_close_button_if_needed() {
       var field = _step.value;
       var value = $(field).children("option:selected").val();
 
-      if (!value && !value.length) {
+      if (!value) {
         continue;
       }
 
@@ -315,8 +315,6 @@ function initSelect2() {
     elm: $('#directorist-select-js')
   }, {
     elm: $('#directorist-search-category-js')
-  }, {
-    elm: $('#directorist-search-select-js')
   }, {
     elm: $('#directorist-select-st-s-js')
   }, {
@@ -475,14 +473,14 @@ function convertToSelect2(field) {
     allowClear: true,
     width: '100%',
     templateResult: function templateResult(data) {
-      // We only really care if there is an element to pull classes from
-      if (!data.element) {
+      // We only really care if there is an field to pull classes from
+      if (!data.field) {
         return data.text;
       }
 
-      var $element = $(data.element);
+      var $field = $(data.field);
       var $wrapper = $('<span></span>');
-      $wrapper.addClass($element[0].className);
+      $wrapper.addClass($field[0].className);
       $wrapper.text(data.text);
       return $wrapper;
     }

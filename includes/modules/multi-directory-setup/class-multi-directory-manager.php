@@ -11,7 +11,6 @@ class Multi_Directory_Manager
     public static $layouts = [];
     public static $config  = [];
 
-    public static $builder_data_sanitizer = null;
     public static $migration = null;
 
     public $default_form      = [];
@@ -20,14 +19,12 @@ class Multi_Directory_Manager
 
     public function __construct() {
         self::$migration = new Multi_Directory_Migration([ 'multi_directory_manager' => $this ]);
-        self::$builder_data_sanitizer = new Builder_Data_Sanitizer();
     }
 
     // run
     public function run() {
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
         add_action( 'init', [$this, 'update_default_directory_type_option'] );
 
         if ( ! is_admin() ) {
@@ -44,7 +41,6 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
-        add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
 
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
     }
@@ -91,23 +87,6 @@ class Multi_Directory_Manager
             }
         }
 
-    }
-
-    // init_sanitize_builder_data_structure
-    public function init_sanitize_builder_data_structure() {
-        $is_sanitized = get_directorist_option( 'sanitized_builder_data_structure', false, true );
-
-        if ( ! empty( $is_sanitized ) ) { return; }
-        self::$builder_data_sanitizer->sanitize_builder_data_structure();
-
-        update_directorist_option( 'sanitized_builder_data_structure', true );
-    }
-
-    // handle_sanitize_builder_data_structure_request
-    public function handle_sanitize_builder_data_structure_request() {
-        self::$builder_data_sanitizer->sanitize_builder_data_structure();
-
-        wp_send_json_success(__('The data has been updated successfully', 'directorist'));
     }
 
     // update_default_directory_type_option
@@ -303,6 +282,7 @@ class Multi_Directory_Manager
 
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
                 }
+                wp_reset_postdata();
             }
         }
     }

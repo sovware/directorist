@@ -119,8 +119,8 @@ class ATBDP_Review_Custom_Post
                                 $listings->the_post();
                                 printf('<option value="%s" %s>%s</option>', get_the_ID(), selected(get_the_ID(), $current_val), get_the_title());
                             }
+                            wp_reset_postdata();
                         }
-                        wp_reset_postdata();
                         ?>
                     </select>
                 </td>

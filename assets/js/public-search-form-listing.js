@@ -95,20 +95,25 @@
 
 (function ($) {
   $('body').on('click', '.search_listing_types', function (event) {
+    // console.log($('.directorist-search-contents'));
     event.preventDefault();
+    var parent = $(this).closest('.directorist-search-contents');
     var listing_type = $(this).attr('data-listing_type');
-    var type_current = $('.directorist-listing-type-selection__link--current');
+    var type_current = parent.find('.directorist-listing-type-selection__link--current');
 
     if (type_current.length) {
       type_current.removeClass('directorist-listing-type-selection__link--current');
+      $(this).addClass('directorist-listing-type-selection__link--current');
     }
 
-    $('#listing_type').val(listing_type);
-    $(this).addClass('directorist-listing-type-selection__link--current');
+    parent.find('.listing_type').val(listing_type);
     var form_data = new FormData();
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
-    $('.directorist-search-form-box').addClass('atbdp-form-fade');
+    var atts = parent.attr('data-atts');
+    atts_decoded = btoa(atts);
+    form_data.append('atts', atts_decoded);
+    parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',
       processData: false,
@@ -117,17 +122,27 @@
       data: form_data,
       success: function success(response) {
         if (response) {
-          var _atbdp_search_listing = response['atbdp_search_listing'] ? response['atbdp_search_listing'] : _atbdp_search_listing;
+          // Add Temp Element
+          var new_inserted_elm = '<div class="directorist_search_temp"><div>';
+          parent.before(new_inserted_elm); // Remove Old Parent
 
-          $('.directorist-search-form-box').empty().html(response['search_form']);
-          $('.directorist-listing-category-top').empty().html(response['popular_categories']);
+          parent.remove(); // Insert New Parent
+
+          $('.directorist_search_temp').after(response['search_form']);
+          var newParent = $('.directorist_search_temp').next(); // Toggle Active Class
+
+          newParent.find('.directorist-listing-type-selection__link--current').removeClass('directorist-listing-type-selection__link--current');
+          newParent.find("[data-listing_type='" + listing_type + "']").addClass('directorist-listing-type-selection__link--current'); // Remove Temp Element
+
+          $('.directorist_search_temp').remove();
           var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
           events.forEach(function (event) {
             document.body.dispatchEvent(event);
+            window.dispatchEvent(event);
           });
         }
 
-        $('.directorist-search-form-box').removeClass('atbdp-form-fade');
+        parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
         atbd_callingSlider();
       },
       error: function error(_error) {

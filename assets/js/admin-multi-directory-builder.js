@@ -18444,8 +18444,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (var widget_key in template_fields) {
         var _widget_group = template_fields[widget_key].widget_group;
         var _widget_name = template_fields[widget_key].widget_name;
+        var _widget_label = 'Not Available';
 
-        var _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ? this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+        try {
+          _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ? this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+        } catch (error) {
+          console.log({
+            template: this.template,
+            widget_group: _widget_group,
+            widget_name: _widget_name,
+            template_widgets: this.fields[this.template]['widgets'][_widget_group]['widgets'],
+            error: error
+          });
+        }
 
         if (!widget_list[_widget_name]) {
           continue;

@@ -4,8 +4,6 @@ function get_dom_data( key, parent ) {
     var elmKey = 'directorist-dom-data-' + key;
     var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
 
-    console.log({dataElm});
-
     if ( ! dataElm ) {
         return '';
     }

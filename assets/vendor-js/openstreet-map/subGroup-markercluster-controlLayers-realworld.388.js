@@ -2,22 +2,27 @@ var atbdp_lat_lon = get_dom_data( 'atbdp_lat_lon' );
 var listings_data = get_dom_data( 'listings_data' );
 var atbdp_map     = get_dom_data( 'atbdp_map' );
 
-function get_dom_data ( key ) {
-    var dom_content = document.body.innerHTML;
+function get_dom_data( key, parent ) {
+    var elmKey = 'directorist-dom-data-' + key;
+    var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
 
-    if ( ! dom_content.length ) { return ''; }
+    if ( ! dataElm ) {
+        return '';
+    }
 
-    var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-    var terget_content = pattern.exec( dom_content );
+    var is_script_debugging = ( directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ) ? true : false;
 
-    if ( ! terget_content ) { return ''; }
-    if ( typeof terget_content[2] === 'undefined' ) { return ''; }
-    
-    var dom_data = JSON.parse( terget_content[2] );
-
-    if ( ! dom_data ) { return ''; }
-
-    return dom_data;
+    try {
+        let dataValue = atob( dataElm[0].dataset.value );
+        dataValue = JSON.parse( dataValue );
+        return dataValue;
+    } catch (error) {
+        if ( is_script_debugging ) {
+            console.log({key,dataElm,error});
+        }
+        
+        return '';
+    }
 }
 
 

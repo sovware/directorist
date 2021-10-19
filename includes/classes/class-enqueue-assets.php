@@ -926,6 +926,10 @@ class Enqueue_Assets {
 			'deps'      => [],
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
 		];
 
 		$scripts['directorist-map-view'] = [

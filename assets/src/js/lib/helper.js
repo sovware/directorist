@@ -7,6 +7,8 @@ function get_dom_data( key, parent ) {
     if ( ! dataElm ) {
         return '';
     }
+    
+    var is_script_debugging = ( directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ) ? true : false;
 
     try {
         let dataValue = atob( dataElm[0].dataset.value );
@@ -14,7 +16,10 @@ function get_dom_data( key, parent ) {
 
         return dataValue;
     } catch (error) {
-        console.log({key,dataElm,error});
+        if ( is_script_debugging ) {
+            console.log({key,dataElm,error});
+        }
+        
         return '';
     }
 }

@@ -214,7 +214,7 @@
             };
 
             let input_fields = [{
-                    input_elm: '#address',
+                    input_elm: '.directorist-location-js',
                     search_result_elm: '.address_result',
                     getResultContainer
                 },
@@ -287,7 +287,7 @@
 
             // hide address result when click outside the input field
             $(document).on('click', function (e) {
-                if (!$(e.target).closest('#address, #q_addressss, .atbdp-search-address').length) {
+                if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address').length) {
                     $('.address_result').hide();
                 }
             });
@@ -305,7 +305,7 @@
                 const inp = $(context)
                     .closest(args.result_list_container)
                     .parent()
-                    .find('#address, #address_widget, #q_addressss, .atbdp-search-address');
+                    .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
 
                 inp.val(text);
 
@@ -327,7 +327,7 @@
         }
 
 
-        if ($('#address, #q_addressss,.atbdp-search-address').val() === '') {
+        if ($('.directorist-location-js, #q_addressss,.atbdp-search-address').val() === '') {
             $(this)
                 .parent()
                 .next('.address_result')

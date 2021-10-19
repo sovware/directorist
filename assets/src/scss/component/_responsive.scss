@@ -98,15 +98,8 @@ $mobile-width-3: 375px;
 // XX. Small Devices (less than 480px)
 @media only screen and (max-width: #{$mobile-width-2}) {
     .directorist-content-active .directorist-type-nav__list li {
-        flex: 0 0 100%;
-        margin-bottom: 15px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
         a {
-            padding: 0 0 5px 0;
+            padding: 0 0 15px 0;
         }
     }
 

@@ -163,13 +163,16 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var dataValue = atob(dataElm[0].dataset.value);
-
   try {
+    var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    console.log(error);
+    console.log({
+      key: key,
+      dataElm: dataElm,
+      error: error
+    });
     return '';
   }
 }

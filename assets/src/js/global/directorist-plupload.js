@@ -8,8 +8,11 @@ var atbdp_params = get_dom_data( 'atbdp_params' );
 const $ = jQuery;
 
 // Init
-jQuery( document ).ready( init );
-window.addEventListener( 'directorist-reload-plupload', init );
+if ( ! atbdp_plupload_params ) {
+    jQuery( document ).ready( init );
+    window.addEventListener( 'directorist-reload-plupload', init );
+}
+
 
 function init() {
     atbdp_plupload_params = get_dom_data( 'atbdp_plupload_params' );

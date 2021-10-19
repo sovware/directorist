@@ -331,16 +331,21 @@ function get_dom_data(key, parent) {
     return '';
   }
 
+  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    console.log({
-      key: key,
-      dataElm: dataElm,
-      error: error
-    });
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
+    }
+
     return '';
   }
 }

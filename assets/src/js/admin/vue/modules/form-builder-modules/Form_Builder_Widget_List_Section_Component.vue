@@ -125,8 +125,20 @@ export default {
             for ( let widget_key in template_fields ) {
                 let _widget_group = template_fields[widget_key].widget_group;
                 let _widget_name  = template_fields[widget_key].widget_name;
-                let _widget_label = this.fields[ this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ?
-                                    this.fields[ this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+                let _widget_label = 'Not Available';
+
+                try {
+                    _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ?
+                                    this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+                } catch ( error ) {
+                    console.log({
+                        template: this.template,
+                        widget_group: _widget_group,
+                        widget_name: _widget_name,
+                        template_widgets: this.fields[this.template]['widgets'][_widget_group]['widgets'],
+                        error,
+                    });
+                }
 
                 if ( ! widget_list[ _widget_name ] ) { continue; }
 
@@ -175,6 +187,10 @@ export default {
                     type: "hidden",
                     value: widget_key,
                 };
+
+                if ( ! new_widget_list[ _widget_name ].label  ) {
+                    new_widget_list[ _widget_name ].label = 'Not available';
+                }
 
                 new_widget_list[ _widget_name ].options = widgets_options;
                 template_widgets[ widget_key ] = new_widget_list[ _widget_name ];

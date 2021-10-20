@@ -766,7 +766,9 @@ $atbdp_option       = get_option('atbdp_option');
                                                         <td>
                                                             <?php
                                                             $total_overrides = count( $theme['overrides'] );
-                                                            for ( $i = 0; $i < $total_overrides; $i++ ) {
+                                                            for ( $i = 0; $i < $total_overrides; $i++ ) { ?>
+                                                            <p>
+                                                            <?php
                                                                 $override = $theme['overrides'][ $i ];
                                                                 if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
                                                                     $current_version = $override['version'] ? $override['version'] : '-';
@@ -785,6 +787,7 @@ $atbdp_option       = get_option('atbdp_option');
                                                                 echo '<br />';
                                                             }
                                                             ?>
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                     <?php

@@ -23,7 +23,7 @@
                         <a href="#atbds_r-viewing" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Remote Viewing', 'directorist' ); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#atbds_support" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Support', 'directorist' ); ?></a>
+                        <a href="https://directorist.com/contact/" target="_blank" class="nav-link"><?php _e( 'Contact Support', 'directorist' ); ?></a>
                     </li>
                 </ul>
             </aside>

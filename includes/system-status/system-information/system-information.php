@@ -304,8 +304,6 @@ class ATBDP_System_Info
 				$theme_file = $located;
 			} elseif ( file_exists( get_stylesheet_directory() . '/' . 'directorist/' . $file ) ) {
 				$theme_file = get_stylesheet_directory() . '/' . 'directorist/' . $file;
-			} elseif ( file_exists( get_template_directory() . '/' . $file ) ) {
-				$theme_file = get_template_directory() . '/' . $file;
 			} elseif ( file_exists( get_template_directory() . '/' . 'directorist/' . $file ) ) {
 				$theme_file = get_template_directory() . '/' . 'directorist/' . $file;
 			} else {

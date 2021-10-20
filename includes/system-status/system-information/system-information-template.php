@@ -800,16 +800,6 @@ $atbdp_option       = get_option('atbdp_option');
                                                 </tr>
                                                 <?php
                                             }
-
-                                            /* if ( true === $theme['has_outdated_templates'] ) {
-                                                ?>
-                                                <tr>
-                                                    <td data-export-label="Outdated Templates"><?php _e( 'Outdated templates', 'directorist' ); ?>:</td>
-                                                    <td class="help">&nbsp;</td>
-                                                    <td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
-                                                </tr>
-                                                <?php
-                                            } */
                                         ?>
                                     </tbody>
                                 </table>

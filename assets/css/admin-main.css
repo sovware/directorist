@@ -1723,6 +1723,13 @@ span.atbdp-tick-cross {
 .atbds_system-table tbody tr td.atbds_table-pointer {
   width: 30px;
 }
+.atbds_system-table tbody tr td.diretorist-table-text p {
+  margin: 0;
+  line-height: 1.3;
+}
+.atbds_system-table tbody tr td.diretorist-table-text p:not(:last-child) {
+  margin: 0 0 15px;
+}
 .atbds_system-table tbody tr td .atbds_color-success {
   color: #00bc5e;
 }

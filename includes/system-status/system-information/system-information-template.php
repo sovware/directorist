@@ -763,7 +763,7 @@ $atbdp_option       = get_option('atbdp_option');
                                                                 <span class="atbd_tooltip__text"></span>
                                                             </span>
                                                         </td>
-                                                        <td>
+                                                        <td class="diretorist-table-text">
                                                             <?php
                                                             $total_overrides = count( $theme['overrides'] );
                                                             

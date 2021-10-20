@@ -1870,6 +1870,16 @@ span.atbdp-tick-cross {
           width: 30px;
         }
 
+        &.diretorist-table-text{
+          p{
+            margin: 0;
+            line-height: 1.3;
+            &:not(:last-child){
+              margin: 0 0 15px;
+            }
+          }
+        }
+
         .atbds_color-success {
           color: $ss-success;
         }

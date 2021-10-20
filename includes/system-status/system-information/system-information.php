@@ -263,7 +263,7 @@ class ATBDP_System_Info
     }
 
     /**
-	 * Get info on the current active theme, info on parent theme (if presnet)
+	 * Get info on the current active theme, info on parent theme (if present)
 	 * and a list of template overrides.
 	 *
 	 * @return array
@@ -302,8 +302,6 @@ class ATBDP_System_Info
 
 			if ( file_exists( $located ) ) {
 				$theme_file = $located;
-			} elseif ( file_exists( get_stylesheet_directory() . '/' . $file ) ) {
-				//$theme_file = get_stylesheet_directory() . '/' . $file;
 			} elseif ( file_exists( get_stylesheet_directory() . '/' . 'directorist/' . $file ) ) {
 				$theme_file = get_stylesheet_directory() . '/' . 'directorist/' . $file;
 			} elseif ( file_exists( get_template_directory() . '/' . $file ) ) {
@@ -315,7 +313,7 @@ class ATBDP_System_Info
 			}
 			
 			if ( ! empty( $theme_file ) ) {
-				$core_version  = self::get_file_version( ATBDP_DIR . '/templates' . $file );
+				$core_version  = self::get_file_version( ATBDP_DIR . 'templates/' . $file );
 				$theme_version = self::get_file_version( $theme_file );
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					if ( ! $outdated_templates ) {

@@ -798,7 +798,7 @@ $atbdp_option       = get_option('atbdp_option');
                                                 <?php
                                             }
 
-                                            if ( true === $theme['has_outdated_templates'] ) {
+                                            /* if ( true === $theme['has_outdated_templates'] ) {
                                                 ?>
                                                 <tr>
                                                     <td data-export-label="Outdated Templates"><?php _e( 'Outdated templates', 'directorist' ); ?>:</td>
@@ -806,7 +806,7 @@ $atbdp_option       = get_option('atbdp_option');
                                                     <td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
                                                 </tr>
                                                 <?php
-                                            }
+                                            } */
                                         ?>
                                     </tbody>
                                 </table>

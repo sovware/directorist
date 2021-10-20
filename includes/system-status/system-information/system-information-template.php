@@ -785,7 +785,6 @@ $atbdp_option       = get_option('atbdp_option');
                                                                     if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
                                                                         echo ', ';
                                                                     }
-                                                                    echo '<br />';
                                                             }
                                                                 ?>
                                                                 </p>

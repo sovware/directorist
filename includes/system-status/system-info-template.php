@@ -514,9 +514,9 @@ global $wpdb;
 			<td class="help"><?php echo $this->directorist_help_tip( __( 'The installed version of the parent theme.', 'directorist' ) ); ?></td>
 			<td><?php
 				echo esc_html( $theme['parent_version'] );
-				if ( version_compare( $theme['parent_version'], $theme['parent_latest_verison'], '<' ) ) {
+				if ( version_compare( $theme['parent_version'], $theme['parent_version_latest'], '<' ) ) {
 					/* translators: %s: parant theme latest version */
-					echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'directorist' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
+					echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'directorist' ), esc_html( $theme['parent_version_latest'] ) ) . '</strong>';
 				}
 			?></td>
 		</tr>

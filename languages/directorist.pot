@@ -53,11 +53,11 @@ msgstr ""
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1260, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1100, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:167
+#: ../directorist-base.php:1260, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1101, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:167
 msgid "Login"
 msgstr ""
 
-#: ../directorist-base.php:1261, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1101, ../templates/account/login.php:100
+#: ../directorist-base.php:1261, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1102, ../templates/account/login.php:100
 msgid "Sign Up"
 msgstr ""
 
@@ -93,11 +93,11 @@ msgstr ""
 msgid "Write your review....."
 msgstr ""
 
-#: ../directorist-base.php:1232, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:849, ../includes/model/SingleListing.php:1096
+#: ../directorist-base.php:1232, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:849, ../includes/model/SingleListing.php:1097
 msgid "Your Email"
 msgstr ""
 
-#: ../directorist-base.php:1233, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1097
+#: ../directorist-base.php:1233, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1098
 msgid "example@gmail.com"
 msgstr ""
 
@@ -613,7 +613,7 @@ msgstr ""
 msgid "Sorry! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:31, ../includes/classes/class-announcement.php:264, ../includes/classes/class-settings-panel.php:2528, ../includes/model/ListingDashboard.php:396
+#: ../includes/classes/class-announcement.php:31, ../includes/classes/class-announcement.php:264, ../includes/classes/class-settings-panel.php:2528, ../includes/model/ListingDashboard.php:399
 msgid "Announcements"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgstr ""
 msgid "Listing Name"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:251, ../includes/model/SingleListing.php:1048, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670, ../views/widgets/map-single.php:15
+#: ../includes/classes/class-custom-post.php:251, ../includes/model/SingleListing.php:1049, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670, ../views/widgets/map-single.php:15
 msgid "Location"
 msgstr ""
 
@@ -719,7 +719,7 @@ msgstr ""
 msgid "Created on"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:341, ../includes/classes/class-email.php:118, ../includes/model/ListingDashboard.php:152, ../views/front-end/user-dashboard.php:272, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
+#: ../includes/classes/class-custom-post.php:341, ../includes/classes/class-email.php:118, ../includes/model/ListingDashboard.php:155, ../views/front-end/user-dashboard.php:272, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
 msgid "Never Expires"
 msgstr ""
 
@@ -1517,7 +1517,7 @@ msgstr ""
 msgid "Pending Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:466, ../includes/model/SingleListing.php:750, ../views/front-end/user-dashboard.php:30
+#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:469, ../includes/model/SingleListing.php:750, ../views/front-end/user-dashboard.php:30
 msgid "Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review."
 msgstr ""
 
@@ -1525,7 +1525,7 @@ msgstr ""
 msgid "Publish Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:292, ../includes/model/ListingDashboard.php:467, ../includes/model/SingleListing.php:751, ../views/front-end/user-dashboard.php:31
+#: ../includes/classes/class-settings-panel.php:292, ../includes/model/ListingDashboard.php:470, ../includes/model/SingleListing.php:751, ../views/front-end/user-dashboard.php:31
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
@@ -2557,7 +2557,7 @@ msgstr ""
 msgid "\"My Listing\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2455, ../includes/model/ListingDashboard.php:356, ../views/front-end/user-dashboard.php:21
+#: ../includes/classes/class-settings-panel.php:2455, ../includes/model/ListingDashboard.php:359, ../views/front-end/user-dashboard.php:21
 msgid "My Listing"
 msgstr ""
 
@@ -2573,7 +2573,7 @@ msgstr ""
 msgid "\"My Profile\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2496, ../includes/model/ListingDashboard.php:370, ../templates/dashboard/tab-profile.php:31, ../views/front-end/user-dashboard.php:23, ../views/front-end/user-dashboard.php:450
+#: ../includes/classes/class-settings-panel.php:2496, ../includes/model/ListingDashboard.php:373, ../templates/dashboard/tab-profile.php:31, ../views/front-end/user-dashboard.php:23, ../views/front-end/user-dashboard.php:450
 msgid "My Profile"
 msgstr ""
 
@@ -2585,7 +2585,7 @@ msgstr ""
 msgid "\"Favourite Listings\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2512, ../includes/model/ListingDashboard.php:378, ../views/front-end/user-dashboard.php:25
+#: ../includes/classes/class-settings-panel.php:2512, ../includes/model/ListingDashboard.php:381, ../views/front-end/user-dashboard.php:25
 msgid "Favorite Listings"
 msgstr ""
 
@@ -4313,7 +4313,7 @@ msgstr ""
 msgid "Directorist - Map (Single Listing)"
 msgstr ""
 
-#: ../includes/classes/class-widget-map.php:45, ../includes/model/SingleListing.php:1017, ../views/admin-templates/listing-form/add-listing.php:7
+#: ../includes/classes/class-widget-map.php:45, ../includes/model/SingleListing.php:1018, ../views/admin-templates/listing-form/add-listing.php:7
 msgid "No Title"
 msgstr ""
 
@@ -4767,27 +4767,27 @@ msgid_plural "<span>%s</span> Listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingDashboard.php:153, ../templates/dashboard/tab-my-listings.php:40
+#: ../includes/model/ListingDashboard.php:156, ../templates/dashboard/tab-my-listings.php:40
 msgid "Expired"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:232, ../views/front-end/user-dashboard.php:644
+#: ../includes/model/ListingDashboard.php:235, ../views/front-end/user-dashboard.php:644
 msgid "Untitled"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:362, ../views/front-end/user-dashboard.php:105
+#: ../includes/model/ListingDashboard.php:365, ../views/front-end/user-dashboard.php:105
 msgid "%s (%s)"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:567, ../views/front-end/user-dashboard.php:312, ../views/front-end/user-dashboard.php:303
+#: ../includes/model/ListingDashboard.php:570, ../views/front-end/user-dashboard.php:312, ../views/front-end/user-dashboard.php:303
 msgid "Renew"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:577, ../views/front-end/user-dashboard.php:326
+#: ../includes/model/ListingDashboard.php:580, ../views/front-end/user-dashboard.php:326
 msgid "Promote"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:586
+#: ../includes/model/ListingDashboard.php:589
 msgid "Delete Listing"
 msgstr ""
 
@@ -4895,14 +4895,14 @@ msgstr ""
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:827, ../includes/model/SingleListing.php:1091
+#: ../includes/model/SingleListing.php:827, ../includes/model/SingleListing.php:1092
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:1030, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
+#: ../includes/model/SingleListing.php:1031, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
 msgid "Get Direction"
 msgstr ""
 
@@ -5190,7 +5190,7 @@ msgstr ""
 msgid "Revoke URL"
 msgstr ""
 
-#: ../includes/system-status/send-mail.php:60, ../includes/system-status/template.php:26, ../views/admin-templates/post-types-manager/all-listing-types.php:26, ../views/admin-templates/settings-manager/settings.php:24
+#: ../includes/system-status/send-mail.php:60, ../views/admin-templates/post-types-manager/all-listing-types.php:26, ../views/admin-templates/settings-manager/settings.php:24
 msgid "Support"
 msgstr ""
 
@@ -5618,15 +5618,15 @@ msgstr ""
 msgid "This section shows any files that are overriding the default GeoDirectory template pages."
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:572, ../includes/system-status/system-info-template.php:542, ../includes/system-status/system-information/system-information-template.php:794, ../includes/system-status/system-information/system-information-template.php:759
+#: ../includes/system-status/system-info-template.php:572, ../includes/system-status/system-info-template.php:542, ../includes/system-status/system-information/system-information-template.php:797, ../includes/system-status/system-information/system-information-template.php:759
 msgid "Overrides"
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:552, ../includes/system-status/system-information/system-information-template.php:774
+#: ../includes/system-status/system-info-template.php:552, ../includes/system-status/system-information/system-information-template.php:777
 msgid "%1$s version %2$s is out of date. The core version is %3$s"
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:582, ../includes/system-status/system-information/system-information-template.php:804
+#: ../includes/system-status/system-info-template.php:582
 msgid "Outdated templates"
 msgstr ""
 
@@ -5640,6 +5640,10 @@ msgstr ""
 
 #: ../includes/system-status/template.php:20, ../includes/system-status/warning.php:8
 msgid "Warning "
+msgstr ""
+
+#: ../includes/system-status/template.php:26
+msgid "Contact Support"
 msgstr ""
 
 #: ../includes/system-status/warning.php:34

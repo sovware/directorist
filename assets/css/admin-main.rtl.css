@@ -1601,6 +1601,38 @@ span.atbdp-tick-cross {
 }
 
 /* atbds Sidebar */
+.atbds_sidebar ul {
+  margin-bottom: 0;
+}
+.atbds_sidebar .nav-link {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 11px 20px;
+  color: #5a5f7d;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 20px;
+  min-width: 150px;
+}
+.atbds_sidebar .nav-link.active {
+  color: #3e62f5;
+  background-color: #fff;
+}
+.atbds_sidebar .nav-link:focus {
+  outline: none;
+  border: 0 none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+}
+.atbds_sidebar .nav-link .directorist-badge {
+  font-size: 11px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 1.75;
+  border-radius: 50%;
+}
 .atbds_sidebar a {
   display: inline-block;
   font-size: 15px;
@@ -1617,14 +1649,6 @@ span.atbdp-tick-cross {
   border: 0 none;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
-}
-.atbds_sidebar a .directorist-badge {
-  font-size: 11px;
-  height: 20px;
-  width: 20px;
-  text-align: center;
-  line-height: 1.75;
-  border-radius: 50%;
 }
 
 .atbds_text-center {

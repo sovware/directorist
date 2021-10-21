@@ -1745,7 +1745,10 @@ span.atbdp-tick-cross {
 
 /* atbds Sidebar */
 .atbds_sidebar {
-  a {
+  ul{
+    margin-bottom: 0;
+  }
+  .nav-link {
     display: inline-block;
     font-size: 15px;
     font-weight: 500;
@@ -1755,6 +1758,11 @@ span.atbdp-tick-cross {
     background-color: transparent;
     border-radius: 20px;
     min-width: 150px;
+
+    &.active {
+      color: $ss-primary;
+      background-color: #fff;
+    }
 
     &:focus {
       outline: none;
@@ -1769,6 +1777,22 @@ span.atbdp-tick-cross {
       text-align: center;
       line-height: 1.75;
       border-radius: 50%;
+    }
+  }
+  a{
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 11px 20px;
+    color: $ss-gray;
+    text-decoration: none;
+    background-color: transparent;
+    border-radius: 20px;
+    min-width: 150px;
+    &:focus {
+      outline: none;
+      border: 0 none;
+      box-shadow: 0 0;
     }
   }
 }

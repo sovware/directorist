@@ -106,8 +106,10 @@ var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get
 var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 var $ = jQuery; // Init
 
-jQuery(document).ready(init);
-window.addEventListener('directorist-reload-plupload', init);
+if (!atbdp_plupload_params) {
+  jQuery(document).ready(init);
+  window.addEventListener('directorist-reload-plupload', init);
+}
 
 function init() {
   atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');

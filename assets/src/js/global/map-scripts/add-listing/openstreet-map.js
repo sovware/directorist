@@ -86,18 +86,27 @@ import { get_dom_data } from './../../../lib/helper';
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
             document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             event.preventDefault();
-            let text = $(this).text(), 
+            let text = $(this).text(),
                 lat = $(this).data('lat'),
                 lon = $(this).data('lon');
 
             $('#manual_lat').val(lat);
             $('#manual_lng').val(lon);
 
-            $('.directorist-location-js').val(text);
+            $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
             $('.address_result').css({ 'display': 'none' });
 
             mapLeaflet(lat, lon);
         });
+
+        $('body').on('click', '.location-names ul li a', function (event) {
+            event.preventDefault();
+            let text = $(this).text();
+
+            $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+            $('.address_result').css({ 'display': 'none' });
+        });
+
 
         $('body').on('click', '#generate_admin_map', function (event) {
             event.preventDefault();

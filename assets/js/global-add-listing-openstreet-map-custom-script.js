@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
           type: 'POST',
           data: {},
           success: function success(data) {
-            $('#address').val(data.display_name);
+            $('.directorist-location-js').val(data.display_name);
           }
         });
       });
@@ -145,41 +145,43 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap);
     }
 
-    $('#address').on('keyup', function (event) {
-      event.preventDefault();
+    $('.directorist-location-js').each(function (id, elm) {
+      $(elm).on('keyup', function (event) {
+        event.preventDefault();
 
-      if (event.keyCode !== 40 && event.keyCode !== 38) {
-        var search = $('#address').val();
-        $('#result').css({
-          'display': 'block'
-        });
+        if (event.keyCode !== 40 && event.keyCode !== 38) {
+          var search = $(elm).val();
+          $(elm).siblings('.address_result').css({
+            'display': 'block'
+          });
 
-        if (search === "") {
-          $('#result').css({
-            'display': 'none'
+          if (search === "") {
+            $(elm).siblings('.address_result').css({
+              'display': 'none'
+            });
+          }
+
+          var res = "";
+          $.ajax({
+            url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+            type: 'POST',
+            data: {},
+            success: function success(data) {
+              //console.log(data);
+              for (var i = 0; i < data.length; i++) {
+                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+              }
+
+              $(elm).siblings('.address_result').find('ul').html(res);
+            }
           });
         }
-
-        var res = "";
-        $.ajax({
-          url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-          type: 'POST',
-          data: {},
-          success: function success(data) {
-            //console.log(data);
-            for (var i = 0; i < data.length; i++) {
-              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-            }
-
-            $('#result ul').html(res);
-          }
-        });
-      }
+      });
     });
     var lat = loc_manual_lat,
         lon = loc_manual_lng;
     mapLeaflet(lat, lon);
-    $('body').on('click', '#result ul li a', function (event) {
+    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
       document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       event.preventDefault();
       var text = $(this).text(),
@@ -187,11 +189,19 @@ __webpack_require__.r(__webpack_exports__);
           lon = $(this).data('lon');
       $('#manual_lat').val(lat);
       $('#manual_lng').val(lon);
-      $('#address').val(text);
-      $('#result').css({
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
         'display': 'none'
       });
       mapLeaflet(lat, lon);
+    });
+    $('body').on('click', '.location-names ul li a', function (event) {
+      event.preventDefault();
+      var text = $(this).text();
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        'display': 'none'
+      });
     });
     $('body').on('click', '#generate_admin_map', function (event) {
       event.preventDefault();
@@ -200,9 +210,9 @@ __webpack_require__.r(__webpack_exports__);
     }); // Popup controller by keyboard
 
     var index = 0;
-    $('#address').on('keyup', function (event) {
+    $('.directorist-location-js').on('keyup', function (event) {
       event.preventDefault();
-      var length = $('#directorist.atbd_wrapper #result ul li a').length;
+      var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
 
       if (event.keyCode === 40) {
         index++;
@@ -220,12 +230,12 @@ __webpack_require__.r(__webpack_exports__);
         ;
       }
 
-      if ($('#directorist.atbd_wrapper #result ul li a').length > 0) {
-        $('#directorist.atbd_wrapper #result ul li a').removeClass('active');
-        $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+      if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
+        $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
+        $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
 
         if (event.keyCode === 13) {
-          $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+          $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
           event.preventDefault();
           index = 0;
           return false;
@@ -258,31 +268,31 @@ __webpack_require__.r(__webpack_exports__);
 
 var $ = jQuery;
 
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
+function get_dom_data(key, parent) {
+  var elmKey = 'directorist-dom-data-' + key;
+  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
-  if (!dom_content.length) {
+  if (!dataElm) {
     return '';
   }
 
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
+  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
 
-  if (!terget_content) {
+  try {
+    var dataValue = atob(dataElm[0].dataset.value);
+    dataValue = JSON.parse(dataValue);
+    return dataValue;
+  } catch (error) {
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
+    }
+
     return '';
   }
-
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
-  }
-
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
-  }
-
-  return dom_data;
 }
 
 function convertToSelect2(field) {

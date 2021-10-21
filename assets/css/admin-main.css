@@ -1601,6 +1601,9 @@ span.atbdp-tick-cross {
 }
 
 /* atbds Sidebar */
+.atbds_sidebar ul {
+  margin-bottom: 0;
+}
 .atbds_sidebar .nav-link {
   display: inline-block;
   font-size: 15px;
@@ -1629,6 +1632,23 @@ span.atbdp-tick-cross {
   text-align: center;
   line-height: 1.75;
   border-radius: 50%;
+}
+.atbds_sidebar a {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 11px 20px;
+  color: #5a5f7d;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 20px;
+  min-width: 150px;
+}
+.atbds_sidebar a:focus {
+  outline: none;
+  border: 0 none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
 }
 
 .atbds_text-center {
@@ -1722,6 +1742,13 @@ span.atbdp-tick-cross {
 }
 .atbds_system-table tbody tr td.atbds_table-pointer {
   width: 30px;
+}
+.atbds_system-table tbody tr td.diretorist-table-text p {
+  margin: 0;
+  line-height: 1.3;
+}
+.atbds_system-table tbody tr td.diretorist-table-text p:not(:last-child) {
+  margin: 0 0 15px;
 }
 .atbds_system-table tbody tr td .atbds_color-success {
   color: #00bc5e;
@@ -5430,20 +5457,20 @@ img.atbdp-file-info {
     width: 100%;
   }
 }
-.directorist-address-field #result ul,
-.directorist-form-address-field #result ul {
+.directorist-address-field .address_result ul,
+.directorist-form-address-field .address_result ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.directorist-address-field #result ul li,
-.directorist-form-address-field #result ul li {
+.directorist-address-field .address_result ul li,
+.directorist-form-address-field .address_result ul li {
   margin-bottom: 0;
   border-bottom: 1px solid #eee;
   list-style: none;
 }
-.directorist-address-field #result ul li a,
-.directorist-form-address-field #result ul li a {
+.directorist-address-field .address_result ul li a,
+.directorist-form-address-field .address_result ul li a {
   color: #5a6671;
   display: block;
   padding: 8px 10px;

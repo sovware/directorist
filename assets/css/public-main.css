@@ -419,20 +419,20 @@ a:focus {
     width: 100%;
   }
 }
-.directorist-address-field #result ul,
-.directorist-form-address-field #result ul {
+.directorist-address-field .address_result ul,
+.directorist-form-address-field .address_result ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.directorist-address-field #result ul li,
-.directorist-form-address-field #result ul li {
+.directorist-address-field .address_result ul li,
+.directorist-form-address-field .address_result ul li {
   margin-bottom: 0;
   border-bottom: 1px solid #eee;
   list-style: none;
 }
-.directorist-address-field #result ul li a,
-.directorist-form-address-field #result ul li a {
+.directorist-address-field .address_result ul li a,
+.directorist-form-address-field .address_result ul li a {
   color: #767792;
   display: block;
   padding: 8px 10px;
@@ -13878,7 +13878,7 @@ p.atbd-min {
   color: #51526E;
 }
 
-.directorist-search-field #address + .address_result {
+.directorist-search-field .directorist-location-js + .address_result {
   position: absolute;
   width: 100%;
   left: 0;
@@ -13891,23 +13891,23 @@ p.atbd-min {
   max-height: 300px;
   overflow-y: scroll;
 }
-.directorist-search-field #address + .address_result ul {
+.directorist-search-field .directorist-location-js + .address_result ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
-.directorist-search-field #address + .address_result ul li {
+.directorist-search-field .directorist-location-js + .address_result ul li {
   border-bottom: 1px solid #eff1f6;
   padding: 10px 15px 10px !important;
   margin: 0;
 }
-.directorist-search-field #address + .address_result ul li a {
+.directorist-search-field .directorist-location-js + .address_result ul li a {
   font-size: 14px;
   color: #7a82a6;
   line-height: 22px;
   display: block;
 }
-.directorist-search-field #address + .address_result ul li a:hover {
+.directorist-search-field .directorist-location-js + .address_result ul li a:hover {
   color: #444752;
 }
 

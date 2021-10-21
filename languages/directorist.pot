@@ -5416,7 +5416,7 @@ msgstr ""
 msgid "Revoke URL"
 msgstr ""
 
-#: ../includes/system-status/send-mail.php:60, ../includes/system-status/template.php:26, ../views/admin-templates/post-types-manager/all-listing-types.php:26, ../views/admin-templates/settings-manager/settings.php:24
+#: ../includes/system-status/send-mail.php:60, ../views/admin-templates/post-types-manager/all-listing-types.php:26, ../views/admin-templates/settings-manager/settings.php:24
 msgid "Support"
 msgstr ""
 
@@ -5844,15 +5844,15 @@ msgstr ""
 msgid "This section shows any files that are overriding the default GeoDirectory template pages."
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:572, ../includes/system-status/system-info-template.php:542, ../includes/system-status/system-information/system-information-template.php:794, ../includes/system-status/system-information/system-information-template.php:759
+#: ../includes/system-status/system-info-template.php:572, ../includes/system-status/system-info-template.php:542, ../includes/system-status/system-information/system-information-template.php:797, ../includes/system-status/system-information/system-information-template.php:759
 msgid "Overrides"
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:552, ../includes/system-status/system-information/system-information-template.php:774
+#: ../includes/system-status/system-info-template.php:552, ../includes/system-status/system-information/system-information-template.php:777
 msgid "%1$s version %2$s is out of date. The core version is %3$s"
 msgstr ""
 
-#: ../includes/system-status/system-info-template.php:582, ../includes/system-status/system-information/system-information-template.php:804
+#: ../includes/system-status/system-info-template.php:582
 msgid "Outdated templates"
 msgstr ""
 
@@ -5866,6 +5866,10 @@ msgstr ""
 
 #: ../includes/system-status/template.php:20, ../includes/system-status/warning.php:8
 msgid "Warning "
+msgstr ""
+
+#: ../includes/system-status/template.php:26
+msgid "Contact Support"
 msgstr ""
 
 #: ../includes/system-status/warning.php:34

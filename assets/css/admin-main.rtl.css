@@ -1601,7 +1601,7 @@ span.atbdp-tick-cross {
 }
 
 /* atbds Sidebar */
-.atbds_sidebar .nav-link {
+.atbds_sidebar a {
   display: inline-block;
   font-size: 15px;
   font-weight: 500;
@@ -1612,17 +1612,13 @@ span.atbdp-tick-cross {
   border-radius: 20px;
   min-width: 150px;
 }
-.atbds_sidebar .nav-link.active {
-  color: #3e62f5;
-  background-color: #fff;
-}
-.atbds_sidebar .nav-link:focus {
+.atbds_sidebar a:focus {
   outline: none;
   border: 0 none;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
 }
-.atbds_sidebar .nav-link .directorist-badge {
+.atbds_sidebar a .directorist-badge {
   font-size: 11px;
   height: 20px;
   width: 20px;

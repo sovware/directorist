@@ -1745,7 +1745,7 @@ span.atbdp-tick-cross {
 
 /* atbds Sidebar */
 .atbds_sidebar {
-  .nav-link {
+  a {
     display: inline-block;
     font-size: 15px;
     font-weight: 500;
@@ -1755,11 +1755,6 @@ span.atbdp-tick-cross {
     background-color: transparent;
     border-radius: 20px;
     min-width: 150px;
-
-    &.active {
-      color: $ss-primary;
-      background-color: #fff;
-    }
 
     &:focus {
       outline: none;

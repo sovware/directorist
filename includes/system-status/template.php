@@ -14,16 +14,16 @@
             <aside class="atbds_sidebar pl-30">
                 <ul class="nav" class="atbds_status-nav" id="atbds_status-tab" role="tablist">
                     <li class="nav-item">
-                        <a href="#atbds_system-info" class="nav-link active" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'System Information', 'directorist' ); ?></a>
+                        <a href="#atbds_system-info" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'System Information', 'directorist' ); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#atbds_warning" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><?php echo $warning_count; ?></a>
+                        <a href="#atbds_warning" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><?php echo $warning_count; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#atbds_r-viewing" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Remote Viewing', 'directorist' ); ?></a>
+                        <a href="#atbds_r-viewing" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Remote Viewing', 'directorist' ); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://directorist.com/contact/" target="_blank" class="nav-link"><?php _e( 'Contact Support', 'directorist' ); ?></a>
+                        <a href="https://directorist.com/contact/" target="_blank"><?php _e( 'Contact Support', 'directorist' ); ?></a>
                     </li>
                 </ul>
             </aside>

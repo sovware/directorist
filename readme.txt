@@ -13,13 +13,13 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 
 == Description ==
 
+[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
+
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages, or Tripadvisor on your WordPress site? If the answer is YES, you have come to the right place. Directorist simplifies the process of creating powerful business directories or classified websites of any kind.
 
- The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
+The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
-
-👉 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
 
 Meet our powerful Directorist Business Directory plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code.
 
@@ -354,6 +354,21 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.5.6 – Oct 25, 2021
+
+* New - REST API endpoints
+* Fix - Search form issues when the form is used twice
+* Fix - Report listing couldn’t track the logged-in user
+* Fix - Modify browser title for the non-directorist page
+* Fix - Couldn’t find a field if the field has no label in the submission form
+* Fix - Extensions template override
+* Fix - Selecting all listing page as site homepage and navigate directory type redirect to blog page
+* Fix - Issue with listing content ( remove get_the_content and add directorist_the_content )
+* Fix - Add listing geo suggestion when search form is used on the same page
+* Fix - Google and OpenStreetMap issues with some cache and optimizer plugin
+* Fix - Unfavorite listing issue on the user dashboard
+
 
 7.0.5.5 – Sep 20, 2021
 

@@ -55,6 +55,12 @@ function register_controllers() {
 	$user_favorites = new \Directorist\Rest_Api\Controllers\Version1\User_Favorites_Controller();
 	$user_favorites->register_routes();
 
+	// Users account controller.
+	require_once $dir . 'Version1/class-users-account-controller.php';
+
+	$users_account = new \Directorist\Rest_Api\Controllers\Version1\Users_Account_Controller();
+	$users_account->register_routes();
+
 	// Directory types
 	require_once $dir . 'Version1/class-directories-controller.php';
 

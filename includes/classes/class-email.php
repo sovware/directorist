@@ -37,19 +37,19 @@ if (!class_exists('ATBDP_Email')):
             /*Fire up email for deleted/trashed listings*/
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
-            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));	
+            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
             /*Fire up emails when a general user apply for become author user*/
             add_action('atbdp_become_author', array($this, 'notify_admin_become_author'));
             //add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
         }
 
-          /**	
-         * @since 5.8	
-         */	
-        public function atbdp_wp_mail_from_name()	
-        {	
-            $site_name = get_option('blogname');	
-            return $site_name;	
+          /**
+         * @since 5.8
+         */
+        public function atbdp_wp_mail_from_name()
+        {
+            $site_name = get_option('blogname');
+            return $site_name;
         }
 
         /**
@@ -73,7 +73,7 @@ if (!class_exists('ATBDP_Email')):
          * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
          * @return string               It returns the content after replacing the placeholder with proper data.
          */
-        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null)
+        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin = 0)
         {
             if (empty($listing_id)) {
                 $listing_id = (int)get_post_meta($order_id, '_listing_id', true);
@@ -131,6 +131,7 @@ if (!class_exists('ATBDP_Email')):
                 '==DASHBOARD_LINK==' => sprintf('<a href="%s">%s</a>', $dashboard_link, $dashboard_link),
                 '==USER_PASSWORD==' => $user_password,
                 '==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
+                '==PIN==' => $pin,
             );
             $c = nl2br(strtr($content, $find_replace));
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -271,6 +272,26 @@ Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==
 You can Edit/Review the listing using the link below:
 ==LISTING_EDIT_URL==
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+", 'directorist');
+        }
+
+        /**
+         * Get password reset PIN email template
+         *
+         * @since 7.0.5.5
+         * @return string It returns the email template for password reset PIN.
+         */
+        public function get_password_reset_pin_email_template()
+        {
+            return __("
+Dear User,
+
+Please use the following PIN to reset your password
+<div style='margin: 10px 0; text-align: center;'>
+<h2>==PIN==</h2>
+<div>
 
 This email is sent automatically for information purpose only. Please do not respond to this.
 ", 'directorist');
@@ -467,7 +488,7 @@ This email is sent automatically for information purpose only. Please do not res
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
-        } 
+        }
 
 
         /**
@@ -744,6 +765,32 @@ This email is sent automatically for information purpose only. Please do not res
             $message = $this->replace_in_content($body, null, $listing_id);
             $body = atbdp_email_html($sub, $message);
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+
+        }
+
+        /**
+         * Send Password Reset PIN
+         *
+         * @since 7.0.5.5
+         * @param int $listing_email
+         * @return bool Whether the email was sent successfully or not.
+         */
+        public function send_password_reset_pin_email($listing_email)
+        {
+            $s = __('[==SITE_NAME==] Password Reset PIN', 'directorist');
+            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $pin = random_int(1000, 9999);
+
+            $min = 15;
+            $expiration = 60 * $min; // In seconds
+
+            set_transient( "directorist_reset_pin_${listing_email}", $pin, $expiration );
+
+            $body    = $this->get_password_reset_pin_email_template();
+            $message = $this->replace_in_content($body, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin);
+            $body    = atbdp_email_html($sub, $message);
+
+            return $this->send_mail( $listing_email, $sub, $body, $this->get_email_headers());
 
         }
 

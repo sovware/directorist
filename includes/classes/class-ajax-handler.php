@@ -1023,6 +1023,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'message'    => $message,
                 'headers'    => $headers,
                 'listing_id' => $post_id,
+                'reviewer'   => $user,
             ];
 
             do_action( 'directorist_email_on_add_review', $action_args );

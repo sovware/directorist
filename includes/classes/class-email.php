@@ -758,7 +758,7 @@ This email is sent automatically for information purpose only. Please do not res
                 'listing_id' => $listing_id,
             ];
 
-            do_action( 'directorist_on_email_notify_admin_listing_submitted', $action_args );
+            do_action( 'directorist_email_on_notify_admin_listing_submitted', $action_args );
 
             return $is_sent;
 

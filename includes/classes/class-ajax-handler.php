@@ -1237,7 +1237,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'site_name' => $site_name,
             ];
 
-            do_action( 'directorist_send_contact_messaage_to_listing_owner', $action_args );
+            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
 
             return $is_sent;
         }
@@ -1308,7 +1308,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'site_name' => $site_name,
             ];
 
-            do_action( 'directorist_send_contact_messaage_to_admin', $action_args );
+            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
 
             return $is_sent;
         }

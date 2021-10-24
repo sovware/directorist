@@ -366,7 +366,7 @@ class Directorist_Listing_Taxonomy {
 				}
 			}
 			endwhile;
-			wp_reset_query();
+			wp_reset_postdata();
 		}
 		$this->slug = ( $slug ) ? implode( ',', $slug ) : ' ';
 

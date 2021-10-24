@@ -43,12 +43,12 @@ class ATBDP_Rewrite {
             add_rewrite_rule( "$link/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&paged=$matches[2]', 'top' );
             
             // Link > Author > Directory > Page
-            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]', 'top' );
-            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory_type=$matches[2]&paged=$matches[3]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory-type=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&author_id=$matches[1]&directory-type=$matches[2]&paged=$matches[3]', 'top' );
             
             // Link > Directory > Page
-            add_rewrite_rule( "$link/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&directory_type=$matches[1]', 'top' );
-            add_rewrite_rule( "$link/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&directory_type=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/directory/([^/]+)/?$", 'index.php?page_id='.$id.'&directory-type=$matches[1]', 'top' );
+            add_rewrite_rule( "$link/directory/([^/]+)/page/(\d)/?$", 'index.php?page_id='.$id.'&directory-type=$matches[1]&paged=$matches[2]', 'top' );
         }
 
 
@@ -129,7 +129,7 @@ class ATBDP_Rewrite {
         add_rewrite_tag( '%atbdp_order_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%atbdp_listing_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%author_id%', '([^/]+)' );
-        add_rewrite_tag( '%directory_type%', '([^/]+)' );
+        add_rewrite_tag( '%directory-type%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_category%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_location%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_tag%', '([^/]+)' );

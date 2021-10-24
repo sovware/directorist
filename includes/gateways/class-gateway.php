@@ -6,7 +6,7 @@
  * @subpackage    directorist/includes/gateways
  * @copyright     Copyright 2018. AazzTech
  * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License
- * @since         3.1.0
+ * @since         7.0.6
  */
 
 // Exit if accessed directly
@@ -15,7 +15,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * ATBDP_Gateway Class
  *
- * @since    3.1.0
+ * @since    7.0.6
  * @access   public
  */
 
@@ -71,7 +71,7 @@ class ATBDP_Gateway{
                     ],
                 ];
             }
-            
+
             return $widgets;
         }
 
@@ -343,12 +343,13 @@ class ATBDP_Gateway{
         $active_gateways = get_directorist_option('active_gateways', [ 'bank_transfer' ]);
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
         if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
-        
+
         $format = '
         <li class="list-group-item">
-            <div class="gateway_list">
-                <label for="##GATEWAY##">
-                    <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
+            <div class="gateway_list directorist-radio directorist-radio-circle">
+                <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>
+                <label for="##GATEWAY##" class="directorist-radio__label">
+                    ##LABEL##
                 </label>
             </div>
             ##DESC##
@@ -367,7 +368,7 @@ class ATBDP_Gateway{
                 /*@todo; Add a settings to select a default payment method.*/
             }
         }
-        
+
         $markup .= '</ul>';
 
         return $markup;

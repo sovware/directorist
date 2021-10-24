@@ -140,7 +140,7 @@
         flex-wrap: wrap;
         margin: -5px 0;
 
-        .directorist-search-field {
+        .directorist-search-field{
             flex: auto;
             flex-direction: column;
             align-items: flex-start;
@@ -326,7 +326,7 @@
 }
 
 .directorist-search-field {
-    #address {
+    .directorist-location-js {
         &+.address_result {
             position: absolute;
             width: 100%;

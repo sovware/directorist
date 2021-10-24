@@ -6501,6 +6501,7 @@ function atbdp_get_listings_orderby_options($sort_by_items)
             $values->the_post();
             $prices[] = get_post_meta(get_the_ID(), '_price', true);
         }
+        wp_reset_postdata();
         $has_price = join($prices);
     }
     $disabled_price_by_admin = get_directorist_option('disable_list_price', 0);

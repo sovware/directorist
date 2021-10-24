@@ -100,15 +100,14 @@ class Directorist_Listing_Author {
 
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( ! empty( get_query_var( 'directory_type' ) ) ) {
-			$current = get_query_var( 'directory_type' );
+		if ( ! empty( $_GET['directory_type' ] ) ) {
+			$current = $_GET['directory_type' ];
 		}
-		else {
-
+		else if (  get_query_var( 'directory-type' ) ) {
+			$current = get_query_var( 'directory-type' );
+		} else {
 			foreach ( $listing_types as $id => $type ) {
 				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {

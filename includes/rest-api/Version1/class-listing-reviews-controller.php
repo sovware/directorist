@@ -73,6 +73,8 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_items_permissions_check( $request ) {
+		return true;
+
 		if ( ! directorist_rest_check_listing_reviews_permissions( 'read' ) ) {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
@@ -87,6 +89,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_item_permissions_check( $request ) {
+		return true;
 		$id     = (int) $request['id'];
 		$review = get_comment( $id );
 
@@ -104,112 +107,132 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return array|WP_Error
 	 */
 	public function get_items( $request ) {
-		// Retrieve the list of registered collection query parameters.
-		$registered = $this->get_collection_params();
+		// // Retrieve the list of registered collection query parameters.
+		// $registered = $this->get_collection_params();
 
-		/*
-		 * This array defines mappings between public API query parameters whose
-		 * values are accepted as-passed, and their internal WP_Query parameter
-		 * name equivalents (some are the same). Only values which are also
-		 * present in $registered will be set.
-		 */
-		$parameter_mappings = array(
-			'reviewer'         => 'author__in',
-			'reviewer_email'   => 'author_email',
-			'reviewer_exclude' => 'author__not_in',
-			'exclude'          => 'comment__not_in',
-			'include'          => 'comment__in',
-			'offset'           => 'offset',
-			'order'            => 'order',
-			'per_page'         => 'number',
-			'listing'          => 'post__in',
-			'search'           => 'search',
-			'status'           => 'status',
-		);
+		// /*
+		//  * This array defines mappings between public API query parameters whose
+		//  * values are accepted as-passed, and their internal WP_Query parameter
+		//  * name equivalents (some are the same). Only values which are also
+		//  * present in $registered will be set.
+		//  */
+		// $parameter_mappings = array(
+		// 	'reviewer'         => 'author__in',
+		// 	'reviewer_email'   => 'author_email',
+		// 	'reviewer_exclude' => 'author__not_in',
+		// 	'exclude'          => 'comment__not_in',
+		// 	'include'          => 'comment__in',
+		// 	'offset'           => 'offset',
+		// 	'order'            => 'order',
+		// 	'per_page'         => 'number',
+		// 	'listing'          => 'post__in',
+		// 	'search'           => 'search',
+		// 	'status'           => 'status',
+		// );
 
-		$prepared_args = array();
+		// $prepared_args = array();
 
-		/*
-		 * For each known parameter which is both registered and present in the request,
-		 * set the parameter's value on the query $prepared_args.
-		 */
-		foreach ( $parameter_mappings as $api_param => $wp_param ) {
-			if ( isset( $registered[ $api_param ], $request[ $api_param ] ) ) {
-				$prepared_args[ $wp_param ] = $request[ $api_param ];
-			}
-		}
+		// /*
+		//  * For each known parameter which is both registered and present in the request,
+		//  * set the parameter's value on the query $prepared_args.
+		//  */
+		// foreach ( $parameter_mappings as $api_param => $wp_param ) {
+		// 	if ( isset( $registered[ $api_param ], $request[ $api_param ] ) ) {
+		// 		$prepared_args[ $wp_param ] = $request[ $api_param ];
+		// 	}
+		// }
 
-		// Ensure certain parameter values default to empty strings.
-		foreach ( array( 'author_email', 'search' ) as $param ) {
-			if ( ! isset( $prepared_args[ $param ] ) ) {
-				$prepared_args[ $param ] = '';
-			}
-		}
+		// // Ensure certain parameter values default to empty strings.
+		// foreach ( array( 'author_email', 'search' ) as $param ) {
+		// 	if ( ! isset( $prepared_args[ $param ] ) ) {
+		// 		$prepared_args[ $param ] = '';
+		// 	}
+		// }
 
-		if ( isset( $registered['orderby'] ) ) {
-			$prepared_args['orderby'] = $this->normalize_query_param( $request['orderby'] );
-		}
+		// if ( isset( $registered['orderby'] ) ) {
+		// 	$prepared_args['orderby'] = $this->normalize_query_param( $request['orderby'] );
+		// }
 
-		if ( isset( $prepared_args['status'] ) ) {
-			$prepared_args['status'] = 'approved' === $prepared_args['status'] ? 'approve' : $prepared_args['status'];
-		}
+		// if ( isset( $prepared_args['status'] ) ) {
+		// 	$prepared_args['status'] = 'approved' === $prepared_args['status'] ? 'approve' : $prepared_args['status'];
+		// }
 
-		$prepared_args['no_found_rows'] = false;
-		$prepared_args['date_query']    = array();
+		// $prepared_args['no_found_rows'] = false;
+		// $prepared_args['date_query']    = array();
 
-		// Set before into date query. Date query must be specified as an array of an array.
-		if ( isset( $registered['before'], $request['before'] ) ) {
-			$prepared_args['date_query'][0]['before'] = $request['before'];
-		}
+		// // Set before into date query. Date query must be specified as an array of an array.
+		// if ( isset( $registered['before'], $request['before'] ) ) {
+		// 	$prepared_args['date_query'][0]['before'] = $request['before'];
+		// }
 
-		// Set after into date query. Date query must be specified as an array of an array.
-		if ( isset( $registered['after'], $request['after'] ) ) {
-			$prepared_args['date_query'][0]['after'] = $request['after'];
-		}
+		// // Set after into date query. Date query must be specified as an array of an array.
+		// if ( isset( $registered['after'], $request['after'] ) ) {
+		// 	$prepared_args['date_query'][0]['after'] = $request['after'];
+		// }
 
-		if ( isset( $registered['page'] ) && empty( $request['offset'] ) ) {
-			$prepared_args['offset'] = $prepared_args['number'] * ( absint( $request['page'] ) - 1 );
-		}
+		// if ( isset( $registered['page'] ) && empty( $request['offset'] ) ) {
+		// 	$prepared_args['offset'] = $prepared_args['number'] * ( absint( $request['page'] ) - 1 );
+		// }
 
-		/**
-		 * Filters arguments, before passing to WP_Comment_Query, when querying reviews via the REST API.
-		 *
-		 * @link https://developer.wordpress.org/reference/classes/wp_comment_query/
-		 * @param array           $prepared_args Array of arguments for WP_Comment_Query.
-		 * @param WP_REST_Request $request       The current request.
-		 */
-		$prepared_args = apply_filters( 'directorist_rest_listing_review_query', $prepared_args, $request );
+		// /**
+		//  * Filters arguments, before passing to WP_Comment_Query, when querying reviews via the REST API.
+		//  *
+		//  * @link https://developer.wordpress.org/reference/classes/wp_comment_query/
+		//  * @param array           $prepared_args Array of arguments for WP_Comment_Query.
+		//  * @param WP_REST_Request $request       The current request.
+		//  */
+		// $prepared_args = apply_filters( 'directorist_rest_listing_review_query', $prepared_args, $request );
 
 		// Make sure that returns only reviews.
-		$prepared_args['type'] = 'review';
+		// $prepared_args['type'] = 'review';
 
-		// Query reviews.
-		$query        = new \WP_Comment_Query();
-		$query_result = $query->query( $prepared_args );
-		$reviews      = array();
+		$query_result = [];
+		$count        = 0;
+		$per_page     = $request['per_page'];
+		$page         = $request['page'];
+		$start        = ( $page - 1 ) * $per_page;
+
+		if ( ! empty( $request['listing'] ) && is_array( $request['listing'] ) ) {
+			foreach ( $request['listing'] as $_listing_id ) {
+				// At the same time, count the number of queried review
+				$_count = ATBDP()->review->db->count( array( 'post_id' => (int) $_listing_id ) );
+
+				if ( $_count ) {
+					$_query_result = ATBDP()->review->db->get_reviews_by( 'post_id', (int) $_listing_id, $start, $per_page );
+					// Query reviews.
+					$query_result = array_merge( $query_result, $_query_result );
+
+					$count += $_count;
+				}
+			}
+		}
+
+		$max_num_pages = ceil( $count / $per_page );
+		$reviews       = array();
 
 		foreach ( $query_result as $review ) {
-			if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
-				continue;
-			}
+			// if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
+			// 	continue;
+			// }
+
+			// {
+			// 	"id": "1",
+			// 	"post_id": "947",
+			// 	"name": "test_1",
+			// 	"email": "test_1@mail.com",
+			// 	"content": "test",
+			// 	"rating": "5",
+			// 	"by_guest": "0",
+			// 	"by_user_id": "2",
+			// 	"date_created": "2021-10-14 08:17:22"
+			// }
 
 			$data      = $this->prepare_item_for_response( $review, $request );
 			$reviews[] = $this->prepare_response_for_collection( $data );
 		}
 
-		$total_reviews = (int) $query->found_comments;
-		$max_pages     = (int) $query->max_num_pages;
-
-		if ( $total_reviews < 1 ) {
-			// Out-of-bounds, run the query again without LIMIT for total count.
-			unset( $prepared_args['number'], $prepared_args['offset'] );
-
-			$query                  = new \WP_Comment_Query();
-			$prepared_args['count'] = true;
-
-			$total_reviews = $query->query( $prepared_args );
-			$max_pages     = ceil( $total_reviews / $request['per_page'] );
-		}
+		$total_reviews = (int) $count;
+		$max_pages     = (int) $max_num_pages;
 
 		$response = rest_ensure_response( $reviews );
 		$response->header( 'X-WP-Total', $total_reviews );
@@ -268,38 +291,70 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 		$fields  = $this->get_fields_for_response( $request );
 		$data    = array();
 
+		// {
+		// 	"id": "1",
+		// 	"post_id": "947",
+		// 	"name": "test_1",
+		// 	"email": "test_1@mail.com",
+		// 	"content": "test",
+		// 	"rating": "5",
+		// 	"by_guest": "0",
+		// 	"by_user_id": "2",
+		// 	"date_created": "2021-10-14 08:17:22"
+		// }
+
 		if ( in_array( 'id', $fields, true ) ) {
-			$data['id'] = (int) $review->comment_ID;
+			$data['id'] = (int) $review->id;
 		}
+
 		if ( in_array( 'date_created', $fields, true ) ) {
-			$data['date_created'] = wc_rest_prepare_date_response( $review->comment_date );
+			$data['date_created'] = directorist_rest_prepare_date_response( $review->date_created );
 		}
+
 		if ( in_array( 'date_created_gmt', $fields, true ) ) {
-			$data['date_created_gmt'] = wc_rest_prepare_date_response( $review->comment_date_gmt );
+			$data['date_created_gmt'] = directorist_rest_prepare_date_response( $review->date_created );
 		}
+
 		if ( in_array( 'listing_id', $fields, true ) ) {
-			$data['listing_id'] = (int) $review->comment_post_ID;
+			$data['listing_id'] = (int) $review->post_id;
 		}
+
 		if ( in_array( 'status', $fields, true ) ) {
-			$data['status'] = $this->prepare_status_response( (string) $review->comment_approved );
+			$data['status'] = $this->prepare_status_response( (string) 1 );
 		}
+
 		if ( in_array( 'reviewer', $fields, true ) ) {
-			$data['reviewer'] = $review->comment_author;
+			$data['reviewer'] = $review->name;
 		}
+
 		if ( in_array( 'reviewer_email', $fields, true ) ) {
-			$data['reviewer_email'] = $review->comment_author_email;
+			$data['reviewer_email'] = $review->email;
 		}
+
 		if ( in_array( 'review', $fields, true ) ) {
-			$data['review'] = 'view' === $context ? wpautop( $review->comment_content ) : $review->comment_content;
+			$data['review'] = 'view' === $context ? wpautop( $review->content ) : $review->content;
 		}
+
 		if ( in_array( 'rating', $fields, true ) ) {
-			$data['rating'] = (int) get_comment_meta( $review->comment_ID, 'rating', true );
+			$data['rating'] = (int) $review->rating;
 		}
-		if ( in_array( 'verified', $fields, true ) ) {
-			$data['verified'] = wc_review_is_from_verified_owner( $review->comment_ID );
-		}
+
 		if ( in_array( 'reviewer_avatar_urls', $fields, true ) ) {
-			$data['reviewer_avatar_urls'] = rest_get_avatar_urls( $review->comment_author_email );
+			$avatar_id = get_user_meta( $review->by_user_id, 'pro_pic', true );
+			$avatar_img = wp_get_attachment_image_url( $avatar_id, 'thumbnail' );
+
+			if ( $avatar_img ) {
+				$avatar_sizes = rest_get_avatar_sizes();
+				$urls         = array();
+
+				foreach ( $avatar_sizes as $size ) {
+					$urls[ $size ] = $avatar_img;
+				}
+
+				$data['reviewer_avatar_urls'] = $urls;
+			} else {
+				$data['reviewer_avatar_urls'] = rest_get_avatar_urls( $review->email );
+			}
 		}
 
 		$data = $this->add_additional_fields_to_object( $data, $request );
@@ -329,16 +384,16 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	protected function prepare_links( $review ) {
 		$links = array(
 			'self'       => array(
-				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $review->comment_ID ) ),
+				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $review->id ) ),
 			),
 			'collection' => array(
 				'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ),
 			),
 		);
 
-		if ( 0 !== (int) $review->comment_post_ID ) {
+		if ( 0 !== (int) $review->post_id ) {
 			$links['up'] = array(
-				'href' => rest_url( sprintf( '/%s/listings/%d', $this->namespace, $review->comment_post_ID ) ),
+				'href' => rest_url( sprintf( '/%s/listings/%d', $this->namespace, $review->post_id ) ),
 			);
 		}
 
@@ -420,7 +475,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 			),
 		);
 
-		if ( get_option( 'show_avatars' ) ) {
+		// if ( get_option( 'show_avatars' ) ) {
 			$avatar_properties = array();
 			$avatar_sizes      = rest_get_avatar_sizes();
 
@@ -440,7 +495,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 				'readonly'    => true,
 				'properties'  => $avatar_properties,
 			);
-		}
+		// }
 
 		return $this->add_additional_fields_schema( $schema );
 	}
@@ -454,6 +509,8 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 		$params = parent::get_collection_params();
 
 		$params['context']['default'] = 'view';
+
+		$params['per_page']['default'] = get_directorist_option( 'review_num', 5 );
 
 		$params['after']            = array(
 			'description' => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'directorist' ),

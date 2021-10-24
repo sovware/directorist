@@ -502,12 +502,29 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist');
-            $sub = $this->replace_in_content($s, null, $listing_id);
+            $subject = $this->replace_in_content($s, null, $listing_id);
 
             $body = $this->get_listing_published_admin_tmpl();
             $body = $this->replace_in_content($body, null, $listing_id);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_listing_published', $action_args );
+            
+            return $is_sent;
 
         }
 

@@ -758,13 +758,30 @@ This email is sent automatically for information purpose only. Please do not res
                 if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
                 if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
                 $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
-                $sub = $this->replace_in_content($s, $order_id);
+                $subject = $this->replace_in_content($s, $order_id);
 
                 $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
                 $body = str_replace('==ORDER_RECEIPT_URL==', admin_url("edit.php?post_type=atbdp_orders"), $t); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
                 $body = $this->replace_in_content($body, $order_id, $listing_id);
-                $body = atbdp_email_html($sub, $body);
-                return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+                $message = atbdp_email_html($subject, $body);
+                $to = $this->get_admin_email_list();
+                $headers = $this->get_email_headers();
+
+                $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+                // Action Hook
+                $action_args = [
+                    'is_sent'    => $is_sent,
+                    'to_email'   => $to,
+                    'subject'    => $subject,
+                    'message'    => $message,
+                    'headers'    => $headers,
+                    'listing_id' => $listing_id,
+                ];
+
+                do_action( 'directorist_email_on_notify_admin_order_created', $action_args );
+                
+                return $is_sent;
             }
         }
 

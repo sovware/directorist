@@ -1011,7 +1011,23 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
             // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            $to = $user->user_email;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $post_id,
+            ];
+
+            do_action( 'directorist_email_on_add_review', $action_args );
+            
+            return $is_sent;
         }
 
         /*

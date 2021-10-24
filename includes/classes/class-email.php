@@ -545,7 +545,8 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
+            $to = $user->user_email;
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $edited_status  = get_term_meta( $directory_type, 'edit_listing_status', true );
             if ('publish' === $edited_status){
@@ -553,8 +554,24 @@ This email is sent automatically for information purpose only. Please do not res
             }else{
                 $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
             }
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_edited', $action_args );
+            
+            return $is_sent;
         }
 
 

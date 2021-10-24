@@ -1010,8 +1010,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-
             $to = $user->user_email;
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
         

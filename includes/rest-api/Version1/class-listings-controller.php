@@ -729,6 +729,9 @@ class Listings_Controller extends Posts_Controller {
 				case 'rating_count':
 					$base_data['rating_count'] = ATBDP()->review->db->count( array( 'post_id' => $listing->ID ) );
 					break;
+				case 'related_ids':
+					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );
+					break;
 				case 'categories':
 					$base_data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
 					break;
@@ -772,6 +775,76 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		return $data;
+	}
+
+	protected function get_related_listings_ids( $listing_id ) {
+		$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+		$number         = get_directorist_type_option( $directory_type, 'similar_listings_number_of_listings_to_show', 2 );
+		$same_author    = get_directorist_type_option( $directory_type, 'listing_from_same_author', false );
+		$logic          = get_directorist_type_option( $directory_type, 'similar_listings_logics', 'OR' );
+		$relationship   = ( $logic == 'AND' ) ? 'AND' : 'OR';
+
+		$id            = $listing_id;
+		$atbd_cats     = get_the_terms( $id, ATBDP_CATEGORY );
+		$atbd_tags     = get_the_terms( $id, ATBDP_TAGS );
+		$atbd_cats_ids = array();
+		$atbd_tags_ids = array();
+
+		if (!empty($atbd_cats)) {
+			foreach ($atbd_cats as $atbd_cat) {
+				$atbd_cats_ids[] = $atbd_cat->term_id;
+			}
+		}
+		if (!empty($atbd_tags)) {
+			foreach ($atbd_tags as $atbd_tag) {
+				$atbd_tags_ids[] = $atbd_tag->term_id;
+			}
+		}
+		$args = array(
+			'post_type' => ATBDP_POST_TYPE,
+			'tax_query' => array(
+				'relation' => $relationship,
+				array(
+					'taxonomy' => ATBDP_CATEGORY,
+					'field' => 'term_id',
+					'terms' => $atbd_cats_ids,
+				),
+				array(
+					'taxonomy' => ATBDP_TAGS,
+					'field' => 'term_id',
+					'terms' => $atbd_tags_ids,
+				),
+			),
+			'posts_per_page' => (int)$number,
+			'post__not_in' => array($id),
+		);
+
+		if( !empty( $same_author ) ){
+			$args['author']  = get_post_field( 'post_author', $id );
+		}
+
+		$meta_queries = array();
+		$meta_queries['expired'] = array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '!=',
+			);
+		$meta_queries['directory_type'] = array(
+			'key'     => '_directory_type',
+			'value'   => $directory_type,
+			'compare' => '=',
+		);
+
+		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
+		$count_meta_queries = count($meta_queries);
+		if ($count_meta_queries) {
+			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+		}
+
+		$args    = apply_filters( 'directorist_related_listing_args', $args );
+		$related = new \Directorist\Directorist_Listings( [], 'related', $args, ['cache' => false] );
+
+		return $related->post_ids();
 	}
 
 	/**

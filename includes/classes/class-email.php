@@ -463,10 +463,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($user->user_email, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_submitted', $action_args );
+            
+            return $is_sent;
         } 
 
 

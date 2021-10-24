@@ -332,11 +332,32 @@ class Users_Controller extends Abstract_Controller {
 		// Sets the password.
 		$request['password'] = ! empty( $request['password'] ) ? $request['password'] : '';
 
+		if ( email_exists( $request['email'] ) ) {
+			return new WP_Error( 'directorist_user_email_exists', __( 'An account is already registered with your email address. Please login.', 'directorist' ) );
+		}
+
 		// Create user.
 		$user_data = array(
 			'user_email'  => $request['email'],
 			'user_pass'   => $request['password'],
 		);
+
+		if ( isset( $request['username'] ) ) {
+			$user_data['user_login'] = $request['username'];
+		} else {
+			$username = sanitize_user( current( explode( '@', $request['email'] ) ), true );
+
+			// Ensure username is unique.
+			$append = 1;
+			$o_username = $username;
+
+			while ( username_exists( $username ) ) {
+				$username = $o_username . $append;
+				$append++;
+			}
+
+			$user_data['user_login'] = $username;
+		}
 
 		$user_id = wp_insert_user( $user_data );
 		if ( is_wp_error( $user_id ) ) {

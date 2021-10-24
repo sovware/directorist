@@ -738,12 +738,29 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $s = __('[==SITE_NAME==] A new listing has been submitted on your website', 'directorist');
-            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $subject = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
 
             $body = $this->get_listing_submitted_admin_tmpl();
             $message = $this->replace_in_content($body, null, $listing_id);
-            $body = atbdp_email_html($sub, $message);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $body = atbdp_email_html($subject, $message);
+
+            $is_sent = $this->send_mail($to, $subject, $body, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_on_email_notify_admin_listing_submitted', $action_args );
+
+            return $is_sent;
 
         }
 

@@ -836,12 +836,29 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_admin_become_author( $user_id ) {
             if (get_directorist_option('disable_email_notification')) return false;
             $s = __('[==SITE_NAME==] New Author Request', 'directorist');
-            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $subject = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
             $body = $this->author_approval_admin_tmpl();
-            $message = $this->replace_in_content( $body, null, null, $user_id);
-            $body = atbdp_email_html($sub, $message);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $body = $this->replace_in_content( $body, null, null, $user_id);
+            $message = atbdp_email_html($subject, $body);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'  => $is_sent,
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+                'user_id'  => $user_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_become_author', $action_args );
+            
+            return $is_sent;
         }
 
 

@@ -227,7 +227,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 	 * @return WP_REST_Response Response object.
 	 */
 	public function prepare_item_for_response( $listing_id, $request ) {
-		$data     = ['id' => [$listing_id] ];
+		$data     = ['id' => $listing_id ];
 		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -267,12 +267,9 @@ class User_Favorites_Controller extends Abstract_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'User favorite listing ids.', 'directorist' ),
-					'type'        => 'array',
-					'items'       => array(
-						'type' => 'integer',
-					),
-					'context' => array( 'view', 'edit' ),
+					'description' => __( 'User favorite listing id.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
 				),
 			),
 		);

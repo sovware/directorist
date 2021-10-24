@@ -1,21 +1,27 @@
 const $ = jQuery;
 
-function get_dom_data ( key ) {
-    var dom_content = document.body.innerHTML;
+function get_dom_data( key, parent ) {
+    var elmKey = 'directorist-dom-data-' + key;
+    var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
 
-    if ( ! dom_content.length ) { return ''; }
-
-    var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-    var terget_content = pattern.exec( dom_content );
-
-    if ( ! terget_content ) { return ''; }
-    if ( typeof terget_content[2] === 'undefined' ) { return ''; }
+    if ( ! dataElm ) {
+        return '';
+    }
     
-    var dom_data = JSON.parse( terget_content[2] );
+    var is_script_debugging = ( directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ) ? true : false;
 
-    if ( ! dom_data ) { return ''; }
+    try {
+        let dataValue = atob( dataElm[0].dataset.value );
+        dataValue = JSON.parse( dataValue );
 
-    return dom_data;
+        return dataValue;
+    } catch (error) {
+        if ( is_script_debugging ) {
+            console.log({key,dataElm,error});
+        }
+        
+        return '';
+    }
 }
 
 function convertToSelect2( field ) {
@@ -27,14 +33,14 @@ function convertToSelect2( field ) {
         allowClear: true,
         width: '100%',
         templateResult: function (data) {
-            // We only really care if there is an element to pull classes from
-            if ( ! data.element ) {
+            // We only really care if there is an field to pull classes from
+            if ( ! data.field ) {
                 return data.text;
             }
-            var $element = $(data.element);
+            var $field = $(data.field);
             var $wrapper = $('<span></span>');
 
-            $wrapper.addClass($element[0].className);
+            $wrapper.addClass($field[0].className);
             $wrapper.text(data.text);
 
             return $wrapper;
@@ -50,7 +56,8 @@ function convertToSelect2( field ) {
         args.placeholder = placeholder;
     }
 
-    field.elm.select2( args );
+    field.elm.select2( args )
+
 }
 
 export { get_dom_data, convertToSelect2 };

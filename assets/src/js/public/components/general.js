@@ -12,4 +12,5 @@
     if($('.directorist-archive-grid-view').innerWidth() <= 500){
         $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
     }
+
 })(jQuery)

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div class="directorist-dashboard-items-list">
 				<?php foreach ( $dashboard->fav_listing_items() as $item ): ?>
 
-					<div class="directorist-dashboard-items-list__single" id="directorist_favourite_<?php echo esc_attr( $item['obj']->ID ); ?>">
+					<div class="directorist-dashboard-items-list__single directorist_favourite_<?php echo esc_attr( $item['obj']->ID ); ?>">
 
 						<div class="directorist-dashboard-items-list__single--info">
 

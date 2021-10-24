@@ -119,10 +119,10 @@ class Directorist_All_Authors {
 
 	public function author_pagination( $base = '', $paged = '' ) {
 		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
-		$query = get_users();
-		$paged = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
-		$big   = 999999999;
-		$total_pages = intval( count( $query ) / $all_authors_per_page ) + 1;
+		$query 					 = get_users();
+		$paged 					 = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
+		$big   					 = 999999999;
+		$total_pages 			 = ceil( count( $query ) / $all_authors_per_page );
 
 		$links = paginate_links( array(
 			'base'      => ! empty( $_REQUEST['paged'] ) ? 'page/%#%' : str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
@@ -137,8 +137,11 @@ class Directorist_All_Authors {
 	}
 
 	public function render_shortcode_all_authors() {
-
+		ob_start();
+		
 		Helper::get_template( 'all-authors', array( 'authors' => $this ) );
+
+		return ob_get_clean();
 	}
 
 }

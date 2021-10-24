@@ -1284,7 +1284,33 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$name} <{$email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            // Action Hook
+            $action_args = [
+                'is_sent' => $is_sent,
+
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+
+                'sender_name' => $name,
+                'from_email'  => $email,
+
+                'listing_id'    => $post_id,
+                'listing_title' => $listing_title,
+                'listing_url'   => $listing_url,
+
+                'current_time'  => $current_time,
+                
+                'site_name' => $site_name,
+            ];
+
+            do_action( 'directorist_send_contact_messaage_to_admin', $action_args );
+
+            return $is_sent;
         }
 
         /**

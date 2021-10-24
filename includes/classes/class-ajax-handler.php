@@ -1024,7 +1024,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'reviewer'   => $user,
             ];
 
-            do_action( 'directorist_email_on_add_review', $action_args );
+            do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
             
             return $is_sent;
         }

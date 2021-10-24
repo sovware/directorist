@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.0.5.3
+ * Version: 7.0.5.6
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -259,7 +259,10 @@ final class Directorist_Base
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			new ATBDP_Extensions();
+			
+			if( is_admin() ){
+				new ATBDP_Extensions();
+			}
 			/*Initiate Review and Rating Features*/
 			self::$instance->review = new ATBDP_Review_Rating;
 			//activate rewrite api
@@ -274,9 +277,6 @@ final class Directorist_Base
 
 			//review and rating
 			add_action('atbdp_after_map', array(self::$instance, 'show_review'));
-			// plugin deactivated popup
-			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(self::$instance, 'atbdp_plugin_link'));
-			add_action('admin_footer', array(self::$instance, 'atbdp_deactivate_popup'));
 
 			// Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
 			// we can check the database if our custom pages have been installed correctly or not here first.
@@ -789,6 +789,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -828,6 +829,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -847,6 +849,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -882,6 +885,7 @@ final class Directorist_Base
 						}
 
 					}
+					wp_reset_postdata();
 					$rating_id = array(
 						'post__in' => !empty($rated) ? $rated : array()
 					);
@@ -1097,181 +1101,6 @@ final class Directorist_Base
 
 		return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 
-	}
-
-	/**
-	 * Plugin links
-	 * @since 4.4.0
-	 * */
-	public function atbdp_plugin_link($links)
-	{
-		if (array_key_exists('deactivate', $links)) {
-			$links['deactivate'] = str_replace('<a', '<a class="atbdp-deactivate-popup"', $links['deactivate']);
-		}
-
-		return $links;
-	}
-
-	/**
-	 * Deactivate Reasons
-	 * @since 4.4.0
-	 */
-	public function atbdp_deactivate_popup()
-	{
-		global $pagenow;
-
-		if ('plugins.php' != $pagenow) {
-			return;
-		}
-		$deactivate_reasons = atbdp_deactivate_reasons();
-		?>
-
-		<div class="aazz-deactivate" id="atbdp-aazz-deactivate">
-			<div class="aazz-deactivate-wrap">
-				<div class="aazz-deactivate-header">
-					<h3><?php _e('If you have time, please let us know why you are deactivating so that we can improve.', 'directorist'); ?></h3>
-				</div>
-
-				<div class="aazz-deactivate-body">
-					<ul class="reasons">
-						<?php foreach ($deactivate_reasons as $reason) { ?>
-							<li data-type="<?php echo esc_attr($reason['type']); ?>"
-								data-placeholder="<?php echo esc_attr($reason['placeholder']); ?>">
-								<label><input type="radio" name="selected-reason"
-											  value="<?php echo $reason['id']; ?>"> <?php echo $reason['text']; ?>
-								</label>
-							</li>
-						<?php } ?>
-					</ul>
-				</div>
-
-				<div class="aazz-deactivate-footer">
-					<a href="#" class="atbdp-no-comment"><?php _e('Skip & Deactivate', 'directorist'); ?></a>
-					<button class="atbdp-reason-submit atbdp-reason-submit"><?php _e('Submit & Deactivate', 'directorist'); ?></button>
-					<button class="button-primary"><?php _e('Cancel', 'directorist'); ?></button>
-				</div>
-			</div>
-		</div>
-
-		<style type="text/css">
-			.aazz-deactivate {
-				right: 0;
-				bottom: 0;
-				left: 0;
-				position: fixed;
-				z-index: 99999;
-				top: 0;
-				background: rgba(0, 0, 0, 0.5);
-				display: none;
-			}
-
-			.aazz-deactivate.modal-active {
-				display: block;
-			}
-
-			.aazz-deactivate-wrap {
-				width: 475px;
-				position: relative;
-				margin: 10% auto;
-				background: #fff;
-			}
-
-			.aazz-deactivate-header {
-				border-bottom: 1px solid #eee;
-				padding: 8px 20px;
-			}
-
-			.aazz-deactivate-header h3 {
-				line-height: 150%;
-				margin: 0;
-			}
-
-			.aazz-deactivate-body .reason-input {
-				margin-top: 5px;
-				margin-left: 20px;
-			}
-
-			.aazz-deactivate-body {
-				padding: 5px 20px 20px 20px;
-			}
-
-			.aazz-deactivate-footer {
-				border-top: 1px solid #eee;
-				padding: 12px 20px;
-				text-align: right;
-			}
-		</style>
-
-		<script type="text/javascript">
-			(function ($) {
-				$(function () {
-					var modal = $('#atbdp-aazz-deactivate');
-					var deactivateLink = '';
-
-					$('#the-list').on('click', 'a.atbdp-deactivate-popup', function (e) {
-						e.preventDefault();
-
-						modal.addClass('modal-active');
-						deactivateLink = $(this).attr('href');
-						modal.find('a.atbdp-no-comment').attr('href', deactivateLink).css('float', 'left');
-					});
-
-					modal.on('click', 'button.button-primary', function (e) {
-						e.preventDefault();
-
-						modal.removeClass('modal-active');
-					});
-
-					modal.on('click', 'input[type="radio"]', function () {
-						var parent = $(this).parents('li:first');
-
-						modal.find('.reason-input').remove();
-
-						var inputType = parent.data('type'),
-							inputPlaceholder = parent.data('placeholder'),
-							reasonInputHtml = '<div class="reason-input">' + (('text' === inputType) ? '<input type="text" size="40" />' : '<textarea rows="5" cols="45"></textarea>') + '</div>';
-
-						if (inputType !== '') {
-							parent.append($(reasonInputHtml));
-							parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
-						}
-					});
-
-					modal.on('click', 'button.atbdp-reason-submit', function (e) {
-						e.preventDefault();
-
-						var button = $(this);
-
-						if (button.hasClass('disabled')) {
-							return;
-						}
-
-						var $radio = $('input[type="radio"]:checked', modal);
-
-						var $selected_reason = $radio.parents('li:first'),
-							$input = $selected_reason.find('textarea, input[type="text"]');
-
-						$.ajax({
-							url: ajaxurl,
-							type: 'POST',
-							data: {
-								action: 'atbdp_submit-uninstall-reason',
-								reason_id: (0 === $radio.length) ? 'none' : $radio.val(),
-								reason_info: (0 !== $input.length) ? $input.val().trim() : ''
-							},
-							beforeSend: function () {
-								button.addClass('disabled');
-								button.text('Processing...');
-							},
-							complete: function () {
-								window.location.href = deactivateLink;
-							}
-						});
-					});
-				});
-			}(jQuery));
-		</script>
-		<?php
 	}
 
 	/**
@@ -1556,7 +1385,10 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Initialize appsero tracking
+	 * Initialize appsero tracking.
+	 *
+	 * Removed custom plugins meta data field in 7.0.5.4
+	 * since Appsero made this builtin.
 	 *
 	 * @see https://github.com/Appsero/client
 	 *
@@ -1567,65 +1399,10 @@ final class Directorist_Base
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist &#8211; Business Directory Plugin', __FILE__ );
+		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist - Business Directory Plugin', __FILE__ );
 
 		// Active insights
-		$client->insights()
-			->add_extra( function() {
-				return array(
-					'used_active_plugins' => $this->get_used_active_plugins()
-				);
-			} )
-			->init();
-	}
-
-	/**
-	 * Get the list of active plugins
-	 *
-	 * @return array
-	 */
-	protected function get_used_active_plugins() {
-		// Ensure get_plugins function is loaded
-		if ( ! function_exists( 'get_plugins' ) ) {
-			include ABSPATH . '/wp-admin/includes/plugin.php';
-		}
-
-		$plugins             = get_plugins();
-		$active_plugins_keys = get_option( 'active_plugins', array() );
-		$active_plugins      = array();
-
-		foreach ( $plugins as $k => $v ) {
-			// Take care of formatting the data how we want it.
-			$formatted = array();
-			$formatted['name'] = strip_tags( $v['Name'] );
-
-			// Remove self reference
-			if ( strpos( __FILE__, $k ) !== false ) {
-				continue;
-			}
-
-			if ( isset( $v['Version'] ) ) {
-				$formatted['version'] = strip_tags( $v['Version'] );
-			}
-
-			if ( isset( $v['Author'] ) ) {
-				$formatted['author'] = strip_tags( $v['Author'] );
-			}
-
-			if ( isset( $v['Network'] ) ) {
-				$formatted['network'] = strip_tags( $v['Network'] );
-			}
-
-			if ( isset( $v['PluginURI'] ) ) {
-				$formatted['plugin_uri'] = strip_tags( $v['PluginURI'] );
-			}
-
-			if ( in_array( $k, $active_plugins_keys ) ) {
-				$active_plugins[$k] = $formatted;
-			}
-		}
-
-		return $active_plugins;
+		$client->insights()->init();
 	}
 
 } // ends Directorist_Base

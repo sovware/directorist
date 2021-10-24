@@ -736,13 +736,6 @@ class Enqueue_Assets {
 			'enable'  => Script_Helper::is_enable_map( 'google' ),
 		];
 
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-		];
-
 		$scripts = array_merge( self::$js_scripts, $scripts);
 		self::$js_scripts = $scripts;
 	}
@@ -933,6 +926,10 @@ class Enqueue_Assets {
 			'deps'      => [],
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
 		];
 
 		$scripts['directorist-map-view'] = [

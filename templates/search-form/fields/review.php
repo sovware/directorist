@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
-	<div class="directorist-select" id="directorist-review-select-js">
-		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+	<div class="directorist-select">
+		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-placeholder="<?php echo esc_attr( sprintf( _x( 'Select %s', 'Rating search select placeholder', 'directorist' ), $data['label'] ) ); ?> " data-isSearch="true">
 			<?php
 				foreach ( $searchform->rating_field_data() as $option ) {
-					printf('<option value="%s"%s>%s</option>', $option['value'], $option['selected'], $option['label']);
+					printf('<option value="%s" %s>%s</option>', $option['value'], $option['selected'], $option['label']);
 				}
 			?>
 		</select>

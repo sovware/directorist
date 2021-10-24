@@ -149,6 +149,7 @@ class Listings_Exporter {
                 $tr_lengths   [] = $max_row_length;
                 $listings_data[] = $row;
             }
+            wp_reset_postdata();
         }
 
         $listings_data = self::justifyDataTableRow( $listings_data, $tr_lengths );

@@ -1745,6 +1745,9 @@ span.atbdp-tick-cross {
 
 /* atbds Sidebar */
 .atbds_sidebar {
+  ul{
+    margin-bottom: 0;
+  }
   .nav-link {
     display: inline-block;
     font-size: 15px;
@@ -1774,6 +1777,22 @@ span.atbdp-tick-cross {
       text-align: center;
       line-height: 1.75;
       border-radius: 50%;
+    }
+  }
+  a{
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 11px 20px;
+    color: $ss-gray;
+    text-decoration: none;
+    background-color: transparent;
+    border-radius: 20px;
+    min-width: 150px;
+    &:focus {
+      outline: none;
+      border: 0 none;
+      box-shadow: 0 0;
     }
   }
 }
@@ -1868,6 +1887,16 @@ span.atbdp-tick-cross {
       td {
         &.atbds_table-pointer {
           width: 30px;
+        }
+
+        &.diretorist-table-text{
+          p{
+            margin: 0;
+            line-height: 1.3;
+            &:not(:last-child){
+              margin: 0 0 15px;
+            }
+          }
         }
 
         .atbds_color-success {
@@ -4155,10 +4184,6 @@ input.atbdp-form-control {
   display: none;
 }
 
-#wpbody-content * {
-  box-sizing: border-box;
-}
-
 // Directorist Builder Tab Style
 .directorist_builder__content {
   display: flex;
@@ -4871,7 +4896,6 @@ input.atbdp-form-control {
 .directorist_dropdown {
   border: 1px solid #EFF1F6;
   border-radius: 5px;
-  height: 40px;
   position: relative;
 
   .directorist_dropdown-toggle {
@@ -4881,7 +4905,7 @@ input.atbdp-form-control {
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
-    width: 100%;
+    width: auto !important;
     height: 100%;
     position: relative;
 
@@ -5247,7 +5271,6 @@ img.atbdp-file-info {
 // Global Styles
 @import '../../component/add-listing';
 @import '../../component/directorist-plupload';
-@import '../../component/pureSearchSelect';
 @import '../../component/openstreet-map/index.scss';
 
 // Admin Style
@@ -5259,7 +5282,6 @@ img.atbdp-file-info {
 @import '../../component/badge';
 @import '../../component/checkbox-radio';
 @import '../../component/switch';
-@import '../../component/pureSearchSelect';
 @import '../../component/select2-custom-control';
 
 @import './multi-directory-archive.scss';

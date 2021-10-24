@@ -693,7 +693,7 @@ class Users_Controller extends Abstract_Controller {
 					'context'     => array( 'view' ),
 				),
 				'username' => array(
-					'description' => __( 'User login name.', 'woocommerce' ),
+					'description' => __( 'User login name.', 'directorist' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -739,7 +739,7 @@ class Users_Controller extends Abstract_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'password' => array(
-					'description' => __( 'User password.', 'woocommerce' ),
+					'description' => __( 'User password.', 'directorist' ),
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 				),

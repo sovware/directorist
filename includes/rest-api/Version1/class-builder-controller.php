@@ -87,7 +87,7 @@ class Builder_Controller extends Abstract_Controller {
 	}
 
 	/**
-	 * Prepare a single product category output for response.
+	 * Prepare a single listing category output for response.
 	 *
 	 * @param WP_Term         $item    Term object.
 	 * @param WP_REST_Request $request Request instance.

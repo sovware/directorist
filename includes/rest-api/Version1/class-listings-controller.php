@@ -35,7 +35,7 @@ class Listings_Controller extends Posts_Controller {
 	protected $post_type = ATBDP_POST_TYPE;
 
 	/**
-	 * Register the routes for products.
+	 * Register the routes for listings.
 	 */
 	public function register_routes() {
 		register_rest_route(
@@ -372,78 +372,78 @@ class Listings_Controller extends Posts_Controller {
 		return true;
 	}
 
-	/**
-	 * Delete a single item.
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return WP_REST_Response|WP_Error
-	 */
-	public function delete_item( $request ) {
-		$id    = (int) $request['id'];
-		$force = (bool) $request['force'];
-		$post  = get_post( $id );
+	// /**
+	//  * Delete a single item.
+	//  *
+	//  * @param WP_REST_Request $request Full details about the request.
+	//  * @return WP_REST_Response|WP_Error
+	//  */
+	// public function delete_item( $request ) {
+	// 	$id    = (int) $request['id'];
+	// 	$force = (bool) $request['force'];
+	// 	$post  = get_post( $id );
 
-		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-			return new WP_Error( "directorist_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'directorist' ), array( 'status' => 404 ) );
-		}
+	// 	if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
+	// 		return new WP_Error( "directorist_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'directorist' ), array( 'status' => 404 ) );
+	// 	}
 
-		$supports_trash = EMPTY_TRASH_DAYS > 0;
+	// 	$supports_trash = EMPTY_TRASH_DAYS > 0;
 
-		/**
-		 * Filter whether an item is trashable.
-		 *
-		 * Return false to disable trash support for the item.
-		 *
-		 * @param boolean $supports_trash Whether the item type support trashing.
-		 * @param WP_Post $post           The Post object being considered for trashing support.
-		 */
-		$supports_trash = apply_filters( "directorist_rest_{$this->post_type}_trashable", $supports_trash, $post );
+	// 	/**
+	// 	 * Filter whether an item is trashable.
+	// 	 *
+	// 	 * Return false to disable trash support for the item.
+	// 	 *
+	// 	 * @param boolean $supports_trash Whether the item type support trashing.
+	// 	 * @param WP_Post $post           The Post object being considered for trashing support.
+	// 	 */
+	// 	$supports_trash = apply_filters( "directorist_rest_{$this->post_type}_trashable", $supports_trash, $post );
 
-		if ( ! wc_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
-			/* translators: %s: post type */
-			return new WP_Error( "directorist_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'directorist' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
-		}
+	// 	if ( ! directorist_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
+	// 		/* translators: %s: post type */
+	// 		return new WP_Error( "directorist_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'directorist' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
+	// 	}
 
-		$request->set_param( 'context', 'edit' );
-		$response = $this->prepare_item_for_response( $post, $request );
+	// 	$request->set_param( 'context', 'edit' );
+	// 	$response = $this->prepare_item_for_response( $post, $request );
 
-		// If we're forcing, then delete permanently.
-		if ( $force ) {
-			$result = wp_delete_post( $id, true );
-		} else {
-			// If we don't support trashing for this type, error out.
-			if ( ! $supports_trash ) {
-				/* translators: %s: post type */
-				return new WP_Error( 'directorist_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'directorist' ), $this->post_type ), array( 'status' => 501 ) );
-			}
+	// 	// If we're forcing, then delete permanently.
+	// 	if ( $force ) {
+	// 		$result = wp_delete_post( $id, true );
+	// 	} else {
+	// 		// If we don't support trashing for this type, error out.
+	// 		if ( ! $supports_trash ) {
+	// 			/* translators: %s: post type */
+	// 			return new WP_Error( 'directorist_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'directorist' ), $this->post_type ), array( 'status' => 501 ) );
+	// 		}
 
-			// Otherwise, only trash if we haven't already.
-			if ( 'trash' === $post->post_status ) {
-				/* translators: %s: post type */
-				return new WP_Error( 'directorist_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'directorist' ), $this->post_type ), array( 'status' => 410 ) );
-			}
+	// 		// Otherwise, only trash if we haven't already.
+	// 		if ( 'trash' === $post->post_status ) {
+	// 			/* translators: %s: post type */
+	// 			return new WP_Error( 'directorist_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'directorist' ), $this->post_type ), array( 'status' => 410 ) );
+	// 		}
 
-			// (Note that internally this falls through to `wp_delete_post` if
-			// the trash is disabled.)
-			$result = wp_trash_post( $id );
-		}
+	// 		// (Note that internally this falls through to `wp_delete_post` if
+	// 		// the trash is disabled.)
+	// 		$result = wp_trash_post( $id );
+	// 	}
 
-		if ( ! $result ) {
-			/* translators: %s: post type */
-			return new WP_Error( 'directorist_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'directorist' ), $this->post_type ), array( 'status' => 500 ) );
-		}
+	// 	if ( ! $result ) {
+	// 		/* translators: %s: post type */
+	// 		return new WP_Error( 'directorist_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'directorist' ), $this->post_type ), array( 'status' => 500 ) );
+	// 	}
 
-		/**
-		 * Fires after a single item is deleted or trashed via the REST API.
-		 *
-		 * @param object           $post     The deleted or trashed item.
-		 * @param WP_REST_Response $response The response data.
-		 * @param WP_REST_Request  $request  The request sent to the API.
-		 */
-		do_action( "directorist_rest_delete_{$this->post_type}", $post, $response, $request );
+	// 	/**
+	// 	 * Fires after a single item is deleted or trashed via the REST API.
+	// 	 *
+	// 	 * @param object           $post     The deleted or trashed item.
+	// 	 * @param WP_REST_Response $response The response data.
+	// 	 * @param WP_REST_Request  $request  The request sent to the API.
+	// 	 */
+	// 	do_action( "directorist_rest_delete_{$this->post_type}", $post, $response, $request );
 
-		return $response;
-	}
+	// 	return $response;
+	// }
 
 	/**
 	 * Get a single item.
@@ -472,10 +472,9 @@ class Listings_Controller extends Posts_Controller {
 	/**
 	 * Prepare a single listings output for response.
 	 *
-	 * @param WC_Data         $object  Object data.
+	 * @param WP_Post         $object  Object data.
 	 * @param WP_REST_Request $request Request object.
 	 *
-	 * @since  3.0.0
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $object, $request ) {
@@ -496,7 +495,7 @@ class Listings_Controller extends Posts_Controller {
 		 * refers to object type being prepared for the response.
 		 *
 		 * @param WP_REST_Response $response The response object.
-		 * @param WC_Data          $object   Object data.
+		 * @param WP_Post          $object   Object data.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
 		return apply_filters( "directorist_rest_prepare_{$this->post_type}_object", $response, $object, $request );
@@ -582,15 +581,15 @@ class Listings_Controller extends Posts_Controller {
 			);
 		}
 
-		// Set a placeholder image if the product has no images set.
+		// Set a placeholder image if the listing has no images set.
 		if ( empty( $images ) ) {
 			// $images[] = array(
 			// 	'id'                => 0,
-			// 	'date_created'      => wc_rest_prepare_date_response( current_time( 'mysql' ), false ), // Default to now.
-			// 	'date_created_gmt'  => wc_rest_prepare_date_response( time() ), // Default to now.
-			// 	'date_modified'     => wc_rest_prepare_date_response( current_time( 'mysql' ), false ),
-			// 	'date_modified_gmt' => wc_rest_prepare_date_response( time() ),
-			// 	'src'               => wc_placeholder_img_src(),
+			// 	'date_created'      => directorist_rest_prepare_date_response( current_time( 'mysql' ), false ), // Default to now.
+			// 	'date_created_gmt'  => directorist_rest_prepare_date_response( time() ), // Default to now.
+			// 	'date_modified'     => directorist_rest_prepare_date_response( current_time( 'mysql' ), false ),
+			// 	'date_modified_gmt' => directorist_rest_prepare_date_response( time() ),
+			// 	'src'               => directorist_placeholder_img_src(),
 			// 	'name'              => __( 'Placeholder', 'directorist' ),
 			// 	'alt'               => __( 'Placeholder', 'directorist' ),
 			// 	'position'          => 0,
@@ -605,8 +604,8 @@ class Listings_Controller extends Posts_Controller {
 	/**
 	 * Get listing data.
 	 *
-	 * @param \WP_Post $product Product instance.
-	 * @param string     $context Request context. Options: 'view' and 'edit'.
+	 * @param WP_Post   $listing WP_Post instance.
+	 * @param string    $context Request context. Options: 'view' and 'edit'.
 	 *
 	 * @return array
 	 */
@@ -778,7 +777,7 @@ class Listings_Controller extends Posts_Controller {
 	/**
 	 * Prepare links for the request.
 	 *
-	 * @param WC_Data         $object  Object data.
+	 * @param WP_Post         $object  Object data.
 	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return array Links for the given post.
@@ -795,7 +794,7 @@ class Listings_Controller extends Posts_Controller {
 
 		if ( $object->post_parent ) {
 			$links['up'] = array(
-				'href' => rest_url( sprintf( '/%s/products/%d', $this->namespace, $object->post_parent ) ),  // @codingStandardsIgnoreLine.
+				'href' => rest_url( sprintf( '/%s/listings/%d', $this->namespace, $object->post_parent ) ),  // @codingStandardsIgnoreLine.
 			);
 		}
 
@@ -1035,7 +1034,7 @@ class Listings_Controller extends Posts_Controller {
 					'readonly'    => true,
 				),
 				'rating_count'          => array(
-					'description' => __( 'Amount of reviews that the product have.', 'directorist' ),
+					'description' => __( 'Amount of reviews that the listing have.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

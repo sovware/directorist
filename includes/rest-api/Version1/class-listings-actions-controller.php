@@ -28,7 +28,7 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	protected $rest_base = 'listings/(?P<listing_id>[\d]+)/actions';
 
 	/**
-	 * Register the routes for products.
+	 * Register the routes for listings actions.
 	 */
 	public function register_routes() {
 		register_rest_route(
@@ -157,10 +157,9 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	/**
 	 * Prepare a single listings output for response.
 	 *
-	 * @param WC_Data         $object  Object data.
+	 * @param array         $data  Listings data.
 	 * @param WP_REST_Request $request Request object.
 	 *
-	 * @since  3.0.0
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $data, $request ) {

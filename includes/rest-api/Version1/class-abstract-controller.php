@@ -2,14 +2,13 @@
 /**
  * REST Controller
  *
- * This class extend `WP_REST_Controller` in order to include /batch endpoint
- * for almost all endpoints in WooCommerce REST API.
+ * This class extend `WP_REST_Controller` in order to include common functionalities.
  *
  * It's required to follow "Controller Classes" guide before extending this class:
  * <https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/>
  *
  * NOTE THAT ONLY CODE RELEVANT FOR MOST ENDPOINTS SHOULD BE INCLUDED INTO THIS CLASS.
- * If necessary extend this class and create new abstract classes like `WC_REST_CRUD_Controller` or `WC_REST_Terms_Controller`.
+ * If necessary extend this class and create new abstract classes.
  *
  * @class   Abstract_Controller
  * @package Directorist\Rest_Api
@@ -491,7 +490,7 @@ abstract class Abstract_Controller extends WP_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'create' => array(
-					'description' => __( 'List of created resources.', 'woocommerce' ),
+					'description' => __( 'List of created resources.', 'directorist' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
@@ -499,7 +498,7 @@ abstract class Abstract_Controller extends WP_REST_Controller {
 					),
 				),
 				'update' => array(
-					'description' => __( 'List of updated resources.', 'woocommerce' ),
+					'description' => __( 'List of updated resources.', 'directorist' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
@@ -507,7 +506,7 @@ abstract class Abstract_Controller extends WP_REST_Controller {
 					),
 				),
 				'delete' => array(
-					'description' => __( 'List of delete resources.', 'woocommerce' ),
+					'description' => __( 'List of delete resources.', 'directorist' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(

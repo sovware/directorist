@@ -35,7 +35,7 @@ class Locations_Controller extends Terms_Controller {
 	protected $taxonomy = ATBDP_LOCATION;
 
 	/**
-	 * Prepare a single product category output for response.
+	 * Prepare a single location output for response.
 	 *
 	 * @param WP_Term         $item    Term object.
 	 * @param WP_REST_Request $request Request instance.
@@ -289,7 +289,7 @@ class Locations_Controller extends Terms_Controller {
 
 				// Set the image alt.
 				if ( ! empty( $request['image']['alt'] ) ) {
-					update_post_meta( $image_id, '_wp_attachment_image_alt', wc_clean( $request['image']['alt'] ) );
+					update_post_meta( $image_id, '_wp_attachment_image_alt', directorist_clean( $request['image']['alt'] ) );
 				}
 
 				// Set the image title.

@@ -33,7 +33,7 @@ class Tags_Controller extends Terms_Controller {
 	protected $taxonomy = ATBDP_TAGS;
 
 	/**
-	 * Prepare a single product category output for response.
+	 * Prepare a single tag output for response.
 	 *
 	 * @param WP_Term         $item    Term object.
 	 * @param WP_REST_Request $request Request instance.

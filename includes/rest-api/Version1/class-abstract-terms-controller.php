@@ -462,7 +462,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 		}
 		if ( isset( $request['parent'] ) ) {
 			if ( ! is_taxonomy_hierarchical( $taxonomy ) ) {
-				return new WP_Error( 'woocommerce_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), array( 'status' => 400 ) );
+				return new WP_Error( 'directorist_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), array( 'status' => 400 ) );
 			}
 			$prepared_args['parent'] = $request['parent'];
 		}
@@ -709,7 +709,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['hide_empty'] = array(
-			'description'       => __( 'Whether to hide resources not assigned to any products.', 'directorist' ),
+			'description'       => __( 'Whether to hide resources not assigned to any listings.', 'directorist' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'validate_callback' => 'rest_validate_request_arg',

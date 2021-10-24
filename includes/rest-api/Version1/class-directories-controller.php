@@ -35,7 +35,7 @@ class Directories_Controller extends Terms_Controller {
 	protected $taxonomy = ATBDP_TYPE;
 
 	/**
-	 * Prepare a single product category output for response.
+	 * Prepare a single directory output for response.
 	 *
 	 * @param WP_Term         $item    Term object.
 	 * @param WP_REST_Request $request Request instance.

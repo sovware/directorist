@@ -1237,7 +1237,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'site_name' => $site_name,
             ];
 
-            do_action( 'directorist_email_listing_owner_listing_contact', $action_args );
+            do_action( 'directorist_send_contact_messaage_to_listing_owner', $action_args );
 
             return $is_sent;
         }

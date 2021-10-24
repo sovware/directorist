@@ -247,7 +247,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		$favorites = get_user_meta( $user_id, 'atbdp_favourites', true );
 
 		if ( ! empty( $favorites ) ) {
-			$favorites = wp_parse_id_list( $favorites );
+			$favorites = array_map( 'absint', $favorites );
 		} else {
 			$favorites = [];
 		}

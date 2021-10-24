@@ -215,18 +215,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 			// 	continue;
 			// }
 
-			// {
-			// 	"id": "1",
-			// 	"post_id": "947",
-			// 	"name": "test_1",
-			// 	"email": "test_1@mail.com",
-			// 	"content": "test",
-			// 	"rating": "5",
-			// 	"by_guest": "0",
-			// 	"by_user_id": "2",
-			// 	"date_created": "2021-10-14 08:17:22"
-			// }
-
 			$data      = $this->prepare_item_for_response( $review, $request );
 			$reviews[] = $this->prepare_response_for_collection( $data );
 		}
@@ -268,9 +256,10 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$review = $this->get_review( $request['id'] );
-		if ( is_wp_error( $review ) ) {
-			return $review;
+		$review = ATBDP()->review->db->get_review_by( 'id', $request['id'] );
+
+		if ( empty( $review ) ) {
+			return new WP_Error( 'directorist_rest_invalid_review_id', __( 'Review not found', 'directorist' ), array( 'status' => 404 ) );
 		}
 
 		$data     = $this->prepare_item_for_response( $review, $request );

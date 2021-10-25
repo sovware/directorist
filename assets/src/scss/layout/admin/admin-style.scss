@@ -4704,6 +4704,9 @@ input.atbdp-form-control {
     top: auto;
     bottom: -54px;
   }
+  @media only screen and (max-width: 1399px) {
+    min-width: 230px;
+  }
   .directorist_listing-slug__form--inline{
     display: inline-flex;
     align-items: center;

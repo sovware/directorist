@@ -4244,6 +4244,7 @@ input.atbdp-form-control {
       text-decoration: none;
       text-align: center;
       padding: 0 15px;
+      box-sizing: border-box;
 
       @media only screen and (max-width: 575px) {
         min-width: 100%;

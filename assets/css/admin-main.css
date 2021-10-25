@@ -4221,6 +4221,8 @@ input.atbdp-form-control {
   text-decoration: none;
   text-align: center;
   padding: 0 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media only screen and (max-width: 575px) {
   .directorist_builder__content .directorist_builder__content--left .directorist_link-block {

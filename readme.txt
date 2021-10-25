@@ -272,11 +272,13 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
-🔥 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
+👉 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
 
-🔥 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
+👉 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
 
-🔥 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+👉 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+
+🔥 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
 🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
@@ -297,7 +299,7 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 * Advance Review System
 * Mobile App
 * Rest API endpoint
-* Directory Type linking
+* Restaurant menu
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -357,7 +359,6 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.0.5.6 – Oct 25, 2021
 
-* New - REST API endpoints
 * Fix - Search form issues when the form is used twice
 * Fix - Report listing couldn’t track the logged-in user
 * Fix - Modify browser title for the non-directorist page
@@ -366,8 +367,9 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Selecting all listing page as site homepage and navigate directory type redirect to blog page
 * Fix - Issue with listing content ( remove get_the_content and add directorist_the_content )
 * Fix - Add listing geo suggestion when search form is used on the same page
-* Fix - Google and OpenStreetMap issues with some cache and optimizer plugin
-* Fix - Unfavorite listing issue on the user dashboard
+* Fix - Google and OpenStreetMap issues with some cache and optimiser plugin
+* Fix - Unfavourite listing issue on the user dashboard
+* Fix - Field key required message on add listing form builder
 
 
 7.0.5.5 – Sep 20, 2021

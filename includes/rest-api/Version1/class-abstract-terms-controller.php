@@ -216,8 +216,6 @@ abstract class Terms_Controller extends Abstract_Controller {
 	 * @return bool|WP_Error
 	 */
 	protected function check_permissions( $request, $context = 'read' ) {
-		return true; //TODO: remove when done!
-
 		// Get taxonomy.
 		$taxonomy = $this->taxonomy;
 		if ( ! $taxonomy || ! taxonomy_exists( $taxonomy ) ) {

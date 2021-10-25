@@ -8,6 +8,7 @@ defined( 'ABSPATH' ) || die();
 
 require_once trailingslashit( __DIR__ ) . 'functions.php';
 require_once trailingslashit( __DIR__ ) . 'class-datetime.php';
+require_once trailingslashit( __DIR__ ) . 'filter-functions.php';
 
 function register_controllers() {
 	$dir = trailingslashit( __DIR__ );

@@ -80,24 +80,6 @@ class Listings_Controller extends Posts_Controller {
 						),
 					),
 				),
-				// array(
-				// 	'methods'             => WP_REST_Server::EDITABLE,
-				// 	'callback'            => array( $this, 'update_item' ),
-				// 	'permission_callback' => array( $this, 'update_item_permissions_check' ),
-				// 	'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
-				// ),
-				// array(
-				// 	'methods'             => WP_REST_Server::DELETABLE,
-				// 	'callback'            => array( $this, 'delete_item' ),
-				// 	'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-				// 	'args'                => array(
-				// 		'force' => array(
-				// 			'default'     => false,
-				// 			'description' => __( 'Whether to bypass trash and force deletion.', 'directorist' ),
-				// 			'type'        => 'boolean',
-				// 		),
-				// 	),
-				// ),
 				'schema' => array( $this, 'get_public_item_schema' ),
 			)
 		);
@@ -115,9 +97,9 @@ class Listings_Controller extends Posts_Controller {
 
 		$objects = array();
 		foreach ( $query_results['objects'] as $object ) {
-			// if ( ! $this->check_post_permissions( $this->post_type, 'read', $listing->ID ) ) {
-			// 	continue;
-			// }
+			if ( ! $this->check_post_permissions( $this->post_type, 'read', $object->ID ) ) {
+				continue;
+			}
 
 			$data = $this->prepare_item_for_response( $object, $request );
 			$objects[] = $this->prepare_response_for_collection( $data );
@@ -371,79 +353,6 @@ class Listings_Controller extends Posts_Controller {
 	protected function add_post_meta_fields( $post, $request ) {
 		return true;
 	}
-
-	// /**
-	//  * Delete a single item.
-	//  *
-	//  * @param WP_REST_Request $request Full details about the request.
-	//  * @return WP_REST_Response|WP_Error
-	//  */
-	// public function delete_item( $request ) {
-	// 	$id    = (int) $request['id'];
-	// 	$force = (bool) $request['force'];
-	// 	$post  = get_post( $id );
-
-	// 	if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-	// 		return new WP_Error( "directorist_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'directorist' ), array( 'status' => 404 ) );
-	// 	}
-
-	// 	$supports_trash = EMPTY_TRASH_DAYS > 0;
-
-	// 	/**
-	// 	 * Filter whether an item is trashable.
-	// 	 *
-	// 	 * Return false to disable trash support for the item.
-	// 	 *
-	// 	 * @param boolean $supports_trash Whether the item type support trashing.
-	// 	 * @param WP_Post $post           The Post object being considered for trashing support.
-	// 	 */
-	// 	$supports_trash = apply_filters( "directorist_rest_{$this->post_type}_trashable", $supports_trash, $post );
-
-	// 	if ( ! directorist_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
-	// 		/* translators: %s: post type */
-	// 		return new WP_Error( "directorist_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'directorist' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
-	// 	}
-
-	// 	$request->set_param( 'context', 'edit' );
-	// 	$response = $this->prepare_item_for_response( $post, $request );
-
-	// 	// If we're forcing, then delete permanently.
-	// 	if ( $force ) {
-	// 		$result = wp_delete_post( $id, true );
-	// 	} else {
-	// 		// If we don't support trashing for this type, error out.
-	// 		if ( ! $supports_trash ) {
-	// 			/* translators: %s: post type */
-	// 			return new WP_Error( 'directorist_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'directorist' ), $this->post_type ), array( 'status' => 501 ) );
-	// 		}
-
-	// 		// Otherwise, only trash if we haven't already.
-	// 		if ( 'trash' === $post->post_status ) {
-	// 			/* translators: %s: post type */
-	// 			return new WP_Error( 'directorist_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'directorist' ), $this->post_type ), array( 'status' => 410 ) );
-	// 		}
-
-	// 		// (Note that internally this falls through to `wp_delete_post` if
-	// 		// the trash is disabled.)
-	// 		$result = wp_trash_post( $id );
-	// 	}
-
-	// 	if ( ! $result ) {
-	// 		/* translators: %s: post type */
-	// 		return new WP_Error( 'directorist_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'directorist' ), $this->post_type ), array( 'status' => 500 ) );
-	// 	}
-
-	// 	/**
-	// 	 * Fires after a single item is deleted or trashed via the REST API.
-	// 	 *
-	// 	 * @param object           $post     The deleted or trashed item.
-	// 	 * @param WP_REST_Response $response The response data.
-	// 	 * @param WP_REST_Request  $request  The request sent to the API.
-	// 	 */
-	// 	do_action( "directorist_rest_delete_{$this->post_type}", $post, $response, $request );
-
-	// 	return $response;
-	// }
 
 	/**
 	 * Get a single item.

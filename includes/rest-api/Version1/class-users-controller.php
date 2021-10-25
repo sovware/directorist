@@ -207,8 +207,6 @@ class Users_Controller extends Abstract_Controller {
 	 * @return bool|WP_Error
 	 */
 	protected function check_permissions( $request, $context = 'read' ) {
-		return true; //TODO: remove when done!
-
 		// Check permissions for a single user.
 		$id = intval( $request['id'] );
 		if ( $id ) {

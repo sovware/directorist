@@ -11,9 +11,7 @@ namespace Directorist\Rest_Api\Controllers\Version1;
 defined( 'ABSPATH' ) || exit;
 
 use WP_Error;
-use WP_Query;
 use WP_REST_Server;
-use Directorist\Helper;
 
 /**
  * Listings actions controller class.
@@ -69,7 +67,7 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create action.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to execute action.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -83,27 +81,11 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	 * @return bool|WP_Error
 	 */
 	protected function check_permissions( $request, $context = 'read' ) {
-		return true; //TODO: remove when done!
-
-		// Get taxonomy.
-		$taxonomy = $this->taxonomy;
-		if ( ! $taxonomy || ! taxonomy_exists( $taxonomy ) ) {
-			return new WP_Error( 'directorist_rest_taxonomy_invalid', __( 'Taxonomy does not exist.', 'directorist' ), array( 'status' => 404 ) );
+		if ( $request['id'] === 'report' && ! current_user_can( 'read' ) ) {
+			return new WP_Error( 'directorist_rest_listing_actions_unauthorized', __( 'Not authorized to execute this action.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		// Check permissions for a single term.
-		$id = intval( $request['id'] );
-		if ( $id ) {
-			$term = get_term( $id, $taxonomy );
-
-			if ( is_wp_error( $term ) || ! $term ) {
-				return new WP_Error( 'directorist_rest_term_invalid', __( 'Resource does not exist.', 'directorist' ), array( 'status' => 404 ) );
-			}
-
-			return directorist_rest_check_listing_term_permissions( $taxonomy, $context, $term->term_id );
-		}
-
-		return directorist_rest_check_listing_term_permissions( $taxonomy, $context );
+		return true;
 	}
 
 	/**
@@ -260,10 +242,8 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
 		$headers .= "Reply-To: {$user->user_email}\r\n";
 
-		file_put_contents( __DIR__ . '/data.txt', print_r( $headers, true ) );
-
 		// return true or false, based on the result
-		return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+		return (bool) ATBDP()->email->send_mail( $to, $subject, $message, $headers );
 	}
 
 	public function contact_listing_owner( $listing_id, $name, $email, $message ) {
@@ -313,8 +293,9 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$message = nl2br($message);
 		$headers = "From: {$name} <{$site_email}>\r\n";
 		$headers .= "Reply-To: {$email}\r\n";
-		$message = atbdp_email_html($subject, $message);
+		$message = atbdp_email_html( $subject, $message );
+
 		// return true or false, based on the result
-		return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+		return (bool) ATBDP()->email->send_mail( $to, $subject, $message, $headers );
 	}
 }

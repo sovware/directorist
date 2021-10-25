@@ -89,11 +89,10 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_item_permissions_check( $request ) {
-		return true;
 		$id     = (int) $request['id'];
-		$review = get_comment( $id );
+		$review = ATBDP()->review->db->get_review_by( 'id', $request['id'] );
 
-		if ( $review && ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
+		if ( $review && ! directorist_rest_check_listing_reviews_permissions( 'read', $review->id ) ) {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 

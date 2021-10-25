@@ -84,7 +84,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to favorite resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -117,8 +117,6 @@ class User_Favorites_Controller extends Abstract_Controller {
 	 * @return bool|WP_Error
 	 */
 	protected function check_permissions( $request, $context = 'read' ) {
-		return true; //TODO: remove when done!
-
 		// Check permissions for a single user.
 		$id = intval( $request['user_id'] );
 		if ( $id ) {
@@ -128,10 +126,10 @@ class User_Favorites_Controller extends Abstract_Controller {
 				return new WP_Error( 'directorist_rest_user_invalid', __( 'Resource does not exist.', 'directorist' ), array( 'status' => 404 ) );
 			}
 
-			return directorist_rest_check_user_permissions( $context, $user->ID );
+			return directorist_rest_check_user_favorite_permissions( $context, $user->ID );
 		}
 
-		return directorist_rest_check_user_permissions( $context );
+		return directorist_rest_check_user_favorite_permissions( $context );
 	}
 
 	/**

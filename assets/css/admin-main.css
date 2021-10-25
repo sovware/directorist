@@ -4672,6 +4672,16 @@ input.atbdp-form-control {
     min-width: 230px;
   }
 }
+@media only screen and (max-width: 1499px) {
+  .directorist-listing-slug__form {
+    min-width: 230px;
+  }
+}
+@media only screen and (max-width: 1599px) {
+  .directorist-listing-slug__form {
+    min-width: 260px;
+  }
+}
 .directorist-listing-slug__form .directorist_listing-slug__form--inline {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

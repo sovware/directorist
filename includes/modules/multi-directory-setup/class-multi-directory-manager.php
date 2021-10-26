@@ -611,7 +611,7 @@ class Multi_Directory_Manager
                                 'value'  => 'pricing',
                                 'rules' => [
                                     'unique' => true,
-                                    'required' => true,
+                                    'required' => false,
                                 ]
                             ],
                             'label' => [

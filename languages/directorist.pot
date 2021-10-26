@@ -17,99 +17,99 @@ msgstr ""
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: ../directorist-base.php:526, ../directorist-base.php:539
+#: ../directorist-base.php:510, ../directorist-base.php:523
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:553
+#: ../directorist-base.php:537
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:555
+#: ../directorist-base.php:539
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:615, ../includes/classes/class-settings-panel.php:5224
+#: ../directorist-base.php:599, ../includes/classes/class-settings-panel.php:5224
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:621
+#: ../directorist-base.php:605
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:627, ../directorist-base.php:633
+#: ../directorist-base.php:611, ../directorist-base.php:617
 msgid "Listings Import"
 msgstr ""
 
-#: ../directorist-base.php:1132
+#: ../directorist-base.php:1116
 msgid " Reviews"
 msgstr ""
 
-#: ../directorist-base.php:1132
+#: ../directorist-base.php:1116
 msgid " Review"
 msgstr ""
 
-#: ../directorist-base.php:1144, ../templates/single/section-review.php:36
+#: ../directorist-base.php:1128, ../templates/single/section-review.php:36
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1261, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1105, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:170
+#: ../directorist-base.php:1245, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1105, ../templates/listing-form/quick-login.php:41, ../templates/single/section-review.php:170
 msgid "Login"
 msgstr ""
 
-#: ../directorist-base.php:1262, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1106, ../templates/account/login.php:100
+#: ../directorist-base.php:1246, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1106, ../templates/account/login.php:100
 msgid "Sign Up"
 msgstr ""
 
-#: ../directorist-base.php:1264
+#: ../directorist-base.php:1248
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: ../directorist-base.php:1170, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:59
+#: ../directorist-base.php:1154, ../includes/review-rating/class-review-custom-post.php:46, ../templates/single/section-review.php:59
 msgid "Update Review"
 msgstr ""
 
-#: ../directorist-base.php:1170, ../templates/single/section-review.php:59
+#: ../directorist-base.php:1154, ../templates/single/section-review.php:59
 msgid "Leave a Review"
 msgstr ""
 
-#: ../directorist-base.php:1202, ../templates/single/section-review.php:72
+#: ../directorist-base.php:1186, ../templates/single/section-review.php:72
 msgid "Current Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1210, ../templates/single/section-review.php:91
+#: ../directorist-base.php:1194, ../templates/single/section-review.php:91
 msgid "Update Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1210, ../templates/single/section-review.php:91
+#: ../directorist-base.php:1194, ../templates/single/section-review.php:91
 msgid "Your Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1225, ../templates/single/section-review.php:19
+#: ../directorist-base.php:1209, ../templates/single/section-review.php:19
 msgid "Update your review....."
 msgstr ""
 
-#: ../directorist-base.php:1225, ../templates/single/section-review.php:19
+#: ../directorist-base.php:1209, ../templates/single/section-review.php:19
 msgid "Write your review....."
 msgstr ""
 
-#: ../directorist-base.php:1233, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1101, ../includes/review/class-builder-screen.php:101
+#: ../directorist-base.php:1217, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1101, ../includes/review/class-builder-screen.php:101
 msgid "Your Email"
 msgstr ""
 
-#: ../directorist-base.php:1234, ../includes/model/SingleListing.php:857, ../includes/model/SingleListing.php:1102
+#: ../directorist-base.php:1218, ../includes/model/SingleListing.php:857, ../includes/model/SingleListing.php:1102
 msgid "example@gmail.com"
 msgstr ""
 
-#: ../directorist-base.php:1249, ../templates/single/section-review.php:133
+#: ../directorist-base.php:1233, ../templates/single/section-review.php:133
 msgid "Submit Review"
 msgstr ""
 
-#: ../directorist-base.php:1244, ../templates/single/section-review.php:127, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
+#: ../directorist-base.php:1228, ../templates/single/section-review.php:127, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
 msgid "Update"
 msgstr ""
 
-#: ../directorist-base.php:1246, ../templates/single/section-review.php:129, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
+#: ../directorist-base.php:1230, ../templates/single/section-review.php:129, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
 msgid "Remove"
 msgstr ""
 

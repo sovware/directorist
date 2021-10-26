@@ -77,12 +77,15 @@ class Comment {
 			}
 
 			// Exit when guest review is disabled.
-			if ( is_user_logged_in() || ( ! is_user_logged_in() && ! directorist_is_guest_review_enabled() ) ) {
+			if ( ! directorist_is_guest_review_enabled() && ! is_user_logged_in() ) {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 
-			$builder = Builder::get( absint( $_POST['comment_post_ID'] ) );
-			$errors  = array();
+			$post_id      = absint( $_POST['comment_post_ID'] );
+			$user_id      = $comment_data['user_ID'];
+			$author_email = $comment_data['comment_author_email'];
+			$builder      = Builder::get( $post_id );
+			$errors       = array();
 
 			if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
 				$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) ) {
@@ -95,14 +98,14 @@ class Comment {
 				}
 
 				// Validate owner is sharing review or not
-				$post_author_id = (int) get_post_field( 'post_author', absint( $_POST['comment_post_ID'] ) );
+				$post_author_id = (int) get_post_field( 'post_author', $post_id );
 
-				if ( ! $rating_is_missing && ! directorist_is_owner_review_enabled() && $post_author_id === $comment_data['user_ID'] ) {
+				if ( ! $rating_is_missing && ! directorist_is_owner_review_enabled() && $post_author_id === $user_id ) {
 					$errors[] = __( '<strong>Error</strong>: You are not allowed to share review on your own listing.', 'directorist' );
 				}
 
 				// Validate if sharing multiple reviews
-				if ( ! $rating_is_missing && self::review_exists_by( $comment_data['user_ID'], absint( $_POST['comment_post_ID'] ) ) ) {
+				if ( ! $rating_is_missing && self::review_exists_by( $author_email, $post_id ) ) {
 					$errors[] = __( '<strong>Error</strong>: You already shared a review.', 'directorist' );
 				}
 
@@ -297,11 +300,11 @@ class Comment {
 	/**
 	 * Check if user already shared a review.
 	 *
-	 * @param int $user_id
+	 * @param string $user_email
 	 * @param int $post_id.
 	 * @return bool
 	 */
-	public static function review_exists_by( $user_id, $post_id ) {
+	public static function review_exists_by( $user_email, $post_id ) {
 		global $wpdb;
 
 		$has_review = $wpdb->get_var(
@@ -311,10 +314,11 @@ class Comment {
 			WHERE comment_post_ID = %d
 			AND ( comment_approved = '1' OR comment_approved = '0' )
 			AND comment_type = 'review'
-			AND user_id = %d
+			AND comment_author_email = '%s'
+			LIMIT 0, 1
 				",
 				$post_id,
-				$user_id
+				$user_email
 			)
 		);
 

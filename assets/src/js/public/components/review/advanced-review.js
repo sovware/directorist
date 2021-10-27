@@ -254,6 +254,12 @@
 
     class ReplyFormObserver {
         constructor() {
+            this.init();
+
+            $( document ).on( 'directorist_reviews_updated', () => this.init() );
+        }
+
+        init() {
             const node = document.querySelector('.commentlist');
 
             if (node) {

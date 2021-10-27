@@ -2037,16 +2037,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var ReplyFormObserver = /*#__PURE__*/function () {
     function ReplyFormObserver() {
+      var _this4 = this;
+
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ReplyFormObserver);
 
-      var node = document.querySelector('.commentlist');
-
-      if (node) {
-        this.observe(node);
-      }
+      this.init();
+      $(document).on('directorist_reviews_updated', function () {
+        return _this4.init();
+      });
     }
 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(ReplyFormObserver, [{
+      key: "init",
+      value: function init() {
+        var node = document.querySelector('.commentlist');
+
+        if (node) {
+          this.observe(node);
+        }
+      }
+    }, {
       key: "observe",
       value: function observe(node) {
         var config = {

@@ -379,10 +379,7 @@ class Directorist_Listings {
 	public function get_review_data() {
 		// Review
 		$average           = \Directorist\Review\Listing_Review_Meta::get_rating( get_the_ID() );
-		$average           = (int) $average;
-		$average_with_zero = number_format( $average, 1 );
 		$reviews_count     = \Directorist\Review\Listing_Review_Meta::get_review_count( get_the_ID() );
-		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
 
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
@@ -409,9 +406,9 @@ class Directorist_Listings {
 
 		return [
 			'review_stars'    => $review_stars,
-			'review_text'     => $review_text,
-			'average_reviews' => $average_with_zero,
 			'total_reviews'   => $reviews_count,
+			'average_reviews' => number_format( $average, 1 ),
+			'review_text'     => _nx( 'Review', 'Reviews', $reviews_count, 'Listing grid review text', 'directorist' ),
 		];
 	}
 

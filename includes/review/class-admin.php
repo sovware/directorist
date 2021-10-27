@@ -23,6 +23,19 @@ class Metabox {
 
 		add_action( 'directorist/admin/review/meta_fields', [ __CLASS__, 'render_report_meta_field' ] );
 		add_action( 'directorist/admin/review/meta_fields', [ __CLASS__, 'render_rating_meta_field' ] );
+
+		add_filter( 'comment_edit_redirect', [ __CLASS__, 'comment_edit_redirect' ], 10, 2 );
+	}
+
+	public static function comment_edit_redirect( $location, $comment_id ) {
+		if ( ! current_user_can( 'moderate_comments' ) ) {
+			return add_query_arg( array(
+				'action' => 'editcomment',
+				'c'      => $comment_id,
+			) );
+		}
+
+		return $location;
 	}
 
 	public static function add_comment_types_in_dropdown( $comment_types ) {
@@ -124,6 +137,10 @@ class Metabox {
 	}
 
 	public static function render_report_meta_field( $comment ) {
+		if ( ! current_user_can( 'moderate_comments' ) ) {
+			return;
+		}
+
 		$reported = (int) Comment_Meta::get_reported( $comment->comment_ID, 0 );
 		?>
 		<tr>

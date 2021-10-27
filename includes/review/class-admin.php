@@ -20,6 +20,9 @@ class Metabox {
 		add_action( 'edit_comment', [ __CLASS__, 'on_edit_comment' ], 10, 2 );
 		add_action( 'add_meta_boxes', [ __CLASS__, 'rename_comment_metabox' ], 20 );
 		add_filter( 'admin_comment_types_dropdown', [ __CLASS__, 'add_comment_types_in_dropdown' ] );
+
+		add_action( 'directorist/admin/review/meta_fields', [ __CLASS__, 'render_report_meta_field' ] );
+		add_action( 'directorist/admin/review/meta_fields', [ __CLASS__, 'render_rating_meta_field' ] );
 	}
 
 	public static function add_comment_types_in_dropdown( $comment_types ) {
@@ -97,128 +100,58 @@ class Metabox {
 			return;
 		}
 
-		add_meta_box(
-			'directorist-comment-mb',
-			( $comment->comment_type === 'review' ? __( 'Review extra', 'directorist' ) : __( 'Comment extra', 'directorist' ) ),
-			array( __CLASS__, 'render' ),
-			'comment',
-			'normal',
-			'high'
-		);
+		if ( $comment->comment_type === 'review' ) {
+			add_meta_box(
+				'directorist-comment-mb',
+				__( 'Review Data', 'directorist' ),
+				array( __CLASS__, 'render_meta_fields' ),
+				'comment',
+				'normal',
+				'high'
+			);
+		}
 	}
 
-	public static function render( $comment ) {
-		$comment_id  = $comment->comment_ID;
-		$builder     = Builder::get( $comment->comment_post_ID );
-		$helpful     = Comment_Meta::get_helpful( $comment_id, 0 );
-		$unhelpful   = Comment_Meta::get_unhelpful( $comment_id, 0 );
-		$reported    = Comment_Meta::get_reported( $comment_id, 0 );
-		$rating      = Comment_Meta::get_rating( $comment_id );
-		$attachments = Comment_Meta::get_attachments( $comment_id );
+	public static function render_meta_fields( $comment ) {
+		wp_nonce_field( 'directorist_edit_comment', 'directorist_comment_nonce' );
 		?>
-		<style>
-		.comment-attachments {
-			display: flex;
-		}
-		.comment-attachments a {
-			display: block;
-			max-width: 150px;
-			flex: 0 0 150px;
-			margin: 5px;
-		}
-		.comment-attachments img {
-			height: 150px;
-			width: 100%;
-			object-fit: cover;
-			padding: 3px;
-			border: 1px solid #eee;
-			border-radius: 3px;
-			display: block;
-		}
-		</style>
-
-		<?php wp_nonce_field( 'directorist_edit_comment', 'directorist_comment_nonce' ); ?>
-
 		<table class="form-table">
 			<tbody>
-				<tr>
-					<th><?php esc_html_e( 'Helpful', 'directorist' ); ?></th>
-					<td><?php echo $helpful; ?></td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'Unhelpful', 'directorist' ); ?></th>
-					<td><?php echo $unhelpful; ?></td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'Reported', 'directorist' ); ?></th>
-					<td><?php echo $reported; ?></td>
-				</tr>
-				<?php if ( $builder->is_attachments_enabled() && ! empty( $attachments ) && is_array( $attachments ) ) : ?>
-					<tr>
-						<th><?php esc_html_e( 'Images', 'directorist' ); ?></th>
-						<td>
-							<div class="comment-attachments">
-								<?php foreach ( $attachments as $attachment ) {
-									printf( '<a href="%1$s" target="_blank"><img src="%1$s" alt=""></a>', self::get_image_url( $attachment ) );
-								} ?>
-							</div>
-						</td>
-					</tr>
-				<?php endif; ?>
-
-				<tr><td colspan="2"><hr></td></tr>
-				<?php if ( $builder->is_rating_type_criteria() && count( $builder->get_rating_criteria() ) > 0 ) : ?>
-					<tr>
-						<th><?php esc_html_e( 'Avg Rating', 'directorist' ); ?></th>
-						<td><?php echo $rating; ?></td>
-					</tr>
-					<?php
-					$criteria_rating = Comment::get_criteria_rating( $comment_id );
-					$criteria        = $builder->get_rating_criteria();
-
-					foreach ( $criteria as $k => $v ) :
-						$r = isset( $criteria_rating[ $k ] ) ? $criteria_rating[ $k ] : 0;
-						?>
-						<tr>
-							<th><?php echo $v; ?></th>
-							<td>
-								<select name="rating[<?php echo $k; ?>]">
-									<option value="0">No Rating</option>
-									<option value="1" <?php selected( $r, 1 ); ?>>1</option>
-									<option value="2" <?php selected( $r, 2 ); ?>>2</option>
-									<option value="3" <?php selected( $r, 3 ); ?>>3</option>
-									<option value="4" <?php selected( $r, 4 ); ?>>4</option>
-									<option value="5" <?php selected( $r, 5 ); ?>>5</option>
-								</select>
-							</td>
-						</tr>
-					<?php
-					endforeach;
-				endif ?>
-
-				<?php if ( $builder->is_rating_type_single() ) : $r = floor( $rating ); ?>
-					<tr>
-						<th><?php esc_html_e( 'Rating', 'directorist' ); ?></th>
-						<td>
-							<select name="rating">
-								<option value="0">No Rating</option>
-								<option value="1" <?php selected( $r, 1 ); ?>>1</option>
-								<option value="2" <?php selected( $r, 2 ); ?>>2</option>
-								<option value="3" <?php selected( $r, 3 ); ?>>3</option>
-								<option value="4" <?php selected( $r, 4 ); ?>>4</option>
-								<option value="5" <?php selected( $r, 5 ); ?>>5</option>
-							</select>
-						</td>
-					</tr>
-				<?php endif; ?>
+				<?php do_action( 'directorist/admin/review/meta_fields', $comment ); ?>
 			</tbody>
 		</table>
 		<?php
 	}
 
-	protected static function get_image_url( $attachment ) {
-		$dir = wp_get_upload_dir();
-		return trailingslashit( $dir['baseurl'] ) . $attachment;
+	public static function render_report_meta_field( $comment ) {
+		$reported = (int) Comment_Meta::get_reported( $comment->comment_ID, 0 );
+		?>
+		<tr>
+			<th><?php esc_html_e( 'Reported', 'directorist' ); ?></th>
+			<td><?php printf( _n( '%s time', '%s times', $reported, 'directorist' ), $reported ); ?></td>
+		</tr>
+		<?php
+	}
+
+	public static function render_rating_meta_field( $comment ) {
+		$builder = Builder::get( $comment->comment_post_ID );
+		$rating  = Comment_Meta::get_rating( $comment->comment_ID, 0 );
+
+		if ( $builder->is_rating_type_single() ) : $r = floor( $rating ); ?>
+		<tr>
+			<th><?php esc_html_e( 'Rating', 'directorist' ); ?></th>
+			<td>
+				<select name="rating">
+					<option value="0">No Rating</option>
+					<option value="1" <?php selected( $r, 1 ); ?>>1</option>
+					<option value="2" <?php selected( $r, 2 ); ?>>2</option>
+					<option value="3" <?php selected( $r, 3 ); ?>>3</option>
+					<option value="4" <?php selected( $r, 4 ); ?>>4</option>
+					<option value="5" <?php selected( $r, 5 ); ?>>5</option>
+				</select>
+			</td>
+		</tr>
+		<?php endif;
 	}
 }
 

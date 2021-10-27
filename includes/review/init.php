@@ -42,6 +42,8 @@ class Bootstrap {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
+		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
+
 
 		// add_filter( 'option_comments_per_page', function( $pre ) {
 		// 	if ( is_single( ATBDP_POST_TYPE ) ) {
@@ -50,6 +52,42 @@ class Bootstrap {
 
 		// 	return 1;
 		// } );
+	}
+
+	/**
+	 * Map meta capabilities for comment or review author.
+	 *
+	 * Since subscriber cannot edit their own comment so meta cap remapping is necessary.
+	 *
+	 * @param array $caps
+	 * @param string $cap
+	 * @param int $user_id
+	 * @param mixed $args
+	 *
+	 * @return array
+	 */
+	public static function map_meta_cap_for_review_author( $caps, $cap, $user_id, $args ) {
+		if ( $cap !== 'edit_comment' ) {
+			return $caps;
+		}
+
+		$comment_id = current( $args );
+		if ( ! $comment_id ) {
+			return $caps;
+		}
+
+		$comment = get_comment( $comment_id );
+		if ( ! $comment || ! $user_id || $user_id !== intval( $comment->user_id ) || get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+			return $caps;
+		}
+
+		$post_type = get_post_type_object( ATBDP_POST_TYPE );
+		$caps      = array(
+			$post_type->cap->edit_posts,
+			$post_type->cap->edit_published_posts,
+		);
+
+		return $caps;
 	}
 
 	public static function add_comment_support( $args, $post_type ) {

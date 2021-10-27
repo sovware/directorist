@@ -110,14 +110,10 @@
     var form_data = new FormData();
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
-<<<<<<< HEAD
-    $('body').addClass('atbdp-form-fade');
-=======
     var atts = parent.attr('data-atts');
     atts_decoded = btoa(atts);
     form_data.append('atts', atts_decoded);
     parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
->>>>>>> dec4bd13c960eec81b5f51407cc7c56db972a2a4
     $.ajax({
       method: 'POST',
       processData: false,

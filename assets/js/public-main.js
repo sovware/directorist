@@ -1945,7 +1945,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Comment_Activity);
 
       this.selector = '[data-directorist-activity]';
-      this.$wrap = $('.directorist-review-content__reviews');
+      this.$wrap = $(document.body);
       this.storage = storage;
       this.init();
     }

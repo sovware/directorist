@@ -163,7 +163,7 @@
     class Comment_Activity {
         constructor( storage ) {
             this.selector = '[data-directorist-activity]';
-            this.$wrap    = $('.directorist-review-content__reviews');
+            this.$wrap    = $(document.body);
             this.storage  = storage;
 
             this.init();

@@ -79,6 +79,10 @@ class Builder {
 		return $this->get_field( 'comment_placeholder', $default );
 	}
 
+	public function is_cookies_consent_enabled() {
+		return (bool) $this->get_field( 'cookies_consent', false );
+	}
+
 	protected function get_field( $field_key, $default = false ) {
 		$field_key = "review_{$field_key}";
 		return ( ( isset( $this->fields[ $field_key ] ) && $this->fields[ $field_key ] !== '' ) ? $this->fields[ $field_key ] : $default );

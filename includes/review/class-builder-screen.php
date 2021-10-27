@@ -53,6 +53,7 @@ class Builder_Screen {
 				'container' => 'short-width',
 				'fields'    => [
 					'review_rating_type',
+					'review_cookies_consent',
 					'review_comment_label',
 					'review_comment_placeholder',
 					'review_email_label',
@@ -86,6 +87,11 @@ class Builder_Screen {
 			],
 
 			// Regular fields
+			'review_cookies_consent' => [
+				'label' => __( 'Show Cookies Consent', 'directorist' ),
+				'type'  => 'toggle',
+				'value' => false,
+			],
 			'review_comment_label' => [
 				'label' => __( 'Comment Label', 'directorist' ),
 				'type'  => 'text',

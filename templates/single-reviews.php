@@ -122,6 +122,10 @@ Bootstrap::load_walker();
 			),
 		);
 
+		if ( ! $builder->is_cookies_consent_enabled() ) {
+			$fields['cookies'] = '';
+		}
+
 		$comment_fields = array();
 		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
 

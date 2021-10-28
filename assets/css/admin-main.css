@@ -4221,6 +4221,8 @@ input.atbdp-form-control {
   text-decoration: none;
   text-align: center;
   padding: 0 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media only screen and (max-width: 575px) {
   .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
@@ -4663,6 +4665,21 @@ input.atbdp-form-control {
   .directorist-listing-slug__form {
     top: auto;
     bottom: -54px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .directorist-listing-slug__form {
+    min-width: 230px;
+  }
+}
+@media only screen and (max-width: 1499px) {
+  .directorist-listing-slug__form {
+    min-width: 230px;
+  }
+}
+@media only screen and (max-width: 1599px) {
+  .directorist-listing-slug__form {
+    min-width: 260px;
   }
 }
 .directorist-listing-slug__form .directorist_listing-slug__form--inline {

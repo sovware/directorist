@@ -8451,3 +8451,24 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 
 	return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 }
+
+if ( ! function_exists( 'directorist_is_plugin_active' ) ) {
+    function directorist_is_plugin_active( $plugin ) {
+        return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || directorist_is_plugin_active_for_network( $plugin );
+    }
+}
+
+if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
+    function directorist_is_plugin_active_for_network( $plugin ) {
+        if ( ! is_multisite() ) {
+            return false;
+        }
+
+        $plugins = get_site_option( 'active_sitewide_plugins' );
+        if ( isset( $plugins[ $plugin ] ) ) {
+                return true;
+        }
+
+        return false;
+    }
+}

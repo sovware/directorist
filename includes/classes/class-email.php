@@ -37,19 +37,19 @@ if (!class_exists('ATBDP_Email')):
             /*Fire up email for deleted/trashed listings*/
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
-            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));	
+            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
             /*Fire up emails when a general user apply for become author user*/
             add_action('atbdp_become_author', array($this, 'notify_admin_become_author'));
             //add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
         }
 
-          /**	
-         * @since 5.8	
-         */	
-        public function atbdp_wp_mail_from_name()	
-        {	
-            $site_name = get_option('blogname');	
-            return $site_name;	
+          /**
+         * @since 5.8
+         */
+        public function atbdp_wp_mail_from_name()
+        {
+            $site_name = get_option('blogname');
+            return $site_name;
         }
 
         /**
@@ -73,7 +73,7 @@ if (!class_exists('ATBDP_Email')):
          * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
          * @return string               It returns the content after replacing the placeholder with proper data.
          */
-        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null)
+        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin = 0)
         {
             if (empty($listing_id)) {
                 $listing_id = (int)get_post_meta($order_id, '_listing_id', true);
@@ -131,6 +131,7 @@ if (!class_exists('ATBDP_Email')):
                 '==DASHBOARD_LINK==' => sprintf('<a href="%s">%s</a>', $dashboard_link, $dashboard_link),
                 '==USER_PASSWORD==' => $user_password,
                 '==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
+                '==PIN==' => $pin,
             );
             $c = nl2br(strtr($content, $find_replace));
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -271,6 +272,26 @@ Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==
 You can Edit/Review the listing using the link below:
 ==LISTING_EDIT_URL==
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+", 'directorist');
+        }
+
+        /**
+         * Get password reset PIN email template
+         *
+         * @since 7.0.5.5
+         * @return string It returns the email template for password reset PIN.
+         */
+        public function get_password_reset_pin_email_template()
+        {
+            return __("
+Dear User,
+
+Please use the following PIN to reset your password
+<div style='margin: 10px 0; text-align: center;'>
+<h2>==PIN==</h2>
+<div>
 
 This email is sent automatically for information purpose only. Please do not respond to this.
 ", 'directorist');
@@ -422,10 +443,28 @@ This email is sent automatically for information purpose only. Please do not res
                 $user = $this->get_owner($listing_id);
                 // Send email according to the type of the payment that user used during checkout. get email template from the db.
                 $offline = (!empty($offline)) ? '_offline' : '';
-                $sub = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
+                $subject = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
                 $body = $this->replace_in_content(get_directorist_option("email_tmpl{$offline}_new_order"), $order_id, $listing_id, $user);
-                $body = atbdp_email_html($sub, $body);
-                return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+                $message = atbdp_email_html($subject, $body);
+
+                $to = $user->user_email;
+                $headers = $this->get_email_headers();
+
+                $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+                // Action Hook
+                $action_args = [
+                    'is_sent'    => $is_sent,
+                    'to_email'   => $to,
+                    'subject'    => $subject,
+                    'message'    => $message,
+                    'headers'    => $headers,
+                    'listing_id' => $listing_id,
+                ];
+
+                do_action( 'directorist_email_on_notify_owner_order_created', $action_args );
+                
+                return $is_sent;
             }
         }
 
@@ -442,10 +481,27 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('order_completed', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option('email_sub_completed_order'), $order_id, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option('email_sub_completed_order'), $order_id, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option('email_tmpl_completed_order'), $order_id, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_order_completed', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -463,10 +519,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_new_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($user->user_email, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_submitted', $action_args );
+            
+            return $is_sent;
         } 
 
 
@@ -485,12 +558,29 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist');
-            $sub = $this->replace_in_content($s, null, $listing_id);
+            $subject = $this->replace_in_content($s, null, $listing_id);
 
             $body = $this->get_listing_published_admin_tmpl();
             $body = $this->replace_in_content($body, null, $listing_id);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_listing_published', $action_args );
+            
+            return $is_sent;
 
         }
 
@@ -510,10 +600,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_pub_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_pub_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_pub_listing"), null, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_published', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -528,7 +635,8 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
+            $to = $user->user_email;
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $edited_status  = get_term_meta( $directory_type, 'edit_listing_status', true );
             if ('publish' === $edited_status){
@@ -536,8 +644,24 @@ This email is sent automatically for information purpose only. Please do not res
             }else{
                 $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
             }
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_edited', $action_args );
+            
+            return $is_sent;
         }
 
 
@@ -555,10 +679,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_to_expire_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_to_expire_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_expire_listing"), null, $listing_id, $user, true);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_to_expire', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -577,10 +718,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user, true);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_expired', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -598,10 +756,27 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_to_renewal_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_to_renewal_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_renewal_listing"), null, $listing_id, $user, true);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_to_renew', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -635,11 +810,28 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_deleted', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_deleted_listing"), null, $listing_id, $user);
+            $subject = $this->replace_in_content(get_directorist_option("email_sub_deleted_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_deleted_listing"), null, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
 
+            $to = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_deleted', $action_args );
+            
+            return $is_sent;
         }
 
 
@@ -665,12 +857,29 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_admin_become_author( $user_id ) {
             if (get_directorist_option('disable_email_notification')) return false;
             $s = __('[==SITE_NAME==] New Author Request', 'directorist');
-            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $subject = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
             $body = $this->author_approval_admin_tmpl();
-            $message = $this->replace_in_content( $body, null, null, $user_id);
-            $body = atbdp_email_html($sub, $message);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $body = $this->replace_in_content( $body, null, null, $user_id);
+            $message = atbdp_email_html($subject, $body);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'  => $is_sent,
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+                'user_id'  => $user_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_become_author', $action_args );
+            
+            return $is_sent;
         }
 
 
@@ -690,13 +899,30 @@ This email is sent automatically for information purpose only. Please do not res
                 if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
                 if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
                 $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
-                $sub = $this->replace_in_content($s, $order_id);
+                $subject = $this->replace_in_content($s, $order_id);
 
                 $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
                 $body = str_replace('==ORDER_RECEIPT_URL==', admin_url("edit.php?post_type=atbdp_orders"), $t); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
                 $body = $this->replace_in_content($body, $order_id, $listing_id);
-                $body = atbdp_email_html($sub, $body);
-                return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+                $message = atbdp_email_html($subject, $body);
+                $to = $this->get_admin_email_list();
+                $headers = $this->get_email_headers();
+
+                $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+                // Action Hook
+                $action_args = [
+                    'is_sent'    => $is_sent,
+                    'to_email'   => $to,
+                    'subject'    => $subject,
+                    'message'    => $message,
+                    'headers'    => $headers,
+                    'listing_id' => $listing_id,
+                ];
+
+                do_action( 'directorist_email_on_notify_admin_order_created', $action_args );
+                
+                return $is_sent;
             }
         }
 
@@ -714,13 +940,30 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('order_completed', get_directorist_option('notify_admin', array()))) return false;
             $s = __('[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist');
-            $sub = $this->replace_in_content($s, $order_id);
+            $subject = $this->replace_in_content($s, $order_id);
 
             $t = $this->get_order_completed_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
             $body = str_replace('==ORDER_RECEIPT_URL==', admin_url("edit.php?post_type=atbdp_orders"), $t);
             $body = $this->replace_in_content($body, $order_id, $listing_id);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_order_completed', $action_args );
+            
+            return $is_sent;
         }
 
         /**
@@ -738,12 +981,55 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $s = __('[==SITE_NAME==] A new listing has been submitted on your website', 'directorist');
-            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $subject = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $to = $this->get_admin_email_list();
+            $headers = $this->get_email_headers();
 
             $body = $this->get_listing_submitted_admin_tmpl();
             $message = $this->replace_in_content($body, null, $listing_id);
-            $body = atbdp_email_html($sub, $message);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $body = atbdp_email_html($subject, $message);
+
+            $is_sent = $this->send_mail($to, $subject, $body, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_listing_submitted', $action_args );
+
+            return $is_sent;
+
+        }
+
+        /**
+         * Send Password Reset PIN
+         *
+         * @since 7.0.5.5
+         * @param int $listing_email
+         * @return bool Whether the email was sent successfully or not.
+         */
+        public function send_password_reset_pin_email($listing_email)
+        {
+            $s = __('[==SITE_NAME==] Password Reset PIN', 'directorist');
+            $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
+            $pin = random_int(1000, 9999);
+
+            $min = 15;
+            $expiration = 60 * $min; // In seconds
+
+            set_transient( "directorist_reset_pin_${listing_email}", $pin, $expiration );
+
+            $body    = $this->get_password_reset_pin_email_template();
+            $message = $this->replace_in_content($body, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin);
+            $body    = atbdp_email_html($sub, $message);
+
+            return $this->send_mail( $listing_email, $sub, $body, $this->get_email_headers());
 
         }
 
@@ -763,11 +1049,28 @@ This email is sent automatically for information purpose only. Please do not res
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist');
-            $sub = $this->replace_in_content($s, null, $listing_id);
+            $subject = $this->replace_in_content($s, null, $listing_id);
+            $to = $this->get_admin_email_list();
             $body = $this->get_listing_edited_admin_tmpl();
             $body = $this->replace_in_content($body, null, $listing_id);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            $message = atbdp_email_html($subject, $body);
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail($to, $subject, $message, $headers);
+            
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_admin_listing_edited', $action_args );
+            
+            return $is_sent;
         }
 
         /**

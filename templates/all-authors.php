@@ -6,7 +6,7 @@
  */
 
 use \Directorist\Helper;
-use \Directorist\Directorist_All_Authors as Author;
+use \Directorist\Directorist_All_Authors as Authors;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
@@ -39,41 +39,45 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					<?php
 					if( $authors->author_list() ):
+
 						foreach( $authors->author_list() as $author ): ?>
 
 							<div class="<?php Helper::directorist_column( $authors->get_columns() ); ?>">
 
 								<div class="directorist-authors__card">
 
-									<?php if( Author::author_profile_pic( $author->data->ID, 'pro_pic' ) && $authors->display_image() ): ?>
+									<?php if( ( $image = Authors::user_image_src( $author ) ) && $authors->display_image() ): ?>
+
 										<div class="directorist-authors__card__img">
-											<img src="<?php echo Author::author_profile_pic( $author->data->ID, 'pro_pic' ); ?>" alt="<?php echo $author->data->display_name; ?>">
+											<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( Authors::user_nickname( $author ) ); ?>">
 										</div>
+
 									<?php endif; ?>
 
 									<div class="directorist-authors__card__details">
 
-										<?php if( ! empty( $author->data->display_name ) && $authors->display_name() ): ?>
-											<h2><?php echo ucfirst( $author->data->display_name ); ?></h2>
+										<?php if( $authors->display_name() ): ?>
+											<h2><?php echo esc_html( Authors::user_nickname( $author ) ) ; ?></h2>
 										<?php endif; ?>
 
-										<?php if( $author->roles[0] && $authors->display_role() ): ?>
-											<h3><?php echo $author->roles[0]; ?></h3>
+										<?php if( $authors->display_role() ): ?>
+											<h3><?php echo esc_html( Authors::user_role( $author ) ) ; ?></h3>
 										<?php endif; ?>
 
 										<?php if( $authors->display_contact_info() ): ?>
+
 											<ul class="directorist-authors__card__info-list">
 
-												<?php if( Author::author_meta( $author->data->ID, 'atbdp_phone' ) ): ?>
-													<li><i class="la la-phone"></i> <?php echo Author::author_meta( $author->data->ID, 'atbdp_phone' ); ?></li>
+												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_phone' ) ): ?>
+													<li><i class="la la-phone"></i> <?php echo Authors::author_meta( $author->data->ID, 'atbdp_phone' ); ?></li>
 												<?php endif; ?>
 
 												<?php if( ! empty( $author->data->user_email ) ): ?>
 													<li><i class="la la-envelope"></i> <a href="mailto:<?php echo $author->data->user_email; ?>"><?php echo $author->data->user_email; ?></a></li>
 												<?php endif; ?>
 
-												<?php if( Author::author_meta( $author->data->ID, 'address' ) ): ?>
-													<li><i class="la la-map-marker"></i> <?php echo Author::author_meta( $author->data->ID, 'address' ); ?></li>
+												<?php if( Authors::author_meta( $author->data->ID, 'address' ) ): ?>
+													<li><i class="la la-map-marker"></i> <?php echo Authors::author_meta( $author->data->ID, 'address' ); ?></li>
 												<?php endif; ?>
 
 												<?php if( $author->data->user_url ): ?>
@@ -81,36 +85,37 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 												<?php endif; ?>
 
 											</ul>
+
 										<?php endif; ?>
 
-										<?php if( Author::author_meta( $author->data->ID, 'description' ) && $authors->display_description() ): ?>
-											<p><?php echo wp_trim_words( Author::author_meta( $author->data->ID, 'description' ), $authors->description_limit() ); ?></p>
+										<?php if( Authors::author_meta( $author->data->ID, 'description' ) && $authors->display_description() ): ?>
+											<p><?php echo wp_trim_words( Authors::author_meta( $author->data->ID, 'description' ), $authors->description_limit() ); ?></p>
 										<?php endif; ?>
 
 										<?php if( $authors->display_social_info() ): ?>
 											<ul class="directorist-author-social directorist-author-social--light">
 
-												<?php if( Author::author_meta( $author->data->ID, 'atbdp_facebook' ) ): ?>
+												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_facebook' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_facebook' ); ?>"><span class="la la-facebook"></span></a>
+														<a target="_blank" href="<?php echo Authors::author_meta( $author->data->ID, 'atbdp_facebook' ); ?>"><span class="la la-facebook"></span></a>
 													</li>
 												<?php endif; ?>
 
-												<?php if( Author::author_meta( $author->data->ID, 'atbdp_twitter' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_twitter' ); ?>">
+												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_twitter' ) ): ?>
+													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Authors::author_meta( $author->data->ID, 'atbdp_twitter' ); ?>">
 														<span class="la la-twitter"></span></a>
 													</li>
 												<?php endif; ?>
 
-												<?php if( Author::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
-													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_linkedin' ); ?>">
+												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
+													<li class="directorist-author-social-item"><a target="_blank" href="<?php echo Authors::author_meta( $author->data->ID, 'atbdp_linkedin' ); ?>">
 														<span class="la la-linkedin"></span></a>
 													</li>
 												<?php endif; ?>
 
-												<?php if( Author::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
+												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_linkedin' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo Author::author_meta( $author->data->ID, 'atbdp_youtube' ); ?>"><span class="la la-youtube"></span></a>
+														<a target="_blank" href="<?php echo Authors::author_meta( $author->data->ID, 'atbdp_youtube' ); ?>"><span class="la la-youtube"></span></a>
 													</li>
 												<?php endif; ?>
 

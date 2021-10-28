@@ -9,24 +9,28 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_All_Authors {
 
-	protected static $instance = null;
-
-	private function __construct() {
+	public function __construct() {
 
 	}
 
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
+	public function render_shortcode_all_authors() {
+		return Helper::get_template_contents( 'all-authors', array( 'authors' => $this ) );
 	}
 
-	public static function author_profile_pic( $id, $key ) {
-		$pro_pic  			  = get_user_meta( $id, $key, true );
-		$u_pro_pic            = ! empty( $pro_pic ) ? wp_get_attachment_image_src( $pro_pic, 'thumbnail' ) : '';
-		$author_image_src     = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : get_avatar_url( $id );
-		return ! empty( $author_image_src ) ? $author_image_src : '';
+	public static function user_image_src( $user ) {
+		$id           = $user->data->ID;
+		$image_id  	  = get_user_meta( $id, 'pro_pic', true );
+		$image_data   = wp_get_attachment_image_src( $image_id, 'full' ); // @kowsar @todo size
+		$image_src    = $image_data ? $image_data[0] : get_avatar_url( $id );
+		return $image_src ? $image_src : '';
+	}
+
+	public static function user_nickname( $user ) {
+		return $user->data->display_name;
+	}
+
+	public static function user_role( $user ) {
+		return $user->roles[0];
 	}
 
 	public static function author_meta( $id, $key ) {
@@ -134,14 +138,6 @@ class Directorist_All_Authors {
 		) );
 
 		return $links;
-	}
-
-	public function render_shortcode_all_authors() {
-		ob_start();
-		
-		Helper::get_template( 'all-authors', array( 'authors' => $this ) );
-
-		return ob_get_clean();
 	}
 
 }

@@ -210,7 +210,7 @@ class ATBDP_Shortcode {
 	}
 
 	public function all_authors() {
-		$all_authors = Directorist_All_Authors::instance();
+		$all_authors = new Directorist_All_Authors();
 		return $all_authors->render_shortcode_all_authors();
 	}
 

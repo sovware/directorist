@@ -145,20 +145,24 @@ class Walker extends Walker_Comment {
 					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
 				<?php endif; ?>
 
-				<?php comment_reply_link(
-					array_merge(
-						$args,
-						array(
-							/* translators: 1: is the reply icon */
-							'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
-							'depth'      => $depth,
-							'max_depth'  => $args['max_depth'],
-							'add_below'  => 'div-comment',
-							'before'     => '<div class="directorist-review-single__reply">',
-							'after'      => '</div>'
+				<div class="directorist-review-single__reply">
+					<?php edit_comment_link( sprintf( __( '%s Edit', 'directorist' ), '<i class="far fa-edit" aria-hidden="true"></i>' ) ); ?>
+
+					<?php comment_reply_link(
+						array_merge(
+							$args,
+							array(
+								/* translators: 1: is the reply icon */
+								'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+								'depth'      => $depth,
+								'max_depth'  => $args['max_depth'],
+								'add_below'  => 'div-comment',
+								// 'before'     => '',
+								// 'after'      => ''
+							)
 						)
-					)
-				); ?>
+					); ?>
+				</div>
 			</article><!-- .comment-body -->
 		<?php
 	}

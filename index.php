@@ -1,2 +1,2 @@
 <?php
-// Be kind to everyone even if he is your enemy.
+// Be kind to everyone even if he is your enemy. test

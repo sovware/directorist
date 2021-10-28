@@ -42,7 +42,8 @@ function directorist_706_migrate_reviews_table_to_comments_table() {
 		}
 	}
 
-	//TODO: delete review table
+	//Delete review table
+	$wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
 }
 
 // pending -> pending:0
@@ -82,9 +83,12 @@ function directorist_706_migrate_posts_table_to_comments_table() {
 				)
 			) );
 		}
-	}
 
-	//TODO: delete review post type posts
+		// Delete review type posts
+		foreach ( $reviews as $review ) {
+			wp_delete_post( $review->post_id, true );
+		}
+	}
 }
 
 function directorist_706_review_rating_clear_transients() {

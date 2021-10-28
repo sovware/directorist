@@ -272,6 +272,9 @@ class ATBDP_Review_Custom_Post
                         'by_user_id'       => $by_user_id,
                     );
                     ATBDP()->review->db->add($data);
+                    
+                    do_action('directorist_on_review_approved_by_admin', $data);
+
                 } elseif( 'declined' == $review_status) {
                     $data = array(
                         'post_id'          => $review_listing,

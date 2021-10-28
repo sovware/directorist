@@ -103,7 +103,7 @@ function directorist_706_review_rating_clear_transients() {
  * Get wp comment status by review post type review status.
  *
  * @access private
- * @return void
+ * @return mixed
  */
 function _directorist_get_comment_status_by_review_status( $status = 'approved' ) {
 	$statuses = array(
@@ -116,5 +116,5 @@ function _directorist_get_comment_status_by_review_status( $status = 'approved' 
 }
 
 function directorist_706_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.0.4' );
+	\ATBDP_Installation::update_db_version( '7.0.6' );
 }

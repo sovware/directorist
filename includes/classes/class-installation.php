@@ -178,7 +178,7 @@ class ATBDP_Installation {
 				self::init_background_updater();
 				self::update();
 			} else {
-				// WC_Admin_Notices::add_notice( 'update' );
+				// Directorist_Admin_Notices::add_notice( 'update' );
 			}
 		} else {
 			self::update_db_version();

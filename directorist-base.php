@@ -201,6 +201,7 @@ final class Directorist_Base
 			self::$instance = new Directorist_Base;
 			self::$instance->setup_constants();
 
+			add_action('wp_loaded', array(self::$instance, 'load_dependency'));
 			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
@@ -243,7 +244,7 @@ final class Directorist_Base
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			
+
 			if( is_admin() ){
 				new ATBDP_Extensions();
 			}
@@ -458,6 +459,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
+			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
@@ -1388,6 +1390,13 @@ final class Directorist_Base
 
 		// Active insights
 		$client->insights()->init();
+	}
+
+	// load_dependency
+	public function load_dependency() {
+		if (  ! directorist_is_plugin_active( 'jwt-authentication-for-wp-rest-api/jwt-auth.php' ) ) {
+			self::require_files([ ATBDP_INC_DIR . 'modules/jwt-authentication/jwt-auth' ]);
+		}
 	}
 
 } // ends Directorist_Base

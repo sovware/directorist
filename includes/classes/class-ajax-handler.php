@@ -150,8 +150,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_author_alpha_sorting() {
             ob_start();
             if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
-            	$authors            = Directorist_All_Authors::instance();
-        
+            	$authors = new Directorist_All_Authors();
                 echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
                 wp_die();
             }
@@ -161,8 +160,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // directorist_author_pagination
         public function author_pagination() {
             ob_start();
-            $authors            = Directorist_All_Authors::instance();
-    
+            $authors = new Directorist_All_Authors();
             echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
             wp_die();
             return ob_get_clean();

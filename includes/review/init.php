@@ -44,14 +44,16 @@ class Bootstrap {
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 
+		// Set comments per page.
+		add_filter( 'option_comments_per_page', array( __CLASS__, 'comments_per_page' ) );
+	}
 
-		// add_filter( 'option_comments_per_page', function( $pre ) {
-		// 	if ( is_single( ATBDP_POST_TYPE ) ) {
-		// 		return $pre;
-		// 	}
+	public static function comments_per_page( $per_page ) {
+		if ( get_query_var( 'post_type' ) === ATBDP_POST_TYPE ) {
+			$per_page = directorist_get_review_per_page();
+		}
 
-		// 	return 1;
-		// } );
+		return $per_page;
 	}
 
 	/**

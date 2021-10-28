@@ -68,20 +68,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 											<ul class="directorist-authors__card__info-list">
 
-												<?php if( Authors::author_meta( $author->data->ID, 'atbdp_phone' ) ): ?>
-													<li><i class="la la-phone"></i> <?php echo Authors::author_meta( $author->data->ID, 'atbdp_phone' ); ?></li>
+												<?php if( $phone = Authors::user_phone( $author ) ): ?>
+													<li><i class="la la-phone"></i> <?php echo esc_html( $phone ); ?></li>
 												<?php endif; ?>
 
-												<?php if( ! empty( $author->data->user_email ) ): ?>
-													<li><i class="la la-envelope"></i> <a href="mailto:<?php echo $author->data->user_email; ?>"><?php echo $author->data->user_email; ?></a></li>
+												<?php if( $email = Authors::user_email( $author ) ): ?>
+													<li><i class="la la-envelope"></i> <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( Authors::author_meta( $author->data->ID, 'address' ) ): ?>
-													<li><i class="la la-map-marker"></i> <?php echo Authors::author_meta( $author->data->ID, 'address' ); ?></li>
+												<?php if( $address = Authors::user_address( $author ) ): ?>
+													<li><i class="la la-map-marker"></i> <?php echo esc_html( $address ); ?></li>
 												<?php endif; ?>
 
-												<?php if( $author->data->user_url ): ?>
-													<li><i class="la la-globe"></i> <a href="<?php echo esc_url( $author->data->user_url ); ?>"><?php echo esc_url( $author->data->user_url ); ?></a></li>
+												<?php if( $website = Authors::user_website( $author ) ): ?>
+													<li><i class="la la-globe"></i> <a href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website ); ?></a></li>
 												<?php endif; ?>
 
 											</ul>

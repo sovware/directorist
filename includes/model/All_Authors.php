@@ -86,22 +86,15 @@ class Directorist_All_Authors {
 		}
 
 		$args['number'] 		 = $all_authors_per_page;
+		$args['orderby'] 		 = 'display_name';
 		
 		if( 'all' != $all_authors_select_role ) {
 			$args['role__in']	= array( $all_authors_select_role );
 		}
 
 		if( ! empty( $_REQUEST['alphabet'] ) ) {
-			$letterAfter = chr( ord( $_REQUEST['alphabet'] ) + 1 );
-
-			$args['meta_query'] = array(
-				array(
-					'key' => 'first_name',
-					'value' => array( $_REQUEST['alphabet'], $letterAfter ),
-					'compare' => 'BETWEEN'
-				)
-			);
-
+			$args['search'] 		= $_REQUEST['alphabet'] . '*';
+			$args['search_columns'] = array('display_name');
 		}
 
 		return get_users( $args );

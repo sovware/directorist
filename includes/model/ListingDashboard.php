@@ -69,6 +69,9 @@ class Directorist_Listing_Dashboard {
 
 	public function listing_task( $task, $taskdata ){
 		if ( $task == 'delete' ) {
+
+			do_action( 'directorist_listing_deleted', $taskdata );
+
 			wp_delete_post( $taskdata );
 		}
 	}
@@ -377,7 +380,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
-				'icon'		=> atbdp_icon_type() . '-heart-o',
+				'icon'		=> atbdp_icon_type() . '-heart',
 			);
 		}
 

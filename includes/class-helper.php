@@ -539,9 +539,14 @@ class Helper {
 
 		if ( empty( $data ) ) { return; }
 
-		$value = json_encode( $data );
+		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<span 
+			style="display: none;" 
+			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
+			data-value="<?php echo $data_value; ?>"
+		>
+		</span>
 		<?php
 	}
 

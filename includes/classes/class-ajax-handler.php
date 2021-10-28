@@ -249,49 +249,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type    = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
-            $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
-            // search form
-            ob_start();
-            ?>
-				<div class="<?php echo esc_attr( $class ); ?>">
-                    <?php
-                    foreach ( $searchform->form_data[0]['fields'] as $field ){
-                        $searchform->field_template( $field );
-                    }
-                    if ( $searchform->more_filters_display !== 'always_open' ){
-                        $searchform->more_buttons_template();
-                    }
-                    ?>
-
-                </div>
-
-                <?php
-                if ( $searchform->more_filters_display == 'always_open' ){
-                    $searchform->advanced_search_form_fields_template();
-                }
-                else {
-                    if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                            <?php $searchform->advanced_search_form_fields_template();?>
-                        </div>
-                        <?php
-                    }
-                }
-            $search_form =  ob_get_clean();
-
-            ob_start();
-
-			$searchform->top_categories_template();
-
-            $popular_categories = ob_get_clean();
-
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
+            $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
                 'search_form'          => $search_form,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
-                'popular_categories'   => $popular_categories
              ) );
         }
 
@@ -1045,8 +1010,23 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $to = $user->user_email;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $post_id,
+                'reviewer'   => $user,
+            ];
+
+            do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
+            
+            return $is_sent;
         }
 
         /*
@@ -1093,8 +1073,22 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
+        
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $post_id,
+                'reviewer'   => $user,
+            ];
+
+            do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
+            
+            return $is_sent;
         }
 
 
@@ -1246,7 +1240,35 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
             // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            // Action Hook
+            $action_args = [
+                'is_sent' => $is_sent,
+
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+
+                'sender_name' => $name,
+                'from_email'  => $email,
+
+                'listing_author' => $user,
+                'listing_id'     => $post_id,
+                'listing_title'  => $listing_title,
+                'listing_url'    => $listing_url,
+
+                'send_to'       => $user_email,
+                'listing_email' => $listing_email,
+                'current_time'  => $current_time,
+                
+                'site_name' => $site_name,
+            ];
+
+            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+
+            return $is_sent;
         }
 
         /**
@@ -1291,7 +1313,33 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$name} <{$email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            // Action Hook
+            $action_args = [
+                'is_sent' => $is_sent,
+
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+
+                'sender_name' => $name,
+                'from_email'  => $email,
+
+                'listing_id'    => $post_id,
+                'listing_title' => $listing_title,
+                'listing_url'   => $listing_url,
+
+                'current_time'  => $current_time,
+                
+                'site_name' => $site_name,
+            ];
+
+            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+
+            return $is_sent;
         }
 
         /**

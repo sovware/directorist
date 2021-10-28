@@ -234,6 +234,15 @@ class Script_Helper {
         return $data;
     }
 
+    // Get Option Data
+    public static function get_option_data() {
+        $options = [];
+
+        $options['script_debugging'] = get_directorist_option( 'script_debugging', DIRECTORIST_LOAD_MIN_FILES, true );
+
+        return $options;
+    }
+
 
     /**
      * Get Admin Script Dependency

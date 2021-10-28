@@ -370,7 +370,7 @@ function setup_form_data(form_data, type, field) {
 }
 
 function scrollToEl( selector ){
-    document.querySelector( selector ).scrollIntoView({ behavior: 'smooth' })
+    document.querySelector( selector ).scrollIntoView({ block: 'start', behavior: 'smooth' })
 }
 
 function atbdp_element_value(element) {
@@ -581,7 +581,7 @@ $('body').on('submit', formID, function (e) {
         url: localized_data.ajaxurl,
         data: form_data,
         success(response) {
-            console.log(response);
+            //console.log(response);
             // return;
             // show the error notice
             $('.directorist-form-submit__btn').attr('disabled', false);
@@ -753,7 +753,7 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
             submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
         },
         success: function (response) {
-            console.log({ response });
+            //console.log({ response });
             submit_button.html(submit_button_default_html);
 
             if (response.loggedin) {

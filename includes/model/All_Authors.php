@@ -25,42 +25,6 @@ class Directorist_All_Authors {
 		return $image_src ? $image_src : '';
 	}
 
-	public static function user_nickname( $user ) {
-		return $user->data->display_name;
-	}
-
-	public static function user_role( $user ) {
-		return $user->roles[0];
-	}
-
-	public static function user_phone( $user ) {
-		return self::user_meta( $user, 'atbdp_phone' );
-	}
-
-	public static function user_email( $user ) {
-		return $user->data->user_email;
-	}
-
-	public static function user_address( $user ) {
-		return self::user_meta( $user, 'address' );
-	}
-
-	public static function user_website( $user ) {
-		return $user->data->user_url;
-	}
-
-	public static function user_meta( $user, $key ) {
-		$value  = get_user_meta( $user->data->ID, $key, true );
-
-		return ! empty( $value ) ? $value : '';
-	}
-
-	public static function author_meta( $id, $key ) {
-		$value  = get_user_meta( $id, $key, true );
-
-		return ! empty( $value ) ? $value : '';
-	}
-
 	public function display_sorting() {
 		return get_directorist_option( 'all_authors_sorting', true );
 	}

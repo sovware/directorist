@@ -25,6 +25,17 @@ class Metabox {
 		add_action( 'directorist/admin/review/meta_fields', [ __CLASS__, 'render_rating_meta_field' ] );
 
 		add_filter( 'comment_edit_redirect', [ __CLASS__, 'comment_edit_redirect' ], 10, 2 );
+		add_filter( 'wp_update_comment_data', [ __CLASS__, 'update_comment_data' ], 10, 2 );
+	}
+
+	public static function update_comment_data( $data, $comment ) {
+		if ( get_current_user_id() === intval( $comment['user_id'] ) && ! current_user_can( 'moderate_comments' ) ) {
+			$data['comment_approved'] = $comment['comment_approved'];
+			$data['comment_date']     = $comment['comment_date'];
+			$data['comment_date_gmt'] = $comment['comment_date_gmt'];
+		}
+
+		return $data;
 	}
 
 	public static function comment_edit_redirect( $location, $comment_id ) {

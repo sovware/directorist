@@ -258,6 +258,8 @@
 
 //add listing image upload
 .directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
   .ezmu__thumbnail-list-item {
     max-width: 300px;
     flex-basis: 300px;

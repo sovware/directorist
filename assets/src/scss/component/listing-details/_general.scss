@@ -138,5 +138,26 @@
 .directorist-single-tag-list{
     a{
         text-decoration: none;
+        color: #51526E;
+        transition: 0.3s ease;
+        span{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 15px;
+            background: #f1f3f8;
+            margin-right: 10px;
+            transition: 0.3s ease;
+        }
+        &:hover{
+            color: #000;
+            span{
+                background: #000;
+                color: #fff;
+            }
+        }
     }
 }

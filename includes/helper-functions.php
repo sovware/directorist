@@ -6967,7 +6967,9 @@ if (!function_exists('atbdp_popular_listings')) {
     function atbdp_popular_listings($listing_id)
     {
         $listing_popular_by = get_directorist_option('listing_popular_by');
-        $average = ATBDP()->review->get_average($listing_id);
+		// TODO: remove the following line
+		// $average = ATBDP()->review->get_average($listing_id);
+		$average = directorist_get_listing_rating($listing_id);
         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
         $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
         $view_to_popular = get_directorist_option('views_for_popular');

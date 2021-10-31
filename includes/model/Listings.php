@@ -994,7 +994,9 @@ class Directorist_Listings {
 			$rated = array();
 			if ( ! empty( $listings_ids ) ) {
 				foreach ( $listings_ids as $listings_id ) {
-					$average = ATBDP()->review->get_average( $listings_id );
+					// TODO: remove the following line
+					// $average = ATBDP()->review->get_average($listings_id);
+					$average = directorist_get_listing_rating($listings_id);
 					if ($q_rating === '5') {
 						if (($average == '5')) {
 							$rated[] = $listings_id;

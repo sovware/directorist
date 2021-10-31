@@ -29,7 +29,7 @@ class Helper {
 
 	/**
 	 * Get first wp error message
-	 * 
+	 *
 	 * @param object $wp_error
 	 * @return string $message
 	 */
@@ -47,11 +47,11 @@ class Helper {
 
 	/**
 	 * Get Time In Millisecond
-	 * 
-	 * This function is only available on operating 
+	 *
+	 * This function is only available on operating
 	 * systems that support the gettimeofday() system call.
 	 * @link https://www.php.net/manual/en/function.microtime.php
-	 * 
+	 *
 	 * @return int
 	 */
 	public static function getTimeInMillisecond() {
@@ -64,25 +64,25 @@ class Helper {
 
 	/**
 	 * Maybe JSON
-	 * 
+	 *
 	 * Converts input to an array if contains valid json string
-	 * 
+	 *
 	 * If input contains base64 encoded json string, then it
 	 * can decode it as well
-	 * 
+	 *
 	 * @param $input_data
 	 * @param $return_first_item
-	 * 
+	 *
 	 * Returns first item of the array if $return_first_item is set to true
 	 * Returns original input if it is not decodable
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-        if ( 'string' !== gettype( $input_data )  ) { 
+        if ( 'string' !== gettype( $input_data )  ) {
             return $input_data;
         }
-    
+
         $output_data = $input_data;
 
         // JSON Docode
@@ -91,7 +91,7 @@ class Helper {
         if ( ! is_null( $decode_json ) ) {
             return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
         }
-        
+
         // JSON Decode from Base64
         $decode_base64 = base64_decode( $input_data );
         $decode_base64_json = json_decode( $decode_base64, true );
@@ -366,7 +366,9 @@ class Helper {
 
 	public static function is_popular( $listing_id ) {
 		$listing_popular_by = get_directorist_option('listing_popular_by');
-		$average = ATBDP()->review->get_average($listing_id);
+		// TODO: remove the following line
+		// $average = ATBDP()->review->get_average($listing_id);
+		$average = directorist_get_listing_rating($listing_id);
 		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
 		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
 		$view_to_popular = get_directorist_option('views_for_popular');
@@ -525,8 +527,8 @@ class Helper {
 
 		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<span 
-			style="display: none;" 
+		<span
+			style="display: none;"
 			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
 			data-value="<?php echo $data_value; ?>"
 		>

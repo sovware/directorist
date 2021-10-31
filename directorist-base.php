@@ -770,7 +770,10 @@ final class Directorist_Base
 					while ($listings->have_posts()) {
 						$listings->the_post();
 						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
+						// TODO: remove the following line
+						// $average = ATBDP()->review->get_average($listing_id);
+						$average = directorist_get_listing_rating($listing_id);
+
 						if ($average_review_for_popular <= $average) {
 							$rated[] = get_the_ID();
 						}
@@ -810,7 +813,9 @@ final class Directorist_Base
 					while ($listings->have_posts()) {
 						$listings->the_post();
 						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
+						// TODO: remove the following line
+						// $average = ATBDP()->review->get_average($listing_id);
+						$average = directorist_get_listing_rating($listing_id);
 						if ($average_review_for_popular <= $average) {
 							$rated[] = get_the_ID();
 						}
@@ -830,7 +835,9 @@ final class Directorist_Base
 					while ($listings->have_posts()) {
 						$listings->the_post();
 						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
+						// TODO: remove the following line
+						// $average = ATBDP()->review->get_average($listing_id);
+						$average = directorist_get_listing_rating($listing_id);
 						if ($average_review_for_popular <= $average) {
 							$rated[] = get_the_ID();
 						}
@@ -866,7 +873,9 @@ final class Directorist_Base
 					while ($listings->have_posts()) {
 						$listings->the_post();
 						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
+						// TODO: remove the following line
+						// $average = ATBDP()->review->get_average($listing_id);
+						$average = directorist_get_listing_rating($listing_id);
 						if ($average_review_for_popular <= $average) {
 							$rated[] = get_the_ID();
 						}
@@ -897,7 +906,9 @@ final class Directorist_Base
 	{
 		$enable_review = get_directorist_option('enable_review', 1);
 		if (!$enable_review) return; // vail if review is not enabled
-		$average = ATBDP()->review->get_average($post->ID);
+		// TODO: remove the following line
+		// $average = ATBDP()->review->get_average($post->ID);
+		$average = directorist_get_listing_rating($post->ID);
 		?>
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>

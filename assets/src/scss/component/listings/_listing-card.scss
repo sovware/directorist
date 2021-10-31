@@ -89,6 +89,10 @@
             }
         }
 
+        div[class^="directorist-thumb-"]{
+            flex-direction: column;
+        }
+
         .directorist-thumb-top-left {
             left: 20px;
             top: 20px;
@@ -285,11 +289,11 @@
                     right: 0;
                     top: 50%;
                     transform: translateY(-50%);
-                    border-radius: 10px;
-                    width: 1px;
-                    height: 15px;
+                    border-radius: 50%;
+                    width: 2px;
+                    height: 2px;
                     content: '';
-                    background-color: #E9E9E9;
+                    background-color: #D1D1D1;
                 }
 
                 &.directorist-badge {
@@ -417,6 +421,24 @@
         flex-wrap: wrap;
         justify-content: space-between;
 
+        .directorist-listing-category {
+            & > a {
+                i,
+                span.la,
+                span.fa{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: #F3F3F3;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                    color: #51526E;
+                }
+            }
+        }
+
         .directorist-listing-single__meta--left {
             margin-right: 5px;
             .directorist-listing-category {
@@ -426,16 +448,8 @@
                     color: #7a82a6;
                     border-bottom: 0 none;
                     box-shadow: none;
-
-                    i,
-                    span.la,
-                    span.fa {
-                        display: inline-block;
-                        margin-right: 7px;
-                        line-height: 28px;
-                        text-align: center;
-                        color: #444752;
-                    }
+                    display: inline-flex;
+                    align-items: center;
                 }
             }
         }
@@ -484,11 +498,16 @@
     span.la,
     span.fa {
         font-size: 12px;
-        color: $warning;
+        color: #F80718;
+        font-weight: 900;
 
         &:not(:last-child) {
             margin-right: 3px;
         }
+    }
+    .far,
+    .lar{
+        color: #D1D1D1;
     }
 
     .directorist-rating-avg {

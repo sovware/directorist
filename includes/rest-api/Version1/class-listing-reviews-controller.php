@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
 
 use WP_Error;
 use WP_REST_Server;
+use WP_Comment_Query;
+use Directorist\Review\Comment_Meta;
 
 /**
  * REST API Listing Reviews Controller Class.
@@ -73,8 +75,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_items_permissions_check( $request ) {
-		return true;
-
 		if ( ! directorist_rest_check_listing_reviews_permissions( 'read' ) ) {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
@@ -90,9 +90,9 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 */
 	public function get_item_permissions_check( $request ) {
 		$id     = (int) $request['id'];
-		$review = ATBDP()->review->db->get_review_by( 'id', $request['id'] );
+		$review = get_comment( $id );
 
-		if ( $review && ! directorist_rest_check_listing_reviews_permissions( 'read', $review->id ) ) {
+		if ( $review && ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
@@ -106,120 +106,113 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return array|WP_Error
 	 */
 	public function get_items( $request ) {
-		// // Retrieve the list of registered collection query parameters.
-		// $registered = $this->get_collection_params();
+		// Retrieve the list of registered collection query parameters.
+		$registered = $this->get_collection_params();
 
-		// /*
-		//  * This array defines mappings between public API query parameters whose
-		//  * values are accepted as-passed, and their internal WP_Query parameter
-		//  * name equivalents (some are the same). Only values which are also
-		//  * present in $registered will be set.
-		//  */
-		// $parameter_mappings = array(
-		// 	'reviewer'         => 'author__in',
-		// 	'reviewer_email'   => 'author_email',
-		// 	'reviewer_exclude' => 'author__not_in',
-		// 	'exclude'          => 'comment__not_in',
-		// 	'include'          => 'comment__in',
-		// 	'offset'           => 'offset',
-		// 	'order'            => 'order',
-		// 	'per_page'         => 'number',
-		// 	'listing'          => 'post__in',
-		// 	'search'           => 'search',
-		// 	'status'           => 'status',
-		// );
+		/*
+		 * This array defines mappings between public API query parameters whose
+		 * values are accepted as-passed, and their internal WP_Query parameter
+		 * name equivalents (some are the same). Only values which are also
+		 * present in $registered will be set.
+		 */
+		$parameter_mappings = array(
+			'reviewer'         => 'author__in',
+			'reviewer_email'   => 'author_email',
+			'reviewer_exclude' => 'author__not_in',
+			'exclude'          => 'comment__not_in',
+			'include'          => 'comment__in',
+			'offset'           => 'offset',
+			'order'            => 'order',
+			'per_page'         => 'number',
+			'listing'          => 'post__in',
+			'search'           => 'search',
+			'status'           => 'status',
+		);
 
-		// $prepared_args = array();
+		$prepared_args = array();
 
-		// /*
-		//  * For each known parameter which is both registered and present in the request,
-		//  * set the parameter's value on the query $prepared_args.
-		//  */
-		// foreach ( $parameter_mappings as $api_param => $wp_param ) {
-		// 	if ( isset( $registered[ $api_param ], $request[ $api_param ] ) ) {
-		// 		$prepared_args[ $wp_param ] = $request[ $api_param ];
-		// 	}
-		// }
-
-		// // Ensure certain parameter values default to empty strings.
-		// foreach ( array( 'author_email', 'search' ) as $param ) {
-		// 	if ( ! isset( $prepared_args[ $param ] ) ) {
-		// 		$prepared_args[ $param ] = '';
-		// 	}
-		// }
-
-		// if ( isset( $registered['orderby'] ) ) {
-		// 	$prepared_args['orderby'] = $this->normalize_query_param( $request['orderby'] );
-		// }
-
-		// if ( isset( $prepared_args['status'] ) ) {
-		// 	$prepared_args['status'] = 'approved' === $prepared_args['status'] ? 'approve' : $prepared_args['status'];
-		// }
-
-		// $prepared_args['no_found_rows'] = false;
-		// $prepared_args['date_query']    = array();
-
-		// // Set before into date query. Date query must be specified as an array of an array.
-		// if ( isset( $registered['before'], $request['before'] ) ) {
-		// 	$prepared_args['date_query'][0]['before'] = $request['before'];
-		// }
-
-		// // Set after into date query. Date query must be specified as an array of an array.
-		// if ( isset( $registered['after'], $request['after'] ) ) {
-		// 	$prepared_args['date_query'][0]['after'] = $request['after'];
-		// }
-
-		// if ( isset( $registered['page'] ) && empty( $request['offset'] ) ) {
-		// 	$prepared_args['offset'] = $prepared_args['number'] * ( absint( $request['page'] ) - 1 );
-		// }
-
-		// /**
-		//  * Filters arguments, before passing to WP_Comment_Query, when querying reviews via the REST API.
-		//  *
-		//  * @link https://developer.wordpress.org/reference/classes/wp_comment_query/
-		//  * @param array           $prepared_args Array of arguments for WP_Comment_Query.
-		//  * @param WP_REST_Request $request       The current request.
-		//  */
-		// $prepared_args = apply_filters( 'directorist_rest_listing_review_query', $prepared_args, $request );
-
-		// Make sure that returns only reviews.
-		// $prepared_args['type'] = 'review';
-
-		$query_result = [];
-		$count        = 0;
-		$per_page     = $request['per_page'];
-		$page         = $request['page'];
-		$start        = ( $page - 1 ) * $per_page;
-
-		if ( ! empty( $request['listing'] ) && is_array( $request['listing'] ) ) {
-			foreach ( $request['listing'] as $_listing_id ) {
-				// At the same time, count the number of queried review
-				$_count = ATBDP()->review->db->count( array( 'post_id' => (int) $_listing_id ) );
-
-				if ( $_count ) {
-					$_query_result = ATBDP()->review->db->get_reviews_by( 'post_id', (int) $_listing_id, $start, $per_page );
-					// Query reviews.
-					$query_result = array_merge( $query_result, $_query_result );
-
-					$count += $_count;
-				}
+		/*
+		 * For each known parameter which is both registered and present in the request,
+		 * set the parameter's value on the query $prepared_args.
+		 */
+		foreach ( $parameter_mappings as $api_param => $wp_param ) {
+			if ( isset( $registered[ $api_param ], $request[ $api_param ] ) ) {
+				$prepared_args[ $wp_param ] = $request[ $api_param ];
 			}
 		}
 
-		$max_num_pages = ceil( $count / $per_page );
-		$reviews       = array();
+		// Ensure certain parameter values default to empty strings.
+		foreach ( array( 'author_email', 'search' ) as $param ) {
+			if ( ! isset( $prepared_args[ $param ] ) ) {
+				$prepared_args[ $param ] = '';
+			}
+		}
+
+		if ( isset( $registered['orderby'] ) ) {
+			$prepared_args['orderby'] = $this->normalize_query_param( $request['orderby'] );
+		}
+
+		if ( isset( $prepared_args['status'] ) ) {
+			$prepared_args['status'] = 'approved' === $prepared_args['status'] ? 'approve' : $prepared_args['status'];
+		}
+
+		$prepared_args['no_found_rows'] = false;
+		$prepared_args['date_query']    = array();
+
+		// Set before into date query. Date query must be specified as an array of an array.
+		if ( isset( $registered['before'], $request['before'] ) ) {
+			$prepared_args['date_query'][0]['before'] = $request['before'];
+		}
+
+		// Set after into date query. Date query must be specified as an array of an array.
+		if ( isset( $registered['after'], $request['after'] ) ) {
+			$prepared_args['date_query'][0]['after'] = $request['after'];
+		}
+
+		if ( isset( $registered['page'] ) && empty( $request['offset'] ) ) {
+			$prepared_args['offset'] = $prepared_args['number'] * ( absint( $request['page'] ) - 1 );
+		}
+
+		/**
+		 * Filters arguments, before passing to WP_Comment_Query, when querying reviews via the REST API.
+		 *
+		 * @link https://developer.wordpress.org/reference/classes/wp_comment_query/
+		 * @param array           $prepared_args Array of arguments for WP_Comment_Query.
+		 * @param WP_REST_Request $request       The current request.
+		 */
+		$prepared_args = apply_filters( 'directorist_rest_listing_review_query', $prepared_args, $request );
+
+		// Make sure that returns only reviews.
+		$prepared_args['type']      = 'review';
+		$prepared_args['post_type'] = ATBDP_POST_TYPE;
+
+		// Query reviews.
+		$query        = new WP_Comment_Query();
+		$query_result = $query->query( $prepared_args );
+		$reviews      = array();
 
 		foreach ( $query_result as $review ) {
-			// if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
-			// 	continue;
-			// }
+			if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
+				continue;
+			}
 
 			$data      = $this->prepare_item_for_response( $review, $request );
 			$reviews[] = $this->prepare_response_for_collection( $data );
 		}
 
-		$total_reviews = (int) $count;
-		$max_pages     = (int) $max_num_pages;
+		$total_reviews = (int) $query->found_comments;
+		$max_pages     = (int) $query->max_num_pages;
+
+		if ( $total_reviews < 1 ) {
+			// Out-of-bounds, run the query again without LIMIT for total count.
+			unset( $prepared_args['number'], $prepared_args['offset'] );
+
+			$query                  = new WP_Comment_Query();
+			$prepared_args['count'] = true;
+
+			$total_reviews = $query->query( $prepared_args );
+			$max_pages     = ceil( $total_reviews / $request['per_page'] );
+		}
 
 		$response = rest_ensure_response( $reviews );
 		$response->header( 'X-WP-Total', $total_reviews );
@@ -255,10 +248,9 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$review = ATBDP()->review->db->get_review_by( 'id', $request['id'] );
-
-		if ( empty( $review ) ) {
-			return new WP_Error( 'directorist_rest_invalid_review_id', __( 'Review not found', 'directorist' ), array( 'status' => 404 ) );
+		$review = $this->get_review( $request['id'] );
+		if ( is_wp_error( $review ) ) {
+			return $review;
 		}
 
 		$data     = $this->prepare_item_for_response( $review, $request );
@@ -279,56 +271,44 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 		$fields  = $this->get_fields_for_response( $request );
 		$data    = array();
 
-		// {
-		// 	"id": "1",
-		// 	"post_id": "947",
-		// 	"name": "test_1",
-		// 	"email": "test_1@mail.com",
-		// 	"content": "test",
-		// 	"rating": "5",
-		// 	"by_guest": "0",
-		// 	"by_user_id": "2",
-		// 	"date_created": "2021-10-14 08:17:22"
-		// }
-
 		if ( in_array( 'id', $fields, true ) ) {
-			$data['id'] = (int) $review->id;
+			$data['id'] = (int) $review->comment_ID;
 		}
 
 		if ( in_array( 'date_created', $fields, true ) ) {
-			$data['date_created'] = directorist_rest_prepare_date_response( $review->date_created );
+			$data['date_created'] = directorist_rest_prepare_date_response( $review->comment_date );
 		}
 
 		if ( in_array( 'date_created_gmt', $fields, true ) ) {
-			$data['date_created_gmt'] = directorist_rest_prepare_date_response( $review->date_created );
+			$data['date_created_gmt'] = directorist_rest_prepare_date_response( $review->comment_date_gmt );
 		}
 
 		if ( in_array( 'listing_id', $fields, true ) ) {
-			$data['listing_id'] = (int) $review->post_id;
+			$data['listing_id'] = (int) $review->comment_post_ID;
 		}
 
 		if ( in_array( 'status', $fields, true ) ) {
-			$data['status'] = $this->prepare_status_response( (string) 1 );
+			$data['status'] = $this->prepare_status_response( (string) $review->comment_approved );
 		}
 
 		if ( in_array( 'reviewer', $fields, true ) ) {
-			$data['reviewer'] = $review->name;
+			$data['reviewer'] = $review->comment_author;
 		}
 
 		if ( in_array( 'reviewer_email', $fields, true ) ) {
-			$data['reviewer_email'] = $review->email;
+			$data['reviewer_email'] = $review->comment_author_email;
 		}
 
 		if ( in_array( 'review', $fields, true ) ) {
-			$data['review'] = 'view' === $context ? wpautop( $review->content ) : $review->content;
+			$data['review'] = 'view' === $context ? wpautop( $review->comment_content ) : $review->comment_content;
 		}
 
 		if ( in_array( 'rating', $fields, true ) ) {
-			$data['rating'] = (int) $review->rating;
+			$data['rating'] = (int) Comment_Meta::get_rating( $review->comment_ID );
 		}
 
 		if ( in_array( 'reviewer_avatar_urls', $fields, true ) ) {
-			$avatar_id = get_user_meta( $review->by_user_id, 'pro_pic', true );
+			$avatar_id  = get_user_meta( $review->by_user_id, 'pro_pic', true );
 			$avatar_img = wp_get_attachment_image_url( $avatar_id, 'thumbnail' );
 
 			if ( $avatar_img ) {
@@ -387,7 +367,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 
 		if ( 0 !== (int) $review->user_id ) {
 			$links['reviewer'] = array(
-				'href'       => rest_url( 'wp/v2/users/' . $review->user_id ),
+				'href'       => rest_url( 'directorist/v1/users/' . $review->user_id ),
 				'embeddable' => true,
 			);
 		}
@@ -600,7 +580,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 		 * collection parameter to an internal WP_Comment_Query parameter. Use the
 		 * `wc_rest_review_query` filter to set WP_Comment_Query parameters.
 		 *
-		 * @since 3.5.0
 		 * @param array $params JSON Schema-formatted collection parameters.
 		 */
 		return apply_filters( 'directorist_rest_listing_review_collection_params', $params );
@@ -609,7 +588,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	/**
 	 * Get the reivew, if the ID is valid.
 	 *
-	 * @since 3.5.0
 	 * @param int $id Supplied ID.
 	 * @return WP_Comment|WP_Error Comment object if ID is valid, WP_Error otherwise.
 	 */
@@ -640,7 +618,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	/**
 	 * Prepends internal property prefix to query parameters to match our response fields.
 	 *
-	 * @since 3.5.0
 	 * @param string $query_param Query parameter.
 	 * @return string
 	 */
@@ -668,7 +645,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	/**
 	 * Checks comment_approved to set comment status for single comment output.
 	 *
-	 * @since 3.5.0
 	 * @param string|int $comment_approved comment status.
 	 * @return string Comment status.
 	 */
@@ -695,7 +671,6 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	/**
 	 * Sets the comment_status of a given review object when creating or updating a review.
 	 *
-	 * @since 3.5.0
 	 * @param string|int $new_status New review status.
 	 * @param int        $id         Review ID.
 	 * @return bool Whether the status was changed.

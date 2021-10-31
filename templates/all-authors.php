@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-authors__nav">
 					<ul>
+						<li>
+							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php _e( 'ALL', 'directorist' ); ?></a>
+						</li>
 						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 
 							<li>

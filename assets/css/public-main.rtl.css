@@ -3084,6 +3084,10 @@ body.stop-scrolling {
   width: auto;
 }
 
+.directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
+}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
   max-width: 300px;
   -webkit-flex-basis: 300px;
@@ -5824,12 +5828,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   line-height: 35px;
   width: 35px;
   text-align: center;
-  background-color: #444752 !important;
+  background-color: #f3f3f3 !important;
   border-radius: 4px;
-  color: #ffffff !important;
+  color: #000 !important;
   overflow: hidden;
-  -webkit-transition: all ease-in-out 300ms !important;
-  transition: all ease-in-out 300ms !important;
+  -webkit-transition: 0.3s ease !important;
+  transition: 0.3s ease !important;
 }
 .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a span,
 .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a span,
@@ -5837,6 +5841,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   font-family: "Font Awesome 5 Brands";
   font-weight: 900;
   font-size: 15px;
+}
+.widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a:hover,
+.widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a:hover,
+.widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover {
+  background: #000 !important;
+  color: #fff !important;
 }
 .widget.atbd_widget[id^=bd] .atbdp-widget-listing-contact form .form-control,
 .widget.atbd_widget[id^=dcl] .atbdp-widget-listing-contact form .form-control,
@@ -7819,15 +7829,20 @@ p.atbd-min {
   font-size: 15px;
   margin: 5px;
   display: block;
-  line-height: 35px;
-  width: 35px;
+  line-height: 36px;
+  width: 36px;
   text-align: center;
-  background-color: #444752;
-  border-radius: 4px;
-  color: #ffffff;
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  color: #000;
   overflow: hidden;
-  -webkit-transition: all ease-in-out 300ms;
-  transition: all ease-in-out 300ms;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-author-info-widget .directorist-author-social-item a:hover,
+.directorist-single-author-info .directorist-author-social-item a:hover {
+  color: #fff;
+  background: #000;
 }
 .directorist-author-info-widget--light .directorist-author-social-item,
 .directorist-single-author-info--light .directorist-author-social-item {
@@ -9570,6 +9585,13 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__thumb .directorist-thumnail-card.directorist-card-full .directorist-thumnail-card-front-wrap {
   position: static;
 }
+.directorist-listing-single .directorist-listing-single__thumb div[class^=directorist-thumb-] {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
 .directorist-listing-single .directorist-listing-single__thumb .directorist-thumb-top-left {
   right: 20px;
   top: 20px;
@@ -9783,11 +9805,11 @@ p.atbd-min {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  border-radius: 10px;
-  width: 1px;
-  height: 15px;
+  border-radius: 50%;
+  width: 2px;
+  height: 2px;
   content: "";
-  background-color: #E9E9E9;
+  background-color: #D1D1D1;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-info-item:not(:last-child).directorist-badge {
   margin-left: 8px;
@@ -9911,6 +9933,28 @@ p.atbd-min {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+.directorist-listing-single .directorist-listing-single__meta .directorist-listing-category > a i,
+.directorist-listing-single .directorist-listing-single__meta .directorist-listing-category > a span.la,
+.directorist-listing-single .directorist-listing-single__meta .directorist-listing-category > a span.fa {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F3F3F3;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 10px;
+  color: #51526E;
+}
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left {
   margin-left: 5px;
 }
@@ -9921,15 +9965,14 @@ p.atbd-min {
   border-bottom: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-.directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left .directorist-listing-category a i,
-.directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left .directorist-listing-category a span.la,
-.directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--left .directorist-listing-category a span.fa {
-  display: inline-block;
-  margin-left: 7px;
-  line-height: 28px;
-  text-align: center;
-  color: #444752;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right {
   display: -webkit-box;
@@ -9974,12 +10017,17 @@ p.atbd-min {
 .directorist-rating-meta span.la,
 .directorist-rating-meta span.fa {
   font-size: 12px;
-  color: #EF8000;
+  color: #F80718;
+  font-weight: 900;
 }
 .directorist-rating-meta i:not(:last-child),
 .directorist-rating-meta span.la:not(:last-child),
 .directorist-rating-meta span.fa:not(:last-child) {
   margin-left: 3px;
+}
+.directorist-rating-meta .far,
+.directorist-rating-meta .lar {
+  color: #D1D1D1;
 }
 .directorist-rating-meta .directorist-rating-avg {
   font-size: 14px;
@@ -10275,6 +10323,7 @@ p.atbd-min {
   word-break: break-all;
   padding: 7px 10px;
   border-radius: 3px;
+  z-index: 1;
 }
 .directorist-listing-category__popup__content:before {
   position: absolute;
@@ -10303,7 +10352,8 @@ p.atbd-min {
 .directorist-listing-category__popup__content a span {
   color: rgba(255, 255, 255, 0.8) !important;
   position: relative;
-  top: -2px;
+  top: 1px;
+  margin-left: 5px;
 }
 .directorist-listing-category__popup:hover .directorist-listing-category__popup__content {
   visibility: visible;
@@ -10878,6 +10928,38 @@ p.atbd-min {
 
 .directorist-single-tag-list a {
   text-decoration: none;
+  color: #51526E;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-single-tag-list a span {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 15px;
+  background: #f1f3f8;
+  margin-left: 10px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-single-tag-list a:hover {
+  color: #000;
+}
+.directorist-single-tag-list a:hover span {
+  background: #000;
+  color: #fff;
 }
 
 .directorist-signle-listing-top {
@@ -10915,10 +10997,10 @@ p.atbd-min {
   padding: 0;
 }
 .directorist-single-wrapper .directorist-card__body .directorist-details-info-wrap ul li {
-  -webkit-box-flex: 33.333%;
-  -webkit-flex: 33.333%;
-      -ms-flex: 33.333%;
-          flex: 33.333%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33.333%;
+      -ms-flex: 0 0 33.333%;
+          flex: 0 0 33.333%;
   margin: 0.5rem 0 0 0;
 }
 .directorist-single-wrapper .directorist-card__body .directorist-details-info-wrap ul li a {
@@ -10930,7 +11012,7 @@ p.atbd-min {
   margin: -3px;
 }
 .directorist-single-listing-action .directorist-single-listing-action {
-  border: 1px solid #ECECEC;
+  border: 0 none;
   height: 36px;
   width: 36px;
   display: -webkit-box;
@@ -10945,10 +11027,11 @@ p.atbd-min {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: #7a82a6;
+  color: #000;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
   margin: 3px;
+  background: #F3F3F3;
 }
 .directorist-single-listing-action .directorist-single-listing-action span.la,
 .directorist-single-listing-action .directorist-single-listing-action span.fa,
@@ -11010,12 +11093,12 @@ p.atbd-min {
   left: 0;
   top: calc(100% + 30px);
   background: #ffffff;
-  border-radius: 4px;
+  border-radius: 6px;
   width: 180px;
-  -webkit-box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
-          box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item {
@@ -11023,7 +11106,7 @@ p.atbd-min {
   margin: 0;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
-  padding: 11px 20px;
+  padding: 8px 15px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -11032,19 +11115,34 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 1px solid #eff1f6;
   text-decoration: none;
+  font-size: 14px;
+  border: 0 none;
+  border-radius: 6px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.la,
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa,
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a i {
-  color: #444752;
-  margin-left: 5px;
+  color: #51526E;
+  margin-left: 10px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa {
   font-family: "Font Awesome 5 Brands";
   font-weight: 900;
   font-size: 15px;
+}
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
+  background: #DFDFDF;
+  color: #000;
+}
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.la,
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.fa,
+.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover i {
+  color: #000;
 }
 
 .directorist-listing-details .directorist-listing-single {

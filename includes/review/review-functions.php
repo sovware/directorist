@@ -28,3 +28,12 @@ function directorist_is_immediate_review_approve_enabled() {
 function directorist_get_review_per_page() {
 	return get_directorist_option( 'review_num', 5 );
 }
+
+function directorist_get_listing_rating( $listing_id, $round_precision = 1 ) {
+	return \Directorist\Review\Listing_Review_Meta::get_rating( $listing_id, $round_precision );
+}
+
+function directorist_get_listing_review_count( $listing_id ) {
+	return \Directorist\Review\Listing_Review_Meta::get_review_count( $listing_id );
+}
+

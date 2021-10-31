@@ -14,7 +14,6 @@ use WP_Error;
 use WP_Query;
 use WP_REST_Server;
 use Directorist\Helper;
-use Directorist\Review\Listing_Review_Meta as Review_Meta;
 
 /**
  * Listings controller class.
@@ -634,10 +633,10 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
 					break;
 				case 'average_rating':
-					$base_data['average_rating'] = Review_Meta::get_rating( $listing->ID );
+					$base_data['average_rating'] = directorist_get_listing_rating( $listing->ID );
 					break;
 				case 'rating_count':
-					$base_data['rating_count'] = Review_Meta::get_review_count( $listing->ID );
+					$base_data['rating_count'] = directorist_get_listing_review_count( $listing->ID );
 					break;
 				case 'related_ids':
 					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );

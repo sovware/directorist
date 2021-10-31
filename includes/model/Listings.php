@@ -378,8 +378,8 @@ class Directorist_Listings {
 
 	public function get_review_data() {
 		// Review
-		$average           = \Directorist\Review\Listing_Review_Meta::get_rating( get_the_ID() );
-		$reviews_count     = \Directorist\Review\Listing_Review_Meta::get_review_count( get_the_ID() );
+		$average           = directorist_get_listing_rating( get_the_ID() );
+		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
 
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
@@ -467,7 +467,7 @@ class Directorist_Listings {
 						foreach ( $listings_ids as $listings_id ) {
 							// TODO: delete the following line
 							// $average = ATBDP()->review->get_average( $listings_id );
-							$average = \Directorist\Review\Listing_Review_Meta::get_rating( $listings_id );
+							$average = directorist_get_listing_rating( $listings_id );
 							if ( $this->average_review_for_popular <= $average ) {
 								$rated[] = $listings_id;
 							}
@@ -507,7 +507,7 @@ class Directorist_Listings {
 						foreach ( $listings_ids as $listings_id ) {
 							// TODO: delete the following line
 							// $average = ATBDP()->review->get_average( $listings_id );
-							$average = \Directorist\Review\Listing_Review_Meta::get_rating( $listings_id );
+							$average = directorist_get_listing_rating( $listings_id );
 							if ( $this->average_review_for_popular <= $average ) {
 								$rated[] = $listings_id;
 							}
@@ -525,7 +525,7 @@ class Directorist_Listings {
 						foreach ( $listings_ids as $listings_id ) {
 							// TODO: delete the following line
 							// $average = ATBDP()->review->get_average( $listings_id );
-							$average = \Directorist\Review\Listing_Review_Meta::get_rating( $listings_id );
+							$average = directorist_get_listing_rating( $listings_id );
 							if ( $this->average_review_for_popular <= $average ) {
 								$rated[] = $listings_id;
 							}
@@ -562,7 +562,7 @@ class Directorist_Listings {
 						foreach ( $listings_ids as $listings_id ) {
 							// TODO: delete the following line
 							// $average = ATBDP()->review->get_average( $listings_id );
-							$average = \Directorist\Review\Listing_Review_Meta::get_rating( $listings_id );
+							$average = directorist_get_listing_rating( $listings_id );
 							if ( $this->average_review_for_popular <= $average ) {
 								$rated[] = $listings_id;
 							}

@@ -14,11 +14,10 @@ use Directorist\Review\Markup;
 use Directorist\Review\Builder;
 use Directorist\Review\Bootstrap;
 use Directorist\Review\Walker as Review_Walker;
-use Directorist\Review\Listing_Review_Meta as Review_Meta;
 
 $builder       = Builder::get( get_the_ID() );
-$review_rating = Review_Meta::get_rating( get_the_ID() );
-$review_count  = Review_Meta::get_review_count( get_the_ID() );
+$review_rating = directorist_get_listing_rating( get_the_ID() );
+$review_count  = directorist_get_listing_review_count( get_the_ID() );
 
 // Load walker class
 Bootstrap::load_walker();

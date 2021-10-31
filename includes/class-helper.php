@@ -340,6 +340,69 @@ class Helper {
 		}
 	}
 
+	public static function user_info( $user_id_or_obj, $meta ) {
+
+		if ( is_integer( $user_id_or_obj ) ) {
+			$user_id = $user_id_or_obj;
+			$user = get_userdata( $user_id );
+		}
+		else {
+			$user = $user_id_or_obj;
+			$user_id = $user->data->ID;
+		}
+
+		$result = '';
+
+		switch ( $meta ) {
+			case 'name':
+			$result = $user->data->display_name;
+			break;
+
+			case 'role':
+			$result = $user->roles[0];
+			break;
+
+			case 'address':
+			$result = get_user_meta($user_id, 'address', true);
+			break;
+
+			case 'phone':
+			$result = get_user_meta($user_id, 'atbdp_phone', true);
+			break;
+
+			case 'email':
+			$result = $user->data->user_email;
+			break;
+
+			case 'website':
+			$result = $user->data->user_url;
+			break;
+
+			case 'description':
+			$result = trim( get_user_meta( $user_id, 'description', true ) );
+			//var_dump($result);
+			break;
+
+			case 'facebook':
+			$result = get_user_meta($user_id, 'atbdp_facebook', true);
+			break;
+
+			case 'twitter':
+			$result = get_user_meta($user_id, 'atbdp_twitter', true);
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta($user_id, 'atbdp_linkedin', true);
+			break;
+
+			case 'youtube':
+			$result = get_user_meta($user_id, 'atbdp_youtube', true);
+			break;
+		}
+
+		return $result;
+	}
+
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 

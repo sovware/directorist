@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 									<label for="full_name"><?php esc_html_e( 'Display Name', 'directorist' ); ?></label>
 									
-									<input class="directorist-form-element" type="text" id="full_name" name="user[full_name]" value="<?php echo esc_attr( $dashboard->user_info( 'display_name' ) ); ?>" placeholder="<?php esc_html_e( 'Enter your Display name', 'directorist' ); ?>">
+									<input class="directorist-form-element" type="text" id="full_name" name="user[full_name]" value="<?php echo esc_attr( $dashboard->user_info( 'display_name' ) ); ?>" placeholder="<?php esc_html_e( 'Enter your display name', 'directorist' ); ?>">
 								
 								</div>
 							

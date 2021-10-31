@@ -1118,7 +1118,11 @@ final class Directorist_Base
 		$review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
 		if (!$enable_review) return; // vail if review is not enabled
 		$enable_owner_review = get_directorist_option('enable_owner_review', 1);
-		$reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+
+		// TODO: remove the following line
+		// $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+		$reviews_count = directorist_get_listing_review_count( $post->ID );
+
 		$plan_review = true;
 		$review = true;
 		$allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);

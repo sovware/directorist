@@ -824,7 +824,9 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		// TODO: remove the following line
+		// return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function review_count_text() {
@@ -1083,7 +1085,9 @@ class Directorist_Single_Listing {
 
 	public function review_template() {
 		$id           = $this->id;
-		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
+		// TODO: remove the following line.
+		// $review_count = ATBDP()->review->db->count(array('post_id' => $id));
+		$review_count = directorist_get_listing_review_count( $id );
 		$author_id    = get_post_field('post_author', $id);
 
 		$args = array(

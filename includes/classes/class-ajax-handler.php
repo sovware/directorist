@@ -729,7 +729,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 // Query the necessary reviews
                 $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int) $listing_id, $start, $per_page);
                 // At the same time, count the number of queried review
-                $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
+				// TODO: remove the following line
+				// $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
+				$count = directorist_get_listing_review_count( $listing_id );
+
                 // Loop into all the posts
                 if (!empty($reviews)) {
                     foreach ($reviews as $key => $review) :
@@ -1012,7 +1015,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             $to = $user->user_email;
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1025,7 +1028,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1074,7 +1077,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1087,7 +1090,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1262,7 +1265,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'send_to'       => $user_email,
                 'listing_email' => $listing_email,
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 
@@ -1333,7 +1336,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'listing_url'   => $listing_url,
 
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 

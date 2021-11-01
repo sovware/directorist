@@ -41,75 +41,75 @@ msgstr ""
 msgid "Listings Import"
 msgstr ""
 
-#: ../directorist-base.php:1118
+#: ../directorist-base.php:1133
 msgid " Reviews"
 msgstr ""
 
-#: ../directorist-base.php:1118
+#: ../directorist-base.php:1133
 msgid " Review"
 msgstr ""
 
-#: ../directorist-base.php:1130
+#: ../directorist-base.php:1145
 msgid "Add a review"
 msgstr ""
 
-#: ../directorist-base.php:1247, ../includes/helper-functions.php:7786, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1105, ../templates/listing-form/quick-login.php:41
+#: ../directorist-base.php:1262, ../includes/helper-functions.php:7788, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1109, ../templates/listing-form/quick-login.php:41
 msgid "Login"
 msgstr ""
 
-#: ../directorist-base.php:1248, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1106, ../templates/account/login.php:100
+#: ../directorist-base.php:1263, ../includes/classes/class-helper.php:628, ../includes/classes/class-settings-panel.php:3889, ../includes/classes/class-settings-panel.php:3980, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1110, ../templates/account/login.php:100
 msgid "Sign Up"
 msgstr ""
 
-#: ../directorist-base.php:1250
+#: ../directorist-base.php:1265
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: ../directorist-base.php:1156, ../includes/review-rating/class-review-custom-post.php:46
+#: ../directorist-base.php:1171, ../includes/review-rating/class-review-custom-post.php:46
 msgid "Update Review"
 msgstr ""
 
-#: ../directorist-base.php:1156
+#: ../directorist-base.php:1171
 msgid "Leave a Review"
 msgstr ""
 
-#: ../directorist-base.php:1188
+#: ../directorist-base.php:1203
 msgid "Current Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1196
+#: ../directorist-base.php:1211
 msgid "Update Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1196
+#: ../directorist-base.php:1211
 msgid "Your Rating:"
 msgstr ""
 
-#: ../directorist-base.php:1211
+#: ../directorist-base.php:1226
 msgid "Update your review....."
 msgstr ""
 
-#: ../directorist-base.php:1211
+#: ../directorist-base.php:1226
 msgid "Write your review....."
 msgstr ""
 
-#: ../directorist-base.php:1219, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:853, ../includes/model/SingleListing.php:1101, ../includes/review/class-builder-screen.php:113
+#: ../directorist-base.php:1234, ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:855, ../includes/model/SingleListing.php:1105, ../includes/review/class-builder-screen.php:113
 msgid "Your Email"
 msgstr ""
 
-#: ../directorist-base.php:1220, ../includes/model/SingleListing.php:857, ../includes/model/SingleListing.php:1102
+#: ../directorist-base.php:1235, ../includes/model/SingleListing.php:859, ../includes/model/SingleListing.php:1106
 msgid "example@gmail.com"
 msgstr ""
 
-#: ../directorist-base.php:1235
+#: ../directorist-base.php:1250
 msgid "Submit Review"
 msgstr ""
 
-#: ../directorist-base.php:1230, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
+#: ../directorist-base.php:1245, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
 msgid "Update"
 msgstr ""
 
-#: ../directorist-base.php:1232, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
+#: ../directorist-base.php:1247, ../templates/listing-form/custom-fields/file.php:54, ../views/file-uploader.php:51
 msgid "Remove"
 msgstr ""
 
@@ -325,139 +325,139 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: ../includes/helper-functions.php:7004, ../includes/classes/class-script-helper.php:54, ../includes/classes/class-script-helper.php:68, ../includes/model/Listings.php:172, ../includes/model/Listings.php:214
+#: ../includes/helper-functions.php:7006, ../includes/classes/class-script-helper.php:54, ../includes/classes/class-script-helper.php:68, ../includes/model/Listings.php:172, ../includes/model/Listings.php:214
 msgid "Select a category"
 msgstr ""
 
-#: ../includes/helper-functions.php:7089
+#: ../includes/helper-functions.php:7091
 msgid "Select a Sub Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:7090
+#: ../includes/helper-functions.php:7092
 msgid "Select a Sub Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:7586
+#: ../includes/helper-functions.php:7588
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: ../includes/helper-functions.php:7625, ../includes/classes/class-settings-panel.php:4466
+#: ../includes/helper-functions.php:7627, ../includes/classes/class-settings-panel.php:4466
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: ../includes/helper-functions.php:7626, ../includes/classes/class-settings-panel.php:4467
+#: ../includes/helper-functions.php:7628, ../includes/classes/class-settings-panel.php:4467
 msgid "Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted."
 msgstr ""
 
-#: ../includes/helper-functions.php:7637
+#: ../includes/helper-functions.php:7639
 msgid "CSV"
 msgstr ""
 
-#: ../includes/helper-functions.php:7738
+#: ../includes/helper-functions.php:7740
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:7742, ../includes/classes/class-settings-panel.php:4619, ../includes/classes/class-setup-wizard.php:405, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:7744, ../includes/classes/class-settings-panel.php:4619, ../includes/classes/class-setup-wizard.php:405, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:7746, ../includes/classes/class-setup-wizard.php:325
+#: ../includes/helper-functions.php:7748, ../includes/classes/class-setup-wizard.php:325
 msgid "Add Listing"
 msgstr ""
 
-#: ../includes/helper-functions.php:7750, ../includes/classes/class-settings-panel.php:4491, ../includes/classes/class-setup-wizard.php:333, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:7752, ../includes/classes/class-settings-panel.php:4491, ../includes/classes/class-setup-wizard.php:333, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:7758, ../includes/classes/class-setup-wizard.php:341, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:7760, ../includes/classes/class-setup-wizard.php:341, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:7766, ../includes/classes/class-setup-wizard.php:349, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:7768, ../includes/classes/class-setup-wizard.php:349, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:7770, ../includes/classes/class-setup-wizard.php:357, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:7772, ../includes/classes/class-setup-wizard.php:357, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:7774, ../includes/classes/class-setup-wizard.php:365
+#: ../includes/helper-functions.php:7776, ../includes/classes/class-setup-wizard.php:365
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:7778, ../includes/classes/class-settings-panel.php:4792, ../includes/classes/class-setup-wizard.php:373, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:7780, ../includes/classes/class-settings-panel.php:4792, ../includes/classes/class-setup-wizard.php:373, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:7782, ../includes/classes/class-setup-wizard.php:389, ../includes/elementor/custom-registration.php:15
+#: ../includes/helper-functions.php:7784, ../includes/classes/class-setup-wizard.php:389, ../includes/elementor/custom-registration.php:15
 msgid "Registration"
 msgstr ""
 
-#: ../includes/helper-functions.php:8320
+#: ../includes/helper-functions.php:8322
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8321, ../includes/helper-functions.php:8329, ../includes/helper-functions.php:8337, ../includes/helper-functions.php:8345, ../includes/helper-functions.php:8353, ../includes/helper-functions.php:8361, ../includes/helper-functions.php:8369, ../includes/helper-functions.php:8377, ../includes/helper-functions.php:8385, ../includes/helper-functions.php:8393, ../includes/helper-functions.php:8401, ../includes/helper-functions.php:8409, ../includes/helper-functions.php:8417
+#: ../includes/helper-functions.php:8323, ../includes/helper-functions.php:8331, ../includes/helper-functions.php:8339, ../includes/helper-functions.php:8347, ../includes/helper-functions.php:8355, ../includes/helper-functions.php:8363, ../includes/helper-functions.php:8371, ../includes/helper-functions.php:8379, ../includes/helper-functions.php:8387, ../includes/helper-functions.php:8395, ../includes/helper-functions.php:8403, ../includes/helper-functions.php:8411, ../includes/helper-functions.php:8419
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:8323, ../includes/helper-functions.php:8331, ../includes/helper-functions.php:8339, ../includes/helper-functions.php:8347, ../includes/helper-functions.php:8355, ../includes/helper-functions.php:8363, ../includes/helper-functions.php:8371, ../includes/helper-functions.php:8379, ../includes/helper-functions.php:8387, ../includes/helper-functions.php:8395, ../includes/helper-functions.php:8403, ../includes/helper-functions.php:8411
+#: ../includes/helper-functions.php:8325, ../includes/helper-functions.php:8333, ../includes/helper-functions.php:8341, ../includes/helper-functions.php:8349, ../includes/helper-functions.php:8357, ../includes/helper-functions.php:8365, ../includes/helper-functions.php:8373, ../includes/helper-functions.php:8381, ../includes/helper-functions.php:8389, ../includes/helper-functions.php:8397, ../includes/helper-functions.php:8405, ../includes/helper-functions.php:8413
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:8328
+#: ../includes/helper-functions.php:8330
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8336
+#: ../includes/helper-functions.php:8338
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8344
+#: ../includes/helper-functions.php:8346
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8352, ../includes/helper-functions.php:8360
+#: ../includes/helper-functions.php:8354, ../includes/helper-functions.php:8362
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8368
+#: ../includes/helper-functions.php:8370
 msgid "Registration page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8376
+#: ../includes/helper-functions.php:8378
 msgid "Login page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8384
+#: ../includes/helper-functions.php:8386
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8392
+#: ../includes/helper-functions.php:8394
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8400
+#: ../includes/helper-functions.php:8402
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8408
+#: ../includes/helper-functions.php:8410
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8416
+#: ../includes/helper-functions.php:8418
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:8419
+#: ../includes/helper-functions.php:8421
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:8424
+#: ../includes/helper-functions.php:8426
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:8425
+#: ../includes/helper-functions.php:8427
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
@@ -469,7 +469,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:256, ../includes/classes/class-custom-post.php:264, ../includes/classes/class-settings-panel.php:442, ../includes/classes/class-settings-panel.php:2183, ../includes/model/Listings.php:179, ../includes/model/Listings.php:2005, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3399, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:256, ../includes/classes/class-custom-post.php:264, ../includes/classes/class-settings-panel.php:442, ../includes/classes/class-settings-panel.php:2183, ../includes/model/Listings.php:179, ../includes/model/Listings.php:2007, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3399, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -558,63 +558,63 @@ msgstr ""
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:776
+#: ../includes/classes/class-ajax-handler.php:779
 msgid "No reviews found. Be the first to post a review !"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:758
+#: ../includes/classes/class-ajax-handler.php:761
 msgid "%s ago"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:831
+#: ../includes/classes/class-ajax-handler.php:834
 msgid "Previous 5 Pages"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:844, ../includes/classes/class-ajax-handler.php:852
+#: ../includes/classes/class-ajax-handler.php:847, ../includes/classes/class-ajax-handler.php:855
 msgid "Next 5 Pages"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:901
+#: ../includes/classes/class-ajax-handler.php:904
 msgid "Email already exists!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1004, ../includes/classes/class-ajax-handler.php:1067, ../includes/review/class-email.php:83, ../includes/review/class-email.php:137
+#: ../includes/classes/class-ajax-handler.php:1007, ../includes/classes/class-ajax-handler.php:1070, ../includes/review/class-email.php:83, ../includes/review/class-email.php:137
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1007, ../includes/review/class-email.php:86
+#: ../includes/classes/class-ajax-handler.php:1010, ../includes/review/class-email.php:86
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1070, ../includes/review/class-email.php:140
+#: ../includes/classes/class-ajax-handler.php:1073, ../includes/review/class-email.php:140
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1152, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
+#: ../includes/classes/class-ajax-handler.php:1155, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1155, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
+#: ../includes/classes/class-ajax-handler.php:1158, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1178, ../includes/classes/class-ajax-handler.php:1384, ../includes/classes/class-ajax-handler.php:1392
+#: ../includes/classes/class-ajax-handler.php:1181, ../includes/classes/class-ajax-handler.php:1387, ../includes/classes/class-ajax-handler.php:1395
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1174, ../includes/classes/class-ajax-handler.php:1397
+#: ../includes/classes/class-ajax-handler.php:1177, ../includes/classes/class-ajax-handler.php:1400
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1309
+#: ../includes/classes/class-ajax-handler.php:1312
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1311
+#: ../includes/classes/class-ajax-handler.php:1314
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1368, ../includes/classes/class-ajax-handler.php:1375
+#: ../includes/classes/class-ajax-handler.php:1371, ../includes/classes/class-ajax-handler.php:1378
 msgid "Sorry! Something wrong."
 msgstr ""
 
@@ -704,7 +704,7 @@ msgstr ""
 msgid "Listing Name"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:251, ../includes/model/SingleListing.php:1053, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670, ../views/widgets/map-single.php:15
+#: ../includes/classes/class-custom-post.php:251, ../includes/model/SingleListing.php:1055, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670, ../views/widgets/map-single.php:15
 msgid "Location"
 msgstr ""
 
@@ -1320,11 +1320,11 @@ msgstr ""
 msgid "Show Less"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:72, ../includes/model/ListingAuthor.php:217
+#: ../includes/classes/class-script-helper.php:72, ../includes/model/ListingAuthor.php:221
 msgid "Added to favorite"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:73, ../includes/model/ListingAuthor.php:218
+#: ../includes/classes/class-script-helper.php:73, ../includes/model/ListingAuthor.php:222
 msgid "Please login first"
 msgstr ""
 
@@ -2408,7 +2408,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2188, ../includes/model/Listings.php:178, ../includes/model/Listings.php:2017, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3413, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
+#: ../includes/classes/class-settings-panel.php:2188, ../includes/model/Listings.php:178, ../includes/model/Listings.php:2019, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3413, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
 msgid "Popular"
 msgstr ""
 
@@ -3056,7 +3056,7 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3560, ../includes/classes/class-settings-panel.php:3648, ../includes/classes/class-settings-panel.php:3995, ../includes/classes/class-widget-categories.php:161, ../includes/classes/class-widget-locations.php:160, ../includes/classes/class-widget-tags.php:136, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:118, ../includes/system-status/system-info-template.php:477, ../includes/system-status/system-information/system-information-template.php:653, ../templates/single-reviews.php:87, ../templates/payment/payment-receipt.php:100, ../templates/single/section-contact_listings_owner.php:30, ../views/widgets/contact-listing-owner.php:11
+#: ../includes/classes/class-settings-panel.php:3560, ../includes/classes/class-settings-panel.php:3648, ../includes/classes/class-settings-panel.php:3995, ../includes/classes/class-widget-categories.php:161, ../includes/classes/class-widget-locations.php:160, ../includes/classes/class-widget-tags.php:136, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:118, ../includes/system-status/system-info-template.php:477, ../includes/system-status/system-information/system-information-template.php:653, ../templates/single-reviews.php:88, ../templates/payment/payment-receipt.php:100, ../templates/single/section-contact_listings_owner.php:30, ../views/widgets/contact-listing-owner.php:11
 msgid "Name"
 msgstr ""
 
@@ -3120,11 +3120,11 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3717, ../includes/classes/class-settings-panel.php:4656, ../includes/classes/class-settings-panel.php:4833, ../includes/model/Account.php:61, ../includes/review/class-builder-screen.php:108, ../templates/single-reviews.php:101, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
+#: ../includes/classes/class-settings-panel.php:3717, ../includes/classes/class-settings-panel.php:4656, ../includes/classes/class-settings-panel.php:4833, ../includes/model/Account.php:61, ../includes/review/class-builder-screen.php:108, ../templates/single-reviews.php:102, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3727, ../includes/classes/class-settings-panel.php:4663, ../includes/model/Account.php:63, ../includes/review/class-builder-screen.php:128, ../templates/single-reviews.php:115, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
+#: ../includes/classes/class-settings-panel.php:3727, ../includes/classes/class-settings-panel.php:4663, ../includes/model/Account.php:63, ../includes/review/class-builder-screen.php:128, ../templates/single-reviews.php:116, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
 msgid "Website"
 msgstr ""
 
@@ -3664,7 +3664,7 @@ msgstr ""
 msgid "Locations Page Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4534, ../includes/review/class-admin.php:54, ../includes/review/class-settings-screen.php:24, ../includes/review-rating/class-review-custom-post.php:40, ../includes/review-rating/class-review-custom-post.php:44, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2495, ../templates/single-reviews.php:150, ../templates/single/fields/reviews.php:11
+#: ../includes/classes/class-settings-panel.php:4534, ../includes/review/class-admin.php:54, ../includes/review/class-settings-screen.php:24, ../includes/review-rating/class-review-custom-post.php:40, ../includes/review-rating/class-review-custom-post.php:44, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:2495, ../templates/single-reviews.php:151, ../templates/single/fields/reviews.php:11
 msgid "Review"
 msgstr ""
 
@@ -4372,7 +4372,7 @@ msgstr ""
 msgid "Directorist - Map (Single Listing)"
 msgstr ""
 
-#: ../includes/classes/class-widget-map.php:45, ../includes/model/SingleListing.php:1022, ../views/admin-templates/listing-form/add-listing.php:7
+#: ../includes/classes/class-widget-map.php:45, ../includes/model/SingleListing.php:1024, ../views/admin-templates/listing-form/add-listing.php:7
 msgid "No Title"
 msgstr ""
 
@@ -4808,18 +4808,18 @@ msgstr ""
 msgid "Registration page is only for unregistered user. <a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:303, ../templates/single/section-author_info.php:44, ../views/widgets/author-info.php:29
+#: ../includes/model/ListingAuthor.php:307, ../templates/single/section-author_info.php:44, ../views/widgets/author-info.php:29
 msgid "Member since %s ago"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:309
+#: ../includes/model/ListingAuthor.php:313
 msgctxt "author review count"
 msgid "<span>%s</span> Review"
 msgid_plural "<span>%s</span> Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingAuthor.php:315
+#: ../includes/model/ListingAuthor.php:319
 msgctxt "author review count"
 msgid "<span>%s</span> Listing"
 msgid_plural "<span>%s</span> Listings"
@@ -4889,36 +4889,36 @@ msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1159
+#: ../includes/model/Listings.php:1161
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1588
+#: ../includes/model/Listings.php:1590
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:1652
+#: ../includes/model/Listings.php:1654
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1649
+#: ../includes/model/Listings.php:1651
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1646
+#: ../includes/model/Listings.php:1648
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1643
+#: ../includes/model/Listings.php:1645
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"
@@ -4961,14 +4961,14 @@ msgstr ""
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:831, ../includes/model/SingleListing.php:1096
+#: ../includes/model/SingleListing.php:833, ../includes/model/SingleListing.php:1100
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:1035, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
+#: ../includes/model/SingleListing.php:1037, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
 msgid "Get Direction"
 msgstr ""
 
@@ -6946,7 +6946,7 @@ msgstr ""
 msgid "Name for the resource."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:81, ../includes/rest-api/Version1/class-builder-controller.php:54, ../includes/rest-api/Version1/class-builder-controller.php:163, ../includes/rest-api/Version1/class-categories-controller.php:114, ../includes/rest-api/Version1/class-directories-controller.php:105, ../includes/rest-api/Version1/class-listing-reviews-controller.php:52, ../includes/rest-api/Version1/class-listing-reviews-controller.php:410, ../includes/rest-api/Version1/class-listings-controller.php:67, ../includes/rest-api/Version1/class-listings-controller.php:798, ../includes/rest-api/Version1/class-locations-controller.php:111, ../includes/rest-api/Version1/class-tags-controller.php:84, ../includes/rest-api/Version1/class-users-controller.php:68, ../includes/rest-api/Version1/class-users-controller.php:697
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:81, ../includes/rest-api/Version1/class-builder-controller.php:54, ../includes/rest-api/Version1/class-builder-controller.php:163, ../includes/rest-api/Version1/class-categories-controller.php:114, ../includes/rest-api/Version1/class-directories-controller.php:105, ../includes/rest-api/Version1/class-listing-reviews-controller.php:54, ../includes/rest-api/Version1/class-listing-reviews-controller.php:390, ../includes/rest-api/Version1/class-listings-controller.php:67, ../includes/rest-api/Version1/class-listings-controller.php:798, ../includes/rest-api/Version1/class-locations-controller.php:111, ../includes/rest-api/Version1/class-tags-controller.php:84, ../includes/rest-api/Version1/class-users-controller.php:68, ../includes/rest-api/Version1/class-users-controller.php:697
 msgid "Unique identifier for the resource."
 msgstr ""
 
@@ -6974,7 +6974,7 @@ msgstr ""
 msgid "The resource cannot be deleted."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:659, ../includes/rest-api/Version1/class-listing-reviews-controller.php:514, ../includes/rest-api/Version1/class-listings-controller.php:1233, ../includes/rest-api/Version1/class-users-controller.php:892
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:659, ../includes/rest-api/Version1/class-listing-reviews-controller.php:494, ../includes/rest-api/Version1/class-listings-controller.php:1233, ../includes/rest-api/Version1/class-users-controller.php:892
 msgid "Ensure result set excludes specific IDs."
 msgstr ""
 
@@ -6986,7 +6986,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items. Applies to hierarchical taxonomies only."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:683, ../includes/rest-api/Version1/class-listing-reviews-controller.php:534, ../includes/rest-api/Version1/class-listings-controller.php:1252, ../includes/rest-api/Version1/class-users-controller.php:917
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:683, ../includes/rest-api/Version1/class-listing-reviews-controller.php:514, ../includes/rest-api/Version1/class-listings-controller.php:1252, ../includes/rest-api/Version1/class-users-controller.php:917
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
@@ -7110,96 +7110,92 @@ msgstr ""
 msgid "Invalid directory id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:261
-msgid "Review not found"
-msgstr ""
-
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:416
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:396
 msgid "The date the review was created, in the site's timezone."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:422
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:402
 msgid "The date the review was created, as GMT."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:428
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:408
 msgid "Unique identifier for the listing that the review belongs to."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:433
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:413
 msgid "Status of the review."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:440
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:420
 msgid "Reviewer name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:445
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:425
 msgid "Reviewer email."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:451
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:431
 msgid "The content of the review."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:459
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:439
 msgid "Review rating (0 to 5)."
 msgstr ""
 
 #. translators: %d: avatar image size in pixels
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:473
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:453
 msgid "Avatar URL with image size of %d pixels."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:480
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:460
 msgid "Avatar URLs for the object reviewer."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:504
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:484
 msgid "Limit response to resources published after a given ISO8601 compliant date."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:509
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:489
 msgid "Limit response to reviews published before a given ISO8601 compliant date."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:522, ../includes/rest-api/Version1/class-listings-controller.php:1239, ../includes/rest-api/Version1/class-users-controller.php:901
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:502, ../includes/rest-api/Version1/class-listings-controller.php:1239, ../includes/rest-api/Version1/class-users-controller.php:901
 msgid "Limit result set to specific IDs."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:530, ../includes/rest-api/Version1/class-listings-controller.php:1245, ../includes/rest-api/Version1/class-users-controller.php:910
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:510, ../includes/rest-api/Version1/class-listings-controller.php:1245, ../includes/rest-api/Version1/class-users-controller.php:910
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:543, ../includes/rest-api/Version1/class-listings-controller.php:1259, ../includes/rest-api/Version1/class-users-controller.php:925
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:523, ../includes/rest-api/Version1/class-listings-controller.php:1259, ../includes/rest-api/Version1/class-users-controller.php:925
 msgid "Sort collection by object attribute."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:555
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:535
 msgid "Limit result set to reviews assigned to specific user IDs."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:562
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:542
 msgid "Ensure result set excludes reviews assigned to specific user IDs."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:570
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:550
 msgid "Limit result set to that from a specific author email."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:576
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:556
 msgid "Limit result set to reviews assigned to specific listing IDs."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:584
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:564
 msgid "Limit result set to reviews assigned a specific status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:618
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:596
 msgid "Invalid review ID."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:633, ../includes/rest-api/Version1/class-users-favorites-controller.php:153, ../includes/rest-api/Version1/class-users-favorites-controller.php:197
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:611, ../includes/rest-api/Version1/class-users-favorites-controller.php:153, ../includes/rest-api/Version1/class-users-favorites-controller.php:197
 msgid "Invalid listing ID."
 msgstr ""
 
@@ -7788,21 +7784,21 @@ msgstr ""
 msgid "My Dashboard"
 msgstr ""
 
-#: ../templates/single-reviews.php:29
+#: ../templates/single-reviews.php:28
 msgid "%s response"
 msgid_plural "%s responses"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/single-reviews.php:31
+#: ../templates/single-reviews.php:30
 msgid "Write a review"
 msgstr ""
 
-#: ../templates/single-reviews.php:68
+#: ../templates/single-reviews.php:69
 msgid "There are no reviews yet. %1$sBe the first reviewer%2$s."
 msgstr ""
 
-#: ../templates/single-reviews.php:66
+#: ../templates/single-reviews.php:67
 msgid "There are no reviews yet."
 msgstr ""
 
@@ -7812,28 +7808,28 @@ msgid_plural "%s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/single-reviews.php:92
+#: ../templates/single-reviews.php:93
 msgid "Enter your name"
 msgstr ""
 
-#: ../templates/single-reviews.php:106
+#: ../templates/single-reviews.php:107
 msgid "Enter your email"
 msgstr ""
 
-#: ../templates/single-reviews.php:119
+#: ../templates/single-reviews.php:120
 msgid "Enter your website"
 msgstr ""
 
-#: ../templates/single-reviews.php:136
+#: ../templates/single-reviews.php:137
 msgctxt "noun"
 msgid "Comment"
 msgstr ""
 
-#: ../templates/single-reviews.php:139
+#: ../templates/single-reviews.php:140
 msgid "Share your experience and help others make better choices"
 msgstr ""
 
-#: ../templates/single-reviews.php:155
+#: ../templates/single-reviews.php:156
 msgid "Submit review"
 msgstr ""
 

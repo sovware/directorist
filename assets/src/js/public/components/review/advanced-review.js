@@ -193,8 +193,17 @@
                 return;
             }
 
+            const $comment = $('#div-comment-'+commentId);
+
             if (this.storage.has(commentId, activity)) {
+                $comment.prepend(this.getAlert('info').html('Already reported!'));
                 $target.addClass('processing').attr('disabled', true);
+
+                this.timeout = setTimeout(() => {
+                    $comment.find('.directorist-alert').slideUp('medium');
+                    clearTimeout(this.timeout);
+                }, 3000);
+
                 return;
             }
 
@@ -213,7 +222,6 @@
 
             this.send(commentId, activity)
                 .done(response => {
-                    const $comment = $('#div-comment-'+commentId);
                     let type = 'warning';
 
                     if (response.success) {
@@ -281,7 +289,7 @@
                 if (mutation.removedNodes) {
                     mutation.target.classList.remove('directorist-form-added');
 
-                    for(const node of mutation.removedNodes) {
+                    for (const node of mutation.removedNodes) {
                         if (node.id && node.id === 'respond') {
                             const criteria = node.querySelector('.directorist-review-criteria');
                             if (criteria) {
@@ -292,6 +300,9 @@
                             for (const rating of ratings) {
                                 rating.removeAttribute('disabled');
                             }
+
+                            node.querySelector('#submit').innerHTML = 'Submit review';
+                            node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
                         }
                     }
                 }
@@ -313,6 +324,9 @@
                     if (alert) {
                         alert.style.display = 'none';
                     }
+
+                    form.querySelector('#submit').innerHTML = 'Submit comment';
+                    form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment' );
                 }
             }
         };

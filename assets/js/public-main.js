@@ -1977,8 +1977,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           return;
         }
 
+        var $comment = $('#div-comment-' + commentId);
+
         if (this.storage.has(commentId, activity)) {
+          $comment.prepend(this.getAlert('info').html('Already reported!'));
           $target.addClass('processing').attr('disabled', true);
+          this.timeout = setTimeout(function () {
+            $comment.find('.directorist-alert').slideUp('medium');
+            clearTimeout(_this3.timeout);
+          }, 3000);
           return;
         }
 
@@ -1995,7 +2002,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         this.timeout && clearTimeout(this.timeout);
         this.send(commentId, activity).done(function (response) {
-          var $comment = $('#div-comment-' + commentId);
           var type = 'warning';
 
           if (response.success) {
@@ -2108,6 +2114,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     } finally {
                       _iterator3.f();
                     }
+
+                    node.querySelector('#submit').innerHTML = 'Submit review';
+                    node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
                   }
                 }
               } catch (err) {
@@ -2150,6 +2159,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               if (alert) {
                 alert.style.display = 'none';
               }
+
+              form.querySelector('#submit').innerHTML = 'Submit comment';
+              form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment');
             }
           }
         } catch (err) {

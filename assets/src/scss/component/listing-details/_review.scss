@@ -597,18 +597,21 @@ Review: New Style
         }
 
         @include e(pagination) {
-            padding: 0 25px 35px;
-
+            padding: 0;
+            margin: 25px 0 0;
             ul {
-                border-top: 1px solid #EFF1F6;
+                border: 0 none;
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
                 margin: -4px;
-                padding-top: 40px;
-
+                padding-top: 0;
+                list-style-type: none;
+                height: auto;
+                background: none;
                 li {
                     padding: 4px;
+                    list-style-type: none;
 
                     .page-numbers {
                         width: 40px;
@@ -621,6 +624,7 @@ Review: New Style
                         color: #090E30;
                         font-weight: 500;
                         font-size: 14px;
+                        background: #fff;
                     }
 
                     .page-numbers.current {

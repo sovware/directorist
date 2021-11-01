@@ -12068,10 +12068,11 @@ Review: New Style
   padding: 15px 0 0;
 }
 .directorist-review-content .directorist-review-content__pagination {
-  padding: 0 25px 35px;
+  padding: 0;
+  margin: 25px 0 0;
 }
 .directorist-review-content .directorist-review-content__pagination ul {
-  border-top: 1px solid #EFF1F6;
+  border: 0 none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12084,10 +12085,14 @@ Review: New Style
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   margin: -4px;
-  padding-top: 40px;
+  padding-top: 0;
+  list-style-type: none;
+  height: auto;
+  background: none;
 }
 .directorist-review-content .directorist-review-content__pagination ul li {
   padding: 4px;
+  list-style-type: none;
 }
 .directorist-review-content .directorist-review-content__pagination ul li .page-numbers {
   width: 40px;
@@ -12109,6 +12114,7 @@ Review: New Style
   color: #090E30;
   font-weight: 500;
   font-size: 14px;
+  background: #fff;
 }
 .directorist-review-content .directorist-review-content__pagination ul li .page-numbers.current {
   border-color: #090E30;

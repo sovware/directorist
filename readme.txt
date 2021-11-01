@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.5.5
+Stable tag: 7.0.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,13 +13,13 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 
 == Description ==
 
+[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
+
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages, or Tripadvisor on your WordPress site? If the answer is YES, you have come to the right place. Directorist simplifies the process of creating powerful business directories or classified websites of any kind.
 
- The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
+The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
-
-👉 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
 
 Meet our powerful Directorist Business Directory plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code.
 
@@ -272,11 +272,13 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
-🔥 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
+👉 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
 
-🔥 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
+👉 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
 
-🔥 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+👉 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+
+🔥 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
 🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
@@ -297,7 +299,7 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 * Advance Review System
 * Mobile App
 * Rest API endpoint
-* Directory Type linking
+* Restaurant menu
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -354,6 +356,21 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.5.6 – Oct 25, 2021
+
+* Fix - Search form issues when the form is used twice
+* Fix - Report listing couldn’t track the logged-in user
+* Fix - Modify browser title for the non-directorist page
+* Fix - Couldn’t find a field if the field has no label in the submission form
+* Fix - Extensions template override
+* Fix - Selecting all listing page as site homepage and navigate directory type redirect to blog page
+* Fix - Issue with listing content ( remove get_the_content and add directorist_the_content )
+* Fix - Add listing geo suggestion when search form is used on the same page
+* Fix - Google and OpenStreetMap issues with some cache and optimiser plugin
+* Fix - Unfavourite listing issue on the user dashboard
+* Fix - Field key required message on add listing form builder
+
 
 7.0.5.5 – Sep 20, 2021
 

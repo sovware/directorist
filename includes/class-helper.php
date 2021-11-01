@@ -340,6 +340,27 @@ class Helper {
 		}
 	}
 
+	public static function phone_link( $args ) {
+
+		$defaults = array(
+			'number'    => '',
+			'whatsapp'  => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$num = self::formatted_tel( $args['number'], false );
+
+		if ( $args['whatsapp'] ) {
+			$result = sprintf( 'https://wa.me/%s', $num );
+		}
+		else {
+			$result = sprintf( 'tel:%s', $num );
+		}
+
+		return $result;
+	}
+
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 
@@ -523,9 +544,14 @@ class Helper {
 
 		if ( empty( $data ) ) { return; }
 
-		$value = json_encode( $data );
+		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<span 
+			style="display: none;" 
+			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
+			data-value="<?php echo $data_value; ?>"
+		>
+		</span>
 		<?php
 	}
 

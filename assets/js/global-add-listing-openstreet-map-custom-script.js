@@ -96,6 +96,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_lib_helper__WEBPACK_IMPORTED_MODULE_0__);
 
 ;
 
@@ -136,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
           type: 'POST',
           data: {},
           success: function success(data) {
-            $('#address').val(data.display_name);
+            $('.directorist-location-js').val(data.display_name);
           }
         });
       });
@@ -145,41 +146,43 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap);
     }
 
-    $('#address').on('keyup', function (event) {
-      event.preventDefault();
+    $('.directorist-location-js').each(function (id, elm) {
+      $(elm).on('keyup', function (event) {
+        event.preventDefault();
 
-      if (event.keyCode !== 40 && event.keyCode !== 38) {
-        var search = $('#address').val();
-        $('#result').css({
-          'display': 'block'
-        });
+        if (event.keyCode !== 40 && event.keyCode !== 38) {
+          var search = $(elm).val();
+          $(elm).siblings('.address_result').css({
+            'display': 'block'
+          });
 
-        if (search === "") {
-          $('#result').css({
-            'display': 'none'
+          if (search === "") {
+            $(elm).siblings('.address_result').css({
+              'display': 'none'
+            });
+          }
+
+          var res = "";
+          $.ajax({
+            url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+            type: 'POST',
+            data: {},
+            success: function success(data) {
+              //console.log(data);
+              for (var i = 0; i < data.length; i++) {
+                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+              }
+
+              $(elm).siblings('.address_result').find('ul').html(res);
+            }
           });
         }
-
-        var res = "";
-        $.ajax({
-          url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-          type: 'POST',
-          data: {},
-          success: function success(data) {
-            //console.log(data);
-            for (var i = 0; i < data.length; i++) {
-              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-            }
-
-            $('#result ul').html(res);
-          }
-        });
-      }
+      });
     });
     var lat = loc_manual_lat,
         lon = loc_manual_lng;
     mapLeaflet(lat, lon);
-    $('body').on('click', '#result ul li a', function (event) {
+    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
       document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       event.preventDefault();
       var text = $(this).text(),
@@ -187,11 +190,19 @@ __webpack_require__.r(__webpack_exports__);
           lon = $(this).data('lon');
       $('#manual_lat').val(lat);
       $('#manual_lng').val(lon);
-      $('#address').val(text);
-      $('#result').css({
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
         'display': 'none'
       });
       mapLeaflet(lat, lon);
+    });
+    $('body').on('click', '.location-names ul li a', function (event) {
+      event.preventDefault();
+      var text = $(this).text();
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        'display': 'none'
+      });
     });
     $('body').on('click', '#generate_admin_map', function (event) {
       event.preventDefault();
@@ -200,9 +211,9 @@ __webpack_require__.r(__webpack_exports__);
     }); // Popup controller by keyboard
 
     var index = 0;
-    $('#address').on('keyup', function (event) {
+    $('.directorist-location-js').on('keyup', function (event) {
       event.preventDefault();
-      var length = $('#directorist.atbd_wrapper #result ul li a').length;
+      var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
 
       if (event.keyCode === 40) {
         index++;
@@ -220,12 +231,12 @@ __webpack_require__.r(__webpack_exports__);
         ;
       }
 
-      if ($('#directorist.atbd_wrapper #result ul li a').length > 0) {
-        $('#directorist.atbd_wrapper #result ul li a').removeClass('active');
-        $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+      if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
+        $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
+        $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
 
         if (event.keyCode === 13) {
-          $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+          $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
           event.preventDefault();
           index = 0;
           return false;
@@ -246,118 +257,10 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data, convertToSelect2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-
-var $ = jQuery;
-
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
-
-  if (!dom_content.length) {
-    return '';
-  }
-
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
-
-  if (!terget_content) {
-    return '';
-  }
-
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
-  }
-
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
-  }
-
-  return dom_data;
-}
-
-function convertToSelect2(field) {
-  if (!field) {
-    return;
-  }
-
-  if (!field.elm) {
-    return;
-  }
-
-  if (!field.elm.length) {
-    return;
-  }
-
-  var default_args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      // We only really care if there is an field to pull classes from
-      if (!data.field) {
-        return data.text;
-      }
-
-      var $field = $(data.field);
-      var $wrapper = $('<span></span>');
-      $wrapper.addClass($field[0].className);
-      $wrapper.text(data.text);
-      return $wrapper;
-    }
-  };
-  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-  var options = field.elm.find('option');
-  var placeholder = options.length ? options[0].innerHTML : '';
-
-  if (placeholder.length) {
-    args.placeholder = placeholder;
-  }
-
-  field.elm.select2(args);
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
-  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/assets/src/js/lib/helper.js: Unexpected token (7:1)\n\n\u001b[0m \u001b[90m  5 |\u001b[39m     \u001b[36mvar\u001b[39m dataElm \u001b[33m=\u001b[39m ( parent ) \u001b[33m?\u001b[39m parent\u001b[33m.\u001b[39mgetElementsByClassName( elmKey ) \u001b[33m:\u001b[39m document\u001b[33m.\u001b[39mgetElementsByClassName( elmKey )\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  8 |\u001b[39m     \u001b[36mif\u001b[39m ( \u001b[33m!\u001b[39m dom_content\u001b[33m.\u001b[39mlength ) { \u001b[36mreturn\u001b[39m \u001b[32m''\u001b[39m\u001b[33m;\u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m     \u001b[36mvar\u001b[39m pattern \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mRegExp\u001b[39m(\u001b[32m\"(<!-- directorist-dom-data::\"\u001b[39m \u001b[33m+\u001b[39m key \u001b[33m+\u001b[39m \u001b[32m\"\\\\s)(.+)(\\\\s-->)\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n    at Object._raise (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:775:17)\n    at Object.raiseWithData (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:768:17)\n    at Object.raise (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:736:17)\n    at Object.unexpected (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:9716:16)\n    at Object.jsxParseIdentifier (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4946:12)\n    at Object.jsxParseNamespacedName (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4956:23)\n    at Object.jsxParseElementName (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4967:21)\n    at Object.jsxParseOpeningElementAt (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:5054:22)\n    at Object.jsxParseElementAt (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:5087:33)\n    at Object.jsxParseElement (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:5161:17)\n    at Object.parseExprAtom (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:5168:19)\n    at Object.parseExprSubscripts (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10689:23)\n    at Object.parseUpdate (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10669:21)\n    at Object.parseMaybeUnary (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10647:23)\n    at Object.parseExprOps (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10504:23)\n    at Object.parseMaybeConditional (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10478:23)\n    at Object.parseMaybeAssign (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10441:21)\n    at Object.parseExpressionBase (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10386:23)\n    at /Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10380:39\n    at Object.allowInAnd (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12079:16)\n    at Object.parseExpression (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10380:17)\n    at Object.parseStatementContent (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12367:23)\n    at Object.parseStatement (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12236:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12816:25)\n    at Object.parseBlockBody (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12807:10)\n    at Object.parseBlock (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12791:10)\n    at Object.parseFunctionBody (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11758:24)\n    at Object.parseFunctionBodyAndFinish (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11742:10)\n    at /Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12949:12\n    at Object.withTopicForbiddingContext (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12054:14)\n    at Object.parseFunction (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12948:10)\n    at Object.parseFunctionStatement (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12584:17)\n    at Object.parseStatementContent (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12274:21)\n    at Object.parseStatement (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12236:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12816:25)\n    at Object.parseBlockBody (/Users/syedgalib/Local Sites/directorist-app/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12807:10)");
 
 /***/ }),
 

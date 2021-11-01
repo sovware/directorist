@@ -106,7 +106,7 @@ var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get
 var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 var $ = jQuery; // Init
 
-if (!atbdp_plupload_params) {
+if (atbdp_plupload_params) {
   jQuery(document).ready(init);
   window.addEventListener('directorist-reload-plupload', init);
 }

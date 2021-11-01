@@ -12,4 +12,4 @@ if ( empty( $data['label'] ) ) {
 }
 ?>
 
-<div class="directorist-form-label"><?php echo esc_html( $data['label'] ); ?>:<?php echo !empty( $data['required'] ) ? '<span class="directorist-form-required"> *</span>' : ''; ?></div>
+<div class="directorist-form-label"><?php echo esc_html( $data['label'] ); ?><?php echo !empty( $data['required'] ) ? '<span class="directorist-form-required"> *</span>' : ''; ?></div>

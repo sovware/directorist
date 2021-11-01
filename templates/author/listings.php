@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-			<div class="<?php Helper::directorist_column( ['lg-3', 'md-4', 'sm-6'] ); ?>">
+			<div class="<?php Helper::directorist_column( $author->columns ); ?>">
 				<?php $listings->loop_template( 'grid', $listing_id ); ?>
 			</div>
 

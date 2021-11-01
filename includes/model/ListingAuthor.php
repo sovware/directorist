@@ -15,6 +15,7 @@ class Directorist_Listing_Author {
 	public $all_listings;
 	public $rating;
 	public $total_review;
+	public $columns;
 
 	public $listing_types;
 	public $current_listing_type;
@@ -68,6 +69,7 @@ class Directorist_Listing_Author {
 	function prepare_data() {
 		$this->listing_types        = $this->get_listing_types();
 		$this->current_listing_type = $this->get_current_listing_type();
+		$this->columns              = (int) atbdp_calculate_column( get_directorist_option( 'all_listing_columns', 3 ) );
 
 		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 

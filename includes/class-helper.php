@@ -340,20 +340,25 @@ class Helper {
 		}
 	}
 
-	public static function phone_linked_with( $data = '', $echo = true ) {
-		
-		$value = 'tel:';
+	public static function phone_link( $args ) {
 
-		if( ! empty( $data['form_field']['whatsapp'] ) ){
-			$value = 'https://wa.me/';
-		}
+		$defaults = array(
+			'number'    => '',
+			'whatsapp'  => false,
+		);
 
-		if ( ! $echo ) {
-			return $value;
+		$args = wp_parse_args( $args, $defaults );
+
+		$num = self::formatted_tel( $args['number'], false );
+
+		if ( $args['whatsapp'] ) {
+			$result = sprintf( 'https://wa.me/%s', $num );
 		}
 		else {
-			echo $value;
+			$result = sprintf( 'tel:%s', $num );
 		}
+
+		return $result;
 	}
 
 	public static function parse_video( $url ) {

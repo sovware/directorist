@@ -86,25 +86,25 @@ class Directorist_Single_Listing {
 				unset( $single_fields['fields'][$key]['original_widget_key'] );
 
 				// Added form_field, field_key, label, widget_group from submission form
-				if ( $form_key ) {
-					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
-						$single_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+				if ( $form_key && !empty( $submission_form_fields['fields'][$form_key] ) ) {
+					$form_data = $submission_form_fields['fields'][$form_key];
+
+					$single_fields['fields'][$key]['form_data'] = $form_data;
+
+					if ( !empty( $form_data['field_key'] ) ) {
+						$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
-						$single_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					if ( !empty( $form_data['options'] ) ) {
+						$single_fields['fields'][$key]['options'] = $form_data['options'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['label'] ) ) {
-						$single_fields['fields'][$key]['label'] = $submission_form_fields['fields'][$form_key]['label'];
+					if( !empty( $form_data['label'] ) ) {
+						$single_fields['fields'][$key]['label'] = $form_data['label'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['widget_group'] ) ) {
-						$single_fields['fields'][$key]['widget_group'] = $submission_form_fields['fields'][$form_key]['widget_group'];
-					}
-
-					if( !empty( $submission_form_fields['fields'][$form_key] ) ) {
-						$single_fields['fields'][$key]['form_field'] = $submission_form_fields['fields'][$form_key];
+					if( !empty( $form_data['widget_group'] ) ) {
+						$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
 					}
 				}
 			}
@@ -178,6 +178,15 @@ class Directorist_Single_Listing {
 		}
 
 		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
+	}
+
+	public function has_whatsapp( $data ) {
+		if ( !empty( $data['form_data']['whatsapp'] ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function get_field_value( $data = [] ) {

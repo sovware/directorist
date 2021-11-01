@@ -35,8 +35,10 @@ Bootstrap::load_walker();
 			<div class="directorist-review-content__overview">
 				<div class="directorist-review-content__overview__rating">
 					<span class="directorist-rating-point"><?php echo $review_rating; ?></span>
-					<span class="directorist-rating-stars"><?php Markup::show_rating_stars( $review_rating ); ?></span>
-					<span class="directorist-rating-overall"><?php printf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) ); ?></span>
+					<div>
+						<span class="directorist-rating-stars"><?php Markup::show_rating_stars( $review_rating ); ?></span>
+						<span class="directorist-rating-overall"><?php printf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) ); ?></span>
+					</div>
 				</div>
 			</div><!-- ends: .directorist-review-content__overview -->
 
@@ -153,7 +155,7 @@ Bootstrap::load_walker();
 			'class_submit'       => 'directorist-btn directorist-btn-primary',
 			'label_submit'       => __( 'Submit review', 'directorist' ),
 			'format'             => 'html5',
-			'submit_field'       => '<div class="directorist-form-group">%1$s %2$s</div>',
+			'submit_field'       => '<div class="directorist-form-group directorist-mb-0">%1$s %2$s</div>',
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',
 		);
 

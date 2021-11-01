@@ -26,7 +26,8 @@ function directorist_is_immediate_review_approve_enabled() {
 }
 
 function directorist_get_review_per_page() {
-	return get_directorist_option( 'review_num', 5 );
+	$per_page = get_directorist_option( 'review_num', 5 );
+	return absint( $per_page );
 }
 
 function directorist_get_listing_rating( $listing_id, $round_precision = 1 ) {

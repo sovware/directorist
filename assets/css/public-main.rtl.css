@@ -12029,6 +12029,7 @@ Review: New Style
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-submit {
   margin-top: 0 !important;
+  margin-bottom: 0 !important;
   border: 0 none !important;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-submit__header {
@@ -12111,6 +12112,7 @@ Review: New Style
 
 .directorist-review-submit {
   margin-top: 25px;
+  margin-bottom: 25px;
   background: #fff;
   border-radius: 4px;
   border: 1px solid #EFF1F6;

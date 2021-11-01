@@ -260,10 +260,11 @@
 }
 
 
-/* Review new style */
+/*==================================
+Review: New Style
+===================================*/
 .directorist-review-content {
-    background: #fff;
-    border-radius: 8px;
+    border-radius: 4px;
 
     .directorist-review-content {
         @include e(header) {
@@ -271,14 +272,16 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            padding: 13px 25px;
-            border-bottom: 1px solid #EFF1F6;
-
+            padding: 6px 20px;
+            border: 1px solid #EFF1F6;
+            border-bottom-color: #f2f2f2;
+            background: #fff;
+            border-radius: 4px 4px 0 0;
             h3 {
                 font-size: 16px;
                 font-weight: 500;
                 color: #1A1B29;
-                margin-bottom: 0;
+                margin: 10px 0;
 
                 span {
                     color: #525768;
@@ -290,6 +293,15 @@
                     }
                 }
             }
+            .directorist-btn{
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                span{
+                    display: inline-block;
+                    margin-right: 4px;
+                }
+            }
         }
 
         @include e(overview) {
@@ -297,22 +309,29 @@
             align-items: center;
             flex-wrap: wrap;
             justify-content: space-between;
-            box-shadow: 0 10px 15px rgba(#8F8E9F, 0.08);
+            padding: 30px 50px;
+            background: #fff;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid #EFF1F6;
+            border-top: 0 none;
 
             @include e(rating) {
                 flex: 0 0 50%;
                 text-align: center;
+                display: flex;
+                align-items: center;
 
                 .directorist-rating-point {
                     font-size: 34px;
                     font-weight: 600;
                     color: #1A1B29;
                     display: block;
+                    margin-right: 15px;
                 }
 
                 .directorist-rating-stars {
                     font-size: 15px;
-                    color: #FF1A43;
+                    color: #EF8000;
                     display: block;
                 }
 
@@ -361,7 +380,7 @@
                     }
 
                     progress::-webkit-progress-value {
-                        background-color: #FF1A43;
+                        background-color: #EF8000;
                         border-radius: 2px;
                         box-shadow: none;
                     }
@@ -372,7 +391,7 @@
                     }
 
                     progress::-moz-progress-value {
-                        background-color: #FF1A43;
+                        background-color: #EF8000;
                         border-radius: 2px;
                         box-shadow: none;
                     }
@@ -391,17 +410,33 @@
         @include e(reviews) {
             &, ul {
                 padding: 0;
-                margin: 0;
+                margin: 10px 0 0 0;
+                list-style-type: none;
+                li{
+                    list-style-type: none;
+                    margin-left: 0;
+                }
+            }
+
+            & > li{
+                border: 1px solid #EFF1F6;
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
             }
 
             .directorist-review-single {
                 padding: 25px;
+                background: #fff;
+                border-radius: 4px;
 
-                &:not(:last-child) {
-                    border-bottom: 1px solid #EFF1F6;
+                .comment-body{
+                    margin-bottom: 0;
+                    padding: 0;
                 }
 
                 .directorist-review-single__contents-wrap {
+                    margin: 0;
                     .directorist-review-single__header {
                         display: flex;
                         align-items: center;
@@ -422,6 +457,7 @@
                                     width: 50px;
                                     object-fit: cover;
                                     border-radius: 50%;
+                                    position: static;
                                 }
                             }
 
@@ -433,9 +469,13 @@
                                     font-size: 15px;
                                     font-weight: 500;
                                     color: #090E30;
-                                    margin-bottom: 5px;
+                                    margin: 0 0 5px;
+                                    &:before,
+                                    &:after{
+                                        content: none;
+                                    }
 
-                                    span {
+                                    time {
                                         display: inline-block;
                                         font-size: 14px;
                                         color: #8C90A4;
@@ -450,7 +490,7 @@
 
                                 .directorist-rating-stars {
                                     font-size: 11px;
-                                    color: #FF1A43;
+                                    color: #EF8000;
                                     display: block;
                                 }
                             }
@@ -460,11 +500,13 @@
                             a {
                                 font-size: 13px;
                                 color: #8C90A4;
+                                display: block;
                             }
                         }
                     }
 
                     .directorist-review-single__content {
+                        font-size: 16px;
                         @include e(img) {
                             display: flex;
                             flex-wrap: wrap;
@@ -493,18 +535,23 @@
                 }
 
                 @include e(reply) {
-                    margin-top: 20px;
+                    margin: 20px -8px 0;
+                    display: flex;
+                    align-items: center;
 
                     a {
                         color: #8C90A4;
                         font-size: 13px;
+                        display: block;
+                        margin: 0 8px;
+                        background: none;
                     }
                 }
 
                 @include e(comments) {
 
                     .directorist-review-single--comment {
-                        padding-left: 50px;
+                        padding-left: 40px;
 
                         &:last-child {
                             padding-bottom: 0;
@@ -516,13 +563,34 @@
                             &::before {
                                 content: '';
                                 height: 100%;
-                                background: #C6D0DC;
-                                width: 1px;
+                                background: #F2F2F2;
+                                width: 2px;
                                 left: -20px;
                                 position: absolute;
                                 top: 0;
                             }
                         }
+                    }
+                }
+                .directorist-review-submit{
+                    margin-top: 0 !important;
+                    border: 0 none !important;
+                    @include e(header){
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        h3{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            max-width: 100%;
+                            width: 100%;
+                            margin: 0 !important;
+                        }
+                    }
+                    @include e(form){
+                        margin-top: 0 !important;
+                        padding: 15px 0 0;
                     }
                 }
             }
@@ -567,14 +635,15 @@
 .directorist-review-submit {
     margin-top: 25px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 4px;
+    border: 1px solid #EFF1F6;
 
     @include e(header) {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        padding: 13px 25px;
+        padding: 16px 20px;
         border-bottom: 1px solid #EFF1F6;
 
         h3 {
@@ -586,11 +655,13 @@
     }
 
     @include e(form) {
-        padding: 25px 25px 45px;
-
+        padding: 25px 25px 30px;
+        margin: 0 !important;
+        .directorist-alert{
+            margin-bottom: 15px;
+        }
         .directorist-review-criteria {
             margin-bottom: 25px;
-
             @include e(single) {
                 display: flex;
                 flex-wrap: wrap;
@@ -603,6 +674,7 @@
                     font-size: 14px;
                     font-weight: 500;
                     color: #525768;
+                    margin: 0;
                 }
 
                 .br-widget {
@@ -624,6 +696,9 @@
                             font-family: 'Font Awesome 5 Free';
                             font-weight: 900;
                             color: #fff;
+                        }
+                        &:focus{
+                            background: #E1E4EC !important;
                         }
 
                         &.br-selected,
@@ -650,6 +725,9 @@
             textarea {
                 background: #F6F7F9;
                 font-size: 15px;
+                &:focus{
+                    background: #F6F7F9;
+                }
             }
 
             label {
@@ -743,5 +821,12 @@
                 }
             }
         }
+    }
+}
+
+/* Review responsiveness */
+@media (max-width: 480px){
+    .directorist-review-content .directorist-review-content__overview__rating{
+        flex: 0 0 100%;
     }
 }

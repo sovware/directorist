@@ -395,6 +395,8 @@ atbdSelectData.forEach(function (el) {
     console.log(paged);
     paged = paged !== undefined ? paged : 1;
     $('body').addClass('atbdp-form-fade');
+    var alphabetValue = $('.directorist-authors__nav li.active').attr('data-alphabet');
+    console.log(alphabetValue);
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,

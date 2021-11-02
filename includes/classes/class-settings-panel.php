@@ -2025,6 +2025,31 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'slider_image_quality' => [
+                    'label' => __('Slider Image Quality', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'large',
+                    'show-if' => [
+                        'where' => "dsiplay_slider_single_page",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'medium',
+                            'label' => __('Medium', 'directorist'),
+                        ],
+                        [
+                            'value' => 'large',
+                            'label' => __('Large', 'directorist'),
+                        ],
+                        [
+                            'value' => 'full',
+                            'label' => __('Full', 'directorist'),
+                        ],
+                    ],
+                ],
                 'single_slider_image_size' => [
                     'label' => __('Slider Image Size', 'directorist'),
                     'type'  => 'select',
@@ -4504,7 +4529,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'slider_image_quality', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),

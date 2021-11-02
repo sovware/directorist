@@ -421,10 +421,11 @@ class Directorist_Single_Listing {
 
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
+		$image_quality = get_directorist_option('slider_image_quality', 'large');
 
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, $image_quality) : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 
@@ -439,7 +440,7 @@ class Directorist_Single_Listing {
 
 			$image_links[] = [
 				'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-				'src' => atbdp_get_image_source( $img_id, 'large' ),
+				'src' => atbdp_get_image_source( $img_id, $image_quality ),
 			];
 		}
 

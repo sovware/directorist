@@ -2,18 +2,24 @@
 (function ($) {
     /* Masonry layout */
     function authorsMasonry() {
-        let authorsCard = document.querySelectorAll('.directorist-authors__cards');
-        authorsCard.forEach(elm=>{
-            let authorsCardRow = elm.querySelector('.directorist-row');
-            let msnry = new Masonry(authorsCardRow, {
-                percentPosition: true
+        let authorsCard = $('.directorist-authors__cards');
+        $(authorsCard).each(function(id, elm){
+            let authorsCardRow = $(elm).find('.directorist-row');
+            let authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+                $(authorMasonryInit).masonry({
+                    percentPosition: true
+                });
             })
         })
     }
     authorsMasonry();
 
+    /* alphabet data value */
+    let alphabetValue;
+
     $('body').on( 'click', '.directorist-alphabet', function(e) {
         e.preventDefault();
+        _this = $(this);
         var alphabet   = $(this).attr("data-alphabet");
         $('body').addClass('atbdp-form-fade');
         $.ajax({
@@ -28,6 +34,7 @@
                $('#directorist-all-authors').empty().append( response );
                $('body').removeClass('atbdp-form-fade');
                $( '.' + alphabet ).parent().addClass('active');
+               alphabetValue = $(_this).attr('data-alphabet');
                authorsMasonry();
             },
             error(error) {
@@ -41,11 +48,9 @@
         var paged = $(this).attr('href');
         paged = paged.split('/page/')[1];
         paged = parseInt(paged);
-        console.log(paged)
         paged = paged !== undefined ? paged : 1;
         $('body').addClass('atbdp-form-fade');
-        var alphabetValue = $('.directorist-authors__nav li.active').attr('data-alphabet');
-        console.log(alphabetValue);
+        var getAlphabetValue = alphabetValue;
         $.ajax({
             method: 'POST',
             url: atbdp_public_data.ajaxurl,

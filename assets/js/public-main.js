@@ -354,18 +354,24 @@ atbdSelectData.forEach(function (el) {
 (function ($) {
   /* Masonry layout */
   function authorsMasonry() {
-    var authorsCard = document.querySelectorAll('.directorist-authors__cards');
-    authorsCard.forEach(function (elm) {
-      var authorsCardRow = elm.querySelector('.directorist-row');
-      var msnry = new Masonry(authorsCardRow, {
-        percentPosition: true
+    var authorsCard = $('.directorist-authors__cards');
+    $(authorsCard).each(function (id, elm) {
+      var authorsCardRow = $(elm).find('.directorist-row');
+      var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+        $(authorMasonryInit).masonry({
+          percentPosition: true
+        });
       });
     });
   }
 
   authorsMasonry();
+  /* alphabet data value */
+
+  var alphabetValue;
   $('body').on('click', '.directorist-alphabet', function (e) {
     e.preventDefault();
+    _this = $(this);
     var alphabet = $(this).attr("data-alphabet");
     $('body').addClass('atbdp-form-fade');
     $.ajax({
@@ -380,6 +386,7 @@ atbdSelectData.forEach(function (el) {
         $('#directorist-all-authors').empty().append(response);
         $('body').removeClass('atbdp-form-fade');
         $('.' + alphabet).parent().addClass('active');
+        alphabetValue = $(_this).attr('data-alphabet');
         authorsMasonry();
       },
       error: function error(_error) {
@@ -392,11 +399,9 @@ atbdSelectData.forEach(function (el) {
     var paged = $(this).attr('href');
     paged = paged.split('/page/')[1];
     paged = parseInt(paged);
-    console.log(paged);
     paged = paged !== undefined ? paged : 1;
     $('body').addClass('atbdp-form-fade');
-    var alphabetValue = $('.directorist-authors__nav li.active').attr('data-alphabet');
-    console.log(alphabetValue);
+    var getAlphabetValue = alphabetValue;
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,

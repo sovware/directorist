@@ -41,7 +41,6 @@
         var paged = $(this).attr('href');
         paged = paged.split('/page/')[1];
         paged = parseInt(paged);
-        console.log(paged)
         paged = paged !== undefined ? paged : 1;
         $('body').addClass('atbdp-form-fade');
         var alphabetValue = $('.directorist-authors__nav li.active').attr('data-alphabet');

@@ -159,7 +159,7 @@ class Enqueue_Assets {
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = [
+		/* $scripts['directorist-bootstrap'] = [
 			'file_name' => 'bootstrap',
 			'base_path' => DIRECTORIST_VENDOR_CSS,
 			'has_rtl'   => false,
@@ -167,7 +167,7 @@ class Enqueue_Assets {
 			'ver'       => self::$script_version,
 			'group'     => 'public', // public || admin  || global
 			'enable'    => false
-		];
+		]; */
 
 		$scripts['directorist-font-awesome'] = [
 			'file_name'      => 'font-awesome.min',
@@ -467,7 +467,7 @@ class Enqueue_Assets {
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = [
+		/* $scripts['directorist-bootstrap'] = [
 			'file_name' => 'bootstrap.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
 			'has_min'   => false,
@@ -476,9 +476,9 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => '',
 			'enable'    => false,
-		];
+		]; */
 
-		$scripts['directorist-grid'] = [
+		/* $scripts['directorist-grid'] = [
 			'file_name' => 'grid.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
 			'has_min'   => false,
@@ -487,6 +487,17 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => '',
 			'enable'    => false,
+		]; */
+
+		$scripts['directorist-masonry'] = [
+			'file_name' => 'masonry.min',
+			'base_path' => DIRECTORIST_VENDOR_JS,
+			'has_min'   => false,
+			'deps'      => [],
+			'ver'       => self::$script_version,
+			'group'     => 'public', // public || admin  || global
+			'section'   => '',
+			'enable'    => true,
 		];
 
 		$scripts['directorist-jquery-barrating'] = [

@@ -1,5 +1,17 @@
 // author sorting
 (function ($) {
+    /* Masonry layout */
+    function authorsMasonry() {
+        let authorsCard = document.querySelectorAll('.directorist-authors__cards');
+        authorsCard.forEach(elm=>{
+            let authorsCardRow = elm.querySelector('.directorist-row');
+            let msnry = new Masonry(authorsCardRow, {
+                percentPosition: true
+            })
+        })
+    }
+    authorsMasonry();
+
     $('body').on( 'click', '.directorist-alphabet', function(e) {
         e.preventDefault();
         var alphabet   = $(this).attr("data-alphabet");
@@ -16,6 +28,7 @@
                $('#directorist-all-authors').empty().append( response );
                $('body').removeClass('atbdp-form-fade');
                $( '.' + alphabet ).parent().addClass('active');
+               authorsMasonry();
             },
             error(error) {
                 console.log(error);
@@ -39,8 +52,9 @@
                 paged    : paged
             },
             success( response ) {
-            $('body').removeClass('atbdp-form-fade');
-               $('#directorist-all-authors').empty().append( response );
+                $('body').removeClass('atbdp-form-fade');
+                $('#directorist-all-authors').empty().append( response );
+                authorsMasonry();
             },
             error(error) {
                 console.log(error);

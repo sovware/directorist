@@ -205,51 +205,47 @@
 
     /* advanced search form reset */
     function adsFormReset(selector) {
-        let adsForm = document.querySelector(selector);
+        let adsForm = document.querySelectorAll(selector);
 
-        if ( ! adsForm ) {
-            adsForm = document.querySelector(".directorist-advanced-filter__form");
-        }
-
-        if ( ! adsForm ) {
-            adsForm = document.querySelector(".atbd_ads-form");
-        }
-
-        adsForm.querySelectorAll("input[type='text']").forEach(function (el) {
-            el.value = "";
-        });
-        adsForm.querySelectorAll("input[type='date']").forEach(function (el) {
-            el.value = "";
-        });
-        adsForm.querySelectorAll("input[type='time']").forEach(function (el) {
-            el.value = "";
-        });
-        adsForm.querySelectorAll("input[type='url']").forEach(function (el) {
-            el.value = "";
-        });
-        adsForm.querySelectorAll("input[type='number']").forEach(function (el) {
-            el.value = "";
-        });
-        adsForm.querySelectorAll("input[type='radio']").forEach(function (el) {
-            el.checked = false;
-        });
-        adsForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
-            el.checked = false;
-        });
-        adsForm.querySelectorAll("select").forEach(function (el) {
-            el.selectedIndex = 0;
-        });
-        const irisPicker = adsForm.querySelector("input.wp-picker-clear");
-        if(irisPicker !== null){
-            irisPicker.click();
-        }
-
-        $("select").val('').trigger('change');
-
-        const rangeValue = adsForm.querySelector(".atbd-current-value span");
-        if(rangeValue !== null){
-            rangeValue.innerHTML = "0";
-        }
+        adsForm.forEach(function(form){
+    
+            form.querySelectorAll("input[type='text']").forEach(function (el) {
+                el.value = "";
+            });
+            form.querySelectorAll("input[type='date']").forEach(function (el) {
+                el.value = "";
+            });
+            form.querySelectorAll("input[type='time']").forEach(function (el) {
+                el.value = "";
+            });
+            form.querySelectorAll("input[type='url']").forEach(function (el) {
+                el.value = "";
+            });
+            form.querySelectorAll("input[type='number']").forEach(function (el) {
+                el.value = "";
+            });
+            form.querySelectorAll("input[type='radio']").forEach(function (el) {
+                el.checked = false;
+            });
+            form.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+                el.checked = false;
+            });
+            form.querySelectorAll("select").forEach(function (el) {
+                el.selectedIndex = 0;
+            });
+            const irisPicker = form.querySelector("input.wp-picker-clear");
+            if(irisPicker !== null){
+                irisPicker.click();
+            }
+    
+            $("select").val('').trigger('change');
+    
+            const rangeValue = form.querySelector(".atbd-current-value span");
+            if(rangeValue !== null){
+                rangeValue.innerHTML = "0";
+            }
+        })
+        
     }
 
     if($(".directorist-search-form .directorist-btn-reset-js") !== null){
@@ -263,6 +259,7 @@
         $(".directorist-advanced-filter__form .directorist-btn-reset-js").on("click", function (e) {
             e.preventDefault();
             adsFormReset('.directorist-search-form');
+            adsFormReset('.directorist-advanced-filter__form');
             atbd_callingSlider(0);
         });
     }
@@ -270,6 +267,15 @@
         $("#bdlm-search-area #atbdp_reset").on("click", function (e) {
             e.preventDefault();
             adsFormReset('.directorist-search-form');
+            adsFormReset('.directorist-advanced-filter__form');
+            atbd_callingSlider(0);
+        })
+    }
+    if($("#directorist-search-area .directorist-btn-reset-js") !== null){
+        $("#directorist-search-area .directorist-btn-reset-js").on("click", function (e) {
+            e.preventDefault();
+            adsFormReset('.directorist-search-form');
+            adsFormReset('#directorist-search-area');
             atbd_callingSlider(0);
         })
     }

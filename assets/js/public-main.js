@@ -352,6 +352,18 @@ atbdSelectData.forEach(function (el) {
 
 // author sorting
 (function ($) {
+  /* Masonry layout */
+  function authorsMasonry() {
+    var authorsCard = document.querySelectorAll('.directorist-authors__cards');
+    authorsCard.forEach(function (elm) {
+      var authorsCardRow = elm.querySelector('.directorist-row');
+      var msnry = new Masonry(authorsCardRow, {
+        percentPosition: true
+      });
+    });
+  }
+
+  authorsMasonry();
   $('body').on('click', '.directorist-alphabet', function (e) {
     e.preventDefault();
     var alphabet = $(this).attr("data-alphabet");
@@ -368,6 +380,7 @@ atbdSelectData.forEach(function (el) {
         $('#directorist-all-authors').empty().append(response);
         $('body').removeClass('atbdp-form-fade');
         $('.' + alphabet).parent().addClass('active');
+        authorsMasonry();
       },
       error: function error(_error) {
         console.log(_error);
@@ -382,6 +395,8 @@ atbdSelectData.forEach(function (el) {
     console.log(paged);
     paged = paged !== undefined ? paged : 1;
     $('body').addClass('atbdp-form-fade');
+    var alphabetValue = $('.directorist-authors__nav li.active').attr('data-alphabet');
+    console.log(alphabetValue);
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,
@@ -392,6 +407,7 @@ atbdSelectData.forEach(function (el) {
       success: function success(response) {
         $('body').removeClass('atbdp-form-fade');
         $('#directorist-all-authors').empty().append(response);
+        authorsMasonry();
       },
       error: function error(_error2) {
         console.log(_error2);

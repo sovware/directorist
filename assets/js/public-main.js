@@ -402,12 +402,14 @@ atbdSelectData.forEach(function (el) {
     paged = paged !== undefined ? paged : 1;
     $('body').addClass('atbdp-form-fade');
     var getAlphabetValue = alphabetValue;
+    console.log(getAlphabetValue);
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,
       data: {
         action: 'directorist_author_pagination',
-        paged: paged
+        paged: paged,
+        alphabet: alphabetValue
       },
       success: function success(response) {
         $('body').removeClass('atbdp-form-fade');

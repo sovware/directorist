@@ -489,17 +489,6 @@ class Enqueue_Assets {
 			'enable'    => false,
 		]; */
 
-		$scripts['directorist-masonry'] = [
-			'file_name' => 'masonry.min',
-			'base_path' => DIRECTORIST_VENDOR_JS,
-			'has_min'   => false,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => '',
-			'enable'    => true,
-		];
-
 		$scripts['directorist-jquery-barrating'] = [
 			'file_name' => 'jquery.barrating.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
@@ -1053,6 +1042,8 @@ class Enqueue_Assets {
 		// Other
 		self::enqueue_custom_color_picker_scripts();
 		// wp_enqueue_script( 'jquery' );
+		wp_enqueue_script('jquery-masonry');
+
 
 		// CSS
 		self::register_css_scripts();

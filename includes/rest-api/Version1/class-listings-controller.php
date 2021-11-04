@@ -317,6 +317,23 @@ class Listings_Controller extends Posts_Controller {
 				}
 		}
 
+		// Expired listings query.
+		if ( isset( $request['expired'] ) && $request['expired'] ) {
+			// Get only expired listings
+			$meta_query['expired'] = array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '==',
+			);
+		} elseif ( isset( $request['expired'] ) && ! $request['expired'] ) {
+			// Get only unexpired listings
+			$meta_query['expired'] = array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '!='
+			);
+		}
+
 		if ( ! empty( $meta_query ) ) {
 			$args['meta_query'] = $meta_query;
 		}
@@ -734,10 +751,10 @@ class Listings_Controller extends Posts_Controller {
 
 		$meta_queries = array();
 		$meta_queries['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			);
+			'key'     => '_listing_status',
+			'value'   => 'expired',
+			'compare' => '!=',
+		);
 		$meta_queries['directory_type'] = array(
 			'key'     => '_directory_type',
 			'value'   => $directory_type,
@@ -1278,7 +1295,11 @@ class Listings_Controller extends Posts_Controller {
 		$params['featured'] = array(
 			'description'       => __( 'Limit result set to featured listings.', 'directorist' ),
 			'type'              => 'boolean',
-			'sanitize_callback' => 'directorist_string_to_bool',
+			'validate_callback' => 'rest_validate_request_arg',
+		);
+		$params['expired'] = array(
+			'description'       => __( 'Limit result set to expired listings.', 'directorist' ),
+			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['categories'] = array(

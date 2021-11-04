@@ -333,6 +333,7 @@ class Listings_Controller extends Posts_Controller {
 			);
 		}
 
+		// Price query.
 		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
 			if ( $request['min_price'] && $request['min_price'] ) {
 				$meta_query['price'] = array(
@@ -358,6 +359,7 @@ class Listings_Controller extends Posts_Controller {
 			}
 		}
 
+		// Price range query.
 		if ( ! empty( $request['price_range'] ) ) {
 			$meta_query['price_range'] = array(
 				'key'     => '_price_range',
@@ -414,6 +416,7 @@ class Listings_Controller extends Posts_Controller {
 			);
 		}
 
+		// Rating query.
 		if ( ! empty( $request['rating'] ) ) {
 			$matched_listing_ids = array();
 			$listings_ids        = \ATBDP_Listings_Data_Store::get_listings_ids( array(
@@ -442,6 +445,18 @@ class Listings_Controller extends Posts_Controller {
 			if ( ! empty( $matched_listing_ids ) ) {
 				$args['post__in'] = $matched_listing_ids;
 			}
+		}
+
+		// Radius query.
+		if ( isset( $request['radius'] ) ) {
+			$args['atbdp_geo_query'] = array(
+				'lat_field' => '_manual_lat',
+				'lng_field' => '_manual_lng',
+				'latitude'  => $request['radius']['latitude'],
+				'longitude' => $request['radius']['longitude'],
+				'distance'  => $request['radius']['distance'],
+				'units'     => get_directorist_option( 'radius_search_unit', 'miles' )
+			);
 		}
 
 		if ( ! empty( $meta_query ) ) {
@@ -1451,7 +1466,21 @@ class Listings_Controller extends Posts_Controller {
 		);
 		$params['radius'] = array(
 			'description'       => __( 'Limit result set to listings based on radius search.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'object',
+			'properties'        => array(
+				'latitude'  => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'longitude' => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'distance' => array(
+					'type'     => 'string',
+					'required' => true,
+				)
+			),
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['directory'] = array(

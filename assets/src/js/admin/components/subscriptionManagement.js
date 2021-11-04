@@ -47,7 +47,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
             if ( response?.status?.log ) {
                 for ( const feedback in response.status.log ) {
                     const alert_type = response.status.log[feedback].type;
-                    
+
                     let alert = `<div class="atbdp-form-alert"`;
                     const alert_message = response.status.log[feedback].message;
                     alert = `<div class="atbdp-form-alert atbdp-form-alert-${alert_type}">${alert_message}<div>`;
@@ -397,7 +397,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
 
                         const finish_btn_label = all_products_are_invalid ? 'Close' : 'Finish';
                         const finish_btn = `<button type="button" class="account-connect__btn reload">${finish_btn_label}</button>`;
-                        
+
                         $(form_response_page)
                             .find('.account-connect__form-btn')
                             .append(finish_btn);
@@ -673,8 +673,8 @@ $('#purchase-refresh-form').on('submit', function (e) {
                 var message = `<span class="atbdp-text-${feedback_type}">${response.status.message
                     }</span>`;
                     form_feedback.html(message);
-                
-                
+
+
             }
 
             if (!response.status.success) {
@@ -738,6 +738,18 @@ $('.subscriptions-logout-btn').on('click', function (e) {
 
 // Form Actions
 // Bulk Actions - My extensions form
+let extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
+let extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab .ei-action-dropdown select');
+extFormCheckboxes.forEach(elm=>{
+    let thisClosest = elm.closest('form');
+    let bulkAction = thisClosest.querySelector('.ei-action-dropdown select');
+    let actionBtn = thisClosest.querySelector('.ei-action-btn');
+    elm.addEventListener('change', function() {
+        this.checked === true && bulkAction.value !== '' ? actionBtn.classList.add('ei-action-active') : this.checked === false ? actionBtn.classList.remove('ei-action-active'): '';
+    })
+})
+
+
 var is_bulk_processing = false;
 $('#atbdp-my-extensions-form').on('submit', function (e) {
     e.preventDefault();
@@ -813,7 +825,7 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
 
     const plugins_items = [];
     const tergeted_items_elm = '.extension-name-checkbox';
-    
+
     $(self)
         .find( tergeted_items_elm )
         .each(function (i, e) {
@@ -836,7 +848,7 @@ $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
         .addClass('in-progress');
 
     const loading_icon = '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
-    
+
     $(this)
         .find('button[type="submit"]')
         .prop('disabled', true)
@@ -874,7 +886,7 @@ $('#atbdp-required-extensions-form').on('submit', function (e) {
 
     const plugins_items = [];
     const tergeted_items_elm = ( 'install' === task ) ? '.extension-install-checkbox' : '.extension-activate-checkbox';
-    
+
     $(self)
         .find( tergeted_items_elm )
         .each(function (i, e) {
@@ -967,7 +979,7 @@ function plugins_bulk_actions( task, plugins_items, after_plugins_install ) {
         const action_btn         = action_wrapper.find( processStartBtn[ task ] );
         const next_index         = counter + 1;
         const form_action        = ( action[ task ] ) ? action[ task ] : '';
-        
+
         form_data = {
             action: form_action,
             item_key: current_item,

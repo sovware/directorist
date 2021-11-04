@@ -2315,6 +2315,16 @@ $('.subscriptions-logout-btn').on('click', function (e) {
 }); // Form Actions
 // Bulk Actions - My extensions form
 
+var extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
+var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab .ei-action-dropdown select');
+extFormCheckboxes.forEach(function (elm) {
+  var thisClosest = elm.closest('form');
+  var bulkAction = thisClosest.querySelector('.ei-action-dropdown select');
+  var actionBtn = thisClosest.querySelector('.ei-action-btn');
+  elm.addEventListener('change', function () {
+    this.checked === true && bulkAction.value !== '' ? actionBtn.classList.add('ei-action-active') : this.checked === false ? actionBtn.classList.remove('ei-action-active') : '';
+  });
+});
 var is_bulk_processing = false;
 $('#atbdp-my-extensions-form').on('submit', function (e) {
   e.preventDefault();

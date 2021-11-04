@@ -324,6 +324,7 @@ class Listings_Controller extends Posts_Controller {
 			'value'   => 'expired',
 			'compare' => '!='
 		);
+
 		if ( isset( $request['expired'] ) && $request['expired'] ) {
 			// Get only expired listings
 			$meta_query['expired'] = array(
@@ -331,6 +332,9 @@ class Listings_Controller extends Posts_Controller {
 				'value'   => 'expired',
 				'compare' => '==',
 			);
+
+			// Expired listings have post_status => private hence we need to set any.
+			$args['post_status'] = 'any';
 		}
 
 		// Price query.

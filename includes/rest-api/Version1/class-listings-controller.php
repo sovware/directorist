@@ -158,7 +158,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @return array
 	 */
 	protected function prepare_objects_query( $request ) {
-		$args             		= [];
+		$args                   = [];
 		$args['offset']         = $request['offset'];
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
@@ -168,9 +168,8 @@ class Listings_Controller extends Posts_Controller {
 		$args['posts_per_page'] = $request['per_page'];
 		$args['name']           = $request['slug'];
 		$args['s']              = $request['search'];
+		$args['post_status']    = $request['status'];
 		$args['fields']         = $this->get_fields_for_response( $request );
-
-		$is_featured = ( isset( $request['featured'] ) && $request['featured'] );
 
 		// Taxonomy query.
 		$tax_query = [];
@@ -202,7 +201,9 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		// Set featured query.
-		if ( $is_featured ) {
+		$is_featured = false;
+		if ( isset( $request['featured'] ) && $request['featured'] ) {
+			$is_featured = true;
 			$meta_query['_featured'] = [
 				'key'     => '_featured',
 				'value'   => 1,

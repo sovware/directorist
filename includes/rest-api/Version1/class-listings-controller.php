@@ -710,43 +710,40 @@ class Listings_Controller extends Posts_Controller {
 		$logic          = get_directorist_type_option( $directory_type, 'similar_listings_logics', 'OR' );
 		$relationship   = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
-		$id            = $listing_id;
-		$atbd_cats     = get_the_terms( $id, ATBDP_CATEGORY );
-		$atbd_tags     = get_the_terms( $id, ATBDP_TAGS );
-		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
+		$categories   = get_the_terms( $listing_id, ATBDP_CATEGORY );
+		$tags         = get_the_terms( $listing_id, ATBDP_TAGS );
+		$category_ids = array();
+		$tag_ids      = array();
 
-		if (!empty($atbd_cats)) {
-			foreach ($atbd_cats as $atbd_cat) {
-				$atbd_cats_ids[] = $atbd_cat->term_id;
-			}
+		if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+			$category_ids = wp_list_pluck( $categories, 'term_id' );
 		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
-			}
+
+		if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
+			$tag_ids = wp_list_pluck( $tags, 'term_id' );
 		}
+
 		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'posts_per_page' => (int) $number,
+			'post__not_in'   => array( $listing_id ),
+			'tax_query'      => array(
 				'relation' => $relationship,
 				array(
 					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
+					'field'    => 'term_id',
+					'terms'    => $category_ids,
 				),
 				array(
 					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
+					'field'    => 'term_id',
+					'terms'    => $tag_ids,
 				),
 			),
-			'posts_per_page' => (int)$number,
-			'post__not_in' => array($id),
 		);
 
-		if( !empty( $same_author ) ){
-			$args['author']  = get_post_field( 'post_author', $id );
+		if ( ! empty( $same_author ) ){
+			$args['author']  = get_post_field( 'post_author', $listing_id );
 		}
 
 		$meta_queries = array();

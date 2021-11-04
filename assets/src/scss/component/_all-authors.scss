@@ -58,8 +58,10 @@
                 text-align: center;
                 img{
                     border-radius: 50%;
-                    max-width: 150px;
+                    width: 150px;
+                    height: 150px;
                     display: inline-block;
+                    object-fit: cover;
                 }
             }
             @include e(details){

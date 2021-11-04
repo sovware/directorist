@@ -9396,8 +9396,11 @@ p.atbd-min {
 }
 .directorist-content-active .directorist-authors__card__img img {
   border-radius: 50%;
-  max-width: 150px;
+  width: 150px;
+  height: 150px;
   display: inline-block;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .directorist-content-active .directorist-authors__card__details__top {
   text-align: center;

@@ -359,7 +359,8 @@ atbdSelectData.forEach(function (el) {
       var authorsCardRow = $(elm).find('.directorist-row');
       var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
         $(authorMasonryInit).masonry({
-          percentPosition: true
+          percentPosition: true,
+          horizontalOrder: true
         });
       });
     });
@@ -369,6 +370,14 @@ atbdSelectData.forEach(function (el) {
   /* alphabet data value */
 
   var alphabetValue;
+  /* authors nav default active item */
+
+  if ($('.directorist-authors__nav').length) {
+    $('.directorist-authors__nav ul li:first-child').addClass('active');
+  }
+  /* authors nav item */
+
+
   $('body').on('click', '.directorist-alphabet', function (e) {
     e.preventDefault();
     _this = $(this);
@@ -394,6 +403,8 @@ atbdSelectData.forEach(function (el) {
       }
     });
   });
+  /* authors pagination */
+
   $('body').on('click', '.directorist-authors-pagination a', function (e) {
     e.preventDefault();
     var paged = $(this).attr('href');

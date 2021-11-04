@@ -9332,6 +9332,12 @@ p.atbd-min {
   position: relative;
 }
 
+.directorist-content-active .directorist-authors__cards {
+  margin-top: -30px;
+}
+.directorist-content-active .directorist-authors__cards .directorist-row > * {
+  margin-top: 30px;
+}
 .directorist-content-active .directorist-authors__nav {
   margin-bottom: 30px;
 }
@@ -9386,10 +9392,17 @@ p.atbd-min {
 }
 .directorist-content-active .directorist-authors__card__img {
   margin-bottom: 15px;
+  text-align: center;
 }
 .directorist-content-active .directorist-authors__card__img img {
-  border-radius: 10px;
-  width: 100%;
+  border-radius: 50%;
+  max-width: 150px;
+  display: inline-block;
+}
+.directorist-content-active .directorist-authors__card__details__top {
+  text-align: center;
+  border-bottom: 1px solid #eff1f6;
+  margin: 5px 0 15px;
 }
 .directorist-content-active .directorist-authors__card h2 {
   font-size: 20px;

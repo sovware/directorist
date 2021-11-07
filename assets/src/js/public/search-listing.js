@@ -309,6 +309,7 @@
     if($(".atbd_widget .search-area .directorist-btn-reset-js") !== null){
         $(".atbd_widget .search-area .directorist-btn-reset-js").on("click", function (e) {
             e.preventDefault();
+            console.log(this);
             if(this.closest('.search-area')){
                 const searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
                 if(searchForm){

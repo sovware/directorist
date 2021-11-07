@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-authors__nav">
 					<ul>
+						<li>
+							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php _e( 'All', 'directorist' ); ?></a>
+						</li>
 						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 
 							<li>
@@ -56,13 +59,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 									<div class="directorist-authors__card__details">
 
-										<?php if( $authors->display_name() ): ?>
-											<h2><?php echo esc_html( Helper::user_info( $author, 'name' ) ) ; ?></h2>
-										<?php endif; ?>
+										<div class="directorist-authors__card__details__top">
+											<?php if( $authors->display_name() ): ?>
+												<h2><?php echo esc_html( Helper::user_info( $author, 'name' ) ) ; ?></h2>
+											<?php endif; ?>
 
-										<?php if( $authors->display_role() ): ?>
-											<h3><?php echo esc_html( ucfirst( Helper::user_info( $author, 'role' ) ) ) ; ?></h3>
-										<?php endif; ?>
+											<?php if( $authors->display_role() ): ?>
+												<h3><?php echo esc_html( ucfirst( Helper::user_info( $author, 'role' ) ) ) ; ?></h3>
+											<?php endif; ?>
+										</div>
 
 										<?php if( $authors->display_contact_info() ): ?>
 

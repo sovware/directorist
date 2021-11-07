@@ -286,61 +286,77 @@
   });
   /* advanced search form reset */
 
-  function adsFormReset(selector) {
-    var adsForm = document.querySelectorAll(selector);
-    adsForm.forEach(function (form) {
-      form.querySelectorAll("input[type='text']").forEach(function (el) {
-        el.value = "";
-      });
-      form.querySelectorAll("input[type='date']").forEach(function (el) {
-        el.value = "";
-      });
-      form.querySelectorAll("input[type='time']").forEach(function (el) {
-        el.value = "";
-      });
-      form.querySelectorAll("input[type='url']").forEach(function (el) {
-        el.value = "";
-      });
-      form.querySelectorAll("input[type='number']").forEach(function (el) {
-        el.value = "";
-      });
-      form.querySelectorAll("input[type='radio']").forEach(function (el) {
-        el.checked = false;
-      });
-      form.querySelectorAll("input[type='checkbox']").forEach(function (el) {
-        el.checked = false;
-      });
-      form.querySelectorAll("select").forEach(function (el) {
-        el.selectedIndex = 0;
-      });
-      var irisPicker = form.querySelector("input.wp-picker-clear");
-
-      if (irisPicker !== null) {
-        irisPicker.click();
-      }
-
-      $("select").val('').trigger('change');
-      var rangeValue = form.querySelector(".atbd-current-value span");
-
-      if (rangeValue !== null) {
-        rangeValue.innerHTML = "0";
-      }
+  function adsFormReset(searForm) {
+    searForm.querySelectorAll("input[type='text']").forEach(function (el) {
+      el.value = "";
     });
+    searForm.querySelectorAll("input[type='date']").forEach(function (el) {
+      el.value = "";
+    });
+    searForm.querySelectorAll("input[type='time']").forEach(function (el) {
+      el.value = "";
+    });
+    searForm.querySelectorAll("input[type='url']").forEach(function (el) {
+      el.value = "";
+    });
+    searForm.querySelectorAll("input[type='number']").forEach(function (el) {
+      el.value = "";
+    });
+    searForm.querySelectorAll("input[type='radio']").forEach(function (el) {
+      el.checked = false;
+    });
+    searForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+      el.checked = false;
+    });
+    searForm.querySelectorAll("select").forEach(function (el) {
+      el.selectedIndex = 0;
+    });
+    var irisPicker = searForm.querySelector("input.wp-picker-clear");
+
+    if (irisPicker !== null) {
+      irisPicker.click();
+    }
+
+    $("select").val('').trigger('change');
+    var rangeValue = searForm.querySelector(".atbd-current-value span");
+
+    if (rangeValue !== null) {
+      rangeValue.innerHTML = "0";
+    }
   }
+  /* Advance Search Filter For Search Home Short Code */
+
 
   if ($(".directorist-search-form .directorist-btn-reset-js") !== null) {
     $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
       e.preventDefault();
-      adsFormReset('.directorist-search-form');
+
+      if (this.closest('.directorist-search-contents')) {
+        var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+
+        if (searchForm) {
+          adsFormReset(searchForm);
+        }
+      }
+
       atbd_callingSlider(0);
     });
   }
+  /* All Listing Advance Filter */
+
 
   if ($(".directorist-advanced-filter__form .directorist-btn-reset-js") !== null) {
     $(".directorist-advanced-filter__form .directorist-btn-reset-js").on("click", function (e) {
       e.preventDefault();
-      adsFormReset('.directorist-search-form');
-      adsFormReset('.directorist-advanced-filter__form');
+
+      if (this.closest('.directorist-advanced-filter')) {
+        var searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
+
+        if (searchForm) {
+          adsFormReset(searchForm);
+        }
+      }
+
       atbd_callingSlider(0);
     });
   }
@@ -348,25 +364,59 @@
   if ($("#bdlm-search-area #atbdp_reset") !== null) {
     $("#bdlm-search-area #atbdp_reset").on("click", function (e) {
       e.preventDefault();
-      adsFormReset('.directorist-search-form');
-      adsFormReset('.directorist-advanced-filter__form');
+
+      if (this.closest('.directorist-search-contents')) {
+        var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+
+        if (searchForm) {
+          adsFormReset(searchForm);
+        }
+      }
+
+      if (this.closest('.directorist-advanced-filter')) {
+        var _searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
+
+        if (_searchForm) {
+          adsFormReset(_searchForm);
+        }
+      }
+
       atbd_callingSlider(0);
     });
   }
+  /* Map Listing Search Form */
+
 
   if ($("#directorist-search-area .directorist-btn-reset-js") !== null) {
     $("#directorist-search-area .directorist-btn-reset-js").on("click", function (e) {
       e.preventDefault();
-      adsFormReset('.directorist-search-form');
-      adsFormReset('#directorist-search-area');
+
+      if (this.closest('#directorist-search-area')) {
+        var searchForm = this.closest('#directorist-search-area').querySelector('#directorist-search-area-form');
+
+        if (searchForm) {
+          adsFormReset(searchForm);
+        }
+      }
+
       atbd_callingSlider(0);
     });
   }
+  /* Single Listing widget Form */
 
-  if ($(".atbd_widget .search-area #atbdp_reset") !== null) {
-    $(".atbd_widget .search-area #atbdp_reset").on("click", function (e) {
+
+  if ($(".atbd_widget .search-area .directorist-btn-reset-js") !== null) {
+    $(".atbd_widget .search-area .directorist-btn-reset-js").on("click", function (e) {
       e.preventDefault();
-      adsFormReset('.widget .search-area');
+
+      if (this.closest('.search-area')) {
+        var searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
+
+        if (searchForm) {
+          adsFormReset(searchForm);
+        }
+      }
+
       atbd_callingSlider(0);
     });
   }

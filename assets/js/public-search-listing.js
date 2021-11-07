@@ -310,6 +310,7 @@
     });
     searForm.querySelectorAll("select").forEach(function (el) {
       el.selectedIndex = 0;
+      $(el).val('').trigger('change');
     });
     var irisPicker = searForm.querySelector("input.wp-picker-clear");
 
@@ -317,11 +318,10 @@
       irisPicker.click();
     }
 
-    $("select").val('').trigger('change');
     var rangeValue = searForm.querySelector(".atbd-current-value span");
+    console.log(rangeValue);
 
-    if (rangeValue !== null) {
-      rangeValue.innerHTML = "0";
+    if (rangeValue !== null) {// rangeValue.innerHTML = "0";
     }
   }
   /* Advance Search Filter For Search Home Short Code */

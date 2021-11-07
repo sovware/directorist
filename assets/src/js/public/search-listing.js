@@ -229,19 +229,19 @@
         });
         searForm.querySelectorAll("select").forEach(function (el) {
             el.selectedIndex = 0;
+            $(el).val('').trigger('change');
         });
+
         const irisPicker = searForm.querySelector("input.wp-picker-clear");
         if(irisPicker !== null){
             irisPicker.click();
         }
 
-        $("select").val('').trigger('change');
-
         const rangeValue = searForm.querySelector(".atbd-current-value span");
+        console.log(rangeValue);
         if(rangeValue !== null){
-            rangeValue.innerHTML = "0";
+            // rangeValue.innerHTML = "0";
         }
-        
     }
 
     /* Advance Search Filter For Search Home Short Code */

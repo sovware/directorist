@@ -144,7 +144,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					else:
 						?>
 
-						<p><?php esc_html_e( 'No author founds', 'directorist' ); ?></p>
+						<p><?php esc_html_e( 'No authors found', 'directorist' ); ?></p>
 
 					<?php endif; ?>
 

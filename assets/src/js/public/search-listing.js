@@ -204,43 +204,42 @@
     });
 
     /* advanced search form reset */
-    function adsFormReset(searForm) {
+    function adsFormReset(searchForm) {
 
-        searForm.querySelectorAll("input[type='text']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
             el.value = "";
         });
-        searForm.querySelectorAll("input[type='date']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
             el.value = "";
         });
-        searForm.querySelectorAll("input[type='time']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='time']").forEach(function (el) {
             el.value = "";
         });
-        searForm.querySelectorAll("input[type='url']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
             el.value = "";
         });
-        searForm.querySelectorAll("input[type='number']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
             el.value = "";
         });
-        searForm.querySelectorAll("input[type='radio']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
             el.checked = false;
         });
-        searForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+        searchForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
             el.checked = false;
         });
-        searForm.querySelectorAll("select").forEach(function (el) {
+        searchForm.querySelectorAll("select").forEach(function (el) {
             el.selectedIndex = 0;
             $(el).val('').trigger('change');
         });
 
-        const irisPicker = searForm.querySelector("input.wp-picker-clear");
+        const irisPicker = searchForm.querySelector("input.wp-picker-clear");
         if(irisPicker !== null){
             irisPicker.click();
         }
 
-        const rangeValue = searForm.querySelector(".atbd-current-value span");
-        console.log(rangeValue);
+        const rangeValue = searchForm.querySelector(".atbd-current-value span");
         if(rangeValue !== null){
-            // rangeValue.innerHTML = "0";
+            rangeValue.innerHTML = "0";
         }
     }
 

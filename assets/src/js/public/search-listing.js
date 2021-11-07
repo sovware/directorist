@@ -259,7 +259,7 @@
 
     /* All Listing Advance Filter */
     if($(".directorist-advanced-filter__form .directorist-btn-reset-js") !== null){
-        $(".directorist-advanced-filter__form .directorist-btn-reset-js").on("click", function (e) {
+        $("body").on("click", ".directorist-advanced-filter__form .directorist-btn-reset-js", function (e) {
             e.preventDefault();
             if(this.closest('.directorist-advanced-filter')){
                 const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
@@ -272,7 +272,7 @@
     }
 
     if($("#bdlm-search-area #atbdp_reset") !== null){
-        $("#bdlm-search-area #atbdp_reset").on("click", function (e) {
+        $("body").on("click", "#bdlm-search-area #atbdp_reset", function (e) {
             e.preventDefault();
             if(this.closest('.directorist-search-contents')){
                 const searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
@@ -292,7 +292,7 @@
     
     /* Map Listing Search Form */
     if($("#directorist-search-area .directorist-btn-reset-js") !== null){
-        $("#directorist-search-area .directorist-btn-reset-js").on("click", function (e) {
+        $("body").on("click", "#directorist-search-area .directorist-btn-reset-js", function (e) {
             e.preventDefault();
             if(this.closest('#directorist-search-area')){
                 const searchForm = this.closest('#directorist-search-area').querySelector('#directorist-search-area-form');
@@ -306,7 +306,7 @@
 
     /* Single Listing widget Form */
     if($(".atbd_widget .search-area .directorist-btn-reset-js") !== null){
-        $(".atbd_widget .search-area .directorist-btn-reset-js").on("click", function (e) {
+        $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
             e.preventDefault();
             console.log(this);
             if(this.closest('.search-area')){
@@ -318,6 +318,5 @@
             atbd_callingSlider(0);
         });
     }
-
 
 })(jQuery);

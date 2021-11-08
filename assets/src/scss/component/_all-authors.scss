@@ -5,6 +5,13 @@
 }
 .directorist-content-active{
     .directorist-authors{
+        @include e(cards){
+            margin-top: -30px;
+            .directorist-row > *{
+                margin-top: 30px;
+            }
+        }
+
         @include e(nav){
             margin-bottom: 30px;
             ul{
@@ -13,6 +20,8 @@
                 flex-wrap: wrap;
                 align-items: center;
                 justify-content: center;
+                margin: 0;
+                padding: 0;
                 li{
                     list-style: none;
                     a{
@@ -22,8 +31,13 @@
                         border-bottom: 2px solid transparent;
                         font-size: 15px;
                         font-weight: 500;
-                        text-transform: uppercase;
+                        text-transform: capitalize;
                         box-shadow: none;
+                        text-decoration: none;
+                        transition: 0.3s ease;
+                        &:hover{
+                            border-bottom-color: $primary;
+                        }
                     }
                     &.active{
                         a{
@@ -41,13 +55,24 @@
             background: #fff;
             @include e(img){
                 margin-bottom: 15px;
+                text-align: center;
                 img{
-                    border-radius: 10px;
-                    width: 100%;
+                    border-radius: 50%;
+                    width: 150px;
+                    height: 150px;
+                    display: inline-block;
+                    object-fit: cover;
+                }
+            }
+            @include e(details){
+                @include e(top){
+                    text-align: center;
+                    border-bottom: 1px solid $border-color;
+                    margin: 5px 0 15px;
                 }
             }
             h2{
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: 500;
                 margin: 0 0 5px 0 !important;
                 line-height: normal;
@@ -67,6 +92,7 @@
             @include e(info-list){
                 list-style-type: none;
                 padding: 0;
+                margin: 0;
                 margin-bottom: 15px !important;
                 li{
                     font-size: 14px;
@@ -75,13 +101,15 @@
                     word-wrap: break-word;
                     word-break: break-all;
                     display: flex;
+                    margin: 0;
                     &:not(:last-child){
-                        margin-bottom: 2px;
+                        margin-bottom: 5px;
                     }
                     a{
                         color: #767792;
                         border: 0 none;
                         box-shadow: none;
+                        text-decoration: none;
                     }
                     i{
                        width: 16px;
@@ -94,9 +122,15 @@
             }
             .directorist-author-social{
                 margin:-5px -5px 15px;
+                li{
+                    margin: 0;
+                }
                 a{
                     border: 0 none;
                     box-shadow: none;
+                    &:hover{
+                        background: #000;
+                    }
                 }
             }
             p{
@@ -107,6 +141,11 @@
             .directorist-btn{
                 border: 0 none;
                 box-shadow: none;
+                transition: 0.3s ease;
+                &:hover{
+                    background: #000;
+                    color: #fff;
+                }
             }
         }
     }
@@ -123,5 +162,8 @@
                 width: 100%;
             }
         }
+    }
+    @include e(pagination){
+        margin-top: 25px;
     }
 }

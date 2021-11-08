@@ -267,7 +267,6 @@ abstract class Terms_Controller extends Abstract_Controller {
 		} else {
 			if ( ! empty( $request['directory'] ) ) {
 				$_prepared_args = $prepared_args;
-				$_prepared_args['number'] = -1;
 
 				unset( $_prepared_args['number'] );
 				unset( $_prepared_args['offset'] );

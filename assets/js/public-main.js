@@ -205,8 +205,7 @@ if (atbdSelect !== null) {
   });
   $('body').on('click', '.atbd_dropdown-toggle', function (e) {
     e.preventDefault();
-  }); // Restructred Dropdown
-  // Directorist Dropdown
+  }); // Directorist Dropdown
 
   $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
     e.preventDefault();

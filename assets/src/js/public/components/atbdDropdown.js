@@ -96,7 +96,6 @@ if (atbdSelect !== null) {
     });
 
 
-    // Restructred Dropdown
     // Directorist Dropdown
     $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function(e){
         e.preventDefault();

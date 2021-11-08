@@ -79,29 +79,29 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-        if ( 'string' !== gettype( $input_data )  ) { 
-            return $input_data;
-        }
-    
-        $output_data = $input_data;
+		if ( 'string' !== gettype( $input_data )  ) {
+			return $input_data;
+		}
 
-        // JSON Docode
-        $decode_json = json_decode( $input_data, true );
+		$output_data = $input_data;
 
-        if ( ! is_null( $decode_json ) ) {
-            return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
-        }
-        
-        // JSON Decode from Base64
-        $decode_base64 = base64_decode( $input_data );
-        $decode_base64_json = json_decode( $decode_base64, true );
+		// JSON Docode
+		$decode_json = json_decode( $input_data, true );
 
-        if ( ! is_null( $decode_base64_json ) ) {
-            return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
-        }
+		if ( ! is_null( $decode_json ) ) {
+			return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+		}
 
-        return $output_data;
-    }
+		// JSON Decode from Base64
+		$decode_base64 = base64_decode( $input_data );
+		$decode_base64_json = json_decode( $decode_base64, true );
+
+		if ( ! is_null( $decode_base64_json ) ) {
+			return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+		}
+
+		return $output_data;
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -356,6 +356,69 @@ class Helper {
 		}
 		else {
 			$result = sprintf( 'tel:%s', $num );
+		}
+
+		return $result;
+	}
+
+	public static function user_info( $user_id_or_obj, $meta ) {
+
+		if ( is_integer( $user_id_or_obj ) ) {
+			$user_id = $user_id_or_obj;
+			$user = get_userdata( $user_id );
+		}
+		else {
+			$user = $user_id_or_obj;
+			$user_id = $user->data->ID;
+		}
+
+		$result = '';
+
+		switch ( $meta ) {
+			case 'name':
+			$result = $user->data->display_name;
+			break;
+
+			case 'role':
+			$result = $user->roles[0];
+			break;
+
+			case 'address':
+			$result = get_user_meta($user_id, 'address', true);
+			break;
+
+			case 'phone':
+			$result = get_user_meta($user_id, 'atbdp_phone', true);
+			break;
+
+			case 'email':
+			$result = $user->data->user_email;
+			break;
+
+			case 'website':
+			$result = $user->data->user_url;
+			break;
+
+			case 'description':
+			$result = trim( get_user_meta( $user_id, 'description', true ) );
+			//var_dump($result);
+			break;
+
+			case 'facebook':
+			$result = get_user_meta($user_id, 'atbdp_facebook', true);
+			break;
+
+			case 'twitter':
+			$result = get_user_meta($user_id, 'atbdp_twitter', true);
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta($user_id, 'atbdp_linkedin', true);
+			break;
+
+			case 'youtube':
+			$result = get_user_meta($user_id, 'atbdp_youtube', true);
+			break;
 		}
 
 		return $result;

@@ -178,7 +178,7 @@ class Users_Account_Controller extends Abstract_Controller {
 			return $user;
 		}
 
-		return current_user_can( 'edit_user', $user->ID );
+		return true;
 	}
 
 	public function check_change_password_permission( $request ) {
@@ -192,17 +192,12 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function send_password_reset_pin( $request ) {
-		$user = get_user_by( 'email', $request['email'] );
-
-        if ( ! $user ) {
-			return new WP_Error( 'directorist_rest_invalid_user_email', __( 'Sorry, user does not exist with this email.', 'directorist' ), array( 'status' => 404 ) );
-        }
-
 		ATBDP()->email->send_password_reset_pin_email( $request['email'] );
 
 		$data = [
-			'message' => __( 'The Password reset code has been sent to your email', 'directorist' ),
 			'success' => true,
+			'message' => __( 'Password reset code has been sent to given email.', 'directorist' ),
+			'email'   => $request['email'],
 		];
 
 		$response = rest_ensure_response( $data );
@@ -211,17 +206,11 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function verify_password_reset_pin( $request ) {
-		$user = get_user_by( 'email', $request['email'] );
-
-        if ( ! $user ) {
-			return new WP_Error( 'directorist_rest_invalid_user_email', __( 'Sorry, user does not exist with this email.', 'directorist' ), array( 'status' => 404 ) );
-        }
-
 		$email        = $request['email'];
 		$password_pin = get_transient( "directorist_reset_pin_$email" );
 
 		if ( empty( $password_pin ) ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Your password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
+			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Given password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
         }
 
 		if ( $password_pin != $request['pin'] ) {
@@ -229,8 +218,8 @@ class Users_Account_Controller extends Abstract_Controller {
         }
 
 		$data = [
-			'message' => __( 'Your pin was successfully verified.', 'directorist' ),
 			'success' => true,
+			'message' => __( 'Password reset pin has been verified.', 'directorist' ),
 		];
 
 		$response = rest_ensure_response( $data );
@@ -239,23 +228,17 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function get_password_reset_pin( $request ) {
-		$user = get_user_by( 'email', $request['email'] );
-
-        if ( ! $user ) {
-			return new WP_Error( 'directorist_rest_invalid_user_email', __( 'Sorry, user does not exist with this email.', 'directorist' ), array( 'status' => 404 ) );
-        }
-
 		$email        = $request['email'];
 		$password_pin = get_transient( "directorist_reset_pin_$email" );
 
 		if ( empty( $password_pin ) ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Your password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
+			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
         }
 
 		$data = [
-			'message' => __( 'Congratulation! Your password reset pin is still valid.', 'directorist' ),
-			'pin'     => $password_pin,
 			'success' => true,
+			'message' => __( 'Password rest pin is still valid.', 'directorist' ),
+			'pin'     => $password_pin,
 		];
 
 		$response = rest_ensure_response( $data );
@@ -264,13 +247,8 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function reset_user_password( $request ) {
-		$user = get_user_by( 'email', $request['email'] );
-
-        if ( ! $user ) {
-			return new WP_Error( 'directorist_rest_invalid_user_email', __( 'Sorry, user does not exist with this email.', 'directorist' ), array( 'status' => 404 ) );
-        }
-
 		$email        = $request['email'];
+		$user         = get_user_by( 'email', $email );
 		$password_pin = get_transient( "directorist_reset_pin_$email" );
 
 		if ( empty( $password_pin ) ) {
@@ -288,9 +266,9 @@ class Users_Account_Controller extends Abstract_Controller {
         delete_transient( "directorist_reset_pin_$email" );
 
 		$data = [
-			'message' => __( 'Password has been changed successfully.', 'directorist' ),
 			'success' => true,
-			'userID'  => $user->ID,
+			'message' => __( 'Password has been reset successfully.', 'directorist' ),
+			'user_id' => $user->ID,
 		];
 
 		$response = rest_ensure_response( $data );
@@ -299,11 +277,7 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function change_password( $request ) {
-		$user = get_user_by( 'id', $request['user_id'] );
-
-        if ( ! $user ) {
-			return new WP_Error( 'directorist_rest_invalid_user_email', __( 'Sorry, user does not exist with this email.', 'directorist' ), array( 'status' => 404 ) );
-        }
+		$user = get_userdata( $request['user_id'] );
 
 		if ( ! wp_check_password( $request['old_password'], $user->data->user_pass, $user->ID ) ) {
 			return new WP_Error( 'directorist_rest_password_invalid', __( 'Invalid old password.', 'directorist' ), array( 'status' => 400 ) );
@@ -313,8 +287,8 @@ class Users_Account_Controller extends Abstract_Controller {
         wp_set_password( $request['password'], $user->ID );
 
 		$data = [
-			'message' => __( 'Password has been changed successfully.', 'directorist' ),
 			'success' => true,
+			'message' => __( 'Password has been changed successfully.', 'directorist' ),
 		];
 
 		$response = rest_ensure_response( $data );

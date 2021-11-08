@@ -79,29 +79,29 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-        if ( 'string' !== gettype( $input_data )  ) { 
-            return $input_data;
-        }
-    
-        $output_data = $input_data;
+		if ( 'string' !== gettype( $input_data )  ) {
+			return $input_data;
+		}
 
-        // JSON Docode
-        $decode_json = json_decode( $input_data, true );
+		$output_data = $input_data;
 
-        if ( ! is_null( $decode_json ) ) {
-            return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
-        }
-        
-        // JSON Decode from Base64
-        $decode_base64 = base64_decode( $input_data );
-        $decode_base64_json = json_decode( $decode_base64, true );
+		// JSON Docode
+		$decode_json = json_decode( $input_data, true );
 
-        if ( ! is_null( $decode_base64_json ) ) {
-            return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
-        }
+		if ( ! is_null( $decode_json ) ) {
+			return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+		}
 
-        return $output_data;
-    }
+		// JSON Decode from Base64
+		$decode_base64 = base64_decode( $input_data );
+		$decode_base64_json = json_decode( $decode_base64, true );
+
+		if ( ! is_null( $decode_base64_json ) ) {
+			return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+		}
+
+		return $output_data;
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -338,6 +338,27 @@ class Helper {
 		else {
 			echo $tel;
 		}
+	}
+
+	public static function phone_link( $args ) {
+
+		$defaults = array(
+			'number'    => '',
+			'whatsapp'  => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$num = self::formatted_tel( $args['number'], false );
+
+		if ( $args['whatsapp'] ) {
+			$result = sprintf( 'https://wa.me/%s', $num );
+		}
+		else {
+			$result = sprintf( 'tel:%s', $num );
+		}
+
+		return $result;
 	}
 
 	public static function user_info( $user_id_or_obj, $meta ) {

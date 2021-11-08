@@ -158,7 +158,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @return array
 	 */
 	protected function prepare_objects_query( $request ) {
-		$args             		= [];
+		$args                   = [];
 		$args['offset']         = $request['offset'];
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
@@ -168,9 +168,8 @@ class Listings_Controller extends Posts_Controller {
 		$args['posts_per_page'] = $request['per_page'];
 		$args['name']           = $request['slug'];
 		$args['s']              = $request['search'];
+		$args['post_status']    = $request['status'];
 		$args['fields']         = $this->get_fields_for_response( $request );
-
-		$is_featured = ( isset( $request['featured'] ) && $request['featured'] );
 
 		// Taxonomy query.
 		$tax_query = [];
@@ -202,7 +201,9 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		// Set featured query.
-		if ( $is_featured ) {
+		$is_featured = false;
+		if ( isset( $request['featured'] ) && $request['featured'] ) {
+			$is_featured = true;
 			$meta_query['_featured'] = [
 				'key'     => '_featured',
 				'value'   => 1,
@@ -318,6 +319,12 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		// Expired listings query.
+		$meta_query['expired'] = array(
+			'key'     => '_listing_status',
+			'value'   => 'expired',
+			'compare' => '!='
+		);
+
 		if ( isset( $request['expired'] ) && $request['expired'] ) {
 			// Get only expired listings
 			$meta_query['expired'] = array(
@@ -325,16 +332,139 @@ class Listings_Controller extends Posts_Controller {
 				'value'   => 'expired',
 				'compare' => '==',
 			);
-		} elseif ( isset( $request['expired'] ) && ! $request['expired'] ) {
-			// Get only unexpired listings
-			$meta_query['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!='
+
+			// Expired listings have post_status => private hence we need to set any.
+			$args['post_status'] = 'any';
+		}
+
+		// Price query.
+		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
+			if ( $request['min_price'] && $request['min_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => array( $request['min_price'], $request['max_price'] ),
+					'type'    => 'NUMERIC',
+					'compare' => 'BETWEEN'
+				);
+			} elseif ( $request['min_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => $request['min_price'],
+					'type'    => 'NUMERIC',
+					'compare' => '>='
+				);
+			} elseif ( $request['max_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => $request['max_price'],
+					'type'    => 'NUMERIC',
+					'compare' => '<='
+				);
+			}
+		}
+
+		// Price range query.
+		if ( ! empty( $request['price_range'] ) ) {
+			$meta_query['price_range'] = array(
+				'key'     => '_price_range',
+				'value'   => $request['price_range'],
+				'compare' => '='
+			);
+		}
+
+		if ( ! empty( $request['website'] ) ) {
+			$meta_query['website'] = array(
+				'key'     => '_website',
+				'value'   => $request['website'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['email'] ) ) {
+			$meta_query['email'] = array(
+				'key'     => '_email',
+				'value'   => $request['email'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['phone'] ) ) {
+			$meta_query['phone'] = array(
+				'relation' => 'OR',
+				array(
+					'key' => '_phone2',
+					'value' => $request['phone'],
+					'compare' => 'LIKE'
+				),
+				array(
+					'key' => '_phone',
+					'value' => $request['phone'],
+					'compare' => 'LIKE'
+				)
+			);
+		}
+
+		if ( ! empty( $request['fax'] ) ) {
+			$meta_query['fax'] = array(
+				'key'     => '_fax',
+				'value'   => $request['fax'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['zip'] ) ) {
+			$meta_query['zip'] = array(
+				'key'     => '_zip',
+				'value'   => $request['zip'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		// Rating query.
+		if ( ! empty( $request['rating'] ) ) {
+			$matched_listing_ids = array();
+			$listings_ids        = \ATBDP_Listings_Data_Store::get_listings_ids( array(
+				'no_found_rows' => true,
+				'cache_results' => false,
+			) );
+
+			if ( ! empty( $listings_ids ) ) {
+				foreach ( $listings_ids as $listings_id ) {
+					$average = ATBDP()->review->get_average( $listings_id );
+
+					if ( $request['rating'] === 5 && $average == '5' ) {
+						$matched_listing_ids[] = $listings_id;
+					} elseif ( $request['rating'] === 4 && $average >= '4' ) {
+						$matched_listing_ids[] = $listings_id;
+					} elseif ( $request['rating'] === 3 && $average >= '3' ) {
+						$matched_listing_ids[] = $listings_id;
+					} elseif ( $request['rating'] === 2 && $average >= '2' ) {
+						$matched_listing_ids[] = $listings_id;
+					} elseif ( $request['rating'] === 1 && $average >= '1' ) {
+						$matched_listing_ids[] = $listings_id;
+					}
+				}
+			}
+
+			if ( ! empty( $matched_listing_ids ) ) {
+				$args['post__in'] = $matched_listing_ids;
+			}
+		}
+
+		// Radius query.
+		if ( isset( $request['radius'] ) ) {
+			$args['atbdp_geo_query'] = array(
+				'lat_field' => '_manual_lat',
+				'lng_field' => '_manual_lng',
+				'latitude'  => $request['radius']['latitude'],
+				'longitude' => $request['radius']['longitude'],
+				'distance'  => $request['radius']['distance'],
+				'units'     => get_directorist_option( 'radius_search_unit', 'miles' )
 			);
 		}
 
 		if ( ! empty( $meta_query ) ) {
+			$meta_query[]['relation'] = 'AND';
 			$args['meta_query'] = $meta_query;
 		}
 
@@ -1319,22 +1449,42 @@ class Listings_Controller extends Posts_Controller {
 		);
 		$params['min_price'] = array(
 			'description'       => __( 'Limit result set to listings based on a minimum price.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'integer',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['max_price'] = array(
 			'description'       => __( 'Limit result set to listings based on maximum price.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'integer',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['price_range'] = array(
-			'description' => __( 'Limit result set to listings based on price range.', 'directorist' ),
-			'type'        => 'string',
-			'enum'        => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+			'description'       => __( 'Limit result set to listings based on price range.', 'directorist' ),
+			'type'              => 'string',
+			'enum'              => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+			'validate_callback' => 'rest_validate_request_arg',
+		);
+		$params['rating'] = array(
+			'description'       => __( 'Limit result set to specified rating.', 'directorist' ),
+			'type'              => 'integer',
+			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['radius'] = array(
 			'description'       => __( 'Limit result set to listings based on radius search.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'object',
+			'properties'        => array(
+				'latitude'  => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'longitude' => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'distance' => array(
+					'type'     => 'string',
+					'required' => true,
+				)
+			),
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['directory'] = array(

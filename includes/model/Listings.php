@@ -1838,6 +1838,15 @@ class Directorist_Listings {
 			return in_array( $widget_name, $fields ) ? true : false;
 		}
 
+		public function has_whatsapp( $data ) {
+			if ( !empty( $data['original_field']['whatsapp'] ) ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 		public function print_label( $label ) {
 			if ( $label ) {
 				$label_text = $label . ': ';

@@ -245,36 +245,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 	 */
 	public function get_items( $request ) {
 		$taxonomy      = $this->taxonomy;
-		$prepared_args = array(
-			'exclude'    => $request['exclude'],
-			'include'    => $request['include'],
-			'order'      => $request['order'],
-			'orderby'    => $request['orderby'],
-			'listing'    => $request['listing'],
-			'hide_empty' => $request['hide_empty'],
-			'number'     => $request['per_page'],
-			'search'     => $request['search'],
-			'slug'       => $request['slug'],
-		);
-
-		if ( ! empty( $request['offset'] ) ) {
-			$prepared_args['offset'] = $request['offset'];
-		} else {
-			$prepared_args['offset'] = ( $request['page'] - 1 ) * $prepared_args['number'];
-		}
-
-		$taxonomy_obj = get_taxonomy( $taxonomy );
-
-		if ( $taxonomy_obj->hierarchical && isset( $request['parent'] ) ) {
-			if ( 0 === $request['parent'] ) {
-				// Only query top-level terms.
-				$prepared_args['parent'] = 0;
-			} else {
-				if ( $request['parent'] ) {
-					$prepared_args['parent'] = $request['parent'];
-				}
-			}
-		}
+		$prepared_args = $this->prepare_query_args( $request );
 
 		/**
 		 * Filter the query arguments, before passing them to `get_terms()`.
@@ -294,22 +265,51 @@ abstract class Terms_Controller extends Abstract_Controller {
 			$query_result = $this->get_terms_for_listing( $prepared_args, $request );
 			$total_terms  = $this->total_terms;
 		} else {
-			$query_result = get_terms( $taxonomy, $prepared_args );
+			if ( ! empty( $request['directory'] ) ) {
+				$_prepared_args = $prepared_args;
 
-			$count_args = $prepared_args;
-			unset( $count_args['number'] );
-			unset( $count_args['offset'] );
-			$total_terms = wp_count_terms( $taxonomy, $count_args );
+				unset( $_prepared_args['number'] );
+				unset( $_prepared_args['offset'] );
 
-			// Ensure we don't return results when offset is out of bounds.
-			// See https://core.trac.wordpress.org/ticket/35935.
-			if ( $prepared_args['offset'] && $prepared_args['offset'] >= $total_terms ) {
-				$query_result = array();
-			}
+				$terms               = get_terms( $taxonomy, $_prepared_args );
+				$queried_directories = $request['directory'];
 
-			// wp_count_terms can return a falsy value when the term has no children.
-			if ( ! $total_terms ) {
-				$total_terms = 0;
+				$terms = array_filter( $terms, function( $term ) use( $queried_directories ) {
+					$directories = get_term_meta( $term->term_id, '_directory_type', true );
+
+					if ( empty( $directories ) || ! is_array( $directories ) ) {
+						return false;
+					}
+
+					$exists = array_intersect( $queried_directories, $directories );
+					return ( count( $exists ) > 0 );
+				} );
+
+				$offset       = $prepared_args['offset'] ? $prepared_args['offset'] : 0;
+				$query_result = array_slice( $terms, $offset, $prepared_args['number'] );
+				$total_terms  = count( $terms );
+
+				if ( $offset >= $total_terms ) {
+					$query_result = array();
+				}
+			} else {
+				$query_result = get_terms( $taxonomy, $prepared_args );
+
+				$count_args = $prepared_args;
+				unset( $count_args['number'] );
+				unset( $count_args['offset'] );
+				$total_terms = wp_count_terms( $taxonomy, $count_args );
+
+				// Ensure we don't return results when offset is out of bounds.
+				// See https://core.trac.wordpress.org/ticket/35935.
+				if ( $prepared_args['offset'] && $prepared_args['offset'] >= $total_terms ) {
+					$query_result = array();
+				}
+
+				// wp_count_terms can return a falsy value when the term has no children.
+				if ( ! $total_terms ) {
+					$total_terms = 0;
+				}
 			}
 		}
 		$response = array();
@@ -344,6 +344,49 @@ abstract class Terms_Controller extends Abstract_Controller {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Prepare query arguments for taxonomy query.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return array Prepared query args.
+	 */
+	public function prepare_query_args( $request ) {
+		$taxonomy      = $this->taxonomy;
+		$prepared_args = array(
+			'exclude'    => $request['exclude'],
+			'include'    => $request['include'],
+			'order'      => $request['order'],
+			'orderby'    => $request['orderby'],
+			'listing'    => $request['listing'],
+			'hide_empty' => $request['hide_empty'],
+			'number'     => $request['per_page'],
+			'search'     => $request['search'],
+			'slug'       => $request['slug'],
+		);
+
+		if ( ! empty( $request['offset'] ) ) {
+			$prepared_args['offset'] = $request['offset'];
+		} else {
+			$prepared_args['offset'] = ( $request['page'] - 1 ) * $prepared_args['number'];
+		}
+
+		$taxonomy_obj = get_taxonomy( $taxonomy );
+
+		if ( $taxonomy_obj->hierarchical && isset( $request['parent'] ) ) {
+			if ( 0 === $request['parent'] ) {
+				// Only query top-level terms.
+				$prepared_args['parent'] = 0;
+			} else {
+				if ( $request['parent'] ) {
+					$prepared_args['parent'] = $request['parent'];
+				}
+			}
+		}
+
+		return $prepared_args;
 	}
 
 	/**

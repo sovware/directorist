@@ -7109,6 +7109,10 @@ body.stop-scrolling {
   width: auto;
 }
 
+.directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
+}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
   max-width: 300px;
   -webkit-flex-basis: 300px;

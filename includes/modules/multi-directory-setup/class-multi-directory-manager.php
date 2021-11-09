@@ -1141,8 +1141,11 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Only For Admin Use', 'directorist' ),
                                 'value' => false,
                             ],
-
-
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
+                            ],
                         ],
                     ],
 
@@ -1182,8 +1185,11 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Only For Admin Use', 'directorist' ),
                                 'value' => false,
                             ],
-
-
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
+                            ],
                         ],
                     ],
 

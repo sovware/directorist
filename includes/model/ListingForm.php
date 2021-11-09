@@ -854,7 +854,9 @@ class Directorist_Listing_Form {
 
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
+			$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+
+			echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 
 			return ob_get_clean();
 		} else {

@@ -141,7 +141,6 @@
     return Util;
 
 })));
-//# sourceMappingURL=util.js.map
 
 
 (function (global, factory) {
@@ -877,4 +876,3 @@
   return Tooltip;
 
 })));
-//# sourceMappingURL=tooltip.js.map

@@ -5146,6 +5146,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-decoration: none;
 }
 
+.select2-container {
+  z-index: 99999;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;
@@ -7872,7 +7876,8 @@ p.atbd-min {
   transition: 0.3s ease;
 }
 .directorist-author-info-widget .directorist-author-social-item a:hover,
-.directorist-single-author-info .directorist-author-social-item a:hover {
+.directorist-single-author-info .directorist-author-social-item a:hover,
+.directorist-authors-section .directorist-author-social-item a:hover {
   color: #fff;
   background: #000;
 }

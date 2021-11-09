@@ -54,7 +54,7 @@
                             <?php _e( 'Import', 'directorist' ) ?>
                         </span>
                     </a>
-                
+
                     <?php if ( $show_migration_button ) : ?>
                     <a href="#" class="directorist_link-block directorist_link-block-success directorist_btn-migrate cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
                         <span class="directorist_link-icon">
@@ -118,7 +118,7 @@
                                                     <span class="directorist_listing-id">ID: #<?php echo ! empty( $listing_type->term_id ) ? $listing_type->term_id : ''; ?></span>
                                                 </td>
                                                 <td>
-                                                    <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>"><?php echo $listing_type->slug; ?></span>
+                                                    <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>" contenteditable="false"><?php echo $listing_type->slug; ?></span>
                                                     <div class="directorist-listing-slug-edit-wrap">
                                                         <a href="" class="directorist-listing-slug__edit">
                                                             <i class="la la-edit"></i>
@@ -148,13 +148,13 @@
                                                 ?></td>
                                                 <td>
                                                     <div class="directorist_listing-actions">
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>    
-                                                        <?php  
+                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
+                                                        <?php
                                                         if( ! $default ) {  ?>
                                                             <div class="directorist_more-dropdown">
                                                                 <a href="#" class="directorist_more-dropdown-toggle">
                                                                     <i class="fa fa-ellipsis-h"></i>
-                                                                </a> 
+                                                                </a>
                                                                 <div class="directorist_more-dropdown-option">
                                                                     <ul>
                                                                         <li>
@@ -177,7 +177,7 @@
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        <?php } ?>      
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="directorist_notifier"></div>
                                                 </td>
@@ -287,7 +287,7 @@
     </div>
 </div>
 
-<?php 
+<?php
 ;
 
 if ( $show_migration_button ) : ?>

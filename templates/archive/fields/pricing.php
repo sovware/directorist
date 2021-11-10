@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.6
  */
 
 use \Directorist\Helper;
@@ -19,10 +19,10 @@ if ( !Helper::has_price_range( $id ) && !Helper::has_price( $id ) ) {
 <span class="directorist-info-item directorist-pricing-meta">
 	<?php
 	if ( 'range' === Helper::pricing_type( $id ) ) {
-		Helper::price_range_template( $id );
+		Helper::price_range_template( $id, $args );
 	}
 	elseif ( !$listings->is_disable_price ) {
-		Helper::price_template( $id );
+		Helper::price_template( $id, $args );
 	}
 	?>
 </span>

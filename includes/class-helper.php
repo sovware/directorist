@@ -270,12 +270,12 @@ class Helper {
 		return $price_range;
 	}
 
-	public static function price_template( $listing_id ) {
+	public static function price_template( $listing_id, $args = [] ) {
 		$price = get_post_meta( $listing_id, '_price', true );
-		self::get_template( 'global/price', compact( 'price' ) );
+		self::get_template( 'global/price', compact( 'price', 'args' ) );
 	}
 
-	public static function price_range_template( $listing_id ) {
+	public static function price_range_template( $listing_id, $args = []) {
 		$price_range = get_post_meta( $listing_id, '_price_range', true );
 		$currency = get_directorist_option( 'g_currency', 'USD' );
 		$currency = atbdp_currency_symbol( $currency );
@@ -307,7 +307,7 @@ class Helper {
 			break;
 		}
 
-		self::get_template( 'global/price-range', compact( 'active_items', 'currency', 'price_range_text' ) );
+		self::get_template( 'global/price-range', compact( 'active_items', 'currency', 'price_range_text', 'args' ) );
 	}
 
 	public static function formatted_price( $price ) {

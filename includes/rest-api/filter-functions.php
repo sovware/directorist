@@ -9,15 +9,17 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param boolen $permission
  * @param string $context
+ * @param integer $object_id
+ * @param string @object_type
  *
  * @return boolen
  */
-function directorist_allow_read_context_permission( $permission, $context ) {
-	if ( $context === 'read' ) {
+function directorist_allow_read_context_permission( $permission, $context, $object_id, $object_type ) {
+	if ( $context === 'read' && $object_type !== 'user' ) {
 		$permission = true;
 	}
 
 	return $permission;
 }
 
-add_filter( 'directorist_rest_check_permissions', 'directorist_allow_read_context_permission', 10, 2 );
+add_filter( 'directorist_rest_check_permissions', 'directorist_allow_read_context_permission', 10, 4 );

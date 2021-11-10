@@ -5146,6 +5146,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-decoration: none;
 }
 
+.select2-container {
+  z-index: 99999;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;

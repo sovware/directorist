@@ -708,12 +708,12 @@ class Multi_Directory_Manager
                                 'type'  => 'hidden',
                                 'value' => [
                                     'price_unit' => [
-                                        'label'     => __( 'Price Unit', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Unit', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_unit',
                                     ],
                                     'price_range' => [
-                                        'label'     => __( 'Price Range', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Range', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_range',
                                     ],

@@ -576,6 +576,7 @@ class Users_Controller extends Abstract_Controller {
 		// User favorite.
 		$favorites = get_user_meta( $id, 'atbdp_favourites', true );
 		if ( ! empty( $favorites ) ) {
+			$favorites = array_values( $favorites );
 			$data['favorite'] = wp_parse_id_list( $favorites );
 		}
 

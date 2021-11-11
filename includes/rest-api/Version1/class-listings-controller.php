@@ -432,24 +432,27 @@ class Listings_Controller extends Posts_Controller {
 				foreach ( $listings_ids as $listings_id ) {
 					$average = ATBDP()->review->get_average( $listings_id );
 
-					if ( $request['rating'] === 5 && $average == '5' ) {
-						$matched_listing_ids[] = $listings_id;
-					} elseif ( $request['rating'] === 4 && $average >= '4' ) {
-						$matched_listing_ids[] = $listings_id;
-					} elseif ( $request['rating'] === 3 && $average >= '3' ) {
-						$matched_listing_ids[] = $listings_id;
-					} elseif ( $request['rating'] === 2 && $average >= '2' ) {
-						$matched_listing_ids[] = $listings_id;
-					} elseif ( $request['rating'] === 1 && $average >= '1' ) {
+					if ( $average >= $request['rating'] ) {
 						$matched_listing_ids[] = $listings_id;
 					}
 				}
 			}
 
-			if ( ! empty( $matched_listing_ids ) ) {
+			if ( empty( $matched_listing_ids ) ) {
+				$matched_listing_ids = [0];
+			}
+
+			if ( ! empty( $args['post__in'] ) ) {
+				$args['post__in'] = array_merge(
+					$args['post__in'],
+					array_filter( $matched_listing_ids )
+				);
+			} else {
 				$args['post__in'] = $matched_listing_ids;
 			}
 		}
+
+		file_put_contents( __DIR__ . '/data.txt', print_r( $args['post__in'], 1 ) );
 
 		// Radius query.
 		if ( isset( $request['radius'] ) ) {

@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.5.6
+Stable tag: 7.0.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,8 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 == Description ==
 
 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
+
+🎉🎉 Turn Your Directory Website into a [Native Mobile App](https://directorist.com/product/mobile-app/)
 
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages, or Tripadvisor on your WordPress site? If the answer is YES, you have come to the right place. Directorist simplifies the process of creating powerful business directories or classified websites of any kind.
 
@@ -356,6 +358,18 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.6 – Nov 11, 2021
+
+* New - Public Rest API to read and write directory data
+* New - Notification event API
+* New - WhatsApp option in listing phone
+* New -[directorist_all_authors] shortcode to show all directory authors (https://directorist.com/documentation/directorist/shortcodes/all-authors/)
+* Fix - File upload in add listing form
+* Fix - Reset button when multiple form use in a page
+* Improve - Style in listing form, single listing and archive page
+* Tweak - Profile edit form of User Dashboard page
+* Tested - With WordPress 5.8.2
 
 7.0.5.6 – Oct 25, 2021
 

@@ -325,7 +325,7 @@ class Listings_Controller extends Posts_Controller {
 			'compare' => '!='
 		);
 
-		if ( isset( $request['expired'] ) && $request['expired'] ) {
+		if ( $args['post_status'] === 'expired' ) {
 			// Get only expired listings
 			$meta_query['expired'] = array(
 				'key'     => '_listing_status',
@@ -774,7 +774,12 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
 					break;
 				case 'status':
-					$base_data['status'] = $listing->post_status;
+					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
+					if ( $listing_status && $listing_status === 'expired' ) {
+						$base_data['status'] = 'expired';
+					} else {
+						$base_data['status'] = $listing->post_status;
+					}
 					break;
 				case 'reviews_allowed':
 					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
@@ -1415,17 +1420,12 @@ class Listings_Controller extends Posts_Controller {
 			'default'           => 'publish',
 			'description'       => __( 'Limit result set to listings assigned a specific status.', 'directorist' ),
 			'type'              => 'string',
-			'enum'              => array_merge( array( 'any', 'future', 'trash' ), array_keys( get_post_statuses() ) ),
+			'enum'              => array_merge( array( 'any', 'future', 'trash', 'expired' ), array_keys( get_post_statuses() ) ),
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['featured'] = array(
 			'description'       => __( 'Limit result set to featured listings.', 'directorist' ),
-			'type'              => 'boolean',
-			'validate_callback' => 'rest_validate_request_arg',
-		);
-		$params['expired'] = array(
-			'description'       => __( 'Limit result set to expired listings.', 'directorist' ),
 			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);

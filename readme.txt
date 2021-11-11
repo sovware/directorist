@@ -15,7 +15,7 @@ The most comprehensive directory plugin to create job listings, classified ads, 
 
 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) 
 
-🎉🎉 Turn Your Directory Website into a [Native Mobile App](https://directorist.com/product/mobile-app/)
+🎉🎉 Use [OneListing](https://directorist.com/product/onelisting/) FREE multipurpose directory theme for a quick start
 
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages, or Tripadvisor on your WordPress site? If the answer is YES, you have come to the right place. Directorist simplifies the process of creating powerful business directories or classified websites of any kind.
 
@@ -292,15 +292,17 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 👉 **[dService](https://directorist.com/product/dservice/)** - dService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform.
 
+👉 **[dDoctors](https://directorist.com/product/ddoctors/)** - A hospital directory website is where you need to show which types or categories of specialist doctors are available, whether they are bookable, what exactly the visit fee is etc. You can do so at ease with the dDoctor theme implementing an out-of-this-world design that fits the medical niche like never before.
+
+👉 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
+
 == 🔔🔔🔔 Coming soon... ==
 
 * dEvent - An event directory with venue
-* dDoctor - A complete doctor directory
 * dRestaurant - Restaurant directory with reservation
 * WooCommerce Subscription Integration
 * Advance Review System
 * Mobile App
-* Rest API endpoint
 * Restaurant menu
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.

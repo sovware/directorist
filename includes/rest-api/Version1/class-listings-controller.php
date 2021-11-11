@@ -452,8 +452,6 @@ class Listings_Controller extends Posts_Controller {
 			}
 		}
 
-		file_put_contents( __DIR__ . '/data.txt', print_r( $args['post__in'], 1 ) );
-
 		// Radius query.
 		if ( isset( $request['radius'] ) ) {
 			$args['atbdp_geo_query'] = array(

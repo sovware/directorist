@@ -240,7 +240,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		}
 
 		// Change Password
-        wp_set_password( $request['password'], $user->ID );
+        wp_set_password( $request['new_password'], $user->ID );
 
 		$data = [
 			'success' => true,

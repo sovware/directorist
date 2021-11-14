@@ -59,8 +59,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_nopriv_atbdp_custom_fields_search', array($this, 'custom_field_search'), 10, 1);
             add_action('wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
             add_action('wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
-            add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
-            add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
+            //add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
+            //add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             //login
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));

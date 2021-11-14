@@ -33,9 +33,17 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'admin_menu', [$this, 'admin_menu'], 100 );
 
             if( ! empty( $_GET['page'] ) && ( 'atbdp-extension' === $_GET['page'] ) ){
-                add_action( 'admin_init', [$this, 'initial_setup'] );
-                add_action( 'admin_init', [$this, 'get_the_product_list'] );
+                add_action( 'admin_init', [ $this, 'initial_setup' ] );
             }
+            
+            add_action( 'admin_init', [ $this, 'setup_ajax_actions' ] );
+        }
+
+        public function setup_ajax_actions() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                return;
+            }
+
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', [$this, 'authenticate_the_customer'] );
             add_action( 'wp_ajax_atbdp_download_file', [$this, 'handle_file_download_request'] );
@@ -53,6 +61,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // initial_setup
         public function initial_setup() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                return;
+            }
 
             $this->setup_extensions_alias();
 
@@ -64,6 +75,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
+
+            $this->setup_products_list();
         }
 
         // setup_extensions_alias
@@ -200,7 +213,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         // get_the_products_list
-        public function get_the_product_list() {
+        public function setup_products_list() {
 
 
             $url     = 'https://directorist.com/wp-json/directorist/v1/get-remote-products';

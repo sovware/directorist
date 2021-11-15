@@ -387,7 +387,7 @@ class Multi_Directory_Manager
                 'status' => [
                     'success' => false,
                     'status_log' => [
-                        'name_is_missing' => [
+                        'nonce_is_missing' => [
                             'type' => 'error',
                             'message' => __( 'You are not allowed to access this resource', 'directorist' ),
                         ],

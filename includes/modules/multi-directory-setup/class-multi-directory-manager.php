@@ -288,6 +288,21 @@ class Multi_Directory_Manager
     }
 
     public function save_imported_post_type_data() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
         $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
         $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';

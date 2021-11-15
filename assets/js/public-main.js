@@ -1940,7 +1940,8 @@ __webpack_require__.r(__webpack_exports__);
     var data = {
       page: page,
       listing_id: listing_id,
-      action: "atbdp_review_pagination"
+      action: "atbdp_review_pagination",
+      directorist_nonce: atbdp_public_data.directorist_nonce
     }; // Send the data
 
     $.post(atbdp_public_data.ajaxurl, data, function (response) {

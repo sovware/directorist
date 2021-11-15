@@ -707,6 +707,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function atbdp_review_pagination_output()
         {
+            if ( ! directorist_verify_nonce() ) {
+                echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+            }
+
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);

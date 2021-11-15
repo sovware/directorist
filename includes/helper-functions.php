@@ -8472,3 +8472,26 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
         return false;
     }
 }
+
+/**
+ * Get error message based on error type.
+ *
+ * @param string $get_error_code
+ *
+ * @return string Error message.
+ */
+function directorist_get_registration_error_message( $error_code ) {
+	$message = [
+		'0' => __( 'Something went wrong!', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'2' => __( 'Sorry, that email already exists!', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'4' => __( 'Sorry, that username already exists!', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5', 'directorist' ),
+		'6' => __( 'Email is not valid', 'directorist' ),
+		'7' => __( 'Space is not allowed in username', 'directorist' ),
+		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+	];
+
+	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : $message['0'];
+}

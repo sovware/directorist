@@ -919,6 +919,7 @@ atbdSelectData.forEach(function (el) {
 
     var data = {
       'action': 'atbdp_public_send_contact_email',
+      'directorist_nonce': atbdp_public_data.directorist_nonce,
       'post_id': post_id.val(),
       'name': name.val(),
       'email': contact_email.val(),

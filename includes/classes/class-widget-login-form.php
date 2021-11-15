@@ -31,11 +31,10 @@ if (!class_exists('BD_Login_Form_Widget')) {
          */
         public function widget($args, $instance)
         {
-            $single_only  = !empty( $instance['single_only'] ) ? 1 : 0;
-
             $template_path = atbdp_get_widget_template_path( 'login' );
-            if ( file_exists( $template_path ) ) {
-                if(!empty($single_only)) {
+
+			if ( file_exists( $template_path ) ) {
+                if ( ! empty( $instance['single_only'] )) {
                     if(is_singular(ATBDP_POST_TYPE)) {
                         include $template_path;
                     }

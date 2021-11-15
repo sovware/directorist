@@ -329,6 +329,17 @@ SWBD;
 		public function handle_save_settings_data_request()
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+				];
+
+				wp_send_json( [ 'status' => $status ] );
+            }
+
+
 			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty

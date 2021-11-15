@@ -288,6 +288,20 @@ class Multi_Directory_Manager
     }
 
     public function save_imported_post_type_data() {
+        
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
 
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json([

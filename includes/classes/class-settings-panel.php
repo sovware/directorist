@@ -190,11 +190,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             ];
 
             $fields['listing_export_button'] = [
-                'type'             => 'export-data',
-                'label'            => __( 'Export Listings', 'directorist' ),
-                'button-label'     => __( 'Export', 'directorist' ),
-                'export-file-name' => __( 'listings-export-data', 'directorist' ),
+                'type'                     => 'export-data',
+                'label'                    => __( 'Export Listings', 'directorist' ),
+                'button-label'             => __( 'Export', 'directorist' ),
+                'export-file-name'         => __( 'listings-export-data', 'directorist' ),
                 'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
+                'nonce'                    => [
+                    'key' => 'directorist_nonce',
+                    'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ];
 
             $c = '<b><span style="color:#c71585;">'; //color start

@@ -168,6 +168,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['success'] = false;
+                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+
+                return wp_send_json( $data );
+            }
+
             $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
 
             wp_send_json( $file );

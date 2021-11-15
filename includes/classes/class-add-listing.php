@@ -67,11 +67,16 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // wp_send_json( $info );
                 // die();
                 $data = array();
+
+                if ( ! directorist_verify_nonce() ) {
+                    $data['error'] = true;
+                    $data['error_msg'] = __('Sorry, your nonce did not verify.', 'directorist');
+                }
+
                 /**
                  * It fires before processing a submitted listing from the front end
                  * @param array $_POST the array containing the submitted listing data.
                  * */
-
                 do_action('atbdp_before_processing_submitted_listing_frontend', $info);
                     
                 $guest                 = get_directorist_option('guest_listings', 0);

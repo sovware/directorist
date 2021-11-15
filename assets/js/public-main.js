@@ -919,7 +919,6 @@ atbdSelectData.forEach(function (el) {
 
     var data = {
       'action': 'atbdp_public_send_contact_email',
-      'directorist_nonce': atbdp_public_data.directorist_nonce,
       'post_id': post_id.val(),
       'name': name.val(),
       'email': contact_email.val(),
@@ -1680,7 +1679,8 @@ __webpack_require__.r(__webpack_exports__);
       field_key: '#review_duplicate'
     }];
     var _data = {
-      action: 'save_listing_review'
+      action: 'save_listing_review',
+      directorist_nonce: atbdp_public_data.directorist_nonce
     };
     _data = prepear_form_data($form, field_field_map, _data); // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 

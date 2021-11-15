@@ -877,6 +877,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
+            if ( ! directorist_verify_nonce() ) {
+                $status = [ 
+                    'success' => false, 
+                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' )
+                ];
+                wp_send_json( $status );
+            }
+
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
             if ($guest_review && $guest_email) {
@@ -957,7 +965,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo 'Errors: make sure you wrote something about your review.';
                 // show error message
             }
-
 
             die();
         }

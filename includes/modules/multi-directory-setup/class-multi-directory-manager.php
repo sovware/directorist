@@ -411,6 +411,20 @@ class Multi_Directory_Manager
     // save_post_type_data
     public function save_post_type_data()
     {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json([
                 'status' => [
@@ -4875,7 +4889,10 @@ class Multi_Directory_Manager
 		$config = [
             'submission' => [
                 'url' => admin_url('admin-ajax.php'),
-                'with' => [ 'action' => 'save_post_type_data' ],
+                'with' => [ 
+                    'action' => 'save_post_type_data',
+                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ],
             'fields_group' => [
                 'general_config' => [

@@ -687,6 +687,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function remove_listing_review()
         {
+                if ( ! directorist_verify_nonce() ) {
+                    echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+                }
+
                 if (!empty($_POST['review_id'])) {
                     $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
                     if ($success) {

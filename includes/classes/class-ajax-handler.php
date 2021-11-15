@@ -65,6 +65,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            /**
+             * @todo need to remove code as it has no uses
+             */
             add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
             add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
 
@@ -208,6 +211,17 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login()
         {
+
+            $nonce = ! empty( $_POST[ 'directorist-quick-login-security' ] ) ? sanitize_text_field( $_POST[ 'directorist-quick-login-security' ] ) : '';
+            
+            if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ){
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Invalid request.', 'directorist')
+                ]);
+            }
+
+
             if ( is_user_logged_in() ) {
                 wp_send_json([
                     'loggedin' => true,

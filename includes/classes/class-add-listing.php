@@ -72,7 +72,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['error'] = true;
                     $data['error_msg'] = __('Sorry, your nonce did not verify.', 'directorist');
 
-                    return wp_send_json($data);
+                    return wp_send_json( $data );
                 }
 
                 /**

@@ -65,6 +65,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            /**
+             * @todo need to remove code as it has no uses
+             */
             add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
             add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
 
@@ -216,6 +219,17 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login()
         {
+
+            $nonce = ! empty( $_POST[ 'directorist-quick-login-security' ] ) ? sanitize_text_field( $_POST[ 'directorist-quick-login-security' ] ) : '';
+            
+            if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ){
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Invalid request.', 'directorist')
+                ]);
+            }
+
+
             if ( is_user_logged_in() ) {
                 wp_send_json([
                     'loggedin' => true,
@@ -625,13 +639,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function update_user_profile()
         {
+
+            if ( ! directorist_verify_nonce() ){
+                wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
+            }
+
             // process the data and the return a success
             if ($_POST['user']) {
-                // passed the security
-                // update the user data and also its meta
-                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
 
-                $old_pro_pic_id = get_user_meta($user_id, 'pro_pic', true);
+                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
                 if (!empty($_POST['profile_picture_meta']) && count($_POST['profile_picture_meta'])) {
                     $meta_data = $_POST['profile_picture_meta'][0];
 
@@ -644,14 +660,20 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 } else {
                     update_user_meta($user_id, 'pro_pic', '');
                 }
-                $success = ATBDP()->user->update_profile($_POST['user']); // update_profile() will handle sanitisation, so we can just the pass the data through it
-                if ($success) {
-                    wp_send_json_success(array('message' => __('Profile updated successfully', 'directorist')));
-                } else {
-                    wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
-                };
+
+
+                $success = ATBDP()->user->update_profile( $_POST[ 'user' ] ); // update_profile() will handle sanitisation, so we can just the pass the data through it
+                
+                if ( $success ) {
+                    wp_send_json_success( [ 'message' => __( 'Profile updated successfully', 'directorist' ) ] );
+                }
+
+                wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
             }
-            wp_die();
+
+            wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
         }
 
         private function insert_attachment($file_handler, $post_id, $setthumb = 'false')

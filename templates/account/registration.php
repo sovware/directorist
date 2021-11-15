@@ -1,7 +1,10 @@
 <?php
 /**
- * Registration form template.
+ * @author  wpWax
+ * @since   7.0
+ * @version 7.0.6.2
  */
+
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {

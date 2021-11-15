@@ -308,7 +308,7 @@ class Multi_Directory_Manager
                 'status' => [
                     'success' => false,
                     'status_log' => [
-                        'nonce_is_missing' => [
+                        'access_denied' => [
                             'type' => 'error',
                             'message' => __( 'You are not allowed to access this resource', 'directorist' ),
                         ],
@@ -416,7 +416,7 @@ class Multi_Directory_Manager
                 'status' => [
                     'success' => false,
                     'status_log' => [
-                        'nonce_is_missing' => [
+                        'access_denied' => [
                             'type' => 'error',
                             'message' => __( 'You are not allowed to access this resource', 'directorist' ),
                         ],

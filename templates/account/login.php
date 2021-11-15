@@ -147,7 +147,7 @@ use \Directorist\Helper;
                                     //stuff to recover password start
                                     $error = $success = '';
                                     // check if we're in reset form
-                                    if ( isset( $_POST['action'] ) && 'reset' == $_POST['action'] ) {
+                                    if ( isset( $_POST['action'] ) && 'reset' == $_POST['action'] && directorist_verify_nonce() ) {
                                         $email = trim( $_POST['user_login'] );
                                         if ( empty( $email ) ) {
                                             $error = __( 'Enter an e-mail address..', 'directorist' );
@@ -201,23 +201,24 @@ use \Directorist\Helper;
                                         }
 
                                 }?>
-                            <div id="recover-pass-modal" class="directorist-mt-15">
-                                <form method="post">
-                                    <fieldset class="directorist-form-group">
-                                        <p><?php printf( __( '%s', 'directorist' ), $recpass_desc );?></p>
-                                        <label for="reset_user_login"><?php printf( __( '%s', 'directorist' ), $recpass_username );?></label>
-                                        <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';?>
-                                        <input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>" required />
-                                        <p>
-                                            <input type="hidden" name="action" value="reset" />
-                                            <button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php printf( __( '%s', 'directorist' ), $recpass_button );?></button>
-                                        </p>
-                                    </fieldset>
-                                </form>
-                            </div>
+
+					<div id="recover-pass-modal" class="directorist-mt-15">
+						<form method="post">
+							<fieldset class="directorist-form-group">
+								<p><?php echo esc_html( $recpass_desc ); ?></p>
+								<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
+								<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo esc_attr( isset( $_POST['user_login'] ) ? $_POST['user_login'] : '' ); ?>" placeholder="<?php echo $recpass_placeholder ?>" required="required" />
+								<p>
+									<input type="hidden" name="action" value="reset" />
+									<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>
+									<input type="hidden" value="<?php echo wp_create_nonce( directorist_get_nonce_key() ); ?>" name="directorist_nonce">
+								</p>
+							</fieldset>
+						</form>
+					</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php }?>
+<?php } ?>

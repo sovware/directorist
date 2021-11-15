@@ -257,40 +257,42 @@ class ATBDP_User {
     }
 
     public function handle_user_registration() {
-        $require_website             = get_directorist_option('require_website_reg',0);
-        $display_website             = get_directorist_option('display_website_reg',1);
-        $display_fname               = get_directorist_option('display_fname_reg',1);
-        $require_fname               = get_directorist_option('require_fname_reg',0);
-        $display_lname               = get_directorist_option('display_lname_reg',1);
-        $require_lname               = get_directorist_option('require_lname_reg',0);
-        $display_password            = get_directorist_option('display_password_reg',1);
-        $require_password            = get_directorist_option('require_password_reg',0);
-        $display_user_type           = get_directorist_option( 'display_user_type', 0 );
-        $display_bio                 = get_directorist_option('display_bio_reg',1);
-        $require_bio                 = get_directorist_option('require_bio_reg',0);
-        $registration_privacy        = get_directorist_option('registration_privacy',1);
-        $terms_condition             = get_directorist_option('regi_terms_condition',1);
-
         // if the form is submitted then save the form
-        if ( isset($_POST['atbdp_user_submit'] ) ) {
+        if ( directorist_verify_nonce() && isset( $_POST['atbdp_user_submit'] ) ) {
+			$require_website      = get_directorist_option( 'require_website_reg', 0 );
+			$display_website      = get_directorist_option( 'display_website_reg', 1 );
+			$display_fname        = get_directorist_option( 'display_fname_reg', 1 );
+			$require_fname        = get_directorist_option( 'require_fname_reg', 0 );
+			$display_lname        = get_directorist_option( 'display_lname_reg', 1 );
+			$require_lname        = get_directorist_option( 'require_lname_reg', 0 );
+			$display_password     = get_directorist_option( 'display_password_reg', 1 );
+			$require_password     = get_directorist_option( 'require_password_reg', 0 );
+			$display_user_type    = get_directorist_option(  'display_user_type', 0   );
+			$display_bio          = get_directorist_option( 'display_bio_reg', 1 );
+			$require_bio          = get_directorist_option( 'require_bio_reg', 0 );
+			$registration_privacy = get_directorist_option( 'registration_privacy', 1 );
+			$terms_condition      = get_directorist_option( 'regi_terms_condition', 1 );
+
             /**
              * It fires before processing a submitted registration from the front end
              * @param array $_POST the array containing the submitted listing data.
              * @since 4.4.0
              * */
-            do_action('atbdp_before_processing_submitted_user_registration', $_POST);
-            $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
-            $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
-            $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';
-            $website = !empty($_POST['website']) ? $_POST[ 'website' ] : '';
-            $first_name = !empty($_POST['fname']) ? $_POST[ 'fname' ] : '';
-            $last_name = !empty($_POST['lname']) ? $_POST[ 'lname' ] : '';
-            $user_type = !empty($_POST['user_type']) ? $_POST[ 'user_type' ] : '';
-            $bio = !empty($_POST['bio']) ? $_POST[ 'bio' ] : '';
-            $privacy_policy = !empty($_POST['privacy_policy']) ? sanitize_text_field($_POST[ 'privacy_policy' ]) : '';
-            $t_c_check = !empty($_POST['t_c_check']) ? sanitize_text_field($_POST[ 't_c_check' ]) : '';
-            //password validation
-            if(!empty($require_password) && !empty($display_password) && empty($password)){
+            do_action( 'atbdp_before_processing_submitted_user_registration', $_POST );
+
+            $username       = ! empty( $_POST['username'] ) ? $_POST['username'] : '';
+            $password       = ! empty( $_POST['password'] ) ? $_POST['password'] : '';
+            $email          = ! empty( $_POST['email'] ) ? $_POST['email'] : '';
+            $website        = ! empty( $_POST['website'] ) ? $_POST['website'] : '';
+            $first_name     = ! empty( $_POST['fname'] ) ? $_POST['fname'] : '';
+            $last_name      = ! empty( $_POST['lname'] ) ? $_POST['lname'] : '';
+            $user_type      = ! empty( $_POST['user_type'] ) ? $_POST['user_type'] : '';
+            $bio            = ! empty( $_POST['bio'] ) ? $_POST['bio'] : '';
+            $privacy_policy = ! empty( $_POST['privacy_policy'] ) ? sanitize_text_field( $_POST['privacy_policy'] ) : '';
+            $t_c_check      = ! empty( $_POST['t_c_check'] ) ? sanitize_text_field($_POST['t_c_check'] ) : '';
+
+			//password validation
+            if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
                 $password_validation = 'yes';
             }
              //website validation
@@ -310,7 +312,7 @@ class ATBDP_User {
                 $bio_validation = 'yes';
             }
             if( ! empty( $display_user_type ) && empty( $user_type) ) {
-                $user_type_validation      = 'yes';
+                $user_type_validation = 'yes';
             }
             //privacy validation
             if(!empty($registration_privacy) && empty($privacy_policy)){

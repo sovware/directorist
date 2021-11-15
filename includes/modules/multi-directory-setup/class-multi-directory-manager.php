@@ -230,6 +230,24 @@ class Multi_Directory_Manager
 
     // handle_force_migration
     public function handle_force_migration() {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
         wp_send_json( $this->run_force_migration() );
     }
 

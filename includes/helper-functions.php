@@ -8472,3 +8472,11 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
         return false;
     }
 }
+
+/**
+ * @since 7.0.6.2
+ * @return string nonce key with current version
+ */
+function directorist_get_nonce_key() {
+    return 'directorist_nonce_' . ATBDP_VERSION;
+}

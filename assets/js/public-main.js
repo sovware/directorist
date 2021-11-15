@@ -1355,6 +1355,7 @@ document.body.addEventListener('click', function (e) {
     var error_count; // ajax action
 
     form_data.append('action', 'update_user_profile');
+    form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
 
     if (profileMediaUploader) {
       var hasValidFiles = profileMediaUploader.hasValidFiles();

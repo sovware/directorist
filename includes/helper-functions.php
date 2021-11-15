@@ -8476,6 +8476,8 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
 /**
  * Get error message based on error type.
  *
+ * @since 7.0.6.2
+ *
  * @param string $get_error_code
  *
  * @return string Error message.
@@ -8494,4 +8496,27 @@ function directorist_get_registration_error_message( $error_code ) {
 	];
 
 	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : $message['0'];
+}
+
+/**
+ * Generate an unique nonce key using version constant.
+ *
+ * @since 7.0.6.2
+ *
+ * @return string nonce key with current version
+ */
+function directorist_get_nonce_key() {
+    return 'directorist_nonce_' . ATBDP_VERSION;
+}
+
+/**
+ * Check if the given nonce field contains a verified nonce.
+ *
+ * @since 7.0.6.2
+ *
+ * @return boolen
+ */
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
+    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
 }

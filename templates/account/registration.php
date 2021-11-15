@@ -30,8 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 					?>
 					<!--Registration failed, so show notification.-->
-					<?php $error_code = ! empty( $_GET['errors'] ) ? $_GET['errors'] : ''; ?>
-					<p style="padding: 20px" class="alert-danger"><span class="fa fa-exclamation-triangle"></span> <?php echo esc_html( directorist_get_registration_error_message( $error_code ) ); ?></p>
+					<?php if ( isset( $_GET['errors'] ) ) { ?>
+					<p style="padding: 20px" class="alert-danger"><span class="fa fa-exclamation-triangle"></span> <?php echo wp_kses_post( directorist_get_registration_error_message( $_GET['errors'] ) ); ?></p>
+					<?php } ?>
 				</div>
 			</div>
 			<div class="directorist-col-md-6 directorist-offset-md-3">
@@ -51,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $password );
 									echo ( ! empty( $require_password ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="password" class="directorist-form-elment" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr( $_POST['password'] ) : '' ); ?>">
+								<input id="password" class="directorist-form-element" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr( $_POST['password'] ) : '' ); ?>">
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_fname ) ) { ?>

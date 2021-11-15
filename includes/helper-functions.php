@@ -8495,7 +8495,7 @@ function directorist_get_registration_error_message( $error_code ) {
 		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
 	];
 
-	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : $message['0'];
+	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
 }
 
 /**

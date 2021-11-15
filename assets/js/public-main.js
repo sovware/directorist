@@ -887,6 +887,7 @@ atbdSelectData.forEach(function (el) {
 
       var data = {
         'action': 'atbdp_public_report_abuse',
+        'directorist_nonce': atbdp_public_data.directorist_nonce,
         'post_id': $('#atbdp-post-id').val(),
         'message': $('#directorist-report-message').val()
       };
@@ -1680,7 +1681,8 @@ __webpack_require__.r(__webpack_exports__);
       field_key: '#review_duplicate'
     }];
     var _data = {
-      action: 'save_listing_review'
+      action: 'save_listing_review',
+      directorist_nonce: atbdp_public_data.directorist_nonce
     };
     _data = prepear_form_data($form, field_field_map, _data); // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
@@ -1824,7 +1826,8 @@ __webpack_require__.r(__webpack_exports__);
     var id = $this.data('review_id');
     var data = {
       review_id: id,
-      action: "remove_listing_review"
+      action: "remove_listing_review",
+      directorist_nonce: atbdp_public_data.directorist_nonce
     };
     swal({
       title: atbdp_public_data.review_sure_msg,
@@ -1939,7 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
     var data = {
       page: page,
       listing_id: listing_id,
-      action: "atbdp_review_pagination"
+      action: "atbdp_review_pagination",
+      directorist_nonce: atbdp_public_data.directorist_nonce
     }; // Send the data
 
     $.post(atbdp_public_data.ajaxurl, data, function (response) {

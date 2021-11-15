@@ -171,6 +171,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['success'] = false;
+                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+
+                return wp_send_json( $data );
+            }
+
             $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
 
             wp_send_json( $file );
@@ -709,6 +717,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function remove_listing_review()
         {
+                if ( ! directorist_verify_nonce() ) {
+                    echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+                }
+
                 if (!empty($_POST['review_id'])) {
                     $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
                     if ($success) {
@@ -725,6 +737,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function atbdp_review_pagination_output()
         {
+            if ( ! directorist_verify_nonce() ) {
+                echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+            }
+
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
@@ -899,6 +915,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
+            if ( ! directorist_verify_nonce() ) {
+                $status = [ 
+                    'success' => false, 
+                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' )
+                ];
+                wp_send_json( $status );
+            }
+
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
             if ($guest_review && $guest_email) {
@@ -979,7 +1003,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo 'Errors: make sure you wrote something about your review.';
                 // show error message
             }
-
 
             die();
         }
@@ -1180,10 +1203,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function ajax_callback_report_abuse()
         {
-
-
             $data = array('error' => 0);
 
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+
+                wp_send_json( $data );
+            }
 
             if ($this->atbdp_email_admin_report_abuse()) {
 
@@ -1366,12 +1393,20 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function ajax_callback_send_contact_email()
         {
+            $data = array('error' => 0);
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+            }
+
             /**
              * If fires sending processing the submitted contact information
              * @since 4.4.0
              */
             do_action('atbdp_before_processing_contact_to_owner');
-            $data = array('error' => 0);
+
+
             $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array( 'listing_contact_form' )));
             $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array( 'listing_contact_form' )));
             $disable_all_email = get_directorist_option('disable_email_notification');

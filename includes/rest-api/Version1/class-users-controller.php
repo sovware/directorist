@@ -53,7 +53,7 @@ class Users_Controller extends Abstract_Controller {
 						'type'     => 'string',
 					),
 					'password' => array(
-						'required' => false,
+						'required' => true,
 						'description' => __( 'New user password.', 'directorist' ),
 						'type'     => 'string',
 					),
@@ -323,12 +323,6 @@ class Users_Controller extends Abstract_Controller {
 		if ( ! empty( $request['id'] ) ) {
 			return new WP_Error( 'directorist_rest_user_exists', __( 'Cannot create existing resource.', 'directorist' ), 400 );
 		}
-
-		// Sets the user email.
-		$request['email'] = ! empty( $request['email'] ) ? $request['email'] : '';
-
-		// Sets the password.
-		$request['password'] = ! empty( $request['password'] ) ? $request['password'] : '';
 
 		if ( email_exists( $request['email'] ) ) {
 			return new WP_Error( 'directorist_user_email_exists', __( 'An account is already registered with your email address. Please login.', 'directorist' ) );

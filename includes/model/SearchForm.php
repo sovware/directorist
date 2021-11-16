@@ -509,7 +509,7 @@ class Directorist_Listing_Search_Form {
 
 	public function render_search_shortcode( $atts = [] ) {
 
-		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 

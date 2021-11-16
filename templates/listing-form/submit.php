@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-add-listing-form__action">
 
-	<?php if ( $display_guest_listings && !atbdp_logged_in_user() ): ?>
+	<?php if ( $display_guest_listings && !is_user_logged_in() ): ?>
 
 		<div class="directorist-form-group directorist-mb-15">
 

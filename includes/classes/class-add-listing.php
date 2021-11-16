@@ -198,7 +198,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 }
                 $metas['_directory_type'] = $directory_type;
                 // guest user
-                if (!atbdp_logged_in_user()) {
+                if (!is_user_logged_in()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
                     if (!empty($guest && $guest_email)) {
                         atbdp_guest_submission($guest_email);

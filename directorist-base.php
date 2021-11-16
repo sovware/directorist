@@ -1123,7 +1123,7 @@ final class Directorist_Base
 							echo $count_review;
 							?></h4>
 					</div>
-					<?php if (atbdp_logged_in_user() || $guest_review) { ?>
+					<?php if (is_user_logged_in() || $guest_review) { ?>
 						<label for="review_content"
 							   class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
 					<?php } ?>
@@ -1138,7 +1138,7 @@ final class Directorist_Base
 			</div><!-- end .atbd_review_module -->
 			<?php
 			// check if the user is logged in and the current user is not the owner of this listing.
-			if (atbdp_logged_in_user() || $guest_review) {
+			if (is_user_logged_in() || $guest_review) {
 				global $wpdb;
 				// if the current user is NOT the owner of the listing print review form
 				// get the settings of the admin whether to display review form even if the user is the owner of the listing.
@@ -1210,7 +1210,7 @@ final class Directorist_Base
 								</div>
 								<?php } ?>
 								<?php
-								if ($guest_review && !atbdp_logged_in_user()){
+								if ($guest_review && !is_user_logged_in()){
 								?>
 								<div class="form-group">
 									<label for="guest_user_email"><?php

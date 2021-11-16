@@ -330,6 +330,15 @@ SWBD;
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
 
+            if ( ! directorist_verify_nonce() ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+				];
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
             if ( ! current_user_can( 'manage_options' ) ) {
                 $status['status_log'] = [
 					'type' => 'error',
@@ -5263,7 +5272,10 @@ Please remember that your order may be canceled if you do not make your payment 
                 'fields_theme' => 'butterfly',
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
-                    'with' => [ 'action' => 'save_settings_data' ],
+                    'with' => [ 
+                        'action' => 'save_settings_data',
+                        'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                    ],
                 ],
             ];
 

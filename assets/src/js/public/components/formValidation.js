@@ -9,6 +9,7 @@
                 // Post via AJAX
                 var data = {
                     'action': 'atbdp_public_report_abuse',
+                    'directorist_nonce': atbdp_public_data.directorist_nonce,
                     'post_id': $('#atbdp-post-id').val(),
                     'message': $('#directorist-report-message').val()
                 };

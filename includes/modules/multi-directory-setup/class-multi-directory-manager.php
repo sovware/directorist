@@ -382,6 +382,20 @@ class Multi_Directory_Manager
     // save_post_type_data
     public function save_post_type_data()
     {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'name_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         if ( empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [

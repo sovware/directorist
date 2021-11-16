@@ -33,7 +33,7 @@ class Directorist_Account {
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );
 			return ob_get_clean();
-		}	
+		}
 
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
@@ -75,7 +75,7 @@ class Directorist_Account {
 				'display_login'        => get_directorist_option( 'display_login', 1 ),
 				'login_text'           => get_directorist_option( 'login_text', __( 'Already have an account? Please login', 'directorist' ) ),
 				'login_url'            => ATBDP_Permalink::get_login_page_link(),
-				'log_linkingmsg'       => get_directorist_option( 'log_linkingmsg', __( 'Here', 'directorist' ) ),
+				'log_linkingmsg'       => get_directorist_option( 'log_linkingmsg', __( 'here', 'directorist' ) ),
 				'terms_label'          => get_directorist_option( 'regi_terms_label', __( 'I agree with all', 'directorist' ) ),
 				'terms_label_link'     => get_directorist_option( 'regi_terms_label_link', __( 'terms & conditions', 'directorist' ) ),
 				't_C_page_link'        => ATBDP_Permalink::get_terms_and_conditions_page_url(),

@@ -336,8 +336,9 @@ class Users_Controller extends Abstract_Controller {
 
 		// Create user.
 		$user_data = array(
-			'user_email'  => $request['email'],
-			'user_pass'   => $request['password'],
+			'user_email' => $request['email'],
+			'user_pass'  => $request['password'],
+			'role'       => 'subscriber',
 		);
 
 		if ( isset( $request['username'] ) ) {

@@ -120,7 +120,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -135,11 +135,11 @@ class Users_Controller extends Abstract_Controller {
 			return $permissions;
 		}
 
-		if ( ! $permissions ) {
+		if ( ! $permissions || ! get_option( 'users_can_register' ) ) {
 			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -196,7 +196,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -325,7 +325,7 @@ class Users_Controller extends Abstract_Controller {
 		}
 
 		if ( email_exists( $request['email'] ) ) {
-			return new WP_Error( 'directorist_user_email_exists', __( 'An account is already registered with your email address. Please login.', 'directorist' ) );
+			return new WP_Error( 'directorist_rest_user_email_exists', __( 'A resource is already registered.', 'directorist' ) );
 		}
 
 		// Create user.

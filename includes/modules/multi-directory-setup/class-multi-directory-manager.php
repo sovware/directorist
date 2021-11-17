@@ -234,7 +234,7 @@ class Multi_Directory_Manager
             wp_send_json([
                 'status' => [
                     'success' => false,
-                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
                 ],
             ], 200);
         }
@@ -306,7 +306,7 @@ class Multi_Directory_Manager
     }
 
     public function save_imported_post_type_data() {
-        
+
         if ( ! directorist_verify_nonce() ) {
             wp_send_json([
                 'status' => [
@@ -314,7 +314,7 @@ class Multi_Directory_Manager
                     'status_log' => [
                         'nonce_is_missing' => [
                             'type' => 'error',
-                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
                         ],
                     ],
                 ],
@@ -436,7 +436,7 @@ class Multi_Directory_Manager
                     'status_log' => [
                         'nonce_is_missing' => [
                             'type' => 'error',
-                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
                         ],
                     ],
                 ],
@@ -4907,7 +4907,7 @@ class Multi_Directory_Manager
 		$config = [
             'submission' => [
                 'url' => admin_url('admin-ajax.php'),
-                'with' => [ 
+                'with' => [
                     'action' => 'save_post_type_data',
                     'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
                 ],

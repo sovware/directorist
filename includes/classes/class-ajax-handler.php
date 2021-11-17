@@ -174,7 +174,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             if ( ! directorist_verify_nonce() ) {
                 $data['success'] = false;
-                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
 
                 return wp_send_json( $data );
             }
@@ -221,7 +221,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         {
 
             $nonce = ! empty( $_POST[ 'directorist-quick-login-security' ] ) ? sanitize_text_field( $_POST[ 'directorist-quick-login-security' ] ) : '';
-            
+
             if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ){
                 wp_send_json([
                     'loggedin' => false,
@@ -663,7 +663,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
 
                 $success = ATBDP()->user->update_profile( $_POST[ 'user' ] ); // update_profile() will handle sanitisation, so we can just the pass the data through it
-                
+
                 if ( $success ) {
                     wp_send_json_success( [ 'message' => __( 'Profile updated successfully', 'directorist' ) ] );
                 }
@@ -718,7 +718,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function remove_listing_review()
         {
                 if ( ! directorist_verify_nonce() ) {
-                    echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+                    echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
                 }
 
                 if (!empty($_POST['review_id'])) {
@@ -738,7 +738,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function atbdp_review_pagination_output()
         {
             if ( ! directorist_verify_nonce() ) {
-                echo __( 'Sorry, your nonce did not verify.', 'directorist' );
+                echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
             }
 
             $msg = '';
@@ -916,9 +916,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function save_listing_review()
         {
             if ( ! directorist_verify_nonce() ) {
-                $status = [ 
-                    'success' => false, 
-                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' )
+                $status = [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
                 ];
                 wp_send_json( $status );
             }
@@ -1051,7 +1051,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             $to = $user->user_email;
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1064,7 +1064,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1113,7 +1113,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1126,7 +1126,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1207,7 +1207,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             if ( ! directorist_verify_nonce() ) {
                 $data['error'] = 1;
-                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
 
                 wp_send_json( $data );
             }
@@ -1305,7 +1305,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'send_to'       => $user_email,
                 'listing_email' => $listing_email,
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 
@@ -1376,7 +1376,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'listing_url'   => $listing_url,
 
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 
@@ -1397,7 +1397,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             if ( ! directorist_verify_nonce() ) {
                 $data['error'] = 1;
-                $data['message'] = __('Sorry, your nonce did not verify.', 'directorist');
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
             }
 
             /**

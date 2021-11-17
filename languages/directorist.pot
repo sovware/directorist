@@ -522,7 +522,7 @@ msgid "Sorry! order not found."
 msgstr ""
 
 #: ../includes/classes/class-add-listing.php:73, ../includes/classes/class-ajax-handler.php:177, ../includes/classes/class-ajax-handler.php:721, ../includes/classes/class-ajax-handler.php:741, ../includes/classes/class-ajax-handler.php:921, ../includes/classes/class-ajax-handler.php:1210, ../includes/classes/class-ajax-handler.php:1400
-msgid "Sorry, your nonce did not verify."
+msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
 #: ../includes/classes/class-add-listing.php:130, ../includes/classes/class-add-listing.php:135, ../includes/classes/class-add-listing.php:140, ../includes/classes/class-add-listing.php:145, ../includes/classes/class-add-listing.php:150, ../includes/classes/class-add-listing.php:156

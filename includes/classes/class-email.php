@@ -439,7 +439,7 @@ This email is sent automatically for information purpose only. Please do not res
             $gateway = get_post_meta( $order_id, '_payment_gateway', true );
             if( 'bank_transfer' === $gateway ) {
                 if (get_directorist_option('disable_email_notification')) return false;
-                if (!in_array('order_created', get_directorist_option('notify_user', array()))) return false;
+                if (!in_array('order_created', get_directorist_option('notify_user', array('order_created')))) return false;
                 $user = $this->get_owner($listing_id);
                 // Send email according to the type of the payment that user used during checkout. get email template from the db.
                 $offline = (!empty($offline)) ? '_offline' : '';
@@ -479,7 +479,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_order_completed($order_id, $listing_id)
         {
             if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('order_completed', get_directorist_option('notify_user', array()))) return false;
+            if (!in_array('order_completed', get_directorist_option('notify_user', array('order_completed')))) return false;
             $user = $this->get_owner($listing_id);
             $subject = $this->replace_in_content(get_directorist_option('email_sub_completed_order'), $order_id, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option('email_tmpl_completed_order'), $order_id, $listing_id, $user);
@@ -514,7 +514,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_listing_submitted($listing_id)
         {
             $notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
-            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_user', array()) ) ){
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_user', array('listing_submitted')) ) ){
                 return false;
             }
 
@@ -553,7 +553,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_admin_listing_published($listing_id)
         {
             $notify = apply_filters( 'directorist_notify_admin_listing_published', true, $listing_id );
-            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_admin', array()) ) ){
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_admin', array('listing_published')) ) ){
                 return false;
             }
 
@@ -595,7 +595,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_listing_published($listing_id)
         {
             $notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
-            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_user', array()) ) ){
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_published', get_directorist_option('notify_user', array('listing_published')) ) ){
                 return false;
             }
 
@@ -633,7 +633,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_listing_edited($listing_id)
         {
             if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_edited', get_directorist_option('notify_user', array()))) return false;
+            if (!in_array('listing_edited', get_directorist_option('notify_user', array('listing_edited')))) return false;
             $user = $this->get_owner($listing_id);
             $subject = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
             $to = $user->user_email;
@@ -674,7 +674,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
 
             $notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
-            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_to_expire', get_directorist_option('notify_user', array()) ) ){
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_to_expire', get_directorist_option('notify_user', array('listing_to_expire')) ) ){
                 return false;
             }
 
@@ -713,7 +713,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
 
             $notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
-            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ){
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'listing_expired', get_directorist_option('notify_user', array('listing_expired')) ) ){
                 return false;
             }
 
@@ -751,7 +751,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_to_renew($listing_id)
         {
             $notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
-            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'remind_to_renew', get_directorist_option('notify_user', array()) ) ){
+            if( ! $listing_id || ! $notify || $this->disable_notification() || !in_array( 'remind_to_renew', get_directorist_option('notify_user', array('remind_to_renew')) ) ){
                 return false;
             }
 
@@ -789,7 +789,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_listing_renewed($listing_id)
         {
             if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_renewed', get_directorist_option('notify_user', array()))) return false;
+            if (!in_array('listing_renewed', get_directorist_option('notify_user', array('listing_renewed')))) return false;
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_renewed_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_renewed_listing"), null, $listing_id, $user);
@@ -808,7 +808,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_owner_listing_deleted($listing_id)
         {
             if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('listing_deleted', get_directorist_option('notify_user', array()))) return false;
+            if (!in_array('listing_deleted', get_directorist_option('notify_user', array('listing_deleted')))) return false;
             $user = $this->get_owner($listing_id);
             $subject = $this->replace_in_content(get_directorist_option("email_sub_deleted_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_deleted_listing"), null, $listing_id, $user);
@@ -897,7 +897,7 @@ This email is sent automatically for information purpose only. Please do not res
             if ( 'bank_transfer' === $gateway ) {
                 /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
                 if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
-                if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
+                if (!in_array('order_created', get_directorist_option('notify_admin', array('order_created')))) return false; // vail if order created notification to admin off
                 $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
                 $subject = $this->replace_in_content($s, $order_id);
 
@@ -938,7 +938,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_admin_order_completed($order_id, $listing_id)
         {
             if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('order_completed', get_directorist_option('notify_admin', array()))) return false;
+            if (!in_array('order_completed', get_directorist_option('notify_admin', array('order_completed')))) return false;
             $s = __('[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist');
             $subject = $this->replace_in_content($s, $order_id);
 
@@ -976,7 +976,7 @@ This email is sent automatically for information purpose only. Please do not res
         public function notify_admin_listing_submitted($listing_id)
         {
             $notify = apply_filters( 'directorist_notify_admin_listing_submitted', true, $listing_id );
-            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_admin', array()) ) ){
+            if( ! $notify || $this->disable_notification() || !in_array( 'listing_submitted', get_directorist_option('notify_admin', array('listing_submitted')) ) ){
                 return false;
             }
 

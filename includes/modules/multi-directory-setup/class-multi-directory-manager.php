@@ -230,6 +230,24 @@ class Multi_Directory_Manager
 
     // handle_force_migration
     public function handle_force_migration() {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
         wp_send_json( $this->run_force_migration() );
     }
 
@@ -288,6 +306,35 @@ class Multi_Directory_Manager
     }
 
     public function save_imported_post_type_data() {
+        
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'access_denied' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
         $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
         $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
@@ -382,6 +429,34 @@ class Multi_Directory_Manager
     // save_post_type_data
     public function save_post_type_data()
     {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'access_denied' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         if ( empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [
@@ -708,12 +783,12 @@ class Multi_Directory_Manager
                                 'type'  => 'hidden',
                                 'value' => [
                                     'price_unit' => [
-                                        'label'     => __( 'Price Unit', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Unit', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_unit',
                                     ],
                                     'price_range' => [
-                                        'label'     => __( 'Price Range', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Range', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_range',
                                     ],
@@ -4832,7 +4907,10 @@ class Multi_Directory_Manager
 		$config = [
             'submission' => [
                 'url' => admin_url('admin-ajax.php'),
-                'with' => [ 'action' => 'save_post_type_data' ],
+                'with' => [ 
+                    'action' => 'save_post_type_data',
+                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ],
             'fields_group' => [
                 'general_config' => [

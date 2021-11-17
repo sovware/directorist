@@ -9,7 +9,8 @@
         var data = {
             page: page,
             listing_id: listing_id,
-            action: "atbdp_review_pagination"
+            action: "atbdp_review_pagination",
+            directorist_nonce: atbdp_public_data.directorist_nonce,
         };
 
         // Send the data

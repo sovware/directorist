@@ -190,11 +190,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             ];
 
             $fields['listing_export_button'] = [
-                'type'             => 'export-data',
-                'label'            => __( 'Export Listings', 'directorist' ),
-                'button-label'     => __( 'Export', 'directorist' ),
-                'export-file-name' => __( 'listings-export-data', 'directorist' ),
+                'type'                     => 'export-data',
+                'label'                    => __( 'Export Listings', 'directorist' ),
+                'button-label'             => __( 'Export', 'directorist' ),
+                'export-file-name'         => __( 'listings-export-data', 'directorist' ),
                 'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
+                'nonce'                    => [
+                    'key' => 'directorist_nonce',
+                    'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ];
 
             $c = '<b><span style="color:#c71585;">'; //color start
@@ -325,6 +329,26 @@ SWBD;
 		public function handle_save_settings_data_request()
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
+
+            if ( ! directorist_verify_nonce() ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+				];
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+				];
+
+				wp_send_json( [ 'status' => $status ] );
+            }
+
+
 			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
@@ -2640,6 +2664,19 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'all_authors_pagination' => [
+                    'type'  => 'toggle',
+                    'label' => __('Paginate All Authors ', 'directorist'),
+                    'value' => true,
+                ],
+                'all_authors_per_page' => [
+                    'label'         => __('Authors Per Page', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '9',
+                    'min'           => '1',
+                    'max'           => '50',
+                    'step'          => '1',
+                ],
                 // search form settings
                 'search_title'    => [
                     'type'          => 'text',
@@ -4813,19 +4850,19 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-                        // 'all_authors' => [
-                        //     'label' => __('All Authors', 'directorist'),
-                        //     'icon' => '<i class="fa fa-users"></i>',
-                        //     'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
-                        //         'all_authors' => [
-                        //             'title'       => __('All Authors', 'directorist'),
-                        //             'description' => '',
-                        //             'fields'      => [
-                        //                 'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_role', 'all_authors_select_role', 'all_authors_info', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text'
-                        //                 ],
-                        //         ],
-                        //     ] ),
-                        // ],
+                        'all_authors' => [
+                            'label' => __('All Authors', 'directorist'),
+                            'icon' => '<i class="fa fa-users"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
+                                'all_authors' => [
+                                    'title'       => __('All Authors', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_role', 'all_authors_select_role', 'all_authors_info', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text', 'all_authors_pagination', 'all_authors_per_page'
+                                        ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 
@@ -5235,7 +5272,10 @@ Please remember that your order may be canceled if you do not make your payment 
                 'fields_theme' => 'butterfly',
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
-                    'with' => [ 'action' => 'save_settings_data' ],
+                    'with' => [ 
+                        'action' => 'save_settings_data',
+                        'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                    ],
                 ],
             ];
 

@@ -308,4 +308,26 @@ class Locations_Controller extends Terms_Controller {
 
 		return true;
 	}
+
+	/**
+	 * Get the query params for collections
+	 *
+	 * @return array
+	 */
+	public function get_collection_params() {
+		$params = parent::get_collection_params();
+
+		if ( get_directorist_option( 'enable_multi_directory' ) ) {
+			$params['directory'] = array(
+				'description' => __( 'Limit result set to specific directory type ids.', 'directorist' ),
+				'type'        => 'array',
+				'items'       => array(
+					'type' => 'integer',
+				),
+				'validate_callback' => 'rest_validate_request_arg',
+			);
+		}
+
+		return $params;
+	}
 }

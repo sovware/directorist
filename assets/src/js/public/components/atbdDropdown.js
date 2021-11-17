@@ -85,15 +85,6 @@ if (atbdSelect !== null) {
         }
     });
 
-    // $(".atbd_dropdown").on("click", function (e) {
-    //     if ($(this).attr("class") === "atbd_dropdown") {
-    //         e.preventDefault();
-    //         $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-    //         $(this).toggleClass("atbd_drop--active");
-    //         e.stopPropagation();
-    //     }
-    // });
-
     $(document).on("click", function (e) {
         if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
             $(".atbd_dropdown").removeClass("atbd_drop--active");
@@ -105,28 +96,18 @@ if (atbdSelect !== null) {
     });
 
 
-    // Restructred Dropdown
     // Directorist Dropdown
     $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function(e){
         e.preventDefault();
-        $('.directorist-dropdown__links').hide();
+        if(!$(this).siblings('.directorist-dropdown__links-js').is(':visible')){
+            $('.directorist-dropdown__links').hide();
+        }
         $(this).siblings('.directorist-dropdown__links-js').toggle();
     });
-
-    // Select Option after click
-    // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
-    //     e.preventDefault();
-    //     if($(this).parents().hasClass('.directorist-dropdown-update-js')){
-    //         console.log("yes");
-    //     }
-    //     $('.directorist-dropdown__links').hide();
-    // });
-
-    // Hide Clicked Anywhere
-    $(document).bind('click', function(e) {
-        let clickedDom = $(e.target);
-        if ( ! clickedDom.parents().hasClass('directorist-dropdown-js') )
-        $('.directorist-dropdown__links-js').hide();
-    });
+    $('body').on('click', function (e) {
+        if(!e.target.closest('.directorist-dropdown-js')){
+            $('.directorist-dropdown__links-js').hide();
+        }
+    })
 
 })(jQuery);

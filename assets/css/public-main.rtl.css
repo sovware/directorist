@@ -5138,7 +5138,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-decoration: none;
 }
 
-.select2-container {
+.select2-container.select2-container--open {
   z-index: 99999;
 }
 

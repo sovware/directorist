@@ -59,8 +59,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_nopriv_atbdp_custom_fields_search', array($this, 'custom_field_search'), 10, 1);
             add_action('wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
             add_action('wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
-            //add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
-            //add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
+            add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
+            add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             //login
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
@@ -499,42 +499,76 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             die();
         }
 
-        public function atbdp_post_attachment_upload()
-        {
+		/**
+		 * Handle ajax file upload via plupload.
+		 */
+        public function atbdp_post_attachment_upload() {
             // security
-            check_ajax_referer('atbdp_attachment_upload', '_ajax_nonce');
-            $field_id = isset($_POST["imgid"]) ? esc_attr($_POST["imgid"]) : '';
-            $post_id = isset($_POST["post_id"]) ? absint($_POST["post_id"]) : '';
-            // set directory temp upload dir
-            add_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+            check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
 
-            $fixed_file = $_FILES[$field_id . 'async-upload'];
+            $field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
+            $post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
+            $directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
+
+			if ( ! term_exists( $directory, ATBDP_TYPE ) ) {
+				echo __( 'Invalid directory type!', 'directorist' );
+				die();
+			}
+
+            $fixed_file = $_FILES[ $field_id . 'async-upload' ];
+
+			$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
+			$field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
+			$field_config = current( $field_config );
+
+			$file_type    = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
+			$file_size    = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
+
+			$groups = directorist_get_supported_file_types_groups();
+			if ( isset( $groups[ $file_type ] ) ) {
+				$file_types = $groups[ $file_type ];
+			} else {
+				$file_types = (array) $file_type;
+			}
+
+			$_supported_mimes = [];
+			foreach ( get_allowed_mime_types() as $ext => $mime ) {
+				$_exts = explode( '|', $ext );
+				$match = array_intersect( $file_types, $_exts );
+				if ( count( $match ) ) {
+					$_supported_mimes[ $ext ] = $mime;
+				}
+			}
+
+			// set directory temp upload dir
+			add_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
 
             // handle file upload
-            $status = wp_handle_upload($fixed_file, array(
+            $status = wp_handle_upload( $fixed_file, array(
                 'test_form' => true,
-                'action' => 'atbdp_post_attachment_upload'
-            ));
-            // unset GD temp upload dir
-            remove_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+                'action'    => 'atbdp_post_attachment_upload',
+				'mimes'     => $_supported_mimes
+            ) );
 
-            if (!isset($status['url']) && isset($status['error'])) {
-                print_r($status);
+            // unset GD temp upload dir
+            remove_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
+
+            if ( ! isset( $status['url'] ) && isset( $status['error'] ) ) {
+                print_r( $status );
             }
 
             // send the uploaded file url in response
             if (isset($status['url']) && $post_id) {
 
                 // insert to DB
-                $file_info = update_post_meta($post_id, $field_id, $status['url']);
+                $file_info = update_post_meta( $post_id, $field_id, $status['url'] );
 
-                if (is_wp_error($file_info)) {
+                if ( is_wp_error( $file_info ) ) {
                     //atbdp_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
                 } else {
-                    $wp_upload_dir = wp_upload_dir();
                     echo $status['url'];
                 }
-            } elseif (isset($status['url'])) {
+            } elseif ( isset( $status['url'] ) ) {
                 echo $status['url'];
             } else {
                 echo 'x';

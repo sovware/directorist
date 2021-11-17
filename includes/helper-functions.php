@@ -8527,3 +8527,46 @@ function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
     $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
     return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
 }
+
+/**
+ * Get supported file types groups.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types_groups( $group = null ) {
+	$groups = [
+		'image' => [
+			'jpg', 'jpeg', 'gif', 'png', 'bmp', 'ico'
+		],
+		'audio' => [
+			'ogg', 'mp3', 'wav', 'wma',
+		],
+		'video' => [
+			'asf', 'avi', 'mkv', 'mp4', 'mpg', 'mpeg', 'wmv', '3gp',
+		],
+		'document' => [
+			'doc', 'docx', 'odt', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+		]
+	];
+
+	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : $groups );
+}
+
+/**
+ * Get supported file types.
+ *
+ * This function is used to for upload field options and to check uploaded file type validity.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types() {
+	$groups = directorist_get_supported_file_types_groups();
+
+	return array_reduce( $groups, function( $carry, $group ) {
+		return array_merge( $carry, $group );
+	}, [] );
+}

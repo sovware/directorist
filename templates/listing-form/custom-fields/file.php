@@ -1,19 +1,18 @@
 <?php
 /**
+ * Custom field file upload field template.
+ *
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.6.3
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-$post_id = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
-// wp_enqueue_style( 'atbdp-pluploadcss' );
-// wp_enqueue_script( 'atbdp-plupload-min' );
-// wp_enqueue_script( 'atbdp-plupload' );
-// wp_enqueue_script( 'atbdp-plupload' );
-
+$post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
 $file_types = 'all_types';
+
 if ( ! empty( $data['file_type'] ) ) {
 	$groups = directorist_get_supported_file_types_groups();
 

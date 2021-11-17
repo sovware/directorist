@@ -2,7 +2,7 @@
 /**
  * Directorist user class.
  *
- * User registration and acess management related functionalities can be found in this class.
+ * User registration and access management functionalities.
  *
  * @package     Directorist
  * @since       1.0

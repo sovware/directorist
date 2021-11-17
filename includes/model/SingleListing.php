@@ -424,7 +424,7 @@ class Directorist_Single_Listing {
 
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'original') : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 
@@ -439,7 +439,7 @@ class Directorist_Single_Listing {
 
 			$image_links[] = [
 				'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-				'src' => atbdp_get_image_source( $img_id, 'large' ),
+				'src' => atbdp_get_image_source( $img_id, 'original' ),
 			];
 		}
 
@@ -452,8 +452,8 @@ class Directorist_Single_Listing {
 			'alt'                => $listing_title,
 			'background-size'    => get_directorist_option('single_slider_image_size', 'cover'),
 			'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
-			'width'              => get_directorist_option('gallery_crop_width', 670),
-			'height'             => get_directorist_option('gallery_crop_height', 750),
+			'width'              => 16,
+			'height'             => 9,
 			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
 			'thumbnail-bg-color' => '#fff',
 			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',

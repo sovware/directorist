@@ -1011,7 +1011,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
 
                 $data = array(
-                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,

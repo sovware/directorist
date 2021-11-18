@@ -5857,7 +5857,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
      */
     function atbdp_is_user_logged_in($message = '')
     {
-        if (!atbdp_logged_in_user()) {
+        if (!is_user_logged_in()) {
             // user not logged in;
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
@@ -6666,7 +6666,7 @@ function directorist_clean($var)
  */
 function the_atbdp_favourites_link($post_id = 0)
 {
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
         if ($post_id == 0) {
             global $post;
             $post_id = $post->ID;
@@ -6722,7 +6722,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
 
         if ($post_id == 0) {
             global $post;
@@ -7860,8 +7860,15 @@ function atbdp_create_required_pages(){
     }
 }
 
+/**
+ * Check if user is logged in.
+ *
+ * @deprecated 7.0.6.3 Use the built-in is_user_logged_in() instead.
+ *
+ * @return bool
+ */
 function atbdp_logged_in_user(){
-    return _wp_get_current_user()->exists();
+    return is_user_logged_in();
 }
 
 function atbdp_thumbnail_card($img_src = '', $_args = array())
@@ -8519,4 +8526,51 @@ function directorist_get_nonce_key() {
 function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
     $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
     return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+}
+
+/**
+ * Get supported file types groups.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types_groups( $group = null ) {
+	$groups = [
+		'image' => [
+			'jpg', 'jpeg', 'gif', 'png', 'bmp', 'ico'
+		],
+		'audio' => [
+			'ogg', 'mp3', 'wav', 'wma',
+		],
+		'video' => [
+			'asf', 'avi', 'mkv', 'mp4', 'mpg', 'mpeg', 'wmv', '3gp',
+		],
+		'document' => [
+			'doc', 'docx', 'odt', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+		]
+	];
+
+	if ( is_null( $group ) ) {
+		return $groups;
+	}
+
+	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : [] );
+}
+
+/**
+ * Get supported file types.
+ *
+ * This function is used to for upload field options and to check uploaded file type validity.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types() {
+	$groups = directorist_get_supported_file_types_groups();
+
+	return array_reduce( $groups, function( $carry, $group ) {
+		return array_merge( $carry, $group );
+	}, [] );
 }

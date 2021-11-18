@@ -22,7 +22,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
 
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
-			
+
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
 		}
 
@@ -333,7 +333,7 @@ SWBD;
             if ( ! directorist_verify_nonce() ) {
                 $status['status_log'] = [
 					'type' => 'error',
-					'message' => __( 'Sorry, your nonce did not verify.', 'directorist' ),
+					'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
 				];
 
                 wp_send_json( [ 'status' => $status ] );
@@ -367,7 +367,7 @@ SWBD;
 
 				$options[ $field_key ] = $_POST[ $field_key ];
 			}
-            
+
             // Prepare Settings
             $this->prepare_settings();
 
@@ -4541,7 +4541,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'user_email', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),
@@ -5272,7 +5272,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'fields_theme' => 'butterfly',
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
-                    'with' => [ 
+                    'with' => [
                         'action' => 'save_settings_data',
                         'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
                     ],
@@ -5359,14 +5359,14 @@ Please remember that your order may be canceled if you do not make your payment 
             return $pages_options;
         }
 
-        function get_user_roles() 
+        function get_user_roles()
         {
             $get_editable_roles = get_editable_roles();
             $role               = array();
             $role[]             = array( 'value' => 'all', 'label' => __( 'All', 'directorist' ) );
             if( $get_editable_roles ) {
                 foreach( $get_editable_roles as $key => $value ) {
-                    $role[] = array( 
+                    $role[] = array(
                         'value' => $key,
                         'label' => $value['name']
                     );

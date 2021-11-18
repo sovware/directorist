@@ -514,7 +514,7 @@ class Directorist_Listing_Dashboard {
 
 		$this->enqueue_scripts();
 
-		if (!atbdp_logged_in_user()) {
+		if (!is_user_logged_in()) {
 			return $this->restrict_access_template();
 		}
 

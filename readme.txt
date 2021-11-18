@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.6.2
+Stable tag: 7.0.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -360,6 +360,15 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.6.3 – Nov 18, 2021
+
+* Fix - Listing review issues
+* Fix - All listing page dropdown toggle issue
+* Fix - Dummy data importing issue
+* Fix - File upload issues
+* Improve - Security
+
 
 7.0.6.2 – Nov 15, 2021
 

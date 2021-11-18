@@ -67,13 +67,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // wp_send_json( $info );
                 // die();
                 $data = array();
+
+                if ( ! directorist_verify_nonce() ) {
+                    $data['error'] = true;
+                    $data['error_msg'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+
+                    return wp_send_json( $data );
+                }
+
                 /**
                  * It fires before processing a submitted listing from the front end
                  * @param array $_POST the array containing the submitted listing data.
                  * */
-
                 do_action('atbdp_before_processing_submitted_listing_frontend', $info);
-                    
+
                 $guest                 = get_directorist_option('guest_listings', 0);
                 $featured_enabled      = get_directorist_option('enable_featured_listing');
 
@@ -111,7 +118,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $only_for_admin = !empty( $value['only_for_admin'] ) ? $value['only_for_admin'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
                     $additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $value, $info );
-                    
+
                     $field_category = !empty( $value['category'] ) ? $value['category'] : '';
                     if( $field_category && ! in_array( $field_category, $admin_category_select ) ) {
                         $additional_logic = false;
@@ -151,7 +158,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                     }
-                    
+
                     // array_push( $dummy, [
                     //     'label' => $label,
                     //     'key' => $key,
@@ -176,9 +183,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
-                    }                    
+                    }
                 }
-    
+
                 // wp_send_json( $error );
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
@@ -191,7 +198,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 }
                 $metas['_directory_type'] = $directory_type;
                 // guest user
-                if (!atbdp_logged_in_user()) {
+                if (!is_user_logged_in()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
                     if (!empty($guest && $guest_email)) {
                         atbdp_guest_submission($guest_email);
@@ -206,7 +213,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                  * @param array $metas the array of meta keys and meta values
                  */
-             
+
                 $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
                 // wp_send_json($metas);
                 $args = array(
@@ -235,7 +242,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     // update the post
                     $args['ID'] = $listing_id; // set the ID of the post to update the post
-                    
+
                     if (!empty($preview_enable)) {
                         $args['post_status'] = 'private';
                     }
@@ -296,7 +303,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if( !empty( $directory_type ) ){
                             wp_set_object_terms($post_id, (int)$directory_type, 'atbdp_listing_types');
                         }
-                       
+
                         if (!empty($location)) {
                             $append = false;
                             if (count($location) > 1) {
@@ -355,7 +362,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             wp_set_object_terms($post_id, '', ATBDP_CATEGORY);
                         }
 
-                      
+
 
                         // for dev
                         do_action('atbdp_listing_updated', $post_id);//for sending email notification
@@ -367,18 +374,18 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
                 } else {
-                    
+
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs') && (!isset($data['error']))) {
                         // $_args = [ 'id' => '', 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
                         $post_status = $new_l_status;
-                        
+
                         $args['post_status'] = $post_status;
 
                         if ('pending' === $post_status) {
                             $data['pending'] = true;
                         }
-                        
+
                         // $monitization = get_directorist_option('enable_monetization', 0);
                         //if listing under a purchased package
                         // if (is_fee_manager_active()) {
@@ -389,7 +396,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         //         // status for non paid users
                         //         $args['post_status'] = 'pending';
                         //     }
-                        // } 
+                        // }
                         // if (!empty($featured_enabled && $monitization) && ('featured' === $info['listing_type'] ) ) {
                         //     $args['post_status'] = 'pending';
                         // } else {
@@ -398,7 +405,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if (!empty($preview_enable)) {
                             $args['post_status'] = 'private';
                         }
-                        
+
                         if (isset($args['tax_input'])) {
                             foreach ((array)$args['tax_input'] as $taxonomy => $terms) {
                                 // Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.
@@ -445,7 +452,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                         $post_id = wp_insert_post($args);
-                        
+
                         update_post_meta($post_id, '_directory_type', $directory_type);
                         do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 
@@ -458,7 +465,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 $exp_dt = calc_listing_expiry_date( '', $default_expiration );
                                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                             }
-                           
+
                             update_post_meta($post_id, '_featured', 0);
                             update_post_meta($post_id, '_listing_status', 'post_status');
                             update_post_meta($post_id, '_admin_category_select', $admin_category_select);
@@ -467,7 +474,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                               * @param array $_POST the array containing the submitted fee data.
                               * */
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
-                            
+
                             // set up terms
                             if( !empty( $directory_type ) ){
                                 wp_set_object_terms($post_id, (int)$directory_type, 'atbdp_listing_types');
@@ -538,7 +545,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (!empty($post_id)) {
                     do_action('atbdp_after_created_listing', $post_id);
                     $data['id'] = $post_id;
-                    
+
                     // handling media files
                     $listing_images = atbdp_get_listing_attachment_ids($post_id);
                     $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
@@ -613,7 +620,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     $submission_notice = get_directorist_option('submission_confirmation', 1);
                     $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-                    
+
                     if ('view_listing' == $redirect_page) {
                         $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink ;
                     } else {
@@ -713,7 +720,7 @@ if (!class_exists('ATBDP_Add_Listing')):
             $temp_token = isset($_GET['token']) ? $_GET['token'] : '';
             $renew_from = isset($_GET['renew_from']) ? $_GET['renew_from'] : '';
             $token = get_post_meta($id, '_renewal_token', true);
-            
+
             if (!empty($action) && !empty($id)) {
             if ('renew' == $action) {
             if(($temp_token === $token) || $renew_from){
@@ -726,7 +733,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 }
             }
         }
-           
+
         }
 
 

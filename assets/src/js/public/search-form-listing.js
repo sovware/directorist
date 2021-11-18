@@ -214,11 +214,7 @@
             };
 
             let input_fields = [{
-<<<<<<< HEAD
-                    input_elm: '#address',
-=======
                     input_elm: '.directorist-location-js',
->>>>>>> upstream/alpha
                     search_result_elm: '.address_result',
                     getResultContainer
                 },

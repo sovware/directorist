@@ -1,20 +1,29 @@
 <?php
 /**
+ * Custom field file upload field template.
+ *
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.6.3
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+$post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
+$file_types = 'all_types';
 
-$post_id = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
-// wp_enqueue_style( 'atbdp-pluploadcss' );
-// wp_enqueue_script( 'atbdp-plupload-min' );
-// wp_enqueue_script( 'atbdp-plupload' );
-// wp_enqueue_script( 'atbdp-plupload' );
-$file_types        = ! empty( $data['file_type'] ) ? $data['file_type'] : 'all_types';
+if ( ! empty( $data['file_type'] ) ) {
+	$groups = directorist_get_supported_file_types_groups();
+
+	if ( isset( $groups[ $data['file_type'] ] ) ) {
+		$file_types = implode( ',', $groups[ $data['file_type'] ] );
+	} else {
+		$file_types = $data['file_type'];
+	}
+}
+
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
-$allowed_img_types = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
 // place js config array for plupload
 $plupload_init = array(
 	'runtimes'            => 'html5,silverlight,html4',
@@ -38,14 +47,16 @@ $plupload_init = array(
 	'multi_selection'     => false, // will be added per uploader
 	// additional post data to send to our ajax hook
 	'multipart_params'    => array(
-		'_ajax_nonce' => wp_create_nonce( 'atbdp_attachment_upload' ), // will be added per uploader
-		'action'      => 'atbdp_post_attachment_upload', // the ajax action name
-		'imgid'       => 0, // will be added per uploader
+		'_ajax_nonce' => wp_create_nonce( 'atbdp_attachment_upload' ),   // will be added per uploader
+		'action'      => 'atbdp_post_attachment_upload',                 // the ajax action name
+		// Do not delete or modify 'imgid' we are running backend validation based on this id.
+		'imgid'       => 0,                                              // will be added per uploader
+		'directory'   => $data['form']->current_listing_type,
 	),
 );
 
 $text_value    = array(
-	'atbdp_allowed_img_types' => ! empty( $allowed_img_types ) ? implode( ',', $allowed_img_types ) : '',
+	'atbdp_allowed_img_types' => implode( ',', directorist_get_supported_file_types_groups( 'image' ) ),
 	'txt_all_files'           => __( 'Allowed files', 'directorist' ),
 	'err_max_file_size'       => __( 'File size error : You tried to upload a file over %s', 'directorist' ),
 	'err_file_type'           => __( 'File type error. Allowed file types: %s', 'directorist' ),
@@ -115,6 +126,8 @@ $multiple           = false;
 				<input type="hidden" name="<?php echo $id; ?>_file_size" id="<?php echo $id; ?>_file_size"
 					   value="<?php echo esc_attr( $file_size ); ?>"/>
 			<?php } ?>
+
+			<input type="hidden" name="<?php echo $id; ?>_directory" id="<?php echo $id; ?>_directory" value="general"/>
 
 			<div class="plupload-upload-uic hide-if-no-js
 			<?php

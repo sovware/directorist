@@ -65,6 +65,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            /**
+             * @todo need to remove code as it has no uses
+             */
             add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
             add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
 
@@ -168,6 +171,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['success'] = false;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+
+                return wp_send_json( $data );
+            }
+
             $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
 
             wp_send_json( $file );
@@ -208,6 +219,17 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login()
         {
+
+            $nonce = ! empty( $_POST[ 'directorist-quick-login-security' ] ) ? sanitize_text_field( $_POST[ 'directorist-quick-login-security' ] ) : '';
+
+            if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ){
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Invalid request.', 'directorist')
+                ]);
+            }
+
+
             if ( is_user_logged_in() ) {
                 wp_send_json([
                     'loggedin' => true,
@@ -477,42 +499,76 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             die();
         }
 
-        public function atbdp_post_attachment_upload()
-        {
+		/**
+		 * Handle ajax file upload via plupload.
+		 */
+        public function atbdp_post_attachment_upload() {
             // security
-            check_ajax_referer('atbdp_attachment_upload', '_ajax_nonce');
-            $field_id = isset($_POST["imgid"]) ? esc_attr($_POST["imgid"]) : '';
-            $post_id = isset($_POST["post_id"]) ? absint($_POST["post_id"]) : '';
-            // set directory temp upload dir
-            add_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+            check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
 
-            $fixed_file = $_FILES[$field_id . 'async-upload'];
+            $field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
+            $post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
+            $directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
+
+			if ( ! term_exists( $directory, ATBDP_TYPE ) ) {
+				echo __( 'Invalid directory type!', 'directorist' );
+				die();
+			}
+
+            $fixed_file = $_FILES[ $field_id . 'async-upload' ];
+
+			$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
+			$field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
+			$field_config = current( $field_config );
+
+			$file_type    = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
+			$file_size    = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
+
+			$groups = directorist_get_supported_file_types_groups();
+			if ( isset( $groups[ $file_type ] ) ) {
+				$file_types = $groups[ $file_type ];
+			} else {
+				$file_types = (array) $file_type;
+			}
+
+			$_supported_mimes = [];
+			foreach ( get_allowed_mime_types() as $ext => $mime ) {
+				$_exts = explode( '|', $ext );
+				$match = array_intersect( $file_types, $_exts );
+				if ( count( $match ) ) {
+					$_supported_mimes[ $ext ] = $mime;
+				}
+			}
+
+			// set directory temp upload dir
+			add_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
 
             // handle file upload
-            $status = wp_handle_upload($fixed_file, array(
+            $status = wp_handle_upload( $fixed_file, array(
                 'test_form' => true,
-                'action' => 'atbdp_post_attachment_upload'
-            ));
-            // unset GD temp upload dir
-            remove_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+                'action'    => 'atbdp_post_attachment_upload',
+				'mimes'     => $_supported_mimes
+            ) );
 
-            if (!isset($status['url']) && isset($status['error'])) {
-                print_r($status);
+            // unset GD temp upload dir
+            remove_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
+
+            if ( ! isset( $status['url'] ) && isset( $status['error'] ) ) {
+                print_r( $status );
             }
 
             // send the uploaded file url in response
             if (isset($status['url']) && $post_id) {
 
                 // insert to DB
-                $file_info = update_post_meta($post_id, $field_id, $status['url']);
+                $file_info = update_post_meta( $post_id, $field_id, $status['url'] );
 
-                if (is_wp_error($file_info)) {
+                if ( is_wp_error( $file_info ) ) {
                     //atbdp_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
                 } else {
-                    $wp_upload_dir = wp_upload_dir();
                     echo $status['url'];
                 }
-            } elseif (isset($status['url'])) {
+            } elseif ( isset( $status['url'] ) ) {
                 echo $status['url'];
             } else {
                 echo 'x';
@@ -617,13 +673,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function update_user_profile()
         {
+
+            if ( ! directorist_verify_nonce() ){
+                wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
+            }
+
             // process the data and the return a success
             if ($_POST['user']) {
-                // passed the security
-                // update the user data and also its meta
-                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
 
-                $old_pro_pic_id = get_user_meta($user_id, 'pro_pic', true);
+                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
                 if (!empty($_POST['profile_picture_meta']) && count($_POST['profile_picture_meta'])) {
                     $meta_data = $_POST['profile_picture_meta'][0];
 
@@ -636,14 +694,20 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 } else {
                     update_user_meta($user_id, 'pro_pic', '');
                 }
-                $success = ATBDP()->user->update_profile($_POST['user']); // update_profile() will handle sanitisation, so we can just the pass the data through it
-                if ($success) {
-                    wp_send_json_success(array('message' => __('Profile updated successfully', 'directorist')));
-                } else {
-                    wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
-                };
+
+
+                $success = ATBDP()->user->update_profile( $_POST[ 'user' ] ); // update_profile() will handle sanitisation, so we can just the pass the data through it
+
+                if ( $success ) {
+                    wp_send_json_success( [ 'message' => __( 'Profile updated successfully', 'directorist' ) ] );
+                }
+
+                wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
             }
-            wp_die();
+
+            wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
         }
 
         private function insert_attachment($file_handler, $post_id, $setthumb = 'false')
@@ -687,6 +751,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function remove_listing_review()
         {
+                if ( ! directorist_verify_nonce() ) {
+                    echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+                }
+
                 if (!empty($_POST['review_id'])) {
                     $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
                     if ($success) {
@@ -703,6 +771,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function atbdp_review_pagination_output()
         {
+            if ( ! directorist_verify_nonce() ) {
+                echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+            }
+
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
@@ -877,6 +949,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
+            if ( ! directorist_verify_nonce() ) {
+                $status = [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
+                ];
+                wp_send_json( $status );
+            }
+
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
             if ($guest_review && $guest_email) {
@@ -931,7 +1011,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
 
                 $data = array(
-                    'id' => $review_id,
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
@@ -957,7 +1036,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo 'Errors: make sure you wrote something about your review.';
                 // show error message
             }
-
 
             die();
         }
@@ -1006,7 +1084,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             $to = $user->user_email;
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1019,7 +1097,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1068,7 +1146,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
             $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
-        
+
             // Action Hook
             $action_args = [
                 'is_sent'    => $is_sent,
@@ -1081,7 +1159,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             ];
 
             do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
-            
+
             return $is_sent;
         }
 
@@ -1158,10 +1236,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function ajax_callback_report_abuse()
         {
-
-
             $data = array('error' => 0);
 
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+
+                wp_send_json( $data );
+            }
 
             if ($this->atbdp_email_admin_report_abuse()) {
 
@@ -1256,7 +1338,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'send_to'       => $user_email,
                 'listing_email' => $listing_email,
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 
@@ -1327,7 +1409,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'listing_url'   => $listing_url,
 
                 'current_time'  => $current_time,
-                
+
                 'site_name' => $site_name,
             ];
 
@@ -1344,12 +1426,20 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function ajax_callback_send_contact_email()
         {
+            $data = array('error' => 0);
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+            }
+
             /**
              * If fires sending processing the submitted contact information
              * @since 4.4.0
              */
             do_action('atbdp_before_processing_contact_to_owner');
-            $data = array('error' => 0);
+
+
             $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array( 'listing_contact_form' )));
             $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array( 'listing_contact_form' )));
             $disable_all_email = get_directorist_option('disable_email_notification');

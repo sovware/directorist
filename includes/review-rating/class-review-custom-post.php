@@ -100,7 +100,7 @@ class ATBDP_Review_Custom_Post
             <tbody>
             <tr class="field-type">
                 <td class="label">
-                    <label for="review_listing" class="widefat"><?php _e( 'Select Listing for Review', 'directorist-claim-listing' ); ?></label>
+                    <label for="review_listing" class="widefat"><?php _e( 'Select Listing for Review', 'directorist' ); ?></label>
                 </td>
                 <td class="field_lable">
                     <select id="review_listing" name="review_listing" class="atbdp-radio-list radio horizontal">
@@ -160,7 +160,7 @@ class ATBDP_Review_Custom_Post
 
             <tr class="field-instructions">
                 <td class="label">
-                    <label for="reviewer_details"><?php _e( 'Details', 'directorist-claim-listing' ); ?></label>
+                    <label for="reviewer_details"><?php _e( 'Details', 'directorist' ); ?></label>
                 </td>
                 <td>
                     <textarea id="reviewer_details" class="textarea" name="reviewer_details" rows="6" cols="64"><?php if( isset( $post_meta['_reviewer_details'] ) ) echo esc_textarea( $post_meta['_reviewer_details'][0] ); ?></textarea>

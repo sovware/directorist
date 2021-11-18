@@ -8551,7 +8551,11 @@ function directorist_get_supported_file_types_groups( $group = null ) {
 		]
 	];
 
-	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : $groups );
+	if ( is_null( $group ) ) {
+		return $groups;
+	}
+
+	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : [] );
 }
 
 /**

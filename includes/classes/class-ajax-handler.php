@@ -503,87 +503,94 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 		 * Handle ajax file upload via plupload.
 		 */
         public function atbdp_post_attachment_upload() {
-            // security
-            check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
+			// security
+			check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
 
-            $field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
-            $post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
-            $directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
+			try {
+				$field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
+				$post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
+				$directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
 
-			if ( ! term_exists( $directory, ATBDP_TYPE ) ) {
-				echo __( 'Invalid directory type!', 'directorist' );
-				die();
-			}
-
-            $fixed_file = $_FILES[ $field_id . 'async-upload' ];
-
-			$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
-			$field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
-			$field_config = current( $field_config );
-
-			$file_type    = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
-			$file_size    = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
-
-			$groups = directorist_get_supported_file_types_groups();
-			if ( isset( $groups[ $file_type ] ) ) {
-				$file_types = $groups[ $file_type ];
-			} else {
-				$file_types = (array) $file_type;
-			}
-
-			$_supported_mimes = [];
-			foreach ( get_allowed_mime_types() as $ext => $mime ) {
-				$_exts = explode( '|', $ext );
-				$match = array_intersect( $file_types, $_exts );
-				if ( count( $match ) ) {
-					$_supported_mimes[ $ext ] = $mime;
+				if ( empty( $field_id ) || empty( $directory ) ) {
+					throw new \Exception( __( 'Invalid upload request!', 'directorist' ), 400 );
 				}
+
+				if ( ! term_exists( $directory, ATBDP_TYPE ) ) {
+					throw new \Exception( __( 'Invalid directory type!', 'directorist' ), 400 );
+				}
+
+				$fixed_file = $_FILES[ $field_id . 'async-upload' ];
+
+				$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
+				$field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
+				$field_config = current( $field_config );
+
+				$file_type    = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
+				$file_size    = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
+
+				if ( in_array( $file_type, [ '', 'all_types', 'all' ], true ) ) {
+					$file_types = directorist_get_supported_file_types();
+				} else {
+					$groups = directorist_get_supported_file_types_groups();
+
+					if ( isset( $groups[ $file_type ] ) ) {
+						$file_types = $groups[ $file_type ];
+					} else {
+						$file_types = (array) $file_type;
+					}
+				}
+
+				$_supported_mimes = [];
+				foreach ( get_allowed_mime_types() as $ext => $mime ) {
+					$_exts = explode( '|', $ext );
+					$match = array_intersect( $file_types, $_exts );
+					if ( count( $match ) ) {
+						$_supported_mimes[ $ext ] = $mime;
+					}
+				}
+
+				// Set temporary upload directory.
+				add_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+
+				// handle file upload
+				$status = wp_handle_upload( $fixed_file, array(
+					'test_form' => true,
+					'action'    => 'atbdp_post_attachment_upload',
+					'mimes'     => $_supported_mimes
+				) );
+
+				// Restore to default upload directory.
+				remove_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+
+				if ( ! empty( $status['error'] ) ) {
+					throw new \Exception( $status['error'], 400 );
+				}
+
+				if ( empty( $status['url'] ) ) {
+					throw new \Exception( __( 'Could not upload your file, please try again.'), 400 );
+				}
+
+				// Update the meta when post id is available.
+				if ( ! empty( $post_id ) ) {
+					update_post_meta( $post_id, $field_id, $status['url'] );
+
+					wp_send_json_success( $status['url'], 201 );
+				}
+
+				wp_send_json_success( $status['url'] );
+
+				// if file exists it should have been moved if uploaded correctly so now we can remove it
+				/*if(!empty($status['file']) && $post_id){
+					wp_delete_file( $status['file'] );
+				}*/
+				// atbdp_Media::post_attachment_upload();
+				//ATBDP()->atbdp_Media->post_attachment_upload();
+			} catch( \Exception $e ) {
+				wp_send_json_error( $e->getMessage() );
 			}
-
-			// set directory temp upload dir
-			add_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
-
-            // handle file upload
-            $status = wp_handle_upload( $fixed_file, array(
-                'test_form' => true,
-                'action'    => 'atbdp_post_attachment_upload',
-				'mimes'     => $_supported_mimes
-            ) );
-
-            // unset GD temp upload dir
-            remove_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
-
-            if ( ! isset( $status['url'] ) && isset( $status['error'] ) ) {
-                print_r( $status );
-            }
-
-            // send the uploaded file url in response
-            if (isset($status['url']) && $post_id) {
-
-                // insert to DB
-                $file_info = update_post_meta( $post_id, $field_id, $status['url'] );
-
-                if ( is_wp_error( $file_info ) ) {
-                    //atbdp_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
-                } else {
-                    echo $status['url'];
-                }
-            } elseif ( isset( $status['url'] ) ) {
-                echo $status['url'];
-            } else {
-                echo 'x';
-            }
-
-            // if file exists it should have been moved if uploaded correctly so now we can remove it
-            /*if(!empty($status['file']) && $post_id){
-                wp_delete_file( $status['file'] );
-            }*/
-            // atbdp_Media::post_attachment_upload();
-            //ATBDP()->atbdp_Media->post_attachment_upload();
-            wp_die();
         }
 
-        public static function temp_upload_dir($upload)
+        public static function set_temporary_upload_dir($upload)
         {
             $upload['subdir'] = "/atbdp_temp";
             $upload['path'] = $upload['basedir'] . $upload['subdir'];

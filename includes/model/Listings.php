@@ -1068,7 +1068,7 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 

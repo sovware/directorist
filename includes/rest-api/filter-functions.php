@@ -19,6 +19,10 @@ function directorist_allow_read_context_permission( $permission, $context, $obje
 		$permission = true;
 	}
 
+	if ( $context === 'create' && $object_type === 'user' ) {
+		$permission = true;
+	}
+
 	return $permission;
 }
 

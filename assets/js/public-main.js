@@ -911,7 +911,8 @@ atbdSelectData.forEach(function (el) {
       'name': name.val(),
       'email': contact_email.val(),
       'listing_email': listing_email.val(),
-      'message': message.val()
+      'message': message.val(),
+      'directorist_nonce': atbdp_public_data.directorist_nonce
     };
     submit_button.prop('disabled', true);
     $.post(atbdp_public_data.ajaxurl, data, function (response) {

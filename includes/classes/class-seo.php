@@ -1369,7 +1369,9 @@ if (!class_exists('ATBDP_SEO')) :
             ];
 
             foreach ( $yoast_seo_meta as $yoast_meta_key => $yoast_meta_value  ) {
-                $seo_meta[ $yoast_meta_key ] = ( ! empty( $yoast_meta_value ) ) ? $yoast_meta_value : $seo_meta[ $yoast_meta_key ];
+                if ( ! empty( $yoast_meta_value ) ) {
+                    $seo_meta[ $yoast_meta_key ] = $yoast_meta_value;
+                } 
             }
             
             return $seo_meta;

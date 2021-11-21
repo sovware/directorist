@@ -80,7 +80,7 @@
 
                             printf( '<select name="custom_field[%d]" class="form-control directory_field">', $post->ID );
                             if( ! empty( $field_meta['allow_null'][0] ) ) {
-                                printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
+                                printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'directorist' ).' -' );
                             }
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {

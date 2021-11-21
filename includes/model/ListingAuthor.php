@@ -345,7 +345,7 @@ class Directorist_Listing_Author {
 		if ( $display_email == 'public' ) {
 			$email_endabled = true;
 		}
-		elseif ( $display_email == 'logged_in' && atbdp_logged_in_user() ) {
+		elseif ( $display_email == 'logged_in' && is_user_logged_in() ) {
 			$email_endabled = true;
 		}
 		else {
@@ -414,7 +414,7 @@ class Directorist_Listing_Author {
 
 		$this->enqueue_scripts();
 
-		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 

@@ -15,7 +15,11 @@ defined( 'ABSPATH' ) || exit;
  * @return boolen
  */
 function directorist_allow_read_context_permission( $permission, $context, $object_id, $object_type ) {
-	if ( $context === 'read' && $object_type !== 'user' ) {
+	if ( $context === 'read' ) {
+		$permission = true;
+	}
+
+	if ( $context === 'create' && $object_type === 'user' ) {
 		$permission = true;
 	}
 

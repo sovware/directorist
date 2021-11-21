@@ -64,21 +64,6 @@ class Users_Account_Controller extends Abstract_Controller {
 			)
 		) );
 
-		// Get Password Reset PIN
-        register_rest_route( $this->namespace, '/' . $this->rest_base . '/get-password-reset-pin', array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => array( $this, 'get_password_reset_pin' ),
-			'permission_callback' => array( $this, 'check_get_reset_pin_permission' ),
-			'args'                => array(
-				'email' => array(
-					'required'    => true,
-					'type'        => 'string',
-					'format'      => 'email',
-					'description' => __( 'User email address.', 'directorist' ),
-				),
-			)
-		) );
-
 		// Rest user password.
         register_rest_route( $this->namespace, '/' . $this->rest_base . '/reset-user-password', array(
 			'methods'             => WP_REST_Server::CREATABLE,
@@ -161,16 +146,6 @@ class Users_Account_Controller extends Abstract_Controller {
 		return true;
 	}
 
-	public function check_get_reset_pin_permission( $request ) {
-		$user = $this->get_user_by_email( $request['email'] );
-
-		if ( is_wp_error( $user ) ) {
-			return $user;
-		}
-
-		return true;
-	}
-
 	public function check_reset_password_permission( $request ) {
 		$user = $this->get_user_by_email( $request['email'] );
 
@@ -227,25 +202,6 @@ class Users_Account_Controller extends Abstract_Controller {
 		return $response;
 	}
 
-	public function get_password_reset_pin( $request ) {
-		$email        = $request['email'];
-		$password_pin = get_transient( "directorist_reset_pin_$email" );
-
-		if ( empty( $password_pin ) ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
-        }
-
-		$data = [
-			'success' => true,
-			'message' => __( 'Password rest pin is still valid.', 'directorist' ),
-			'pin'     => $password_pin,
-		];
-
-		$response = rest_ensure_response( $data );
-
-		return $response;
-	}
-
 	public function reset_user_password( $request ) {
 		$email        = $request['email'];
 		$user         = get_user_by( 'email', $email );
@@ -284,7 +240,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		}
 
 		// Change Password
-        wp_set_password( $request['password'], $user->ID );
+        wp_set_password( $request['new_password'], $user->ID );
 
 		$data = [
 			'success' => true,

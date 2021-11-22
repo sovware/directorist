@@ -43,20 +43,15 @@ class Comment {
 	/**
 	 * See if comments are open.
 	 *
-	 * @param  bool $open    Whether the current post is open for comments.
+	 * @param  bool $is_open    Comments open status.
 	 * @param  int  $post_id Post ID.
 	 * @return bool
 	 */
-	public static function comments_open( $open, $post_id ) {
+	public static function comments_open( $is_open, $post_id ) {
 		if ( ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
-			$open = true;
-
-			if ( ! post_type_supports( ATBDP_POST_TYPE, 'comments' ) ) {
-				$open = false;
-			}
+			return apply_filters( 'directorist/review/comments_open', directorist_is_review_enabled(), $post_id );
 		}
-
-		return apply_filters( 'directorist/review/comments_open', $open, $post_id );
+		return $is_open;
 	}
 
 	/**

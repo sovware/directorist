@@ -37,9 +37,10 @@ class Settings_Screen {
 	public static function get_fields() {
 		return [
 			'enable_review' => [
-				'type'  => 'toggle',
-				'label' => __( 'Enable Review', 'directorist' ),
-				'value' => true,
+				'type'        => 'toggle',
+				'label'       => __( 'Enable Review', 'directorist' ),
+				'description' => __( 'Allow your customers, users, or listing owners to share their review or comment on listings.', 'directorist' ),
+				'value'       => true,
 			],
 			'enable_owner_review' => [
 				'type'        => 'toggle',

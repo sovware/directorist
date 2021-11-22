@@ -109,7 +109,10 @@ Bootstrap::load_walker();
 					$html_req
 				)
 			),
-			'url'    => sprintf(
+		);
+
+		if ( $builder->is_website_field_active() ) {
+			$fields['url'] = sprintf(
 				'<div class="directorist-form-group form-group-url">%s %s</div>',
 				sprintf(
 					'<label for="url">%s</label>',
@@ -120,10 +123,10 @@ Bootstrap::load_walker();
 					$builder->get_website_placeholder( __( 'Enter your website', 'directorist' ) ),
 					esc_attr( $commenter['comment_author_url'] )
 				)
-			),
-		);
+			);
+		}
 
-		if ( ! $builder->is_cookies_consent_enabled() ) {
+		if ( ! $builder->is_cookies_consent_active() ) {
 			$fields['cookies'] = '';
 		}
 

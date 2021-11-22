@@ -60,6 +60,7 @@ class Builder_Screen {
 					'review_email_placeholder',
 					'review_name_label',
 					'review_name_placeholder',
+					'review_show_website_field',
 					'review_website_label',
 					'review_website_placeholder',
 				],
@@ -82,7 +83,7 @@ class Builder_Screen {
 			// ],
 
 			'review_rating_type' => [
-				'type' => 'hidden',
+				'type'  => 'hidden',
 				'value' => 'single'
 			],
 
@@ -122,15 +123,40 @@ class Builder_Screen {
 				'type'  => 'text',
 				'value' => __( 'Your Name', 'directorist' ),
 			],
+			'review_show_website_field' => [
+				'label' => __( 'Show Website Field?', 'directorist' ),
+				'type'  => 'toggle',
+				'value' => false,
+			],
 			'review_website_label' => [
-				'label' => __( 'Website Label', 'directorist' ),
-				'type'  => 'text',
-				'value' => __( 'Website', 'directorist' ),
+				'label'   => __( 'Website Label', 'directorist' ),
+				'type'    => 'text',
+				'value'   => __( 'Website', 'directorist' ),
+				'show-if' => [
+					'where'      => 'review_show_website_field',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
 			],
 			'review_website_placeholder' => [
-				'label' => __( 'Website Placeholder', 'directorist' ),
-				'type'  => 'text',
-				'value' => __( 'Website url', 'directorist' ),
+				'label'   => __( 'Website Placeholder', 'directorist' ),
+				'type'    => 'text',
+				'value'   => __( 'Website url', 'directorist' ),
+				'show-if' => [
+					'where'      => 'review_show_website_field',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
 			],
 		];
 

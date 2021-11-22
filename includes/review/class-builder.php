@@ -79,8 +79,12 @@ class Builder {
 		return $this->get_field( 'comment_placeholder', $default );
 	}
 
-	public function is_cookies_consent_enabled() {
+	public function is_cookies_consent_active() {
 		return (bool) $this->get_field( 'cookies_consent', false );
+	}
+
+	public function is_website_field_active() {
+		return (bool) $this->get_field( 'show_website_field', false );
 	}
 
 	protected function get_field( $field_key, $default = false ) {

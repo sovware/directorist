@@ -89,7 +89,7 @@ Bootstrap::load_walker();
 					( $req ? ' <span class="required">*</span>' : '' )
 				),
 				sprintf(
-					'<input id="author" class="directorist-form-element" placeholder="%s" name="author" type="text" value="%s" size="30" maxlength="245"%s />',
+					'<input id="author" autocomplete="name" class="directorist-form-element" placeholder="%s" name="author" type="text" value="%s" size="30" maxlength="245"%s />',
 					$builder->get_name_placeholder( __( 'Enter your name', 'directorist' ) ),
 					esc_attr( $commenter['comment_author'] ),
 					$html_req
@@ -103,7 +103,7 @@ Bootstrap::load_walker();
 					( $req ? ' <span class="required">*</span>' : '' )
 				),
 				sprintf(
-					'<input id="email" class="directorist-form-element" placeholder="%s" name="email" type="email" value="%s" size="30" maxlength="100" aria-describedby="email-notes"%s />',
+					'<input id="email" autocomplete="email" class="directorist-form-element" placeholder="%s" name="email" type="email" value="%s" size="30" maxlength="100" aria-describedby="email-notes"%s />',
 					$builder->get_email_placeholder( __( 'Enter your email', 'directorist' ) ),
 					esc_attr( $commenter['comment_author_email'] ),
 					$html_req
@@ -116,7 +116,7 @@ Bootstrap::load_walker();
 					$builder->get_website_label( __( 'Website', 'directorist' ) ),
 				),
 				sprintf(
-					'<input id="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',
+					'<input id="url" autocomplete="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',
 					$builder->get_website_placeholder( __( 'Enter your website', 'directorist' ) ),
 					esc_attr( $commenter['comment_author_url'] )
 				)
@@ -148,7 +148,7 @@ Bootstrap::load_walker();
 			'comment_field'      => implode( "\n", $comment_fields ),
 			'logged_in_as'       => '',
 			'class_container'    => 'directorist-review-submit',
-			'title_reply'        => __( 'Review', 'directorist' ),
+			'title_reply'        => __( 'Write Your Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',
 			'title_reply_after'  => '</h3></div>',
 			'class_form'         => 'comment-form directorist-review-submit__form',

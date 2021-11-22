@@ -14,8 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Settings_Screen {
 
 	public static function init() {
-		add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_layout' ] );
-		add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
+		if ( isset( $_GET['page'] ) && $_GET['page'] === 'atbdp-settings' ) {
+			add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_layout' ] );
+			add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
+		}
 	}
 
 	public static function register_layout( $layout ) {

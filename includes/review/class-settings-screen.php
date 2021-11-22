@@ -152,7 +152,7 @@ class Settings_Screen {
 			// ],
 			'review_num' => [
 				'label'       => __( 'Number of Reviews', 'directorist' ),
-				'description' => __( 'Number of reviews to show per page. We do not recommend more than 10, since it will impact loading speed.', 'directorist' ),
+				'description' => __( 'Number of reviews to show per page. More than 10 is not recommended due to impact on loading speed.', 'directorist' ),
 				'type'        => 'number',
 				'value'       => 5,
 				'min'         => 1,

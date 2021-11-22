@@ -1716,7 +1716,8 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
   var form_data = {
     action: 'atbdp_authenticate_the_customer',
     username: form.find('input[name="username"]').val(),
-    password: form.find('input[name="password"]').val()
+    password: form.find('input[name="password"]').val(),
+    nonce: atbdp_admin_data.nonce
   };
   $('.atbdp-form-feedback').html('');
   is_sending = true;
@@ -1731,10 +1732,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
     success: function success(response) {
       var _response$status, _response$status2;
 
-      console.log({
-        response: response
-      });
-
+      // console.log({response});
       if (response.has_previous_subscriptions) {
         location.reload();
         return;
@@ -1906,7 +1904,8 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
             var form_data = {
               action: 'atbdp_download_file',
               download_item: file,
-              type: file_type
+              type: file_type,
+              nonce: atbdp_admin_data.nonce
             };
             jQuery.ajax({
               type: 'post',
@@ -1917,8 +1916,7 @@ $('#atbdp-directorist-license-login-form').on('submit', function (e) {
                 icon_elm.html('<span class="fas fa-circle-notch fa-spin"></span>');
               },
               success: function success(response) {
-                console.log('success', counter, response);
-
+                // console.log('success', counter, response);
                 if (response.status.success) {
                   icon_elm.addClass('atbdp-text-success');
                   icon_elm.html('<span class="fas fa-check"></span>');
@@ -2068,16 +2066,15 @@ $('.ext-update-btn').on('click', function (e) {
   var plugin_key = $(this).data('key');
   var button_default_html = $(this).html();
   var form_data = {
-    action: 'atbdp_update_plugins'
+    action: 'atbdp_update_plugins',
+    nonce: atbdp_admin_data.nonce
   };
 
   if (plugin_key) {
     form_data.plugin_key = plugin_key;
-  }
+  } // console.log( { plugin_key } );
 
-  console.log({
-    plugin_key: plugin_key
-  });
+
   var self = this;
   jQuery.ajax({
     type: 'post',
@@ -2088,10 +2085,7 @@ $('.ext-update-btn').on('click', function (e) {
       $(self).html(icon);
     },
     success: function success(response) {
-      console.log({
-        response: response
-      });
-
+      // console.log( { response } );
       if (response.status.success) {
         $(self).html('Updated');
         location.reload();
@@ -2121,7 +2115,8 @@ $('.file-install-btn').on('click', function (e) {
   var form_data = {
     action: 'atbdp_install_file_from_subscriptions',
     item_key: data_key,
-    type: data_type
+    type: data_type,
+    nonce: atbdp_admin_data.nonce
   };
   var btn_default_html = $(this).html();
   ext_is_installing = true;
@@ -2138,8 +2133,7 @@ $('.file-install-btn').on('click', function (e) {
       $(self).prepend(icon);
     },
     success: function success(response) {
-      console.log(response);
-
+      // console.log(response);
       if (response.status && !response.status.success && response.status.message) {
         alert(response.status.message);
       }
@@ -2171,7 +2165,8 @@ $('.plugin-active-btn').on('click', function (e) {
   var data_key = $(this).data('key');
   var form_data = {
     action: 'atbdp_activate_plugin',
-    item_key: data_key
+    item_key: data_key,
+    nonce: atbdp_admin_data.nonce
   };
   var btn_default_html = $(this).html();
   var self = this;
@@ -2187,8 +2182,8 @@ $('.plugin-active-btn').on('click', function (e) {
       $(self).prepend(icon);
     },
     success: function success(response) {
-      console.log(response); // return;
-
+      // console.log(response);
+      // return;
       if (response.status && !response.status.success && response.status.message) {
         alert(response.status.message);
       }
@@ -2246,7 +2241,8 @@ $('#purchase-refresh-form').on('submit', function (e) {
   var password = $(this).find('input[name="password"]').val();
   var form_data = {
     action: 'atbdp_refresh_purchase_status',
-    password: password
+    password: password,
+    nonce: atbdp_admin_data.nonce
   };
   form_feedback.html('');
   jQuery.ajax({
@@ -2257,8 +2253,7 @@ $('#purchase-refresh-form').on('submit', function (e) {
       $(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
     },
     success: function success(response) {
-      console.log(response);
-
+      // console.log(response);
       if (response.status.message) {
         var feedback_type = response.status.success ? 'success' : 'danger';
         var message = "<span class=\"atbdp-text-".concat(feedback_type, "\">").concat(response.status.message, "</span>");
@@ -2291,7 +2286,8 @@ $('.subscriptions-logout-btn').on('click', function (e) {
   var hard_logout = $(this).data('hard-logout');
   var form_data = {
     action: 'atbdp_close_subscriptions_sassion',
-    hard_logout: hard_logout
+    hard_logout: hard_logout,
+    nonce: atbdp_admin_data.nonce
   };
   var self = this;
   jQuery.ajax({
@@ -2302,11 +2298,11 @@ $('.subscriptions-logout-btn').on('click', function (e) {
       $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
     },
     success: function success(response) {
-      console.log(response);
+      // console.log( response );
       location.reload();
     },
     error: function error(_error7) {
-      console.log(_error7);
+      // console.log(error);
       $(this).prop('disabled', false);
       $(this).removeClass('in-progress');
       $(self).html(btn_default_html);
@@ -2343,7 +2339,8 @@ $('#atbdp-my-extensions-form').on('submit', function (e) {
   form_data = {
     action: 'atbdp_plugins_bulk_action',
     task: task,
-    plugin_items: plugins_items
+    plugin_items: plugins_items,
+    nonce: atbdp_admin_data.nonce
   };
   jQuery.ajax({
     type: 'post',
@@ -2353,12 +2350,12 @@ $('#atbdp-my-extensions-form').on('submit', function (e) {
       $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
     },
     success: function success(response) {
-      console.log(response);
+      // console.log( response );
       $(self).find('button[type="submit"] .atbdp-icon').remove();
       location.reload();
     },
     error: function error(_error8) {
-      console.log(_error8);
+      // console.log(error);
       uninstalling = false;
     }
   }); // console.log( task, plugins_items );
@@ -2487,7 +2484,8 @@ function plugins_bulk_actions(task, plugins_items, after_plugins_install) {
     form_data = {
       action: form_action,
       item_key: current_item,
-      type: 'plugin'
+      type: 'plugin',
+      nonce: atbdp_admin_data.nonce
     };
     jQuery.ajax({
       type: 'post',
@@ -2497,10 +2495,7 @@ function plugins_bulk_actions(task, plugins_items, after_plugins_install) {
         action_btn.html("<span class=\"atbdp-icon\">\n                        <span class=\"fas fa-circle-notch fa-spin\"></span>\n                    </span> ".concat(btnLabelOnProgress[task]));
       },
       success: function success(response) {
-        console.log({
-          response: response
-        });
-
+        // console.log( { response } );
         if (response.status.success) {
           action_btn.html(btnLabelOnSuccess[task]);
         } else {
@@ -2509,8 +2504,7 @@ function plugins_bulk_actions(task, plugins_items, after_plugins_install) {
 
         bulk_task(plugins, next_index, callback);
       },
-      error: function error(_error9) {
-        console.log(_error9);
+      error: function error(_error9) {// console.log(error);
       }
     });
   };
@@ -2531,7 +2525,8 @@ $('.ext-action-uninstall').on('click', function (e) {
   var form_data = {
     action: 'atbdp_plugins_bulk_action',
     task: 'uninstall',
-    plugin_items: [data_target]
+    plugin_items: [data_target],
+    nonce: atbdp_admin_data.nonce
   };
   var self = this;
   uninstalling = true;
@@ -2543,12 +2538,12 @@ $('.ext-action-uninstall').on('click', function (e) {
       $(self).prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
     },
     success: function success(response) {
-      console.log(response);
+      // console.log( response );
       $(self).closest('.ext-action').find('.ext-action-drop').removeClass('active');
       location.reload();
     },
     error: function error(_error10) {
-      console.log(_error10);
+      // console.log(error);
       uninstalling = false;
     }
   });
@@ -2615,7 +2610,8 @@ $('.theme-activate-btn').on('click', function (e) {
 
   var form_data = {
     action: 'atbdp_activate_theme',
-    theme_stylesheet: data_target
+    theme_stylesheet: data_target,
+    nonce: atbdp_admin_data.nonce
   };
   var self = this;
   theme_is_activating = true;
@@ -2627,9 +2623,7 @@ $('.theme-activate-btn').on('click', function (e) {
       $(self).prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
     },
     success: function success(response) {
-      console.log({
-        response: response
-      });
+      // console.log({ response });
       $(self).find('.atbdp-icon').remove();
 
       if (response.status && response.status.success) {
@@ -2637,9 +2631,7 @@ $('.theme-activate-btn').on('click', function (e) {
       }
     },
     error: function error(_error11) {
-      console.log({
-        error: _error11
-      });
+      // console.log({ error });
       theme_is_activating = false;
       $(self).find('.atbdp-icon').remove();
     }
@@ -2657,7 +2649,8 @@ $('.theme-update-btn').on('click', function (e) {
   var theme_stylesheet = $(this).data('target');
   var button_default_html = $(this).html();
   var form_data = {
-    action: 'atbdp_update_theme'
+    action: 'atbdp_update_theme',
+    nonce: atbdp_admin_data.nonce
   };
 
   if (theme_stylesheet) {
@@ -2674,10 +2667,7 @@ $('.theme-update-btn').on('click', function (e) {
       $(self).html('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating');
     },
     success: function success(response) {
-      console.log({
-        response: response
-      });
-
+      // console.log({ response });
       if (response.status && response.status.success) {
         $(self).html('Updated');
         location.reload();
@@ -2689,9 +2679,7 @@ $('.theme-update-btn').on('click', function (e) {
       }
     },
     error: function error(_error12) {
-      console.log({
-        error: _error12
-      });
+      // console.log({ error });
       $(self).removeClass('in-progress');
       $(self).html(button_default_html);
       $(self).prop('disabled', false);

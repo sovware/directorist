@@ -53,7 +53,7 @@ class Users_Controller extends Abstract_Controller {
 						'type'     => 'string',
 					),
 					'password' => array(
-						'required' => false,
+						'required' => true,
 						'description' => __( 'New user password.', 'directorist' ),
 						'type'     => 'string',
 					),
@@ -120,7 +120,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -135,11 +135,11 @@ class Users_Controller extends Abstract_Controller {
 			return $permissions;
 		}
 
-		if ( ! $permissions ) {
+		if ( ! $permissions || ! get_option( 'users_can_register' ) ) {
 			return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -196,7 +196,7 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
-		return true;
+		return $permissions;
 	}
 
 	/**
@@ -324,20 +324,15 @@ class Users_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_user_exists', __( 'Cannot create existing resource.', 'directorist' ), 400 );
 		}
 
-		// Sets the user email.
-		$request['email'] = ! empty( $request['email'] ) ? $request['email'] : '';
-
-		// Sets the password.
-		$request['password'] = ! empty( $request['password'] ) ? $request['password'] : '';
-
 		if ( email_exists( $request['email'] ) ) {
-			return new WP_Error( 'directorist_user_email_exists', __( 'An account is already registered with your email address. Please login.', 'directorist' ) );
+			return new WP_Error( 'directorist_rest_user_email_exists', __( 'A resource is already registered.', 'directorist' ) );
 		}
 
 		// Create user.
 		$user_data = array(
-			'user_email'  => $request['email'],
-			'user_pass'   => $request['password'],
+			'user_email' => $request['email'],
+			'user_pass'  => $request['password'],
+			'role'       => 'subscriber',
 		);
 
 		if ( isset( $request['username'] ) ) {
@@ -576,6 +571,7 @@ class Users_Controller extends Abstract_Controller {
 		// User favorite.
 		$favorites = get_user_meta( $id, 'atbdp_favourites', true );
 		if ( ! empty( $favorites ) ) {
+			$favorites = array_values( $favorites );
 			$data['favorite'] = wp_parse_id_list( $favorites );
 		}
 

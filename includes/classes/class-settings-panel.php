@@ -22,7 +22,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
 
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
-			
+
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
 		}
 
@@ -190,11 +190,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             ];
 
             $fields['listing_export_button'] = [
-                'type'             => 'export-data',
-                'label'            => __( 'Export Listings', 'directorist' ),
-                'button-label'     => __( 'Export', 'directorist' ),
-                'export-file-name' => __( 'listings-export-data', 'directorist' ),
+                'type'                     => 'export-data',
+                'label'                    => __( 'Export Listings', 'directorist' ),
+                'button-label'             => __( 'Export', 'directorist' ),
+                'export-file-name'         => __( 'listings-export-data', 'directorist' ),
                 'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
+                'nonce'                    => [
+                    'key' => 'directorist_nonce',
+                    'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ];
 
             $c = '<b><span style="color:#c71585;">'; //color start
@@ -325,6 +329,26 @@ SWBD;
 		public function handle_save_settings_data_request()
 		{
 			$status = [ 'success' => false, 'status_log' => [] ];
+
+            if ( ! directorist_verify_nonce() ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+				];
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+                $status['status_log'] = [
+					'type' => 'error',
+					'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+				];
+
+				wp_send_json( [ 'status' => $status ] );
+            }
+
+
 			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
 
 			// If field list is empty
@@ -343,7 +367,7 @@ SWBD;
 
 				$options[ $field_key ] = $_POST[ $field_key ];
 			}
-            
+
             // Prepare Settings
             $this->prepare_settings();
 
@@ -2640,6 +2664,19 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'all_authors_pagination' => [
+                    'type'  => 'toggle',
+                    'label' => __('Paginate All Authors ', 'directorist'),
+                    'value' => true,
+                ],
+                'all_authors_per_page' => [
+                    'label'         => __('Authors Per Page', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '9',
+                    'min'           => '1',
+                    'max'           => '50',
+                    'step'          => '1',
+                ],
                 // search form settings
                 'search_title'    => [
                     'type'          => 'text',
@@ -4504,7 +4541,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'user_email', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),
@@ -4813,19 +4850,19 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-                        // 'all_authors' => [
-                        //     'label' => __('All Authors', 'directorist'),
-                        //     'icon' => '<i class="fa fa-users"></i>',
-                        //     'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
-                        //         'all_authors' => [
-                        //             'title'       => __('All Authors', 'directorist'),
-                        //             'description' => '',
-                        //             'fields'      => [
-                        //                 'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_role', 'all_authors_select_role', 'all_authors_info', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text'
-                        //                 ],
-                        //         ],
-                        //     ] ),
-                        // ],
+                        'all_authors' => [
+                            'label' => __('All Authors', 'directorist'),
+                            'icon' => '<i class="fa fa-users"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
+                                'all_authors' => [
+                                    'title'       => __('All Authors', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_role', 'all_authors_select_role', 'all_authors_info', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text', 'all_authors_pagination', 'all_authors_per_page'
+                                        ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 
@@ -5235,7 +5272,10 @@ Please remember that your order may be canceled if you do not make your payment 
                 'fields_theme' => 'butterfly',
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
-                    'with' => [ 'action' => 'save_settings_data' ],
+                    'with' => [
+                        'action' => 'save_settings_data',
+                        'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                    ],
                 ],
             ];
 
@@ -5319,14 +5359,14 @@ Please remember that your order may be canceled if you do not make your payment 
             return $pages_options;
         }
 
-        function get_user_roles() 
+        function get_user_roles()
         {
             $get_editable_roles = get_editable_roles();
             $role               = array();
             $role[]             = array( 'value' => 'all', 'label' => __( 'All', 'directorist' ) );
             if( $get_editable_roles ) {
                 foreach( $get_editable_roles as $key => $value ) {
-                    $role[] = array( 
+                    $role[] = array(
                         'value' => $key,
                         'label' => $value['name']
                     );

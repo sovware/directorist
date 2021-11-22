@@ -1,11 +1,12 @@
 .upload-error {
-    background: red;
-    border: 3px #000 dashed;
     display: block !important;
     clear: both;
-    padding: 3px 0;
-    color: #fff;
-    font-weight: bold
+    background: #FCD9D9;
+    color: #E80000;
+    font-size: 16px;
+    word-break: break-word;
+    border-radius: 3px;
+    padding: 15px 20px;
 }
 
 #upload-msg {

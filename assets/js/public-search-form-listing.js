@@ -220,7 +220,7 @@
         };
         var options = atbdp_search_listing.countryRestriction ? opt : '';
         var input_fields = [{
-          input_id: 'address',
+          input_id: 'addressId',
           lat_id: 'cityLat',
           lng_id: 'cityLng',
           options: options
@@ -233,6 +233,11 @@
 
         var setupAutocomplete = function setupAutocomplete(field) {
           var input = document.getElementById(field.input_id);
+
+          if (!input) {
+            return;
+          }
+
           var autocomplete = new google.maps.places.Autocomplete(input, field.options);
           google.maps.event.addListener(autocomplete, 'place_changed', function () {
             var place = autocomplete.getPlace();

@@ -587,7 +587,7 @@ class Directorist_Single_Listing {
 			return false;
 		}
 
-		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && atbdp_logged_in_user() ) ) {
+		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && is_user_logged_in() ) ) {
 			return true;
 		}
 
@@ -724,7 +724,7 @@ class Directorist_Single_Listing {
 		$id = get_the_ID();
 		$author_id = get_post_field( 'post_author', $id );
 
-		if ( atbdp_logged_in_user() && $author_id == get_current_user_id() ) {
+		if ( is_user_logged_in() && $author_id == get_current_user_id() ) {
 			return true;
 		}
 		else {

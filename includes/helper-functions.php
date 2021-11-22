@@ -5857,7 +5857,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
      */
     function atbdp_is_user_logged_in($message = '')
     {
-        if (!atbdp_logged_in_user()) {
+        if (!is_user_logged_in()) {
             // user not logged in;
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
@@ -6666,7 +6666,7 @@ function directorist_clean($var)
  */
 function the_atbdp_favourites_link($post_id = 0)
 {
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
         if ($post_id == 0) {
             global $post;
             $post_id = $post->ID;
@@ -6722,7 +6722,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
 
         if ($post_id == 0) {
             global $post;
@@ -7862,8 +7862,15 @@ function atbdp_create_required_pages(){
     }
 }
 
+/**
+ * Check if user is logged in.
+ *
+ * @deprecated 7.0.6.3 Use the built-in is_user_logged_in() instead.
+ *
+ * @return bool
+ */
 function atbdp_logged_in_user(){
-    return _wp_get_current_user()->exists();
+    return is_user_logged_in();
 }
 
 function atbdp_thumbnail_card($img_src = '', $_args = array())
@@ -8473,4 +8480,99 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
 
         return false;
     }
+}
+
+/**
+ * Get error message based on error type.
+ *
+ * @since 7.0.6.2
+ *
+ * @param string $get_error_code
+ *
+ * @return string Error message.
+ */
+function directorist_get_registration_error_message( $error_code ) {
+	$message = [
+		'0' => __( 'Something went wrong!', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'2' => __( 'Sorry, that email already exists!', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'4' => __( 'Sorry, that username already exists!', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5', 'directorist' ),
+		'6' => __( 'Email is not valid', 'directorist' ),
+		'7' => __( 'Space is not allowed in username', 'directorist' ),
+		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+	];
+
+	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
+}
+
+/**
+ * Generate an unique nonce key using version constant.
+ *
+ * @since 7.0.6.2
+ *
+ * @return string nonce key with current version
+ */
+function directorist_get_nonce_key() {
+    return 'directorist_nonce_' . ATBDP_VERSION;
+}
+
+/**
+ * Check if the given nonce field contains a verified nonce.
+ *
+ * @since 7.0.6.2
+ *
+ * @return boolen
+ */
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
+    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+}
+
+/**
+ * Get supported file types groups.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types_groups( $group = null ) {
+	$groups = [
+		'image' => [
+			'jpg', 'jpeg', 'gif', 'png', 'bmp', 'ico'
+		],
+		'audio' => [
+			'ogg', 'mp3', 'wav', 'wma',
+		],
+		'video' => [
+			'asf', 'avi', 'mkv', 'mp4', 'mpg', 'mpeg', 'wmv', '3gp',
+		],
+		'document' => [
+			'doc', 'docx', 'odt', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+		]
+	];
+
+	if ( is_null( $group ) ) {
+		return $groups;
+	}
+
+	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : [] );
+}
+
+/**
+ * Get supported file types.
+ *
+ * This function is used to for upload field options and to check uploaded file type validity.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types() {
+	$groups = directorist_get_supported_file_types_groups();
+
+	return array_reduce( $groups, function( $carry, $group ) {
+		return array_merge( $carry, $group );
+	}, [] );
 }

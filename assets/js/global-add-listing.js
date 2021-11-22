@@ -545,13 +545,16 @@ $('body').on('submit', formID, function (e) {
   }
 
   var form_data = new FormData();
+  form_data.append('action', 'add_listing_action');
+  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
   var field_list = [];
   var field_list2 = [];
   $('.directorist-form-submit__btn').addClass('atbd_loading');
-  form_data.append('action', 'add_listing_action');
   var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+  var frm_element = document.getElementById('directorist-add-listing-form');
   $.each(fieldValuePairs, function (index, fieldValuePair) {
-    var field = document.getElementsByName(fieldValuePair.name)[0];
+    var field__name = fieldValuePair.name;
+    var field = frm_element.querySelector('[name="' + field__name + '"]');
     var type = field.type;
     field_list.push({
       name: field.name

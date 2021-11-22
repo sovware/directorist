@@ -72,7 +72,11 @@
             { type: 'id', field_key: '#review_duplicate' },
         ];
 
-        var _data = { action: 'save_listing_review' };
+        var _data = { 
+            action: 'save_listing_review', 
+            directorist_nonce: atbdp_public_data.directorist_nonce,
+        };
+
         _data = prepear_form_data( $form, field_field_map, _data );
 
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {

@@ -76,7 +76,10 @@ class Updater_Notice {
 			} else {
 				self::update_notice();
 			}
-		} else {
+		}
+
+		// Show updated notice when db version and current version is same.
+		if ( version_compare( get_option( 'directorist_db_version' ), ATBDP_VERSION, '=' ) ) {
 			self::updated_notice();
 		}
 	}

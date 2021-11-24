@@ -14,10 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Settings_Screen {
 
 	public static function init() {
-		if ( isset( $_GET['page'] ) && $_GET['page'] === 'atbdp-settings' ) {
-			add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_layout' ] );
-			add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
-		}
+		add_filter( 'atbdp_listing_type_settings_layout', [ __CLASS__, 'register_layout' ] );
+		add_filter( 'atbdp_listing_type_settings_field_list', [ __CLASS__, 'register_fields' ] );
 	}
 
 	public static function register_layout( $layout ) {
@@ -176,9 +174,9 @@ class Settings_Screen {
 	}
 
 	public static function register_fields( $fields ) {
-		if ( ! isset( $fields['enable_review'] ) ) {
+		// if ( ! isset( $fields['enable_review'] ) ) {
 			$fields = array_merge( $fields, self::get_fields() );
-		}
+		// }
 
 		return $fields;
 	}

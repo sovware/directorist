@@ -105,6 +105,7 @@ class Directorist_Listings {
 	public $display_readmore;
 	public $address_location;
 	public $excerpt_limit;
+	public $use_def_lat_long;
 	public $display_map_info;
 	public $display_image_map;
 	public $display_title_map;
@@ -185,6 +186,7 @@ class Directorist_Listings {
 		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
 		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
 		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
+		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;
 		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
 		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
 		$this->options['display_title_map']               = get_directorist_option('display_title_map', 1) ? true : false;
@@ -322,6 +324,7 @@ class Directorist_Listings {
 		$this->is_disable_price           = $this->options['disable_list_price'];
 		$this->disable_single_listing     = $this->options['disable_single_listing'];
 		$this->disable_contact_info       = $this->options['disable_contact_info'];
+		$this->use_def_lat_long           = $this->options['use_def_lat_long'];
 		$this->display_map_info           = $this->options['display_map_info'];
 		$this->display_image_map          = $this->options['display_image_map'];
 		$this->display_title_map          = $this->options['display_title_map'];
@@ -1343,16 +1346,19 @@ class Directorist_Listings {
 	}
 
 	public function get_map_options() {
-		$opt['select_listing_map']    = $this->select_listing_map;
-		$opt['crop_width']            = $this->options['crop_width'];
-		$opt['crop_height']           = $this->options['crop_height'];
-		$opt['display_map_info']      = $this->options['display_map_info'];
-		$opt['display_image_map']     = $this->options['display_image_map'];
-		$opt['display_title_map']     = $this->options['display_title_map'];
-		$opt['display_address_map']   = $this->options['display_address_map'];
-		$opt['display_direction_map'] = $this->options['display_direction_map'];
-		$opt['zoom']                  = $this->map_zoom_level;
-		$opt['default_image']         = $this->options['default_preview_image'];
+		$opt['select_listing_map']    		= $this->select_listing_map;
+		$opt['crop_width']            		= $this->options['crop_width'];
+		$opt['crop_height']           		= $this->options['crop_height'];
+		$opt['display_map_info']      		= $this->options['display_map_info'];
+		$opt['display_image_map']     		= $this->options['display_image_map'];
+		$opt['display_title_map']     		= $this->options['display_title_map'];
+		$opt['display_address_map']   		= $this->options['display_address_map'];
+		$opt['display_direction_map'] 		= $this->options['display_direction_map'];
+		$opt['zoom']                  		= $this->map_zoom_level;
+		$opt['default_image']         		= $this->options['default_preview_image'];
+		$opt['default_lat']           		= $this->options['default_latitude'];
+		$opt['default_long']          		= $this->options['default_longitude'];
+		$opt['use_def_lat_long']   			= $this->options['use_def_lat_long'];
 
 		$opt['disable_single_listing'] = $this->disable_single_listing;
 
@@ -1470,6 +1476,7 @@ class Directorist_Listings {
 			'zoom'                => $opt['zoom'],
 			'default_latitude'    => $this->options['default_latitude'],
 			'default_longitude'   => $this->options['default_longitude'],
+			'use_def_lat_long'   => $this->options['use_def_lat_long'],
 		);
 
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );

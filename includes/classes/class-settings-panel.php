@@ -247,6 +247,13 @@ SWBD;
                 ],
             ];
 
+            // Use Default Latitude/Longitude in All Listing Map View
+            $fields['use_def_lat_long'] = [
+                'type'  => 'toggle',
+                'label' => __('Use Default Lat/Lng in Listings Map View', 'directorist'),
+                'value' => false,
+            ];
+
             $countries = atbdp_country_code_to_name();
             $items = array();
 
@@ -4599,7 +4606,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [

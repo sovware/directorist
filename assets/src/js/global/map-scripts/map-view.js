@@ -108,6 +108,9 @@ MarkerLabel.prototype.draw = function () {
      */
     const at_icon = [];
 
+    /* Use Default lat/lng in listings map view */
+    let defCordEnabled = atbdp_map.use_def_lat_long;
+
     function atbdp_rander_map($el) {
         $el.addClass('atbdp-map-loaded');
 
@@ -142,13 +145,13 @@ MarkerLabel.prototype.draw = function () {
         });
 
         var cord = {
-            lat: ( Number( atbdp_map.default_latitude ) ) ? Number( atbdp_map.default_latitude ) : 40.7127753,
-            lng: ( Number( atbdp_map.default_longitude ) ) ? Number( atbdp_map.default_longitude ) : -74.0059728,
+            lat: ( Number( atbdp_map.default_latitude ) ) ? Number( atbdp_map.default_latitude ) : 40.7127753 ? defCordEnabled : Number( atbdp_map.default_latitude ),
+            lng: ( Number( atbdp_map.default_longitude ) ) ? Number( atbdp_map.default_longitude ) : -74.0059728 ? defCordEnabled : Number( atbdp_map.default_longitude ),
         };
 
-        if ( $markers.length ) {
-            cord.lat = Number( $markers[0].getAttribute('data-latitude') );
-            cord.lng = Number( $markers[0].getAttribute('data-longitude') );
+        if ( $markers.length ){
+            cord.lat = defCordEnabled ? Number( atbdp_map.default_latitude ) : Number( $markers[0].getAttribute('data-latitude') );
+            cord.lng = defCordEnabled ? Number( atbdp_map.default_longitude ) : Number( $markers[0].getAttribute('data-longitude') );
         }
 
         // center map
@@ -241,6 +244,7 @@ MarkerLabel.prototype.draw = function () {
      *
      *  @since    1.0.0
      */
+
     function atbdp_center_map(map, cord) {
         map.setCenter( cord );
         map.setZoom(parseInt(atbdp_map.zoom));

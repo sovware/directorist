@@ -437,9 +437,12 @@ $('body').on('submit', formID, function (e) {
     let field_list = [];
     let field_list2 = [];
     $('.directorist-form-submit__btn').addClass('atbd_loading');
-    const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+    const fieldValuePairs   = $('#directorist-add-listing-form').serializeArray();
+    const frm_element       = document.getElementById ('directorist-add-listing-form');
     $.each(fieldValuePairs, function (index, fieldValuePair) {
-        const field = document.getElementsByName(fieldValuePair.name)[0];
+        const field__name = fieldValuePair.name;
+        const field = frm_element.querySelector('[name="'+field__name+'"]');
+
         const type = field.type;
         field_list.push({ name: field.name, });
         //array fields

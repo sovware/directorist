@@ -53,6 +53,7 @@
                 'email': contact_email.val(),
                 'listing_email': listing_email.val(),
                 'message': message.val(),
+                'directorist_nonce': atbdp_public_data.directorist_nonce
             };
 
             submit_button.prop('disabled', true);

@@ -127,14 +127,9 @@ if (!class_exists('ATBDP_SEO')) :
         // wpseo_opengraph_title
         public function wpseo_opengraph_title($title)
         {
-            $page_title = get_bloginfo('name');
-            $custom_title = false;
+			$wpseo_title = $this->wpseo_title( $title );
 
-            $term = $this->get_taxonomy_term();
-            $custom_title = ($term) ? $term->name : false;
-
-            $title = ($custom_title) ? "$custom_title | $page_title" : $title;
-            return $title;
+            return $wpseo_title;
         }
 
         public function update_taxonomy_page_title($title, $id = null)

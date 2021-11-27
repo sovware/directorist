@@ -355,30 +355,26 @@ if (!class_exists('ATBDP_SEO')) :
                     return '';
                 }
             }
+
             // Category page
             if ($post->ID == $CAT_page_ID) {
-                if (!empty($overwrite_yoast)) {
-                    return '';
-                }
                 if ($slug = get_query_var('atbdp_category')) {
-
                     $term = get_term_by('slug', $slug, 'at_biz_dir-category');
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO title
                     if (array_key_exists('title-tax-at_biz_dir-category', $wpseo_titles)) {
-                        $title_template = $wpseo_titles['title-tax-at_biz_dir-category'];
-                    }
+						$title_template = $wpseo_titles['title-tax-at_biz_dir-category'];
+					}
 
                     // Get Term SEO title
                     $meta = get_option('wpseo_taxonomy_meta');
 
                     if (array_key_exists('at_biz_dir-category', $meta)) {
-
                         if (array_key_exists($term->term_id, $meta['at_biz_dir-category'])) {
 
-                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-category'][$term->term_id])) {
-                                $title_template = $meta['at_biz_dir-category'][$term->term_id]['wpseo_title'];
+                            if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-category'][$term->term_id])) {
+                                $replacements['%%term_title%%'] = $meta['at_biz_dir-category'][$term->term_id]['wpseo_focuskw'];
                             }
                         }
                     }
@@ -408,8 +404,8 @@ if (!class_exists('ATBDP_SEO')) :
 
                         if (array_key_exists($term->term_id, $meta['at_biz_dir-location'])) {
 
-                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-location'][$term->term_id])) {
-                                $title_template = $meta['at_biz_dir-location'][$term->term_id]['wpseo_title'];
+                            if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-location'][$term->term_id])) {
+                                $replacements['%%term_title%%'] = $meta['at_biz_dir-location'][$term->term_id]['wpseo_focuskw'];
                             }
                         }
                     }
@@ -438,8 +434,8 @@ if (!class_exists('ATBDP_SEO')) :
 
                         if (array_key_exists($term->term_id, $meta['at_biz_dir-tags'])) {
 
-                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-tags'][$term->term_id])) {
-                                $title_template = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_title'];
+                            if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-tags'][$term->term_id])) {
+                                $replacements['%%term_title%%'] = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_focuskw'];
                             }
                         }
                     }

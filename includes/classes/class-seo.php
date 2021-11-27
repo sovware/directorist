@@ -18,7 +18,6 @@ if (!class_exists('ATBDP_SEO')) :
             add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10);
             add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
             add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
-			add_action('wp_head', array($this, 'add_opengraph_meta'), 10, 2);
 
             if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
@@ -32,6 +31,7 @@ if (!class_exists('ATBDP_SEO')) :
                 /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
                 add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
             } else {
+				add_action('wp_head', array($this, 'add_opengraph_meta'), 10, 2);
                 add_action('wp_head', array($this, 'add_texonomy_canonical'));
                 add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
             }

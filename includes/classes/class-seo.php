@@ -316,7 +316,6 @@ if (!class_exists('ATBDP_SEO')) :
                 return $title;
             }
 
-            $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
             if (!isset($post)) return $title;
 
             $CAT_page_ID = get_directorist_option('single_category_page');
@@ -345,11 +344,6 @@ if (!class_exists('ATBDP_SEO')) :
             );
 
             $title_template = '';
-            if (is_singular('at_biz_dir')) {
-                if (!empty($overwrite_yoast)) {
-                    return '';
-                }
-            }
 
             // Category page
             if ($post->ID == $CAT_page_ID) {
@@ -378,10 +372,6 @@ if (!class_exists('ATBDP_SEO')) :
 
             // Location page
             if ($post->ID == $LOC_page_ID) {
-                if (!empty($overwrite_yoast)) {
-                    return '';
-                }
-
                 $slug = get_query_var('atbdp_location');
                 if ( ! empty( $slug ) ) {
                     $term = get_term_by('slug', $slug, 'at_biz_dir-location');
@@ -409,9 +399,6 @@ if (!class_exists('ATBDP_SEO')) :
 
             // Tag page
             if ($post->ID == $Tag_page_ID) {
-                if (!empty($overwrite_yoast)) {
-                    return '';
-                }
                 if ($slug = get_query_var('atbdp_tag')) {
 
                     $term = get_term_by('slug', $slug, 'at_biz_dir-tags');

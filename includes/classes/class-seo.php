@@ -604,6 +604,14 @@ if (!class_exists('ATBDP_SEO')) :
 
         // add_opengraph_meta
         public function add_opengraph_meta() {
+			// Get current directorist page key
+			$current_directorist_page = self::get_directorist_current_page();
+
+			// Do not add meta data of current page is not a Directorist page
+			if ( empty( $current_directorist_page ) ) {
+				return;
+			}
+
             $seo_meta_data = $this->get_seo_meta_data();
 
             $og_metas = [

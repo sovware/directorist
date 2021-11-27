@@ -316,8 +316,6 @@ if (!class_exists('ATBDP_SEO')) :
                 return $title;
             }
 
-            if (!isset($post)) return $title;
-
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');

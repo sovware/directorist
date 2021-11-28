@@ -25,7 +25,7 @@ class Directorist_Account {
 	}
 
 	public function render_shortcode_login( $atts = [] ) {
-		if ( atbdp_logged_in_user() ) {
+		if ( is_user_logged_in() ) {
 
 			do_action( 'atbdp_show_flush_messages' );
 
@@ -43,7 +43,7 @@ class Directorist_Account {
 	}
 
 	public function render_shortcode_registration( $atts ) {
-		if ( ! atbdp_logged_in_user() ) {
+		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',
 			), $atts );

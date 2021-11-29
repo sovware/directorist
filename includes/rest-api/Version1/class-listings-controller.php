@@ -718,7 +718,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['email'] = get_post_meta( $listing->ID, '_email', true );
 					break;
 				case 'website':
-					$base_data['email'] = get_post_meta( $listing->ID, '_website', true );
+					$base_data['website'] = get_post_meta( $listing->ID, '_website', true );
 					break;
 				case 'social_links':
 					$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
@@ -783,7 +783,7 @@ class Listings_Controller extends Posts_Controller {
 					}
 					break;
 				case 'reviews_allowed':
-					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
+					$base_data['reviews_allowed'] = $this->is_reviews_open( $listing->ID );
 					break;
 				case 'average_rating':
 					$base_data['average_rating'] = ATBDP()->review->get_average( $listing->ID );
@@ -818,6 +818,11 @@ class Listings_Controller extends Posts_Controller {
 		return $base_data;
 	}
 
+	protected function is_reviews_open( $listing_id ) {
+		$review_enabled = (bool) get_directorist_option( 'enable_review', 1 );
+		return ( $review_enabled && comments_open( $listing_id ) );
+	}
+
 	protected function get_listing_social_links( $id ) {
 		$links = get_post_meta( $id, '_social', true );
 
@@ -840,24 +845,14 @@ class Listings_Controller extends Posts_Controller {
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
-		$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+		$directory_type = (int) get_post_meta( $listing_id, '_directory_type', true );
 		$number         = get_directorist_type_option( $directory_type, 'similar_listings_number_of_listings_to_show', 2 );
 		$same_author    = get_directorist_type_option( $directory_type, 'listing_from_same_author', false );
 		$logic          = get_directorist_type_option( $directory_type, 'similar_listings_logics', 'OR' );
-		$relationship   = ( $logic == 'AND' ) ? 'AND' : 'OR';
+		$relationship   = ( in_array( $logic, array( 'AND', 'OR' ) ) ? $logic : 'OR' );
 
-		$categories   = get_the_terms( $listing_id, ATBDP_CATEGORY );
-		$tags         = get_the_terms( $listing_id, ATBDP_TAGS );
-		$category_ids = array();
-		$tag_ids      = array();
-
-		if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
-			$category_ids = wp_list_pluck( $categories, 'term_id' );
-		}
-
-		if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
-			$tag_ids = wp_list_pluck( $tags, 'term_id' );
-		}
+		$categories   = directorist_get_object_terms( $listing_id, ATBDP_CATEGORY, 'term_id' );
+		$tags         = directorist_get_object_terms( $listing_id, ATBDP_TAGS, 'term_id' );
 
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
@@ -868,12 +863,12 @@ class Listings_Controller extends Posts_Controller {
 				array(
 					'taxonomy' => ATBDP_CATEGORY,
 					'field'    => 'term_id',
-					'terms'    => $category_ids,
+					'terms'    => $categories,
 				),
 				array(
 					'taxonomy' => ATBDP_TAGS,
 					'field'    => 'term_id',
-					'terms'    => $tag_ids,
+					'terms'    => $tags,
 				),
 			),
 		);

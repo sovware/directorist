@@ -863,7 +863,7 @@ class Directorist_Listing_Form {
 				return Helper::get_template_contents( 'listing-form/add-listing-notype' );
 			}
 			// if only one directory
-			$type = $this->current_listing_type;
+			$type = $this->get_current_listing_type();
 
 			if ( $type ) {
 				$args['form_data'] = $this->build_form_data( $type );

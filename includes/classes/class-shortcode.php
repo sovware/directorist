@@ -228,7 +228,7 @@ class ATBDP_Shortcode {
 		$url = $_SERVER['REQUEST_URI'];
 		$pattern = "/edit\/(\d+)/i";
 		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
-		$forms = Directorist_Listing_Form::instance($id);
+		$forms = Directorist_Listing_Form::instance( $id,);
 
 		$atts[ 'shortcode' ] = 'directorist_add_listing';
 		

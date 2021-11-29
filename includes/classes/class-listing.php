@@ -94,7 +94,7 @@ if (!class_exists('ATBDP_Listing')):
             //only add filter to post type you want
             if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
                 <select name="directory_type">
-                    <option value=""><?php _e('Filter by directory ', 'directorist-post-your-need'); ?></option>
+                    <option value=""><?php _e('Filter by directory ', 'directorist'); ?></option>
                     <?php
                     $current_v = isset($_GET['directory_type']) ? $_GET['directory_type'] : '';
                     $listing_types = get_terms([
@@ -308,7 +308,7 @@ if (!class_exists('ATBDP_Listing')):
             // vail if user is logged in or if the post is not single..
 
             $count_loggedin = get_directorist_option('count_loggedin_user');
-            if (!is_single() || atbdp_logged_in_user() && empty($count_loggedin)) return;
+            if (!is_single() || is_user_logged_in() && empty($count_loggedin)) return;
 
             if (empty ($postID)) {
                 global $post;

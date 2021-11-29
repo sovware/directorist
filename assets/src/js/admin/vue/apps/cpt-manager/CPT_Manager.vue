@@ -146,8 +146,16 @@ export default {
             let options = this.$store.state.options;
             let fields  = this.$store.state.fields;
 
+            let submission_url = this.$store.state.config.submission.url;
+            let submission_with = this.$store.state.config.submission.with;
+
             let form_data = new FormData();
-            form_data.append( 'action', 'save_post_type_data' );
+
+            if ( submission_with && typeof submission_with === 'object' ) {
+                for ( let data_key in submission_with ) {
+                    form_data.append( data_key, submission_with[ data_key ] );
+                }
+            }
             
             if ( this.listing_type_id ) {
                 form_data.append( 'listing_type_id', this.listing_type_id );
@@ -182,7 +190,7 @@ export default {
             const self = this;
 
             // return;
-            axios.post( ajax_data.ajax_url, form_data )
+            axios.post( submission_url, form_data )
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;

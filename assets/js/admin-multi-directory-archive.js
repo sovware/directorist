@@ -201,6 +201,7 @@ $('.cptm-import-directory-form').on('submit', function (e) {
   var modal_alert = $('.cptm-import-directory-modal-alert');
   var form_data = new FormData();
   form_data.append('action', 'save_imported_post_type_data');
+  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
 
   if (Number.isInteger(term_id) && term_id > 0) {
     form_data.append('term_id', term_id);

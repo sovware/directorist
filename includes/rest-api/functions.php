@@ -277,9 +277,9 @@ function directorist_bool_to_string( $bool ) {
  */
 function directorist_rest_check_user_permissions( $context = 'read', $object_id = 0 ) {
 	$contexts = array(
-		'read'   => 'list_users',
+		'read'   => 'edit_user',
 		'create' => 'promote_users',
-		'edit'   => 'edit_users',
+		'edit'   => 'edit_user',
 		'delete' => 'delete_users',
 		'batch'  => 'promote_users',
 	);

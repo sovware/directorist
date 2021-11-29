@@ -135,6 +135,7 @@ class Script_Helper {
         
         $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
+            'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
             'nonceName'                   => 'atbdp_nonce_js',

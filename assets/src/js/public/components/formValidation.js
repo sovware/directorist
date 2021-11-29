@@ -9,6 +9,7 @@
                 // Post via AJAX
                 var data = {
                     'action': 'atbdp_public_report_abuse',
+                    'directorist_nonce': atbdp_public_data.directorist_nonce,
                     'post_id': $('#atbdp-post-id').val(),
                     'message': $('#directorist-report-message').val()
                 };
@@ -52,6 +53,7 @@
                 'email': contact_email.val(),
                 'listing_email': listing_email.val(),
                 'message': message.val(),
+                'directorist_nonce': atbdp_public_data.directorist_nonce
             };
 
             submit_button.prop('disabled', true);

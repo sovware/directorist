@@ -821,7 +821,7 @@ class Directorist_Listing_Form {
 		$user_id		  = get_current_user_id();
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
-		if ( ! $guest_submission && ! atbdp_logged_in_user() ) {
+		if ( ! $guest_submission && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
 		}
 		elseif( ! empty( $user_type ) && ( 'general' == $user_type || 'become_author' == $user_type ) ) {

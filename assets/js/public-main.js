@@ -197,15 +197,7 @@ if (atbdSelect !== null) {
       $(this).toggleClass("atbd_drop--active");
       e.stopPropagation();
     }
-  }); // $(".atbd_dropdown").on("click", function (e) {
-  //     if ($(this).attr("class") === "atbd_dropdown") {
-  //         e.preventDefault();
-  //         $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-  //         $(this).toggleClass("atbd_drop--active");
-  //         e.stopPropagation();
-  //     }
-  // });
-
+  });
   $(document).on("click", function (e) {
     if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
       $(".atbd_dropdown").removeClass("atbd_drop--active");
@@ -213,26 +205,21 @@ if (atbdSelect !== null) {
   });
   $('body').on('click', '.atbd_dropdown-toggle', function (e) {
     e.preventDefault();
-  }); // Restructred Dropdown
-  // Directorist Dropdown
+  }); // Directorist Dropdown
 
   $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
     e.preventDefault();
-    $('.directorist-dropdown__links').hide();
-    $(this).siblings('.directorist-dropdown__links-js').toggle();
-  }); // Select Option after click
-  // $('body').on('click','.directorist-dropdown .directorist-dropdown__links .directorist-dropdown__links--single', function(e){
-  //     e.preventDefault();
-  //     if($(this).parents().hasClass('.directorist-dropdown-update-js')){
-  //         console.log("yes");
-  //     }
-  //     $('.directorist-dropdown__links').hide();
-  // });
-  // Hide Clicked Anywhere
 
-  $(document).bind('click', function (e) {
-    var clickedDom = $(e.target);
-    if (!clickedDom.parents().hasClass('directorist-dropdown-js')) $('.directorist-dropdown__links-js').hide();
+    if (!$(this).siblings('.directorist-dropdown__links-js').is(':visible')) {
+      $('.directorist-dropdown__links').hide();
+    }
+
+    $(this).siblings('.directorist-dropdown__links-js').toggle();
+  });
+  $('body').on('click', function (e) {
+    if (!e.target.closest('.directorist-dropdown-js')) {
+      $('.directorist-dropdown__links-js').hide();
+    }
   });
 })(jQuery);
 
@@ -352,10 +339,37 @@ atbdSelectData.forEach(function (el) {
 
 // author sorting
 (function ($) {
+  /* Masonry layout */
+  function authorsMasonry() {
+    var authorsCard = $('.directorist-authors__cards');
+    $(authorsCard).each(function (id, elm) {
+      var authorsCardRow = $(elm).find('.directorist-row');
+      var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+        $(authorMasonryInit).masonry({
+          percentPosition: true,
+          horizontalOrder: true
+        });
+      });
+    });
+  }
+
+  authorsMasonry();
+  /* alphabet data value */
+
+  var alphabetValue;
+  /* authors nav default active item */
+
+  if ($('.directorist-authors__nav').length) {
+    $('.directorist-authors__nav ul li:first-child').addClass('active');
+  }
+  /* authors nav item */
+
+
   $('body').on('click', '.directorist-alphabet', function (e) {
     e.preventDefault();
+    _this = $(this);
     var alphabet = $(this).attr("data-alphabet");
-    $('#directorist-all-authors').addClass('atbdp-form-fade');
+    $('body').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',
       url: atbdp_public_data.ajaxurl,
@@ -366,11 +380,40 @@ atbdSelectData.forEach(function (el) {
       },
       success: function success(response) {
         $('#directorist-all-authors').empty().append(response);
-        $('#directorist-all-authors').removeClass('atbdp-form-fade');
+        $('body').removeClass('atbdp-form-fade');
         $('.' + alphabet).parent().addClass('active');
+        alphabetValue = $(_this).attr('data-alphabet');
+        authorsMasonry();
       },
       error: function error(_error) {
         console.log(_error);
+      }
+    });
+  });
+  /* authors pagination */
+
+  $('body').on('click', '.directorist-authors-pagination a', function (e) {
+    e.preventDefault();
+    var paged = $(this).attr('href');
+    paged = paged.split('/page/')[1];
+    paged = parseInt(paged);
+    paged = paged !== undefined ? paged : 1;
+    $('body').addClass('atbdp-form-fade');
+    var getAlphabetValue = alphabetValue;
+    $.ajax({
+      method: 'POST',
+      url: atbdp_public_data.ajaxurl,
+      data: {
+        action: 'directorist_author_pagination',
+        paged: paged
+      },
+      success: function success(response) {
+        $('body').removeClass('atbdp-form-fade');
+        $('#directorist-all-authors').empty().append(response);
+        authorsMasonry();
+      },
+      error: function error(_error2) {
+        console.log(_error2);
       }
     });
   });
@@ -831,6 +874,7 @@ atbdSelectData.forEach(function (el) {
 
       var data = {
         'action': 'atbdp_public_report_abuse',
+        'directorist_nonce': atbdp_public_data.directorist_nonce,
         'post_id': $('#atbdp-post-id').val(),
         'message': $('#directorist-report-message').val()
       };
@@ -867,7 +911,8 @@ atbdSelectData.forEach(function (el) {
       'name': name.val(),
       'email': contact_email.val(),
       'listing_email': listing_email.val(),
-      'message': message.val()
+      'message': message.val(),
+      'directorist_nonce': atbdp_public_data.directorist_nonce
     };
     submit_button.prop('disabled', true);
     $.post(atbdp_public_data.ajaxurl, data, function (response) {
@@ -1299,6 +1344,7 @@ document.body.addEventListener('click', function (e) {
     var error_count; // ajax action
 
     form_data.append('action', 'update_user_profile');
+    form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
 
     if (profileMediaUploader) {
       var hasValidFiles = profileMediaUploader.hasValidFiles();
@@ -1623,7 +1669,8 @@ __webpack_require__.r(__webpack_exports__);
       field_key: '#review_duplicate'
     }];
     var _data = {
-      action: 'save_listing_review'
+      action: 'save_listing_review',
+      directorist_nonce: atbdp_public_data.directorist_nonce
     };
     _data = prepear_form_data($form, field_field_map, _data); // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
@@ -1767,7 +1814,8 @@ __webpack_require__.r(__webpack_exports__);
     var id = $this.data('review_id');
     var data = {
       review_id: id,
-      action: "remove_listing_review"
+      action: "remove_listing_review",
+      directorist_nonce: atbdp_public_data.directorist_nonce
     };
     swal({
       title: atbdp_public_data.review_sure_msg,
@@ -1882,7 +1930,8 @@ __webpack_require__.r(__webpack_exports__);
     var data = {
       page: page,
       listing_id: listing_id,
-      action: "atbdp_review_pagination"
+      action: "atbdp_review_pagination",
+      directorist_nonce: atbdp_public_data.directorist_nonce
     }; // Send the data
 
     $.post(atbdp_public_data.ajaxurl, data, function (response) {

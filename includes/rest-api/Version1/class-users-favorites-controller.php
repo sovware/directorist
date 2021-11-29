@@ -153,11 +153,18 @@ class User_Favorites_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing ID.', 'directorist' ), 400 );
 		}
 
-		$favorites = $this->get_favorites( $user_id );
-		$favorites = array_merge( $favorites, [ $listing_id ] );
-		$favorites = array_unique( $favorites );
+		$old_favorites = $this->get_favorites( $user_id );
+		$favorites     = array_merge( $old_favorites, [ $listing_id ] );
+		$favorites     = array_unique( $favorites );
+		$favorites     = array_values( $favorites );
 
 		update_user_meta( $user_id, 'atbdp_favourites', $favorites );
+
+		$data = array(
+			'id'            => $listing_id,
+			'old_favorites' => $old_favorites,
+			'new_favorites' => $favorites,
+		);
 
 		/**
 		 * Fires after a user favorite is created or updated via the REST API.
@@ -169,7 +176,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		do_action( 'directorist_rest_insert_user_favorite', $favorites, $request, false );
 
 		$request->set_param( 'context', 'edit' );
-		$response = $this->prepare_item_for_response( $listing_id, $request );
+		$response = $this->prepare_item_for_response( $data, $request );
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
 
@@ -197,13 +204,20 @@ class User_Favorites_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing ID.', 'directorist' ), 400 );
 		}
 
-		$favorites = $this->get_favorites( $user_id );
-		$favorites = array_diff( $favorites, [ $listing_id ] );
+		$old_favorites = $this->get_favorites( $user_id );
+		$favorites = array_diff( $old_favorites, [ $listing_id ] );
+		$favorites = array_values( $favorites );
 
 		update_user_meta( $user_id, 'atbdp_favourites', $favorites );
 
+		$data = array(
+			'id'            => $listing_id,
+			'old_favorites' => $old_favorites,
+			'new_favorites' => $favorites,
+		);
+
 		$request->set_param( 'context', 'edit' );
-		$response = $this->prepare_item_for_response( $listing_id, $request );
+		$response = $this->prepare_item_for_response( $data, $request );
 
 		/**
 		 * Fires after a user favorite is deleted via the REST API.
@@ -220,12 +234,11 @@ class User_Favorites_Controller extends Abstract_Controller {
 	/**
 	 * Prepares a single user output for response.
 	 *
-	 * @param int             $listing_id    Listing id.
+	 * @param array           $data
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response Response object.
 	 */
-	public function prepare_item_for_response( $listing_id, $request ) {
-		$data     = ['id' => $listing_id ];
+	public function prepare_item_for_response( $data, $request ) {
 		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -235,16 +248,16 @@ class User_Favorites_Controller extends Abstract_Controller {
 		 * Filters user data returned from the REST API.
 		 *
 		 * @param WP_REST_Response $response The response object.
-		 * @param integer          $listing_id     Listing id used to create response objects.
+		 * @param array          $data     Favorites listings id.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
-		return apply_filters( 'directorist_rest_prepare_user_favorite', $response, $listing_id, $request );
+		return apply_filters( 'directorist_rest_prepare_user_favorite', $response, $data, $request );
 	}
 
 	public function get_favorites( $user_id ) {
 		$favorites = get_user_meta( $user_id, 'atbdp_favourites', true );
 
-		if ( ! empty( $favorites ) ) {
+		if ( ! empty( $favorites ) && is_array( $favorites ) ) {
 			$favorites = array_map( 'absint', $favorites );
 		} else {
 			$favorites = [];

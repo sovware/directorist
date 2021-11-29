@@ -20,7 +20,8 @@
         var id = $this.data('review_id');
         var data = {
             review_id: id,
-            action: "remove_listing_review"
+            action: "remove_listing_review",
+            directorist_nonce: atbdp_public_data.directorist_nonce,
         };
         
         swal({

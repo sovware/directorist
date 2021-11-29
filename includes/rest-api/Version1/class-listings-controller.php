@@ -783,7 +783,7 @@ class Listings_Controller extends Posts_Controller {
 					}
 					break;
 				case 'reviews_allowed':
-					$base_data['reviews_allowed'] = $this->is_reviews_open( $listing->ID );
+					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
 					break;
 				case 'average_rating':
 					$base_data['average_rating'] = ATBDP()->review->get_average( $listing->ID );
@@ -816,11 +816,6 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		return $base_data;
-	}
-
-	protected function is_reviews_open( $listing_id ) {
-		$review_enabled = (bool) get_directorist_option( 'enable_review', 1 );
-		return ( $review_enabled && comments_open( $listing_id ) );
 	}
 
 	protected function get_listing_social_links( $id ) {

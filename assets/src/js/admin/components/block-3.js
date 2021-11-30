@@ -494,12 +494,12 @@ $('body').on('change', 'select[name="directory_type"]', function () {
         .parent('.inside')
         .append(`<span class="directorist_loader"></span>`);
     admin_listing_form($(this).val());
- 
+
     $(this)
         .closest('#poststuff')
         .find('#publishing-action')
         .addClass('directorist_disable');
-    
+
     if( ! localized_data.is_admin ){
         if($('#directorist-select-st-s-js').length){
             pureScriptSelect('#directorist-select-st-s-js');
@@ -507,42 +507,42 @@ $('body').on('change', 'select[name="directory_type"]', function () {
         if($('#directorist-select-st-e-js').length){
             pureScriptSelect('#directorist-select-st-e-js');
         }
-    
+
         if($('#directorist-select-sn-s-js').length){
             pureScriptSelect('#directorist-select-sn-s-js');
         }
         if($('#directorist-select-mn-e-js').length){
             pureScriptSelect('#directorist-select-sn-e-js');
         }
-    
+
         if($('#directorist-select-mn-s-js').length){
             pureScriptSelect('#directorist-select-mn-s-js');
         }
         if($('#directorist-select-mn-e-js').length){
             pureScriptSelect('#directorist-select-mn-e-js');
         }
-    
+
         if($('#directorist-select-tu-s-js').length){
             pureScriptSelect('#directorist-select-tu-s-js');
         }
         if($('#directorist-select-tu-e-js').length){
             pureScriptSelect('#directorist-select-tu-e-js');
         }
-    
+
         if($('#directorist-select-wd-s-js').length){
             pureScriptSelect('#directorist-select-wd-s-js');
         }
         if($('#directorist-select-wd-e-js').length){
             pureScriptSelect('#directorist-select-wd-e-js');
         }
-    
+
         if($('#directorist-select-th-s-js').length){
             pureScriptSelect('#directorist-select-th-s-js');
         }
         if($('#directorist-select-th-e-js').length){
             pureScriptSelect('#directorist-select-th-e-js');
         }
-    
+
         if($('#directorist-select-fr-s-js').length){
             pureScriptSelect('#directorist-select-fr-s-js');
         }
@@ -550,7 +550,7 @@ $('body').on('change', 'select[name="directory_type"]', function () {
             pureScriptSelect('#directorist-select-fr-e-js');
         }
     }
-    
+
 });
 
 
@@ -584,7 +584,7 @@ function admin_listing_form(directory_type) {
                 .html( response.data['listing_pop_locations'] );
             $('.misc-pub-atbdp-expiration-time')
                 .empty()
-                .html(response.data['listing_expiration']);    
+                .html(response.data['listing_expiration']);
             $('#listing_form_info')
                 .find('.directorist_loader')
                 .remove();
@@ -601,11 +601,11 @@ function admin_listing_form(directory_type) {
 
                     var old_script = document.getElementById( script_id );
                     if ( old_script ) { old_script.remove(); }
-                    
+
                     var script = document.createElement('script');
                     script.id = script_id;
                     script.src = scripts[ script_id ];
-                    
+
                     document.body.appendChild(script);
                 }
             }
@@ -647,63 +647,6 @@ $('body').on('click', '.submitdefault', function (e) {
             }, 500);
         },
     });
-});
-
-// edit directory type slug
-$('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
-    e.preventDefault();
-    var type_id = $(this).data('type-id');
-        update_slug = $('.directorist-type-slug-' + type_id ).val();
-    const addSlug = $(this);
-    addSlug
-        .closest('.directorist_listing-slug__form--action')
-        .siblings('.directorist_listing-slug__form--loader')
-        .append(`<span class="directorist_loader"></span>`);
-    $.ajax({
-        type: 'post',
-        url: atbdp_admin_data.ajaxurl,
-        data: {
-            action      : 'directorist_type_slug_change',
-            type_id     : type_id,
-            update_slug : update_slug
-        },
-        success(response) {
-            addSlug
-                .closest('.directorist_listing-slug__form--action')
-                .siblings('.directorist_listing-slug__form--loader')
-                .children('.directorist_loader')
-                .remove();
-            if( response ) {
-                if( response.error) {
-                    
-                    $('.directorist-slug-notice-' + type_id ).removeClass('directorist-slug-notice-success');
-                    $('.directorist-slug-notice-' + type_id ).addClass('directorist-slug-notice-error');
-                    $('.directorist-slug-notice-' + type_id ).empty().html( response.error );
-                    $('.directorist-slug-text-' + type_id ).text( response.old_slug );
-                    setTimeout(function(){ 
-                        $('.directorist-slug-notice-' + type_id ).empty().html( "" );
-                    }, 3000);
-                } else {
-                    $('.directorist-slug-notice-' + type_id ).empty().html( response.success );
-                    $('.directorist-slug-notice-' + type_id ).removeClass('directorist-slug-notice-error');
-                    $('.directorist-slug-notice-' + type_id ).addClass('directorist-slug-notice-success');
-                    setTimeout(function(){ 
-                        addSlug
-                            .closest('.directorist-listing-slug__form')
-                            .css({"display": "none"})
-                            $('.directorist-slug-notice-' + type_id ).html("");
-                    }, 1500);
-                }
-            }
-        },
-    });
-});
-
-// Hide Slug Form outside click
-$(document).bind('click', function(e) {
-    let clickedDom = $(e.target);
-    if(!clickedDom.parents().hasClass('directorist-listing-slug-edit-wrap'))
-    $('.directorist-listing-slug__form').slideUp();
 });
 
 function assetsNeedToWorkInVirtualDom() {

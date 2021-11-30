@@ -24,25 +24,6 @@ $('body').on('click', '.directorist_settings-panel-shade', function () {
     $(this).removeClass('active');
 });
 
-// $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(){
-//   $('.directorist_dropdown-option').toggle();
-// });
-
-// // Select Option after click
-// $('body').on('click','.directorist_dropdown .directorist_dropdown-option ul li a', function(){
-//   console.log("works");
-//   let optionText = $(this).html();
-//   $('.directorist_dropdown .directorist_dropdown-toggle .directorist_dropdown-toggle__text').html(optionText);
-//   $('.directorist_dropdown-option').hide();
-// });
-
-// // Hide Clicked Anywhere
-// $(document).bind('click', function(e) {
-//   let clickedDom = $(e.target);
-//   if(!clickedDom.parents().hasClass('directorist_dropdown'))
-//   $('.directorist_dropdown-option').hide();
-// });
-
 // Directorist More Dropdown
 $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
     e.preventDefault();
@@ -63,7 +44,7 @@ $(document).on('click', function (e) {
     }
 });
 
-// Select Dropdown 
+// Select Dropdown
 $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {
     e.preventDefault();
     $(this).siblings('.directorist_dropdown-option').toggle();
@@ -86,25 +67,108 @@ $(document).bind('click', function (e) {
     }
 });
 
-// Slug Edit
-$('.directorist-listing-slug__form').slideUp();
-$('body').on('input', 'input[name="directorist-slug-input"]', function (e) {
-    let slugOldText = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').text();
-    let slugUpdateText = $(this).value;
-    $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').text($(this).val());
-});
+$('.directorist-type-slug-content').each(function (id, element) {
+    // Store old slug value
+    let oldSlugVal = $(element).children('.directorist_listing-slug-text').attr('data-value');
 
-// Edit Form Open
-$('body').on('click', '.directorist-listing-slug__edit', function (e) {
-    e.preventDefault();
-    $(this).siblings('.directorist-listing-slug__form').slideDown();
-});
+    // Slug Edit
+    $(element).children('.directorist_listing-slug-text').on('input', function () {
+        let slugText = $(this).text();
+        $(this).attr('data-value', slugText);
+    })
 
-// Edit Form Remove
-$('body').on('click', '.directorist_listing-slug-formText-remove', function (e) {
-    e.preventDefault()
-    $(this).closest('.directorist-listing-slug__form').slideUp();
-});
+    // Edit Form Open
+    $('body').on('click', '.directorist-listing-slug__edit', function (e) {
+        e.preventDefault();
+        var editableSlug = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
+        editableSlug.attr('contenteditable', true);
+        editableSlug.addClass('directorist_listing-slug-text--editable');
+        $(this).addClass('directorist_listing-slug-formText-add');
+        $(this).siblings('.directorist_listing-slug-formText-remove').removeClass('directorist_listing-slug-formText-remove--hidden');
+        editableSlug.focus();
+    });
+
+    // edit directory type slug
+    $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
+        e.preventDefault();
+        _this = $(this);
+        var type_id = $(this).data('type-id');
+        update_slug = $('.directorist-slug-text-' + type_id).attr('data-value');
+        oldSlugVal = $(element).children('.directorist_listing-slug-text').attr('data-value'); /* Update the slug values */
+        const addSlug = $(this);
+        addSlug
+            .closest('.directorist-listing-slug-edit-wrap')
+            .append(`<span class="directorist_loader"></span>`);
+        $.ajax({
+            type: 'post',
+            url: atbdp_admin_data.ajaxurl,
+            data: {
+                action: 'directorist_type_slug_change',
+                type_id: type_id,
+                update_slug: update_slug
+            },
+            success(response) {
+                addSlug.closest('.directorist-listing-slug-edit-wrap')
+                    .children('.directorist_loader')
+                    .remove();
+                if (response) {
+                    if (response.error) {
+
+                        $('.directorist-slug-notice-' + type_id).removeClass('directorist-slug-notice-success');
+                        $('.directorist-slug-notice-' + type_id).addClass('directorist-slug-notice-error');
+                        $('.directorist-slug-notice-' + type_id).empty().html(response.error);
+                        $('.directorist-slug-text-' + type_id).text(response.old_slug);
+                        setTimeout(function () {
+                            $('.directorist-slug-notice-' + type_id).empty().html("");
+                        }, 3000);
+                    } else {
+                        $('.directorist-slug-notice-' + type_id).empty().html(response.success);
+                        $('.directorist-slug-notice-' + type_id).removeClass('directorist-slug-notice-error');
+                        $('.directorist-slug-notice-' + type_id).addClass('directorist-slug-notice-success');
+                        setTimeout(function () {
+                            addSlug
+                                .closest('.directorist-listing-slug__form')
+                                .css({
+                                    "display": "none"
+                                })
+                            $('.directorist-slug-notice-' + type_id).html("");
+                        }, 1500);
+                    }
+                }
+
+                $(_this).removeClass('directorist_listing-slug-formText-add');
+                $(_this).siblings('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
+                $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').removeClass('directorist_listing-slug-text--editable');
+                $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').attr('contenteditable', 'false');
+            },
+        });
+    });
+
+    // Edit Form Remove
+    $(element).find('.directorist_listing-slug-formText-remove').on('click', function (e) {
+        e.preventDefault()
+        let thisClosestSibling = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
+        $(this).siblings('.directorist-listing-slug__edit').removeClass('directorist_listing-slug-formText-add');
+        thisClosestSibling.removeClass('directorist_listing-slug-text--editable');
+        thisClosestSibling.attr('contenteditable', 'false');
+        $(this).addClass('directorist_listing-slug-formText-remove--hidden');
+        thisClosestSibling.attr('data-value', oldSlugVal);
+        thisClosestSibling.text(oldSlugVal);
+    });
+
+    // Hide Slug Form outside click
+    $(document).on('click', function(e) {
+        if(!e.target.closest('.directorist-type-slug')){
+            $(element).find('.directorist_listing-slug-text').attr('data-value', oldSlugVal);
+            $(element).find('.directorist_listing-slug-text').text(oldSlugVal);
+            $(element).find('.directorist_listing-slug-text').attr('contenteditable', 'false');
+            $(element).find('.directorist_listing-slug-text').removeClass('directorist_listing-slug-text--editable');
+            $(element).find('.directorist_listing-slug-text').siblings('.directorist-listing-slug-edit-wrap').children('.directorist-listing-slug__edit').removeClass('directorist_listing-slug-formText-add');
+            $(element).find('.directorist_listing-slug-text').siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
+        }
+    });
+
+})
 
 // Tab Content
 // ----------------------------------------------------------------------------------

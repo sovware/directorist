@@ -13375,6 +13375,7 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-left: auto;
 }
 @media only screen and (max-width: 375px) {
   .directorist-search-contents .directorist-search-form-top .directorist-search-form-action {

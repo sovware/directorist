@@ -67,22 +67,30 @@
         height: '0',
     });
 
-    const adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
     let adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
-    for(let i = 0; i<= adsItemHeight.length; i++){
-        adsItemsHeight = adsItemHeight.innerHeight() * i;
+    function getItemsHeight() {
+        let adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
+        for(let i = 0; i<= adsItemHeight.length; i++){
+            adsItemHeight.length <= 1 ? adsItemsHeight = adsItemHeight.innerHeight() : adsItemsHeight = adsItemHeight.innerHeight() * i;
+        }
+        if(isNaN(adsItemsHeight)){
+            adsItemsHeight = 0;
+        }
+        return adsItemsHeight;
     }
-    if(isNaN(adsItemsHeight)){
-        adsItemsHeight = 0;
-    }
+    getItemsHeight();
 
     var dFilterBtn = $('body').find('.directorist-filter-btn');
 
     var count = 0;
+    $('body').on('click', '.directorist-listing-type-selection .search_listing_types', function(){
+        count = 0;
+    })
     $('body').on("click", '.directorist-filter-btn', function (e) {
         count++;
         e.preventDefault();
+        getItemsHeight();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
 
         if (count % 2 === 0) {
@@ -289,7 +297,7 @@
             atbd_callingSlider(0);
         });
     }
-    
+
     /* Map Listing Search Form */
     if($("#directorist-search-area .directorist-btn-reset-js") !== null){
         $("body").on("click", "#directorist-search-area .directorist-btn-reset-js", function (e) {
@@ -308,7 +316,6 @@
     if($(".atbd_widget .search-area .directorist-btn-reset-js") !== null){
         $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
             e.preventDefault();
-            console.log(this);
             if(this.closest('.search-area')){
                 const searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
                 if(searchForm){

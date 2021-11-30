@@ -67,12 +67,12 @@
         height: '0',
     });
 
-    let adsFilterHeight = $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
+    let adsFilterHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
     function getItemsHeight() {
-        let adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
-        for(let i = 0; i<= adsItemHeight.length; i++){
-            adsItemHeight.length <= 1 ? adsItemsHeight = adsItemHeight.innerHeight() : adsItemsHeight = adsItemHeight.innerHeight() * i;
+        let adsItemHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
+        for(let i = 0; i<= adsItemHeight().length; i++){
+            adsItemHeight().length <= 1 ? adsItemsHeight = adsItemHeight().innerHeight() : adsItemsHeight = adsItemHeight().innerHeight() * i;
         }
         if(isNaN(adsItemsHeight)){
             adsItemsHeight = 0;
@@ -92,18 +92,18 @@
         e.preventDefault();
         getItemsHeight();
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-        var dafWrap = $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
+        var dafwrap = $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
         if (count % 2 === 0) {
-            $(dafWrap).css({
+            $(dafwrap).css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(dafWrap).css({
+            $(dafwrap).css({
                 visibility: 'visible',
-                height: adsItemsHeight + adsFilterHeight + 70 + 'px',
+                height: adsItemsHeight + adsFilterHeight() + 50 + 'px',
                 transition: '0.3s ease',
                 opacity: '1',
             });

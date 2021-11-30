@@ -137,76 +137,39 @@ class Directorist_Listing_Author {
 	public function get_rating() {
 		$user_listings = $this->all_listings;
 
-		$review_in_post = 0;
-		$all_reviews    = 0;
+		$reviews_count = 0;
+		$reviews_sum   = 0;
 
-		if ( ! empty( $user_listings->ids ) ) :
+		if ( ! empty( $user_listings->ids ) ) {
 			// Prime caches to reduce future queries.
-			if ( ! empty( $user_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+			if ( function_exists( '_prime_post_caches' ) ) {
 				_prime_post_caches( $user_listings->ids );
 			}
 
-			$original_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : get_post();
+			foreach ( $user_listings->ids as $listings_id ) {
+				$average = directorist_get_listing_rating( $listings_id );
 
-			foreach ( $user_listings->ids as $listings_id ) :
-				$GLOBALS['post'] = get_post( $listings_id );
-				setup_postdata( $GLOBALS['post'] );
-
-				// TODO: remove the following line
-				// $average = ATBDP()->review->get_average($listings_id);
-				$average = directorist_get_listing_rating($listings_id);
-				if ( ! empty( $average ) ) {
-					$averagee = array( $average );
-					foreach ( $averagee as $key ) {
-						$all_reviews += $key;
-					}
-					$review_in_post++;
+				if ( $average > 0 ) {
+					$reviews_sum    += $average;
+					$reviews_count += 1;
 				}
-			endforeach;
+			}
+		}
 
-			$GLOBALS['post'] = $original_post;
-            wp_reset_postdata();
-		endif;
+		$total_rating = 0;
+		if ( $reviews_count > 0 ) {
+			$total_rating = number_format( ( $reviews_sum / $reviews_count ), 1 );
+		}
 
-		$author_rating = ( ! empty( $all_reviews ) && ! empty( $review_in_post ) ) ? ( $all_reviews / $review_in_post ) : 0;
-		$author_rating = substr( $author_rating, '0', '3' );
+		$this->rating       = $total_rating;
+		$this->total_review = $reviews_count;
 
-		$this->rating       = $author_rating;
-		$this->total_review = $review_in_post;
-
-		return $author_rating;
+		return $total_rating;
 	}
 
 	public function get_review_count() {
-		$user_listings = $this->all_listings;
-
-		$review_in_post = 0;
-
-		if ( ! empty( $user_listings->ids ) ) :
-			// Prime caches to reduce future queries.
-			if ( ! empty( $user_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-				_prime_post_caches( $user_listings->ids );
-			}
-
-			$original_post = $GLOBALS['post'];
-
-			foreach ( $user_listings->ids as $listings_id ) :
-				$GLOBALS['post'] = get_post( $listings_id );
-				setup_postdata( $GLOBALS['post'] );
-
-				// TODO: remove the following line
-				// $average = ATBDP()->review->get_average($listings_id);
-				$average = directorist_get_listing_rating($listings_id);
-				if ( ! empty( $average ) ) {
-					$review_in_post++;
-				}
-			endforeach;
-
-			$GLOBALS['post'] = $original_post;
-            wp_reset_postdata();
-		endif;
-
-		return $review_in_post;
+		$this->get_rating();
+		return $this->total_review;
 	}
 
 	private function enqueue_scripts() {

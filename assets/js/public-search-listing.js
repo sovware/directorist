@@ -181,6 +181,8 @@
   $('body').on('click', '.directorist-listing-type-selection .search_listing_types', function () {
     count = 0;
   });
+  /* Toggle overlapped advanced filter wrapper */
+
   $('body').on("click", '.directorist-filter-btn', function (e) {
     count++;
     e.preventDefault();
@@ -203,6 +205,23 @@
         height: adsItemsHeight + adsFilterHeight() + 50 + 'px',
         transition: '0.3s ease',
         opacity: '1'
+      });
+    }
+  });
+  /* Hide overlapped advanced filter */
+
+  var daf = function daf() {
+    return $('.directorist-search-float .directorist-advanced-filter');
+  };
+
+  $(document).on('click', function (e) {
+    if (!e.target.closest('.directorist-search-form-top') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
+      count = 0;
+      daf().css({
+        visibility: 'hidden',
+        opacity: '0',
+        height: '0',
+        transition: '.3s ease'
       });
     }
   });

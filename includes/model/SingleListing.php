@@ -665,14 +665,10 @@ class Directorist_Single_Listing {
 	}
 
 	public function get_review_count() {
-		// TODO: remove the following line
-		// return ATBDP()->review->db->count(array('post_id' => $this->id));
 		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function get_rating_count() {
-		// TODO: remove the following line
-		// return ATBDP()->review->get_average( $this->id );
 		return directorist_get_listing_rating( $this->id );
 	}
 
@@ -828,8 +824,10 @@ class Directorist_Single_Listing {
 
 	public function current_review() {
 		// @cache @kowsar
-		$review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
-		return !empty( $review ) ? $review : '';
+		// $review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
+		// return !empty( $review ) ? $review : '';
+
+		return '';
 	}
 
 	public function reviewer_name() {
@@ -837,8 +835,6 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_count() {
-		// TODO: remove the following line
-		// return ATBDP()->review->db->count(array('post_id' => $this->id));
 		return directorist_get_listing_review_count( $this->id );
 	}
 
@@ -1098,8 +1094,6 @@ class Directorist_Single_Listing {
 
 	public function review_template() {
 		$id           = $this->id;
-		// TODO: remove the following line.
-		// $review_count = ATBDP()->review->db->count(array('post_id' => $id));
 		$review_count = directorist_get_listing_review_count( $id );
 		$author_id    = get_post_field('post_author', $id);
 

@@ -449,30 +449,21 @@ class Helper {
 	}
 
 	public static function is_popular( $listing_id ) {
-		$listing_popular_by = get_directorist_option('listing_popular_by');
-		// TODO: remove the following line
-		// $average = ATBDP()->review->get_average($listing_id);
-		$average = directorist_get_listing_rating($listing_id);
-		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-		$view_to_popular = get_directorist_option('views_for_popular');
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average                    = directorist_get_listing_rating( $listing_id );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
-		if ('average_rating' === $listing_popular_by) {
-			if ($average_review_for_popular <= $average) {
-				return true;
-			}
-		}
-		elseif ('view_count' === $listing_popular_by) {
-			if ((int)$view_count >= (int)$view_to_popular) {
-				return true;
-			}
-		}
-		elseif (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
+		if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+			return true;
+		} elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return true;
+		} elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 	public static function badge_exists( $listing_id ) {

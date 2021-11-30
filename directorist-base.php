@@ -178,7 +178,7 @@ final class Directorist_Base
 	 * @var ATBDP_Review_Custom_Post
 	 * @since 5.6.5
 	 */
-	public $ATBDP_Review_Custom_Post;
+	// public $ATBDP_Review_Custom_Post;
 
 	/**
 	 * Main Directorist_Base Instance.
@@ -238,8 +238,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools;
 			self::$instance->announcement = new ATBDP_Announcement;
-			self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
-			self::$instance->update_database();
+			// self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
+			// self::$instance->update_database();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
@@ -248,7 +248,7 @@ final class Directorist_Base
 				new ATBDP_Extensions();
 			}
 			/*Initiate Review and Rating Features*/
-			self::$instance->review = new ATBDP_Review_Rating;
+			// self::$instance->review = new ATBDP_Review_Rating;
 			//activate rewrite api
 			new ATBDP_Rewrite;
 			//map custom capabilities
@@ -260,7 +260,7 @@ final class Directorist_Base
 			// add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
 
 			//review and rating
-			add_action('atbdp_after_map', array(self::$instance, 'show_review'));
+			// add_action('atbdp_after_map', array(self::$instance, 'show_review'));
 
 			// Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
 			// we can check the database if our custom pages have been installed correctly or not here first.
@@ -376,10 +376,10 @@ final class Directorist_Base
 	 * @since 6.4.4
 	 * @return void
 	 */
-	private function update_database()
-	{
-		$this->update_review_table();
-	}
+	// private function update_database()
+	// {
+	// 	$this->update_review_table();
+	// }
 
 	/**
 	 * Init Hooks
@@ -401,18 +401,18 @@ final class Directorist_Base
 	 * @since 6.4.4
 	 * @return void
 	 */
-	private function update_review_table()
-	{
-		$current_charset_collate = get_option('atbdp_review_table_charset_collate');
-		$review_rating = new ATBDP_Review_Rating_DB();
+	// private function update_review_table()
+	// {
+	// 	$current_charset_collate = get_option('atbdp_review_table_charset_collate');
+	// 	$review_rating = new ATBDP_Review_Rating_DB();
 
-		$charset_collate = $review_rating->get_charset_collate();
+	// 	$charset_collate = $review_rating->get_charset_collate();
 
-		if ( $charset_collate !== $current_charset_collate ) {
-			add_action('admin_init', array( $review_rating, 'update_table_collation'));
-			update_option('atbdp_review_table_charset_collate', $charset_collate);
-		}
-	}
+	// 	if ( $charset_collate !== $current_charset_collate ) {
+	// 		add_action('admin_init', array( $review_rating, 'update_table_collation'));
+	// 		update_option('atbdp_review_table_charset_collate', $charset_collate);
+	// 	}
+	// }
 
 
 	/**
@@ -470,7 +470,7 @@ final class Directorist_Base
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 
 		/*LOAD Rating and Review functionality*/
-		load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
+		// load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
 		/*Load gateway related stuff*/
 		load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
 		/*Load payment related stuff*/

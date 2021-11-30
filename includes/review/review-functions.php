@@ -37,3 +37,7 @@ function directorist_get_listing_rating( $listing_id, $round_precision = 1 ) {
 function directorist_get_listing_review_count( $listing_id ) {
 	return \Directorist\Review\Listing_Review_Meta::get_review_count( $listing_id );
 }
+
+function directorist_get_rating_field_meta_key() {
+	return \Directorist\Review\Listing_Review_Meta::FIELD_AVG_RATING;
+}

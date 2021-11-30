@@ -43,7 +43,8 @@ function directorist_706_migrate_reviews_table_to_comments_table() {
 	}
 
 	//Delete review table
-	$wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
+	// TODO: Delete this table in future.
+	// $wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
 }
 
 // pending -> pending:0
@@ -85,9 +86,10 @@ function directorist_706_migrate_posts_table_to_comments_table() {
 		}
 
 		// Delete review type posts
-		foreach ( $reviews as $review ) {
-			wp_delete_post( $review->post_id, true );
-		}
+		// TODO: Delete this in the future
+		// foreach ( $reviews as $review ) {
+		// 	wp_delete_post( $review->post_id, true );
+		// }
 	}
 }
 

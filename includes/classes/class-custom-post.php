@@ -237,114 +237,121 @@ if (!class_exists('ATBDP_Custom_Post')) :
             //flush_rewrite_rules();
         }
 
-        public function add_new_listing_columns($columns)
-        {
-            $featured_active        = get_directorist_option('enable_featured_listing');
-            $enable_multi_directory = get_directorist_option('enable_multi_directory', false);
+        public function add_new_listing_columns( $columns ) {
+            $featured_active        = get_directorist_option( 'enable_featured_listing' );
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
             $columns          = [];
             $columns['cb']    = '<input type="checkbox" />';
-            $columns['title'] = __('Listing Name', 'directorist');
-            if (atbdp_is_truthy($enable_multi_directory)) {
-                $columns['directory_type'] = __('Directory Type', 'directorist');
+            $columns['title'] = __( 'Name', 'directorist' );
+            if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+                $columns['directory_type'] = __( 'Directory', 'directorist' );
             }
-            $columns['atbdp_location'] = __('Location', 'directorist');
-            $columns['atbdp_category'] = __('Categories', 'directorist');
-            $columns['atbdp_author']   = __('Author', 'directorist');
-            $columns['atbdp_status']   = __('Status', 'directorist');
-            if ($featured_active || is_fee_manager_active()) {
-                $columns['atbdp_featured'] = __('Featured', 'directorist');
+            $columns['atbdp_location'] = __( 'Location', 'directorist' );
+            $columns['atbdp_category'] = __( 'Categories', 'directorist' );
+            $columns['atbdp_author']   = __( 'Author', 'directorist' );
+            $columns['atbdp_status']   = __( 'Status', 'directorist' );
+            if ( $featured_active || is_fee_manager_active() ) {
+                $columns['atbdp_featured'] = __( 'Featured', 'directorist' );
             }
-            $subscribed_package_id      = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
-            $num_featured_unl           = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
-            $num_featured               = get_post_meta($subscribed_package_id, 'num_featured', true);
-            $featured_submited          = get_user_meta(get_current_user_id(), '_featured_type', true) ? (int) get_user_meta(get_current_user_id(), '_featured_type', true) : 1;
-            $featured_available_in_plan = $num_featured - $featured_submited;
-            if (is_fee_manager_active() && $featured_available_in_plan > 1 || $num_featured_unl) {
-                $columns['atbdp_featured'] = __('Featured', 'directorist');
+            $subscribed_package_id      = get_user_meta( get_current_user_id(), '_subscribed_users_plan_id', true );
+            $num_featured_unl           = get_post_meta( $subscribed_package_id, 'num_featured_unl', true );
+            $num_featured               = get_post_meta( $subscribed_package_id, 'num_featured', true );
+            $featured_submited          = get_user_meta( get_current_user_id(), '_featured_type', true ) ? (int) get_user_meta( get_current_user_id(), '_featured_type', true ) : 1;
+            $featured_available_in_plan = ( $num_featured - $featured_submited );
+            if ( is_fee_manager_active() && $featured_available_in_plan > 1 || $num_featured_unl ) {
+                $columns['atbdp_featured'] = __( 'Featured', 'directorist' );
             }
-            $columns['atbdp_expiry_date'] = __('Expires on', 'directorist');
-            $columns['atbdp_date']        = __('Created on', 'directorist');
+            $columns['atbdp_expiry_date'] = __( 'Expires on', 'directorist' );
+            $columns['atbdp_date']        = __( 'Created on', 'directorist' );
 
-            return (apply_filters('atbdp_add_new_listing_column', $columns));
+            return apply_filters( 'atbdp_add_new_listing_column', $columns );
         }
 
-        public function manage_listing_columns($column_name, $post_id)
-        {
+        public function manage_listing_columns( $column_name, $post_id ) {
             /*@TODO; Next time we can add image column too. */
-            $date_format = get_option('date_format');
-            $time_format = get_option('time_format');
-            switch ($column_name) {
+            $date_format = get_option( 'date_format' );
+            $time_format = get_option( 'time_format' );
+
+            switch ( $column_name ) {
                 case 'atbdp_location':
-                    $terms = wp_get_post_terms($post_id, ATBDP_LOCATION);
-                    if (!empty($terms) && is_array($terms)) {
-                        foreach ($terms as $term) {
-                            // link the tax term to the search page with custom query string so that plugin can show correct data from database
-                ?>
-                            <a href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term); ?>">
-                                <?php echo $term->name; ?>
-                            </a>
-                        <?php
-                        }
+					$locations = directorist_get_object_terms( $post_id, ATBDP_LOCATION );
+					foreach ( $locations as $location ) {
+						printf(
+							'<a href="%1$s">%2$s</a><br>',
+							ATBDP_Permalink::atbdp_get_location_page( $location ),
+							$location->name
+						);
                     }
                     break;
 
                 case 'atbdp_category':
-                    $categories = get_the_terms($post_id, ATBDP_CATEGORY);
-                    $cats       = !empty($categories) ? $categories : [];
-
-                    foreach ($cats as $cat_title) {
-                        ?>
-                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat_title); ?>">
-                            <i class="fa	                                         <?php echo get_cat_icon($cat_title->term_name); ?>" aria-hidden="true"></i>
-                            <?php echo $cat_title->name; ?>
-                        </a>
-                    <?php
-
+					$categories = directorist_get_object_terms( $post_id, ATBDP_CATEGORY );
+					foreach ( $categories as $category ) {
+						printf(
+							'<a href="%1$s">%2$s</a><br>',
+							ATBDP_Permalink::atbdp_get_category_page( $category ),
+							$category->name
+						);
                     }
-
                     break;
 
                 case 'directory_type':
-                    $term_id   = get_post_meta($post_id, '_directory_type', true);
-                    $term      = get_term_by(is_numeric($term_id) ? 'id' : 'slug', $term_id, ATBDP_TYPE);
-                    $config    = get_term_meta($term_id, 'general_config', true);
-                    $icon      = is_array($config) ? $config['icon'] : '';
-                    $term_name = !empty($term) ? $term->name : '';
-                    if (!empty($icon)) { ?>
-                        <span class="<?php echo esc_html($icon); ?>"></span>
-                    <?php } ?>
-                    <span><?php echo esc_attr($term_name); ?></span>
-<?php
+					$directory = directorist_get_object_terms( $post_id, ATBDP_TYPE );
+					if ( count( $directory ) > 0 ) {
+						$directory        = current( $directory );
+						// $directory_config = get_term_meta( $directory->term_id, 'general_config', true );
+						// if ( is_array( $directory_config ) && ! empty( $directory_config['icon'] ) ) {
+						// 	printf( '<span class="%1$s"></span>', esc_attr( $directory_config['icon'] ) );
+						// }
+						printf( '<span>%1$s</span>', esc_html( $directory->name ) );
+					}
                     break;
 
                 case 'atbdp_author':
-                    the_author_posts_link();
+					$args = array(
+						'post_type' => get_post_field( 'post_type' ),
+						'author'    => get_post_field( 'post_author' ),
+					);
+					printf(
+						'<a href="%1$s" title="%2$s">%3$s</a>',
+						add_query_arg( $args, 'edit.php' ),
+						/* translators: 1: Author name */
+						sprintf( esc_attr_x( 'Filter by %1$s', 'Author filter link', 'directorist' ), get_the_author() ),
+						get_the_author()
+					);
                     break;
 
                 case 'atbdp_status':
-                    $sts = get_post_meta($post_id, '_listing_status', true);
-
-                    echo (empty($sts) || 'post_status' == $sts) ? get_post_status($post_id) : $sts;
+                    $status = get_post_meta( $post_id, '_listing_status', true );
+					$status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+					echo ucfirst( $status );
                     break;
 
                 case 'atbdp_featured':
-                    $featured = get_post_meta($post_id, '_featured', true);
-                    echo '<span style="margin-left: 15px">';
-                    echo !empty($featured) ? '<i class="' . atbdp_icon_type() . '-check-circle"></i>' : '<i class="fa fa-times-circle"></i>';
-                    echo '</span>';
+                    $is_featured = (bool) get_post_meta( $post_id, '_featured', true );
+					if ( $is_featured ) {
+						echo '<i class="fa fa-check-circle" style="margin-left: 20px; color:#46b450; font-size: 1.2em"></i>';
+					}
                     break;
 
                 case 'atbdp_expiry_date':
-                    $exp_date  = get_post_meta($post_id, '_expiry_date', true);
-                    $never_exp = get_post_meta($post_id, '_never_expire', true);
-                    echo !empty($never_exp) ? __('Never Expires', 'directorist') : date_i18n("$date_format @  $time_format", strtotime($exp_date));
+                    $never_exp = get_post_meta( $post_id, '_never_expire', true );
+					if ( ! empty( $never_exp ) ) {
+						esc_html_e( 'Never Expires', 'directorist' );
+					} else {
+						$expiry_date = get_post_meta( $post_id, '_expiry_date', true );
+						echo date_i18n( "$date_format @ $time_format", strtotime( $expiry_date ) );
+					}
                     break;
                 case 'atbdp_date':
-                    $t = get_the_time('U');
-                    echo date_i18n($date_format, $t);
-                    printf(__(' ( %s ago )', 'directorist'), human_time_diff($t));
-
+                    $time = get_the_time( 'U' );
+                    printf(
+						/* translators: 1: Creation date. 2: Human diff time */
+						esc_html__( '%1$s (%2$s ago)', 'directorist' ),
+						date_i18n( $date_format, $time ),
+						human_time_diff( $time )
+					);
                     break;
             }
             /*

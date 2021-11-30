@@ -152,7 +152,7 @@
     visibility: 'hidden',
     height: '0'
   });
-  var adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
+  var adsFilterHeight = $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
   var adsItemsHeight;
 
   function getItemsHeight() {
@@ -182,16 +182,17 @@
     var currentPos = e.clientY,
         displayPos = window.innerHeight,
         height = displayPos - currentPos;
+    var dafWrap = $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
 
     if (count % 2 === 0) {
-      $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+      $(dafWrap).css({
         visibility: 'hidden',
         opacity: '0',
         height: '0',
         transition: '.3s ease'
       });
     } else {
-      $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+      $(dafWrap).css({
         visibility: 'visible',
         height: adsItemsHeight + adsFilterHeight + 70 + 'px',
         transition: '0.3s ease',

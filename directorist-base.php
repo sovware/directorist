@@ -248,7 +248,8 @@ final class Directorist_Base
 				new ATBDP_Extensions();
 			}
 			/*Initiate Review and Rating Features*/
-			// self::$instance->review = new ATBDP_Review_Rating;
+			self::$instance->review = null;
+
 			//activate rewrite api
 			new ATBDP_Rewrite;
 			//map custom capabilities
@@ -469,8 +470,6 @@ final class Directorist_Base
 
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 
-		/*LOAD Rating and Review functionality*/
-		// load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
 		/*Load gateway related stuff*/
 		load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
 		/*Load payment related stuff*/

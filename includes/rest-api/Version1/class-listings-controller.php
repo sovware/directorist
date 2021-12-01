@@ -422,34 +422,12 @@ class Listings_Controller extends Posts_Controller {
 
 		// Rating query.
 		if ( ! empty( $request['rating'] ) ) {
-			$matched_listing_ids = array();
-			$listings_ids        = \ATBDP_Listings_Data_Store::get_listings_ids( array(
-				'no_found_rows' => true,
-				'cache_results' => false,
-			) );
-
-			if ( ! empty( $listings_ids ) ) {
-				foreach ( $listings_ids as $listings_id ) {
-					$average = ATBDP()->review->get_average( $listings_id );
-
-					if ( $average >= $request['rating'] ) {
-						$matched_listing_ids[] = $listings_id;
-					}
-				}
-			}
-
-			if ( empty( $matched_listing_ids ) ) {
-				$matched_listing_ids = [0];
-			}
-
-			if ( ! empty( $args['post__in'] ) ) {
-				$args['post__in'] = array_merge(
-					$args['post__in'],
-					array_filter( $matched_listing_ids )
-				);
-			} else {
-				$args['post__in'] = $matched_listing_ids;
-			}
+			$meta_query['rating'] = array(
+				'key'     => directorist_get_rating_field_meta_key(),
+				'value'   => $request['rating'],
+				'type'    => 'NUMERIC',
+				'compare' => '>=',
+			);
 		}
 
 		// Radius query.

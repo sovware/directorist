@@ -47,14 +47,12 @@ class ATBDP_Installation {
 		* @return void
 		*/
 	public static function install() {
-		// include_once  ATBDP_INC_DIR.'review-rating/class-review-rating-database.php'; // include review class
 		require_once ATBDP_CLASS_DIR . 'class-custom-post.php'; // include custom post class
 		require_once ATBDP_CLASS_DIR . 'class-roles.php'; // include custom roles and Caps
 
 		$ATBDP_Custom_Post = new ATBDP_Custom_Post();
 		$ATBDP_Custom_Post->register_new_post_types();
-		// $Review_DB = new ATBDP_Review_Rating_DB();
-		// $Review_DB->create_table(); // create table for storing reviews and ratings of the listings
+
 		flush_rewrite_rules(); // lets flash the rewrite rules as we have registered the custom post
 
 		// Add custom ATBDP_Roles & Capabilities

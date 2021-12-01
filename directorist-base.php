@@ -733,168 +733,117 @@ final class Directorist_Base
 	 *                   For example, on different widgets place. Default 5.
 	 * @return WP_Query It returns the popular listings if found.
 	 */
-	public function get_popular_listings($count = 5, $listing_id = '')
-	{
-		/*Popular post related stuff*/
-		$p_count = !empty($count) ? $count : 5;
+	public function get_popular_listings( $count = 5, $listing_id = 0 ) {
+		$count           = intval( $count > 0 ? $count : 5 );
+		$view_to_popular = get_directorist_option( 'views_for_popular' );
 
-		$view_to_popular = get_directorist_option('views_for_popular');
 		/**
 		 * It filters the number of the popular listing to display
 		 * @since 1.0.0
-		 * @param int $p_count The number of popular listing  to show
+		 * @param int $count The number of popular listing  to show
 		 */
-		$p_count = apply_filters('atbdp_popular_listing_number', $p_count);
+		$count = apply_filters( 'atbdp_popular_listing_number', $count );
+
 		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'post_status' => 'publish',
-			'posts_per_page' => (int)$p_count,
-
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'posts_per_page' => $count,
 		);
-		$has_featured = get_directorist_option('enable_featured_listing');
-		if ($has_featured || is_fee_manager_active()) {
-			$has_featured = 1;
-		}
 
-		$listings = get_atbdp_listings_ids();
-		$rated = array();
-		$listing_popular_by = get_directorist_option('listing_popular_by');
-		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-		$view_to_popular = get_directorist_option('views_for_popular');
+		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
+		$has_featured               = $has_featured || is_fee_manager_active();
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
 		$meta_queries = array();
-		if ($has_featured) {
-			if ('average_rating' === $listing_popular_by) {
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						// TODO: remove the following line
-						// $average = ATBDP()->review->get_average($listing_id);
-						$average = directorist_get_listing_rating($listing_id);
 
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					wp_reset_postdata();
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
-			} elseif ('view_count' === $listing_popular_by) {
+		if ( $has_featured ) {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
 
 				$args['orderby'] = array(
 					'_featured' => 'DESC',
-					'views' => 'DESC',
+					'views'     => 'DESC',
 				);
-
 			} else {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
 				$args['orderby'] = array(
 					'_featured' => 'DESC',
-					'views' => 'DESC',
+					'views'     => 'DESC',
 				);
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						// TODO: remove the following line
-						// $average = ATBDP()->review->get_average($listing_id);
-						$average = directorist_get_listing_rating($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					wp_reset_postdata();
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
 			}
-
 		} else {
-			if ('average_rating' === $listing_popular_by) {
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						// TODO: remove the following line
-						// $average = ATBDP()->review->get_average($listing_id);
-						$average = directorist_get_listing_rating($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					wp_reset_postdata();
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
-			} elseif ('view_count' === $listing_popular_by) {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
 				$args['orderby'] = array(
 					'views' => 'DESC',
 				);
 			} else {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => (int)$view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
 				$args['orderby'] = array(
 					'views' => 'DESC',
 				);
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						// TODO: remove the following line
-						// $average = ATBDP()->review->get_average($listing_id);
-						$average = directorist_get_listing_rating($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					wp_reset_postdata();
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
 			}
 		}
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+
+		if ( count( $meta_queries ) ) {
+			$meta_queries['relation'] = 'AND';
+			$args['meta_query'] = $meta_queries;
 		}
 
-		return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
-
+		return new WP_Query( apply_filters( 'atbdp_popular_listing_args', $args ) );
 	}
 
 	/**
@@ -903,17 +852,17 @@ final class Directorist_Base
 	 */
 	public function show_static_rating($post)
 	{
-		$enable_review = get_directorist_option('enable_review', 1);
-		if (!$enable_review) return; // vail if review is not enabled
-		// TODO: remove the following line
-		// $average = ATBDP()->review->get_average($post->ID);
+		$enable_review = (bool) get_directorist_option( 'enable_review', 1 );
+		if ( ! $enable_review ) {
+			return;
+		}
+
 		$average = directorist_get_listing_rating($post->ID);
 		?>
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>
 		</div>
 		<?php
-
 	}
 
 	/**
@@ -1117,9 +1066,6 @@ final class Directorist_Base
 		$review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
 		if (!$enable_review) return; // vail if review is not enabled
 		$enable_owner_review = get_directorist_option('enable_owner_review', 1);
-
-		// TODO: remove the following line
-		// $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
 		$reviews_count = directorist_get_listing_review_count( $post->ID );
 
 		$plan_review = true;

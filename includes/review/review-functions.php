@@ -14,7 +14,7 @@ function directorist_is_guest_review_enabled() {
 }
 
 function directorist_is_review_enabled() {
-	return (bool) \Directorist\Helper::is_review_enabled();
+	return (bool) get_directorist_option( 'enable_review', 1 );
 }
 
 function directorist_is_owner_review_enabled() {

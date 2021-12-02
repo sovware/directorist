@@ -811,7 +811,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_review() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public function guest_review_enabled() {

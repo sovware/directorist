@@ -851,8 +851,7 @@ final class Directorist_Base
 	 */
 	public function show_static_rating($post)
 	{
-		$enable_review = (bool) get_directorist_option( 'enable_review', 1 );
-		if ( ! $enable_review ) {
+		if ( ! directorist_is_review_enabled() ) {
 			return;
 		}
 

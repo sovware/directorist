@@ -761,7 +761,7 @@ class Listings_Controller extends Posts_Controller {
 					}
 					break;
 				case 'reviews_allowed':
-					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
+					$base_data['reviews_allowed'] = directorist_is_review_enabled();
 					break;
 				case 'average_rating':
 					$base_data['average_rating'] = directorist_get_listing_rating( $listing->ID );

@@ -518,7 +518,7 @@ class Helper {
 	}
 
 	public static function is_review_enabled() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public static function is_featured( $listing_id ) {

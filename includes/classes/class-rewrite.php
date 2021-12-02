@@ -40,7 +40,7 @@ class ATBDP_Rewrite {
 	}
 
 	protected function get_page_ids() {
-		return array_values( $this->get_pages() );
+		return array_unique( array_values( $this->get_pages() ) );
 	}
 
 	protected function get_page_id( $option_key ) {
@@ -50,16 +50,16 @@ class ATBDP_Rewrite {
 
 	protected function get_page_slug( $page_id, $default_slug ) {
 		$home_url = home_url( '/' );
-		$link = str_replace( $home_url, '', get_permalink( $page_id ) );
-		$link = rtrim( $link, '/' );
-		$link = preg_match( '/([?])/', $link ) ? $default_slug : $link;
+		$slug     = str_replace( $home_url, '', get_permalink( $page_id ) );
+		$slug     = rtrim( $slug, '/' );
+		$slug     = preg_match( '/([?])/', $slug ) ? $default_slug : $slug;
 
-		return $link;
+		return $slug;
 	}
 
 	public function add_write_rules() {
 		$cached_pages = get_pages( array(
-			'include' => array_values( $this->get_page_ids() )
+			'include' => $this->get_page_ids()
 		) );
 
 		$page_id = $this->get_page_id( 'all_listing_page' );

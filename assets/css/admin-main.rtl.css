@@ -9301,8 +9301,8 @@ for shortable field*/
   border-radius: 15px 0 0 15px;
 }
 
-.select2-selection__arrow,
-.select2-selection__clear {
+.select2-selection__arrow:after,
+.select2-selection__clear:after {
   display: none;
 }
 

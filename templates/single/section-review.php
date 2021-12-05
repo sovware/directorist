@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.3
+ * @version 7.0.6.3
  */
 
 use \Directorist\Helper;
@@ -29,7 +29,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 				<?php echo esc_html( $listing->review_count_text() );?>
 			</h4>
 
-			<?php if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
+			<?php if ( is_user_logged_in() || $listing->guest_review_enabled() ): ?>
 				<label for="review_content" class="directorist-btn directorist-btn-primary directorist-btn-xs directorist-btn-add-review"><?php esc_html_e( 'Add a review', 'directorist' ); ?></label>
 			<?php endif; ?>
 
@@ -44,7 +44,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 	</div>
 
 	<?php
-	if ( atbdp_logged_in_user() || $listing->guest_review_enabled() ): ?>
+	if ( is_user_logged_in() || $listing->guest_review_enabled() ): ?>
 
 		<?php if (get_current_user_id() != $listing->author_id || $listing->owner_review_enabled() ): ?>
 
@@ -105,7 +105,7 @@ $review_content = $listing->current_review() ? $listing->current_review()->conte
 							<textarea name="content" id="review_content" class="directorist-form-element" cols="20" rows="5" placeholder="<?php echo esc_attr( $review_placeholder ); ?>"><?php echo esc_html( $review_content ); ?></textarea>
 						</div>
 
-						<?php if ( $listing->guest_review_enabled() && !atbdp_logged_in_user() ): ?>
+						<?php if ( $listing->guest_review_enabled() && !is_user_logged_in() ): ?>
 
 							<div class="directorist-form-group directorist-form-group-guest-user">
 

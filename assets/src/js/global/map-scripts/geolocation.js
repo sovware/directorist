@@ -127,7 +127,7 @@
                                         type: 'POST',
                                         data: {},
                                         success(data) {
-                                                $('#address,.atbdp-search-address').val(data.display_name);
+                                                $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
                                                 $('#cityLat').val(lat);
                                                 $('#cityLng').val(lng);
                                         },

@@ -468,6 +468,7 @@ function setup_form_data(form_data, type, field) {
 
 function scrollToEl(selector) {
   document.querySelector(selector).scrollIntoView({
+    block: 'start',
     behavior: 'smooth'
   });
 }
@@ -544,13 +545,16 @@ $('body').on('submit', formID, function (e) {
   }
 
   var form_data = new FormData();
+  form_data.append('action', 'add_listing_action');
+  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
   var field_list = [];
   var field_list2 = [];
   $('.directorist-form-submit__btn').addClass('atbd_loading');
-  form_data.append('action', 'add_listing_action');
   var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+  var frm_element = document.getElementById('directorist-add-listing-form');
   $.each(fieldValuePairs, function (index, fieldValuePair) {
-    var field = document.getElementsByName(fieldValuePair.name)[0];
+    var field__name = fieldValuePair.name;
+    var field = frm_element.querySelector('[name="' + field__name + '"]');
     var type = field.type;
     field_list.push({
       name: field.name
@@ -722,9 +726,9 @@ $('body').on('submit', formID, function (e) {
     url: localized_data.ajaxurl,
     data: form_data,
     success: function success(response) {
-      console.log(response); // return;
+      //console.log(response);
+      // return;
       // show the error notice
-
       $('.directorist-form-submit__btn').attr('disabled', false); // var is_pending = response ? '&' : '?';
 
       var is_pending = response && response.pending ? '&' : '?';
@@ -864,9 +868,7 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
       submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
     },
     success: function success(response) {
-      console.log({
-        response: response
-      });
+      //console.log({ response });
       submit_button.html(submit_button_default_html);
 
       if (response.loggedin) {

@@ -370,7 +370,7 @@ function setup_form_data(form_data, type, field) {
 }
 
 function scrollToEl( selector ){
-    document.querySelector( selector ).scrollIntoView({ behavior: 'smooth' })
+    document.querySelector( selector ).scrollIntoView({ block: 'start', behavior: 'smooth' })
 }
 
 function atbdp_element_value(element) {
@@ -430,13 +430,19 @@ $('body').on('submit', formID, function (e) {
     }
 
     let form_data = new FormData();
+
+    form_data.append('action', 'add_listing_action');
+    form_data.append('directorist_nonce',  atbdp_public_data.directorist_nonce );
+
     let field_list = [];
     let field_list2 = [];
     $('.directorist-form-submit__btn').addClass('atbd_loading');
-    form_data.append('action', 'add_listing_action');
-    const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+    const fieldValuePairs   = $('#directorist-add-listing-form').serializeArray();
+    const frm_element       = document.getElementById ('directorist-add-listing-form');
     $.each(fieldValuePairs, function (index, fieldValuePair) {
-        const field = document.getElementsByName(fieldValuePair.name)[0];
+        const field__name = fieldValuePair.name;
+        const field = frm_element.querySelector('[name="'+field__name+'"]');
+
         const type = field.type;
         field_list.push({ name: field.name, });
         //array fields
@@ -581,7 +587,7 @@ $('body').on('submit', formID, function (e) {
         url: localized_data.ajaxurl,
         data: form_data,
         success(response) {
-            console.log(response);
+            //console.log(response);
             // return;
             // show the error notice
             $('.directorist-form-submit__btn').attr('disabled', false);
@@ -753,7 +759,7 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
             submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
         },
         success: function (response) {
-            console.log({ response });
+            //console.log({ response });
             submit_button.html(submit_button_default_html);
 
             if (response.loggedin) {

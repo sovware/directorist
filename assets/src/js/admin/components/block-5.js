@@ -83,13 +83,14 @@ $('.directorist-type-slug-content').each(function (id, element) {
         var editableSlug = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
         editableSlug.attr('contenteditable', true);
         editableSlug.addClass('directorist_listing-slug-text--editable');
-        $(this).addClass('directorist_listing-slug-formText-add');
+        $(this).hide();
+        $(this).siblings('.directorist_listing-slug-formText-add').addClass('active');
         $(this).siblings('.directorist_listing-slug-formText-remove').removeClass('directorist_listing-slug-formText-remove--hidden');
         editableSlug.focus();
     });
 
     // edit directory type slug
-    $('body').on('click', '.directorist_listing-slug-formText-add', function (e) {
+    $(element).find('.directorist_listing-slug-formText-add').on('click', function (e) {
         e.preventDefault();
         _this = $(this);
         var type_id = $(this).data('type-id');
@@ -113,11 +114,11 @@ $('.directorist-type-slug-content').each(function (id, element) {
                     .remove();
                 if (response) {
                     if (response.error) {
-
                         $('.directorist-slug-notice-' + type_id).removeClass('directorist-slug-notice-success');
                         $('.directorist-slug-notice-' + type_id).addClass('directorist-slug-notice-error');
                         $('.directorist-slug-notice-' + type_id).empty().html(response.error);
                         $('.directorist-slug-text-' + type_id).text(response.old_slug);
+                        _this.siblings('.directorist-listing-slug__edit').show();
                         setTimeout(function () {
                             $('.directorist-slug-notice-' + type_id).empty().html("");
                         }, 3000);
@@ -125,6 +126,7 @@ $('.directorist-type-slug-content').each(function (id, element) {
                         $('.directorist-slug-notice-' + type_id).empty().html(response.success);
                         $('.directorist-slug-notice-' + type_id).removeClass('directorist-slug-notice-error');
                         $('.directorist-slug-notice-' + type_id).addClass('directorist-slug-notice-success');
+                        _this.siblings('.directorist-listing-slug__edit').show();
                         setTimeout(function () {
                             addSlug
                                 .closest('.directorist-listing-slug__form')
@@ -136,7 +138,7 @@ $('.directorist-type-slug-content').each(function (id, element) {
                     }
                 }
 
-                $(_this).removeClass('directorist_listing-slug-formText-add');
+                $(_this).removeClass('active');
                 $(_this).siblings('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
                 $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').removeClass('directorist_listing-slug-text--editable');
                 $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text').attr('contenteditable', 'false');
@@ -148,7 +150,8 @@ $('.directorist-type-slug-content').each(function (id, element) {
     $(element).find('.directorist_listing-slug-formText-remove').on('click', function (e) {
         e.preventDefault()
         let thisClosestSibling = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
-        $(this).siblings('.directorist-listing-slug__edit').removeClass('directorist_listing-slug-formText-add');
+        $(this).siblings('.directorist-listing-slug__edit').show();
+        $(this).siblings('.directorist_listing-slug-formText-add').removeClass('active');
         thisClosestSibling.removeClass('directorist_listing-slug-text--editable');
         thisClosestSibling.attr('contenteditable', 'false');
         $(this).addClass('directorist_listing-slug-formText-remove--hidden');
@@ -163,7 +166,8 @@ $('.directorist-type-slug-content').each(function (id, element) {
             $(element).find('.directorist_listing-slug-text').text(oldSlugVal);
             $(element).find('.directorist_listing-slug-text').attr('contenteditable', 'false');
             $(element).find('.directorist_listing-slug-text').removeClass('directorist_listing-slug-text--editable');
-            $(element).find('.directorist_listing-slug-text').siblings('.directorist-listing-slug-edit-wrap').children('.directorist-listing-slug__edit').removeClass('directorist_listing-slug-formText-add');
+            $(element).find('.directorist-listing-slug__edit').show();
+            $(element).find('.directorist_listing-slug-text').siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-add').removeClass('active');
             $(element).find('.directorist_listing-slug-text').siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
         }
     });

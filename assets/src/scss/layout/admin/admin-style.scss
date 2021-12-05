@@ -4682,12 +4682,13 @@ input.atbdp-form-control {
   display: inline-block;
   position: relative;
   margin: -3px;
+  min-width: 75px;
   @media only screen and (max-width: 1299px) {
     position: initial;
-    margin-top: 6px;
   }
 
-  .directorist-listing-slug__edit{
+  .directorist-listing-slug__edit,
+  .directorist_listing-slug-formText-add{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -4705,23 +4706,33 @@ input.atbdp-form-control {
       font-size: 15px;
       color: $info;
     }
-    &.directorist_listing-slug-formText-add{
-      background: $success;
-      box-shadow: none;
-      &:before{
-        content: '\f00c';
-        color: #fff;
-      }
-    }
     @media only screen and (max-width: 1399px) {
       width: 26px;
       height: 26px;
       margin-left: 6px;
+      &:before{
+        font-size: 13px;
+      }
     }
     @media only screen and (max-width: 1299px) {
       width: 22px;
       height: 22px;
       margin-left: 6px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+  }
+  .directorist_listing-slug-formText-add{
+    background: $success;
+    box-shadow: none;
+    display: none;
+    &:before{
+      content: '\f00c';
+      color: #fff;
+    }
+    &.active{
+      display: inline-flex;
     }
   }
 
@@ -4747,6 +4758,20 @@ input.atbdp-form-control {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+    @media only screen and (max-width: 1399px) {
+      width: 26px;
+      height: 26px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+    @media only screen and (max-width: 1299px) {
+      width: 22px;
+      height: 22px;
+      &:before{
+        font-size: 13px;
+      }
     }
   }
 

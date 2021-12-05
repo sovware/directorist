@@ -14,16 +14,24 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 		// run
 		public function run()
 		{
+			add_action('directorist_on_mount', [ $this, 'update_init_options' ] );
+
             if ( ! is_admin() ) {
                 return;
             }
 
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
-
+			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
 
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
+		}
+
+		public function update_init_options() {
+			// Set lazy_load_taxonomy_fields option
+			$directorist_is_new_user = directorist_is_new_user();
+			update_directorist_option( 'lazy_load_taxonomy_fields', $directorist_is_new_user );
 		}
 
         public static function in_settings_page() {
@@ -305,6 +313,7 @@ SWBD;
 			$fields['lazy_load_taxonomy_fields'] = [
                 'type'  => 'toggle',
                 'label' => __( 'Lazy load category and location fields', 'directorist' ),
+				'value' => false
             ];
 
             return $fields;

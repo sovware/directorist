@@ -8580,3 +8580,15 @@ function directorist_get_supported_file_types() {
 		return array_merge( $carry, $group );
 	}, [] );
 }
+
+
+function directorist_is_new_user() {
+	$listings = new WP_Query([
+		'post_type' => ATBDP_POST_TYPE,
+		'posts_per_page' => 1,
+	]);
+
+	$is_new_user = empty( $listings->posts );
+
+	return $is_new_user;
+}

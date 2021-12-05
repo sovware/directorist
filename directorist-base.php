@@ -213,6 +213,8 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
+			add_action('init', array( self::$instance, 'on_mount_actions' ) );
+
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
 			// ATBDP_Listing_Type_Manager
@@ -291,6 +293,20 @@ final class Directorist_Base
 		}
 
 		return self::$instance;
+	}
+
+	// on_mount_actions
+	public function on_mount_actions() {
+		$action_key = get_transient( 'directorist_on_mount_action_key' );
+
+		// Break if action key match with current version
+		if ( $action_key === ATBDP_VERSION ) {
+			return;
+		}
+
+		do_action( 'directorist_on_mount' );
+
+		set_transient( 'directorist_on_mount_action_key', ATBDP_VERSION );
 	}
 
 	// show_flush_messages

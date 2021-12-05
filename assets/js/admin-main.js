@@ -2321,7 +2321,35 @@ $('.subscriptions-logout-btn').on('click', function (e) {
     }
   }); // atbdp_close_subscriptions_sassion
 }); // Form Actions
-// Bulk Actions - My extensions form
+// Apply button active status - My extension form
+
+var extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
+var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]');
+console.log(extFormActionSelect);
+extFormCheckboxes.forEach(function (elm) {
+  var thisClosest = elm.closest('form');
+  var bulkAction = thisClosest.querySelector('.ei-action-dropdown select');
+  var actionBtn = thisClosest.querySelector('.ei-action-btn');
+  elm.addEventListener('change', function () {
+    this.checked === true && bulkAction.value !== '' ? actionBtn.classList.add('ei-action-active') : this.checked === false ? actionBtn.classList.remove('ei-action-active') : '';
+  });
+});
+extFormActionSelect.forEach(function (elm) {
+  var thisClosest = elm.closest('form');
+  var checkboxes = thisClosest.querySelectorAll('input[type="checkbox"]');
+  var actionBtn = thisClosest.querySelector('.ei-action-btn');
+  elm.addEventListener('change', function () {
+    checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked === true && this.value !== '') {
+        actionBtn.classList.add('ei-action-active');
+      }
+    });
+
+    if (this.value === '') {
+      actionBtn.classList.remove('ei-action-active');
+    }
+  });
+}); // Bulk Actions - My extensions form
 
 var is_bulk_processing = false;
 $('#atbdp-my-extensions-form').on('submit', function (e) {

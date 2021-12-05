@@ -3044,9 +3044,14 @@ input.atbdp-form-control {
   border: none;
   border-radius: 4px !important;
   cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:active, .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:focus {
   outline: none !important;
+}
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn.ei-action-active {
+  background: #3E62F5 !important;
 }
 .et-wrapper .et-contents .ext-wrapper table .extension-name {
   display: -webkit-box;
@@ -3708,11 +3713,6 @@ input.atbdp-form-control {
 }
 #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
   padding: 10px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  max-width: 50%;
 }
 @media only screen and (max-width: 1199px) {
   #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
@@ -3722,6 +3722,7 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .et-card__image img {
   max-width: 100%;
   border-radius: 6px;
+  max-height: 150px;
 }
 #directorist.atbd_wrapper .et-card__details {
   -webkit-box-flex: 1;
@@ -3730,6 +3731,7 @@ input.atbdp-form-control {
           flex: 1;
 }
 #directorist.atbd_wrapper .et-card__details h3 {
+  margin-top: 0;
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: 500;
@@ -19530,9 +19532,9 @@ span.drop-toggle-caret:before {
 }
 
 .directorist-extensions > td > div {
-  margin: 10px 35px;
+  margin: -2px 35px 10px;
   border: 1px solid #E3E6EF;
-  padding: 20px;
+  padding: 13px 15px 15px;
   border-radius: 5px;
   position: relative;
   -webkit-transition: 0.3s ease;

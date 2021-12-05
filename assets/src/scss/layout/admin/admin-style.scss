@@ -3203,10 +3203,15 @@ input.atbdp-form-control {
             border: none;
             border-radius: 4px !important;
             cursor: pointer;
+            transition: 0.3s ease;
 
             &:active,
             &:focus {
               outline: none !important;
+            }
+
+            &.ei-action-active{
+              background: #3E62F5 !important;
             }
           }
         }
@@ -3777,8 +3782,6 @@ input.atbdp-form-control {
   &__image,
   &__details {
     padding: 10px;
-    flex-grow: 1;
-    max-width: 50%;
 
     @media only screen and (max-width: 1199px) {
       max-width: 100%;
@@ -3789,6 +3792,7 @@ input.atbdp-form-control {
     img {
       max-width: 100%;
       border-radius: 6px;
+      max-height: 150px;
     }
   }
 
@@ -3796,6 +3800,7 @@ input.atbdp-form-control {
     flex: 1;
 
     h3 {
+      margin-top: 0;
       margin-bottom: 20px;
       font-size: 20px;
       font-weight: 500;

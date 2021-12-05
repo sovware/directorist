@@ -64,6 +64,11 @@ Directorist Business Directory is one of the leading and fast-growing business d
 >The best ad plugin I have used. The simplicity and fluidity of use allow you to improve the user experience. Excellent support, I had a lot of questions and a lot of problems but the support was always by my side.
 - By @wadi2a
 
+== DIRECTORIST REVIEW BY EXPERTS ==
+
+[youtube https://www.youtube.com/watch?v=XnC9Lyw9w2k]
+[youtube https://www.youtube.com/watch?v=QTjmwhekF7s]
+
 == WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN? ==
 
 👉 **Multi Directory:** Boost your business directory possibilities by creating multiple directory types within the same directory. Add different sets of functionalities for each directory type and start managing them on the same website.
@@ -105,6 +110,7 @@ Let’s take a look at some of the core features that make this WordPress direct
 * GDPR compliant.
 * Ajax-powered listing and review submission.
 * Listing owner contact form.
+* Bulk or individual user announcement
 * Listing image slider.
 * Listing and Review submission without login (Guest Submission).
 * Listing reviews and ratings.
@@ -112,7 +118,7 @@ Let’s take a look at some of the core features that make this WordPress direct
 * Custom sidebar for single listing page.
 * Custom user Registration and Login.
 * New, Popular, Featured, and Open/Close badges.
-* Create Unlimited listing based on location and category.
+* Create an Unlimited listing based on location and category.
 * List and grid view for categories, locations, and listings pages.
 * Translate to any language effortlessly using Loco Translate plugin.
 * Sustainable for long-term use.
@@ -240,9 +246,9 @@ We aim to provide you with the best professional business directory plugin. Our 
 
 Getting Started with the **Directorist Business Directory** is only a matter of a few clicks. Check out the [detailed guide through our documentation](https://directorist.com/documentation/) on our official website in order to operate the plugin in the best possible way.
 
-== Paid Extensions and Themes to Boost Your Business Directory ==
+== Extensions ==
 
-🎉 **Extensions:** Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/extensions/) to extend the functionalities of your directory listing website.
+Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/extensions/) to extend the functionalities of your directory listing website.
 
 👉 **[Pricing Plans](https://directorist.com/product/directorist-pricing-plans/)** - This feature extension allows you to create unlimited pricing plans with no time. In addition to this you can add different sets of features including private plans for specific users that can keep hidden from the rest of users. You also can set up recurring payments to your system which enhances your pricing plans on your directory listing website.
 
@@ -290,17 +296,9 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 🔥 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
-🎉 **Themes:** Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+== Themes ==
 
-👉 **[Directoria](https://directorist.com/product/directoria/)** - Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide the fastest page loading speed without knowing a single line of code.
-
-👉 **[dList](https://directorist.com/product/dlist/)** - dList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.
-
-👉 **[dService](https://directorist.com/product/dservice/)** - dService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform.
-
-👉 **[dLawyers](https://directorist.com/product/dlawyers/)** - dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.
-
-🔥 **[dDoctors](https://directorist.com/product/ddoctors/)** - A hospital directory website is where you need to show which types or categories of specialist doctors are available, whether they are bookable, what exactly the visit fee is etc. You can do so at ease with the dDoctor theme implementing an out-of-this-world design that fits the medical niche like never before.
+Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
 🔥 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
 
@@ -308,14 +306,27 @@ Getting Started with the **Directorist Business Directory** is only a matter of 
 
 🔥 **[dRestaurant](https://directorist.com/product/drestaurant/)** - Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.
 
+🔥 **[dDoctors](https://directorist.com/product/ddoctors/)** - A hospital directory website is where you need to show which types or categories of specialist doctors are available, whether they are bookable, what exactly the visit fee is etc. You can do so at ease with the dDoctor theme implementing an out-of-this-world design that fits the medical niche like never before.
+
+👉 **[dLawyers](https://directorist.com/product/dlawyers/)** - dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.
+
+👉 **[dList](https://directorist.com/product/dlist/)** - dList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.
+
+👉 **[dService](https://directorist.com/product/dservice/)** - dService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform.
+
+👉 **[Directoria](https://directorist.com/product/directoria/)** - Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide the fastest page loading speed without knowing a single line of code.
+
 == 🔔🔔🔔 Coming soon... ==
 
 * WooCommerce Subscription Integration
 * Advance Review System
-* Restaurant Menu
+* Mailchimp Integration
 * WPML Integration
+* dRealestate (Theme)
+* dEvent (Theme)
+* dCar (Theme)
 
-Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in a membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
+Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
 

@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 

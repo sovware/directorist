@@ -371,15 +371,16 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1"); // Init Select2 Ajax Category Field
+
   initSelect2AjaxTaxonomy({
     selector: '.directorist-category-select',
-    url: "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1/listings/categories")
+    url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: '.directorist-location-select',
-    url: "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1/listings/locations")
+    url: "".concat(rest_base_url, "/listings/locations")
   });
 } // initSelect2AjaxTaxonomy
 

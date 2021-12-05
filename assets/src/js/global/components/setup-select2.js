@@ -48,16 +48,18 @@ function initSelect2() {
 
 // Init Select2 Ajax Fields
 function initSelect2AjaxFields () {
+    const rest_base_url = `${atbdp_public_data.home_url}/wp-json/directorist/v1`;
+
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-category-select',
-        url: `${atbdp_public_data.home_url}/wp-json/directorist/v1/listings/categories`,
+        url: `${rest_base_url}/listings/categories`,
     });
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-location-select',
-        url: `${atbdp_public_data.home_url}/wp-json/directorist/v1/listings/locations`,
+        url: `${rest_base_url}/listings/locations`,
     });
 }
 

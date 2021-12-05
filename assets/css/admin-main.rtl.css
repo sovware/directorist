@@ -1601,6 +1601,9 @@ span.atbdp-tick-cross {
 }
 
 /* atbds Sidebar */
+.atbds_sidebar ul {
+  margin-bottom: 0;
+}
 .atbds_sidebar .nav-link {
   display: inline-block;
   font-size: 15px;
@@ -1629,6 +1632,23 @@ span.atbdp-tick-cross {
   text-align: center;
   line-height: 1.75;
   border-radius: 50%;
+}
+.atbds_sidebar a {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 11px 20px;
+  color: #5a5f7d;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 20px;
+  min-width: 150px;
+}
+.atbds_sidebar a:focus {
+  outline: none;
+  border: 0 none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
 }
 
 .atbds_text-center {
@@ -1722,6 +1742,13 @@ span.atbdp-tick-cross {
 }
 .atbds_system-table tbody tr td.atbds_table-pointer {
   width: 30px;
+}
+.atbds_system-table tbody tr td.diretorist-table-text p {
+  margin: 0;
+  line-height: 1.3;
+}
+.atbds_system-table tbody tr td.diretorist-table-text p:not(:last-child) {
+  margin: 0 0 15px;
 }
 .atbds_system-table tbody tr td .atbds_color-success {
   color: #00bc5e;
@@ -3017,9 +3044,14 @@ input.atbdp-form-control {
   border: none;
   border-radius: 4px !important;
   cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:active, .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:focus {
   outline: none !important;
+}
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn.ei-action-active {
+  background: #3E62F5 !important;
 }
 .et-wrapper .et-contents .ext-wrapper table .extension-name {
   display: -webkit-box;
@@ -3681,11 +3713,6 @@ input.atbdp-form-control {
 }
 #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
   padding: 10px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  max-width: 50%;
 }
 @media only screen and (max-width: 1199px) {
   #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
@@ -3695,6 +3722,7 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .et-card__image img {
   max-width: 100%;
   border-radius: 6px;
+  max-height: 150px;
 }
 #directorist.atbd_wrapper .et-card__details {
   -webkit-box-flex: 1;
@@ -3703,6 +3731,7 @@ input.atbdp-form-control {
           flex: 1;
 }
 #directorist.atbd_wrapper .et-card__details h3 {
+  margin-top: 0;
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: 500;
@@ -4107,11 +4136,6 @@ input.atbdp-form-control {
   display: none;
 }
 
-#wpbody-content * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 .directorist_builder__content {
   display: -webkit-box;
   display: -webkit-flex;
@@ -4199,6 +4223,8 @@ input.atbdp-form-control {
   text-decoration: none;
   text-align: center;
   padding: 0 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media only screen and (max-width: 575px) {
   .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
@@ -4643,6 +4669,21 @@ input.atbdp-form-control {
     bottom: -54px;
   }
 }
+@media only screen and (max-width: 1399px) {
+  .directorist-listing-slug__form {
+    min-width: 230px;
+  }
+}
+@media only screen and (max-width: 1499px) {
+  .directorist-listing-slug__form {
+    min-width: 230px;
+  }
+}
+@media only screen and (max-width: 1599px) {
+  .directorist-listing-slug__form {
+    min-width: 260px;
+  }
+}
 .directorist-listing-slug__form .directorist_listing-slug__form--inline {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -4838,7 +4879,6 @@ input.atbdp-form-control {
 .directorist_dropdown {
   border: 1px solid #EFF1F6;
   border-radius: 5px;
-  height: 40px;
   position: relative;
 }
 .directorist_dropdown .directorist_dropdown-toggle {
@@ -4857,7 +4897,7 @@ input.atbdp-form-control {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 10px 15px;
-  width: 100%;
+  width: auto !important;
   height: 100%;
   position: relative;
 }
@@ -5436,20 +5476,20 @@ img.atbdp-file-info {
     width: 100%;
   }
 }
-.directorist-address-field #result ul,
-.directorist-form-address-field #result ul {
+.directorist-address-field .address_result ul,
+.directorist-form-address-field .address_result ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.directorist-address-field #result ul li,
-.directorist-form-address-field #result ul li {
+.directorist-address-field .address_result ul li,
+.directorist-form-address-field .address_result ul li {
   margin-bottom: 0;
   border-bottom: 1px solid #eee;
   list-style: none;
 }
-.directorist-address-field #result ul li a,
-.directorist-form-address-field #result ul li a {
+.directorist-address-field .address_result ul li a,
+.directorist-form-address-field .address_result ul li a {
   color: #5a6671;
   display: block;
   padding: 8px 10px;
@@ -6842,6 +6882,13 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
+.directorist-add-listing-form .directorist-alert-required,
+#directiost-listing-fields_wrapper .directorist-alert-required {
+  display: block;
+  margin-top: 5px;
+  color: #E80000;
+  font-size: 13px;
+}
 
 /* ==========================
     add listing form fields
@@ -7064,6 +7111,10 @@ body.stop-scrolling {
   width: auto;
 }
 
+.directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
+}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
   max-width: 300px;
   -webkit-flex-basis: 300px;
@@ -7399,13 +7450,14 @@ body.stop-scrolling {
 }
 
 .upload-error {
-  background: red;
-  border: 3px #000 dashed;
   display: block !important;
   clear: both;
-  padding: 3px 0;
-  color: #fff;
-  font-weight: bold;
+  background: #FCD9D9;
+  color: #E80000;
+  font-size: 16px;
+  word-break: break-word;
+  border-radius: 3px;
+  padding: 15px 20px;
 }
 
 #upload-msg {
@@ -8819,6 +8871,9 @@ for shortable field*/
 }
 .directorist-alert.directorist-alert-success .directorist-alert__close {
   color: #009114;
+}
+.directorist-alert--sm {
+  padding: 10px 20px;
 }
 
 .alert-danger {
@@ -19507,9 +19562,9 @@ span.drop-toggle-caret:before {
 }
 
 .directorist-extensions > td > div {
-  margin: 10px 35px;
+  margin: -2px 35px 10px;
   border: 1px solid #E3E6EF;
-  padding: 20px;
+  padding: 13px 15px 15px;
   border-radius: 5px;
   position: relative;
   -webkit-transition: 0.3s ease;

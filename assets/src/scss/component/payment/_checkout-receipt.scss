@@ -1,9 +1,30 @@
 .directorist-payment-gateways {
     background: #fff;
+    ul{
+        margin: 0;
+        padding: 0;
+        li{
+            list-style-type: none;
+            padding: 0;
+            margin:0;
+            .gateway_list{
+                margin-bottom: 10px;
+            }
+        }
+    }
 }
 
 .directorist-payment-action {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: -7px;
+    .directorist-btn{
+        margin: 7px;
+        max-width: none;
+        width: auto;
+    }
 }
 
 .atbd_payment_recipt .atbd_payment_summary {

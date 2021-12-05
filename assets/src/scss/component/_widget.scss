@@ -590,16 +590,20 @@
           line-height: 35px;
           width: 35px;
           text-align: center;
-          background-color: #444752 !important;
+          background-color: #f3f3f3 !important;
           border-radius: 4px;
-          color: #ffffff !important;
+          color: #000 !important;
           overflow: hidden;
-          transition: all ease-in-out 300ms !important;
+          transition: 0.3s ease !important;
 
           span {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
             font-size: 15px;
+          }
+          &:hover{
+              background: #000 !important;
+              color: #fff !important;
           }
         }
       }

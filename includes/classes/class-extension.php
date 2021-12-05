@@ -31,8 +31,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public function __construct() {
             add_action( 'admin_menu', [$this, 'admin_menu'], 100 );
-            add_action( 'init', [$this, 'initial_setup'] );
-            add_action( 'init', [$this, 'get_the_product_list'] );
+
+            if( ! empty( $_GET['page'] ) && ( 'atbdp-extension' === $_GET['page'] ) ){
+                add_action( 'admin_init', [ $this, 'initial_setup' ] );
+            }
+            
+            add_action( 'admin_init', [ $this, 'setup_ajax_actions' ] );
+        }
+
+        public function setup_ajax_actions() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                return;
+            }
 
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', [$this, 'authenticate_the_customer'] );
@@ -51,6 +61,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // initial_setup
         public function initial_setup() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                return;
+            }
 
             $this->setup_extensions_alias();
 
@@ -62,6 +75,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
+
+            $this->setup_products_list();
         }
 
         // setup_extensions_alias
@@ -198,10 +213,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         // get_the_products_list
-        public function get_the_product_list() {
+        public function setup_products_list() {
 
 
-            $url     = 'https://directorist.com/wp-json/directorist/v1/get-all-products';
+            $url     = 'https://directorist.com/wp-json/directorist/v1/get-remote-products';
             $headers = [
                 'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
                 'Accept'     => 'application/json',
@@ -341,6 +356,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_plugins_update_request
         public function handle_plugins_update_request() {
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status            = [];
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $plugin_key = ( isset( $_POST['plugin_key'] ) ) ? $_POST['plugin_key'] : '';
             $status     = $this->update_plugins( ['plugin_key' => $plugin_key] );
 
@@ -481,6 +505,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public function plugins_bulk_action() {
             $status = ['success' => true];
 
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $task         = ( isset( $_POST['task'] ) ) ? $_POST['task'] : '';
             $plugin_items = ( isset( $_POST['plugin_items'] ) ) ? $_POST['plugin_items'] : '';
 
@@ -522,6 +553,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $status           = ['success' => true];
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
 
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             if ( empty( $theme_stylesheet ) ) {
                 $status['success'] = false;
                 $status['message'] = __( 'Theme\'s stylesheet is missing', 'directorist' );
@@ -538,6 +576,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $status     = ['success' => true];
             $plugin_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
 
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             if ( empty( $plugin_key ) ) {
                 $status['success'] = false;
                 $status['log']     = ['$plugin_key' => $plugin_key];
@@ -552,6 +597,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_theme_update_request
         public function handle_theme_update_request() {
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status            = [];
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
 
             $update_theme_status = $this->update_the_themes( ['theme_stylesheet' => $theme_stylesheet] );
@@ -660,7 +714,16 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // authenticate_the_customer
         public function authenticate_the_customer() {
+
             $status = ['success' => true, 'log' => []];
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success']                 = false;
+                $status['log']['invalid_request'] = [
+                    'type'    => 'error',
+                    'message' => 'Invalid request',
+                ];
+            }
 
             // Get form data
             $username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
@@ -769,6 +832,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         // handle_refresh_purchase_status_request
         public function handle_refresh_purchase_status_request() {
             $status   = ['success' => true];
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
 
             $status = $this->refresh_purchase_status( ['password' => $password] );
@@ -834,6 +905,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_close_subscriptions_sassion_request
         public function handle_close_subscriptions_sassion_request() {
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status            = [];
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $hard_logout_state = ( isset( $_POST['hard_logout'] ) ) ? $_POST['hard_logout'] : false;
             $status            = $this->close_subscriptions_sassion( ['hard_logout' => $hard_logout_state] );
 
@@ -951,6 +1031,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $item_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
             $type     = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
 
+            if ( ! $this->is_verified_nonce() ) {
+                $status            = [];
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $installation_status = $this->install_file_from_subscriptions( ['item_key' => $item_key, 'type' => $type] );
             wp_send_json( $installation_status );
         }
@@ -1044,6 +1132,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         // handle_plugin_download_request
         public function handle_file_download_request() {
             $status        = ['success' => true];
+
+            if ( ! $this->is_verified_nonce() ) {
+                $status['success'] = false;
+                $status['message'] = 'Invalid request';
+
+                wp_send_json( ['status' => $status] );
+            }
+
             $download_item = ( isset( $_POST['download_item'] ) ) ? $_POST['download_item'] : '';
             $type          = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
 
@@ -2094,6 +2190,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             ];
 
             ATBDP()->load_template( 'admin-templates/theme-extensions/theme-extension', $data );
+        }
+
+
+        private function is_verified_nonce(){
+            $nonce = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+            return wp_verify_nonce( $nonce, 'atbdp_nonce_action_js' );
         }
 
     }

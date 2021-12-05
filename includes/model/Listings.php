@@ -1068,7 +1068,7 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
@@ -1203,7 +1203,7 @@ class Directorist_Listings {
 		if( $this->directory_type ) {
 			$args['slug']     = $this->directory_type;
 		}
-		$all_types     = get_terms( $args );
+		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
@@ -1836,6 +1836,15 @@ class Directorist_Listings {
 			}
 
 			return in_array( $widget_name, $fields ) ? true : false;
+		}
+
+		public function has_whatsapp( $data ) {
+			if ( !empty( $data['original_field']['whatsapp'] ) ) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		public function print_label( $label ) {

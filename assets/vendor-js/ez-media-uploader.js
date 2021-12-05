@@ -309,7 +309,7 @@
       var min_file_items = this.options.minFileItems;
       var valid_min_file_items = isPositiveNumber(min_file_items);
       min_file_items = (valid_min_file_items) ? valid_min_file_items : min_file_items;
-      
+
       if (valid_min_file_items && (filesMeta.length < min_file_items)) {
         error_log.push({
           errorKey: "minFileItems",
@@ -330,7 +330,7 @@
       }
 
       // Validate Max File Size
-      forEach( filesMeta, function( file ) { 
+      forEach( filesMeta, function( file ) {
         if ( (typeof file === 'object' && file !== null) && 'limitExceeded' in file ) {
           if ( file.limitExceeded ) {
             var max_file_size = self.options.maxFileSize;
@@ -830,7 +830,7 @@
           var maxFileSize = self.options.maxFileSize;
           var limit_exceeded = false;
 
-          
+
           if (maxFileSize) {
             var file_size_in_kb = file_item.size / 1024;
             limit_exceeded = file_size_in_kb > maxFileSize ? true : false;
@@ -978,7 +978,7 @@
     var media_picker_section = createElementWithClass(
       "ezmu__media-picker-section ezmu--show"
     );
-    
+
     // media_picker_controls
     var media_picker_controls = createElementWithClass(
       "ezmu__media-picker-controls"
@@ -988,7 +988,7 @@
     var media_picker_icon_wrap = createElementWithClass(
       "ezmu__media-picker-icon-wrap-avater", "span"
     );
-    
+
     // media_picker_icon
     var media_picker_icon = createElementWithClass(
       'ezmu__icon ezmu-icon-avater', 'span'
@@ -1242,7 +1242,7 @@
     var thumbnail_list_item_size = createElementWithClass(
       "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
-    
+
     var limit_exceeded = ( (typeof data === 'object') && ('limitExceeded' in data) && data.limitExceeded ) ? true : false;
     var state_class = ( limit_exceeded ) ? ' has-error' : '';
     var thumbnail_list_item_size_text = createElementWithClass(

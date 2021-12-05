@@ -3,29 +3,13 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.0.5.4
+ * Version: 7.0.6.3
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
-/*
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-Copyright (c) 2020 wpWax (website: wpwax.com). All rights reserved.
-*/
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
 
@@ -259,7 +243,10 @@ final class Directorist_Base
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			new ATBDP_Extensions();
+
+			if( is_admin() ){
+				new ATBDP_Extensions();
+			}
 			/*Initiate Review and Rating Features*/
 			self::$instance->review = new ATBDP_Review_Rating;
 			//activate rewrite api
@@ -470,6 +457,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
+			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
@@ -1135,7 +1123,7 @@ final class Directorist_Base
 							echo $count_review;
 							?></h4>
 					</div>
-					<?php if (atbdp_logged_in_user() || $guest_review) { ?>
+					<?php if (is_user_logged_in() || $guest_review) { ?>
 						<label for="review_content"
 							   class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
 					<?php } ?>
@@ -1150,7 +1138,7 @@ final class Directorist_Base
 			</div><!-- end .atbd_review_module -->
 			<?php
 			// check if the user is logged in and the current user is not the owner of this listing.
-			if (atbdp_logged_in_user() || $guest_review) {
+			if (is_user_logged_in() || $guest_review) {
 				global $wpdb;
 				// if the current user is NOT the owner of the listing print review form
 				// get the settings of the admin whether to display review form even if the user is the owner of the listing.
@@ -1222,7 +1210,7 @@ final class Directorist_Base
 								</div>
 								<?php } ?>
 								<?php
-								if ($guest_review && !atbdp_logged_in_user()){
+								if ($guest_review && !is_user_logged_in()){
 								?>
 								<div class="form-group">
 									<label for="guest_user_email"><?php

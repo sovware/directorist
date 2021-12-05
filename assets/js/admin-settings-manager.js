@@ -976,6 +976,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var data = new FormData();
       data.append('action', this.prepareExportFileFrom);
 
+      if (this.nonce && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.nonce) === 'object' && this.nonce.key && this.nonce.value) {
+        data.append(this.nonce.key, this.nonce.value);
+      }
+
       if (this.isPreparingExportFile) {
         console.log('Please wait...');
         return;
@@ -1523,6 +1527,9 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
     validation: {
+      required: false
+    },
+    nonce: {
       required: false
     }
   }
@@ -18507,6 +18514,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (var widget_key in template_fields) {
         var _widget_group = template_fields[widget_key].widget_group;
         var _widget_name = template_fields[widget_key].widget_name;
+        var _widget_label = 'Not Available';
+
+        try {
+          _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ? this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+        } catch (error) {
+          console.log({
+            template: this.template,
+            widget_group: _widget_group,
+            widget_name: _widget_name,
+            template_widgets: this.fields[this.template]['widgets'][_widget_group]['widgets'],
+            error: error
+          });
+        }
 
         if (!widget_list[_widget_name]) {
           continue;
@@ -18529,7 +18549,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widget_label = widget_list[_widget_name].label ? widget_list[_widget_name].label : "";
         var template_widget_label = template_fields[widget_key].label && template_fields[widget_key].label.length ? template_fields[widget_key].label : widget_label;
         widget_label = widget_label && widget_label.length ? widget_label : template_widget_label;
-        template_root_options.label = widget_label;
+        template_root_options.label = widget_label.length ? widget_label : _widget_label;
         var new_widget_list = this.cloneObject(widget_list);
         Object.assign(new_widget_list[_widget_name], template_root_options);
 
@@ -18556,6 +18576,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           type: "hidden",
           value: widget_key
         };
+
+        if (!new_widget_list[_widget_name].label) {
+          new_widget_list[_widget_name].label = 'Not available';
+        }
+
         new_widget_list[_widget_name].options = widgets_options;
         template_widgets[widget_key] = new_widget_list[_widget_name];
       }

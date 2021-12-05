@@ -15,6 +15,7 @@ class Directorist_Listing_Author {
 	public $all_listings;
 	public $rating;
 	public $total_review;
+	public $columns;
 
 	public $listing_types;
 	public $current_listing_type;
@@ -68,6 +69,7 @@ class Directorist_Listing_Author {
 	function prepare_data() {
 		$this->listing_types        = $this->get_listing_types();
 		$this->current_listing_type = $this->get_current_listing_type();
+		$this->columns              = (int) atbdp_calculate_column( get_directorist_option( 'all_listing_columns', 3 ) );
 
 		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
@@ -100,15 +102,14 @@ class Directorist_Listing_Author {
 
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( ! empty( get_query_var( 'directory_type' ) ) ) {
-			$current = get_query_var( 'directory_type' );
+		if ( ! empty( $_GET['directory_type' ] ) ) {
+			$current = $_GET['directory_type' ];
 		}
-		else {
-
+		else if (  get_query_var( 'directory-type' ) ) {
+			$current = get_query_var( 'directory-type' );
+		} else {
 			foreach ( $listing_types as $id => $type ) {
 				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {
@@ -346,7 +347,7 @@ class Directorist_Listing_Author {
 		if ( $display_email == 'public' ) {
 			$email_endabled = true;
 		}
-		elseif ( $display_email == 'logged_in' && atbdp_logged_in_user() ) {
+		elseif ( $display_email == 'logged_in' && is_user_logged_in() ) {
 			$email_endabled = true;
 		}
 		else {
@@ -415,43 +416,13 @@ class Directorist_Listing_Author {
 
 		$this->enqueue_scripts();
 
-		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
-
-		return ob_get_clean();
-	}
-
-	public function render_shortcode_author_archive( $atts = [] ) {
-		
-		ob_start();
-		$all_authors_role	        =	get_directorist_option( 'all_authors_role', true );
-		$all_authors_select_role	=	get_directorist_option( 'all_authors_select_role', 'all' );
-		$args = array();
-		if( ! empty( $all_authors_role ) && 'all' != $all_authors_select_role ) {
-			$args = array( 'role__in' => array( $all_authors_select_role ) );
-		}
-		$args = array(
-			'all_authors' 						=> get_users( $args ),
-			'alphabets'	  						=> range( 'A', 'Z' ),
-			'all_authors_columns'				=> get_directorist_option( 'all_authors_columns', 3 ),
-			'all_authors_sorting'				=> get_directorist_option( 'all_authors_sorting', true ),
-			'all_authors_image'					=> get_directorist_option( 'all_authors_image', true ),
-			'all_authors_name'					=> get_directorist_option( 'all_authors_name', true ),
-			'all_authors_role'					=> $all_authors_role,
-			'all_authors_info'					=> get_directorist_option( 'all_authors_info', true ),
-			'all_authors_description'			=> get_directorist_option( 'all_authors_description', true ),
-			'all_authors_description_limit'		=> get_directorist_option( 'all_authors_description_limit', 13 ),
-			'all_authors_social_info'			=> get_directorist_option( 'all_authors_social_info', true ),
-			'all_authors_button'				=> get_directorist_option( 'all_authors_button', true ),
-			'all_authors_button_text'			=> get_directorist_option( 'all_authors_button_text', 'View All Listings' ),
-		);
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'author/archive', $args );
 
 		return ob_get_clean();
 	}

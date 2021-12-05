@@ -69,32 +69,36 @@
 
     let adsFilterHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
-    function getItemsHeight() {
-        let adsItemHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
-        for(let i = 0; i<= adsItemHeight().length; i++){
-            adsItemHeight().length <= 1 ? adsItemsHeight = adsItemHeight().innerHeight() : adsItemsHeight = adsItemHeight().innerHeight() * i;
+    function getItemsHeight(selector) {
+        let advElmHeight;
+        let basicElmHeight;
+        let adsAdvItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__advanced--element');
+        let adsBasicItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
+        for(let i = 0; i<= adsAdvItemHeight().length; i++){
+            adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;
         }
-        if(isNaN(adsItemsHeight)){
-            adsItemsHeight = 0;
+        if(isNaN(advElmHeight)){
+            advElmHeight = 0;
         }
-        return adsItemsHeight;
+        let basicElmHeights = adsBasicItemHeight().innerHeight();
+        basicElmHeights === undefined ? basicElmHeight = 0 : basicElmHeight = basicElmHeights;
+        return adsItemsHeight = advElmHeight + basicElmHeight;
     }
-    getItemsHeight();
-
-    var dFilterBtn = $('body').find('.directorist-filter-btn');
+    getItemsHeight('.directorist-filter-btn');
 
     var count = 0;
-    $('body').on('click', '.directorist-listing-type-selection .search_listing_types', function(){
+    $('body').on('click', '.directorist-listing-type-selection .search_listing_types, .directorist-type-nav .directorist-type-nav__link', function(){
         count = 0;
-    })
-
+    });
     /* Toggle overlapped advanced filter wrapper */
     $('body').on("click", '.directorist-filter-btn', function (e) {
         count++;
         e.preventDefault();
-        getItemsHeight();
+        let _this = $(this);
+        getItemsHeight(_this);
+        _this.toggleClass('directorist-filter-btn--active');
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-        var dafwrap = $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
+        var dafwrap = $(e.currentTarget).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
         if (count % 2 === 0) {
             $(dafwrap).css({
                 visibility: 'hidden',
@@ -115,7 +119,7 @@
     /* Hide overlapped advanced filter */
     var daf = () => $('.directorist-search-float .directorist-advanced-filter');
     $(document).on('click', function(e){
-        if(!e.target.closest('.directorist-search-form-top') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')){
+        if(!e.target.closest('.directorist-search-form-top, .directorist-listings-header') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')){
             count = 0;
             daf().css({
                 visibility: 'hidden',

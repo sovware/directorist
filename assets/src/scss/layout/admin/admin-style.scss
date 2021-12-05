@@ -4724,7 +4724,7 @@ input.atbdp-form-control {
     }
   }
   .directorist_listing-slug-formText-add{
-    background: $success;
+    background: #08bf9c;
     box-shadow: none;
     display: none;
     &:before{
@@ -4733,6 +4733,10 @@ input.atbdp-form-control {
     }
     &.active{
       display: inline-flex;
+    }
+    &.disabled{
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 
@@ -4745,7 +4749,7 @@ input.atbdp-form-control {
     border-radius: 50%;
     margin: 2px;
     transition: 0.3s ease;
-    background: $danger;
+    background: #ff006e;
     color: #fff;
     &:before{
       content: "\f00d";

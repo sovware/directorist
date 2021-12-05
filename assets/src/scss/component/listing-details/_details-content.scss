@@ -231,18 +231,53 @@
     }
 }
 
-.directorist-related-carousel {
+.directorist-related-carousel{
+    position: relative;
     .slick-list {
         margin: 0 -15px 30px;
     }
-
     .slick-track {
         margin-left: 0;
         margin-right: 0;
     }
-
     .slick-slide {
         margin: 0 15px;
+    }
+
+    /* nav */
+    .directorist-slc__nav{
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        box-shadow: 0 0 5px rgb(0 0 0 / 15%);
+        transition: 0.3s ease;
+        opacity: 0;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover{
+            background: #444752;
+            color: #fff;
+        }
+        &--left{
+            left: -16px;
+        }
+        &--right{
+            right: -16px;
+        }
+    }
+    &:hover{
+        .directorist-slc__nav{
+            opacity: 1;
+        }
     }
 }
 

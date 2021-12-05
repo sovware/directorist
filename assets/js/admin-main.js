@@ -1571,6 +1571,10 @@ $('.directorist-type-slug-content').each(function (id, element) {
       e.preventDefault();
       setSlugBtn.click();
     }
+
+    if ($(this).attr('data-value') === '' && e.key === 'Enter') {
+      e.preventDefault();
+    }
   }); // Edit Form Open
 
   $('body').on('click', '.directorist-listing-slug__edit', function (e) {

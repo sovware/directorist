@@ -44,18 +44,20 @@ function initSelect2() {
     }
 }
 
+
+
 // Init Select2 Ajax Fields
 function initSelect2AjaxFields () {
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-category-select',
-        url: 'http://directorist.local/wp-json/directorist/v1/listings/categories',
+        url: `${atbdp_public_data.home_url}/wp-json/directorist/v1/listings/categories`,
     });
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-location-select',
-        url: 'http://directorist.local/wp-json/directorist/v1/listings/locations',
+        url: `${atbdp_public_data.home_url}/wp-json/directorist/v1/listings/locations`,
     });
 }
 

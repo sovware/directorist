@@ -374,12 +374,12 @@ function initSelect2AjaxFields() {
   // Init Select2 Ajax Category Field
   initSelect2AjaxTaxonomy({
     selector: '.directorist-category-select',
-    url: 'http://directorist.local/wp-json/directorist/v1/listings/categories'
+    url: "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1/listings/categories")
   }); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: '.directorist-location-select',
-    url: 'http://directorist.local/wp-json/directorist/v1/listings/locations'
+    url: "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1/listings/locations")
   });
 } // initSelect2AjaxTaxonomy
 

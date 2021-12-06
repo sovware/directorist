@@ -519,7 +519,7 @@ if (!class_exists('ATBDP_Helper')) :
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="atbd-alert atbd-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -639,7 +639,7 @@ if (!class_exists('ATBDP_Helper')) :
                 ob_start(); ?>
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
-                        <div class="atbd-alert atbd-alert-warning">
+                        <div class="directorist-alert directorist-alert-warning">
                             <span class="fa fa-info-circle" aria-hidden="true"></span>
                             <?php _e('Nothing to show!'); ?>
                         </div>
@@ -654,7 +654,7 @@ if (!class_exists('ATBDP_Helper')) :
                 ob_start(); ?>
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
-                        <div class="atbd-alert atbd-alert-warning">
+                        <div class="directorist-alert directorist-alert-warning">
                             <span class="fa fa-info-circle" aria-hidden="true"></span>
                             <?php _e( 'You need to be an author to add a listing.', 'directorist' ); ?>
                         </div>

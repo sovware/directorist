@@ -14,7 +14,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 		// run
 		public function run()
 		{
-			add_action('directorist_on_mount', [ $this, 'update_init_options' ] );
+			add_action('directorist_installed', [ $this, 'update_init_options' ] );
+			add_action('directorist_updated', [ $this, 'update_init_options' ] );
 
             if ( ! is_admin() ) {
                 return;

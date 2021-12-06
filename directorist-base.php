@@ -213,7 +213,7 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
-			add_action('init', array( self::$instance, 'on_mount_actions' ) );
+			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
@@ -295,18 +295,28 @@ final class Directorist_Base
 		return self::$instance;
 	}
 
-	// on_mount_actions
-	public function on_mount_actions() {
-		$action_key = get_transient( 'directorist_on_mount_action_key' );
+	// on_install_update_actions
+	public function on_install_update_actions() {
+		$install_event_key = get_directorist_option( 'directorist_installed_event_key', '', true );
 
-		// Break if action key match with current version
-		if ( $action_key === ATBDP_VERSION ) {
+		// Execute directorist_installed hook if plugin gets installed first time
+		if ( empty( $install_event_key ) ) {
+			update_directorist_option( 'directorist_installed_event_key', ATBDP_VERSION );
+			update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
+
+			do_action( 'directorist_installed' );
 			return;
 		}
 
-		do_action( 'directorist_on_mount' );
+		// Prevent executing directorist_updated hook if plugin is not updated
+		$update_event_key = get_directorist_option( 'directorist_updated_event_key', '', true );
+		if ( $update_event_key === ATBDP_VERSION ) {
+			return;
+		}
 
-		set_transient( 'directorist_on_mount_action_key', ATBDP_VERSION );
+		// Execute directorist_updated hook if plugin gets updated
+		do_action( 'directorist_updated' );
+		update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
 	}
 
 	// show_flush_messages

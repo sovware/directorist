@@ -139,6 +139,7 @@ class Script_Helper {
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
             'home_url'                    => home_url(),
+            'rest_url'                    => rest_url(),
             'nonceName'                   => 'atbdp_nonce_js',
             'login_alert_message'         => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                         => is_rtl() ? 'true' : 'false',

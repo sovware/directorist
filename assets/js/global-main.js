@@ -371,7 +371,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.home_url, "/wp-json/directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: '.directorist-category-select',

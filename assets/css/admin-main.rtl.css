@@ -732,6 +732,11 @@ a {
   z-index: 999;
 }
 
+.directorist-find-latlan {
+  display: inline-block;
+  color: red;
+}
+
 .business_time.column-business_time .atbdp-tick-cross2,
 .web-link.column-web-link .atbdp-tick-cross2 {
   padding-right: 25px;

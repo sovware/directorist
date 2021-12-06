@@ -250,8 +250,9 @@ SWBD;
             // Use Default Latitude/Longitude in All Listing Map View
             $fields['use_def_lat_long'] = [
                 'type'  => 'toggle',
-                'label' => __('Use Default Lat/Lng in Listings Map View', 'directorist'),
+                'label' => __('Force Default Location', 'directorist'),
                 'value' => false,
+                'description' => __('Enable this option to force the default latitude and longitude to create a default location all over the site. Otherwise default location works only on the add listing form.', 'directorist'),
             ];
 
             $countries = atbdp_country_code_to_name();
@@ -2389,13 +2390,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 'default_latitude'     => [
                     'type'           => 'text',
                     'label'          => __('Default Latitude', 'directorist'),
-                    'description'    => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'    => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'          => '40.7127753',
                 ],
                 'default_longitude'    => [
                     'type'          => 'text',
                     'label'         => __('Default Longitude', 'directorist'),
-                    'description'   => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'   => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'         => '-74.0059728',
                 ],
                 'map_zoom_level'       => [

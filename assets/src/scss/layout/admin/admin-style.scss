@@ -828,7 +828,6 @@ a {
 
 .atbdp_shortcodes {
   position: relative;
-
   &:after {
     content: "\f0c5";
     font-family: "Line Awesome Free";
@@ -841,6 +840,11 @@ a {
     bottom: 0;
     z-index: 999;
   }
+}
+
+.directorist-find-latlan{
+  display: inline-block;
+  color: red;
 }
 
 .business_time.column-business_time,

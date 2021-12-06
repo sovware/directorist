@@ -41,6 +41,7 @@ class Directorist_Listings {
 	public $columns;
 	public $featured_only;
 	public $popular_only;
+	public $display_preview_image;
 	public $advanced_filter;
 	public $action_before_after_loop;
 	public $logged_in_user_only;
@@ -244,6 +245,7 @@ class Directorist_Listings {
 			'columns'                  => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
+			'display_preview_image'    => 'yes',
 			'advanced_filter'          => $this->options['listing_filters_button'],
 			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
@@ -273,6 +275,7 @@ class Directorist_Listings {
 		$this->columns                  = (int) atbdp_calculate_column( $this->params['columns'] );
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
+		$this->display_preview_image    = $this->params['display_preview_image'] == 'yes' ? true : false;
 		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;
 		$this->action_before_after_loop = $this->params['action_before_after_loop'] == 'yes' ? true : false;
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
@@ -1099,12 +1102,12 @@ class Directorist_Listings {
 
 		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
 			$active_template = $this->loop['card_fields']['active_template'];
-			$template = ( $active_template == 'grid_view_with_thumbnail' ) ? 'loop-grid' : 'loop-grid-nothumb';
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-grid' : 'loop-grid-nothumb';
 			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
 		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
 			$active_template = $this->loop['list_fields']['active_template'];
-			$template = ( $active_template == 'list_view_with_thumbnail' ) ? 'loop-list' : 'loop-list-nothumb';
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-list' : 'loop-list-nothumb';
 			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
 

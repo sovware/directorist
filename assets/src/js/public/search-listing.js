@@ -72,8 +72,10 @@
     function getItemsHeight(selector) {
         let advElmHeight;
         let basicElmHeight;
-        let adsAdvItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__advanced--element');
+        let adsAdvItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents, .directorist-search-form').find('.directorist-advanced-filter__advanced--element');
+        console.log(adsAdvItemHeight());
         let adsBasicItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
+        console.log(adsBasicItemHeight());
         for(let i = 0; i<= adsAdvItemHeight().length; i++){
             adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;
         }

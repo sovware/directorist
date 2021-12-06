@@ -247,6 +247,15 @@ SWBD;
                 ],
             ];
 
+            // Use Default Latitude/Longitude in All Listing Map View
+            $fields['use_def_lat_long'] = [
+                'type'  => 'toggle',
+                'label' => __('Force Default Location', 'directorist'),
+                'value' => false,
+                'description' => __('Enable this option to force the default latitude and longitude to create a default location on all listings map view.
+                Otherwise default location works only on the add listing form map.', 'directorist'),
+            ];
+
             $countries = atbdp_country_code_to_name();
             $items = array();
 
@@ -2382,13 +2391,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 'default_latitude'     => [
                     'type'           => 'text',
                     'label'          => __('Default Latitude', 'directorist'),
-                    'description'    => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'    => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'          => '40.7127753',
                 ],
                 'default_longitude'    => [
                     'type'          => 'text',
                     'label'         => __('Default Longitude', 'directorist'),
-                    'description'   => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'   => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'         => '-74.0059728',
                 ],
                 'map_zoom_level'       => [
@@ -3960,7 +3969,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4085,7 +4094,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_login' => [
                     'label' => __('Redirection after Login', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // email general settings
@@ -4599,7 +4608,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [

@@ -124,7 +124,7 @@ class Listings_Exporter {
                 
                 $row = [];
                 $row['id'] = get_the_ID();
-                $row['directory_type'] = self::get_directory_slug_by_id( get_the_id() );
+                $row['directory'] = self::get_directory_slug_by_id( get_the_id() );
 
                 $directory_type_id = get_post_meta( get_the_ID(), '_directory_type', true );
                 $submission_form   = get_term_meta( $directory_type_id, 'submission_form_fields', true );

@@ -252,7 +252,8 @@ SWBD;
                 'type'  => 'toggle',
                 'label' => __('Force Default Location', 'directorist'),
                 'value' => false,
-                'description' => __('Enable this option to force the default latitude and longitude to create a default location all over the site. Otherwise default location works only on the add listing form.', 'directorist'),
+                'description' => __('Enable this option to force the default latitude and longitude to create a default location on all listings map view.
+                Otherwise default location works only on the add listing form map.', 'directorist'),
             ];
 
             $countries = atbdp_country_code_to_name();

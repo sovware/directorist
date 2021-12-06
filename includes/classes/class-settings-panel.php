@@ -30,8 +30,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
 		public function update_init_options() {
 			// Set lazy_load_taxonomy_fields option
-			$directorist_is_new_user = directorist_is_new_user();
-			update_directorist_option( 'lazy_load_taxonomy_fields', $directorist_is_new_user );
+			$enable_lazy_loading = directorist_has_no_listing() ? true : false;
+			update_directorist_option( 'lazy_load_taxonomy_fields', $enable_lazy_loading );
 		}
 
         public static function in_settings_page() {

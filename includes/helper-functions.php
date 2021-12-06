@@ -8582,13 +8582,15 @@ function directorist_get_supported_file_types() {
 }
 
 
-function directorist_is_new_user() {
+function directorist_has_no_listing() {
 	$listings = new WP_Query([
-		'post_type' => ATBDP_POST_TYPE,
+		'post_type'      => ATBDP_POST_TYPE,
 		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'cache_results'  => false
 	]);
 
-	$is_new_user = empty( $listings->posts );
+	$has_no_listing = empty( $listings->posts );
 
-	return $is_new_user;
+	return $has_no_listing;
 }

@@ -20,7 +20,7 @@ function get_dom_data( key, parent ) {
         if ( is_script_debugging ) {
             console.log({key,dataElm,error});
         }
-        
+
         return '';
     }
 }
@@ -33,7 +33,8 @@ function get_dom_data( key, parent ) {
                         attribution:
                                 '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ',
                 });
-                const latlng = L.latLng(atbdp_lat_lon.lat, atbdp_lat_lon.lon);
+                let defCordEnabled = atbdp_map.use_def_lat_long;
+                const latlng = defCordEnabled ? L.latLng(atbdp_map.default_lat, atbdp_map.default_long) : L.latLng(atbdp_lat_lon.lat, atbdp_lat_lon.lon);
                 const fullCount = listings_data.length;
                 const quarterCount = Math.round(fullCount / 4);
 

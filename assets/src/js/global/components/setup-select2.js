@@ -50,13 +50,6 @@ function initSelect2() {
 function initSelect2AjaxFields () {
     const rest_base_url = `${atbdp_public_data.rest_url}directorist/v1`;
 
-    // var tst = 'Hotel &amp; Mall';
-    // tst = encodeURI( tst );
-    // var tstDecode = decodeURI( tst );
-    // console.log( { tstDecode } );
-
-
-
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-category-select',

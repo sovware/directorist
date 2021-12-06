@@ -82,6 +82,7 @@ class Script_Helper {
             'default_val'              => $default_radius_distance,
             'countryRestriction'       => get_directorist_option( 'country_restriction' ),
             'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
+            'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),
         );
         return $data;
     }

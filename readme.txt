@@ -319,7 +319,7 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 == 🔔🔔🔔 Coming soon... ==
 
 * WooCommerce Subscription Integration
-* Advance Review System
+* Advanced Review System
 * Mailchimp Integration
 * WPML Integration
 * dRealestate (Theme)

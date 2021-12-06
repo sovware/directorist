@@ -870,12 +870,12 @@ class Directorist_Listing_Form {
 
 				if( ! directory_types() ) {
 					if( current_user_can('manage_options') || current_user_can('edit_pages') ) {
-						$args['error_notice'] = sprintf( __('Please add a directory type first %s', 'directorist' ), '<span><a href="'. admin_url() .'/edit.php?post_type=at_biz_dir&page=atbdp-directory-types">Add Now</a></span>' );
+						$args['error_notice'] = sprintf( __('Please add a directory type first %s', 'directorist' ), '<a href="'. admin_url() .'edit.php?post_type=at_biz_dir&page=atbdp-directory-types">Add Now</a>' );
 					} else {
 						$args['error_notice'] = __('There\'s something unexpected happen. Please contact site admin.', 'directorist');
 					}
 				} else {
-					$args['error_notice'] = __('Notice: your given directory type is not valid. Please use a valid directory type', 'directorist');
+					$args['error_notice'] = __('Notice: Your given directory type is not valid. Please use a valid directory type', 'directorist');
 				}
 				
 				return Helper::get_template_contents( 'listing-form/add-listing-notype', $args );

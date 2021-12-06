@@ -139,6 +139,8 @@ class Script_Helper {
             'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
+            'home_url'                    => home_url(),
+            'rest_url'                    => rest_url(),
             'nonceName'                   => 'atbdp_nonce_js',
             'login_alert_message'         => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                         => is_rtl() ? 'true' : 'false',
@@ -171,8 +173,8 @@ class Script_Helper {
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
             'enable_reviewer_content'     => $enable_reviewer_content,
-            'add_listing_data'            => self::get_add_listings_data()
-
+            'add_listing_data'            => self::get_add_listings_data(),
+            'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
         );
 
         return $data;
@@ -271,8 +273,6 @@ class Script_Helper {
 
     // ez_media_uploader
     public static function is_enable__ez_media_uploader() {
-
-
         return true;
     }
 

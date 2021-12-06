@@ -14,16 +14,25 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 		// run
 		public function run()
 		{
+			add_action('directorist_installed', [ $this, 'update_init_options' ] );
+			add_action('directorist_updated', [ $this, 'update_init_options' ] );
+
             if ( ! is_admin() ) {
                 return;
             }
 
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
-
+			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
 
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
+		}
+
+		public function update_init_options() {
+			// Set lazy_load_taxonomy_fields option
+			$enable_lazy_loading = directorist_has_no_listing() ? true : false;
+			update_directorist_option( 'lazy_load_taxonomy_fields', $enable_lazy_loading );
 		}
 
         public static function in_settings_page() {
@@ -309,6 +318,12 @@ SWBD;
                         ['key' => 'value', 'compare' => '=', 'value' => true],
                     ],
                 ],
+            ];
+
+			$fields['lazy_load_taxonomy_fields'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Lazy load category and location fields', 'directorist' ),
+				'value' => false
             ];
 
             return $fields;
@@ -4655,7 +4670,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
                                      ],
                                 ],
                             ] ),

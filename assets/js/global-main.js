@@ -371,7 +371,11 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // var tst = 'Hotel &amp; Mall';
+  // tst = encodeURI( tst );
+  // var tstDecode = decodeURI( tst );
+  // console.log( { tstDecode } );
+  // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: '.directorist-category-select',
@@ -396,6 +400,9 @@ function initSelect2AjaxTaxonomy(args) {
   $(args.selector).select2({
     allowClear: true,
     width: '100%',
+    escapeMarkup: function escapeMarkup(text) {
+      return text;
+    },
     ajax: {
       url: args.url,
       dataType: 'json',

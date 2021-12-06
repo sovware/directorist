@@ -50,6 +50,13 @@ function initSelect2() {
 function initSelect2AjaxFields () {
     const rest_base_url = `${atbdp_public_data.rest_url}directorist/v1`;
 
+    // var tst = 'Hotel &amp; Mall';
+    // tst = encodeURI( tst );
+    // var tstDecode = decodeURI( tst );
+    // console.log( { tstDecode } );
+
+
+
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: '.directorist-category-select',
@@ -73,6 +80,9 @@ function initSelect2AjaxTaxonomy( args ) {
     $( args.selector ).select2({
         allowClear: true,
         width: '100%',
+        escapeMarkup: function (text) {
+            return text;
+        },
         ajax: {
             url: args.url,
             dataType: 'json',
@@ -97,9 +107,9 @@ function initSelect2AjaxTaxonomy( args ) {
                 var $request = $.ajax(params);
 
                 $request.then(function( data, textStatus, jqXHR ) {
-
                     var totalPage = parseInt( jqXHR.getResponseHeader('x-wp-totalpages') );
                     var paginationMore = currentPage < totalPage;
+
                     var items = data.map(item => {
                         return {
                             id: item.id,

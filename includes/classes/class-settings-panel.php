@@ -3960,7 +3960,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4085,7 +4085,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_login' => [
                     'label' => __('Redirection after Login', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // email general settings

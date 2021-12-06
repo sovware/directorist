@@ -719,9 +719,14 @@ class Directorist_Listing_Form {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		);
+
 		if( self::$directory_type ) {
-			$args['slug'] = self::$directory_type;
+			$term_slug    = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
+			if( $term_slug || current_user_can('manage_options') || current_user_can('edit_pages') ) {
+				$args['slug'] = self::$directory_type;
+			}
 		}
+
 		$all_types     = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
@@ -862,7 +867,18 @@ class Directorist_Listing_Form {
 		} else {
 			// if no listing type exists
 			if ( $listing_type_count == 0 ) {
-				return Helper::get_template_contents( 'listing-form/add-listing-notype' );
+
+				if( ! directory_types() ) {
+					if( current_user_can('manage_options') || current_user_can('edit_pages') ) {
+						$args['error_notice'] = sprintf( __('Please add a directory type first %s', 'directorist' ), '<span><a href="'. admin_url() .'/edit.php?post_type=at_biz_dir&page=atbdp-directory-types">Add Now</a></span>' );
+					} else {
+						$args['error_notice'] = __('There\'s something unexpected happen. Please contact site admin.', 'directorist');
+					}
+				} else {
+					$args['error_notice'] = __('Notice: your given directory type is not valid. Please use a valid directory type', 'directorist');
+				}
+				
+				return Helper::get_template_contents( 'listing-form/add-listing-notype', $args );
 			}
 			// if only one directory
 			$type = $this->get_current_listing_type();

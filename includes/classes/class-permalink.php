@@ -118,7 +118,7 @@ class ATBDP_Permalink {
             return $temp_login_redirect;
         }
         
-        $id = get_directorist_option('redirection_after_login'); // get the page id of the dashboard page.
+        $id = get_directorist_option( 'redirection_after_login', 'previous_page' ); // get the page id of the dashboard page.
         if( 'previous_page' == $id ) {
             $link = wp_get_referer();
         } else {
@@ -129,7 +129,7 @@ class ATBDP_Permalink {
 
     public static function get_reg_redirection_page_link( $previous_page )
     {
-        $id = get_directorist_option( 'redirection_after_reg' ); // get the page id of the dashboard page.
+        $id = get_directorist_option( 'redirection_after_reg', 'previous_page' ); // get the page id of the dashboard page.
         if( 'previous_page' == $id ) {
             $link = $previous_page;
         } else {

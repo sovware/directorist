@@ -402,9 +402,12 @@ function initSelect2AjaxTaxonomy(args) {
     ajax: {
       url: args.url,
       dataType: 'json',
+      cache: true,
       data: function data(params) {
         currentPage = params.page || 1;
+        var search_term = params.term ? params.term : '';
         var query = {
+          search: search_term,
           page: currentPage,
           per_page: args.perPage
         };

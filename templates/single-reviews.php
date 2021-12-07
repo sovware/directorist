@@ -21,6 +21,7 @@ $review_count  = directorist_get_listing_review_count( get_the_ID() );
 
 // Load walker class
 Bootstrap::load_walker();
+
 ?>
 <div class="directorist-review-container">
 	<div class="directorist-review-content">
@@ -50,7 +51,7 @@ Bootstrap::load_walker();
 				) );?>
 			</ul>
 
-			<?php if ( get_comment_pages_count() > 1 ): ?>
+			<?php if ( get_comment_pages_count() > 1 ) : ?>
 			<nav class="directorist-review-content__pagination directorist-pagination">
 				<?php paginate_comments_links( array(
 					'prev_text' => '<i class="la la-arrow-left"></i>',

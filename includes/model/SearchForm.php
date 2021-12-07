@@ -603,30 +603,32 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function listing_tag_terms($tag_source='all_tags') {
-		$category_slug      = get_query_var( 'atbdp_category' );
-		$category           = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
-		$category_id        = ! empty( $category->term_id ) ? $category->term_id : '';
-		$tag_args           = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
-				array(
-					'taxonomy' => ATBDP_CATEGORY,
-					'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
-				),
-			),
-		);
+		$category_slug   = get_query_var( 'atbdp_category' );
+		$category        = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
+		$category_id     = ! empty( $category->term_id ) ? $category->term_id : '';
 		$category_select = ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id;
-		$tag_posts       = get_posts( $tag_args );
-		if ( ! empty( $tag_posts ) ) {
-			foreach ( $tag_posts as $tag_post ) {
-				$tag_id[] = $tag_post->ID;
-			}
-		}
-		$tag_id = ! empty( $tag_id ) ? $tag_id : '';
-		$terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
 
 		if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
 			$terms = get_terms( ATBDP_TAGS );
+		} else {
+			$tag_args = array(
+				'post_type' => ATBDP_POST_TYPE,
+				'tax_query' => array(
+					array(
+						'taxonomy' => ATBDP_CATEGORY,
+						'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
+					),
+				),
+			);
+
+			$tag_posts       = get_posts( $tag_args );
+			if ( ! empty( $tag_posts ) ) {
+				foreach ( $tag_posts as $tag_post ) {
+					$tag_id[] = $tag_post->ID;
+				}
+			}
+			$tag_id = ! empty( $tag_id ) ? $tag_id : '';
+			$terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
 		}
 
 		if ( ! empty( $terms ) ) {

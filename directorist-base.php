@@ -213,6 +213,8 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
+			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
+
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
 			// ATBDP_Listing_Type_Manager
@@ -292,6 +294,30 @@ final class Directorist_Base
 		}
 
 		return self::$instance;
+	}
+
+	// on_install_update_actions
+	public function on_install_update_actions() {
+		$install_event_key = get_directorist_option( 'directorist_installed_event_key', '', true );
+
+		// Execute directorist_installed hook if plugin gets installed first time
+		if ( empty( $install_event_key ) ) {
+			update_directorist_option( 'directorist_installed_event_key', ATBDP_VERSION );
+			update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
+
+			do_action( 'directorist_installed' );
+			return;
+		}
+
+		// Prevent executing directorist_updated hook if plugin is not updated
+		$update_event_key = get_directorist_option( 'directorist_updated_event_key', '', true );
+		if ( $update_event_key === ATBDP_VERSION ) {
+			return;
+		}
+
+		// Execute directorist_updated hook if plugin gets updated
+		do_action( 'directorist_updated' );
+		update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
 	}
 
 	// show_flush_messages

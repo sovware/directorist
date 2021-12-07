@@ -7433,6 +7433,12 @@ if (!function_exists('tract_duplicate_review')) {
 
 function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 {
+	$lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
+
+	if ( ! empty( $lazy_load_taxonomy_fields ) ) {
+		return '';
+	}
+
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -8569,4 +8575,18 @@ function directorist_get_supported_file_types() {
 	return array_reduce( $groups, function( $carry, $group ) {
 		return array_merge( $carry, $group );
 	}, [] );
+}
+
+
+function directorist_has_no_listing() {
+	$listings = new WP_Query([
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'cache_results'  => false
+	]);
+
+	$has_no_listing = empty( $listings->posts );
+
+	return $has_no_listing;
 }

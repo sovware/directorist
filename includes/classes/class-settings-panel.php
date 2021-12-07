@@ -14,16 +14,25 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 		// run
 		public function run()
 		{
+			add_action('directorist_installed', [ $this, 'update_init_options' ] );
+			add_action('directorist_updated', [ $this, 'update_init_options' ] );
+
             if ( ! is_admin() ) {
                 return;
             }
 
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
-
+			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
 
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
+		}
+
+		public function update_init_options() {
+			// Set lazy_load_taxonomy_fields option
+			$enable_lazy_loading = directorist_has_no_listing() ? true : false;
+			update_directorist_option( 'lazy_load_taxonomy_fields', $enable_lazy_loading );
 		}
 
         public static function in_settings_page() {
@@ -247,6 +256,15 @@ SWBD;
                 ],
             ];
 
+            // Use Default Latitude/Longitude in All Listing Map View
+            $fields['use_def_lat_long'] = [
+                'type'  => 'toggle',
+                'label' => __('Force Default Location', 'directorist'),
+                'value' => false,
+                'description' => __('Enable this option to force the default latitude and longitude to create a default location on all listings map view.
+                Otherwise default location works only on the add listing form map.', 'directorist'),
+            ];
+
             $countries = atbdp_country_code_to_name();
             $items = array();
 
@@ -300,6 +318,12 @@ SWBD;
                         ['key' => 'value', 'compare' => '=', 'value' => true],
                     ],
                 ],
+            ];
+
+			$fields['lazy_load_taxonomy_fields'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Lazy load category and location fields', 'directorist' ),
+				'value' => false
             ];
 
             return $fields;
@@ -2382,13 +2406,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 'default_latitude'     => [
                     'type'           => 'text',
                     'label'          => __('Default Latitude', 'directorist'),
-                    'description'    => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'    => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'          => '40.7127753',
                 ],
                 'default_longitude'    => [
                     'type'          => 'text',
                     'label'         => __('Default Longitude', 'directorist'),
-                    'description'   => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <div class="atbdp_shortcodes" style="color: red;">here</div> </a>'),
+                    'description'   => sprintf(__('You can find it %s', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank" class="directorist-find-latlan">here</a>'),
                     'value'         => '-74.0059728',
                 ],
                 'map_zoom_level'       => [
@@ -3960,7 +3984,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4085,7 +4109,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_login' => [
                     'label' => __('Redirection after Login', 'directorist'),
                     'type'  => 'select',
-                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'value' => 'previous_page',
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // email general settings
@@ -4599,7 +4623,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [
@@ -4646,7 +4670,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
                                      ],
                                 ],
                             ] ),

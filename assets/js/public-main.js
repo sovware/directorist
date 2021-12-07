@@ -1815,81 +1815,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 (function ($) {
   'use strict';
 
-  var Attachments_Preview = /*#__PURE__*/function () {
-    function Attachments_Preview(form) {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Attachments_Preview);
-
-      this.$form = $(form);
-      this.$input = this.$form.find('.directorist-review-images');
-      this.$preview = this.$form.find('.directorist-review-img-gallery');
-      this.init();
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Attachments_Preview, [{
-      key: "init",
-      value: function init() {
-        var self = this;
-        this.$input.on('change', function () {
-          self.showPreview(this);
-        });
-        this.$form.on('click', '.directorist-btn-delete', function (e) {
-          e.preventDefault();
-          $(this).parent().remove();
-        });
-      } // deleteFromFileList(fileField, index) {
-      //     let fileBuffer = Array.from(fileField.files);
-      //     fileBuffer.splice(index, 1);
-      //     /** Code from: https://stackoverflow.com/a/47172409/8145428 */
-      //     // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
-      //     // specs compliant (as of March 2018 only Chrome)
-      //     const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
-      //     for (let file of fileBuffer) {
-      //         dataTransfer.items.add(file);
-      //     }
-      //     fileField.files = dataTransfer.files;
-      // }
-      // addToFileList(fileField, index) {
-      //     let fileBuffer = Array.from(fileField.files);
-      //     fileBuffer.splice(index, 1);
-      //     /** Code from: https://stackoverflow.com/a/47172409/8145428 */
-      //     // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
-      //     // specs compliant (as of March 2018 only Chrome)
-      //     const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
-      //     for (let file of fileBuffer) {
-      //         dataTransfer.items.add(file);
-      //     }
-      //     fileField.files = dataTransfer.files;
-      // }
-
-    }, {
-      key: "showPreview",
-      value: function showPreview(input) {
-        var _this2 = this;
-
-        this.$preview.html('');
-
-        for (var i = 0, len = input.files.length; i < len; i++) {
-          var fileReader = new FileReader();
-          var file = input.files[i];
-
-          if (!file.type.startsWith('image/')) {
-            continue;
-          }
-
-          fileReader.onload = function (event) {
-            var html = "\n                    <div class=\"directorist-review-gallery-preview preview-image\">\n                        <img src=\"".concat(event.target.result, "\" alt=\"Directorist Review Preview\">\n                        <a href=\"#\" class=\"directorist-btn-delete\"><i class=\"la la-trash\"></i></a>\n                    </div>\n                    ");
-
-            _this2.$preview.append(html);
-          };
-
-          fileReader.readAsDataURL(file);
-        }
-      }
-    }]);
-
-    return Attachments_Preview;
-  }();
-
   var ActivityStorage = /*#__PURE__*/function () {
     function ActivityStorage() {
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ActivityStorage);
@@ -2005,7 +1930,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, {
       key: "callback",
       value: function callback(event) {
-        var _this3 = this;
+        var _this2 = this;
 
         event.preventDefault();
         var $target = $(event.currentTarget);
@@ -2031,22 +1956,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           $target.addClass('processing').attr('disabled', true);
           this.timeout = setTimeout(function () {
             $comment.find('.directorist-alert').slideUp('medium');
-            clearTimeout(_this3.timeout);
+            clearTimeout(_this2.timeout);
           }, 3000);
           return;
         }
 
         if ($target.hasClass('processing')) {
           return;
-        } else {
-          $target.addClass('processing').attr('disabled', true);
-
-          if (activity === 'helpful' || activity === 'unhelpful') {
-            $target.find('span').html($target.data('count') + 1);
-            $target.data('count', $target.data('count') + 1);
-          }
         }
 
+        $target.addClass('processing').attr('disabled', true);
         this.timeout && clearTimeout(this.timeout);
         this.send(commentId, activity).done(function (response) {
           var type = 'warning';
@@ -2054,16 +1973,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           if (response.success) {
             $target.removeClass('processing').removeAttr('disabled', true);
             type = 'success';
+
+            _this2.storage.add(commentId, activity);
           }
 
           $comment.find('.directorist-alert').remove();
-          $comment.prepend(_this3.getAlert(type).html(response.data));
-          _this3.timeout = setTimeout(function () {
+          $comment.prepend(_this2.getAlert(type).html(response.data));
+          _this2.timeout = setTimeout(function () {
             $comment.find('.directorist-alert').slideUp('medium');
-            clearTimeout(_this3.timeout);
+            clearTimeout(_this2.timeout);
           }, 3000);
-
-          _this3.storage.add(commentId, activity);
         });
       }
     }, {
@@ -2090,13 +2009,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var ReplyFormObserver = /*#__PURE__*/function () {
     function ReplyFormObserver() {
-      var _this4 = this;
+      var _this3 = this;
 
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ReplyFormObserver);
 
       this.init();
       $(document).on('directorist_reviews_updated', function () {
-        return _this4.init();
+        return _this3.init();
       });
     }
 
@@ -2262,11 +2181,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             Ajax_Comment.showError(form, errorMsg);
             $(document).trigger('directorist_reviews_update_failed');
             return;
-          } // if ( comments.length < 1 ) {
-          //     comment_section = '.commentlist';
-          //     comments = body.find( comment_section );
-          // }
-
+          }
 
           var commentslists = comments.find(".commentlist li");
           var new_comment_id = false; // catch the new comment id by comparing to old dom.
@@ -2280,9 +2195,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           });
           $(comment_section).replaceWith(comments);
           $(document).trigger('directorist_reviews_updated', data);
-          var commentTop = $("#" + new_comment_id).offset().top; // if ( $( 'body' ).hasClass( 'sticky-header' ) ) {
-          //     commentTop = $( "#" + new_comment_id ).offset().top - $( '#masthead' ).height();
-          // }
+          var commentTop = $("#" + new_comment_id).offset().top;
 
           if ($('body').hasClass('admin-bar')) {
             commentTop = commentTop - $('#wpadminbar').height();
@@ -2299,15 +2212,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var body = $("<div></div>");
           body.append(data.responseText);
           body.find("style,meta,title,a").remove();
-          Ajax_Comment.showError(form, body.find('.wp-die-message')); // console.log(body.find( '.wp-die-message' ).);
-          // if ( typeof bb_vue_loader == 'object' &&
-          //     typeof bb_vue_loader.common == 'object' &&
-          //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
-          //     bb_vue_loader.common.showSnackbar( body )
-          // } else {
-          //     alert( body );
-          // }
-
+          Ajax_Comment.showError(form, body.find('.wp-die-message'));
           $(document).trigger('directorist_reviews_update_failed');
         });
         do_comment.always(function () {
@@ -2346,29 +2251,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     function Advanced_Review() {
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Advanced_Review);
 
-      this.form = document.querySelector('#commentform');
-
-      if (!this.form) {
-        return;
-      }
-
-      this.setFormEncoding();
-      this.init();
+      this.$doc = $(document);
+      this.setupComponents();
+      this.addEventListeners();
+      this.setFormEncodingAttribute();
     }
 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Advanced_Review, [{
-      key: "init",
-      value: function init() {
-        this.setupComponents();
-        $(document).on('directorist_reviews_updated', function () {
-          $(".directorist-stars").barrating({
+      key: "addEventListeners",
+      value: function addEventListeners() {
+        var _this4 = this;
+
+        this.$doc.on('directorist_reviews_updated', function () {
+          $('.directorist-stars, .directorist-review-criteria-select').barrating({
             theme: 'fontawesome-stars'
           });
-          $('.directorist-review-criteria-select').barrating({
-            theme: 'fontawesome-stars'
-          });
+
+          _this4.setFormEncodingAttribute();
         });
-        $(document).on('click', 'a[href="#respond"]', this.onWriteReivewClick);
+        this.$doc.on('click', 'a[href="#respond"]', this.onWriteReivewClick);
       }
     }, {
       key: "onWriteReivewClick",
@@ -2380,22 +2281,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           respondTop = respondTop - $('#wpadminbar').height();
         }
 
-        $("body, html").animate({
+        $('body, html').animate({
           scrollTop: respondTop
         }, 600);
       }
     }, {
       key: "setupComponents",
       value: function setupComponents() {
-        this.preview = new Attachments_Preview(this.form);
         new Comment_Activity(new ActivityStorage());
         new ReplyFormObserver();
         new Ajax_Comment();
       }
     }, {
-      key: "setFormEncoding",
-      value: function setFormEncoding() {
-        this.form.encoding = 'multipart/form-data';
+      key: "setFormEncodingAttribute",
+      value: function setFormEncodingAttribute() {
+        var form = document.querySelector('#commentform');
+
+        if (form) {
+          form.encoding = 'multipart/form-data';
+        }
       }
     }]);
 

@@ -1,85 +1,6 @@
 ;(function($) {
     'use strict';
 
-    class Attachments_Preview {
-        constructor( form ) {
-            this.$form = $( form );
-            this.$input = this.$form.find( '.directorist-review-images' );
-            this.$preview = this.$form.find( '.directorist-review-img-gallery' );
-
-            this.init();
-        }
-
-        init() {
-            const self = this;
-
-            this.$input.on( 'change', function() {
-                self.showPreview( this );
-            } );
-
-            this.$form.on( 'click', '.directorist-btn-delete', function(e) {
-                e.preventDefault();
-                $( this ).parent().remove();
-            } );
-        }
-
-        // deleteFromFileList(fileField, index) {
-        //     let fileBuffer = Array.from(fileField.files);
-        //     fileBuffer.splice(index, 1);
-
-        //     /** Code from: https://stackoverflow.com/a/47172409/8145428 */
-        //     // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
-        //     // specs compliant (as of March 2018 only Chrome)
-        //     const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
-
-        //     for (let file of fileBuffer) {
-        //         dataTransfer.items.add(file);
-        //     }
-        //     fileField.files = dataTransfer.files;
-        // }
-
-        // addToFileList(fileField, index) {
-        //     let fileBuffer = Array.from(fileField.files);
-        //     fileBuffer.splice(index, 1);
-
-        //     /** Code from: https://stackoverflow.com/a/47172409/8145428 */
-        //     // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
-        //     // specs compliant (as of March 2018 only Chrome)
-        //     const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
-
-        //     for (let file of fileBuffer) {
-        //         dataTransfer.items.add(file);
-        //     }
-        //     fileField.files = dataTransfer.files;
-        // }
-
-        showPreview(input) {
-            this.$preview.html('');
-
-            for (let i = 0, len = input.files.length; i < len; i++) {
-                const fileReader = new FileReader();
-                let file = input.files[i];
-
-                if (!file.type.startsWith('image/')) {
-                    continue;
-                }
-
-                fileReader.onload = event => {
-                    const html = `
-                    <div class="directorist-review-gallery-preview preview-image">
-                        <img src="${event.target.result}" alt="Directorist Review Preview">
-                        <a href="#" class="directorist-btn-delete"><i class="la la-trash"></i></a>
-                    </div>
-                    `;
-
-                    this.$preview.append(html);
-                }
-
-                fileReader.readAsDataURL(file);
-            }
-        }
-    }
-
     class ActivityStorage {
 
         add( commentId, activity ) {
@@ -209,14 +130,9 @@
 
             if ($target.hasClass('processing')) {
                 return;
-            } else {
-                $target.addClass('processing').attr('disabled', true);
-
-                if (activity === 'helpful' || activity === 'unhelpful') {
-                    $target.find('span').html($target.data('count') + 1);
-                    $target.data('count', $target.data('count') + 1);
-                }
             }
+
+            $target.addClass('processing').attr('disabled', true);
 
             this.timeout && clearTimeout(this.timeout);
 
@@ -227,6 +143,7 @@
                     if (response.success) {
                         $target.removeClass('processing').removeAttr('disabled', true);
                         type = 'success';
+                        this.storage.add(commentId, activity);
                     }
 
                     $comment.find('.directorist-alert').remove();
@@ -236,8 +153,6 @@
                         $comment.find('.directorist-alert').slideUp('medium');
                         clearTimeout(this.timeout);
                     }, 3000);
-
-                    this.storage.add(commentId, activity);
                 });
         }
 
@@ -395,11 +310,6 @@
                         return;
                     }
 
-                    // if ( comments.length < 1 ) {
-                    //     comment_section = '.commentlist';
-                    //     comments = body.find( comment_section );
-                    // }
-
                     var commentslists = comments.find( ".commentlist li" );
 
                     var new_comment_id = false;
@@ -419,10 +329,6 @@
                     $( document ).trigger( 'directorist_reviews_updated', data );
 
                     var commentTop = $( "#" + new_comment_id ).offset().top;
-
-                    // if ( $( 'body' ).hasClass( 'sticky-header' ) ) {
-                    //     commentTop = $( "#" + new_comment_id ).offset().top - $( '#masthead' ).height();
-                    // }
 
                     if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
                         commentTop = commentTop - $( '#wpadminbar' ).height();
@@ -447,15 +353,6 @@
                     body.find( "style,meta,title,a" ).remove();
 
                     Ajax_Comment.showError(form, body.find( '.wp-die-message' ));
-                    // console.log(body.find( '.wp-die-message' ).);
-
-                    // if ( typeof bb_vue_loader == 'object' &&
-                    //     typeof bb_vue_loader.common == 'object' &&
-                    //     typeof bb_vue_loader.common.showSnackbar != 'undefined' ) {
-                    //     bb_vue_loader.common.showSnackbar( body )
-                    // } else {
-                    //     alert( body );
-                    // }
 
                     $( document ).trigger( 'directorist_reviews_update_failed' );
                 }
@@ -474,31 +371,23 @@
 
     class Advanced_Review {
         constructor() {
-            this.form = document.querySelector( '#commentform' );
+            this.$doc = $(document);
 
-            if (!this.form) {
-                return;
-            }
-
-            this.setFormEncoding();
-
-            this.init();
+            this.setupComponents();
+            this.addEventListeners();
+            this.setFormEncodingAttribute();
         }
 
-        init() {
-            this.setupComponents();
-
-            $( document ).on( 'directorist_reviews_updated', function() {
-                $(".directorist-stars").barrating({
+        addEventListeners() {
+            this.$doc.on( 'directorist_reviews_updated', () => {
+                $('.directorist-stars, .directorist-review-criteria-select').barrating({
                     theme: 'fontawesome-stars'
                 });
 
-                $('.directorist-review-criteria-select').barrating({
-                    theme: 'fontawesome-stars'
-                });
+                this.setFormEncodingAttribute();
             } );
 
-            $( document ).on( 'click', 'a[href="#respond"]', this.onWriteReivewClick );
+            this.$doc.on( 'click', 'a[href="#respond"]', this.onWriteReivewClick );
         }
 
         onWriteReivewClick(event) {
@@ -510,7 +399,7 @@
                 respondTop = respondTop - $( '#wpadminbar' ).height();
             }
 
-            $( "body, html" ).animate(
+            $( 'body, html' ).animate(
                 {
                     scrollTop: respondTop
                 },
@@ -519,17 +408,18 @@
         }
 
         setupComponents() {
-            this.preview = new Attachments_Preview( this.form );
             new Comment_Activity(new ActivityStorage());
             new ReplyFormObserver();
             new Ajax_Comment();
         }
 
-        setFormEncoding() {
-            this.form.encoding = 'multipart/form-data';
+        setFormEncodingAttribute() {
+            const form = document.querySelector( '#commentform' );
+            if ( form ) {
+                form.encoding = 'multipart/form-data';
+            }
         }
     }
 
     const advanced_review = new Advanced_Review();
-
 }(jQuery));

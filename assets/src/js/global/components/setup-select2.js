@@ -52,13 +52,13 @@ function initSelect2AjaxFields () {
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: '.directorist-category-select',
+        selector: $('.directorist-search-category').find( 'select' ),
         url: `${rest_base_url}/listings/categories`,
     });
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: '.directorist-location-select',
+        selector: $('.directorist-search-location').find( 'select' ),
         url: `${rest_base_url}/listings/locations`,
     });
 }

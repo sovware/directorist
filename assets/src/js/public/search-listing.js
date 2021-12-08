@@ -67,40 +67,70 @@
         height: '0',
     });
 
-    const adsItemHeight = $('.directorist-advanced-filter .directorist-advanced-filter__advanced--element');
-    let adsFilterHeight = $('.directorist-advanced-filter__action').innerHeight();
+    let adsFilterHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
     let adsItemsHeight;
-    for(let i = 0; i<= adsItemHeight.length; i++){
-        adsItemsHeight = adsItemHeight.innerHeight() * i;
+    function getItemsHeight(selector) {
+        let advElmHeight;
+        let basicElmHeight;
+        let adsAdvItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents, .directorist-search-form').find('.directorist-advanced-filter__advanced--element');
+        console.log(adsAdvItemHeight());
+        let adsBasicItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
+        console.log(adsBasicItemHeight());
+        for(let i = 0; i<= adsAdvItemHeight().length; i++){
+            adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;
+        }
+        if(isNaN(advElmHeight)){
+            advElmHeight = 0;
+        }
+        let basicElmHeights = adsBasicItemHeight().innerHeight();
+        basicElmHeights === undefined ? basicElmHeight = 0 : basicElmHeight = basicElmHeights;
+        return adsItemsHeight = advElmHeight + basicElmHeight;
     }
-    if(isNaN(adsItemsHeight)){
-        adsItemsHeight = 0;
-    }
-
-    var dFilterBtn = $('body').find('.directorist-filter-btn');
+    getItemsHeight('.directorist-filter-btn');
 
     var count = 0;
+    $('body').on('click', '.directorist-listing-type-selection .search_listing_types, .directorist-type-nav .directorist-type-nav__link', function(){
+        count = 0;
+    });
+    /* Toggle overlapped advanced filter wrapper */
     $('body').on("click", '.directorist-filter-btn', function (e) {
         count++;
         e.preventDefault();
+        let _this = $(this);
+        getItemsHeight(_this);
+        _this.toggleClass('directorist-filter-btn--active');
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-
+        var dafwrap = $(e.currentTarget).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
         if (count % 2 === 0) {
-            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(dafwrap).css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(e.currentTarget).closest('.directorist-search-form,.directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter').css({
+            $(dafwrap).css({
                 visibility: 'visible',
-                height: adsItemsHeight + adsFilterHeight + 70 + 'px',
+                height: adsItemsHeight + adsFilterHeight() + 50 + 'px',
                 transition: '0.3s ease',
                 opacity: '1',
             });
         }
     });
+
+    /* Hide overlapped advanced filter */
+    var daf = () => $('.directorist-search-float .directorist-advanced-filter');
+    $(document).on('click', function(e){
+        if(!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')){
+            count = 0;
+            daf().css({
+                visibility: 'hidden',
+                opacity: '0',
+                height: '0',
+                transition: '.3s ease'
+            });
+        }
+    })
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
@@ -289,7 +319,7 @@
             atbd_callingSlider(0);
         });
     }
-    
+
     /* Map Listing Search Form */
     if($("#directorist-search-area .directorist-btn-reset-js") !== null){
         $("body").on("click", "#directorist-search-area .directorist-btn-reset-js", function (e) {
@@ -308,7 +338,6 @@
     if($(".atbd_widget .search-area .directorist-btn-reset-js") !== null){
         $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
             e.preventDefault();
-            console.log(this);
             if(this.closest('.search-area')){
                 const searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
                 if(searchForm){

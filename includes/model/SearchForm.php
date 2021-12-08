@@ -344,6 +344,10 @@ class Directorist_Listing_Search_Form {
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 
+		if( ! Helper::is_field_allowed_in_atts( $field_data['widget_name'], $this->atts ) ) {
+			return;
+		}
+
 		if ( $this->is_custom_field( $field_data ) ) {
 			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';
 		}

@@ -89,4 +89,13 @@ trait URI_Helper {
 			return $index_path;
 		}
 	}
+
+	public static function is_field_allowed_in_atts( $widget_name, $atts = [] ) {
+		$atts = ! empty( $atts[ $widget_name ] ) ? $atts[ $widget_name ] : '';
+		
+		if ( $atts && ( 'no' == $atts ) ){
+			return false;
+		}
+		return true;
+	}
 }

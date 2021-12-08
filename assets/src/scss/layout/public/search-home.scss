@@ -197,6 +197,7 @@
         .directorist-search-form-action {
             display: flex;
             align-items: center;
+            margin-left: auto;
 
             @media only screen and (max-width: 375px) {
                 flex-direction: column;

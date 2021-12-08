@@ -11276,6 +11276,10 @@ p.atbd-min {
   margin: 0 0 15px;
 }
 
+.directorist-related-carousel {
+  position: relative;
+  /* nav */
+}
 .directorist-related-carousel .slick-list {
   margin: 0 -15px 30px;
 }
@@ -11285,6 +11289,50 @@ p.atbd-min {
 }
 .directorist-related-carousel .slick-slide {
   margin: 0 15px;
+}
+.directorist-related-carousel .directorist-slc__nav {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  border-radius: 50%;
+  background: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 1;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  opacity: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.directorist-related-carousel .directorist-slc__nav:hover {
+  background: #444752;
+  color: #fff;
+}
+.directorist-related-carousel .directorist-slc__nav--left {
+  left: -16px;
+}
+.directorist-related-carousel .directorist-slc__nav--right {
+  right: -16px;
+}
+.directorist-related-carousel:hover .directorist-slc__nav {
+  opacity: 1;
 }
 
 #directorist-single-listing-slider .plasmaSlider__footer {
@@ -13376,6 +13424,7 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-left: auto;
 }
 @media only screen and (max-width: 375px) {
   .directorist-search-contents .directorist-search-form-top .directorist-search-form-action {

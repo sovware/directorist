@@ -752,7 +752,7 @@ msgstr ""
 msgid "Directory Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:246, ../includes/classes/class-settings-panel.php:3621, ../includes/classes/class-settings-panel.php:3709, ../includes/classes/class-settings-panel.php:4056, ../includes/classes/class-widget-categories.php:161, ../includes/classes/class-widget-locations.php:160, ../includes/classes/class-widget-tags.php:136, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:119, ../includes/system-status/system-info-template.php:477, ../includes/system-status/system-information/system-information-template.php:653, ../templates/single-reviews.php:88, ../templates/payment/payment-receipt.php:100, ../templates/single/section-contact_listings_owner.php:30, ../views/widgets/contact-listing-owner.php:11
+#: ../includes/classes/class-custom-post.php:246, ../includes/classes/class-settings-panel.php:3621, ../includes/classes/class-settings-panel.php:3709, ../includes/classes/class-settings-panel.php:4056, ../includes/classes/class-widget-categories.php:161, ../includes/classes/class-widget-locations.php:160, ../includes/classes/class-widget-tags.php:136, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:119, ../includes/system-status/system-info-template.php:477, ../includes/system-status/system-information/system-information-template.php:653, ../templates/single-reviews.php:89, ../templates/payment/payment-receipt.php:100, ../templates/single/section-contact_listings_owner.php:30, ../views/widgets/contact-listing-owner.php:11
 msgid "Name"
 msgstr ""
 
@@ -3153,11 +3153,11 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3778, ../includes/classes/class-settings-panel.php:4717, ../includes/classes/class-settings-panel.php:4894, ../includes/model/Account.php:61, ../includes/review/class-builder-screen.php:109, ../templates/single-reviews.php:102, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
+#: ../includes/classes/class-settings-panel.php:3778, ../includes/classes/class-settings-panel.php:4717, ../includes/classes/class-settings-panel.php:4894, ../includes/model/Account.php:61, ../includes/review/class-builder-screen.php:109, ../templates/single-reviews.php:103, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:4724, ../includes/model/Account.php:63, ../includes/review/class-builder-screen.php:134, ../templates/single-reviews.php:119, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
+#: ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:4724, ../includes/model/Account.php:63, ../includes/review/class-builder-screen.php:134, ../templates/single-reviews.php:120, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
 msgid "Website"
 msgstr ""
 
@@ -7667,56 +7667,56 @@ msgstr ""
 msgid "My Dashboard"
 msgstr ""
 
-#: ../templates/single-reviews.php:28
+#: ../templates/single-reviews.php:29
 msgid "%s response"
 msgid_plural "%s responses"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/single-reviews.php:30
+#: ../templates/single-reviews.php:31
 msgid "Write your review"
 msgstr ""
 
-#: ../templates/single-reviews.php:69
+#: ../templates/single-reviews.php:70
 msgid "There are no reviews yet. %1$sBe the first reviewer%2$s."
 msgstr ""
 
-#: ../templates/single-reviews.php:67
+#: ../templates/single-reviews.php:68
 msgid "There are no reviews yet."
 msgstr ""
 
-#: ../templates/single-reviews.php:40
+#: ../templates/single-reviews.php:41
 msgid "%s review"
 msgid_plural "%s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/single-reviews.php:93
+#: ../templates/single-reviews.php:94
 msgid "Enter your name"
 msgstr ""
 
-#: ../templates/single-reviews.php:107
+#: ../templates/single-reviews.php:108
 msgid "Enter your email"
 msgstr ""
 
-#: ../templates/single-reviews.php:123
+#: ../templates/single-reviews.php:124
 msgid "Enter your website"
 msgstr ""
 
-#: ../templates/single-reviews.php:140
+#: ../templates/single-reviews.php:141
 msgctxt "noun"
 msgid "Comment"
 msgstr ""
 
-#: ../templates/single-reviews.php:143
+#: ../templates/single-reviews.php:144
 msgid "Share your experience and help others make better choices"
 msgstr ""
 
-#: ../templates/single-reviews.php:154
+#: ../templates/single-reviews.php:155
 msgid "Write Your Review"
 msgstr ""
 
-#: ../templates/single-reviews.php:159
+#: ../templates/single-reviews.php:160
 msgid "Submit review"
 msgstr ""
 

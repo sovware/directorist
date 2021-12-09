@@ -52,13 +52,13 @@ function initSelect2AjaxFields () {
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: '.directorist-category-select',
+        selector: $('.directorist-search-category').find( 'select' ),
         url: `${rest_base_url}/listings/categories`,
     });
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: '.directorist-location-select',
+        selector: $('.directorist-search-location').find( 'select' ),
         url: `${rest_base_url}/listings/locations`,
     });
 }
@@ -79,10 +79,13 @@ function initSelect2AjaxTaxonomy( args ) {
         ajax: {
             url: args.url,
             dataType: 'json',
+            cache: true,
             data: function (params) {
                 currentPage = params.page || 1;
+                const search_term = ( params.term ) ? params.term : '';
 
-                var query = {
+                const query = {
+                    search: search_term,
                     page: currentPage,
                     per_page: args.perPage,
                 }
@@ -123,4 +126,3 @@ function initSelect2AjaxTaxonomy( args ) {
         }
     });
 }
-

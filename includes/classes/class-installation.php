@@ -21,22 +21,22 @@ class ATBDP_Installation {
 	/**
 	 * DB updates and callbacks that need to be run per version.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 * @var array
 	 */
 	private static $db_updates = array(
-		'7.0.6' => [
-			'directorist_706_migrate_reviews_table_to_comments_table',
-			'directorist_706_migrate_posts_table_to_comments_table',
-			'directorist_706_review_rating_clear_transients',
-			'directorist_706_update_db_version',
+		'7.1.0' => [
+			'directorist_710_migrate_reviews_table_to_comments_table',
+			'directorist_710_migrate_posts_table_to_comments_table',
+			'directorist_710_review_rating_clear_transients',
+			'directorist_710_update_db_version',
 		],
 	);
 
 	/**
 	 * Background update class.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 * @var object
 	 */
 	private static $background_updater;
@@ -82,7 +82,7 @@ class ATBDP_Installation {
 	/**
 	 * Init background updates
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 */
 	public static function init_background_updater() {
 		include_once ATBDP_INC_DIR . 'classes/class-background-updater.php';
@@ -94,7 +94,7 @@ class ATBDP_Installation {
 	 *
 	 * This function is hooked into admin_init to affect admin only.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 */
 	public static function install_actions() {
 		if ( ! empty( $_GET['do_update_directorist'] ) ) { // WPCS: input var ok.
@@ -119,7 +119,7 @@ class ATBDP_Installation {
 	/**
 	 * Get list of DB update callbacks.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 * @return array
 	 */
 	public static function get_db_update_callbacks() {
@@ -129,20 +129,15 @@ class ATBDP_Installation {
 	/**
 	 * Push all needed DB updates to the queue for processing.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 */
 	private static function update() {
 		$current_db_version = get_option( 'directorist_db_version' );
-		// $logger             = wc_get_logger();
 		$update_queued      = false;
 
 		foreach ( self::get_db_update_callbacks() as $version => $update_callbacks ) {
 			if ( version_compare( $current_db_version, $version, '<' ) ) {
 				foreach ( $update_callbacks as $update_callback ) {
-					// $logger->info(
-					// 	sprintf( 'Queuing %s - %s', $version, $update_callback ),
-					// 	array( 'source' => 'wc_db_updates' )
-					// );
 					self::$background_updater->push_to_queue( $update_callback );
 					$update_queued = true;
 				}
@@ -157,7 +152,7 @@ class ATBDP_Installation {
 	/**
 	 * Update DB version to current.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 * @param string|null $version New Directorist DB version or null.
 	 */
 	public static function update_db_version( $version = null ) {
@@ -168,15 +163,13 @@ class ATBDP_Installation {
 	/**
 	 * See if we need to show or run database updates during install.
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 */
 	private static function maybe_update_db_version() {
 		if ( self::needs_db_update() ) {
 			if ( apply_filters( 'directorist/updater/enable_db_auto_update', false ) ) {
 				self::init_background_updater();
 				self::update();
-			} else {
-				// Directorist_Admin_Notices::add_notice( 'update' );
 			}
 		} else {
 			self::update_db_version();
@@ -186,7 +179,7 @@ class ATBDP_Installation {
 	/**
 	 * Is a DB update needed?
 	 *
-	 * @since 7.0.6
+	 * @since 7.1.0
 	 * @return boolean
 	 */
 	private static function needs_db_update() {

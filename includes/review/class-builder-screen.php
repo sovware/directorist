@@ -3,7 +3,7 @@
  * Builder screen class.
  *
  * @package Directorist\Review
- * @since 7.0.6
+ * @since 7.1.0
  */
 namespace Directorist\Review;
 

@@ -2,8 +2,8 @@
 /**
  * Comment and review template for single view.
  *
- * @since   7.0.6
- * @version 7.0.6
+ * @since   7.1.0
+ * @version 7.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -4,7 +4,7 @@
  * Handles metabox, admin menu etc.
  *
  * @package Directorist\Review
- * @since 7.0.6
+ * @since 7.1.0
  */
 namespace Directorist\Review;
 

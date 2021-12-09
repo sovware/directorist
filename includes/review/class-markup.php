@@ -3,7 +3,7 @@
  * Comment from markup class.
  *
  * @package Directorist\Review
- * @since 7.0.6
+ * @since 7.1.0
  */
 namespace Directorist\Review;
 

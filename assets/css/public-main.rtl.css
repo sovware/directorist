@@ -5108,11 +5108,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .select2.select2-container .select2-selection--single .select2-selection__arrow {
   top: 8px;
   left: 14px;
-  color: #7a82a6;
 }
 .select2.select2-container .select2-selection--single .select2-selection__arrow:before {
-  font-family: "Line Awesome Free";
-  content: "";
+  font-family: "Font Awesome 5 Free";
+  content: "";
   font-weight: 600;
 }
 .select2.select2-container .select2-selection--single .select2-selection__arrow b {
@@ -9518,8 +9517,8 @@ p.atbd-min {
   margin-top: 25px;
 }
 
-.select2-selection__arrow,
-.select2-selection__clear {
+.select2-selection__arrow:after,
+.select2-selection__clear:after {
   display: none;
 }
 
@@ -13412,6 +13411,7 @@ p.atbd-min {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-right: auto;
 }
 @media only screen and (max-width: 375px) {
   .directorist-search-contents .directorist-search-form-top .directorist-search-form-action {

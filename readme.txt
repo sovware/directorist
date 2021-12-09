@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.6.3
+Stable tag: 7.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -381,6 +381,25 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.7 – Dec 8, 2021
+
+* New - Nav icon in related listings carousel
+* New - Option to allow users to apply map's default location on listings map view
+* New - Search form categories lazy loading.
+* Improve - Search form loading performance.
+* Improve - Directory type slug editing experience
+* Improve - Overall query performance.
+* Fix - Style issues
+* Fix - Rest API endpoint
+* Fix - OG meta conflict with Yoast SEO plugin
+* Fix - Author listings columns synced with all listings template
+* Fix - Rewrite roles conflict with Polylang plugin
+* Fix - Listing importer create new directory type
+* Fix - Add listing form parameter
+* Fix - display_preview_image parameter issue of all listings shortcode
+* Fix - Overlapped advanced filter height issue
+* Tweak - Default redirection after login and registration
 
 7.0.6.3 – Nov 22, 2021
 

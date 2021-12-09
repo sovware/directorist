@@ -145,6 +145,8 @@ Bootstrap::load_walker();
 			)
 		);
 
+		$comment_fields['redirect_to'] = sprintf( '<input type="hidden" value="%s" name="redirect_to">', get_the_permalink() );
+
 		$comment_fields = (array) apply_filters( 'directorist/review_form/comment_fields', $comment_fields );
 
 		$args = array(

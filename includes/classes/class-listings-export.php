@@ -355,21 +355,20 @@ class Listings_Exporter {
     }
 
     // get_term_names
-    public static function get_term_names( $post_id = 0, $taxonomy = '' ) {
-        // $term_names = [];
-        $term_name = '';
-        $terms = get_the_terms( $post_id, $taxonomy );
+    public static function get_term_names($post_id = 0, $taxonomy = '')
+    {
+        $term_names = [];
+        $terms = get_the_terms($post_id, $taxonomy);
 
-        if ( ! empty( $terms ) ) {
-            $term_name = $terms[0]->name;
-            // foreach ( $terms as $term ) {
-            //     array_push( $term_names, $term->name );
-            // }
+        if (!empty($terms)) {
+            foreach ($terms as $term) {
+                array_push($term_names, $term->name);
+            }
         }
 
-        // $term_names = ( ! empty( $term_names ) ) ? join( ',', $term_names ) : '';
+        $term_names = !empty($term_names) ? join(',', $term_names) : '';
 
-        return $term_name;
+        return $term_names;
     }
 
 }

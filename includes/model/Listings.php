@@ -939,7 +939,7 @@ class Directorist_Listings {
 				'key'     => directorist_get_rating_field_meta_key(),
 				'value'   => absint( $rating_query ),
 				'type'    => 'NUMERIC',
-				'compare' => '=>'
+				'compare' => '>='
 			);
 		}
 

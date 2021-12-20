@@ -241,9 +241,6 @@
           var autocomplete = new google.maps.places.Autocomplete(input, field.options);
           google.maps.event.addListener(autocomplete, 'place_changed', function () {
             var place = autocomplete.getPlace();
-            console.log({
-              place: place
-            });
             document.getElementById(field.lat_id).value = place.geometry.location.lat();
             document.getElementById(field.lng_id).value = place.geometry.location.lng();
           });

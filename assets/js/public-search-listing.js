@@ -170,13 +170,9 @@
       return $(selector).closest('.directorist-search-form-box, .directorist-archive-contents, .directorist-search-form').find('.directorist-advanced-filter__advanced--element');
     };
 
-    console.log(adsAdvItemHeight());
-
     var adsBasicItemHeight = function adsBasicItemHeight() {
       return $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
     };
-
-    console.log(adsBasicItemHeight());
 
     for (var i = 0; i <= adsAdvItemHeight().length; i++) {
       adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;

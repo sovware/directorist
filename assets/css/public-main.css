@@ -8524,6 +8524,11 @@ p.atbd-min {
   margin: 7.5px;
 }
 
+/* google map location suggestion container */
+.pac-container {
+  z-index: 10000 !important;
+}
+
 .directorist-advanced-filter__advanced--checkbox .directorist-checkbox-wrapper {
   margin: 0 -5px -5px -5px;
 }

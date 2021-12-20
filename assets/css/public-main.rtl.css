@@ -9966,11 +9966,12 @@ p.atbd-min {
   color: #7a82a6;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list .directorist-listing-card-location-list {
-  position: relative;
-  top: -2px;
   display: block;
   margin: 0;
-  line-height: 1.45;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list__label {
+  display: inline-block;
+  margin-left: 5px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt {
   margin-top: 15px;

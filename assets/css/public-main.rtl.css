@@ -5108,11 +5108,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .select2.select2-container .select2-selection--single .select2-selection__arrow {
   top: 8px;
   left: 14px;
-  color: #7a82a6;
 }
 .select2.select2-container .select2-selection--single .select2-selection__arrow:before {
-  font-family: "Line Awesome Free";
-  content: "";
+  font-family: "Font Awesome 5 Free";
+  content: "";
   font-weight: 600;
 }
 .select2.select2-container .select2-selection--single .select2-selection__arrow b {
@@ -9518,8 +9517,8 @@ p.atbd-min {
   margin-top: 25px;
 }
 
-.select2-selection__arrow,
-.select2-selection__clear {
+.select2-selection__arrow:after,
+.select2-selection__clear:after {
   display: none;
 }
 
@@ -9962,11 +9961,12 @@ p.atbd-min {
   color: #7a82a6;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list .directorist-listing-card-location-list {
-  position: relative;
-  top: -2px;
   display: block;
   margin: 0;
-  line-height: 1.45;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list__label {
+  display: inline-block;
+  margin-left: 5px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt {
   margin-top: 15px;

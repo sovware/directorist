@@ -341,10 +341,19 @@ class Directorist_Listing_Search_Form {
 		return $ptype;
 	}
 
+	public function is_field_allowed_in_atts( $widget_name, $atts = [] ) {
+		$atts = ! empty( $atts[ 'filter_' . $widget_name ] ) ? $atts[ 'filter_' . $widget_name ] : '';
+		
+		if ( $atts && ( 'no' == $atts ) ){
+			return false;
+		}
+		return true;
+	}
+
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 
-		if( ! Helper::is_field_allowed_in_atts( $field_data['widget_name'], $this->atts ) ) {
+		if( ! $this->is_field_allowed_in_atts( $field_data['widget_name'], $this->atts ) ) {
 			return;
 		}
 

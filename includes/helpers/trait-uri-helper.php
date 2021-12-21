@@ -91,7 +91,7 @@ trait URI_Helper {
 	}
 
 	public static function is_field_allowed_in_atts( $widget_name, $atts = [] ) {
-		$atts = ! empty( $atts[ $widget_name ] ) ? $atts[ $widget_name ] : '';
+		$atts = ! empty( $atts[ 'filter_' . $widget_name ] ) ? $atts[ 'filter_' . $widget_name ] : '';
 		
 		if ( $atts && ( 'no' == $atts ) ){
 			return false;

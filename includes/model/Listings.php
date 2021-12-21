@@ -1931,7 +1931,7 @@ class Directorist_Listings {
 		public function search_form_template() {
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $this->atts ),
 			);
 			Helper::get_template( 'archive/search-form', $args );
 		}

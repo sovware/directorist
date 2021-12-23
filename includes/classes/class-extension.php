@@ -651,13 +651,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
                 
                 $download_status = $this->download_theme( ['url' => $url] );
-                $status['debug'] = [
-                    'theme_item' => $theme_item,
-                    'url' => $url,
-                    'download_status' => $download_status,
-                    'themes_available_in_subscriptions' => $themes_available_in_subscriptions,
-                    'themes_available_in_subscriptions_keys' => $themes_available_in_subscriptions_keys,
-                ];
+               
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
                     $status['message'] = __( 'The theme could not update', 'directorist' );

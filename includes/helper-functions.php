@@ -8074,8 +8074,8 @@ function get_plasma_slider()
     $data['alt']                = $listing_title;
     $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
     $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
-    $data['width']              = get_directorist_option('gallery_crop_width', 670);
-    $data['height']             = get_directorist_option('gallery_crop_height', 750);
+    $data['width']              = get_directorist_option('gallery_crop_width', 800);
+    $data['height']             = get_directorist_option('gallery_crop_height', 450);
     $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
     $data['thumbnail-bg-color'] = '#fff';
     $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);

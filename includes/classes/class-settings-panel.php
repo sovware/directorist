@@ -2074,7 +2074,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'single_slider_image_size' => [
-                    'label' => __('Slider Image Size', 'directorist'),
+                    'label' => __('Image Display Behavior', 'directorist'),
                     'type'  => 'select',
                     'value' => 'cover',
                     'show-if' => [
@@ -2086,11 +2086,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'options' => [
                         [
                             'value' => 'cover',
-                            'label' => __('Fill with Container', 'directorist'),
+                            'label' => __('Fill inside Container', 'directorist'),
                         ],
                         [
                             'value' => 'contain',
-                            'label' => __('Fit with Container', 'directorist'),
+                            'label' => __('Fit inside Container', 'directorist'),
                         ],
                     ],
                 ],
@@ -2130,7 +2130,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'gallery_crop_width' => [
                     'label' => __('Image Width', 'directorist'),
                     'type'  => 'number',
-                    'value' => '740',
+                    'value' => '800',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -2144,7 +2144,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'gallery_crop_height' => [
                     'label' => __('Image Height', 'directorist'),
                     'type'  => 'number',
-                    'value' => '580',
+                    'value' => '450',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',

@@ -2128,12 +2128,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
 
                 'gallery_crop_width' => [
-                    'label' => __('Image Width', 'directorist'),
+                    'label' => __('Image Width (px)', 'directorist'),
                     'type'  => 'number',
                     'value' => '800',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
+                    'description' => sprintf( __('If you change this option, please regenerate images using <a href="%s" target="__blank">this</a> plugin for the change to take effect', 'directorist'), 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                     'show-if' => [
                         'where' => "dsiplay_slider_single_page",
                         'conditions' => [
@@ -2142,12 +2143,13 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'gallery_crop_height' => [
-                    'label' => __('Image Height', 'directorist'),
+                    'label' => __('Image Height (px)', 'directorist'),
                     'type'  => 'number',
                     'value' => '450',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
+                    'description' => sprintf( __('If you change this option, please regenerate images using <a href="%s" target="__blank">this</a> plugin for the change to take effect', 'directorist'), 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                     'show-if' => [
                         'where' => "dsiplay_slider_single_page",
                         'conditions' => [

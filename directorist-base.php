@@ -204,6 +204,7 @@ final class Directorist_Base
 			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
+			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
 
 			add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
 			add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
@@ -585,6 +586,12 @@ final class Directorist_Base
 		register_widget('BD_Author_Info_Widget');
 		register_widget('BD_Featured_Listings_Widget');
 
+	}
+
+	public function add_image_sizes() {
+		$width  = get_directorist_option('gallery_crop_width', 800);
+		$height = get_directorist_option('gallery_crop_height', 450);
+		add_image_size( 'directorist-slider', $width, $height, false );
 	}
 
 	public function load_textdomain()

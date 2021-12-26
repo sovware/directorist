@@ -89,5 +89,4 @@ trait URI_Helper {
 			return $index_path;
 		}
 	}
-
 }

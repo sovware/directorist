@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.6
  */
 
 use \Directorist\Helper;
@@ -42,9 +42,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="full_name"><?php esc_html_e( 'Full Name', 'directorist' ); ?></label>
+									<label for="full_name"><?php esc_html_e( 'Display Name', 'directorist' ); ?></label>
 									
-									<input class="directorist-form-element" type="text" id="full_name" name="user[full_name]" value="<?php echo esc_attr( $dashboard->user_info( 'display_name' ) ); ?>" placeholder="<?php esc_html_e( 'Enter your full name', 'directorist' ); ?>">
+									<input class="directorist-form-element" type="text" id="full_name" name="user[full_name]" value="<?php echo esc_attr( $dashboard->user_info( 'display_name' ) ); ?>" placeholder="<?php esc_html_e( 'Enter your display name', 'directorist' ); ?>">
 								
 								</div>
 							

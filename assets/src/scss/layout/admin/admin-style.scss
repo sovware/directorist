@@ -828,7 +828,6 @@ a {
 
 .atbdp_shortcodes {
   position: relative;
-
   &:after {
     content: "\f0c5";
     font-family: "Line Awesome Free";
@@ -841,6 +840,11 @@ a {
     bottom: 0;
     z-index: 999;
   }
+}
+
+.directorist-find-latlan{
+  display: inline-block;
+  color: red;
 }
 
 .business_time.column-business_time,
@@ -3203,10 +3207,15 @@ input.atbdp-form-control {
             border: none;
             border-radius: 4px !important;
             cursor: pointer;
+            transition: 0.3s ease;
 
             &:active,
             &:focus {
               outline: none !important;
+            }
+
+            &.ei-action-active{
+              background: #3E62F5 !important;
             }
           }
         }
@@ -3777,8 +3786,6 @@ input.atbdp-form-control {
   &__image,
   &__details {
     padding: 10px;
-    flex-grow: 1;
-    max-width: 50%;
 
     @media only screen and (max-width: 1199px) {
       max-width: 100%;
@@ -3789,6 +3796,7 @@ input.atbdp-form-control {
     img {
       max-width: 100%;
       border-radius: 6px;
+      max-height: 150px;
     }
   }
 
@@ -3796,6 +3804,7 @@ input.atbdp-form-control {
     flex: 1;
 
     h3 {
+      margin-top: 0;
       margin-bottom: 20px;
       font-size: 20px;
       font-weight: 500;
@@ -4636,10 +4645,20 @@ input.atbdp-form-control {
 .directorist_listing-slug-text{
   min-width: 120px;
   display: inline-block;
-  text-overflow: ellipsis;
   max-width: 120px;
   overflow: hidden;
   white-space: nowrap;
+  padding: 5px 0;
+  border-bottom: 1px solid transparent;
+  margin-right: 10px;
+  transition: 0.3s ease;
+  &--editable{
+    border-color: $border-color-light;
+    &:focus{
+      border-color: $border-color-light;
+      outline: 0;
+    }
+  }
   @media only screen and (max-width: 1499px) {
     min-width: 110px;
   }
@@ -4647,121 +4666,7 @@ input.atbdp-form-control {
     min-width: 90px;
   }
 }
-.directorist-listing-slug-edit-wrap{
-  display: inline-block;
-  position: relative;
-  @media only screen and (max-width: 1299px) {
-    position: initial;
-    margin-top: 6px;
-  }
-}
-
-.directorist-listing-slug__edit{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0 5px 10px #adb4d260;
-  margin-left: 10px;
-  i,
-  span.la,
-  span.las,
-  span.lab,
-  span.fab,
-  span.fas,
-  span.fa{
-    font-size: 15px;
-    color: $info;
-  }
-  @media only screen and (max-width: 1399px) {
-    width: 30px;
-    height: 30px;
-    margin-left: 6px;
-  }
-  @media only screen and (max-width: 1299px) {
-    width: 26px;
-    height: 26px;
-    margin-left: 6px;
-  }
-}
-
-.directorist-listing-slug__form{
-  position: absolute;
-  right: 0;
-  top: 42px;
-  width: 100%;
-  min-width: 290px;
-  box-shadow: 0 5px 40px rgba(#9299B8,.25);
-  background-color: #fff;
-  padding: 12px;
-  border-radius: 4px;
-  z-index: 22;
-  display: none;
-  @media only screen and (max-width: 1299px) {
-    top: auto;
-    bottom: -54px;
-  }
-  @media only screen and (max-width: 1399px) {
-    min-width: 230px;
-  }
-  @media only screen and (max-width: 1499px) {
-    min-width: 230px;
-  }
-  @media only screen and (max-width: 1599px) {
-    min-width: 260px;
-  }
-  .directorist_listing-slug__form--inline{
-    display: inline-flex;
-    align-items: center;
-    .directorist-form-element{
-      padding: 12px 10px;
-      height: 34px;
-      line-height: 34px;
-    }
-  }
-  .directorist_listing-slug__form--input{
-    margin-right: 12px;
-  }
-  .directorist_listing-slug__form--action{
-    display: inline-flex;
-    margin: -2px;
-    a{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      border-radius: 6px;
-      margin: 2px;
-      border: 1px solid $border-color;
-      &.directorist_listing-slug-formText-add{
-        background-color: $info;
-        color: #fff;
-      }
-      &.directorist_listing-slug-formText-remove{
-        background-color: $danger;
-        color: #fff;
-      }
-    }
-  }
-  .directorist_listing-slug__form--loader{
-    .directorist_loader{
-      width: 20px;
-      height: 20px;
-      display: block;
-      &:before{
-        right: 0;
-        top: 4px;
-        width: 15px;
-        height: 15px;
-        right: -3px;
-        top: 1px;
-      }
-    }
-  }
+.directorist-type-slug{
   .directorist-slug-notice {
     margin: 6px 0 0;
     &.directorist-slug-notice-error{
@@ -4770,6 +4675,117 @@ input.atbdp-form-control {
     &.directorist-slug-notice-success{
       color: $success;
     }
+  }
+}
+.directorist-type-slug-content{
+  display: flex;
+  align-items: center;
+}
+.directorist-listing-slug-edit-wrap{
+  display: inline-block;
+  position: relative;
+  margin: -3px;
+  min-width: 75px;
+  @media only screen and (max-width: 1299px) {
+    position: initial;
+  }
+
+  .directorist-listing-slug__edit,
+  .directorist_listing-slug-formText-add{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 5px 10px #adb4d260;
+    margin: 2px;
+    transition: 0.3s ease;
+    &:before{
+      content: "\f044";
+      font-family: "Line Awesome Free";
+      font-weight: 900;
+      font-size: 15px;
+      color: $info;
+    }
+    @media only screen and (max-width: 1399px) {
+      width: 26px;
+      height: 26px;
+      margin-left: 6px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+    @media only screen and (max-width: 1299px) {
+      width: 22px;
+      height: 22px;
+      margin-left: 6px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+  }
+  .directorist_listing-slug-formText-add{
+    background: #08bf9c;
+    box-shadow: none;
+    display: none;
+    &:before{
+      content: '\f00c';
+      color: #fff;
+    }
+    &.active{
+      display: inline-flex;
+    }
+    &.disabled{
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  .directorist_listing-slug-formText-remove{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 2px;
+    transition: 0.3s ease;
+    background: #ff006e;
+    color: #fff;
+    &:before{
+      content: "\f00d";
+      font-family: "Line Awesome Free";
+      font-weight: 900;
+      font-size: 15px;
+      color: #fff;
+    }
+    &--hidden{
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    @media only screen and (max-width: 1399px) {
+      width: 26px;
+      height: 26px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+    @media only screen and (max-width: 1299px) {
+      width: 22px;
+      height: 22px;
+      &:before{
+        font-size: 13px;
+      }
+    }
+  }
+
+  .directorist_loader{
+    position: absolute;
+    right: -40px;
+    top: 5px;
   }
 }
 

@@ -5857,7 +5857,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
      */
     function atbdp_is_user_logged_in($message = '')
     {
-        if (!atbdp_logged_in_user()) {
+        if (!is_user_logged_in()) {
             // user not logged in;
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
@@ -6666,7 +6666,7 @@ function directorist_clean($var)
  */
 function the_atbdp_favourites_link($post_id = 0)
 {
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
         if ($post_id == 0) {
             global $post;
             $post_id = $post->ID;
@@ -6722,7 +6722,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
-    if (atbdp_logged_in_user()) {
+    if (is_user_logged_in()) {
 
         if ($post_id == 0) {
             global $post;
@@ -7437,6 +7437,12 @@ if (!function_exists('tract_duplicate_review')) {
 
 function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 {
+	$lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
+
+	if ( ! empty( $lazy_load_taxonomy_fields ) ) {
+		return '';
+	}
+
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -7860,8 +7866,15 @@ function atbdp_create_required_pages(){
     }
 }
 
+/**
+ * Check if user is logged in.
+ *
+ * @deprecated 7.0.6.3 Use the built-in is_user_logged_in() instead.
+ *
+ * @return bool
+ */
 function atbdp_logged_in_user(){
-    return _wp_get_current_user()->exists();
+    return is_user_logged_in();
 }
 
 function atbdp_thumbnail_card($img_src = '', $_args = array())
@@ -8238,21 +8251,44 @@ if( !function_exists('directory_types') ){
           return $listing_types;
     }
 }
-if( !function_exists('default_directory_type') ){
-    function default_directory_type() {
-        $default_directory = '';
-        if( !empty( directory_types() ) ) {
-            foreach( directory_types() as $term ) {
-                $default = get_term_meta( $term->term_id, '_default', true );
-                if( $default ) {
-                    $default_directory = $term->term_id;
-                    break;
-                }
-            }
-        }
-        return $default_directory;
-    }
+
+if ( ! function_exists( 'directorist_get_default_directory' ) ) {
+	/**
+	 * Get default directory id.
+	 *
+	 * @return int Default directory id.
+	 */
+	function directorist_get_default_directory() {
+		$directories = get_terms( [
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'meta_key'   => '_default',
+			'meta_value' => '1',
+			'number'     => 1
+		] );
+
+		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
+			return 0;
+		}
+
+		return $directories[0];
+	}
 }
+
+if ( ! function_exists( 'default_directory_type' ) ) {
+	/**
+	 * Alias and backward compatible function of "directorist_get_default_directory".
+	 *
+	 * @see directorist_get_default_directory
+	 *
+	 * @return int Defualt directory id.
+	 */
+	function default_directory_type() {
+		return directorist_get_default_directory();
+	}
+}
+
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
         $listing_types = array();
@@ -8450,4 +8486,134 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 	$url = add_query_arg( [ 'directory_type' => $type ], $base_url );
 
 	return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
+}
+
+if ( ! function_exists( 'directorist_is_plugin_active' ) ) {
+    function directorist_is_plugin_active( $plugin ) {
+        return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || directorist_is_plugin_active_for_network( $plugin );
+    }
+}
+
+if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
+    function directorist_is_plugin_active_for_network( $plugin ) {
+        if ( ! is_multisite() ) {
+            return false;
+        }
+
+        $plugins = get_site_option( 'active_sitewide_plugins' );
+        if ( isset( $plugins[ $plugin ] ) ) {
+                return true;
+        }
+
+        return false;
+    }
+}
+
+/**
+ * Get error message based on error type.
+ *
+ * @since 7.0.6.2
+ *
+ * @param string $get_error_code
+ *
+ * @return string Error message.
+ */
+function directorist_get_registration_error_message( $error_code ) {
+	$message = [
+		'0' => __( 'Something went wrong!', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'2' => __( 'Sorry, that email already exists!', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'4' => __( 'Sorry, that username already exists!', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5', 'directorist' ),
+		'6' => __( 'Email is not valid', 'directorist' ),
+		'7' => __( 'Space is not allowed in username', 'directorist' ),
+		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+	];
+
+	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
+}
+
+/**
+ * Generate an unique nonce key using version constant.
+ *
+ * @since 7.0.6.2
+ *
+ * @return string nonce key with current version
+ */
+function directorist_get_nonce_key() {
+    return 'directorist_nonce_' . ATBDP_VERSION;
+}
+
+/**
+ * Check if the given nonce field contains a verified nonce.
+ *
+ * @since 7.0.6.2
+ *
+ * @return boolen
+ */
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
+    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+}
+
+/**
+ * Get supported file types groups.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types_groups( $group = null ) {
+	$groups = [
+		'image' => [
+			'jpg', 'jpeg', 'gif', 'png', 'bmp', 'ico'
+		],
+		'audio' => [
+			'ogg', 'mp3', 'wav', 'wma',
+		],
+		'video' => [
+			'asf', 'avi', 'mkv', 'mp4', 'mpg', 'mpeg', 'wmv', '3gp',
+		],
+		'document' => [
+			'doc', 'docx', 'odt', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+		]
+	];
+
+	if ( is_null( $group ) ) {
+		return $groups;
+	}
+
+	return ( isset( $groups[ $group ] ) ? $groups[ $group ] : [] );
+}
+
+/**
+ * Get supported file types.
+ *
+ * This function is used to for upload field options and to check uploaded file type validity.
+ *
+ * @since 7.0.6.3
+ *
+ * @return array
+ */
+function directorist_get_supported_file_types() {
+	$groups = directorist_get_supported_file_types_groups();
+
+	return array_reduce( $groups, function( $carry, $group ) {
+		return array_merge( $carry, $group );
+	}, [] );
+}
+
+
+function directorist_has_no_listing() {
+	$listings = new WP_Query([
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'cache_results'  => false
+	]);
+
+	$has_no_listing = empty( $listings->posts );
+
+	return $has_no_listing;
 }

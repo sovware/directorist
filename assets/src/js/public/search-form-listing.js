@@ -166,8 +166,9 @@
                 };
                 const options = atbdp_search_listing.countryRestriction ? opt : '';
 
-                let input_fields = [{
-                        input_id: 'address',
+                let input_fields = [
+                    {
+                        input_id: 'addressId',
                         lat_id: 'cityLat',
                         lng_id: 'cityLng',
                         options
@@ -182,6 +183,11 @@
 
                 var setupAutocomplete = function (field) {
                     const input = document.getElementById(field.input_id);
+
+                    if ( ! input ) {
+                        return;
+                    }
+
                     const autocomplete = new google.maps.places.Autocomplete(input, field.options);
 
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {

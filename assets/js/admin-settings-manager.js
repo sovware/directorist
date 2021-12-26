@@ -876,6 +876,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     event: 'input'
   },
   created: function created() {
+    if (typeof this.value !== 'string') {
+      return;
+    }
+
     this.local_value = this.value;
   },
   watch: {
@@ -902,7 +906,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      local_value: '#fff',
+      local_value: '#000000',
       validationLog: {}
     };
   }
@@ -975,6 +979,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     prepareExportFile: function prepareExportFile() {
       var data = new FormData();
       data.append('action', this.prepareExportFileFrom);
+
+      if (this.nonce && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.nonce) === 'object' && this.nonce.key && this.nonce.value) {
+        data.append(this.nonce.key, this.nonce.value);
+      }
 
       if (this.isPreparingExportFile) {
         console.log('Please wait...');
@@ -1523,6 +1531,9 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
     validation: {
+      required: false
+    },
+    nonce: {
       required: false
     }
   }

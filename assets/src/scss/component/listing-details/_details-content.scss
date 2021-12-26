@@ -40,7 +40,7 @@
                 padding: 0;
 
                 li {
-                    flex: 33.333%;
+                    flex: 0 0 33.333%;
                     margin: 0.5rem 0 0 0;
 
                     a {
@@ -57,16 +57,17 @@
     margin: -3px;
 
     .directorist-single-listing-action {
-        border: 1px solid #ECECEC;
+        border: 0 none;
         height: 36px;
         width: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #7a82a6;
+        color: #000;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 5px;
         margin: 3px;
+        background: #F3F3F3;
 
         span.la,
         span.fa,
@@ -120,33 +121,45 @@
             right: 0;
             top: calc(100% + 30px);
             background: #ffffff;
-            border-radius: 4px;
+            border-radius: 6px;
             width: 180px;
-            box-shadow: 0 5px 20px rgb(167 178 199 / 30%);
+            box-shadow: 0 5px 15px rgba(#000, 0.15);
             list-style-type: none;
-            padding: 0;
+            padding: 10px;
             margin: 0;
 
             .directorist-social-links__item {
                 padding-left: 0;
                 margin: 0;
                 a {
-                    padding: 11px 20px;
+                    padding: 8px 15px;
                     display: flex;
                     align-items: center;
-                    border-bottom: 1px solid $border-color;
                     text-decoration: none;
-
+                    font-size: 14px;
+                    border: 0 none;
+                    border-radius: 6px;
+                    transition: 0.3s ease;
                     span.la,
                     span.fa,
                     i {
-                        color: #444752;
-                        margin-right: 5px;
+                        color: #51526E;
+                        margin-right: 10px;
+                        transition: 0.3s ease;
                     }
                     span.fa{
                         font-family: "Font Awesome 5 Brands";
                         font-weight: 900;
                         font-size: 15px;
+                    }
+                    &:hover{
+                        background: #DFDFDF;
+                        color: #000;
+                        span.la,
+                        span.fa,
+                        i{
+                            color: #000;
+                        }
                     }
                 }
             }
@@ -218,18 +231,53 @@
     }
 }
 
-.directorist-related-carousel {
+.directorist-related-carousel{
+    position: relative;
     .slick-list {
         margin: 0 -15px 30px;
     }
-
     .slick-track {
         margin-left: 0;
         margin-right: 0;
     }
-
     .slick-slide {
         margin: 0 15px;
+    }
+
+    /* nav */
+    .directorist-slc__nav{
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        box-shadow: 0 0 5px rgb(0 0 0 / 15%);
+        transition: 0.3s ease;
+        opacity: 0;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover{
+            background: #444752;
+            color: #fff;
+        }
+        &--left{
+            left: -16px;
+        }
+        &--right{
+            right: -16px;
+        }
+    }
+    &:hover{
+        .directorist-slc__nav{
+            opacity: 1;
+        }
     }
 }
 

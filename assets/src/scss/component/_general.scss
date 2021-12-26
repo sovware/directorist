@@ -142,11 +142,10 @@
     .select2-selection__arrow {
       top: 8px;
       right: 14px;
-      color: #7a82a6;
 
       &:before {
-        font-family: "Line Awesome Free";
-        content: "\f107";
+        font-family: "Font Awesome 5 Free";
+        content: "\f078";
         font-weight: 600;
       }
 
@@ -182,4 +181,8 @@
           }
       }
   }
+}
+
+.select2-container.select2-container--open{
+  z-index: 99999;
 }

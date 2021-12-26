@@ -16,13 +16,13 @@ class Script_Helper {
 		$data = self::get_search_script_data([
             'directory_type_id' => $directory_type_id
         ]);
-		
+
         wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
 		]);
-        
+
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
     }
@@ -43,7 +43,7 @@ class Script_Helper {
      * @return array
      */
     public static function get_search_script_data( $args = [] ) {
- 
+
         $directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
         $directory_type_term_data = [
             'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
@@ -56,13 +56,13 @@ class Script_Helper {
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
         $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
-        
+
         if ( 'kilometers' == $radius_search_unit ) {
             $miles = __( ' Kilometers', 'directorist' );
         } else {
             $miles = __( ' Miles', 'directorist' );
         }
-        
+
         $data = array(
             'i18n_text'   => array(
                 'category_selection' => ! empty( $category_placeholder ) ? $category_placeholder : __( 'Select a category', 'directorist' ),
@@ -82,6 +82,7 @@ class Script_Helper {
             'default_val'              => $default_radius_distance,
             'countryRestriction'       => get_directorist_option( 'country_restriction' ),
             'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
+            'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),
         );
         return $data;
     }
@@ -132,11 +133,14 @@ class Script_Helper {
         // listings data
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
         $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
-        
+
         $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
+            'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
+            'home_url'                    => home_url(),
+            'rest_url'                    => rest_url(),
             'nonceName'                   => 'atbdp_nonce_js',
             'login_alert_message'         => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                         => is_rtl() ? 'true' : 'false',
@@ -169,8 +173,8 @@ class Script_Helper {
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
             'enable_reviewer_content'     => $enable_reviewer_content,
-            'add_listing_data'            => self::get_add_listings_data()
-
+            'add_listing_data'            => self::get_add_listings_data(),
+            'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
         );
 
         return $data;
@@ -269,8 +273,6 @@ class Script_Helper {
 
     // ez_media_uploader
     public static function is_enable__ez_media_uploader() {
-        
-        
         return true;
     }
 
@@ -279,7 +281,7 @@ class Script_Helper {
     public static function is_enable_map( string $map_type = '' ) {
         $map_type_option = get_directorist_option('select_listing_map', 'openstreet');
         if ( ! empty( $map_type ) && $map_type !== $map_type_option ) { return false; }
-        
+
         return true;
     }
 

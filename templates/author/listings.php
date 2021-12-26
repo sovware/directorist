@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.7
  */
 
 use \Directorist\Helper;
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-			<div class="<?php Helper::directorist_column( ['lg-3', 'md-4', 'sm-6'] ); ?>">
+			<div class="<?php Helper::directorist_column( $author->columns ); ?>">
 				<?php $listings->loop_template( 'grid', $listing_id ); ?>
 			</div>
 

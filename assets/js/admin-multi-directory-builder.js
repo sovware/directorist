@@ -948,6 +948,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     event: 'input'
   },
   created: function created() {
+    if (typeof this.value !== 'string') {
+      return;
+    }
+
     this.local_value = this.value;
   },
   watch: {
@@ -974,7 +978,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      local_value: '#fff',
+      local_value: '#000000',
       validationLog: {}
     };
   }
@@ -1047,6 +1051,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     prepareExportFile: function prepareExportFile() {
       var data = new FormData();
       data.append('action', this.prepareExportFileFrom);
+
+      if (this.nonce && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.nonce) === 'object' && this.nonce.key && this.nonce.value) {
+        data.append(this.nonce.key, this.nonce.value);
+      }
 
       if (this.isPreparingExportFile) {
         console.log('Please wait...');
@@ -1595,6 +1603,9 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
     validation: {
+      required: false
+    },
+    nonce: {
       required: false
     }
   }
@@ -14267,8 +14278,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     saveData: function saveData() {
       var options = this.$store.state.options;
       var fields = this.$store.state.fields;
+      var submission_url = this.$store.state.config.submission.url;
+      var submission_with = this.$store.state.config.submission.with;
       var form_data = new FormData();
-      form_data.append('action', 'save_post_type_data');
+
+      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === 'object') {
+        for (var _data_key2 in submission_with) {
+          form_data.append(_data_key2, submission_with[_data_key2]);
+        }
+      }
 
       if (this.listing_type_id) {
         form_data.append('listing_type_id', this.listing_type_id);
@@ -14301,7 +14319,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       this.footer_actions.save.isDisabled = true;
       var self = this; // return;
 
-      axios.post(ajax_data.ajax_url, form_data).then(function (response) {
+      axios.post(submission_url, form_data).then(function (response) {
         self.footer_actions.save.showLoading = false;
         self.footer_actions.save.isDisabled = false; // console.log( response );
         // return;

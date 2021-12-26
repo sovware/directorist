@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.0.5.6
+ * Version: 7.0.7
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -213,6 +213,8 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
+			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
+
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
 			// ATBDP_Listing_Type_Manager
@@ -243,7 +245,7 @@ final class Directorist_Base
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			
+
 			if( is_admin() ){
 				new ATBDP_Extensions();
 			}
@@ -291,6 +293,30 @@ final class Directorist_Base
 		}
 
 		return self::$instance;
+	}
+
+	// on_install_update_actions
+	public function on_install_update_actions() {
+		$install_event_key = get_directorist_option( 'directorist_installed_event_key', '', true );
+
+		// Execute directorist_installed hook if plugin gets installed first time
+		if ( empty( $install_event_key ) ) {
+			update_directorist_option( 'directorist_installed_event_key', ATBDP_VERSION );
+			update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
+
+			do_action( 'directorist_installed' );
+			return;
+		}
+
+		// Prevent executing directorist_updated hook if plugin is not updated
+		$update_event_key = get_directorist_option( 'directorist_updated_event_key', '', true );
+		if ( $update_event_key === ATBDP_VERSION ) {
+			return;
+		}
+
+		// Execute directorist_updated hook if plugin gets updated
+		do_action( 'directorist_updated' );
+		update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
 	}
 
 	// show_flush_messages
@@ -457,6 +483,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
+			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
@@ -1122,7 +1149,7 @@ final class Directorist_Base
 							echo $count_review;
 							?></h4>
 					</div>
-					<?php if (atbdp_logged_in_user() || $guest_review) { ?>
+					<?php if (is_user_logged_in() || $guest_review) { ?>
 						<label for="review_content"
 							   class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
 					<?php } ?>
@@ -1137,7 +1164,7 @@ final class Directorist_Base
 			</div><!-- end .atbd_review_module -->
 			<?php
 			// check if the user is logged in and the current user is not the owner of this listing.
-			if (atbdp_logged_in_user() || $guest_review) {
+			if (is_user_logged_in() || $guest_review) {
 				global $wpdb;
 				// if the current user is NOT the owner of the listing print review form
 				// get the settings of the admin whether to display review form even if the user is the owner of the listing.
@@ -1209,7 +1236,7 @@ final class Directorist_Base
 								</div>
 								<?php } ?>
 								<?php
-								if ($guest_review && !atbdp_logged_in_user()){
+								if ($guest_review && !is_user_logged_in()){
 								?>
 								<div class="form-group">
 									<label for="guest_user_email"><?php

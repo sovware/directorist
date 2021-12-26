@@ -1929,9 +1929,10 @@ class Directorist_Listings {
 		}
 
 		public function search_form_template() {
+			$search_field_atts = array_intersect_key( $this->atts, array_flip( preg_grep("/^filter_/", array_keys( $this->atts ) ) ) );
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
 			);
 			Helper::get_template( 'archive/search-form', $args );
 		}

@@ -1929,7 +1929,11 @@ class Directorist_Listings {
 		}
 
 		public function search_form_template() {
-			$search_field_atts = array_intersect_key( $this->atts, array_flip( preg_grep("/^filter_/", array_keys( $this->atts ) ) ) );
+			// only catch atts with the prefix 'filter_'
+			$search_field_atts = array_filter( $this->atts, function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			}, ARRAY_FILTER_USE_KEY );
+
 			$args = array(
 				'listings'   => $this,
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),

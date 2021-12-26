@@ -11,7 +11,6 @@ class Multi_Directory_Manager
     public static $layouts = [];
     public static $config  = [];
 
-    public static $builder_data_sanitizer = null;
     public static $migration = null;
 
     public $default_form      = [];
@@ -20,15 +19,13 @@ class Multi_Directory_Manager
 
     public function __construct() {
         self::$migration = new Multi_Directory_Migration([ 'multi_directory_manager' => $this ]);
-        self::$builder_data_sanitizer = new Builder_Data_Sanitizer();
     }
 
     // run
     public function run() {
-        add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'init_sanitize_builder_data_structure'] );
-        add_action( 'init', [$this, 'update_default_directory_type_option'] );
         add_action( 'init', [$this, 'register_terms'] );
+        add_action( 'init', [$this, 'setup_migration'] );
+        add_action( 'init', [$this, 'update_default_directory_type_option'] );
 
         if ( ! is_admin() ) {
             return;
@@ -44,8 +41,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
-        add_action( 'wp_ajax_directorist_sanitize_builder_data_structure', [ $this, 'handle_sanitize_builder_data_structure_request' ] );
-        
+
         add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
     }
 
@@ -90,24 +86,7 @@ class Multi_Directory_Manager
                 update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
             }
         }
-        
-    }
 
-    // init_sanitize_builder_data_structure
-    public function init_sanitize_builder_data_structure() {
-        $is_sanitized = get_directorist_option( 'sanitized_builder_data_structure', false, true );
-
-        if ( ! empty( $is_sanitized ) ) { return; }
-        self::$builder_data_sanitizer->sanitize_builder_data_structure();
-
-        update_directorist_option( 'sanitized_builder_data_structure', true );
-    }
-
-    // handle_sanitize_builder_data_structure_request
-    public function handle_sanitize_builder_data_structure_request() {
-        self::$builder_data_sanitizer->sanitize_builder_data_structure();
-
-        wp_send_json_success(__('The data has been updated successfully', 'directorist'));
     }
 
     // update_default_directory_type_option
@@ -156,16 +135,16 @@ class Multi_Directory_Manager
         if ( ! count( $terms ) ) { return $options; }
 
         foreach( $terms as $term ) {
-            $options[] = [ 
+            $options[] = [
                 'id'    => $term->term_id,
                 'value' => $term->term_id,
                 'label' => $term->name,
             ];
         }
 
-        return $options; 
+        return $options;
     }
-    
+
     // get_assign_to_field
     public function get_assign_to_field( array $args = [] ) {
         $default = [
@@ -204,7 +183,7 @@ class Multi_Directory_Manager
 
         $migrated = get_option( 'atbdp_migrated', false );
         $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
-        
+
         if ( $need_migration ) {
             $this->prepare_settings();
             self::$migration->migrate();
@@ -212,7 +191,7 @@ class Multi_Directory_Manager
         }
 
         $need_import_default = ( ! self::has_multidirectory() ) ? true : false;
-        
+
         if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
             $this->prepare_settings();
             $this->import_default_directory();
@@ -251,6 +230,24 @@ class Multi_Directory_Manager
 
     // handle_force_migration
     public function handle_force_migration() {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
         wp_send_json( $this->run_force_migration() );
     }
 
@@ -262,10 +259,10 @@ class Multi_Directory_Manager
         if ( $general_directory ) {
             $args[ 'term_id' ] = $general_directory['term_id'];
         }
-        
+
         $this->prepare_settings();
         $migration_status = self::$migration->migrate( $args );
-        
+
         $status = [
             'success' => $migration_status['success'],
             'message' => ( $migration_status ) ? __( 'Migration Successful', 'directorist' ) : __( 'Migration Failed', 'directorist' ),
@@ -294,7 +291,7 @@ class Multi_Directory_Manager
             $listings = new \WP_Query([
                 'post_type' => ATBDP_POST_TYPE,
                 'status'    => 'publish',
-                'per_page'  => -1,                
+                'per_page'  => -1,
             ]);
 
             if ( $listings->have_posts() ) {
@@ -303,11 +300,41 @@ class Multi_Directory_Manager
 
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
                 }
+                wp_reset_postdata();
             }
         }
     }
 
     public function save_imported_post_type_data() {
+
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'access_denied' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
         $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
         $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
@@ -341,7 +368,7 @@ class Multi_Directory_Manager
 
             $response['status']['error_count']++;
         }
-    
+
         // Send respone if has error
         if ( $response['status']['error_count'] ) {
             $response['status']['success'] = false;
@@ -355,8 +382,8 @@ class Multi_Directory_Manager
         }
 
         $this->prepare_settings();
-        
-        $add_directory = self::add_directory([ 
+
+        $add_directory = self::add_directory([
             'term_id'        => $term_id,
             'directory_name' => $directory_name,
             'fields_value'   => $file_contents,
@@ -397,11 +424,39 @@ class Multi_Directory_Manager
         }
 
         return $new_fields;
-    }   
+    }
 
     // save_post_type_data
     public function save_post_type_data()
     {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'nonce_is_missing' => [
+                            'type' => 'error',
+                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'access_denied' => [
+                            'type' => 'error',
+                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                        ],
+                    ],
+                ],
+            ], 200);
+        }
+
         if ( empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [
@@ -446,7 +501,7 @@ class Multi_Directory_Manager
             $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
             $add_directory['redirect_url'] = $redirect_url;
         }
-        
+
         $add_directory['term_id'] = $add_directory['term_id'];
 
         wp_send_json( $add_directory );
@@ -631,7 +686,7 @@ class Multi_Directory_Manager
                                 'value'  => 'pricing',
                                 'rules' => [
                                     'unique' => true,
-                                    'required' => true,
+                                    'required' => false,
                                 ]
                             ],
                             'label' => [
@@ -728,12 +783,12 @@ class Multi_Directory_Manager
                                 'type'  => 'hidden',
                                 'value' => [
                                     'price_unit' => [
-                                        'label'     => __( 'Price Unit', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Unit', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_unit',
                                     ],
                                     'price_range' => [
-                                        'label'     => __( 'Price Range', 'directorist-pricing-plans' ),
+                                        'label'     => __( 'Price Range', 'directorist' ),
                                         'type'      => 'text',
                                         'field_key' => 'price_range',
                                     ],
@@ -1005,7 +1060,7 @@ class Multi_Directory_Manager
 
 
                         ],
-                    ],   
+                    ],
 
                     'map' => [
                         'label' => 'Map',
@@ -1161,8 +1216,11 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Only For Admin Use', 'directorist' ),
                                 'value' => false,
                             ],
-
-
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
+                            ],
                         ],
                     ],
 
@@ -1202,8 +1260,11 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Only For Admin Use', 'directorist' ),
                                 'value' => false,
                             ],
-
-
+                            'whatsapp' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Link with WhatsApp', 'directorist' ),
+                                'value' => false,
+                            ],
                         ],
                     ],
 
@@ -2059,181 +2120,11 @@ class Multi_Directory_Manager
                                 'value' => 'custom-file',
                             ]),
                             'file_type' => [
-                                'type'  => 'select',
-                                'label' => __( 'Chose a file type', 'directorist' ),
-                                'value' => '',
-                                'options' => [
-                                    [
-                                        'label' => __('All Types', 'directorist'),
-                                        'value' => 'all_types',
-                                    ],
-                                    // Image Format
-                                    [
-                                        'label' => __('jpg', 'directorist'),
-                                        'value' => 'jpg',
-                                    ],
-                                    [
-                                        'label' => __('jpeg', 'directorist'),
-                                        'value' => 'jpeg',
-                                    ],
-                                    [
-                                        'label' => __('gif', 'directorist'),
-                                        'value' => 'gif',
-                                    ],
-                                    [
-                                        'label' => __('png', 'directorist'),
-                                        'value' => 'png',
-                                    ],
-                                    [
-                                        'label' => __('bmp', 'directorist'),
-                                        'value' => 'bmp',
-                                    ],
-                                    [
-                                        'label' => __('ico', 'directorist'),
-                                        'value' => 'ico',
-                                    ],
-                                    
-                                    // Video Format
-                                    [
-                                        'label' => __('asf', 'directorist'),
-                                        'value' => 'asf',
-                                    ],
-                                    [
-                                        'label' => __('flv', 'directorist'),
-                                        'value' => 'flv',
-                                    ],
-                                    [
-                                        'label' => __('avi', 'directorist'),
-                                        'value' => 'avi',
-                                    ],
-                                    [
-                                        'label' => __('mkv', 'directorist'),
-                                        'value' => 'mkv',
-                                    ],
-                                    [
-                                        'label' => __('mp4', 'directorist'),
-                                        'value' => 'mp4',
-                                    ],
-                                    [
-                                        'label' => __('mpeg', 'directorist'),
-                                        'value' => 'mpeg',
-                                    ],
-                                    [
-                                        'label' => __('mpg', 'directorist'),
-                                        'value' => 'mpg',
-                                    ],
-                                    [
-                                        'label' => __('wmv', 'directorist'),
-                                        'value' => 'wmv',
-                                    ],
-                                    [
-                                        'label' => __('3gp', 'directorist'),
-                                        'value' => '3gp',
-                                    ],
-                                    
-                                    // Audio Format
-                                    [
-                                        'label' => __('ogg', 'directorist'),
-                                        'value' => 'ogg',
-                                    ],
-                                    [
-                                        'label' => __('mp3', 'directorist'),
-                                        'value' => 'mp3',
-                                    ],
-                                    [
-                                        'label' => __('wav', 'directorist'),
-                                        'value' => 'wav',
-                                    ],
-                                    [
-                                        'label' => __('wma', 'directorist'),
-                                        'value' => 'wma',
-                                    ],
-                                    
-                                    // Text Format
-                                    [
-                                        'label' => __('css', 'directorist'),
-                                        'value' => 'css',
-                                    ],
-                                    [
-                                        'label' => __('csv', 'directorist'),
-                                        'value' => 'csv',
-                                    ],
-                                    [
-                                        'label' => __('htm', 'directorist'),
-                                        'value' => 'htm',
-                                    ],
-                                    [
-                                        'label' => __('html', 'directorist'),
-                                        'value' => 'html',
-                                    ],
-                                    [
-                                        'label' => __('txt', 'directorist'),
-                                        'value' => 'txt',
-                                    ],
-                                    [
-                                        'label' => __('rtx', 'directorist'),
-                                        'value' => 'rtx',
-                                    ],
-                                    [
-                                        'label' => __('vtt', 'directorist'),
-                                        'value' => 'vtt',
-                                    ],
-
-                                    // Application Format
-                                    [
-                                        'label' => __('doc', 'directorist'),
-                                        'value' => 'doc',
-                                    ],
-                                    [
-                                        'label' => __('docx', 'directorist'),
-                                        'value' => 'docx',
-                                    ],
-                                    [
-                                        'label' => __('odt', 'directorist'),
-                                        'value' => 'odt',
-                                    ],
-                                    [
-                                        'label' => __('pdf', 'directorist'),
-                                        'value' => 'pdf',
-                                    ],
-                                    [
-                                        'label' => __('pot', 'directorist'),
-                                        'value' => 'pot',
-                                    ],
-                                    [
-                                        'label' => __('ppt', 'directorist'),
-                                        'value' => 'ppt',
-                                    ],
-                                    [
-                                        'label' => __('pptx', 'directorist'),
-                                        'value' => 'pptx',
-                                    ],
-                                    [
-                                        'label' => __('rar', 'directorist'),
-                                        'value' => 'rar',
-                                    ],
-                                    [
-                                        'label' => __('rtf', 'directorist'),
-                                        'value' => 'rtf',
-                                    ],
-                                    [
-                                        'label' => __('swf', 'directorist'),
-                                        'value' => 'swf',
-                                    ],
-                                    [
-                                        'label' => __('xls', 'directorist'),
-                                        'value' => 'xls',
-                                    ],
-                                    [
-                                        'label' => __('xlsx', 'directorist'),
-                                        'value' => 'xlsx',
-                                    ],
-                                    [
-                                        'label' => __('gpx', 'directorist'),
-                                        'value' => 'gpx',
-                                    ],
-
-                                ],
+                                'type'        => 'select',
+                                'label'       => __( 'Select a file type', 'directorist' ),
+                                'description' => __( 'By selecting a file type you are going to allow your users to upload only that or those type(s) of file.', 'directorist' ),
+                                'value'       => 'image',
+                                'options'     => self::get_file_upload_field_options(),
                             ],
                             'file_size' => [
                                 'type'  => 'text',
@@ -2486,7 +2377,7 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
-                    'custom_content' => [ 
+                    'custom_content' => [
                         'type' => 'widget',
                         'label' => __( 'Custom Content', 'directorist' ),
                         'icon' => 'la la-align-right',
@@ -2510,7 +2401,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    'review' => [ 
+                    'review' => [
                         'type' => 'section',
                         'label' => __( 'Review', 'directorist' ),
                         'icon' => 'la la-star',
@@ -2867,7 +2758,7 @@ class Multi_Directory_Manager
                             ],
                         ]
                     ],
-                    
+
                     'text' => [
                         'options' => [
                             'label' => [
@@ -3035,7 +2926,7 @@ class Multi_Directory_Manager
                         ]
 
                     ],
-                    
+
                 ],
             ],
             'other_widgets' => [
@@ -3171,7 +3062,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             'posted_date' => [
                 'type' => "list-item",
                 'label' => __( "Posted Date", "directorist" ),
@@ -3504,7 +3395,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             // Custom Fields
             'text' => [
                 'type' => "list-item",
@@ -3533,7 +3424,7 @@ class Multi_Directory_Manager
                     ],
                 ],
             ],
-            
+
             'number' => [
                 'type' => "list-item",
                 'label' => __( "Number", "directorist" ),
@@ -4066,7 +3957,7 @@ class Multi_Directory_Manager
                 ],
                 'groupSettings' => [
                     'defaultGroupLabel' => 'Section',
-                    'disableTrashIfGroupHasWidgets' => [ 
+                    'disableTrashIfGroupHasWidgets' => [
                         [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
                     ],
                 ],
@@ -4155,7 +4046,7 @@ class Multi_Directory_Manager
                 'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
                 'value' => 'I agree to the %Privacy & Policy%',
             ],
-            
+
             'single_listings_contents' => [
                 'type'     => 'form-builder',
                 'widgets'  => $single_listings_contents_widgets,
@@ -4215,7 +4106,7 @@ class Multi_Directory_Manager
                                 ],
                             ],
                         ],
-                        
+
                         'show_if' => [
                             'where' => "enable_single_listing_page",
                             'conditions' => [
@@ -4457,7 +4348,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    
+
                     'listing_slider' => [
                         'type' => "thumbnail",
                         'label' => __( "Listings Slider", "directorist" ),
@@ -4504,7 +4395,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                    
+
                     'reviews' => [
                         'type' => "reviews",
                         'label' => __( "Listings Reviews", "directorist" ),
@@ -4600,7 +4491,7 @@ class Multi_Directory_Manager
             ] ),
 
         ]);
-        
+
         self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
             'general' => [
                 'label' => 'General',
@@ -4634,7 +4525,7 @@ class Multi_Directory_Manager
                             'preview_image',
                         ],
                     ],
-                    
+
                     'export_import' => [
                         'title'       => __('Export The Config File', 'directorist'),
                         'description' => __('Export all the form, layout and settings', 'directorist'),
@@ -4785,7 +4676,7 @@ class Multi_Directory_Manager
 
             ],
             'search_forms' => [
-                'label' => __( 'Search Forms', 'directorist' ),
+                'label' => __( 'Search Form', 'directorist' ),
                 'icon' => '<span class="uil uil-search"></span>',
                 'container' => 'wide',
                 'sections' => [
@@ -4843,10 +4734,13 @@ class Multi_Directory_Manager
             ],
         ];
 
-        self::$config = [
+		$config = [
             'submission' => [
                 'url' => admin_url('admin-ajax.php'),
-                'with' => [ 'action' => 'save_post_type_data' ],
+                'with' => [
+                    'action' => 'save_post_type_data',
+                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ],
             'fields_group' => [
                 'general_config' => [
@@ -4857,7 +4751,17 @@ class Multi_Directory_Manager
                     'preview_image',
                 ]
             ]
-        ];
+		];
+
+		/**
+		 * Filter directory builder `config` data.
+		 *
+		 * @since 7.0.5.*
+		 * TODO: Update with exact version number.
+		 */
+		$config = apply_filters( 'directorist_builder_config', $config );
+
+        self::$config = $config;
     }
 
     // add_menu_pages
@@ -4911,7 +4815,9 @@ class Multi_Directory_Manager
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
-            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : default_directory_type();
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : 0;
+            $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $listing_type_id;
+
             $this->update_fields_with_old_data( $listing_type_id );
 
             $cptm_data = [
@@ -4921,8 +4827,21 @@ class Multi_Directory_Manager
                 'options' => $this->options,
                 'id'      => $listing_type_id,
             ];
-            
-            wp_localize_script('directorist-multi-directory-builder', 'cptm_data', $cptm_data);
+
+			/**
+			 * Filter directory builder's all configuration data.
+			 *
+			 * @since 7.0.5.*
+			 * TODO: Update with exact version number.
+			 */
+			$cptm_data = apply_filters( 'directorist_builder_localize_data', $cptm_data );
+
+            wp_localize_script(
+				'directorist-multi-directory-builder',
+				'cptm_data',
+				$cptm_data
+			);
+
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;
         }
@@ -4935,8 +4854,12 @@ class Multi_Directory_Manager
     // update_fields_with_old_data
     public function update_fields_with_old_data( $listing_type_id = 0 )
     {
-        // $listing_type_id = absint($_REQUEST['listing_type_id']);
-        $term      = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term($listing_type_id, 'atbdp_listing_types');
+
+        if ( is_wp_error( $term ) || empty( $term ) ) {
+            return;
+        }
+
         $term_name = ( $term ) ? $term->name : '';
         $term_id   = ( $term ) ? $term->term_id : 0;
 
@@ -4944,7 +4867,6 @@ class Multi_Directory_Manager
 
         $all_term_meta = get_term_meta( $term_id );
         $test_migration = apply_filters( 'atbdp_test_migration', false );
-        // $test_migration = apply_filters( 'atbdp_test_migration', true );
 
         if ( $test_migration ) {
             $all_term_meta = self::$migration->get_fields_data();
@@ -5088,12 +5010,51 @@ class Multi_Directory_Manager
         wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
         wp_enqueue_script('atbdp_admin_app');
     }
+
+	/**
+	 * Get the upload field options map.
+	 *
+	 * @return array
+	 */
+	private static function get_file_upload_field_options() {
+		$options = [
+			[
+				'label' => __( 'All types', 'directorist' ),
+				'value' => 'all_types',
+			],
+			[
+				'label' => __( 'Image types', 'directorist' ),
+				'value' => 'image',
+			],
+			[
+				'label' => __( 'Audio types', 'directorist' ),
+				'value' => 'audio',
+			],
+			[
+				'label' => __( 'Video types', 'directorist' ),
+				'value' => 'video',
+			],
+			[
+				'label' => __( 'Document types', 'directorist' ),
+				'value' => 'document',
+			],
+		];
+
+		foreach ( directorist_get_supported_file_types() as $file_type ) {
+			$options[] = [
+				'label' => $file_type,
+				'value' => $file_type,
+			];
+		}
+
+		return $options;
+	}
 }
 
 
 // include_files
 function include_files() {
-   
+
     if ( ! trait_exists( 'Directorist\Multi_Directory_Helper' ) ) {
         $file = trailingslashit( dirname( __FILE__ ) )  . 'trait-multi-directory-helper.php';
         if ( file_exists( $file ) ) {

@@ -118,7 +118,20 @@ function register_category( $categories ) {
 		)
 	);
 }
-add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
+
+/**
+ * Register directorist blocks category with backward compatibility.
+ *
+ * TODO: delete backward compatibility in the future.
+ */
+global $wp_version;
+if ( version_compare( $wp_version, '5.8', '>=' ) ) {
+	// For 5.8+
+	add_filter( 'block_categories_all', __NAMESPACE__ . '\register_category' );
+} else {
+	// Before 5.8
+	add_filter( 'block_categories', __NAMESPACE__ . '\register_category' );
+}
 
 /**
  * Single listing dynamic render callback.

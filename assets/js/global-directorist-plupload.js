@@ -106,49 +106,45 @@ var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get
 var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 var $ = jQuery; // Init
 
-jQuery(document).ready(init);
-window.addEventListener('directorist-reload-plupload', init);
+if (atbdp_plupload_params) {
+  jQuery(document).ready(init);
+  window.addEventListener('directorist-reload-plupload', init);
+}
 
 function init() {
   atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');
   atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
 
   if ($(".plupload-upload-uic").exists()) {
-    var pconfig = false;
-    var msgErr = '';
-    var post_id = ''; // set the post id
+    var pluploadConfig, msgErr, post_id; // set the post id
 
     if (jQuery("#atbdpectory-add-post input[name='ID']").length) {
-      var post_id = jQuery("#atbdpectory-add-post input[name='ID']").val(); // frontend
+      post_id = jQuery("#atbdpectory-add-post input[name='ID']").val(); // frontend
     } else {
       post_id = jQuery("#post input[name='post_ID']").val(); // backend
     }
 
     $(".plupload-upload-uic").each(function (ind, el) {
-      /* setTimeout(() => {
-              var chlNod = el.childNodes;
-              chlNod[13].innerHTML = '';
-          }, 200)*/
       var $this = $(this);
-      var id1 = $this.attr("id");
-      var imgId = id1.replace("plupload-upload-ui", "");
+      var imgId = $this.attr("id").replace("plupload-upload-ui", "");
+      var $errorHolder = jQuery('#' + imgId + 'upload-error');
       plu_show_thumbs(imgId);
-      pconfig = JSON.parse(atbdp_plupload_params.base_plupload_config);
-      pconfig["browse_button"] = imgId + pconfig["browse_button"];
-      pconfig["container"] = imgId + pconfig["container"];
+      pluploadConfig = JSON.parse(atbdp_plupload_params.base_plupload_config);
+      pluploadConfig["browse_button"] = imgId + pluploadConfig["browse_button"];
+      pluploadConfig["container"] = imgId + pluploadConfig["container"];
 
       if (jQuery('#' + imgId + 'dropbox').length) {
-        pconfig["drop_element"] = imgId + 'dropbox';
+        pluploadConfig["drop_element"] = imgId + 'dropbox';
       } // only add drop area if there is one
 
 
-      pconfig["file_data_name"] = imgId + pconfig["file_data_name"];
-      pconfig["multipart_params"]["imgid"] = imgId;
-      pconfig["multipart_params"]["post_id"] = post_id;
-      pconfig["max_file_size"] = $('#' + imgId + '_file_size').val(); //pconfig["multipart_params"]["_ajax_nonce"] = $this.find(".ajaxnonceplu").attr("id").replace("ajaxnonceplu", "");
+      pluploadConfig["file_data_name"] = imgId + pluploadConfig["file_data_name"];
+      pluploadConfig["multipart_params"]["imgid"] = imgId;
+      pluploadConfig["multipart_params"]["post_id"] = post_id;
+      pluploadConfig["max_file_size"] = $('#' + imgId + '_file_size').val();
 
       if ($this.hasClass("plupload-upload-uic-multiple")) {
-        pconfig["multi_selection"] = true;
+        pluploadConfig["multi_selection"] = true;
       }
 
       var allowed_exts = jQuery('#' + imgId + '_allowed_types').val();
@@ -160,15 +156,13 @@ function init() {
 
       if (allowed_exts && allowed_exts != '') {
         var txt_all_files = typeof atbdp_params.txt_all_files != 'undefined' && atbdp_params.txt_all_files != '' ? atbdp_params.txt_all_files : 'Allowed files';
-        pconfig['filters'] = [{
+        pluploadConfig['filters'] = [{
           'title': txt_all_files,
           'extensions': allowed_exts
         }];
       }
 
-      var uploader = new plupload.Uploader(pconfig);
-      uploader.bind('Init', function (up) {//alert(1);
-      });
+      var uploader = new plupload.Uploader(pluploadConfig);
       uploader.bind('Init', function (up, params) {
         if (uploader.features.dragdrop) {
           var drop_id = imgId + 'dropbox';
@@ -186,38 +180,35 @@ function init() {
       });
       uploader.init();
       uploader.bind('Error', function (up, files) {
-        if (files.code == -600) {
-          jQuery('#' + imgId + 'upload-error').addClass('upload-error');
+        var errorMessage;
+        $errorHolder.addClass('upload-error');
 
+        if (files.code == -600) {
           if (typeof atbdp_params.err_max_file_size != 'undefined' && atbdp_params.err_max_file_size != '') {
-            msgErr = atbdp_params.err_max_file_size;
+            errorMessage = atbdp_params.err_max_file_size;
           } else {
-            msgErr = 'File size error : You tried to upload a file over %s';
+            errorMessage = 'File size error : You tried to upload a file over %s';
           }
 
-          msgErr = msgErr.replace("%s", $('#' + imgId + '_file_size').val());
-          jQuery('#' + imgId + 'upload-error').html(msgErr);
+          errorMessage = errorMessage.replace("%s", $('#' + imgId + '_file_size').val());
         } else if (files.code == -601) {
-          jQuery('#' + imgId + 'upload-error').addClass('upload-error');
-
           if (typeof atbdp_params.err_file_type != 'undefined' && atbdp_params.err_file_type != '') {
-            msgErr = atbdp_params.err_file_type;
+            errorMessage = atbdp_params.err_file_type;
           } else {
-            msgErr = 'File type error. Allowed file types: %s';
+            errorMessage = 'File type error. Allowed file types: %s';
           }
 
           if (imgId == 'post_images') {
             var txtReplace = allowed_exts != '' ? "." + allowed_exts.replace(/,/g, ", .") : '*';
-            msgErr = msgErr.replace("%s", txtReplace);
+            errorMessage = errorMessage.replace("%s", txtReplace);
           } else {
-            msgErr = msgErr.replace("%s", jQuery("#" + imgId + "_allowed_types").attr('data-exts'));
+            errorMessage = errorMessage.replace("%s", jQuery("#" + imgId + "_allowed_types").attr('data-exts'));
           }
-
-          jQuery('#' + imgId + 'upload-error').html(msgErr);
         } else {
-          jQuery('#' + imgId + 'upload-error').addClass('upload-error');
-          jQuery('#' + imgId + 'upload-error').html(files.message);
+          errorMessage = files.message;
         }
+
+        $errorHolder.html(errorMessage);
       }); //a file was added in the queue
       //totalImg = atbdp_plupload_params.totalImg;
       //limitImg = atbdp_plupload_params.image_limit;
@@ -225,8 +216,7 @@ function init() {
       uploader.bind('FilesAdded', function (up, files) {
         var totalImg = parseInt(jQuery("#" + imgId + "totImg").val());
         var limitImg = parseInt(jQuery("#" + imgId + "image_limit").val());
-        jQuery('#' + imgId + 'upload-error').html('');
-        jQuery('#' + imgId + 'upload-error').removeClass('upload-error');
+        $errorHolder.html('').removeClass('upload-error');
 
         if (limitImg && $this.hasClass("plupload-upload-uic-multiple") && limitImg > 0) {
           if (totalImg >= limitImg && limitImg > 0) {
@@ -242,8 +232,7 @@ function init() {
             }
 
             msgErr = msgErr.replace("%s", limitImg);
-            jQuery('#' + imgId + 'upload-error').addClass('upload-error');
-            jQuery('#' + imgId + 'upload-error').html(msgErr);
+            $errorHolder.addClass('upload-error').html(msgErr);
             return false;
           }
 
@@ -260,8 +249,7 @@ function init() {
             }
 
             msgErr = msgErr.replace("%s", limitImg);
-            jQuery('#' + imgId + 'upload-error').addClass('upload-error');
-            jQuery('#' + imgId + 'upload-error').html(msgErr);
+            $errorHolder.addClass('upload-error').html(msgErr);
             return false;
           }
         }
@@ -280,15 +268,18 @@ function init() {
       var i = 0;
       var indexes = new Array();
       uploader.bind('FileUploaded', function (up, file, response) {
-        //up.removeFile(up.files[0]); // remove images
+        response = JSON.parse(response["response"]);
+
+        if (!response.success) {
+          $errorHolder.addClass('upload-error').html(response.data);
+          return;
+        } //up.removeFile(up.files[0]); // remove images
+
+
         var totalImg = parseInt(jQuery("#" + imgId + "totImg").val());
         indexes[i] = up;
-        clearInterval(timer);
-        timer = setTimeout(function () {//atbdp_remove_file_index(indexes);
-        }, 1000);
         i++;
-        $('#' + file.id).fadeOut();
-        response = response["response"]; // add url to the hidden field
+        $('#' + file.id).fadeOut(); // add url to the hidden field
 
         if ($this.hasClass("plupload-upload-uic-multiple")) {
           totalImg++;
@@ -297,20 +288,21 @@ function init() {
           var v1 = $.trim($("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val());
 
           if (v1) {
-            v1 = v1 + "::" + response;
+            v1 = v1 + "::" + response.data;
           } else {
-            v1 = response;
+            v1 = response.data;
           }
 
           $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(v1); //console.log(v1);
         } else {
           // single
-          $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(response + ""); //console.log(response);
+          $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(response.data + ""); //console.log(response);
         } // show thumbs
 
 
         plu_show_thumbs(imgId);
       });
+      Error;
     });
   }
 }
@@ -531,40 +523,118 @@ function gd_set_image_meta(input_id, order_id) {
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data */
+/*! exports provided: get_dom_data, convertToSelect2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
-  if (!dom_content.length) {
+var $ = jQuery;
+
+function get_dom_data(key, parent) {
+  var elmKey = 'directorist-dom-data-' + key;
+  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
+
+  if (!dataElm) {
     return '';
   }
 
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
+  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
 
-  if (!terget_content) {
+  try {
+    var dataValue = atob(dataElm[0].dataset.value);
+    dataValue = JSON.parse(dataValue);
+    return dataValue;
+  } catch (error) {
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
+    }
+
     return '';
   }
+}
 
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
+function convertToSelect2(field) {
+  if (!field) {
+    return;
   }
 
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
+  if (!field.elm) {
+    return;
   }
 
-  return dom_data;
+  if (!field.elm.length) {
+    return;
+  }
+
+  var default_args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      // We only really care if there is an field to pull classes from
+      if (!data.field) {
+        return data.text;
+      }
+
+      var $field = $(data.field);
+      var $wrapper = $('<span></span>');
+      $wrapper.addClass($field[0].className);
+      $wrapper.text(data.text);
+      return $wrapper;
+    }
+  };
+  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+  var options = field.elm.find('option');
+  var placeholder = options.length ? options[0].innerHTML : '';
+
+  if (placeholder.length) {
+    args.placeholder = placeholder;
+  }
+
+  field.elm.select2(args);
 }
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ })
 

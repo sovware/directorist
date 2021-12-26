@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.0.5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -20,9 +20,9 @@ $searchform->load_radius_search_scripts( $data );
 	<?php endif; ?>
 
 	<div class="directorist-range-slider-wrap">
-		<div id="atbdp-range-slider"></div>
+		<div class="atbdp-range-slider"></div>
 		<p class="atbd-current-value"></p>
 		<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo esc_attr( $value ); ?>" />
 	</div>
-	
+
 </div>

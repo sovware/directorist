@@ -590,16 +590,20 @@
           line-height: 35px;
           width: 35px;
           text-align: center;
-          background-color: #444752 !important;
+          background-color: #f3f3f3 !important;
           border-radius: 4px;
-          color: #ffffff !important;
+          color: #000 !important;
           overflow: hidden;
-          transition: all ease-in-out 300ms !important;
+          transition: 0.3s ease !important;
 
           span {
             font-family: "Font Awesome 5 Brands";
             font-weight: 900;
             font-size: 15px;
+          }
+          &:hover{
+              background: #000 !important;
+              color: #fff !important;
           }
         }
       }
@@ -866,6 +870,20 @@
   }
 }
 
+.widget .default-ad-search{
+  .directorist-advanced-filter__basic{
+    display: block;
+    .directorist-advanced-filter__basic--element{
+      width: 100%;
+      flex: 0 0 100%;
+      .directorist-search-field{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  }
+}
+
 .directorist-sidebar {
   .atbd_widget .default-ad-search {
     .custom-control {
@@ -964,8 +982,13 @@
       }
 
       &.submit_btn{
+        margin-bottom: -10px;
         .btn{
           font-size: 15px;
+          margin-bottom: 10px;
+          @media only screen and (max-width: 991px){
+            font-size: 14px;
+          }
         }
         #atbdp_reset{
           border: 1px solid #ececec !important;

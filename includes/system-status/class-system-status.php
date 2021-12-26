@@ -43,12 +43,6 @@ class ATBDP_Status
 
         <div class='postbox'>
         <?php 
-            $this->send_mail->send_email_to();
-        ?>
-        </div>
-
-        <div class='postbox'>
-        <?php 
             $this->custom_url->custom_link();
         ?>
         </div>

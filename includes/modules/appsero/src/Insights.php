@@ -39,9 +39,17 @@ class Insights {
     protected $client;
 
     /**
+     * @var boolean
+     */
+    private $plugin_data = false;
+
+
+    /**
      * Initialize the class
      *
-     * @param AppSero\Client
+     * @param      $client
+     * @param null $name
+     * @param null $file
      */
     public function __construct( $client, $name = null, $file = null ) {
 
@@ -61,6 +69,17 @@ class Insights {
      */
     public function hide_notice() {
         $this->show_notice = false;
+
+        return $this;
+    }
+
+    /**
+     * Add plugin data if needed
+     *
+     * @return \self
+     */
+    public function add_plugin_data() {
+        $this->plugin_data = true;
 
         return $this;
     }
@@ -222,7 +241,26 @@ class Insights {
             'ip_address'       => $this->get_user_ip_address(),
             'project_version'  => $this->client->project_version,
             'tracking_skipped' => false,
+            'is_local'         => $this->is_local_server(),
         );
+
+        $plugins_data = array();
+        foreach ( $all_plugins['active_plugins'] as $slug => $plugin) {
+
+            $slug = strstr( $slug, '/', true );
+            if( ! $slug )
+                continue;
+
+            $plugins_data[ $slug ] = array(
+                'name' => isset( $plugin['name'] ) ? $plugin['name'] : '',
+                'version' => isset( $plugin['version'] ) ? $plugin['version'] : '',
+            );
+        }
+
+        // Add Plugins
+        if( $this->plugin_data ) {
+            $data['plugins'] = $plugins_data;
+        }
 
         // Add metadata
         if ( $extra = $this->get_extra_data() ) {
@@ -317,9 +355,17 @@ class Insights {
      * @return boolean
      */
     private function is_local_server() {
-        return false;
 
-        $is_local = in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ) );
+        $host       = $_SERVER['HTTP_HOST'];
+        $ip         = $_SERVER['SERVER_ADDR'];
+        $is_local   = false;
+
+        if( in_array( $ip,array( '127.0.0.1', '::1' ) )
+            || ! strpos( $host, '.' )
+            || in_array( strrchr( $host, '.' ), array( '.test', '.testing', '.local', '.localhost', '.localdomain' ) )
+        ) {
+            $is_local = true;
+        }
 
         return apply_filters( 'appsero_is_local', $is_local );
     }
@@ -383,7 +429,7 @@ class Insights {
 
         $notice .= ' (<a class="' . $this->client->slug . '-insights-data-we-collect" href="#">' . $this->client->__trans( 'what we collect' ) . '</a>)';
         $notice .= '<p class="description" style="display:none;">' . implode( ', ', $this->data_we_collect() ) . '. No sensitive data is tracked. ';
-        $notice .= 'We are using Appsero to collect your data. <a href="' . $policy_url . '">Learn more</a> about how Appsero collects and handle your data.</p>';
+        $notice .= 'We are using Appsero to collect your data. <a href="' . $policy_url . '" target="_blank">Learn more</a> about how Appsero collects and handle your data.</p>';
 
         echo '<div class="updated"><p>';
             echo $notice;

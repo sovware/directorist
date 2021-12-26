@@ -190,5 +190,8 @@ export default {
         validation: {
             required: false,
         },
+        nonce: {
+            required: false,
+        },
     },
 }

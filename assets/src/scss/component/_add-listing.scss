@@ -41,6 +41,12 @@
       }
     }
   }
+  .directorist-alert-required{
+    display: block;
+    margin-top: 5px;
+    color: #E80000;
+    font-size: 13px;
+  }
 }
 
 /* ==========================
@@ -105,7 +111,9 @@
       font-weight: 700;
     }
   }
-
+  .directorist-form-element{
+    min-width: 100%;
+  }
   select.directorist-form-element {
     padding: 0 20px;
   }
@@ -250,6 +258,8 @@
 
 //add listing image upload
 .directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
   .ezmu__thumbnail-list-item {
     max-width: 300px;
     flex-basis: 300px;
@@ -321,6 +331,11 @@
         }
       }
     }
+  }
+
+  label{
+    line-height: 1.25;
+    margin-bottom: 0;
   }
 
   #listing_notifier {

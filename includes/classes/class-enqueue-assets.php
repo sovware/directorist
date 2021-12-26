@@ -159,7 +159,7 @@ class Enqueue_Assets {
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = [
+		/* $scripts['directorist-bootstrap'] = [
 			'file_name' => 'bootstrap',
 			'base_path' => DIRECTORIST_VENDOR_CSS,
 			'has_rtl'   => false,
@@ -167,7 +167,7 @@ class Enqueue_Assets {
 			'ver'       => self::$script_version,
 			'group'     => 'public', // public || admin  || global
 			'enable'    => false
-		];
+		]; */
 
 		$scripts['directorist-font-awesome'] = [
 			'file_name'      => 'font-awesome.min',
@@ -467,7 +467,7 @@ class Enqueue_Assets {
 
 		// Public
 		// ================================
-		$scripts['directorist-bootstrap'] = [
+		/* $scripts['directorist-bootstrap'] = [
 			'file_name' => 'bootstrap.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
 			'has_min'   => false,
@@ -476,9 +476,9 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => '',
 			'enable'    => false,
-		];
+		]; */
 
-		$scripts['directorist-grid'] = [
+		/* $scripts['directorist-grid'] = [
 			'file_name' => 'grid.min',
 			'base_path' => DIRECTORIST_VENDOR_JS,
 			'has_min'   => false,
@@ -487,7 +487,7 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section'   => '',
 			'enable'    => false,
-		];
+		]; */
 
 		$scripts['directorist-jquery-barrating'] = [
 			'file_name' => 'jquery.barrating.min',
@@ -647,11 +647,18 @@ class Enqueue_Assets {
 		];
 
 		$scripts['directorist-search-listing'] = [
-			'file_name' => 'public-search-listing',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
-			'section'   => 'search-form',
+			'file_name'      => 'public-search-listing',
+			'base_path'      => DIRECTORIST_JS,
+			'ver'            => self::$script_version,
+			'group'          => 'public', // public || admin  || global
+			'section'        => 'search-form',
+			'fource_enqueue' => is_singular( ATBDP_POST_TYPE ),
+			'localize_data'  => [
+				'object_name' => 'atbdp_search_listing',
+				'data'        => Script_Helper::get_search_script_data([
+					'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
+				]),
+			],
 		];
 
 		$scripts['directorist-search-form-listing'] = [
@@ -727,13 +734,6 @@ class Enqueue_Assets {
 			'group'     => 'public', // public || admin  || global
 			'section' => '__',
 			'enable'  => Script_Helper::is_enable_map( 'google' ),
-		];
-
-		$scripts['directorist-pure-select-public'] = [
-			'file_name' => 'global-pure-select',
-			'base_path' => DIRECTORIST_JS,
-			'ver'       => self::$script_version,
-			'group'     => 'public', // public || admin  || global
 		];
 
 		$scripts = array_merge( self::$js_scripts, $scripts);
@@ -926,6 +926,10 @@ class Enqueue_Assets {
 			'deps'      => [],
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
 		];
 
 		$scripts['directorist-map-view'] = [
@@ -1038,6 +1042,8 @@ class Enqueue_Assets {
 		// Other
 		self::enqueue_custom_color_picker_scripts();
 		// wp_enqueue_script( 'jquery' );
+		wp_enqueue_script('jquery-masonry');
+
 
 		// CSS
 		self::register_css_scripts();

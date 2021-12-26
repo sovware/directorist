@@ -80,7 +80,7 @@
 
                             printf( '<select name="custom_field[%d]" class="form-control directory_field">', $post->ID );
                             if( ! empty( $field_meta['allow_null'][0] ) ) {
-                                printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
+                                printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'directorist' ).' -' );
                             }
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
@@ -143,22 +143,22 @@
                         case 'date'  :
                             echo '<div>';
 
-                            printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
+                            printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
                             echo '</div>';
                             break;
 
                         case 'color'  :
                             echo '<div>';
 
-                            echo ' <script> jQuery(document).ready(function($){ $(".my-color-field").wpColorPicker().empty(); }); </script>';
-                            printf( '<input type="text" name="custom_field[%d]" id="color_code" class="my-color-field" value="%s"/>', $post->ID, $value );
+                            echo ' <script> jQuery(document).ready(function($){ $(".directorist-color-field-js").wpColorPicker().empty(); }); </script>';
+                            printf( '<input type="text" name="custom_field[%d]" class="directorist-color-field-js" value="%s"/>', $post->ID, $value );
                             echo '</div>';
                             break;
 
                         case 'time'  :
                             echo '<div>';
 
-                            printf( '<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
+                            printf( '<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
                             echo '</div>';
                             break;
 

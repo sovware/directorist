@@ -24,6 +24,7 @@
 
         // ajax action
         form_data.append('action', 'update_user_profile');
+        form_data.append( 'directorist_nonce', atbdp_public_data.directorist_nonce );
         if ( profileMediaUploader ) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
             if (hasValidFiles) {
@@ -84,6 +85,10 @@
                 console.log(response);
             }
         });
+        // remove notice after five second
+        setTimeout(() => {
+            $("#directorist-prifile-notice .directorist-alert").remove();
+        }, 5000);
 
         // prevent the from submitting
         return false;

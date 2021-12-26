@@ -99,13 +99,13 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
                 </div>
             <?php endif; ?>
 
-        <?php endwhile; ?>
+        <?php endwhile; 
+        wp_reset_postdata();
+        ?>
     </div>
     <?php } ?>
     <!-- end of the loop -->
 
-    <!-- Use reset postdata to restore orginal query -->
-    <?php wp_reset_postdata();
-
+    <?php 
     echo $args['after_widget'];
 }

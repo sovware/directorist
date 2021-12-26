@@ -292,14 +292,29 @@ class Directorist_Listing_Search_Form {
 			foreach ( $search_form_fields['groups'] as $group ) {
 				$section           = $group;
 				$section['fields'] = array();
+
 				foreach ( $group['fields'] as $field ) {
-					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+					$search_field = $search_form_fields['fields'][$field];
+
+					if ( $this->is_field_allowed_in_atts( $search_field['widget_name'] ) ) {
+						$section['fields'][ $field ] = $search_field;
+					}
 				}
+
 				$form_data[] = $section;
 			}
 		}
 
 		return $form_data;
+	}
+
+	public function is_field_allowed_in_atts( $widget_name ) {
+		$atts = ! empty( $this->atts[ 'filter_' . $widget_name ] ) ? $this->atts[ 'filter_' . $widget_name ] : '';
+
+		if ( 'no' == $atts ){
+			return false;
+		}
+		return true;
 	}
 
 	public function buttons_template() {
@@ -341,21 +356,8 @@ class Directorist_Listing_Search_Form {
 		return $ptype;
 	}
 
-	public function is_field_allowed_in_atts( $widget_name, $atts = [] ) {
-		$atts = ! empty( $this->atts[ 'filter_' . $widget_name ] ) ? $this->atts[ 'filter_' . $widget_name ] : '';
-		
-		if ( $atts && ( 'no' == $atts ) ){
-			return false;
-		}
-		return true;
-	}
-
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
-
-		if( ! $this->is_field_allowed_in_atts( $field_data['widget_name'] ) ) {
-			return;
-		}
 
 		if ( $this->is_custom_field( $field_data ) ) {
 			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';

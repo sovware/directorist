@@ -426,6 +426,14 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
+                    <label for="all_authors"><?php _e( 'All Authors', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='all_authors' class="w-switch" id='all_authors' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
                     <label for="terms_conditions"><?php _e( 'Terms & Conditions', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">

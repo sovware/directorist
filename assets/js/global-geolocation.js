@@ -116,7 +116,7 @@
   setTimeout(function () {
     if (adbdp_geolocation.select_listing_map === 'google') {
       (function () {
-        var x = document.querySelector('.location-name');
+        var locationInput = document.querySelector('.location-name');
         var get_lat = document.querySelector('#cityLat');
         var get_lng = document.querySelector('#cityLng');
 
@@ -124,7 +124,7 @@
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
           } else {
-            x.value = 'Geolocation is not supported by this browser.';
+            locationInput.value = 'Geolocation is not supported by this browser.';
           }
         }
 
@@ -139,19 +139,19 @@
         function showError(error) {
           switch (error.code) {
             case error.PERMISSION_DENIED:
-              x.value = 'User denied the request for Geolocation.';
+              locationInput.value = 'User denied the request for Geolocation.';
               break;
 
             case error.POSITION_UNAVAILABLE:
-              x.value = 'Location information is unavailable.';
+              locationInput.value = 'Location information is unavailable.';
               break;
 
             case error.TIMEOUT:
-              x.value = 'The request to get user location timed out.';
+              locationInput.value = 'The request to get user location timed out.';
               break;
 
             case error.UNKNOWN_ERROR:
-              x.value = 'An unknown error occurred.';
+              locationInput.value = 'An unknown error occurred.';
               break;
           }
         }
@@ -174,12 +174,12 @@
                 country = value[count - 1];
                 state = value[count - 2];
                 city = value[count - 3];
-                x.value = city;
+                locationInput.value = city;
               } else {
-                x.value = 'address not found';
+                locationInput.value = 'address not found';
               }
             } else {
-              x.value = "Geocoder failed due to: ".concat(status);
+              locationInput.value = "Geocoder failed due to: ".concat(status);
             }
           });
         }
@@ -199,18 +199,18 @@
                 country = value[count - 1];
                 state = value[count - 2];
                 city = value[count - 3];
-                x.value = city;
+                locationInput.value = city;
               } else {
-                x.value = 'address not found';
+                locationInput.value = 'address not found';
               }
             } else {
-              x.value = "Geocoder failed due to: ".concat(status);
+              locationInput.value = "Geocoder failed due to: ".concat(status);
             }
           });
         }
 
-        var get_loc_btn = document.querySelector('.directorist-filter-location-icon');
-        get_loc_btn.addEventListener('click', function () {
+        var get_loc_btn = $('.directorist-filter-location-icon');
+        get_loc_btn.on('click', function () {
           getLocation();
         });
       })();

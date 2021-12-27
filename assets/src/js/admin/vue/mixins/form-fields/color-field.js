@@ -12,6 +12,11 @@ export default {
     },
 
     created() {
+
+        if ( typeof this.value !== 'string' ) {
+            return;
+        }
+
         this.local_value = this.value;
     },
 
@@ -44,7 +49,7 @@ export default {
 
     data() {
         return {
-            local_value: '#fff',
+            local_value: '#000000',
             validationLog: {}
         }
     },

@@ -593,7 +593,8 @@ function admin_listing_form(directory_type) {
                 .find('#publishing-action')
                 .removeClass('directorist_disable');
 
-            window.dispatchEvent( new CustomEvent( 'directorist-reload-plupload' ) );
+            window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
+            window.dispatchEvent(new CustomEvent('directorist-type-change'));
 
             if ( response.data['required_js_scripts'] ) {
                 const scripts = response.data['required_js_scripts'];

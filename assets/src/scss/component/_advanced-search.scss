@@ -328,3 +328,8 @@
         }
     }
 }
+
+/* google map location suggestion container */
+.pac-container {
+    z-index: 99999 !important;
+}

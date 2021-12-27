@@ -97,8 +97,6 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../scss/component/add-listing.scss */ "./assets/src/scss/component/add-listing.scss");
-/* harmony import */ var _scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_component_add_listing_scss__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -107,9 +105,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-
 /* eslint-disable */
-
 var $ = jQuery;
 var localized_data = atbdp_public_data.add_listing_data;
 /* Show and hide manual coordinate input field */
@@ -339,8 +335,9 @@ $('#listing_t_c').on('click', function (e) {
   $('#tc_container').toggleClass('active');
 });
 $(function () {
-  $('#color_code2').wpColorPicker().empty();
-}); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+  $('.directorist-color-field-js').wpColorPicker().empty();
+});
+$('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
 $('#at_biz_dir-categories').on('change', function () {
   var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
@@ -375,6 +372,7 @@ $('#at_biz_dir-categories').on('change', function () {
       }
 
       atbdp_tooltip();
+      customFieldSeeMore();
     } else {
       $('.atbdp_category_custom_fields').empty();
     }
@@ -468,6 +466,13 @@ function setup_form_data(form_data, type, field) {
   }
 }
 
+function scrollToEl(selector) {
+  document.querySelector(selector).scrollIntoView({
+    block: 'start',
+    behavior: 'smooth'
+  });
+}
+
 function atbdp_element_value(element) {
   var field = $(element);
 
@@ -540,13 +545,16 @@ $('body').on('submit', formID, function (e) {
   }
 
   var form_data = new FormData();
+  form_data.append('action', 'add_listing_action');
+  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
   var field_list = [];
   var field_list2 = [];
   $('.directorist-form-submit__btn').addClass('atbd_loading');
-  form_data.append('action', 'add_listing_action');
   var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+  var frm_element = document.getElementById('directorist-add-listing-form');
   $.each(fieldValuePairs, function (index, fieldValuePair) {
-    var field = document.getElementsByName(fieldValuePair.name)[0];
+    var field__name = fieldValuePair.name;
+    var field = frm_element.querySelector('[name="' + field__name + '"]');
     var type = field.type;
     field_list.push({
       name: field.name
@@ -718,9 +726,9 @@ $('body').on('submit', formID, function (e) {
     url: localized_data.ajaxurl,
     data: form_data,
     success: function success(response) {
-      console.log(response); // return;
+      //console.log(response);
+      // return;
       // show the error notice
-
       $('.directorist-form-submit__btn').attr('disabled', false); // var is_pending = response ? '&' : '?';
 
       var is_pending = response && response.pending ? '&' : '?';
@@ -791,18 +799,22 @@ $('body').on('submit', formID, function (e) {
   });
 }); // Custom Field Checkbox Button More
 
-$(window).on('load', function () {
+function customFieldSeeMore() {
   if ($('.directorist-custom-field-btn-more').length) {
     $('.directorist-custom-field-btn-more').each(function (index, element) {
       var fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
       var customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
       $(customField).slice(20, customField.length).slideUp();
 
-      if (customField.length < 20) {
+      if (customField.length <= 20) {
         $(element).slideUp();
       }
     });
   }
+}
+
+$(window).on('load', function () {
+  customFieldSeeMore();
 });
 $('body').on('click', '.directorist-custom-field-btn-more', function (event) {
   event.preventDefault();
@@ -856,9 +868,7 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
       submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
     },
     success: function success(response) {
-      console.log({
-        response: response
-      });
+      //console.log({ response });
       submit_button.html(submit_button_default_html);
 
       if (response.loggedin) {
@@ -894,17 +904,6 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
     }
   });
 });
-
-/***/ }),
-
-/***/ "./assets/src/scss/component/add-listing.scss":
-/*!****************************************************!*\
-  !*** ./assets/src/scss/component/add-listing.scss ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

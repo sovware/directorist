@@ -193,6 +193,9 @@ MarkerLabel.prototype.draw = function () {
    *  @since    5.0.0
    */
   var at_icon = [];
+  /* Use Default lat/lng in listings map view */
+
+  var defCordEnabled = atbdp_map.use_def_lat_long;
 
   function atbdp_rander_map($el) {
     $el.addClass('atbdp-map-loaded'); // var
@@ -221,21 +224,19 @@ MarkerLabel.prototype.draw = function () {
 
     $markers.each(function () {
       atbdp_add_marker($(this), map, infowindow);
-    }); // center map
+    });
+    var cord = {
+      lat: Number(atbdp_map.default_latitude) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : undefined,
+      lng: Number(atbdp_map.default_longitude) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude)
+    };
 
-    atbdp_center_map(map); // update map when contact details fields are updated in the custom post type 'acadp_listings'
+    if ($markers.length) {
+      cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
+      cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
+    } // center map
 
-    /* const mcOptions = {
-        imagePath: atbdp_map.plugin_url+'assets/images/m',
-        //cssClass: 'marker-cluster-shape',
-        styles:[{
-            url: atbdp_map.plugin_url+'assets/images/m1.png',
-            width: 53,
-            height:53,
-            textColor:"#ffffff",
-        }]
-    }; */
 
+    atbdp_center_map(map, cord);
     var mcOptions = new MarkerClusterer(map, [], {
       imagePath: atbdp_map.plugin_url + 'assets/images/m'
     });
@@ -303,6 +304,13 @@ MarkerLabel.prototype.draw = function () {
 
       google.maps.event.addListener(marker, 'click', function () {
         if (atbdp_map.disable_info_window === 'no') {
+          var marker_childrens = $($marker).children();
+
+          if (marker_childrens.length) {
+            var marker_content = marker_childrens[0];
+            $(marker_content).addClass('map-info-wrapper--show');
+          }
+
           infowindow.setContent($marker.html());
           infowindow.open(map, marker);
         }
@@ -316,29 +324,9 @@ MarkerLabel.prototype.draw = function () {
    */
 
 
-  function atbdp_center_map(map) {
-    // vars
-    var bounds = new google.maps.LatLngBounds(); // loop through all markers and create bounds
-
-    $.each(map.markers, function (i, marker) {
-      var latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-      bounds.extend(latlng);
-    }); // only 1 marker?
-
-    /* if (map.markers.length !== 1) {
-        // set center of map
-        map.setCenter(bounds.getCenter());
-        map.setZoom(parseInt(atbdp_map.zoom));
-    } else {
-        // fit to bounds
-        map.fitBounds(bounds);
-    } */
-
-    if (map.markers.length > 0) {
-      // set center of map
-      map.setCenter(bounds.getCenter());
-      map.setZoom(parseInt(atbdp_map.zoom));
-    }
+  function atbdp_center_map(map, cord) {
+    map.setCenter(cord);
+    map.setZoom(parseInt(atbdp_map.zoom));
   }
 
   function setup_info_window() {
@@ -390,40 +378,118 @@ MarkerLabel.prototype.draw = function () {
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data */
+/*! exports provided: get_dom_data, convertToSelect2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
-  if (!dom_content.length) {
+var $ = jQuery;
+
+function get_dom_data(key, parent) {
+  var elmKey = 'directorist-dom-data-' + key;
+  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
+
+  if (!dataElm) {
     return '';
   }
 
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
+  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
 
-  if (!terget_content) {
+  try {
+    var dataValue = atob(dataElm[0].dataset.value);
+    dataValue = JSON.parse(dataValue);
+    return dataValue;
+  } catch (error) {
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
+    }
+
     return '';
   }
+}
 
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
+function convertToSelect2(field) {
+  if (!field) {
+    return;
   }
 
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
+  if (!field.elm) {
+    return;
   }
 
-  return dom_data;
+  if (!field.elm.length) {
+    return;
+  }
+
+  var default_args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      // We only really care if there is an field to pull classes from
+      if (!data.field) {
+        return data.text;
+      }
+
+      var $field = $(data.field);
+      var $wrapper = $('<span></span>');
+      $wrapper.addClass($field[0].className);
+      $wrapper.text(data.text);
+      return $wrapper;
+    }
+  };
+  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+  var options = field.elm.find('option');
+  var placeholder = options.length ? options[0].innerHTML : '';
+
+  if (placeholder.length) {
+    args.placeholder = placeholder;
+  }
+
+  field.elm.select2(args);
 }
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 

@@ -2,6 +2,7 @@
 defined('ABSPATH') || die('Direct access is not allowed.');
 
 use \Directorist\Helper;
+use \Directorist\Directorist_All_Authors;
 
 if (!class_exists('ATBDP_Ajax_Handler')) :
 
@@ -50,9 +51,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites'));
             add_action('wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites'));
 
-            add_action('wp_ajax_atbdp_submit-uninstall-reason', array($this, 'atbdp_deactivate_reason'));
-            add_action('wp_ajax_nopriv_atbdp_submit-uninstall-reason', array($this, 'atbdp_deactivate_reason'));
-
             // location & category child term
             add_action('wp_ajax_bdas_public_dropdown_terms', array($this, 'bdas_dropdown_terms'));
             add_action('wp_ajax_nopriv_bdas_public_dropdown_terms', array($this, 'bdas_dropdown_terms'));
@@ -67,6 +65,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            /**
+             * @todo need to remove code as it has no uses
+             */
             add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
             add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
 
@@ -101,6 +102,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             add_action('wp_ajax_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
             add_action('wp_ajax_nopriv_directorist_ajax_quick_login', array($this, 'directorist_quick_ajax_login'));
+
+            //author sorting
+            add_action('wp_ajax_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
+            add_action('wp_ajax_nopriv_directorist_author_alpha_sorting', array($this, 'directorist_author_alpha_sorting'));
+
+            //author paginate
+            add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
+            add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
         }
 
         // directorist_quick_ajax_login
@@ -130,7 +139,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'loggedin' => false,
                     'message'  => __('Wrong username or password.', 'directorist'),
                 ]);
-			} 
+			}
 
 			wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
 
@@ -140,8 +149,36 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 			]);
         }
 
+        // directorist_author_alpha_sorting
+        public function directorist_author_alpha_sorting() {
+            ob_start();
+            if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
+            	$authors = new Directorist_All_Authors();
+                echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
+                wp_die();
+            }
+            return ob_get_clean();
+        }
+
+        // directorist_author_pagination
+        public function author_pagination() {
+            ob_start();
+            $authors = new Directorist_All_Authors();
+            echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
+            wp_die();
+            return ob_get_clean();
+        }
+
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['success'] = false;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+
+                return wp_send_json( $data );
+            }
+
             $file = Directorist\Listings_Exporter::get_prepared_listings_export_file();
 
             wp_send_json( $file );
@@ -182,6 +219,17 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login()
         {
+
+            $nonce = ! empty( $_POST[ 'directorist-quick-login-security' ] ) ? sanitize_text_field( $_POST[ 'directorist-quick-login-security' ] ) : '';
+
+            if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ){
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Invalid request.', 'directorist')
+                ]);
+            }
+
+
             if ( is_user_logged_in() ) {
                 wp_send_json([
                     'loggedin' => true,
@@ -217,49 +265,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type    = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
-            $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
-            // search form
-            ob_start();
-            ?>
-				<div class="<?php echo esc_attr( $class ); ?>">
-                    <?php
-                    foreach ( $searchform->form_data[0]['fields'] as $field ){
-                        $searchform->field_template( $field );
-                    }
-                    if ( $searchform->more_filters_display !== 'always_open' ){
-                        $searchform->more_buttons_template();
-                    }
-                    ?>
-
-                </div>
-
-                <?php
-                if ( $searchform->more_filters_display == 'always_open' ){
-                    $searchform->advanced_search_form_fields_template();
-                }
-                else {
-                    if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                            <?php $searchform->advanced_search_form_fields_template();?>
-                        </div>
-                        <?php
-                    }
-                }
-            $search_form =  ob_get_clean();
-
-            ob_start();
-
-			$searchform->top_categories_template();
-
-            $popular_categories = ob_get_clean();
-
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
+            $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
                 'search_form'          => $search_form,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
-                'popular_categories'   => $popular_categories
              ) );
         }
 
@@ -281,7 +294,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_type_slug_change() {
             $type_id        = isset( $_POST[ 'type_id' ] ) ? sanitize_key( $_POST[ 'type_id' ] ) : '';
             $update_slug    = isset( $_POST[ 'update_slug' ] ) ? sanitize_key( $_POST[ 'update_slug' ] ) : '';
-           
+
             $directory_slugs = [];
             $listing_types = get_terms( [
                 'taxonomy'   => ATBDP_TYPE,
@@ -290,12 +303,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if( $listing_types ) {
                 foreach( $listing_types as $listing_type ){
                     $directory_slugs[] = $listing_type->slug;
+                    if( $type_id == $listing_type->term_id ) {
+                        $old_slug = $listing_type->slug;
+                    }
                 }
             }
 
             if( in_array( $update_slug, $directory_slugs ) ) {
                 wp_send_json( array(
-                    'error' => __('This slug already in use.', 'directorist')
+                    'error' => __('This slug already in use.', 'directorist'),
+                    'old_slug' => ! empty( $old_slug ) ? $old_slug : '',
                 ) );
             } else {
                 $update_type_slug = wp_update_term( $type_id, ATBDP_TYPE, array( 'slug' => $update_slug ) );
@@ -482,57 +499,98 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             die();
         }
 
-        public function atbdp_post_attachment_upload()
-        {
-            // security
-            check_ajax_referer('atbdp_attachment_upload', '_ajax_nonce');
-            $field_id = isset($_POST["imgid"]) ? esc_attr($_POST["imgid"]) : '';
-            $post_id = isset($_POST["post_id"]) ? absint($_POST["post_id"]) : '';
-            // set directory temp upload dir
-            add_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+		/**
+		 * Handle ajax file upload via plupload.
+		 */
+        public function atbdp_post_attachment_upload() {
+			// security
+			check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
 
-            $fixed_file = $_FILES[$field_id . 'async-upload'];
+			try {
+				$field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
+				$post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
+				$directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
 
-            // handle file upload
-            $status = wp_handle_upload($fixed_file, array(
-                'test_form' => true,
-                'action' => 'atbdp_post_attachment_upload'
-            ));
-            // unset GD temp upload dir
-            remove_filter('upload_dir', array(__CLASS__, 'temp_upload_dir'));
+				if ( empty( $field_id ) || empty( $directory ) ) {
+					throw new \Exception( __( 'Invalid upload request!', 'directorist' ), 400 );
+				}
 
-            if (!isset($status['url']) && isset($status['error'])) {
-                print_r($status);
-            }
+				if ( ! term_exists( $directory, ATBDP_TYPE ) ) {
+					throw new \Exception( __( 'Invalid directory type!', 'directorist' ), 400 );
+				}
 
-            // send the uploaded file url in response
-            if (isset($status['url']) && $post_id) {
+				$fixed_file = $_FILES[ $field_id . 'async-upload' ];
 
-                // insert to DB
-                $file_info = update_post_meta($post_id, $field_id, $status['url']);
+				$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
+				$field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
+				$field_config = current( $field_config );
 
-                if (is_wp_error($file_info)) {
-                    //atbdp_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
-                } else {
-                    $wp_upload_dir = wp_upload_dir();
-                    echo $status['url'];
-                }
-            } elseif (isset($status['url'])) {
-                echo $status['url'];
-            } else {
-                echo 'x';
-            }
+				$file_type    = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
+				$file_size    = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
 
-            // if file exists it should have been moved if uploaded correctly so now we can remove it
-            /*if(!empty($status['file']) && $post_id){
-                wp_delete_file( $status['file'] );
-            }*/
-            // atbdp_Media::post_attachment_upload();
-            //ATBDP()->atbdp_Media->post_attachment_upload();
-            wp_die();
+				if ( in_array( $file_type, [ '', 'all_types', 'all' ], true ) ) {
+					$file_types = directorist_get_supported_file_types();
+				} else {
+					$groups = directorist_get_supported_file_types_groups();
+
+					if ( isset( $groups[ $file_type ] ) ) {
+						$file_types = $groups[ $file_type ];
+					} else {
+						$file_types = (array) $file_type;
+					}
+				}
+
+				$_supported_mimes = [];
+				foreach ( get_allowed_mime_types() as $ext => $mime ) {
+					$_exts = explode( '|', $ext );
+					$match = array_intersect( $file_types, $_exts );
+					if ( count( $match ) ) {
+						$_supported_mimes[ $ext ] = $mime;
+					}
+				}
+
+				// Set temporary upload directory.
+				add_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+
+				// handle file upload
+				$status = wp_handle_upload( $fixed_file, array(
+					'test_form' => true,
+					'action'    => 'atbdp_post_attachment_upload',
+					'mimes'     => $_supported_mimes
+				) );
+
+				// Restore to default upload directory.
+				remove_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+
+				if ( ! empty( $status['error'] ) ) {
+					throw new \Exception( $status['error'], 400 );
+				}
+
+				if ( empty( $status['url'] ) ) {
+					throw new \Exception( __( 'Could not upload your file, please try again.'), 400 );
+				}
+
+				// Update the meta when post id is available.
+				if ( ! empty( $post_id ) ) {
+					update_post_meta( $post_id, $field_id, $status['url'] );
+
+					wp_send_json_success( $status['url'], 201 );
+				}
+
+				wp_send_json_success( $status['url'] );
+
+				// if file exists it should have been moved if uploaded correctly so now we can remove it
+				/*if(!empty($status['file']) && $post_id){
+					wp_delete_file( $status['file'] );
+				}*/
+				// atbdp_Media::post_attachment_upload();
+				//ATBDP()->atbdp_Media->post_attachment_upload();
+			} catch( \Exception $e ) {
+				wp_send_json_error( $e->getMessage() );
+			}
         }
 
-        public static function temp_upload_dir($upload)
+        public static function set_temporary_upload_dir($upload)
         {
             $upload['subdir'] = "/atbdp_temp";
             $upload['path'] = $upload['basedir'] . $upload['subdir'];
@@ -622,13 +680,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function update_user_profile()
         {
+
+            if ( ! directorist_verify_nonce() ){
+                wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
+            }
+
             // process the data and the return a success
             if ($_POST['user']) {
-                // passed the security
-                // update the user data and also its meta
-                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
 
-                $old_pro_pic_id = get_user_meta($user_id, 'pro_pic', true);
+                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
                 if (!empty($_POST['profile_picture_meta']) && count($_POST['profile_picture_meta'])) {
                     $meta_data = $_POST['profile_picture_meta'][0];
 
@@ -641,14 +701,20 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 } else {
                     update_user_meta($user_id, 'pro_pic', '');
                 }
-                $success = ATBDP()->user->update_profile($_POST['user']); // update_profile() will handle sanitisation, so we can just the pass the data through it
-                if ($success) {
-                    wp_send_json_success(array('message' => __('Profile updated successfully', 'directorist')));
-                } else {
-                    wp_send_json_error(array('message' => __('Ops! something went wrong. Try again.', 'directorist')));
-                };
+
+
+                $success = ATBDP()->user->update_profile( $_POST[ 'user' ] ); // update_profile() will handle sanitisation, so we can just the pass the data through it
+
+                if ( $success ) {
+                    wp_send_json_success( [ 'message' => __( 'Profile updated successfully', 'directorist' ) ] );
+                }
+
+                wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
             }
-            wp_die();
+
+            wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
+
         }
 
         private function insert_attachment($file_handler, $post_id, $setthumb = 'false')
@@ -692,6 +758,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function remove_listing_review()
         {
+                if ( ! directorist_verify_nonce() ) {
+                    echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+                }
+
                 if (!empty($_POST['review_id'])) {
                     $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
                     if ($success) {
@@ -708,6 +778,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function atbdp_review_pagination_output()
         {
+            if ( ! directorist_verify_nonce() ) {
+                echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+            }
+
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
@@ -882,6 +956,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
+            if ( ! directorist_verify_nonce() ) {
+                $status = [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
+                ];
+                wp_send_json( $status );
+            }
+
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
             if ($guest_review && $guest_email) {
@@ -927,6 +1009,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
+
+                $post_id = esc_sql( $_POST['post_id'] );
+                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
+
+                global $wpdb;
+                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
+	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
+
                 $data = array(
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
@@ -944,20 +1034,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-
-                    $reviewer_id = ( ! empty( $data['by_guest'] ) ) ? $data['by_guest'] : $data['by_user_id'];
-
-                    $required = [
-                        'post_id' => $_POST['post_id'],
-                        'reviewer_id' => $reviewer_id,
-                        'rating' => floatval($_POST['rating']),
-                        'status' => 'published',
-                    ];
-
-                    $review_meta = array_merge( $data, $required );
-
-                    Helper::add_listings_review_meta( $review_meta );
-
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
 
@@ -967,7 +1043,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo 'Errors: make sure you wrote something about your review.';
                 // show error message
             }
-
 
             die();
         }
@@ -1014,8 +1089,23 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $to = $user->user_email;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
+
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $post_id,
+                'reviewer'   => $user,
+            ];
+
+            do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
+
+            return $is_sent;
         }
 
         /*
@@ -1062,8 +1152,22 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers);
+
+            // Action Hook
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $post_id,
+                'reviewer'   => $user,
+            ];
+
+            do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
+
+            return $is_sent;
         }
 
 
@@ -1139,10 +1243,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function ajax_callback_report_abuse()
         {
-
-
             $data = array('error' => 0);
 
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+
+                wp_send_json( $data );
+            }
 
             if ($this->atbdp_email_admin_report_abuse()) {
 
@@ -1215,7 +1323,35 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
             // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            // Action Hook
+            $action_args = [
+                'is_sent' => $is_sent,
+
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+
+                'sender_name' => $name,
+                'from_email'  => $email,
+
+                'listing_author' => $user,
+                'listing_id'     => $post_id,
+                'listing_title'  => $listing_title,
+                'listing_url'    => $listing_url,
+
+                'send_to'       => $user_email,
+                'listing_email' => $listing_email,
+                'current_time'  => $current_time,
+
+                'site_name' => $site_name,
+            ];
+
+            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+
+            return $is_sent;
         }
 
         /**
@@ -1260,7 +1396,33 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $headers = "From: {$name} <{$email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            $is_sent = ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+
+            // Action Hook
+            $action_args = [
+                'is_sent' => $is_sent,
+
+                'to_email' => $to,
+                'subject'  => $subject,
+                'message'  => $message,
+                'headers'  => $headers,
+
+                'sender_name' => $name,
+                'from_email'  => $email,
+
+                'listing_id'    => $post_id,
+                'listing_title' => $listing_title,
+                'listing_url'   => $listing_url,
+
+                'current_time'  => $current_time,
+
+                'site_name' => $site_name,
+            ];
+
+            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+
+            return $is_sent;
         }
 
         /**
@@ -1271,14 +1433,22 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function ajax_callback_send_contact_email()
         {
+            $data = array('error' => 0);
+
+            if ( ! directorist_verify_nonce() ) {
+                $data['error'] = 1;
+                $data['message'] = __('Something is wrong! Please refresh and retry.', 'directorist');
+            }
+
             /**
              * If fires sending processing the submitted contact information
              * @since 4.4.0
              */
             do_action('atbdp_before_processing_contact_to_owner');
-            $data = array('error' => 0);
-            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array()));
-            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array()));
+
+
+            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array( 'listing_contact_form' )));
+            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array( 'listing_contact_form' )));
             $disable_all_email = get_directorist_option('disable_email_notification');
             $data['sendOwner'] = $sendOwner;
             $data['sendAdmin'] = $sendAdmin;
@@ -1325,53 +1495,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             do_action('atbdp_listing_contact_owner_submitted');
             echo wp_json_encode($data);
             die();
-        }
-
-
-        public function atbdp_deactivate_reason_mail()
-        {
-            global $wpdb;
-
-            if (!isset($_POST['reason_id'])) {
-                wp_send_json_error();
-            }
-            $site_name = get_bloginfo('name');
-            $current_user = wp_get_current_user();
-
-            $data = array(
-                'reason_id' => sanitize_text_field($_POST['reason_id']),
-                'url' => home_url(),
-                'user_email' => $current_user->user_email,
-                'user_name' => $current_user->display_name,
-                'reason_info' => isset($_REQUEST['reason_info']) ? trim(stripslashes($_REQUEST['reason_info'])) : '',
-                'software' => $_SERVER['SERVER_SOFTWARE'],
-                'php_version' => phpversion(),
-                'mysql_version' => $wpdb->db_version(),
-                'wp_version' => get_bloginfo('version'),
-                'locale' => get_locale(),
-                'multisite' => is_multisite() ? 'Yes' : 'No'
-            );
-            $to = 'support@aazztech.com';
-            $subject = 'Deactivate directorist plugin';
-            $message = $data['reason_info'];
-            $headers = 'From ' . $data['user_email'];
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-        }
-
-        public function atbdp_deactivate_reason()
-        {
-
-            $data = array('error' => 0);
-
-            if ($this->atbdp_deactivate_reason_mail()) {
-
-
-                $data['message'] = __('Thanks for information', 'directorist');
-            }
-
-
-            echo wp_json_encode($data);
-            wp_die();
         }
 
         public function bdas_dropdown_terms()

@@ -204,7 +204,7 @@ trait Multi_Directory_Helper {
 
         if ( is_array( $fields ) ) {
             foreach ( $fields as $_field_key => $_field_value ) {
-                $fields[ $_field_key ] = self::maybe_json( $_field_value );
+                $fields[ $_field_key ] = Helper::maybe_json( $_field_value );
             }
         }
 
@@ -254,31 +254,8 @@ trait Multi_Directory_Helper {
         return $response;
     }
 
-    public static function maybe_json( $input_data ) {
-        if ( 'string' !== gettype( $input_data )  ) { return $input_data; }
-        
-        // Sanitize input data
-        $sanitized_data = $input_data;
-
-        if ( preg_match( '/\\\\+/', $sanitized_data ) ) {
-            $sanitized_data = preg_replace('/\\\\+/', '', $sanitized_data);
-        }
-
-        $output_data = json_decode( $sanitized_data, true);
-        $output_data = ( ! is_null( $output_data ) ) ? $output_data : $input_data;
-
-        // Sanitize output data
-        if ( 'string' === gettype( $output_data ) ) {
-            $output_data = preg_replace( '/\\\\"/', '"', $output_data );
-            $output_data = preg_replace( "/\\\\'/", "'", $output_data );
-            $output_data = _sanitize_text_fields( $output_data, true );
-        }
-
-        return $output_data;
-    }
-
     // maybe_serialize
     public function maybe_serialize( $value = '' ) {
-        return maybe_serialize( self::maybe_json( $value ) );
+        return maybe_serialize( Helper::maybe_json( $value ) );
     }
 }

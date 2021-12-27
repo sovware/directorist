@@ -44,7 +44,8 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( '\Directorist\Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
-		add_filter( 'template_include', [ $this, 'single_template_path' ] );
+		// Set high priority to override page builders.
+		add_filter( 'template_include', [ $this, 'single_template_path' ], 999 );
 		add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
 	}
 
@@ -61,6 +62,15 @@ class Directorist_Template_Hooks {
 
 		if ( is_singular( ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() && $single_template != 'directorist_template' ) {
 			$content = Helper::get_template_contents( 'single-contents' );
+		}
+
+		// Put a dummy content for selected single pages
+		$selected_single_pages = Helper::builder_selected_single_pages();
+
+		if( !empty( $selected_single_pages ) && in_the_loop() && is_main_query() && is_page( array_keys( $selected_single_pages ) ) ) {
+			$page_id = get_the_id();
+			$type_name = $selected_single_pages[$page_id];
+			$content = sprintf( __( 'This page is currently selected as the Single Listing Page for \'%s\' Listing Type', 'directorist' ) , $type_name );
 		}
 
 		return $content;

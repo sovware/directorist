@@ -2,15 +2,15 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.0.6.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js"  class="atbdp-require-login" data-directorist_target="directorist-report-abuse-modal" aria-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
+<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js" data-directorist_target="directorist-report-abuse-modal" data-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
 
-	<?php if ( atbdp_logged_in_user() ): ?>
+	<?php if ( is_user_logged_in() ): ?>
 		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>
 	<?php else: ?>
 		<a class="directorist-action-report-not-loggedin" href="javascript:void(0)"><?php directorist_icon( $icon );?></a>

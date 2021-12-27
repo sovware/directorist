@@ -37,6 +37,7 @@
 
     .directorist-rating-given-block__stars {
         .br-widget a {
+            text-decoration: none;
             &:before {
                 content: "\f005";
                 font-size: 14px;
@@ -77,8 +78,12 @@
 
     .directorist-review-current-rating__stars {
         ul {
+            margin: 0;
+            padding: 0;
             li {
                 display: inline-block;
+                margin: 0;
+                padding: 0;
 
                 span {
                     color: #d4d3f3;
@@ -170,7 +175,7 @@
       align-items: center;
       margin: -5px;
       padding: 0;
-  
+
       li {
         flex: none;
         margin: 5px;
@@ -183,64 +188,64 @@
         border-radius: 3px;
         transition: 0.3s ease;
         background: #fff;
-  
+
         i {
           line-height: 28px;
         }
-  
+
         &.atbd-active {
           cursor: pointer;
-  
+
           &:hover {
             border-color: $dark;
             color: $dark;
           }
         }
-  
+
         &.atbd-selected {
           border-color: $dark;
           color: $dark;
         }
-  
+
         &.atbd-inactive {
           opacity: 0.5;
         }
-  
+
         &[class^="atbd-page-jump-"] {
           min-width: 30px;
           min-height: 30px;
           position: relative;
           cursor: pointer;
-  
+
           .la {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
           }
-  
+
           .la_h {
             visibility: hidden;
             opacity: 0;
             left: 70%;
             transition: 0.3s ease;
           }
-  
+
           .la_d {
             visibility: visible;
             opacity: 1;
             transition: 0.3s ease;
           }
-  
+
           &:hover {
             color: $dark;
-  
+
             .la_h {
               visibility: visible;
               opacity: 1;
               left: 50%;
             }
-  
+
             .la_d {
               visibility: hidden;
               opacity: 0;

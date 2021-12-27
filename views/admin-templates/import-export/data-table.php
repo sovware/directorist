@@ -30,7 +30,7 @@ $fields = $args['fields'];
                     <td class="atbdp-importer-mapping-table-field">
                         <input type="hidden" name="map_from[<?php echo esc_attr($index); ?>]" value="<?php echo esc_attr($name); ?>" />
                         <select class="atbdp_map_to" name="<?php echo esc_attr($index); ?>">
-                            <option value=""><?php esc_html_e('Do not import', 'woocommerce'); ?></option>
+                            <option value=""><?php esc_html_e('Do not import', 'directorist'); ?></option>
                             <option value="">--------------</option>
                             <?php foreach ($fields as $key => $value) : ?>
                                 <option value="<?php echo esc_attr($key); ?>" <?php // selected( $mapped_value, $key ); ?>><?php echo esc_html($value); ?></option>

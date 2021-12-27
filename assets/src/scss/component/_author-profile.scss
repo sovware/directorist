@@ -48,6 +48,7 @@
         padding: 0;
         display: flex;
         align-items: center;
+        list-style-type: none;
 
         .directorist-author-meta-list__item {
             font-size: 14px;
@@ -94,6 +95,13 @@
 
 // Directorist Author Widget
 .directorist-author-info-widget {
+    .directorist-author-info-list{
+        padding: 0;
+        margin: 0;
+        li{
+            margin-left: 0;
+        }
+    }
     .directorist-author-info-list__item {
         display: flex;
         align-items: flex-start;
@@ -116,21 +124,49 @@
 
             a {
                 color: #7a82a6;
+                text-decoration: none;
             }
         }
     }
 }
 
 .directorist-author-info-widget,
-.directorist-single-author-info {
+.directorist-single-author-info,
+.directorist-authors-section {
+
     .directorist-author-social {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 15px;
+        margin: 10px -5px -5px;
+        padding: 0;
+    }
 
+    .directorist-author-social-item {
+        display: inline-block;
+        margin: 0;
+
+        a {
+            font-size: 15px;
+            margin: 5px;
+            display: block;
+            line-height: 36px;
+            width: 36px;
+            text-align: center;
+            background-color: #f3f3f3;
+            border-radius: 6px;
+            color: #000;
+            overflow: hidden;
+            transition: 0.3s ease;
+            &:hover{
+                color: #fff;
+                background: #000;
+            }
+        }
+    }
+    @include m(light){
         .directorist-author-social-item {
             display: inline-block;
-
+            margin: 0;
             a {
                 font-size: 15px;
                 margin: 5px;
@@ -184,4 +220,25 @@
     margin-top: 15px;
     margin-left: -15px;
     margin-right: -15px;
+}
+
+.directorist-type-nav__list{
+    li{
+        margin: 0;
+    }
+}
+
+// Auhtor Content Fix
+.directorist-author-listing-content {
+    &.directorist-author-listing-grid--fix{
+        .directorist-col-lg-3{
+            width: 33.3333333333%;
+            @media only screen and (max-width: 767px) {
+                width: 50%;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 100%;
+            }
+        }
+    }
 }

@@ -4,10 +4,18 @@
 //mixins
 @import "./../../mixins/colors";
 @import "./../../mixins/general";
-// components
+
+
+// Component Import
+// ----------------------------------
+// Global Styles
+@import "./../../component/add-listing.scss";
+@import "./../../component/directorist-plupload";
+@import "./../../component/openstreet-map/index.scss";
+
+// Public Styles
 @import "./../../component/plasma-slider";
 @import "./../../component/plasma-slider-custom";
-//@import "./../../component/pureSearchSelect";
 @import "./../../component/general";
 @import "./../../component/search-result";
 @import "./../../component/widget";
@@ -32,7 +40,8 @@
 @import "./../../component/pagination";
 @import "./../../component/category-location";
 @import "./../../component/atmodal";
-@import "./../../component/lagacy-component";
+@import "./../../component/all-authors";
+@import "./../../component/select2-custom-control";
 
 
 // Modules
@@ -296,6 +305,7 @@
   .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_saved_items_wrapper .atbd_single_saved_item {
     border: 0 none;
     padding: 0;
+    
   }
 
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {

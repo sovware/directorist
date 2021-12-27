@@ -763,28 +763,31 @@ $atbdp_option       = get_option('atbdp_option');
                                                                 <span class="atbd_tooltip__text"></span>
                                                             </span>
                                                         </td>
-                                                        <td>
+                                                        <td class="diretorist-table-text">
                                                             <?php
                                                             $total_overrides = count( $theme['overrides'] );
-                                                            for ( $i = 0; $i < $total_overrides; $i++ ) {
-                                                                $override = $theme['overrides'][ $i ];
-                                                                if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
-                                                                    $current_version = $override['version'] ? $override['version'] : '-';
-                                                                    printf(
-                                                                        __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
-                                                                        '<code>' . $override['file'] . '</code>',
-                                                                        '<strong style="color:red">' . $current_version . '</strong>',
-                                                                        $override['core_version']
-                                                                    );
-                                                                } else {
-                                                                    echo esc_html( $override['file'] );
-                                                                }
-                                                                if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
-                                                                    echo ', ';
-                                                                }
-                                                                echo '<br />';
+                                                            
+                                                            for ( $i = 0; $i < $total_overrides; $i++ ) { ?>
+                                                                <p>
+                                                                <?php
+                                                                    $override = $theme['overrides'][ $i ];
+                                                                    if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
+                                                                        $current_version = $override['version'] ? $override['version'] : '-';
+                                                                        printf(
+                                                                            __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
+                                                                            '<code>' . $override['file'] . '</code>',
+                                                                            '<strong style="color:red">' . $current_version . '</strong>',
+                                                                            $override['core_version']
+                                                                        );
+                                                                    } else {
+                                                                        echo esc_html( $override['file'] );
+                                                                    }
+                                                                    if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
+                                                                        echo ', ';
+                                                                    }
                                                             }
-                                                            ?>
+                                                                ?>
+                                                                </p>
                                                         </td>
                                                     </tr>
                                                     <?php
@@ -794,16 +797,6 @@ $atbdp_option       = get_option('atbdp_option');
                                                     <td data-export-label="Overrides"><?php _e( 'Overrides', 'directorist' ); ?>:</td>
                                                     <td class="help">&nbsp;</td>
                                                     <td>&ndash;</td>
-                                                </tr>
-                                                <?php
-                                            }
-
-                                            if ( true === $theme['has_outdated_templates'] ) {
-                                                ?>
-                                                <tr>
-                                                    <td data-export-label="Outdated Templates"><?php _e( 'Outdated templates', 'directorist' ); ?>:</td>
-                                                    <td class="help">&nbsp;</td>
-                                                    <td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
                                                 </tr>
                                                 <?php
                                             }

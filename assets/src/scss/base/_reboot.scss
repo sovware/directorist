@@ -9,34 +9,3 @@ a {
     outline: none;
   }
 }
-
-.directorist-content-active {
-  article {
-    margin-bottom: 0;
-    border: 0;
-    padding-bottom: 0;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-
-    li {
-      list-style: none;
-      margin: 0;
-    }
-  }
-
-  .entry-content {
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin-bottom: 10px;
-    }
-  }
-}

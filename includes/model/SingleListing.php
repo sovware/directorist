@@ -85,22 +85,26 @@ class Directorist_Single_Listing {
 				unset( $single_fields['fields'][$key]['widget_key'] );
 				unset( $single_fields['fields'][$key]['original_widget_key'] );
 
-				// Added field_key, label, widget_group from submission form
-				if ( $form_key ) {
-					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
-						$single_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+				// Added form_field, field_key, label, widget_group from submission form
+				if ( $form_key && !empty( $submission_form_fields['fields'][$form_key] ) ) {
+					$form_data = $submission_form_fields['fields'][$form_key];
+
+					$single_fields['fields'][$key]['form_data'] = $form_data;
+
+					if ( !empty( $form_data['field_key'] ) ) {
+						$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
-						$single_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					if ( !empty( $form_data['options'] ) ) {
+						$single_fields['fields'][$key]['options'] = $form_data['options'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['label'] ) ) {
-						$single_fields['fields'][$key]['label'] = $submission_form_fields['fields'][$form_key]['label'];
+					if( !empty( $form_data['label'] ) ) {
+						$single_fields['fields'][$key]['label'] = $form_data['label'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['widget_group'] ) ) {
-						$single_fields['fields'][$key]['widget_group'] = $submission_form_fields['fields'][$form_key]['widget_group'];
+					if( !empty( $form_data['widget_group'] ) ) {
+						$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
 					}
 				}
 			}
@@ -176,6 +180,15 @@ class Directorist_Single_Listing {
 		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
 	}
 
+	public function has_whatsapp( $data ) {
+		if ( !empty( $data['form_data']['whatsapp'] ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public function get_field_value( $data = [] ) {
 		$post_id = $this->id;
 
@@ -183,6 +196,10 @@ class Directorist_Single_Listing {
 
 		if ( ! is_array( $data ) ) {
 			return '';
+		}
+
+		if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
+			return $data['content'];
 		}
 
 		if ( isset( $data['field_key'] ) ) {
@@ -193,7 +210,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return $value;
+		return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
 	}
 
 	public function field_template( $data ) {
@@ -326,7 +343,26 @@ class Directorist_Single_Listing {
 		return $tags;
 	}
 
+	public function single_page_enabled() {
+		return get_directorist_type_option( $this->type, 'enable_single_listing_page', false );
+	}
 
+	public function single_page_content() {
+		$page_id = get_directorist_type_option( $this->type, 'single_listing_page' );
+
+		if ( !$page_id ) {
+			return '';
+		}
+
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
+			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
+		} else {
+			$content = get_post_field( 'post_content', $page_id );
+			$content = do_shortcode( $content );
+		}
+
+		return $content;
+	}
 
 	public function social_share_data() {
 		$title = get_the_title();
@@ -350,7 +386,7 @@ class Directorist_Single_Listing {
 			),
 		);
 
-		return $result;
+		return apply_filters( 'directorist_single_listing_social_sharing_items', $result );
 	}
 
 	public function quick_actions_template() {
@@ -420,7 +456,7 @@ class Directorist_Single_Listing {
 			'height'             => get_directorist_option('gallery_crop_height', 750),
 			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
 			'thumbnail-bg-color' => '#fff',
-			'show-thumbnails'    => get_directorist_option('dsiplay_thumbnail_img', true) ? '1' : '0',
+			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',
 			'gallery'            => true,
 			'rtl'                => is_rtl() ? '1' : '0',
 		);
@@ -523,6 +559,10 @@ class Directorist_Single_Listing {
 		return $result;
 	}
 
+	public function contact_owner_form_disabled() {
+		return get_post_meta( $this->id, '_hide_contact_owner', true );
+	}
+
 	public function has_price() {
 		$id         = $this->id;
 		$plan_price = is_fee_manager_active() ? is_plan_allowed_price( $this->fm_plan ) : true;
@@ -547,7 +587,7 @@ class Directorist_Single_Listing {
 			return false;
 		}
 
-		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && atbdp_logged_in_user() ) ) {
+		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && is_user_logged_in() ) ) {
 			return true;
 		}
 
@@ -680,7 +720,7 @@ class Directorist_Single_Listing {
 		$id = get_the_ID();
 		$author_id = get_post_field( 'post_author', $id );
 
-		if ( atbdp_logged_in_user() && $author_id == get_current_user_id() ) {
+		if ( is_user_logged_in() && $author_id == get_current_user_id() ) {
 			return true;
 		}
 		else {
@@ -779,7 +819,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function owner_review_enabled() {
-		return get_directorist_option('enable_owner_review');
+		return get_directorist_option('enable_owner_review', 1);
 	}
 
 	public function current_review() {
@@ -826,12 +866,14 @@ class Directorist_Single_Listing {
 		return get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) );
 	}
 
-
+	// TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.
 	public function get_contents() {
-		$post    = $this->post;
-		$content = apply_filters('get_the_content', $post->post_content);
-		$content = do_shortcode(wpautop($content));
-		return $content;
+		$content = $this->post->post_content;
+		$content = wpautop( $content );
+		$content = do_shortcode( $content );
+
+		// TODO: Make it compatible with wp core `the_content` hook.
+		return apply_filters( 'directorist_the_content', $content );
 	}
 
 	public function get_custom_field_type_value($field_id, $field_type, $field_details)
@@ -887,8 +929,7 @@ class Directorist_Single_Listing {
 			break;
 
 			default:
-				$content = apply_filters('get_the_content', $field_details);
-				$result = do_shortcode( $content );
+				$result = do_shortcode( $field_details );
 				break;
 		}
 
@@ -1058,7 +1099,7 @@ class Directorist_Single_Listing {
 			'listing'                  => $this,
 			'author_id'                => get_post_field('post_author', $id),
 			'enable_review'            => get_directorist_option('enable_review', 1),
-			'enable_owner_review'      => get_directorist_option('enable_owner_review'),
+			'enable_owner_review'      => get_directorist_option('enable_owner_review', 1),
 			'allow_review'             => apply_filters('atbdp_single_listing_before_review_block', true),
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),

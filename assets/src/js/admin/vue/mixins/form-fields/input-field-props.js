@@ -11,6 +11,12 @@ export default {
         root: {
             required: false,
         },
+        mapAtts: {
+            required: false,
+        },
+        filters: {
+            required: false,
+        },
         data: {
             required: false,
         },
@@ -42,6 +48,9 @@ export default {
         showIf: {
             required: false,
         },
+        show_if: {
+            required: false,
+        },
         type: {
             type: String,
             default: '',
@@ -50,9 +59,25 @@ export default {
             type: [String, Number],
             default: '',
         },
+        labelType: {
+            type: [String],
+            default: 'span',
+        },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
+        shortcodes: {
+            type: [Array, String],
+            default: '',
+        },
         buttonLabel: {
             type: String,
             default: '',
+        },
+        copyButtonLabel: {
+            type: String,
+            default: '<i class="far fa-copy"></i>',
         },
         exportFileName: {
             type: String,
@@ -163,6 +188,9 @@ export default {
             required: false,
         },
         validation: {
+            required: false,
+        },
+        nonce: {
             required: false,
         },
     },

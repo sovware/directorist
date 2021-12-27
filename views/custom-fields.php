@@ -103,7 +103,6 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                 }
                 echo '</div>';
                 echo '<a href="#" class="more-or-less sml">'.__('Show More', 'directorist').'</a>';
-                echo '</div></div>';
                 break;
             case 'radio' :
                 $choices = $field_meta['choices'][0];

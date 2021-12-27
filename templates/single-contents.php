@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.0.5
  */
 
 use \Directorist\Directorist_Single_Listing;
@@ -23,17 +23,29 @@ $listing = Directorist_Single_Listing::instance();
 
 				<?php Helper::get_template( 'single/top-actions' ); ?>
 
-				<div class="directorist-single-wrapper">
+				<?php if ( $listing->single_page_enabled() ): ?>
 
-					<?php
-					$listing->header_template();
+					<div class="directorist-single-wrapper">
 
-					foreach ( $listing->content_data as $section ) {
-						$listing->section_template( $section );
-					}
-					?>
+						<?php echo $listing->single_page_content(); ?>
 
-				</div>
+					</div>
+
+				<?php else: ?>
+
+					<div class="directorist-single-wrapper">
+
+						<?php
+						$listing->header_template();
+
+						foreach ( $listing->content_data as $section ) {
+							$listing->section_template( $section );
+						}
+						?>
+
+					</div>
+
+				<?php endif; ?>
 
 			</div>
 

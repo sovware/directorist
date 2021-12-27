@@ -68,14 +68,13 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
-		if ( $task == 'delete' ) {
-			$status = apply_filters('directorist_delete_listings_from_dashboard', 'delete');
+			$status = apply_filters('directorist_listing_delete_or_trash', 'delete');
 			if( $status == 'delete' ){
 				wp_delete_post( $taskdata );
 			}else{
 				wp_trash_post( $taskdata );
 			}
-		}
+			do_action( 'directorist_listing_deleted', $taskdata );
 	}
 
 	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {
@@ -382,7 +381,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
-				'icon'		=> atbdp_icon_type() . '-heart-o',
+				'icon'		=> atbdp_icon_type() . '-heart',
 			);
 		}
 
@@ -516,7 +515,7 @@ class Directorist_Listing_Dashboard {
 
 		$this->enqueue_scripts();
 
-		if (!atbdp_logged_in_user()) {
+		if (!is_user_logged_in()) {
 			return $this->restrict_access_template();
 		}
 

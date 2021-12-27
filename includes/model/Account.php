@@ -25,7 +25,7 @@ class Directorist_Account {
 	}
 
 	public function render_shortcode_login( $atts = [] ) {
-		if ( atbdp_logged_in_user() ) {
+		if ( is_user_logged_in() ) {
 
 			do_action( 'atbdp_show_flush_messages' );
 
@@ -33,7 +33,7 @@ class Directorist_Account {
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );
 			return ob_get_clean();
-		}	
+		}
 
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
@@ -43,36 +43,39 @@ class Directorist_Account {
 	}
 
 	public function render_shortcode_registration( $atts ) {
-		if ( ! atbdp_logged_in_user() ) {
+		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',
 			), $atts );
-			$user_type           = !empty( $atts['user_type'] ) ? $atts['user_type'] : '';
+
+			$user_type = ! empty( $atts['user_type'] ) ? $atts['user_type'] : '';
+			$user_type = ! empty( $_REQUEST['user_type'] ) ? $_REQUEST['user_type'] : $user_type;
+
 			$args = array(
 				'parent'               => 0,
 				'container_fluid'      => is_directoria_active() ? 'container' : 'container-fluid',
-				'username'             => get_directorist_option( 'reg_username', 'Username' ),
-				'password'             => get_directorist_option( 'reg_password', 'Password' ),
+				'username'             => get_directorist_option( 'reg_username', __( 'Username', 'directorist' ) ),
+				'password'             => get_directorist_option( 'reg_password', __( 'Password', 'directorist' ) ),
 				'display_password_reg' => get_directorist_option( 'display_password_reg', 1 ),
 				'require_password'     => get_directorist_option( 'require_password_reg', 1 ),
-				'email'                => get_directorist_option( 'reg_email', 'Email' ),
+				'email'                => get_directorist_option( 'reg_email', __( 'Email', 'directorist' ) ),
 				'display_website'      => get_directorist_option( 'display_website_reg', 0 ),
-				'website'              => get_directorist_option( 'reg_website', 'Website' ),
+				'website'              => get_directorist_option( 'reg_website', __( 'Website', 'directorist' ) ),
 				'require_website'      => get_directorist_option( 'require_website_reg', 0 ),
 				'display_fname'        => get_directorist_option( 'display_fname_reg', 0 ),
-				'first_name'           => get_directorist_option( 'reg_fname', 'First Name' ),
+				'first_name'           => get_directorist_option( 'reg_fname', __( 'First Name', 'directorist' ) ),
 				'require_fname'        => get_directorist_option( 'require_fname_reg', 0 ),
 				'display_lname'        => get_directorist_option( 'display_lname_reg', 0 ),
-				'last_name'            => get_directorist_option( 'reg_lname', 'Last Name' ),
+				'last_name'            => get_directorist_option( 'reg_lname', __( 'Last Name', 'directorist' ) ),
 				'require_lname'        => get_directorist_option( 'require_lname_reg', 0 ),
 				'display_bio'          => get_directorist_option( 'display_bio_reg', 0 ),
-				'bio'                  => get_directorist_option( 'reg_bio', 'About/bio' ),
+				'bio'                  => get_directorist_option( 'reg_bio', __( 'About/bio', 'directorist' ) ),
 				'require_bio'          => get_directorist_option( 'require_bio_reg', 0 ),
-				'reg_signup'           => get_directorist_option( 'reg_signup', 'Sign Up' ),
+				'reg_signup'           => get_directorist_option( 'reg_signup', __( 'Sign Up', 'directorist' ) ),
 				'display_login'        => get_directorist_option( 'display_login', 1 ),
 				'login_text'           => get_directorist_option( 'login_text', __( 'Already have an account? Please login', 'directorist' ) ),
 				'login_url'            => ATBDP_Permalink::get_login_page_link(),
-				'log_linkingmsg'       => get_directorist_option( 'log_linkingmsg', __( 'Here', 'directorist' ) ),
+				'log_linkingmsg'       => get_directorist_option( 'log_linkingmsg', __( 'here', 'directorist' ) ),
 				'terms_label'          => get_directorist_option( 'regi_terms_label', __( 'I agree with all', 'directorist' ) ),
 				'terms_label_link'     => get_directorist_option( 'regi_terms_label_link', __( 'terms & conditions', 'directorist' ) ),
 				't_C_page_link'        => ATBDP_Permalink::get_terms_and_conditions_page_url(),

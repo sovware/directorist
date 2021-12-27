@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {
@@ -22,6 +24,83 @@ class Helper {
 		$directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
 
 		return get_term_meta( $directory_type, $term_key, true );
+	}
+
+
+	/**
+	 * Get first wp error message
+	 * 
+	 * @param object $wp_error
+	 * @return string $message
+	 */
+	public static function get_first_wp_error_message( $wp_error ) {
+		if ( ! is_wp_error( $wp_error ) ) {
+			return '';
+		}
+
+		$error_keys = ( is_array( $wp_error->errors ) ) ? array_keys( $wp_error->errors ) : [];
+		$error_key  = ( ! empty( $error_keys ) ) ? $error_keys[0] : '';
+		$message    = ( ! empty( $error_key ) && is_array( $wp_error->errors[ $error_key ] ) && ! empty( $wp_error->errors[ $error_key ] ) ) ? $wp_error->errors[ $error_key ][0] : '';
+
+		return $message;
+	}
+
+	/**
+	 * Get Time In Millisecond
+	 * 
+	 * This function is only available on operating 
+	 * systems that support the gettimeofday() system call.
+	 * @link https://www.php.net/manual/en/function.microtime.php
+	 * 
+	 * @return int
+	 */
+	public static function getTimeInMillisecond() {
+		try {
+			return ( int ) ( microtime( true ) * 1000 );
+		} catch ( Exception $e ) {
+			return 0;
+		}
+	}
+
+	/**
+	 * Maybe JSON
+	 * 
+	 * Converts input to an array if contains valid json string
+	 * 
+	 * If input contains base64 encoded json string, then it
+	 * can decode it as well
+	 * 
+	 * @param $input_data
+	 * @param $return_first_item
+	 * 
+	 * Returns first item of the array if $return_first_item is set to true
+	 * Returns original input if it is not decodable
+	 * 
+	 * @return mixed
+	 */
+	public static function maybe_json( $input_data = '', $return_first_item = false ) {
+		if ( 'string' !== gettype( $input_data )  ) {
+			return $input_data;
+		}
+
+		$output_data = $input_data;
+
+		// JSON Docode
+		$decode_json = json_decode( $input_data, true );
+
+		if ( ! is_null( $decode_json ) ) {
+			return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+		}
+
+		// JSON Decode from Base64
+		$decode_base64 = base64_decode( $input_data );
+		$decode_base64_json = json_decode( $decode_base64, true );
+
+		if ( ! is_null( $decode_base64_json ) ) {
+			return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+		}
+
+		return $output_data;
 	}
 
 	// get_widget_value
@@ -261,6 +340,90 @@ class Helper {
 		}
 	}
 
+	public static function phone_link( $args ) {
+
+		$defaults = array(
+			'number'    => '',
+			'whatsapp'  => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$num = self::formatted_tel( $args['number'], false );
+
+		if ( $args['whatsapp'] ) {
+			$result = sprintf( 'https://wa.me/%s', $num );
+		}
+		else {
+			$result = sprintf( 'tel:%s', $num );
+		}
+
+		return $result;
+	}
+
+	public static function user_info( $user_id_or_obj, $meta ) {
+
+		if ( is_integer( $user_id_or_obj ) ) {
+			$user_id = $user_id_or_obj;
+			$user = get_userdata( $user_id );
+		}
+		else {
+			$user = $user_id_or_obj;
+			$user_id = $user->data->ID;
+		}
+
+		$result = '';
+
+		switch ( $meta ) {
+			case 'name':
+			$result = $user->data->display_name;
+			break;
+
+			case 'role':
+			$result = $user->roles[0];
+			break;
+
+			case 'address':
+			$result = get_user_meta($user_id, 'address', true);
+			break;
+
+			case 'phone':
+			$result = get_user_meta($user_id, 'atbdp_phone', true);
+			break;
+
+			case 'email':
+			$result = $user->data->user_email;
+			break;
+
+			case 'website':
+			$result = $user->data->user_url;
+			break;
+
+			case 'description':
+			$result = trim( get_user_meta( $user_id, 'description', true ) );
+			//var_dump($result);
+			break;
+
+			case 'facebook':
+			$result = get_user_meta($user_id, 'atbdp_facebook', true);
+			break;
+
+			case 'twitter':
+			$result = get_user_meta($user_id, 'atbdp_twitter', true);
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta($user_id, 'atbdp_linkedin', true);
+			break;
+
+			case 'youtube':
+			$result = get_user_meta($user_id, 'atbdp_youtube', true);
+			break;
+		}
+
+		return $result;
+	}
+
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 
@@ -381,6 +544,32 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function builder_selected_single_pages() {
+		// @cache @kowsar
+		$pages = [];
+
+		$types = get_terms( array(
+			'taxonomy'   => 'atbdp_listing_types',
+			'hide_empty' => false,
+			'meta_query' => array(
+				array(
+					'key'     => 'single_listing_page',
+					'compare' => 'EXISTS',
+				),
+			),
+		) );
+
+		foreach ( $types as $type ) {
+			$page_id   = get_directorist_type_option( $type->term_id, 'single_listing_page' );
+			$single_listing_enabled = get_directorist_type_option( $type->term_id, 'enable_single_listing_page' );
+			if ( $single_listing_enabled && $page_id ) {
+				$pages[$page_id] = $type->name;
+			}
+		}
+
+		return $pages;
+	}
+
 	public static function get_listing_payment_status( $listing_id = '' ) {
 
 		$order_id = get_post_meta( $listing_id, '_listing_order_id', true );
@@ -418,9 +607,14 @@ class Helper {
 
 		if ( empty( $data ) ) { return; }
 
-		$value = json_encode( $data );
+		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<span 
+			style="display: none;" 
+			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
+			data-value="<?php echo $data_value; ?>"
+		>
+		</span>
 		<?php
 	}
 

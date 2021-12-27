@@ -70,7 +70,7 @@ echo '</div>';
                     <?php
                 }
             } elseif ('logged_in' === $email_show) {
-                if (atbdp_logged_in_user()) {
+                if (is_user_logged_in()) {
                     if (!empty($email)) {
                         ?>
                         <li>

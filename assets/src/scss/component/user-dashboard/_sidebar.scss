@@ -18,7 +18,7 @@
         background-color: #fff;
         padding-top: 100px;
         box-shadow: 0 5px 10px rgb(143 142 159 / 10%);
-        z-index: 22;
+        z-index: 2222;
     }
 
     @media only screen and (max-width: 479px) {
@@ -54,12 +54,23 @@
     }
 
     .directorist-tab__nav__items {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        a{
+            text-decoration: none;
+        }
         li {
+            margin: 0;
             ul {
                 display: none;
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
 
                 li a {
                     padding-left: 25px;
+                    text-decoration: none;
                 }
             }
         }
@@ -74,7 +85,7 @@
         justify-content: space-between;
         align-items: center;
         color: #51526E;
-
+        text-decoration: none;
         i,
         span.fa {
             pointer-events: none;

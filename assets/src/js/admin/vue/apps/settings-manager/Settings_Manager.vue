@@ -279,7 +279,6 @@ export default {
 
         updateData( args ) {
             if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
-            // console.log( 'updateData' );
 
             let fields = this.getFieldsValue();
 
@@ -298,8 +297,8 @@ export default {
             let error_count = 0;
 
             for ( let field_key in fields ) {
-                let new_value    = this.maybeJSON( fields[ field_key ] );
-                let cahced_value = this.maybeJSON( this.cached_fields[ field_key ].value );
+                let new_value    = fields[ field_key ];
+                let cahced_value = this.cached_fields[ field_key ].value;
 
                 if ( this.fields[ field_key ].validationState && this.fields[ field_key ].validationState.hasError ) {
                     error_count++;
@@ -307,7 +306,7 @@ export default {
 
                 if ( ! this.fields[ field_key ].forceUpdate && cahced_value == new_value ) { continue; }
 
-                form_data.append( field_key, new_value );
+                form_data.append( field_key, this.maybeJSON( [new_value] ) );
                 field_list.push( field_key );
 
                 this.$store.commit( 'updateCachedFieldData', {
@@ -316,9 +315,8 @@ export default {
                 });
             }
 
-            form_data.append( 'field_list', JSON.stringify( field_list ) );
+            form_data.append( 'field_list', this.maybeJSON( field_list ) );
 
-            // console.log( error_count );
             if ( error_count ) {
                 this.status_message = {
                     type: 'error',
@@ -344,8 +342,6 @@ export default {
             // Submit the form
             axios.post( submission_url, form_data )
                 .then( response => {
-                    // console.log( { response } );
-
                     self.form_is_processing        = false;
                     self.submit_button.is_disabled = false;
                     self.submit_button.label       = self.submit_button.label_default;
@@ -403,16 +399,24 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
-            if ( 'object' === typeof value && Object.keys( value ).length ) {
-                value = JSON.stringify( value );
-            }
-            
-            if ( 'object' === typeof value && ! Object.keys( value ).length ) {
-                value = '';
+            if ( 'object' === typeof value && Object.keys( value ) || Array.isArray( value ) ) {
+                let json_encoded_value = JSON.stringify( value );
+                let base64_encoded_value = this.encodeUnicodedToBase64( json_encoded_value );
+                value = base64_encoded_value;
             }
 
             return value;
         },
+
+        encodeUnicodedToBase64(str) {
+            // first we use encodeURIComponent to get percent-encoded UTF-8,
+            // then we convert the percent encodings into raw bytes which
+            // can be fed into btoa.
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+                function toSolidBytes(match, p1) {
+                    return String.fromCharCode('0x' + p1);
+            }));
+        }
     }
 }
 </script>

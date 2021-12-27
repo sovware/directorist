@@ -1,5 +1,3 @@
-import './../../../scss/component/_modal.scss';
-
 ;(function ($) {
     // Recovery Password Modal
     $("#recover-pass-modal").hide();
@@ -22,8 +20,8 @@ import './../../../scss/component/_modal.scss';
     let directoristModal = document.querySelector('.directorist-modal-js');
     $( 'body' ).on( 'click', '.directorist-btn-modal-js', function( e ) {
         e.preventDefault();
-        let data_target = $(this).attr("data-directorist_target");
-        $( '.'+data_target ).toggleClass( 'directorist-show' );
+        var data_target = $(this).attr("data-directorist_target");
+        document.querySelector(`.${data_target}`).classList.add('directorist-show');
     });
 
     $('body').on('click', '.directorist-modal-close-js', function(e){

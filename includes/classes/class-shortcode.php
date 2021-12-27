@@ -36,6 +36,7 @@ class ATBDP_Shortcode {
 				// Author
 				'directorist_author_profile' => [ $this, 'author_profile' ],
 				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
+				'directorist_all_authors' 	 => [ $this, 'all_authors' ],
 	
 				// Forms
 				'directorist_add_listing'         => [ $this, 'add_listing' ],
@@ -46,6 +47,10 @@ class ATBDP_Shortcode {
 				'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
 				'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
 				'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
+
+				// Single
+				'directorist_single_listings_header' => [ $this, 'single_listings_header' ],
+				'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
 	
 				// Single -- legacy shortcode
 				'directorist_listing_top_area'            => [ $this, 'empty_string' ],
@@ -74,6 +79,46 @@ class ATBDP_Shortcode {
 		return '';
 	}
 
+	// single_listings_header
+	public function single_listings_header( $atts ) {
+
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return '';
+		}
+
+		$listing = Directorist_Single_Listing::instance();
+
+		ob_start();
+		echo '<div class="directorist-single-wrapper">';
+		$listing->header_template();
+		echo '<br>';
+		echo '</div>';
+
+		return ob_get_clean();
+	}
+
+	public function single_listing_section( $atts ) {
+		ob_start();
+		$post_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+		$listing = Directorist_Single_Listing::instance( $post_id );
+
+		foreach ( $listing->content_data as $section ) {
+			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
+
+			$section_key  = ( isset( $atts['key'] ) ) ? $atts['key'] : '';
+			$section_key  = trim( preg_replace( '/\s{2,}/', ' ', $section_key ) );
+			$section_keys = preg_split( '/\s*[,]\s/', $section_key );
+
+			if ( ! empty( $section_keys ) && ! in_array( $section_id, $section_keys ) ) {
+				continue;
+			}
+
+			$listing->section_template( $section );
+		}
+
+		return ob_get_clean();
+	}
+
 	public function listing_archive( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$listings = new Directorist_Listings( $atts );
@@ -87,8 +132,8 @@ class ATBDP_Shortcode {
 
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = get_query_var('atbdp_category');
-		$atts['category'] = sanitize_text_field( $category_slug );
+		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
+		$atts['category'] = sanitize_title_for_query( $category_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_category';
 
@@ -97,8 +142,8 @@ class ATBDP_Shortcode {
 
 	public function tag_archive( $atts ) {
 		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = get_query_var('atbdp_tag');
-		$atts['tag'] = sanitize_text_field( $tag_slug );
+		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
+		$atts['tag'] = sanitize_title_for_query( $tag_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_tag';
 
@@ -106,9 +151,9 @@ class ATBDP_Shortcode {
 	}
 
 	public function location_archive( $atts ) {
-		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = get_query_var('atbdp_location');
-		$atts['location'] = sanitize_text_field( $tag_slug );
+		$atts             = !empty( $atts ) ? $atts : array();
+		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
+		$atts['location'] = sanitize_title_for_query( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
 
@@ -162,6 +207,11 @@ class ATBDP_Shortcode {
 		$atts[ 'shortcode' ] = 'directorist_author_profile';
 
 		return $author->render_shortcode_author_profile($atts);
+	}
+
+	public function all_authors() {
+		$all_authors = new Directorist_All_Authors();
+		return $all_authors->render_shortcode_all_authors();
 	}
 
 	public function user_dashboard( $atts ) {

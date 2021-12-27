@@ -15,6 +15,7 @@ class Directorist_Listing_Author {
 	public $all_listings;
 	public $rating;
 	public $total_review;
+	public $columns;
 
 	public $listing_types;
 	public $current_listing_type;
@@ -68,6 +69,7 @@ class Directorist_Listing_Author {
 	function prepare_data() {
 		$this->listing_types        = $this->get_listing_types();
 		$this->current_listing_type = $this->get_current_listing_type();
+		$this->columns              = (int) atbdp_calculate_column( get_directorist_option( 'all_listing_columns', 3 ) );
 
 		$this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 
@@ -100,15 +102,14 @@ class Directorist_Listing_Author {
 
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( ! empty( get_query_var( 'directory_type' ) ) ) {
-			$current = get_query_var( 'directory_type' );
+		if ( ! empty( $_GET['directory_type' ] ) ) {
+			$current = $_GET['directory_type' ];
 		}
-		else {
-
+		else if (  get_query_var( 'directory-type' ) ) {
+			$current = get_query_var( 'directory-type' );
+		} else {
 			foreach ( $listing_types as $id => $type ) {
 				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {
@@ -307,13 +308,13 @@ class Directorist_Listing_Author {
 
 	public function review_count_html() {
 		$review_count = $this->total_review;
-		$review_count_html = sprintf( _nx( '<span>%s</span>Review', '<span>%s</span>Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
+		$review_count_html = sprintf( _nx( '<span>%s</span> Review', '<span>%s</span> Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
 		return $review_count_html;
 	}
 
 	public function listing_count_html() {
 		$listing_count = ! empty( $this->all_listings ) ? $this->all_listings->total : '';
-		$listing_count_html = sprintf( _nx( '<span>%s</span>Listing', '<span>%s</span>Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
+		$listing_count_html = sprintf( _nx( '<span>%s</span> Listing', '<span>%s</span> Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
 		return $listing_count_html;
 	}
 
@@ -346,7 +347,7 @@ class Directorist_Listing_Author {
 		if ( $display_email == 'public' ) {
 			$email_endabled = true;
 		}
-		elseif ( $display_email == 'logged_in' && atbdp_logged_in_user() ) {
+		elseif ( $display_email == 'logged_in' && is_user_logged_in() ) {
 			$email_endabled = true;
 		}
 		else {
@@ -415,7 +416,7 @@ class Directorist_Listing_Author {
 
 		$this->enqueue_scripts();
 
-		if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 

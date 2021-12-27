@@ -1,7 +1,7 @@
 /* Alerts style */
 .directorist-alert {
     font-size: 16px;
-
+    word-break: break-word;
     border-radius: 3px;
     background: #f4f4f4;
     padding: 15px 20px;
@@ -94,7 +94,9 @@
             color: #009114;
         }
     }
-
+    @include m(sm){
+        padding: 10px 20px;
+    }
 }
 
 //alert-danger in registration page

@@ -387,15 +387,15 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.0.8 – Dec 29, 2021
 
-* New - Hide search form fields by shortcade parameter
-* New - Option to create All Authors page shortcode form setup wizard
-* Fix - Listing image uploader validation issue
+* New - Hide search form fields by shortcode parameter
+* New - Option to create All Authors page shortcode from setup wizard
+* Fix - Listing image uploader validation issue in add listing form 
+* Fix - Theme updating issues from subscriptions management page 
+* Fix - Single category and location page compatibility issues with Polylang plugin
+* Fix - Admin add listing form issue (add custom event listener on directory type change )
 * Fix - Style issues
-* Fix - Theme updating issues
-* Fix - Compatibility issue with Polylang plugin
-* Fix - Admin add listing form issue
-* Improve - Colour picker field
-* Improve - Some http queries
+* Improve - Colour picker field in settings panel
+* Improve - Default directory type query (directorist_get_default_directory())
 
 7.0.7 – Dec 8, 2021
 

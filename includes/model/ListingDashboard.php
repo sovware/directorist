@@ -68,13 +68,13 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
-			$status = apply_filters('directorist_listing_delete_or_trash', 'delete');
-			if( $status == 'delete' ){
-				wp_delete_post( $taskdata );
-			}else{
-				wp_trash_post( $taskdata );
-			}
-			do_action( 'directorist_listing_deleted', $taskdata );
+		$task = apply_filters('directorist_listing_delete_or_trash', $task);
+		if( $task == 'delete' ){
+			wp_delete_post( $taskdata );
+		}else{
+			wp_trash_post( $taskdata );
+		}
+		do_action( 'directorist_listing_deleted', $taskdata );
 	}
 
 	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {

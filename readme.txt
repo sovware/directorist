@@ -396,6 +396,7 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Style issues
 * Improve - Colour picker field in settings panel
 * Improve - Default directory type query (directorist_get_default_directory())
+* Remove - Unofficial extensions form membership page
 
 7.0.7 – Dec 8, 2021
 

@@ -1639,15 +1639,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $plugin_updates       = get_site_transient( 'update_plugins' );
             $outdated_plugins     = $plugin_updates->response;
             $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
+            $official_extensions  = is_array( $this->extensions ) ? array_keys( $this->extensions ) : [];
 
             $all_installed_plugins_list = get_plugins();
             $installed_extensions       = [];
             $total_active_extensions    = 0;
             $total_outdated_extensions  = 0;
-
+          
             foreach ( $all_installed_plugins_list as $plugin_base => $plugin_data ) {
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) ) {
+                $folder_base = strtok( $plugin_base, '/' );
+
+                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions ) ) {
                     $installed_extensions[$plugin_base] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {
@@ -1904,7 +1907,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $customizer_link      = admin_url( $customizer_link );
 
             // Check form theme update
-            $has_update = $args[ 'installed_theme_list' ][ $current_active_theme->stylesheet ][ 'has_update' ];
+            $has_update = isset( $args[ 'installed_theme_list' ][ $current_active_theme->stylesheet ] ) ? $args[ 'installed_theme_list' ][ $current_active_theme->stylesheet ][ 'has_update' ] : '';
             
             $active_theme_info = [
                 'name'            => $current_active_theme->name,

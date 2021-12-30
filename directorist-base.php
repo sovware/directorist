@@ -1432,10 +1432,19 @@ final class Directorist_Base
  * @since 1.0
  * @return object|Directorist_Base The one true Directorist_Base Instance.
  */
-function ATBDP()
-{
-	return Directorist_Base::instance();
+if ( !function_exists( 'directorist' ) ) {
+
+	function directorist() {
+		return Directorist_Base::instance();
+	}
+
+	// Will be deprecated
+	function ATBDP() {
+		return directorist();
+	}
+
+	directorist();
 }
 
-ATBDP();
+
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

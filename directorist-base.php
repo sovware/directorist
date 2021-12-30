@@ -1446,5 +1446,4 @@ if ( !function_exists( 'directorist' ) ) {
 	directorist();
 }
 
-
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

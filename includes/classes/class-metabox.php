@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use wpWax\Directorist\Model\Listing_Form;
+
 class ATBDP_Metabox {
 
 	/**
@@ -138,7 +140,7 @@ class ATBDP_Metabox {
 	public function render_listing_meta_fields( $type, $id ) {
 		$form_data = $this->build_form_data( $type );
 		foreach ( $form_data as $section ) {
-			\Directorist\Directorist_Listing_Form::instance($id)->section_template( $section );
+			Listing_Form::instance($id)->section_template( $section );
 		}
 	}
 

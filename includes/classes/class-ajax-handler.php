@@ -1,8 +1,9 @@
 <?php
 defined('ABSPATH') || die('Direct access is not allowed.');
 
-use \Directorist\Helper;
-use \Directorist\Directorist_All_Authors;
+use Directorist\Helper;
+use wpWax\Directorist\Model\All_Authors;
+use wpWax\Directorist\Model\Listing_Form;
 
 if (!class_exists('ATBDP_Ajax_Handler')) :
 
@@ -153,7 +154,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function directorist_author_alpha_sorting() {
             ob_start();
             if ( wp_verify_nonce( $_POST['_nonce'], 'directorist_author_sorting' ) ) {
-            	$authors = new Directorist_All_Authors();
+            	$authors = new All_Authors();
                 echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
                 wp_die();
             }
@@ -163,7 +164,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // directorist_author_pagination
         public function author_pagination() {
             ob_start();
-            $authors = new Directorist_All_Authors();
+            $authors = new All_Authors();
             echo Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
             wp_die();
             return ob_get_clean();
@@ -348,7 +349,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 if( $category ) {
                     if( in_array( $category, $categories ) ) {
                         ob_start();
-                        \Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $value, $post_id );
+                        Listing_Form::instance()->add_listing_category_custom_field_template( $value, $post_id );
                         $template .= ob_get_clean();
                     }
                 }

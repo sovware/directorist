@@ -3,7 +3,7 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace wpWax\Directorist\Model;
 
 use \ATBDP_Permalink;
 

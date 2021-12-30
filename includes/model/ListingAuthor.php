@@ -3,11 +3,11 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace wpWax\Directorist\Model;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Listing_Author {
+class Listing_Author {
 
 	protected static $instance = null;
 

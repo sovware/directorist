@@ -5,8 +5,8 @@
  * @version 7.0.5
  */
 
-use \Directorist\Helper;
-use \Directorist\Directorist_All_Authors as Authors;
+use Directorist\Helper;
+use wpWax\Directorist\Model\All_Authors as Authors;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>

@@ -5,8 +5,6 @@
 
 namespace Directorist;
 
-use wpWax\Directorist\Model\Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Template_Hooks {
@@ -15,35 +13,35 @@ class Directorist_Template_Hooks {
 
 	private function __construct() {
 		// Dashboard ajax
-		$dashboard = Directorist_Listing_Dashboard::instance();
+		$dashboard = \wpWax\Directorist\Model\Dashboard::instance();
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $dashboard, 'ajax_listing_tab' ) );
 
 		// All Categories
-		add_action( 'atbdp_before_all_categories_loop',    array( '\Directorist\Directorist_Listing_Taxonomy', 'archive_type' ) );
+		add_action( 'atbdp_before_all_categories_loop',    array( '\wpWax\Directorist\Model\Listing_Taxonomy', 'archive_type' ) );
 
 		// All Locations
-		add_action( 'atbdp_before_all_locations_loop',    array( '\Directorist\Directorist_Listing_Taxonomy', 'archive_type' ) );
+		add_action( 'atbdp_before_all_locations_loop',    array( '\wpWax\Directorist\Model\Listing_Taxonomy', 'archive_type' ) );
 
 		// Listing Archive
-		add_action( 'directorist_archive_header',    array( 'Listings', 'archive_type' ) );
-		add_action( 'directorist_archive_header',    array( 'Listings', 'archive_header' ), 15 );
+		add_action( 'directorist_archive_header',    array( '\wpWax\Directorist\Model\Listings', 'archive_type' ) );
+		add_action( 'directorist_archive_header',    array( '\wpWax\Directorist\Model\Listings', 'archive_header' ), 15 );
 
 		// Listings Badges - Grid View
-		add_filter( 'atbdp_grid_lower_badges', array( 'Listings', 'featured_badge') );
-		add_filter( 'atbdp_grid_lower_badges', array( 'Listings', 'popular_badge'), 15 );
-		add_filter( 'atbdp_grid_lower_badges', array( 'Listings', 'new_listing_badge'), 20 );
+		add_filter( 'atbdp_grid_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'featured_badge') );
+		add_filter( 'atbdp_grid_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'popular_badge'), 15 );
+		add_filter( 'atbdp_grid_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'new_listing_badge'), 20 );
 
 		// Listings Badges - List View
-		add_filter( 'atbdp_list_lower_badges', array( 'Listings', 'featured_badge_list_view') );
-		add_filter( 'atbdp_list_lower_badges', array( 'Listings', 'populer_badge_list_view'), 15 );
-		add_filter( 'atbdp_list_lower_badges', array( 'Listings', 'new_badge_list_view'), 20 );
+		add_filter( 'atbdp_list_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'featured_badge_list_view') );
+		add_filter( 'atbdp_list_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'populer_badge_list_view'), 15 );
+		add_filter( 'atbdp_list_lower_badges', array( '\wpWax\Directorist\Model\Listings', 'new_badge_list_view'), 20 );
 
 		// Listings Top - List View
-		add_action( 'directorist_list_view_listing_meta_end', array( 'Listings', 'list_view_business_hours') );
-		add_action( 'directorist_list_view_top_content_end',  array( 'Listings', 'mark_as_favourite_button'), 15 );
+		add_action( 'directorist_list_view_listing_meta_end', array( '\wpWax\Directorist\Model\Listings', 'list_view_business_hours') );
+		add_action( 'directorist_list_view_top_content_end',  array( '\wpWax\Directorist\Model\Listings', 'mark_as_favourite_button'), 15 );
 
 		// Listing Thumbnail Area
-		add_action( 'atbdp_listing_thumbnail_area', array( 'Listings', 'mark_as_favourite_button'), 15 );
+		add_action( 'atbdp_listing_thumbnail_area', array( '\wpWax\Directorist\Model\Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing
 		// Set high priority to override page builders.

@@ -3,13 +3,13 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace wpWax\Directorist\Model;
 
 use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Listing_Form {
+class Listing_Form {
 
 	protected static $instance = null;
 	public static $directory_type = '';

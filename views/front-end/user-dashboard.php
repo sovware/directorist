@@ -143,7 +143,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                         <?php
                         /**
                          * @since 6.6
-                         * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
+                         * @hooked Dashboard > tab_contents_html - 10
                          */
                         do_action( 'directorist_dashboard_tab_contents');
                         if (!empty($my_listing_tab)) { ?>

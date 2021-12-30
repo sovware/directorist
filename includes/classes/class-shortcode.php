@@ -6,6 +6,12 @@
 namespace Directorist;
 
 use wpWax\Directorist\Model\Listings;
+use wpWax\Directorist\Model\Account;
+use wpWax\Directorist\Model\All_Authors;
+use wpWax\Directorist\Model\Listing_Author;
+use wpWax\Directorist\Model\Dashboard;
+use wpWax\Directorist\Model\Listing_Form;
+use wpWax\Directorist\Model\Listing_Taxonomy;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -164,7 +170,7 @@ class ATBDP_Shortcode {
 
 	public function all_categories( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'category');
+		$taxonomy = new Listing_Taxonomy($atts, 'category');
 		
 		$atts[ 'shortcode' ] = 'directorist_all_categories';
 		
@@ -173,7 +179,7 @@ class ATBDP_Shortcode {
 
 	public function all_locations( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'location');
+		$taxonomy = new Listing_Taxonomy($atts, 'location');
 		
 		$atts[ 'shortcode' ] = 'directorist_all_locations';
 		
@@ -204,7 +210,7 @@ class ATBDP_Shortcode {
 
 	public function author_profile( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$author = Directorist_Listing_Author::instance();
+		$author = Listing_Author::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_author_profile';
 
@@ -212,13 +218,13 @@ class ATBDP_Shortcode {
 	}
 
 	public function all_authors() {
-		$all_authors = new Directorist_All_Authors();
+		$all_authors = new All_Authors();
 		return $all_authors->render_shortcode_all_authors();
 	}
 
 	public function user_dashboard( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$dashboard = Directorist_Listing_Dashboard::instance();
+		$dashboard = Dashboard::instance();
 		
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
 		
@@ -230,7 +236,7 @@ class ATBDP_Shortcode {
 		$url = $_SERVER['REQUEST_URI'];
 		$pattern = "/edit\/(\d+)/i";
 		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
-		$forms = Directorist_Listing_Form::instance($id);
+		$forms = Listing_Form::instance($id);
 
 		$atts[ 'shortcode' ] = 'directorist_add_listing';
 		
@@ -239,7 +245,7 @@ class ATBDP_Shortcode {
 
 	public function user_registration( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$account = Directorist_Account::instance();
+		$account = Account::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_custom_registration';
 
@@ -248,7 +254,7 @@ class ATBDP_Shortcode {
 
 	public function user_login( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$account = Directorist_Account::instance();
+		$account = Account::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_login';
 

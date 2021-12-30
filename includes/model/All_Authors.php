@@ -3,11 +3,11 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace wpWax\Directorist\Model;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_All_Authors {
+class All_Authors {
 
 	public function __construct() {
 

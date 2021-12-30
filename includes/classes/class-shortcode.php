@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use wpWax\Directorist\Model\Listings;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ATBDP_Shortcode {
@@ -121,7 +123,7 @@ class ATBDP_Shortcode {
 
 	public function listing_archive( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$listings = new Directorist_Listings( $atts );
+		$listings = new Listings( $atts );
 
 		if ( empty( $atts[ 'shortcode' ] ) ) {
 			$atts[ 'shortcode' ] = 'directorist_all_listing';
@@ -193,7 +195,7 @@ class ATBDP_Shortcode {
 
 	public function search_result( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$listings = new Directorist_Listings( $atts, 'search_result' );
+		$listings = new Listings( $atts, 'search_result' );
 		
 		$atts[ 'shortcode' ] = 'directorist_search_result';
 		

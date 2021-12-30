@@ -1183,7 +1183,7 @@ class Directorist_Single_Listing {
 
 		$args = apply_filters( 'directorist_related_listing_args', $args, $this );
 
-		$related = new Directorist_Listings( [], 'related', $args, ['cache' => false] );
+		$related = new Listings( [], 'related', $args, ['cache' => false] ); // @model @kowsar
 
 		return $related;
 	}

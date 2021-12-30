@@ -3,16 +3,19 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace wpWax\Directorist\Model;
 
 use \ATBDP_Listings_Data_Store;
 use \ATBDP_Permalink;
+use Directorist\Script_Helper;
+use Directorist\Helper;
+use Directorist\Directorist_Listing_Search_Form;
 use Directory;
 use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Listings {
+class Listings {
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -1936,7 +1939,7 @@ class Directorist_Listings {
 
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ), // @model @kowsar
 			);
 			Helper::get_template( 'archive/search-form', $args );
 		}

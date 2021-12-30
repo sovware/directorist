@@ -382,7 +382,7 @@ class Directorist_Listing_Author {
 
 	public function get_listings() {
 		$query    = $this->author_listings_query();
-		$listings = new Directorist_Listings( NULL, NULL, $query, ['cache' => false] );
+		$listings = new Listings( NULL, NULL, $query, ['cache' => false] ); // @model @kowsar
 		return $listings;
 	}
 

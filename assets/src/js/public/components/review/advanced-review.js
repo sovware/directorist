@@ -201,38 +201,47 @@
 
         callback(mutationsList, observer) {
             for (const mutation of mutationsList) {
+                const target = mutation.target;
+
                 if (mutation.removedNodes) {
-                    mutation.target.classList.remove('directorist-form-added');
+                    target.classList.remove('directorist-form-added');
 
                     for (const node of mutation.removedNodes) {
-                        if (node.id && node.id === 'respond') {
-                            const criteria = node.querySelector('.directorist-review-criteria');
-                            if (criteria) {
-                                criteria.style.display = '';
-                            }
-
-                            const ratings = node.querySelectorAll('.directorist-review-criteria-select');
-                            for (const rating of ratings) {
-                                rating.removeAttribute('disabled');
-                            }
-
-                            node.querySelector('#submit').innerHTML = 'Submit review';
-                            node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
+                        if (!node.id || node.id !== 'respond') {
+                            continue;
                         }
+
+                        const criteria = node.querySelector('.directorist-review-criteria');
+                        if (criteria) {
+                            criteria.style.display = '';
+                        }
+
+                        const ratings = node.querySelectorAll('.directorist-review-criteria-select');
+                        for (const rating of ratings) {
+                            rating.removeAttribute('disabled');
+                        }
+
+                        node.querySelector('#submit').innerHTML = 'Submit review';
+                        node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
                     }
                 }
 
-                const form = mutation.target.querySelector('#commentform');
+                const form = target.querySelector('#commentform');
                 if (form) {
-                    mutation.target.classList.add('directorist-form-added');
-                    const criteria = form.querySelector('.directorist-review-criteria');
-                    if (criteria) {
-                        criteria.style.display = 'none';
-                    }
+                    target.classList.add('directorist-form-added');
+                    const isReview = target.classList.contains('review');
+                    const isEditing = target.classList.contains('directorist-form-editing');
 
-                    const ratings = form.querySelectorAll('.directorist-review-criteria-select');
-                    for (const rating of ratings) {
-                        rating.setAttribute('disabled', 'disabled');
+                    if (!isReview || (isReview && !isEditing)) {
+                        const criteria = form.querySelector('.directorist-review-criteria');
+                        if (criteria) {
+                            criteria.style.display = 'none';
+                        }
+
+                        const ratings = form.querySelectorAll('.directorist-review-criteria-select');
+                        for (const rating of ratings) {
+                            rating.setAttribute('disabled', 'disabled');
+                        }
                     }
 
                     const alert = form.querySelector('.directorist-alert');
@@ -275,10 +284,10 @@
         onSubmit( event ) {
             event.preventDefault();
 
-            const form = $( "#commentform" );
-            const ori_btn_val = form.find( "[type='submit']" ).val();
+            const form                = $( '#commentform' );
+            const originalButtonLabel = form.find( '[type="submit"]' ).val();
 
-            $( document ).trigger( 'directorist_reviews_before_submit', form );
+            $( document ).trigger( 'directorist_review_before_submit', form );
 
             const do_comment = $.ajax({
                 url        : form.attr('action'),
@@ -289,53 +298,51 @@
                 data       : new FormData(form[0])
             });
 
-            $( "#comment" ).prop( "disabled", true );
+            $( '#comment' ).prop( 'disabled', true );
 
-            form.find( "[type='submit']" ).prop( "disabled", true ).val( 'loading' );
+            form.find( '[type="submit"]' ).prop( 'disabled', true ).val( 'loading' );
 
             do_comment.success(
                 function ( data, status, request ) {
-
-                    var body = $( "<div></div>" );
+                    var body = $( '<div></div>' );
                     body.append( data );
-                    var comment_section = ".directorist-review-container";
+                    var comment_section = '.directorist-review-container';
                     var comments = body.find( comment_section );
 
                     const errorMsg = body.find( '.wp-die-message' );
                     if (errorMsg.length > 0) {
                         Ajax_Comment.showError(form, errorMsg);
 
-                        $( document ).trigger( 'directorist_reviews_update_failed' );
+                        $( document ).trigger( 'directorist_review_update_failed' );
 
                         return;
                     }
 
-                    var commentslists = comments.find( ".commentlist li" );
-
-                    var new_comment_id = false;
+                    let commentsLists = comments.find( '.commentlist li' );
+                    let newCommentId  = false;
 
                     // catch the new comment id by comparing to old dom.
-                    commentslists.each(
+                    commentsLists.each(
                         function ( index ) {
-                            var _this = $( commentslists[ index ] );
-                            if ( $( "#" + _this.attr( "id" ) ).length == 0 ) {
-                                new_comment_id = _this.attr( "id" );
+                            var _this = $( commentsLists[ index ] );
+                            if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
+                                newCommentId = _this.attr( 'id' );
                             }
                         }
                     );
 
                     $( comment_section ).replaceWith( comments );
 
-                    $( document ).trigger( 'directorist_reviews_updated', data );
+                    $( document ).trigger( 'directorist_review_updated', data );
 
-                    var commentTop = $( "#" + new_comment_id ).offset().top;
+                    var commentTop = $( "#" + newCommentId ).offset().top;
 
                     if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
                         commentTop = commentTop - $( '#wpadminbar' ).height();
                     }
 
                     // scroll to comment
-                    if ( new_comment_id ) {
+                    if ( newCommentId ) {
                         $( "body, html" ).animate(
                             {
                                 scrollTop: commentTop
@@ -348,9 +355,8 @@
 
             do_comment.fail(
                 function ( data ) {
-                    var body = $( "<div></div>" );
+                    var body = $( '<div></div>' );
                     body.append( data.responseText );
-                    body.find( "style,meta,title,a" ).remove();
 
                     Ajax_Comment.showError(form, body.find( '.wp-die-message' ));
 
@@ -360,8 +366,8 @@
 
             do_comment.always(
                 function () {
-                    $( "#comment" ).prop( "disabled", false );
-                    $( "#commentform" ).find( "[type='submit']" ).prop( "disabled", false ).val( ori_btn_val );
+                    $( '#comment' ).prop( 'disabled', false );
+                    $( '#commentform' ).find( '[type="submit"]' ).prop( 'disabled', false ).val( originalButtonLabel );
                 }
             );
 
@@ -388,6 +394,27 @@
             } );
 
             this.$doc.on( 'click', 'a[href="#respond"]', this.onWriteReivewClick );
+
+            this.$doc.on( 'click', '.directorist-comment-edit-link', function(e) {
+                e.preventDefault();
+                const $target = $(e.target);
+                // $target
+                //     .parents('#comment-'+$target.data('commentid'))
+                //     .addClass('directorist-form-editing');
+
+                window.addComment.moveForm(
+                    $target.data('belowelement'),
+                    $target.data('commentid'),
+                    $target.data('respondelement'),
+                    $target.data('postid'),
+                    $target.data('editof')
+                );
+
+                // $target
+                //     .parents('#div-comment-'+$target.data('commentid'))
+                //     .addClass('directorist-comment-on-editing')
+                //     .hide('fast');
+            } );
         }
 
         onWriteReivewClick(event) {

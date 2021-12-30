@@ -146,7 +146,17 @@ class Walker extends Walker_Comment {
 				<?php endif; ?>
 
 				<div class="directorist-review-single__reply">
-					<?php edit_comment_link( sprintf( __( '%s Edit', 'directorist' ), '<i class="far fa-edit" aria-hidden="true"></i>' ) ); ?>
+					<?php echo directorist_get_comment_edit_link(
+						array_merge(
+							$args,
+							array(
+								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="far fa-edit" aria-hidden="true"></i>' ),
+								'depth'      => $depth,
+								'max_depth'  => $args['max_depth'],
+								'add_below'  => 'div-comment',
+							)
+						)
+					); ?>
 
 					<?php comment_reply_link(
 						array_merge(
@@ -157,8 +167,6 @@ class Walker extends Walker_Comment {
 								'depth'      => $depth,
 								'max_depth'  => $args['max_depth'],
 								'add_below'  => 'div-comment',
-								// 'before'     => '',
-								// 'after'      => ''
 							)
 						)
 					); ?>

@@ -47,6 +47,27 @@ class Bootstrap {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
+
+		add_action( 'wp_ajax_directorist_process_comment', array( __CLASS__, 'process_comment' ) );
+		add_action( 'wp_ajax_nopriv_directorist_process_comment', array( __CLASS__, 'process_comment' ) );
+	}
+
+	public static function process_comment() {
+		try {
+			$post    = wp_unslash( $_POST );
+			$comment = wp_handle_comment_submission( $post );
+
+			if ( is_wp_error( $comment ) ) {
+				file_put_contents( __DIR__ . '/data.txt', print_r( $comment->get_error_data(), true ) );
+
+				$data = (int) $comment->get_error_data();
+				if ( ! empty( $data ) ) {
+					throw new \Exception( $comment->get_error_message(), $data );
+				}
+			}
+		} catch ( \Exception $e ) {
+			wp_send_json_error( $e->getMessage(), $e->getCode() );
+		}
 	}
 
 	/**

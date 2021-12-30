@@ -145,14 +145,25 @@ Bootstrap::load_walker();
 			)
 		);
 
-		$comment_fields['redirect_to'] = sprintf( '<input type="hidden" value="%s" name="redirect_to">', get_the_permalink() );
-
 		$comment_fields = (array) apply_filters( 'directorist/review_form/comment_fields', $comment_fields );
+
+		$comment_fields['redirect_to'] = sprintf(
+			'<input type="hidden" value="%s" name="redirect_to">',
+			get_the_permalink()
+		);
+
+		$form_edit_action = add_query_arg( 'action', 'directorist_process_edited_comment', admin_url( 'admin-ajax.php' ) );
+		$form_edit_action = wp_nonce_url( $form_edit_action, 'directorist_process_edited_comment', 'directorist_nonce' );
+		$comment_fields['form_edit_action'] = sprintf(
+			'<input type="hidden" value="%s" name="form_edit_action">',
+			esc_url( $form_edit_action )
+		);
 
 		$args = array(
 			'fields'             => $fields,
 			'comment_field'      => implode( "\n", $comment_fields ),
 			'logged_in_as'       => '',
+			'cancel_reply_link'  => __( 'Cancel', 'directorist' ),
 			'class_container'    => 'directorist-review-submit',
 			'title_reply'        => __( 'Write Your Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',

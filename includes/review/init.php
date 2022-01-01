@@ -31,6 +31,9 @@ class Bootstrap {
 		require_once 'class-comment-meta.php';
 		require_once 'class-listing-review-meta.php';
 
+		require_once 'class-comment-form-renderer.php';
+		require_once 'class-comment-form-processor.php';
+
 		// Ensure review rating backward complatible methods.
 		require_once 'class-bc-review-rating.php';
 		ATBDP()->review = new BC_Review_Rating();
@@ -45,29 +48,9 @@ class Bootstrap {
 	public static function hooks() {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'dequeue_comment_scripts' ), 20 );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
-
-		add_action( 'wp_ajax_directorist_process_comment', array( __CLASS__, 'process_comment' ) );
-		add_action( 'wp_ajax_nopriv_directorist_process_comment', array( __CLASS__, 'process_comment' ) );
-	}
-
-	public static function process_comment() {
-		try {
-			$post    = wp_unslash( $_POST );
-			$comment = wp_handle_comment_submission( $post );
-
-			if ( is_wp_error( $comment ) ) {
-				file_put_contents( __DIR__ . '/data.txt', print_r( $comment->get_error_data(), true ) );
-
-				$data = (int) $comment->get_error_data();
-				if ( ! empty( $data ) ) {
-					throw new \Exception( $comment->get_error_message(), $data );
-				}
-			}
-		} catch ( \Exception $e ) {
-			wp_send_json_error( $e->getMessage(), $e->getCode() );
-		}
 	}
 
 	/**
@@ -118,9 +101,30 @@ class Bootstrap {
 		return $args;
 	}
 
+	public static function dequeue_comment_scripts() {
+
+	}
+
 	public static function enqueue_comment_scripts() {
-		if ( is_singular( ATBDP_POST_TYPE) && comments_open() && get_option( 'thread_comments' ) ) {
-			wp_enqueue_script( 'comment-reply' );
+		if ( is_singular( ATBDP_POST_TYPE ) && directorist_is_review_enabled() ) {
+			wp_dequeue_script( 'comment-reply' );
+		}
+
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			wp_enqueue_style(
+				'jquery-jbox',
+				DIRECTORIST_VENDOR . 'jBox/jBox.all.min.css',
+				[],
+				DIRECTORIST_SCRIPT_VERSION
+			);
+
+			wp_enqueue_script(
+				'jquery-jbox',
+				DIRECTORIST_VENDOR . 'jBox/jBox.all.min.js',
+				[ 'jquery' ],
+				DIRECTORIST_SCRIPT_VERSION,
+				true
+			);
 		}
 	}
 

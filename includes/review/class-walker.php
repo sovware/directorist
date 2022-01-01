@@ -152,8 +152,7 @@ class Walker extends Walker_Comment {
 							array(
 								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="far fa-edit" aria-hidden="true"></i>' ),
 								'depth'      => $depth,
-								'max_depth'  => $args['max_depth'],
-								'add_below'  => 'div-comment',
+								'max_depth'  => $args['max_depth']
 							)
 						)
 					); ?>

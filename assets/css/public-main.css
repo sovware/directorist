@@ -12092,6 +12092,25 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews > li:not(:last-child) {
   margin-bottom: 10px;
 }
+.directorist-review-content .directorist-review-content__reviews .directorist-comment-edit-request {
+  position: relative;
+}
+.directorist-review-content .directorist-review-content__reviews .directorist-comment-edit-request::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  background: tomato;
+}
+.directorist-review-content .directorist-review-content__reviews .directorist-comment-editing .directorist-review-single__report,
+.directorist-review-content .directorist-review-content__reviews .directorist-comment-editing .directorist-review-single__content,
+.directorist-review-content .directorist-review-content__reviews .directorist-comment-editing .directorist-review-single__reply {
+  display: none;
+}
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single {
   padding: 25px;
   background: #fff;
@@ -12372,7 +12391,6 @@ Review: New Style
   margin-bottom: 0;
 }
 .directorist-review-submit__form {
-  padding: 25px 25px 30px;
   margin: 0 !important;
 }
 .directorist-review-submit__form .directorist-alert {
@@ -12450,6 +12468,8 @@ Review: New Style
 .directorist-review-submit__form .directorist-form-group textarea {
   background: #F6F7F9;
   font-size: 15px;
+  display: block;
+  resize: vertical;
 }
 .directorist-review-submit__form .directorist-form-group textarea:focus {
   background: #F6F7F9;
@@ -12461,7 +12481,8 @@ Review: New Style
   margin-bottom: 5px;
   display: block;
 }
-.directorist-review-submit__form .directorist-form-group input[type=text] {
+.directorist-review-submit__form .directorist-form-group input[type=text],
+.directorist-review-submit__form .directorist-form-group input[type=email] {
   max-width: 400px;
   height: 46px;
   background: #F6F7F9;

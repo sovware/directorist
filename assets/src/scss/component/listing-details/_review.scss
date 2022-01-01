@@ -425,6 +425,29 @@ Review: New Style
                 }
             }
 
+            .directorist-comment-edit-request {
+                position: relative;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 99;
+                    background: tomato;
+                }
+            }
+
+            .directorist-comment-editing {
+                .directorist-review-single__report,
+                .directorist-review-single__content,
+                .directorist-review-single__reply {
+                    display: none;
+                }
+            }
+
             .directorist-review-single {
                 padding: 25px;
                 background: #fff;
@@ -661,7 +684,6 @@ Review: New Style
     }
 
     @include e(form) {
-        padding: 25px 25px 30px;
         margin: 0 !important;
         .directorist-alert{
             margin-bottom: 15px;
@@ -731,6 +753,8 @@ Review: New Style
             textarea {
                 background: #F6F7F9;
                 font-size: 15px;
+                display: block;
+                resize: vertical;
                 &:focus{
                     background: #F6F7F9;
                 }
@@ -744,7 +768,8 @@ Review: New Style
                 display: block;
             }
 
-            input[type=text] {
+            input[type="text"],
+            input[type="email"] {
                 max-width: 400px;
                 height: 46px;
                 background: #F6F7F9;

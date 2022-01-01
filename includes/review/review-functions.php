@@ -69,16 +69,10 @@ function directorist_get_rating_field_meta_key() {
 
 function directorist_get_comment_edit_link( $args = array(), $comment = null, $post = null ) {
     $defaults = array(
-        'add_below'    => 'comment',
-        'respond_id'   => 'respond',
         'edit_text'    => __( 'Edit', 'directorist' ),
         'edit_of_text' => __( 'Edit %s', 'directorist' ),
-        'login_text'   => __( 'Log in to Edit', 'directorist' ),
-		'cancel_text'  => __( 'Cancel edit', 'directorist' ),
         'max_depth'    => 0,
         'depth'        => 0,
-        'before'       => '',
-        'after'        => '',
     );
 
     $args = wp_parse_args( $args, $defaults );
@@ -103,19 +97,11 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
         return false;
     }
 
-    if ( get_option( 'page_comments' ) ) {
-        $permalink = str_replace( '#comment-' . $comment->comment_ID, '', get_comment_link( $comment ) );
-    } else {
-        $permalink = get_permalink( $post->ID );
-    }
-
 	$comment_type = ( $comment->comment_type === 'review' ? __( 'review', 'directorist' ) : __( 'comment', 'directorist' ) );
 	$data_attributes = array(
-		'commentid'      => $comment->comment_ID,
-		'postid'         => $post->ID,
-		'belowelement'   => $args['add_below'] . '-' . $comment->comment_ID,
-		'respondelement' => $args['respond_id'],
-		'editof'         => sprintf( $args['edit_of_text'], $comment_type ),
+		'commentid' => $comment->comment_ID,
+		'postid'    => $post->ID,
+		'editof'    => sprintf( $args['edit_of_text'], $comment_type ),
 	);
 
 	$data_attribute_string = '';
@@ -127,19 +113,16 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
 	$data_attribute_string = trim( $data_attribute_string );
 
 	$link = sprintf(
-		"<a rel='nofollow' class='directorist-comment-edit-link' href='%s' %s aria-label='%s'>%s</a>",
-		esc_url(
-			add_query_arg(
-				array(
-					'editofcom'      => $comment->comment_ID,
-				),
-				$permalink
-			)
-		) . '#' . $args['respond_id'],
+		"<a rel='nofollow' class='directorist-comment-edit-link directorist-js-edit-comment' href='%s' %s aria-label='%s'>%s</a>",
+		esc_url( directorist_get_comment_form_ajax_url( 'edit' ) ),
 		$data_attribute_string,
 		esc_attr( sprintf( $args['edit_of_text'], $comment_type ) ),
 		$args['edit_text']
 	);
 
-    return apply_filters( 'directorist_comment_edit_link', $args['before'] . $link . $args['after'], $args, $comment, $post );
+    return apply_filters( 'directorist_comment_edit_link', $link, $args, $comment, $post );
+}
+
+function directorist_get_comment_form_ajax_url( $type = 'add' ) {
+	return \Directorist\Review\Comment_Form_Renderer::get_ajax_url( $type );
 }

@@ -13,15 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Markup {
 
-	public static function get_rating() {
+	public static function get_rating( $selected = 0 ) {
 		ob_start();
-
-		$name     = 'rating';
-		$selected = isset( $_REQUEST['rating'] ) ? $_REQUEST['rating'] : '';
 		?>
 		<div class="directorist-review-criteria__single">
 			<label class="directorist-review-criteria__single__label"><?php esc_html_e( 'Rating', 'directorist' ); ?></label>
-			<select required="required" name="<?php echo esc_attr( $name ); ?>" class="directorist-review-criteria-select">
+			<select required="required" name="rating" class="directorist-review-criteria-select">
 				<option value=""><?php esc_html_e( 'Rate...', 'directorist' ); ?></option>
 				<option <?php selected( $selected, '1' ); ?> value="1"><?php esc_html_e( 'Very poor', 'directorist' ); ?></option>
 				<option <?php selected( $selected, '2' ); ?> value="2"><?php esc_html_e( 'Not that bad', 'directorist' ); ?></option>
@@ -29,7 +26,7 @@ class Markup {
 				<option <?php selected( $selected, '4' ); ?> value="4"><?php esc_html_e( 'Good', 'directorist' ); ?></option>
 				<option <?php selected( $selected, '5' ); ?> value="5"><?php esc_html_e( 'Perfect', 'directorist' ); ?></option>
 			</select>
-		</div><!-- ends: .directorist-review-criteria__one -->
+		</div>
 		<?php
 		$html = ob_get_clean();
 

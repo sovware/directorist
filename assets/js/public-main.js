@@ -1570,13 +1570,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
-
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -1591,211 +1588,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 (function ($) {
   'use strict';
 
-  var ActivityStorage = /*#__PURE__*/function () {
-    function ActivityStorage() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ActivityStorage);
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(ActivityStorage, [{
-      key: "add",
-      value: function add(commentId, activity) {
-        if (this.has(commentId, activity)) {
-          return false;
-        }
-
-        var activities = this.getActivities();
-
-        if (typeof activities[commentId] === 'undefined') {
-          activities[commentId] = {};
-        }
-
-        if (typeof activities[commentId][activity] === 'undefined' || !activities[commentId][activity]) {
-          activities[commentId][activity] = 1;
-        }
-
-        this.saveActivities(activities);
-        return true;
-      }
-    }, {
-      key: "has",
-      value: function has(commentId, activity) {
-        var activities = this.getActivities();
-
-        if (typeof activities[commentId] === 'undefined') {
-          return false;
-        }
-
-        if (typeof activities[commentId][activity] === 'undefined' || !activities[commentId][activity]) {
-          return false;
-        }
-
-        return true;
-      }
-    }, {
-      key: "saveActivities",
-      value: function saveActivities(activities) {
-        this.getStorage().setItem('directorist', JSON.stringify({
-          activities: activities
-        }));
-      }
-    }, {
-      key: "getActivities",
-      value: function getActivities() {
-        var storage = this.getStorage();
-        var data = {
-          activities: {}
-        };
-
-        if (storage.getItem('directorist')) {
-          data = JSON.parse(storage.getItem('directorist'));
-
-          if (typeof data['activities'] === 'undefined') {
-            data.activities = {};
-          }
-        } else {
-          storage.setItem('directorist', JSON.stringify(data));
-        }
-
-        return data.activities;
-      }
-    }, {
-      key: "hasStorage",
-      value: function hasStorage(name) {
-        try {
-          var storage = window[name];
-          storage.setItem('hello___test__key', '1');
-          storage.removeItem('hello___test__key');
-          return true;
-        } catch (e) {
-          return false;
-        }
-      }
-    }, {
-      key: "getStorage",
-      value: function getStorage() {
-        var storage = null;
-
-        if (this.hasStorage('localStorage')) {
-          storage = window.localStorage;
-        } else if (this.hasStorage('sessionStorage')) {
-          storage = window.sessionStorage;
-        }
-
-        return storage;
-      }
-    }]);
-
-    return ActivityStorage;
-  }();
-
-  var Comment_Activity = /*#__PURE__*/function () {
-    function Comment_Activity(storage) {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Comment_Activity);
-
-      this.selector = '[data-directorist-activity]';
-      this.$wrap = $(document.body);
-      this.storage = storage;
-      this.init();
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Comment_Activity, [{
-      key: "init",
-      value: function init() {
-        this.$wrap.on('click.onDirectoristActivity', this.selector, this.callback.bind(this));
-      }
-    }, {
-      key: "callback",
-      value: function callback(event) {
-        var _this2 = this;
-
-        event.preventDefault();
-        var $target = $(event.currentTarget);
-        var activityProp = $target.data('directorist-activity');
-
-        if (!activityProp) {
-          return;
-        }
-
-        var _activityProp$split = activityProp.split(':'),
-            _activityProp$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_activityProp$split, 2),
-            commentId = _activityProp$split2[0],
-            activity = _activityProp$split2[1];
-
-        if (!commentId || !activity) {
-          return;
-        }
-
-        var $comment = $('#div-comment-' + commentId);
-
-        if (this.storage.has(commentId, activity)) {
-          $comment.prepend(this.getAlert('info').html('Already reported!'));
-          $target.addClass('processing').attr('disabled', true);
-          this.timeout = setTimeout(function () {
-            $comment.find('.directorist-alert').slideUp('medium');
-            clearTimeout(_this2.timeout);
-          }, 3000);
-          return;
-        }
-
-        if ($target.hasClass('processing')) {
-          return;
-        }
-
-        $target.addClass('processing').attr('disabled', true);
-        this.timeout && clearTimeout(this.timeout);
-        this.send(commentId, activity).done(function (response) {
-          var type = 'warning';
-
-          if (response.success) {
-            $target.removeClass('processing').removeAttr('disabled', true);
-            type = 'success';
-
-            _this2.storage.add(commentId, activity);
-          }
-
-          $comment.find('.directorist-alert').remove();
-          $comment.prepend(_this2.getAlert(type).html(response.data));
-          _this2.timeout = setTimeout(function () {
-            $comment.find('.directorist-alert').slideUp('medium');
-            clearTimeout(_this2.timeout);
-          }, 3000);
-        });
-      }
-    }, {
-      key: "getAlert",
-      value: function getAlert(type) {
-        return $('<div />', {
-          class: 'directorist-alert directorist-alert-' + type
-        });
-      }
-    }, {
-      key: "send",
-      value: function send(commentId, activity) {
-        return $.post(directorist.ajaxUrl, {
-          action: directorist.action,
-          nonce: directorist.nonce,
-          comment_id: commentId,
-          activity: activity
-        });
-      }
-    }]);
-
-    return Comment_Activity;
-  }();
+  var addCommentModal = new jBox('Modal', {
+    closeOnClick: false,
+    closeButton: 'title',
+    width: 450,
+    maxHeight: 400,
+    id: 'directorist-modal-add-comment'
+  });
 
   var ReplyFormObserver = /*#__PURE__*/function () {
     function ReplyFormObserver() {
-      var _this3 = this;
+      var _this2 = this;
 
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, ReplyFormObserver);
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
 
       this.init();
       $(document).on('directorist_reviews_updated', function () {
-        return _this3.init();
+        return _this2.init();
       });
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(ReplyFormObserver, [{
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
       key: "init",
       value: function init() {
         var node = document.querySelector('.commentlist');
@@ -1926,12 +1739,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var Ajax_Comment = /*#__PURE__*/function () {
     function Ajax_Comment() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Ajax_Comment);
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ajax_Comment);
 
       this.init();
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Ajax_Comment, [{
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Ajax_Comment, [{
       key: "init",
       value: function init() {
         $(document).on('submit', '#commentform', this.onSubmit);
@@ -2029,9 +1842,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     return Ajax_Comment;
   }();
 
-  var Advanced_Review = /*#__PURE__*/function () {
-    function Advanced_Review() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Advanced_Review);
+  var CommentsManager = /*#__PURE__*/function () {
+    function CommentsManager() {
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentsManager);
 
       this.$doc = $(document);
       this.setupComponents();
@@ -2039,49 +1852,96 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.setFormEncodingAttribute();
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Advanced_Review, [{
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
+      key: "initStarRating",
+      value: function initStarRating() {
+        $('.directorist-stars, .directorist-review-criteria-select').barrating({
+          theme: 'fontawesome-stars'
+        });
+      }
+    }, {
+      key: "removeEditingMode",
+      value: function removeEditingMode(currentCommentId) {
+        $('.directorist-comment-editing').each(function (index, comment) {
+          var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
+
+          if ($cancelButton.data('commentid') != currentCommentId) {
+            $cancelButton.click();
+          }
+        });
+      }
+    }, {
       key: "addEventListeners",
       value: function addEventListeners() {
-        var _this4 = this;
+        var _this3 = this;
 
-        this.$doc.on('directorist_reviews_updated', function () {
-          $('.directorist-stars, .directorist-review-criteria-select').barrating({
-            theme: 'fontawesome-stars'
-          });
+        var self = this;
+        this.$doc.on('directorist_reviews_updated', function (event) {
+          _this3.initStarRating();
 
-          _this4.setFormEncodingAttribute();
+          _this3.setFormEncodingAttribute();
+        });
+        this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
+          _this3.initStarRating();
         });
         this.$doc.on('click', 'a[href="#respond"]', this.onWriteReivewClick);
-        this.$doc.on('click', '.directorist-comment-edit-link', function (e) {
-          e.preventDefault();
-          var $target = $(e.target); // $target
-          //     .parents('#comment-'+$target.data('commentid'))
-          //     .addClass('directorist-form-editing');
-
-          window.addComment.moveForm($target.data('belowelement'), $target.data('commentid'), $target.data('respondelement'), $target.data('postid'), $target.data('editof')); // $target
-          //     .parents('#div-comment-'+$target.data('commentid'))
-          //     .addClass('directorist-comment-on-editing')
-          //     .hide('fast');
+        this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
+          event.preventDefault();
+          var $target = $(event.target);
+          var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+          $wrap.addClass('directorist-comment-edit-request');
+          $.ajax({
+            url: $target.attr('href'),
+            data: {
+              post_id: $target.data('postid'),
+              comment_id: $target.data('commentid')
+            },
+            setContent: false,
+            method: 'GET',
+            reload: 'strict',
+            success: function success(response) {
+              console.log(response);
+              $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
+              $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
+              self.removeEditingMode($target.data('commentid'));
+              self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
+            }
+          });
         });
+        this.$doc.on('click', '.directorist-js-cancel-comment-edit', function (event) {
+          event.preventDefault();
+          var $target = $(event.target);
+          var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+          $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+        }); // this.$doc.on( 'click', '[data-directorist-activity]', function(e) {
+        //     e.preventDefault();
+        //     const $target = $(e.target);
+        //     // confirm.setTitle( 'Would you like to report?' );
+        //     confirm.setContent('Would you like to report?');
+        //     confirm.open({
+        //         confirm: function(e) {
+        //             console.log(e, this);
+        //         }
+        //     });
+        // } );
       }
     }, {
       key: "onWriteReivewClick",
       value: function onWriteReivewClick(event) {
         event.preventDefault();
-        var respondTop = $('#respond').offset().top;
+        var scrollTop = $('#respond').offset().top;
 
         if ($('body').hasClass('admin-bar')) {
-          respondTop = respondTop - $('#wpadminbar').height();
+          scrollTop = scrollTop - $('#wpadminbar').height();
         }
 
         $('body, html').animate({
-          scrollTop: respondTop
+          scrollTop: scrollTop
         }, 600);
       }
     }, {
       key: "setupComponents",
       value: function setupComponents() {
-        new Comment_Activity(new ActivityStorage());
         new ReplyFormObserver();
         new Ajax_Comment();
       }
@@ -2096,10 +1956,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }]);
 
-    return Advanced_Review;
+    return CommentsManager;
   }();
 
-  var advanced_review = new Advanced_Review();
+  var commentsManager = new CommentsManager();
 })(jQuery);
 
 /***/ }),
@@ -2275,44 +2135,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-module.exports = _arrayLikeToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-module.exports = _arrayWithHoles;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/classCallCheck.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
@@ -2355,108 +2177,6 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-module.exports = _iterableToArrayLimit;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableRest;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
-
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
-
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
-
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-module.exports = _slicedToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-module.exports = _unsupportedIterableToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),

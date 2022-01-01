@@ -5,7 +5,6 @@
  * @since   7.1.0
  * @version 7.1.0
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -26,10 +25,10 @@ Bootstrap::load_walker();
 <div class="directorist-review-container">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header">
-			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) );?></h3>
-			<?php if ( is_user_logged_in() || directorist_is_guest_review_enabled() ): ?>
-				<a href="#respond" class="directorist-btn directorist-btn-primary"><span class="fa fa-star"></span> <?php esc_html_e( 'Write your review', 'directorist' );?></a>
-			<?php endif;?>
+			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) ); ?></h3>
+			<?php if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) : ?>
+				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Write your review', 'directorist' ); ?></a>
+			<?php endif; ?>
 		</div><!-- ends: .directorist-review-content__header -->
 
 		<?php if ( have_comments() ): ?>
@@ -132,7 +131,7 @@ Bootstrap::load_walker();
 		}
 
 		$comment_fields = array();
-		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( $builder ) . '</div>';
+		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( 0 ) . '</div>';
 
 		$comment_fields['content'] = sprintf(
 			'<div class="directorist-form-group form-group-comment">%s %s</div>',

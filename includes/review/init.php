@@ -48,7 +48,6 @@ class Bootstrap {
 	public static function hooks() {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'dequeue_comment_scripts' ), 20 );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 	}
@@ -101,30 +100,9 @@ class Bootstrap {
 		return $args;
 	}
 
-	public static function dequeue_comment_scripts() {
-
-	}
-
 	public static function enqueue_comment_scripts() {
 		if ( is_singular( ATBDP_POST_TYPE ) && directorist_is_review_enabled() ) {
-			wp_dequeue_script( 'comment-reply' );
-		}
-
-		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			wp_enqueue_style(
-				'jquery-jbox',
-				DIRECTORIST_VENDOR . 'jBox/jBox.all.min.css',
-				[],
-				DIRECTORIST_SCRIPT_VERSION
-			);
-
-			wp_enqueue_script(
-				'jquery-jbox',
-				DIRECTORIST_VENDOR . 'jBox/jBox.all.min.js',
-				[ 'jquery' ],
-				DIRECTORIST_SCRIPT_VERSION,
-				true
-			);
+			wp_enqueue_script( 'comment-reply' );
 		}
 	}
 

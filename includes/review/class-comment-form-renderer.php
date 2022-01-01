@@ -81,9 +81,9 @@ class Comment_Form_Renderer {
 	}
 
 	public static function get_form_markup( $comment ) {
-		$fields = self::get_fields();
-
+		$fields       = self::get_fields( $comment );
 		$submit_label = __( 'Update Comment', 'directorist' );
+
 		if ( $comment->comment_type === 'review' ) {
 			$submit_label = __( 'Update Review', 'directorist' );
 		}
@@ -92,10 +92,7 @@ class Comment_Form_Renderer {
 		?>
 		<form class="directorist-review-submit__form directorist-form-comment-edit" action="<?php echo esc_url( self::get_action_url() ); ?>">
 			<?php
-			foreach ( $fields as $field_key => $field ) {
-				if ( $comment->comment_type !== 'review' && $field_key === 'rating' ) {
-					continue;
-				}
+			foreach ( $fields as $field ) {
 				echo $field;
 			}
 			?>
@@ -119,68 +116,33 @@ class Comment_Form_Renderer {
 		return ob_get_clean();
 	}
 
-	public static function get_fields( $comment_id = 0 ) {
-		$builder   = Builder::get( get_the_ID() );
-		$commenter = wp_get_current_commenter();
-		$html_req  = " required='required'";
+	public function get_comment_form() {
+		?>
 
-		$fields = [];
-		$fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating() . '</div>';
-		$fields['content'] = sprintf(
+		<?php
+	}
+
+	public static function get_fields( $comment ) {
+		$builder = Builder::get( $comment->comment_post_ID );
+		$fields  = array();
+
+		if ( $comment->comment_type === 'review' ) {
+			$rating = Comment::get_rating( $comment->comment_ID );
+			$fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( $rating ) . '</div>';
+		}
+
+		$fields['content'] =  sprintf(
 			'<div class="directorist-form-group form-group-comment">%s %s</div>',
 			sprintf(
 				'<label for="comment">%s</label>',
 				$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) )
 			),
-			sprintf( '<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required"></textarea>',
-				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) )
+			sprintf(
+				'<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required">%s</textarea>',
+				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) ),
+				esc_textarea( $comment->comment_content )
 			)
 		);
-
-		if ( ! is_user_logged_in() ) {
-			$fields['author'] = sprintf(
-				'<div class="directorist-form-group form-group-author">%s %s</div>',
-				sprintf(
-					'<label for="author">%s <span class="required">*</span></label>',
-					$builder->get_name_label( __( 'Name', 'directorist' ) )
-				),
-				sprintf(
-					'<input id="author" autocomplete="name" class="directorist-form-element" placeholder="%s" name="author" type="text" value="%s" size="30" maxlength="245"%s />',
-					$builder->get_name_placeholder( __( 'Enter your name', 'directorist' ) ),
-					esc_attr( $commenter['comment_author'] ),
-					$html_req
-				)
-			);
-
-			$fields['email'] = sprintf(
-				'<div class="directorist-form-group form-group-email">%s %s</div>',
-				sprintf(
-					'<label for="email">%s <span class="required">*</span></label>',
-					$builder->get_email_label( __( 'Email', 'directorist' ) )
-				),
-				sprintf(
-					'<input id="email" autocomplete="email" class="directorist-form-element" placeholder="%s" name="email" type="email" value="%s" size="30" maxlength="100" aria-describedby="email-notes"%s />',
-					$builder->get_email_placeholder( __( 'Enter your email', 'directorist' ) ),
-					esc_attr( $commenter['comment_author_email'] ),
-					$html_req
-				)
-			);
-
-			if ( $builder->is_website_field_active() ) {
-				$fields['url'] = sprintf(
-					'<div class="directorist-form-group form-group-url">%s %s</div>',
-					sprintf(
-						'<label for="url">%s</label>',
-						$builder->get_website_label( __( 'Website', 'directorist' ) ),
-					),
-					sprintf(
-						'<input id="url" autocomplete="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',
-						$builder->get_website_placeholder( __( 'Enter your website', 'directorist' ) ),
-						esc_attr( $commenter['comment_author_url'] )
-					)
-				);
-			}
-		}
 
 		return $fields;
 	}

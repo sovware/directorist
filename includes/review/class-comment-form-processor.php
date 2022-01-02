@@ -70,7 +70,7 @@ class Comment_Form_Processor {
 				}
 			}
 
-			if ( empty( $_POST['comment'] ) ) {
+			if ( empty( $_POST['comment'] ) || empty( trim( $_POST['comment'] ) ) ) {
 				throw new Exception( __( 'Please type your comment text.', 'directorist' ) );
 			}
 
@@ -78,7 +78,7 @@ class Comment_Form_Processor {
 				'comment_ID'      => $comment->comment_ID,
 				'comment_post_ID' => $comment->comment_post_ID,
 				'comment_type'    => $comment->comment_type,
-				'comment_content' => sanitize_textarea_field( $_POST['comment'] )
+				'comment_content' => sanitize_textarea_field( trim( $_POST['comment'] ) )
 			);
 
 			$updated_comment = wp_update_comment( $comment_data, true );

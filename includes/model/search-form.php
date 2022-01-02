@@ -5,6 +5,9 @@
 
 namespace wpWax\Directorist\Model;
 
+use Directorist\Script_Helper;
+use Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Search_Form {

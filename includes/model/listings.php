@@ -7,9 +7,8 @@ namespace wpWax\Directorist\Model;
 
 use Directorist\Script_Helper;
 use Directorist\Helper;
-
-use \ATBDP_Listings_Data_Store;
-use \ATBDP_Permalink;
+use ATBDP_Listings_Data_Store;
+use ATBDP_Permalink;
 use Directory;
 use WP_Query;
 

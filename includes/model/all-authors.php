@@ -5,6 +5,8 @@
 
 namespace wpWax\Directorist\Model;
 
+use Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class All_Authors {

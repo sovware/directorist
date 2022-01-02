@@ -5,7 +5,8 @@
 
 namespace wpWax\Directorist\Model;
 
-use \ATBDP_Permalink;
+use Directorist\Helper;
+use ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

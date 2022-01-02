@@ -197,11 +197,11 @@ msgstr ""
 msgid "Cheap"
 msgstr ""
 
-#: ../includes/custom-actions.php:23, ../includes/classes/class-settings-panel.php:4759, ../includes/classes/class-setup-wizard.php:437, ../includes/classes/class-setup-wizard.php:494
+#: ../includes/custom-actions.php:23, ../includes/classes/class-settings-panel.php:4759, ../includes/classes/class-setup-wizard.php:445, ../includes/classes/class-setup-wizard.php:502
 msgid "Privacy Policy"
 msgstr ""
 
-#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:488, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4560
+#: ../includes/custom-actions.php:129, ../includes/classes/class-setup-wizard.php:496, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4560
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -393,107 +393,107 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: ../includes/helper-functions.php:8333
+#: ../includes/helper-functions.php:8356
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8334, ../includes/helper-functions.php:8342, ../includes/helper-functions.php:8350, ../includes/helper-functions.php:8358, ../includes/helper-functions.php:8366, ../includes/helper-functions.php:8374, ../includes/helper-functions.php:8382, ../includes/helper-functions.php:8390, ../includes/helper-functions.php:8398, ../includes/helper-functions.php:8406, ../includes/helper-functions.php:8414, ../includes/helper-functions.php:8422, ../includes/helper-functions.php:8430
+#: ../includes/helper-functions.php:8357, ../includes/helper-functions.php:8365, ../includes/helper-functions.php:8373, ../includes/helper-functions.php:8381, ../includes/helper-functions.php:8389, ../includes/helper-functions.php:8397, ../includes/helper-functions.php:8405, ../includes/helper-functions.php:8413, ../includes/helper-functions.php:8421, ../includes/helper-functions.php:8429, ../includes/helper-functions.php:8437, ../includes/helper-functions.php:8445, ../includes/helper-functions.php:8453
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:8336, ../includes/helper-functions.php:8344, ../includes/helper-functions.php:8352, ../includes/helper-functions.php:8360, ../includes/helper-functions.php:8368, ../includes/helper-functions.php:8376, ../includes/helper-functions.php:8384, ../includes/helper-functions.php:8392, ../includes/helper-functions.php:8400, ../includes/helper-functions.php:8408, ../includes/helper-functions.php:8416, ../includes/helper-functions.php:8424
+#: ../includes/helper-functions.php:8359, ../includes/helper-functions.php:8367, ../includes/helper-functions.php:8375, ../includes/helper-functions.php:8383, ../includes/helper-functions.php:8391, ../includes/helper-functions.php:8399, ../includes/helper-functions.php:8407, ../includes/helper-functions.php:8415, ../includes/helper-functions.php:8423, ../includes/helper-functions.php:8431, ../includes/helper-functions.php:8439, ../includes/helper-functions.php:8447
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:8341
+#: ../includes/helper-functions.php:8364
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8349
+#: ../includes/helper-functions.php:8372
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8357
+#: ../includes/helper-functions.php:8380
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8365, ../includes/helper-functions.php:8373
+#: ../includes/helper-functions.php:8388, ../includes/helper-functions.php:8396
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8381
+#: ../includes/helper-functions.php:8404
 msgid "Registration page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8389
+#: ../includes/helper-functions.php:8412
 msgid "Login page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8397
+#: ../includes/helper-functions.php:8420
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8405
+#: ../includes/helper-functions.php:8428
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8413
+#: ../includes/helper-functions.php:8436
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8421
+#: ../includes/helper-functions.php:8444
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8429
+#: ../includes/helper-functions.php:8452
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:8432
+#: ../includes/helper-functions.php:8455
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:8437
+#: ../includes/helper-functions.php:8460
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:8438
+#: ../includes/helper-functions.php:8461
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:8500
+#: ../includes/helper-functions.php:8523
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8501
+#: ../includes/helper-functions.php:8524
 msgid "Registration failed. Please make sure you filed up all the necessary fields marked with <span style=\"color: red\">*</span>"
 msgstr ""
 
-#: ../includes/helper-functions.php:8502
+#: ../includes/helper-functions.php:8525
 msgid "Sorry, that email already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8503, ../includes/classes/class-user.php:216
+#: ../includes/helper-functions.php:8526, ../includes/classes/class-user.php:216
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/helper-functions.php:8504, ../includes/classes/class-user.php:220
+#: ../includes/helper-functions.php:8527, ../includes/classes/class-user.php:220
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8505, ../includes/classes/class-user.php:230
+#: ../includes/helper-functions.php:8528, ../includes/classes/class-user.php:230
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:8506, ../includes/classes/class-user.php:245
+#: ../includes/helper-functions.php:8529, ../includes/classes/class-user.php:245
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/helper-functions.php:8507
+#: ../includes/helper-functions.php:8530
 msgid "Space is not allowed in username"
 msgstr ""
 
-#: ../includes/helper-functions.php:8508
+#: ../includes/helper-functions.php:8531
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:490, ../includes/classes/class-settings-panel.php:2231, ../includes/model/Listings.php:181, ../includes/model/Listings.php:2019, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3310, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:490, ../includes/classes/class-settings-panel.php:2231, ../includes/model/Listings.php:181, ../includes/model/Listings.php:2024, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3310, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -833,7 +833,7 @@ msgstr ""
 msgid "Search Location"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:531, ../includes/classes/class-setup-wizard.php:421, ../includes/classes/class-setup-wizard.php:476
+#: ../includes/classes/class-custom-taxonomy.php:531, ../includes/classes/class-setup-wizard.php:421, ../includes/classes/class-setup-wizard.php:484
 msgid "All Locations"
 msgstr ""
 
@@ -1162,151 +1162,151 @@ msgstr ""
 msgid "Registration Confirmation!"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:387
+#: ../includes/classes/class-extension.php:383
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:393
+#: ../includes/classes/class-extension.php:389
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:414
+#: ../includes/classes/class-extension.php:410
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:410
+#: ../includes/classes/class-extension.php:406
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:445
+#: ../includes/classes/class-extension.php:441
 msgid "Some of the plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:450
+#: ../includes/classes/class-extension.php:446
 msgid "All the plugins are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:455
+#: ../includes/classes/class-extension.php:451
 msgid "No plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:565
+#: ../includes/classes/class-extension.php:561
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:589
+#: ../includes/classes/class-extension.php:585
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:628
+#: ../includes/classes/class-extension.php:624
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:634
+#: ../includes/classes/class-extension.php:630
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:648
+#: ../includes/classes/class-extension.php:644
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:665
+#: ../includes/classes/class-extension.php:661
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:661
+#: ../includes/classes/class-extension.php:657
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:699
+#: ../includes/classes/class-extension.php:696
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:704
+#: ../includes/classes/class-extension.php:701
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:709
+#: ../includes/classes/class-extension.php:706
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:782
+#: ../includes/classes/class-extension.php:779
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:858
+#: ../includes/classes/class-extension.php:855
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:869
+#: ../includes/classes/class-extension.php:866
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:901
+#: ../includes/classes/class-extension.php:898
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1058
+#: ../includes/classes/class-extension.php:1055
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1065
+#: ../includes/classes/class-extension.php:1062
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1072
+#: ../includes/classes/class-extension.php:1069
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1087
+#: ../includes/classes/class-extension.php:1084
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1094
+#: ../includes/classes/class-extension.php:1091
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1106
+#: ../includes/classes/class-extension.php:1103
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1127
+#: ../includes/classes/class-extension.php:1124
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1171, ../includes/classes/class-extension.php:2006
+#: ../includes/classes/class-extension.php:1168, ../includes/classes/class-extension.php:2007
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1207
+#: ../includes/classes/class-extension.php:1204
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1225, ../includes/classes/class-extension.php:1334
+#: ../includes/classes/class-extension.php:1222, ../includes/classes/class-extension.php:1331
 msgid "Download link not found"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1265, ../includes/classes/class-extension.php:1374
+#: ../includes/classes/class-extension.php:1262, ../includes/classes/class-extension.php:1371
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1316
+#: ../includes/classes/class-extension.php:1313
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1424, ../includes/classes/class-extension.php:1436
+#: ../includes/classes/class-extension.php:1421, ../includes/classes/class-extension.php:1433
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1631
+#: ../includes/classes/class-extension.php:1628
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1632
+#: ../includes/classes/class-extension.php:1629
 msgid "<span>Themes & Extensions</span>"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1964
+#: ../includes/classes/class-extension.php:1965
 msgid "Nothing to activate"
 msgstr ""
 
@@ -1366,11 +1366,11 @@ msgstr ""
 msgid "Select a location"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:63, ../includes/model/SearchForm.php:324
+#: ../includes/classes/class-script-helper.php:63, ../includes/model/SearchForm.php:339
 msgid " Miles"
 msgstr ""
 
-#: ../includes/classes/class-script-helper.php:61, ../includes/model/SearchForm.php:321
+#: ../includes/classes/class-script-helper.php:61, ../includes/model/SearchForm.php:336
 msgid " Kilometers"
 msgstr ""
 
@@ -1652,7 +1652,7 @@ msgstr ""
 msgid "You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:466, ../includes/classes/class-setup-wizard.php:546, ../includes/gateways/class-gateway.php:143
+#: ../includes/classes/class-settings-panel.php:466, ../includes/classes/class-setup-wizard.php:554, ../includes/gateways/class-gateway.php:143
 msgid "Enable Monetization Feature"
 msgstr ""
 
@@ -1660,7 +1660,7 @@ msgstr ""
 msgid "Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:474, ../includes/classes/class-setup-wizard.php:554, ../includes/gateways/class-gateway.php:116, ../includes/gateways/class-gateway.php:164
+#: ../includes/classes/class-settings-panel.php:474, ../includes/classes/class-setup-wizard.php:562, ../includes/gateways/class-gateway.php:116, ../includes/gateways/class-gateway.php:164
 msgid "Monetize by Featured Listing"
 msgstr ""
 
@@ -2232,7 +2232,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1812, ../includes/classes/class-settings-panel.php:3152, ../includes/classes/class-setup-wizard.php:562, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93, ../views/admin-templates/listing-form/add-listing.php:70
+#: ../includes/classes/class-settings-panel.php:1812, ../includes/classes/class-settings-panel.php:3152, ../includes/classes/class-setup-wizard.php:570, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93, ../views/admin-templates/listing-form/add-listing.php:70
 msgid "Price"
 msgstr ""
 
@@ -2488,7 +2488,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2236, ../includes/model/Listings.php:180, ../includes/model/Listings.php:2031, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3324, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
+#: ../includes/classes/class-settings-panel.php:2236, ../includes/model/Listings.php:180, ../includes/model/Listings.php:2036, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3324, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
 msgid "Popular"
 msgstr ""
 
@@ -2576,7 +2576,7 @@ msgstr ""
 msgid "Guest Review Submission"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2380, ../includes/classes/class-setup-wizard.php:535
+#: ../includes/classes/class-settings-panel.php:2380, ../includes/classes/class-setup-wizard.php:543
 msgid "Select Map"
 msgstr ""
 
@@ -2588,7 +2588,7 @@ msgstr ""
 msgid "OpenStreetMap"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2396, ../includes/classes/class-setup-wizard.php:542
+#: ../includes/classes/class-settings-panel.php:2396, ../includes/classes/class-setup-wizard.php:550
 msgid "Google Map API key"
 msgstr ""
 
@@ -2860,7 +2860,7 @@ msgstr ""
 msgid "Popular Categories Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2869, ../includes/model/SearchForm.php:200, ../includes/model/SearchForm.php:459
+#: ../includes/classes/class-settings-panel.php:2869, ../includes/model/SearchForm.php:200, ../includes/model/SearchForm.php:474
 msgid "Browse by popular categories"
 msgstr ""
 
@@ -3820,7 +3820,7 @@ msgstr ""
 msgid "Author Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4878, ../includes/classes/class-settings-panel.php:4882, ../includes/classes/class-setup-wizard.php:482
+#: ../includes/classes/class-settings-panel.php:4878, ../includes/classes/class-settings-panel.php:4882, ../includes/classes/class-setup-wizard.php:429, ../includes/classes/class-setup-wizard.php:490
 msgid "All Authors"
 msgstr ""
 
@@ -4104,99 +4104,99 @@ msgstr ""
 msgid "Recommended Pages"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:413, ../includes/classes/class-setup-wizard.php:470
+#: ../includes/classes/class-setup-wizard.php:413, ../includes/classes/class-setup-wizard.php:478
 msgid "All Categories"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:429
+#: ../includes/classes/class-setup-wizard.php:437
 msgid "Terms & Conditions"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:447, ../includes/classes/class-setup-wizard.php:573, ../includes/classes/class-setup-wizard.php:693
+#: ../includes/classes/class-setup-wizard.php:455, ../includes/classes/class-setup-wizard.php:581, ../includes/classes/class-setup-wizard.php:701
 msgid "Skip this step"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:449, ../includes/classes/class-setup-wizard.php:575, ../includes/classes/class-setup-wizard.php:695, ../templates/listing-form/quick-login.php:45, ../templates/single/top-actions.php:28, ../views/admin-templates/import-export/step-one.php:79, ../views/admin-templates/import-export/step-one.php:79
+#: ../includes/classes/class-setup-wizard.php:457, ../includes/classes/class-setup-wizard.php:583, ../includes/classes/class-setup-wizard.php:703, ../templates/listing-form/quick-login.php:45, ../templates/single/top-actions.php:28, ../views/admin-templates/import-export/step-one.php:79, ../views/admin-templates/import-export/step-one.php:79
 msgid "Continue"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:529
+#: ../includes/classes/class-setup-wizard.php:537
 msgid "Fill out the form to get maps and monetization feature to work right away"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:537
+#: ../includes/classes/class-setup-wizard.php:545
 msgid "Openstreet"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:538
+#: ../includes/classes/class-setup-wizard.php:546
 msgid "Google"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:543
+#: ../includes/classes/class-setup-wizard.php:551
 msgid "* API Key is required for Google Map to work properly"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:646
+#: ../includes/classes/class-setup-wizard.php:654
 msgid "Import Dummy Data"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:653
+#: ../includes/classes/class-setup-wizard.php:661
 msgid "Number of Listings to import"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:665
+#: ../includes/classes/class-setup-wizard.php:673
 msgid "Import images"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:674, ../views/admin-templates/import-export/step-two.php:100
+#: ../includes/classes/class-setup-wizard.php:682, ../views/admin-templates/import-export/step-two.php:100
 msgid "Importing"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:676, ../views/admin-templates/import-export/step-two.php:102
+#: ../includes/classes/class-setup-wizard.php:684, ../views/admin-templates/import-export/step-two.php:102
 msgid "Your listing are now being imported..."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:680, ../views/admin-templates/import-export/step-two.php:106
+#: ../includes/classes/class-setup-wizard.php:688, ../views/admin-templates/import-export/step-two.php:106
 msgid "Please don't reload the page"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:720
+#: ../includes/classes/class-setup-wizard.php:728
 msgid "Great, your directory is ready!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:722
+#: ../includes/classes/class-setup-wizard.php:730
 msgid "Visit Directorist Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:723
+#: ../includes/classes/class-setup-wizard.php:731
 msgid "Create your First Listing"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:728, ../includes/classes/class-setup-wizard.php:873
+#: ../includes/classes/class-setup-wizard.php:736, ../includes/classes/class-setup-wizard.php:881
 msgid "Return to the WordPress Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:748
+#: ../includes/classes/class-setup-wizard.php:756
 msgid "Welcome to the world of Directorist!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:749
+#: ../includes/classes/class-setup-wizard.php:757
 msgid "Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:750
+#: ../includes/classes/class-setup-wizard.php:758
 msgid "If you don't want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:754
+#: ../includes/classes/class-setup-wizard.php:762
 msgid "Not right now"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:755
+#: ../includes/classes/class-setup-wizard.php:763
 msgid "Let's Go!"
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:797
+#: ../includes/classes/class-setup-wizard.php:805
 msgid "Directorist &rsaquo; Setup Wizard"
 msgstr ""
 
@@ -4982,27 +4982,27 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:573
+#: ../includes/model/SearchForm.php:588
 msgid "Select Ratings"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:578
+#: ../includes/model/SearchForm.php:593
 msgid "5 Star"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:583
+#: ../includes/model/SearchForm.php:598
 msgid "4 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:588
+#: ../includes/model/SearchForm.php:603
 msgid "3 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:593
+#: ../includes/model/SearchForm.php:608
 msgid "2 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:598
+#: ../includes/model/SearchForm.php:613
 msgid "1 Star & Up"
 msgstr ""
 
@@ -7758,7 +7758,7 @@ msgstr ""
 msgid "Maximum allowed file size is __DT__"
 msgstr ""
 
-#: ../templates/dashboard/profile-pic.php:58, ../templates/listing-form/fields/image_upload.php:63, ../templates/listing-form/fields/image_upload.php:68, ../views/front-end/user-dashboard.php:440
+#: ../templates/dashboard/profile-pic.php:58, ../templates/listing-form/fields/image_upload.php:62, ../templates/listing-form/fields/image_upload.php:67, ../views/front-end/user-dashboard.php:440
 msgid "Minimum __DT__ file is required"
 msgstr ""
 
@@ -8038,55 +8038,55 @@ msgstr ""
 msgid "files"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:55
+#: ../templates/listing-form/fields/image_upload.php:54
 msgid "Drop Here"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:56
+#: ../templates/listing-form/fields/image_upload.php:55
 msgid "Preview"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:57
+#: ../templates/listing-form/fields/image_upload.php:56
 msgid "Drag & Drop"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:58
+#: ../templates/listing-form/fields/image_upload.php:57
 msgid "or"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:60
+#: ../templates/listing-form/fields/image_upload.php:59
 msgid "Add More"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:61
+#: ../templates/listing-form/fields/image_upload.php:60
 msgid "Maximum limit for a file is  __DT__"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:62
+#: ../templates/listing-form/fields/image_upload.php:61
 msgid "Maximum limit for total file size is __DT__"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:64
+#: ../templates/listing-form/fields/image_upload.php:63
 msgid "Maximum limit for total file is __DT__"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:65
+#: ../templates/listing-form/fields/image_upload.php:64
 msgid "Maximum allowed size per file is __DT__"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:66
+#: ../templates/listing-form/fields/image_upload.php:65
 msgid "Maximum total allowed file size is __DT__"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:70
+#: ../templates/listing-form/fields/image_upload.php:69
 msgid "Unlimited images with this plan!"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:70
+#: ../templates/listing-form/fields/image_upload.php:69
 msgid "Maximum __DT__ files are allowed"
 msgstr ""
 
-#: ../templates/listing-form/fields/image_upload.php:70
+#: ../templates/listing-form/fields/image_upload.php:69
 msgid "Maximum __DT__ file is allowed"
 msgstr ""
 

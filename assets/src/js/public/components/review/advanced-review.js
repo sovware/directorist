@@ -1,19 +1,11 @@
 ;(function($) {
     'use strict';
 
-    const addCommentModal = new jBox( 'Modal', {
-        closeOnClick: false,
-        closeButton : 'title',
-        width       : 450,
-        maxHeight   : 400,
-        id          : 'directorist-modal-add-comment',
-    } );
-
     class ReplyFormObserver {
         constructor() {
             this.init();
 
-            $( document ).on( 'directorist_reviews_updated', () => this.init() );
+            $( document ).on( 'directorist_review_updated', () => this.init() );
         }
 
         init() {
@@ -55,7 +47,7 @@
                             rating.removeAttribute('disabled');
                         }
 
-                        node.querySelector('#submit').innerHTML = 'Submit review';
+                        node.querySelector('#submit').innerHTML = 'Submit Review';
                         node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
                     }
                 }
@@ -83,7 +75,7 @@
                         alert.style.display = 'none';
                     }
 
-                    form.querySelector('#submit').innerHTML = 'Submit comment';
+                    form.querySelector('#submit').innerHTML = 'Submit Comment';
                     form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment' );
                 }
             }
@@ -194,7 +186,7 @@
 
                     Ajax_Comment.showError(form, body.find( '.wp-die-message' ));
 
-                    $( document ).trigger( 'directorist_reviews_update_failed' );
+                    $( document ).trigger( 'directorist_review_update_failed' );
                 }
             );
 
@@ -205,7 +197,7 @@
                 }
             );
 
-            $( document ).trigger( 'directorist_reviews_after_submit', form );
+            $( document ).trigger( 'directorist_review_after_submit', form );
         }
     }
 
@@ -224,7 +216,7 @@
             });
         }
 
-        removeEditingMode(currentCommentId) {
+        cancelOthersEditMode(currentCommentId) {
             $('.directorist-comment-editing').each(function(index, comment) {
                 const $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
 
@@ -234,10 +226,15 @@
             });
         }
 
+        cancelReplyMode() {
+            const replyLink = document.querySelector('#cancel-comment-reply-link');
+            replyLink && replyLink.click();
+        }
+
         addEventListeners() {
             const self = this;
 
-            this.$doc.on( 'directorist_reviews_updated', (event) => {
+            this.$doc.on( 'directorist_review_updated', (event) => {
                 this.initStarRating();
                 this.setFormEncodingAttribute();
             } );
@@ -275,7 +272,10 @@
                             .removeClass('directorist-comment-edit-request')
                             .addClass('directorist-comment-editing');
 
-                        self.removeEditingMode($target.data('commentid'));
+                        self.cancelOthersEditMode($target.data('commentid'));
+                        self.cancelReplyMode();
+
+                        $('.directorist-form-comment-edit').find('textarea').focus();
 
                         self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
                     },
@@ -293,19 +293,6 @@
                     .find('form')
                     .remove();
             });
-
-            // this.$doc.on( 'click', '[data-directorist-activity]', function(e) {
-            //     e.preventDefault();
-            //     const $target = $(e.target);
-
-            //     // confirm.setTitle( 'Would you like to report?' );
-            //     confirm.setContent('Would you like to report?');
-            //     confirm.open({
-            //         confirm: function(e) {
-            //             console.log(e, this);
-            //         }
-            //     });
-            // } );
         }
 
         onWriteReivewClick(event) {

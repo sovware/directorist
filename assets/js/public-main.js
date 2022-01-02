@@ -1588,14 +1588,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 (function ($) {
   'use strict';
 
-  var addCommentModal = new jBox('Modal', {
-    closeOnClick: false,
-    closeButton: 'title',
-    width: 450,
-    maxHeight: 400,
-    id: 'directorist-modal-add-comment'
-  });
-
   var ReplyFormObserver = /*#__PURE__*/function () {
     function ReplyFormObserver() {
       var _this2 = this;
@@ -1603,7 +1595,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
 
       this.init();
-      $(document).on('directorist_reviews_updated', function () {
+      $(document).on('directorist_review_updated', function () {
         return _this2.init();
       });
     }
@@ -1674,7 +1666,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     _iterator3.f();
                   }
 
-                  node.querySelector('#submit').innerHTML = 'Submit review';
+                  node.querySelector('#submit').innerHTML = 'Submit Review';
                   node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
                 }
               } catch (err) {
@@ -1722,7 +1714,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 alert.style.display = 'none';
               }
 
-              form.querySelector('#submit').innerHTML = 'Submit comment';
+              form.querySelector('#submit').innerHTML = 'Submit Comment';
               form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment');
             }
           }
@@ -1808,13 +1800,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var body = $('<div></div>');
           body.append(data.responseText);
           Ajax_Comment.showError(form, body.find('.wp-die-message'));
-          $(document).trigger('directorist_reviews_update_failed');
+          $(document).trigger('directorist_review_update_failed');
         });
         do_comment.always(function () {
           $('#comment').prop('disabled', false);
           $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
         });
-        $(document).trigger('directorist_reviews_after_submit', form);
+        $(document).trigger('directorist_review_after_submit', form);
       }
     }], [{
       key: "getErrorMsg",
@@ -1860,8 +1852,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
       }
     }, {
-      key: "removeEditingMode",
-      value: function removeEditingMode(currentCommentId) {
+      key: "cancelOthersEditMode",
+      value: function cancelOthersEditMode(currentCommentId) {
         $('.directorist-comment-editing').each(function (index, comment) {
           var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
 
@@ -1871,12 +1863,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
       }
     }, {
+      key: "cancelReplyMode",
+      value: function cancelReplyMode() {
+        var replyLink = document.querySelector('#cancel-comment-reply-link');
+        replyLink && replyLink.click();
+      }
+    }, {
       key: "addEventListeners",
       value: function addEventListeners() {
         var _this3 = this;
 
         var self = this;
-        this.$doc.on('directorist_reviews_updated', function (event) {
+        this.$doc.on('directorist_review_updated', function (event) {
           _this3.initStarRating();
 
           _this3.setFormEncodingAttribute();
@@ -1903,7 +1901,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               console.log(response);
               $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
               $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
-              self.removeEditingMode($target.data('commentid'));
+              self.cancelOthersEditMode($target.data('commentid'));
+              self.cancelReplyMode();
+              $('.directorist-form-comment-edit').find('textarea').focus();
               self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
             }
           });
@@ -1913,17 +1913,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var $target = $(event.target);
           var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
           $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
-        }); // this.$doc.on( 'click', '[data-directorist-activity]', function(e) {
-        //     e.preventDefault();
-        //     const $target = $(e.target);
-        //     // confirm.setTitle( 'Would you like to report?' );
-        //     confirm.setContent('Would you like to report?');
-        //     confirm.open({
-        //         confirm: function(e) {
-        //             console.log(e, this);
-        //         }
-        //     });
-        // } );
+        });
       }
     }, {
       key: "onWriteReivewClick",

@@ -90,7 +90,7 @@ class Comment_Form_Renderer {
 
 		ob_start();
 		?>
-		<form class="directorist-review-submit__form directorist-form-comment-edit" action="<?php echo esc_url( self::get_action_url() ); ?>">
+		<form class="directorist-review-submit__form directorist-form-comment-edit" action="<?php echo esc_url( self::get_action_url() ); ?>" method="post" encoding="multipart/form-data">
 			<?php
 			foreach ( $fields as $field ) {
 				echo $field;
@@ -108,7 +108,7 @@ class Comment_Form_Renderer {
 					esc_html( $submit_label )
 				);
 				?>
-				<a href="#" rel="nofollow" class="directorist-js-cancel-comment-edit" data-commentid="<?php echo esc_attr( $comment->comment_ID ); ?>"><?php esc_html_e( 'Cancel editing', 'directorist' ); ?></a>
+				<a href="#" role="button" rel="nofollow" class="directorist-js-cancel-comment-edit" data-commentid="<?php echo esc_attr( $comment->comment_ID ); ?>"><?php esc_html_e( 'Cancel editing', 'directorist' ); ?></a>
 			</div>
 		</form>
 		<?php

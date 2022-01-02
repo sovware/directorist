@@ -89,21 +89,21 @@ class Settings_Screen {
 					],
 				],
 			],
-			'review_approval_text' => [
-				'type'        => 'textarea',
-				'label'       => __( 'Approval Notification Text', 'directorist'),
-				'value'       => __( 'We have received your review. It requires approval.', 'directorist' ),
-				'show-if'     => [
-					'where'      => 'enable_review',
-					'conditions' => [
-						[
-							'key'     => 'value',
-							'compare' => '=',
-							'value'   => true
-						],
-					],
-				],
-			],
+			// 'review_approval_text' => [
+			// 	'type'        => 'textarea',
+			// 	'label'       => __( 'Approval Notification Text', 'directorist'),
+			// 	'value'       => __( 'We have received your review. It requires approval.', 'directorist' ),
+			// 	'show-if'     => [
+			// 		'where'      => 'enable_review',
+			// 		'conditions' => [
+			// 			[
+			// 				'key'     => 'value',
+			// 				'compare' => '=',
+			// 				'value'   => true
+			// 			],
+			// 		],
+			// 	],
+			// ],
 			// 'enable_reviewer_img' => [
 			// 	'type'    => 'toggle',
 			// 	'label'   => __( 'Enable Reviewer Image', 'directorist' ),

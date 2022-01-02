@@ -27,7 +27,6 @@ class Bootstrap {
 		require_once 'class-markup.php';
 		require_once 'class-builder.php';
 		require_once 'class-comment.php';
-		require_once 'class-activity.php';
 		require_once 'class-comment-meta.php';
 		require_once 'class-listing-review-meta.php';
 

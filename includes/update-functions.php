@@ -10,6 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Migrate old reviews data from review table to comments table
 function directorist_710_migrate_reviews_table_to_comments_table() {
+	if ( get_option( 'directorist_old_reviews_table_migrated' ) ) {
+		return;
+	}
+
 	global $wpdb;
 
 	$review_table = $wpdb->prefix . 'atbdp_review';
@@ -42,6 +46,8 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
 		}
 	}
 
+	update_option( 'directorist_old_reviews_table_migrated', 1, false );
+
 	//Delete review table
 	// TODO: Delete this table in future.
 	// $wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
@@ -51,6 +57,10 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
 // declined -> trash
 // approved -> approved:1
 function directorist_710_migrate_posts_table_to_comments_table() {
+	if ( get_option( 'directorist_old_reviews_posts_migrated' ) ) {
+		return;
+	}
+
 	global $wpdb;
 
 	$reviews = $wpdb->get_results(
@@ -91,6 +101,8 @@ function directorist_710_migrate_posts_table_to_comments_table() {
 		// 	wp_delete_post( $review->post_id, true );
 		// }
 	}
+
+	update_option( 'directorist_old_reviews_posts_migrated', 1, false );
 }
 
 function directorist_710_review_rating_clear_transients() {

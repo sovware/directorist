@@ -488,6 +488,7 @@ final class Directorist_Base
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
+		load_dependencies('all', ATBDP_INC_DIR . 'shortcodes/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');

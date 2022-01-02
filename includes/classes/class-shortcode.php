@@ -30,7 +30,7 @@ class ATBDP_Shortcode {
 			
 			self::$shortcodes = apply_filters( 'atbdp_shortcodes', [
 				// Archive
-				'directorist_all_listing' => [ $this, 'listing_archive' ],
+				//'directorist_all_listing' => [ $this, 'listing_archive' ],
 				'directorist_category'    => [ $this, 'category_archive' ],
 				'directorist_tag'         => [ $this, 'tag_archive' ],
 				'directorist_location'    => [ $this, 'location_archive' ],

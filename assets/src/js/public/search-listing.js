@@ -34,13 +34,15 @@
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
-    $( window  ).on( 'load', function() {
+    function defaultTags() {
         $('.directorist-btn-ml').each( (index, element) => {
             let item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
             var abc2 = $(item).find('.directorist-checkbox');
             $(abc2).slice(4, abc2.length).fadeOut();
         });
-    });
+    }
+    $(window).on('load', defaultTags);
+    window.addEventListener('triggerSlice', defaultTags);
 
     $('body').on('click', '.directorist-btn-ml', function(event) {
         event.preventDefault();
@@ -73,9 +75,7 @@
         let advElmHeight;
         let basicElmHeight;
         let adsAdvItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents, .directorist-search-form').find('.directorist-advanced-filter__advanced--element');
-        console.log(adsAdvItemHeight());
         let adsBasicItemHeight = () => $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
-        console.log(adsBasicItemHeight());
         for(let i = 0; i<= adsAdvItemHeight().length; i++){
             adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;
         }
@@ -130,7 +130,7 @@
                 transition: '.3s ease'
             });
         }
-    })
+    });
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
@@ -185,8 +185,7 @@
                     }
                 }
             });
-
-        })
+        });
     });
 
     //reset fields

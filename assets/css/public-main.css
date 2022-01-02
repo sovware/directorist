@@ -8524,6 +8524,11 @@ p.atbd-min {
   margin: 7.5px;
 }
 
+/* google map location suggestion container */
+.pac-container {
+  z-index: 99999 !important;
+}
+
 .directorist-advanced-filter__advanced--checkbox .directorist-checkbox-wrapper {
   margin: 0 -5px -5px -5px;
 }
@@ -9970,11 +9975,12 @@ p.atbd-min {
   color: #7a82a6;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list .directorist-listing-card-location-list {
-  position: relative;
-  top: -2px;
   display: block;
   margin: 0;
-  line-height: 1.45;
+}
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list__label {
+  display: inline-block;
+  margin-right: 5px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt {
   margin-top: 15px;

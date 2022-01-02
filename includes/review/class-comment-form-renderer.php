@@ -36,9 +36,9 @@ class Comment_Form_Renderer {
 
 	public static function render() {
 		try {
-			$nonce      = ! empty( $_GET['nonce'] ) ? $_GET['nonce'] : '';
-			$post_id    = ! empty( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
-			$comment_id = ! empty( $_GET['comment_id'] ) ? absint( $_GET['comment_id'] ) : 0;
+			$nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
+			$post_id    = ! empty( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
+			$comment_id = ! empty( $_REQUEST['comment_id'] ) ? absint( $_REQUEST['comment_id'] ) : 0;
 
 			if ( ! wp_verify_nonce( $nonce, self::AJAX_ACTION ) ) {
 				throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
@@ -54,14 +54,25 @@ class Comment_Form_Renderer {
 
 			$comment = get_comment( $comment_id );
 			if ( is_null( $comment ) ) {
-				throw new Exception( __( 'Invalid resource id.', 'directorist' ) );
+				throw new Exception( __( 'Invalid resource id.', 'directorist' ), 400 );
 			}
+
+			if ( get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+				throw new Exception( __( 'Invalid listing id.', 'directorist' ), 400 );
+			}
+
+			$is_review          = ( $comment->comment_type === 'review' );
+			$comment_type_label = $is_review ? __( 'review', 'directorist' ) : __( 'comment', 'directorist' );
 
 			if ( ! is_user_logged_in() ) {
 				throw new Exception( sprintf(
 					__( 'Please login to update your %s.', 'directorist' ),
-					( $comment->comment_type === 'review' ? __( 'review', 'directorist' ) : __( 'comment', 'directorist' ) )
+					$comment_type_label
 				) );
+			}
+
+			if ( ! current_user_can( 'edit_comment', $comment_id ) ) {
+				throw new Exception( sprintf( __( 'You are not allowed to edit this %s.', 'directorist' ), 400 ), $comment_type_label );
 			}
 
 			$form = self::get_form_markup( $comment );
@@ -95,7 +106,10 @@ class Comment_Form_Renderer {
 			foreach ( $fields as $field ) {
 				echo $field;
 			}
+
+			wp_nonce_field( Comment_Form_Processor::AJAX_ACTION, 'directorist_comment_nonce' );
 			?>
+			<input type="hidden" value="<?php echo esc_attr( Comment_Form_Processor::AJAX_ACTION ); ?>" name="action">
 			<input type="hidden" value="<?php echo esc_attr( $comment->comment_post_ID ); ?>" name="post_id">
 			<input type="hidden" value="<?php echo esc_attr( $comment->comment_ID ); ?>" name="comment_id">
 			<div class="directorist-form-group directorist-mb-0">
@@ -142,15 +156,7 @@ class Comment_Form_Renderer {
 	}
 
 	public static function get_action_url() {
-		$url = add_query_arg(
-			array(
-				'action' => Comment_Form_Processor::AJAX_NONCE,
-				'nonce'  => wp_create_nonce( Comment_Form_Processor::AJAX_NONCE )
-			),
-			admin_url( 'admin-ajax.php', 'relative' )
-		);
-
-		return $url;
+		return admin_url( 'admin-ajax.php', 'relative' );
 	}
 
 	/**

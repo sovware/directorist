@@ -1729,14 +1729,89 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     return ReplyFormObserver;
   }();
 
-  var Ajax_Comment = /*#__PURE__*/function () {
-    function Ajax_Comment() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ajax_Comment);
+  var CommentEditHandler = /*#__PURE__*/function () {
+    function CommentEditHandler() {
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
 
       this.init();
     }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Ajax_Comment, [{
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
+      key: "init",
+      value: function init() {
+        $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
+      }
+    }, {
+      key: "onSubmit",
+      value: function onSubmit(event) {
+        event.preventDefault();
+        var $form = $(event.target);
+        var originalButtonLabel = $form.find('[type="submit"]').val();
+        $(document).trigger('directorist_review_before_submit', $form);
+        var updateComment = $.ajax({
+          url: $form.attr('action'),
+          type: 'POST',
+          contentType: false,
+          cache: false,
+          processData: false,
+          data: new FormData($form[0])
+        });
+        $form.find('#comment').prop('disabled', true);
+        $form.find('[type="submit"]').prop('disabled', true).val('loading');
+        var commentID = $form.find('input[name="comment_id"]').val();
+        updateComment.success(function (data, status, request) {
+          if (typeof data !== 'string' && !data.success) {
+            CommentEditHandler.showError($form, data.data.html);
+            return;
+          }
+
+          var body = $('<div></div>');
+          body.append(data);
+          var comment_section = '.directorist-review-container';
+          var comments = body.find(comment_section);
+          $(comment_section).replaceWith(comments);
+          $(document).trigger('directorist_review_updated', data);
+          var commentTop = $("#comment-" + commentID).offset().top;
+
+          if ($('body').hasClass('admin-bar')) {
+            commentTop = commentTop - $('#wpadminbar').height();
+          } // scroll to comment
+
+
+          if (commentID) {
+            $("body, html").animate({
+              scrollTop: commentTop
+            }, 600);
+          }
+        });
+        updateComment.fail(function (data) {
+          console.log(data);
+        });
+        updateComment.always(function () {
+          $form.find('#comment').prop('disabled', false);
+          $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
+        });
+        $(document).trigger('directorist_review_after_submit', $form);
+      }
+    }], [{
+      key: "showError",
+      value: function showError($form, msg) {
+        $form.find('.directorist-alert').remove();
+        $form.prepend(msg);
+      }
+    }]);
+
+    return CommentEditHandler;
+  }();
+
+  var CommentAddReplyHandler = /*#__PURE__*/function () {
+    function CommentAddReplyHandler() {
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
+
+      this.init();
+    }
+
+    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
       key: "init",
       value: function init() {
         $(document).on('submit', '#commentform', this.onSubmit);
@@ -1766,7 +1841,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var errorMsg = body.find('.wp-die-message');
 
           if (errorMsg.length > 0) {
-            Ajax_Comment.showError(form, errorMsg);
+            CommentAddReplyHandler.showError(form, errorMsg);
             $(document).trigger('directorist_review_update_failed');
             return;
           }
@@ -1799,7 +1874,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         do_comment.fail(function (data) {
           var body = $('<div></div>');
           body.append(data.responseText);
-          Ajax_Comment.showError(form, body.find('.wp-die-message'));
+          CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
           $(document).trigger('directorist_review_update_failed');
         });
         do_comment.always(function () {
@@ -1826,12 +1901,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         var $error = $('<div />', {
           class: 'directorist-alert directorist-alert-danger'
-        }).html(Ajax_Comment.getErrorMsg($dom));
+        }).html(CommentAddReplyHandler.getErrorMsg($dom));
         form.prepend($error);
       }
     }]);
 
-    return Ajax_Comment;
+    return CommentAddReplyHandler;
   }();
 
   var CommentsManager = /*#__PURE__*/function () {
@@ -1841,7 +1916,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$doc = $(document);
       this.setupComponents();
       this.addEventListeners();
-      this.setFormEncodingAttribute();
     }
 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
@@ -1876,8 +1950,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var self = this;
         this.$doc.on('directorist_review_updated', function (event) {
           _this3.initStarRating();
-
-          _this3.setFormEncodingAttribute();
         });
         this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
           _this3.initStarRating();
@@ -1898,7 +1970,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             method: 'GET',
             reload: 'strict',
             success: function success(response) {
-              console.log(response);
               $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
               $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
               self.cancelOthersEditMode($target.data('commentid'));
@@ -1933,16 +2004,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       key: "setupComponents",
       value: function setupComponents() {
         new ReplyFormObserver();
-        new Ajax_Comment();
-      }
-    }, {
-      key: "setFormEncodingAttribute",
-      value: function setFormEncodingAttribute() {
-        var form = document.querySelector('#commentform');
-
-        if (form) {
-          form.encoding = 'multipart/form-data';
-        }
+        new CommentAddReplyHandler();
+        new CommentEditHandler();
       }
     }]);
 

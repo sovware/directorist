@@ -267,7 +267,7 @@ class Comment {
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
 			do_action( 'directorist/review/save_comment' );
 
-			self::post_rating( $comment_id, $comment_data );
+			self::post_rating( $comment_id, $comment_data, $_POST );
 			self::clear_transients( $post_id );
 		}
 	}
@@ -439,23 +439,18 @@ class Comment {
 		return $counts;
 	}
 
-	public static function post_rating( $comment_id, $comment_data ) {
-		if ( $comment_data['comment_type'] !== 'review' || empty( $_POST['rating'] ) ) {
+	public static function post_rating( $comment_id, $comment_data, $posted_data ) {
+		if ( $comment_data['comment_type'] !== 'review' || empty( $posted_data['rating'] ) ) {
 			return;
 		}
 
 		$builder = Builder::get( $comment_data['comment_post_ID'] );
 		$rating  = 0;
 
-		if ( is_array( $_POST['rating'] ) && $builder->is_rating_type_single() ) {
-			$rating = current( $_POST['rating'] );
-
+		if ( $builder->is_rating_type_single() ) {
+			$rating = is_array( $posted_data['rating'] ) ? current( $posted_data['rating'] ) : $posted_data['rating'];
 			// Base max rating is "5" and min is "0", make sure given rating is not out of the range
 			$rating = max( 0, min( 5, intval( $rating ) ) );
-			$rating = number_format( $rating, 2, '.', '' );
-		} else {
-			// Base max rating is "5" and min is "0", make sure given rating is not out of the range
-			$rating = max( 0, min( 5, intval( $_POST['rating'] ) ) );
 			$rating = number_format( $rating, 2, '.', '' );
 		}
 

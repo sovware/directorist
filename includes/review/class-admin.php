@@ -117,7 +117,7 @@ class Metabox {
 			return;
 		}
 
-		Comment::post_rating( $comment_id, $comment_data );
+		Comment::post_rating( $comment_id, $comment_data, $_POST );
 		Comment::clear_transients( $comment->comment_post_ID );
 	}
 

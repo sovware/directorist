@@ -82,14 +82,119 @@
         };
     }
 
-    class Ajax_Comment {
+    class CommentEditHandler {
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
+        }
+
+        onSubmit(event) {
+            event.preventDefault();
+
+            console.log(event);
+
+            // const form                = $( '#commentform' );
+            // const originalButtonLabel = form.find( '[type="submit"]' ).val();
+
+            // $( document ).trigger( 'directorist_review_before_submit', form );
+
+            // const do_comment = $.ajax({
+            //     url        : form.attr('action'),
+            //     type       : 'POST',
+            //     contentType: false,
+            //     cache      : false,
+            //     processData: false,
+            //     data       : new FormData(form[0])
+            // });
+
+            // $( '#comment' ).prop( 'disabled', true );
+
+            // form.find( '[type="submit"]' ).prop( 'disabled', true ).val( 'loading' );
+
+            // do_comment.success(
+            //     function ( data, status, request ) {
+            //         var body = $( '<div></div>' );
+            //         body.append( data );
+            //         var comment_section = '.directorist-review-container';
+            //         var comments = body.find( comment_section );
+
+            //         const errorMsg = body.find( '.wp-die-message' );
+            //         if (errorMsg.length > 0) {
+            //             CommentAddReplyHandler.showError(form, errorMsg);
+
+            //             $( document ).trigger( 'directorist_review_update_failed' );
+
+            //             return;
+            //         }
+
+            //         let commentsLists = comments.find( '.commentlist li' );
+            //         let newCommentId  = false;
+
+            //         // catch the new comment id by comparing to old dom.
+            //         commentsLists.each(
+            //             function ( index ) {
+            //                 var _this = $( commentsLists[ index ] );
+            //                 if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
+            //                     newCommentId = _this.attr( 'id' );
+            //                 }
+            //             }
+            //         );
+
+            //         $( comment_section ).replaceWith( comments );
+
+            //         $( document ).trigger( 'directorist_review_updated', data );
+
+            //         var commentTop = $( "#" + newCommentId ).offset().top;
+
+            //         if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
+            //             commentTop = commentTop - $( '#wpadminbar' ).height();
+            //         }
+
+            //         // scroll to comment
+            //         if ( newCommentId ) {
+            //             $( "body, html" ).animate(
+            //                 {
+            //                     scrollTop: commentTop
+            //                 },
+            //                 600
+            //             );
+            //         }
+            //     }
+            // );
+
+            // do_comment.fail(
+            //     function ( data ) {
+            //         var body = $( '<div></div>' );
+            //         body.append( data.responseText );
+
+            //         CommentAddReplyHandler.showError(form, body.find( '.wp-die-message' ));
+
+            //         $( document ).trigger( 'directorist_review_update_failed' );
+            //     }
+            // );
+
+            // do_comment.always(
+            //     function () {
+            //         $( '#comment' ).prop( 'disabled', false );
+            //         $( '#commentform' ).find( '[type="submit"]' ).prop( 'disabled', false ).val( originalButtonLabel );
+            //     }
+            // );
+
+            // $( document ).trigger( 'directorist_review_after_submit', form );
+        }
+    }
+
+    class CommentAddReplyHandler {
 
         constructor() {
             this.init();
         }
 
         init() {
-            $( document ).on('submit', '#commentform', this.onSubmit );
+            $( document ).on('submit', '#commentform', this.onSubmit);
         }
 
         static getErrorMsg($dom) {
@@ -103,7 +208,7 @@
             if (form.find('.directorist-alert').length) {
                 form.find('.directorist-alert').remove();
             }
-            const $error = $('<div />', {class: 'directorist-alert directorist-alert-danger'}).html(Ajax_Comment.getErrorMsg($dom));
+            const $error = $('<div />', {class: 'directorist-alert directorist-alert-danger'}).html(CommentAddReplyHandler.getErrorMsg($dom));
             form.prepend($error)
         }
 
@@ -137,7 +242,7 @@
 
                     const errorMsg = body.find( '.wp-die-message' );
                     if (errorMsg.length > 0) {
-                        Ajax_Comment.showError(form, errorMsg);
+                        CommentAddReplyHandler.showError(form, errorMsg);
 
                         $( document ).trigger( 'directorist_review_update_failed' );
 
@@ -184,7 +289,7 @@
                     var body = $( '<div></div>' );
                     body.append( data.responseText );
 
-                    Ajax_Comment.showError(form, body.find( '.wp-die-message' ));
+                    CommentAddReplyHandler.showError(form, body.find( '.wp-die-message' ));
 
                     $( document ).trigger( 'directorist_review_update_failed' );
                 }
@@ -207,7 +312,6 @@
 
             this.setupComponents();
             this.addEventListeners();
-            this.setFormEncodingAttribute();
         }
 
         initStarRating() {
@@ -236,7 +340,6 @@
 
             this.$doc.on( 'directorist_review_updated', (event) => {
                 this.initStarRating();
-                this.setFormEncodingAttribute();
             } );
 
             this.$doc.on('directorist_comment_edit_form_loaded', (event) => {
@@ -309,14 +412,8 @@
 
         setupComponents() {
             new ReplyFormObserver();
-            new Ajax_Comment();
-        }
-
-        setFormEncodingAttribute() {
-            const form = document.querySelector('#commentform');
-            if (form) {
-                form.encoding = 'multipart/form-data';
-            }
+            new CommentAddReplyHandler();
+            new CommentEditHandler();
         }
     }
 

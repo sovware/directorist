@@ -13,6 +13,7 @@ use Directorist\Review\Bootstrap;
 use Directorist\Review\Builder;
 use Directorist\Review\Markup;
 use Directorist\Review\Walker as Review_Walker;
+use Directorist\Review\Comment_Form_Renderer;
 
 $builder       = Builder::get( get_the_ID() );
 $review_rating = directorist_get_listing_rating( get_the_ID() );
@@ -175,7 +176,7 @@ Bootstrap::load_walker();
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',
 		);
 
-		comment_form( apply_filters( 'directorist/review_form/comment_form_args', $args ) );
+		Comment_Form_Renderer::comment_form( apply_filters( 'directorist/review_form/comment_form_args', $args ) );
 	}
 	?>
 </div>

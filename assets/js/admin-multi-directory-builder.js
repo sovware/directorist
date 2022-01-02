@@ -948,6 +948,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     event: 'input'
   },
   created: function created() {
+    if (typeof this.value !== 'string') {
+      return;
+    }
+
     this.local_value = this.value;
   },
   watch: {
@@ -974,7 +978,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      local_value: '#fff',
+      local_value: '#000000',
       validationLog: {}
     };
   }

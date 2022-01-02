@@ -8247,21 +8247,44 @@ if( !function_exists('directory_types') ){
           return $listing_types;
     }
 }
-if( !function_exists('default_directory_type') ){
-    function default_directory_type() {
-        $default_directory = '';
-        if( !empty( directory_types() ) ) {
-            foreach( directory_types() as $term ) {
-                $default = get_term_meta( $term->term_id, '_default', true );
-                if( $default ) {
-                    $default_directory = $term->term_id;
-                    break;
-                }
-            }
-        }
-        return $default_directory;
-    }
+
+if ( ! function_exists( 'directorist_get_default_directory' ) ) {
+	/**
+	 * Get default directory id.
+	 *
+	 * @return int Default directory id.
+	 */
+	function directorist_get_default_directory() {
+		$directories = get_terms( [
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'meta_key'   => '_default',
+			'meta_value' => '1',
+			'number'     => 1
+		] );
+
+		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
+			return 0;
+		}
+
+		return $directories[0];
+	}
 }
+
+if ( ! function_exists( 'default_directory_type' ) ) {
+	/**
+	 * Alias and backward compatible function of "directorist_get_default_directory".
+	 *
+	 * @see directorist_get_default_directory
+	 *
+	 * @return int Defualt directory id.
+	 */
+	function default_directory_type() {
+		return directorist_get_default_directory();
+	}
+}
+
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
         $listing_types = array();

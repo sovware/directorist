@@ -130,11 +130,11 @@ class Walker extends Walker_Comment {
 								<?php endif; ?>
 							</div>
 						</div>
-						<?php if ( $is_review ) : ?>
+						<?php /* if ( $is_review ) : ?>
 							<div class="directorist-review-single__report">
 								<a <?php self::add_activity_prop( 'report' ); ?> href="#" class="directorist-btn-modal-js"><i class="la la-flag"></i> Report</a>
 							</div>
-						<?php endif; ?>
+						<?php endif; */ ?>
 					</header>
 					<div class="directorist-review-single__content">
 						<?php comment_text(); ?>
@@ -147,16 +147,20 @@ class Walker extends Walker_Comment {
 				<?php endif; ?>
 
 				<div class="directorist-review-single__reply">
-					<?php echo directorist_get_comment_edit_link(
-						array_merge(
-							$args,
-							array(
-								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="fas fa-pencil-alt" aria-hidden="true"></i>' ),
-								'depth'      => $depth,
-								'max_depth'  => $args['max_depth']
+					<?php
+					if ( current_user_can( 'edit_comment', get_comment_ID() ) ) {
+						echo directorist_get_comment_edit_link(
+							array_merge(
+								$args,
+								array(
+									'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="fas fa-pencil-alt" aria-hidden="true"></i>' ),
+									'depth'      => $depth,
+									'max_depth'  => $args['max_depth']
+								)
 							)
-						)
-					); ?>
+						);
+					}
+					?>
 
 					<?php comment_reply_link(
 						array_merge(

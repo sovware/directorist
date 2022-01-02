@@ -116,10 +116,14 @@
             $form.find( '#comment' ).prop( 'disabled', true );
             $form.find( '[type="submit"]' ).prop( 'disabled', true ).val( 'loading' );
             const commentID = $form.find('input[name="comment_id"]').val();
+            const $wrap = $('#div-comment-'+commentID);
+
+            $wrap.addClass('directorist-comment-edit-request');
 
             updateComment.success(
                 function (data, status, request) {
                     if ( typeof data !== 'string' && ! data.success ) {
+                        $wrap.removeClass('directorist-comment-edit-request');
                         CommentEditHandler.showError($form, data.data.html);
                         return;
                     }

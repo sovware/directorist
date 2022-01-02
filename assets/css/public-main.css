@@ -12432,7 +12432,7 @@ Review: New Style
   margin: 0 !important;
 }
 .directorist-review-submit__form:not(.directorist-form-comment-edit) {
-  padding: 20px;
+  padding: 25px;
 }
 .directorist-review-single .directorist-review-submit__form {
   padding-left: 0;

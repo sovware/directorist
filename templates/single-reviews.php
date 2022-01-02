@@ -152,25 +152,18 @@ Bootstrap::load_walker();
 			get_the_permalink()
 		);
 
-		$form_edit_action = add_query_arg( 'action', 'directorist_process_edited_comment', admin_url( 'admin-ajax.php' ) );
-		$form_edit_action = wp_nonce_url( $form_edit_action, 'directorist_process_edited_comment', 'directorist_nonce' );
-		$comment_fields['form_edit_action'] = sprintf(
-			'<input type="hidden" value="%s" name="form_edit_action">',
-			esc_url( $form_edit_action )
-		);
-
 		$args = array(
 			'fields'             => $fields,
 			'comment_field'      => implode( "\n", $comment_fields ),
 			'logged_in_as'       => '',
-			'cancel_reply_link'  => __( 'Cancel', 'directorist' ),
+			'cancel_reply_link'  => __( 'Cancel Reply', 'directorist' ),
 			'class_container'    => 'directorist-review-submit',
 			'title_reply'        => __( 'Write Your Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',
 			'title_reply_after'  => '</h3></div>',
 			'class_form'         => 'directorist-review-submit__form',
 			'class_submit'       => 'directorist-btn directorist-btn-primary',
-			'label_submit'       => __( 'Submit review', 'directorist' ),
+			'label_submit'       => __( 'Submit Review', 'directorist' ),
 			'format'             => 'html5',
 			'submit_field'       => '<div class="directorist-form-group directorist-mb-0">%1$s %2$s</div>',
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',

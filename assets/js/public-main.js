@@ -1668,6 +1668,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                   node.querySelector('#submit').innerHTML = 'Submit Review';
                   node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
+                  console.log(node.querySelector('#comment'));
                 }
               } catch (err) {
                 _iterator2.e(err);
@@ -1714,8 +1715,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 alert.style.display = 'none';
               }
 
-              form.querySelector('#submit').innerHTML = 'Submit Comment';
-              form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment');
+              form.querySelector('#submit').innerHTML = 'Submit Reply';
+              form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
             }
           }
         } catch (err) {

@@ -49,6 +49,8 @@
 
                         node.querySelector('#submit').innerHTML = 'Submit Review';
                         node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
+
+                        console.log(node.querySelector('#comment'))
                     }
                 }
 
@@ -75,8 +77,8 @@
                         alert.style.display = 'none';
                     }
 
-                    form.querySelector('#submit').innerHTML = 'Submit Comment';
-                    form.querySelector('#comment').setAttribute('placeholder', 'Leave your comment' );
+                    form.querySelector('#submit').innerHTML = 'Submit Reply';
+                    form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply' );
                 }
             }
         };

@@ -8,10 +8,12 @@ namespace Directorist;
 use wpWax\Directorist\Model\Listings;
 use wpWax\Directorist\Model\Account;
 use wpWax\Directorist\Model\All_Authors;
-use wpWax\Directorist\Model\Listing_Author;
+use wpWax\Directorist\Model\Author;
 use wpWax\Directorist\Model\Dashboard;
 use wpWax\Directorist\Model\Listing_Form;
 use wpWax\Directorist\Model\Listing_Taxonomy;
+use wpWax\Directorist\Model\Search_Form;
+use wpWax\Directorist\Model\Single_Listing;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -94,7 +96,7 @@ class ATBDP_Shortcode {
 			return '';
 		}
 
-		$listing = Directorist_Single_Listing::instance();
+		$listing = Single_Listing::instance();
 
 		ob_start();
 		echo '<div class="directorist-single-wrapper">';
@@ -108,7 +110,7 @@ class ATBDP_Shortcode {
 	public function single_listing_section( $atts ) {
 		ob_start();
 		$post_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
-		$listing = Directorist_Single_Listing::instance( $post_id );
+		$listing = Single_Listing::instance( $post_id );
 
 		foreach ( $listing->content_data as $section ) {
 			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
@@ -192,7 +194,7 @@ class ATBDP_Shortcode {
 		if (!empty($atts['listing_type'])) {
 			$listing_type = $atts['listing_type'];
 		}
-		$searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, $atts );
+		$searchform = new Search_Form( 'search_form', $listing_type, $atts );
 		
 		$atts[ 'shortcode' ] = 'directorist_search_listing';
 		
@@ -210,7 +212,7 @@ class ATBDP_Shortcode {
 
 	public function author_profile( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$author = Listing_Author::instance();
+		$author = Author::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_author_profile';
 

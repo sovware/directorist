@@ -9,7 +9,7 @@ use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Single_Listing {
+class Single_Listing {
 
 	protected static $instance = null;
 

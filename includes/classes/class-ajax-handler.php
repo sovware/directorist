@@ -4,6 +4,7 @@ defined('ABSPATH') || die('Direct access is not allowed.');
 use Directorist\Helper;
 use wpWax\Directorist\Model\All_Authors;
 use wpWax\Directorist\Model\Listing_Form;
+use wpWax\Directorist\Model\Search_Form;
 
 if (!class_exists('ATBDP_Ajax_Handler')) :
 
@@ -269,7 +270,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
+            $searchform      = new Search_Form( 'search_form', $listing_type_id, $atts );
             $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
                 'search_form'          => $search_form,

@@ -1,8 +1,9 @@
 <?php
+use wpWax\Directorist\Model\Search_Form;
 
 $search_form_fields = Directorist\Helper::get_directory_type_term_data( get_the_ID(), 'search_form_fields' );
 $directoriy_type = get_post_meta( get_the_ID(), '_directory_type', true );
-$searchform = new Directorist\Directorist_Listing_Search_Form( 'listing', $directoriy_type );
+$searchform = new Search_Form( 'listing', $directoriy_type );
 
 
 if(  is_numeric( $searchform->listing_type ) ) {

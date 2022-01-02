@@ -7,7 +7,7 @@ namespace wpWax\Directorist\Model;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Directorist_Listing_Search_Form {
+class Search_Form {
 
 	// Search Shortcode
 	public $options = [];

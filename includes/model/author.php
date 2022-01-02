@@ -7,7 +7,7 @@ namespace wpWax\Directorist\Model;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Listing_Author {
+class Author {
 
 	protected static $instance = null;
 

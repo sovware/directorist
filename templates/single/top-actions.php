@@ -5,11 +5,11 @@
  * @version 7.0.5.2
  */
 
-use \Directorist\Directorist_Single_Listing;
+use wpWax\Directorist\Model\Single_Listing;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listing = Directorist_Single_Listing::instance();
+$listing = Single_Listing::instance();
 ?>
 
 <div class="directorist-signle-listing-top directorist-flex directorist-align-center directorist-justify-content-between">

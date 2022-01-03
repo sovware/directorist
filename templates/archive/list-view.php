@@ -29,7 +29,7 @@ $listings = directorist()->listings;
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php
-			if ( $listings->show_pagination ) {
+			if ( $listings->show_pagination() ) {
 				$listings->pagination();
 			}
 			?>

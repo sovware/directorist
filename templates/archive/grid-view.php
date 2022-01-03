@@ -24,7 +24,7 @@ $listings = directorist()->listings;
 
 				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
-					<div class="<?php Helper::directorist_column( $listings->columns ); ?> directorist-all-listing-col"><!-- directorist-all-listing-col -->
+					<div class="<?php Helper::directorist_column( $listings->columns() ); ?> directorist-all-listing-col">
 						<?php $listings->loop_template( 'grid', $listing_id ); ?>
 					</div>
 
@@ -35,7 +35,7 @@ $listings = directorist()->listings;
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php
-			if ( $listings->show_pagination ) {
+			if ( $listings->show_pagination() ) {
 				$listings->pagination();
 			}
 			?>

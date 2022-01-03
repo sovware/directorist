@@ -1184,7 +1184,8 @@ class Single_Listing {
 
 		$args = apply_filters( 'directorist_related_listing_args', $args, $this );
 
-		$related = new Listings( [], 'related', $args, ['cache' => false] ); // @model @kowsar
+		$related = directorist()->listings;
+		$related->init( [], 'related', $args, ['cache' => false] ); // @model @kowsar
 
 		return $related;
 	}

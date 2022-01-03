@@ -18,16 +18,20 @@ class Listings {
 
 	protected static $instance = null;
 
-	public $query_args = [];
-	public $query_results = [];
-	public $options = [];
 
 	public $atts;
-	public $type;
-	public $params;
 
 	public $listing_types;
 	public $current_listing_type;
+
+	public $query_args = [];
+	public $query_results = [];
+	public $type;
+
+	//-------
+	public $options = [];
+	public $params;
+
 
     // shortcode properties
 	public $view;
@@ -36,14 +40,12 @@ class Listings {
 	public $orderby;
 	public $order;
 	public $listings_per_page;
-	public $show_pagination;
 	public $header;
 	public $header_title;
 	public $categories;
 	public $locations;
 	public $tags;
 	public $ids;
-	public $columns;
 	public $featured_only;
 	public $popular_only;
 	public $display_preview_image;
@@ -143,6 +145,8 @@ class Listings {
 		$this->prepare_atts_data();
 		$this->prepare_data();
 
+		$this->setup_atts( $atts );
+
 		if ( $query_args ) {
 			$this->query_args = $query_args;
 		}
@@ -157,6 +161,70 @@ class Listings {
 
 		$this->query_results = $this->get_query_results( $caching_options );
 	}
+
+	public function setup_atts( $atts ) {
+		$defaults = array(
+			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
+			'_featured'                => 1,
+			'filterby'                 => '',
+			'orderby'                  => apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) ),
+			'order'                    => get_directorist_option( 'sort_listing_by', 'asc' ),
+			'listings_per_page'        => get_directorist_option( 'all_listing_page_items', 6 ),
+			'show_pagination'          => ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '',
+			'header'                   => ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '',
+			'header_title'             => get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) ),
+			'category'                 => '',
+			'location'                 => '',
+			'tag'                      => '',
+			'ids'                      => '',
+			'columns'                  => get_directorist_option( 'all_listing_columns', 3 ),
+			'featured_only'            => '',
+			'popular_only'             => '',
+			'display_preview_image'    => 'yes',
+			'advanced_filter'          => ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '',
+			'action_before_after_loop' => 'yes',
+			'logged_in_user_only'      => '',
+			'redirect_page_url'        => '',
+			'map_height'               => get_directorist_option( 'listings_map_height', 350 ),
+			'map_zoom_level'		   => get_directorist_option('map_view_zoom_level', 16),
+			'directory_type'	       => '',
+			'default_directory_type'   => ''
+		);
+
+		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
+		$this->atts = shortcode_atts( $defaults, $atts );
+	}
+
+	public function directory_type_nav_template() {
+		$count = count( $this->listing_types );
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+			Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
+		}
+	}
+
+	public function header_bar_template() {
+		if ( $this->atts['header'] == 'yes' ) {
+			Helper::get_template( 'archive/header-bar' );
+		}
+	}
+
+	public function have_posts() {
+		return !empty( $this->query_results->ids ) ? true : false;
+	}
+
+	public function post_ids() {
+		return $this->query_results->ids;
+	}
+
+	public function columns() {
+		return (int) atbdp_calculate_column( $this->atts['columns'] );
+	}
+
+	public function show_pagination() {
+		return $this->atts['show_pagination'] == 'yes' ? true : false;
+	}
+
 
 	// set_options
 	public function set_options() {
@@ -284,7 +352,6 @@ class Listings {
 		$this->orderby                  = $this->params['orderby'];
 		$this->order                    = $this->params['order'];
 		$this->listings_per_page        = (int) $this->params['listings_per_page'];
-		$this->show_pagination          = $this->params['show_pagination'] == 'yes' ? true : false;
 		$this->header                   = $this->params['header'] == 'yes' ? true : false;
 		$this->header_title             = $this->params['header_title'];
 		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
@@ -730,7 +797,7 @@ class Listings {
 			'posts_per_page' => $this->listings_per_page,
 		);
 
-		if ( $this->show_pagination ) {
+		if ( $this->show_pagination() ) {
 			$args['paged'] = $this->paged;
 		}
 
@@ -795,7 +862,7 @@ class Listings {
 			'posts_per_page' => $this->listings_per_page,
 		);
 
-		if ( $this->show_pagination ) {
+		if ( $this->show_pagination() ) {
 			$args['paged'] = $this->paged;
 		}
 		else {
@@ -1105,13 +1172,7 @@ class Listings {
 		return ob_get_clean();
 	}
 
-	public function have_posts() {
-		return !empty( $this->query_results->ids ) ? true : false;
-	}
 
-	public function post_ids() {
-		return $this->query_results->ids;
-	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
 		if( ! $id ) return;
@@ -1965,22 +2026,6 @@ class Listings {
 			else {
 				return $this->filter_button_text;
 			}
-		}
-
-		public function directory_type_nav_template() {
-			$count = count( $this->listing_types );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-				Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
-			}
-		}
-
-		public function header_bar_template() {
-			if ( !$this->header ) {
-				return;
-			}
-
-			Helper::get_template( 'archive/header-bar', array('listings' => $this) );
 		}
 
 		public function single_line_display_class() {

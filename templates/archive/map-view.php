@@ -15,7 +15,7 @@ $listings = directorist()->listings;
 	<?php
 	$listings->render_map();
 
-	if ( $listings->show_pagination ) {
+	if ( $listings->show_pagination() ) {
 		$listings->pagination();
 	}
 	?>

@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$listings = directorist()->listings;
 ?>
 
 <div class="directorist-listing-card-posted-on"><?php directorist_icon( $icon );?><?php echo esc_html( $listings->loop_get_published_date( $data ) );?></div>

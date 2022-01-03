@@ -12,6 +12,8 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$listings = directorist()->listings;
+
 $current_directory_type = ( ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : '' );
 
 do_action( 'directorist_before_listing_types', $listings );

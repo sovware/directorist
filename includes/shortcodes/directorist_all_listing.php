@@ -26,7 +26,8 @@ class Directorist_All_Listing {
 
 	public function render_shortcode( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$listings = new Listings( $atts );
+		$listings = directorist()->listings;
+		$listings->init( $atts );
 
 		if ( empty( $atts[ 'shortcode' ] ) ) {
 			$atts[ 'shortcode' ] = 'directorist_all_listing';

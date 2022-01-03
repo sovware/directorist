@@ -195,6 +195,13 @@ final class Directorist_Base
 	 * @see  ATBDP()
 	 * @return object|Directorist_Base The one true Directorist_Base
 	 */
+
+	/**
+	 * Models
+	 *
+	 */
+	public $listings;
+
 	public static function instance()
 	{
 		if (!isset(self::$instance) && !(self::$instance instanceof Directorist_Base)) {
@@ -242,6 +249,9 @@ final class Directorist_Base
 			self::$instance->announcement = new ATBDP_Announcement;
 			self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 			self::$instance->update_database();
+
+			// Models
+			self::$instance->listings = wpWax\Directorist\Model\Listings::instance();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/

@@ -7,6 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$listings = directorist()->listings;
+
 $loop_fields = $listings->loop['list_fields']['template_data']['list_view_without_thumbnail'];
 ?>
 

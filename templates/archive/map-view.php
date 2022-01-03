@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$listings = directorist()->listings;
 ?>
 
 <div class="directorist-archive-map-view">

@@ -9,6 +9,8 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$listings = directorist()->listings;
+
 $phone_args = array(
 	'number'    => $value,
 	'whatsapp'  => $listings->has_whatsapp( $data ),

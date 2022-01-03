@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$listings = directorist()->listings;
 ?>
 
 <div class="directorist-dropdown directorist-dropdown-js directorist-sortby-dropdown">

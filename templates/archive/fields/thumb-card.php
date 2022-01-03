@@ -7,6 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$listings = directorist()->listings;
+
 $is_blur           = get_directorist_option('prv_background_type', 'blur');
 $is_blur           = ('blur' === $is_blur ? true : false);
 $container_size_by = get_directorist_option('prv_container_size_by', 'px');

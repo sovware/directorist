@@ -9,6 +9,8 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$listings = directorist()->listings;
+
 if ( !Helper::is_review_enabled() ) {
 	return;
 }

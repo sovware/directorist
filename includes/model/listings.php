@@ -15,6 +15,9 @@ use WP_Query;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Listings {
+
+	protected static $instance = null;
+
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -115,8 +118,20 @@ class Listings {
 	public $display_address_map;
 	public $display_direction_map;
 
-	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
-		$this->atts = !empty( $atts ) ? $atts : array();
+
+	private function __construct() {
+
+	}
+
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	public function init( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
+		$this->atts = $atts;
 		$this->type = !empty( $type ) ? $type : 'listing';
 
 		$this->set_options();

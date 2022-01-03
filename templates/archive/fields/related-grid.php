@@ -9,5 +9,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="related_single_carousel">
-	<?php $listings->card_template();?>
+	<?php directorist()->listings->card_template();?>
 </div>

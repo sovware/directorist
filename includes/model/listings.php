@@ -225,6 +225,26 @@ class Listings {
 		return $this->atts['show_pagination'] == 'yes' ? true : false;
 	}
 
+	public function loop_template( $loop = 'grid', $id = NULL ) {
+		if( ! $id ) return;
+		global $post;
+		$post = get_post( $id );
+		setup_postdata( $id );
+		$this->set_loop_data();
+
+		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
+			$active_template = $this->loop['card_fields']['active_template'];
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		}
+		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
+			$active_template = $this->loop['list_fields']['active_template'];
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		}
+
+		wp_reset_postdata();
+	}
 
 	// set_options
 	public function set_options() {
@@ -1174,26 +1194,7 @@ class Listings {
 
 
 
-	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
-		global $post;
-		$post = get_post( $id );
-		setup_postdata( $id );
-		$this->set_loop_data();
 
-		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
-			$active_template = $this->loop['card_fields']['active_template'];
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-grid' : 'loop-grid-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
-			$active_template = $this->loop['list_fields']['active_template'];
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-list' : 'loop-list-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-
-		wp_reset_postdata();
-	}
 
 
 	public function setup_loop( array $args = [] ) {

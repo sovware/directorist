@@ -1,9 +1,5 @@
 @charset "UTF-8";
 /* typography */
-body {
-  font-size: 15px;
-}
-
 a {
   text-decoration: none;
   color: #444752;
@@ -2859,7 +2855,8 @@ body.stop-scrolling {
   color: #fff !important;
   font-size: 17px !important;
   min-height: 118px;
-  text-decoration: none;
+  text-decoration: none !important;
+  text-align: center;
 }
 .directorist-add-listing-types__single__link i {
   display: inline-block;
@@ -8035,6 +8032,9 @@ p.atbd-min {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;

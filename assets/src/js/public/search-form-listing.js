@@ -168,7 +168,7 @@
 
                 let input_fields = [
                     {
-                        input_id: 'addressId',
+                        input_class: '.directorist-location-js',
                         lat_id: 'cityLat',
                         lng_id: 'cityLng',
                         options
@@ -182,24 +182,20 @@
                 ];
 
                 var setupAutocomplete = function (field) {
-                    const input = document.getElementById(field.input_id);
+                    const input = document.querySelectorAll(field.input_class);
+                    input.forEach(elm =>{
+                        if ( ! elm ) {
+                            return;
+                        }
 
-                    if ( ! input ) {
-                        return;
-                    }
+                        const autocomplete = new google.maps.places.Autocomplete(elm, field.options);
 
-                    const autocomplete = new google.maps.places.Autocomplete(input, field.options);
-
-                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                        const place = autocomplete.getPlace();
-
-                        console.log({
-                            place
+                        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                            const place = autocomplete.getPlace();
+                            document.getElementById(field.lat_id).value = place.geometry.location.lat();
+                            document.getElementById(field.lng_id).value = place.geometry.location.lng();
                         });
-
-                        document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                        document.getElementById(field.lng_id).value = place.geometry.location.lng();
-                    });
+                    })
                 };
 
                 input_fields.forEach(field => {

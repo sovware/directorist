@@ -394,8 +394,18 @@ class ATBDP_Permalink {
                 $translation_page = pll_get_post( $page_settings );
 
                 if ( $translation_page ) {
-                    $link = get_permalink( $translation_page ) . "?category={$term->slug}";
+
+                    $args = [
+                        'category'          => $term->slug,
+                        'directory_type'    => $directory_type,
+                    ];
+                    
+                    $translatted_page_link = get_permalink( $translation_page );
+
+                    $link = add_query_arg( $args, $translatted_page_link );
+
                     return apply_filters('atbdp_single_category', $link);
+                    
                 }
             }
         }
@@ -436,8 +446,18 @@ class ATBDP_Permalink {
                 $translation_page = pll_get_post( $page_settings );
 
                 if ( $translation_page ) {
-                    $link = get_permalink( $translation_page ) . "?location={$term->slug}";
+
+                    $args = [
+                        'location'          => $term->slug,
+                        'directory_type'    => $directory_type,
+                    ];
+                    
+                    $translatted_page_link = get_permalink( $translation_page );
+
+                    $link = add_query_arg( $args, $translatted_page_link );
+
                     return apply_filters('atbdp_single_location', $link);
+                    
                 }
             }
         }

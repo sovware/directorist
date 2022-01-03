@@ -22,7 +22,7 @@ $listings = directorist()->listings;
 
 				<div class="directorist-listings-header__left">
 
-					<?php if ( $listings->has_filters_button ): ?>
+					<?php if ( $listings->has_filters_button() ): ?>
 						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
 					<?php endif; ?>
 
@@ -51,7 +51,7 @@ $listings = directorist()->listings;
 
 		</div>
 
-		<?php if ( $listings->advanced_filter ) { ?>
+		<?php if ( $listings->has_filters_button() ) { ?>
 			<div class="<?php Helper::search_filter_class( $listings->filters_display ); ?>">
 				<?php $listings->search_form_template();?>
 			</div>

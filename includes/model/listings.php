@@ -48,8 +48,6 @@ class Listings {
 	public $ids;
 	public $featured_only;
 	public $popular_only;
-	public $display_preview_image;
-	public $advanced_filter;
 	public $action_before_after_loop;
 	public $logged_in_user_only;
 	public $redirect_page_url;
@@ -70,7 +68,6 @@ class Listings {
 	public $select_listing_map;
 	public $filters_display;
 	public $search_more_filters_fields;
-	public $has_filters_button;
 	public $has_filters_icon;
 	public $paged;
 	public $display_sortby_dropdown;
@@ -225,6 +222,14 @@ class Listings {
 		return $this->atts['show_pagination'] == 'yes' ? true : false;
 	}
 
+	public function display_preview_image() {
+		return $this->atts['display_preview_image'] == 'yes' ? true : false;
+	}
+
+	public function has_filters_button() {
+		return $this->atts['advanced_filter'] == 'yes' ? true : false;
+	}
+
 	public function loop_template( $loop = 'grid', $id = NULL ) {
 		if( ! $id ) return;
 		global $post;
@@ -234,16 +239,134 @@ class Listings {
 
 		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
 			$active_template = $this->loop['card_fields']['active_template'];
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-grid' : 'loop-grid-nothumb';
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
 			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
 		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
 			$active_template = $this->loop['list_fields']['active_template'];
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-list' : 'loop-list-nothumb';
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
 			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
 		}
 
 		wp_reset_postdata();
+	}
+
+	public function set_loop_data() {
+		$id          = get_the_ID();
+		$author_id   = get_the_author_meta( 'ID' );
+		$author_data = get_userdata( $author_id );
+
+		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
+		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
+
+		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
+		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
+		$bdbh        = get_post_meta( $id, '_bdbh', true );
+
+		$listing_type 		= $this->current_listing_type;
+		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
+		$get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
+		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
+		$this->loop = array(
+			'id'                   => $id,
+			'card_fields'          => $card_fields,
+			'list_fields'          => $list_fields,
+			'permalink'            => get_permalink( $id ),
+			'title'                => get_the_title(),
+			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
+			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
+			'featured'             => get_post_meta( $id, '_featured', true ),
+			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
+			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
+			'tagline'              => get_post_meta( $id, '_tagline', true ),
+			'category'             => get_post_meta( $id, '_admin_category_select', true ),
+			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
+
+			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
+			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
+			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
+			'bdbh_version' 			  => get_post_meta( $id, '_bdbh_version', true ),
+			'author_id'               => $author_id,
+			'author_data'             => $author_data,
+			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
+			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ),
+			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
+			'u_pro_pic'               => $u_pro_pic,
+			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'review'                  => $this->get_review_data(),
+		);
+	}
+
+	public function get_review_data() {
+		// Review
+		$average           = ATBDP()->review->get_average(get_the_ID());
+		$average           = (int) $average;
+		$average_with_zero = number_format( $average, 1 );
+		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
+		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
+
+		// Icons
+		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
+		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
+		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
+
+		// Stars
+		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
+		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
+
+		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
+		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
+
+		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
+		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
+
+		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
+		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
+
+		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
+		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
+
+		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
+
+		return [
+			'review_stars'    => $review_stars,
+			'review_text'     => $review_text,
+			'average_reviews' => $average_with_zero,
+			'total_reviews'   => $reviews_count,
+		];
+	}
+
+	public function pagination( $echo = true ) {
+		$navigation = '';
+		$paged = 1;
+		$largeNumber = 999999999;
+
+		$total = ( isset( $this->query_results->total_pages ) ) ? $this->query_results->total_pages : $this->query_results->max_num_pages;
+		$paged = ( isset( $this->query_results->current_page ) ) ? $this->query_results->current_page : $paged;
+
+		$links = paginate_links(array(
+			'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
+			'format'    => '?paged=%#%',
+			'current'   => max(1, $paged),
+			'total'     => $total,
+			'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
+			'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
+		));
+
+		if ( $links ) {
+			$navigation = '<div class="directorist-pagination">'.$links.'</div>';
+		}
+
+
+		$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
+
+		if ( $echo ) {
+			echo $result;
+		}
+		else {
+			return $result;
+		}
 	}
 
 	// set_options
@@ -381,8 +504,6 @@ class Listings {
 		$this->columns                  = (int) atbdp_calculate_column( $this->params['columns'] );
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
-		$this->display_preview_image    = $this->params['display_preview_image'] == 'yes' ? true : false;
-		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;
 		$this->action_before_after_loop = $this->params['action_before_after_loop'] == 'yes' ? true : false;
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
@@ -406,7 +527,6 @@ class Listings {
 		$this->select_listing_map          = $this->options['select_listing_map'];
 		$this->filters_display             = $this->options['listings_display_filter'];
 		$this->search_more_filters_fields  = $this->options['listing_filters_fields'];
-		$this->has_filters_button          = $this->advanced_filter;
 		$this->has_filters_icon            = $this->options['listing_filters_icon'];
 		$this->filter_button_text          = $this->options['listings_filter_button_text'];
 		$this->paged                       = atbdp_get_paged_num();
@@ -439,91 +559,9 @@ class Listings {
 		$this->display_direction_map      = $this->options['display_direction_map'];
 	}
 
-	public function set_loop_data() {
-		$id          = get_the_ID();
-		$author_id   = get_the_author_meta( 'ID' );
-		$author_data = get_userdata( $author_id );
 
-		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
-		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
 
-		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
-		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
-		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
-		$listing_type 		= $this->current_listing_type;
-		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
-		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
-		$get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
-		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
-		$this->loop = array(
-			'id'                   => $id,
-			'card_fields'          => $card_fields,
-			'list_fields'          => $list_fields,
-			'permalink'            => get_permalink( $id ),
-			'title'                => get_the_title(),
-			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
-			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
-			'featured'             => get_post_meta( $id, '_featured', true ),
-			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
-			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
-			'tagline'              => get_post_meta( $id, '_tagline', true ),
-			'category'             => get_post_meta( $id, '_admin_category_select', true ),
-			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
-
-			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
-			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
-			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
-			'bdbh_version' 			  => get_post_meta( $id, '_bdbh_version', true ),
-			'author_id'               => $author_id,
-			'author_data'             => $author_data,
-			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
-			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ),
-			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
-			'u_pro_pic'               => $u_pro_pic,
-			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
-			'review'                  => $this->get_review_data(),
-		);
-	}
-
-	public function get_review_data() {
-		// Review
-		$average           = ATBDP()->review->get_average(get_the_ID());
-		$average           = (int) $average;
-		$average_with_zero = number_format( $average, 1 );
-		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
-		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
-
-		// Icons
-		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
-		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
-		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
-
-		// Stars
-		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
-		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
-
-		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
-		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
-
-		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
-		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
-
-		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
-		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
-
-		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
-		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
-
-		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
-
-		return [
-			'review_stars'    => $review_stars,
-			'review_text'     => $review_text,
-			'average_reviews' => $average_with_zero,
-			'total_reviews'   => $reviews_count,
-		];
-	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
 		if ( 'rand' == $this->orderby ) {
@@ -2033,37 +2071,7 @@ class Listings {
 			return $this->info_display_in_single_line ? 'directorist-single-line' : '';
 		}
 
-		public function pagination( $echo = true ) {
-			$navigation = '';
-			$paged = 1;
-			$largeNumber = 999999999;
 
-			$total = ( isset( $this->query_results->total_pages ) ) ? $this->query_results->total_pages : $this->query_results->max_num_pages;
-			$paged = ( isset( $this->query_results->current_page ) ) ? $this->query_results->current_page : $paged;
-
-			$links = paginate_links(array(
-				'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
-				'format'    => '?paged=%#%',
-				'current'   => max(1, $paged),
-				'total'     => $total,
-				'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
-				'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
-			));
-
-			if ( $links ) {
-				$navigation = '<div class="directorist-pagination">'.$links.'</div>';
-			}
-
-
-			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
-
-			if ( $echo ) {
-				echo $result;
-			}
-			else {
-				return $result;
-			}
-		}
 
     	// Hooks ------------
 		public static function archive_type($listings) {

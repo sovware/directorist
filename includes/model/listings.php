@@ -21,11 +21,10 @@ class Listings {
 	public $options = [];
 	public $atts;
 
+	public $type;
 	public $query_args = [];
 	public $query_results = [];
-	public $type;
 
-	public $query;
 	public $loop;
 
 
@@ -304,45 +303,103 @@ class Listings {
 		return $this->options['disable_single_listing'];
 	}
 
-	public function get_view_as_link_list() {
-		$link_list = array();
-		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
+	public function loop_get_the_thumbnail( $class='' ) {
+		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
 
-		foreach ( $this->views() as $value => $label ) {
-			$active_class = ( $view === $value ) ? 'active' : '';
-			$link         = add_query_arg( 'view', $value );
-			$link_item    = array();
+		$id = get_the_ID();
+		$image_quality     = get_directorist_option('preview_image_quality', 'large');
+		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
+		$listing_img       = get_post_meta($id, '_listing_img', true);
 
-			$link_item['active_class'] = $active_class;
-			$link_item['link']         = $link;
-			$link_item['label']        = $label;
-
-			array_push( $link_list, $link_item );
+		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
+			$thumbnail_id = $listing_img[0];
 		}
 
-		return $link_list;
+		if ( ! empty( $listing_prv_img ) ) {
+			$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
+			$thumbnail_id = $listing_prv_img;
+		}
+
+		if ( ! empty( $img_src ) ) {
+			$thumbnail_img = $img_src;
+			$thumbnail_id = 0;
+		}
+
+		if ( empty( $thumbnail_img ) ) {
+			$thumbnail_img = $default_image_src;
+			$thumbnail_id = 0;
+		}
+
+		$image_src    = $thumbnail_img;
+		$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+		$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
+		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+
+		return "<img src='$image_src' alt='$image_alt' class='$class' />";
 	}
 
-	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
-		global $post;
-		$post = get_post( $id );
-		setup_postdata( $id );
-		$this->set_loop_data();
-
-		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
-			$active_template = $this->loop['card_fields']['active_template'];
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
-			$active_template = $this->loop['list_fields']['active_template'];
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-
-		wp_reset_postdata();
+	public function loop_thumb_card_template() {
+		Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );
 	}
+
+	public function loop_get_published_date( $data ) {
+		$publish_date_format = $data['date_type'];
+		if ('days_ago' === $publish_date_format) {
+			$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+		}
+		else {
+			$text = get_the_date();
+		}
+		return $text;
+	}
+
+	public function loop_get_title() {
+		if ( ! $this->disable_single_listing() ) {
+			$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+		}
+		else {
+			$title = $this->loop['title'];
+		}
+		return $title;
+	}
+
+	public function loop_get_tagline() {
+		return $this->loop['tagline'];
+	}
+
+	public function loop_is_favourite() {
+		$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+		if ( in_array( get_the_id() , $favourites ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	// @kowsar // @start here
+	public function loop_fields( $type = 'card' ) {
+		$listing_type = $this->get_current_listing_type();
+
+		if ( $type == 'card' ) {
+			return get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		}
+		else {
+			return get_term_meta( $listing_type, 'listings_card_list_view', true );
+		}
+	}
+
+	public function list_fields() {
+		$listing_type = $this->get_current_listing_type();
+		return get_term_meta( $listing_type, 'listings_card_list_view', true );
+	}
+
+	public function card_field_template_data() {
+		$listing_type = $this->get_current_listing_type();
+		return get_term_meta( $listing_type, 'listings_card_grid_view', true );
+	}
+
 
 	public function set_loop_data() {
 		$id          = get_the_ID();
@@ -390,6 +447,53 @@ class Listings {
 			'review'                  => $this->get_review_data(),
 		);
 	}
+
+
+
+
+
+
+	public function get_view_as_link_list() {
+		$link_list = array();
+		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
+
+		foreach ( $this->views() as $value => $label ) {
+			$active_class = ( $view === $value ) ? 'active' : '';
+			$link         = add_query_arg( 'view', $value );
+			$link_item    = array();
+
+			$link_item['active_class'] = $active_class;
+			$link_item['link']         = $link;
+			$link_item['label']        = $label;
+
+			array_push( $link_list, $link_item );
+		}
+
+		return $link_list;
+	}
+
+	public function loop_template( $loop = 'grid', $id = NULL ) {
+		if( ! $id ) return;
+		global $post;
+		$post = get_post( $id );
+		setup_postdata( $id );
+		$this->set_loop_data();
+
+		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
+			$active_template = $this->loop['card_fields']['active_template'];
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		}
+		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
+			$active_template = $this->loop['list_fields']['active_template'];
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
+		}
+
+		wp_reset_postdata();
+	}
+
+
 
 	public function get_review_data() {
 		// Review
@@ -805,7 +909,6 @@ class Listings {
 		}
 	}
 
-	// get_query_results
 	public function get_query_results( array $caching_options = [] ) {
 		if ( ! empty( $this->query_args['orderby'] ) ) {
 			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
@@ -1182,49 +1285,6 @@ class Listings {
 		Helper::get_template( $template_file, array( 'listings' => $this ) );
 	}
 
-	public function setup_loop( array $args = [] ) {
-		$default = [
-			'template' => 'grid'
-		];
-		$args = array_merge( $default, $args );
-		$listings = $this->query_results;
-
-		if ( ! empty( $listings->ids ) ) :
-			// Prime caches to reduce future queries.
-			if ( ! empty( $listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-				_prime_post_caches( $listings->ids );
-			}
-
-			$original_post = $GLOBALS['post'];
-			$counter = 0;
-			foreach ( $listings->ids as $listings_id ) :
-				$counter++;
-				$GLOBALS['post'] = get_post( $listings_id );
-				setup_postdata( $GLOBALS['post'] );
-				$this->set_loop_data();
-
-				if ( $args['template'] == 'grid' ) {
-					$active_template = $this->loop['card_fields']['active_template'];
-					$template = $active_template == 'grid_view_with_thumbnail' ? 'grid' : 'grid-nothumb';
-				}
-				elseif ( $args['template'] == 'list' ) {
-					$active_template = $this->loop['list_fields']['active_template'];
-					$template = $active_template == 'list_view_with_thumbnail' ? 'list' : 'list-nothumb';
-				}
-				else {
-					$template = $args['template'];
-				}
-
-				Helper::get_template( "archive/fields/" . $template, array('listings' => $this) );
-			endforeach;
-
-			$GLOBALS['post'] = $original_post;
-            wp_reset_postdata();
-		else:
-			?><p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p><?php
-		endif;
-	}
-
 	public function get_sort_by_link_list() {
 		$link_list = array();
 
@@ -1581,81 +1641,6 @@ class Listings {
 				wp_reset_postdata();
 			}
 		echo "</div>";
-	}
-
-	public function loop_get_the_thumbnail( $class='' ) {
-		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
-
-		$id = get_the_ID();
-		$image_quality     = get_directorist_option('preview_image_quality', 'large');
-		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-		$listing_img       = get_post_meta($id, '_listing_img', true);
-
-		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-			$thumbnail_id = $listing_img[0];
-		}
-
-		if ( ! empty( $listing_prv_img ) ) {
-			$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-			$thumbnail_id = $listing_prv_img;
-		}
-
-		if ( ! empty( $img_src ) ) {
-			$thumbnail_img = $img_src;
-			$thumbnail_id = 0;
-		}
-
-		if ( empty( $thumbnail_img ) ) {
-			$thumbnail_img = $default_image_src;
-			$thumbnail_id = 0;
-		}
-
-		$image_src    = $thumbnail_img;
-		$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-		$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
-		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
-
-		return "<img src='$image_src' alt='$image_alt' class='$class' />";
-	}
-
-	public function loop_thumb_card_template() {
-		Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );
-	}
-
-	public function loop_get_published_date( $data ) {
-		$publish_date_format = $data['date_type'];
-		if ('days_ago' === $publish_date_format) {
-			$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-		}
-		else {
-			$text = get_the_date();
-		}
-		return $text;
-	}
-
-	public function loop_get_title() {
-		if ( ! $this->disable_single_listing() ) {
-			$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
-		}
-		else {
-			$title = $this->loop['title'];
-		}
-		return $title;
-	}
-
-	public function loop_get_tagline() {
-		return $this->loop['tagline'];
-	}
-
-	public function loop_is_favourite() {
-		$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-		if ( in_array( get_the_id() , $favourites ) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	public function item_found_title_for_search($count) {

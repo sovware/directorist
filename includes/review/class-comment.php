@@ -233,16 +233,24 @@ class Comment {
 	 * @return mixed
 	 */
 	public static function set_comment_status( $approved, $comment_data ) {
-		if ( is_admin() || $comment_data['comment_type'] !== 'review' || ATBDP_POST_TYPE !== get_post_type( $comment_data['comment_post_ID'] ) ) {
+		if ( is_admin() || ATBDP_POST_TYPE !== get_post_type( $comment_data['comment_post_ID'] ) ) {
 			return $approved;
 		}
 
-		if ( directorist_is_immediate_review_approve_enabled() && $approved === 0 ) {
-			$approved = 1; // set to approved
+		$pending = 0;
+		$approve = 1;
+		$is_review = ( $comment_data['comment_type'] === 'review' );
+
+		if ( directorist_is_guest_review_enabled() && ! is_user_logged_in() && $is_review ) {
+			return $pending;
 		}
 
-		if ( ! directorist_is_immediate_review_approve_enabled() && $approved === 1 ) {
-			$approved = 0; // set to pending
+		if ( directorist_is_immediate_review_approve_enabled() && $is_review && $approved === 0 ) {
+			return $approve;
+		}
+
+		if ( ! directorist_is_immediate_review_approve_enabled() && $is_review && $approved === 1 ) {
+			return $pending;
 		}
 
 		return $approved;

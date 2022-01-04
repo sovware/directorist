@@ -59,10 +59,11 @@ class Settings_Screen {
 				],
 			],
 			'guest_review' => [
-				'type'    => 'toggle',
-				'label'   => __( 'Allow Guest Review', 'directorist' ),
-				'value'   => false,
-				'show-if' => [
+				'type'        => 'toggle',
+				'label'       => __( 'Allow Guest Review', 'directorist' ),
+				'description' => __( 'Guest reviews are not published immediately even when the setting is enabled.', 'directorist' ),
+				'value'       => false,
+				'show-if'     => [
 					'where'      => 'enable_review',
 					'conditions' => [
 						[

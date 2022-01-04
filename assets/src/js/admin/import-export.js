@@ -67,7 +67,6 @@ jQuery(document).ready(function ($) {
             .addClass('done');
         $('.atbdp-progress-step').addClass('active');
 
-        let counter = 0;
         var run_import = function () {
             const form_data = new FormData();
             // ajax action
@@ -118,8 +117,6 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success(response) {
-                    console.log({ response });
-                    
                     if ( response.error ) {
                         console.log({ response });
                         return;
@@ -131,10 +128,9 @@ jQuery(document).ready(function ($) {
                         `Imported ${response.next_position} out of ${response.total}`
                     );
                     $('.directorist-importer-progress').val(response.percentage);
-                    if (response.percentage != '100' && counter < 150) {
+                    if (response.percentage != '100') {
                         position = response.next_position;
                         run_import();
-                        counter++;
                     } else {
                         window.location = `${response.url
                             }&listing-imported=${imported}&listing-failed=${failed}`;

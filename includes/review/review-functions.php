@@ -126,3 +126,44 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
 function directorist_get_comment_form_ajax_url( $type = 'add' ) {
 	return \Directorist\Review\Comment_Form_Renderer::get_ajax_url( $type );
 }
+
+/**
+ * Check if user already shared a review.
+ *
+ * @param string $user_email
+ * @param int $post_id.
+ * @return bool
+ */
+function directorist_user_review_exists( $user_email, $post_id ) {
+	if ( ! is_email( $user_email ) ) {
+		return false;
+	}
+
+	global $wpdb;
+
+	$cache_key = 'directorist_user_review_found_by_' . md5( $user_email );
+	$exists    = wp_cache_get( $cache_key );
+
+	if ( ! $exists ) {
+		$exists = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+			SELECT count(comment_ID) FROM $wpdb->comments
+			WHERE comment_post_ID = %d
+			AND ( comment_approved = '1' OR comment_approved = '0' )
+			AND comment_type = 'review'
+			AND comment_author_email = '%s'
+			LIMIT 0, 1
+				",
+				$post_id,
+				$user_email
+			)
+		);
+
+		if ( ! empty( $exists ) ) {
+			wp_cache_set( $cache_key, $exists );
+		}
+	}
+
+	return (bool) $exists;
+}

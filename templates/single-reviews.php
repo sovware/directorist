@@ -27,7 +27,7 @@ Bootstrap::load_walker();
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header">
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) ); ?></h3>
-			<?php if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) : ?>
+			<?php if ( ! directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) || ( ! is_user_logged_in() && directorist_is_guest_review_enabled() ) ) : ?>
 				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 		</div><!-- ends: .directorist-review-content__header -->
@@ -152,12 +152,17 @@ Bootstrap::load_walker();
 			get_the_permalink()
 		);
 
+		$container_class = 'directorist-review-submit';
+		if ( directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) ) {
+			$container_class .= ' directorist-review-submit--hidden';
+		}
+
 		$args = array(
 			'fields'             => $fields,
 			'comment_field'      => implode( "\n", $comment_fields ),
 			'logged_in_as'       => '',
 			'cancel_reply_link'  => __( 'Cancel Reply', 'directorist' ),
-			'class_container'    => 'directorist-review-submit',
+			'class_container'    => $container_class,
 			'title_reply'        => __( 'Write Your Review', 'directorist' ),
 			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',
 			'title_reply_after'  => '</h3></div>',

@@ -100,7 +100,7 @@ class Comment {
 				}
 
 				// Validate if sharing multiple reviews
-				if ( ! $rating_is_missing && self::review_exists_by( $author_email, $post_id ) ) {
+				if ( ! $rating_is_missing && directorist_user_review_exists( $author_email, $post_id ) ) {
 					$errors[] = __( '<strong>Error</strong>: You already shared a review.', 'directorist' );
 				}
 
@@ -290,34 +290,6 @@ class Comment {
 		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 
 		do_action( 'directorist/review/maybe_clear_transients', $listing_id );
-	}
-
-	/**
-	 * Check if user already shared a review.
-	 *
-	 * @param string $user_email
-	 * @param int $post_id.
-	 * @return bool
-	 */
-	public static function review_exists_by( $user_email, $post_id ) {
-		global $wpdb;
-
-		$has_review = $wpdb->get_var(
-			$wpdb->prepare(
-				"
-			SELECT count(comment_ID) FROM $wpdb->comments
-			WHERE comment_post_ID = %d
-			AND ( comment_approved = '1' OR comment_approved = '0' )
-			AND comment_type = 'review'
-			AND comment_author_email = '%s'
-			LIMIT 0, 1
-				",
-				$post_id,
-				$user_email
-			)
-		);
-
-		return (bool) $has_review;
 	}
 
 	/**

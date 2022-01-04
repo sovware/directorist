@@ -2024,47 +2024,46 @@ class Listings {
 		Helper::get_template( 'archive/listings-header', array('listings' => $listings) );
 	}
 
-		public static function featured_badge( $content ) {
-			$featured = get_post_meta( get_the_ID(), '_featured', true );
-			$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
+	public static function featured_badge( $content ) {
+		$featured = get_post_meta( get_the_ID(), '_featured', true );
+		$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 
-			if ( $featured ) {
-				$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
-				return $content . $badge_html;
-			}
-
-			return $content;
+		if ( $featured ) {
+			$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
+			return $content . $badge_html;
 		}
 
-		public static function popular_badge( $content ) {
-			$popular_listing_id = atbdp_popular_listings(get_the_ID());
-			$popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
+		return $content;
+	}
 
-			if ( $popular_listing_id === get_the_ID() ) {
-				$badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-				return $content . $badge;
-			}
+	public static function popular_badge( $content ) {
+		$popular_listing_id = atbdp_popular_listings(get_the_ID());
+		$popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 
-			return $content;
+		if ( $popular_listing_id === get_the_ID() ) {
+			$badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
+			return $content . $badge;
 		}
 
-		public static function new_listing_badge( $content ) {
-			global $post;
+		return $content;
+	}
 
-			$new_listing_time = get_directorist_option('new_listing_day');
-			$new_badge_text = get_directorist_option('new_badge_text', 'New');
-			$each_hours = 60 * 60 * 24; // seconds in a day
-			$s_date1 = strtotime(current_time('mysql')); // seconds for date 1
-			$s_date2 = strtotime($post->post_date); // seconds for date 2
-			$s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
-			$days = round($s_date_diff / $each_hours); // divided the different with second in a day
-			$new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
-			if ($days <= (int)$new_listing_time) {
-				return  $content .= $new;
+	public static function new_listing_badge( $content ) {
+		global $post;
 
-			}
+		$new_listing_time = get_directorist_option('new_listing_day');
+		$new_badge_text = get_directorist_option('new_badge_text', 'New');
+		$each_hours = 60 * 60 * 24; // seconds in a day
+		$s_date1 = strtotime(current_time('mysql')); // seconds for date 1
+		$s_date2 = strtotime($post->post_date); // seconds for date 2
+		$s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
+		$days = round($s_date_diff / $each_hours); // divided the different with second in a day
+		$new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
+		if ($days <= (int)$new_listing_time) {
+			return  $content .= $new;
+		}
 
-        return $content;
+    	return $content;
     }
 
     public static function featured_badge_list_view( $content ) {

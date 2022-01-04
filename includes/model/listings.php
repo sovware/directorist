@@ -34,27 +34,6 @@ class Listings {
 	public $query;
 	public $loop;
 
-	public $display_title;
-	public $display_review;
-	public $display_price;
-	public $display_email;
-	public $display_web_link;
-	public $display_category;
-	public $display_mark_as_fav;
-	public $display_publish_date;
-	public $display_contact_info;
-	public $enable_tagline;
-	public $enable_excerpt;
-	public $display_author_image;
-	public $display_tagline_field;
-	public $display_pricing_field;
-	public $display_excerpt_field;
-	public $display_address_field;
-	public $display_phone_field;
-	public $display_readmore;
-	public $address_location;
-	public $excerpt_limit;
-
 
 	private function __construct() {
 
@@ -77,8 +56,8 @@ class Listings {
 			$this->update_search_options();
 		}
 
-		$this->prepare_atts_data();
-		$this->prepare_data();
+		$this->listing_types              = $this->get_listing_types();
+		$this->current_listing_type       = $this->get_current_listing_type();
 
 		$this->setup_atts( $atts );
 
@@ -568,44 +547,6 @@ class Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
-	}
-
-	public function prepare_atts_data() {
-		$defaults = array(
-			'view'                     => $this->options['listing_view'],
-			'_featured'                => 1,
-			'filterby'                 => '',
-			'orderby'                  => $this->options['order_listing_by'],
-			'order'                    => $this->options['sort_listing_by'],
-			'listings_per_page'        => $this->options['listings_per_page'],
-			'show_pagination'          => $this->options['paginate_listings'],
-			'header'                   => $this->options['display_listings_header'],
-			'header_title'             => $this->options['listing_header_title'],
-			'category'                 => '',
-			'location'                 => '',
-			'tag'                      => '',
-			'ids'                      => '',
-			'columns'                  => $this->options['listing_columns'],
-			'featured_only'            => '',
-			'popular_only'             => '',
-			'display_preview_image'    => 'yes',
-			'advanced_filter'          => $this->options['listing_filters_button'],
-			'logged_in_user_only'      => '',
-			'redirect_page_url'        => '',
-			'map_height'               => $this->options['listings_map_height'],
-			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
-			'directory_type'	       => '',
-			'default_directory_type'   => ''
-		);
-
-		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
-		$this->params = shortcode_atts( $defaults, $this->atts );
-
-	}
-
-	public function prepare_data() {
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {

@@ -31,11 +31,6 @@ class Listings {
 	//-------
 	public $params;
 
-
-    // shortcode properties
-	public $directory_type;
-	public $default_directory_type;
-
 	public $query;
 	public $loop;
 
@@ -281,6 +276,14 @@ class Listings {
 
 	public function map_zoom_level() {
 		return (int) $this->atts['map_zoom_level'];
+	}
+
+	public function directory_type() {
+		return !empty( $this->atts['directory_type'] ) ? explode( ',', $this->atts['directory_type'] ) : '';
+	}
+
+	public function default_directory_type() {
+		return !empty( $this->atts['default_directory_type'] ) ? $this->atts['default_directory_type'] : '';
 	}
 
 	public function get_view_as_link_list() {
@@ -561,8 +564,6 @@ class Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
-		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 	}
 
 	public function prepare_data() {
@@ -1324,8 +1325,8 @@ class Listings {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false
 		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
+		if( $this->directory_type() ) {
+			$args['slug']     = $this->directory_type();
 		}
 		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 
@@ -1348,8 +1349,8 @@ class Listings {
 		if ( isset( $_GET['directory_type'] ) ) {
 			$current = $_GET['directory_type'];
 		}
-		else if( $this->default_directory_type ) {
-			$current = $this->default_directory_type;
+		else if( $this->default_directory_type() ) {
+			$current = $this->default_directory_type();
 		}
 		else {
 

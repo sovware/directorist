@@ -12,7 +12,7 @@ $listings = directorist()->listings;
 
 <div class="directorist-dropdown directorist-dropdown-js directorist-viewas-dropdown">
 
-	<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-toggle-has-icon" href="#"><?php echo esc_html( $listings->view_as_text ); ?><span class="directorist-icon-caret"></span></a>
+	<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-toggle-has-icon" href="#"><?php echo esc_html( $listings->view_as_text() ); ?><span class="directorist-icon-caret"></span></a>
 
 	<div class="directorist-dropdown__links directorist-dropdown__links-js">
 

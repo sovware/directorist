@@ -34,24 +34,6 @@ class Listings {
 	public $query;
 	public $loop;
 
-	public $popular_by;
-	public $average_review_for_popular;
-	public $view_to_popular;
-	public $radius_search_unit;
-	public $default_radius_distance;
-	public $select_listing_map;
-	public $filters_display;
-	public $search_more_filters_fields;
-	public $has_filters_icon;
-	public $paged;
-	public $display_sortby_dropdown;
-	public $display_viewas_dropdown;
-	public $sort_by_text;
-	public $view_as_text;
-	public $view_as;
-	public $sort_by_items;
-	public $views;
-
 	public $location_placeholder;
 	public $locations_fields;
 
@@ -438,7 +420,7 @@ class Listings {
 		$link_list = array();
 		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
 
-		foreach ( $this->views as $value => $label ) {
+		foreach ( $this->views() as $value => $label ) {
 			$active_class = ( $view === $value ) ? 'active' : '';
 			$link         = add_query_arg( 'view', $value );
 			$link_item    = array();
@@ -718,25 +700,6 @@ class Listings {
 		$this->listing_types              = $this->get_listing_types();
 		$this->current_listing_type       = $this->get_current_listing_type();
 
-		$this->popular_by                  = $this->options['listing_popular_by'];
-		$this->average_review_for_popular  = $this->options['average_review_for_popular'];
-		$this->view_to_popular             = $this->options['views_for_popular'];
-		$this->radius_search_unit          = $this->options['radius_search_unit'];
-		$this->default_radius_distance     = $this->options['listing_default_radius_distance'];
-		$this->select_listing_map          = $this->options['select_listing_map'];
-		$this->filters_display             = $this->options['listings_display_filter'];
-		$this->search_more_filters_fields  = $this->options['listing_filters_fields'];
-		$this->has_filters_icon            = $this->options['listing_filters_icon'];
-		$this->filter_button_text          = $this->options['listings_filter_button_text'];
-		$this->paged                       = atbdp_get_paged_num();
-		$this->display_sortby_dropdown     = $this->options['display_sort_by'];
-		$this->display_viewas_dropdown     = $this->options['display_view_as'];
-		$this->sort_by_text                = $this->options['sort_by_text'];
-		$this->view_as_text                = $this->options['view_as_text'];
-		$this->view_as                     = $this->options['grid_view_as'];
-		$view_as_items               = $this->options['listings_view_as_items'];
-		$this->sort_by_items         = $this->options['listings_sort_by_items'];
-		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
 		$this->category_placeholder  = $this->options['listings_category_placeholder'];
 		$this->location_placeholder  = $this->options['listings_location_placeholder'];
 
@@ -810,11 +773,11 @@ class Listings {
 
 		if (  ( 'yes' == $this->popular_only() ) || ( 'views-desc' === $current_order ) ) {
 			if ( $this->has_featured() ) {
-				if ( 'average_rating' === $this->popular_by ) {
+				if ( 'average_rating' === $this->popular_by() ) {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
 							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
+							if ( $this->average_review_for_popular() <= $average ) {
 								$rated[] = $listings_id;
 							}
 						}
@@ -824,10 +787,10 @@ class Listings {
 						$args = array_merge( $args, $rating_id );
 					}
 				}
-				elseif ( 'view_count' === $this->popular_by ) {
+				elseif ( 'view_count' === $this->popular_by() ) {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
-						'value'   => $this->view_to_popular,
+						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
@@ -840,7 +803,7 @@ class Listings {
 				else {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
-						'value'   => $this->view_to_popular,
+						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
@@ -852,7 +815,7 @@ class Listings {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
 							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
+							if ( $this->average_review_for_popular() <= $average ) {
 								$rated[] = $listings_id;
 							}
 						}
@@ -864,11 +827,11 @@ class Listings {
 				}
 			}
 			else {
-				if ( 'average_rating' === $this->popular_by ) {
+				if ( 'average_rating' === $this->popular_by() ) {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
 							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
+							if ( $this->average_review_for_popular() <= $average ) {
 								$rated[] = $listings_id;
 							}
 						}
@@ -878,10 +841,10 @@ class Listings {
 						$args = array_merge( $args, $rating_id );
 					}
 				}
-				elseif ( 'view_count' === $this->popular_by ) {
+				elseif ( 'view_count' === $this->popular_by() ) {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
-						'value'   => $this->view_to_popular,
+						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
@@ -892,7 +855,7 @@ class Listings {
 				else {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
-						'value'   => (int)$this->view_to_popular,
+						'value'   => (int)$this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
@@ -903,7 +866,7 @@ class Listings {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
 							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
+							if ( $this->average_review_for_popular() <= $average ) {
 								$rated[] = $listings_id;
 							}
 						}
@@ -1053,7 +1016,7 @@ class Listings {
 		);
 
 		if ( $this->show_pagination() ) {
-			$args['paged'] = $this->paged;
+			$args['paged'] = $this->paged();
 		}
 
 		else {
@@ -1118,7 +1081,7 @@ class Listings {
 		);
 
 		if ( $this->show_pagination() ) {
-			$args['paged'] = $this->paged;
+			$args['paged'] = $this->paged();
 		}
 		else {
 			$args['no_found_rows'] = true;
@@ -1307,7 +1270,7 @@ class Listings {
 				'latitude' => sanitize_text_field( $_GET['cityLat'] ),
 				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
 				'distance' => sanitize_text_field( $_GET['miles'] ),
-				'units' => $this->radius_search_unit
+				'units' => $this->radius_search_unit()
 			);
 		}
 		elseif ( ! empty($_GET['address']) ) {
@@ -1448,7 +1411,7 @@ class Listings {
 	public function get_sort_by_link_list() {
 		$link_list = array();
 
-		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
+		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items() );
 		$queryString = $_SERVER['QUERY_STRING'];
 		parse_str($queryString, $arguments);
 		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
@@ -1534,7 +1497,7 @@ class Listings {
 	}
 
 	public function render_map() {
-		if ( 'google' == $this->select_listing_map ) {
+		if ( 'google' == $this->select_listing_map() ) {
 			$this->load_google_map();
 		}
 		else {
@@ -1543,7 +1506,7 @@ class Listings {
 	}
 
 	public function inline_map_template() {
-		if ( 'google' == $this->select_listing_map ) {
+		if ( 'google' == $this->select_listing_map() ) {
 			$this->load_google_map();
 		}
 		else {
@@ -1614,7 +1577,7 @@ class Listings {
 	}
 
 	public function get_map_options() {
-		$opt['select_listing_map']    		= $this->select_listing_map;
+		$opt['select_listing_map']    		= $this->select_listing_map();
 		$opt['crop_width']            		= $this->options['crop_width'];
 		$opt['crop_height']           		= $this->options['crop_height'];
 		$opt['display_map_info']      		= $this->options['display_map_info'];
@@ -1942,11 +1905,11 @@ class Listings {
 		}
 
 		public function masonary_grid_attr() {
-			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
+			return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
 		public function grid_view_class() {
-			return $this->view_as == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
+			return $this->view_as() == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
 		}
 
 		public function get_the_location() {
@@ -2012,13 +1975,13 @@ class Listings {
 		}
 
 		public function has_listings_header() {
-			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields ) );
+			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields() ) );
 
 			return ( $has_filter_button || ! empty( $this->header_title() ) ) ? true : false;
 		}
 
 		public function has_header_toolbar() {
-			return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
+			return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
 		}
 
 		public function render_card_field( $field ) {
@@ -2207,11 +2170,11 @@ class Listings {
 		}
 
 		public function filter_btn_html() {
-			if ( $this->has_filters_icon ) {
-				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text );
+			if ( $this->has_filters_icon() ) {
+				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
 			}
 			else {
-				return $this->filter_button_text;
+				return $this->filter_button_text();
 			}
 		}
 

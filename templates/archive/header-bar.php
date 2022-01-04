@@ -37,11 +37,11 @@ $listings = directorist()->listings;
 
 				<div class="directorist-listings-header__right">
 					<?php
-					if ( $listings->display_viewas_dropdown ) {
+					if ( $listings->display_viewas_dropdown() ) {
 						$listings->viewas_dropdown_template();
 					}
 
-					if ( $listings->display_sortby_dropdown ) {
+					if ( $listings->display_sortby_dropdown() ) {
 						$listings->sortby_dropdown_template();
 					}
 					?>
@@ -52,7 +52,7 @@ $listings = directorist()->listings;
 		</div>
 
 		<?php if ( $listings->has_filters_button() ) { ?>
-			<div class="<?php Helper::search_filter_class( $listings->filters_display ); ?>">
+			<div class="<?php Helper::search_filter_class( $listings->filters_display() ); ?>">
 				<?php $listings->search_form_template();?>
 			</div>
 		<?php } ?>

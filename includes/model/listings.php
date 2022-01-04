@@ -1328,15 +1328,6 @@ class Listings {
 		}
 	}
 
-	public function inline_map_template() {
-		if ( 'google' == $this->select_listing_map() ) {
-			$this->load_google_map();
-		}
-		else {
-			$this->load_inline_openstreet_map();
-		}
-	}
-
 	public function load_openstreet_map() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
@@ -1731,10 +1722,6 @@ class Listings {
 		return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
 	}
 
-	public function grid_view_class() {
-		return $this->view_as() == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
-	}
-
 	public function get_the_location() {
 
 		$id = get_the_ID();
@@ -1781,20 +1768,6 @@ class Listings {
 	public function loop_link_attr() {
 		$attr = " " . apply_filters('grid_view_title_link_add_attr', '');
 		return trim($attr);
-	}
-
-	public function loop_thumbnail_link_attr() {
-		return trim( ' ' . apply_filters( 'grid_view_thumbnail_link_add_attr', '' ) );
-	}
-
-	public function loop_title_link_attr() {
-		return trim( ' ' . apply_filters( 'grid_view_title_link_add_attr', '' ) );
-	}
-
-	public function header_container_class() {
-		$header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-		$header_container_fluid = apply_filters( 'atbdp_listings_header_container_fluid', $header_container_fluid );
-		echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
 	}
 
 	public function has_listings_header() {
@@ -1962,15 +1935,6 @@ class Listings {
 
 	}
 
-	public function listing_wrapper_class() {
-		echo ($this->loop['featured']) ? 'directorist-featured-listings' : '';
-	}
-
-	public function grid_container_fluid() {
-		$container = is_directoria_active() ? 'container' : 'container-fluid';
-		return apply_filters( 'atbdp_listings_grid_container_fluid', $container );
-	}
-
 	public function sortby_dropdown_template() {
 		Helper::get_template( 'archive/sortby-dropdown', array( 'listings' => $this ) );
 	}
@@ -2000,11 +1964,6 @@ class Listings {
 			return $this->filter_button_text();
 		}
 	}
-
-	public function single_line_display_class() {
-		return $this->info_display_in_single_line() ? 'directorist-single-line' : '';
-	}
-
 
 
 	// Hooks ------------

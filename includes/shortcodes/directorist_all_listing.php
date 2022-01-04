@@ -38,12 +38,12 @@ class Directorist_All_Listing {
 
 		ob_start();
 
-		if (!empty($listings->redirect_page_url)) {
-			$redirect = '<script>window.location="' . esc_url($listings->redirect_page_url) . '"</script>';
+		if (!empty($listings->redirect_page_url())) {
+			$redirect = '<script>window.location="' . esc_url($listings->redirect_page_url()) . '"</script>';
 			return $redirect;
 		}
 
-		if ( $listings->logged_in_user_only && ! is_user_logged_in() ) {
+		if ( $listings->logged_in_user_only() && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 

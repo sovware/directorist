@@ -33,11 +33,6 @@ class Listings {
 
 
     // shortcode properties
-	public $action_before_after_loop;
-	public $logged_in_user_only;
-	public $redirect_page_url;
-	public $listings_map_height;
-	public $map_zoom_level;
 	public $directory_type;
 	public $default_directory_type;
 
@@ -164,7 +159,6 @@ class Listings {
 			'popular_only'             => '',
 			'display_preview_image'    => 'yes',
 			'advanced_filter'          => $this->options['listing_filters_button'],
-			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
@@ -271,6 +265,22 @@ class Listings {
 
 	public function popular_only() {
 		return $this->atts['popular_only'];
+	}
+
+	public function logged_in_user_only() {
+		return $this->atts['logged_in_user_only'] == 'yes' ? true : false;
+	}
+
+	public function redirect_page_url() {
+		return $this->atts['redirect_page_url'];
+	}
+
+	public function listings_map_height() {
+		return (int) $this->atts['map_height'];
+	}
+
+	public function map_zoom_level() {
+		return (int) $this->atts['map_zoom_level'];
 	}
 
 	public function get_view_as_link_list() {
@@ -540,7 +550,6 @@ class Listings {
 			'popular_only'             => '',
 			'display_preview_image'    => 'yes',
 			'advanced_filter'          => $this->options['listing_filters_button'],
-			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
@@ -552,12 +561,6 @@ class Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->columns                  = (int) atbdp_calculate_column( $this->params['columns'] );
-		$this->action_before_after_loop = $this->params['action_before_after_loop'] == 'yes' ? true : false;
-		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
-		$this->redirect_page_url        = $this->params['redirect_page_url'];
-		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
-		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 	}
@@ -1252,36 +1255,6 @@ class Listings {
 		Helper::get_template( $template_file, array( 'listings' => $this ) );
 	}
 
-	public function render_shortcode( $atts = [] ) {
-		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
-		Script_Helper::load_search_form_script( $script_args );
-
-		ob_start();
-
-		if (!empty($this->redirect_page_url)) {
-			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
-			return $redirect;
-		}
-
-		if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
-			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
-		}
-
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
-		}
-
-		// Load the template
-		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
-
-		return ob_get_clean();
-	}
-
-
-
-
-
-
 	public function setup_loop( array $args = [] ) {
 		$default = [
 			'template' => 'grid'
@@ -1436,7 +1409,7 @@ class Listings {
 		$opt = $this->get_map_options();
 		$map_card_data = $this->get_osm_map_info_card_data();
 
-		$map_height = $this->listings_map_height . "px;";
+		$map_height = $this->listings_map_height() . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
@@ -1457,7 +1430,7 @@ class Listings {
 		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
 		$load_scripts_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/load-scripts.js';
 
-		$map_height = $this->listings_map_height . "px;";
+		$map_height = $this->listings_map_height() . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
 		wp_enqueue_script('no_script');
@@ -1502,7 +1475,7 @@ class Listings {
 		$opt['display_title_map']     		= $this->options['display_title_map'];
 		$opt['display_address_map']   		= $this->options['display_address_map'];
 		$opt['display_direction_map'] 		= $this->options['display_direction_map'];
-		$opt['zoom']                  		= $this->map_zoom_level;
+		$opt['zoom']                  		= $this->map_zoom_level();
 		$opt['default_image']         		= $this->options['default_preview_image'];
 		$opt['default_lat']           		= $this->options['default_latitude'];
 		$opt['default_long']          		= $this->options['default_longitude'];
@@ -1631,7 +1604,7 @@ class Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height())?$this->listings_map_height():'';?>px;">
 			<?php
 
 			$listings = $this->query_results;

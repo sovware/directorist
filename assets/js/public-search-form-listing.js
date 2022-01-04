@@ -220,7 +220,7 @@
         };
         var options = atbdp_search_listing.countryRestriction ? opt : '';
         var input_fields = [{
-          input_id: 'addressId',
+          input_class: '.directorist-location-js',
           lat_id: 'cityLat',
           lng_id: 'cityLng',
           options: options
@@ -232,20 +232,18 @@
         }];
 
         var setupAutocomplete = function setupAutocomplete(field) {
-          var input = document.getElementById(field.input_id);
+          var input = document.querySelectorAll(field.input_class);
+          input.forEach(function (elm) {
+            if (!elm) {
+              return;
+            }
 
-          if (!input) {
-            return;
-          }
-
-          var autocomplete = new google.maps.places.Autocomplete(input, field.options);
-          google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            var place = autocomplete.getPlace();
-            console.log({
-              place: place
+            var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+              var place = autocomplete.getPlace();
+              document.getElementById(field.lat_id).value = place.geometry.location.lat();
+              document.getElementById(field.lng_id).value = place.geometry.location.lng();
             });
-            document.getElementById(field.lat_id).value = place.geometry.location.lat();
-            document.getElementById(field.lng_id).value = place.geometry.location.lng();
           });
         };
 

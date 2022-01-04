@@ -33,12 +33,6 @@ class Listings {
 
 
     // shortcode properties
-	public $categories;
-	public $locations;
-	public $tags;
-	public $ids;
-	public $featured_only;
-	public $popular_only;
 	public $action_before_after_loop;
 	public $logged_in_user_only;
 	public $redirect_page_url;
@@ -253,6 +247,30 @@ class Listings {
 
 	public function header_title() {
 		return $this->atts['header_title'];
+	}
+
+	public function categories() {
+		return !empty( $this->atts['category'] ) ? explode( ',', $this->atts['category'] ) : '';
+	}
+
+	public function locations() {
+		return !empty( $this->atts['location'] ) ? explode( ',', $this->atts['location'] ) : '';
+	}
+
+	public function tags() {
+		return !empty( $this->atts['tag'] ) ? explode( ',', $this->atts['tag'] ) : '';
+	}
+
+	public function listing_ids() {
+		return !empty( $this->atts['ids'] ) ? explode( ',', $this->atts['ids'] ) : '';
+	}
+
+	public function featured_only() {
+		return $this->atts['featured_only'];
+	}
+
+	public function popular_only() {
+		return $this->atts['popular_only'];
 	}
 
 	public function get_view_as_link_list() {
@@ -534,13 +552,7 @@ class Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
-		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
-		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
-		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
 		$this->columns                  = (int) atbdp_calculate_column( $this->params['columns'] );
-		$this->featured_only            = $this->params['featured_only'];
-		$this->popular_only             = $this->params['popular_only'];
 		$this->action_before_after_loop = $this->params['action_before_after_loop'] == 'yes' ? true : false;
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
@@ -635,7 +647,7 @@ class Listings {
 			}
 		}
 
-		if ( 'yes' == $this->featured_only ) {
+		if ( 'yes' == $this->featured_only() ) {
 			$meta_queries['_featured'] = array(
 				'key'     => '_featured',
 				'value'   => 1,
@@ -646,7 +658,7 @@ class Listings {
 		$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
 		$rated        = array();
 
-		if (  ( 'yes' == $this->popular_only ) || ( 'views-desc' === $current_order ) ) {
+		if (  ( 'yes' == $this->popular_only() ) || ( 'views-desc' === $current_order ) ) {
 			if ( $this->has_featured() ) {
 				if ( 'average_rating' === $this->popular_by ) {
 					if ( ! empty( $listings_ids ) ) {
@@ -898,36 +910,36 @@ class Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		if ( $this->ids ) {
-			$args['post__in'] = $this->ids;
+		if ( $this->listing_ids() ) {
+			$args['post__in'] = $this->listing_ids();
 		}
 
 		$tax_queries = array();
 
-		if ( ! empty( $this->categories ) ) {
+		if ( ! empty( $this->categories() ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
-				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+				'terms'            => ! empty( $this->categories() ) ? $this->categories() : array(),
+				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $this->locations ) ) {
+		if ( ! empty( $this->locations() ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
-				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+				'terms'            => ! empty( $this->$this->locations() ) ? $this->$this->locations() : array(),
+				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $this->tags ) ) {
+		if ( ! empty( $this->tags() ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_TAGS,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
-				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+				'terms'            => ! empty( $this->tags() ) ? $this->tags() : array(),
+				'include_children' => true,
 			);
 		}
 

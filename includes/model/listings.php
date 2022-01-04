@@ -188,7 +188,7 @@ class Listings {
 
 	public function directory_type_nav_template() {
 		$count = count( $this->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+		$enable_multi_directory = $this->options['enable_multi_directory'];
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
 		}
@@ -229,7 +229,7 @@ class Listings {
 	}
 
 	public function has_featured() {
-		$has_featured = get_directorist_option( 'enable_featured_listing' );
+		$has_featured = $this->options['enable_featured_listing'];
 		$has_featured = $has_featured || is_fee_manager_active() ? $this->atts['_featured'] : $has_featured;
 		return $has_featured;
 	}
@@ -410,6 +410,7 @@ class Listings {
 
 	// set_options
 	public function set_options() {
+		$this->options['enable_multi_directory']          = get_directorist_option( 'enable_multi_directory', false );
 		$this->options['listing_view']                    = get_directorist_option( 'default_listing_view', 'grid' );
 		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) );
 		$this->options['sort_listing_by']                 = get_directorist_option( 'sort_listing_by', 'asc' );

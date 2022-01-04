@@ -11891,10 +11891,15 @@ p.atbd-min {
 /*==================================
 Review: New Style
 ===================================*/
-.directorist-review-container .comment-notes {
+.directorist-review-container {
+  margin-bottom: 35px;
+}
+.directorist-review-container .comment-notes,
+.directorist-review-container .comment-form-cookies-consent {
   margin-bottom: 20px;
   font-style: italic;
   font-size: 14px;
+  font-weight: normal;
 }
 
 .directorist-review-content {
@@ -12624,6 +12629,10 @@ Review: New Style
   background-color: #EF0000;
   opacity: 0;
   visibility: hidden;
+}
+
+.directorist-review-content + .directorist-review-submit.directorist-review-submit--hidden {
+  display: none !important;
 }
 
 /* Review responsiveness */

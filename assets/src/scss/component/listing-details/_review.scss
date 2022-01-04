@@ -264,10 +264,14 @@
 Review: New Style
 ===================================*/
 .directorist-review-container {
-    .comment-notes {
+    margin-bottom: 35px;
+
+    .comment-notes,
+    .comment-form-cookies-consent {
         margin-bottom: 20px;
         font-style: italic;
         font-size: 14px;
+        font-weight: normal;
     }
 }
 
@@ -638,7 +642,7 @@ Review: New Style
                         }
                     }
                 }
-                .directorist-review-submit{
+                .directorist-review-submit {
                     margin-top: 0 !important;
                     margin-bottom: 0 !important;
                     border: 0 none !important;
@@ -646,7 +650,7 @@ Review: New Style
                         padding-left: 0;
                         padding-right: 0;
 
-                        h3{
+                        h3 {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
@@ -908,6 +912,10 @@ Review: New Style
             }
         }
     }
+}
+
+.directorist-review-content + .directorist-review-submit.directorist-review-submit--hidden {
+    display: none !important;
 }
 
 /* Review responsiveness */

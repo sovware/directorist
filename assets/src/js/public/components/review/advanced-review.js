@@ -365,6 +365,11 @@
 
                         const $editForm = $('#directorist-form-comment-edit');
                         $editForm.find('textarea').focus();
+<<<<<<< HEAD
+=======
+
+                        window.location.hash = $editForm.parents('.directorist-comment-editing').attr('id');
+>>>>>>> f64b0493e1772a0ba10592670b6c0944378c3cc5
 
                         self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
                     },

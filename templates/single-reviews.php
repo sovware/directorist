@@ -23,7 +23,7 @@ $review_count  = directorist_get_listing_review_count( get_the_ID() );
 Bootstrap::load_walker();
 
 ?>
-<div class="directorist-review-container">
+<div id="reviews" class="directorist-review-container">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header">
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s response', '%s responses', get_comments_number(), 'directorist' ), get_comments_number() ) ); ?></h3>
@@ -54,9 +54,10 @@ Bootstrap::load_walker();
 			<?php if ( get_comment_pages_count() > 1 ) : ?>
 			<nav class="directorist-review-content__pagination directorist-pagination">
 				<?php paginate_comments_links( array(
-					'prev_text' => '<i class="la la-arrow-left"></i>',
-					'next_text' => '<i class="la la-arrow-right"></i>',
-					'type'      => 'list',
+					'prev_text'    => '<i class="la la-arrow-left"></i>',
+					'next_text'    => '<i class="la la-arrow-right"></i>',
+					'type'         => 'list',
+					'add_fragment' => '#reviews',
 				) ); ?>
 			</nav>
 			<?php endif;?>

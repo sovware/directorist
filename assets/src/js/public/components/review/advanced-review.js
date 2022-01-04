@@ -101,7 +101,7 @@
         onSubmit(event) {
             event.preventDefault();
 
-            const $form                = $( event.target );
+            const $form               = $(event.target);
             const originalButtonLabel = $form.find('[type="submit"]').val();
 
             $(document).trigger('directorist_review_before_submit', $form);
@@ -317,7 +317,7 @@
         }
 
         cancelReplyMode() {
-            const replyLink = document.querySelector('#cancel-comment-reply-link');
+            const replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
             replyLink && replyLink.click();
         }
 
@@ -365,8 +365,6 @@
 
                         const $editForm = $('#directorist-form-comment-edit');
                         $editForm.find('textarea').focus();
-
-                        window.location.hash = $editForm.parents('.directorist-comment-editing').attr('id');
 
                         self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
                     },

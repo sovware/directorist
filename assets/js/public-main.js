@@ -1943,7 +1943,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, {
       key: "cancelReplyMode",
       value: function cancelReplyMode() {
-        var replyLink = document.querySelector('#cancel-comment-reply-link');
+        var replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
         replyLink && replyLink.click();
       }
     }, {
@@ -1980,7 +1980,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               self.cancelReplyMode();
               var $editForm = $('#directorist-form-comment-edit');
               $editForm.find('textarea').focus();
-              window.location.hash = $editForm.parents('.directorist-comment-editing').attr('id');
               self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
             }
           });

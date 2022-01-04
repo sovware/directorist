@@ -5344,7 +5344,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
             ];
-            e_var_dump($this->fields);
 
             wp_localize_script('directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
 

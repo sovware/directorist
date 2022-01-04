@@ -34,7 +34,6 @@ class Listings {
 	public $query;
 	public $loop;
 
-	public $has_featured;
 	public $popular_by;
 	public $average_review_for_popular;
 	public $view_to_popular;
@@ -284,6 +283,155 @@ class Listings {
 
 	public function default_directory_type() {
 		return !empty( $this->atts['default_directory_type'] ) ? $this->atts['default_directory_type'] : '';
+	}
+
+	public function popular_by() {
+		return $this->options['listing_popular_by'];
+	}
+
+	public function average_review_for_popular() {
+		return $this->options['average_review_for_popular'];
+	}
+
+	public function view_to_popular() {
+		return $this->options['views_for_popular'];
+	}
+
+	public function radius_search_unit() {
+		return $this->options['radius_search_unit'];
+	}
+
+	public function default_radius_distance() {
+		return $this->options['listing_default_radius_distance'];
+	}
+
+	public function select_listing_map() {
+		return $this->options['select_listing_map'];
+	}
+
+	public function filters_display() {
+		return $this->options['listings_display_filter'];
+	}
+
+	public function search_more_filters_fields() {
+		return $this->options['listing_filters_fields'];
+	}
+
+	public function has_filters_icon() {
+		return $this->options['listing_filters_icon'];
+	}
+
+	public function filter_button_text() {
+		return $this->options['listings_filter_button_text'];
+	}
+
+	public function paged() {
+		return atbdp_get_paged_num();
+	}
+
+	public function display_sortby_dropdown() {
+		return $this->options['display_sort_by'];
+	}
+
+	public function display_viewas_dropdown() {
+		return $this->options['display_view_as'];
+	}
+
+	public function sort_by_text() {
+		return $this->options['sort_by_text'];
+	}
+
+	public function view_as_text() {
+		return $this->options['view_as_text'];
+	}
+
+	public function view_as() {
+		return $this->options['grid_view_as'];
+	}
+
+	public function sort_by_items() {
+		return $this->options['listings_sort_by_items'];
+	}
+
+	public function views() {
+		$view_as_items = $this->options['listings_view_as_items'];
+		return atbdp_get_listings_view_options( $view_as_items );
+	}
+
+	public function category_placeholder() {
+		return $this->options['listings_category_placeholder'];
+	}
+
+	public function location_placeholder() {
+		return $this->options['listings_location_placeholder'];
+	}
+
+	public function categories_fields() {
+		return search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+	}
+
+	public function locations_fields() {
+		return search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+	}
+
+	public function c_symbol() {
+		return atbdp_currency_symbol( $this->options['g_currency'] );
+	}
+
+	public function popular_badge_text() {
+		return $this->options['popular_badge_text'];
+	}
+
+	public function feature_badge_text() {
+		return $this->options['feature_badge_text'];
+	}
+
+	public function readmore_text() {
+		return $this->options['readmore_text'];
+	}
+
+	public function info_display_in_single_line() {
+		return $this->options['info_display_in_single_line'];
+	}
+
+	public function listing_location_address() {
+		return $this->options['listing_location_address'];
+	}
+
+	public function is_disable_price() {
+		return $this->options['disable_list_price'];
+	}
+
+	public function disable_single_listing() {
+		return $this->options['disable_single_listing'];
+	}
+
+	public function disable_contact_info() {
+		return $this->options['disable_contact_info'];
+	}
+
+	public function use_def_lat_long() {
+		return $this->options['use_def_lat_long'];
+	}
+
+	public function display_map_info() {
+		return $this->options['display_map_info'];
+	}
+
+	public function display_image_map() {
+		return $this->options['display_image_map'];
+	}
+
+	public function display_title_map() {
+		return $this->options['display_title_map'];
+	}
+
+	public function display_address_map() {
+		return $this->options['display_address_map'];
+	}
+
+	public function display_direction_map() {
+		return $this->options['display_direction_map'];
 	}
 
 	public function get_view_as_link_list() {
@@ -591,8 +739,10 @@ class Listings {
 		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
 		$this->category_placeholder  = $this->options['listings_category_placeholder'];
 		$this->location_placeholder  = $this->options['listings_location_placeholder'];
+
 		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+
 		$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
 		$this->popular_badge_text         = $this->options['popular_badge_text'];
 		$this->feature_badge_text         = $this->options['feature_badge_text'];
@@ -609,10 +759,6 @@ class Listings {
 		$this->display_address_map        = $this->options['display_address_map'];
 		$this->display_direction_map      = $this->options['display_direction_map'];
 	}
-
-
-
-
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
 		if ( 'rand' == $this->orderby() ) {
@@ -1252,7 +1398,7 @@ class Listings {
 	}
 
 	public function archive_view_template() {
-		$template_file = "archive/{$this->view}-view";
+		$template_file = "archive/{$this->get_view()}-view";
 		Helper::get_template( $template_file, array( 'listings' => $this ) );
 	}
 

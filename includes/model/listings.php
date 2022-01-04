@@ -34,18 +34,6 @@ class Listings {
 	public $query;
 	public $loop;
 
-	public $location_placeholder;
-	public $locations_fields;
-
-	public $c_symbol;
-	public $popular_badge_text;
-	public $feature_badge_text;
-	public $info_display_in_single_line;
-	public $readmore_text;
-	public $listing_location_address;
-	public $is_disable_price;
-	public $disable_single_listing;
-	public $disable_contact_info;
 	public $display_title;
 	public $display_review;
 	public $display_price;
@@ -66,12 +54,6 @@ class Listings {
 	public $display_readmore;
 	public $address_location;
 	public $excerpt_limit;
-	public $use_def_lat_long;
-	public $display_map_info;
-	public $display_image_map;
-	public $display_title_map;
-	public $display_address_map;
-	public $display_direction_map;
 
 
 	private function __construct() {
@@ -340,14 +322,6 @@ class Listings {
 		return atbdp_get_listings_view_options( $view_as_items );
 	}
 
-	public function category_placeholder() {
-		return $this->options['listings_category_placeholder'];
-	}
-
-	public function location_placeholder() {
-		return $this->options['listings_location_placeholder'];
-	}
-
 	public function categories_fields() {
 		return search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 	}
@@ -368,16 +342,8 @@ class Listings {
 		return $this->options['feature_badge_text'];
 	}
 
-	public function readmore_text() {
-		return $this->options['readmore_text'];
-	}
-
 	public function info_display_in_single_line() {
 		return $this->options['info_display_in_single_line'];
-	}
-
-	public function listing_location_address() {
-		return $this->options['listing_location_address'];
 	}
 
 	public function is_disable_price() {
@@ -386,10 +352,6 @@ class Listings {
 
 	public function disable_single_listing() {
 		return $this->options['disable_single_listing'];
-	}
-
-	public function disable_contact_info() {
-		return $this->options['disable_contact_info'];
 	}
 
 	public function use_def_lat_long() {
@@ -605,15 +567,10 @@ class Listings {
 		$this->options['grid_view_as']                    = get_directorist_option( 'grid_view_as', 'normal_grid' );
 		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
-		$this->options['listings_category_placeholder']   = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->options['listings_location_placeholder']   = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['listing_location_address']        = get_directorist_option( 'listing_location_address', 'map_api' );
 		$this->options['disable_single_listing']          = get_directorist_option( 'disable_single_listing') ? true : false;
-		$this->options['disable_contact_info']            = get_directorist_option( 'disable_contact_info', 0 );
 		$this->options['popular_badge_text']              = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 		$this->options['feature_badge_text']              = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
-		$this->options['readmore_text']                   = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
 		$this->options['info_display_in_single_line']     = get_directorist_option( 'info_display_in_single_line', 0 ) ? 'atbd_single_line_card_info' : '';
 		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
 		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
@@ -646,10 +603,7 @@ class Listings {
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
 		$this->options['listings_display_filter']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
-		$this->options['listing_location_address']        = get_directorist_option( 'sresult_location_address', 'map_api' );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
-		$this->options['listings_category_placeholder']   = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->options['listings_location_placeholder']   = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
 		$this->options['display_view_as']                 = get_directorist_option( 'search_view_as', 1 );
 		$this->options['view_as_text']                    = get_directorist_option( 'search_viewas_text', __( 'View As', 'directorist' ) );
@@ -700,27 +654,21 @@ class Listings {
 		$this->listing_types              = $this->get_listing_types();
 		$this->current_listing_type       = $this->get_current_listing_type();
 
-		$this->category_placeholder  = $this->options['listings_category_placeholder'];
-		$this->location_placeholder  = $this->options['listings_location_placeholder'];
+		// .$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		// .$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 
-		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-
-		$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
-		$this->popular_badge_text         = $this->options['popular_badge_text'];
-		$this->feature_badge_text         = $this->options['feature_badge_text'];
-		$this->readmore_text              = $this->options['readmore_text'];
-		$this->info_display_in_single_line = $this->options['info_display_in_single_line'];
-		$this->listing_location_address   = $this->options['listing_location_address'];
-		$this->is_disable_price           = $this->options['disable_list_price'];
-		$this->disable_single_listing     = $this->options['disable_single_listing'];
-		$this->disable_contact_info       = $this->options['disable_contact_info'];
-		$this->use_def_lat_long           = $this->options['use_def_lat_long'];
-		$this->display_map_info           = $this->options['display_map_info'];
-		$this->display_image_map          = $this->options['display_image_map'];
-		$this->display_title_map          = $this->options['display_title_map'];
-		$this->display_address_map        = $this->options['display_address_map'];
-		$this->display_direction_map      = $this->options['display_direction_map'];
+		// .$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
+		// .$this->popular_badge_text         = $this->options['popular_badge_text'];
+		// .$this->feature_badge_text         = $this->options['feature_badge_text'];
+		// $this->info_display_in_single_line = $this->options['info_display_in_single_line'];
+		// $this->is_disable_price           = $this->options['disable_list_price'];---
+		// $this->disable_single_listing     = $this->options['disable_single_listing'];
+		// .$this->use_def_lat_long           = $this->options['use_def_lat_long'];
+		// .$this->display_map_info           = $this->options['display_map_info'];
+		// $this->display_image_map          = $this->options['display_image_map'];
+		// $this->display_title_map          = $this->options['display_title_map'];
+		// .$this->display_address_map        = $this->options['display_address_map'];
+		// $this->display_direction_map      = $this->options['display_direction_map'];
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
@@ -1591,7 +1539,7 @@ class Listings {
 		$opt['default_long']          		= $this->options['default_longitude'];
 		$opt['use_def_lat_long']   			= $this->options['use_def_lat_long'];
 
-		$opt['disable_single_listing'] = $this->disable_single_listing;
+		$opt['disable_single_listing'] = $this->disable_single_listing();
 
 		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
 		$opt['map_is_disabled'] = $map_is_disabled;
@@ -1827,7 +1775,7 @@ class Listings {
 		}
 
 		public function loop_get_title() {
-			if ( ! $this->disable_single_listing ) {
+			if ( ! $this->disable_single_listing() ) {
 				$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
 			}
 			else {
@@ -1946,7 +1894,7 @@ class Listings {
 				$class[] = 'directorist-featured';
 			}
 
-			if ( $this->info_display_in_single_line ) {
+			if ( $this->info_display_in_single_line() ) {
 				$class[] = 'directorist-single-line';
 			}
 
@@ -2179,7 +2127,7 @@ class Listings {
 		}
 
 		public function single_line_display_class() {
-			return $this->info_display_in_single_line ? 'directorist-single-line' : '';
+			return $this->info_display_in_single_line() ? 'directorist-single-line' : '';
 		}
 
 

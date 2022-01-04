@@ -23,7 +23,7 @@ if ( !Helper::has_price_range( $id ) && !Helper::has_price( $id ) ) {
 	if ( 'range' === Helper::pricing_type( $id ) ) {
 		Helper::price_range_template( $id );
 	}
-	elseif ( !$listings->is_disable_price ) {
+	elseif ( !$listings->is_disable_price() ) {
 		Helper::price_template( $id );
 	}
 	?>

@@ -76,12 +76,12 @@ switch ($image_size) {
 $link_start = '<a href="'.esc_url( $listings->loop['permalink'] ).'">';
 $link_end   = '</a>';
 
-if (!$listings->disable_single_listing) {
+if (!$listings->disable_single_listing()) {
 	echo $link_start;
 }
 
 echo $the_html;
 
-if (!$listings->disable_single_listing) {
+if (!$listings->disable_single_listing()) {
 	echo $link_end;
 }

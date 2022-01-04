@@ -1978,7 +1978,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
               self.cancelOthersEditMode($target.data('commentid'));
               self.cancelReplyMode();
-              $('.directorist-form-comment-edit').find('textarea').focus();
+              var $editForm = $('#directorist-form-comment-edit');
+              $editForm.find('textarea').focus();
+              window.location.hash = $editForm.parents('.directorist-comment-editing').attr('id');
               self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
             }
           });

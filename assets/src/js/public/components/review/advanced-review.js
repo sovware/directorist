@@ -124,6 +124,7 @@
 
             updateComment.success(
                 function (data, status, request) {
+
                     if ( typeof data !== 'string' && ! data.success ) {
                         $wrap.removeClass('directorist-comment-edit-request');
                         CommentEditHandler.showError($form, data.data.html);
@@ -362,7 +363,10 @@
                         self.cancelOthersEditMode($target.data('commentid'));
                         self.cancelReplyMode();
 
-                        $('.directorist-form-comment-edit').find('textarea').focus();
+                        const $editForm = $('#directorist-form-comment-edit');
+                        $editForm.find('textarea').focus();
+
+                        window.location.hash = $editForm.parents('.directorist-comment-editing').attr('id');
 
                         self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
                     },

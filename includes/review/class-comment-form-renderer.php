@@ -22,11 +22,12 @@ class Comment_Form_Renderer {
 		add_action( 'wp_ajax_nopriv_' . self::AJAX_ACTION, array( __CLASS__, 'render' ) );
 	}
 
-	public static function get_ajax_url( $type = 'add' ) {
+	public static function get_ajax_url() {
 		$url = add_query_arg(
 			array(
 				'action' => self::AJAX_ACTION,
 				'nonce'  => wp_create_nonce( self::AJAX_ACTION ),
+				'cpage'  => get_query_var( 'cpage' )
 			),
 			admin_url( 'admin-ajax.php', 'relative' )
 		);
@@ -112,6 +113,7 @@ class Comment_Form_Renderer {
 			<input type="hidden" value="<?php echo esc_attr( Comment_Form_Processor::AJAX_ACTION ); ?>" name="action">
 			<input type="hidden" value="<?php echo esc_attr( $comment->comment_post_ID ); ?>" name="post_id">
 			<input type="hidden" value="<?php echo esc_attr( $comment->comment_ID ); ?>" name="comment_id">
+			<input type="hidden" value="<?php echo esc_attr( ! empty( $_REQUEST['cpage'] ) ? absint( $_REQUEST['cpage'] ) : 0 ); ?>" name="cpage">
 			<div class="directorist-form-group directorist-mb-0">
 				<?php
 				printf(

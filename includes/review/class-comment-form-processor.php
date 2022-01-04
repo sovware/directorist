@@ -93,7 +93,14 @@ class Comment_Form_Processor {
 			Comment::post_rating( $comment_id, $comment_data, $_POST );
 			Comment::clear_transients( $comment->comment_post_ID );
 
-			wp_safe_redirect( get_permalink( $comment->comment_post_ID ) );
+			$cpage = isset( $_POST['cpage'] ) ? absint( $_POST['cpage'] ) : 0;
+			$redirect_to = get_permalink( $comment->comment_post_ID );
+			if ( $cpage ) {
+				$redirect_to = add_query_arg( 'cpage', $cpage, $redirect_to );
+			}
+			$redirect_to .= '#' . $comment_id;
+
+			wp_safe_redirect( $redirect_to );
 			exit;
 		} catch ( Exception $e ) {
 			$html = sprintf( '<div class="directorist-alert directorist-alert-danger">%s</div>', $e->getMessage() );

@@ -21,9 +21,6 @@ class Listings {
 	public $options = [];
 	public $atts;
 
-	public $listing_types;
-	public $current_listing_type;
-
 	public $query_args = [];
 	public $query_results = [];
 	public $type;
@@ -52,9 +49,6 @@ class Listings {
 		if ( 'search_result' == $this->type ) {
 			$this->update_search_options();
 		}
-
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
 
 		$this->setup_atts( $atts );
 
@@ -106,7 +100,7 @@ class Listings {
 	}
 
 	public function directory_type_nav_template() {
-		$count = count( $this->listing_types );
+		$count = count( $this->get_listing_types() );
 		$enable_multi_directory = $this->options['enable_multi_directory'];
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
@@ -362,10 +356,10 @@ class Listings {
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
-		$listing_type 		= $this->current_listing_type;
+		$listing_type 		= $this->get_current_listing_type();
 		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
-		$get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
+		$get_directory_type = get_term_by( 'id', $this->get_current_listing_type(), ATBDP_TYPE );
 		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		$this->loop = array(
 			'id'                   => $id,
@@ -1315,7 +1309,7 @@ class Listings {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
-			'listing_type'		 => $this->listing_types
+			'listing_type'		 => $this->get_listing_types()
 		);
 	}
 
@@ -1590,7 +1584,7 @@ class Listings {
 	}
 
 	public function loop_get_the_thumbnail( $class='' ) {
-		$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
+		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
 
 		$id = get_the_ID();
 		$image_quality     = get_directorist_option('preview_image_quality', 'large');
@@ -1760,7 +1754,7 @@ class Listings {
 			$class[] = 'directorist-single-line';
 		}
 
-		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
+		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->get_current_listing_type() );
 
 		return implode( ' ' , $class );
 	}
@@ -1785,7 +1779,7 @@ class Listings {
 			$this->render_badge_template($field);
 		}
 		else {
-			$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
+			$submission_form_fields = get_term_meta( $this->get_current_listing_type(), 'submission_form_fields', true );
 			$original_field = '';
 
 			if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
@@ -1951,7 +1945,7 @@ class Listings {
 
 		$args = array(
 			'listings'   => $this,
-			'searchform' => new Search_Form( $this->type, $this->current_listing_type, $search_field_atts ), // @model @kowsar
+			'searchform' => new Search_Form( $this->type, $this->get_current_listing_type(), $search_field_atts ), // @model @kowsar
 		);
 		Helper::get_template( 'archive/search-form', $args );
 	}
@@ -1968,7 +1962,7 @@ class Listings {
 
 	// Hooks ------------
 	public static function archive_type($listings) {
-		$count = count( $listings->listing_types );
+		$count = count( $listings->get_listing_types() );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/listing-types', array('listings' => $listings) );

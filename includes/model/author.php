@@ -132,7 +132,7 @@ class Author {
 
 	// Hooks ------------
 	public function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
+		$count = count( $listings->get_listing_types() );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings) );
@@ -385,7 +385,8 @@ class Author {
 
 	public function get_listings() {
 		$query    = $this->author_listings_query();
-		$listings = new Listings( NULL, NULL, $query, ['cache' => false] ); // @model @kowsar
+		$listings = directorist()->listings;
+		$listings->init( NULL, NULL, $query, ['cache' => false] ); // @model @kowsar
 		return $listings;
 	}
 

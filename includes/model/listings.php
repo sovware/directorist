@@ -18,7 +18,7 @@ class Listings {
 
 	protected static $instance = null;
 
-
+	public $options = [];
 	public $atts;
 
 	public $listing_types;
@@ -29,16 +29,10 @@ class Listings {
 	public $type;
 
 	//-------
-	public $options = [];
 	public $params;
 
 
     // shortcode properties
-	public $view;
-	public $_featured;
-	public $filterby;
-	public $orderby;
-	public $order;
 	public $listings_per_page;
 	public $header;
 	public $header_title;
@@ -228,6 +222,51 @@ class Listings {
 
 	public function has_filters_button() {
 		return $this->atts['advanced_filter'] == 'yes' ? true : false;
+	}
+
+	public function get_view() {
+		return atbdp_get_listings_current_view_name( $this->atts['view'] );
+	}
+
+	public function has_featured() {
+		$has_featured = get_directorist_option( 'enable_featured_listing' );
+		$has_featured = $has_featured || is_fee_manager_active() ? $this->atts['_featured'] : $has_featured;
+		return $has_featured;
+	}
+
+	public function filterby() {
+		return $this->atts['filterby'];
+	}
+
+	public function orderby() {
+		return $this->atts['orderby'];
+	}
+
+	public function order() {
+		return $this->atts['order'];
+	}
+
+	public function listings_per_page() {
+		return (int) $this->atts['listings_per_page'];
+	}
+
+	public function get_view_as_link_list() {
+		$link_list = array();
+		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
+
+		foreach ( $this->views as $value => $label ) {
+			$active_class = ( $view === $value ) ? 'active' : '';
+			$link         = add_query_arg( 'view', $value );
+			$link_item    = array();
+
+			$link_item['active_class'] = $active_class;
+			$link_item['link']         = $link;
+			$link_item['label']        = $label;
+
+			array_push( $link_list, $link_item );
+		}
+
+		return $link_list;
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
@@ -489,12 +528,6 @@ class Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->view                     = atbdp_get_listings_current_view_name( $this->params['view'] );
-		$this->_featured                = $this->params['_featured'];
-		$this->filterby                 = $this->params['filterby'];
-		$this->orderby                  = $this->params['orderby'];
-		$this->order                    = $this->params['order'];
-		$this->listings_per_page        = (int) $this->params['listings_per_page'];
 		$this->header                   = $this->params['header'] == 'yes' ? true : false;
 		$this->header_title             = $this->params['header_title'];
 		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
@@ -517,8 +550,6 @@ class Listings {
 		$this->listing_types              = $this->get_listing_types();
 		$this->current_listing_type       = $this->get_current_listing_type();
 
-		$this->has_featured                = $this->options['enable_featured_listing'];
-		$this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
 		$this->popular_by                  = $this->options['listing_popular_by'];
 		$this->average_review_for_popular  = $this->options['average_review_for_popular'];
 		$this->view_to_popular             = $this->options['views_for_popular'];
@@ -564,11 +595,11 @@ class Listings {
 
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
-		if ( 'rand' == $this->orderby ) {
-			$current_order = atbdp_get_listings_current_order( $this->orderby );
+		if ( 'rand' == $this->orderby() ) {
+			$current_order = atbdp_get_listings_current_order( $this->orderby() );
 		}
 		else {
-			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
+			$current_order = atbdp_get_listings_current_order( $this->orderby() . '-' . $this->order() );
 		}
 
 		$meta_queries['directory_type'] = array(
@@ -583,8 +614,8 @@ class Listings {
 			'compare' => '!=',
 		);
 
-		if ( $this->has_featured ) {
-			if ( '_featured' == $this->filterby ) {
+		if ( $this->has_featured() ) {
+			if ( '_featured' == $this->filterby() ) {
 				$meta_queries['_featured'] = array(
 					'key'     => '_featured',
 					'value'   => 1,
@@ -612,7 +643,7 @@ class Listings {
 		$rated        = array();
 
 		if (  ( 'yes' == $this->popular_only ) || ( 'views-desc' === $current_order ) ) {
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				if ( 'average_rating' === $this->popular_by ) {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
@@ -721,7 +752,7 @@ class Listings {
 
 		switch ( $current_order ) {
 			case 'title-asc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -735,7 +766,7 @@ class Listings {
 			break;
 
 			case 'title-desc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -749,7 +780,7 @@ class Listings {
 			break;
 
 			case 'date-asc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -763,7 +794,7 @@ class Listings {
 			break;
 
 			case 'date-desc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -777,7 +808,7 @@ class Listings {
 			break;
 
 			case 'price-asc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$meta_queries['price'] = array(
 					'key'     => '_price',
 					'type'    => 'NUMERIC',
@@ -797,7 +828,7 @@ class Listings {
 			break;
 
 			case 'price-desc':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$meta_queries['price'] = array(
 					'key'     => '_price',
 					'type'    => 'NUMERIC',
@@ -817,7 +848,7 @@ class Listings {
 			break;
 
 			case 'rand':
-			if ( $this->has_featured ) {
+			if ( $this->has_featured() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = 'meta_value_num rand';
 			}
@@ -852,7 +883,7 @@ class Listings {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
-			'posts_per_page' => $this->listings_per_page,
+			'posts_per_page' => $this->listings_per_page(),
 		);
 
 		if ( $this->show_pagination() ) {
@@ -917,7 +948,7 @@ class Listings {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
-			'posts_per_page' => $this->listings_per_page,
+			'posts_per_page' => $this->listings_per_page(),
 		);
 
 		if ( $this->show_pagination() ) {
@@ -931,7 +962,7 @@ class Listings {
 			$args['s'] = sanitize_text_field($_GET['q']);
 		}
 
-		if ($this->has_featured) {
+		if ($this->has_featured()) {
 			$args['meta_key'] = '_featured';
 			$args['orderby'] = array(
 				'meta_value_num' => 'DESC',
@@ -1276,25 +1307,6 @@ class Listings {
 		else:
 			?><p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p><?php
 		endif;
-	}
-
-	public function get_view_as_link_list() {
-		$link_list = array();
-		$view      = ! empty( $this->view ) ? $this->view : '';
-
-		foreach ( $this->views as $value => $label ) {
-			$active_class = ( $view === $value ) ? 'active' : '';
-			$link         = add_query_arg( 'view', $value );
-			$link_item    = array();
-
-			$link_item['active_class'] = $active_class;
-			$link_item['link']         = $link;
-			$link_item['label']        = $label;
-
-			array_push( $link_list, $link_item );
-		}
-
-		return $link_list;
 	}
 
 	public function get_sort_by_link_list() {

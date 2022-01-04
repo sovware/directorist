@@ -33,9 +33,6 @@ class Listings {
 
 
     // shortcode properties
-	public $listings_per_page;
-	public $header;
-	public $header_title;
 	public $categories;
 	public $locations;
 	public $tags;
@@ -248,6 +245,14 @@ class Listings {
 
 	public function listings_per_page() {
 		return (int) $this->atts['listings_per_page'];
+	}
+
+	public function header() {
+		return $this->atts['header'] == 'yes' ? true : false;
+	}
+
+	public function header_title() {
+		return $this->atts['header_title'];
 	}
 
 	public function get_view_as_link_list() {
@@ -529,8 +534,6 @@ class Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->header                   = $this->params['header'] == 'yes' ? true : false;
-		$this->header_title             = $this->params['header_title'];
 		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
 		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
@@ -1787,8 +1790,8 @@ class Listings {
 				$title = sprintf( _nx( '%s result', '%s results', $count, 'search result header', 'directorist' ), $count );
 			}
 
-			if ( ! empty( $this->header_title ) ) {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title);
+			if ( ! empty( $this->header_title() ) ) {
+				$title = sprintf( '<span>%s</span> %s', $count, $this->header_title() );
 			}
 
 			return $title;
@@ -1801,7 +1804,7 @@ class Listings {
 				$title = $this->item_found_title_for_search( $count );
 			}
 			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
+				$title = sprintf('<span>%s</span> %s', $count, $this->header_title() );
 			}
 			return apply_filters('directorist_listings_found_text', $title );
 		}
@@ -1879,7 +1882,7 @@ class Listings {
 		public function has_listings_header() {
 			$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields ) );
 
-			return ( $has_filter_button || ! empty( $this->header_title ) ) ? true : false;
+			return ( $has_filter_button || ! empty( $this->header_title() ) ) ? true : false;
 		}
 
 		public function has_header_toolbar() {
@@ -2096,7 +2099,7 @@ class Listings {
 		}
 
 		public static function archive_header($listings) {
-			if ( !$listings->header ) {
+			if ( !$listings->header() ) {
 				return;
 			}
 

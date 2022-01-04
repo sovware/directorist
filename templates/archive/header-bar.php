@@ -26,7 +26,7 @@ $listings = directorist()->listings;
 						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
 					<?php endif; ?>
 
-					<?php if ( $listings->header_title ): ?>
+					<?php if ( $listings->header_title() ): ?>
 						<h3 class="directorist-header-found-title"><?php echo $listings->item_found_title(); ?></h3>
 					<?php endif; ?>
 				</div>

@@ -20,7 +20,6 @@ class Listings {
 	public $atts;
 
 	public $type;
-	public $query_args = [];
 	public $query_results = [];
 
 
@@ -45,24 +44,21 @@ class Listings {
 			$this->update_search_options();
 		}
 
-		$this->setup_atts( $atts );
+		$this->set_atts( $atts );
 
-		if ( $query_args ) {
-			$this->query_args = $query_args;
-		}
-		else {
+		if ( ! $query_args ) {
 			if ( $this->type == 'search_result' ) {
-				$this->query_args = $this->parse_search_query_args();
+				$query_args = $this->parse_search_query_args();
 			}
 			else {
-				$this->query_args = $this->parse_query_args();
+				$query_args = $this->parse_query_args();
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $caching_options );
+		$this->query_results = $this->get_query_results( $query_args, $caching_options );
 	}
 
-	public function setup_atts( $atts ) {
+	public function set_atts( $atts ) {
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
 			'_featured'                => 1,
@@ -836,23 +832,22 @@ class Listings {
 		}
 	}
 
-	public function get_query_results( array $caching_options = [] ) {
-		if ( ! empty( $this->query_args['orderby'] ) ) {
-			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
+	public function get_query_results( $query_args = [], $caching_options = [] ) {
+		if ( ! empty( $query_args['orderby'] ) ) {
+			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
 				$caching_options['cache'] = false;
 			}
 
-			if ( is_array( $this->query_args['orderby'] ) ) {
-				foreach ( $this->query_args['orderby'] as $key => $value ) {
+			if ( is_array( $query_args['orderby'] ) ) {
+				foreach ( $query_args['orderby'] as $key => $value ) {
 					if ( preg_match( '/rand/', $value ) ) {
 						$caching_options['cache'] = false;
 					}
 				}
 			}
-
 		}
 
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
+		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
 	}
 
 	public function parse_query_args() {

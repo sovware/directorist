@@ -97,7 +97,7 @@ class Listings {
 		$count = count( $this->get_listing_types() );
 		$enable_multi_directory = $this->options['enable_multi_directory'];
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
+			Helper::get_template( 'archive/directory-type-nav' );
 		}
 	}
 
@@ -1207,7 +1207,7 @@ class Listings {
 
 	public function archive_view_template() {
 		$template_file = "archive/{$this->get_view()}-view";
-		Helper::get_template( $template_file, array( 'listings' => $this ) );
+		Helper::get_template( $template_file );
 	}
 
 	public function get_sort_by_link_list() {

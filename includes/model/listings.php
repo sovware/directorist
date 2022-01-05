@@ -378,28 +378,32 @@ class Listings {
 		}
 	}
 
-	// @kowsar // @start here
-	public function loop_fields( $type = 'card' ) {
+	public function card_view_data( $view = 'grid', $thumb = true ) {
 		$listing_type = $this->get_current_listing_type();
 
-		if ( $type == 'card' ) {
-			return get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		if ( $view = 'grid' ) {
+			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
+
+			if ( $thumb ) {
+				$result = $data['template_data']['grid_view_with_thumbnail'];
+			}
+			else {
+				$result = $data['template_data']['grid_view_without_thumbnail'];
+			}
 		}
 		else {
-			return get_term_meta( $listing_type, 'listings_card_list_view', true );
+			$data = get_term_meta( $listing_type, 'listings_card_list_view', true );
+
+			if ( $thumb ) {
+				$result = $data['template_data']['list_view_with_thumbnail'];
+			}
+			else {
+				$result = $data['template_data']['list_view_without_thumbnail'];
+			}
 		}
-	}
 
-	public function list_fields() {
-		$listing_type = $this->get_current_listing_type();
-		return get_term_meta( $listing_type, 'listings_card_list_view', true );
+		return $result;
 	}
-
-	public function card_field_template_data() {
-		$listing_type = $this->get_current_listing_type();
-		return get_term_meta( $listing_type, 'listings_card_grid_view', true );
-	}
-
 
 	public function set_loop_data() {
 		$id          = get_the_ID();

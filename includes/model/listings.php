@@ -397,8 +397,6 @@ class Listings {
 		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		$this->loop = array(
 			'id'                   => $id,
-			'card_fields'          => $card_fields,
-			'list_fields'          => $list_fields,
 			'permalink'            => get_permalink( $id ),
 			'title'                => get_the_title(),
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),

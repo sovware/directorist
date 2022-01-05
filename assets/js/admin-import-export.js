@@ -215,11 +215,12 @@ jQuery(document).ready(function ($) {
           $('.importer-details').html("Imported ".concat(response.next_position, " out of ").concat(response.total));
           $('.directorist-importer-progress').val(response.percentage);
 
-          if (response.percentage != '100') {
+          if (100 > response.exact_percentage) {
             position = response.next_position;
             run_import();
           } else {
-            window.location = "".concat(response.url, "&listing-imported=").concat(imported, "&listing-failed=").concat(failed);
+            console.log('finished'); // window.location = `${response.url
+            //     }&listing-imported=${imported}&listing-failed=${failed}`;
           }
 
           $('.directorist-importer-length').css('width', response.percentage + '%');

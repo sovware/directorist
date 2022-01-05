@@ -2,7 +2,7 @@
 /**
  *
  * Handles directorist Tools Page
- * 
+ *
  * @author AazzTech
  */
 
@@ -47,7 +47,7 @@
 
             add_action( 'init', [$this, 'prepare_data'] );
             $this->file = isset($_GET['csv_file']) ? wp_unslash($_GET['csv_file']) : '';
-            
+
             if ( empty( $this->file ) && isset($_GET['file'] ) ) {
                 $this->file = wp_unslash( $_GET['file'] );
             }
@@ -135,7 +135,7 @@
                             } else {
                                 $taxonomy = ATBDP_TAGS;
                             }
-                            
+
                             $final_term = isset($post[$term]) ? $post[$term] : '';
                             $term_exists = get_term_by( 'name', $final_term, $taxonomy );
                             if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
@@ -172,7 +172,7 @@
                         $directory_type_term = get_term_by( 'slug', $directory_type_slug, ATBDP_DIRECTORY_TYPE );
                         $directory_type = ( ! empty( $directory_type_term ) ) ? $directory_type_term->term_id : $directory_type;
                     }
-                    
+
                     update_post_meta( $post_id, '_directory_type', $directory_type );
                     wp_set_object_terms( $post_id, (int)$directory_type, ATBDP_DIRECTORY_TYPE );
 
@@ -196,12 +196,13 @@
                     $count++;
             }
 
-            $data['next_position'] = (int) $position + (int) $count;
-            $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
-            $data['url']           = admin_url('edit.php?post_type=at_biz_dir&page=tools&step=3');
-            $data['total']         = $total_length;
-            $data['imported']      = $imported;
-            $data['failed']        = $failed;
+            $data['next_position']    = (int) $position + (int) $count;
+            $data['exact_percentage'] = ((($data['next_position']) / $total_length) * 100);
+            $data['percentage']       = absint(min(round( $data['exact_percentage'] ), 100));
+            $data['url']              = admin_url('edit.php?post_type=at_biz_dir&page=tools&step=3');
+            $data['total']            = $total_length;
+            $data['imported']         = $imported;
+            $data['failed']           = $failed;
 
             wp_send_json($data);
         }
@@ -247,7 +248,7 @@
         $id = wp_insert_attachment($attachment, $upload['file']);
         wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
         return $id;
-        
+
         }
 
         public function atbdp_csv_import_controller()
@@ -284,21 +285,21 @@
                 if( 'tax_input[at_biz_dir-location][]'  == $field_key ) {  $field_key = 'location'; }
                 if( 'admin_category_select[]'           == $field_key ) {  $field_key = 'category';  }
                 if( 'tax_input[at_biz_dir-tags][]'      == $field_key ) { $field_key = 'tag'; }
-                
+
                 if ( isset( $field['widget_name'] ) ) {
-                    if( 'pricing' == $field['widget_name'] ) {  
+                    if( 'pricing' == $field['widget_name'] ) {
                         $this->importable_fields[ 'price' ] = 'Price';
                         $this->importable_fields[ 'price_range' ] = 'Price Range';
                         continue;
                         }
-                    if( 'map' == $field['widget_name'] ) {  
+                    if( 'map' == $field['widget_name'] ) {
                         $this->importable_fields[ 'manual_lat' ] = 'Map Latitude';
                         $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
                         $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
                         continue;
                     }
                 }
-                
+
                 apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
             }
         }

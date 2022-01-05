@@ -10,4 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-view-count"><span class="<?php atbdp_icon_type(true) ?>-eye"></span><?php echo ( ! empty($listings->loop['post_view']) ) ? $listings->loop['post_view'] : 0;?></div>
+<div class="directorist-view-count"><span class="<?php atbdp_icon_type(true) ?>-eye"></span><?php echo esc_html( $listings->loop_post_view_count() );?></div>

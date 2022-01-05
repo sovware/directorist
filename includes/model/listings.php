@@ -25,8 +25,6 @@ class Listings {
 	public $query_args = [];
 	public $query_results = [];
 
-	public $loop;
-
 
 	private function __construct() {
 
@@ -384,71 +382,42 @@ class Listings {
 		return get_post_meta( get_the_ID(), '_featured', true );
 	}
 
-	public function set_loop_data() {
-		$id          = get_the_ID();
+	public function loop_post_view_count() {
+		$count = get_post_meta( get_the_ID(), '_atbdp_post_views_count', true );
+		return $count ? $count : 0;
+	}
+
+	public function loop_author_name() {
 		$author_id   = get_the_author_meta( 'ID' );
-		$author_data = get_userdata( $author_id );
+		return get_the_author_meta( 'display_name', $author_id );
+	}
 
-		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
-		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
-
-		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
-		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
-		$bdbh        = get_post_meta( $id, '_bdbh', true );
-
-		$listing_type 		= $this->get_current_listing_type();
-		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
-		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
+	public function loop_author_link() {
+		$author_id   = get_the_author_meta( 'ID' );
 		$get_directory_type = get_term_by( 'id', $this->get_current_listing_type(), ATBDP_TYPE );
-		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
-		$this->loop = array(
-			'id'                   => $id,
-			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
-			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
-			'category'             => get_post_meta( $id, '_admin_category_select', true ),
-			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
-
-			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
-			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
-			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
-			'bdbh_version' 			  => get_post_meta( $id, '_bdbh_version', true ),
-			'author_id'               => $author_id,
-			'author_data'             => $author_data,
-			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
-			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ),
-			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
-			'u_pro_pic'               => $u_pro_pic,
-			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
-			'review'                  => $this->get_review_data(),
-		);
+		$directory_type = ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
+		return ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type );
 	}
 
-	public function get_view_as_link_list() {
-		$link_list = array();
-		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
-
-		foreach ( $this->views() as $value => $label ) {
-			$active_class = ( $view === $value ) ? 'active' : '';
-			$link         = add_query_arg( 'view', $value );
-			$link_item    = array();
-
-			$link_item['active_class'] = $active_class;
-			$link_item['link']         = $link;
-			$link_item['label']        = $label;
-
-			array_push( $link_list, $link_item );
-		}
-
-		return $link_list;
+	public function loop_author_img_src() {
+		$author_id = get_the_author_meta( 'ID' );
+		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
+		$u_pro_pic = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
+		return $u_pro_pic[0];
 	}
 
-	public function get_review_data() {
-		// Review
-		$average           = ATBDP()->review->get_average(get_the_ID());
-		$average           = (int) $average;
+	public function loop_author_avatar() {
+		$author_id = get_the_author_meta( 'ID' );
+		return get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) );
+	}
+
+	public function loop_get_review_average() {
+		return ATBDP()->review->get_average(get_the_ID());
+	}
+
+	public function loop_review_star_html() {
+		$average = $this->loop_get_review_average();
 		$average_with_zero = number_format( $average, 1 );
-		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
-		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
 
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
@@ -472,13 +441,26 @@ class Listings {
 		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
 
 		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
+		return $review_stars;
+	}
 
-		return [
-			'review_stars'    => $review_stars,
-			'review_text'     => $review_text,
-			'average_reviews' => $average_with_zero,
-			'total_reviews'   => $reviews_count,
-		];
+	public function get_view_as_link_list() {
+		$link_list = array();
+		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
+
+		foreach ( $this->views() as $value => $label ) {
+			$active_class = ( $view === $value ) ? 'active' : '';
+			$link         = add_query_arg( 'view', $value );
+			$link_item    = array();
+
+			$link_item['active_class'] = $active_class;
+			$link_item['link']         = $link;
+			$link_item['label']        = $label;
+
+			array_push( $link_list, $link_item );
+		}
+
+		return $link_list;
 	}
 
 	public function pagination( $echo = true ) {
@@ -1706,7 +1688,6 @@ class Listings {
 		global $post;
 		$post = get_post( $id );
 		setup_postdata( $id );
-		$this->set_loop_data();
 
 		$active_template = $this->card_data( $loop )['active_template'];
 

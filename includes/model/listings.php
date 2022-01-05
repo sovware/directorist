@@ -359,7 +359,7 @@ class Listings {
 	}
 
 	public function loop_get_tagline() {
-		return $this->loop['tagline'];
+		return get_post_meta( get_the_ID(), '_tagline', true );
 	}
 
 	public function loop_is_favourite() {
@@ -374,6 +374,14 @@ class Listings {
 
 	public function loop_get_permalink() {
 		return get_permalink( get_the_ID() );
+	}
+
+	public function loop_get_categories() {
+		return get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+	}
+
+	public function loop_is_featured() {
+		return get_post_meta( get_the_ID(), '_featured', true );
 	}
 
 	public function set_loop_data() {
@@ -395,12 +403,8 @@ class Listings {
 		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		$this->loop = array(
 			'id'                   => $id,
-			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
-			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
-			'featured'             => get_post_meta( $id, '_featured', true ),
 			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
-			'tagline'              => get_post_meta( $id, '_tagline', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
 
@@ -1674,7 +1678,7 @@ class Listings {
 	public function loop_wrapper_class() {
 		$class  = [];
 
-		if ( $this->loop['featured'] ) {
+		if ( $this->loop_is_featured() ) {
 			$class[] = 'directorist-featured';
 		}
 

@@ -34,7 +34,7 @@ class Listings {
 		return self::$instance;
 	}
 
-	public function init( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
+	public function init( $atts = array(), $type = 'listing', $query_args = false, $caching_options = [] ) {
 		$this->atts = $atts;
 		$this->type = !empty( $type ) ? $type : 'listing';
 
@@ -45,17 +45,7 @@ class Listings {
 		}
 
 		$this->set_atts( $atts );
-
-		if ( ! $query_args ) {
-			if ( $this->type == 'search_result' ) {
-				$query_args = $this->parse_search_query_args();
-			}
-			else {
-				$query_args = $this->parse_query_args();
-			}
-		}
-
-		$this->query_results = $this->get_query_results( $query_args, $caching_options );
+		$this->set_query( $query_args, $caching_options );
 	}
 
 	public function set_atts( $atts ) {
@@ -88,6 +78,19 @@ class Listings {
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->atts = shortcode_atts( $defaults, $atts );
+	}
+
+	public function set_query( $query_args,  $caching_options ) {
+		if ( ! $query_args ) {
+			if ( $this->type == 'search_result' ) {
+				$query_args = $this->parse_search_query_args();
+			}
+			else {
+				$query_args = $this->parse_query_args();
+			}
+		}
+
+		$this->query_results = $this->get_query_results( $query_args, $caching_options );
 	}
 
 	public function directory_type_nav_template() {

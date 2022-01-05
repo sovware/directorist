@@ -378,33 +378,6 @@ class Listings {
 		}
 	}
 
-	public function card_view_data( $view = 'grid', $thumb = true ) {
-		$listing_type = $this->get_current_listing_type();
-
-		if ( $view = 'grid' ) {
-			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-
-			if ( $thumb ) {
-				$result = $data['template_data']['grid_view_with_thumbnail'];
-			}
-			else {
-				$result = $data['template_data']['grid_view_without_thumbnail'];
-			}
-		}
-		else {
-			$data = get_term_meta( $listing_type, 'listings_card_list_view', true );
-
-			if ( $thumb ) {
-				$result = $data['template_data']['list_view_with_thumbnail'];
-			}
-			else {
-				$result = $data['template_data']['list_view_without_thumbnail'];
-			}
-		}
-
-		return $result;
-	}
-
 	public function set_loop_data() {
 		$id          = get_the_ID();
 		$author_id   = get_the_author_meta( 'ID' );
@@ -452,11 +425,6 @@ class Listings {
 		);
 	}
 
-
-
-
-
-
 	public function get_view_as_link_list() {
 		$link_list = array();
 		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
@@ -475,29 +443,6 @@ class Listings {
 
 		return $link_list;
 	}
-
-	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
-		global $post;
-		$post = get_post( $id );
-		setup_postdata( $id );
-		$this->set_loop_data();
-
-		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
-			$active_template = $this->loop['card_fields']['active_template'];
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-		elseif ( $loop == 'list' && !empty( $this->loop['list_fields'] ) ) {
-			$active_template = $this->loop['list_fields']['active_template'];
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
-			Helper::get_template( 'archive/' . $template, array( 'listings' => $this ) );
-		}
-
-		wp_reset_postdata();
-	}
-
-
 
 	public function get_review_data() {
 		// Review
@@ -1763,7 +1708,64 @@ class Listings {
 		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
 	}
 
-	public function render_card_field( $field ) {
+	public function loop_template( $loop = 'grid', $id = NULL ) {
+		if( ! $id ) return;
+		global $post;
+		$post = get_post( $id );
+		setup_postdata( $id );
+		$this->set_loop_data();
+
+		$active_template = $this->card_data( $loop )['active_template'];
+
+		if ( $loop == 'grid' ) {
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+		elseif ( $loop == 'list' ) {
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+
+		wp_reset_postdata();
+	}
+
+	public function card_data( $view = 'grid' ) {
+		$listing_type = $this->get_current_listing_type();
+
+		if ( $view == 'grid' ) {
+			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		}
+		else {
+			$data = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		}
+
+		return $data;
+	}
+
+	public function card_view_data( $view = 'grid', $thumb = true ) {
+		$data = $this->card_data( $view );
+
+		if ( $thumb ) {
+			$result = ( $view == 'grid' ) ? $data['template_data']['grid_view_with_thumbnail'] : $data['template_data']['list_view_with_thumbnail'];
+		}
+		else {
+			$result = ( $view == 'grid' ) ? $data['template_data']['grid_view_without_thumbnail'] : $data['template_data']['list_view_without_thumbnail'];
+		}
+
+		return $result;
+	}
+
+	public function render_card_view( $fields, $before = '', $after = '' ) {
+		if( !empty( $fields ) ) {
+			foreach ( $fields as $field ) {
+				echo $before;
+				$this->card_field_html( $field );
+				echo $after;
+			}
+		}
+	}
+
+	public function card_field_html( $field ) {
 		if ( $field['type'] == 'badge' ) {
 			$this->render_badge_template($field);
 		}
@@ -1871,15 +1873,6 @@ class Listings {
 		}
 		else {
 			return;
-		}
-	}
-
-	public function render_loop_fields( $fields, $before = '', $after = '' ) {
-
-		if( !empty( $fields ) ) {
-			foreach ( $fields as $field ) {
-				echo $before;$this->render_card_field( $field );echo $after;
-			}
 		}
 	}
 

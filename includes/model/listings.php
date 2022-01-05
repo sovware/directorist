@@ -355,13 +355,7 @@ class Listings {
 	}
 
 	public function loop_get_title() {
-		if ( ! $this->disable_single_listing() ) {
-			$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
-		}
-		else {
-			$title = $this->loop['title'];
-		}
-		return $title;
+		return get_the_title();
 	}
 
 	public function loop_get_tagline() {
@@ -376,6 +370,10 @@ class Listings {
 		else {
 			return false;
 		}
+	}
+
+	public function loop_get_permalink() {
+		return get_permalink( get_the_ID() );
 	}
 
 	public function set_loop_data() {
@@ -397,8 +395,6 @@ class Listings {
 		$directory_type 	= ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		$this->loop = array(
 			'id'                   => $id,
-			'permalink'            => get_permalink( $id ),
-			'title'                => get_the_title(),
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
 			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
 			'featured'             => get_post_meta( $id, '_featured', true ),
@@ -1689,11 +1685,6 @@ class Listings {
 		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->get_current_listing_type() );
 
 		return implode( ' ' , $class );
-	}
-
-	public function loop_link_attr() {
-		$attr = " " . apply_filters('grid_view_title_link_add_attr', '');
-		return trim($attr);
 	}
 
 	public function has_listings_header() {

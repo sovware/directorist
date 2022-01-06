@@ -15,6 +15,8 @@ use wpWax\Directorist\Model\Listing_Taxonomy;
 use wpWax\Directorist\Model\Search_Form;
 use wpWax\Directorist\Model\Single_Listing;
 
+use wpWax\Directorist\Shortcode\Directorist_All_Listing;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ATBDP_Shortcode {
@@ -30,7 +32,6 @@ class ATBDP_Shortcode {
 			
 			self::$shortcodes = apply_filters( 'atbdp_shortcodes', [
 				// Archive
-				//'directorist_all_listing' => [ $this, 'listing_archive' ],
 				'directorist_category'    => [ $this, 'category_archive' ],
 				'directorist_tag'         => [ $this, 'tag_archive' ],
 				'directorist_location'    => [ $this, 'location_archive' ],
@@ -129,35 +130,20 @@ class ATBDP_Shortcode {
 		return ob_get_clean();
 	}
 
-	public function listing_archive( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$listings = new Listings( $atts );
-
-		if ( empty( $atts[ 'shortcode' ] ) ) {
-			$atts[ 'shortcode' ] = 'directorist_all_listing';
-		}
-	
-		return $listings->render_shortcode( $atts );
-	}
-
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
 		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
 		$atts['category'] = sanitize_title_for_query( $category_slug );
-		
-		$atts[ 'shortcode' ] = 'directorist_category';
 
-		return $this->listing_archive( $atts );
+		return Directorist_All_Listing::instance()->render_shortcode( $atts );
 	}
 
 	public function tag_archive( $atts ) {
 		$atts        = !empty( $atts ) ? $atts : array();
 		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
 		$atts['tag'] = sanitize_title_for_query( $tag_slug );
-		
-		$atts[ 'shortcode' ] = 'directorist_tag';
 
-		return $this->listing_archive( $atts );
+		return Directorist_All_Listing::instance()->render_shortcode( $atts );
 	}
 
 	public function location_archive( $atts ) {
@@ -165,9 +151,7 @@ class ATBDP_Shortcode {
 		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
 		$atts['location'] = sanitize_title_for_query( $location_slug );
 
-		$atts[ 'shortcode' ] = 'directorist_location';
-
-		return $this->listing_archive( $atts );
+		return Directorist_All_Listing::instance()->render_shortcode( $atts );
 	}
 
 	public function all_categories( $atts ) {

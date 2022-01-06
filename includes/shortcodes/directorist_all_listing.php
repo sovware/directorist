@@ -24,8 +24,7 @@ class Directorist_All_Listing {
 		return self::$instance;
 	}
 
-	public function render_shortcode( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
+	public function render_shortcode( $atts = [] ) {
 		$listings = directorist()->listings;
 		$listings->init( $atts );
 

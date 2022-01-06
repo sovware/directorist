@@ -887,7 +887,7 @@ class Listings {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->$this->locations() ) ? $this->$this->locations() : array(),
+				'terms'            => ! empty( $this->locations() ) ? $this->locations() : array(),
 				'include_children' => true,
 			);
 		}

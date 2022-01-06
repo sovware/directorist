@@ -1,25 +1,58 @@
 <?php
 /**
+ * Handles 'All Listings' page
+ *
  * @author wpWax
  */
 
 namespace wpWax\Directorist\Model;
 
-use Directorist\Script_Helper;
 use Directorist\Helper;
 use ATBDP_Listings_Data_Store;
 use ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Listings class
+ *
+ * @since 7.1.0
+ */
 class Listings {
 
+	/**
+	 * Singleton instance of the class
+	 *
+	 * @var Listings|null
+	 */
 	protected static $instance = null;
 
+	/**
+	 * Options from settings panel
+	 *
+	 * @var array
+	 */
 	public $options = [];
+
+	/**
+	 * Shortcode attributes
+	 *
+	 * @var array
+	 */
 	public $atts;
 
+	/**
+	 * Type of archive, possible values: listing, search_result
+	 *
+	 * @var string
+	 */
 	public $type;
+
+	/**
+	 * Results of archive query
+	 *
+	 * @var array
+	 */
 	public $query_results = [];
 
 

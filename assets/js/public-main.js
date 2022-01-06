@@ -1818,13 +1818,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
       key: "init",
       value: function init() {
-        $(document).on('submit', '#commentform', this.onSubmit);
+        $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
       }
     }, {
       key: "onSubmit",
       value: function onSubmit(event) {
         event.preventDefault();
-        var form = $('#commentform');
+        var form = $('.directorist-review-container #commentform');
         var originalButtonLabel = form.find('[type="submit"]').val();
         $(document).trigger('directorist_review_before_submit', form);
         var do_comment = $.ajax({

@@ -49,6 +49,21 @@ class Bootstrap {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
+		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
+	}
+
+	/**
+	 * Fix comments pagination issue and override defaults.
+	 *
+	 * @param WP_Query $wp_query
+	 *
+	 * @return void
+	 */
+	public static function override_comments_pagination( $wp_query ) {
+		if ( ! is_admin() && directorist_is_review_enabled() && $wp_query->is_single && $wp_query->get( 'post_type' ) === ATBDP_POST_TYPE ) {
+			add_filter( 'option_page_comments', '__return_true' );
+			$wp_query->set( 'comments_per_page', directorist_get_review_per_page() );
+		}
 	}
 
 	/**

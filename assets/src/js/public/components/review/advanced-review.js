@@ -180,7 +180,7 @@
         }
 
         init() {
-            $( document ).on('submit', '#commentform', this.onSubmit);
+            $( document ).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
 
         static getErrorMsg($dom) {
@@ -201,7 +201,7 @@
         onSubmit( event ) {
             event.preventDefault();
 
-            const form                = $( '#commentform' );
+            const form                = $( '.directorist-review-container #commentform' );
             const originalButtonLabel = form.find( '[type="submit"]' ).val();
 
             $( document ).trigger( 'directorist_review_before_submit', form );

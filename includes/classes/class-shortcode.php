@@ -190,11 +190,7 @@ class ATBDP_Shortcode {
 
 	public function search_result( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$listings = new Listings( $atts, 'search_result' );
-		
-		$atts[ 'shortcode' ] = 'directorist_search_result';
-		
-		return $listings->render_shortcode( $atts );
+		return $this->listing_archive( $atts );
 	}
 
 	public function author_profile( $atts ) {

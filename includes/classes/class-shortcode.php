@@ -118,9 +118,6 @@ class ATBDP_Shortcode {
 		$listings = directorist()->listings;
 		$listings->init( $atts );
 
-		$script_args = [ 'directory_type_id' => $listings->get_current_listing_type() ];
-		Script_Helper::load_search_form_script( $script_args );
-
 		if ( !empty( $listings->redirect_page_url() ) ) {
 			$redirect = '<script>window.location="' . esc_url( $listings->redirect_page_url() ) . '"</script>';
 			return $redirect;
@@ -129,6 +126,9 @@ class ATBDP_Shortcode {
 		if ( $listings->logged_in_user_only() && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
+
+		$script_args = [ 'directory_type_id' => $listings->get_current_listing_type() ];
+		Script_Helper::load_search_form_script( $script_args );
 
 		Helper::get_template( 'archive-contents' );
 	}

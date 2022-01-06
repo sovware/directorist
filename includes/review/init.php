@@ -16,12 +16,12 @@ use Directorist\Helper;
 class Bootstrap {
 
 	public static function init() {
-		self::includes();
-		self::hooks();
+		self::include_files();
+		self::setup_hooks();
 	}
 
-	public static function includes() {
-		require_once 'review-functions.php';
+	public static function include_files() {
+		require_once 'directorist-review-functions.php';
 
 		require_once 'class-email.php';
 		require_once 'class-markup.php';
@@ -44,7 +44,7 @@ class Bootstrap {
 		}
 	}
 
-	public static function hooks() {
+	public static function setup_hooks() {
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
@@ -129,7 +129,7 @@ class Bootstrap {
 	}
 
 	public static function load_walker() {
-		require_once ATBDP_INC_DIR . 'review/class-walker.php';
+		require_once ATBDP_INC_DIR . 'review/class-review-walker.php';
 	}
 }
 

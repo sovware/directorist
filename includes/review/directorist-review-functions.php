@@ -55,18 +55,47 @@ function directorist_get_review_per_page() {
 	return absint( $per_page );
 }
 
+/**
+ * Get listing rating which is cached and calculated from listing review rating.
+ *
+ * @param int $listing_id
+ * @param int $round_precision
+ *
+ * @return float|int
+ */
 function directorist_get_listing_rating( $listing_id, $round_precision = 1 ) {
 	return \Directorist\Review\Listing_Review_Meta::get_rating( $listing_id, $round_precision );
 }
 
+/**
+ * Get listing review count.
+ *
+ * @param int $listing_id
+ *
+ * @return int
+ */
 function directorist_get_listing_review_count( $listing_id ) {
 	return \Directorist\Review\Listing_Review_Meta::get_review_count( $listing_id );
 }
 
+/**
+ * Listing rating meta field key.
+ *
+ * @return string
+ */
 function directorist_get_rating_field_meta_key() {
 	return \Directorist\Review\Listing_Review_Meta::FIELD_AVG_RATING;
 }
 
+/**
+ * Get comment edit link.
+ *
+ * @param array $args
+ * @param WP_Comment|string|int $comment
+ * @param WP_Post|int $post
+ *
+ * @return void
+ */
 function directorist_get_comment_edit_link( $args = array(), $comment = null, $post = null ) {
     $defaults = array(
         'edit_text'    => __( 'Edit', 'directorist' ),
@@ -123,6 +152,13 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
     return apply_filters( 'directorist_comment_edit_link', $link, $args, $comment, $post );
 }
 
+/**
+ * Get comment form renderer ajax url
+ *
+ * @param string $type
+ *
+ * @return string
+ */
 function directorist_get_comment_form_ajax_url( $type = 'add' ) {
 	return \Directorist\Review\Comment_Form_Renderer::get_ajax_url( $type );
 }

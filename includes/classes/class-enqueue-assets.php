@@ -42,7 +42,7 @@ class Enqueue_Assets {
 	public static function load_assets() {
 
 		// Store All Shortcode Keys
-		$shortcodes = ATBDP_Shortcode::$shortcodes;
+		$shortcodes = directorist()->shortcode->get_all_shortcodes();
 		if ( is_array( $shortcodes ) ) {
 			self::$all_shortcodes = array_keys( $shortcodes );
 		}

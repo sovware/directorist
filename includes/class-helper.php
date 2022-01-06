@@ -618,8 +618,4 @@ class Helper {
 		<?php
 	}
 
-	public static function add_shortcode_comment( string $shortcode = '' ) {
-		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
-	}
-
 }

@@ -37,7 +37,6 @@ class Account {
 		}
 
 		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'account/login' );
 
 		return ob_get_clean();
@@ -89,7 +88,6 @@ class Account {
 			);
 
 			ob_start();
-			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'account/registration', $args );
 
 			return ob_get_clean();

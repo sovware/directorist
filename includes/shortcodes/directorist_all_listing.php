@@ -29,10 +29,6 @@ class Directorist_All_Listing {
 		$listings = directorist()->listings;
 		$listings->init( $atts );
 
-		if ( empty( $atts[ 'shortcode' ] ) ) {
-			$atts[ 'shortcode' ] = 'directorist_all_listing';
-		}
-
 		$script_args = [ 'directory_type_id' => $listings->get_current_listing_type() ];
 		Script_Helper::load_search_form_script( $script_args );
 
@@ -45,10 +41,6 @@ class Directorist_All_Listing {
 
 		if ( $listings->logged_in_user_only() && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
-		}
-
-		if ( ! empty( $atts['shortcode'] ) ) {
-			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
 		// Load the template

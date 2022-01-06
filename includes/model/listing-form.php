@@ -862,7 +862,6 @@ class Listing_Form {
 			$this->enqueue_scripts();
 
 			ob_start();
-			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
 
 			return ob_get_clean();
@@ -893,7 +892,6 @@ class Listing_Form {
 				$this->enqueue_scripts();
 
 				ob_start();
-				if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 
 				echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 

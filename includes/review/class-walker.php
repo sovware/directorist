@@ -148,6 +148,19 @@ class Walker extends Walker_Comment {
 
 				<div class="directorist-review-single__reply">
 					<?php
+					comment_reply_link(
+						array_merge(
+							$args,
+							array(
+								/* translators: 1: is the reply icon */
+								'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+								'depth'      => $depth,
+								'max_depth'  => $args['max_depth'],
+								'add_below'  => 'div-comment',
+							)
+						)
+					);
+
 					if ( current_user_can( 'edit_comment', get_comment_ID() ) ) {
 						echo directorist_get_comment_edit_link(
 							array_merge(
@@ -161,19 +174,6 @@ class Walker extends Walker_Comment {
 						);
 					}
 					?>
-
-					<?php comment_reply_link(
-						array_merge(
-							$args,
-							array(
-								/* translators: 1: is the reply icon */
-								'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
-								'depth'      => $depth,
-								'max_depth'  => $args['max_depth'],
-								'add_below'  => 'div-comment',
-							)
-						)
-					); ?>
 				</div>
 			</article><!-- .comment-body -->
 		<?php

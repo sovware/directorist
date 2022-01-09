@@ -78,8 +78,8 @@ class Listings {
 	 * Initialize Listings
 	 *
 	 * @param  array   $atts            Shortcode attributes.
-	 * @param  string  $type            Optional. Determine if it is All listings page or Search result page.
-	 *                                  Accepts 'listing', 'search_result'. Default 'listing'.
+	 * @param  string  $type            Optional. Determines All listings page or Search result page.
+	 *                                  Accepts 'listing', 'search_result'. Defaults to 'listing'.
 	 * @param  boolean $query_args      Optional. Defaults to false.
 	 * @param  array   $caching_options Optional. Defaults to [].
 	 */
@@ -135,7 +135,7 @@ class Listings {
 	}
 
 	/**
-	 * Set options based on settings
+	 * Set options based on listing settings.
 	 */
 	public function set_options() {
 		$this->options['enable_multi_directory']          = get_directorist_option( 'enable_multi_directory', false );
@@ -193,7 +193,7 @@ class Listings {
 	}
 
 	/**
-	 * Update options for search result page
+	 * Update options based on search settings.
 	 */
 	public function update_search_options() {
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'search_header', 1 ) ) ? 'yes' : '';
@@ -216,6 +216,12 @@ class Listings {
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
 	}
 
+	/**
+	 * Set query results.
+	 *
+	 * @param array $query_args
+	 * @param array $caching_options
+	 */
 	public function set_query( $query_args,  $caching_options ) {
 		if ( ! $query_args ) {
 			if ( $this->type == 'search_result' ) {
@@ -229,14 +235,31 @@ class Listings {
 		$this->query_results = $this->get_query_results( $query_args, $caching_options );
 	}
 
+	/**
+	 * Any listings exists or not.
+	 *
+	 * @return bool
+	 */
 	public function have_posts() {
 		return !empty( $this->query_results->ids ) ? true : false;
 	}
 
+	/**
+	 * Listing ids.
+	 *
+	 * @return array Listing ids
+	 */
 	public function post_ids() {
 		return $this->query_results->ids;
 	}
 
+	/**
+	 * Renders the thumbnail image html.
+	 *
+	 * @param  string $class Css class for img tag
+	 *
+	 * @return string        Image HTML
+	 */
 	public function loop_get_the_thumbnail( $class='' ) {
 		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
 
@@ -273,6 +296,9 @@ class Listings {
 		return "<img src='$image_src' alt='$image_alt' class='$class' />";
 	}
 
+	/**
+	 * Renders
+	 */
 	public function loop_thumb_card_template() {
 		Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );
 	}

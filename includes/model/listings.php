@@ -1,8 +1,9 @@
 <?php
 /**
- * Handles 'All Listings' page
+ * Handles Listing archive page
  *
- * @author wpWax
+ * @package wpWax\Directorist\Model
+ * @author  wpWax
  */
 
 namespace wpWax\Directorist\Model;
@@ -80,7 +81,7 @@ class Listings {
 	 * @param  array   $atts            Shortcode attributes.
 	 * @param  string  $type            Optional. Determines All listings page or Search result page.
 	 *                                  Accepts 'listing', 'search_result'. Defaults to 'listing'.
-	 * @param  boolean $query_args      Optional. Defaults to false.
+	 * @param  boolean $query_args      Optional. Custom args for listing query. Defaults to false.
 	 */
 	public function init( $atts = array(), $type = 'listing', $query_args = false ) {
 		$this->atts = $atts;
@@ -254,6 +255,8 @@ class Listings {
 	/**
 	 * Renders the thumbnail image html.
 	 *
+	 * @uses atbdp_get_image_source()
+	 *
 	 * @param  string $class Css class for img tag
 	 *
 	 * @return string        Image HTML
@@ -298,7 +301,7 @@ class Listings {
 	 * Renders
 	 */
 	public function loop_thumb_card_template() {
-		Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );
+		Helper::get_template( 'archive/fields/thumb-card' );
 	}
 
 	public function loop_get_published_date( $data ) {

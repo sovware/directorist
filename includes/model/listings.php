@@ -21,45 +21,52 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Listings {
 
 	/**
-	 * Singleton instance of the class
+	 * Singleton instance of the class.
 	 *
 	 * @var Listings|null
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Options from settings panel
+	 * Options from settings panel.
 	 *
 	 * @var array
 	 */
 	public $options = [];
 
 	/**
-	 * Shortcode attributes
+	 * Shortcode attributes.
 	 *
 	 * @var array
 	 */
 	public $atts;
 
 	/**
-	 * Type of archive, possible values: listing, search_result
+	 * Type of archive, possible values: listing, search_result.
 	 *
 	 * @var string
 	 */
 	public $type;
 
 	/**
-	 * Results of archive query
+	 * Results of archive query.
 	 *
 	 * @var array
 	 */
 	public $query_results = [];
 
-
+	/**
+	 * Private Constructor of Singleton.
+	 */
 	private function __construct() {
 
 	}
 
+	/**
+	 * Singleton instance.
+	 *
+	 * @return object Listings instance.
+	 */
 	public static function instance() {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
@@ -67,6 +74,15 @@ class Listings {
 		return self::$instance;
 	}
 
+	/**
+	 * Initialize Listings
+	 *
+	 * @param  array   $atts            Shortcode attributes.
+	 * @param  string  $type            Optional. Determine if it is All listings page or Search result page.
+	 *                                  Accepts 'listing', 'search_result'. Default 'listing'.
+	 * @param  boolean $query_args      Optional. Defaults to false.
+	 * @param  array   $caching_options Optional. Defaults to [].
+	 */
 	public function init( $atts = array(), $type = 'listing', $query_args = false, $caching_options = [] ) {
 		$this->atts = $atts;
 		$this->type = !empty( $type ) ? $type : 'listing';
@@ -81,6 +97,11 @@ class Listings {
 		$this->set_query( $query_args, $caching_options );
 	}
 
+	/**
+	 * Set shortcode attributes.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 */
 	public function set_atts( $atts ) {
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
@@ -113,6 +134,9 @@ class Listings {
 		$this->atts = shortcode_atts( $defaults, $atts );
 	}
 
+	/**
+	 * Set options based on settings
+	 */
 	public function set_options() {
 		$this->options['enable_multi_directory']          = get_directorist_option( 'enable_multi_directory', false );
 		$this->options['listing_view']                    = get_directorist_option( 'default_listing_view', 'grid' );
@@ -168,6 +192,9 @@ class Listings {
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 	}
 
+	/**
+	 * Update options for search result page
+	 */
 	public function update_search_options() {
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'search_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button_display', 1 ) ) ? 'yes' : '';

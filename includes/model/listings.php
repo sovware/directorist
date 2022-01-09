@@ -81,9 +81,8 @@ class Listings {
 	 * @param  string  $type            Optional. Determines All listings page or Search result page.
 	 *                                  Accepts 'listing', 'search_result'. Defaults to 'listing'.
 	 * @param  boolean $query_args      Optional. Defaults to false.
-	 * @param  array   $caching_options Optional. Defaults to [].
 	 */
-	public function init( $atts = array(), $type = 'listing', $query_args = false, $caching_options = [] ) {
+	public function init( $atts = array(), $type = 'listing', $query_args = false ) {
 		$this->atts = $atts;
 		$this->type = !empty( $type ) ? $type : 'listing';
 
@@ -94,7 +93,7 @@ class Listings {
 		}
 
 		$this->set_atts( $atts );
-		$this->set_query( $query_args, $caching_options );
+		$this->set_query( $query_args );
 	}
 
 	/**
@@ -220,9 +219,8 @@ class Listings {
 	 * Set query results.
 	 *
 	 * @param array $query_args
-	 * @param array $caching_options
 	 */
-	public function set_query( $query_args,  $caching_options ) {
+	public function set_query( $query_args ) {
 		if ( ! $query_args ) {
 			if ( $this->type == 'search_result' ) {
 				$query_args = $this->parse_search_query_args();
@@ -232,7 +230,7 @@ class Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $query_args, $caching_options );
+		$this->query_results = $this->get_query_results( $query_args );
 	}
 
 	/**
@@ -655,7 +653,8 @@ class Listings {
 		}
 	}
 
-	public function get_query_results( $query_args = [], $caching_options = [] ) {
+	public function get_query_results( $query_args = [] ) {
+		$caching_options = [];
 		if ( ! empty( $query_args['orderby'] ) ) {
 			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
 				$caching_options['cache'] = false;

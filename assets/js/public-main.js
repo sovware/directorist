@@ -1590,13 +1590,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var ReplyFormObserver = /*#__PURE__*/function () {
     function ReplyFormObserver() {
-      var _this2 = this;
+      var _this = this;
 
       _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
 
       this.init();
       $(document).on('directorist_review_updated', function () {
-        return _this2.init();
+        return _this.init();
       });
     }
 
@@ -1850,18 +1850,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             return;
           }
 
-          var commentsLists = comments.find('.commentlist li');
-          var newCommentId = false; // catch the new comment id by comparing to old dom.
-
-          commentsLists.each(function (index) {
-            var _this = $(commentsLists[index]);
-
-            if ($('#' + _this.attr('id')).length == 0) {
-              newCommentId = _this.attr('id');
-            }
-          });
           $(comment_section).replaceWith(comments);
           $(document).trigger('directorist_review_updated', data);
+          var newComment = comments.find('.commentlist li:first-child');
+          var newCommentId = newComment.attr('id'); // // catch the new comment id by comparing to old dom.
+          // commentsLists.each(
+          //     function ( index ) {
+          //         var _this = $( commentsLists[ index ] );
+          //         if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
+          //             newCommentId = _this.attr( 'id' );
+          //         }
+          //     }
+          // );
+          // console.log(newComment, newCommentId)
+
           var commentTop = $("#" + newCommentId).offset().top;
 
           if ($('body').hasClass('admin-bar')) {
@@ -1949,14 +1951,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, {
       key: "addEventListeners",
       value: function addEventListeners() {
-        var _this3 = this;
+        var _this2 = this;
 
         var self = this;
         this.$doc.on('directorist_review_updated', function (event) {
-          _this3.initStarRating();
+          _this2.initStarRating();
         });
         this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-          _this3.initStarRating();
+          _this2.initStarRating();
         });
         this.$doc.on('click', 'a[href="#respond"]', this.onWriteReivewClick);
         this.$doc.on('click', '.directorist-js-edit-comment', function (event) {

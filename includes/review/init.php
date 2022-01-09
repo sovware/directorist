@@ -62,8 +62,21 @@ class Bootstrap {
 	public static function override_comments_pagination( $wp_query ) {
 		if ( ! is_admin() && directorist_is_review_enabled() && $wp_query->is_single && $wp_query->get( 'post_type' ) === ATBDP_POST_TYPE ) {
 			add_filter( 'option_page_comments', '__return_true' );
+			add_filter( 'option_thread_comments', '__return_true' );
+			add_filter( 'option_comments_per_page', 'directorist_get_review_per_page' );
+			add_filter( 'option_default_comments_page', array( __CLASS__, 'override_default_comments_page_option' ) );
+			add_filter( 'option_comment_order', array( __CLASS__, 'override_comment_order_option' ) );
+
 			$wp_query->set( 'comments_per_page', directorist_get_review_per_page() );
 		}
+	}
+
+	public static function override_default_comments_page_option() {
+		return 'oldest';
+	}
+
+	public static function override_comment_order_option() {
+		return 'desc';
 	}
 
 	/**

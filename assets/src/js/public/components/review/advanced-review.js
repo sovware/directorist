@@ -235,22 +235,24 @@
                         return;
                     }
 
-                    let commentsLists = comments.find( '.commentlist li' );
-                    let newCommentId  = false;
-
-                    // catch the new comment id by comparing to old dom.
-                    commentsLists.each(
-                        function ( index ) {
-                            var _this = $( commentsLists[ index ] );
-                            if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
-                                newCommentId = _this.attr( 'id' );
-                            }
-                        }
-                    );
-
                     $( comment_section ).replaceWith( comments );
 
                     $( document ).trigger( 'directorist_review_updated', data );
+
+                    let newComment = comments.find( '.commentlist li:first-child' );
+                    let newCommentId  = newComment.attr('id');
+
+                    // // catch the new comment id by comparing to old dom.
+                    // commentsLists.each(
+                    //     function ( index ) {
+                    //         var _this = $( commentsLists[ index ] );
+                    //         if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
+                    //             newCommentId = _this.attr( 'id' );
+                    //         }
+                    //     }
+                    // );
+
+                    // console.log(newComment, newCommentId)
 
                     var commentTop = $( "#" + newCommentId ).offset().top;
 

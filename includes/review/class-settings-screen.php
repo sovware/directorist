@@ -93,7 +93,7 @@ class Settings_Screen {
 			'review_enable_reply' => [
 				'type'        => 'toggle',
 				'label'       => __( 'Enable Reply', 'directorist' ),
-				'description' => __( 'Allow users to reply to review reply or reply to another reply.', 'directorist' ),
+				'description' => __( 'Allow users to reply to review or reply to another reply.', 'directorist' ),
 				'value'       => false,
 				'show-if'     => [
 					'where'      => 'enable_review',

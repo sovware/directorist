@@ -12,7 +12,7 @@
         margin-top: 16px;
     }
 
-    .directorist-form-group-guest-user{
+    .directorist-form-group-guest-user {
         margin-top: 12px;
     }
 }
@@ -37,7 +37,6 @@
 
     .directorist-rating-given-block__stars {
         .br-widget a {
-            text-decoration: none;
             &:before {
                 content: "\f005";
                 font-size: 14px;
@@ -78,12 +77,8 @@
 
     .directorist-review-current-rating__stars {
         ul {
-            margin: 0;
-            padding: 0;
             li {
                 display: inline-block;
-                margin: 0;
-                padding: 0;
 
                 span {
                     color: #d4d3f3;
@@ -153,11 +148,11 @@
             }
         }
 
-        .directorist-rated-stars{
-            ul{
-                li{
-                    span{
-                        &.directorist-rate-active{
+        .directorist-rated-stars {
+            ul {
+                li {
+                    span {
+                        &.directorist-rate-active {
                             color: #fa8b0c;
                         }
                     }
@@ -170,96 +165,768 @@
 //review pagination
 .directorist-content-active .atbdp-universal-pagination {
     ul {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      margin: -5px;
-      padding: 0;
-
-      li {
-        flex: none;
-        margin: 5px;
-        padding: 0 10px;
-        border: 1px solid $border-color;
-        display: inline-flex;
+        display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
-        line-height: 28px;
-        border-radius: 3px;
-        transition: 0.3s ease;
-        background: #fff;
+        margin: -5px;
+        padding: 0;
 
-        i {
-          line-height: 28px;
-        }
-
-        &.atbd-active {
-          cursor: pointer;
-
-          &:hover {
-            border-color: $dark;
-            color: $dark;
-          }
-        }
-
-        &.atbd-selected {
-          border-color: $dark;
-          color: $dark;
-        }
-
-        &.atbd-inactive {
-          opacity: 0.5;
-        }
-
-        &[class^="atbd-page-jump-"] {
-          min-width: 30px;
-          min-height: 30px;
-          position: relative;
-          cursor: pointer;
-
-          .la {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-          }
-
-          .la_h {
-            visibility: hidden;
-            opacity: 0;
-            left: 70%;
+        li {
+            flex: none;
+            margin: 5px;
+            padding: 0 10px;
+            border: 1px solid $border-color;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 28px;
+            border-radius: 3px;
             transition: 0.3s ease;
-          }
+            background: #fff;
 
-          .la_d {
-            visibility: visible;
-            opacity: 1;
-            transition: 0.3s ease;
-          }
-
-          &:hover {
-            color: $dark;
-
-            .la_h {
-              visibility: visible;
-              opacity: 1;
-              left: 50%;
+            i {
+                line-height: 28px;
             }
 
-            .la_d {
-              visibility: hidden;
-              opacity: 0;
-              left: 30%;
+            &.atbd-active {
+                cursor: pointer;
+
+                &:hover {
+                    border-color: $dark;
+                    color: $dark;
+                }
             }
-          }
+
+            &.atbd-selected {
+                border-color: $dark;
+                color: $dark;
+            }
+
+            &.atbd-inactive {
+                opacity: 0.5;
+            }
+
+            &[class^="atbd-page-jump-"] {
+                min-width: 30px;
+                min-height: 30px;
+                position: relative;
+                cursor: pointer;
+
+                .la {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                .la_h {
+                    visibility: hidden;
+                    opacity: 0;
+                    left: 70%;
+                    transition: 0.3s ease;
+                }
+
+                .la_d {
+                    visibility: visible;
+                    opacity: 1;
+                    transition: 0.3s ease;
+                }
+
+                &:hover {
+                    color: $dark;
+
+                    .la_h {
+                        visibility: visible;
+                        opacity: 1;
+                        left: 50%;
+                    }
+
+                    .la_d {
+                        visibility: hidden;
+                        opacity: 0;
+                        left: 30%;
+                    }
+                }
+            }
         }
-      }
     }
 }
 
-.directorist-card-review-block{
-    .directorist-btn-add-review{
+.directorist-card-review-block {
+    .directorist-btn-add-review {
         padding: 0 14px;
         line-height: 2.55;
+    }
+}
+
+
+/*==================================
+Review: New Style
+===================================*/
+.directorist-review-container {
+    margin-bottom: 35px;
+
+    .comment-notes,
+    .comment-form-cookies-consent {
+        margin-bottom: 20px;
+        font-style: italic;
+        font-size: 14px;
+        font-weight: normal;
+    }
+}
+
+.directorist-review-content {
+    border-radius: 4px;
+
+    a > i {
+        font-size: .9em;
+    }
+
+    .directorist-btn > i {
+        margin-right: 5px;
+    }
+
+    .directorist-js-cancel-comment-edit {
+        font-size: 14px;
+        margin-left: 30px;
+        color: #8C90A4;
+
+        &:hover,
+        &:focus {
+            color: #090E30;
+        }
+    }
+
+    .directorist-review-content {
+        @include e(header) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 20px;
+            border: 1px solid #EFF1F6;
+            border-bottom-color: #f2f2f2;
+            background: #fff;
+            border-radius: 4px 4px 0 0;
+            h3 {
+                font-size: 16px;
+                font-weight: 500;
+                color: #1A1B29;
+                margin: 10px 0;
+
+                span {
+                    color: #525768;
+
+                    &:before {
+                        content: "-";
+                        color: #8F8E9F;
+                        padding-right: 5px;
+                    }
+                }
+            }
+            .directorist-btn{
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                span{
+                    display: inline-block;
+                    margin-right: 4px;
+                }
+            }
+        }
+
+        @include e(overview) {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 30px 50px;
+            background: #fff;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid #EFF1F6;
+            border-top: 0 none;
+
+            @include e(rating) {
+                flex: 0 0 50%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+
+                .directorist-rating-point {
+                    font-size: 34px;
+                    font-weight: 600;
+                    color: #1A1B29;
+                    display: block;
+                    margin-right: 15px;
+                }
+
+                .directorist-rating-stars {
+                    font-size: 15px;
+                    color: #EF8000;
+                    display: block;
+                }
+
+                .directorist-rating-overall {
+                    font-size: 14px;
+                    color: #8C90A4;
+                    display: block;
+                }
+            }
+
+            @include e(benchmarks) {
+                flex: 0 0 50%;
+                padding: 25px;
+
+                .directorist-benchmark-single {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    margin: -6px;
+
+                    &>* {
+                        margin: 6px !important;
+                    }
+
+                    label {
+                        flex: .1;
+                        min-width: 70px;
+                        display: inline-block;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                        margin-bottom: 0;
+                        font-size: 15px;
+                        color: #525768;
+                    }
+
+                    progress {
+                        flex: 1.5;
+                        border-radius: 2px;
+                        height: 5px;
+                        box-shadow: none;
+                    }
+
+                    progress::-webkit-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-webkit-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    progress::-moz-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-moz-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    strong {
+                        flex: .1;
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #090E30;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        @include e(reviews) {
+            &, ul {
+                padding: 0;
+                margin: 10px 0 0 0;
+                list-style-type: none;
+                li{
+                    list-style-type: none;
+                    margin-left: 0;
+                }
+            }
+
+            & > li{
+                border: 1px solid #EFF1F6;
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .directorist-comment-edit-request {
+                position: relative;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 99;
+                    background-color: rgba(255, 255, 255, .8);
+                    border-radius: 4px;
+                }
+
+                &::before {
+                    position: absolute;
+                    z-index: 100;
+                    left: 50%;
+                    top: 50%;
+                    display: block;
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 2px solid rgba(0, 0, 0, 0.2);
+                    border-top-color: rgba(0, 0, 0, 0.8);
+                    animation: directoristCommentEditLoading .6s linear infinite;
+                }
+            }
+
+            .directorist-comment-editing {
+                .directorist-review-single__report,
+                .directorist-review-single__content,
+                .directorist-review-single__reply {
+                    display: none;
+                }
+            }
+
+            .directorist-review-single {
+                padding: 25px;
+                background: #fff;
+                border-radius: 4px;
+
+                .comment-body{
+                    margin-bottom: 0;
+                    padding: 0;
+                }
+
+                .directorist-review-single__contents-wrap {
+                    margin: 0;
+                    .directorist-review-single__header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+
+                        .directorist-review-single__author {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            margin: -8px;
+
+                            @include e(img) {
+                                padding: 8px;
+
+                                img {
+                                    width: 50px;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                    position: static;
+                                }
+                            }
+
+                            @include e(details) {
+                                padding: 8px;
+                                flex: 1;
+
+                                h2 {
+                                    font-size: 15px;
+                                    font-weight: 500;
+                                    color: #090E30;
+                                    margin: 0 0 5px;
+                                    &:before,
+                                    &:after{
+                                        content: none;
+                                    }
+
+                                    time {
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        color: #8C90A4;
+
+                                        &::before {
+                                            content: '-';
+                                            padding-right: 8px;
+                                            padding-left: 3px;
+                                        }
+                                    }
+                                }
+
+                                .directorist-rating-stars {
+                                    font-size: 11px;
+                                    color: #EF8000;
+                                    display: block;
+                                }
+                            }
+                        }
+
+                        .directorist-review-single__report {
+                            a {
+                                font-size: 13px;
+                                color: #8C90A4;
+                                display: block;
+                            }
+                        }
+                    }
+
+                    .directorist-review-single__content {
+                        font-size: 16px;
+                        @include e(img) {
+                            display: flex;
+                            flex-wrap: wrap;
+                            margin: 15px -5px 0;
+
+                            img {
+                                max-width: 100px;
+                                object-fit: cover;
+                                margin: 5px;
+                                border-radius: 6px;
+                            }
+                        }
+                    }
+                }
+
+                @include e(feedback) {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    margin: 15px -5px 0;
+
+                    a {
+                        margin: 5px;
+                        font-size: 13px;
+                    }
+                }
+
+                @include e(reply) {
+                    margin: 20px -8px 0;
+                    display: flex;
+                    align-items: center;
+
+                    a {
+                        color: #8C90A4;
+                        font-size: 13px;
+                        display: block;
+                        margin: 0 8px;
+                        background: none;
+                    }
+                }
+
+                @include e(comments) {
+
+                    .directorist-review-single--comment {
+                        padding-left: 40px;
+
+                        &:last-child {
+                            padding-bottom: 0;
+                        }
+
+                        .directorist-review-single__contents-wrap {
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                height: 100%;
+                                background: #F2F2F2;
+                                width: 2px;
+                                left: -20px;
+                                position: absolute;
+                                top: 0;
+                            }
+                        }
+                    }
+                }
+                .directorist-review-submit {
+                    margin-top: 0 !important;
+                    margin-bottom: 0 !important;
+                    border: 0 none !important;
+                    @include e(header){
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        h3 {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            max-width: 100%;
+                            width: 100%;
+                            margin: 0 !important;
+                        }
+                    }
+                    // @include e(form){
+                    // }
+                }
+            }
+        }
+
+        @include e(pagination) {
+            padding: 0;
+            margin: 25px 0 0;
+            ul {
+                border: 0 none;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin: -4px;
+                padding-top: 0;
+                list-style-type: none;
+                height: auto;
+                background: none;
+                li {
+                    padding: 4px;
+                    list-style-type: none;
+
+                    .page-numbers {
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 6px;
+                        border: 1px solid #E1E4EC;
+                        color: #090E30;
+                        font-weight: 500;
+                        font-size: 14px;
+                        background: #fff;
+                    }
+
+                    .page-numbers.current {
+                        border-color: #090E30;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.directorist-review-submit {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #EFF1F6;
+
+    @include e(header) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #EFF1F6;
+
+        h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1B29;
+            margin-bottom: 0;
+        }
+    }
+
+    @include e(form) {
+        margin: 0 !important;
+
+        &:not(.directorist-form-comment-edit) {
+            padding: 25px;
+        }
+
+        .directorist-review-single & {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .directorist-alert {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+        }
+
+        .directorist-review-criteria {
+            margin-bottom: 25px;
+            @include e(single) {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+
+                @include e(label) {
+                    width: 100px;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: #090E30;
+                    margin: 0;
+                }
+
+                .br-widget {
+                    margin: -1px;
+
+                    a {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 4px;
+                        background: #E1E4EC;
+                        margin: 1px;
+
+                        &:before {
+                            content: "\f005";
+                            font-size: 14px;
+                            font-family: 'Font Awesome 5 Free';
+                            font-weight: 900;
+                            color: #fff;
+                        }
+                        &:focus{
+                            background: #E1E4EC !important;
+                        }
+
+                        &.br-selected,
+                        &.br-active {
+                            background: #fa8b0c !important;
+                        }
+                    }
+                }
+
+                .br-current-rating {
+                    display: inline-block;
+                    margin-left: 20px;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .directorist-form-group {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+
+            textarea {
+                background: #F6F7F9;
+                font-size: 15px;
+                display: block;
+                resize: vertical;
+                margin: 0;
+                &:focus{
+                    background: #F6F7F9;
+                }
+            }
+
+            label {
+                font-size: 15px;
+                font-weight: 500;
+                color: #090E30;
+                margin-bottom: 5px;
+                display: block;
+            }
+
+            input[type="text"],
+            input[type="email"] {
+                max-width: 400px;
+                height: 46px;
+                background: #F6F7F9;
+                margin: 0;
+            }
+        }
+
+        .directorist-review-media-upload {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            input[type=file] {
+                display: none;
+            }
+
+            label {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 115px;
+                height: 100px;
+                border-radius: 8px;
+                border: 1px dashed #C6D0DC;
+                cursor: pointer;
+                margin-bottom: 0;
+
+                i {
+                    font-size: 26px;
+                    color: #AFB2C4;
+                }
+
+                span {
+                    display: block;
+                    font-size: 14px;
+                    color: #525768;
+                    margin-top: 6px;
+                }
+            }
+
+            .directorist-review-img-gallery {
+                display: flex;
+                flex-wrap: wrap;
+                margin: -5px -5px -5px 5px;
+
+                .directorist-review-gallery-preview {
+                    position: relative;
+                    margin: 5px;
+
+                    &:hover{
+                        .directorist-btn-delete{
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                    }
+
+                    img {
+                        width: 115px;
+                        height: 100px;
+                        max-width: 115px;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
+
+                    .directorist-btn-delete{
+                        position: absolute;
+                        top: 6px;
+                        right: 6px;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 50%;
+                        color: #fff;
+                        background-color: $danger;
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.directorist-review-content + .directorist-review-submit.directorist-review-submit--hidden {
+    display: none !important;
+}
+
+/* Review responsiveness */
+@media (max-width: 480px){
+    .directorist-review-content .directorist-review-content__overview__rating{
+        flex: 0 0 100%;
+    }
+}
+
+@keyframes directoristCommentEditLoading {
+    to {
+        transform: rotate(360deg);
     }
 }

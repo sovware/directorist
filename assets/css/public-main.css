@@ -1,13 +1,5 @@
 @charset "UTF-8";
 /* typography */
-a {
-  text-decoration: none;
-  color: #444752;
-}
-a:focus {
-  outline: none;
-}
-
 @-webkit-keyframes rotate360 {
   0% {
     -webkit-transform: rotate(0deg);
@@ -18,7 +10,6 @@ a:focus {
             transform: rotate(360deg);
   }
 }
-
 @keyframes rotate360 {
   0% {
     -webkit-transform: rotate(0deg);
@@ -4358,10 +4349,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border: 1px solid #ccc;
 }
 
-code {
-  color: brown;
-}
-
 #progress {
   display: none;
   position: absolute;
@@ -7166,6 +7153,9 @@ p.atbd-min {
   background-color: transparent;
   outline: none;
 }
+.directorist-alert a {
+  text-decoration: none;
+}
 
 .directorist-alert.directorist-alert-primary {
   background: rgba(68, 71, 82, 0.1);
@@ -8588,6 +8578,9 @@ p.atbd-min {
   margin: 0;
 }
 
+#directorist.atbd_wrapper .atbd_category_wrapper a {
+  text-decoration: none;
+}
 #directorist.atbd_wrapper .atbd_category_wrapper span.fa {
   cursor: pointer;
   margin-left: 7px;
@@ -11057,6 +11050,9 @@ p.atbd-min {
 .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
   background-color: #fff;
 }
+.directorist-signle-listing-top .directorist-return-back {
+  text-decoration: none;
+}
 
 .directorist-single-wrapper .directorist-card {
   margin-bottom: 35px;
@@ -12163,6 +12159,9 @@ Review: New Style
   background: #fff;
   border-radius: 4px;
 }
+.directorist-review-content .directorist-review-content__reviews .directorist-review-single a {
+  text-decoration: none;
+}
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .comment-body {
   margin-bottom: 0;
   padding: 0;
@@ -12493,6 +12492,8 @@ Review: New Style
   border-radius: 4px;
   background: #E1E4EC;
   margin: 1px;
+  text-decoration: none;
+  outline: 0;
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-widget a:before {
   content: "";
@@ -12503,9 +12504,13 @@ Review: New Style
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-widget a:focus {
   background: #E1E4EC !important;
+  text-decoration: none !important;
+  outline: 0;
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-widget a.br-selected, .directorist-review-submit__form .directorist-review-criteria__single .br-widget a.br-active {
   background: #fa8b0c !important;
+  text-decoration: none;
+  outline: 0;
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-current-rating {
   display: inline-block;

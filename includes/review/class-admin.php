@@ -68,6 +68,10 @@ class Metabox {
 	}
 
 	public static function add_menu() {
+		if ( ! directorist_is_review_enabled() ) {
+			return;
+		}
+
 		$menu_slug    = 'edit.php?post_type='. ATBDP_POST_TYPE;
 		$submenu_slug = 'edit-comments.php?post_type=' . ATBDP_POST_TYPE;
 

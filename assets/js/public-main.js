@@ -1960,7 +1960,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
           _this2.initStarRating();
         });
-        this.$doc.on('click', 'a[href="#respond"]', this.onWriteReivewClick);
+        this.$doc.on('click', 'a[href="#respond"]', function (event) {
+          // First cancle the reply form then scroll to review form. Order matters.
+          _this2.cancelReplyMode();
+
+          _this2.onWriteReivewClick(event);
+        });
         this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
           event.preventDefault();
           var $target = $(event.target);

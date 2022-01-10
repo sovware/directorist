@@ -90,6 +90,22 @@ class Settings_Screen {
 					],
 				],
 			],
+			'review_enable_reply' => [
+				'type'        => 'toggle',
+				'label'       => __( 'Enable Reply', 'directorist' ),
+				'description' => __( 'Allow users to reply to review reply or reply to another reply.', 'directorist' ),
+				'value'       => false,
+				'show-if'     => [
+					'where'      => 'enable_review',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
+			],
 			// 'review_approval_text' => [
 			// 	'type'        => 'textarea',
 			// 	'label'       => __( 'Approval Notification Text', 'directorist'),

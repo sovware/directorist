@@ -106,10 +106,6 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
 
     $args = wp_parse_args( $args, $defaults );
 
-    if ( 0 == $args['depth'] || $args['max_depth'] <= $args['depth'] ) {
-        return;
-    }
-
     $comment = get_comment( $comment );
 
     if ( empty( $comment ) ) {
@@ -202,4 +198,13 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 	}
 
 	return (bool) $exists;
+}
+
+/**
+ * Check if reply is enabled for review.
+ *
+ * @return bool
+ */
+function directorist_is_review_reply_enabled() {
+	return (bool) get_directorist_option( 'review_enable_reply', false );
 }

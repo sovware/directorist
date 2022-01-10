@@ -17,7 +17,7 @@ class Markup {
 		ob_start();
 		?>
 		<div class="directorist-review-criteria__single">
-			<label class="directorist-review-criteria__single__label"><?php esc_html_e( 'Rating', 'directorist' ); ?></label>
+			<label class="directorist-review-criteria__single__label"><?php esc_html_e( 'Rating', 'directorist' ); ?> <span class="required">*</span></label>
 			<select required="required" name="rating" class="directorist-review-criteria-select">
 				<option value=""><?php esc_html_e( 'Rate...', 'directorist' ); ?></option>
 				<option <?php selected( $selected, '1' ); ?> value="1"><?php esc_html_e( 'Very poor', 'directorist' ); ?></option>

@@ -138,7 +138,7 @@ Bootstrap::load_walker();
 		$comment_fields['content'] = sprintf(
 			'<div class="directorist-form-group form-group-comment">%s %s</div>',
 			sprintf(
-				'<label for="comment">%s</label>',
+				'<label for="comment">%s <span class="required">*</span></label>',
 				$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) )
 			),
 			sprintf( '<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required"></textarea>',

@@ -6964,26 +6964,22 @@ function atbdp_is_page($atbdppages = '')
  * @since 4.7.8
  */
 if (!function_exists('atbdp_popular_listings')) {
-    function atbdp_popular_listings($listing_id)
-    {
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        $average = ATBDP()->review->get_average($listing_id);
-        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-        $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-        $view_to_popular = get_directorist_option('views_for_popular');
-        if ('average_rating' === $listing_popular_by) {
-            if ($average_review_for_popular <= $average) {
-                return $pop_listing_id = $listing_id;
-            }
-        } elseif ('view_count' === $listing_popular_by) {
-            if ((int)$view_count >= (int)$view_to_popular) {
-                return $pop_listing_id = $listing_id;
-            }
-        } else {
-            if (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
-                return $pop_listing_id = $listing_id;
-            }
+    function atbdp_popular_listings( $listing_id ) {
+        $listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+        $average                    = directorist_get_listing_rating( $listing_id );
+        $average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+        $view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+        $view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
+
+        if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+            return $listing_id;
+        } elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return $listing_id;
+        } elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
+			return $listing_id;
         }
+
+		return 0;
     }
 }
 

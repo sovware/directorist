@@ -802,7 +802,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 // Query the necessary reviews
                 $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int) $listing_id, $start, $per_page);
                 // At the same time, count the number of queried review
-                $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
+				// TODO: remove the following line
+				// $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
+				$count = directorist_get_listing_review_count( $listing_id );
+
                 // Loop into all the posts
                 if (!empty($reviews)) {
                     foreach ($reviews as $key => $review) :

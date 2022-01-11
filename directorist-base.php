@@ -478,6 +478,7 @@ final class Directorist_Base
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
+			ATBDP_INC_DIR . 'asset-loader',
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',

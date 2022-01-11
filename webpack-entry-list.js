@@ -24,6 +24,7 @@ module.exports = {
         // Global
         // -------------------------------------------
         // JS
+        ['global-hooks']: ["./assets/src/js/global/hooks.js"],
         ['global-main']: ["./assets/src/js/global/global.js"],
         ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 

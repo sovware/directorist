@@ -52,7 +52,12 @@ window.onload = function() {
     },
   };
 
-  const filterArgs = window.directoristLazyTagArgs;
+  let filterArgs = null;
+
+  if ( typeof window.directoristLazyTagArgs === 'function' ) {
+    filterArgs = window.directoristLazyTagArgs( defaultArgs );
+  }
+
   let args =  defaultArgs;
 
   if ( filterArgs && typeof filterArgs == 'object' ) {

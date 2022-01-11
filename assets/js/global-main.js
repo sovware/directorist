@@ -152,7 +152,12 @@ window.onload = function () {
       }
     }
   };
-  var filterArgs = window.directoristLazyTagArgs;
+  var filterArgs = null;
+
+  if (typeof window.directoristLazyTagArgs === 'function') {
+    filterArgs = window.directoristLazyTagArgs(defaultArgs);
+  }
+
   var args = defaultArgs;
 
   if (filterArgs && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(filterArgs) == 'object') {

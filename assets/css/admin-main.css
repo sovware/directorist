@@ -5736,6 +5736,150 @@ p.status:empty {
   max-width: 100% !important;
 }
 
+.lazy-check-no-scroll {
+  overflow: hidden;
+}
+
+.lazy-check-hide {
+  display: none !important;
+}
+
+.lazy-check-modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.lazy-check-modal.show {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.lazy-check-modal .lazy-check-modal-content {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-header {
+  padding: 10px 20px;
+  position: relative;
+  border-bottom: 1px solid #f2f2f2;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-header .lazy-check-modal-header-title {
+  text-align: center;
+  margin: 0;
+  font-size: 20px;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-header .lazy-check-modal-close {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-body {
+  padding: 10px;
+  max-height: 500px;
+  overflow: auto;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #f2f2f2;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-fields-controls {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-feedback, .lazy-check-modal .lazy-check-modal-content .lazy-check-modal-feedback {
+  text-align: center;
+  font-size: 16px;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link {
+  text-decoration: none;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link:active, .lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link:focus, .lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link:visited {
+  outline: none;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link .lazy-check-modal-load-more-text {
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-link:hover .lazy-check-modal-load-more-text {
+  color: #064fbf;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-modal-load-more-text {
+  font-size: 16px;
+  color: #0864f0;
+  cursor: pointer;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn {
+  color: #4a4a4a;
+  padding: 10px 15px;
+  font-size: 12px;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+  background-color: #dddddd;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn:active, .lazy-check-modal .lazy-check-modal-content .lazy-check-btn:focus {
+  outline: none;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn-primary {
+  color: #fff;
+  background-color: #0864f0;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn-primary:hover {
+  background-color: #064fbf;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn-secondary {
+  background-color: #dddddd;
+}
+.lazy-check-modal .lazy-check-modal-content .lazy-check-btn-secondary:hover {
+  background-color: #c4c4c4;
+}
+
 /* typography */
 body.stop-scrolling {
   height: 100%;

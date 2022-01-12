@@ -323,8 +323,17 @@ class Asset_Loader {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'directorist-main-style' );
+		// Global
 		wp_enqueue_script( 'directorist-main-script' );
+
+		// Conditional
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			wp_enqueue_style( 'directorist-main-style' );
+			wp_enqueue_style( 'directorist-settings-style' );
+		}
+
+
+
 	}
 
 	public function enqueue_admin_scripts() {

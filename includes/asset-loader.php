@@ -334,4 +334,3 @@ class Asset_Loader {
 }
 
 Asset_Loader::instance();
-ray()->showWordPressErrors();

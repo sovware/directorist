@@ -354,9 +354,9 @@ class Asset_Loader {
 	}
 
 	/**
-	 * Enqueue scripts based on shortcode
+	 * Enqueue scripts based on shortcode.
 	 *
-	 * @param var $shortcode Shortcode Name
+	 * @param string $shortcode Shortcode Name.
 	 *
 	 */
 	public function load_shortcode_scripts( $shortcode ) {

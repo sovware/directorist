@@ -23,6 +23,7 @@ class Asset_Loader {
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_scripts' ], 12 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
+		add_action( 'wp_enqueue_scripts',    [ $this, 'inline_styles' ], 15 );
 
 		add_action( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
 	}
@@ -52,6 +53,13 @@ class Asset_Loader {
 		return $tag;
 	}
 
+	/**
+	 * Absoulute url based on various factors eg. min, rtl etc.
+	 *
+	 * @param  array $script Single item of $Asset_Loader::scripts array.
+	 *
+	 * @return string        URL string.
+	 */
 	public function script_file_url( $script ) {
 		if ( !empty( $script['ext'] ) ) {
 			return $script['ext'];
@@ -301,6 +309,9 @@ class Asset_Loader {
 		$this->scripts = apply_filters( 'directorist_register_scripts', $scripts );
 	}
 
+	/**
+	 * Register all assets.
+	 */
 	public function register_scripts() {
 
 		foreach ( $this->scripts as $handle => $script ) {
@@ -323,17 +334,21 @@ class Asset_Loader {
 		}
 	}
 
-	private function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = Script_Helper::get_search_script_data([
-			'directory_type_id' => $directory_type_id
-		]);
-		return $data;
+	/**
+	 * Load inline styles.
+	 */
+	public function inline_styles() {
+		wp_add_inline_style( 'directorist-main-style', $this->dynamic_style() );
 	}
 
+	/**
+	 * Load localized data.
+	 */
 	public function localized_data() {
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $this->search_form_localized_data() );
 	}
+
+
 
 	public function enqueue_scripts() {
 		// Global
@@ -357,7 +372,6 @@ class Asset_Loader {
 	 * Enqueue scripts based on shortcode.
 	 *
 	 * @param string $shortcode Shortcode Name.
-	 *
 	 */
 	public function load_shortcode_scripts( $shortcode ) {
 
@@ -366,6 +380,76 @@ class Asset_Loader {
 				wp_enqueue_style( 'directorist-ez-media-uploader' );
 				break;
 		}
+	}
+
+	public function dynamic_style() {
+		$style_path = ATBDP_DIR . 'assets/other/style.php';
+
+		ob_start();
+		include $style_path;
+		$style = ob_get_clean();
+		$style = str_replace( ['<style>', '</style>'], '', $style );
+		$style = this->minify_css( $style );
+		return $style;
+	}
+
+	/**
+	 * Minify inline styles.
+	 *
+	 * @link https://gist.github.com/Rodrigo54/93169db48194d470188f
+	 *
+	 * @param  string $input
+	 *
+	 * @return string
+	 */
+	public static function minify_css( $input ) {
+		if(trim($input) === "") return $input;
+		return preg_replace(
+			array(
+				// Remove comment(s)
+				'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
+				// Remove unused white-space(s)
+				'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
+				// Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
+				'#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
+				// Replace `:0 0 0 0` with `:0`
+				'#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
+				// Replace `background-position:0` with `background-position:0 0`
+				'#(background-position):0(?=[;\}])#si',
+				// Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+				'#(?<=[\s:,\-])0+\.(\d+)#s',
+				// Minify string value
+				'#(\/\*(?>.*?\*\/))|(?<!content\:)([\'"])([a-z_][a-z0-9\-_]*?)\2(?=[\s\{\}\];,])#si',
+				'#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
+				// Minify HEX color code
+				'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
+				// Replace `(border|outline):none` with `(border|outline):0`
+				'#(?<=[\{;])(border|outline):none(?=[;\}\!])#',
+				// Remove empty selector(s)
+				'#(\/\*(?>.*?\*\/))|(^|[\{\}])(?:[^\s\{\}]+)\{\}#s'
+			),
+			array(
+				'$1',
+				'$1$2$3$4$5$6$7',
+				'$1',
+				':0',
+				'$1:0 0',
+				'.$1',
+				'$1$3',
+				'$1$2$4$5',
+				'$1$2$3',
+				'$1:0',
+				'$1$2'
+			),
+			$input);
+	}
+
+	private function search_form_localized_data() {
+		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
+		$data = Script_Helper::get_search_script_data([
+			'directory_type_id' => $directory_type_id
+		]);
+		return $data;
 	}
 }
 

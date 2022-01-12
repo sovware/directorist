@@ -85,14 +85,6 @@ final class Directorist_Base
 	public $helper;
 
 	/**
-	 * ATBDP_Review_Rating Object.
-	 *
-	 * @var object|ATBDP_Review_Rating
-	 * @since 1.0
-	 */
-	public $review;
-
-	/**
 	 * ATBDP_Listing Object.
 	 *
 	 * @var object|ATBDP_Listing
@@ -173,14 +165,6 @@ final class Directorist_Base
 	public $ATBDP_Single_Templates;
 
 	/**
-	 * ATBDP_Review_Custom_Post Object.
-	 *
-	 * @var ATBDP_Review_Custom_Post
-	 * @since 5.6.5
-	 */
-	// public $ATBDP_Review_Custom_Post;
-
-	/**
 	 * Main Directorist_Base Instance.
 	 *
 	 * Insures that only one instance of Directorist_Base exists in memory at any one
@@ -240,8 +224,6 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools;
 			self::$instance->announcement = new ATBDP_Announcement;
-			// self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
-			// self::$instance->update_database();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
@@ -249,8 +231,10 @@ final class Directorist_Base
 			if( is_admin() ){
 				new ATBDP_Extensions();
 			}
+
 			/*Initiate Review and Rating Features*/
-			self::$instance->review = null;
+			include_once ATBDP_INC_DIR . 'review/class-bc-review-rating.php';
+			self::$instance->review = new Directorist\Review\BC_Review_Rating();
 
 			//activate rewrite api
 			new ATBDP_Rewrite;
@@ -261,9 +245,6 @@ final class Directorist_Base
 
 			// display related listings
 			// add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
-
-			//review and rating
-			// add_action('atbdp_after_map', array(self::$instance, 'show_review'));
 
 			// Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
 			// we can check the database if our custom pages have been installed correctly or not here first.
@@ -397,18 +378,6 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Update Database
-	 *
-	 * @access private
-	 * @since 6.4.4
-	 * @return void
-	 */
-	// private function update_database()
-	// {
-	// 	$this->update_review_table();
-	// }
-
-	/**
 	 * Init Hooks
 	 *
 	 * @access private
@@ -419,28 +388,6 @@ final class Directorist_Base
 	{
 		ATBDP_Cache_Helper::reset_cache();
 	}
-
-
-	/**
-	 * Update Review Table
-	 *
-	 * @access private
-	 * @since 6.4.4
-	 * @return void
-	 */
-	// private function update_review_table()
-	// {
-	// 	$current_charset_collate = get_option('atbdp_review_table_charset_collate');
-	// 	$review_rating = new ATBDP_Review_Rating_DB();
-
-	// 	$charset_collate = $review_rating->get_charset_collate();
-
-	// 	if ( $charset_collate !== $current_charset_collate ) {
-	// 		add_action('admin_init', array( $review_rating, 'update_table_collation'));
-	// 		update_option('atbdp_review_table_charset_collate', $charset_collate);
-	// 	}
-	// }
-
 
 	/**
 	 * Setup plugin constants.
@@ -881,7 +828,11 @@ final class Directorist_Base
 			return;
 		}
 
-		$average = directorist_get_listing_rating($post->ID);
+		if ( empty( $post ) || ! ( $post instanceof \WP_Post ) || $post->post_type !== ATBDP_POST_TYPE ) {
+			return;
+		}
+
+		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>
@@ -1071,183 +1022,6 @@ final class Directorist_Base
 
 		return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 
-	}
-
-	/**
-	 * It displays reviews of the given post
-	 * @param object|WP_Post $post The current post object
-	 */
-	public function show_review($post)
-	{
-		/**
-		 * @since 5.10.0
-		 * It fires before review section
-		 */
-
-		$enable_review = get_directorist_option('enable_review', 1);
-		$guest_review = get_directorist_option('guest_review', 0);
-		$approve_immediately = get_directorist_option('approve_immediately', 1);
-		$review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
-		if (!$enable_review) return; // vail if review is not enabled
-		$enable_owner_review = get_directorist_option('enable_owner_review', 1);
-		$reviews_count = directorist_get_listing_review_count( $post->ID );
-
-		$plan_review = true;
-		$review = true;
-		$allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);
-		if (is_fee_manager_active()) {
-			$plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
-		}
-		if ($plan_review && $allow_review) {
-			$count_review = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
-			?>
-			<div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
-				<div class="atbd_content_module_title_area">
-					<div class="atbd_area_title">
-						<h4><span class="<?php atbdp_icon_type(true); ?>-star atbd_area_icon"></span><span
-									id="reviewCounter"><?php echo $reviews_count; ?></span><?php
-							echo $count_review;
-							?></h4>
-					</div>
-					<?php if (is_user_logged_in() || $guest_review) { ?>
-						<label for="review_content"
-							   class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
-					<?php } ?>
-				</div>
-				<div class="atbdb_content_module_contents">
-					<input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
-					<div id="client_review_list">
-					</div>
-					<div id="clint_review"></div>
-				</div>
-
-			</div><!-- end .atbd_review_module -->
-			<?php
-			// check if the user is logged in and the current user is not the owner of this listing.
-			if (is_user_logged_in() || $guest_review) {
-				global $wpdb;
-				// if the current user is NOT the owner of the listing print review form
-				// get the settings of the admin whether to display review form even if the user is the owner of the listing.
-				if (get_current_user_id() != $post->post_author || $enable_owner_review) {
-
-					// if user has a review then fetch it.
-					$cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
-					?>
-					<div class="atbd_content_module">
-						<div class="atbd_content_module_title_area">
-							<div class="atbd_area_title">
-								<h4><span class="<?php atbdp_icon_type(true); ?>-star"
-										  aria-hidden="true"></span><?php echo !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
-								</h4>
-							</div>
-						</div>
-
-						<div class="atbdb_content_module_contents atbd_give_review_area">
-							<form action="#" id="atbdp_review_form" method="post">
-								<?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
-								<input type="hidden" name="post_id" value="<?php the_ID(); ?>">
-
-								<!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
-								<input type="hidden" name="name" class="btn btn-default"
-									   value="<?php echo wp_get_current_user()->display_name; ?>"
-									   id="reviewer_name">
-								<?php
-								$author_id = wp_get_current_user()->ID;
-								$u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-								$u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
-								$u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
-								$enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
-								$custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
-								$avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-								$user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
-								?>
-								<input type="hidden" name="name" id="reviewer_img" class="btn btn-default"
-									   value='<?php echo esc_attr($user_img); ?>'>
-
-								<div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
-									<?php
-									// color the stars if user has rating
-									if (!empty($cur_user_review)) { ?>
-										<div class="atbd_review_current_rating">
-											<p class="atbd_rating_label"><?php _e('Current Rating:', 'directorist'); ?></p>
-											<div class="atbd_rated_stars">
-												<?php echo ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
-											</div>
-										</div>
-									<?php } ?>
-
-									<div class="atbd_review_update_rating">
-										<p class="atbd_rating_label"><?php echo !empty($cur_user_review) ? __('Update Rating:', 'directorist') : __('Your Rating:', 'directorist'); ?></p>
-										<div class="atbd_rating_stars">
-											<select class="stars" name="rating" id="review_rating">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5" selected>5</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<?php if( !empty( $enable_reviewer_content ) ) { ?>
-								<div class="form-group">
-								<textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
-										  placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
-								</div>
-								<?php } ?>
-								<?php
-								if ($guest_review && !is_user_logged_in()){
-								?>
-								<div class="form-group">
-									<label for="guest_user_email"><?php
-										$guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
-										$guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
-										esc_html_e($guest_email_label . ':', 'directorist');
-										echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
-									<input type="text" id="guest_user_email" name="guest_user_email" required
-										   value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
-										   class="form-control directory_field"
-										   placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
-								</div>
-								<?php } if (!empty($cur_user_review)) { ?>
-									<button class="<?php echo atbdp_directorist_button_classes(); ?>" type="submit"
-											id="atbdp_review_form_submit"><?php _e('Update', 'directorist'); ?></button> <!-- ends update  button -->
-									<button class="btn btn-danger" type="button" id="atbdp_review_remove"
-											data-review_id="<?php echo $cur_user_review->id; ?>"><?php _e('Remove', 'directorist'); ?></button> <!-- ends delete button -->
-								<?php } else { ?>
-									<button class="btn btn-primary" type="submit"
-											id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button> <!-- submit button -->
-								<?php } ?>
-								<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo empty($approve_immediately) ? 'no' : 'yes';?>">
-								<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo !empty($review_duplicate) ? 'yes' : '';?>">
-							</form>
-						</div>
-					</div><!-- end .atbd_custom_fields_contents -->
-				<?php };
-			} else { ?>
-				<div class="atbd_notice atbd-alert atbd-alert-info">
-					<span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
-					<?php
-					$login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");
-					$register_url = apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>");
-
-					printf(__('You need to %s or %s to submit a review', 'directorist'), $login_url, $register_url);
-					?>
-				</div>
-			<?php }
-		}
-	}
-
-	/**
-	 * It gets the reviews of the given listing/post
-	 * @param object|WP_Post $post The WP Post Object of whose review we would like to show
-	 * @param int $review_number The number of reviews to return, Default 5
-	 * @return object|WP_Query It returns the reviews if found.
-	 */
-	private function _get_reviews($post, $review_number = 5)
-	{
-
-		return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0, $review_number); // get the amount of reviews set by $review_number
 	}
 
 	public function add_custom_meta_keys_for_old_listings()

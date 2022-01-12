@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listings = directorist()->listings;
+$published_date = ( 'days_ago' === $data['date_type'] ) ? sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp'))) : get_the_date();
 ?>
 
-<div class="directorist-listing-card-posted-on"><?php directorist_icon( $icon );?><?php echo esc_html( $listings->loop_get_published_date( $data ) );?></div>
+<div class="directorist-listing-card-posted-on"><?php directorist_icon( $icon );?><?php echo esc_html( $published_date );?></div>

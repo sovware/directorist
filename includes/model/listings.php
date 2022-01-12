@@ -318,13 +318,13 @@ class Listings {
 	}
 
 	/**
-	 * Renders the thumbnail image html.
+	 * Renders the thumbnail image html inside loop.
 	 *
 	 * @uses atbdp_get_image_source()
 	 *
 	 * @param  string $class Css class for img tag
 	 *
-	 * @return string        Image HTML
+	 * @return string Image HTML
 	 */
 	public function loop_get_the_thumbnail( $class='' ) {
 		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
@@ -362,25 +362,29 @@ class Listings {
 		return "<img src='$image_src' alt='$image_alt' class='$class' />";
 	}
 
-	public function loop_get_published_date( $data ) {
-		$publish_date_format = $data['date_type'];
-		if ('days_ago' === $publish_date_format) {
-			$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-		}
-		else {
-			$text = get_the_date();
-		}
-		return $text;
-	}
-
+	/**
+	 * Listing title.
+	 *
+	 * @return string
+	 */
 	public function loop_get_title() {
 		return get_the_title();
 	}
 
+	/**
+	 * Listing tagline.
+	 *
+	 * @return string
+	 */
 	public function loop_get_tagline() {
 		return get_post_meta( get_the_ID(), '_tagline', true );
 	}
 
+	/**
+	 * User already added listing in favourite list of not.
+	 *
+	 * @return bool
+	 */
 	public function loop_is_favourite() {
 		$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 		if ( in_array( get_the_id() , $favourites ) ) {
@@ -391,18 +395,38 @@ class Listings {
 		}
 	}
 
+	/**
+	 * Listing permalink.
+	 *
+	 * @return string
+	 */
 	public function loop_get_permalink() {
 		return get_permalink( get_the_ID() );
 	}
 
+	/**
+	 * Listing categories.
+	 *
+	 * @return array Terms list of Listing Category taxonomy.
+	 */
 	public function loop_get_categories() {
 		return get_the_terms( get_the_ID(), ATBDP_CATEGORY );
 	}
 
+	/**
+	 * Featured listing or not.
+	 *
+	 * @return bool
+	 */
 	public function loop_is_featured() {
 		return get_post_meta( get_the_ID(), '_featured', true );
 	}
 
+	/**
+	 * View count of a listing.
+	 *
+	 * @return int|string
+	 */
 	public function loop_post_view_count() {
 		$count = get_post_meta( get_the_ID(), '_atbdp_post_views_count', true );
 		return $count ? $count : 0;
@@ -2018,6 +2042,18 @@ class Listings {
 	public function loop_thumb_card_template() {
 		_deprecated_function( 'loop_thumb_card_template', '7.1.0', 'loop_thumbnail_template' );
 		$this->loop_thumbnail_template();
+	}
+
+	public function loop_get_published_date( $data ) {
+		_deprecated_function( 'loop_get_published_date', '7.1.0' );
+		$publish_date_format = $data['date_type'];
+		if ('days_ago' === $publish_date_format) {
+			$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+		}
+		else {
+			$text = get_the_date();
+		}
+		return $text;
 	}
 
 }

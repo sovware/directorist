@@ -881,7 +881,11 @@ final class Directorist_Base
 			return;
 		}
 
-		$average = directorist_get_listing_rating($post->ID);
+		if ( empty( $post ) || ! ( $post instanceof \WP_Post ) || $post->post_type !== ATBDP_POST_TYPE ) {
+			return;
+		}
+
+		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>

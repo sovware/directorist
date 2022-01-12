@@ -12,6 +12,17 @@ defined( 'ABSPATH' ) || die();
 class BC_Review_Rating {
 
 	/**
+	 * Review database class.
+	 *
+	 * @var BC_Review_DB
+	 */
+	public $db;
+
+	public function __construct() {
+		$this->db = new BC_Review_DB();
+	}
+
+	/**
 	 * Print the an html list of rating
 	 * @param int $star_number the number of start that should be colored
 	 * @return string
@@ -36,4 +47,18 @@ class BC_Review_Rating {
 	public function get_average( $listing_id = 0 ) {
 		return directorist_get_listing_rating( $listing_id );
 	}
+}
+
+class BC_Review_DB {
+
+	public function count( $args ) {
+		if ( is_array( $args ) && ! empty( $args['post_id'] ) ) {
+			$listing_id = absint( $args['post_id'] );
+		} else {
+			$listing_id = get_the_ID();
+		}
+
+		return directorist_get_listing_review_count( $listing_id );
+	}
+
 }

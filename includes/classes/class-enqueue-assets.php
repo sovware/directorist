@@ -20,6 +20,10 @@ class Enqueue_Assets {
 
 			add_filter( 'directorist_load_min_files', [ $this, 'manage_min_unmin_assets_switching' ] );
 
+			// Enqueue Pre Scripts
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_pre_scripts' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_pre_scripts' ] );
+
 			// Enqueue Public Scripts
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_scripts' ] );
 
@@ -103,6 +107,36 @@ class Enqueue_Assets {
 	public static function apply_hook_to_scripts() {
 		self::$css_scripts = apply_filters( 'directorist_css_scripts', self::$css_scripts );
 		self::$js_scripts = apply_filters( 'directorist_js_scripts', self::$js_scripts );
+	}
+
+	/**
+	 * Load Pre CSS Scripts
+	 *
+	 * @return void
+	 */
+	public static function add_pre_css_scripts() {
+		$scripts = [];
+
+		$scripts = array_merge( self::$css_scripts, $scripts);
+		self::$css_scripts = $scripts;
+	}
+
+	/**
+	 * Load Pre JS Scripts
+	 *
+	 * @return void
+	 */
+	public static function add_pre_js_scripts() {
+		$scripts = [];
+
+		$scripts['directorist-hooks'] = [
+			'file_name' => 'global-hooks',
+			'base_path' => DIRECTORIST_JS,
+			'group'     => [ 'public', 'admin' ],
+		];
+
+		$scripts = array_merge( self::$js_scripts, $scripts);
+		self::$js_scripts = $scripts;
 	}
 
 	/**
@@ -918,7 +952,7 @@ class Enqueue_Assets {
 	 */
 	public static function add_global_js_scripts() {
 		$scripts = [];
-		$common_asset_group = 'global';
+		$common_asset_group = ['public', 'admin'];
 
 		$scripts['directorist-global-script'] = [
 			'file_name' => 'global-main',
@@ -1028,6 +1062,58 @@ class Enqueue_Assets {
 		// JS
 		self::register_js_scripts();
 		self::enqueue_js_scripts_by_group( [ 'group' => 'global', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
+	}
+
+	/**
+	 * Enqueue Pre Public Scripts
+	 *
+	 * @return void
+	 */
+	public static function enqueue_public_pre_scripts( $page = '', $fource_enqueue = false ) {
+		// Load Assets
+		self::add_pre_css_scripts();
+		self::add_pre_js_scripts();
+
+		// Apply Hooks
+		self::$css_scripts = apply_filters( 'directorist_pre_css_scripts', self::$css_scripts );
+		self::$js_scripts = apply_filters( 'directorist_pre_js_scripts', self::$js_scripts );
+
+		// CSS
+		self::register_css_scripts();
+		self::enqueue_css_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
+
+		// JS
+		self::register_js_scripts();
+
+		wp_enqueue_script( 'directorist-hooks' );
+
+		self::enqueue_js_scripts_by_group( [ 'group' => 'public', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
+	}
+
+	/**
+	 * Enqueue Pre Admin Scripts
+	 *
+	 * @return void
+	 */
+	public static function enqueue_admin_pre_scripts( $page = '', $fource_enqueue = false ) {
+		// Load Assets
+		self::add_pre_css_scripts();
+		self::add_pre_js_scripts();
+
+		// Apply Hooks
+		self::$css_scripts = apply_filters( 'directorist_pre_css_scripts', self::$css_scripts );
+		self::$js_scripts = apply_filters( 'directorist_pre_js_scripts', self::$js_scripts );
+
+		// CSS
+		self::register_css_scripts();
+		self::enqueue_css_scripts_by_group( [ 'group' => 'admin', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
+
+		// JS
+		self::register_js_scripts();
+
+		wp_enqueue_script( 'directorist-global-hooks' );
+
+		self::enqueue_js_scripts_by_group( [ 'group' => 'admin', 'page' => $page, 'fource_enqueue' => $fource_enqueue ] );
 	}
 
 	/**

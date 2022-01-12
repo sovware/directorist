@@ -81,148 +81,83 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/global/map-scripts/load-osm-map.js":
-/*!**********************************************************!*\
-  !*** ./assets/src/js/global/map-scripts/load-osm-map.js ***!
-  \**********************************************************/
+/***/ "./assets/src/js/global/hooks.js":
+/*!***************************************!*\
+  !*** ./assets/src/js/global/hooks.js ***!
+  \***************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _lib_hooks_directorist_hooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/hooks/directorist-hooks */ "./assets/src/js/lib/hooks/directorist-hooks.js");
 
-var loc_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('loc_data');
-window.addEventListener('load', setup_map);
-window.addEventListener('directorist-reload-listings-map-archive', setup_map);
-
-function setup_map() {
-  bundle1.fillPlaceholders();
-  var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
-
-  if (localVersion) {
-    localVersion.checkAssetsAvailability(true).then(function () {
-      load();
-    }).catch(function () {
-      var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
-
-      if (version102) {
-        version102.defaultVersion = true;
-      }
-
-      load();
-    });
-  } else {
-    load();
-  }
-}
-
-function load() {
-  var url = window.location.href;
-  var urlParts = URI.parse(url);
-  var queryStringParts = URI.parseQuery(urlParts.query);
-  var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
-  list.push({
-    type: 'script',
-    path: loc_data.script_path
-  });
-  loadJsCss.list(list, {
-    delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
-
-  });
-}
+window.directoristHooks = _lib_hooks_directorist_hooks__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 /***/ }),
 
-/***/ "./assets/src/js/lib/helper.js":
-/*!*************************************!*\
-  !*** ./assets/src/js/lib/helper.js ***!
-  \*************************************/
-/*! exports provided: get_dom_data, convertToSelect2 */
+/***/ "./assets/src/js/lib/hooks/directorist-hooks.js":
+/*!******************************************************!*\
+  !*** ./assets/src/js/lib/hooks/directorist-hooks.js ***!
+  \******************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
-var $ = jQuery;
+var directoristHooks = {
+  filters: {},
+  actions: {},
+  applyFilter: function applyFilter(tag, args) {
+    if (typeof this.filters[tag] === 'function') {
+      var filteredData = this.filters[tag](args);
 
-function get_dom_data(key, parent) {
-  var elmKey = 'directorist-dom-data-' + key;
-  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-
-  if (!dataElm) {
-    return '';
-  }
-
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
-
-  try {
-    var dataValue = atob(dataElm[0].dataset.value);
-    dataValue = JSON.parse(dataValue);
-    return dataValue;
-  } catch (error) {
-    if (is_script_debugging) {
-      console.log({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
-    }
-
-    return '';
-  }
-}
-
-function convertToSelect2(field) {
-  if (!field) {
-    return;
-  }
-
-  if (!field.elm) {
-    return;
-  }
-
-  if (!field.elm.length) {
-    return;
-  }
-
-  var default_args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      // We only really care if there is an field to pull classes from
-      if (!data.field) {
-        return data.text;
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(args) === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(filteredData)) {
+        return filteredData;
       }
-
-      var $field = $(data.field);
-      var $wrapper = $('<span></span>');
-      $wrapper.addClass($field[0].className);
-      $wrapper.text(data.text);
-      return $wrapper;
     }
-  };
-  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-  var options = field.elm.find('option');
-  var placeholder = options.length ? options[0].innerHTML : '';
 
-  if (placeholder.length) {
-    args.placeholder = placeholder;
+    return args;
+  },
+  addFilter: function addFilter(tag, callback) {
+    if (typeof tag !== 'string') {
+      return;
+    }
+
+    if (typeof callback !== 'function') {
+      return;
+    }
+
+    var sanitizedTag = tag.replace(' ', '');
+    this.filters[sanitizedTag] = callback;
+  },
+  doAction: function doAction(tag, args) {
+    if (typeof this.actions[tag] === 'function') {
+      this.actions[tag](args);
+    }
+  },
+  addAction: function addAction(tag, callback) {
+    if (typeof tag !== 'string') {
+      return;
+    }
+
+    if (typeof callback !== 'function') {
+      return;
+    }
+
+    var sanitizedTag = tag.replace(' ', '');
+    this.actions[sanitizedTag] = callback;
   }
-
-  field.elm.select2(args);
-}
-
-
+};
+/* harmony default export */ __webpack_exports__["default"] = (directoristHooks);
 
 /***/ }),
 
@@ -258,17 +193,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 17:
-/*!****************************************************************!*\
-  !*** multi ./assets/src/js/global/map-scripts/load-osm-map.js ***!
-  \****************************************************************/
+/***/ 6:
+/*!*********************************************!*\
+  !*** multi ./assets/src/js/global/hooks.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/load-osm-map.js */"./assets/src/js/global/map-scripts/load-osm-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/hooks.js */"./assets/src/js/global/hooks.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=global-load-osm-map.js.map
+//# sourceMappingURL=global-hooks.js.map

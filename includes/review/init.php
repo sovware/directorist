@@ -33,10 +33,6 @@ class Bootstrap {
 		require_once 'class-comment-form-renderer.php';
 		require_once 'class-comment-form-processor.php';
 
-		// Ensure review rating backward complatible methods.
-		require_once 'class-bc-review-rating.php';
-		ATBDP()->review = new BC_Review_Rating();
-
 		if ( is_admin() ) {
 			require_once 'class-admin.php';
 			require_once 'class-settings-screen.php';

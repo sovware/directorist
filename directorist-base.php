@@ -249,8 +249,10 @@ final class Directorist_Base
 			if( is_admin() ){
 				new ATBDP_Extensions();
 			}
+
 			/*Initiate Review and Rating Features*/
-			self::$instance->review = null;
+			include_once ATBDP_INC_DIR . 'review/class-bc-review-rating.php';
+			self::$instance->review = new Directorist\Review\BC_Review_Rating();
 
 			//activate rewrite api
 			new ATBDP_Rewrite;

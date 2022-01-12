@@ -253,6 +253,71 @@ class Listings {
 	}
 
 	/**
+	 * Renders directory type navigation template.
+	 */
+	public function directory_type_nav_template() {
+		$count = count( $this->get_listing_types() );
+		$enable_multi_directory = $this->options['enable_multi_directory'];
+		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+			Helper::get_template( 'archive/directory-type-nav' );
+		}
+	}
+
+	/**
+	 * Renders header template.
+	 */
+	public function header_bar_template() {
+		if ( $this->atts['header'] == 'yes' ) {
+			Helper::get_template( 'archive/header-bar' );
+		}
+	}
+
+	/**
+	 * Renders grid/list view template.
+	 */
+	public function archive_view_template() {
+		$template_file = "archive/{$this->get_view()}-view";
+		Helper::get_template( $template_file );
+	}
+
+	/**
+	 * Renders sortby dropdown template.
+	 */
+	public function sortby_dropdown_template() {
+		Helper::get_template( 'archive/sortby-dropdown' );
+	}
+
+	/**
+	 * Renders viewas dropdown template.
+	 */
+	public function viewas_dropdown_template() {
+		Helper::get_template( 'archive/viewas-dropdown' );
+	}
+
+	/**
+	 * Renders thumbnail template.
+	 */
+	public function loop_thumbnail_template() {
+		Helper::get_template( 'archive/fields/thumbnail' );
+	}
+
+	/**
+	 * Renders search form template.
+	 */
+	public function search_form_template() {
+		$search_field_atts = array_filter( $this->atts, function( $key ) {
+			return substr( $key, 0, 7 ) == 'filter_';
+		}, ARRAY_FILTER_USE_KEY ); // only use atts with the prefix 'filter_'
+
+		$args = array(
+			'listings'   => $this,
+			'searchform' => new Search_Form( $this->type, $this->get_current_listing_type(), $search_field_atts ),
+		);
+
+		Helper::get_template( 'archive/search-form', $args );
+	}
+
+	/**
 	 * Renders the thumbnail image html.
 	 *
 	 * @uses atbdp_get_image_source()
@@ -295,13 +360,6 @@ class Listings {
 		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
 
 		return "<img src='$image_src' alt='$image_alt' class='$class' />";
-	}
-
-	/**
-	 * Renders
-	 */
-	public function loop_thumb_card_template() {
-		Helper::get_template( 'archive/fields/thumb-card' );
 	}
 
 	public function loop_get_published_date( $data ) {
@@ -642,20 +700,6 @@ class Listings {
 		}
 	}
 
-	public function directory_type_nav_template() {
-		$count = count( $this->get_listing_types() );
-		$enable_multi_directory = $this->options['enable_multi_directory'];
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			Helper::get_template( 'archive/directory-type-nav' );
-		}
-	}
-
-	public function header_bar_template() {
-		if ( $this->atts['header'] == 'yes' ) {
-			Helper::get_template( 'archive/header-bar' );
-		}
-	}
-
 	public function get_query_results( $query_args = [] ) {
 		$caching_options = [];
 		if ( ! empty( $query_args['orderby'] ) ) {
@@ -673,11 +717,6 @@ class Listings {
 		}
 
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
-	}
-
-	public function archive_view_template() {
-		$template_file = "archive/{$this->get_view()}-view";
-		Helper::get_template( $template_file );
 	}
 
 	public function get_sort_by_link_list() {
@@ -1087,27 +1126,6 @@ class Listings {
 			break;
 		}
 
-	}
-
-	public function sortby_dropdown_template() {
-		Helper::get_template( 'archive/sortby-dropdown', array( 'listings' => $this ) );
-	}
-
-	public function viewas_dropdown_template() {
-		Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
-	}
-
-	public function search_form_template() {
-		// only catch atts with the prefix 'filter_'
-		$search_field_atts = array_filter( $this->atts, function( $key ) {
-			return substr( $key, 0, 7 ) == 'filter_';
-		}, ARRAY_FILTER_USE_KEY );
-
-		$args = array(
-			'listings'   => $this,
-			'searchform' => new Search_Form( $this->type, $this->get_current_listing_type(), $search_field_atts ), // @model @kowsar
-		);
-		Helper::get_template( 'archive/search-form', $args );
 	}
 
 	public function filter_btn_html() {
@@ -1995,6 +2013,11 @@ class Listings {
 			}
 			break;
 		}
+	}
+
+	public function loop_thumb_card_template() {
+		_deprecated_function( 'loop_thumb_card_template', '7.1.0', 'loop_thumbnail_template' );
+		$this->loop_thumbnail_template();
 	}
 
 }

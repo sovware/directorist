@@ -16,7 +16,7 @@ $card_view = $listings->card_view_data( 'list', true );
 
 	<figure class="directorist-listing-single__thumb">
 
-		<?php $listings->loop_thumb_card_template(); ?>
+		<?php $listings->loop_thumbnail_template(); ?>
 
 		<div class="directorist-thumb-top-right"><?php $listings->render_card_view($card_view['thumbnail']['top_right']); ?></div>
 

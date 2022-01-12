@@ -17,7 +17,7 @@ $card_view = $listings->card_view_data( 'grid', true );
 	<figure class="directorist-listing-single__thumb">
 
 		<?php
-		$listings->loop_thumb_card_template();
+		$listings->loop_thumbnail_template();
 		$listings->render_card_view($card_view['thumbnail']['avatar']);
 		?>
 

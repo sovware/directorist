@@ -334,7 +334,11 @@
                 this.initStarRating();
             });
 
-            this.$doc.on('click', 'a[href="#respond"]', this.onWriteReivewClick);
+            this.$doc.on('click', 'a[href="#respond"]', (event) => {
+                // First cancle the reply form then scroll to review form. Order matters.
+                this.cancelReplyMode();
+                this.onWriteReivewClick(event);
+            });
 
             this.$doc.on('click', '.directorist-js-edit-comment', function(event) {
                 event.preventDefault();

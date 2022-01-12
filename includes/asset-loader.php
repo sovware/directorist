@@ -332,7 +332,7 @@ class Asset_Loader {
 	}
 
 	public function localized_data() {
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $search_form_localized_data );
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $this->search_form_localized_data() );
 	}
 
 	public function enqueue_scripts() {

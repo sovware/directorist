@@ -4691,6 +4691,9 @@ class Multi_Directory_Manager
             ],
         ]);
 
+		self::$fields = apply_filters( 'directorist/builder/fields', self::$fields );
+
+		self::$layouts = apply_filters( 'directorist/builder/layouts', self::$layouts );
 
         // Conditional Fields
         // -----------------------------
@@ -4756,10 +4759,9 @@ class Multi_Directory_Manager
 		/**
 		 * Filter directory builder `config` data.
 		 *
-		 * @since 7.0.5.*
-		 * TODO: Update with exact version number.
+		 * @since 7.0.6.0
 		 */
-		$config = apply_filters( 'directorist_builder_config', $config );
+		$config = apply_filters( 'directorist/builder/config', $config );
 
         self::$config = $config;
     }

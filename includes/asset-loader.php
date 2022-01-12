@@ -22,6 +22,7 @@ class Asset_Loader {
 		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_scripts' ], 12 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
+		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
 
 		add_action( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
 	}
@@ -322,6 +323,18 @@ class Asset_Loader {
 		}
 	}
 
+	private function search_form_localized_data() {
+		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
+		$data = Script_Helper::get_search_script_data([
+			'directory_type_id' => $directory_type_id
+		]);
+		return $data;
+	}
+
+	public function localized_data() {
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $search_form_localized_data );
+	}
+
 	public function enqueue_scripts() {
 		// Global
 		wp_enqueue_script( 'directorist-main-script' );
@@ -340,6 +353,20 @@ class Asset_Loader {
 
 	}
 
+	/**
+	 * Enqueue scripts based on shortcode
+	 *
+	 * @param var $shortcode Shortcode Name
+	 *
+	 */
+	public function load_shortcode_scripts( $shortcode ) {
+
+		switch ( $shortcode ) {
+			case 'directorist_add_listing':
+				wp_enqueue_style( 'directorist-ez-media-uploader' );
+				break;
+		}
+	}
 }
 
 Asset_Loader::instance();

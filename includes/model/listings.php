@@ -727,14 +727,29 @@ class Listings {
 		return (int) $this->atts['map_zoom_level'];
 	}
 
+	/**
+	 * Custom directory type.
+	 *
+	 * @return string
+	 */
 	public function directory_type() {
 		return !empty( $this->atts['directory_type'] ) ? explode( ',', $this->atts['directory_type'] ) : '';
 	}
 
+	/**
+	 * Custom default directory type.
+	 *
+	 * @return string
+	 */
 	public function default_directory_type() {
 		return !empty( $this->atts['default_directory_type'] ) ? $this->atts['default_directory_type'] : '';
 	}
 
+	/**
+	 * Determines how popular listings are based on.
+	 *
+	 * @return string Possible values: view_count, average_rating, both_view_rating.
+	 */
 	public function popular_by() {
 		return $this->options['listing_popular_by'];
 	}

@@ -570,7 +570,7 @@ class Listings {
 	/**
 	 * Is featured listing
 	 *
-	 * @todo remove this function since _featured isn't a public att
+	 * @todo Remove _featured check
 	 * @todo Remove is_fee_manager_active
 	 *
 	 * @return bool
@@ -754,20 +754,31 @@ class Listings {
 		return $this->options['listing_popular_by'];
 	}
 
+	/**
+	 * Minimum rating to determine popular listing.
+	 *
+	 * @return string|int
+	 */
 	public function average_review_for_popular() {
 		return $this->options['average_review_for_popular'];
 	}
 
+	/**
+	 * Minimum view count to determine popular listing.
+	 *
+	 * @return string|int
+	 */
 	public function view_to_popular() {
 		return $this->options['views_for_popular'];
 	}
 
+	/**
+	 * Unit for radius search.
+	 *
+	 * @return string Possible values: miles, kilometers.
+	 */
 	public function radius_search_unit() {
 		return $this->options['radius_search_unit'];
-	}
-
-	public function default_radius_distance() {
-		return $this->options['listing_default_radius_distance'];
 	}
 
 	public function select_listing_map() {

@@ -423,7 +423,7 @@ class Listings {
 	}
 
 	/**
-	 * View count of a listing.
+	 * Number of views of a listing.
 	 *
 	 * @return int|string
 	 */
@@ -432,11 +432,21 @@ class Listings {
 		return $count ? $count : 0;
 	}
 
+	/**
+	 * Listing author name.
+	 *
+	 * @return string
+	 */
 	public function loop_author_name() {
 		$author_id   = get_the_author_meta( 'ID' );
 		return get_the_author_meta( 'display_name', $author_id );
 	}
 
+	/**
+	 * Listing author profile link.
+	 *
+	 * @return string
+	 */
 	public function loop_author_link() {
 		$author_id   = get_the_author_meta( 'ID' );
 		$get_directory_type = get_term_by( 'id', $this->get_current_listing_type(), ATBDP_TYPE );
@@ -444,6 +454,11 @@ class Listings {
 		return ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type );
 	}
 
+	/**
+	 * Listing author profile image URL.
+	 *
+	 * @return string
+	 */
 	public function loop_author_img_src() {
 		$author_id = get_the_author_meta( 'ID' );
 		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
@@ -451,17 +466,34 @@ class Listings {
 		return $u_pro_pic[0];
 	}
 
+	/**
+	 * Listing author avatar image.
+	 *
+	 * @return string Avatar img tag.
+	 */
 	public function loop_author_avatar() {
 		$author_id = get_the_author_meta( 'ID' );
 		return get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) );
 	}
 
-	public function loop_get_review_average() {
+	/**
+	 * Average rating of a listing.
+	 *
+	 * @return string
+	 */
+	public function loop_rating_average() {
 		return ATBDP()->review->get_average(get_the_ID());
 	}
 
+	/**
+	 * Review stars.
+	 *
+	 * @todo replce fontawesome code with dynamic icons.
+	 *
+	 * @return string Review star html.
+	 */
 	public function loop_review_star_html() {
-		$average = $this->loop_get_review_average();
+		$average = $this->loop_rating_average();
 		$average_with_zero = number_format( $average, 1 );
 
 		// Icons
@@ -490,92 +522,207 @@ class Listings {
 		return $review_stars;
 	}
 
+	/**
+	 * Bootstrap like column number.
+	 *
+	 * @return string
+	 */
 	public function columns() {
 		return (int) atbdp_calculate_column( $this->atts['columns'] );
 	}
 
+	/**
+	 * Display pagination or not.
+	 *
+	 * @return bool
+	 */
 	public function show_pagination() {
 		return $this->atts['show_pagination'] == 'yes' ? true : false;
 	}
 
+	/**
+	 * Display pagination or not.
+	 *
+	 * @return bool
+	 */
 	public function display_preview_image() {
 		return $this->atts['display_preview_image'] == 'yes' ? true : false;
 	}
 
+	/**
+	 * Display search form or not.
+	 *
+	 * @return bool
+	 */
 	public function has_filters_button() {
 		return $this->atts['advanced_filter'] == 'yes' ? true : false;
 	}
 
+	/**
+	 * Listing view type.
+	 *
+	 * @return string Possible values: grid, list or map.
+	 */
 	public function get_view() {
 		return atbdp_get_listings_current_view_name( $this->atts['view'] );
 	}
 
+	/**
+	 * Is featured listing
+	 *
+	 * @todo remove this function since _featured isn't a public att
+	 * @todo Remove is_fee_manager_active
+	 *
+	 * @return bool
+	 */
 	public function has_featured() {
 		$has_featured = $this->options['enable_featured_listing'];
 		$has_featured = $has_featured || is_fee_manager_active() ? $this->atts['_featured'] : $has_featured;
 		return $has_featured;
 	}
 
+	/**
+	 * Filter by attribute.
+	 *
+	 * @todo remove this function since filterby isn't a public att
+	 *
+	 * @return string
+	 */
 	public function filterby() {
 		return $this->atts['filterby'];
 	}
 
+	/**
+	 * Order by attribute.
+	 *
+	 * @return string
+	 */
 	public function orderby() {
 		return $this->atts['orderby'];
 	}
 
+	/**
+	 * Order attribute.
+	 *
+	 * @return string
+	 */
 	public function order() {
 		return $this->atts['order'];
 	}
 
+	/**
+	 * Number of listings per page.
+	 *
+	 * @return int
+	 */
 	public function listings_per_page() {
 		return (int) $this->atts['listings_per_page'];
 	}
 
+	/**
+	 * Display header or not.
+	 *
+	 * @return bool
+	 */
 	public function header() {
 		return $this->atts['header'] == 'yes' ? true : false;
 	}
 
+	/**
+	 * Display header title or not.
+	 *
+	 * @return bool
+	 */
 	public function header_title() {
 		return $this->atts['header_title'];
 	}
 
+	/**
+	 * Custom categories for query.
+	 *
+	 * @return array
+	 */
 	public function categories() {
 		return !empty( $this->atts['category'] ) ? explode( ',', $this->atts['category'] ) : '';
 	}
 
+	/**
+	 * Custom Locations for query.
+	 *
+	 * @return array
+	 */
 	public function locations() {
 		return !empty( $this->atts['location'] ) ? explode( ',', $this->atts['location'] ) : '';
 	}
 
+	/**
+	 * Custom Tags for query.
+	 *
+	 * @return array
+	 */
 	public function tags() {
 		return !empty( $this->atts['tag'] ) ? explode( ',', $this->atts['tag'] ) : '';
 	}
 
+	/**
+	 * Custom IDs for query.
+	 *
+	 * @return array
+	 */
 	public function listing_ids() {
 		return !empty( $this->atts['ids'] ) ? explode( ',', $this->atts['ids'] ) : '';
 	}
 
+	/**
+	 * Display only featured listings or not.
+	 *
+	 * @return bool
+	 */
 	public function featured_only() {
 		return $this->atts['featured_only'];
 	}
 
+	/**
+	 * Display only popular listings or not.
+	 *
+	 * @return bool
+	 */
 	public function popular_only() {
 		return $this->atts['popular_only'];
 	}
 
+	/**
+	 * Display only for logged in users or not.
+	 *
+	 * @return bool
+	 */
 	public function logged_in_user_only() {
 		return $this->atts['logged_in_user_only'] == 'yes' ? true : false;
 	}
 
+	/**
+	 * Page redirection URL.
+	 *
+	 * @return string
+	 */
 	public function redirect_page_url() {
 		return $this->atts['redirect_page_url'];
 	}
 
+	/**
+	 * Map height.
+	 *
+	 * @return string
+	 */
 	public function listings_map_height() {
 		return (int) $this->atts['map_height'];
 	}
 
+	/**
+	 * Map zoom level.
+	 *
+	 * @return string
+	 */
 	public function map_zoom_level() {
 		return (int) $this->atts['map_zoom_level'];
 	}
@@ -2054,6 +2201,11 @@ class Listings {
 			$text = get_the_date();
 		}
 		return $text;
+	}
+
+	public function loop_get_review_average() {
+		_deprecated_function( 'loop_get_review_average', '7.1.0', 'loop_rating_average' );
+		return ATBDP()->review->get_average(get_the_ID());
 	}
 
 }

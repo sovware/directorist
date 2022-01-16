@@ -105,7 +105,6 @@ class Listings {
 	public function set_atts( $atts ) {
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
-			'_featured'                => 1,
 			'filterby'                 => '',
 			'orderby'                  => $this->options['order_listing_by'],
 			'order'                    => $this->options['sort_listing_by'],
@@ -568,17 +567,17 @@ class Listings {
 	}
 
 	/**
-	 * Is featured listing
+	 * Check if listing is featured.
 	 *
-	 * @todo Remove _featured check
 	 * @todo Remove is_fee_manager_active
 	 *
 	 * @return bool
 	 */
 	public function has_featured() {
-		$has_featured = $this->options['enable_featured_listing'];
-		$has_featured = $has_featured || is_fee_manager_active() ? $this->atts['_featured'] : $has_featured;
-		return $has_featured;
+		if ( is_fee_manager_active() ) {
+			return true;
+		}
+		return $this->options['enable_featured_listing'];
 	}
 
 	/**

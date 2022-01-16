@@ -105,7 +105,6 @@ class Listings {
 	public function set_atts( $atts ) {
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
-			'filterby'                 => '',
 			'orderby'                  => $this->options['order_listing_by'],
 			'order'                    => $this->options['sort_listing_by'],
 			'listings_per_page'        => $this->options['listings_per_page'],
@@ -585,17 +584,6 @@ class Listings {
 			return true;
 		}
 		return $this->options['enable_featured_listing'];
-	}
-
-	/**
-	 * Filter by attribute.
-	 *
-	 * @todo remove this function since filterby isn't a public att
-	 *
-	 * @return string
-	 */
-	public function filterby() {
-		return $this->atts['filterby'];
 	}
 
 	/**
@@ -1974,20 +1962,11 @@ class Listings {
 		);
 
 		if ( $this->has_featured() ) {
-			if ( '_featured' == $this->filterby() ) {
-				$meta_queries['_featured'] = array(
-					'key'     => '_featured',
-					'value'   => 1,
-					'compare' => '=',
-				);
-			}
-			else {
-				$meta_queries['_featured'] = array(
-					'key'     => '_featured',
-					'type'    => 'NUMERIC',
-					'compare' => 'EXISTS',
-				);
-			}
+			$meta_queries['_featured'] = array(
+				'key'     => '_featured',
+				'type'    => 'NUMERIC',
+				'compare' => 'EXISTS',
+			);
 		}
 
 		if ( 'yes' == $this->featured_only() ) {

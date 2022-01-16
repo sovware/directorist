@@ -232,9 +232,12 @@ final class Directorist_Base
 				new ATBDP_Extensions();
 			}
 
-			/*Initiate Review and Rating Features*/
+			/**
+			 * Deprected review rating class.
+			 * Will be removed in future.
+			 */
 			include_once ATBDP_INC_DIR . 'review/class-bc-review-rating.php';
-			self::$instance->review = new Directorist\Review\BC_Review_Rating();
+			self::$instance->review = new ATBDP_Review_Rating();
 
 			//activate rewrite api
 			new ATBDP_Rewrite;

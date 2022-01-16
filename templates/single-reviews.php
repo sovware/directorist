@@ -118,7 +118,7 @@ Bootstrap::load_walker();
 				'<div class="directorist-form-group form-group-url">%s %s</div>',
 				sprintf(
 					'<label for="url">%s</label>',
-					$builder->get_website_label( __( 'Website', 'directorist' ) ),
+					$builder->get_website_label( __( 'Website', 'directorist' ) )
 				),
 				sprintf(
 					'<input id="url" autocomplete="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',

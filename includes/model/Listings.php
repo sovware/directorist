@@ -384,11 +384,8 @@ class Directorist_Listings {
 
 	public function get_review_data() {
 		// Review
-		$average           = ATBDP()->review->get_average(get_the_ID());
-		$average           = (int) $average;
-		$average_with_zero = number_format( $average, 1 );
-		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
-		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
+		$average           = directorist_get_listing_rating( get_the_ID() );
+		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
 
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
@@ -415,25 +412,24 @@ class Directorist_Listings {
 
 		return [
 			'review_stars'    => $review_stars,
-			'review_text'     => $review_text,
-			'average_reviews' => $average_with_zero,
 			'total_reviews'   => $reviews_count,
+			'average_reviews' => number_format( $average, 1 ),
+			'review_text'     => _nx( 'Review', 'Reviews', $reviews_count, 'Listing grid review text', 'directorist' ),
 		];
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
-		if ( 'rand' == $this->orderby ) {
+		if ( 'rand' === $this->orderby ) {
 			$current_order = atbdp_get_listings_current_order( $this->orderby );
-		}
-		else {
+		} else {
 			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
 		}
 
 		$meta_queries['directory_type'] = array(
-				'key'     => '_directory_type',
-				'value'   => $this->get_current_listing_type(),
-				'compare' => '=',
-			);
+			'key'     => '_directory_type',
+			'value'   => $this->get_current_listing_type(),
+			'compare' => '=',
+		);
 
 		$meta_queries['expired'] = array(
 			'key'     => '_listing_status',
@@ -448,8 +444,7 @@ class Directorist_Listings {
 					'value'   => 1,
 					'compare' => '=',
 				);
-			}
-			else {
+			} else {
 				$meta_queries['_featured'] = array(
 					'key'     => '_featured',
 					'type'    => 'NUMERIC',
@@ -466,26 +461,16 @@ class Directorist_Listings {
 			);
 		}
 
-		$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
-		$rated        = array();
-
-		if (  ( 'yes' == $this->popular_only ) || ( 'views-desc' === $current_order ) ) {
+		if ( 'yes' === $this->popular_only || 'views-desc' === $current_order ) {
 			if ( $this->has_featured ) {
 				if ( 'average_rating' === $this->popular_by ) {
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
-				}
-				elseif ( 'view_count' === $this->popular_by ) {
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular,
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
+				} elseif ( 'view_count' === $this->popular_by ) {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
 						'value'   => $this->view_to_popular,
@@ -497,192 +482,168 @@ class Directorist_Listings {
 						'_featured' => 'DESC',
 						'views'     => 'DESC',
 					);
-				}
-				else {
+				} else {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
 						'value'   => $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
+
 					$args['orderby'] = array(
 						'_featured' => 'DESC',
 						'views'     => 'DESC',
 					);
 
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular,
+						'compare' => '<=',
+					);
 				}
-			}
-			else {
+			} else {
 				if ( 'average_rating' === $this->popular_by ) {
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
-				}
-				elseif ( 'view_count' === $this->popular_by ) {
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular,
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
+				} elseif ( 'view_count' === $this->popular_by ) {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
 						'value'   => $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
+
 					$args['orderby'] = array(
 						'views' => 'DESC',
 					);
-				}
-				else {
+				} else {
 					$meta_queries['views'] = array(
 						'key'     => '_atbdp_post_views_count',
-						'value'   => (int)$this->view_to_popular,
+						'value'   => (int) $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
+
 					$args['orderby'] = array(
 						'views' => 'DESC',
 					);
 
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular,
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
 				}
 			}
 		}
 
 		switch ( $current_order ) {
 			case 'title-asc':
-			if ( $this->has_featured ) {
-				$args['meta_key'] = '_featured';
-				$args['orderby']  = array(
-					'meta_value_num' => 'DESC',
-					'title'          => 'ASC',
-				);
-			}
-			else {
-				$args['orderby'] = 'title';
-				$args['order']   = 'ASC';
-			}
-			break;
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = array(
+						'meta_value_num' => 'DESC',
+						'title'          => 'ASC',
+					);
+				} else {
+					$args['orderby'] = 'title';
+					$args['order']   = 'ASC';
+				}
+
+				break;
 
 			case 'title-desc':
-			if ( $this->has_featured ) {
-				$args['meta_key'] = '_featured';
-				$args['orderby']  = array(
-					'meta_value_num' => 'DESC',
-					'title'          => 'DESC',
-				);
-			}
-			else {
-				$args['orderby'] = 'title';
-				$args['order']   = 'DESC';
-			}
-			break;
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = array(
+						'meta_value_num' => 'DESC',
+						'title'          => 'DESC',
+					);
+				} else {
+					$args['orderby'] = 'title';
+					$args['order']   = 'DESC';
+				}
+
+				break;
 
 			case 'date-asc':
-			if ( $this->has_featured ) {
-				$args['meta_key'] = '_featured';
-				$args['orderby']  = array(
-					'meta_value_num' => 'DESC',
-					'date'           => 'ASC',
-				);
-			}
-			else {
-				$args['orderby'] = 'date';
-				$args['order']   = 'ASC';
-			}
-			break;
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = array(
+						'meta_value_num' => 'DESC',
+						'date'           => 'ASC',
+					);
+				} else {
+					$args['orderby'] = 'date';
+					$args['order']   = 'ASC';
+				}
+
+				break;
 
 			case 'date-desc':
-			if ( $this->has_featured ) {
-				$args['meta_key'] = '_featured';
-				$args['orderby']  = array(
-					'meta_value_num' => 'DESC',
-					'date'           => 'DESC',
-				);
-			}
-			else {
-				$args['orderby'] = 'date';
-				$args['order']   = 'DESC';
-			}
-			break;
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = array(
+						'meta_value_num' => 'DESC',
+						'date'           => 'DESC',
+					);
+				} else {
+					$args['orderby'] = 'date';
+					$args['order']   = 'DESC';
+				}
+				break;
 
 			case 'price-asc':
-			if ( $this->has_featured ) {
-				$meta_queries['price'] = array(
-					'key'     => '_price',
-					'type'    => 'NUMERIC',
-					'compare' => 'EXISTS',
-				);
+				if ( $this->has_featured ) {
+					$meta_queries['price'] = array(
+						'key'     => '_price',
+						'type'    => 'NUMERIC',
+						'compare' => 'EXISTS',
+					);
 
-				$args['orderby'] = array(
-					'_featured' => 'DESC',
-					'price'     => 'ASC',
-				);
-			}
-			else {
-				$args['meta_key'] = '_price';
-				$args['orderby']  = 'meta_value_num';
-				$args['order']    = 'ASC';
-			}
-			break;
+					$args['orderby'] = array(
+						'_featured' => 'DESC',
+						'price'     => 'ASC',
+					);
+				} else {
+					$args['meta_key'] = '_price';
+					$args['orderby']  = 'meta_value_num';
+					$args['order']    = 'ASC';
+				}
+				break;
 
 			case 'price-desc':
-			if ( $this->has_featured ) {
-				$meta_queries['price'] = array(
-					'key'     => '_price',
-					'type'    => 'NUMERIC',
-					'compare' => 'EXISTS',
-				);
+				if ( $this->has_featured ) {
+					$meta_queries['price'] = array(
+						'key'     => '_price',
+						'type'    => 'NUMERIC',
+						'compare' => 'EXISTS',
+					);
 
-				$args['orderby'] = array(
-					'_featured' => 'DESC',
-					'price'     => 'DESC',
-				);
-			}
-			else {
-				$args['meta_key'] = '_price';
-				$args['orderby']  = 'meta_value_num';
-				$args['order']    = 'DESC';
-			}
-			break;
+					$args['orderby'] = array(
+						'_featured' => 'DESC',
+						'price'     => 'DESC',
+					);
+				} else {
+					$args['meta_key'] = '_price';
+					$args['orderby']  = 'meta_value_num';
+					$args['order']    = 'DESC';
+				}
+				break;
 
 			case 'rand':
-			if ( $this->has_featured ) {
-				$args['meta_key'] = '_featured';
-				$args['orderby']  = 'meta_value_num rand';
-			}
-			else {
-				$args['orderby'] = 'rand';
-			}
-			break;
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = 'meta_value_num rand';
+				} else {
+					$args['orderby'] = 'rand';
+				}
+				break;
 		}
 	}
 
@@ -715,9 +676,7 @@ class Directorist_Listings {
 
 		if ( $this->show_pagination ) {
 			$args['paged'] = $this->paged;
-		}
-
-		else {
+		} else {
 			$args['no_found_rows'] = true;
 		}
 
@@ -754,12 +713,12 @@ class Directorist_Listings {
 			);
 		}
 
-		if( ! empty( $tax_queries ) ) {
+		if ( ! empty( $tax_queries ) ) {
 			$args['tax_query'] = $tax_queries;
 		}
 
 		$meta_queries = array();
-		$this->execute_meta_query_args($args, $meta_queries);
+		$this->execute_meta_query_args( $args, $meta_queries );
 
 		$meta_queries = apply_filters( 'atbdp_all_listings_meta_queries', $meta_queries );
 		$count_meta_queries = count( $meta_queries );
@@ -780,127 +739,119 @@ class Directorist_Listings {
 
 		if ( $this->show_pagination ) {
 			$args['paged'] = $this->paged;
-		}
-		else {
+		} else {
 			$args['no_found_rows'] = true;
 		}
 
-		if (!empty($_GET['q'])) {
-			$args['s'] = sanitize_text_field($_GET['q']);
+		if ( ! empty( $_GET['q'] ) ) {
+			$args['s'] = sanitize_text_field( $_GET['q'] );
 		}
 
-		if ($this->has_featured) {
+		if ( $this->has_featured ) {
 			$args['meta_key'] = '_featured';
-			$args['orderby'] = array(
+			$args['orderby']  = array(
 				'meta_value_num' => 'DESC',
-				'title' => 'ASC',
+				'title'          => 'ASC',
 			);
-		}
-		else {
+		} else {
 			$args['orderby'] = 'title';
-			$args['order'] = 'ASC';
+			$args['order']   = 'ASC';
 		}
 
 		$tax_queries = array();
 
-		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
+		if ( ! empty( $_GET['in_cat'] ) ) {
 			$tax_queries[] = array(
-				'taxonomy' => ATBDP_CATEGORY,
-				'field' => 'term_id',
-				'terms' => (int)$_GET['in_cat'],
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'term_id',
+				'terms'            => wp_parse_id_list( $_GET['in_cat'] ),
 				'include_children' => true,
 			);
 		}
 
-		if (isset($_GET['in_loc']) && (int)$_GET['in_loc'] > 0) {
+		if ( ! empty( $_GET['in_loc'] ) ) {
 			$tax_queries[] = array(
-				'taxonomy' => ATBDP_LOCATION,
-				'field' => 'term_id',
-				'terms' => (int)$_GET['in_loc'],
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'term_id',
+				'terms'            => wp_parse_id_list( $_GET['in_loc'] ),
 				'include_children' => true,
 			);
 		}
 
-		if (isset($_GET['in_tag']) && (int)$_GET['in_tag'] > 0) {
-			$tag_value = $_GET['in_tag'];
+		if ( ! empty( $_GET['in_tag'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
-				'field' => 'term_id',
-				'terms' => $tag_value,
+				'field'    => 'term_id',
+				'terms'    => wp_parse_id_list( $_GET['in_tag'] ),
 			);
-
 		}
-		$count_tax_queries = count($tax_queries);
-		if ($count_tax_queries) {
-			$args['tax_query'] = array_merge(array('relation' => 'AND'), $tax_queries);
+
+		if ( count( $tax_queries ) ) {
+			$args['tax_query'] = array_merge( array( 'relation' => 'AND' ), $tax_queries );
 		}
 
 		$meta_queries = array();
 
-		$this->execute_meta_query_args($args, $meta_queries);
+		$this->execute_meta_query_args( $args, $meta_queries );
 
 		if ( isset( $_GET['custom_field'] ) ) {
-			$cf = array_filter($_GET['custom_field']);
+			$custom_fields = array_filter( $_GET['custom_field'] );
 
-			foreach ( $cf as $key => $values ) {
+			foreach ( $custom_fields as $key => $values ) {
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();
 						foreach ( $values as $value ) {
 							$sub_meta_queries[] = array(
-								'key' => '_' . $key,
-								'value' => sanitize_text_field( $value ),
+								'key'     => '_' . $key,
+								'value'   => sanitize_text_field( $value ),
 								'compare' => 'LIKE'
 							);
 						}
-						$meta_queries[] = array_merge( array('relation' => 'OR'), $sub_meta_queries );
-					}
-					else {
-
+						$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+					} else {
 						$meta_queries[] = array(
-							'key' => '_' . $key,
-							'value' => sanitize_text_field( $values[0] ),
+							'key'     => '_' . $key,
+							'value'   => sanitize_text_field( $values[0] ),
 							'compare' => 'LIKE'
 						);
 					}
-				}
-				else {
-
+				} else {
 					$field_type = get_post_meta( $key, 'type', true );
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
 					$meta_queries[] = array(
-						'key' => '_' . $key,
-						'value' => sanitize_text_field( $values ),
+						'key'     => '_' . $key,
+						'value'   => sanitize_text_field( $values ),
 						'compare' => $operator
 					);
-
 				}
 			}
 		}
 
-		if (isset($_GET['price'])) {
-			$price = array_filter($_GET['price']);
+		if ( ! empty( $_GET['price'] ) ) {
+			$price = array_filter( $_GET['price'] );
+
 			if ($n = count($price)) {
-				if (2 == $n) {
+				if ( 2 == $n ) {
 					$meta_queries[] = array(
-						'key' => '_price',
-						'value' => array_map('intval', $price),
-						'type' => 'NUMERIC',
+						'key'     => '_price',
+						'value'   => array_map( 'intval', $price ),
+						'type'    => 'NUMERIC',
 						'compare' => 'BETWEEN'
 					);
 				} else {
 					if (empty($price[0])) {
 						$meta_queries[] = array(
-							'key' => '_price',
-							'value' => (int)$price[1],
-							'type' => 'NUMERIC',
+							'key'     => '_price',
+							'value'   => (int) $price[1],
+							'type'    => 'NUMERIC',
 							'compare' => '<='
 						);
 					} else {
 						$meta_queries[] = array(
-							'key' => '_price',
-							'value' => (int)$price[0],
-							'type' => 'NUMERIC',
+							'key'     => '_price',
+							'value'   => (int) $price[0],
+							'type'    => 'NUMERIC',
 							'compare' => '>='
 						);
 					}
@@ -908,151 +859,94 @@ class Directorist_Listings {
 			}
 		}
 
-		if (isset($_GET['price_range']) && 'none' != $_GET['price_range']) {
-			$price_range = sanitize_text_field( $_GET['price_range'] );
-			$meta_queries[] = array(
-				'key' => '_price_range',
-				'value' => $price_range,
+		if ( ! empty( $_GET['price_range'] ) && 'none' !== $_GET['price_range'] ) {
+			$meta_queries['_price_range'] = array(
+				'key'     => '_price_range',
+				'value'   => sanitize_text_field( $_GET['price_range'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['website'])) {
-			$website = sanitize_text_field( $_GET['website'] );
-			$meta_queries[] = array(
-				'key' => '_website',
-				'value' => $website,
+		if ( ! empty( $_GET['website'] ) ) {
+			$meta_queries['_website'] = array(
+				'key'     => '_website',
+				'value'   => sanitize_text_field( $_GET['website'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['email'])) {
-			$email = sanitize_text_field( $_GET['email'] );
-			$meta_queries[] = array(
-				'key' => '_email',
-				'value' => $email,
+		if ( ! empty( $_GET['email'] ) ) {
+			$meta_queries['_email'] = array(
+				'key'     => '_email',
+				'value'   => sanitize_text_field( $_GET['email'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['phone'])) {
+		if ( ! empty( $_GET['phone'] ) ) {
 			$phone = sanitize_text_field( $_GET['phone'] );
-			$meta_queries[] = array(
+			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
-					'key' => '_phone2',
-					'value' => $phone,
+					'key'     => '_phone2',
+					'value'   => $phone,
 					'compare' => 'LIKE'
 				),
 				array(
-					'key' => '_phone',
-					'value' => $phone,
+					'key'     => '_phone',
+					'value'   => $phone,
 					'compare' => 'LIKE'
 				)
 			);
 		}
 
-		if (isset($_GET['fax'])) {
-			$fax = sanitize_text_field( $_GET['fax'] );
-			$meta_queries[] = array(
-				'key' => '_fax',
-				'value' => $fax,
+		if ( ! empty( $_GET['fax'] ) ) {
+			$meta_queries['_fax'] = array(
+				'key'     => '_fax',
+				'value'   => sanitize_text_field( $_GET['fax'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (!empty($_GET['miles']) && $_GET['miles'] > 0 && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
+		if ( ! empty( $_GET['miles'] ) && ! empty( $_GET['cityLat'] ) && ! empty( $_GET['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude' => sanitize_text_field( $_GET['cityLat'] ),
+				'latitude'  => sanitize_text_field( $_GET['cityLat'] ),
 				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
-				'distance' => sanitize_text_field( $_GET['miles'] ),
-				'units' => $this->radius_search_unit
+				'distance'  => sanitize_text_field( $_GET['miles'] ),
+				'units'     => $this->radius_search_unit
 			);
-		}
-		elseif ( ! empty($_GET['address']) ) {
-			$address = sanitize_text_field( $_GET['address'] );
-			$meta_queries[] = array(
-				'key' => '_address',
-				'value' => $address,
+		} elseif ( ! empty($_GET['address']) ) {
+			$meta_queries['_address'] = array(
+				'key'     => '_address',
+				'value'   => sanitize_text_field( $_GET['address'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (!empty($_GET['zip'])) {
-			$zip = sanitize_text_field( $_GET['zip'] );
-			$meta_queries[] = array(
-				'key' => '_zip',
-				'value' => $zip,
+		if ( ! empty( $_GET['zip'] ) ) {
+			$meta_queries['_zip'] = array(
+				'key'     => '_zip',
+				'value'   => sanitize_text_field( $_GET['zip'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['search_by_rating'])) {
-			$q_rating = sanitize_text_field( $_GET['search_by_rating'] );
-			$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
-			$rated = array();
-			if ( ! empty( $listings_ids ) ) {
-				foreach ( $listings_ids as $listings_id ) {
-					$average = ATBDP()->review->get_average( $listings_id );
-					if ($q_rating === '5') {
-						if (($average == '5')) {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '4') {
-						if ($average >= '4') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '3') {
-						if ($average >= '3') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '2') {
-						if ($average >= '2') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '1') {
-						if ($average >= '1') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ('' === $q_rating) {
-						if ($average === '') {
-							$rated[] = $listings_id;
-						}
-					}
-				}
-				$rating_id = array(
-					'post__in' => !empty($rated) ? $rated : array()
-				);
-				$args = array_merge($args, $rating_id);
-			}
+		if ( ! empty( $_GET['search_by_rating'] ) ) {
+			$rating_query = sanitize_text_field( $_GET['search_by_rating'] );
+			$meta_queries['_rating'] = array(
+				'key'     => directorist_get_rating_field_meta_key(),
+				'value'   => absint( $rating_query ),
+				'type'    => 'NUMERIC',
+				'compare' => '>='
+			);
 		}
 
-		$meta_queries = apply_filters('atbdp_search_listings_meta_queries', $meta_queries);
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = array_merge(array('relation' => 'AND'), $meta_queries);
+		$meta_queries = apply_filters( 'atbdp_search_listings_meta_queries', $meta_queries );
+		if ( count( $meta_queries ) ) {
+			$meta_queries['relation'] = 'AND';
+			$args['meta_query'] = $meta_queries;
 		}
 
 		return apply_filters( 'atbdp_listing_search_query_argument', $args );
@@ -1929,9 +1823,14 @@ class Directorist_Listings {
 		}
 
 		public function search_form_template() {
+			// only catch atts with the prefix 'filter_'
+			$search_field_atts = array_filter( $this->atts, function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			}, ARRAY_FILTER_USE_KEY );
+
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
 			);
 			Helper::get_template( 'archive/search-form', $args );
 		}

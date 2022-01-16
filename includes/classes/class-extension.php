@@ -68,11 +68,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $this->setup_extensions_alias();
 
             wp_update_plugins();
-
-            // Check form theme update
-            $current_theme = wp_get_theme();
-            get_theme_update_available( $current_theme->stylesheet );
-
+            
             // Apply hook to required extensions
             $this->required_extensions = apply_filters( 'directorist_required_extensions', [] );
 
@@ -650,12 +646,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     return ['status' => $status];
                 }
 
-                $theme_item = $themes_available_in_subscriptions_keys[$theme_stylesheet];
+                $theme_item = $themes_available_in_subscriptions[$theme_stylesheet];
                 $url        = self::get_file_download_link( $theme_item, 'theme' );
                 $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
                 
                 $download_status = $this->download_theme( ['url' => $url] );
-
+               
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
                     $status['message'] = __( 'The theme could not update', 'directorist' );
@@ -664,6 +660,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     $status['success'] = true;
                     $status['message'] = __( 'The theme has been updated successfully', 'directorist' );
                     $status['log']     = $download_status['message'];
+                    wp_clean_themes_cache();
                 };
 
                 return ['status' => $status];
@@ -1642,15 +1639,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $plugin_updates       = get_site_transient( 'update_plugins' );
             $outdated_plugins     = $plugin_updates->response;
             $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
+            $official_extensions  = is_array( $this->extensions ) ? array_keys( $this->extensions ) : [];
 
             $all_installed_plugins_list = get_plugins();
             $installed_extensions       = [];
             $total_active_extensions    = 0;
             $total_outdated_extensions  = 0;
-
+          
             foreach ( $all_installed_plugins_list as $plugin_base => $plugin_data ) {
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) ) {
+                $folder_base = strtok( $plugin_base, '/' );
+
+                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions ) ) {
                     $installed_extensions[$plugin_base] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {
@@ -1872,7 +1872,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             ] );
 
             // current_active_theme_info
-            $current_active_theme_info = $this->get_current_active_theme_info( ['outdated_themes_keys' => $outdated_themes_keys] );
+            $current_active_theme_info = $this->get_current_active_theme_info( 
+                [
+                    'outdated_themes_keys' => $outdated_themes_keys,
+                    'installed_theme_list' => $installed_theme_list,
+                ] 
+            );            
             $current_active_theme_info['stylesheet'];
 
             $themes_available_in_subscriptions_keys = array_keys( $themes_available_in_subscriptions );
@@ -1902,15 +1907,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $customizer_link      = admin_url( $customizer_link );
 
             // Check form theme update
-            $current_theme   = wp_get_theme();
-            $has_update_link = get_theme_update_available( $current_theme->stylesheet );
+            $has_update = isset( $args[ 'installed_theme_list' ][ $current_active_theme->stylesheet ] ) ? $args[ 'installed_theme_list' ][ $current_active_theme->stylesheet ][ 'has_update' ] : '';
             
             $active_theme_info = [
                 'name'            => $current_active_theme->name,
                 'version'         => $current_active_theme->version,
                 'thumbnail'       => $current_active_theme->get_screenshot(),
                 'customizer_link' => $customizer_link,
-                'has_update'      => $has_update_link,
+                'has_update'      => $has_update,
                 'stylesheet'      => $current_active_theme->stylesheet,
             ];
 

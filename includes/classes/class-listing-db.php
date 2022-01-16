@@ -24,7 +24,7 @@ class ATBDP_Listing_DB {
     /**
      * @param init $id  Current post id
      * @since 6.4.1
-     * 
+     *
      */
     public function atbdp_delete_attachment($id){
 
@@ -36,13 +36,13 @@ class ATBDP_Listing_DB {
             if ( is_array( $listing_img ) ) {
                 array_unshift($listing_img, $listing_prv_img);
             }
-            
-            if ( ! empty( $listing_img ) ) {		
+
+            if ( ! empty( $listing_img ) ) {
                 foreach ( $listing_img as $image ) {
                     wp_delete_attachment( $image, true );
-                }		
+                }
             }
-        } 
+        }
     }
 
     /**
@@ -107,10 +107,7 @@ class ATBDP_Listing_DB {
         $deleted = wp_delete_post(absint($id), true); // i
         if ( false !== $deleted ) {
             do_action( 'directorist_listing_deleted', $id );
-            // as post has been deleted, now delete the review if there is any associated with the post
-            $review_delete = ATBDP()->review->db->delete_reviews_by('post_id', absint($id));
             return true;
-
         }
         return false;
 

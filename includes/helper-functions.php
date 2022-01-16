@@ -6964,26 +6964,22 @@ function atbdp_is_page($atbdppages = '')
  * @since 4.7.8
  */
 if (!function_exists('atbdp_popular_listings')) {
-    function atbdp_popular_listings($listing_id)
-    {
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        $average = ATBDP()->review->get_average($listing_id);
-        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-        $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-        $view_to_popular = get_directorist_option('views_for_popular');
-        if ('average_rating' === $listing_popular_by) {
-            if ($average_review_for_popular <= $average) {
-                return $pop_listing_id = $listing_id;
-            }
-        } elseif ('view_count' === $listing_popular_by) {
-            if ((int)$view_count >= (int)$view_to_popular) {
-                return $pop_listing_id = $listing_id;
-            }
-        } else {
-            if (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
-                return $pop_listing_id = $listing_id;
-            }
+    function atbdp_popular_listings( $listing_id ) {
+        $listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+        $average                    = directorist_get_listing_rating( $listing_id );
+        $average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+        $view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+        $view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
+
+        if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+            return $listing_id;
+        } elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return $listing_id;
+        } elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
+			return $listing_id;
         }
+
+		return 0;
     }
 }
 
@@ -8251,21 +8247,44 @@ if( !function_exists('directory_types') ){
           return $listing_types;
     }
 }
-if( !function_exists('default_directory_type') ){
-    function default_directory_type() {
-        $default_directory = '';
-        if( !empty( directory_types() ) ) {
-            foreach( directory_types() as $term ) {
-                $default = get_term_meta( $term->term_id, '_default', true );
-                if( $default ) {
-                    $default_directory = $term->term_id;
-                    break;
-                }
-            }
-        }
-        return $default_directory;
-    }
+
+if ( ! function_exists( 'directorist_get_default_directory' ) ) {
+	/**
+	 * Get default directory id.
+	 *
+	 * @return int Default directory id.
+	 */
+	function directorist_get_default_directory() {
+		$directories = get_terms( [
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'meta_key'   => '_default',
+			'meta_value' => '1',
+			'number'     => 1
+		] );
+
+		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
+			return 0;
+		}
+
+		return $directories[0];
+	}
 }
+
+if ( ! function_exists( 'default_directory_type' ) ) {
+	/**
+	 * Alias and backward compatible function of "directorist_get_default_directory".
+	 *
+	 * @see directorist_get_default_directory
+	 *
+	 * @return int Defualt directory id.
+	 */
+	function default_directory_type() {
+		return directorist_get_default_directory();
+	}
+}
+
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
         $listing_types = array();

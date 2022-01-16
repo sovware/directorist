@@ -1,6 +1,6 @@
 <?php
 // Plugin version.
-if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.0.7' );}
+if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.0.8' );}
 // Plugin Folder Path.
 if ( ! defined( 'ATBDP_DIR' ) ) { define( 'ATBDP_DIR', plugin_dir_path( __FILE__ ) ); }
 // Plugin Folder URL.
@@ -63,3 +63,5 @@ if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not ha
 
 // Plugin Veiw Path
 if ( !defined('ATBDP_VIEW_DIR') ) { define('ATBDP_VIEW_DIR', ATBDP_DIR.'includes/view/'); }
+
+define( 'DIRECTORIST_VENDOR', DIRECTORIST_ASSETS . 'vendor/' );

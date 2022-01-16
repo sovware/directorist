@@ -5,7 +5,7 @@ Tags: member directory, listings, classifieds, directory plugin, business direct
 Requires at least: 4.6
 Tested up to:  5.8
 Requires PHP: 7.0
-Stable tag: 7.0.7
+Stable tag: 7.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -296,6 +296,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
+🔥 **[Mailchimp Integration](https://directorist.com/product/directorist-mailchimp-integration/)** - Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.
+
 == Themes ==
 
 Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
@@ -305,6 +307,8 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 🔥 **[dPlace](https://directorist.com/product/dplace/)** - dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.
 
 🔥 **[dRestaurant](https://directorist.com/product/drestaurant/)** - Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.
+
+🔥 **[dRealestate](https://directorist.com/product/drealestate/)** - dRealestate is tailored to meet all the bells and whistles to make your real estate directory as attractive and as lucrative as possible. The theme is completely mobile responsive and compatible with popular page builders including widgets that allows you to give your real estate directory website any look you can imagine under the sun.
 
 🔥 **[dDoctors](https://directorist.com/product/ddoctors/)** - A hospital directory website is where you need to show which types or categories of specialist doctors are available, whether they are bookable, what exactly the visit fee is etc. You can do so at ease with the dDoctor theme implementing an out-of-this-world design that fits the medical niche like never before.
 
@@ -319,10 +323,9 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 == 🔔🔔🔔 Coming soon... ==
 
 * WooCommerce Subscription Integration
-* Advanced Review System
-* Mailchimp Integration
 * WPML Integration
-* dRealestate (Theme)
+* GamiPress Integration
+* Advanced Review System
 * dEvent (Theme)
 * dCar (Theme)
 
@@ -381,6 +384,19 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.0.8 – Dec 29, 2021
+
+* New - Hide search form fields by shortcode parameter
+* New - Option to create All Authors page shortcode from setup wizard
+* Fix - Listing image uploader validation issue in add listing form 
+* Fix - Theme updating issues from subscriptions management page 
+* Fix - Single category and location page compatibility issues with Polylang plugin
+* Fix - Admin add listing form issue (add custom event listener on directory type change )
+* Fix - Style issues
+* Improve - Colour picker field in settings panel
+* Improve - Default directory type query (directorist_get_default_directory())
+* Remove - Unofficial extensions form membership page
 
 7.0.7 – Dec 8, 2021
 

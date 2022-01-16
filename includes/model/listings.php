@@ -775,6 +775,11 @@ class Listings {
 		return $this->options['radius_search_unit'];
 	}
 
+	/**
+	 * Listing map type.
+	 *
+	 * @return string Possible values: miles, kilometers.
+	 */
 	public function select_listing_map() {
 		return $this->options['select_listing_map'];
 	}

@@ -107,6 +107,19 @@ class Walker extends Walker_Comment {
 		if ( $has_parent ) {
 			$comment_class .= ' directorist-review-single--comment';
 		}
+
+		$comment_reply_link = get_comment_reply_link(
+			array_merge(
+				$args,
+				array(
+					/* translators: 1: is the reply icon */
+					'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+					'depth'      => $depth,
+					'max_depth'  => $args['max_depth'],
+					'add_below'  => 'div-comment',
+				)
+			)
+		);
 		?>
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $comment_class ); ?>>
 			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
@@ -130,11 +143,6 @@ class Walker extends Walker_Comment {
 								<?php endif; ?>
 							</div>
 						</div>
-						<?php /* if ( $is_review ) : ?>
-							<div class="directorist-review-single__report">
-								<a <?php self::add_activity_prop( 'report' ); ?> href="#" class="directorist-btn-modal-js"><i class="la la-flag"></i> Report</a>
-							</div>
-						<?php endif; */ ?>
 					</header>
 					<div class="directorist-review-single__content">
 						<?php comment_text(); ?>
@@ -146,40 +154,26 @@ class Walker extends Walker_Comment {
 					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
 				<?php endif; ?>
 
+				<?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
 				<div class="directorist-review-single__reply">
 					<?php
-					comment_reply_link(
+					echo $comment_reply_link;
+
+					echo directorist_get_comment_edit_link(
 						array_merge(
 							$args,
 							array(
-								/* translators: 1: is the reply icon */
-								'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="fas fa-pencil-alt" aria-hidden="true"></i>' ),
 								'depth'      => $depth,
-								'max_depth'  => $args['max_depth'],
-								'add_below'  => 'div-comment',
+								'max_depth'  => $args['max_depth']
 							)
 						)
 					);
-
-					if ( current_user_can( 'edit_comment', get_comment_ID() ) ) {
-						echo directorist_get_comment_edit_link(
-							array_merge(
-								$args,
-								array(
-									'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="fas fa-pencil-alt" aria-hidden="true"></i>' ),
-									'depth'      => $depth,
-									'max_depth'  => $args['max_depth']
-								)
-							)
-						);
-					}
 					?>
 				</div>
+				<?php endif; ?>
+
 			</article><!-- .comment-body -->
 		<?php
-	}
-
-	protected static function add_activity_prop( $activity = '' ) {
-		printf( 'data-directorist-activity="%s:%s"', get_comment_ID(), $activity );
 	}
 }

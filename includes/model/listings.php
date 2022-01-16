@@ -460,9 +460,16 @@ class Listings {
 	 */
 	public function loop_author_img_src() {
 		$author_id = get_the_author_meta( 'ID' );
-		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
-		$u_pro_pic = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
-		return $u_pro_pic[0];
+		$img_id = get_user_meta( $author_id, 'pro_pic', true );
+
+		if ( ! empty( $img_id ) ) {
+			$img_src = wp_get_attachment_image_src( $img_id, 'thumbnail' );
+			if ( $img_src ) {
+				return $img_src[0];
+			}
+		}
+
+		return '';
 	}
 
 	/**

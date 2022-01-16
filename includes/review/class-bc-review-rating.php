@@ -2,29 +2,37 @@
 /**
  * Review rating backward compatible class.
  *
- * @package Directorist\Review
  * @since 7.1.0
  */
-namespace Directorist\Review;
 
 defined( 'ABSPATH' ) || die();
 
-class BC_Review_Rating {
+/**
+ * Review rating class for backward compatibility.
+ * Use update review rating system instead.
+ *
+ * @deprecated 7.1.0
+ * @see directorist_get_listing_rating
+ */
+class ATBDP_Review_Rating {
 
 	/**
-	 * Review database class.
+	 * Review rating db class.
 	 *
-	 * @var BC_Review_DB
+	 * @var ATBDP_Review_Rating_DB
 	 */
 	public $db;
 
 	public function __construct() {
-		$this->db = new BC_Review_DB();
+		$this->db = new ATBDP_Review_Rating_DB();
 	}
 
 	/**
-	 * Print the an html list of rating
-	 * @param int $star_number the number of start that should be colored
+	 * Get rating html.
+	 *
+	 * @param int $star_number
+	 * @deprecated 7.1.0
+	 *
 	 * @return string
 	 */
 	public function print_static_rating( $star_number = 1 ) {
@@ -40,8 +48,12 @@ class BC_Review_Rating {
 	}
 
 	/**
-	 * It returns the average of stars of a post.
-	 * @param int|object $post_id_or_object The ID of the post to get all ratings or the reviews/rating objects
+	 * Get listing rating.
+	 *
+	 * @param int $listing_id
+	 * @deprecated 7.1.0
+	 * @see directorist_get_listing_rating()
+	 *
 	 * @return float|int
 	 */
 	public function get_average( $listing_id = 0 ) {
@@ -49,8 +61,23 @@ class BC_Review_Rating {
 	}
 }
 
-class BC_Review_DB {
+/**
+ * Review rating database class for backward compatibility.
+ * Use updated review rating system instead.
+ *
+ * @deprecated 7.1.0
+ */
+class ATBDP_Review_Rating_DB {
 
+	/**
+	 * Get listing review count.
+	 *
+	 * @param array $args
+	 * @deprecated 7.1.0
+	 * @see directorist_get_listing_review_count()
+	 *
+	 * @return int
+	 */
 	public function count( $args ) {
 		if ( is_array( $args ) && ! empty( $args['post_id'] ) ) {
 			$listing_id = absint( $args['post_id'] );
@@ -61,4 +88,74 @@ class BC_Review_DB {
 		return directorist_get_listing_review_count( $listing_id );
 	}
 
+	/**
+	 * Retrieves all reviews from the database based on the field given in the argument.
+	 *
+	 * @access public
+	 * @since  2.3
+	 * @deprecated 7.1.0 Use updated review system instead.
+	 * @param  string $field  id or post_id, by_user_id, email
+	 * @param  mixed  $value  The Review ID or post_id to search
+	 * @param  int    $limit  Optional. Limit the number of the post we get from the database.
+	 *
+	 * @return mixed Upon success, an object of the review. Upon failure, NULL
+	 */
+	public function get_ratings_by( $field = 'id', $value = 0, $limit = PHP_INT_MAX ) {
+		if ( empty( $field ) || empty( $value ) ) {
+			return NULL;
+		}
+
+		if ( ! in_array( $field, array( 'id', 'post_id', 'by_user_id', 'email' ), true ) ) {
+			return false;
+		}
+
+		if ( $field === 'email' && is_email( $value ) ) {
+			$value = sanitize_email( $value );
+		} else {
+			$value = absint( $value );
+		}
+
+		if ( empty( $value ) ) {
+			return false;
+		}
+
+		$args = array(
+			'post_type' => ATBDP_POST_TYPE,
+			'type'      => 'review',
+			'fields'    => 'ids',
+		);
+
+		if ( $field === 'email' ) {
+			$args['author_email'] = $value;
+		}
+
+		if ( $field === 'id' ) {
+			$args['comment__in'] = array( $value );
+		}
+
+		if ( $field === 'by_user_id' ) {
+			$args['user_id'] = $value;
+		}
+
+		if ( $field === 'post_id' ) {
+			$args['post_id'] = $value;
+		}
+
+		$comments_query = new WP_Comment_Query( $args );
+		$comments = $comments_query->comments;
+
+		if ( empty( $comments ) ) {
+			return false;
+		}
+
+		$data = array();
+		foreach ( $comments as $comment_id ) {
+			$data[] = (object) array(
+				'rating' => (int) \Directorist\Review\Comment_Meta::get_rating( $comment_id )
+			);
+		}
+		unset( $comments, $comments_query );
+
+		return $data;
+	}
 }

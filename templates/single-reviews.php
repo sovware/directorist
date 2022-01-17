@@ -115,11 +115,8 @@ Bootstrap::load_walker();
 
 		if ( $builder->is_website_field_active() ) {
 			$fields['url'] = sprintf(
-				'<div class="directorist-form-group form-group-url">%s %s</div>',
-				sprintf(
-					'<label for="url">%s</label>',
-					$builder->get_website_label( __( 'Website', 'directorist' ) ),
-				),
+				'<div class="directorist-form-group form-group-url"><label for="url">%s</label> %s</div>',
+				$builder->get_website_label( __( 'Website', 'directorist' ) ),
 				sprintf(
 					'<input id="url" autocomplete="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',
 					$builder->get_website_placeholder( __( 'Enter your website', 'directorist' ) ),
@@ -136,11 +133,8 @@ Bootstrap::load_walker();
 		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( 0 ) . '</div>';
 
 		$comment_fields['content'] = sprintf(
-			'<div class="directorist-form-group form-group-comment">%s %s</div>',
-			sprintf(
-				'<label for="comment">%s <span class="required">*</span></label>',
-				$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) )
-			),
+			'<div class="directorist-form-group form-group-comment"><label for="comment">%s <span class="required">*</span></label> %s</div>',
+			$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) ),
 			sprintf( '<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required"></textarea>',
 				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) )
 			)

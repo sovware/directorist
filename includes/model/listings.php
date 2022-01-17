@@ -640,7 +640,7 @@ class Listings {
 	}
 
 	public function filter_btn_html() {
-		if ( $this->has_filters_icon() ) {
+		if ( $this->display_search_filter_icon() ) {
 			return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
 		}
 		else {
@@ -2282,11 +2282,11 @@ class Listings {
 
 	public function has_filters_button() {
 		_deprecated_function( 'has_filters_button', '7.1.0', 'display_search_form' );
-		return display_search_form();
+		return $this->display_search_form();
 	}
 
 	public function has_filters_icon() {
 		_deprecated_function( 'has_filters_icon', '7.1.0', 'display_search_filter_icon' );
-		return display_search_filter_icon();
+		return $this->display_search_filter_icon();
 	}
 }

@@ -840,28 +840,57 @@ class Listings {
 		return $this->options['filter_open_method'];
 	}
 
+	/**
+	 * Display sortby dropdown or not.
+	 *
+	 * @return bool
+	 */
 	public function display_sortby_dropdown() {
 		return $this->options['display_sort_by'];
 	}
 
+	/**
+	 * Display view-as dropdown or not.
+	 *
+	 * @return bool
+	 */
 	public function display_viewas_dropdown() {
 		return $this->options['display_view_as'];
 	}
 
+	/**
+	 * Label for Filter button.
+	 *
+	 * @return string
+	 */
 	public function filter_button_text() {
 		return $this->options['listings_filter_button_text'];
 	}
 
+	/**
+	 * Label for sortby dropdown.
+	 *
+	 * @return string
+	 */
 	public function sort_by_text() {
 		return $this->options['sort_by_text'];
 	}
 
+	/**
+	 * Label for view-as dropdown.
+	 *
+	 * @return string
+	 */
 	public function view_as_text() {
 		return $this->options['view_as_text'];
 	}
 
 	public function view_as() {
 		return $this->options['grid_view_as'];
+	}
+
+	public function masonary_grid_attr() {
+		return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
 	}
 
 	public function sort_by_items() {
@@ -1050,10 +1079,6 @@ class Listings {
 		else {
 			$this->load_openstreet_map();
 		}
-	}
-
-	public function masonary_grid_attr() {
-		return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
 	}
 
 	public function get_the_location() {

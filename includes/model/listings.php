@@ -169,7 +169,6 @@ class Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
-		$this->options['enable_featured_listing']         = get_directorist_option( 'enable_featured_listing' );
 		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
 		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
@@ -661,7 +660,6 @@ class Listings {
 		return $this->atts['display_preview_image'] == 'yes' ? true : false;
 	}
 
-
 	/**
 	 * Listing view type.
 	 *
@@ -672,34 +670,38 @@ class Listings {
 	}
 
 	/**
-	 * Check if listing is featured.
+	 * Check if monetize by featured is enabled.
 	 *
 	 * @todo Remove is_fee_manager_active
 	 *
 	 * @return bool
 	 */
-	public function has_featured() {
+	public function monetize_by_featued_enabled() {
 		if ( is_fee_manager_active() ) {
 			return true;
 		}
-		return $this->options['enable_featured_listing'];
+
+		$enable_monetization = get_directorist_option( 'enable_monetization' );
+		$enable_featured_listing = get_directorist_option( 'enable_featured_listing' );
+
+		return ( $enable_monetization && $enable_featured_listing ) ? true : false;
 	}
 
 	/**
-	 * Order by attribute.
+	 * Order by attribute for query.
 	 *
 	 * @return string
 	 */
-	public function orderby() {
+	public function query_orderby() {
 		return $this->atts['orderby'];
 	}
 
 	/**
-	 * Order attribute.
+	 * Order attribute for query.
 	 *
 	 * @return string
 	 */
-	public function order() {
+	public function query_order() {
 		return $this->atts['order'];
 	}
 
@@ -710,42 +712,6 @@ class Listings {
 	 */
 	public function listings_per_page() {
 		return (int) $this->atts['listings_per_page'];
-	}
-
-	/**
-	 * Custom categories for query.
-	 *
-	 * @return array
-	 */
-	public function categories() {
-		return !empty( $this->atts['category'] ) ? explode( ',', $this->atts['category'] ) : '';
-	}
-
-	/**
-	 * Custom Locations for query.
-	 *
-	 * @return array
-	 */
-	public function locations() {
-		return !empty( $this->atts['location'] ) ? explode( ',', $this->atts['location'] ) : '';
-	}
-
-	/**
-	 * Custom Tags for query.
-	 *
-	 * @return array
-	 */
-	public function tags() {
-		return !empty( $this->atts['tag'] ) ? explode( ',', $this->atts['tag'] ) : '';
-	}
-
-	/**
-	 * Custom IDs for query.
-	 *
-	 * @return array
-	 */
-	public function listing_ids() {
-		return !empty( $this->atts['ids'] ) ? explode( ',', $this->atts['ids'] ) : '';
 	}
 
 	/**
@@ -1618,35 +1584,40 @@ class Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		if ( $this->listing_ids() ) {
-			$args['post__in'] = $this->listing_ids();
+		$categories = !empty( $this->atts['category'] ) ? explode( ',', $this->atts['category'] ) : [];
+		$locations = !empty( $this->atts['location'] ) ? explode( ',', $this->atts['location'] ) : [];
+		$tags = !empty( $this->atts['tag'] ) ? explode( ',', $this->atts['tag'] ) : [];
+		$listing_ids = !empty( $this->atts['ids'] ) ? explode( ',', $this->atts['ids'] ) : [];
+
+		if ( ! empty( $listing_ids ) ) {
+			$args['post__in'] = $listing_ids;
 		}
 
 		$tax_queries = array();
 
-		if ( ! empty( $this->categories() ) ) {
+		if ( ! empty( $categories ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->categories() ) ? $this->categories() : array(),
+				'terms'            => $categories,
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $this->locations() ) ) {
+		if ( ! empty( $locations ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->locations() ) ? $this->locations() : array(),
+				'terms'            => $locations,
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $this->tags() ) ) {
+		if ( ! empty( $tags ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_TAGS,
 				'field'            => 'slug',
-				'terms'            => ! empty( $this->tags() ) ? $this->tags() : array(),
+				'terms'            => $tags,
 				'include_children' => true,
 			);
 		}
@@ -1686,7 +1657,7 @@ class Listings {
 			$args['s'] = sanitize_text_field($_GET['q']);
 		}
 
-		if ($this->has_featured()) {
+		if ($this->monetize_by_featued_enabled()) {
 			$args['meta_key'] = '_featured';
 			$args['orderby'] = array(
 				'meta_value_num' => 'DESC',
@@ -1956,11 +1927,11 @@ class Listings {
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
-		if ( 'rand' == $this->orderby() ) {
-			$current_order = atbdp_get_listings_current_order( $this->orderby() );
+		if ( 'rand' == $this->query_orderby() ) {
+			$current_order = atbdp_get_listings_current_order( $this->query_orderby() );
 		}
 		else {
-			$current_order = atbdp_get_listings_current_order( $this->orderby() . '-' . $this->order() );
+			$current_order = atbdp_get_listings_current_order( $this->query_orderby() . '-' . $this->query_order() );
 		}
 
 		$meta_queries['directory_type'] = array(
@@ -1975,7 +1946,7 @@ class Listings {
 			'compare' => '!=',
 		);
 
-		if ( $this->has_featured() ) {
+		if ( $this->monetize_by_featued_enabled() ) {
 			$meta_queries['_featured'] = array(
 				'key'     => '_featured',
 				'type'    => 'NUMERIC',
@@ -1995,7 +1966,7 @@ class Listings {
 		$rated        = array();
 
 		if (  ( 'yes' == $this->popular_only() ) || ( 'views-desc' === $current_order ) ) {
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				if ( 'average_rating' === $this->popular_by() ) {
 					if ( ! empty( $listings_ids ) ) {
 						foreach ( $listings_ids as $listings_id ) {
@@ -2104,7 +2075,7 @@ class Listings {
 
 		switch ( $current_order ) {
 			case 'title-asc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -2118,7 +2089,7 @@ class Listings {
 			break;
 
 			case 'title-desc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -2132,7 +2103,7 @@ class Listings {
 			break;
 
 			case 'date-asc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -2146,7 +2117,7 @@ class Listings {
 			break;
 
 			case 'date-desc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = array(
 					'meta_value_num' => 'DESC',
@@ -2160,7 +2131,7 @@ class Listings {
 			break;
 
 			case 'price-asc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$meta_queries['price'] = array(
 					'key'     => '_price',
 					'type'    => 'NUMERIC',
@@ -2180,7 +2151,7 @@ class Listings {
 			break;
 
 			case 'price-desc':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$meta_queries['price'] = array(
 					'key'     => '_price',
 					'type'    => 'NUMERIC',
@@ -2200,7 +2171,7 @@ class Listings {
 			break;
 
 			case 'rand':
-			if ( $this->has_featured() ) {
+			if ( $this->monetize_by_featued_enabled() ) {
 				$args['meta_key'] = '_featured';
 				$args['orderby']  = 'meta_value_num rand';
 			}

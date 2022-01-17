@@ -94,4 +94,9 @@ trait Deprecated_Listings {
 		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
 	}
 
+	public function has_featured() {
+		_deprecated_function( 'has_featured', '7.1.0', 'monetize_by_featued_enabled' );
+		return monetize_by_featued_enabled();
+	}
+
 }

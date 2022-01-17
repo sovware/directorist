@@ -20,7 +20,7 @@ $listings = directorist()->listings;
 
 			<div class="directorist-listings-header__left">
 
-				<?php if ( $listings->has_filters_button() ): ?>
+				<?php if ( $listings->display_search_form() ): ?>
 					<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
 				<?php endif; ?>
 
@@ -45,7 +45,7 @@ $listings = directorist()->listings;
 
 		</div>
 
-		<?php if ( $listings->has_filters_button() ) { ?>
+		<?php if ( $listings->display_search_form() ) { ?>
 			<div class="<?php echo ( 'overlapping' == $listings->filter_open_method() ) ? 'directorist-search-float' : 'directorist-search-slide'; ?>">
 				<?php $listings->search_form_template();?>
 			</div>

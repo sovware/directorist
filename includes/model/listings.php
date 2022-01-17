@@ -625,11 +625,17 @@ class Listings {
 	 *
 	 * @return bool
 	 */
-	public function has_filters_button() {
+	public function display_search_form() {
 		return $this->atts['advanced_filter'] == 'yes' ? true : false;
 	}
 
-	public function has_filters_icon() {
+
+	/**
+	 * Display search filter icon or not.
+	 *
+	 * @return bool
+	 */
+	public function display_search_filter_icon() {
 		return $this->options['listing_filters_icon'];
 	}
 
@@ -2272,5 +2278,15 @@ class Listings {
 	public function header() {
 		_deprecated_function( 'header', '7.1.0' );
 		return $this->atts['header'] == 'yes' ? true : false;
+	}
+
+	public function has_filters_button() {
+		_deprecated_function( 'has_filters_button', '7.1.0', 'display_search_form' );
+		return display_search_form();
+	}
+
+	public function has_filters_icon() {
+		_deprecated_function( 'has_filters_icon', '7.1.0', 'display_search_filter_icon' );
+		return display_search_filter_icon();
 	}
 }

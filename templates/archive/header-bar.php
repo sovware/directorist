@@ -18,20 +18,14 @@ $listings = directorist()->listings;
 
 		<div class="directorist-listings-header">
 
-			<?php if ( $listings->has_listings_header() ): ?>
+			<div class="directorist-listings-header__left">
 
-				<div class="directorist-listings-header__left">
+				<?php if ( $listings->has_filters_button() ): ?>
+					<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
+				<?php endif; ?>
 
-					<?php if ( $listings->has_filters_button() ): ?>
-						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
-					<?php endif; ?>
-
-					<?php if ( $listings->header_title() ): ?>
-						<h3 class="directorist-header-found-title"><?php echo $listings->item_found_title(); ?></h3>
-					<?php endif; ?>
-				</div>
-
-			<?php endif; ?>
+				<h3 class="directorist-header-found-title"><?php echo $listings->item_found_text(); ?></h3>
+			</div>
 
 			<?php if ( $listings->has_header_toolbar() ): ?>
 

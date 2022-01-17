@@ -80,13 +80,11 @@ class Listings {
 	 *
 	 * @param  array   $atts            Shortcode attributes.
 	 * @param  string  $type            Optional. Determines All listings page or Search result page.
-	 *                                  Accepts 'listing', 'search_result'. Defaults to 'listing'.
+	 *                                  Accepts 'listing', 'search_result'. Defaults to ''.
 	 * @param  boolean $query_args      Optional. Custom args for listing query. Defaults to false.
 	 */
-	public function init( $atts = array(), $type = 'listing', $query_args = false ) {
-		$this->atts = $atts;
-		$this->type = !empty( $type ) ? $type : 'listing';
-
+	public function init( $atts = array(), $type = '', $query_args = false ) {
+		$this->set_page_type( $type );
 		$this->set_options();
 
 		if ( 'search_result' == $this->type ) {
@@ -95,6 +93,25 @@ class Listings {
 
 		$this->set_atts( $atts );
 		$this->set_query( $query_args );
+	}
+
+	/**
+	 * Set page type.
+	 *
+	 * @param string $type Accepts 'listing', 'search_result'.
+	 */
+	public function set_page_type( $type ) {
+		if ( !$type ) {
+			if ( atbdp_is_page('search_result') ) {
+				$this->type = 'search_result';
+			}
+			else {
+				$this->type = 'listing';
+			}
+		}
+		else {
+			$this->type = $type;
+		}
 	}
 
 	/**
@@ -537,6 +554,110 @@ class Listings {
 	}
 
 	/**
+	 * Display header or not.
+	 *
+	 * @return bool
+	 */
+	public function header() {
+		return $this->atts['header'] == 'yes' ? true : false;
+	}
+
+	/**
+	 * Item found text.
+	 *
+	 * @todo Remove backward compatibility, execute migration for %COUNT%.
+	 *
+	 * @return string
+	 */
+	public function item_found_text() {
+		$count = $this->query_results->total;
+		$title = $this->atts['header_title'];
+
+		if ( strpos( $title, '%COUNT%') !== false ) {
+			$text = str_replace( '%COUNT%', $count, $title );
+		}
+		else {
+			// Backward compatibility, in case of %COUNT% not found
+			$text = $count . ' '. $title;
+		}
+
+		if ( $this->type == 'search_result' ) {
+			$text = $this->item_found_text_for_search();
+		}
+
+		return apply_filters('directorist_listings_found_text', $text );
+	}
+
+	/**
+	 * Item found text for search result page.
+	 *
+	 * @return string
+	 */
+	public function item_found_text_for_search() {
+		$count = $this->query_results->total;
+		$cat_name = $loc_name = '';
+
+		if ( isset($_GET['in_cat'] ) ) {
+			$cat_id = intval($_GET['in_cat']);
+			$cat = get_term_by('id', $cat_id, ATBDP_CATEGORY);
+			if ( $cat ) {
+				$cat_name = $cat->name;
+			}
+		}
+
+		if ( isset($_GET['in_loc'] ) ) {
+			$loc_id = intval($_GET['in_cat']);
+			$loc = get_term_by('id', $loc_id, ATBDP_LOCATION);
+			if ( $loc ) {
+				$loc_name = $loc->name;
+			}
+		} elseif ( isset($_GET['address'] ) ) {
+			$loc_name = sanitize_text_field( $_GET['address'] );
+		}
+
+		if ( $cat_name && $loc_name ) {
+			$title = sprintf( _nx( '%s result for %s in %s', '%s results for %s in %s', $count, 'search result header', 'directorist' ), $count, $cat_name, $loc_name );
+		} elseif ( $cat_name ) {
+			$title = sprintf( _nx( '%s result for %s', '%s results for %s', $count, 'search result header', 'directorist' ), $count, $cat_name );
+		} elseif ( $loc_name ) {
+			$title = sprintf( _nx( '%s result in %s', '%s results in %s', $count, 'search result header', 'directorist' ), $count, $loc_name );
+		}
+		else {
+			$title = sprintf( _nx( '%s result', '%s results', $count, 'search result header', 'directorist' ), $count );
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Display search form or not.
+	 *
+	 * @return bool
+	 */
+	public function has_filters_button() {
+		return $this->atts['advanced_filter'] == 'yes' ? true : false;
+	}
+
+
+	public function filter_btn_html() {
+		if ( $this->has_filters_icon() ) {
+			return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
+		}
+		else {
+			return $this->filter_button_text();
+		}
+	}
+
+	public function has_header_toolbar() {
+		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
+	}
+
+	public function has_filters_icon() {
+		return $this->options['listing_filters_icon'];
+	}
+
+
+	/**
 	 * Display pagination or not.
 	 *
 	 * @return bool
@@ -554,14 +675,6 @@ class Listings {
 		return $this->atts['display_preview_image'] == 'yes' ? true : false;
 	}
 
-	/**
-	 * Display search form or not.
-	 *
-	 * @return bool
-	 */
-	public function has_filters_button() {
-		return $this->atts['advanced_filter'] == 'yes' ? true : false;
-	}
 
 	/**
 	 * Listing view type.
@@ -611,24 +724,6 @@ class Listings {
 	 */
 	public function listings_per_page() {
 		return (int) $this->atts['listings_per_page'];
-	}
-
-	/**
-	 * Display header or not.
-	 *
-	 * @return bool
-	 */
-	public function header() {
-		return $this->atts['header'] == 'yes' ? true : false;
-	}
-
-	/**
-	 * Display header title or not.
-	 *
-	 * @return bool
-	 */
-	public function header_title() {
-		return $this->atts['header_title'];
 	}
 
 	/**
@@ -795,10 +890,6 @@ class Listings {
 
 	public function search_more_filters_fields() {
 		return $this->options['listing_filters_fields'];
-	}
-
-	public function has_filters_icon() {
-		return $this->options['listing_filters_icon'];
 	}
 
 	public function filter_button_text() {
@@ -1017,60 +1108,6 @@ class Listings {
 		}
 	}
 
-	public function item_found_title_for_search($count) {
-		$cat_name = $loc_name = '';
-
-		if ( isset($_GET['in_cat'] ) ) {
-			$cat_id = intval($_GET['in_cat']);
-			$cat = get_term_by('id', $cat_id, ATBDP_CATEGORY);
-			if ( $cat ) {
-				$cat_name = $cat->name;
-			}
-		}
-
-		if ( isset($_GET['in_loc'] ) ) {
-			$loc_id = intval($_GET['in_cat']);
-			$loc = get_term_by('id', $loc_id, ATBDP_LOCATION);
-			if ( $loc ) {
-				$loc_name = $loc->name;
-			}
-		}
-		elseif ( isset($_GET['address'] ) ) {
-			$loc_name = sanitize_text_field( $_GET['address'] );
-		}
-
-		if ( $cat_name && $loc_name ) {
-			$title = sprintf( _nx( '%s result for %s in %s', '%s results for %s in %s', $count, 'search result header', 'directorist' ), $count, $cat_name, $loc_name );
-		}
-		elseif ( $cat_name ) {
-			$title = sprintf( _nx( '%s result for %s', '%s results for %s', $count, 'search result header', 'directorist' ), $count, $cat_name );
-		}
-		elseif ( $loc_name ) {
-			$title = sprintf( _nx( '%s result in %s', '%s results in %s', $count, 'search result header', 'directorist' ), $count, $loc_name );
-		}
-		else {
-			$title = sprintf( _nx( '%s result', '%s results', $count, 'search result header', 'directorist' ), $count );
-		}
-
-		if ( ! empty( $this->header_title() ) ) {
-			$title = sprintf( '<span>%s</span> %s', $count, $this->header_title() );
-		}
-
-		return $title;
-	}
-
-	public function item_found_title() {
-		$count = $this->query_results->total;
-
-		if ( $this->type == 'search_result' ) {
-			$title = $this->item_found_title_for_search( $count );
-		}
-		else {
-			$title = sprintf('<span>%s</span> %s', $count, $this->header_title() );
-		}
-		return apply_filters('directorist_listings_found_text', $title );
-	}
-
 	public function masonary_grid_attr() {
 		return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
 	}
@@ -1116,16 +1153,6 @@ class Listings {
 		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->get_current_listing_type() );
 
 		return implode( ' ' , $class );
-	}
-
-	public function has_listings_header() {
-		$has_filter_button = ( ! empty( $this->listing_filters_button ) && ! empty( $this->search_more_filters_fields() ) );
-
-		return ( $has_filter_button || ! empty( $this->header_title() ) ) ? true : false;
-	}
-
-	public function has_header_toolbar() {
-		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
@@ -1327,15 +1354,6 @@ class Listings {
 			break;
 		}
 
-	}
-
-	public function filter_btn_html() {
-		if ( $this->has_filters_icon() ) {
-			return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
-		}
-		else {
-			return $this->filter_button_text();
-		}
 	}
 
 	public function load_openstreet_map() {
@@ -2237,5 +2255,25 @@ class Listings {
 	public function filters_display() {
 		_deprecated_function( 'filters_display', '7.1.0', 'filter_open_method' );
 		return $this->filter_open_method();
+	}
+
+	public function has_listings_header() {
+		_deprecated_function( 'has_listings_header', '7.1.0' );
+		return true;
+	}
+
+	public function header_title() {
+		_deprecated_function( 'header_title', '7.1.0' );
+		return $this->atts['header_title'];
+	}
+
+	public function item_found_title() {
+		_deprecated_function( 'item_found_title', '7.1.0' );
+		return $this->item_found_text();
+	}
+
+	public function item_found_title_for_search() {
+		_deprecated_function( 'item_found_title_for_search', '7.1.0' );
+		return $this->item_found_text();
 	}
 }

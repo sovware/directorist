@@ -554,15 +554,6 @@ class Listings {
 	}
 
 	/**
-	 * Display header or not.
-	 *
-	 * @return bool
-	 */
-	public function header() {
-		return $this->atts['header'] == 'yes' ? true : false;
-	}
-
-	/**
 	 * Item found text.
 	 *
 	 * @todo Remove backward compatibility, execute migration for %COUNT%.
@@ -638,6 +629,9 @@ class Listings {
 		return $this->atts['advanced_filter'] == 'yes' ? true : false;
 	}
 
+	public function has_filters_icon() {
+		return $this->options['listing_filters_icon'];
+	}
 
 	public function filter_btn_html() {
 		if ( $this->has_filters_icon() ) {
@@ -652,9 +646,7 @@ class Listings {
 		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
 	}
 
-	public function has_filters_icon() {
-		return $this->options['listing_filters_icon'];
-	}
+
 
 
 	/**
@@ -2275,5 +2267,10 @@ class Listings {
 	public function item_found_title_for_search() {
 		_deprecated_function( 'item_found_title_for_search', '7.1.0' );
 		return $this->item_found_text();
+	}
+
+	public function header() {
+		_deprecated_function( 'header', '7.1.0' );
+		return $this->atts['header'] == 'yes' ? true : false;
 	}
 }

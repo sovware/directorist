@@ -2443,7 +2443,7 @@ class Multi_Directory_Manager
                     'contact_listings_owner' => [
                         'type' => 'section',
                         'label' => __( 'Contact Listings Owner Form', 'directorist' ),
-                        'icon' => 'la la-phone',
+                        'icon' => 'la la-envelope',
                         'options' => [
                             'label' => [
                                 'type'  => 'text',
@@ -2453,7 +2453,7 @@ class Multi_Directory_Manager
                             'icon' => [
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
-                                'value' => 'la la-phone',
+                                'value' => 'la la-envelope',
                             ],
                             'custom_block_id' => [
                                 'type'  => 'text',

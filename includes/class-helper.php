@@ -103,6 +103,25 @@ class Helper {
 		return $output_data;
 	}
 
+	/**
+	 * Get current page number for the pagination.
+	 *
+	 * @return int $paged
+	 */
+	public static function pagi_current_page_num() {
+		global $paged;
+
+		if ( get_query_var( 'paged' ) ) {
+			$paged = get_query_var( 'paged' );
+		} else if ( get_query_var( 'page' ) ) {
+			$paged = get_query_var( 'page' );
+		} else {
+			$paged = 1;
+		}
+
+		return absint( $paged );
+	}
+
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
 		$value = '';

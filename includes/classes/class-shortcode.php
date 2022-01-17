@@ -123,7 +123,7 @@ class ATBDP_Shortcode {
 			return $redirect;
 		}
 
-		if ( $listings->logged_in_user_only() && ! is_user_logged_in() ) {
+		if ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 

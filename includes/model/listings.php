@@ -174,7 +174,7 @@ class Listings {
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
 		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
-		$this->options['filter_open_method']         = get_directorist_option( 'home_display_filter', 'sliding' );
+		$this->options['filter_open_method']              = get_directorist_option( 'home_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
@@ -719,7 +719,7 @@ class Listings {
 	 *
 	 * @return bool
 	 */
-	public function featured_only() {
+	public function display_only_featured() {
 		return $this->atts['featured_only'];
 	}
 
@@ -728,7 +728,7 @@ class Listings {
 	 *
 	 * @return bool
 	 */
-	public function popular_only() {
+	public function display_only_popular() {
 		return $this->atts['popular_only'];
 	}
 
@@ -737,7 +737,7 @@ class Listings {
 	 *
 	 * @return bool
 	 */
-	public function logged_in_user_only() {
+	public function display_only_for_logged_in() {
 		return $this->atts['logged_in_user_only'] == 'yes' ? true : false;
 	}
 
@@ -840,24 +840,16 @@ class Listings {
 		return $this->options['filter_open_method'];
 	}
 
-	public function search_more_filters_fields() {
-		return $this->options['listing_filters_fields'];
-	}
-
-	public function filter_button_text() {
-		return $this->options['listings_filter_button_text'];
-	}
-
-	public function paged() {
-		return atbdp_get_paged_num();
-	}
-
 	public function display_sortby_dropdown() {
 		return $this->options['display_sort_by'];
 	}
 
 	public function display_viewas_dropdown() {
 		return $this->options['display_view_as'];
+	}
+
+	public function filter_button_text() {
+		return $this->options['listings_filter_button_text'];
 	}
 
 	public function sort_by_text() {
@@ -1577,7 +1569,7 @@ class Listings {
 		);
 
 		if ( $this->show_pagination() ) {
-			$args['paged'] = $this->paged();
+			$args['paged'] = Helper::pagi_current_page_num();
 		}
 
 		else {
@@ -1647,7 +1639,7 @@ class Listings {
 		);
 
 		if ( $this->show_pagination() ) {
-			$args['paged'] = $this->paged();
+			$args['paged'] = Helper::pagi_current_page_num();
 		}
 		else {
 			$args['no_found_rows'] = true;
@@ -1954,7 +1946,7 @@ class Listings {
 			);
 		}
 
-		if ( 'yes' == $this->featured_only() ) {
+		if ( 'yes' == $this->display_only_featured() ) {
 			$meta_queries['_featured'] = array(
 				'key'     => '_featured',
 				'value'   => 1,
@@ -1965,7 +1957,7 @@ class Listings {
 		$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
 		$rated        = array();
 
-		if (  ( 'yes' == $this->popular_only() ) || ( 'views-desc' === $current_order ) ) {
+		if (  ( 'yes' == $this->display_only_popular() ) || ( 'views-desc' === $current_order ) ) {
 			if ( $this->monetize_by_featued_enabled() ) {
 				if ( 'average_rating' === $this->popular_by() ) {
 					if ( ! empty( $listings_ids ) ) {

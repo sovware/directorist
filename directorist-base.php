@@ -497,6 +497,7 @@ final class Directorist_Base
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
+		load_dependencies('all', ATBDP_INC_DIR . 'model/deprecated/');
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/');

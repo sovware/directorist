@@ -153,7 +153,7 @@ class Listings {
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
 		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
-		$this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
+		$this->options['filter_open_method']         = get_directorist_option( 'home_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
@@ -198,7 +198,7 @@ class Listings {
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button_display', 1 ) ) ? 'yes' : '';
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['listings_display_filter']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
+		$this->options['filter_open_method']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
@@ -778,14 +778,19 @@ class Listings {
 	/**
 	 * Listing map type.
 	 *
-	 * @return string Possible values: miles, kilometers.
+	 * @return string Possible values: google, openstreet.
 	 */
-	public function select_listing_map() {
+	public function map_type() {
 		return $this->options['select_listing_map'];
 	}
 
-	public function filters_display() {
-		return $this->options['listings_display_filter'];
+	/**
+	 * Search Filter opening behaviour.
+	 *
+	 * @return string Possible values: overlapping, sliding, always_open.
+	 */
+	public function filter_open_method() {
+		return $this->options['filter_open_method'];
 	}
 
 	public function search_more_filters_fields() {
@@ -1004,7 +1009,7 @@ class Listings {
 	}
 
 	public function render_map() {
-		if ( 'google' == $this->select_listing_map() ) {
+		if ( 'google' == $this->map_type() ) {
 			$this->load_google_map();
 		}
 		else {
@@ -1396,7 +1401,7 @@ class Listings {
 	}
 
 	public function get_map_options() {
-		$opt['select_listing_map']    		= $this->select_listing_map();
+		$opt['select_listing_map']    		= $this->map_type();
 		$opt['crop_width']            		= $this->options['crop_width'];
 		$opt['crop_height']           		= $this->options['crop_height'];
 		$opt['display_map_info']      		= $this->options['display_map_info'];
@@ -2224,4 +2229,13 @@ class Listings {
 		return ATBDP()->review->get_average(get_the_ID());
 	}
 
+	public function select_listing_map() {
+		_deprecated_function( 'select_listing_map', '7.1.0', 'map_type' );
+		return $this->map_type();
+	}
+
+	public function filters_display() {
+		_deprecated_function( 'filters_display', '7.1.0', 'filter_open_method' );
+		return $this->filter_open_method();
+	}
 }

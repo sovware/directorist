@@ -52,7 +52,7 @@ $listings = directorist()->listings;
 		</div>
 
 		<?php if ( $listings->has_filters_button() ) { ?>
-			<div class="<?php Helper::search_filter_class( $listings->filters_display() ); ?>">
+			<div class="<?php echo ( 'overlapping' == $listings->filter_open_method() ) ? 'directorist-search-float' : 'directorist-search-slide'; ?>">
 				<?php $listings->search_form_template();?>
 			</div>
 		<?php } ?>

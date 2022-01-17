@@ -103,6 +103,8 @@ class Listings {
 	/**
 	 * Set page type.
 	 *
+	 * @uses atbdp_is_page()
+	 *
 	 * @param string $type Accepts 'listing', 'search_result'.
 	 */
 	public function set_page_type( $type ) {
@@ -182,7 +184,6 @@ class Listings {
 		$this->options['display_sort_by']                 = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
 		$this->options['sort_by_text']                    = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
 		$this->options['display_view_as']                 = get_directorist_option( 'display_view_as', 1 );
-		$this->options['grid_view_as']                    = get_directorist_option( 'grid_view_as', 'normal_grid' );
 		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
@@ -295,7 +296,7 @@ class Listings {
 	 * Renders grid/list view template.
 	 */
 	public function archive_view_template() {
-		$template_file = "archive/{$this->get_view()}-view";
+		$template_file = "archive/{$this->get_current_view()}-view";
 		Helper::get_template( $template_file );
 	}
 
@@ -551,6 +552,8 @@ class Listings {
 	/**
 	 * Bootstrap like column number.
 	 *
+	 * @uses atbdp_calculate_column()
+	 *
 	 * @return string
 	 */
 	public function columns() {
@@ -661,11 +664,13 @@ class Listings {
 	}
 
 	/**
-	 * Listing view type.
+	 * Listing current view type.
+	 *
+	 * @uses atbdp_get_listings_current_view_name
 	 *
 	 * @return string Possible values: grid, list or map.
 	 */
-	public function get_view() {
+	public function get_current_view() {
 		return atbdp_get_listings_current_view_name( $this->atts['view'] );
 	}
 
@@ -885,16 +890,34 @@ class Listings {
 		return $this->options['view_as_text'];
 	}
 
-	public function view_as() {
-		return $this->options['grid_view_as'];
-	}
-
-	public function masonary_grid_attr() {
-		return ($this->view_as() !== 'masonry_grid') ? '' : ' data-uk-grid';
-	}
-
-	public function sort_by_items() {
+	/**
+	 * List of sort-by dropdown items.
+	 *
+	 * @return array
+	 */
+	public function sort_by_dropdown_items() {
 		return $this->options['listings_sort_by_items'];
+	}
+
+	public function get_sort_by_link_list() {
+		$link_list = array();
+
+		$options       = atbdp_get_listings_orderby_options( $this->sort_by_dropdown_items() );
+		$queryString = $_SERVER['QUERY_STRING'];
+		parse_str($queryString, $arguments);
+		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
+
+		foreach ( $options as $value => $label ) {
+			$arguments['sort'] 		   = $value;
+
+			$link_item['link']         = add_query_arg( $arguments, $actual_link );
+			$link_item['label']        = $label;
+			$link_item['key']          = $value;
+
+			array_push( $link_list, $link_item );
+		}
+
+		return $link_list;
 	}
 
 	public function views() {
@@ -916,7 +939,7 @@ class Listings {
 
 	public function get_view_as_link_list() {
 		$link_list = array();
-		$view      = ! empty( $this->get_view() ) ? $this->get_view() : '';
+		$view      = ! empty( $this->get_current_view() ) ? $this->get_current_view() : '';
 
 		foreach ( $this->views() as $value => $label ) {
 			$active_class = ( $view === $value ) ? 'active' : '';
@@ -982,26 +1005,6 @@ class Listings {
 		}
 
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
-	}
-
-	public function get_sort_by_link_list() {
-		$link_list = array();
-
-		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items() );
-		$queryString = $_SERVER['QUERY_STRING'];
-		parse_str($queryString, $arguments);
-		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
-		foreach ( $options as $value => $label ) {
-			$arguments['sort'] 		   = $value;
-
-			$link_item['link']         = add_query_arg( $arguments, $actual_link );
-			$link_item['label']        = $label;
-			$link_item['key']          = $value;
-
-			array_push( $link_list, $link_item );
-		}
-
-		return $link_list;
 	}
 
 	public function get_listing_types() {

@@ -21,7 +21,7 @@ $listings = directorist()->listings;
 			<?php
 			$current_order = !empty($_GET['sort']) ? $_GET['sort'] : '';
 
-			foreach ($listings->get_sort_by_link_list() as $key => $value) {
+			foreach ( $listings->get_sort_by_link_list() as $key => $value ) {
 				$active_class = ( $value['key'] == $current_order ) ? ' active' : '';
 				?>
 

@@ -5794,6 +5794,8 @@ if (!function_exists('atbdp_get_paged_num')) {
     /**
      * Get current page number for the pagination.
      *
+     * @todo remove this and use Helper::pagi_current_page_num() instead
+     *
      * @return    int    $paged    The current page number for the pagination.
      * @since    1.0.0
      *

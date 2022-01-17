@@ -10,6 +10,8 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
+
+$filter_btn_html = $listings->display_search_filter_icon() ? sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $listings->filter_button_text() ) : $listings->filter_button_text();
 ?>
 
 <div class="directorist-header-bar">
@@ -21,13 +23,13 @@ $listings = directorist()->listings;
 			<div class="directorist-listings-header__left">
 
 				<?php if ( $listings->display_search_form() ): ?>
-					<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
+					<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo wp_kses_post( $filter_btn_html ); ?></a>
 				<?php endif; ?>
 
 				<h3 class="directorist-header-found-title"><?php echo $listings->item_found_text(); ?></h3>
 			</div>
 
-			<?php if ( $listings->has_header_toolbar() ): ?>
+			<?php if ( $listings->display_viewas_dropdown() || $listings->display_sortby_dropdown() ): ?>
 
 				<div class="directorist-listings-header__right">
 					<?php

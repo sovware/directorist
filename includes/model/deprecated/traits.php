@@ -79,7 +79,19 @@ trait Deprecated_Listings {
 		return $this->display_search_filter_icon();
 	}
 
+	public function filter_btn_html() {
+		_deprecated_function( 'filter_btn_html', '7.1.0' );
+		if ( $this->display_search_filter_icon() ) {
+			return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
+		}
+		else {
+			return $this->filter_button_text();
+		}
+	}
 
-
+	public function has_header_toolbar() {
+		_deprecated_function( 'has_header_toolbar', '7.1.0' );
+		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
+	}
 
 }

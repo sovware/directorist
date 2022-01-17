@@ -634,7 +634,6 @@ class Listings {
 		return $this->atts['advanced_filter'] == 'yes' ? true : false;
 	}
 
-
 	/**
 	 * Display search filter icon or not.
 	 *
@@ -643,22 +642,6 @@ class Listings {
 	public function display_search_filter_icon() {
 		return $this->options['listing_filters_icon'];
 	}
-
-	public function filter_btn_html() {
-		if ( $this->display_search_filter_icon() ) {
-			return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text() );
-		}
-		else {
-			return $this->filter_button_text();
-		}
-	}
-
-	public function has_header_toolbar() {
-		return ( $this->display_viewas_dropdown() || $this->display_sortby_dropdown() ) ? true : false;
-	}
-
-
-
 
 	/**
 	 * Display pagination or not.

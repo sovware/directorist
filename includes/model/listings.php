@@ -566,6 +566,16 @@ class Listings {
 	}
 
 	/**
+	 * Print label for fields.
+	 */
+	public function print_label( $label ) {
+		if ( $label ) {
+			$label_text = $label . ': ';
+			echo apply_filters( 'directorist_loop_label', $label_text, $label );
+		}
+	}
+
+	/**
 	 * Item found text.
 	 *
 	 * @todo Remove backward compatibility, execute migration for %COUNT%.
@@ -1342,16 +1352,6 @@ class Listings {
 		}
 		else {
 			return false;
-		}
-	}
-
-	public function print_label( $label ) {
-		if ( $label ) {
-			$label_text = $label . ': ';
-			echo apply_filters( 'directorist_loop_label', $label_text, $label );
-		}
-		else {
-			return;
 		}
 	}
 

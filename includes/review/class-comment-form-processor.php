@@ -72,9 +72,9 @@ class Comment_Form_Processor {
 
 			if ( empty( $_POST['comment'] ) || empty( trim( $_POST['comment'] ) ) ) {
 				if ( $is_review ) {
-					$text = __( 'Please type your review text.', 'directorist' );
+					$text = __( 'To submit your review, please describe your rating.', 'directorist' );
 				} else {
-					$text = __( 'Please type your reply text.', 'directorist' );
+					$text = __( 'To submit your reply, please add your comment.', 'directorist' );
 				}
 
 				throw new Exception( $text );

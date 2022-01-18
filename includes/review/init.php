@@ -55,9 +55,9 @@ class Bootstrap {
 			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
 
 			if ( ! empty( $_POST['comment_parent'] ) ) {
-				$text = __( '<strong>Error</strong>: Please type your reply text.', 'directorist' );
+				$text = __( '<strong>Error</strong>: To submit your reply, please add your comment.', 'directorist' );
 			} else {
-				$text = __( '<strong>Error</strong>: Please type your review text.', 'directorist' );
+				$text = __( '<strong>Error</strong>: To submit your review, please describe your rating.', 'directorist' );
 			}
 
 			$wp_error->remove( $code );

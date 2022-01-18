@@ -848,7 +848,8 @@ Review: New Style
             }
 
             input[type="text"],
-            input[type="email"] {
+            input[type="email"],
+            input[type="url"] {
                 max-width: 400px;
                 height: 46px;
                 background: #F6F7F9;

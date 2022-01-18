@@ -12568,7 +12568,8 @@ Review: New Style
   display: block;
 }
 .directorist-review-submit__form .directorist-form-group input[type=text],
-.directorist-review-submit__form .directorist-form-group input[type=email] {
+.directorist-review-submit__form .directorist-form-group input[type=email],
+.directorist-review-submit__form .directorist-form-group input[type=url] {
   max-width: 400px;
   height: 46px;
   background: #F6F7F9;

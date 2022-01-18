@@ -99,4 +99,9 @@ trait Deprecated_Listings {
 		return monetize_by_featued_enabled();
 	}
 
+	public function get_sort_by_link_list() {
+		_deprecated_function( 'get_sort_by_link_list', '7.1.0' );
+		return [];
+	}
+
 }

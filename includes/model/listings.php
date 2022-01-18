@@ -939,21 +939,49 @@ class Listings {
 		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
 	}
 
+	/**
+	 * List of view-as dropdown item list.
+	 *
+	 * @return array eg. ['listings_grid', 'listings_list']
+	 */
+	public function view_as_dropdown_items() {
+		return $this->options['listings_view_as_items'];
+	}
+
+	/**
+	 * View-as dropdown label for an item.
+	 *
+	 * @return string
+	 */
+	public function view_as_dropdown_label( $item ) {
+		$labels = array(
+			'listings_grid'   => __( 'Grid', 'directorist' ),
+			'listings_list'   => __( 'List', 'directorist' ),
+			'listings_map'    => __( 'Map', 'directorist' ),
+		);
+
+		return $labels[$item];
+	}
+
+	/**
+	 * View-as dropdown link for an item.
+	 *
+	 * @return string
+	 */
+	public function view_as_dropdown_link( $item ) {
+		$args = array(
+			'listings_grid'  => 'grid',
+			'listings_list'  => 'list',
+			'listings_map'   => 'map',
+		);
+
+		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
+	}
+
+
 	public function views() {
 		$view_as_items = $this->options['listings_view_as_items'];
 		return atbdp_get_listings_view_options( $view_as_items );
-	}
-
-	public function feature_badge_text() {
-		return $this->options['feature_badge_text'];
-	}
-
-	public function info_display_in_single_line() {
-		return $this->options['info_display_in_single_line'];
-	}
-
-	public function disable_single_listing() {
-		return $this->options['disable_single_listing'];
 	}
 
 	public function get_view_as_link_list() {
@@ -974,6 +1002,20 @@ class Listings {
 
 		return $link_list;
 	}
+
+	public function feature_badge_text() {
+		return $this->options['feature_badge_text'];
+	}
+
+	public function info_display_in_single_line() {
+		return $this->options['info_display_in_single_line'];
+	}
+
+	public function disable_single_listing() {
+		return $this->options['disable_single_listing'];
+	}
+
+
 
 	public function pagination( $echo = true ) {
 		$navigation = '';

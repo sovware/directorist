@@ -333,6 +333,26 @@ Review: New Style
                     margin-right: 4px;
                 }
             }
+            @include m(noreviews){
+                padding: 6px 0;
+                display: block;
+                >div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    padding: 0 20px 6px;
+                    border-bottom: 1px solid #EFF1F6;
+                }
+            }
+            .directorist-noreviews{
+                font-size: 16px;
+                margin-bottom: 0;
+                padding: 19px 20px 15px;
+                a{
+                    color: $info;
+                }
+            }
         }
 
         @include e(overview) {

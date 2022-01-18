@@ -71,7 +71,13 @@ class Comment_Form_Processor {
 			}
 
 			if ( empty( $_POST['comment'] ) || empty( trim( $_POST['comment'] ) ) ) {
-				throw new Exception( __( 'Please type your comment text.', 'directorist' ) );
+				if ( $is_review ) {
+					$text = __( 'Please type your review text.', 'directorist' );
+				} else {
+					$text = __( 'Please type your reply text.', 'directorist' );
+				}
+
+				throw new Exception( $text );
 			}
 
 			$comment_data = array(

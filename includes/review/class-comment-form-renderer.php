@@ -379,11 +379,11 @@ class Comment_Form_Renderer {
 
 			comment_form_title( $args['title_reply'], $args['title_reply_to'] );
 
-			echo $args['cancel_reply_before'];
+			// echo $args['cancel_reply_before'];
 
-			cancel_comment_reply_link( $args['cancel_reply_link'] );
 
-			echo $args['cancel_reply_after'];
+
+			// echo $args['cancel_reply_after'];
 
 			echo $args['title_reply_after'];
 
@@ -535,7 +535,7 @@ class Comment_Form_Renderer {
 
 				$submit_field = sprintf(
 					$args['submit_field'],
-					$submit_button,
+					$submit_button . get_cancel_comment_reply_link( $args['cancel_reply_link'] ),
 					get_comment_id_fields( $post_id )
 				);
 

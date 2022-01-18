@@ -666,12 +666,28 @@ class Listings {
 	/**
 	 * Listing current view type.
 	 *
-	 * @uses atbdp_get_listings_current_view_name
+	 * @todo remove BD_Map_View dependency by using hooks.
 	 *
 	 * @return string Possible values: grid, list or map.
 	 */
 	public function get_current_view() {
-		return atbdp_get_listings_current_view_name( $this->atts['view'] );
+		$allowed_views = [ 'grid', 'list', 'map' ];
+
+	    if ( class_exists( 'BD_Map_View' ) ) {
+	        array_push( $allowed_views, 'listings_with_map' );
+	    }
+
+		if ( !empty( $_GET['view'] ) ) {
+			$view = sanitize_text_field( $_GET['view'] );
+		} else {
+			$view = $this->atts['view'];
+		}
+
+		if ( !in_array( $view, $allowed_views ) ) {
+			$view = 'grid';
+		}
+
+		return $view;
 	}
 
 	/**
@@ -944,8 +960,30 @@ class Listings {
 	 *
 	 * @return array eg. ['listings_grid', 'listings_list']
 	 */
-	public function view_as_dropdown_items() {
-		return $this->options['listings_view_as_items'];
+	public function view_as_dropdown_data() {
+		$data = [];
+		$option_data = $this->options['listings_view_as_items'];
+		$list = array(
+			'grid'  => 'listings_grid',
+			'list'  => 'listings_list',
+			'map'   => 'listings_map',
+		);
+
+		$list = array_filter( $list, function( $arg ) {
+			return in_array( $arg, $this->options['listings_view_as_items'] ) ? true : false;
+		} );
+
+		$list = array_keys( $list );
+
+		foreach ( $list as $key => $item ) {
+			$data[$key] = [
+				'label' => $this->view_as_dropdown_label( $item ),
+				'link' => $this->view_as_dropdown_link( $item ),
+
+			];
+		}
+
+		return $data;
 	}
 
 	/**
@@ -955,9 +993,9 @@ class Listings {
 	 */
 	public function view_as_dropdown_label( $item ) {
 		$labels = array(
-			'listings_grid'   => __( 'Grid', 'directorist' ),
-			'listings_list'   => __( 'List', 'directorist' ),
-			'listings_map'    => __( 'Map', 'directorist' ),
+			'grid'   => __( 'Grid', 'directorist' ),
+			'list'   => __( 'List', 'directorist' ),
+			'map'    => __( 'Map', 'directorist' ),
 		);
 
 		return $labels[$item];
@@ -969,13 +1007,7 @@ class Listings {
 	 * @return string
 	 */
 	public function view_as_dropdown_link( $item ) {
-		$args = array(
-			'listings_grid'  => 'grid',
-			'listings_list'  => 'list',
-			'listings_map'   => 'map',
-		);
-
-		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
+		return add_query_arg( [ 'view'=> $item ], $_SERVER['REQUEST_URI'] );
 	}
 
 

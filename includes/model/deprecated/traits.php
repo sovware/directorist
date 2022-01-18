@@ -104,4 +104,9 @@ trait Deprecated_Listings {
 		return [];
 	}
 
+	public function get_view_as_link_list() {
+		_deprecated_function( 'get_view_as_link_list', '7.1.0' );
+		return [];
+	}
+
 }

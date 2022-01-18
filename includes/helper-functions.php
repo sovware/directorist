@@ -6518,6 +6518,8 @@ function atbdp_get_listings_orderby_options($sort_by_items)
 /**
  * Get the listing view.
  *
+ * @todo Not used anymore, could be removed.
+ *
  * @param string $view Default View.
  * @return   string    $view    Grid or List.
  * @since    4.0.0

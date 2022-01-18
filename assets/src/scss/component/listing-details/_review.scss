@@ -286,6 +286,7 @@ Review: New Style
         margin-right: 5px;
     }
 
+    #cancel-comment-reply-link,
     .directorist-js-cancel-comment-edit {
         font-size: 14px;
         margin-left: 30px;
@@ -847,7 +848,8 @@ Review: New Style
             }
 
             input[type="text"],
-            input[type="email"] {
+            input[type="email"],
+            input[type="url"] {
                 max-width: 400px;
                 height: 46px;
                 background: #F6F7F9;

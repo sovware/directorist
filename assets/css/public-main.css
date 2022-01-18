@@ -11922,12 +11922,15 @@ Review: New Style
 .directorist-review-content .directorist-btn > i {
   margin-right: 5px;
 }
+.directorist-review-content #cancel-comment-reply-link,
 .directorist-review-content .directorist-js-cancel-comment-edit {
   font-size: 14px;
   margin-left: 30px;
   color: #8C90A4;
 }
-.directorist-review-content .directorist-js-cancel-comment-edit:hover, .directorist-review-content .directorist-js-cancel-comment-edit:focus {
+.directorist-review-content #cancel-comment-reply-link:hover, .directorist-review-content #cancel-comment-reply-link:focus,
+.directorist-review-content .directorist-js-cancel-comment-edit:hover,
+.directorist-review-content .directorist-js-cancel-comment-edit:focus {
   color: #090E30;
 }
 .directorist-review-content .directorist-review-content__header {
@@ -12565,7 +12568,8 @@ Review: New Style
   display: block;
 }
 .directorist-review-submit__form .directorist-form-group input[type=text],
-.directorist-review-submit__form .directorist-form-group input[type=email] {
+.directorist-review-submit__form .directorist-form-group input[type=email],
+.directorist-review-submit__form .directorist-form-group input[type=url] {
   max-width: 400px;
   height: 46px;
   background: #F6F7F9;

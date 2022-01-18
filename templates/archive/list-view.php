@@ -29,8 +29,8 @@ $listings = directorist()->listings;
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php
-			if ( $listings->show_pagination() ) {
-				$listings->pagination();
+			if ( $listings->display_pagination() ) {
+				$listings->pagination_template();
 			}
 			?>
 

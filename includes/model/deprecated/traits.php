@@ -109,4 +109,14 @@ trait Deprecated_Listings {
 		return [];
 	}
 
+	public function show_pagination() {
+		_deprecated_function( 'show_pagination', '7.1.0', 'display_pagination' );
+		return $this->display_pagination();
+	}
+
+	public function pagination() {
+		_deprecated_function( 'pagination', '7.1.0', 'pagination_template' );
+		return $this->pagination_template();
+	}
+
 }

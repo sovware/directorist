@@ -187,8 +187,6 @@ class Listings {
 		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['disable_single_listing']          = get_directorist_option( 'disable_single_listing') ? true : false;
-		$this->options['info_display_in_single_line']     = get_directorist_option( 'info_display_in_single_line', 0 ) ? 'atbd_single_line_card_info' : '';
 		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
 		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
@@ -301,17 +299,24 @@ class Listings {
 	}
 
 	/**
-	 * Renders sortby dropdown template.
+	 * Renders sort-by dropdown template.
 	 */
 	public function sortby_dropdown_template() {
 		Helper::get_template( 'archive/sortby-dropdown' );
 	}
 
 	/**
-	 * Renders viewas dropdown template.
+	 * Renders view-as dropdown template.
 	 */
 	public function viewas_dropdown_template() {
 		Helper::get_template( 'archive/viewas-dropdown' );
+	}
+
+	/**
+	 * Renders pagination template.
+	 */
+	public function pagination_template() {
+		Helper::get_template( 'archive/pagination' );
 	}
 
 	/**
@@ -650,7 +655,7 @@ class Listings {
 	 *
 	 * @return bool
 	 */
-	public function show_pagination() {
+	public function display_pagination() {
 		return $this->atts['show_pagination'] == 'yes' ? true : false;
 	}
 
@@ -1026,48 +1031,22 @@ class Listings {
 		return add_query_arg( 'sort', $item );
 	}
 
-	public function feature_badge_text() {
-		return $this->options['feature_badge_text'];
+	/**
+	 * Display each info in single line or not.
+	 *
+	 * @return bool
+	 */
+	public function display_info_in_single_line() {
+		return get_directorist_option( 'info_display_in_single_line', false );
 	}
 
-	public function info_display_in_single_line() {
-		return $this->options['info_display_in_single_line'];
-	}
-
+	/**
+	 * Single listing view disabled or not.
+	 *
+	 * @return bool
+	 */
 	public function disable_single_listing() {
-		return $this->options['disable_single_listing'];
-	}
-
-	public function pagination( $echo = true ) {
-		$navigation = '';
-		$paged = 1;
-		$largeNumber = 999999999;
-
-		$total = ( isset( $this->query_results->total_pages ) ) ? $this->query_results->total_pages : $this->query_results->max_num_pages;
-		$paged = ( isset( $this->query_results->current_page ) ) ? $this->query_results->current_page : $paged;
-
-		$links = paginate_links(array(
-			'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
-			'format'    => '?paged=%#%',
-			'current'   => max(1, $paged),
-			'total'     => $total,
-			'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
-			'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
-		));
-
-		if ( $links ) {
-			$navigation = '<div class="directorist-pagination">'.$links.'</div>';
-		}
-
-
-		$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
-
-		if ( $echo ) {
-			echo $result;
-		}
-		else {
-			return $result;
-		}
+		return get_directorist_option( 'disable_single_listing', false );
 	}
 
 	public function get_query_results( $query_args = [] ) {
@@ -1200,7 +1179,7 @@ class Listings {
 			$class[] = 'directorist-featured';
 		}
 
-		if ( $this->info_display_in_single_line() ) {
+		if ( $this->display_info_in_single_line() ) {
 			$class[] = 'directorist-single-line';
 		}
 
@@ -1678,7 +1657,7 @@ class Listings {
 			'posts_per_page' => $this->listings_per_page(),
 		);
 
-		if ( $this->show_pagination() ) {
+		if ( $this->display_pagination() ) {
 			$args['paged'] = Helper::pagi_current_page_num();
 		}
 
@@ -1748,7 +1727,7 @@ class Listings {
 			'posts_per_page' => $this->listings_per_page(),
 		);
 
-		if ( $this->show_pagination() ) {
+		if ( $this->display_pagination() ) {
 			$args['paged'] = Helper::pagi_current_page_num();
 		}
 		else {

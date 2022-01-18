@@ -21,11 +21,11 @@ $listings = directorist()->listings;
 			<?php
 			$current = !empty( $_GET['sort'] ) ? $_GET['sort'] : '';
 
-			foreach ( $listings->sort_by_dropdown_items() as $item ) {
-				$active_class = ( $item == $current ) ? 'active' : '';
+			foreach ( $listings->sort_by_dropdown_data() as $key => $item ) {
+				$active_class = ( $key == $current ) ? 'active' : '';
 				?>
 
-				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo esc_attr( $listings->sort_by_dropdown_link( $item ) ); ?>"><?php echo esc_html( $listings->sort_by_dropdown_label( $item ) );?></a>
+				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo esc_attr( $item['link'] ); ?>"><?php echo esc_html( $item['label'] );?></a>
 
 				<?php
 			}

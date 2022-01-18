@@ -915,11 +915,11 @@ class Listings {
 	 *                   ]
 	 */
 	public function view_as_dropdown_data() {
-		$key_convert_list = array(
+		$key_convert_list = [
 			'grid'  => 'listings_grid',
 			'list'  => 'listings_list',
 			'map'   => 'listings_map',
-		);
+		];
 
 		$items = array_intersect( $key_convert_list, $this->options['listings_view_as_items'] );
 		$items = array_keys( $items );
@@ -938,12 +938,39 @@ class Listings {
 	}
 
 	/**
-	 * List of sort-by dropdown item list.
+	 * List of sort-as dropdown data.
 	 *
-	 * @return array eg. ['a_z', 'latest']
+	 * @return array eg. $data['title-asc'] = [
+	 *                   	'label' => '',
+	 *                   	'link' => '',
+	 *                   ]
 	 */
-	public function sort_by_dropdown_items() {
-		return $this->options['listings_sort_by_items'];
+	public function sort_by_dropdown_data() {
+		$key_convert_list = [
+			'title-asc'    => 'a_z',
+			'title-desc'   => 'z_a',
+			'date-desc'    => 'latest',
+			'date-asc'     => 'oldest',
+			'views-desc'   => 'popular',
+			'price-asc'    => 'price_low_high',
+			'price-desc'   => 'price_high_low',
+			'rand'         => 'random',
+		];
+
+		$items = array_intersect( $key_convert_list, $this->options['listings_sort_by_items'] );
+		$items = array_keys( $items );
+
+		$data = [];
+
+		foreach ( $items as $item ) {
+			$data[$item] = [
+				'label' => $this->sort_by_dropdown_label( $item ),
+				'link' => $this->sort_by_dropdown_link( $item ),
+
+			];
+		}
+
+		return $data;
 	}
 
 	/**
@@ -962,6 +989,26 @@ class Listings {
 	}
 
 	/**
+	 * Sort-by dropdown label for an item.
+	 *
+	 * @return string
+	 */
+	public function sort_by_dropdown_label( $item ) {
+		$labels = array(
+			'title-asc'    => __( 'A to Z (title)', 'directorist' ),
+			'title-desc'   => __( 'Z to A (title)', 'directorist' ),
+			'date-desc'    => __( 'Latest listings', 'directorist' ),
+			'date-asc'     => __( 'Oldest listings', 'directorist' ),
+			'views-desc'   => __( 'Popular listings', 'directorist' ),
+			'price-asc'    => __( 'Price (low to high)', 'directorist' ),
+			'price-desc'   => __( 'Price (high to low)', 'directorist' ),
+			'rand'         => __( 'Random listings', 'directorist' ),
+		);
+
+		return $labels[$item];
+	}
+
+	/**
 	 * View-as dropdown link for an item.
 	 *
 	 * @return string
@@ -971,43 +1018,12 @@ class Listings {
 	}
 
 	/**
-	 * Sort-by dropdown label for an item.
-	 *
-	 * @return string
-	 */
-	public function sort_by_dropdown_label( $item ) {
-		$labels = array(
-			'a_z'            => __( 'A to Z (title)', 'directorist' ),
-			'z_a'            => __( 'Z to A (title)', 'directorist' ),
-			'latest'         => __( 'Latest listings', 'directorist' ),
-			'oldest'         => __( 'Oldest listings', 'directorist' ),
-			'popular'        => __( 'Popular listings', 'directorist' ),
-			'price_low_high' => __( 'Price (low to high)', 'directorist' ),
-			'price_high_low' => __( 'Price (high to low)', 'directorist' ),
-			'random'         => __( 'Random listings', 'directorist' ),
-		);
-
-		return $labels[$item];
-	}
-
-	/**
 	 * Sort-by dropdown link for an item.
 	 *
 	 * @return string
 	 */
 	public function sort_by_dropdown_link( $item ) {
-		$args = array(
-			'a_z'            => 'title-asc',
-			'z_a'            => 'title-desc',
-			'latest'         => 'date-desc',
-			'oldest'         => 'date-asc',
-			'popular'        => 'views-desc',
-			'price_low_high' => 'price-asc',
-			'price_high_low' => 'price-desc',
-			'random'         => 'rand',
-		);
-
-		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
+		return add_query_arg( 'sort', $item );
 	}
 
 	public function feature_badge_text() {

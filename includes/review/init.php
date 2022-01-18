@@ -46,6 +46,25 @@ class Bootstrap {
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
+
+		add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
+	}
+
+	public static function update_error_message( $code, $message, $data, $wp_error ) {
+		if ( $code === 'require_valid_comment' ) {
+			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
+
+			if ( ! empty( $_POST['comment_parent'] ) ) {
+				$text = __( '<strong>Error</strong>: Please type your reply text.', 'directorist' );
+			} else {
+				$text = __( '<strong>Error</strong>: Please type your review text.', 'directorist' );
+			}
+
+			$wp_error->remove( $code );
+			$wp_error->add( $code, $text, $data );
+
+			add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
+		}
 	}
 
 	/**

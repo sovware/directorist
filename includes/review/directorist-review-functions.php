@@ -112,6 +112,10 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
         return;
     }
 
+	if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
+		return;
+	}
+
     if ( empty( $post ) ) {
         $post = $comment->comment_post_ID;
     }

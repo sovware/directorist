@@ -891,33 +891,52 @@ class Listings {
 	}
 
 	/**
-	 * List of sort-by dropdown items.
+	 * List of sort-by dropdown item list.
 	 *
-	 * @return array
+	 * @return array eg. ['a_z', 'latest']
 	 */
 	public function sort_by_dropdown_items() {
 		return $this->options['listings_sort_by_items'];
 	}
 
-	public function get_sort_by_link_list() {
-		$link_list = array();
+	/**
+	 * Sort-by dropdown label for an item.
+	 *
+	 * @return string
+	 */
+	public function sort_by_dropdown_label( $item ) {
+		$labels = array(
+			'a_z'            => __( 'A to Z (title)', 'directorist' ),
+			'z_a'            => __( 'Z to A (title)', 'directorist' ),
+			'latest'         => __( 'Latest listings', 'directorist' ),
+			'oldest'         => __( 'Oldest listings', 'directorist' ),
+			'popular'        => __( 'Popular listings', 'directorist' ),
+			'price_low_high' => __( 'Price (low to high)', 'directorist' ),
+			'price_high_low' => __( 'Price (high to low)', 'directorist' ),
+			'random'         => __( 'Random listings', 'directorist' ),
+		);
 
-		$options       = atbdp_get_listings_orderby_options( $this->sort_by_dropdown_items() );
-		$queryString = $_SERVER['QUERY_STRING'];
-		parse_str($queryString, $arguments);
-		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
+		return $labels[$item];
+	}
 
-		foreach ( $options as $value => $label ) {
-			$arguments['sort'] 		   = $value;
+	/**
+	 * Sort-by dropdown link for an item.
+	 *
+	 * @return string
+	 */
+	public function sort_by_dropdown_link( $item ) {
+		$args = array(
+			'a_z'            => 'title-asc',
+			'z_a'            => 'title-desc',
+			'latest'         => 'date-desc',
+			'oldest'         => 'date-asc',
+			'popular'        => 'views-desc',
+			'price_low_high' => 'price-asc',
+			'price_high_low' => 'price-desc',
+			'random'         => 'rand',
+		);
 
-			$link_item['link']         = add_query_arg( $arguments, $actual_link );
-			$link_item['label']        = $label;
-			$link_item['key']          = $value;
-
-			array_push( $link_list, $link_item );
-		}
-
-		return $link_list;
+		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
 	}
 
 	public function views() {

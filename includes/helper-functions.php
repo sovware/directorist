@@ -6448,7 +6448,7 @@ function atbdp_get_listings_current_order($default_order = '')
 
 /**
  * Get orderby list.
- *
+ * @todo remove it since it's no longer used anymore
  * @return   array    $options    A list of the orderby options.
  * @since    1.0.0
  *

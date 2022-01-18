@@ -19,13 +19,13 @@ $listings = directorist()->listings;
 		<form id="directorsit-listing-sort" method="post" action="#">
 
 			<?php
-			$current_order = !empty($_GET['sort']) ? $_GET['sort'] : '';
+			$current = !empty( $_GET['sort'] ) ? $_GET['sort'] : '';
 
-			foreach ( $listings->get_sort_by_link_list() as $key => $value ) {
-				$active_class = ( $value['key'] == $current_order ) ? ' active' : '';
+			foreach ( $listings->sort_by_dropdown_items() as $item ) {
+				$active_class = ( $item == $current ) ? 'active' : '';
 				?>
 
-				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo $value['link']; ?>"><?php echo esc_html($value['label']);?></a>
+				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo esc_attr( $listings->sort_by_dropdown_link( $item ) ); ?>"><?php echo esc_html( $listings->sort_by_dropdown_label( $item ) );?></a>
 
 				<?php
 			}

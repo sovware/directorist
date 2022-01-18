@@ -907,12 +907,67 @@ class Listings {
 	}
 
 	/**
+	 * List of view-as dropdown data.
+	 *
+	 * @return array eg. $data['grid'] = [
+	 *                   	'label' => '',
+	 *                   	'link' => '',
+	 *                   ]
+	 */
+	public function view_as_dropdown_data() {
+		$key_convert_list = array(
+			'grid'  => 'listings_grid',
+			'list'  => 'listings_list',
+			'map'   => 'listings_map',
+		);
+
+		$items = array_intersect( $key_convert_list, $this->options['listings_view_as_items'] );
+		$items = array_keys( $items );
+
+		$data = [];
+
+		foreach ( $items as $item ) {
+			$data[$item] = [
+				'label' => $this->view_as_dropdown_label( $item ),
+				'link' => $this->view_as_dropdown_link( $item ),
+
+			];
+		}
+
+		return $data;
+	}
+
+	/**
 	 * List of sort-by dropdown item list.
 	 *
 	 * @return array eg. ['a_z', 'latest']
 	 */
 	public function sort_by_dropdown_items() {
 		return $this->options['listings_sort_by_items'];
+	}
+
+	/**
+	 * View-as dropdown label for an item.
+	 *
+	 * @return string
+	 */
+	public function view_as_dropdown_label( $item ) {
+		$labels = array(
+			'grid'   => __( 'Grid', 'directorist' ),
+			'list'   => __( 'List', 'directorist' ),
+			'map'    => __( 'Map', 'directorist' ),
+		);
+
+		return $labels[$item];
+	}
+
+	/**
+	 * View-as dropdown link for an item.
+	 *
+	 * @return string
+	 */
+	public function view_as_dropdown_link( $item ) {
+		return add_query_arg( 'view', $item );
 	}
 
 	/**
@@ -955,86 +1010,6 @@ class Listings {
 		return add_query_arg( [ 'sort'=> $args[$item] ], $_SERVER['REQUEST_URI'] );
 	}
 
-	/**
-	 * List of view-as dropdown item list.
-	 *
-	 * @return array eg. ['listings_grid', 'listings_list']
-	 */
-	public function view_as_dropdown_data() {
-		$data = [];
-		$option_data = $this->options['listings_view_as_items'];
-		$list = array(
-			'grid'  => 'listings_grid',
-			'list'  => 'listings_list',
-			'map'   => 'listings_map',
-		);
-
-		$list = array_filter( $list, function( $arg ) {
-			return in_array( $arg, $this->options['listings_view_as_items'] ) ? true : false;
-		} );
-
-		$list = array_keys( $list );
-
-		foreach ( $list as $key => $item ) {
-			$data[$key] = [
-				'label' => $this->view_as_dropdown_label( $item ),
-				'link' => $this->view_as_dropdown_link( $item ),
-
-			];
-		}
-
-		return $data;
-	}
-
-	/**
-	 * View-as dropdown label for an item.
-	 *
-	 * @return string
-	 */
-	public function view_as_dropdown_label( $item ) {
-		$labels = array(
-			'grid'   => __( 'Grid', 'directorist' ),
-			'list'   => __( 'List', 'directorist' ),
-			'map'    => __( 'Map', 'directorist' ),
-		);
-
-		return $labels[$item];
-	}
-
-	/**
-	 * View-as dropdown link for an item.
-	 *
-	 * @return string
-	 */
-	public function view_as_dropdown_link( $item ) {
-		return add_query_arg( [ 'view'=> $item ], $_SERVER['REQUEST_URI'] );
-	}
-
-
-	public function views() {
-		$view_as_items = $this->options['listings_view_as_items'];
-		return atbdp_get_listings_view_options( $view_as_items );
-	}
-
-	public function get_view_as_link_list() {
-		$link_list = array();
-		$view      = ! empty( $this->get_current_view() ) ? $this->get_current_view() : '';
-
-		foreach ( $this->views() as $value => $label ) {
-			$active_class = ( $view === $value ) ? 'active' : '';
-			$link         = add_query_arg( 'view', $value );
-			$link_item    = array();
-
-			$link_item['active_class'] = $active_class;
-			$link_item['link']         = $link;
-			$link_item['label']        = $label;
-
-			array_push( $link_list, $link_item );
-		}
-
-		return $link_list;
-	}
-
 	public function feature_badge_text() {
 		return $this->options['feature_badge_text'];
 	}
@@ -1046,8 +1021,6 @@ class Listings {
 	public function disable_single_listing() {
 		return $this->options['disable_single_listing'];
 	}
-
-
 
 	public function pagination( $echo = true ) {
 		$navigation = '';

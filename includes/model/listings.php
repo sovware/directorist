@@ -345,11 +345,13 @@ class Listings {
 	/**
 	 * Renders the thumbnail image html inside loop.
 	 *
+	 * @todo improve default preview image fetching method, use attachment id.
+	 *
 	 * @param  string $class Css class for img tag.
 	 *
-	 * @return string Image HTML
+	 * @return string Image HTML.
 	 */
-	public function loop_get_the_thumbnail( $class='' ) {
+	public function loop_get_the_thumbnail( $class = '' ) {
 		$attr             = ['class' => $class];
 		$post_id          = get_the_ID();
 		$size             = get_directorist_option( 'preview_image_quality', 'large' );
@@ -689,6 +691,42 @@ class Listings {
 		}
 
 		return $view;
+	}
+
+	public function thumbnail_style_attr() {
+		$is_blur           = get_directorist_option('prv_background_type', 'blur');
+		$is_blur           = ('blur' === $is_blur ? true : false);
+		$container_size_by = get_directorist_option('prv_container_size_by', 'px');
+		$by_ratio          = ( 'px' === $container_size_by ) ? false : true;
+		$image_size        = get_directorist_option('way_to_show_preview', 'cover');
+		$ratio_width       = get_directorist_option('crop_width', 360);
+		$ratio_height      = get_directorist_option('crop_height', 300);
+		$blur_background   = $is_blur;
+		$background_color  = get_directorist_option('prv_background_color', '#fff');
+
+		// Style
+		$style_component = [];
+
+		if ( $by_ratio ) {
+			$padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
+			$style_component[ 'padding-top' ] = "{$padding_top_value}%";
+		} else {
+			$height_value = (int) $ratio_height;
+			$style_component[ 'height' ] = "{$height_value}px";
+		}
+		if ( $image_size !== 'full' && ! $blur_background ) {
+			$style_component[ 'background-color' ] = $background_color;
+		}
+		if ( $image_size === 'full' ) {
+			unset( $style_component[ 'height' ] );
+		}
+
+		$style = '';
+		foreach ( $style_component as $style_prop => $style_value ) {
+			$style .= "{$style_prop}: {$style_value};";
+		}
+
+		return $style;
 	}
 
 	/**

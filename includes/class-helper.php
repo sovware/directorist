@@ -523,6 +523,22 @@ class Helper {
 		return get_directorist_option( 'enable_multi_directory', false );
 	}
 
+	/**
+	 * Serve wp attachment image for directorist, alternative to wp_get_attachment_image.
+	 *
+	 * To ensure compatibility, strip the 'style' attribute added by default wp themes eg. twenty-twenty.
+	 *
+	 * @uses wp_get_attachment_image()
+	 * @link https://stackoverflow.com/questions/23826939/removing-attributes-from-html-tags-with-php
+	 *
+	 * @return string HTML img element or empty string on failure.
+	 */
+	public static function get_attachment_image( $attachment_id, $size = 'thumbnail', $icon = false, $attr = '' ) {
+		$html = wp_get_attachment_image( $attachment_id, $size, $icon, $attr );
+		$html = preg_replace( '/(<[^>]+) style=".*?"/i', '$1', $html );
+		return $html;
+	}
+
 	public static function default_preview_image_src( $type ) {
 		if ( self::multi_directory_enabled() ) {
 			$type_general = get_term_meta( $type, 'general_config', true );

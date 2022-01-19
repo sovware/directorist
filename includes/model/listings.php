@@ -345,46 +345,32 @@ class Listings {
 	/**
 	 * Renders the thumbnail image html inside loop.
 	 *
-	 * @uses atbdp_get_image_source()
-	 *
-	 * @param  string $class Css class for img tag
+	 * @param  string $class Css class for img tag.
 	 *
 	 * @return string Image HTML
 	 */
 	public function loop_get_the_thumbnail( $class='' ) {
-		$default_image_src = Helper::default_preview_image_src( $this->get_current_listing_type() );
+		$attr             = ['class' => $class];
+		$post_id          = get_the_ID();
+		$size             = get_directorist_option( 'preview_image_quality', 'large' );
+		$preview_img_id   = get_post_meta( $post_id, '_listing_prv_img', true );
+		$image_ids        = get_post_meta( $post_id, '_listing_img', true );
 
-		$id = get_the_ID();
-		$image_quality     = get_directorist_option('preview_image_quality', 'large');
-		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-		$listing_img       = get_post_meta($id, '_listing_img', true);
-
-		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-			$thumbnail_id = $listing_img[0];
+		if ( $preview_img_id ) {
+			$image = Helper::get_attachment_image( $preview_img_id, $size, false, $attr );
+		} elseif ( is_array( $image_ids ) && ! empty( $image_ids[0] ) ) {
+			$image = Helper::get_attachment_image( $image_ids[0], $size, false, $attr );
+		} else {
+			$image = '';
 		}
 
-		if ( ! empty( $listing_prv_img ) ) {
-			$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-			$thumbnail_id = $listing_prv_img;
+		if ( !$image ) {
+			$src   = Helper::default_preview_image_src( $this->get_current_listing_type() );
+			$class = !empty( $attr['class'] ) ? $attr['class'] : '';
+			$image = sprintf( '<img src="%s" alt="%s" class="%s" />', $src, get_the_title(), $class );
 		}
 
-		if ( ! empty( $img_src ) ) {
-			$thumbnail_img = $img_src;
-			$thumbnail_id = 0;
-		}
-
-		if ( empty( $thumbnail_img ) ) {
-			$thumbnail_img = $default_image_src;
-			$thumbnail_id = 0;
-		}
-
-		$image_src    = $thumbnail_img;
-		$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-		$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
-		$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
-
-		return "<img src='$image_src' alt='$image_alt' class='$class' />";
+		return $image;
 	}
 
 	/**
@@ -809,7 +795,7 @@ class Listings {
 	 *
 	 * @return string
 	 */
-	public function directory_type() {
+	public function custom_directory_type() {
 		return !empty( $this->atts['directory_type'] ) ? explode( ',', $this->atts['directory_type'] ) : '';
 	}
 
@@ -1084,10 +1070,10 @@ class Listings {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false
 		);
-		if( $this->directory_type() ) {
-			$args['slug']     = $this->directory_type();
+		if( $this->custom_directory_type() ) {
+			$args['slug']     = $this->custom_directory_type();
 		}
-		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
+		$all_types = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
@@ -1127,23 +1113,6 @@ class Listings {
 			$current = $term->term_id;
 		}
 		return (int) $current;
-	}
-
-	public function search_category_location_args() {
-		return array(
-			'parent'             => 0,
-			'term_id'            => 0,
-			'hide_empty'         => 0,
-			'orderby'            => 'name',
-			'order'              => 'asc',
-			'show_count'         => 0,
-			'single_only'        => 0,
-			'pad_counts'         => true,
-			'immediate_category' => 0,
-			'active_term_id'     => 0,
-			'ancestors'          => array(),
-			'listing_type'		 => $this->get_listing_types()
-		);
 	}
 
 	public function render_map() {

@@ -1089,25 +1089,6 @@ class Listings {
 		return get_directorist_option( 'disable_single_listing', false );
 	}
 
-	public function get_query_results( $query_args = [] ) {
-		$caching_options = [];
-		if ( ! empty( $query_args['orderby'] ) ) {
-			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $query_args['orderby'] ) ) {
-				foreach ( $query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
-	}
-
 	public function get_listing_types() {
 		$listing_types = array();
 		$args          = array(
@@ -1661,6 +1642,25 @@ class Listings {
 				wp_reset_postdata();
 			}
 		echo "</div>";
+	}
+
+	public function get_query_results( $query_args = [] ) {
+		$caching_options = [];
+		if ( ! empty( $query_args['orderby'] ) ) {
+			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
+				$caching_options['cache'] = false;
+			}
+
+			if ( is_array( $query_args['orderby'] ) ) {
+				foreach ( $query_args['orderby'] as $key => $value ) {
+					if ( preg_match( '/rand/', $value ) ) {
+						$caching_options['cache'] = false;
+					}
+				}
+			}
+		}
+
+		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
 	}
 
 	public function parse_query_args() {

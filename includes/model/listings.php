@@ -693,15 +693,26 @@ class Listings {
 		return $view;
 	}
 
+	/**
+	 * Display blur background or not.
+	 *
+	 * @return bool
+	 */
 	public function display_blur_background() {
 		$background_type = get_directorist_option( 'prv_background_type', 'blur' );
 		return ( $background_type == 'blur' ) ? true : false;
 	}
 
+	/**
+	 * @return string eg. cover, contain, full.
+	 */
 	public function thumbnail_display_type() {
 		return get_directorist_option( 'way_to_show_preview', 'cover' );
 	}
 
+	/**
+	 * @return string
+	 */
 	public function thumbnail_style_attr() {
 		$container_px_or_ratio = get_directorist_option( 'prv_container_size_by', 'px' );
 		$container_width       = (int) get_directorist_option( 'crop_width', 360 );

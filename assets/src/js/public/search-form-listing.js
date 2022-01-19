@@ -168,21 +168,22 @@
 
                 let input_fields = [
                     {
-                        input_class: '.directorist-location-js',
-                        lat_id: 'cityLat',
-                        lng_id: 'cityLng',
+                        inputSelector: '.directorist-location-js',
+                        latSelector: '#cityLat',
+                        lngSelector: '#cityLng',
                         options
                     },
                     {
-                        input_id: 'address_widget',
-                        lat_id: 'cityLat',
-                        lng_id: 'cityLng',
+                        inputSelector: '#address_widget',
+                        latSelector: '#cityLat',
+                        lngSelector: '#cityLng',
                         options
                     },
                 ];
 
                 var setupAutocomplete = function (field) {
-                    const input = document.querySelectorAll(field.input_class);
+                    const input = document.querySelectorAll( field.inputSelector );
+
                     input.forEach(elm =>{
                         if ( ! elm ) {
                             return;
@@ -192,8 +193,9 @@
 
                         google.maps.event.addListener(autocomplete, 'place_changed', function () {
                             const place = autocomplete.getPlace();
-                            document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                            document.getElementById(field.lng_id).value = place.geometry.location.lng();
+
+                            elm.parentElement.querySelector( field.latSelector ).value = place.geometry.location.lat();
+                            elm.parentElement.querySelector( field.lngSelector ).value = place.geometry.location.lng()
                         });
                     })
                 };

@@ -1893,10 +1893,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       key: "getErrorMsg",
       value: function getErrorMsg($dom) {
         if ($dom.find('p').length) {
-          return $dom.find('p').text();
+          $dom = $dom.find('p');
         }
 
-        return $dom.text();
+        var words = $dom.text().split(':');
+
+        if (words.length > 1) {
+          words.shift();
+        }
+
+        return words.join(' ').trim();
       }
     }, {
       key: "showError",

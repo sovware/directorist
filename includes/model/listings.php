@@ -693,37 +693,32 @@ class Listings {
 		return $view;
 	}
 
+	public function display_blur_background() {
+		$background_type = get_directorist_option( 'prv_background_type', 'blur' );
+		return ( $background_type == 'blur' ) ? true : false;
+	}
+
+	public function thumbnail_display_type() {
+		return get_directorist_option( 'way_to_show_preview', 'cover' );
+	}
+
 	public function thumbnail_style_attr() {
-		$is_blur           = get_directorist_option('prv_background_type', 'blur');
-		$is_blur           = ('blur' === $is_blur ? true : false);
-		$container_size_by = get_directorist_option('prv_container_size_by', 'px');
-		$by_ratio          = ( 'px' === $container_size_by ) ? false : true;
-		$image_size        = get_directorist_option('way_to_show_preview', 'cover');
-		$ratio_width       = get_directorist_option('crop_width', 360);
-		$ratio_height      = get_directorist_option('crop_height', 300);
-		$blur_background   = $is_blur;
-		$background_color  = get_directorist_option('prv_background_color', '#fff');
-
-		// Style
-		$style_component = [];
-
-		if ( $by_ratio ) {
-			$padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
-			$style_component[ 'padding-top' ] = "{$padding_top_value}%";
-		} else {
-			$height_value = (int) $ratio_height;
-			$style_component[ 'height' ] = "{$height_value}px";
-		}
-		if ( $image_size !== 'full' && ! $blur_background ) {
-			$style_component[ 'background-color' ] = $background_color;
-		}
-		if ( $image_size === 'full' ) {
-			unset( $style_component[ 'height' ] );
-		}
+		$container_px_or_ratio = get_directorist_option( 'prv_container_size_by', 'px' );
+		$container_width       = (int) get_directorist_option( 'crop_width', 360 );
+		$container_height      = (int) get_directorist_option( 'crop_height', 300) ;
+		$custom_bgcolor        = get_directorist_option( 'prv_background_color', '#fff' );
 
 		$style = '';
-		foreach ( $style_component as $style_prop => $style_value ) {
-			$style .= "{$style_prop}: {$style_value};";
+
+		if ( $this->thumbnail_display_type() !== 'full' && ! $this->display_blur_background() ) {
+			$style .= "background-color:{$custom_bgcolor};";
+		}
+
+		if ( $container_px_or_ratio == 'ratio' ) {
+			$padding_top = $container_height / $container_width * 100;
+			$style .= "padding-top:{$padding_top}%;";
+		} elseif ( $this->thumbnail_display_type() != 'full' ) {
+			$style .= "height:{$container_height}px";
 		}
 
 		return $style;

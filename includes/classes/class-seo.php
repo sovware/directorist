@@ -7,8 +7,8 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
      * Class ATBDP_SEO
      */
     class ATBDP_SEO {
-        public function __construct()
-        {
+
+        public function __construct() {
 			$is_enabled_seo = ! empty( get_directorist_option( 'atbdp_enable_seo' ) );
 
             if ( ! $is_enabled_seo ) {
@@ -25,39 +25,51 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 		 * @since 7.0.8
 		 */
 		public function setup_seo() {
-
 			// Add Rank Math SEO Compatibility
 			if ( Directorist\Helper::is_rankmath_active() ) {
 				$this->add_rankmath_compatibility();
 				return;
 			}
 
-			add_filter( 'the_title', array( $this, 'update_taxonomy_page_title' ), 10, 2 );
-            add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
-            add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
-
-            add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
-			add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
-
-            if ( atbdp_yoast_is_active() ) {
-                add_filter('wpseo_title', array($this, 'wpseo_title'));
-                add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
-                add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
-                add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
-                add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
-                //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
-
-                remove_action('wp_head', 'rel_canonical');
-                /* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
-                add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
-            } else {
-				add_action('wp_head', array($this, 'add_opengraph_meta'), 10, 2);
-                add_action('wp_head', array($this, 'add_texonomy_canonical'));
-                add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
+			// Add Yoast SEO Compatibility
+            if ( Directorist\Helper::is_yoast_active() ) {
+				$this->add_yoast_compatibility();
+				return;
             }
+
+			add_filter( 'the_title', array( $this, 'update_taxonomy_page_title' ), 10, 2 );
+			add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
+			add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
+
+			add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
+			add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
+			add_action('wp_head', array($this, 'add_opengraph_meta'), 10, 2);
+			add_action('wp_head', array($this, 'add_texonomy_canonical'));
+			add_action( 'wp', [ $this, 'remove_duplicate_canonical' ] );
 		}
 
-        // Optimize rankmath for directorist pages
+		// Add Yoast Compatibility
+        public function add_yoast_compatibility() {
+            add_filter( 'the_title', array( $this, 'update_taxonomy_page_title' ), 10, 2 );
+			add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
+			add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
+
+			add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
+			add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
+
+			add_filter('wpseo_title', array($this, 'wpseo_title'));
+			add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
+			add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
+			add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
+			add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
+			//add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
+
+			remove_action('wp_head', 'rel_canonical');
+			/* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
+			add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
+        }
+
+        // Add Rank Math Compatibility
         public function add_rankmath_compatibility() {
             add_filter( 'rank_math/frontend/title', [ $this, 'optimize_rankmath_frontend_meta_title' ], 20, 1 );
             add_filter( 'rank_math/frontend/description', [ $this, 'optimize_rankmath_frontend_meta_description' ], 20, 1);

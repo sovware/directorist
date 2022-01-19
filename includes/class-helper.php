@@ -629,6 +629,21 @@ class Helper {
 	}
 
 	/**
+	 * Is Yoast Active
+	 *
+	 * Determines whether Yoast is active
+	 *
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_yoast_active() {
+		$yoast_free_is_active    = self::is_plugin_active( 'wordpress-seo/wp-seo.php' );
+    	$yoast_premium_is_active = self::is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' );
+
+		return ( $yoast_free_is_active || $yoast_premium_is_active );
+	}
+
+	/**
 	 * Is Plugin Active
 	 *
 	 * Determines whether a plugin is active

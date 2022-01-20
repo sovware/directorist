@@ -1,4 +1,9 @@
-(function($) {
+(function ($) {
+    if (typeof adbdp_geolocation !== 'undefined') {
+        init();
+    }
+
+    function init() {
         /* $("button[type='reset']").on("click", function (){
         $("#atbd_rs_value").val(0);
         $(".atbdpr_amount").text(0 + miles);
@@ -15,128 +20,131 @@
             });
         });
         $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
-    }); */
+        }); */
         /* get current location */
         setTimeout(() => {
-                if (adbdp_geolocation.select_listing_map === 'google') {
-                        (function() {
-                                const locationInput = document.querySelector('.location-name');
-                                const get_lat = document.querySelector('#cityLat');
-                                const get_lng = document.querySelector('#cityLng');
+            if (adbdp_geolocation.select_listing_map === 'google') {
+                (function () {
+                    const locationInput = document.querySelector('.location-name');
+                    const get_lat = document.querySelector('#cityLat');
+                    const get_lng = document.querySelector('#cityLng');
 
-                                function getLocation() {
-                                        if (navigator.geolocation) {
-                                                navigator.geolocation.getCurrentPosition(showPosition, showError);
-                                        } else {
-                                                locationInput.value = 'Geolocation is not supported by this browser.';
-                                        }
-                                }
-
-                                function showPosition(position) {
-                                        lat = position.coords.latitude;
-                                        lon = position.coords.longitude;
-                                        displayCurrentLocation(lat, lon);
-                                        get_lat.value = lat;
-                                        get_lng.value = lon;
-                                }
-
-                                function showError(error) {
-                                        switch (error.code) {
-                                                case error.PERMISSION_DENIED:
-                                                        locationInput.value = 'User denied the request for Geolocation.';
-                                                        break;
-                                                case error.POSITION_UNAVAILABLE:
-                                                        locationInput.value = 'Location information is unavailable.';
-                                                        break;
-                                                case error.TIMEOUT:
-                                                        locationInput.value = 'The request to get user location timed out.';
-                                                        break;
-                                                case error.UNKNOWN_ERROR:
-                                                        locationInput.value = 'An unknown error occurred.';
-                                                        break;
-                                        }
-                                }
-
-                                function displayLocation(latitude, longitude) {
-                                        let geocoder;
-                                        geocoder = new google.maps.Geocoder();
-                                        const latlng = new google.maps.LatLng(latitude, longitude);
-                                        geocoder.geocode({
-                                                latLng: latlng,
-                                                componentRestrictions: { country: 'GB' }
-                                        },
-                                                function(results, status) {
-                                                if (status == google.maps.GeocoderStatus.OK) {
-                                                        if (results[0]) {
-                                                                const add = results[0].formatted_address;
-                                                                const value = add.split(',');
-
-                                                                count = value.length;
-                                                                country = value[count - 1];
-                                                                state = value[count - 2];
-                                                                city = value[count - 3];
-                                                                locationInput.value = city;
-                                                        } else {
-                                                                locationInput.value = 'address not found';
-                                                        }
-                                                } else {
-                                                        locationInput.value = `Geocoder failed due to: ${status}`;
-                                                }
-                                        });
-                                }
-
-                                function displayCurrentLocation(latitude, longitude) {
-                                        let geocoder;
-                                        geocoder = new google.maps.Geocoder();
-                                        const latlng = new google.maps.LatLng(latitude, longitude);
-                                        geocoder.geocode({
-                                                latLng: latlng
-                                        },
-                                                function(results, status) {
-                                                if (status == google.maps.GeocoderStatus.OK) {
-                                                        if (results[0]) {
-                                                                const add = results[0].formatted_address;
-                                                                const value = add.split(',');
-
-                                                                count = value.length;
-                                                                country = value[count - 1];
-                                                                state = value[count - 2];
-                                                                city = value[count - 3];
-                                                                locationInput.value = city;
-                                                        } else {
-                                                                locationInput.value = 'address not found';
-                                                        }
-                                                } else {
-                                                        locationInput.value = `Geocoder failed due to: ${status}`;
-                                                }
-                                        });
-                                }
-
-                                const get_loc_btn = $('.directorist-filter-location-icon');
-                                get_loc_btn.on('click', function() {
-                                        getLocation();
-                                });
-                        })();
-                } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
-                        function displayLocation(position) {
-                                const lat = position.coords.latitude;
-                                const lng = position.coords.longitude;
-
-                                $.ajax({
-                                        url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
-                                        type: 'POST',
-                                        data: {},
-                                        success(data) {
-                                                $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                                                $('#cityLat').val(lat);
-                                                $('#cityLng').val(lng);
-                                        },
-                                });
+                    function getLocation() {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(showPosition, showError);
+                        } else {
+                            locationInput.value = 'Geolocation is not supported by this browser.';
                         }
+                    }
 
-                        $('.directorist-filter-location-icon').on('click', () => {
-                                navigator.geolocation.getCurrentPosition(displayLocation);
-                        });
+                    function showPosition(position) {
+                        lat = position.coords.latitude;
+                        lon = position.coords.longitude;
+                        displayCurrentLocation(lat, lon);
+                        get_lat.value = lat;
+                        get_lng.value = lon;
+                    }
+
+                    function showError(error) {
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                locationInput.value = 'User denied the request for Geolocation.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                locationInput.value = 'Location information is unavailable.';
+                                break;
+                            case error.TIMEOUT:
+                                locationInput.value = 'The request to get user location timed out.';
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                locationInput.value = 'An unknown error occurred.';
+                                break;
+                        }
+                    }
+
+                    function displayLocation(latitude, longitude) {
+                        let geocoder;
+                        geocoder = new google.maps.Geocoder();
+                        const latlng = new google.maps.LatLng(latitude, longitude);
+                        geocoder.geocode({
+                            latLng: latlng,
+                            componentRestrictions: { country: 'GB' }
+                        },
+                            function (results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    if (results[0]) {
+                                        const add = results[0].formatted_address;
+                                        const value = add.split(',');
+
+                                        count = value.length;
+                                        country = value[count - 1];
+                                        state = value[count - 2];
+                                        city = value[count - 3];
+                                        locationInput.value = city;
+                                    } else {
+                                        locationInput.value = 'address not found';
+                                    }
+                                } else {
+                                    locationInput.value = `Geocoder failed due to: ${status}`;
+                                }
+                            });
+                    }
+
+                    function displayCurrentLocation(latitude, longitude) {
+                        let geocoder;
+                        geocoder = new google.maps.Geocoder();
+                        const latlng = new google.maps.LatLng(latitude, longitude);
+                        geocoder.geocode({
+                            latLng: latlng
+                        },
+                            function (results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    if (results[0]) {
+                                        const add = results[0].formatted_address;
+                                        const value = add.split(',');
+
+                                        count = value.length;
+                                        country = value[count - 1];
+                                        state = value[count - 2];
+                                        city = value[count - 3];
+                                        locationInput.value = city;
+                                    } else {
+                                        locationInput.value = 'address not found';
+                                    }
+                                } else {
+                                    locationInput.value = `Geocoder failed due to: ${status}`;
+                                }
+                            });
+                    }
+
+                    const get_loc_btn = $('.directorist-filter-location-icon');
+                    get_loc_btn.on('click', function () {
+                        getLocation();
+                    });
+                })();
+            } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
+                function displayLocation(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    $.ajax({
+                        url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
+                        type: 'POST',
+                        data: {},
+                        success(data) {
+                            $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                            $('#cityLat').val(lat);
+                            $('#cityLng').val(lng);
+                        },
+                    });
                 }
+
+                $('.directorist-filter-location-icon').on('click', () => {
+                    navigator.geolocation.getCurrentPosition(displayLocation);
+                });
+            }
         }, 1000);
+    }
+
+
 })(jQuery);

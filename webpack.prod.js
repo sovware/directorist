@@ -1,22 +1,28 @@
-const common    = require("./webpack.common");
-const { merge } = require('webpack-merge');
-
-const MiniCssExtractPlugin   = require("mini-css-extract-plugin");
-const WebpackRTLPlugin       = require("webpack-rtl-plugin");
+const MiniCssExtractPlugin   = require('mini-css-extract-plugin');
+const WebpackRTLPlugin       = require('webpack-rtl-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FileManagerPlugin      = require('filemanager-webpack-plugin');
-const { vueEntries }         = require('./webpack-entry-list.js');
+const { merge }              = require('webpack-merge');
 
+const commonConfig = require('./webpack.common');
+const devConfig    = require('./webpack.dev');
+const entriesList  = require('./webpack-entry-list.js');
+
+// Get All Entries
+let allEntries = {};
+for ( const entryGroupKey of Object.keys( entriesList ) ) {
+  allEntries = { ...allEntries, ...entriesList[ entryGroupKey ] };
+}
+
+// Prod Config
+// ------------------------------
 const prodConfig = {
-  mode: "production", // production | development
+  mode: 'production', // production | development
   watch: false,
-  entry: {
-    ['admin-multi-directory-builder']: "./assets/src/js/admin/multi-directory-builder.js",
-    ['admin-settings-manager']: "./assets/src/js/admin/settings-manager.js",
-  },
+  entry: allEntries,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/[name].min.css",
+      filename: '../css/[name].min.css',
       minify: true,
     }),
     new WebpackRTLPlugin({
@@ -34,11 +40,12 @@ const prodConfig = {
             copy: [
               { source: './admin', destination: './__build/directorist/directorist/admin' },
               { source: './assets', destination: './__build/directorist/directorist/assets' },
-              { source: './languages', destination: './__build/directorist/directorist/languages' },
               { source: './includes', destination: './__build/directorist/directorist/includes' },
+              { source: './languages', destination: './__build/directorist/directorist/languages' },
               { source: './templates', destination: './__build/directorist/directorist/templates' },
               { source: './views', destination: './__build/directorist/directorist/views' },
               { source: './*.php', destination: './__build/directorist/directorist' },
+              { source: './*.txt', destination: './__build/directorist/directorist' },
             ],
           },
           {
@@ -55,42 +62,30 @@ const prodConfig = {
         ],
       },
     }),
-    
+
   ],
 
   output: {
-    filename: "../js/[name].min.js",
+    filename: '../js/[name].min.js',
   },
 };
 
-const devConfig = {
-  mode: "development", // production | development
-  watch: true,
-  entry: vueEntries,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "../css/[name].css",
-      minify: false,
-    }),
-    new WebpackRTLPlugin({
-      minify: false,
-    }),
-  ],
-  output: {
-    filename: "../js/[name].js",
-  },
+// Dev Config
+// ------------------------------
+delete devConfig.entry;
+devConfig.entry = allEntries;
+devConfig.watch = false;
 
-  devtool: 'source-map'
-};
-
+// Final Config
+// ------------------------------
 let configs = [];
-common.forEach(element => {
-  const _devConfig = merge( element, devConfig );
-  _devConfig.watch = false;
-  configs.push( _devConfig );
 
-  const _prodConfig = merge( element, prodConfig );
-  configs.push( _prodConfig );
-});
+// Add Development Config
+configs.push( devConfig );
+
+// Add Production Config
+delete commonConfig.entry;
+const _prodConfig = merge( commonConfig, prodConfig );
+configs.push( _prodConfig );
 
 module.exports = configs;

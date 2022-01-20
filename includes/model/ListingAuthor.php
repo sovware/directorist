@@ -381,7 +381,8 @@ class Directorist_Listing_Author {
 			return $redirect;
 		}
 
-		$this->enqueue_scripts();
+		// Enqueue Scripts
+		Asset_Loader::instance()->enqueue_author_profile_shortcode_scripts();
 
 		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );

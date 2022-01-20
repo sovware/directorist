@@ -35,6 +35,9 @@ class Directorist_Account {
 			return ob_get_clean();
 		}
 
+		// Enqueue Scripts
+		Asset_Loader::instance()->enqueue_signin_form_shortcode_scripts();
+
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 		echo Helper::get_template_contents( 'account/login' );
@@ -86,6 +89,9 @@ class Directorist_Account {
 				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
 			);
+
+			// Enqueue Scripts
+			Asset_Loader::instance()->enqueue_signup_form_shortcode_scripts();
 
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }

@@ -42,7 +42,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
-        add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+        add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
     }
 
     // add_missing_single_listing_section_id
@@ -4492,7 +4492,7 @@ class Multi_Directory_Manager
 
         ]);
 
-        self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
+        self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
                 'icon' => '<i class="uil uil-estate"></i>',
@@ -4676,7 +4676,7 @@ class Multi_Directory_Manager
 
             ],
             'search_forms' => [
-                'label' => __( 'Search Forms', 'directorist' ),
+                'label' => __( 'Search Form', 'directorist' ),
                 'icon' => '<span class="uil uil-search"></span>',
                 'container' => 'wide',
                 'sections' => [
@@ -4691,6 +4691,9 @@ class Multi_Directory_Manager
             ],
         ]);
 
+		self::$fields = apply_filters( 'directorist/builder/fields', self::$fields );
+
+		self::$layouts = apply_filters( 'directorist/builder/layouts', self::$layouts );
 
         // Conditional Fields
         // -----------------------------
@@ -4756,10 +4759,9 @@ class Multi_Directory_Manager
 		/**
 		 * Filter directory builder `config` data.
 		 *
-		 * @since 7.0.5.*
-		 * TODO: Update with exact version number.
+		 * @since 7.0.6.0
 		 */
-		$config = apply_filters( 'directorist_builder_config', $config );
+		$config = apply_filters( 'directorist/builder/config', $config );
 
         self::$config = $config;
     }

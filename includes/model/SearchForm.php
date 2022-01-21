@@ -292,14 +292,29 @@ class Directorist_Listing_Search_Form {
 			foreach ( $search_form_fields['groups'] as $group ) {
 				$section           = $group;
 				$section['fields'] = array();
+
 				foreach ( $group['fields'] as $field ) {
-					$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+					$search_field = $search_form_fields['fields'][$field];
+
+					if ( $this->is_field_allowed_in_atts( $search_field['widget_name'] ) ) {
+						$section['fields'][ $field ] = $search_field;
+					}
 				}
+
 				$form_data[] = $section;
 			}
 		}
 
 		return $form_data;
+	}
+
+	public function is_field_allowed_in_atts( $widget_name ) {
+		$atts = ! empty( $this->atts[ 'filter_' . $widget_name ] ) ? $this->atts[ 'filter_' . $widget_name ] : '';
+
+		if ( 'no' == $atts ){
+			return false;
+		}
+		return true;
 	}
 
 	public function buttons_template() {
@@ -603,30 +618,32 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function listing_tag_terms($tag_source='all_tags') {
-		$category_slug      = get_query_var( 'atbdp_category' );
-		$category           = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
-		$category_id        = ! empty( $category->term_id ) ? $category->term_id : '';
-		$tag_args           = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
-				array(
-					'taxonomy' => ATBDP_CATEGORY,
-					'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
-				),
-			),
-		);
+		$category_slug   = get_query_var( 'atbdp_category' );
+		$category        = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
+		$category_id     = ! empty( $category->term_id ) ? $category->term_id : '';
 		$category_select = ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id;
-		$tag_posts       = get_posts( $tag_args );
-		if ( ! empty( $tag_posts ) ) {
-			foreach ( $tag_posts as $tag_post ) {
-				$tag_id[] = $tag_post->ID;
-			}
-		}
-		$tag_id = ! empty( $tag_id ) ? $tag_id : '';
-		$terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
 
 		if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
 			$terms = get_terms( ATBDP_TAGS );
+		} else {
+			$tag_args = array(
+				'post_type' => ATBDP_POST_TYPE,
+				'tax_query' => array(
+					array(
+						'taxonomy' => ATBDP_CATEGORY,
+						'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
+					),
+				),
+			);
+
+			$tag_posts       = get_posts( $tag_args );
+			if ( ! empty( $tag_posts ) ) {
+				foreach ( $tag_posts as $tag_post ) {
+					$tag_id[] = $tag_post->ID;
+				}
+			}
+			$tag_id = ! empty( $tag_id ) ? $tag_id : '';
+			$terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
 		}
 
 		if ( ! empty( $terms ) ) {

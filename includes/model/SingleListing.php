@@ -665,11 +665,11 @@ class Directorist_Single_Listing {
 	}
 
 	public function get_review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function get_rating_count() {
-		return ATBDP()->review->get_average( $this->id );
+		return directorist_get_listing_rating( $this->id );
 	}
 
 	public function submit_link() {
@@ -811,7 +811,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_review() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public function guest_review_enabled() {
@@ -824,8 +824,10 @@ class Directorist_Single_Listing {
 
 	public function current_review() {
 		// @cache @kowsar
-		$review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
-		return !empty( $review ) ? $review : '';
+		// $review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
+		// return !empty( $review ) ? $review : '';
+
+		return '';
 	}
 
 	public function reviewer_name() {
@@ -833,7 +835,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function review_count_text() {
@@ -1092,7 +1094,7 @@ class Directorist_Single_Listing {
 
 	public function review_template() {
 		$id           = $this->id;
-		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
+		$review_count = directorist_get_listing_review_count( $id );
 		$author_id    = get_post_field('post_author', $id);
 
 		$args = array(
@@ -1104,7 +1106,7 @@ class Directorist_Single_Listing {
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),
 			'guest_review'             => get_directorist_option('guest_review', 0),
-			'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
+			// 'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
 			'reviewer_name'            => wp_get_current_user()->display_name,
 			'reviewer_img'             => $this->get_reviewer_img(),
 			'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),

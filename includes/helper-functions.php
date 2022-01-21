@@ -6964,26 +6964,22 @@ function atbdp_is_page($atbdppages = '')
  * @since 4.7.8
  */
 if (!function_exists('atbdp_popular_listings')) {
-    function atbdp_popular_listings($listing_id)
-    {
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        $average = ATBDP()->review->get_average($listing_id);
-        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-        $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-        $view_to_popular = get_directorist_option('views_for_popular');
-        if ('average_rating' === $listing_popular_by) {
-            if ($average_review_for_popular <= $average) {
-                return $pop_listing_id = $listing_id;
-            }
-        } elseif ('view_count' === $listing_popular_by) {
-            if ((int)$view_count >= (int)$view_to_popular) {
-                return $pop_listing_id = $listing_id;
-            }
-        } else {
-            if (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
-                return $pop_listing_id = $listing_id;
-            }
+    function atbdp_popular_listings( $listing_id ) {
+        $listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+        $average                    = directorist_get_listing_rating( $listing_id );
+        $average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+        $view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+        $view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
+
+        if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+            return $listing_id;
+        } elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return $listing_id;
+        } elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
+			return $listing_id;
         }
+
+		return 0;
     }
 }
 
@@ -7437,6 +7433,12 @@ if (!function_exists('tract_duplicate_review')) {
 
 function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 {
+	$lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
+
+	if ( ! empty( $lazy_load_taxonomy_fields ) ) {
+		return '';
+	}
+
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -8012,119 +8014,9 @@ function the_thumbnail_card($img_src = '', $_args = array()) {
     return atbdp_thumbnail_card($img_src,$_args);
 }
 
-
-// get_plasma_slider
-function get_plasma_slider()
-{
-    $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
-    $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
-
-    if ( ! $slider_is_enabled ) { return ''; }
-
-    global $post;
-    $listing_id    = $post->ID;
-    $listing_title = get_the_title( $post->ID );
-    $data          = array();
-
-    // Check if gallery is allowed or not
-    $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
-    $show_gallery = true;
-
-    if ( is_fee_manager_active() ) {
-        $show_gallery = is_plan_allowed_slider($fm_plan);
-    }
-
-    // Get the default image
-    $default_image = get_directorist_option(
-        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
-    );
-
-    // Get the preview images
-    $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-    $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
-    $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
-    $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
-
-    // Get the gallery images
-    $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
-    $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
-    $image_links  = array(); // define a link placeholder variable
-
-    foreach ( $listing_imgs as $img_id ) {
-        $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-        $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
-
-        $image_links[] = [
-            'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-            'src' => atbdp_get_image_source( $img_id, 'large' ),
-        ];
-    }
-
-    // Get the options
-    $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-
-    // Set the options
-    $data['images']             = [];
-    $data['alt']                = $listing_title;
-    $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
-    $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
-    $data['width']              = get_directorist_option('gallery_crop_width', 670);
-    $data['height']             = get_directorist_option('gallery_crop_height', 750);
-    $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $data['thumbnail-bg-color'] = '#fff';
-    $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);
-    $data['gallery']            = true;
-    $data['rtl']                = is_rtl();
-
-    if ( $show_gallery && ! empty( $image_links ) ) {
-        $data['images'] = $image_links;
-    }
-
-    if ( ! empty( $preview_img_link ) ) {
-        $preview_img = [
-            'alt' => $preview_img_alt,
-            'src' => $preview_img_link,
-        ];
-
-        array_unshift( $data['images'], $preview_img );
-    }
-
-    if ( count( $data['images'] ) < 1 ) {
-        $data['images'][] = [
-            'alt' => $listing_title,
-            'src' => $default_image,
-        ];
-    }
-
-    $padding_top         = $data['height'] / $data['width'] * 100;
-    $data['padding-top'] = $padding_top;
-
-    return get_view('plasma-slider', $data);
-}
-
-
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
     echo $img;
-}
-
-function view( $file_path, $data = null )
-{
-    $path = ATBDP_VIEW_DIR . $file_path . '.php';
-    if ( file_exists($path) ) {
-        include($path);
-    }
-}
-
-function get_view( $file_path, $data = null )
-{
-    $view = '';
-    ob_start();
-    view( $file_path, $data );
-    $view =  ob_get_contents();
-    ob_end_clean();
-
-    return $view;
 }
 
 if(!function_exists('csv_get_data')){
@@ -8245,21 +8137,44 @@ if( !function_exists('directory_types') ){
           return $listing_types;
     }
 }
-if( !function_exists('default_directory_type') ){
-    function default_directory_type() {
-        $default_directory = '';
-        if( !empty( directory_types() ) ) {
-            foreach( directory_types() as $term ) {
-                $default = get_term_meta( $term->term_id, '_default', true );
-                if( $default ) {
-                    $default_directory = $term->term_id;
-                    break;
-                }
-            }
-        }
-        return $default_directory;
-    }
+
+if ( ! function_exists( 'directorist_get_default_directory' ) ) {
+	/**
+	 * Get default directory id.
+	 *
+	 * @return int Default directory id.
+	 */
+	function directorist_get_default_directory() {
+		$directories = get_terms( [
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'meta_key'   => '_default',
+			'meta_value' => '1',
+			'number'     => 1
+		] );
+
+		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
+			return 0;
+		}
+
+		return $directories[0];
+	}
 }
+
+if ( ! function_exists( 'default_directory_type' ) ) {
+	/**
+	 * Alias and backward compatible function of "directorist_get_default_directory".
+	 *
+	 * @see directorist_get_default_directory
+	 *
+	 * @return int Defualt directory id.
+	 */
+	function default_directory_type() {
+		return directorist_get_default_directory();
+	}
+}
+
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
         $listing_types = array();
@@ -8573,4 +8488,18 @@ function directorist_get_supported_file_types() {
 	return array_reduce( $groups, function( $carry, $group ) {
 		return array_merge( $carry, $group );
 	}, [] );
+}
+
+
+function directorist_has_no_listing() {
+	$listings = new WP_Query([
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+		'cache_results'  => false
+	]);
+
+	$has_no_listing = empty( $listings->posts );
+
+	return $has_no_listing;
 }

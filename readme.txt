@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.8
+Tested up to:  5.9
 Requires PHP: 7.0
-Stable tag: 7.0.8
+Stable tag: 7.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -384,6 +384,16 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.1.0 – Jan 19, 2022
+
+* New – Reply in review or other replies
+* New – Optional website field for guest review
+* Improve – Inplace review and reply editing
+* Improve – Guest review without auto account register
+* Improve – Review section design
+* Improve – Faster review query
+* Improve – Faster rating search
 
 7.0.8 – Dec 29, 2021
 

@@ -128,13 +128,13 @@ class Listings {
 	 */
 	public function set_atts( $atts ) {
 		$defaults = array(
-			'view'                     => $this->options['listing_view'],
+			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
 			'orderby'                  => $this->options['order_listing_by'],
 			'order'                    => $this->options['sort_listing_by'],
 			'listings_per_page'        => $this->options['listings_per_page'],
 			'show_pagination'          => $this->options['paginate_listings'],
 			'header'                   => $this->options['display_listings_header'],
-			'header_title'             => $this->options['listing_header_title'],
+			'header_title'             => get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) ),
 			'category'                 => '',
 			'location'                 => '',
 			'tag'                      => '',
@@ -146,8 +146,8 @@ class Listings {
 			'advanced_filter'          => $this->options['listing_filters_button'],
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
-			'map_height'               => $this->options['listings_map_height'],
-			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
+			'map_height'               => get_directorist_option( 'listings_map_height', 350 ),
+			'map_zoom_level'		   => get_directorist_option( 'map_view_zoom_level', 16 ),
 			'directory_type'	       => '',
 			'default_directory_type'   => ''
 		);
@@ -160,39 +160,22 @@ class Listings {
 	 * Set options based on listing settings.
 	 */
 	public function set_options() {
-		$this->options['enable_multi_directory']          = get_directorist_option( 'enable_multi_directory', false );
-		$this->options['listing_view']                    = get_directorist_option( 'default_listing_view', 'grid' );
 		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) );
 		$this->options['sort_listing_by']                 = get_directorist_option( 'sort_listing_by', 'asc' );
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
-		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
-		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
-		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
-		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
-		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
-		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
 		$this->options['filter_open_method']              = get_directorist_option( 'home_display_filter', 'sliding' );
-		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
-		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
 		$this->options['listings_view_as_items']          = get_directorist_option( 'listings_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
 		$this->options['sort_by_text']                    = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
 		$this->options['display_view_as']                 = get_directorist_option( 'display_view_as', 1 );
-		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
-		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
-		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
-		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
-		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
-		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
+
 		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;
 		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
 		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
@@ -201,11 +184,8 @@ class Listings {
 		$this->options['display_direction_map']           = get_directorist_option('display_direction_map', 1) ? true : false;
 		$this->options['crop_width']                      = get_directorist_option('crop_width', 360);
 		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
-		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
-		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
-		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 	}
@@ -217,10 +197,7 @@ class Listings {
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'search_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button_display', 1 ) ) ? 'yes' : '';
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
-		$this->options['filter_open_method']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
-		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
-		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
+		$this->options['filter_open_method']              = get_directorist_option( 'search_result_display_filter', 'sliding' );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
 		$this->options['display_view_as']                 = get_directorist_option( 'search_view_as', 1 );
 		$this->options['view_as_text']                    = get_directorist_option( 'search_viewas_text', __( 'View As', 'directorist' ) );
@@ -275,7 +252,7 @@ class Listings {
 	 */
 	public function directory_type_nav_template() {
 		$count = count( $this->get_listing_types() );
-		$enable_multi_directory = $this->options['enable_multi_directory'];
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/directory-type-nav' );
 		}
@@ -645,7 +622,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_search_filter_icon() {
-		return $this->options['listing_filters_icon'];
+		return get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 	}
 
 	/**
@@ -858,7 +835,7 @@ class Listings {
 	 * @return string Possible values: view_count, average_rating, both_view_rating.
 	 */
 	public function popular_by() {
-		return $this->options['listing_popular_by'];
+		return get_directorist_option( 'listing_popular_by' );
 	}
 
 	/**
@@ -867,7 +844,7 @@ class Listings {
 	 * @return string|int
 	 */
 	public function average_review_for_popular() {
-		return $this->options['average_review_for_popular'];
+		return get_directorist_option( 'average_review_for_popular', 4 );
 	}
 
 	/**
@@ -876,7 +853,7 @@ class Listings {
 	 * @return string|int
 	 */
 	public function view_to_popular() {
-		return $this->options['views_for_popular'];
+		return get_directorist_option( 'views_for_popular', 4 );
 	}
 
 	/**
@@ -885,7 +862,7 @@ class Listings {
 	 * @return string Possible values: miles, kilometers.
 	 */
 	public function radius_search_unit() {
-		return $this->options['radius_search_unit'];
+		return get_directorist_option( 'radius_search_unit', 'miles' );
 	}
 
 	/**
@@ -894,7 +871,7 @@ class Listings {
 	 * @return string Possible values: google, openstreet.
 	 */
 	public function map_type() {
-		return $this->options['select_listing_map'];
+		return get_directorist_option( 'select_listing_map', 'google' );
 	}
 
 	/**

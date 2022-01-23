@@ -175,19 +175,6 @@ class Listings {
 		$this->options['sort_by_text']                    = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
 		$this->options['display_view_as']                 = get_directorist_option( 'display_view_as', 1 );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
-
-		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;
-		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
-		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
-		$this->options['display_title_map']               = get_directorist_option('display_title_map', 1) ? true : false;
-		$this->options['display_address_map']             = get_directorist_option('display_address_map', 1) ? true : false;
-		$this->options['display_direction_map']           = get_directorist_option('display_direction_map', 1) ? true : false;
-		$this->options['crop_width']                      = get_directorist_option('crop_width', 360);
-		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
-		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
-		$this->options['font_type']                       = get_directorist_option('font_type','line');
-		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
-		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 	}
 
 	/**
@@ -622,7 +609,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_search_filter_icon() {
-		return get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
+		return get_directorist_option( 'listing_filters_icon', true );
 	}
 
 	/**
@@ -1424,18 +1411,19 @@ class Listings {
 
 	public function get_map_options() {
 		$opt['select_listing_map']    		= $this->map_type();
-		$opt['crop_width']            		= $this->options['crop_width'];
-		$opt['crop_height']           		= $this->options['crop_height'];
-		$opt['display_map_info']      		= $this->options['display_map_info'];
-		$opt['display_image_map']     		= $this->options['display_image_map'];
-		$opt['display_title_map']     		= $this->options['display_title_map'];
-		$opt['display_address_map']   		= $this->options['display_address_map'];
-		$opt['display_direction_map'] 		= $this->options['display_direction_map'];
+		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );
+		$opt['crop_height']           		= get_directorist_option( 'crop_height', 360 );
+		$opt['display_map_info']      		= get_directorist_option( 'display_map_info', true );
+		$opt['display_image_map']     		= get_directorist_option( 'display_image_map', true );
+		$opt['display_title_map']     		= get_directorist_option( 'display_title_map', true );
+		$opt['display_address_map']   		= get_directorist_option( 'display_address_map', true );
+		$opt['display_direction_map'] 		= get_directorist_option( 'display_direction_map', true );
 		$opt['zoom']                  		= $this->map_zoom_level();
-		$opt['default_image']         		= $this->options['default_preview_image'];
-		$opt['default_lat']           		= $this->options['default_latitude'];
-		$opt['default_long']          		= $this->options['default_longitude'];
-		$opt['use_def_lat_long']   			= $this->options['use_def_lat_long'];
+		$opt['default_image']         		= get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
+		$opt['default_lat']           		= get_directorist_option( 'default_latitude', 40.7127753 );
+		$opt['default_long']          		= get_directorist_option( 'default_longitude', -74.0059728 );
+		$opt['use_def_lat_long']   			= get_directorist_option( 'use_def_lat_long', true );
+		$opt['font_type']                   = get_directorist_option( 'font_type','line' );
 
 		$opt['disable_single_listing'] = $this->disable_single_listing();
 
@@ -1483,14 +1471,14 @@ class Listings {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
 
-				$ls_data['default_image'] = $this->options['default_preview_image'];
+				$ls_data['default_image'] = $opt['default_image'];
 
 				if ( ! empty( $ls_data['listing_img'][0] ) ) {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
 				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = $this->options['font_type'];
+				$font_type = $opt['font_type'];
 
 				if ( !empty($cats) ) {
 					$cat_icon = get_cat_icon($cats[0]->term_id);
@@ -1520,8 +1508,8 @@ class Listings {
 		endif;
 
 		$cord = [
-			'lat' => $this->options['default_latitude'],
-			'lon' => $this->options['default_longitude']
+			'lat' => $opt['default_lat'],
+			'lon' => $opt['default_long']
 		];
 
 		if ( ! empty( $listings_data ) ) {
@@ -1551,9 +1539,9 @@ class Listings {
 			'plugin_url'          => ATBDP_URL,
 			'disable_info_window' => $disable_info_window,
 			'zoom'                => $opt['zoom'],
-			'default_latitude'    => $this->options['default_latitude'],
-			'default_longitude'   => $this->options['default_longitude'],
-			'use_def_lat_long'   => $this->options['use_def_lat_long'],
+			'default_latitude'    => $opt['default_lat'],
+			'default_longitude'   => $opt['default_long'],
+			'use_def_lat_long'    => $opt['use_def_lat_long'],
 		);
 
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
@@ -1583,10 +1571,10 @@ class Listings {
 					$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
 					$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
 					$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
-					$ls_data['crop_width']      = $this->options['crop_width'];
-					$ls_data['crop_height']     = $this->options['crop_height'];
+					$ls_data['crop_width']      = $opt['crop_width'];
+					$ls_data['crop_height']     = $opt['crop_height'];
 					$ls_data['address']         = get_post_meta($listings_id, '_address', true);
-					$ls_data['font_type']       = $this->options['font_type'];
+					$ls_data['font_type']       = $opt['font_type'];
 					$ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 

@@ -1036,6 +1036,9 @@ class Listings {
 		return get_directorist_option( 'disable_single_listing', false );
 	}
 
+	/**
+	 * @return array
+	 */
 	public function allowed_directory_types() {
 		$args = array(
 			'taxonomy'   => ATBDP_TYPE,
@@ -1049,6 +1052,9 @@ class Listings {
 		return get_terms( $args );
 	}
 
+	/**
+	 * @return int
+	 */
 	public function current_directory_type_id() {
 		$types = $this->allowed_directory_types();
 
@@ -1079,14 +1085,29 @@ class Listings {
 		return (int) $current;
 	}
 
+	/**
+	 * @param  object $term
+	 *
+	 * @return string
+	 */
 	public function directory_type_name( $term ) {
 		return $term->name;
 	}
 
+	/**
+	 * @param  object $term
+	 *
+	 * @return string
+	 */
 	public function directory_type_icon( $term ) {
 		return get_term_meta( $term->term_id, 'general_config', true )['icon'];
 	}
 
+	/**
+	 * @param  object $term
+	 *
+	 * @return string
+	 */
 	public function directory_type_url( $term ) {
 		$type = $term->slug;
 

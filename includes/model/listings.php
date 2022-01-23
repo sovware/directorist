@@ -239,7 +239,7 @@ class Listings {
 	 * Renders directory type navigation template.
 	 */
 	public function directory_type_nav_template() {
-		$count = count( $this->get_listing_types() );
+		$count = count( $this->allowed_directory_types() );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 			Helper::get_template( 'archive/directory-type-nav' );
@@ -301,7 +301,7 @@ class Listings {
 
 		$args = array(
 			'listings'   => $this,
-			'searchform' => new Search_Form( $this->type, $this->get_current_listing_type(), $search_field_atts ),
+			'searchform' => new Search_Form( $this->type, $this->current_directory_type_id(), $search_field_atts ),
 		);
 
 		Helper::get_template( 'archive/search-form', $args );
@@ -332,7 +332,7 @@ class Listings {
 		}
 
 		if ( !$image ) {
-			$src   = Helper::default_preview_image_src( $this->get_current_listing_type() );
+			$src   = Helper::default_preview_image_src( $this->current_directory_type_id() );
 			$class = !empty( $attr['class'] ) ? $attr['class'] : '';
 			$image = sprintf( '<img src="%s" alt="%s" class="%s" />', $src, get_the_title(), $class );
 		}
@@ -427,7 +427,7 @@ class Listings {
 	 */
 	public function loop_author_link() {
 		$author_id   = get_the_author_meta( 'ID' );
-		$get_directory_type = get_term_by( 'id', $this->get_current_listing_type(), ATBDP_TYPE );
+		$get_directory_type = get_term_by( 'id', $this->current_directory_type_id(), ATBDP_TYPE );
 		$directory_type = ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
 		return ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type );
 	}
@@ -800,24 +800,6 @@ class Listings {
 	}
 
 	/**
-	 * Custom directory type.
-	 *
-	 * @return string
-	 */
-	public function custom_directory_type() {
-		return !empty( $this->atts['directory_type'] ) ? explode( ',', $this->atts['directory_type'] ) : '';
-	}
-
-	/**
-	 * Custom default directory type.
-	 *
-	 * @return string
-	 */
-	public function default_directory_type() {
-		return !empty( $this->atts['default_directory_type'] ) ? $this->atts['default_directory_type'] : '';
-	}
-
-	/**
 	 * Determines how popular listings are based on.
 	 *
 	 * @return string Possible values: view_count, average_rating, both_view_rating.
@@ -1054,45 +1036,36 @@ class Listings {
 		return get_directorist_option( 'disable_single_listing', false );
 	}
 
-	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
+	public function allowed_directory_types() {
+		$args = array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false
 		);
-		if( $this->custom_directory_type() ) {
-			$args['slug']     = $this->custom_directory_type();
-		}
-		$all_types = get_terms( $args );
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+		if( !empty( $this->atts['directory_type'] ) ) {
+			$args['slug'] = explode( ',', $this->atts['directory_type'] );
 		}
-		return $listing_types;
+
+		return get_terms( $args );
 	}
 
-	public function get_current_listing_type() {
-		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
+	public function current_directory_type_id() {
+		$types = $this->allowed_directory_types();
 
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+		$current = !empty( $types[0] ) ? $types[0]->term_id : '';
 
 		if ( isset( $_GET['directory_type'] ) ) {
 			$current = $_GET['directory_type'];
 		}
-		else if( $this->default_directory_type() ) {
-			$current = $this->default_directory_type();
+		else if( !empty( $this->atts['default_directory_type'] ) ) {
+			$current = $this->atts['default_directory_type'];
 		}
 		else {
+			foreach ( $types as $term ) {
+				$is_default = get_term_meta( $term->term_id, '_default', true );
 
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {
-					$current = $id;
+					$current = $term->term_id;
 					break;
 				}
 			}
@@ -1102,7 +1075,28 @@ class Listings {
 			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
 			$current = $term->term_id;
 		}
+
 		return (int) $current;
+	}
+
+	public function directory_type_name( $term ) {
+		return $term->name;
+	}
+
+	public function directory_type_icon( $term ) {
+		return get_term_meta( $term->term_id, 'general_config', true )['icon'];
+	}
+
+	public function directory_type_url( $term ) {
+		$type = $term->slug;
+
+		$base_url = remove_query_arg( [ 'page', 'paged' ] );
+		$base_url = preg_replace( '~/page/(\d+)/?~', '', $base_url );
+		$base_url = preg_replace( '~/paged/(\d+)/?~', '', $base_url );
+
+		$url = add_query_arg( [ 'directory_type' => $type ], $base_url );
+
+		return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 	}
 
 	public function render_map() {
@@ -1152,7 +1146,7 @@ class Listings {
 			$class[] = 'directorist-single-line';
 		}
 
-		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->get_current_listing_type() );
+		$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_directory_type_id() );
 
 		return implode( ' ' , $class );
 	}
@@ -1178,7 +1172,7 @@ class Listings {
 	}
 
 	public function card_data( $view = 'grid' ) {
-		$listing_type = $this->get_current_listing_type();
+		$listing_type = $this->current_directory_type_id();
 
 		if ( $view == 'grid' ) {
 			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
@@ -1218,7 +1212,7 @@ class Listings {
 			$this->render_badge_template($field);
 		}
 		else {
-			$submission_form_fields = get_term_meta( $this->get_current_listing_type(), 'submission_form_fields', true );
+			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
 			$original_field = '';
 
 			if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
@@ -1996,7 +1990,7 @@ class Listings {
 
 		$meta_queries['directory_type'] = array(
 				'key'     => '_directory_type',
-				'value'   => $this->get_current_listing_type(),
+				'value'   => $this->current_directory_type_id(),
 				'compare' => '=',
 			);
 

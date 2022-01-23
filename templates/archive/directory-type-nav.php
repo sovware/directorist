@@ -20,11 +20,17 @@ do_action( 'directorist_before_listing_types', $listings );
 
 		<ul class="directorist-type-nav__list">
 
-			<?php foreach ( $listings->get_listing_types() as $id => $value ) : ?>
+			<?php foreach ( $listings->allowed_directory_types() as $type ) : ?>
 
-				<li class="<?php echo ( ( $listings->get_current_listing_type() === $value['term']->term_id ) ? 'current': '' ); ?>">
+				<?php $current = ( $listings->current_directory_type_id() == $type->term_id ) ? 'current': '';?>
 
-					<a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( $value['term']->slug ) ); ?>"><span class="<?php echo esc_attr( $value['data']['icon'] );?>"></span> <?php echo esc_html( $value['name'] );?></a>
+				<li class="<?php echo esc_attr( $current ); ?>">
+
+					<a class="directorist-type-nav__link" href="<?php echo esc_url( $listings->directory_type_url( $type ) ); ?>">
+						<span class="<?php echo esc_attr( $listings->directory_type_icon( $type ) );?>"></span>
+						<?php echo esc_html( $listings->directory_type_name( $type ) );?>
+					</a>
+
 				</li>
 
 			<?php endforeach; ?>

@@ -127,7 +127,7 @@ class ATBDP_Shortcode {
 			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
-		$script_args = [ 'directory_type_id' => $listings->get_current_listing_type() ];
+		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
 		Script_Helper::load_search_form_script( $script_args );
 
 		Helper::get_template( 'archive-contents' );

@@ -1195,11 +1195,6 @@ class Listings {
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
-		// if( ! $id ) return;
-		// global $post;
-		// $post = get_post( $id );
-		// setup_postdata( $id );
-
 		$active_template = $this->card_data( $loop )['active_template'];
 
 		if ( $loop == 'grid' ) {
@@ -1210,8 +1205,6 @@ class Listings {
 			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
 			Helper::get_template( 'archive/' . $template );
 		}
-
-		// wp_reset_postdata();
 	}
 
 	public function card_data( $view = 'grid' ) {

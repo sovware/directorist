@@ -62,13 +62,6 @@ class Listings {
 	public $query;
 
 	/**
-	 * Results of archive query.
-	 *
-	 * @var array
-	 */
-	public $query_results = [];
-
-	/**
 	 * Private Constructor of Singleton.
 	 */
 	private function __construct() {
@@ -209,7 +202,7 @@ class Listings {
 	/**
 	 * Set query.
 	 *
-	 * @todo migration: remove transients
+	 * @todo migration: remove transients for backword compatibility
 	 *
 	 * @param array $query_args
 	 */
@@ -223,10 +216,17 @@ class Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $query_args );
-		$this->query = $this->query_results->query;
+		$this->query = $this->get_query_results( $query_args )->query;
 	}
 
+	/**
+	 *
+	 * @todo improve
+	 *
+	 * @param  array  $query_args
+	 *
+	 * @return object
+	 */
 	public function get_query_results( $query_args = [] ) {
 		$caching_options = [];
 		if ( ! empty( $query_args['orderby'] ) ) {
@@ -251,6 +251,13 @@ class Listings {
 	 */
 	public function get_query() {
 		return $this->query;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function post_ids() {
+		return wp_parse_id_list( $this->query->posts );
 	}
 
 	/**
@@ -1479,17 +1486,15 @@ class Listings {
 		$listings_data = [];
 		$lat_lon = [];
 
-		$listings = $this->query_results;
-
-		if ( ! empty( $listings->ids ) ) :
+		if ( $this->query->have_posts() ) :
 			// Prime caches to reduce future queries.
-			if ( ! empty( $listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-				_prime_post_caches( $listings->ids );
+			if ( is_callable( '_prime_post_caches' ) ) {
+				_prime_post_caches( $this->post_ids() );
 			}
 
 			$original_post = $GLOBALS['post'];
 
-			foreach ( $listings->ids as $listings_id ) :
+			foreach ( $this->post_ids() as $listings_id ) :
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
 				$ls_data = [];
@@ -1591,17 +1596,15 @@ class Listings {
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height())?$this->listings_map_height():'';?>px;">
 			<?php
 
-			$listings = $this->query_results;
-
-			if ( ! empty( $listings->ids ) ) {
+			if ( $this->query->have_posts() ) {
 				// Prime caches to reduce future queries.
-				if ( ! empty( $listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-					_prime_post_caches( $listings->ids );
+				if ( is_callable( '_prime_post_caches' ) ) {
+					_prime_post_caches( $this->post_ids() );
 				}
 
 				$original_post = $GLOBALS['post'];
 
-				foreach ( $listings->ids as $listings_id ) :
+				foreach ( $this->post_ids() as $listings_id ) :
 					$GLOBALS['post'] = get_post( $listings_id );
 					setup_postdata( $GLOBALS['post'] );
 					$ls_data = [];

@@ -139,10 +139,5 @@ trait Deprecated_Listings {
 		return $this->query->have_posts();
 	}
 
-	public function post_ids() {
-		_deprecated_function( 'post_ids', '7.1.2' );
-		return [];
-	}
-
 
 }

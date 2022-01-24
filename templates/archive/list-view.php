@@ -10,6 +10,8 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
+
+$query = $listings->get_query();
 ?>
 
 <div class="directorist-archive-list-view">
@@ -18,13 +20,17 @@ $listings = directorist()->listings;
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
-		<?php if ( $listings->have_posts() ): ?>
+		<?php if ( $query->have_posts() ): ?>
 
-			<?php foreach ( $listings->post_ids() as $listing_id ): ?>
+			<?php while ( $query->have_posts() ): ?>
 
-				<?php $listings->loop_template( 'list', $listing_id ); ?>
+				<?php $query->the_post(); ?>
+
+				<?php $listings->loop_template( 'list' ); ?>
 				
-			<?php endforeach; ?>
+			<?php endwhile; ?>
+
+			<?php wp_reset_postdata(); ?>
 			
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 

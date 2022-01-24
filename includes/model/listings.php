@@ -55,6 +55,13 @@ class Listings {
 	public $type;
 
 	/**
+	 * WP_Query object for Listing post type.
+	 *
+	 * @var object
+	 */
+	public $query;
+
+	/**
 	 * Results of archive query.
 	 *
 	 * @var array
@@ -200,7 +207,9 @@ class Listings {
 	}
 
 	/**
-	 * Set query results.
+	 * Set query.
+	 *
+	 * @todo migration: remove transients
 	 *
 	 * @param array $query_args
 	 */
@@ -215,24 +224,40 @@ class Listings {
 		}
 
 		$this->query_results = $this->get_query_results( $query_args );
+		$this->query = $this->query_results->query;
+	}
+
+	public function get_query_results( $query_args = [] ) {
+		$caching_options = [];
+		if ( ! empty( $query_args['orderby'] ) ) {
+			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
+				$caching_options['cache'] = false;
+			}
+
+			if ( is_array( $query_args['orderby'] ) ) {
+				foreach ( $query_args['orderby'] as $key => $value ) {
+					if ( preg_match( '/rand/', $value ) ) {
+						$caching_options['cache'] = false;
+					}
+				}
+			}
+		}
+
+		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
 	}
 
 	/**
-	 * Any listings exists or not.
-	 *
-	 * @return bool
+	 * @return object
 	 */
-	public function have_posts() {
-		return !empty( $this->query_results->ids ) ? true : false;
+	public function get_query() {
+		return $this->query;
 	}
 
 	/**
-	 * Listing ids.
-	 *
-	 * @return array Listing ids
+	 * @return int
 	 */
-	public function post_ids() {
-		return $this->query_results->ids;
+	public function total_count() {
+		return (int) $this->query->found_posts;
 	}
 
 	/**
@@ -536,7 +561,7 @@ class Listings {
 	 * @return string
 	 */
 	public function item_found_text() {
-		$count = $this->query_results->total;
+		$count = $this->total_count();
 		$title = $this->atts['header_title'];
 
 		if ( strpos( $title, '%COUNT%') !== false ) {
@@ -560,7 +585,7 @@ class Listings {
 	 * @return string
 	 */
 	public function item_found_text_for_search() {
-		$count = $this->query_results->total;
+		$count = $this->total_count();
 		$cat_name = $loc_name = '';
 
 		if ( isset($_GET['in_cat'] ) ) {
@@ -1141,17 +1166,11 @@ class Listings {
 		return implode( ', ', $loc_array );
 	}
 
-	public function render_map() {
-		if ( 'google' == $this->map_type() ) {
-			$this->load_google_map();
-		}
-		else {
-			$this->load_openstreet_map();
-		}
-	}
-
-
-
+	/**
+	 * @todo remove 2nd parameter from filter
+	 *
+	 * @return string
+	 */
 	public function loop_wrapper_class() {
 		$class  = [];
 
@@ -1169,10 +1188,10 @@ class Listings {
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
-		global $post;
-		$post = get_post( $id );
-		setup_postdata( $id );
+		// if( ! $id ) return;
+		// global $post;
+		// $post = get_post( $id );
+		// setup_postdata( $id );
 
 		$active_template = $this->card_data( $loop )['active_template'];
 
@@ -1185,7 +1204,7 @@ class Listings {
 			Helper::get_template( 'archive/' . $template );
 		}
 
-		wp_reset_postdata();
+		// wp_reset_postdata();
 	}
 
 	public function card_data( $view = 'grid' ) {
@@ -1357,6 +1376,15 @@ class Listings {
 			break;
 		}
 
+	}
+
+	public function render_map() {
+		if ( 'google' == $this->map_type() ) {
+			$this->load_google_map();
+		}
+		else {
+			$this->load_openstreet_map();
+		}
 	}
 
 	public function load_openstreet_map() {
@@ -1619,25 +1647,6 @@ class Listings {
 				wp_reset_postdata();
 			}
 		echo "</div>";
-	}
-
-	public function get_query_results( $query_args = [] ) {
-		$caching_options = [];
-		if ( ! empty( $query_args['orderby'] ) ) {
-			if ( is_string( $query_args['orderby'] ) && preg_match( '/rand/', $query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $query_args['orderby'] ) ) {
-				foreach ( $query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $query_args, $caching_options );
 	}
 
 	public function parse_query_args() {

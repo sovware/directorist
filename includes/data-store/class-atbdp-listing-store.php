@@ -23,6 +23,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
                         'total_pages'  => $paginated ? (int) $query->max_num_pages : 1,
                         'per_page'     => (int) $query->get( 'posts_per_page' ),
                         'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
+                        'query'        => $query,
                     ];
                     
                     return $results;

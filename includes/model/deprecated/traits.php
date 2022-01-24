@@ -134,4 +134,15 @@ trait Deprecated_Listings {
 		return $this->get_location_html();
 	}
 
+	public function have_posts() {
+		_deprecated_function( 'have_posts', '7.1.2' );
+		return $this->query->have_posts();
+	}
+
+	public function post_ids() {
+		_deprecated_function( 'post_ids', '7.1.2' );
+		return [];
+	}
+
+
 }

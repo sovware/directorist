@@ -129,4 +129,9 @@ trait Deprecated_Listings {
 		return $current = $this->current_directory_type_id();
 	}
 
+	public function get_the_location() {
+		_deprecated_function( 'get_the_location', '7.1.2', 'get_location_html' );
+		return $this->get_location_html();
+	}
+
 }

@@ -1120,44 +1120,26 @@ class Listings {
 		return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_locations() {
-		$id = get_the_ID();
-		$terms = get_the_terms( $id, ATBDP_LOCATION );
-
-		if ( empty( $locs ) ) {
-			return [];
-		}
-
-
-
+		return get_the_terms( get_the_ID(), ATBDP_LOCATION );
 	}
 
-	public function get_the_location() {
-		$id = get_the_ID();
-		$locs = get_the_terms( $id, ATBDP_LOCATION );
+	/**
+	 * @return string
+	 */
+	public function get_location_html() {
+		$loc_array = [];
 
-		if ( empty( $locs ) ) {
-			return;
+		foreach ( $this->get_locations() as $term ) {
+			$link = get_term_link( $term->term_id, ATBDP_LOCATION );
+			$loc_array[] = sprintf( '<a href="%s">%s</a>', $link, $term->name );
 		}
 
-		$local_names = array();
-		foreach ($locs as $term) {
-			$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-			ksort($local_names);
-			$locals = array_reverse($local_names);
-		}
-		$output = array();
-		$link = array();
-		foreach ($locals as $location) {
-			$term = get_term_by('slug', $location, ATBDP_LOCATION);
-			$link = esc_url( get_term_link( $term->term_id, ATBDP_LOCATION ) );
-			$space = str_repeat(' ', 1);
-			$output[] = "<a href='{$link}'>{$term->name}</a>";
-		}
-
-		return implode(', ', $output);
+		return implode( ', ', $loc_array );
 	}
-
 
 	public function render_map() {
 		if ( 'google' == $this->map_type() ) {

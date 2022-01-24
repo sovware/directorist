@@ -5093,6 +5093,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding-right: 0 !important;
 }
 
+.directorist-select .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__clear {
+  display: none;
+}
+
 .select2.select2-container.select2-container--default {
   width: 100%;
 }
@@ -10095,6 +10099,16 @@ p.atbd-min {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+.directorist-listing-single .directorist-listing-single__meta .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span {
+  top: auto;
+  bottom: 35px;
+}
+.directorist-listing-single .directorist-listing-single__meta .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span:before {
+  top: auto;
+  bottom: -7px;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .directorist-rating-meta {

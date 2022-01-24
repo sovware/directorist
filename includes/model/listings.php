@@ -1194,7 +1194,7 @@ class Listings {
 		return implode( ' ' , $class );
 	}
 
-	public function loop_template( $loop = 'grid', $id = NULL ) {
+	public function loop_template( $loop = 'grid' ) {
 		$active_template = $this->card_data( $loop )['active_template'];
 
 		if ( $loop == 'grid' ) {

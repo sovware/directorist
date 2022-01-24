@@ -10,8 +10,10 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $related = $listing->get_related_listings();
+$query = $related->get_query();
 
-if ( !$related->have_posts() ) {
+
+if ( !$query->have_posts() ) {
 	return;
 }
 
@@ -29,11 +31,15 @@ $listing->load_related_listings_script();
 
 	<div class="directorist-related-carousel">
 
-		<?php foreach ( $related->post_ids() as $listing_id ): ?>
+		<?php while ( $query->have_posts() ): ?>
 
-			<?php $related->loop_template( 'grid', $listing_id ); ?>
+			<?php $query->the_post(); ?>
 
-		<?php endforeach; ?>
+			<?php $related->loop_template( 'grid' ); ?>
+
+		<?php endwhile; ?>
+
+		<?php wp_reset_postdata(); ?>
 
 	</div>
 

@@ -52,6 +52,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             add_action('wp_loaded', array($this, 'directorist_bulk_term_update'));
 
+            // Assets
+            add_action( 'admin_enqueue_scripts', array( $this, 'category_colorpicker_enqueue' ) );
+            add_action( 'admin_print_scripts', array( $this, 'colorpicker_init_inline' ), 20 );
         }
 
 
@@ -103,6 +106,33 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             update_option( 'directorist_bulk_term_update_v7_0_3_2', 1 );
         }
 
+        public function category_colorpicker_enqueue( $taxonomy ) {
+
+            if ( null !== ( $screen = get_current_screen() ) && 'edit-at_biz_dir-category' !== $screen->id ) {
+                return;
+            }
+    
+            // Colorpicker Scripts
+            wp_enqueue_script( 'wp-color-picker' );
+    
+            // Colorpicker Styles
+            wp_enqueue_style( 'wp-color-picker' );
+        }
+    
+        public function colorpicker_init_inline() {
+    
+            if ( null !== ( $screen = get_current_screen() ) && 'edit-at_biz_dir-category' !== $screen->id ) {
+                return;
+            }
+            ?>
+    
+            <script>
+                jQuery(document).ready( function($) {
+                    $( '.colorpicker' ).wpColorPicker();
+                });
+            </script>
+    
+        <?php }
 
         public function atbdp_template_redirect()
         {
@@ -237,6 +267,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             } else {
                 update_term_meta($term_id, 'image', '');
             }
+
+            if ( isset( $_POST['directorist_category_color'] ) && ! empty( $_POST['directorist_category_color'] ) ) {
+                update_term_meta( $term_id, 'directorist_category_color', sanitize_hex_color_no_hash( $_POST['directorist_category_color'] ) );
+            } else {
+                update_term_meta( $term_id, 'directorist_category_color', '000000' );
+            }
         }
 
         /**
@@ -335,6 +371,18 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     </p>
                 </td>
             </tr>
+            
+            <?php
+            	$color = get_term_meta( $term->term_id, 'directorist_category_color', true );
+                $color = ( ! empty( $color ) ) ? "#{$color}" : '#000000';
+                ?>
+        
+                <tr class="form-field term-colorpicker-wrap">
+                    <th scope="row"><label for="term-colorpicker"><?php esc_html_e( 'Category Color', 'directorist' );?></label></th>
+                    <td>
+                        <input name="directorist_category_color" value="<?php echo $color; ?>" class="colorpicker" id="term-colorpicker" />
+                    </td>
+                </tr>
             <?php
         }
 
@@ -413,6 +461,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }
 
+            if ( isset( $_POST['directorist_category_color'] ) && ! empty( $_POST['directorist_category_color'] ) ) {
+                add_term_meta( $term_id, 'directorist_category_color', sanitize_hex_color_no_hash( $_POST['directorist_category_color'] ) );
+            }
+
         }
 
         public function save_location_extra_meta($term_id, $tt_id)
@@ -479,6 +531,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                            value="<?php _e('Add Image', 'directorist'); ?>"/>
                 </p>
             </div>
+
+            <div class="form-field term-colorpicker-wrap">
+                <label for="term-colorpicker"><?php esc_html_e( 'Category Color', 'directorist' );?></label>
+                <input name="directorist_category_color" value="#ffffff" class="colorpicker" id="term-colorpicker" />
+            </div>
+            
             <?php
         }
 

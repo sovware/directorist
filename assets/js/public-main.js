@@ -1893,10 +1893,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       key: "getErrorMsg",
       value: function getErrorMsg($dom) {
         if ($dom.find('p').length) {
-          return $dom.find('p').text();
+          $dom = $dom.find('p');
         }
 
-        return $dom.text();
+        var words = $dom.text().split(':');
+
+        if (words.length > 1) {
+          words.shift();
+        }
+
+        return words.join(' ').trim();
       }
     }, {
       key: "showError",
@@ -2151,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
-    Plugin: Directorist - Business Directory Plugin
+    Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
     Author: Aazztech
     Author URI: www.aazztech.com
 */

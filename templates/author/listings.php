@@ -44,23 +44,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 </div>
 
 <?php do_action( 'directorist_author_listings_before_loop' ); ?>
+
+
+
 <div class="directorist-author-listing-content">
 
 	<div class="<?php Helper::directorist_row(); ?>">
 
-		<?php foreach ( $listings->post_ids() as $listing_id ): ?>
+		<?php $query = $listings->get_query(); ?>
+
+		<?php while ( $query->have_posts() ): ?>
+
+			<?php $query->the_post(); ?>
 
 			<div class="<?php Helper::directorist_column( $author->columns ); ?>">
-				<?php $listings->loop_template( 'grid', $listing_id ); ?>
+				<?php $listings->loop_template( 'grid' ); ?>
 			</div>
 
-		<?php endforeach; ?>
+		<?php endwhile; ?>
+
+		<?php wp_reset_postdata(); ?>
 
 	</div>
 
 	<?php
-	if ( $author->listing_pagination_enabled() ) {
-		$listings->pagination();
+	if ( $listings->display_pagination() ) {
+		$listings->pagination_template();
 	}
 	?>
 

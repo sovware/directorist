@@ -1194,19 +1194,11 @@ class Listings {
 		return implode( ' ' , $class );
 	}
 
-	public function loop_template( $loop = 'grid' ) {
-		$active_template = $this->card_data( $loop )['active_template'];
-
-		if ( $loop == 'grid' ) {
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
-			Helper::get_template( 'archive/' . $template );
-		}
-		elseif ( $loop == 'list' ) {
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
-			Helper::get_template( 'archive/' . $template );
-		}
-	}
-
+	/**
+	 * @param  string $view
+	 *
+	 * @return array
+	 */
 	public function card_data( $view = 'grid' ) {
 		$listing_type = $this->current_directory_type_id();
 
@@ -1220,6 +1212,30 @@ class Listings {
 		return $data;
 	}
 
+	/**
+	 * @param  string $view
+	 */
+	public function loop_template( $view = 'grid' ) {
+		$active_template = $this->card_data( $loop )['active_template'];
+
+		if ( $view == 'grid' ) {
+			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+		elseif ( $view == 'list' ) {
+			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+	}
+
+	/**
+	 * @todo Need improvement.
+	 *
+	 * @param  string  $view
+	 * @param  boolean $thumb
+	 *
+	 * @return string
+	 */
 	public function card_view_data( $view = 'grid', $thumb = true ) {
 		$data = $this->card_data( $view );
 
@@ -1233,6 +1249,11 @@ class Listings {
 		return $result;
 	}
 
+	/**
+	 * @param  array $fields
+	 * @param  string $before
+	 * @param  string $after
+	 */
 	public function render_card_view( $fields, $before = '', $after = '' ) {
 		if( !empty( $fields ) ) {
 			foreach ( $fields as $field ) {
@@ -1243,9 +1264,42 @@ class Listings {
 		}
 	}
 
+	public function render_badge_template( $field ) {
+		$id = get_the_ID();
+
+		do_action( 'atbdp_all_listings_badge_template', $field );
+
+		switch ($field['widget_key']) {
+			case 'popular_badge':
+			$field['class'] = 'popular';
+			$field['label'] = Helper::popular_badge_text();
+			if ( Helper::is_popular( $id ) ) {
+				Helper::get_template( 'archive/fields/badge', $field );
+			}
+			break;
+
+			case 'featured_badge':
+			$field['class'] = 'featured';
+			$field['label'] = Helper::featured_badge_text();
+			if ( Helper::is_featured( $id ) ) {
+				Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
+			}
+			break;
+
+			case 'new_badge':
+			$field['class'] = 'new';
+			$field['label'] = Helper::new_badge_text();
+			if ( Helper::is_new( $id ) ) {
+				Helper::get_template( 'archive/fields/badge', $field );
+			}
+			break;
+		}
+
+	}
+
 	public function card_field_html( $field ) {
 		if ( $field['type'] == 'badge' ) {
-			$this->render_badge_template($field);
+			$this->render_badge_template( $field );
 		}
 		else {
 			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
@@ -1344,39 +1398,7 @@ class Listings {
 		}
 	}
 
-	public function render_badge_template( $field ) {
-		global $post;
-		$id = get_the_ID();
 
-		do_action( 'atbdp_all_listings_badge_template', $field );
-
-		switch ($field['widget_key']) {
-			case 'popular_badge':
-			$field['class'] = 'popular';
-			$field['label'] = Helper::popular_badge_text();
-			if ( Helper::is_popular( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', $field );
-			}
-			break;
-
-			case 'featured_badge':
-			$field['class'] = 'featured';
-			$field['label'] = Helper::featured_badge_text();
-			if ( Helper::is_featured( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
-			}
-			break;
-
-			case 'new_badge':
-			$field['class'] = 'new';
-			$field['label'] = Helper::new_badge_text();
-			if ( Helper::is_new( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', $field );
-			}
-			break;
-		}
-
-	}
 
 	public function render_map() {
 		if ( 'google' == $this->map_type() ) {

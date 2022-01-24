@@ -1120,17 +1120,19 @@ class Listings {
 		return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 	}
 
-	public function render_map() {
-		if ( 'google' == $this->map_type() ) {
-			$this->load_google_map();
+	public function get_locations() {
+		$id = get_the_ID();
+		$terms = get_the_terms( $id, ATBDP_LOCATION );
+
+		if ( empty( $locs ) ) {
+			return [];
 		}
-		else {
-			$this->load_openstreet_map();
-		}
+
+
+
 	}
 
 	public function get_the_location() {
-
 		$id = get_the_ID();
 		$locs = get_the_terms( $id, ATBDP_LOCATION );
 
@@ -1155,6 +1157,18 @@ class Listings {
 
 		return implode(', ', $output);
 	}
+
+
+	public function render_map() {
+		if ( 'google' == $this->map_type() ) {
+			$this->load_google_map();
+		}
+		else {
+			$this->load_openstreet_map();
+		}
+	}
+
+
 
 	public function loop_wrapper_class() {
 		$class  = [];

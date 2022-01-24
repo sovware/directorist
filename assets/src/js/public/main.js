@@ -1,6 +1,6 @@
 /*
     File: Main.js
-    Plugin: Directorist - Business Directory Plugin
+    Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
     Author: Aazztech
     Author URI: www.aazztech.com
 */

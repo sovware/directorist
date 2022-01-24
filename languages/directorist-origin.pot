@@ -2599,7 +2599,7 @@ msgid "Directorist - Author Info"
 msgstr ""
 
 #. Name of the plugin
-msgid "Directorist - Business Directory Plugin"
+msgid "Directorist – Business Directory & Classified Listings WordPress Plugin"
 msgstr ""
 
 #. Base ID

@@ -2157,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
 /*
     File: Main.js
-    Plugin: Directorist - Business Directory Plugin
+    Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
     Author: Aazztech
     Author URI: www.aazztech.com
 */

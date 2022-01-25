@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Directorist - Business Directory Plugin
+ * Plugin Name: Directorist – Business Directory & Classified Listings WordPress Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.0.8
+ * Version: 7.1.0
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -1147,7 +1147,7 @@ final class Directorist_Base
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist - Business Directory Plugin', __FILE__ );
+		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist – Business Directory & Classified Listings WordPress Plugin', __FILE__ );
 
 		// Active insights
 		$client->insights()->init();

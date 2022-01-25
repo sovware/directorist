@@ -1,8 +1,8 @@
-# Copyright (C) 2022 Directorist - Business Directory Plugin
-# This file is distributed under the same license as the Directorist - Business Directory Plugin package.
+# Copyright (C) 2022 Directorist – Business Directory & Classified Listings WordPress Plugin
+# This file is distributed under the same license as the Directorist – Business Directory & Classified Listings WordPress Plugin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Directorist - Business Directory Plugin\n"
+"Project-Id-Version: Directorist – Business Directory & Classified Listings WordPress Plugin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

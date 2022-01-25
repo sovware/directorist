@@ -41,8 +41,8 @@ Bootstrap::load_walker();
 			<?php if ( ! have_comments() ): ?>
 				<p class="directorist-review-single directorist-noreviews">
 					<?php
-					if ( ! directorist_is_guest_review_enabled() ) {
-						esc_html_e( 'There are no reviews yet. Login and be the first reviewer.', 'directorist' );
+					if ( ! is_user_logged_in() && ! directorist_is_guest_review_enabled() ) {
+						printf( esc_html__( 'There are no reviews yet. %1$sLogin to be the first reviewer%2$s.', 'directorist' ), '<a href="' . esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink() . '#respond' ) ) ) .'">', '</a>' );
 					} else {
 						printf( esc_html__( 'There are no reviews yet. %1$sBe the first reviewer%2$s.', 'directorist' ), '<a href="#respond">', '</a>' );
 					}

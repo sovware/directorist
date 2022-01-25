@@ -48,6 +48,23 @@ class Bootstrap {
 		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
 
 		add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
+
+		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
+	}
+
+	/**
+	 * Redirect to review form after login.
+	 *
+	 * @param string $redirect
+	 *
+	 * @return string
+	 */
+	public static function setup_login_redirect( $redirect ) {
+		if ( ! empty( $_GET['redirect'] ) ) {
+			return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) );
+		}
+
+		return $redirect;
 	}
 
 	public static function update_error_message( $code, $message, $data, $wp_error ) {

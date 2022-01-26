@@ -1269,8 +1269,20 @@ class Listings {
 
 		switch ( $position ) {
 
-			case 'thumb-avatar':
+			case 'avatar':
 				$fields = $data['thumbnail']['avatar'] ?? false;
+				break;
+
+			case 'title':
+				$fields = $data['body']['title'] ?? false;
+				break;
+
+			case 'quick-actions':
+				$fields = $data['body']['quick_actions'] ?? false;
+				break;
+
+			case 'quick-info':
+				$fields = $data['body']['quick_info'] ?? false;
 				break;
 
 			case 'thumb-top-left':
@@ -1293,7 +1305,7 @@ class Listings {
 				$fields = $data['body']['top'] ?? false;
 				break;
 
-			case 'body-top-right':
+			case 'body-right':
 				$fields = $data['body']['right'] ?? false;
 				break;
 

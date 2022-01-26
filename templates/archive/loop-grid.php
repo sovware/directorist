@@ -16,7 +16,7 @@ $listings = directorist()->listings;
 
 		<?php
 		$listings->loop_thumbnail_template();
-		$listings->render_fields( 'thumb-avatar' );
+		$listings->render_fields( 'avatar' );
 		?>
 
 		<div class="directorist-thumb-top-left"><?php $listings->render_fields( 'thumb-top-left' ); ?></div>
@@ -29,18 +29,25 @@ $listings = directorist()->listings;
 	<div class="directorist-listing-single__content">
 
 		<div class="directorist-listing-single__info">
+
 			<div class="directorist-listing-single__info--top"><?php $listings->render_fields( 'body-top' ); ?></div>
+
 			<div class="directorist-listing-single__info--list">
 				<ul>
 					<?php $listings->render_fields( 'body-bottom', 'grid', '<li>', '</li>' ); ?>
 				</ul>
 			</div>
+
 			<div class="directorist-listing-single__info--excerpt"><?php $listings->render_fields( 'body-excerpt' ); ?></div>
+
 		</div>
 
 		<div class="directorist-listing-single__meta">
+
 			<div class="directorist-listing-single__meta--left"><?php $listings->render_fields( 'footer-left' ); ?></div>
+
 			<div class="directorist-listing-single__meta--right"><?php $listings->render_fields( 'footer-right' ); ?></div>
+
 		</div>
 
 	</div>

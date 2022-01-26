@@ -1278,7 +1278,7 @@ class Listings {
 				break;
 
 			case 'quick-actions':
-				$fields = $data['body']['quick_actions'] ?? false;
+				$fields = $data['body']['quick_actions'];
 				break;
 
 			case 'quick-info':

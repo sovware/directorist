@@ -1216,7 +1216,7 @@ class Listings {
 	 * @param  string $view
 	 */
 	public function loop_template( $view = 'grid' ) {
-		$active_template = $this->card_data( $loop )['active_template'];
+		$active_template = $this->card_data( $view )['active_template'];
 
 		if ( $view == 'grid' ) {
 			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';

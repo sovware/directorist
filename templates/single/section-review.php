@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! directorist_is_review_enabled() ) {
+if ( ! directorist_is_review_enabled() || ! comments_open() ) {
 	return;
 }
 

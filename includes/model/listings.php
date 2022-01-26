@@ -1264,6 +1264,58 @@ class Listings {
 		}
 	}
 
+	public function render_fields( $position, $view = 'grid' ) {
+		$data = $this->card_view_data( $view, true );
+
+		switch ( $position ) {
+
+			case 'thumb-avatar':
+				$fields = $data['thumbnail']['avatar'] ?? false;
+				break;
+
+			case 'thumb-top-left':
+				$fields = $data['thumbnail']['top_left'] ?? false;
+				break;
+
+			case 'thumb-top-right':
+				$fields = $data['thumbnail']['top_right'] ?? false;
+				break;
+
+			case 'thumb-bottom-left':
+				$fields = $data['thumbnail']['bottom_left'] ?? false;
+				break;
+
+			case 'thumb-bottom-right':
+				$fields = $data['thumbnail']['bottom_right'] ?? false;
+				break;
+
+			case 'body-top':
+				$fields = $data['body']['top'] ?? false;
+				break;
+
+			case 'body-bottom':
+				$fields = $data['body']['bottom'] ?? false;
+				break;
+
+			case 'body-excerpt':
+				$fields = $data['body']['excerpt'] ?? false;
+				break;
+
+			case 'footer-left':
+				$fields = $data['footer']['left'] ?? false;
+				break;
+
+			case 'footer-right':
+				$fields = $data['footer']['right'] ?? false;
+				break;
+		}
+
+		if ( $fields ) {
+			$this->render_card_view( $fields );
+		}
+	}
+
+
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();
 

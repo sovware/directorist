@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.1.0
+ * @version 7.1.1
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

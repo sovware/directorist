@@ -29,7 +29,7 @@ Bootstrap::load_walker();
 			<?php if ( ! have_comments() ): ?><div><?php endif;?>
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), $review_count ) ); ?></h3>
 
-			<?php if ( is_user_logged_in() && ! directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) || ( ! is_user_logged_in() && directorist_is_guest_review_enabled() ) ) : ?>
+			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
 				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 
@@ -39,15 +39,7 @@ Bootstrap::load_walker();
 
 			<?php if ( ! have_comments() ): ?></div><?php endif;?>
 			<?php if ( ! have_comments() ): ?>
-				<p class="directorist-review-single directorist-noreviews">
-					<?php
-					if ( ! is_user_logged_in() && ! directorist_is_guest_review_enabled() ) {
-						printf( esc_html__( 'There are no reviews yet. %1$sLogin to be the first reviewer%2$s.', 'directorist' ), '<a href="' . esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink() . '#respond' ) ) ) .'">', '</a>' );
-					} else {
-						printf( esc_html__( 'There are no reviews yet. %1$sBe the first reviewer%2$s.', 'directorist' ), '<a href="#respond">', '</a>' );
-					}
-					?>
-				</p>
+				<p class="directorist-review-single directorist-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'directorist' ); ?></p>
 			<?php endif;?>
 		</div><!-- ends: .directorist-review-content__header -->
 

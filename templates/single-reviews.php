@@ -25,8 +25,8 @@ Bootstrap::load_walker();
 ?>
 <div id="reviews" class="directorist-review-container">
 	<div class="directorist-review-content">
-		<div class="directorist-review-content__header <?php if ( ! have_comments() ): ?>directorist-review-content__header--noreviews<?php endif;?>">
-			<?php if ( ! have_comments() ): ?><div><?php endif;?>
+		<div class="directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
+			<?php if ( ! have_comments() ) : ?><div><?php endif;?>
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), $review_count ) ); ?></h3>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
@@ -37,8 +37,8 @@ Bootstrap::load_walker();
 				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink() . '#respond' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 
-			<?php if ( ! have_comments() ): ?></div><?php endif;?>
-			<?php if ( ! have_comments() ): ?>
+			<?php if ( ! have_comments() ) : ?>
+				</div>
 				<p class="directorist-review-single directorist-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'directorist' ); ?></p>
 			<?php endif;?>
 		</div><!-- ends: .directorist-review-content__header -->

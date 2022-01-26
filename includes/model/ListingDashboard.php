@@ -512,8 +512,7 @@ class Directorist_Listing_Dashboard {
 		$atts = shortcode_atts( ['show_title' => ''], $atts );
 		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
 
-		// Enqueue Scripts
-		Asset_Loader::instance()->enqueue_user_dashboard_shortcode_scripts();
+		$this->enqueue_scripts();
 
 		if (!is_user_logged_in()) {
 			return $this->restrict_access_template();

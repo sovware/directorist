@@ -958,9 +958,8 @@ class Directorist_Listings {
 	}
 
 	public function render_shortcode( $atts = [] ) {
-
-		// Enqueue Scripts
-		Asset_Loader::instance()->enqueue_listing_archive_shortcode_scripts();
+		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
+		Script_Helper::load_search_form_script( $script_args );
 
 		ob_start();
 
@@ -1073,18 +1072,6 @@ class Directorist_Listings {
 		}
 
 		return $link_list;
-	}
-
-	public function get_dropdown_toggle_button_icon_class() {
-		$icon_type = get_directorist_option( 'font_type', '', true );
-		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
-		$icon      = "directorist-toggle-has-${prefix}-icon";
-
-		return $icon;
-	}
-
-	public function dropdown_toggle_button_icon_class() {
-		echo $this->get_dropdown_toggle_button_icon_class();
 	}
 
 	public function get_sort_by_link_list() {

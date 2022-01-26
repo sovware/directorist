@@ -1,11 +1,9 @@
 const path                 = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin      = require('vue-loader/lib/plugin');
+const { commonEntries }    = require('./webpack-entry-list.js');
 
 const commonConfig = {
-  output: {
-    path: path.resolve( process.cwd(), 'assets/js'),
-  },
   resolve: {
     extensions: [ '.js', '.vue' ],
     alias: {
@@ -95,4 +93,15 @@ const commonConfig = {
   },
 };
 
-module.exports = commonConfig;
+// Main Config
+const MainConfig = {
+  entry: commonEntries,
+
+  output: {
+    path: path.resolve( process.cwd(), 'assets/js'),
+  },
+
+  ...commonConfig
+};
+
+module.exports = [ MainConfig ];

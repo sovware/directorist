@@ -24,6 +24,7 @@ module.exports = {
         // Global
         // -------------------------------------------
         // JS
+        ['global-main']: ["./assets/src/js/global/global.js"],
         ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 
         ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],

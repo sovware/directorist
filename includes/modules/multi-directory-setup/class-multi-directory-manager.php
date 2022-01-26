@@ -4830,9 +4830,6 @@ class Multi_Directory_Manager
                 'id'      => $listing_type_id,
             ];
 
-			// Enqueue Scripts
-			Asset_Loader::instance()->enqueue_directory_builder_page_scripts();
-
 			/**
 			 * Filter directory builder's all configuration data.
 			 *
@@ -4840,7 +4837,12 @@ class Multi_Directory_Manager
 			 * TODO: Update with exact version number.
 			 */
 			$cptm_data = apply_filters( 'directorist_builder_localize_data', $cptm_data );
-            wp_localize_script( 'directorist-multi-directory-builder', 'cptm_data', $cptm_data );
+
+            wp_localize_script(
+				'directorist-multi-directory-builder',
+				'cptm_data',
+				$cptm_data
+			);
 
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;

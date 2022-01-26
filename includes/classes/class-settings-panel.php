@@ -5339,15 +5339,13 @@ Please remember that your order may be canceled if you do not make your payment 
                 $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
             }
 
-			// Enqueue Scripts
-			Directorist\Asset_Loader::instance()->enqueue_settings_builder_page_scripts();
-
-			$atbdp_settings_manager_data = [
+            $atbdp_settings_manager_data = [
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
             ];
-            wp_localize_script( 'directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data );
+
+            wp_localize_script('directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
 
             /* $status = $this->update_settings_options([
                 'new_listing_status' => 'publish',

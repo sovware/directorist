@@ -478,15 +478,7 @@ final class Directorist_Base
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
-			ATBDP_INC_DIR . 'asset-loader/asset-loader-utility',
-			ATBDP_INC_DIR . 'asset-loader/asset-loader-base',
-			ATBDP_INC_DIR . 'asset-loader/scripts-loader',
-			ATBDP_INC_DIR . 'asset-loader/localized-data-loader',
-			ATBDP_INC_DIR . 'asset-loader/map-scripts-loader',
-			ATBDP_INC_DIR . 'asset-loader/shortcode-scripts-loader',
-			ATBDP_INC_DIR . 'asset-loader/public-scripts-loader',
-			ATBDP_INC_DIR . 'asset-loader/admin-scripts-loader',
-			ATBDP_INC_DIR . 'asset-loader/asset-loader',
+			ATBDP_INC_DIR . 'asset-loader',
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',
@@ -510,6 +502,8 @@ final class Directorist_Base
 		/*Load payment related stuff*/
 		load_dependencies('all', ATBDP_INC_DIR . 'payments/');
 		load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
+
+
 	}
 
 	// require_files

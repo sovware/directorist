@@ -8,9 +8,6 @@
 // Styles
 import './../../scss/layout/public/main-style.scss';
 
-// Global
-import './../global/global';
-
 // Single Listing Page
 import './components/single-listing-page/slider';
 

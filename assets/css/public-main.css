@@ -6773,16 +6773,6 @@ p.atbd-min {
   font: normal 900 12px/1 "Line Awesome Free";
   padding-left: 5px;
 }
-.directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-has-la-icon:after {
-  content: "";
-  font: normal 900 12px/1 "Line Awesome Free";
-  padding-left: 5px;
-}
-.directorist-dropdown .directorist-dropdown__toggle.directorist-toggle-has-fa-icon:after {
-  content: "";
-  font: normal 900 12px/1 "Font Awesome 5 Free";
-  padding-left: 5px;
-}
 .directorist-dropdown .directorist-dropdown__links {
   display: none;
   position: absolute;

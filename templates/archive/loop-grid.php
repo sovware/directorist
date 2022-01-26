@@ -8,8 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
-
-$card_view = $listings->card_view_data( 'grid', true );
 ?>
 
 <div class="directorist-listing-single directorist-listing-card directorist-listing-has-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
@@ -32,7 +30,11 @@ $card_view = $listings->card_view_data( 'grid', true );
 
 		<div class="directorist-listing-single__info">
 			<div class="directorist-listing-single__info--top"><?php $listings->render_fields( 'body-top' ); ?></div>
-			<div class="directorist-listing-single__info--list"><ul><?php $listings->render_card_view($card_view['body']['bottom'], '<li>', '</li>'); ?></ul></div>
+			<div class="directorist-listing-single__info--list">
+				<ul>
+					<?php $listings->render_fields( 'body-bottom', 'grid', '<li>', '</li>' ); ?>
+				</ul>
+			</div>
 			<div class="directorist-listing-single__info--excerpt"><?php $listings->render_fields( 'body-excerpt' ); ?></div>
 		</div>
 

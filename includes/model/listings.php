@@ -1264,7 +1264,7 @@ class Listings {
 		}
 	}
 
-	public function render_fields( $position, $view = 'grid' ) {
+	public function render_fields( $position, $view = 'grid', $before = '', $after = '' ) {
 		$data = $this->card_view_data( $view, true );
 
 		switch ( $position ) {
@@ -1293,6 +1293,10 @@ class Listings {
 				$fields = $data['body']['top'] ?? false;
 				break;
 
+			case 'body-top-right':
+				$fields = $data['body']['right'] ?? false;
+				break;
+
 			case 'body-bottom':
 				$fields = $data['body']['bottom'] ?? false;
 				break;
@@ -1311,7 +1315,7 @@ class Listings {
 		}
 
 		if ( $fields ) {
-			$this->render_card_view( $fields );
+			$this->render_card_view( $fields, $before, $after );
 		}
 	}
 

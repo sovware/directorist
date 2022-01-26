@@ -76,7 +76,7 @@ Bootstrap::load_walker();
 	</div><!-- ends: .directorist-review-content -->
 
 	<?php
-	if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) {
+	if ( is_user_logged_in() || directorist_is_guest_review_enabled() || directorist_is_review_reply_enabled() ) {
 		$commenter = wp_get_current_commenter();
 		$req       = get_option( 'require_name_email' );
 		$html_req  = ( $req ? " required='required'" : '' );
@@ -147,7 +147,7 @@ Bootstrap::load_walker();
 		);
 
 		$container_class = 'directorist-review-submit';
-		if ( directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) ) {
+		if ( ! directorist_can_current_user_review() && ! directorist_can_guest_review() ) {
 			$container_class .= ' directorist-review-submit--hidden';
 		}
 

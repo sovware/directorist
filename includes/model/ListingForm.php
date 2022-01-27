@@ -828,6 +828,9 @@ class Directorist_Listing_Form {
 		$user_id		  = get_current_user_id();
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
+		// Enqueue Scripts
+		Asset_Loader::instance()->enqueue_add_listing_shortcode_scripts();
+
 		if ( ! $guest_submission && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
 		}
@@ -857,9 +860,6 @@ class Directorist_Listing_Form {
 			$args['form_data'] = $this->build_form_data( $type );
 			$args['is_edit_mode'] = true;
 
-			// Enqueue Scripts
-			Asset_Loader::instance()->enqueue_add_listing_shortcode_scripts();
-
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
@@ -888,9 +888,6 @@ class Directorist_Listing_Form {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
-
-				// Enqueue Scripts
-				Asset_Loader::instance()->enqueue_add_listing_shortcode_scripts();
 
 				ob_start();
 				if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }

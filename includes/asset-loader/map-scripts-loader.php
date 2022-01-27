@@ -65,12 +65,22 @@ trait Map_Scripts_Loader {
 	 *
 	 * @return void
 	 */
-	public function enqueue_openstreetmap_global_scripts() {
+	public function enqueue_openstreetmap_global_scripts( $args = [] ) {
+		$default['with_cluster'] = false;
+		$args = array_merge( $default, $args );
+
+		$with_cluster = ( ! empty( $args['with_cluster'] ) ) ? true : false;
+
 		wp_enqueue_script( 'directorist-openstreet-layers' );
 		wp_enqueue_script( 'directorist-openstreet-unpkg' );
 		wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
 		wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
 		wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
+
+		if ( $with_cluster ) {
+			wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
+		}
+
 		wp_enqueue_script( 'directorist-openstreet-libs-setup' );
 		wp_enqueue_script( 'directorist-openstreet-open-layers' );
 		wp_enqueue_script( 'directorist-openstreet-crosshairs' );
@@ -82,8 +92,7 @@ trait Map_Scripts_Loader {
 	 * @return void
 	 */
 	public function enqueue_openstreetmap_archive_page_scripts() {
-		$this->enqueue_openstreetmap_global_scripts();
-		wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
+		$this->enqueue_openstreetmap_global_scripts( [ 'with_cluster' => true ] );
 	}
 
 	/**

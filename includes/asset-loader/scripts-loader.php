@@ -248,7 +248,7 @@ trait Scripts_Loader {
 			],
 			'directorist-add-listing-gmap-custom-script' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-add-listing-openstreet-map-custom-script',
+				'path' => DIRECTORIST_JS . 'global-add-listing-gmap-custom-script',
 			],
 			'directorist-plupload' => [
 				'type' => 'js',

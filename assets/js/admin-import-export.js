@@ -154,7 +154,6 @@ jQuery(document).ready(function ($) {
     $(this).parent('.csv-fields').fadeOut(300);
     $('.atbdp-mapping-step').removeClass('active').addClass('done');
     $('.atbdp-progress-step').addClass('active');
-    var counter = 0;
 
     var run_import = function run_import() {
       var form_data = new FormData(); // ajax action
@@ -204,10 +203,6 @@ jQuery(document).ready(function ($) {
         url: import_export_data.ajaxurl,
         data: form_data,
         success: function success(response) {
-          console.log({
-            response: response
-          });
-
           if (response.error) {
             console.log({
               response: response
@@ -220,10 +215,9 @@ jQuery(document).ready(function ($) {
           $('.importer-details').html("Imported ".concat(response.next_position, " out of ").concat(response.total));
           $('.directorist-importer-progress').val(response.percentage);
 
-          if (response.percentage != '100' && counter < 150) {
+          if (100 > response.exact_percentage) {
             position = response.next_position;
             run_import();
-            counter++;
           } else {
             window.location = "".concat(response.url, "&listing-imported=").concat(imported, "&listing-failed=").concat(failed);
           }

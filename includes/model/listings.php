@@ -1237,6 +1237,10 @@ class Listings {
 	 * @return string
 	 */
 	public function card_view_data( $view = 'grid', $thumb = true ) {
+		$view = $this->get_current_view();
+
+
+
 		$data = $this->card_data( $view );
 
 		if ( $thumb ) {
@@ -1247,21 +1251,6 @@ class Listings {
 		}
 
 		return $result;
-	}
-
-	/**
-	 * @param  array $fields
-	 * @param  string $before
-	 * @param  string $after
-	 */
-	public function render_card_view( $fields, $before = '', $after = '' ) {
-		if( !empty( $fields ) ) {
-			foreach ( $fields as $field ) {
-				echo $before;
-				$this->card_field_html( $field );
-				echo $after;
-			}
-		}
 	}
 
 	public function render_fields( $position, $view = 'grid', $before = '', $after = '' ) {
@@ -1331,6 +1320,20 @@ class Listings {
 		}
 	}
 
+	/**
+	 * @param  array $fields
+	 * @param  string $before
+	 * @param  string $after
+	 */
+	public function render_card_view( $fields, $before = '', $after = '' ) {
+		if( !empty( $fields ) ) {
+			foreach ( $fields as $field ) {
+				echo $before;
+				$this->card_field_html( $field );
+				echo $after;
+			}
+		}
+	}
 
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();

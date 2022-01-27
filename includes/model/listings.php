@@ -655,42 +655,6 @@ class Listings {
 	}
 
 	/**
-	 * Display pagination or not.
-	 *
-	 * @return bool
-	 */
-	public function display_preview_image() {
-		return $this->atts['display_preview_image'] == 'yes' ? true : false;
-	}
-
-	/**
-	 * Listing current view type.
-	 *
-	 * @todo remove BD_Map_View dependency by using hooks.
-	 *
-	 * @return string Possible values: grid, list or map.
-	 */
-	public function get_current_view() {
-		$allowed_views = [ 'grid', 'list', 'map' ];
-
-	    if ( class_exists( 'BD_Map_View' ) ) {
-	        array_push( $allowed_views, 'listings_with_map' );
-	    }
-
-		if ( !empty( $_GET['view'] ) ) {
-			$view = sanitize_text_field( $_GET['view'] );
-		} else {
-			$view = $this->atts['view'];
-		}
-
-		if ( !in_array( $view, $allowed_views ) ) {
-			$view = 'grid';
-		}
-
-		return $view;
-	}
-
-	/**
 	 * Display blur background or not.
 	 *
 	 * @return bool
@@ -1195,22 +1159,67 @@ class Listings {
 	}
 
 	/**
-	 * @param  string $view
+	 * Listing current view type.
+	 *
+	 * @todo remove BD_Map_View dependency by using hooks.
+	 *
+	 * @return string Possible values: grid, list or map.
+	 */
+	public function get_current_view() {
+		$allowed_views = [ 'grid', 'list', 'map' ];
+
+		if ( class_exists( 'BD_Map_View' ) ) {
+			array_push( $allowed_views, 'listings_with_map' );
+		}
+
+		if ( !empty( $_GET['view'] ) ) {
+			$view = sanitize_text_field( $_GET['view'] );
+		} else {
+			$view = $this->atts['view'];
+		}
+
+		if ( !in_array( $view, $allowed_views ) ) {
+			$view = 'grid';
+		}
+
+		return $view;
+	}
+
+	/**
+	 * @param  string $view Optional, defaults to $this->get_current_view().
 	 *
 	 * @return array
 	 */
-	public function card_data( $view = 'grid' ) {
+	public function card_data( $view = '' ) {
 		$listing_type = $this->current_directory_type_id();
+
+		if ( !$view ) {
+			$view = $this->get_current_view();
+		}
 
 		if ( $view == 'grid' ) {
 			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-		}
-		else {
+		} elseif ( $view == 'list' ) {
 			$data = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		} else {
+			$data = [];
 		}
 
-		return $data;
+		return apply_filters( $data, 'directorist_card_data' );
 	}
+
+	/**
+	 * Display preview or not.
+	 *
+	 * @return bool
+	 */
+	public function display_preview_image() {
+		$current_view = $this->get_current_view();
+		$active_template = $this->card_data( $view )['active_template'];
+
+		return $this->atts['display_preview_image'] == 'yes' ? true : false;
+	}
+
 
 	/**
 	 * @param  string $view
@@ -1237,8 +1246,7 @@ class Listings {
 	 * @return string
 	 */
 	public function card_view_data( $view = 'grid', $thumb = true ) {
-		$view = $this->get_current_view();
-
+		$view  = $this->get_current_view();
 
 
 		$data = $this->card_data( $view );
@@ -1253,7 +1261,7 @@ class Listings {
 		return $result;
 	}
 
-	public function render_fields( $position, $view = 'grid', $before = '', $after = '' ) {
+	public function render_fields( $position, $before = '', $after = '' ) {
 		$data = $this->card_view_data( $view, true );
 
 		switch ( $position ) {

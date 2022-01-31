@@ -3,7 +3,7 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.8
+Tested up to: 5.9
 Requires PHP: 7.0
 Stable tag: 7.1.0
 License: GPLv3

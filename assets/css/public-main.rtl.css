@@ -7963,6 +7963,21 @@ p.atbd-min {
     width: 100%;
   }
 }
+@media only screen and (max-width: 991px) {
+  .directorist-author-listing-content div[class^=directorist-col-] {
+    width: 33.33%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .directorist-author-listing-content div[class^=directorist-col-] {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .directorist-author-listing-content div[class^=directorist-col-] {
+    width: 100%;
+  }
+}
 
 /* category style three */
 .directorist-category-child__card {

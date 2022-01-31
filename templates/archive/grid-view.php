@@ -29,7 +29,7 @@ $query = $listings->get_query();
 					<?php $query->the_post(); ?>
 
 					<div class="<?php Helper::directorist_column( $listings->columns() ); ?> directorist-all-listing-col">
-						<?php $listings->loop_template( 'grid' ); ?>
+						<?php $listings->loop_template(); ?>
 					</div>
 
 				<?php endwhile; ?>

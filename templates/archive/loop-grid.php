@@ -34,7 +34,7 @@ $listings = directorist()->listings;
 
 			<div class="directorist-listing-single__info--list">
 				<ul>
-					<?php $listings->render_fields( 'body-bottom', 'grid', '<li>', '</li>' ); ?>
+					<?php $listings->render_fields( 'body-bottom', '<li>', '</li>' ); ?>
 				</ul>
 			</div>
 

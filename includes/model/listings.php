@@ -1186,83 +1186,93 @@ class Listings {
 	}
 
 	/**
-	 * @param  string $view Optional, defaults to $this->get_current_view().
-	 *
-	 * @return array
-	 */
-	public function card_data( $view = '' ) {
-		$listing_type = $this->current_directory_type_id();
-
-		if ( !$view ) {
-			$view = $this->get_current_view();
-		}
-
-		if ( $view == 'grid' ) {
-			$data = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-		} elseif ( $view == 'list' ) {
-			$data = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		} else {
-			$data = [];
-		}
-
-		return apply_filters( $data, 'directorist_card_data' );
-	}
-
-	/**
-	 * Display preview or not.
+	 * Display preview image or not.
 	 *
 	 * @return bool
 	 */
-	public function display_preview_image() {
-		$current_view = $this->get_current_view();
-		$active_template = $this->card_data( $view )['active_template'];
+	public function display_thumbnail() {
+		$card_meta = $this->card_meta();
 
-		return $this->atts['display_preview_image'] == 'yes' ? true : false;
+		if ( !$card_meta ) {
+			return true;
+		}
+
+		$active_template = $card_meta['active_template'];
+
+		if ( $active_template == 'grid_view_with_thumbnail' || $active_template == 'list_view_with_thumbnail' ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-
 
 	/**
 	 * @param  string $view
 	 */
-	public function loop_template( $view = 'grid' ) {
-		$active_template = $this->card_data( $view )['active_template'];
+	public function loop_template() {
+		$view = $this->get_current_view();
 
 		if ( $view == 'grid' ) {
-			$template = ( $active_template == 'grid_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-grid' : 'loop-grid-nothumb';
+			$template = $this->display_thumbnail() ? 'loop-grid' : 'loop-grid-nothumb';
 			Helper::get_template( 'archive/' . $template );
 		}
 		elseif ( $view == 'list' ) {
-			$template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image() ) ? 'loop-list' : 'loop-list-nothumb';
+			$template = $this->display_thumbnail() ? 'loop-list' : 'loop-list-nothumb';
 			Helper::get_template( 'archive/' . $template );
 		}
 	}
 
+	public function card_meta() {
+		$listing_type = $this->current_directory_type_id();
+
+		$view = $this->get_current_view();
+
+		if ( $view == 'grid' ) {
+			$meta = get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		} elseif ( $view == 'list' ) {
+			$meta = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		} else {
+			$meta = [];
+		}
+
+		return $meta;
+	}
+
 	/**
-	 * @todo Need improvement.
 	 *
 	 * @param  string  $view
-	 * @param  boolean $thumb
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public function card_view_data( $view = 'grid', $thumb = true ) {
-		$view  = $this->get_current_view();
+	public function card_data() {
+		$view = $this->get_current_view();
+		$meta = $this->card_meta();
 
+		$data = [];
 
-		$data = $this->card_data( $view );
-
-		if ( $thumb ) {
-			$result = ( $view == 'grid' ) ? $data['template_data']['grid_view_with_thumbnail'] : $data['template_data']['list_view_with_thumbnail'];
+		if ( $meta ) {
+			if ( $this->display_thumbnail() ) {
+				if ( $view == 'grid' ) {
+					$data = $meta['template_data']['grid_view_with_thumbnail'];
+				} elseif ( $view == 'list' ) {
+					$data = $meta['template_data']['list_view_with_thumbnail'];
+				}
+			}
+			else {
+				if ( $view == 'grid' ) {
+					$data = $meta['template_data']['grid_view_without_thumbnail'];
+				} elseif ( $view == 'list' ) {
+					$data = $meta['template_data']['list_view_without_thumbnail'];
+				}
+			}
 		}
-		else {
-			$result = ( $view == 'grid' ) ? $data['template_data']['grid_view_without_thumbnail'] : $data['template_data']['list_view_without_thumbnail'];
-		}
 
-		return $result;
+		return apply_filters( 'directorist_card_data', $data );
 	}
 
 	public function render_fields( $position, $before = '', $after = '' ) {
-		$data = $this->card_view_data( $view, true );
+		$data = $this->card_data();
 
 		switch ( $position ) {
 

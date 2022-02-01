@@ -9,8 +9,6 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listings = directorist()->listings;
-
 if ( !Helper::get_price_range() && !Helper::get_price() ) {
 	return;
 }

@@ -10,4 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-listing-card-email"><?php directorist_icon( $icon );?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span><a target="_top" href="mailto:<?php echo esc_attr( $value );?>"><?php echo esc_html( $value ) ;?></a></div>
+<div class="directorist-listing-card-email">
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
+	<a target="_top" href="mailto:<?php echo esc_attr( $listings->field_value() );?>"><?php echo esc_html( $listings->field_value() ) ;?></a>
+</div>

@@ -10,4 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-listing-card-zip"><?php directorist_icon( $icon ); ?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span> <?php echo esc_html( $value ); ?></div>
+<div class="directorist-listing-card-zip">
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
+	<?php $listings->print_value(); ?>
+</div>

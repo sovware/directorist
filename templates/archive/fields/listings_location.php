@@ -12,7 +12,8 @@ $listings = directorist()->listings;
 
 <div class="directorist-listing-card-location">
 
-	<?php directorist_icon( $icon );?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span>
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
 
 	<div class="directorist-listing-card-location-list">
 		<?php echo $listings->get_location_html(); ?>

@@ -12,4 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-listing-card-fax"><?php directorist_icon( $icon ); ?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span><a href="tel:<?php Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a></div>
+<div class="directorist-listing-card-fax">
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
+	<a href="tel:<?php Helper::formatted_tel( $listings->field_value() ); ?>"><?php echo esc_html( $listings->field_value() ); ?></a>
+</div>

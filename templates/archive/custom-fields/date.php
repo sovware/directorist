@@ -8,10 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
-
-if ( !$listings->field_value() ) {
-	return;
-}
 ?>
 
 <div class="directorist-listing-card-date">

@@ -13,7 +13,7 @@ $listings = directorist()->listings;
 
 $phone_args = array(
 	'number'    => $listings->field_value(),
-	'whatsapp'  => $listings->has_whatsapp( $data ),
+	'whatsapp'  => $listings->has_whatsapp(),
 );
 ?>
 

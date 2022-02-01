@@ -1348,11 +1348,15 @@ class Listings {
 	public function render_card_view( $fields, $before = '', $after = '' ) {
 		if( !empty( $fields ) ) {
 			foreach ( $fields as $field ) {
-				echo $before;
 				self::$current_field = $field;
-				$this->card_field_html( $field );
+
+				// if ( $this->field_value() ) {
+					echo $before;
+					$this->card_field_html( $field );
+					echo $after;
+				// }
+
 				self::$current_field = '';
-				echo $after;
 			}
 		}
 	}
@@ -1364,7 +1368,11 @@ class Listings {
 	 *
 	 * @return array
 	 */
-	public function get_form_field_data( $field ) {
+	public function get_form_field_data( $field = [] ) {
+		if ( empty( $field ) ) {
+			$field = self::$current_field;
+		}
+
 		$form_field = '';
 
 		// Form field data for listing field
@@ -1385,7 +1393,7 @@ class Listings {
 			$field = self::$current_field;
 		}
 
-		$form_field = $this->get_form_field_data( $field );
+		$form_field = $this->get_form_field_data();
 		$id = get_the_id();
 
 		$value = get_post_meta( $id, '_'.$field['widget_key'], true );
@@ -1477,7 +1485,7 @@ class Listings {
 		} else {
 			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
 
-			$form_field = $this->get_form_field_data( $field );
+			$form_field = $this->get_form_field_data();
 
 			// @todo will improve later
 			if ( ! empty( $form_field ) ) {
@@ -1567,8 +1575,10 @@ class Listings {
 		return in_array( $widget_name, $fields ) ? true : false;
 	}
 
-	public function has_whatsapp( $data ) {
-		if ( !empty( $data['original_field']['whatsapp'] ) ) {
+	public function has_whatsapp() {
+		$form_field = $this->get_form_field_data();
+
+		if ( !empty( $form_field['whatsapp'] ) ) {
 			return true;
 		}
 		else {

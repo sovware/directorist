@@ -13,8 +13,12 @@ $listings = directorist()->listings;
 
 $phone_args = array(
 	'number'    => $value,
-	'whatsapp'  => $listings->has_whatsapp( $data ),
+	'whatsapp'  => $listings->has_whatsapp(),
 );
 ?>
 
-<div class="directorist-listing-card-phone2"><?php directorist_icon( $icon ); ?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span><a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $value ); ?></a></div>
+<div class="directorist-listing-card-phone2">
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
+	<a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $listings->field_value() ); ?></a>
+</div>

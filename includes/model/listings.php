@@ -1349,7 +1349,9 @@ class Listings {
 		if( !empty( $fields ) ) {
 			foreach ( $fields as $field ) {
 				echo $before;
+				self::$current_field = $field;
 				$this->card_field_html( $field );
+				self::$current_field = '';
 				echo $after;
 			}
 		}
@@ -1379,7 +1381,7 @@ class Listings {
 	}
 
 	public function field_value( $field = [] ) {
-		if ( !empty( $field ) ) {
+		if ( empty( $field ) ) {
 			$field = self::$current_field;
 		}
 
@@ -1427,34 +1429,39 @@ class Listings {
 		return $value;
 	}
 
-	public function field_label( $field = [] ) {
-		if ( !empty( $field ) ) {
-			$field = self::$current_field;
-		}
+	public function field_label() {
+		$field = self::$current_field;
 
 		return !empty( $field['show_label'] ) ? $field['label']: '';
 	}
 
-	public function field_icon( $field = [] ) {
-		if ( !empty( $field ) ) {
-			$field = self::$current_field;
-		}
+	public function field_icon() {
+		$field = self::$current_field;
 
 		return !empty( $field['icon'] ) ? $field['icon'] : '';
 	}
 
-	public function print_label( $label ) {
+	public function print_label() {
 		$label = $this->field_label();
 		if ( $label ) {
 			$label_text = $label . ': ';
-			echo apply_filters( 'directorist_loop_label', $label_text, $label );
+			$html = '<span class="directorist-listing-single__info--list__label">'.$label_text.'</span>';
+			echo apply_filters( 'directorist_loop_label', $html, $label );
 		}
 	}
 
-	public function print_icon( $icon ) {
+	public function print_icon() {
 		$icon = $this->field_icon();
 		if ( $icon ) {
 			echo apply_filters( 'directorist_loop_icon', directorist_icon( $icon, false ) );
+		}
+	}
+
+	public function print_value() {
+		$value = $this->field_value();
+		if ( $value ) {
+			$html = '<span class="directorist-listing-single__info--list__value">'.esc_html( $value ).'</span>';
+			echo apply_filters( 'directorist_loop_value', $html );
 		}
 	}
 
@@ -1477,7 +1484,7 @@ class Listings {
 				$field['original_field'] = $form_field;
 			}
 
-			$value = $this->field_value( $field );
+			$value = $this->field_value();
 
 			$load_template = true;
 
@@ -1507,9 +1514,7 @@ class Listings {
 			}
 
 			if( $load_template ) {
-				self::$current_field = $field;
 				Helper::get_template( $template, $args );
-				self::$current_field = '';
 			}
 
 		}

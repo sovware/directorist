@@ -12,9 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 
 $phone_args = array(
-	'number'    => $value,
+	'number'    => $listings->field_value(),
 	'whatsapp'  => $listings->has_whatsapp( $data ),
 );
 ?>
 
-<div class="directorist-listing-card-phone"><?php directorist_icon( $icon ); ?><span class="directorist-listing-single__info--list__label"><?php $listings->print_label( $label ); ?></span><a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $value ); ?></a></div>
+<div class="directorist-listing-card-phone">
+	<?php $listings->print_icon(); ?>
+	<?php $listings->print_label(); ?>
+	<a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $listings->field_value() ); ?></a>
+</div>

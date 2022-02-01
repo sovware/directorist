@@ -1362,6 +1362,59 @@ class Listings {
 	}
 
 	/**
+	 * @link https://gist.github.com/kowsar89/db7b3e5e5453c7c86a73b659c9607eb7 Data structure.
+	 *
+	 * @param  array $field
+	 */
+	public function card_field_html( $field ) {
+		// For badges, load badge template
+		if ( $field['type'] == 'badge' ) {
+			$this->render_badge_template( $field );
+		} else {
+			$form_field = $this->get_form_field_data();
+
+			// @todo will improve later
+			if ( ! empty( $form_field ) ) {
+				$field['original_field'] = $form_field;
+			}
+
+			$value = $this->field_value();
+
+			$load_template = true;
+
+			$id = get_the_id();
+
+			if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
+				$load_template = false;
+			}
+
+			$label = !empty( $field['show_label'] ) ? $field['label']: '';
+			$args = array(
+				'listings' => $this,
+				'post_id'  => $id,
+				'data'     => $field,
+				'value'    => $value,
+				'label'    => $label,
+				'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+				'original_field' => get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true ),
+			);
+
+			$widget_name = $field['widget_name'];
+
+			if ( $this->is_custom_field() ) {
+				$template = 'archive/custom-fields/' . $widget_name;
+			} else {
+				$template = 'archive/fields/' . $widget_name;
+			}
+
+			if( $load_template ) {
+				Helper::get_template( $template, $args );
+			}
+
+		}
+	}
+
+	/**
 	 * Form field data for listing field.
 	 *
 	 * @param  array $field
@@ -1373,7 +1426,7 @@ class Listings {
 			$field = self::$current_field;
 		}
 
-		$form_field = '';
+		$form_field = [];
 
 		// Form field data for listing field
 		if ( isset( $field['original_widget_key'] ) ) {
@@ -1388,6 +1441,29 @@ class Listings {
 		return $form_field;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function field_icon() {
+		$field = self::$current_field;
+
+		return !empty( $field['icon'] ) ? $field['icon'] : '';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function field_label() {
+		$field = self::$current_field;
+
+		return !empty( $field['show_label'] ) ? $field['label']: '';
+	}
+
+	/**
+	 * @param  array  $field
+	 *
+	 * @return string
+	 */
 	public function field_value( $field = [] ) {
 		if ( empty( $field ) ) {
 			$field = self::$current_field;
@@ -1399,7 +1475,7 @@ class Listings {
 		$value = get_post_meta( $id, '_'.$field['widget_key'], true );
 
 		// Return value for checkbox field
-		if ( $this->is_custom_field( $field ) ) {
+		if ( $this->is_custom_field() ) {
 			$field_type = !empty( $form_field['type'] ) ? $form_field['type'] : '';
 
 			if( 'checkbox' === $field_type ) {
@@ -1437,18 +1513,19 @@ class Listings {
 		return $value;
 	}
 
-	public function field_label() {
-		$field = self::$current_field;
-
-		return !empty( $field['show_label'] ) ? $field['label']: '';
+	/**
+	 * Render icon
+	 */
+	public function print_icon() {
+		$icon = $this->field_icon();
+		if ( $icon ) {
+			echo apply_filters( 'directorist_loop_icon', directorist_icon( $icon, false ) );
+		}
 	}
 
-	public function field_icon() {
-		$field = self::$current_field;
-
-		return !empty( $field['icon'] ) ? $field['icon'] : '';
-	}
-
+	/**
+	 * Render label
+	 */
 	public function print_label() {
 		$label = $this->field_label();
 		if ( $label ) {
@@ -1458,13 +1535,9 @@ class Listings {
 		}
 	}
 
-	public function print_icon() {
-		$icon = $this->field_icon();
-		if ( $icon ) {
-			echo apply_filters( 'directorist_loop_icon', directorist_icon( $icon, false ) );
-		}
-	}
-
+	/**
+	 * Render value
+	 */
 	public function print_value() {
 		$value = $this->field_value();
 		if ( $value ) {
@@ -1474,60 +1547,34 @@ class Listings {
 	}
 
 	/**
-	 * @link https://gist.github.com/kowsar89/db7b3e5e5453c7c86a73b659c9607eb7 Data structure.
+	 * @param  array  $field
 	 *
-	 * @param  array $field
+	 * @return boolean
 	 */
-	public function card_field_html( $field ) {
-		// For badges, load badge template
-		if ( $field['type'] == 'badge' ) {
-			$this->render_badge_template( $field );
-		} else {
-			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
+	public function is_custom_field() {
+		$allowed_fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 
-			$form_field = $this->get_form_field_data();
+		$field = self::$current_field;
+		$form_field = $this->get_form_field_data();
 
-			// @todo will improve later
-			if ( ! empty( $form_field ) ) {
-				$field['original_field'] = $form_field;
-			}
+		$widget_name = ( !empty( $form_field['widget_name'] ) ) ? $form_field['widget_name'] : $field['widget_name'];
 
-			$value = $this->field_value();
-
-			$load_template = true;
-
-			$id = get_the_id();
-
-			if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
-				$load_template = false;
-			}
-
-			$label = !empty( $field['show_label'] ) ? $field['label']: '';
-			$args = array(
-				'listings' => $this,
-				'post_id'  => $id,
-				'data'     => $field,
-				'value'    => $value,
-				'label'    => $label,
-				'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
-				'original_field' => $submission_form_fields,
-			);
-
-			$widget_name = $field['widget_name'];
-
-			if ( $this->is_custom_field( $field ) ) {
-				$template = 'archive/custom-fields/' . $widget_name;
-			} else {
-				$template = 'archive/fields/' . $widget_name;
-			}
-
-			if( $load_template ) {
-				Helper::get_template( $template, $args );
-			}
-
-		}
+		return in_array( $widget_name, $allowed_fields ) ? true : false;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function has_whatsapp() {
+		$form_field = $this->get_form_field_data();
+
+		if ( !empty( $form_field['whatsapp'] ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();
@@ -1564,27 +1611,7 @@ class Listings {
 
 
 
-	public function is_custom_field( $data ) {
-		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
-		$widget_name = $data['widget_name'];
 
-		if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
-			$widget_name = $data['original_field']['widget_name'];
-		}
-
-		return in_array( $widget_name, $fields ) ? true : false;
-	}
-
-	public function has_whatsapp() {
-		$form_field = $this->get_form_field_data();
-
-		if ( !empty( $form_field['whatsapp'] ) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 
 

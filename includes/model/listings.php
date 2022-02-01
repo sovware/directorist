@@ -1159,6 +1159,22 @@ class Listings {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function loop_template() {
+		$view = $this->get_current_view();
+
+		if ( $view == 'grid' ) {
+			$template = $this->display_thumbnail() ? 'loop-grid' : 'loop-grid-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+		elseif ( $view == 'list' ) {
+			$template = $this->display_thumbnail() ? 'loop-list' : 'loop-list-nothumb';
+			Helper::get_template( 'archive/' . $template );
+		}
+	}
+
+	/**
 	 * Listing current view type.
 	 *
 	 * @todo remove BD_Map_View dependency by using hooks.
@@ -1183,6 +1199,28 @@ class Listings {
 		}
 
 		return $view;
+	}
+
+	/**
+	 * Display preview image or not.
+	 *
+	 * @return bool
+	 */
+	public function display_thumbnail() {
+		$card_meta = $this->card_meta();
+
+		if ( !$card_meta ) {
+			return true;
+		}
+
+		$active_template = $card_meta['active_template'];
+
+		if ( $active_template == 'grid_view_with_thumbnail' || $active_template == 'list_view_with_thumbnail' ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -1306,28 +1344,6 @@ class Listings {
 	}
 
 	/**
-	 * Display preview image or not.
-	 *
-	 * @return bool
-	 */
-	public function display_thumbnail() {
-		$card_meta = $this->card_meta();
-
-		if ( !$card_meta ) {
-			return true;
-		}
-
-		$active_template = $card_meta['active_template'];
-
-		if ( $active_template == 'grid_view_with_thumbnail' || $active_template == 'list_view_with_thumbnail' ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
 	 * @param  array $fields
 	 * @param  string $before
 	 * @param  string $after
@@ -1343,20 +1359,128 @@ class Listings {
 	}
 
 	/**
-	 * @return void
+	 * Form field data for listing field.
+	 *
+	 * @param  array $field
+	 *
+	 * @return array
 	 */
-	public function loop_template() {
-		$view = $this->get_current_view();
+	public function get_form_field_data( $field ) {
+		$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
+		$form_field = '';
 
-		if ( $view == 'grid' ) {
-			$template = $this->display_thumbnail() ? 'loop-grid' : 'loop-grid-nothumb';
-			Helper::get_template( 'archive/' . $template );
+		// Form field data for listing field
+		if ( isset( $field['original_widget_key'] ) ) {
+			$form_key = $field['original_widget_key']; // key for making relation with form field's key
+
+			if ( isset( $submission_form_fields['fields'][$form_key] ) ) {
+				$form_field = $submission_form_fields['fields'][$form_key];
+			}
 		}
-		elseif ( $view == 'list' ) {
-			$template = $this->display_thumbnail() ? 'loop-list' : 'loop-list-nothumb';
-			Helper::get_template( 'archive/' . $template );
+
+		return $form_field;
+	}
+
+	public function field_value( $field ) {
+		$form_field = $this->get_form_field_data( $field );
+		$id = get_the_id();
+
+		$value = get_post_meta( $id, '_'.$field['widget_key'], true );
+
+		// Return value for checkbox field
+		if ( $this->is_custom_field( $field ) ) {
+			$field_type = !empty( $form_field['type'] ) ? $form_field['type'] : '';
+
+			if( 'checkbox' === $field_type ) {
+				$option_value = [];
+				$value = is_array( $value ) ? join( ",",$value ) : $value;
+				foreach( $form_field['options'] as $option ) {
+					$key = $option['option_value'];
+					if( in_array( $key, explode( ',', $value ) ) ) {
+						$space = str_repeat(' ', 1);
+						$option_value[] = $space . $option['option_label'];
+					}
+				}
+				$output = join( ',', $option_value );
+				$value = $output ? $output : $value;
+
+				return $value;
+			}
+		}
+
+		// Return value for location field
+		if( 'listings_location' === $field['widget_name'] ) {
+			$location = get_the_terms( $id, ATBDP_LOCATION );
+			if( $location ) {
+				$value = true;
+				return $value;
+			}
+		}
+
+		// Return value based on form field if exists, try with "_" first
+		if ( isset( $form_field['field_key']  ) ) {
+			$value = ! empty( get_post_meta( $id, '_'.$form_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$form_field['field_key'], true ) : get_post_meta( $id, $form_field['field_key'], true );
+			return $value;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @link https://gist.github.com/kowsar89/db7b3e5e5453c7c86a73b659c9607eb7 Data structure.
+	 *
+	 * @param  array $field
+	 */
+	public function card_field_html( $field ) {
+		// For badges, load badge template
+		if ( $field['type'] == 'badge' ) {
+			$this->render_badge_template( $field );
+		} else {
+			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
+
+			$form_field = $this->get_form_field_data( $field );
+
+			// @todo will improve later
+			if ( ! empty( $form_field ) ) {
+				$field['original_field'] = $form_field;
+			}
+
+			$value = $this->field_value( $field );
+
+			$load_template = true;
+
+			$id = get_the_id();
+
+			if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
+				$load_template = false;
+			}
+
+			$label = !empty( $field['show_label'] ) ? $field['label']: '';
+			$args = array(
+				'listings' => $this,
+				'post_id'  => $id,
+				'data'     => $field,
+				'value'    => $value,
+				'label'    => $label,
+				'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+				'original_field' => $submission_form_fields,
+			);
+
+			$widget_name = $field['widget_name'];
+
+			if ( $this->is_custom_field( $field ) ) {
+				$template = 'archive/custom-fields/' . $widget_name;
+			} else {
+				$template = 'archive/fields/' . $widget_name;
+			}
+
+			if( $load_template ) {
+				Helper::get_template( $template, $args );
+			}
+
 		}
 	}
+
 
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();
@@ -1391,86 +1515,7 @@ class Listings {
 
 	}
 
-	public function card_field_html( $field ) {
-		if ( $field['type'] == 'badge' ) {
-			$this->render_badge_template( $field );
-		}
-		else {
-			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
-			$original_field = '';
 
-			if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
-				$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
-			}
-			if ( ! empty( $original_field ) ) {
-				$field['original_field'] = $original_field;
-			}
-
-			$id = get_the_id();
-			$load_template = true;
-			$value = get_post_meta( $id, '_'.$field['widget_key'], true );
-			if ( isset( $field['field_key']  ) ) {
-				$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
-			}
-			if ( isset( $original_field['field_key']  ) ) {
-				$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
-			}
-
-			if( 'listings_location' === $field['widget_name'] ) {
-				$location = get_the_terms( $id, ATBDP_LOCATION );
-				if( $location ) {
-					$value = true;
-				}
-			}
-
-			if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
-				$load_template = false;
-			}
-
-			$label = !empty( $field['show_label'] ) ? $field['label']: '';
-			$args = array(
-				'listings' => $this,
-				'post_id'  => $id,
-				'data'     => $field,
-				'value'    => $value,
-				'label'    => $label,
-				'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
-				'original_field' => $submission_form_fields,
-			);
-
-			$widget_name = $field['widget_name'];
-			if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
-				$widget_name = $data['original_field']['widget_name'];
-			}
-
-			if ( $this->is_custom_field( $field ) ) {
-				$field_type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
-				if( 'checkbox' === $field_type ){
-					$option_value = [];
-					$value = is_array( $value ) ? join( ",",$value ) : $value;
-					foreach( $field['original_field']['options'] as $option ) {
-						$key = $option['option_value'];
-						if( in_array( $key, explode( ',', $value ) ) ) {
-							$space = str_repeat(' ', 1);
-							$option_value[] = $space . $option['option_label'];
-						}
-					}
-					$output = join( ',', $option_value );
-					$result = $output ? $output : $value;
-					$args['value'] = $result;
-				}
-
-				$template = 'archive/custom-fields/' . $widget_name;
-			} else {
-				$template = 'archive/fields/' . $widget_name;
-			}
-
-			if( $load_template ) {
-				Helper::get_template( $template, $args );
-			}
-
-		}
-	}
 
 	public function is_custom_field( $data ) {
 		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];

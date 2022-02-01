@@ -90,10 +90,10 @@ class Listings {
 	/**
 	 * Initialize Listings
 	 *
-	 * @param  array   $atts            Shortcode attributes.
-	 * @param  string  $type            Optional. Determines All listings page or Search result page.
-	 *                                  Accepts 'listing', 'search_result'. Defaults to ''.
-	 * @param  boolean $query_args      Optional. Custom args for listing query. Defaults to false.
+	 * @param  array   $atts     Shortcode attributes.
+	 * @param  string  $type     Optional. Determines All listings page or Search result page.
+	 *                           Accepts 'listing', 'search_result'. Defaults to ''.
+	 * @param  bool $query_args  Optional. Custom args for listing query. Defaults to false.
 	 */
 	public function init( $atts = array(), $type = '', $query_args = false ) {
 		$this->set_page_type( $type );
@@ -1547,9 +1547,7 @@ class Listings {
 	}
 
 	/**
-	 * @param  array  $field
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function is_custom_field() {
 		$allowed_fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
@@ -1563,7 +1561,7 @@ class Listings {
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function has_whatsapp() {
 		$form_field = $this->get_form_field_data();
@@ -1608,12 +1606,6 @@ class Listings {
 		}
 
 	}
-
-
-
-
-
-
 
 	public function render_map() {
 		if ( 'google' == $this->map_type() ) {

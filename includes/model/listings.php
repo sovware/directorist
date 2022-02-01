@@ -1616,6 +1616,14 @@ class Listings {
 		return ( $field['date_type'] == 'days_ago' ) ? true : false;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function avatar_alignment() {
+		$field = self::$current_field;
+		return !empty( $data['align'] ) ? $data['align'] : '' ;
+	}
+
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();
 

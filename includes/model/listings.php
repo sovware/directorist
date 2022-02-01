@@ -503,6 +503,8 @@ class Listings {
 	/**
 	 * Average rating of a listing.
 	 *
+	 * @uses ATBDP_Review_Rating::get_average()
+	 *
 	 * @return string
 	 */
 	public function loop_rating_average() {

@@ -17,9 +17,11 @@ if ( !Helper::is_review_enabled() ) {
 ?>
 
 <span class="directorist-info-item directorist-rating-meta directorist-rating-transparent">
+
     <?php echo wp_kses_post( $listings->loop_review_star_html() ); ?>
     
     <span class="directorist-rating-avg">
         <?php echo esc_html( number_format( $listings->loop_rating_average(), 1 ) ); ?>
     </span>
+
 </span>

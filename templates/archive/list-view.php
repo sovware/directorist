@@ -26,7 +26,7 @@ $query = $listings->get_query();
 
 				<?php $query->the_post(); ?>
 
-				<?php $listings->loop_template( 'list' ); ?>
+				<?php $listings->loop_template(); ?>
 				
 			<?php endwhile; ?>
 

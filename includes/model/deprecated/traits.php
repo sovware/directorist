@@ -139,5 +139,9 @@ trait Deprecated_Listings {
 		return $this->query->have_posts();
 	}
 
+	public function card_view_data() {
+		_deprecated_function( 'card_view_data', '7.1.2' );
+		return [];
+	}
 
 }

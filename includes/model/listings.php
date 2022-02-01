@@ -34,6 +34,13 @@ class Listings {
 	protected static $instance = null;
 
 	/**
+	 * Current field inside loop
+	 *
+	 * @var string
+	 */
+	public static $current_field = '';
+
+	/**
 	 * Options from settings panel.
 	 *
 	 * @var array
@@ -548,16 +555,6 @@ class Listings {
 	 */
 	public function columns() {
 		return (int) atbdp_calculate_column( $this->atts['columns'] );
-	}
-
-	/**
-	 * Print label for fields.
-	 */
-	public function print_label( $label ) {
-		if ( $label ) {
-			$label_text = $label . ': ';
-			echo apply_filters( 'directorist_loop_label', $label_text, $label );
-		}
 	}
 
 	/**
@@ -1366,11 +1363,11 @@ class Listings {
 	 * @return array
 	 */
 	public function get_form_field_data( $field ) {
-		$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
 		$form_field = '';
 
 		// Form field data for listing field
 		if ( isset( $field['original_widget_key'] ) ) {
+			$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
 			$form_key = $field['original_widget_key']; // key for making relation with form field's key
 
 			if ( isset( $submission_form_fields['fields'][$form_key] ) ) {
@@ -1381,7 +1378,11 @@ class Listings {
 		return $form_field;
 	}
 
-	public function field_value( $field ) {
+	public function field_value( $field = [] ) {
+		if ( !empty( $field ) ) {
+			$field = self::$current_field;
+		}
+
 		$form_field = $this->get_form_field_data( $field );
 		$id = get_the_id();
 
@@ -1424,6 +1425,37 @@ class Listings {
 		}
 
 		return $value;
+	}
+
+	public function field_label( $field = [] ) {
+		if ( !empty( $field ) ) {
+			$field = self::$current_field;
+		}
+
+		return !empty( $field['show_label'] ) ? $field['label']: '';
+	}
+
+	public function field_icon( $field = [] ) {
+		if ( !empty( $field ) ) {
+			$field = self::$current_field;
+		}
+
+		return !empty( $field['icon'] ) ? $field['icon'] : '';
+	}
+
+	public function print_label( $label ) {
+		$label = $this->field_label();
+		if ( $label ) {
+			$label_text = $label . ': ';
+			echo apply_filters( 'directorist_loop_label', $label_text, $label );
+		}
+	}
+
+	public function print_icon( $icon ) {
+		$icon = $this->field_icon();
+		if ( $icon ) {
+			echo apply_filters( 'directorist_loop_icon', directorist_icon( $icon, false ) );
+		}
 	}
 
 	/**
@@ -1475,7 +1507,9 @@ class Listings {
 			}
 
 			if( $load_template ) {
+				self::$current_field = $field;
 				Helper::get_template( $template, $args );
+				self::$current_field = '';
 			}
 
 		}

@@ -260,12 +260,11 @@
         }
 
         .atbd_category_single {
-
             &.atbd_category_no_image {
                 border: 0 none;
                 box-shadow: 0 5px 25px rgba(#8F8E9F, .15);
                 border-radius: 6px;
-                height: 205px;
+                height: auto;
 
                 figure {
                     position: relative;

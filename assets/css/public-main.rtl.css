@@ -8812,7 +8812,7 @@ p.atbd-min {
   -webkit-box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);
           box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);
   border-radius: 6px;
-  height: 205px;
+  height: auto;
 }
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single.atbd_category_no_image figure {
   position: relative;

@@ -715,6 +715,7 @@ class Enqueue_Assets {
 			'ver'            => self::$script_version,
 			'group'          => 'public',                                           // public || admin  || global
 			'section'        => 'add_listing',
+			'deps'      => ['directorist-select2-js'],
 			'before_enqueue' => [ Script_Helper::class, 'add_listing_brfore_enqueue_task' ],
 		];
 

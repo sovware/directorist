@@ -2158,8 +2158,8 @@ __webpack_require__.r(__webpack_exports__);
 /*
     File: Main.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
-    Author: Aazztech
-    Author URI: www.aazztech.com
+    Author: wpWax
+    Author URI: www.wpwax.com
 */
 // Styles
  // Single Listing Page

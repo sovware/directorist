@@ -1,6 +1,13 @@
 /* eslint-disable */
 const $ = jQuery;
-const localized_data = atbdp_public_data.add_listing_data;
+
+var localized_data = [];
+
+console.log(typeof atbdp_public_data);
+
+if( typeof atbdp_public_data != "undefined" ) {
+    localized_data = atbdp_public_data.add_listing_data;
+}
 
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {

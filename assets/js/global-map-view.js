@@ -398,7 +398,11 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = false;
+
+  if (typeof directorist_options != "undefined") {
+    is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  }
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);

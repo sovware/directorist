@@ -274,27 +274,58 @@ class Helper {
 		return $socials;
 	}
 
-	public static function pricing_type( $listing_id ) {
+	public static function pricing_type( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
 		return $pricing_type;
 	}
 
-	public static function has_price( $listing_id ) {
+	public static function get_price( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$price = get_post_meta( $listing_id, '_price', true );
 		return $price;
 	}
 
-	public static function has_price_range( $listing_id ) {
+	public static function get_price_range( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$price_range = get_post_meta( $listing_id, '_price_range', true );
 		return $price_range;
 	}
 
-	public static function price_template( $listing_id ) {
+	public static function has_price( $listing_id ) {
+		_deprecated_function( 'has_price', '7.1.2', 'get_price' );
+		return self::get_price( $listing_id );
+	}
+
+	public static function has_price_range( $listing_id ) {
+		_deprecated_function( 'has_price_range', '7.1.2', 'get_price_range' );
+		return self::get_price_range( $listing_id );
+	}
+
+	public static function price_template( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
+
 		$price = get_post_meta( $listing_id, '_price', true );
 		self::get_template( 'global/price', compact( 'price' ) );
 	}
 
-	public static function price_range_template( $listing_id ) {
+	public static function price_range_template( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$price_range = get_post_meta( $listing_id, '_price_range', true );
 		$currency = get_directorist_option( 'g_currency', 'USD' );
 		$currency = atbdp_currency_symbol( $currency );

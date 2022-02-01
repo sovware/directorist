@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $id = $listing->id;
 
-if ( !Helper::has_price_range( $id ) && !Helper::has_price( $id ) ) {
+if ( !Helper::get_price_range( $id ) && !Helper::get_price( $id ) ) {
 	return;
 }
 ?>

@@ -11,20 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
 
-$id = get_the_ID();
-
-if ( !Helper::has_price_range( $id ) && !Helper::has_price( $id ) ) {
+if ( !Helper::get_price_range() && !Helper::get_price() ) {
 	return;
 }
 ?>
 
 <span class="directorist-info-item directorist-pricing-meta">
 	<?php
-	if ( 'range' === Helper::pricing_type( $id ) ) {
-		Helper::price_range_template( $id );
+	if ( 'range' === Helper::pricing_type() ) {
+		Helper::price_range_template();
 	}
 	else {
-		Helper::price_template( $id );
+		Helper::price_template();
 	}
 	?>
 </span>

@@ -15,6 +15,8 @@ class Enqueue_Assets {
 	 */
 	function __construct() {
 
+		return;
+
 		if ( is_null( self::$instance ) ) {
 			self::$instance = $this;
 

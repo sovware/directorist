@@ -1574,6 +1574,46 @@ class Listings {
 		}
 	}
 
+	/**
+	 * @return int
+	 */
+	public function excerpt_word_limit() {
+		$field = self::$current_field;
+		return (int) $field['words_limit'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function display_excerpt_readmore() {
+		$field = self::$current_field;
+		return $field['show_readmore'] ?? false;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function excerpt_readmore_text() {
+		$field = self::$current_field;
+		return $field['show_readmore_text'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function display_tagline() {
+		$field = self::$current_field;
+		return $field['show_tagline'] ?? false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function posted_date_is_days_ago() {
+		$field = self::$current_field;
+		return ( $field['date_type'] == 'days_ago' ) ? true : false;
+	}
+
 	public function render_badge_template( $field ) {
 		$id = get_the_ID();
 

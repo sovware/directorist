@@ -7,15 +7,19 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !$value ) {
+$listings = directorist()->listings;
+
+if ( !$listings->field_value() ) {
 	return;
 }
 ?>
 
 <p>
-	<?php echo esc_html( wp_trim_words( $value, (int) $data['words_limit'] ) );
-	if ( $data['show_readmore'] ) {
-		printf( '<a href="%s"> %s</a>', $listings->loop_get_permalink(), $data['show_readmore_text'] );
+	<?php
+	echo esc_html( wp_trim_words( $listings->field_value(), $listings->excerpt_word_limit() ) );
+
+	if ( $listings->display_excerpt_readmore() ) {
+		printf( '<a href="%s"> %s</a>', $listings->loop_get_permalink(), $listings->excerpt_readmore_text() );
 	}
 	?>
 </p>

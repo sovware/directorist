@@ -14,7 +14,7 @@ $title = !$listings->disable_single_listing() ? sprintf( '<a href="%s">%s</a>', 
 
 <h4 class="directorist-listing-title"><?php echo wp_kses_post( $title );?></h4>
 
-<?php if( !empty( $data['show_tagline'] ) && !empty( $listings->loop_get_tagline() ) ): ?>
+<?php if( $listings->display_tagline() && $listings->loop_get_tagline() ): ?>
     
 	<p class="directorist-listing-tagline"><?php echo wp_kses_post( $listings->loop_get_tagline() );?></p>
 

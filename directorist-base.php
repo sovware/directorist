@@ -215,7 +215,7 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+			// self::$instance->enqueue_assets = new Directorist\Enqueue_Assets; @todo remove this
 
 			// ATBDP_Listing_Type_Manager
 			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;

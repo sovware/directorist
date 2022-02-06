@@ -12,6 +12,24 @@ class Misc_Functions {
 	public function debug_enabled() {
 		return get_directorist_option( 'script_debugging', false, true );
 	}
+
+	public function register_single_script( $handle, $script ) {
+        $url = $this->script_file_url( $script );
+
+        if ( !empty( $script['dep'] ) ) {
+            $dep = $script['dep'];
+        }
+        else {
+            $dep = ( $script['type'] == 'js' ) ? ['jquery'] : [];
+        }
+
+        if ( $script['type'] == 'css' ) {
+            wp_register_style( $handle, $url, $dep, $this->version );
+        }
+        else {
+            wp_register_script( $handle, $url, $dep, $this->version );
+        }
+	}
 	/**
 	 * Absoulute url based on various factors eg. min, rtl etc.
 	 *
@@ -81,4 +99,31 @@ class Misc_Functions {
 			),
 			$input);
 	}
+
+	public function enqueue_icon_styles() {
+		$icon_type = get_directorist_option( 'font_type', '', true );
+
+		if ( 'line' === $icon_type ) {
+			wp_enqueue_style( 'directorist-line-awesome' );
+		} else {
+			wp_enqueue_style( 'directorist-font-awesome' );
+		}
+	}
+
+    public function map_type() {
+        return get_directorist_option( 'select_listing_map', 'openstreet' );
+    }
+
+	public function enqueue_map_styles() {
+		if ( $this->map_type() == 'openstreet' ) {
+			$this->enqueue_openstreetmap_styles();
+		}
+	}
+
+	public function enqueue_openstreetmap_styles() {
+		wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+		wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+	}
+
+
 }

@@ -41,41 +41,13 @@ class Asset_Loader {
 		$this->scripts = apply_filters( 'directorist_scripts', $this->asset_list() );
 	}
 
-	function defer_load_js( $tag, $handle ) {
 
-		$scripts = array_filter( $this->scripts, function( $script ) {
-			return $script['type'] == 'js' ? true : false;
-		} );
-		$scripts = array_keys( $scripts );
-
-		if ( in_array( $handle, $scripts ) ) {
-			return str_replace(' src', ' defer="defer" src', $tag );
-		}
-
-		return $tag;
-	}
 	/**
 	 * Register all assets.
 	 */
 	public function register_scripts() {
-
 		foreach ( $this->scripts as $handle => $script ) {
-
-			$url = $this->script_file_url( $script );
-
-			if ( !empty( $script['dep'] ) ) {
-				$dep = $script['dep'];
-			}
-			else {
-				$dep = ( $script['type'] == 'js' ) ? ['jquery'] : [];
-			}
-
-			if ( $script['type'] == 'css' ) {
-				wp_register_style( $handle, $url, $dep, $this->version );
-			}
-			else {
-				wp_register_script( $handle, $url, $dep, $this->version );
-			}
+            $this->register_single_script( $handle, $script );
 		}
 	}
 
@@ -96,17 +68,26 @@ class Asset_Loader {
 
 
 	public function enqueue_scripts() {
-		// Global
-		wp_enqueue_script( 'directorist-main-script' );
+		// Map CSS
+		$this->enqueue_map_styles();
 
-		// Conditional
+		// Icon CSS
+		$this->enqueue_icon_styles();
+
+		// CSS
+		wp_enqueue_style( 'directorist-main-style' );
+		wp_enqueue_style( 'directorist-inline-style' );
+		wp_enqueue_style( 'directorist-settings-style' );
+		wp_enqueue_style( 'directorist-select2-style' );
+		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
+		wp_enqueue_style( 'directorist-plasma-slider' );
+		wp_enqueue_style( 'directorist-slick-style' );
+		wp_enqueue_style( 'directorist-sweetalert-style' );
+
+		// Enqueue Single Listing Scripts
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			wp_enqueue_style( 'directorist-main-style' );
-			wp_enqueue_style( 'directorist-settings-style' );
+			$this->enqueue_single_listing_shortcode_scripts();
 		}
-
-
-
 	}
 
 	public function enqueue_admin_scripts() {
@@ -144,6 +125,20 @@ class Asset_Loader {
 			'directory_type_id' => $directory_type_id
 		]);
 		return $data;
+	}
+
+	function defer_load_js( $tag, $handle ) {
+
+		$scripts = array_filter( $this->scripts, function( $script ) {
+			return $script['type'] == 'js' ? true : false;
+		} );
+		$scripts = array_keys( $scripts );
+
+		if ( in_array( $handle, $scripts ) ) {
+			return str_replace(' src', ' defer="defer" src', $tag );
+		}
+
+		return $tag;
 	}
 }
 

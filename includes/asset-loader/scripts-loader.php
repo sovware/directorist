@@ -13,12 +13,12 @@ trait Scripts_Loader {
 	 *
 	 * Each item may contain following arguments:
 	 * 		$scripts['handle'] => [
-				'type' => String, // Accespts css, js
-				'path' => String, // Absolute url, without the min/rtl/js extension
-				'ext'  => String, // External url, in case the path is absent
-				'dep'  => Array [], // Dependency list eg. [jquery]
-				'rtl'  => Boolean false, // RTL exists or not
-			];
+	 *			'type' => String, // Accespts css, js
+	 *			'path' => String, // Absolute url, without the min/rtl/js extension
+	 *			'ext'  => String, // External url, in case the path is absent
+	 *			'dep'  => Array [], // Dependency list eg. [jquery]
+	 *			'rtl'  => Boolean false, // RTL exists or not
+	 *		];
 	 */
 	public function set_scripts() {
 		$scripts = [

@@ -11,6 +11,7 @@ class Asset_Loader {
 
     use \Directorist\Asset_Loader\Asset_List;
     use \Directorist\Asset_Loader\Misc_Functions;
+	use \Directorist\Asset_Loader\Shortcode_Scripts;
 
 	public static $instance = null;
 
@@ -102,8 +103,23 @@ class Asset_Loader {
 	public function load_shortcode_scripts( $shortcode ) {
 
 		switch ( $shortcode ) {
-			case 'directorist_add_listing':
-				wp_enqueue_style( 'directorist-ez-media-uploader' );
+			case 'directorist_all_listing':
+				// Vendor Scripts
+				wp_enqueue_script( 'jquery-masonry' );
+				wp_enqueue_script( 'directorist-range-slider' );
+				wp_enqueue_script( 'directorist-jquery-barrating' );
+				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-geolocation' );
+
+				// Map Scripts
+				// $this->enqueue_archive_page_map_scripts();
+
+				// Common Scripts
+				$this->enqueue_common_shortcode_scripts();
+
+				// Custom Scripts
+				wp_enqueue_script( 'directorist-search-listing' );
+				wp_enqueue_script( 'directorist-search-form-listing' );
 				break;
 		}
 	}
@@ -115,7 +131,7 @@ class Asset_Loader {
 		include $style_path;
 		$style = ob_get_clean();
 		$style = str_replace( ['<style>', '</style>'], '', $style );
-		$style = this->minify_css( $style );
+		$style = $this->minify_css( $style );
 		return $style;
 	}
 

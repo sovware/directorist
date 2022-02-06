@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Asset_List {
+trait Asset_List {
 
 	/**
 	 * Scripts array.

@@ -9,7 +9,7 @@ use \Directorist\Script_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Misc_Functions {
+trait Misc_Functions {
 
 	public function debug_enabled() {
 		return get_directorist_option( 'script_debugging', false, true );
@@ -224,5 +224,16 @@ class Misc_Functions {
 		return [ 'ajax_url' => admin_url('admin-ajax.php') ];
 	}
 
+	public function enqueue_archive_page_map_scripts() {
+
+		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
+			$this->enqueue_openstreetmap_archive_page_scripts();
+		}
+
+		if ( Script_Helper::is_enable_map( 'google' ) ) {
+			$this->enqueue_google_map_archive_page_scripts();
+		}
+
+	}
 
 }

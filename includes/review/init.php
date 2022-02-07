@@ -64,7 +64,13 @@ class Bootstrap {
 	 */
 	public static function setup_login_redirect( $redirect ) {
 		if ( ! empty( $_GET['redirect'] ) ) {
-			return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) );
+			$scope = null;
+
+			if ( ! empty( $_GET['scope'] ) && $_GET['scope'] === 'review' ) {
+				$scope = '#respond';
+			}
+
+			return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) ) . $scope;
 		}
 
 		return $redirect;

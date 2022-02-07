@@ -23,6 +23,11 @@ class Bootstrap {
 	public static function include_files() {
 		require_once 'directorist-review-functions.php';
 
+		// Return early when review is disabled.
+		if ( ! directorist_is_review_enabled() ) {
+			return;
+		}
+
 		require_once 'class-email.php';
 		require_once 'class-markup.php';
 		require_once 'class-builder.php';
@@ -41,11 +46,51 @@ class Bootstrap {
 	}
 
 	public static function setup_hooks() {
-		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
+		add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
+		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
-		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
+		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
+	}
+
+	/**
+	 * Redirect to review form after login.
+	 *
+	 * @param string $redirect
+	 *
+	 * @return string
+	 */
+	public static function setup_login_redirect( $redirect ) {
+		if ( ! empty( $_GET['redirect'] ) ) {
+			$scope = null;
+
+			if ( ! empty( $_GET['scope'] ) && $_GET['scope'] === 'review' ) {
+				$scope = '#respond';
+			}
+
+			return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) ) . $scope;
+		}
+
+		return $redirect;
+	}
+
+	public static function update_error_message( $code, $message, $data, $wp_error ) {
+		if ( $code === 'require_valid_comment' ) {
+			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
+
+			if ( ! empty( $_POST['comment_parent'] ) ) {
+				$text = __( 'To submit your reply, please add your comment.', 'directorist' );
+			} else {
+				$text = __( 'To submit your review, please describe your rating.', 'directorist' );
+			}
+
+			$wp_error->remove( $code );
+			$wp_error->add( $code, $text, $data );
+
+			add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
+		}
 	}
 
 	/**
@@ -130,9 +175,7 @@ class Bootstrap {
 			return $args;
 		}
 
-		if ( isset( $args['supports'] ) ) {
-			$args['supports'] = array_merge( $args['supports'], [ 'comments' ] );
-		}
+		$args['supports'] = array_merge( $args['supports'], [ 'comments' ] );
 
 		return $args;
 	}
@@ -144,7 +187,7 @@ class Bootstrap {
 	}
 
 	public static function load_comments_template( $template ) {
-		if ( get_post_type() === ATBDP_POST_TYPE && file_exists( Helper::template_path( 'single-reviews' ) ) ) {
+		if ( get_post_type() === ATBDP_POST_TYPE && directorist_is_review_enabled() && file_exists( Helper::template_path( 'single-reviews' ) ) ) {
 			$template = Helper::template_path( 'single-reviews' );
 		}
 

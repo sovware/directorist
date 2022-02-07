@@ -42,7 +42,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
-        add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+        add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
     }
 
     // add_missing_single_listing_section_id
@@ -4492,7 +4492,7 @@ class Multi_Directory_Manager
 
         ]);
 
-        self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
+        self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
                 'icon' => '<i class="uil uil-estate"></i>',

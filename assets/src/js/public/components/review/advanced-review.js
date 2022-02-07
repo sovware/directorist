@@ -185,9 +185,15 @@
 
         static getErrorMsg($dom) {
             if ($dom.find('p').length) {
-                return $dom.find('p').text();
+                $dom = $dom.find('p');
             }
-            return $dom.text();
+
+            let words = $dom.text().split(':');
+            if (words.length > 1) {
+                words.shift();
+            }
+
+            return words.join(' ').trim();
         }
 
         static showError(form, $dom) {

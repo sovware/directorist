@@ -11,15 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ATBDP_Roles {
 
-     var $version = 4;
+     var $version = 5;
 
     public function __construct()
     {
         // Add custom ATBDP_Roles & Capabilities once only
         if (get_option('atbdp_roles_version') < $this->version){
-            $this->add_caps();
-            // Insert atbdp_roles_mapped option to the db to prevent mapping meta cap
-            add_option( 'atbdp_roles_version', $this->version );
+        	add_action('admin_init', array($this, 'directorist_add_caps') );
         }
 
 
@@ -28,6 +26,12 @@ class ATBDP_Roles {
 
 
     }
+	
+	public function directorist_add_caps() {
+		$this->add_caps();
+		// Insert atbdp_roles_mapped option to the db to prevent mapping meta cap
+		update_option( 'atbdp_roles_version', $this->version );
+	}
 
     /**
      * @since 5.03
@@ -46,7 +50,7 @@ class ATBDP_Roles {
      * It restrict subscriber not to enter in wp admin bar
      */
     public function disable_admin_bar_for_subscribers(){
-        if ( atbdp_logged_in_user() ):
+        if ( is_user_logged_in() ):
             global $current_user;
             if( !empty( $current_user->caps['subscriber'] ) ):
                 add_filter('show_admin_bar', '__return_false');
@@ -115,6 +119,7 @@ class ATBDP_Roles {
                 'shop_vendor',
                 'dc_vendor',
                 'yith_vendor',
+				'seller',
                 ) );
 
             // Add the "editor" capabilities of all of our custom posts

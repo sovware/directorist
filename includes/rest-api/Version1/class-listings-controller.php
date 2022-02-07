@@ -158,7 +158,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @return array
 	 */
 	protected function prepare_objects_query( $request ) {
-		$args             		= [];
+		$args                   = [];
 		$args['offset']         = $request['offset'];
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
@@ -168,9 +168,8 @@ class Listings_Controller extends Posts_Controller {
 		$args['posts_per_page'] = $request['per_page'];
 		$args['name']           = $request['slug'];
 		$args['s']              = $request['search'];
+		$args['post_status']    = $request['status'];
 		$args['fields']         = $this->get_fields_for_response( $request );
-
-		$is_featured = ( isset( $request['featured'] ) && $request['featured'] );
 
 		// Taxonomy query.
 		$tax_query = [];
@@ -202,7 +201,9 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		// Set featured query.
-		if ( $is_featured ) {
+		$is_featured = false;
+		if ( isset( $request['featured'] ) && $request['featured'] ) {
+			$is_featured = true;
 			$meta_query['_featured'] = [
 				'key'     => '_featured',
 				'value'   => 1,
@@ -317,7 +318,132 @@ class Listings_Controller extends Posts_Controller {
 				}
 		}
 
+		// Expired listings query.
+		$meta_query['expired'] = array(
+			'key'     => '_listing_status',
+			'value'   => 'expired',
+			'compare' => '!='
+		);
+
+		if ( $args['post_status'] === 'expired' ) {
+			// Get only expired listings
+			$meta_query['expired'] = array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '==',
+			);
+
+			// Expired listings have post_status => private hence we need to set any.
+			$args['post_status'] = 'any';
+		}
+
+		// Price query.
+		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
+			if ( $request['min_price'] && $request['min_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => array( $request['min_price'], $request['max_price'] ),
+					'type'    => 'NUMERIC',
+					'compare' => 'BETWEEN'
+				);
+			} elseif ( $request['min_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => $request['min_price'],
+					'type'    => 'NUMERIC',
+					'compare' => '>='
+				);
+			} elseif ( $request['max_price'] ) {
+				$meta_query['price'] = array(
+					'key'     => '_price',
+					'value'   => $request['max_price'],
+					'type'    => 'NUMERIC',
+					'compare' => '<='
+				);
+			}
+		}
+
+		// Price range query.
+		if ( ! empty( $request['price_range'] ) ) {
+			$meta_query['price_range'] = array(
+				'key'     => '_price_range',
+				'value'   => $request['price_range'],
+				'compare' => '='
+			);
+		}
+
+		if ( ! empty( $request['website'] ) ) {
+			$meta_query['website'] = array(
+				'key'     => '_website',
+				'value'   => $request['website'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['email'] ) ) {
+			$meta_query['email'] = array(
+				'key'     => '_email',
+				'value'   => $request['email'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['phone'] ) ) {
+			$meta_query['phone'] = array(
+				'relation' => 'OR',
+				array(
+					'key' => '_phone2',
+					'value' => $request['phone'],
+					'compare' => 'LIKE'
+				),
+				array(
+					'key' => '_phone',
+					'value' => $request['phone'],
+					'compare' => 'LIKE'
+				)
+			);
+		}
+
+		if ( ! empty( $request['fax'] ) ) {
+			$meta_query['fax'] = array(
+				'key'     => '_fax',
+				'value'   => $request['fax'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $request['zip'] ) ) {
+			$meta_query['zip'] = array(
+				'key'     => '_zip',
+				'value'   => $request['zip'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		// Rating query.
+		if ( ! empty( $request['rating'] ) ) {
+			$meta_query['rating'] = array(
+				'key'     => directorist_get_rating_field_meta_key(),
+				'value'   => $request['rating'],
+				'type'    => 'NUMERIC',
+				'compare' => '>=',
+			);
+		}
+
+		// Radius query.
+		if ( isset( $request['radius'] ) ) {
+			$args['atbdp_geo_query'] = array(
+				'lat_field' => '_manual_lat',
+				'lng_field' => '_manual_lng',
+				'latitude'  => $request['radius']['latitude'],
+				'longitude' => $request['radius']['longitude'],
+				'distance'  => $request['radius']['distance'],
+				'units'     => get_directorist_option( 'radius_search_unit', 'miles' )
+			);
+		}
+
 		if ( ! empty( $meta_query ) ) {
+			$meta_query[]['relation'] = 'AND';
 			$args['meta_query'] = $meta_query;
 		}
 
@@ -570,7 +696,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['email'] = get_post_meta( $listing->ID, '_email', true );
 					break;
 				case 'website':
-					$base_data['email'] = get_post_meta( $listing->ID, '_website', true );
+					$base_data['website'] = get_post_meta( $listing->ID, '_website', true );
 					break;
 				case 'social_links':
 					$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
@@ -627,16 +753,21 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
 					break;
 				case 'status':
-					$base_data['status'] = $listing->post_status;
+					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
+					if ( $listing_status && $listing_status === 'expired' ) {
+						$base_data['status'] = 'expired';
+					} else {
+						$base_data['status'] = $listing->post_status;
+					}
 					break;
 				case 'reviews_allowed':
-					$base_data['reviews_allowed'] = (bool) get_directorist_option( 'enable_review', 1 );
+					$base_data['reviews_allowed'] = directorist_is_review_enabled();
 					break;
 				case 'average_rating':
-					$base_data['average_rating'] = ATBDP()->review->get_average( $listing->ID );
+					$base_data['average_rating'] = directorist_get_listing_rating( $listing->ID );
 					break;
 				case 'rating_count':
-					$base_data['rating_count'] = ATBDP()->review->db->count( array( 'post_id' => $listing->ID ) );
+					$base_data['rating_count'] = directorist_get_listing_review_count( $listing->ID );
 					break;
 				case 'related_ids':
 					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );
@@ -687,57 +818,44 @@ class Listings_Controller extends Posts_Controller {
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
-		$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+		$directory_type = (int) get_post_meta( $listing_id, '_directory_type', true );
 		$number         = get_directorist_type_option( $directory_type, 'similar_listings_number_of_listings_to_show', 2 );
 		$same_author    = get_directorist_type_option( $directory_type, 'listing_from_same_author', false );
 		$logic          = get_directorist_type_option( $directory_type, 'similar_listings_logics', 'OR' );
-		$relationship   = ( $logic == 'AND' ) ? 'AND' : 'OR';
+		$relationship   = ( in_array( $logic, array( 'AND', 'OR' ) ) ? $logic : 'OR' );
 
-		$id            = $listing_id;
-		$atbd_cats     = get_the_terms( $id, ATBDP_CATEGORY );
-		$atbd_tags     = get_the_terms( $id, ATBDP_TAGS );
-		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
+		$categories   = directorist_get_object_terms( $listing_id, ATBDP_CATEGORY, 'term_id' );
+		$tags         = directorist_get_object_terms( $listing_id, ATBDP_TAGS, 'term_id' );
 
-		if (!empty($atbd_cats)) {
-			foreach ($atbd_cats as $atbd_cat) {
-				$atbd_cats_ids[] = $atbd_cat->term_id;
-			}
-		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
-			}
-		}
 		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'posts_per_page' => (int) $number,
+			'post__not_in'   => array( $listing_id ),
+			'tax_query'      => array(
 				'relation' => $relationship,
 				array(
 					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
+					'field'    => 'term_id',
+					'terms'    => $categories,
 				),
 				array(
 					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
+					'field'    => 'term_id',
+					'terms'    => $tags,
 				),
 			),
-			'posts_per_page' => (int)$number,
-			'post__not_in' => array($id),
 		);
 
-		if( !empty( $same_author ) ){
-			$args['author']  = get_post_field( 'post_author', $id );
+		if ( ! empty( $same_author ) ){
+			$args['author']  = get_post_field( 'post_author', $listing_id );
 		}
 
 		$meta_queries = array();
 		$meta_queries['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			);
+			'key'     => '_listing_status',
+			'value'   => 'expired',
+			'compare' => '!=',
+		);
 		$meta_queries['directory_type'] = array(
 			'key'     => '_directory_type',
 			'value'   => $directory_type,
@@ -1271,14 +1389,13 @@ class Listings_Controller extends Posts_Controller {
 			'default'           => 'publish',
 			'description'       => __( 'Limit result set to listings assigned a specific status.', 'directorist' ),
 			'type'              => 'string',
-			'enum'              => array_merge( array( 'any', 'future', 'trash' ), array_keys( get_post_statuses() ) ),
+			'enum'              => array_merge( array( 'any', 'future', 'trash', 'expired' ), array_keys( get_post_statuses() ) ),
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['featured'] = array(
 			'description'       => __( 'Limit result set to featured listings.', 'directorist' ),
 			'type'              => 'boolean',
-			'sanitize_callback' => 'directorist_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['categories'] = array(
@@ -1301,22 +1418,42 @@ class Listings_Controller extends Posts_Controller {
 		);
 		$params['min_price'] = array(
 			'description'       => __( 'Limit result set to listings based on a minimum price.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'integer',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['max_price'] = array(
 			'description'       => __( 'Limit result set to listings based on maximum price.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'integer',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['price_range'] = array(
-			'description' => __( 'Limit result set to listings based on price range.', 'directorist' ),
-			'type'        => 'string',
-			'enum'        => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+			'description'       => __( 'Limit result set to listings based on price range.', 'directorist' ),
+			'type'              => 'string',
+			'enum'              => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+			'validate_callback' => 'rest_validate_request_arg',
+		);
+		$params['rating'] = array(
+			'description'       => __( 'Limit result set to specified rating.', 'directorist' ),
+			'type'              => 'integer',
+			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['radius'] = array(
 			'description'       => __( 'Limit result set to listings based on radius search.', 'directorist' ),
-			'type'              => 'string',
+			'type'              => 'object',
+			'properties'        => array(
+				'latitude'  => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'longitude' => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'distance' => array(
+					'type'     => 'string',
+					'required' => true,
+				)
+			),
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['directory'] = array(

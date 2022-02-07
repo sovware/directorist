@@ -46,6 +46,10 @@ export default {
             let data = new FormData();
             data.append( 'action', this.prepareExportFileFrom );
 
+            if ( this.nonce && typeof this.nonce === 'object' && this.nonce.key && this.nonce.value ) {
+                data.append( this.nonce.key, this.nonce.value );
+            }
+
             if ( this.isPreparingExportFile ) {
                 console.log( 'Please wait...' );
                 return;

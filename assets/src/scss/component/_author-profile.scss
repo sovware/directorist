@@ -131,7 +131,8 @@
 }
 
 .directorist-author-info-widget,
-.directorist-single-author-info {
+.directorist-single-author-info,
+.directorist-authors-section {
 
     .directorist-author-social {
         display: flex;
@@ -232,6 +233,40 @@
     &.directorist-author-listing-grid--fix{
         .directorist-col-lg-3{
             width: 33.3333333333%;
+            @media only screen and (max-width: 767px) {
+                width: 50%;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 100%;
+            }
+        }
+        .directorist-col-4{
+            @media only screen and (max-width: 767px) {
+                width: 50%;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 100%;
+            }
+        }
+        .directorist-col-3{
+            @media only screen and (max-width: 991px) {
+                width: 33.33%;
+            }
+            @media only screen and (max-width: 767px) {
+                width: 50%;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 100%;
+            }
+        }
+
+        .directorist-col-2{
+            @media only screen and (max-width: 1199px) {
+                width: 25%;
+            }
+            @media only screen and (max-width: 991px) {
+                width: 33.33%;
+            }
             @media only screen and (max-width: 767px) {
                 width: 50%;
             }

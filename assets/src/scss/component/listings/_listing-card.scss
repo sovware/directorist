@@ -385,11 +385,12 @@
             }
 
             .directorist-listing-card-location-list {
-                position: relative;
-                top: -2px;
                 display: block;
                 margin: 0;
-                line-height: 1.45;
+            }
+            @include e(label){
+                display: inline-block;
+                margin-right: 5px;
             }
         }
 
@@ -486,6 +487,16 @@
                     height: 100%;
                     border-radius: 50%;
                 }
+            }
+        }
+
+        .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span{
+            top: auto;
+            bottom: 35px;
+            &:before{
+                top: auto;
+                bottom: -7px;
+                transform: rotate(180deg);
             }
         }
     }

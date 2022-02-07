@@ -283,6 +283,11 @@
         public function setup_fields( $directory = '' ) {
                 $directory      = $directory ? $directory : $this->default_directory;
                 $fields         = directorist_get_form_fields_by_directory_type( 'id', $directory );
+
+				if ( empty( $fields ) || ! is_array( $fields ) ) {
+					return;
+				}
+
                 foreach( $fields as $field ){
                 $field_key  = !empty( $field['field_key'] ) ? $field['field_key'] : '';
                 $label      = !empty( $field['label'] ) ? $field['label'] : '';

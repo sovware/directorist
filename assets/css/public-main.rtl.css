@@ -478,6 +478,9 @@ p.status:empty {
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
   outline: 0;
 }
+.select2-container--default .select2-results__option {
+  margin: 0;
+}
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
   margin-right: 0;
@@ -7960,21 +7963,6 @@ p.atbd-min {
 }
 @media only screen and (max-width: 575px) {
   .directorist-author-listing-content.directorist-author-listing-grid--fix .directorist-col-lg-3 {
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 991px) {
-  .directorist-author-listing-content div[class^=directorist-col-] {
-    width: 33.33%;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .directorist-author-listing-content div[class^=directorist-col-] {
-    width: 50%;
-  }
-}
-@media only screen and (max-width: 575px) {
-  .directorist-author-listing-content div[class^=directorist-col-] {
     width: 100%;
   }
 }

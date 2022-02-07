@@ -288,8 +288,13 @@ p.status:empty {
     top: 32px;
     border-color: #ececec;
 }
-.select2-container--default .select2-search--dropdown .select2-search__field:focus{
-    outline: 0;
+.select2-container--default{
+    .select2-search--dropdown .select2-search__field:focus{
+        outline: 0;
+    }
+    .select2-results__option{
+        margin: 0;
+    }
 }
 
 .select2-container--default{

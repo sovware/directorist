@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Asset_Helper {
 
 	public static function debug_enabled() {
-		return get_directorist_option( 'script_debugging', false, true );
+		return get_directorist_option('script_debugging', false, true );
 	}
 
-	public static function register_single_script( $handle, $script, $version ) {
+	public static function register_single_script($handle, $script, $version ) {
         $url = self::script_file_url( $script );
 
         if ( !empty( $script['dep'] ) ) {

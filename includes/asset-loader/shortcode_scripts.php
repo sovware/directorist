@@ -12,7 +12,7 @@ class Shortcode_Scripts {
     /**
      * @todo write conditions for grid/list/map view
      *
-     * @param [type] $listings
+     * @param object $listings
      *
      * @return void
      */

@@ -134,7 +134,9 @@ class Background_Updater extends Background_Process {
 	protected function complete() {
 		// $logger = wc_get_logger();
 		// $logger->info( 'Data update complete', array( 'source' => 'wc_db_updates' ) );
-		ATBDP_Installation::update_db_version();
+		// ATBDP_Installation::update_db_version();
+		update_option( 'directorist_db_updated', true, 'no' );
+
 		parent::complete();
 	}
 

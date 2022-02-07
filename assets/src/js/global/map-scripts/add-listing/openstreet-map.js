@@ -84,7 +84,9 @@ import { get_dom_data } from './../../../lib/helper';
         mapLeaflet(lat, lon);
 
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
-            document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            if(document.getElementById('osm')) {
+                document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            }
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('lat'),

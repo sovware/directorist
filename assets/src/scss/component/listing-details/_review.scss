@@ -521,6 +521,10 @@ Review: New Style
                 background: #fff;
                 border-radius: 4px;
 
+                a{
+                    text-decoration: none;
+                }
+
                 .comment-body{
                     margin-bottom: 0;
                     padding: 0;
@@ -795,6 +799,8 @@ Review: New Style
                         border-radius: 4px;
                         background: #E1E4EC;
                         margin: 1px;
+                        text-decoration: none;
+                        outline: 0;
 
                         &:before {
                             content: "\f005";
@@ -805,11 +811,15 @@ Review: New Style
                         }
                         &:focus{
                             background: #E1E4EC !important;
+                            text-decoration: none !important;
+                            outline: 0;
                         }
 
                         &.br-selected,
                         &.br-active {
                             background: #fa8b0c !important;
+                            text-decoration: none;
+                            outline: 0;
                         }
                     }
                 }

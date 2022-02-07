@@ -13,13 +13,13 @@
             
             <ul class="directorist_builder-links">
                 <li>
-                    <a href="https://directorist.com/documentation/">
+                    <a href="https://directorist.com/documentation/" target="_blank">
                         <i class="la la-file"></i>
                         <span class="link-text"><?php _e( 'Documentation', 'directorist' ); ?></span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://directorist.com/dashboard/#support" class="directorist_alert-warning">
+                    <a href="https://directorist.com/dashboard/#support" target="_blank" class="directorist_alert-warning">
                         <i class="la la-question-circle"></i>
                         <span class="link-text"><?php _e( 'Support', 'directorist' ); ?></span>
                     </a>

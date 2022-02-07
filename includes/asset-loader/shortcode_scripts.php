@@ -51,6 +51,27 @@ class Shortcode_Scripts {
 
     public static function single_listing() {
 
+		wp_enqueue_script( 'directorist-jquery-barrating' );
+		wp_enqueue_script( 'directorist-sweetalert-script' );
+		wp_enqueue_script( 'directorist-slick' );
+
+		// Map Scripts
+        if ( Asset_Helper::map_type() == 'openstreet' ) {
+            Asset_Helper::enqueue_openstreet_map_scripts();
+        } elseif ( Asset_Helper::map_type() == 'google' ) {
+            Asset_Helper::enqueue_google_map_scripts();
+        }
+
+		// Common Scripts
+		wp_enqueue_script( 'directorist-popper' );
+		wp_enqueue_script( 'directorist-tooltip' );
+		wp_enqueue_script( 'directorist-plasma-slider' );
+		wp_enqueue_script( 'directorist-no-script' );
+		wp_enqueue_script( 'directorist-global-script' );
+		wp_enqueue_script( 'directorist-main-script' );
+		wp_enqueue_script( 'directorist-atmodal' );
+
+
     }
 
     public static function add_listing() {

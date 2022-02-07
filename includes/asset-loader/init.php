@@ -83,7 +83,7 @@ class Asset_Loader {
 
 		// Enqueue Single Listing Scripts
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			Asset_Helper::enqueue_single_listing_shortcode_scripts();
+			Shortcode_Scripts::single_listing();
 		}
 	}
 

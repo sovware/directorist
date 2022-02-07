@@ -119,58 +119,6 @@ class Asset_Helper {
 		}
 	}
 
-	public static function map_type() {
-		return get_directorist_option( 'select_listing_map', 'openstreet' );
-	}
-
-	public static function enqueue_map_styles() {
-		$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
-
-		if ( $map_type == 'openstreet' ) {
-			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
-			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
-		}
-	}
-
-	public static function enqueue_single_listing_shortcode_scripts() {
-		// Vendor Scripts
-		wp_enqueue_script( 'directorist-jquery-barrating' );
-		wp_enqueue_script( 'directorist-sweetalert-script' );
-		// wp_enqueue_script( 'directorist-plasma-slider' );
-		wp_enqueue_script( 'directorist-slick' );
-
-		// Map Scripts
-		self::enqueue_single_listing_page_map_scripts();
-
-		// Common Scripts
-		self::enqueue_common_shortcode_scripts();
-	}
-
-	public static function enqueue_single_listing_page_map_scripts() {
-		$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
-
-		if ( $map_type == 'openstreet' ) {
-			$args = [];
-			$default['with_cluster'] = false;
-			$args = array_merge( $default, $args );
-	
-			$with_cluster = ( ! empty( $args['with_cluster'] ) ) ? true : false;
-	
-			wp_enqueue_script( 'directorist-openstreet-layers' );
-			wp_enqueue_script( 'directorist-openstreet-unpkg' );
-			wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
-			wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
-			wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
-	
-			if ( $with_cluster ) {
-				wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
-			}
-	
-			wp_enqueue_script( 'directorist-openstreet-libs-setup' );
-			wp_enqueue_script( 'directorist-openstreet-open-layers' );
-			wp_enqueue_script( 'directorist-openstreet-crosshairs' );
-		}
-	}
 	public static function load_localized_data() {
 		// Public JS
 		wp_localize_script( 'directorist-main-script', 'atbdp_public_data', Script_Helper::get_main_script_data() );
@@ -214,6 +162,17 @@ class Asset_Helper {
 
 	private static function admin_ajax_localized_data() {
 		return [ 'ajax_url' => admin_url('admin-ajax.php') ];
+	}
+
+	public static function map_type() {
+		return get_directorist_option( 'select_listing_map', 'openstreet' );
+	}
+
+	public static function enqueue_map_styles() {
+		if ( self::map_type() == 'openstreet' ) {
+			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+		}
 	}
 
 	public static function enqueue_openstreet_map_scripts( $cluster = false ) {

@@ -83,6 +83,13 @@
 
         public function atbdp_import_listing()
         {
+
+			if ( ! current_user_can( 'import' ) ) {
+                wp_send_json( array(
+					'error' => __( 'Invalid request!', 'directorist' ),
+				) );
+			}
+
             $data               = array();
             $imported           = 0;
             $failed             = 0;

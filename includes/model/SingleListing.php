@@ -85,22 +85,26 @@ class Directorist_Single_Listing {
 				unset( $single_fields['fields'][$key]['widget_key'] );
 				unset( $single_fields['fields'][$key]['original_widget_key'] );
 
-				// Added field_key, label, widget_group from submission form
-				if ( $form_key ) {
-					if ( !empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
-						$single_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
+				// Added form_field, field_key, label, widget_group from submission form
+				if ( $form_key && !empty( $submission_form_fields['fields'][$form_key] ) ) {
+					$form_data = $submission_form_fields['fields'][$form_key];
+
+					$single_fields['fields'][$key]['form_data'] = $form_data;
+
+					if ( !empty( $form_data['field_key'] ) ) {
+						$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
-						$single_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					if ( !empty( $form_data['options'] ) ) {
+						$single_fields['fields'][$key]['options'] = $form_data['options'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['label'] ) ) {
-						$single_fields['fields'][$key]['label'] = $submission_form_fields['fields'][$form_key]['label'];
+					if( !empty( $form_data['label'] ) ) {
+						$single_fields['fields'][$key]['label'] = $form_data['label'];
 					}
 
-					if( !empty( $submission_form_fields['fields'][$form_key]['widget_group'] ) ) {
-						$single_fields['fields'][$key]['widget_group'] = $submission_form_fields['fields'][$form_key]['widget_group'];
+					if( !empty( $form_data['widget_group'] ) ) {
+						$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
 					}
 				}
 			}
@@ -173,7 +177,16 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
+		return apply_filters( 'directorist_single_section_has_contents', $has_contents, $section_data );
+	}
+
+	public function has_whatsapp( $data ) {
+		if ( !empty( $data['form_data']['whatsapp'] ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function get_field_value( $data = [] ) {
@@ -197,7 +210,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return $value;
+		return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
 	}
 
 	public function field_template( $data ) {
@@ -574,7 +587,7 @@ class Directorist_Single_Listing {
 			return false;
 		}
 
-		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && atbdp_logged_in_user() ) ) {
+		if ( $email_display_type == 'public' || ( $email_display_type == 'logged_in' && is_user_logged_in() ) ) {
 			return true;
 		}
 
@@ -652,11 +665,11 @@ class Directorist_Single_Listing {
 	}
 
 	public function get_review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function get_rating_count() {
-		return ATBDP()->review->get_average( $this->id );
+		return directorist_get_listing_rating( $this->id );
 	}
 
 	public function submit_link() {
@@ -707,7 +720,7 @@ class Directorist_Single_Listing {
 		$id = get_the_ID();
 		$author_id = get_post_field( 'post_author', $id );
 
-		if ( atbdp_logged_in_user() && $author_id == get_current_user_id() ) {
+		if ( is_user_logged_in() && $author_id == get_current_user_id() ) {
 			return true;
 		}
 		else {
@@ -798,7 +811,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_review() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public function guest_review_enabled() {
@@ -811,8 +824,10 @@ class Directorist_Single_Listing {
 
 	public function current_review() {
 		// @cache @kowsar
-		$review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
-		return !empty( $review ) ? $review : '';
+		// $review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
+		// return !empty( $review ) ? $review : '';
+
+		return '';
 	}
 
 	public function reviewer_name() {
@@ -820,7 +835,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function review_count_text() {
@@ -853,12 +868,14 @@ class Directorist_Single_Listing {
 		return get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) );
 	}
 
-
+	// TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.
 	public function get_contents() {
-		$post    = $this->post;
-		$content = apply_filters('get_the_content', $post->post_content);
-		$content = do_shortcode(wpautop($content));
-		return $content;
+		$content = $this->post->post_content;
+		$content = wpautop( $content );
+		$content = do_shortcode( $content );
+
+		// TODO: Make it compatible with wp core `the_content` hook.
+		return apply_filters( 'directorist_the_content', $content );
 	}
 
 	public function get_custom_field_type_value($field_id, $field_type, $field_details)
@@ -914,8 +931,7 @@ class Directorist_Single_Listing {
 			break;
 
 			default:
-				$content = apply_filters('get_the_content', $field_details);
-				$result = do_shortcode( $content );
+				$result = do_shortcode( $field_details );
 				break;
 		}
 
@@ -1078,7 +1094,7 @@ class Directorist_Single_Listing {
 
 	public function review_template() {
 		$id           = $this->id;
-		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
+		$review_count = directorist_get_listing_review_count( $id );
 		$author_id    = get_post_field('post_author', $id);
 
 		$args = array(
@@ -1090,7 +1106,7 @@ class Directorist_Single_Listing {
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),
 			'guest_review'             => get_directorist_option('guest_review', 0),
-			'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
+			// 'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
 			'reviewer_name'            => wp_get_current_user()->display_name,
 			'reviewer_img'             => $this->get_reviewer_img(),
 			'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),

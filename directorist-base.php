@@ -3,29 +3,13 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.0.5.3
+ * Version: 7.1.0
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
-/*
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-Copyright (c) 2020 wpWax (website: wpwax.com). All rights reserved.
-*/
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
 
@@ -99,14 +83,6 @@ final class Directorist_Base
 	 * @since 1.0
 	 */
 	public $helper;
-
-	/**
-	 * ATBDP_Review_Rating Object.
-	 *
-	 * @var object|ATBDP_Review_Rating
-	 * @since 1.0
-	 */
-	public $review;
 
 	/**
 	 * ATBDP_Listing Object.
@@ -189,14 +165,6 @@ final class Directorist_Base
 	public $ATBDP_Single_Templates;
 
 	/**
-	 * ATBDP_Review_Custom_Post Object.
-	 *
-	 * @var ATBDP_Review_Custom_Post
-	 * @since 5.6.5
-	 */
-	public $ATBDP_Review_Custom_Post;
-
-	/**
 	 * Main Directorist_Base Instance.
 	 *
 	 * Insures that only one instance of Directorist_Base exists in memory at any one
@@ -229,6 +197,8 @@ final class Directorist_Base
 			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
 
+			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
+
 			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 
 			// ATBDP_Listing_Type_Manager
@@ -254,14 +224,21 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools;
 			self::$instance->announcement = new ATBDP_Announcement;
-			self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
-			self::$instance->update_database();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
-			new ATBDP_Extensions();
-			/*Initiate Review and Rating Features*/
-			self::$instance->review = new ATBDP_Review_Rating;
+
+			if( is_admin() ){
+				new ATBDP_Extensions();
+			}
+
+			/**
+			 * Deprected review rating class.
+			 * Will be removed in future.
+			 */
+			include_once ATBDP_INC_DIR . 'review/class-bc-review-rating.php';
+			self::$instance->review = new ATBDP_Review_Rating();
+
 			//activate rewrite api
 			new ATBDP_Rewrite;
 			//map custom capabilities
@@ -271,12 +248,6 @@ final class Directorist_Base
 
 			// display related listings
 			// add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
-
-			//review and rating
-			add_action('atbdp_after_map', array(self::$instance, 'show_review'));
-			// plugin deactivated popup
-			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(self::$instance, 'atbdp_plugin_link'));
-			add_action('admin_footer', array(self::$instance, 'atbdp_deactivate_popup'));
 
 			// Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
 			// we can check the database if our custom pages have been installed correctly or not here first.
@@ -307,6 +278,30 @@ final class Directorist_Base
 		}
 
 		return self::$instance;
+	}
+
+	// on_install_update_actions
+	public function on_install_update_actions() {
+		$install_event_key = get_directorist_option( 'directorist_installed_event_key', '', true );
+
+		// Execute directorist_installed hook if plugin gets installed first time
+		if ( empty( $install_event_key ) ) {
+			update_directorist_option( 'directorist_installed_event_key', ATBDP_VERSION );
+			update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
+
+			do_action( 'directorist_installed' );
+			return;
+		}
+
+		// Prevent executing directorist_updated hook if plugin is not updated
+		$update_event_key = get_directorist_option( 'directorist_updated_event_key', '', true );
+		if ( $update_event_key === ATBDP_VERSION ) {
+			return;
+		}
+
+		// Execute directorist_updated hook if plugin gets updated
+		do_action( 'directorist_updated' );
+		update_directorist_option( 'directorist_updated_event_key', ATBDP_VERSION );
 	}
 
 	// show_flush_messages
@@ -386,18 +381,6 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Update Database
-	 *
-	 * @access private
-	 * @since 6.4.4
-	 * @return void
-	 */
-	private function update_database()
-	{
-		$this->update_review_table();
-	}
-
-	/**
 	 * Init Hooks
 	 *
 	 * @access private
@@ -408,28 +391,6 @@ final class Directorist_Base
 	{
 		ATBDP_Cache_Helper::reset_cache();
 	}
-
-
-	/**
-	 * Update Review Table
-	 *
-	 * @access private
-	 * @since 6.4.4
-	 * @return void
-	 */
-	private function update_review_table()
-	{
-		$current_charset_collate = get_option('atbdp_review_table_charset_collate');
-		$review_rating = new ATBDP_Review_Rating_DB();
-
-		$charset_collate = $review_rating->get_charset_collate();
-
-		if ( $charset_collate !== $current_charset_collate ) {
-			add_action('admin_init', array( $review_rating, 'update_table_collation'));
-			update_option('atbdp_review_table_charset_collate', $charset_collate);
-		}
-	}
-
 
 	/**
 	 * Setup plugin constants.
@@ -473,6 +434,8 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
+			ATBDP_INC_DIR . 'review/init',
+			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
@@ -483,8 +446,6 @@ final class Directorist_Base
 
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 
-		/*LOAD Rating and Review functionality*/
-		load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
 		/*Load gateway related stuff*/
 		load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
 		/*Load payment related stuff*/
@@ -747,155 +708,117 @@ final class Directorist_Base
 	 *                   For example, on different widgets place. Default 5.
 	 * @return WP_Query It returns the popular listings if found.
 	 */
-	public function get_popular_listings($count = 5, $listing_id = '')
-	{
-		/*Popular post related stuff*/
-		$p_count = !empty($count) ? $count : 5;
+	public function get_popular_listings( $count = 5, $listing_id = 0 ) {
+		$count           = intval( $count > 0 ? $count : 5 );
+		$view_to_popular = get_directorist_option( 'views_for_popular' );
 
-		$view_to_popular = get_directorist_option('views_for_popular');
 		/**
 		 * It filters the number of the popular listing to display
 		 * @since 1.0.0
-		 * @param int $p_count The number of popular listing  to show
+		 * @param int $count The number of popular listing  to show
 		 */
-		$p_count = apply_filters('atbdp_popular_listing_number', $p_count);
+		$count = apply_filters( 'atbdp_popular_listing_number', $count );
+
 		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'post_status' => 'publish',
-			'posts_per_page' => (int)$p_count,
-
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'posts_per_page' => $count,
 		);
-		$has_featured = get_directorist_option('enable_featured_listing');
-		if ($has_featured || is_fee_manager_active()) {
-			$has_featured = 1;
-		}
 
-		$listings = get_atbdp_listings_ids();
-		$rated = array();
-		$listing_popular_by = get_directorist_option('listing_popular_by');
-		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-		$view_to_popular = get_directorist_option('views_for_popular');
+		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
+		$has_featured               = $has_featured || is_fee_manager_active();
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
 		$meta_queries = array();
-		if ($has_featured) {
-			if ('average_rating' === $listing_popular_by) {
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
 
-					}
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
-			} elseif ('view_count' === $listing_popular_by) {
+		if ( $has_featured ) {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
 
 				$args['orderby'] = array(
 					'_featured' => 'DESC',
-					'views' => 'DESC',
+					'views'     => 'DESC',
 				);
-
 			} else {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
 				$args['orderby'] = array(
 					'_featured' => 'DESC',
-					'views' => 'DESC',
+					'views'     => 'DESC',
 				);
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
 			}
-
 		} else {
-			if ('average_rating' === $listing_popular_by) {
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
-			} elseif ('view_count' === $listing_popular_by) {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => $view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
 				$args['orderby'] = array(
 					'views' => 'DESC',
 				);
 			} else {
 				$meta_queries['views'] = array(
-					'key' => '_atbdp_post_views_count',
-					'value' => (int)$view_to_popular,
-					'type' => 'NUMERIC',
+					'key'     => '_atbdp_post_views_count',
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
 					'compare' => '>=',
 				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
 				$args['orderby'] = array(
 					'views' => 'DESC',
 				);
-				if ($listings->have_posts()) {
-					while ($listings->have_posts()) {
-						$listings->the_post();
-						$listing_id = get_the_ID();
-						$average = ATBDP()->review->get_average($listing_id);
-						if ($average_review_for_popular <= $average) {
-							$rated[] = get_the_ID();
-						}
-
-					}
-					$rating_id = array(
-						'post__in' => !empty($rated) ? $rated : array()
-					);
-					$args = array_merge($args, $rating_id);
-				}
 			}
 		}
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+
+		if ( count( $meta_queries ) ) {
+			$meta_queries['relation'] = 'AND';
+			$args['meta_query'] = $meta_queries;
 		}
 
-		return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
-
+		return new WP_Query( apply_filters( 'atbdp_popular_listing_args', $args ) );
 	}
 
 	/**
@@ -904,15 +827,20 @@ final class Directorist_Base
 	 */
 	public function show_static_rating($post)
 	{
-		$enable_review = get_directorist_option('enable_review', 1);
-		if (!$enable_review) return; // vail if review is not enabled
-		$average = ATBDP()->review->get_average($post->ID);
+		if ( ! directorist_is_review_enabled() ) {
+			return;
+		}
+
+		if ( empty( $post ) || ! ( $post instanceof \WP_Post ) || $post->post_type !== ATBDP_POST_TYPE ) {
+			return;
+		}
+
+		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>
 		</div>
 		<?php
-
 	}
 
 	/**
@@ -1099,357 +1027,6 @@ final class Directorist_Base
 
 	}
 
-	/**
-	 * Plugin links
-	 * @since 4.4.0
-	 * */
-	public function atbdp_plugin_link($links)
-	{
-		if (array_key_exists('deactivate', $links)) {
-			$links['deactivate'] = str_replace('<a', '<a class="atbdp-deactivate-popup"', $links['deactivate']);
-		}
-
-		return $links;
-	}
-
-	/**
-	 * Deactivate Reasons
-	 * @since 4.4.0
-	 */
-	public function atbdp_deactivate_popup()
-	{
-		global $pagenow;
-
-		if ('plugins.php' != $pagenow) {
-			return;
-		}
-		$deactivate_reasons = atbdp_deactivate_reasons();
-		?>
-
-		<div class="aazz-deactivate" id="atbdp-aazz-deactivate">
-			<div class="aazz-deactivate-wrap">
-				<div class="aazz-deactivate-header">
-					<h3><?php _e('If you have time, please let us know why you are deactivating so that we can improve.', 'directorist'); ?></h3>
-				</div>
-
-				<div class="aazz-deactivate-body">
-					<ul class="reasons">
-						<?php foreach ($deactivate_reasons as $reason) { ?>
-							<li data-type="<?php echo esc_attr($reason['type']); ?>"
-								data-placeholder="<?php echo esc_attr($reason['placeholder']); ?>">
-								<label><input type="radio" name="selected-reason"
-											  value="<?php echo $reason['id']; ?>"> <?php echo $reason['text']; ?>
-								</label>
-							</li>
-						<?php } ?>
-					</ul>
-				</div>
-
-				<div class="aazz-deactivate-footer">
-					<a href="#" class="atbdp-no-comment"><?php _e('Skip & Deactivate', 'directorist'); ?></a>
-					<button class="atbdp-reason-submit atbdp-reason-submit"><?php _e('Submit & Deactivate', 'directorist'); ?></button>
-					<button class="button-primary"><?php _e('Cancel', 'directorist'); ?></button>
-				</div>
-			</div>
-		</div>
-
-		<style type="text/css">
-			.aazz-deactivate {
-				right: 0;
-				bottom: 0;
-				left: 0;
-				position: fixed;
-				z-index: 99999;
-				top: 0;
-				background: rgba(0, 0, 0, 0.5);
-				display: none;
-			}
-
-			.aazz-deactivate.modal-active {
-				display: block;
-			}
-
-			.aazz-deactivate-wrap {
-				width: 475px;
-				position: relative;
-				margin: 10% auto;
-				background: #fff;
-			}
-
-			.aazz-deactivate-header {
-				border-bottom: 1px solid #eee;
-				padding: 8px 20px;
-			}
-
-			.aazz-deactivate-header h3 {
-				line-height: 150%;
-				margin: 0;
-			}
-
-			.aazz-deactivate-body .reason-input {
-				margin-top: 5px;
-				margin-left: 20px;
-			}
-
-			.aazz-deactivate-body {
-				padding: 5px 20px 20px 20px;
-			}
-
-			.aazz-deactivate-footer {
-				border-top: 1px solid #eee;
-				padding: 12px 20px;
-				text-align: right;
-			}
-		</style>
-
-		<script type="text/javascript">
-			(function ($) {
-				$(function () {
-					var modal = $('#atbdp-aazz-deactivate');
-					var deactivateLink = '';
-
-					$('#the-list').on('click', 'a.atbdp-deactivate-popup', function (e) {
-						e.preventDefault();
-
-						modal.addClass('modal-active');
-						deactivateLink = $(this).attr('href');
-						modal.find('a.atbdp-no-comment').attr('href', deactivateLink).css('float', 'left');
-					});
-
-					modal.on('click', 'button.button-primary', function (e) {
-						e.preventDefault();
-
-						modal.removeClass('modal-active');
-					});
-
-					modal.on('click', 'input[type="radio"]', function () {
-						var parent = $(this).parents('li:first');
-
-						modal.find('.reason-input').remove();
-
-						var inputType = parent.data('type'),
-							inputPlaceholder = parent.data('placeholder'),
-							reasonInputHtml = '<div class="reason-input">' + (('text' === inputType) ? '<input type="text" size="40" />' : '<textarea rows="5" cols="45"></textarea>') + '</div>';
-
-						if (inputType !== '') {
-							parent.append($(reasonInputHtml));
-							parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
-						}
-					});
-
-					modal.on('click', 'button.atbdp-reason-submit', function (e) {
-						e.preventDefault();
-
-						var button = $(this);
-
-						if (button.hasClass('disabled')) {
-							return;
-						}
-
-						var $radio = $('input[type="radio"]:checked', modal);
-
-						var $selected_reason = $radio.parents('li:first'),
-							$input = $selected_reason.find('textarea, input[type="text"]');
-
-						$.ajax({
-							url: ajaxurl,
-							type: 'POST',
-							data: {
-								action: 'atbdp_submit-uninstall-reason',
-								reason_id: (0 === $radio.length) ? 'none' : $radio.val(),
-								reason_info: (0 !== $input.length) ? $input.val().trim() : ''
-							},
-							beforeSend: function () {
-								button.addClass('disabled');
-								button.text('Processing...');
-							},
-							complete: function () {
-								window.location.href = deactivateLink;
-							}
-						});
-					});
-				});
-			}(jQuery));
-		</script>
-		<?php
-	}
-
-	/**
-	 * It displays reviews of the given post
-	 * @param object|WP_Post $post The current post object
-	 */
-	public function show_review($post)
-	{
-		/**
-		 * @since 5.10.0
-		 * It fires before review section
-		 */
-
-		$enable_review = get_directorist_option('enable_review', 1);
-		$guest_review = get_directorist_option('guest_review', 0);
-		$approve_immediately = get_directorist_option('approve_immediately', 1);
-		$review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
-		if (!$enable_review) return; // vail if review is not enabled
-		$enable_owner_review = get_directorist_option('enable_owner_review', 1);
-		$reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-		$plan_review = true;
-		$review = true;
-		$allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);
-		if (is_fee_manager_active()) {
-			$plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
-		}
-		if ($plan_review && $allow_review) {
-			$count_review = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
-			?>
-			<div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
-				<div class="atbd_content_module_title_area">
-					<div class="atbd_area_title">
-						<h4><span class="<?php atbdp_icon_type(true); ?>-star atbd_area_icon"></span><span
-									id="reviewCounter"><?php echo $reviews_count; ?></span><?php
-							echo $count_review;
-							?></h4>
-					</div>
-					<?php if (atbdp_logged_in_user() || $guest_review) { ?>
-						<label for="review_content"
-							   class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
-					<?php } ?>
-				</div>
-				<div class="atbdb_content_module_contents">
-					<input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
-					<div id="client_review_list">
-					</div>
-					<div id="clint_review"></div>
-				</div>
-
-			</div><!-- end .atbd_review_module -->
-			<?php
-			// check if the user is logged in and the current user is not the owner of this listing.
-			if (atbdp_logged_in_user() || $guest_review) {
-				global $wpdb;
-				// if the current user is NOT the owner of the listing print review form
-				// get the settings of the admin whether to display review form even if the user is the owner of the listing.
-				if (get_current_user_id() != $post->post_author || $enable_owner_review) {
-
-					// if user has a review then fetch it.
-					$cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
-					?>
-					<div class="atbd_content_module">
-						<div class="atbd_content_module_title_area">
-							<div class="atbd_area_title">
-								<h4><span class="<?php atbdp_icon_type(true); ?>-star"
-										  aria-hidden="true"></span><?php echo !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
-								</h4>
-							</div>
-						</div>
-
-						<div class="atbdb_content_module_contents atbd_give_review_area">
-							<form action="#" id="atbdp_review_form" method="post">
-								<?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
-								<input type="hidden" name="post_id" value="<?php the_ID(); ?>">
-
-								<!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
-								<input type="hidden" name="name" class="btn btn-default"
-									   value="<?php echo wp_get_current_user()->display_name; ?>"
-									   id="reviewer_name">
-								<?php
-								$author_id = wp_get_current_user()->ID;
-								$u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-								$u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
-								$u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
-								$enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
-								$custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
-								$avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-								$user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
-								?>
-								<input type="hidden" name="name" id="reviewer_img" class="btn btn-default"
-									   value='<?php echo esc_attr($user_img); ?>'>
-
-								<div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
-									<?php
-									// color the stars if user has rating
-									if (!empty($cur_user_review)) { ?>
-										<div class="atbd_review_current_rating">
-											<p class="atbd_rating_label"><?php _e('Current Rating:', 'directorist'); ?></p>
-											<div class="atbd_rated_stars">
-												<?php echo ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
-											</div>
-										</div>
-									<?php } ?>
-
-									<div class="atbd_review_update_rating">
-										<p class="atbd_rating_label"><?php echo !empty($cur_user_review) ? __('Update Rating:', 'directorist') : __('Your Rating:', 'directorist'); ?></p>
-										<div class="atbd_rating_stars">
-											<select class="stars" name="rating" id="review_rating">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5" selected>5</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<?php if( !empty( $enable_reviewer_content ) ) { ?>
-								<div class="form-group">
-								<textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
-										  placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
-								</div>
-								<?php } ?>
-								<?php
-								if ($guest_review && !atbdp_logged_in_user()){
-								?>
-								<div class="form-group">
-									<label for="guest_user_email"><?php
-										$guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
-										$guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
-										esc_html_e($guest_email_label . ':', 'directorist');
-										echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
-									<input type="text" id="guest_user_email" name="guest_user_email" required
-										   value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
-										   class="form-control directory_field"
-										   placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
-								</div>
-								<?php } if (!empty($cur_user_review)) { ?>
-									<button class="<?php echo atbdp_directorist_button_classes(); ?>" type="submit"
-											id="atbdp_review_form_submit"><?php _e('Update', 'directorist'); ?></button> <!-- ends update  button -->
-									<button class="btn btn-danger" type="button" id="atbdp_review_remove"
-											data-review_id="<?php echo $cur_user_review->id; ?>"><?php _e('Remove', 'directorist'); ?></button> <!-- ends delete button -->
-								<?php } else { ?>
-									<button class="btn btn-primary" type="submit"
-											id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button> <!-- submit button -->
-								<?php } ?>
-								<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo empty($approve_immediately) ? 'no' : 'yes';?>">
-								<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo !empty($review_duplicate) ? 'yes' : '';?>">
-							</form>
-						</div>
-					</div><!-- end .atbd_custom_fields_contents -->
-				<?php };
-			} else { ?>
-				<div class="atbd_notice atbd-alert atbd-alert-info">
-					<span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
-					<?php
-					$login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");
-					$register_url = apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>");
-
-					printf(__('You need to %s or %s to submit a review', 'directorist'), $login_url, $register_url);
-					?>
-				</div>
-			<?php }
-		}
-	}
-
-	/**
-	 * It gets the reviews of the given listing/post
-	 * @param object|WP_Post $post The WP Post Object of whose review we would like to show
-	 * @param int $review_number The number of reviews to return, Default 5
-	 * @return object|WP_Query It returns the reviews if found.
-	 */
-	private function _get_reviews($post, $review_number = 5)
-	{
-
-		return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0, $review_number); // get the amount of reviews set by $review_number
-	}
-
 	public function add_custom_meta_keys_for_old_listings()
 	{
 		// get all the listings that does not have any of the following meta key missing
@@ -1556,7 +1133,10 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Initialize appsero tracking
+	 * Initialize appsero tracking.
+	 *
+	 * Removed custom plugins meta data field in 7.0.5.4
+	 * since Appsero made this builtin.
 	 *
 	 * @see https://github.com/Appsero/client
 	 *
@@ -1567,65 +1147,10 @@ final class Directorist_Base
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist &#8211; Business Directory Plugin', __FILE__ );
+		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist – Business Directory & Classified Listings WordPress Plugin', __FILE__ );
 
 		// Active insights
-		$client->insights()
-			->add_extra( function() {
-				return array(
-					'used_active_plugins' => $this->get_used_active_plugins()
-				);
-			} )
-			->init();
-	}
-
-	/**
-	 * Get the list of active plugins
-	 *
-	 * @return array
-	 */
-	protected function get_used_active_plugins() {
-		// Ensure get_plugins function is loaded
-		if ( ! function_exists( 'get_plugins' ) ) {
-			include ABSPATH . '/wp-admin/includes/plugin.php';
-		}
-
-		$plugins             = get_plugins();
-		$active_plugins_keys = get_option( 'active_plugins', array() );
-		$active_plugins      = array();
-
-		foreach ( $plugins as $k => $v ) {
-			// Take care of formatting the data how we want it.
-			$formatted = array();
-			$formatted['name'] = strip_tags( $v['Name'] );
-
-			// Remove self reference
-			if ( strpos( __FILE__, $k ) !== false ) {
-				continue;
-			}
-
-			if ( isset( $v['Version'] ) ) {
-				$formatted['version'] = strip_tags( $v['Version'] );
-			}
-
-			if ( isset( $v['Author'] ) ) {
-				$formatted['author'] = strip_tags( $v['Author'] );
-			}
-
-			if ( isset( $v['Network'] ) ) {
-				$formatted['network'] = strip_tags( $v['Network'] );
-			}
-
-			if ( isset( $v['PluginURI'] ) ) {
-				$formatted['plugin_uri'] = strip_tags( $v['PluginURI'] );
-			}
-
-			if ( in_array( $k, $active_plugins_keys ) ) {
-				$active_plugins[$k] = $formatted;
-			}
-		}
-
-		return $active_plugins;
+		$client->insights()->init();
 	}
 
 } // ends Directorist_Base

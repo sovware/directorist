@@ -48,6 +48,9 @@
 }
 /* loading effect */
 .atbdp-form-fade {
+    position: relative;
+    overflow: hidden;
+    padding-right: 17px;
     &:before {
         position: absolute;
         content: '';
@@ -56,14 +59,10 @@
         border: 2px solid #0A0B1E;
         border-top-color: transparent;
         border-radius: 50%;
-        z-index: 2;
         left: 50%;
         top: 50%;
-        margin-left: -20px;
-        margin-top: -20px;
-        -webkit-animation: atbd_spin 2s linear infinite;
-        /* Safari */
-        animation: atbd_spin 2s linear infinite;
+        transform: translate(-50%, -50%);
+        animation: atbd_spin2 2s linear infinite;
         z-index: 9999;
     }
 
@@ -74,8 +73,8 @@
         height: 100%;
         left: 0;
         top: 0;
-        background: rgba(255, 255, 255, 0.8);
-        z-index: 1;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 9998;
     }
 }
 
@@ -141,7 +140,7 @@
         flex-wrap: wrap;
         margin: -5px 0;
 
-        .directorist-search-field {
+        .directorist-search-field{
             flex: auto;
             flex-direction: column;
             align-items: flex-start;
@@ -198,7 +197,8 @@
         .directorist-search-form-action {
             display: flex;
             align-items: center;
-            
+            margin-left: auto;
+
             @media only screen and (max-width: 375px) {
                 flex-direction: column;
             }
@@ -327,7 +327,7 @@
 }
 
 .directorist-search-field {
-    #address {
+    .directorist-location-js {
         &+.address_result {
             position: absolute;
             width: 100%;

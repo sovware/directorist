@@ -1,18 +1,9 @@
 .reset-pseudo-link {
-
     &:visited,
     &:active,
     &:focus {
         outline: none;
         box-shadow: none;
-    }
-}
-
-.directorist-content-active{
-    a,
-    span{
-        word-break: break-word;
-        word-wrap: break-word;
     }
 }
 

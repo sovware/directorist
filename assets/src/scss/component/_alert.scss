@@ -46,6 +46,9 @@
             outline: none;
         }
     }
+    a{
+        text-decoration: none;
+    }
 }
 
 // Alert Type
@@ -94,7 +97,9 @@
             color: #009114;
         }
     }
-
+    @include m(sm){
+        padding: 10px 20px;
+    }
 }
 
 //alert-danger in registration page

@@ -10,28 +10,47 @@
 .directorist-content-active .directorist-type-nav {
     @include e(list) {
         padding: 0;
-        margin: 0 0 15px 0;
+        margin: -10px -10px 15px;
         list-style-type: none;
         display: flex;
-        align-items: center;
         flex-wrap: wrap;
+        align-items: center;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: thin;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        li{
+            flex: none;
+            padding: 5px 10px;
+            margin: 0;
+            list-style: none;
+        }
 
         .current {
             .directorist-type-nav__link {
                 border-bottom-color: $primary;
             }
         }
+
     }
 
     @include e(link) {
         font-size: 15px;
         text-decoration: none;
-        display: block;
-        padding: 0 15px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0 10px;
         font-weight: 500;
         color: #202428;
         border-bottom: 2px solid transparent;
         outline: 0;
+        span{
+            padding-right: 7px;
+        }
 
         &:focus {
             background: none !important;

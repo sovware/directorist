@@ -29,7 +29,7 @@ class Helper {
 
 	/**
 	 * Get first wp error message
-	 * 
+	 *
 	 * @param object $wp_error
 	 * @return string $message
 	 */
@@ -47,11 +47,11 @@ class Helper {
 
 	/**
 	 * Get Time In Millisecond
-	 * 
-	 * This function is only available on operating 
+	 *
+	 * This function is only available on operating
 	 * systems that support the gettimeofday() system call.
 	 * @link https://www.php.net/manual/en/function.microtime.php
-	 * 
+	 *
 	 * @return int
 	 */
 	public static function getTimeInMillisecond() {
@@ -64,44 +64,44 @@ class Helper {
 
 	/**
 	 * Maybe JSON
-	 * 
+	 *
 	 * Converts input to an array if contains valid json string
-	 * 
+	 *
 	 * If input contains base64 encoded json string, then it
 	 * can decode it as well
-	 * 
+	 *
 	 * @param $input_data
 	 * @param $return_first_item
-	 * 
+	 *
 	 * Returns first item of the array if $return_first_item is set to true
 	 * Returns original input if it is not decodable
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-        if ( 'string' !== gettype( $input_data )  ) { 
-            return $input_data;
-        }
-    
-        $output_data = $input_data;
+		if ( 'string' !== gettype( $input_data )  ) {
+			return $input_data;
+		}
 
-        // JSON Docode
-        $decode_json = json_decode( $input_data, true );
+		$output_data = $input_data;
 
-        if ( ! is_null( $decode_json ) ) {
-            return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
-        }
-        
-        // JSON Decode from Base64
-        $decode_base64 = base64_decode( $input_data );
-        $decode_base64_json = json_decode( $decode_base64, true );
+		// JSON Docode
+		$decode_json = json_decode( $input_data, true );
 
-        if ( ! is_null( $decode_base64_json ) ) {
-            return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
-        }
+		if ( ! is_null( $decode_json ) ) {
+			return ( $return_first_item && is_array( $decode_json ) && isset( $decode_json[0] ) ) ? $decode_json[0] : $decode_json;
+		}
 
-        return $output_data;
-    }
+		// JSON Decode from Base64
+		$decode_base64 = base64_decode( $input_data );
+		$decode_base64_json = json_decode( $decode_base64, true );
+
+		if ( ! is_null( $decode_base64_json ) ) {
+			return ( $return_first_item && is_array( $decode_base64_json ) && isset( $decode_base64_json[0] ) ) ? $decode_base64_json[0] : $decode_base64_json;
+		}
+
+		return $output_data;
+	}
 
 	// get_widget_value
 	public static function get_widget_value( $post_id = 0, $widget = [] ) {
@@ -340,6 +340,90 @@ class Helper {
 		}
 	}
 
+	public static function phone_link( $args ) {
+
+		$defaults = array(
+			'number'    => '',
+			'whatsapp'  => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$num = self::formatted_tel( $args['number'], false );
+
+		if ( $args['whatsapp'] ) {
+			$result = sprintf( 'https://wa.me/%s', $num );
+		}
+		else {
+			$result = sprintf( 'tel:%s', $num );
+		}
+
+		return $result;
+	}
+
+	public static function user_info( $user_id_or_obj, $meta ) {
+
+		if ( is_integer( $user_id_or_obj ) ) {
+			$user_id = $user_id_or_obj;
+			$user = get_userdata( $user_id );
+		}
+		else {
+			$user = $user_id_or_obj;
+			$user_id = $user->data->ID;
+		}
+
+		$result = '';
+
+		switch ( $meta ) {
+			case 'name':
+			$result = $user->data->display_name;
+			break;
+
+			case 'role':
+			$result = $user->roles[0];
+			break;
+
+			case 'address':
+			$result = get_user_meta($user_id, 'address', true);
+			break;
+
+			case 'phone':
+			$result = get_user_meta($user_id, 'atbdp_phone', true);
+			break;
+
+			case 'email':
+			$result = $user->data->user_email;
+			break;
+
+			case 'website':
+			$result = $user->data->user_url;
+			break;
+
+			case 'description':
+			$result = trim( get_user_meta( $user_id, 'description', true ) );
+			//var_dump($result);
+			break;
+
+			case 'facebook':
+			$result = get_user_meta($user_id, 'atbdp_facebook', true);
+			break;
+
+			case 'twitter':
+			$result = get_user_meta($user_id, 'atbdp_twitter', true);
+			break;
+
+			case 'linkedin':
+			$result = get_user_meta($user_id, 'atbdp_linkedin', true);
+			break;
+
+			case 'youtube':
+			$result = get_user_meta($user_id, 'atbdp_youtube', true);
+			break;
+		}
+
+		return $result;
+	}
+
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 
@@ -365,28 +449,21 @@ class Helper {
 	}
 
 	public static function is_popular( $listing_id ) {
-		$listing_popular_by = get_directorist_option('listing_popular_by');
-		$average = ATBDP()->review->get_average($listing_id);
-		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-		$view_to_popular = get_directorist_option('views_for_popular');
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average                    = directorist_get_listing_rating( $listing_id );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
-		if ('average_rating' === $listing_popular_by) {
-			if ($average_review_for_popular <= $average) {
-				return true;
-			}
-		}
-		elseif ('view_count' === $listing_popular_by) {
-			if ((int)$view_count >= (int)$view_to_popular) {
-				return true;
-			}
-		}
-		elseif (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
+		if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+			return true;
+		} elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return true;
+		} elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 	public static function badge_exists( $listing_id ) {
@@ -441,7 +518,7 @@ class Helper {
 	}
 
 	public static function is_review_enabled() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public static function is_featured( $listing_id ) {
@@ -523,9 +600,14 @@ class Helper {
 
 		if ( empty( $data ) ) { return; }
 
-		$value = json_encode( $data );
+		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<!-- directorist-dom-data::<?php echo $data_key; ?> <?php echo $value; ?> -->
+		<span
+			style="display: none;"
+			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
+			data-value="<?php echo $data_value; ?>"
+		>
+		</span>
 		<?php
 	}
 

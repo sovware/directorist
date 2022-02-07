@@ -35,8 +35,8 @@ class ATBDP_Shortcode {
 	
 				// Author
 				'directorist_author_profile' => [ $this, 'author_profile' ],
-				// 'directorist_all_authors' 	 => [ $this, 'author_archive' ],
 				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
+				'directorist_all_authors' 	 => [ $this, 'all_authors' ],
 	
 				// Forms
 				'directorist_add_listing'         => [ $this, 'add_listing' ],
@@ -132,7 +132,7 @@ class ATBDP_Shortcode {
 
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = get_query_var('atbdp_category');
+		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
 		$atts['category'] = sanitize_title_for_query( $category_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_category';
@@ -142,7 +142,7 @@ class ATBDP_Shortcode {
 
 	public function tag_archive( $atts ) {
 		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = get_query_var('atbdp_tag');
+		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
 		$atts['tag'] = sanitize_title_for_query( $tag_slug );
 		
 		$atts[ 'shortcode' ] = 'directorist_tag';
@@ -152,7 +152,7 @@ class ATBDP_Shortcode {
 
 	public function location_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$location_slug    = get_query_var('atbdp_location');
+		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
 		$atts['location'] = sanitize_title_for_query( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
@@ -209,13 +209,9 @@ class ATBDP_Shortcode {
 		return $author->render_shortcode_author_profile($atts);
 	}
 
-	public function author_archive( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$author = Directorist_Listing_Author::instance();
-
-		$atts[ 'shortcode' ] = 'directorist_members';
-
-		return $author->render_shortcode_author_archive($atts);
+	public function all_authors() {
+		$all_authors = new Directorist_All_Authors();
+		return $all_authors->render_shortcode_all_authors();
 	}
 
 	public function user_dashboard( $atts ) {

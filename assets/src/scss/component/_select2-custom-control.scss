@@ -1,6 +1,8 @@
 .select2-selection__arrow,
 .select2-selection__clear {
-    display: none;
+    &:after{
+        display: none;
+    }
 }
 
 .directorist-select2-addons-area {

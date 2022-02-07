@@ -197,7 +197,7 @@ function selec2_add_custom_dropdown_toggle_button() {
 function selec2_add_custom_close_button_if_needed() {
   var select2_fields = $('.select2-hidden-accessible');
 
-  if (!select2_fields.length) {
+  if (!select2_fields && !select2_fields.length) {
     return;
   }
 
@@ -209,7 +209,7 @@ function selec2_add_custom_close_button_if_needed() {
       var field = _step.value;
       var value = $(field).children("option:selected").val();
 
-      if (!value.length) {
+      if (!value) {
         continue;
       }
 
@@ -301,12 +301,20 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
-document.body.addEventListener('directorist-reload-select2-fields', initSelect2); // Select 2
+document.body.addEventListener('directorist-reload-select2-fields', initSelect2); // Init Static Select 2 Fields
 
 function initSelect2() {
   var select_fields = [{
@@ -315,8 +323,6 @@ function initSelect2() {
     elm: $('#directorist-select-js')
   }, {
     elm: $('#directorist-search-category-js')
-  }, {
-    elm: $('#directorist-search-select-js')
   }, {
     elm: $('#directorist-select-st-s-js')
   }, {
@@ -335,29 +341,106 @@ function initSelect2() {
     elm: $('#directorist-select-fr-s-js')
   }, {
     elm: $('#directorist-select-fr-e-js')
-  }, {
-    elm: $('#directorist-location-select')
-  }, {
-    elm: $('#directorist-category-select')
-  }, {
+  }, // { elm: $('#directorist-location-select') },
+  // { elm: $('#directorist-category-select') },
+  {
     elm: $('.select-basic')
   }, {
     elm: $('#loc-type')
   }, {
     elm: $('.bdas-location-search')
-  }, {
-    elm: $('.directorist-location-select')
-  }, {
+  }, // { elm: $('.directorist-location-select') },
+  {
     elm: $('#at_biz_dir-category')
   }, {
     elm: $('#cat-type')
   }, {
     elm: $('.bdas-category-search')
-  }, {
-    elm: $('.directorist-category-select')
-  }];
+  } // { elm: $('.directorist-category-select') },
+  ];
   select_fields.forEach(function (field) {
-    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["convertToSelect2"])(field);
+    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(field);
+  });
+  var lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
+
+  if (lazy_load_taxonomy_fields) {
+    // Init Select2 Ajax Fields
+    initSelect2AjaxFields();
+  }
+} // Init Select2 Ajax Fields
+
+
+function initSelect2AjaxFields() {
+  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+
+  initSelect2AjaxTaxonomy({
+    selector: $('.directorist-search-category').find('select'),
+    url: "".concat(rest_base_url, "/listings/categories")
+  }); // Init Select2 Ajax Category Field
+
+  initSelect2AjaxTaxonomy({
+    selector: $('.directorist-search-location').find('select'),
+    url: "".concat(rest_base_url, "/listings/locations")
+  });
+} // initSelect2AjaxTaxonomy
+
+
+function initSelect2AjaxTaxonomy(args) {
+  var defaultArgs = {
+    selector: '',
+    url: '',
+    perPage: 10
+  };
+  args = _objectSpread(_objectSpread({}, defaultArgs), args);
+  var currentPage = 1;
+  $(args.selector).select2({
+    allowClear: true,
+    width: '100%',
+    escapeMarkup: function escapeMarkup(text) {
+      return text;
+    },
+    ajax: {
+      url: args.url,
+      dataType: 'json',
+      cache: true,
+      data: function data(params) {
+        currentPage = params.page || 1;
+        var search_term = params.term ? params.term : '';
+        var query = {
+          search: search_term,
+          page: currentPage,
+          per_page: args.perPage
+        };
+        return query;
+      },
+      processResults: function processResults(data) {
+        return {
+          results: data.items,
+          pagination: {
+            more: data.paginationMore
+          }
+        };
+      },
+      transport: function transport(params, success, failure) {
+        var $request = $.ajax(params);
+        $request.then(function (data, textStatus, jqXHR) {
+          var totalPage = parseInt(jqXHR.getResponseHeader('x-wp-totalpages'));
+          var paginationMore = currentPage < totalPage;
+          var items = data.map(function (item) {
+            return {
+              id: item.id,
+              text: item.name
+            };
+          });
+          return {
+            items: items,
+            paginationMore: paginationMore
+          };
+        }).then(success);
+        $request.fail(failure);
+        return $request;
+      }
+    }
   });
 }
 
@@ -431,31 +514,31 @@ __webpack_require__.r(__webpack_exports__);
 
 var $ = jQuery;
 
-function get_dom_data(key) {
-  var dom_content = document.body.innerHTML;
+function get_dom_data(key, parent) {
+  var elmKey = 'directorist-dom-data-' + key;
+  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
-  if (!dom_content.length) {
+  if (!dataElm) {
     return '';
   }
 
-  var pattern = new RegExp("(<!-- directorist-dom-data::" + key + "\\s)(.+)(\\s-->)");
-  var terget_content = pattern.exec(dom_content);
+  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
 
-  if (!terget_content) {
+  try {
+    var dataValue = atob(dataElm[0].dataset.value);
+    dataValue = JSON.parse(dataValue);
+    return dataValue;
+  } catch (error) {
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
+    }
+
     return '';
   }
-
-  if (typeof terget_content[2] === 'undefined') {
-    return '';
-  }
-
-  var dom_data = JSON.parse(terget_content[2]);
-
-  if (!dom_data) {
-    return '';
-  }
-
-  return dom_data;
 }
 
 function convertToSelect2(field) {
@@ -475,14 +558,14 @@ function convertToSelect2(field) {
     allowClear: true,
     width: '100%',
     templateResult: function templateResult(data) {
-      // We only really care if there is an element to pull classes from
-      if (!data.element) {
+      // We only really care if there is an field to pull classes from
+      if (!data.field) {
         return data.text;
       }
 
-      var $element = $(data.element);
+      var $field = $(data.field);
       var $wrapper = $('<span></span>');
-      $wrapper.addClass($element[0].className);
+      $wrapper.addClass($field[0].className);
       $wrapper.text(data.text);
       return $wrapper;
     }
@@ -499,6 +582,33 @@ function convertToSelect2(field) {
 }
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 

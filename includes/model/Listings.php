@@ -960,7 +960,7 @@ class Directorist_Listings {
 	public function render_shortcode( $atts = [] ) {
 
 		// Enqueue Scripts
-		Asset_Loader::instance()->load_shortcode_scripts( 'directorist_all_listing' );
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_all_listing' );
 
 		ob_start();
 

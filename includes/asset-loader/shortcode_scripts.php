@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-trait Shortcode_Scripts {
+class Shortcode_Scripts {
 
     
 

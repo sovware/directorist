@@ -215,7 +215,8 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+			// self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+			self::$instance->asset_loader = Directorist\Asset_Loader\Asset_Loader::instance();
 
 			// ATBDP_Listing_Type_Manager
 			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;
@@ -474,7 +475,7 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
-		$this->autoload( ATBDP_INC_DIR . 'traits-asset-loader/' );
+		$this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
 
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
@@ -489,7 +490,6 @@ final class Directorist_Base
 			// ATBDP_INC_DIR . 'asset-loader/public-scripts-loader',
 			// ATBDP_INC_DIR . 'asset-loader/admin-scripts-loader',
 			// ATBDP_INC_DIR . 'asset-loader/asset-loader',
-			ATBDP_INC_DIR . 'asset-loader',
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',

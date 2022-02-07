@@ -9,14 +9,14 @@ use \Directorist\Script_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-trait Misc_Functions {
+class Asset_Helper {
 
-	public function debug_enabled() {
+	public static function debug_enabled() {
 		return get_directorist_option( 'script_debugging', false, true );
 	}
 
-	public function register_single_script( $handle, $script ) {
-        $url = $this->script_file_url( $script );
+	public static function register_single_script( $handle, $script, $version ) {
+        $url = self::script_file_url( $script );
 
         if ( !empty( $script['dep'] ) ) {
             $dep = $script['dep'];
@@ -26,10 +26,10 @@ trait Misc_Functions {
         }
 
         if ( $script['type'] == 'css' ) {
-            wp_register_style( $handle, $url, $dep, $this->version );
+            wp_register_style( $handle, $url, $dep, $version );
         }
         else {
-            wp_register_script( $handle, $url, $dep, $this->version );
+            wp_register_script( $handle, $url, $dep, $version );
         }
 	}
 	/**
@@ -39,12 +39,12 @@ trait Misc_Functions {
 	 *
 	 * @return string        URL string.
 	 */
-	public function script_file_url( $script ) {
+	public static function script_file_url( $script ) {
 		if ( !empty( $script['ext'] ) ) {
 			return $script['ext'];
 		}
 
-		$min  = $this->debug_enabled() ? '' : '.min';
+		$min  = self::debug_enabled() ? '' : '.min';
 		$rtl  = ( $script['type'] == 'css' && !empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
 		$ext  = $script['type'] == 'css' ? '.css' : '.js';
 		$url = $script['path'] . $min . $rtl . $ext;
@@ -104,7 +104,7 @@ trait Misc_Functions {
 	/**
 	 * @todo apply icon condition
 	 */
-	public function enqueue_icon_styles() {
+	public static function enqueue_icon_styles() {
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );
 
@@ -119,7 +119,7 @@ trait Misc_Functions {
 		}
 	}
 
-	public function enqueue_map_styles() {
+	public static function enqueue_map_styles() {
 		$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 		if ( $map_type == 'openstreet' ) {
@@ -127,7 +127,8 @@ trait Misc_Functions {
 			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
 		}
 	}
-	public function enqueue_single_listing_shortcode_scripts() {
+
+	public static function enqueue_single_listing_shortcode_scripts() {
 		// Vendor Scripts
 		wp_enqueue_script( 'directorist-jquery-barrating' );
 		wp_enqueue_script( 'directorist-sweetalert-script' );
@@ -135,13 +136,13 @@ trait Misc_Functions {
 		wp_enqueue_script( 'directorist-slick' );
 
 		// Map Scripts
-		$this->enqueue_single_listing_page_map_scripts();
+		self::enqueue_single_listing_page_map_scripts();
 
 		// Common Scripts
-		$this->enqueue_common_shortcode_scripts();
+		self::enqueue_common_shortcode_scripts();
 	}
 
-	protected function enqueue_common_shortcode_scripts() {
+	public static function enqueue_common_shortcode_scripts() {
 		// Vendor JS
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );
@@ -154,7 +155,7 @@ trait Misc_Functions {
 		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
-	public function enqueue_single_listing_page_map_scripts() {
+	public static function enqueue_single_listing_page_map_scripts() {
 		$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 		if ( $map_type == 'openstreet' ) {
@@ -179,14 +180,14 @@ trait Misc_Functions {
 			wp_enqueue_script( 'directorist-openstreet-crosshairs' );
 		}
 	}
-	public function load_localized_data() {
+	public static function load_localized_data() {
 		// Public JS
 		wp_localize_script( 'directorist-main-script', 'atbdp_public_data', Script_Helper::get_main_script_data() );
-		wp_localize_script( 'directorist-main-script', 'directorist_options', $this->directorist_options_data() );
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $this->search_form_localized_data() );
+		wp_localize_script( 'directorist-main-script', 'directorist_options', self::directorist_options_data() );
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', self::search_form_localized_data() );
 
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $this->search_listing_localized_data() );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $this->search_listing_localized_data() );
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', self::search_listing_localized_data() );
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', self::search_listing_localized_data() );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
@@ -194,21 +195,21 @@ trait Misc_Functions {
 
 		// Admin JS
 		wp_localize_script( 'directorist-admin-script', 'atbdp_admin_data', Script_Helper::get_admin_script_data() );
-		wp_localize_script( 'directorist-admin-script', 'directorist_options', $this->directorist_options_data() );
+		wp_localize_script( 'directorist-admin-script', 'directorist_options', self::directorist_options_data() );
 		wp_localize_script( 'directorist-admin-script', 'atbdp_public_data', Script_Helper::get_main_script_data() );
-		wp_localize_script( 'directorist-multi-directory-builder', 'ajax_data', $this->admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-multi-directory-archive', 'ajax_data', $this->admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-settings-manager', 'ajax_data', $this->admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-import-export', 'import_export_data', $this->admin_ajax_localized_data() );
+		wp_localize_script( 'directorist-multi-directory-builder', 'ajax_data', self::admin_ajax_localized_data() );
+		wp_localize_script( 'directorist-multi-directory-archive', 'ajax_data', self::admin_ajax_localized_data() );
+		wp_localize_script( 'directorist-settings-manager', 'ajax_data', self::admin_ajax_localized_data() );
+		wp_localize_script( 'directorist-import-export', 'import_export_data', self::admin_ajax_localized_data() );
 	}
 
-	private function search_listing_localized_data() {
+	private static function search_listing_localized_data() {
 		return Script_Helper::get_search_script_data([
 			'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
 		]);
 	}
 
-	private function search_form_localized_data() {
+	public static function search_form_localized_data() {
 		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
 		$data = Script_Helper::get_search_script_data([
 			'directory_type_id' => $directory_type_id
@@ -216,22 +217,22 @@ trait Misc_Functions {
 		return $data;
 	}
 
-	private function directorist_options_data() {
+	private static function directorist_options_data() {
 		return Script_Helper::get_option_data();
 	}
 
-	private function admin_ajax_localized_data() {
+	private static function admin_ajax_localized_data() {
 		return [ 'ajax_url' => admin_url('admin-ajax.php') ];
 	}
 
-	public function enqueue_archive_page_map_scripts() {
+	public static function enqueue_archive_page_map_scripts() {
 
 		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
-			$this->enqueue_openstreetmap_archive_page_scripts();
+			//self::enqueue_openstreetmap_archive_page_scripts();
 		}
 
 		if ( Script_Helper::is_enable_map( 'google' ) ) {
-			$this->enqueue_google_map_archive_page_scripts();
+			//self::enqueue_google_map_archive_page_scripts();
 		}
 
 	}

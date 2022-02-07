@@ -3,15 +3,11 @@
  * @author wpWax
  */
 
-namespace Directorist;
+namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Asset_Loader {
-
-    use \Directorist\Asset_Loader\Asset_List;
-    use \Directorist\Asset_Loader\Misc_Functions;
-	use \Directorist\Asset_Loader\Shortcode_Scripts;
 
 	public static $instance = null;
 
@@ -19,7 +15,7 @@ class Asset_Loader {
 	public $scripts;
 
 	private function __construct() {
-		$this->version = $this->debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+		$this->version = Asset_Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
 		$this->set_scripts();
 
 		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
@@ -39,7 +35,7 @@ class Asset_Loader {
 	}
 
 	public function set_scripts() {
-		$this->scripts = apply_filters( 'directorist_scripts', $this->asset_list() );
+		$this->scripts = apply_filters( 'directorist_scripts', Asset_List::all_scripts() );
 	}
 
 
@@ -48,7 +44,7 @@ class Asset_Loader {
 	 */
 	public function register_scripts() {
 		foreach ( $this->scripts as $handle => $script ) {
-            $this->register_single_script( $handle, $script );
+            Asset_Helper::register_single_script( $handle, $script, $this->version );
 		}
 	}
 
@@ -63,17 +59,17 @@ class Asset_Loader {
 	 * Load localized data.
 	 */
 	public function localized_data() {
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $this->search_form_localized_data() );
+		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', Asset_Helper::search_form_localized_data() );
 	}
 
 
 
 	public function enqueue_scripts() {
 		// Map CSS
-		$this->enqueue_map_styles();
+		Asset_Helper::enqueue_map_styles();
 
 		// Icon CSS
-		$this->enqueue_icon_styles();
+		Asset_Helper::enqueue_icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -87,7 +83,7 @@ class Asset_Loader {
 
 		// Enqueue Single Listing Scripts
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			$this->enqueue_single_listing_shortcode_scripts();
+			Asset_Helper::enqueue_single_listing_shortcode_scripts();
 		}
 	}
 
@@ -112,10 +108,10 @@ class Asset_Loader {
 				wp_enqueue_script( 'directorist-geolocation' );
 
 				// Map Scripts
-				// $this->enqueue_archive_page_map_scripts();
+				// Asset_Helper::enqueue_archive_page_map_scripts();
 
 				// Common Scripts
-				$this->enqueue_common_shortcode_scripts();
+				Asset_Helper::enqueue_common_shortcode_scripts();
 
 				// Custom Scripts
 				wp_enqueue_script( 'directorist-search-listing' );
@@ -131,16 +127,8 @@ class Asset_Loader {
 		include $style_path;
 		$style = ob_get_clean();
 		$style = str_replace( ['<style>', '</style>'], '', $style );
-		$style = $this->minify_css( $style );
+		$style = Asset_Helper::minify_css( $style );
 		return $style;
-	}
-
-	private function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = Script_Helper::get_search_script_data([
-			'directory_type_id' => $directory_type_id
-		]);
-		return $data;
 	}
 
 	function defer_load_js( $tag, $handle ) {
@@ -157,5 +145,3 @@ class Asset_Loader {
 		return $tag;
 	}
 }
-
-Asset_Loader::instance();

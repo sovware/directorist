@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-trait Asset_List {
+class Asset_List {
 
 	/**
 	 * Scripts array.
@@ -21,7 +21,7 @@ trait Asset_List {
 	 *			'rtl'  => Boolean false, // RTL exists or not
 	 *		];
 	 */
-	public function asset_list() {
+	public static function all_scripts() {
 		$scripts = [
 			// Vendor CSS
 			'directorist-openstreet-map-leaflet' => [
@@ -82,10 +82,6 @@ trait Asset_List {
 				'path' => DIRECTORIST_CSS . 'admin-main',
 			],
 
-			/** ----------------------
-			 * JS
-			 * -----------------------
-			 */
 			// Vendor JS
 			'directorist-no-script' => [
 				'type' => 'js',
@@ -137,7 +133,7 @@ trait Asset_List {
 			],
 			'directorist-google-map' => [
 				'type' => 'js',
-				'ext'  => $this->gmap_url(),
+				'ext'  => self::gmap_url(),
 			],
 			'directorist-markerclusterer' => [
 				'type' => 'js',
@@ -292,7 +288,7 @@ trait Asset_List {
         return $scripts;
 	}
 
-	private function gmap_url() {
+	private static function gmap_url() {
 		$api = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
 		$url = '//maps.googleapis.com/maps/api/js?key=' . $api . '&libraries=places';
 		return $url;

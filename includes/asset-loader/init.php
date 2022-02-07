@@ -96,27 +96,15 @@ class Asset_Loader {
 	 *
 	 * @param string $shortcode Shortcode Name.
 	 */
-	public function load_shortcode_scripts( $shortcode ) {
+	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
-				// Vendor Scripts
-				wp_enqueue_script( 'jquery-masonry' );
-				wp_enqueue_script( 'directorist-range-slider' );
-				wp_enqueue_script( 'directorist-jquery-barrating' );
-				wp_enqueue_script( 'directorist-select2-script' );
-				wp_enqueue_script( 'directorist-geolocation' );
-
-				// Map Scripts
-				// Asset_Helper::enqueue_archive_page_map_scripts();
-
-				// Common Scripts
-				Asset_Helper::enqueue_common_shortcode_scripts();
-
-				// Custom Scripts
-				wp_enqueue_script( 'directorist-search-listing' );
-				wp_enqueue_script( 'directorist-search-form-listing' );
+				Shortcode_Scripts::all_listings( $model );
 				break;
+
+					
+
 		}
 	}
 

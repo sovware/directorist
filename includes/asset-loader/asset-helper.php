@@ -119,6 +119,10 @@ class Asset_Helper {
 		}
 	}
 
+	public static function map_type() {
+		return get_directorist_option( 'select_listing_map', 'openstreet' );
+	}
+
 	public static function enqueue_map_styles() {
 		$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
@@ -140,19 +144,6 @@ class Asset_Helper {
 
 		// Common Scripts
 		self::enqueue_common_shortcode_scripts();
-	}
-
-	public static function enqueue_common_shortcode_scripts() {
-		// Vendor JS
-		wp_enqueue_script( 'directorist-popper' );
-		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-plasma-slider' );
-		wp_enqueue_script( 'directorist-no-script' );
-
-		// Custom JS
-		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-main-script' );
-		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
 	public static function enqueue_single_listing_page_map_scripts() {
@@ -225,16 +216,26 @@ class Asset_Helper {
 		return [ 'ajax_url' => admin_url('admin-ajax.php') ];
 	}
 
-	public static function enqueue_archive_page_map_scripts() {
+	public static function enqueue_openstreet_map_scripts( $cluster = false ) {
+		wp_enqueue_script( 'directorist-openstreet-layers' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
+		wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
 
-		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
-			//self::enqueue_openstreetmap_archive_page_scripts();
+		if ( $cluster ) {
+			wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
 		}
+		
+		wp_enqueue_script( 'directorist-openstreet-libs-setup' );
+		wp_enqueue_script( 'directorist-openstreet-open-layers' );
+		wp_enqueue_script( 'directorist-openstreet-crosshairs' );	
+	}
 
-		if ( Script_Helper::is_enable_map( 'google' ) ) {
-			//self::enqueue_google_map_archive_page_scripts();
-		}
-
+	public static function enqueue_google_map_scripts() {
+		wp_enqueue_script( 'directorist-google-map' );
+		wp_enqueue_script( 'directorist-map-view' );
+		wp_enqueue_script( 'directorist-gmap-marker-clusterer' );
 	}
 
 }

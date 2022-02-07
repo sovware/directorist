@@ -8503,3 +8503,45 @@ function directorist_has_no_listing() {
 
 	return $has_no_listing;
 }
+
+/**
+ * Check if given listing id belongs to the given user id.
+ *
+ * @since 7.1.1
+ * @param int $listing_id Listing id.
+ * @param int $user_id User id.
+ *
+ * @return bool
+ */
+function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
+	if ( ! $user_id || ! is_int( $user_id ) ) {
+		return false;
+	}
+
+	if ( ! $listing_id || ! is_int( $listing_id ) ) {
+		$listing_id = get_the_ID();
+	}
+
+	$listing = get_post( $listing_id );
+	if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	if ( intval( $listing->post_author ) !== $user_id ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if given listing id belongs to the current user.
+ *
+ * @since 7.1.1
+ * @param int $listing_id
+ *
+ * @return bool
+ */
+function directorist_is_current_user_listing_author( $listing_id = null ) {
+	return directorist_is_listing_author( $listing_id, get_current_user_id() );
+}

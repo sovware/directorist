@@ -6884,7 +6884,8 @@ body.stop-scrolling {
   color: #fff !important;
   font-size: 17px !important;
   min-height: 118px;
-  text-decoration: none;
+  text-decoration: none !important;
+  text-align: center;
 }
 .directorist-add-listing-types__single__link i {
   display: inline-block;
@@ -8386,10 +8387,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border: 1px solid #ccc;
 }
 
-code {
-  color: brown;
-}
-
 #progress {
   display: none;
   position: absolute;
@@ -8853,6 +8850,9 @@ for shortable field*/
 .directorist-alert .directorist-alert__close:focus {
   background-color: transparent;
   outline: none;
+}
+.directorist-alert a {
+  text-decoration: none;
 }
 
 .directorist-alert.directorist-alert-primary {

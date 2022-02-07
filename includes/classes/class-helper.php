@@ -317,6 +317,8 @@ if (!class_exists('ATBDP_Helper')) :
             ];
             asort($s);
 
+            $s = apply_filters( 'directorist_social_items', $s );
+
             return $s;
         }
 

@@ -68,11 +68,21 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
+
+		$task = apply_filters('directorist_listing_delete_or_trash', $task);
+
 		if ( $task == 'delete' ) {
 
 			do_action( 'directorist_listing_deleted', $taskdata );
 
 			wp_delete_post( $taskdata );
+		}
+
+		if ( $task == 'trash' ) {
+
+			do_action( 'directorist_listing_trashed', $taskdata );
+
+			wp_trash_post( $taskdata );
 		}
 	}
 

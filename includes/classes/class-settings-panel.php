@@ -1,5 +1,7 @@
 <?php
 
+use Directorist\Asset_Loader\Admin_Scripts;
+
 if ( ! class_exists('ATBDP_Settings_Panel') ) {
 	class ATBDP_Settings_Panel
 	{
@@ -5340,7 +5342,7 @@ Please remember that your order may be canceled if you do not make your payment 
             }
 
 			// Enqueue Scripts
-			Directorist\Asset_Loader::instance()->enqueue_settings_builder_page_scripts();
+            Admin_Scripts::enqueue_settings_scripts();
 
 			$atbdp_settings_manager_data = [
                 'fields'  => $this->fields,

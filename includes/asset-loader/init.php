@@ -18,11 +18,16 @@ class Asset_Loader {
 		$this->version = Asset_Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
 		$this->set_scripts();
 
+		// Frontend
 		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_scripts' ], 12 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'inline_styles' ], 15 );
+
+		// Admin
+		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'localized_data' ], 15 );
 
 		apply_filters( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
 	}
@@ -85,8 +90,11 @@ class Asset_Loader {
 		}
 	}
 
-	public function enqueue_admin_scripts() {
+	public function enqueue_admin_scripts( $page = '' ) {
+		// Map CSS
+		Asset_Helper::enqueue_map_styles();
 
+		Admin_Scripts::enqueue_admin_scripts( $page );
 	}
 
 	/**
@@ -114,9 +122,6 @@ class Asset_Loader {
 			case 'directorist_user_dashboard':
 				Shortcode_Scripts::dashboard( $model );
 				break;
-
-
-
 		}
 	}
 

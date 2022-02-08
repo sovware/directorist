@@ -95,7 +95,7 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
-	private static function enqueue_openstreet_map_scripts( $cluster = false ) {
+	public static function enqueue_openstreet_map_scripts( $cluster = false ) {
 		wp_enqueue_script( 'directorist-openstreet-layers' );
 		wp_enqueue_script( 'directorist-openstreet-unpkg' );
 		wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
@@ -111,7 +111,7 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-openstreet-crosshairs' );	
 	}
 
-	private static function enqueue_google_map_scripts() {
+	public static function enqueue_google_map_scripts() {
 		wp_enqueue_script( 'directorist-google-map' );
 		wp_enqueue_script( 'directorist-map-view' );
 		wp_enqueue_script( 'directorist-gmap-marker-clusterer' );

@@ -2,6 +2,8 @@
 
 namespace Directorist;
 
+use Directorist\Asset_Loader\Admin_Scripts;
+
 include_files();
 class Multi_Directory_Manager
 {
@@ -4831,7 +4833,7 @@ class Multi_Directory_Manager
             ];
 
 			// Enqueue Scripts
-			Asset_Loader::instance()->enqueue_directory_builder_page_scripts();
+			Admin_Scripts::enqueue_builder_scripts();
 
 			/**
 			 * Filter directory builder's all configuration data.

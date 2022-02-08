@@ -190,6 +190,7 @@ class Asset_List {
 			'directorist-main-script' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-main',
+				'dep' => ['jquery', 'directorist-plasma-slider' ],
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

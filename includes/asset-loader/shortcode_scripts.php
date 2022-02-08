@@ -93,7 +93,6 @@ class Shortcode_Scripts {
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-plasma-slider' );
 		wp_enqueue_script( 'directorist-no-script' );
 		wp_enqueue_script( 'directorist-global-script' );
 		wp_enqueue_script( 'directorist-atmodal' );

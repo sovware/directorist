@@ -534,7 +534,7 @@ class Directorist_Listing_Search_Form {
 		}
 
 		// Enqueue Scripts
-		Asset_Loader::instance()->enqueue_search_listing_form_shortcode_scripts();
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_search_listing', $this );
 
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }

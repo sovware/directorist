@@ -9,13 +9,6 @@ if (!defined('ABSPATH')) exit;
 
 class Shortcode_Scripts {
 
-    /**
-     * @todo write conditions for grid/list/map view
-     *
-     * @param object $listings
-     *
-     * @return void
-     */
     public static function all_listings( $listings ) {
 
         wp_enqueue_script('jquery-masonry');
@@ -26,9 +19,9 @@ class Shortcode_Scripts {
 
         // Map Scripts
         if ( Asset_Helper::map_type() == 'openstreet' ) {
-            Asset_Helper::enqueue_openstreet_map_scripts( true );
+            self::enqueue_openstreet_map_scripts( true );
         } elseif ( Asset_Helper::map_type() == 'google' ) {
-            Asset_Helper::enqueue_google_map_scripts();
+            self::enqueue_google_map_scripts();
         }
 
         // Common Scripts
@@ -39,8 +32,17 @@ class Shortcode_Scripts {
         wp_enqueue_script('directorist-search-form-listing');
     }
 
-    public static function search_form() {
+    public static function search_form( $searchform ) {
+		// Common Scripts
+		self::enqueue_common_shortcode_scripts();
 
+		wp_enqueue_script( 'directorist-select2-script' );
+		wp_enqueue_script( 'directorist-range-slider' );
+		wp_enqueue_script( 'directorist-jquery-barrating' );
+		wp_enqueue_script( 'directorist-geolocation' );
+        
+		// Custom Scripts
+		wp_enqueue_script( 'directorist-search-form-listing' );
     }
 
     public static function single_listing() {
@@ -51,15 +53,13 @@ class Shortcode_Scripts {
 
 		// Map Scripts
         if ( Asset_Helper::map_type() == 'openstreet' ) {
-            Asset_Helper::enqueue_openstreet_map_scripts();
+            self::enqueue_openstreet_map_scripts();
         } elseif ( Asset_Helper::map_type() == 'google' ) {
-            Asset_Helper::enqueue_google_map_scripts();
+            self::enqueue_google_map_scripts();
         }
 
 		// Common Scripts
 		self::enqueue_common_shortcode_scripts();
-
-
     }
 
     public static function add_listing(  $listing  ) {
@@ -78,10 +78,10 @@ class Shortcode_Scripts {
 
 		// Map Scripts
         if ( Asset_Helper::map_type() == 'openstreet' ) {
-            Asset_Helper::enqueue_openstreet_map_scripts();
+            self::enqueue_openstreet_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script' );
         } elseif ( Asset_Helper::map_type() == 'google' ) {
-            Asset_Helper::enqueue_google_map_scripts();
+            self::enqueue_google_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
         }
 
@@ -89,12 +89,11 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-add-listing' );
     }
 
-    /**
-     * @todo remove this method
-     *
-     * @return void
-     */
-	public static function enqueue_common_shortcode_scripts() {
+	public static function login_registration(  $account  ) {
+		self::enqueue_common_shortcode_scripts();
+	}
+
+	private static function enqueue_common_shortcode_scripts() {
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );
@@ -104,5 +103,26 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
+	private static function enqueue_openstreet_map_scripts( $cluster = false ) {
+		wp_enqueue_script( 'directorist-openstreet-layers' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg-index' );
+		wp_enqueue_script( 'directorist-openstreet-unpkg-libs' );
+		wp_enqueue_script( 'directorist-openstreet-leaflet-versions' );
+
+		if ( $cluster ) {
+			wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
+		}
+		
+		wp_enqueue_script( 'directorist-openstreet-libs-setup' );
+		wp_enqueue_script( 'directorist-openstreet-open-layers' );
+		wp_enqueue_script( 'directorist-openstreet-crosshairs' );	
+	}
+
+	private static function enqueue_google_map_scripts() {
+		wp_enqueue_script( 'directorist-google-map' );
+		wp_enqueue_script( 'directorist-map-view' );
+		wp_enqueue_script( 'directorist-gmap-marker-clusterer' );
+	}
 
 }

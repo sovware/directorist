@@ -106,6 +106,17 @@ class Asset_Loader {
 			case 'directorist_add_listing':
 				Shortcode_Scripts::add_listing( $model );
 				break;
+
+			case 'directorist_search_listing':
+				Shortcode_Scripts::search_form( $model );
+				break;
+
+			case 'directorist_custom_registration':
+			case 'directorist_user_login':
+				Shortcode_Scripts::login_registration( $model );
+				break;
+
+
 		}
 	}
 

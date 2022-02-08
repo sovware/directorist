@@ -36,7 +36,7 @@ class Directorist_Account {
 		}
 
 		// Enqueue Scripts
-		Asset_Loader::instance()->enqueue_signin_form_shortcode_scripts();
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_user_login', $this );
 
 		ob_start();
 		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
@@ -91,7 +91,7 @@ class Directorist_Account {
 			);
 
 			// Enqueue Scripts
-			Asset_Loader::instance()->enqueue_signup_form_shortcode_scripts();
+			ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_custom_registration', $this );
 
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }

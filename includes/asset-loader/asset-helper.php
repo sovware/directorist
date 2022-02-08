@@ -164,6 +164,20 @@ class Asset_Helper {
 		return [ 'ajax_url' => admin_url('admin-ajax.php') ];
 	}
 
+	public static function enqueue_color_picker_scripts() {
+		wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+		wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
+
+		$colorpicker_l10n = array(
+			'clear'         => __( 'Clear' ),
+			'defaultString' => __( 'Default' ),
+			'pick'          => __( 'Select Color' ),
+			'current'       => __( 'Current Color' ),
+		);
+
+		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
+	}
+
 	public static function map_type() {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}

@@ -829,7 +829,7 @@ class Directorist_Listing_Form {
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
 		// Enqueue Scripts
-		Asset_Loader::instance()->enqueue_add_listing_shortcode_scripts();
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_add_listing', $this );
 
 		if ( ! $guest_submission && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );

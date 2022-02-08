@@ -44,7 +44,7 @@ class Asset_Loader {
 	 */
 	public function register_scripts() {
 		foreach ( $this->scripts as $handle => $script ) {
-            Asset_Helper::register_single_script( $handle, $script, $this->version );
+			Asset_Helper::register_single_script( $handle, $script, $this->version );
 		}
 	}
 
@@ -103,8 +103,9 @@ class Asset_Loader {
 				Shortcode_Scripts::all_listings( $model );
 				break;
 
-					
-
+			case 'directorist_add_listing':
+				Shortcode_Scripts::add_listing( $model );
+				break;
 		}
 	}
 

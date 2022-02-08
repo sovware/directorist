@@ -59,7 +59,7 @@ class Asset_Loader {
 	 * Load localized data.
 	 */
 	public function localized_data() {
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', Asset_Helper::search_form_localized_data() );
+		Localized_Data::load_localized_data();
 	}
 
 

@@ -29,7 +29,7 @@ class Asset_Loader {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'localized_data' ], 15 );
 
-		apply_filters( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
+		add_filter( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
 	}
 
 	public static function instance() {
@@ -136,7 +136,7 @@ class Asset_Loader {
 		return $style;
 	}
 
-	function defer_load_js( $tag, $handle ) {
+	public function defer_load_js( $tag, $handle ) {
 
 		$scripts = array_filter( $this->scripts, function( $script ) {
 			return $script['type'] == 'js' ? true : false;

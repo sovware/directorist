@@ -11,6 +11,7 @@ class Shortcode_Scripts {
 
     public static function all_listings( $listings ) {
 
+		wp_enqueue_script('jquery-masonry');
         wp_enqueue_script('directorist-range-slider');
         wp_enqueue_script('directorist-jquery-barrating');
         wp_enqueue_script('directorist-select2-script');
@@ -85,6 +86,7 @@ class Shortcode_Scripts {
 
 	public static function enqueue_common_shortcode_scripts() {
 		wp_enqueue_script('jquery-masonry');
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );

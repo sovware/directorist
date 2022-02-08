@@ -55,7 +55,7 @@ class ATBDP_Checkout
         if (!atbdp_is_user_logged_in()) return null;
 
 		// Enqueue Scripts
-		Directorist\Asset_Loader::instance()->enqueue_checkout_shortcode_scripts();
+        ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_checkout', $this );
 
         ob_start();
         $enable_monetization = apply_filters('atbdp_enable_monetization_checkout',get_directorist_option('enable_monetization'));
@@ -184,7 +184,7 @@ class ATBDP_Checkout
         $data['order_items'] = $order_items;
 
 		// Enqueue Scripts
-		Directorist\Asset_Loader::instance()->enqueue_payment_receipt_shortcode_scripts();
+        ATBDP()->asset_loader->load_shortcode_scripts( 'payment_receipt', $this );
 
         ob_start();
         extract($data);
@@ -344,7 +344,7 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
 		// Enqueue Scripts
-		Directorist\Asset_Loader::instance()->enqueue_transaction_failure_shortcode_scripts();
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_transaction_failure', $this );
 
         ob_start();
 

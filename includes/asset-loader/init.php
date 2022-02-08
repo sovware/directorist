@@ -113,7 +113,8 @@ class Asset_Loader {
 
 			case 'directorist_custom_registration':
 			case 'directorist_user_login':
-			case 'directorist_user_login':
+			case 'directorist_all_authors':
+			case 'directorist_author_profile':
 				Shortcode_Scripts::enqueue_common_shortcode_scripts();
 				break;
 

@@ -113,8 +113,10 @@ class Asset_Loader {
 
 			case 'directorist_custom_registration':
 			case 'directorist_user_login':
-				Shortcode_Scripts::login_registration( $model );
+			case 'directorist_user_login':
+				Shortcode_Scripts::enqueue_common_shortcode_scripts();
 				break;
+
 
 
 		}

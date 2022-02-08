@@ -89,10 +89,6 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-add-listing' );
     }
 
-	public static function login_registration(  $account  ) {
-		self::enqueue_common_shortcode_scripts();
-	}
-
 	private static function enqueue_common_shortcode_scripts() {
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );

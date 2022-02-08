@@ -11,7 +11,6 @@ class Shortcode_Scripts {
 
     public static function all_listings( $listings ) {
 
-        wp_enqueue_script('jquery-masonry');
         wp_enqueue_script('directorist-range-slider');
         wp_enqueue_script('directorist-jquery-barrating');
         wp_enqueue_script('directorist-select2-script');
@@ -24,17 +23,12 @@ class Shortcode_Scripts {
             self::enqueue_google_map_scripts();
         }
 
-        // Common Scripts
-		self::enqueue_common_shortcode_scripts();
-
         // Search
         wp_enqueue_script('directorist-search-listing');
         wp_enqueue_script('directorist-search-form-listing');
     }
 
     public static function search_form( $searchform ) {
-		// Common Scripts
-		self::enqueue_common_shortcode_scripts();
 
 		wp_enqueue_script( 'directorist-select2-script' );
 		wp_enqueue_script( 'directorist-range-slider' );
@@ -57,14 +51,9 @@ class Shortcode_Scripts {
         } elseif ( Asset_Helper::map_type() == 'google' ) {
             self::enqueue_google_map_scripts();
         }
-
-		// Common Scripts
-		self::enqueue_common_shortcode_scripts();
     }
 
     public static function add_listing(  $listing  ) {
-		// Common Scripts
-		self::enqueue_common_shortcode_scripts();
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'directorist-select2-script' );
@@ -89,7 +78,13 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-add-listing' );
     }
 
+	public static function dashboard( $dashboard  ) {
+		wp_enqueue_script( 'directorist-sweetalert-script' );
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
+	}
+
 	public static function enqueue_common_shortcode_scripts() {
+		wp_enqueue_script('jquery-masonry');
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );

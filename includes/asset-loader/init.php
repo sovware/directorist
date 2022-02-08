@@ -98,6 +98,8 @@ class Asset_Loader {
 	 */
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
+		Shortcode_Scripts::enqueue_common_shortcode_scripts();
+
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
 				Shortcode_Scripts::all_listings( $model );
@@ -111,11 +113,8 @@ class Asset_Loader {
 				Shortcode_Scripts::search_form( $model );
 				break;
 
-			case 'directorist_custom_registration':
-			case 'directorist_user_login':
-			case 'directorist_all_authors':
-			case 'directorist_author_profile':
-				Shortcode_Scripts::enqueue_common_shortcode_scripts();
+			case 'directorist_user_dashboard':
+				Shortcode_Scripts::dashboard( $model );
 				break;
 
 

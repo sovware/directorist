@@ -89,7 +89,7 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-add-listing' );
     }
 
-	private static function enqueue_common_shortcode_scripts() {
+	public static function enqueue_common_shortcode_scripts() {
         wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );

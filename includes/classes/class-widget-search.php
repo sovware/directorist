@@ -1,4 +1,7 @@
 <?php
+
+use Directorist\Asset_Loader\Widget_Scripts;
+
 if ( ! defined( 'ABSPATH' ) ) {
     die( '-1' );
 }
@@ -40,7 +43,7 @@ if ( !class_exists('BD_Search_Widget')) {
             // $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', 'directorist');
 
 			// Enqueue Scripts
-			Directorist\Asset_Loader::instance()->enqueue_search_listing_form_widget_scripts();
+			Widget_Scripts::search();
 
             $template_path = atbdp_get_widget_template_path( 'search' );
             if ( file_exists( $template_path ) ) {

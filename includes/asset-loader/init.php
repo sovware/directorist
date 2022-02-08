@@ -62,8 +62,6 @@ class Asset_Loader {
 		Localized_Data::load_localized_data();
 	}
 
-
-
 	public function enqueue_scripts() {
 		// Map CSS
 		Asset_Helper::enqueue_map_styles();

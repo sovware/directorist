@@ -32,13 +32,7 @@ class Shortcode_Scripts {
         }
 
         // Common Scripts
-		wp_enqueue_script( 'directorist-popper' );
-		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-plasma-slider' );
-		wp_enqueue_script( 'directorist-no-script' );
-		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-main-script' );
-		wp_enqueue_script( 'directorist-atmodal' );
+		self::enqueue_common_shortcode_scripts();
 
         // Search
         wp_enqueue_script('directorist-search-listing');
@@ -63,18 +57,14 @@ class Shortcode_Scripts {
         }
 
 		// Common Scripts
-		wp_enqueue_script( 'directorist-popper' );
-		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-plasma-slider' );
-		wp_enqueue_script( 'directorist-no-script' );
-		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-main-script' );
-		wp_enqueue_script( 'directorist-atmodal' );
+		self::enqueue_common_shortcode_scripts();
 
 
     }
 
     public static function add_listing(  $listing  ) {
+		// Common Scripts
+		self::enqueue_common_shortcode_scripts();
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'directorist-select2-script' );
@@ -95,15 +85,6 @@ class Shortcode_Scripts {
             wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
         }
 
-		// Common Scripts
-		wp_enqueue_script( 'directorist-popper' );
-		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-plasma-slider' );
-		wp_enqueue_script( 'directorist-no-script' );
-		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-main-script' );
-		wp_enqueue_script( 'directorist-atmodal' );
-
 		// Custom Scripts
 		wp_enqueue_script( 'directorist-add-listing' );
     }
@@ -114,12 +95,12 @@ class Shortcode_Scripts {
      * @return void
      */
 	public static function enqueue_common_shortcode_scripts() {
+        wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );
 		wp_enqueue_script( 'directorist-plasma-slider' );
 		wp_enqueue_script( 'directorist-no-script' );
 		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-atmodal' );
 	}
 

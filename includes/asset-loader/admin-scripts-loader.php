@@ -100,14 +100,7 @@ trait Admin_Scripts_Loader {
 	 * @return bool $is_directory_builder_page
 	 */
 	public function is_directory_builder_page( $page = '' ) {
-		$builder_pages = [
-			'at_biz_dir_page_atbdp-layout-builder',
-			'at_biz_dir_page_atbdp-directory-types',
-		];
-
-		$is_directory_builder_page = ( in_array( $page, $builder_pages ) );
-
-		return $is_directory_builder_page;
+		return ( 'at_biz_dir_page_atbdp-layout-builder' === $page );
 	}
 
 	/**
@@ -232,6 +225,7 @@ trait Admin_Scripts_Loader {
 	 */
 	public function enqueue_directory_builder_page_styles() {
 		wp_enqueue_style( 'directorist-unicons' );
+		wp_enqueue_style( 'directorist-admin-style' );
 		$this->enqueue_admin_icon_styles();
 	}
 

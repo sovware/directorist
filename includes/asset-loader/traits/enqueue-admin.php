@@ -85,14 +85,7 @@ trait Enqueue_Admin {
 	}
 
 	public static function is_directory_builder_page( $page = '' ) {
-		$builder_pages = [
-			'at_biz_dir_page_atbdp-layout-builder',
-			'at_biz_dir_page_atbdp-directory-types',
-		];
-
-		$is_directory_builder_page = ( in_array( $page, $builder_pages ) );
-
-		return $is_directory_builder_page;
+		return ( 'at_biz_dir_page_atbdp-layout-builder' === $page );
 	}
 
 	public static function is_directory_builder_archive_page( $page = '' ) {
@@ -175,6 +168,7 @@ trait Enqueue_Admin {
 
 	public static function enqueue_directory_builder_page_styles() {
 		wp_enqueue_style( 'directorist-unicons' );
+		wp_enqueue_style( 'directorist-admin-style' );
 		self::enqueue_admin_icon_styles();
 	}
 

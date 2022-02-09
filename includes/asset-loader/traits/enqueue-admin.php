@@ -131,6 +131,7 @@ trait Enqueue_Admin {
 		self::admin_common_scripts();
 		self::admin_icon_styles();
 
+		wp_enqueue_style( 'directorist-unicons' );
 		wp_enqueue_script( 'directorist-multi-directory-archive' );
 	}
 

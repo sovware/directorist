@@ -9,7 +9,7 @@ use \Directorist\Script_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Asset_Helper {
+class Helper {
 
 	public static function debug_enabled() {
 		return get_directorist_option('script_debugging', false, true );

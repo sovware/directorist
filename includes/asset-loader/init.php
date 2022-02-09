@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Asset_Loader {
+class Init {
 
 	public static $instance = null;
 
@@ -15,7 +15,7 @@ class Asset_Loader {
 	public $scripts;
 
 	private function __construct() {
-		$this->version = Asset_Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+		$this->version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
 		$this->set_scripts();
 
 		// Frontend
@@ -49,7 +49,7 @@ class Asset_Loader {
 	 */
 	public function register_scripts() {
 		foreach ( $this->scripts as $handle => $script ) {
-			Asset_Helper::register_single_script( $handle, $script, $this->version );
+			Helper::register_single_script( $handle, $script, $this->version );
 		}
 	}
 
@@ -69,10 +69,10 @@ class Asset_Loader {
 
 	public function enqueue_scripts() {
 		// Map CSS
-		Asset_Helper::enqueue_map_styles();
+		Helper::enqueue_map_styles();
 
 		// Icon CSS
-		Asset_Helper::enqueue_icon_styles();
+		Helper::enqueue_icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -92,7 +92,7 @@ class Asset_Loader {
 
 	public function enqueue_admin_scripts( $page = '' ) {
 		// Map CSS
-		Asset_Helper::enqueue_map_styles();
+		Helper::enqueue_map_styles();
 
 		Admin_Scripts::enqueue_admin_scripts( $page );
 	}
@@ -132,7 +132,7 @@ class Asset_Loader {
 		include $style_path;
 		$style = ob_get_clean();
 		$style = str_replace( ['<style>', '</style>'], '', $style );
-		$style = Asset_Helper::minify_css( $style );
+		$style = Helper::minify_css( $style );
 		return $style;
 	}
 

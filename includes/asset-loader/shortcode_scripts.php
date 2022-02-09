@@ -18,9 +18,9 @@ class Shortcode_Scripts {
         wp_enqueue_script('directorist-geolocation');
 
         // Map Scripts
-        if ( Asset_Helper::map_type() == 'openstreet' ) {
+        if ( Helper::map_type() == 'openstreet' ) {
             self::enqueue_openstreet_map_scripts( true );
-        } elseif ( Asset_Helper::map_type() == 'google' ) {
+        } elseif ( Helper::map_type() == 'google' ) {
             self::enqueue_google_map_scripts();
         }
 
@@ -47,9 +47,9 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-slick' );
 
 		// Map Scripts
-        if ( Asset_Helper::map_type() == 'openstreet' ) {
+        if ( Helper::map_type() == 'openstreet' ) {
             self::enqueue_openstreet_map_scripts();
-        } elseif ( Asset_Helper::map_type() == 'google' ) {
+        } elseif ( Helper::map_type() == 'google' ) {
             self::enqueue_google_map_scripts();
         }
     }
@@ -64,13 +64,13 @@ class Shortcode_Scripts {
 		wp_enqueue_script( 'directorist-sweetalert-script' );
 
 		// Color Picker
-		Asset_Helper::enqueue_color_picker_scripts();
+		Helper::enqueue_color_picker_scripts();
 
 		// Map Scripts
-        if ( Asset_Helper::map_type() == 'openstreet' ) {
+        if ( Helper::map_type() == 'openstreet' ) {
             self::enqueue_openstreet_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script' );
-        } elseif ( Asset_Helper::map_type() == 'google' ) {
+        } elseif ( Helper::map_type() == 'google' ) {
             self::enqueue_google_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
         }

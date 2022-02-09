@@ -142,20 +142,20 @@ class Admin_Scripts {
 
 	public static function enqueue_add_listing_page_scripts() {
 		self::enqueue_admin_icon_styles();
-		Asset_Helper::enqueue_map_styles();
+		Helper::enqueue_map_styles();
 
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-plupload' );
 
 		self::enqueue_admin_common_scripts();
 
-		Asset_Helper::enqueue_color_picker_scripts();
+		Helper::enqueue_color_picker_scripts();
 
 		// Map Scripts
-        if ( Asset_Helper::map_type() == 'openstreet' ) {
+        if ( Helper::map_type() == 'openstreet' ) {
             Shortcode_Scripts::enqueue_openstreet_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script' );
-        } elseif ( Asset_Helper::map_type() == 'google' ) {
+        } elseif ( Helper::map_type() == 'google' ) {
             Shortcode_Scripts::enqueue_google_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
         }

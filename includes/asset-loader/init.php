@@ -40,7 +40,7 @@ class Init {
 	}
 
 	public function set_scripts() {
-		$this->scripts = apply_filters( 'directorist_scripts', Asset_List::all_scripts() );
+		$this->scripts = apply_filters( 'directorist_scripts', Scripts::all_scripts() );
 	}
 
 

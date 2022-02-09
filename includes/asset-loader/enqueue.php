@@ -13,6 +13,29 @@ class Enqueue {
     use Enqueue_Widgets;
     use Enqueue_Admin;
 
+	public static function public_scripts() {
+		// Map CSS
+		self::map_styles();
+
+		// Icon CSS
+		self::icon_styles();
+
+		// CSS
+		wp_enqueue_style( 'directorist-main-style' );
+		wp_enqueue_style( 'directorist-inline-style' );
+		wp_enqueue_style( 'directorist-settings-style' );
+		wp_enqueue_style( 'directorist-select2-style' );
+		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
+		wp_enqueue_style( 'directorist-plasma-slider' );
+		wp_enqueue_style( 'directorist-slick-style' );
+		wp_enqueue_style( 'directorist-sweetalert-style' );
+
+		// Enqueue Single Listing Scripts
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			self::single_listing();
+		}
+	}
+
 	/**
 	 * @todo apply icon condition
 	 */

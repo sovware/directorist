@@ -32,6 +32,18 @@ class Helper {
             wp_register_script( $handle, $url, $dep, $version );
         }
 	}
+
+	public static function dynamic_style() {
+		$style_path = ATBDP_DIR . 'assets/other/style.php';
+
+		ob_start();
+		include $style_path;
+		$style = ob_get_clean();
+		$style = str_replace( ['<style>', '</style>'], '', $style );
+		$style = self::minify_css( $style );
+		return $style;
+	}
+
 	/**
 	 * Absoulute url based on various factors eg. min, rtl etc.
 	 *

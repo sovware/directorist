@@ -53,7 +53,7 @@ class Init {
 	 * Load inline styles.
 	 */
 	public function inline_styles() {
-		wp_add_inline_style( 'directorist-main-style', $this->dynamic_style() );
+		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
 	}
 
 	/**
@@ -64,26 +64,7 @@ class Init {
 	}
 
 	public function enqueue_scripts() {
-		// Map CSS
-		Enqueue::map_styles();
-
-		// Icon CSS
-		Enqueue::icon_styles();
-
-		// CSS
-		wp_enqueue_style( 'directorist-main-style' );
-		wp_enqueue_style( 'directorist-inline-style' );
-		wp_enqueue_style( 'directorist-settings-style' );
-		wp_enqueue_style( 'directorist-select2-style' );
-		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
-		wp_enqueue_style( 'directorist-plasma-slider' );
-		wp_enqueue_style( 'directorist-slick-style' );
-		wp_enqueue_style( 'directorist-sweetalert-style' );
-
-		// Enqueue Single Listing Scripts
-		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			Enqueue::single_listing();
-		}
+		Enqueue::public_scripts();
 	}
 
 	public function enqueue_admin_scripts( $page = '' ) {
@@ -117,17 +98,6 @@ class Init {
 				Enqueue::dashboard( $model );
 				break;
 		}
-	}
-
-	public function dynamic_style() {
-		$style_path = ATBDP_DIR . 'assets/other/style.php';
-
-		ob_start();
-		include $style_path;
-		$style = ob_get_clean();
-		$style = str_replace( ['<style>', '</style>'], '', $style );
-		$style = Helper::minify_css( $style );
-		return $style;
 	}
 
 	public function defer_load_js( $tag, $handle ) {

@@ -53,12 +53,12 @@ final class Directorist_Base
 	public $taxonomy;
 
 	/**
-	 * Enqueue_Assets Object.
+	 * Asset_Loader Object.
 	 *
-	 * @var object|Enqueue_Assets
-	 * @since 7.0
+	 * @var object|Asset_Loader
+	 * @since 7.2
 	 */
-	public $enqueue_assets;
+	public $asset_loader;
 
 	/**
 	 * ATBDP_Ajax_Handler Object.
@@ -215,7 +215,6 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			// self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
 			self::$instance->asset_loader = Directorist\Asset_Loader\Init::instance();
 
 			// ATBDP_Listing_Type_Manager

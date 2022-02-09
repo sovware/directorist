@@ -4,9 +4,12 @@
  */
 namespace WpWax\Directorist\Gutenberg;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 use Directorist\Helper;
+use Exception;
 
 /**
  * Initialize gutenberg blocks.
@@ -19,7 +22,7 @@ function init_blocks() {
 	$script_asset_path = "$dir/assets/index.asset.php";
 
 	if ( ! file_exists( $script_asset_path ) ) {
-		throw new Error(
+		throw new Exception(
 			'You need to run `npm run blocks:build` first.'
 		);
 	}
@@ -82,6 +85,7 @@ function init_blocks() {
 		'transaction-failure',
 		'user-dashboard',
 		'user-login',
+		'single-listing',
 	);
 
 	foreach ( $blocks as $block ) {
@@ -160,6 +164,7 @@ function dynamic_render_callback( $atts, $content, $instance ) {
 		unset( $_value );
 	}
 
+	$atts['is_block_editor'] = true;
 	$output = do_shortcode_callback( $shortcode, $atts, $content );
 
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
@@ -269,3 +274,32 @@ function disable_block_editor( $current_status, $post_type ) {
     return $current_status;
 }
 add_filter( 'use_block_editor_for_post_type', __NAMESPACE__ . '\disable_block_editor', 10, 2 );
+
+function add_single_listing_shortcode( $atts = array() ) {
+	if ( ! is_singular( ATBDP_POST_TYPE ) || ! is_main_query() ) {
+		if ( current_user_can( 'edit_posts' ) ) {
+			if ( ! empty( $atts['is_block_editor'] ) ) {
+				$source = _x( 'block', 'noun' );
+			} else {
+				$source = __( 'shortcode', 'directorist' );
+			}
+
+			return sprintf(
+				'<p><small><i>%s</i></small></p>',
+				sprintf( __( 'The only purpose of this %1$s is to show the single listing details. Maybe the block has been used in a wrong way!', 'directorist' ), $source )
+			);
+		}
+
+		return;
+	}
+
+	if ( Helper::is_legacy_mode() ) {
+		$content = Helper::get_template_contents( 'single-listing/content-wrapper' );
+	} else {
+		$content = Helper::get_template_contents( 'single-contents' );
+	}
+
+	return $content;
+}
+
+add_shortcode( 'directorist_single_listing', __NAMESPACE__ . '\add_single_listing_shortcode' );

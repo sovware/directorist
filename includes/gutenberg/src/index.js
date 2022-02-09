@@ -20,6 +20,8 @@ import './author-profile/index';
 import './search-result/index';
 import './search-listing/index';
 
+import './single-listing/index';
+
 /***
  * TODO:
  * 1. Preview for all blocks

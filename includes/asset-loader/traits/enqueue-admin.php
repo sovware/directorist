@@ -135,14 +135,14 @@ trait Enqueue_Admin {
 
 	public static function enqueue_add_listing_page_scripts() {
 		self::enqueue_admin_icon_styles();
-		Helper::enqueue_map_styles();
+		Enqueue::map_styles();
 
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-plupload' );
 
 		self::enqueue_admin_common_scripts();
 
-		Helper::enqueue_color_picker_scripts();
+		Enqueue::color_picker_scripts();
 
 		// Map Scripts
         if ( Helper::map_type() == 'openstreet' ) {

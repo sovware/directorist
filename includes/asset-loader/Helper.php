@@ -101,29 +101,9 @@ class Helper {
 			),
 			$input);
 	}
-	/**
-	 * @todo apply icon condition
-	 */
-	public static function enqueue_icon_styles() {
-		wp_enqueue_style( 'directorist-line-awesome' );
-		wp_enqueue_style( 'directorist-font-awesome' );
 
-		return;
-
-		$icon_type = get_directorist_option( 'font_type', '', true );
-
-		if ( 'line' === $icon_type ) {
-			wp_enqueue_style( 'directorist-line-awesome' );
-		} else {
-			wp_enqueue_style( 'directorist-font-awesome' );
-		}
-	}
-
-    public static function enqueue_map_styles() {
-		if ( self::map_type() == 'openstreet' ) {
-			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
-			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
-		}
+	public static function map_type() {
+		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
 	public static function search_form_localized_data() {
@@ -133,25 +113,4 @@ class Helper {
 		]);
 		return $data;
 	}
-
-	public static function enqueue_color_picker_scripts() {
-		wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
-		wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
-
-		$colorpicker_l10n = array(
-			'clear'         => __( 'Clear' ),
-			'defaultString' => __( 'Default' ),
-			'pick'          => __( 'Select Color' ),
-			'current'       => __( 'Current Color' ),
-		);
-
-		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
-	}
-
-	public static function map_type() {
-		return get_directorist_option( 'select_listing_map', 'openstreet' );
-	}
-
-
-
 }

@@ -43,10 +43,6 @@ class Init {
 		$this->scripts = apply_filters( 'directorist_scripts', Scripts::all_scripts() );
 	}
 
-
-	/**
-	 * Register all assets.
-	 */
 	public function register_scripts() {
 		foreach ( $this->scripts as $handle => $script ) {
 			Helper::register_single_script( $handle, $script, $this->version );
@@ -69,10 +65,10 @@ class Init {
 
 	public function enqueue_scripts() {
 		// Map CSS
-		Helper::enqueue_map_styles();
+		Enqueue::map_styles();
 
 		// Icon CSS
-		Helper::enqueue_icon_styles();
+		Enqueue::icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -91,9 +87,7 @@ class Init {
 	}
 
 	public function enqueue_admin_scripts( $page = '' ) {
-		// Map CSS
-		Helper::enqueue_map_styles();
-
+		Enqueue::map_styles();
 		Enqueue::enqueue_admin_scripts( $page );
 	}
 
@@ -104,7 +98,7 @@ class Init {
 	 */
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
-		Enqueue::enqueue_common_shortcode_scripts();
+		Enqueue::common_shortcode_scripts();
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':

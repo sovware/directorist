@@ -9,61 +9,61 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait Enqueue_Admin {
 
-	public static function enqueue_builder_scripts() {
+	public static function builder_scripts() {
 		wp_enqueue_script( 'directorist-multi-directory-builder' );
 	}
 
-	public static function enqueue_settings_scripts() {
+	public static function settings_scripts() {
 		wp_enqueue_script( 'directorist-settings-manager' );
 	}
 
-	public static function enqueue_admin_scripts( $page ) {
+	public static function admin_scripts( $page ) {
 
 		// Add Listing Page Scripts
 		if ( self::is_listing_submition_page( $page ) ) {
-			self::enqueue_add_listing_page_scripts();
+			self::add_listing_page_scripts();
 			return;
 		}
 
 		// Listing Taxonomy Page
 		if ( self::is_listing_taxonomy_page( $page ) ) {
-			self::enqueue_listing_taxonomy_page_scripts();
+			self::listing_taxonomy_page_scripts();
 			return;
 		}
 
 		// Plugins Page Scripts
 		if ( self::is_plugins_page( $page ) ) {
-			self::enqueue_plugins_page_scripts();
+			self::plugins_page_scripts();
 			return;
 		}
 
 		// Directorist Status Page Scripts
 		if ( self::is_directorist_status_page( $page ) ) {
-			self::enqueue_admin_common_scripts();
+			self::admin_common_scripts();
 			return;
 		}
 
 		// Directorist Extensions Page Scripts
 		if ( self::is_directorist_extensions_page( $page ) ) {
-			self::enqueue_admin_common_scripts();
+			self::admin_common_scripts();
 			return;
 		}
 
 		// Directory Builder Page Scripts
 		if ( self::is_directory_builder_page( $page ) ) {
-			self::enqueue_directory_builder_page_styles();
+			self::directory_builder_page_styles();
 			return;
 		}
 
 		// Directory Builder Archive Page Scripts
 		if ( self::is_directory_builder_archive_page( $page ) ) {
-			self::enqueue_directory_builder_archive_page_scripts();
+			self::directory_builder_archive_page_scripts();
 			return;
 		}
 
 		// Settings Builder Page Scripts
 		if ( self::is_settings_builder_page( $page ) ) {
-			self::enqueue_settings_builder_page_styles();
+			self::settings_builder_page_styles();
 			return;
 		}
 	}
@@ -108,7 +108,7 @@ trait Enqueue_Admin {
 		return ( 'at_biz_dir_page_atbdp-extension' === $page );
 	}
 
-	public static function enqueue_admin_common_scripts() {
+	public static function admin_common_scripts() {
 		// CSS
 		wp_enqueue_style( 'directorist-admin-style' );
 
@@ -133,14 +133,14 @@ trait Enqueue_Admin {
 		wp_enqueue_script( 'directorist-admin-script' );
 	}
 
-	public static function enqueue_add_listing_page_scripts() {
-		self::enqueue_admin_icon_styles();
+	public static function add_listing_page_scripts() {
+		self::admin_icon_styles();
 		Enqueue::map_styles();
 
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-plupload' );
 
-		self::enqueue_admin_common_scripts();
+		self::admin_common_scripts();
 
 		Enqueue::color_picker_scripts();
 
@@ -156,35 +156,35 @@ trait Enqueue_Admin {
 		wp_enqueue_script( 'directorist-add-listing' );
 	}
 
-	public static function enqueue_listing_taxonomy_page_scripts() {
-		self::enqueue_admin_common_scripts();
-		self::enqueue_admin_icon_styles();
+	public static function listing_taxonomy_page_scripts() {
+		self::admin_common_scripts();
+		self::admin_icon_styles();
 	}
 
-	public static function enqueue_plugins_page_scripts() {
-		self::enqueue_admin_common_scripts();
+	public static function plugins_page_scripts() {
+		self::admin_common_scripts();
 		wp_enqueue_script( 'directorist-plugins' );
 	}
 
-	public static function enqueue_directory_builder_page_styles() {
+	public static function directory_builder_page_styles() {
 		wp_enqueue_style( 'directorist-unicons' );
 		wp_enqueue_style( 'directorist-admin-style' );
-		self::enqueue_admin_icon_styles();
+		self::admin_icon_styles();
 	}
 
-	public static function enqueue_directory_builder_archive_page_scripts() {
-		self::enqueue_admin_common_scripts();
-		self::enqueue_admin_icon_styles();
+	public static function directory_builder_archive_page_scripts() {
+		self::admin_common_scripts();
+		self::admin_icon_styles();
 
 		wp_enqueue_script( 'directorist-multi-directory-archive' );
 	}
 
-	public static function enqueue_settings_builder_page_styles() {
-		self::enqueue_admin_common_scripts();
+	public static function settings_builder_page_styles() {
+		self::admin_common_scripts();
 		wp_enqueue_style( 'directorist-font-awesome' );
 	}
 
-	public static function enqueue_admin_icon_styles() {
+	public static function admin_icon_styles() {
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );
 	}

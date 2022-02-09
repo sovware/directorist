@@ -5342,7 +5342,7 @@ Please remember that your order may be canceled if you do not make your payment 
             }
 
 			// Enqueue Scripts
-            Enqueue::enqueue_settings_scripts();
+            Enqueue::settings_scripts();
 
 			$atbdp_settings_manager_data = [
                 'fields'  => $this->fields,

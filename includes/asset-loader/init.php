@@ -88,7 +88,7 @@ class Init {
 
 	public function enqueue_admin_scripts( $page = '' ) {
 		Enqueue::map_styles();
-		Enqueue::enqueue_admin_scripts( $page );
+		Enqueue::admin_scripts( $page );
 	}
 
 	/**

@@ -475,6 +475,7 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'asset-loader/traits/' );
 		$this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
 
 		self::require_files([

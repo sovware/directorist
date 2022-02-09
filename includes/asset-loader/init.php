@@ -1,5 +1,7 @@
 <?php
 /**
+ * Base class for loading all assets.
+ * 
  * @author wpWax
  */
 
@@ -32,6 +34,9 @@ class Init {
 		add_filter( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
 	}
 
+	/**
+	 * Singletone instance
+	 */
 	public static function instance() {
 		if ( null == self::$instance ) {
 			self::$instance = new self;

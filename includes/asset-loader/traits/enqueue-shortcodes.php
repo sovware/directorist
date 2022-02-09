@@ -83,5 +83,4 @@ trait Enqueue_Shortcodes {
 		wp_enqueue_script( 'directorist-sweetalert-script' );
 		wp_enqueue_script( 'directorist-ez-media-uploader' );
 	}
-
 }

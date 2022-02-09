@@ -106,8 +106,4 @@ class Helper {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
-	public static function is_admin_page( $type, $page ) {
-		return get_directorist_option( 'select_listing_map', 'openstreet' );
-	}
-
 }

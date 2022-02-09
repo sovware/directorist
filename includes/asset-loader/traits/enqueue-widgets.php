@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait Enqueue_Widgets {
 
-	public function search() {
+	public static function widget_search() {
 		wp_enqueue_script( 'directorist-select2-script' );
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-jquery-barrating' );

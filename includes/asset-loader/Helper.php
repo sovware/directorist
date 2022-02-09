@@ -106,11 +106,8 @@ class Helper {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
-	public static function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = Script_Helper::get_search_script_data([
-			'directory_type_id' => $directory_type_id
-		]);
-		return $data;
+	public static function is_admin_page( $type, $page ) {
+		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
+
 }

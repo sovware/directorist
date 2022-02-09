@@ -4833,7 +4833,7 @@ class Multi_Directory_Manager
             ];
 
 			// Enqueue Scripts
-			Enqueue::builder_scripts();
+			Enqueue::admin_builder_scripts();
 
 			/**
 			 * Filter directory builder's all configuration data.

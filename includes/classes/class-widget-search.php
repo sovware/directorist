@@ -43,7 +43,7 @@ if ( !class_exists('BD_Search_Widget')) {
             // $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', 'directorist');
 
 			// Enqueue Scripts
-			Enqueue::search();
+			Enqueue::widget_search();
 
             $template_path = atbdp_get_widget_template_path( 'search' );
             if ( file_exists( $template_path ) ) {

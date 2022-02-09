@@ -1,8 +1,8 @@
 /*
     File: Main.js
-    Plugin: Directorist - Business Directory Plugin
-    Author: Aazztech
-    Author URI: www.aazztech.com
+    Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
+    Author: wpWax
+    Author URI: www.wpwax.com
 */
 
 // Styles

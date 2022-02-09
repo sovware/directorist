@@ -112,6 +112,10 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
         return;
     }
 
+	if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
+		return;
+	}
+
     if ( empty( $post ) ) {
         $post = $comment->comment_post_ID;
     }
@@ -207,4 +211,64 @@ function directorist_user_review_exists( $user_email, $post_id ) {
  */
 function directorist_is_review_reply_enabled() {
 	return (bool) get_directorist_option( 'review_enable_reply', false );
+}
+
+/**
+ * Check if listing owner can review.
+ *
+ * @since 7.1.1
+ * @param int $listing_id
+ *
+ * @return bool
+ */
+function directorist_can_owner_review( $listing_id = null ) {
+	return ( directorist_is_owner_review_enabled() && directorist_is_current_user_listing_author( $listing_id ) );
+}
+
+/**
+ * Check if guest can review.
+ *
+ * @since 7.1.1
+ *
+ * @return bool
+ */
+function directorist_can_guest_review() {
+	return ( ! is_user_logged_in() && directorist_is_guest_review_enabled() );
+}
+
+/**
+ * Check if logged in or current user can review.
+ *
+ * @since 7.1.1
+ * @param int $listing_id
+ *
+ * @return bool
+ */
+function directorist_can_current_user_review( $listing_id = null ) {
+	// Return early if not logged in.
+	if ( ! is_user_logged_in() ) {
+		return false;
+	}
+
+	// Set listing id to current post id.
+	if ( is_null( $listing_id ) ) {
+		$listing_id = get_the_ID();
+	}
+
+	// Return false for different post type.
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	// Owner cannot review so return.
+	if ( directorist_is_current_user_listing_author( $listing_id ) && ! directorist_is_owner_review_enabled() ) {
+		return false;
+	}
+
+	// Current user already reviewed so return.
+	if ( directorist_user_review_exists( wp_get_current_user()->user_email, $listing_id ) ) {
+		return false;
+	}
+
+	return true;
 }

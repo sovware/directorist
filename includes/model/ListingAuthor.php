@@ -51,6 +51,7 @@ class Directorist_Listing_Author {
 
 	// extract_user_id
 	public function extract_user_id( $user_id = '' ) {
+		$user_id = urldecode($user_id); //decode the URL to remove encoded spaces, special characters
 		$extracted_user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
 
 		if ( is_string( $user_id ) && ! empty( $user_id ) ) {

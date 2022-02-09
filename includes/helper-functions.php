@@ -7491,7 +7491,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     if (!empty($settings['hide_empty']) && 0 == $count) continue;
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
-                $html .= '<option value="' . $term->term_id . '" ' . $selected . '>';
+                $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';
@@ -8014,119 +8015,9 @@ function the_thumbnail_card($img_src = '', $_args = array()) {
     return atbdp_thumbnail_card($img_src,$_args);
 }
 
-
-// get_plasma_slider
-function get_plasma_slider()
-{
-    $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
-    $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
-
-    if ( ! $slider_is_enabled ) { return ''; }
-
-    global $post;
-    $listing_id    = $post->ID;
-    $listing_title = get_the_title( $post->ID );
-    $data          = array();
-
-    // Check if gallery is allowed or not
-    $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
-    $show_gallery = true;
-
-    if ( is_fee_manager_active() ) {
-        $show_gallery = is_plan_allowed_slider($fm_plan);
-    }
-
-    // Get the default image
-    $default_image = get_directorist_option(
-        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
-    );
-
-    // Get the preview images
-    $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-    $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
-    $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
-    $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
-
-    // Get the gallery images
-    $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
-    $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
-    $image_links  = array(); // define a link placeholder variable
-
-    foreach ( $listing_imgs as $img_id ) {
-        $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-        $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
-
-        $image_links[] = [
-            'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-            'src' => atbdp_get_image_source( $img_id, 'large' ),
-        ];
-    }
-
-    // Get the options
-    $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-
-    // Set the options
-    $data['images']             = [];
-    $data['alt']                = $listing_title;
-    $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
-    $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
-    $data['width']              = get_directorist_option('gallery_crop_width', 670);
-    $data['height']             = get_directorist_option('gallery_crop_height', 750);
-    $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $data['thumbnail-bg-color'] = '#fff';
-    $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);
-    $data['gallery']            = true;
-    $data['rtl']                = is_rtl();
-
-    if ( $show_gallery && ! empty( $image_links ) ) {
-        $data['images'] = $image_links;
-    }
-
-    if ( ! empty( $preview_img_link ) ) {
-        $preview_img = [
-            'alt' => $preview_img_alt,
-            'src' => $preview_img_link,
-        ];
-
-        array_unshift( $data['images'], $preview_img );
-    }
-
-    if ( count( $data['images'] ) < 1 ) {
-        $data['images'][] = [
-            'alt' => $listing_title,
-            'src' => $default_image,
-        ];
-    }
-
-    $padding_top         = $data['height'] / $data['width'] * 100;
-    $data['padding-top'] = $padding_top;
-
-    return get_view('plasma-slider', $data);
-}
-
-
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
     echo $img;
-}
-
-function view( $file_path, $data = null )
-{
-    $path = ATBDP_VIEW_DIR . $file_path . '.php';
-    if ( file_exists($path) ) {
-        include($path);
-    }
-}
-
-function get_view( $file_path, $data = null )
-{
-    $view = '';
-    ob_start();
-    view( $file_path, $data );
-    $view =  ob_get_contents();
-    ob_end_clean();
-
-    return $view;
 }
 
 if(!function_exists('csv_get_data')){
@@ -8612,4 +8503,46 @@ function directorist_has_no_listing() {
 	$has_no_listing = empty( $listings->posts );
 
 	return $has_no_listing;
+}
+
+/**
+ * Check if given listing id belongs to the given user id.
+ *
+ * @since 7.1.1
+ * @param int $listing_id Listing id.
+ * @param int $user_id User id.
+ *
+ * @return bool
+ */
+function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
+	if ( ! $user_id || ! is_int( $user_id ) ) {
+		return false;
+	}
+
+	if ( ! $listing_id || ! is_int( $listing_id ) ) {
+		$listing_id = get_the_ID();
+	}
+
+	$listing = get_post( $listing_id );
+	if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	if ( intval( $listing->post_author ) !== $user_id ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if given listing id belongs to the current user.
+ *
+ * @since 7.1.1
+ * @param int $listing_id
+ *
+ * @return bool
+ */
+function directorist_is_current_user_listing_author( $listing_id = null ) {
+	return directorist_is_listing_author( $listing_id, get_current_user_id() );
 }

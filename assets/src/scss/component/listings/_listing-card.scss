@@ -489,6 +489,16 @@
                 }
             }
         }
+
+        .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span{
+            top: auto;
+            bottom: 35px;
+            &:before{
+                top: auto;
+                bottom: -7px;
+                transform: rotate(180deg);
+            }
+        }
     }
 }
 

@@ -177,7 +177,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
+		return apply_filters( 'directorist_single_section_has_contents', $has_contents, $section_data );
 	}
 
 	public function has_whatsapp( $data ) {
@@ -1106,7 +1106,7 @@ class Directorist_Single_Listing {
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),
 			'guest_review'             => get_directorist_option('guest_review', 0),
-			'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
+			// 'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
 			'reviewer_name'            => wp_get_current_user()->display_name,
 			'reviewer_img'             => $this->get_reviewer_img(),
 			'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),

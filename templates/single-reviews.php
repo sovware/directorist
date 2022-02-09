@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.1.0
+ * @version 7.1.1
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,11 +25,20 @@ Bootstrap::load_walker();
 ?>
 <div id="reviews" class="directorist-review-container">
 	<div class="directorist-review-content">
-		<div class="directorist-review-content__header">
+		<div class="directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
+			<?php if ( ! have_comments() ) : ?><div><?php endif;?>
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), $review_count ) ); ?></h3>
-			<?php if ( ! directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) || ( ! is_user_logged_in() && directorist_is_guest_review_enabled() ) ) : ?>
+
+			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
 				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
+			<?php elseif ( ! is_user_logged_in() ) : ?>
+				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
+
+			<?php if ( ! have_comments() ) : ?>
+				</div>
+				<p class="directorist-review-single directorist-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'directorist' ); ?></p>
+			<?php endif;?>
 		</div><!-- ends: .directorist-review-content__header -->
 
 		<?php if ( have_comments() ): ?>
@@ -61,23 +70,11 @@ Bootstrap::load_walker();
 				) ); ?>
 			</nav>
 			<?php endif;?>
-		<?php else: ?>
-			<div class="directorist-review-content__reviews">
-				<p class="directorist-review-single directorist-noreviews">
-					<?php
-					if ( ! directorist_is_guest_review_enabled() ) {
-						esc_html_e( 'There are no reviews yet.', 'directorist' );
-					} else {
-						printf( esc_html__( 'There are no reviews yet. %1$sBe the first reviewer%2$s.', 'directorist' ), '<a href="#respond">', '</a>' );
-					}
-					?>
-				</p>
-			</div>
 		<?php endif;?>
 	</div><!-- ends: .directorist-review-content -->
 
 	<?php
-	if ( is_user_logged_in() || directorist_is_guest_review_enabled() ) {
+	if ( is_user_logged_in() || directorist_is_guest_review_enabled() || directorist_is_review_reply_enabled() ) {
 		$commenter = wp_get_current_commenter();
 		$req       = get_option( 'require_name_email' );
 		$html_req  = ( $req ? " required='required'" : '' );
@@ -115,11 +112,8 @@ Bootstrap::load_walker();
 
 		if ( $builder->is_website_field_active() ) {
 			$fields['url'] = sprintf(
-				'<div class="directorist-form-group form-group-url">%s %s</div>',
-				sprintf(
-					'<label for="url">%s</label>',
-					$builder->get_website_label( __( 'Website', 'directorist' ) ),
-				),
+				'<div class="directorist-form-group form-group-url"><label for="url">%s</label> %s</div>',
+				$builder->get_website_label( __( 'Website', 'directorist' ) ),
 				sprintf(
 					'<input id="url" autocomplete="url" class="directorist-form-element" placeholder="%s" name="url" type="url" value="%s" size="30" maxlength="200" />',
 					$builder->get_website_placeholder( __( 'Enter your website', 'directorist' ) ),
@@ -136,11 +130,8 @@ Bootstrap::load_walker();
 		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( 0 ) . '</div>';
 
 		$comment_fields['content'] = sprintf(
-			'<div class="directorist-form-group form-group-comment">%s %s</div>',
-			sprintf(
-				'<label for="comment">%s <span class="required">*</span></label>',
-				$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) )
-			),
+			'<div class="directorist-form-group form-group-comment"><label for="comment">%s <span class="required">*</span></label> %s</div>',
+			$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) ),
 			sprintf( '<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required"></textarea>',
 				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) )
 			)
@@ -154,7 +145,7 @@ Bootstrap::load_walker();
 		);
 
 		$container_class = 'directorist-review-submit';
-		if ( directorist_user_review_exists( wp_get_current_user()->user_email, get_the_ID() ) ) {
+		if ( ! directorist_can_current_user_review() && ! directorist_can_guest_review() ) {
 			$container_class .= ' directorist-review-submit--hidden';
 		}
 

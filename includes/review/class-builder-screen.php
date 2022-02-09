@@ -34,7 +34,7 @@ class Builder_Screen {
 			'sections'  => self::get_sections(),
 		];
 
-		$layouts['review_form'] = apply_filters( 'directorist/builder/layouts/review_form', $layout );
+		$layouts['single_page_layout']['submenu']['review_form'] = apply_filters( 'directorist/builder/layouts/review_form', $layout );
 
 		return $layouts;
 	}

@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if (!defined('ABSPATH')) exit;
 
-class Shortcode_Scripts {
+trait Enqueue_Shortcodes {
 
     public static function all_listings( $listings ) {
 

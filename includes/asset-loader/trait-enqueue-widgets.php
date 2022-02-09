@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Widget_Scripts {
+trait Enqueue_Widgets {
 
 	public function search() {
 		wp_enqueue_script( 'directorist-select2-script' );

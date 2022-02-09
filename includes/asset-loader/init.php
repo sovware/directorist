@@ -86,7 +86,7 @@ class Init {
 
 		// Enqueue Single Listing Scripts
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
-			Shortcode_Scripts::single_listing();
+			Enqueue::single_listing();
 		}
 	}
 
@@ -94,7 +94,7 @@ class Init {
 		// Map CSS
 		Helper::enqueue_map_styles();
 
-		Admin_Scripts::enqueue_admin_scripts( $page );
+		Enqueue::enqueue_admin_scripts( $page );
 	}
 
 	/**
@@ -104,23 +104,23 @@ class Init {
 	 */
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
-		Shortcode_Scripts::enqueue_common_shortcode_scripts();
+		Enqueue::enqueue_common_shortcode_scripts();
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
-				Shortcode_Scripts::all_listings( $model );
+				Enqueue::all_listings( $model );
 				break;
 
 			case 'directorist_add_listing':
-				Shortcode_Scripts::add_listing( $model );
+				Enqueue::add_listing( $model );
 				break;
 
 			case 'directorist_search_listing':
-				Shortcode_Scripts::search_form( $model );
+				Enqueue::search_form( $model );
 				break;
 
 			case 'directorist_user_dashboard':
-				Shortcode_Scripts::dashboard( $model );
+				Enqueue::dashboard( $model );
 				break;
 		}
 	}

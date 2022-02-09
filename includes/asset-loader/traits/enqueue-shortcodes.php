@@ -48,9 +48,9 @@ trait Enqueue_Shortcodes {
 
 		// Map Scripts
         if ( Helper::map_type() == 'openstreet' ) {
-            self::enqueue_openstreet_map_scripts();
+            self::openstreet_map_scripts();
         } elseif ( Helper::map_type() == 'google' ) {
-            self::enqueue_google_map_scripts();
+            self::google_map_scripts();
         }
     }
 
@@ -68,10 +68,10 @@ trait Enqueue_Shortcodes {
 
 		// Map Scripts
         if ( Helper::map_type() == 'openstreet' ) {
-            self::enqueue_openstreet_map_scripts();
+            self::openstreet_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script' );
         } elseif ( Helper::map_type() == 'google' ) {
-            self::enqueue_google_map_scripts();
+            self::google_map_scripts();
             wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
         }
 

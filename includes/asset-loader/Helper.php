@@ -5,8 +5,6 @@
 
 namespace Directorist\Asset_Loader;
 
-use \Directorist\Script_Helper;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {

@@ -1706,52 +1706,6 @@ class Listings {
 		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}
 
-	public function load_inline_openstreet_map( array $map_options = [] ) {
-		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		$opt = array_merge( $this->get_map_options(), $map_options ) ;
-
-		$map_card_data     = $this->get_osm_map_info_card_data();
-
-		$default_lat_lon   = array( 'lat' => 40.7128, 'lon' => 74.0060 );
-		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
-		$load_scripts_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/load-scripts.js';
-
-		$map_height = $this->listings_map_height() . "px;";
-		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
-
-		wp_enqueue_script('no_script');
-		wp_localize_script( 'no_script', 'atbdp_map', $opt );
-		wp_localize_script( 'no_script', 'atbdp_lat_lon', $atbdp_lat_lon);
-
-		wp_localize_script( 'no_script', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		wp_localize_script( 'no_script', 'loc_data', [
-			'script_path'  => $script_path
-		]);
-
-		$listings_data = $map_card_data['listings_data'];
-		?>
-		<script>
-			var listings_data = [];
-
-			<?php foreach( $listings_data as $listing_data ) { ?>
-			listings_data.push({
-				address: `<?php echo isset( $listing_data['address'] ) ? $listing_data['address']: '' ; ?>`,
-				cat_icon: `<?php echo isset( $listing_data['cat_icon'] ) ? $listing_data['cat_icon'] : ''; ?>`,
-				default_image: `<?php echo isset( $listing_data['default_image'] ) ? $listing_data['default_image'] : ''; ?>`,
-				prv_image: `<?php echo isset( $listing_data['prv_image'] ) ? $listing_data['prv_image'] : ''; ?>`,
-				listing_img: `<?php echo isset( $listing_data['listing_img'] ) ? $listing_data['listing_img'] : ''; ?>`,
-				listing_prv_img: `<?php echo isset( $listing_data['listing_prv_img'] ) ? $listing_data['listing_prv_img'] : ''; ?>`,
-				info_content: `<?php echo isset( $listing_data['info_content'] ) ? $listing_data['info_content'] : ''; ?>`,
-				manual_lat: `<?php echo isset( $listing_data['manual_lat'] ) ? $listing_data['manual_lat'] : ''; ?>`,
-				manual_lng: `<?php echo isset( $listing_data['manual_lng'] ) ? $listing_data['manual_lng'] : ''; ?>`,
-			});
-			<?php } ?>
-		</script>
-
-		<script src="<?php echo $load_scripts_path; ?>"></script>
-		<?php
-	}
-
 	public function get_map_options() {
 		$opt['select_listing_map']    		= $this->map_type();
 		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );

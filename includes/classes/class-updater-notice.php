@@ -32,6 +32,7 @@ class Updater_Notice {
 			}
 
 			update_option( 'directorist_dismissed_update_notice', true, false );
+			delete_option( 'directorist_db_updated' );
 		}
 	}
 
@@ -69,17 +70,18 @@ class Updater_Notice {
 		if ( version_compare( get_option( 'directorist_db_version' ), ATBDP_VERSION, '<' ) ) {
 			// Delete this option to show the updated notice.
 			delete_option( 'directorist_dismissed_update_notice' );
+			delete_option( 'directorist_db_updated' );
 
 			$updater = new Background_Updater();
 			if ( $updater->is_updating() || ! empty( $_GET['do_update_directorist'] ) ) { // WPCS: input var ok, CSRF ok.
 				self::updating_notice();
-			} else {
+			} elseif ( \ATBDP_Installation::needs_db_update() ) {
 				self::update_notice();
 			}
 		}
 
 		// Show updated notice when db version and current version is same.
-		if ( version_compare( get_option( 'directorist_db_version' ), ATBDP_VERSION, '=' ) ) {
+		if ( version_compare( get_option( 'directorist_db_version' ), ATBDP_VERSION, '=' ) && get_option( 'directorist_db_updated', false ) ) {
 			self::updated_notice();
 		}
 	}

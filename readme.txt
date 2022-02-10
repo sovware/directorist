@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 7.1.0
+Stable tag: 7.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -304,6 +304,8 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 
 🔥 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
 
+🔥 **[dCar](https://directorist.com/product/dcar/)** - dCar theme is hammered out to construct a car directory that fits any screen, from the largest desktop screens, over any tablet size, down to the smallest smartphones. It’s a theme that showers you to create a car directory with selling and renting features.
+
 🔥 **[dPlace](https://directorist.com/product/dplace/)** - dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.
 
 🔥 **[dRestaurant](https://directorist.com/product/drestaurant/)** - Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.
@@ -327,7 +329,8 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 * GamiPress Integration
 * Advanced Review System
 * dEvent (Theme)
-* dCar (Theme)
+* dClassified (Theme)
+* dJobs (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -384,6 +387,21 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.1.1 – Feb 14, 2022
+
+* Add - Load category custom field when selecting search form categories
+* Add - New user role support named 'seller'
+* Add - 'section_data' as the second parameter of 'directorist_single_section_has_contents' filter hook
+* Fix - User not able to select address if there's no map added on the add listing form
+* Fix - Wrong listings in Author Profile page where usernames with a space
+* Fix - Wrong directory type assign if search form used with listing form
+* Fix - Migration confirmation notice on fresh Installation
+* Fix - Some minor issues with the review system
+* Fix - Style & responsive issues
+* Fix - Error in System Info page
+* Improve - Resource loading and performance
+* Tweak - External links from settings & builder open in new tab
 
 7.1.0 – Jan 19, 2022
 

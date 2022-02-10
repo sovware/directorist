@@ -1682,11 +1682,11 @@ class Listings {
 	}
 
 	public function render_map() {
-		if ( 'google' == $this->map_type() ) {
-			$this->load_google_map();
-		}
-		else {
+		if ( $this->map_type() == 'openstreet' ) {
 			$this->load_openstreet_map();
+		}
+		elseif( $this->map_type() == 'google' ) {
+			$this->load_google_map();
 		}
 	}
 

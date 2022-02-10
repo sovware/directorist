@@ -1621,7 +1621,7 @@ class Listings {
 	 */
 	public function avatar_alignment() {
 		$field = self::$current_field;
-		return !empty( $data['align'] ) ? $data['align'] : '' ;
+		return !empty( $field['align'] ) ? $field['align'] : '' ;
 	}
 
 	public function render_badge_template( $field ) {

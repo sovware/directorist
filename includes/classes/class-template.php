@@ -24,7 +24,7 @@ if (!class_exists('ATBDP_Template')):
         {
             // load custom page template for the single page for our custom post
             //add_filter('single_template', array( $this, 'load_custom_single_template') );
-            add_filter('template_include', array($this, 'custom_search_template'));
+            // add_filter('template_include', array($this, 'custom_search_template'));
 
         }
 

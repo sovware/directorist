@@ -537,6 +537,60 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	/**
+	 * Check if the given page id is assigned as single listing page.
+	 *
+	 * @param  int $page_id
+	 *
+	 * @return bool
+	 */
+	public static function is_custom_single_listing_page( $page_id ) {
+		if ( get_post_type( $page_id ) !== 'page' ) {
+			return false;
+		}
+
+		$directory_type = self::get_directory_type_by_page_id( $page_id );
+		if ( empty( $directory_type ) || is_wp_error( $directory_type ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get directory type (id=>name) from the given page id.
+	 *
+	 * @param  int  $page_id
+	 *
+	 * @return void
+	 */
+	public static function get_directory_type_by_page_id( $page_id = 0 ) {
+		if ( empty( $page_id ) ) {
+			return '';
+		}
+
+		$type = get_terms( array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'id=>name',
+			'meta_query' => array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'single_listing_page',
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => 'single_listing_page',
+					'type'    => 'NUMERIC',
+					'compare' => '=',
+					'value'   => $page_id,
+				),
+			),
+		) );
+
+		return $type;
+	}
+
 	public static function builder_selected_single_pages() {
 		// @cache @kowsar
 		$pages = [];

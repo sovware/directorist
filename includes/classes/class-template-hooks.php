@@ -58,44 +58,50 @@ class Directorist_Template_Hooks {
 	}
 
 	public static function single_content( $content ) {
-		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
-
-		if ( is_singular( ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() && $single_template != 'directorist_template' ) {
-			$content = Helper::get_template_contents( 'single-contents' );
+		if ( ! in_the_loop() || ! is_main_query() ) {
+			return $content;
 		}
 
-		// Put a dummy content for selected single pages
-		$selected_single_pages = Helper::builder_selected_single_pages();
+		if ( is_singular( ATBDP_POST_TYPE ) && get_directorist_option( 'single_listing_template', 'directorist_template' ) !== 'directorist_template' ) {
+			return Helper::get_template_contents( 'single-contents' );
+		}
 
-		if( !empty( $selected_single_pages ) && in_the_loop() && is_main_query() && is_page( array_keys( $selected_single_pages ) ) ) {
-			$page_id = get_the_id();
-			$type_name = $selected_single_pages[$page_id];
-			$content = sprintf( __( 'This page is currently selected as the Single Listing Page for \'%s\' Listing Type', 'directorist' ) , $type_name );
+		if ( Helper::is_custom_single_listing_page( get_the_ID() ) ) {
+			$directory_type = Helper::get_directory_type_by_page_id( get_the_ID() );
+			return sprintf( __( '<p style="text-align:center">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , current( $directory_type ) );
 		}
 
 		return $content;
 	}
 
-	public function single_template_path( $template_path ) {
+	/**
+	 * Include directorist custom template based on user's personalization.
+	 *
+	 * @param  string $template
+	 *
+	 * @return string
+	 */
+	public function single_template_path( $template ) {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
-			return $template_path;
+			return $template;
 		}
 
-		$single_template = get_directorist_option( 'single_listing_template', 'directorist_template' );
-
-		if ( $single_template == 'current_theme_template' ) {
-			$template_path = Helper::get_theme_template_path_for( 'single' );
-		}
-		elseif ( $single_template == 'directorist_template' ) {
-			$template_path = Helper::template_path( 'single' );
-		}
-		else {
-			$template_path = Helper::get_theme_template_path_for( 'page' );
+		$template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
+		if ( $template_type === 'directorist_template' ) {
+			$_template = Helper::template_path( 'single' );
+		} elseif ( $template_type === 'theme_template_page' ) {
+			$_template = get_page_template();
+		} elseif ( $template_type === 'current_theme_template' ) {
+			$_template = get_single_template();
 		}
 
-		return $template_path;
+		// assign custom template if found.
+		if ( ! empty( $_template ) ) {
+			$template = $_template;
+		}
+
+		return $template;
 	}
-
 }
 
 add_action( 'init', function(){

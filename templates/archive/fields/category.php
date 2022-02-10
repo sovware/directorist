@@ -7,41 +7,46 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listings = directorist()->listings;
+$listings   = directorist()->listings;
 $categories = $listings->loop_get_categories();
+$count      = count( $categories );
 ?>
 
 <div class="directorist-listing-category">
-	<?php if ( ! empty( $categories ) ) {
-		$term_icon = get_term_meta( $categories[0]->term_id, 'category_icon', true );
-		$term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la la-folder-open' ] );
-		$term_link = esc_url( get_term_link( $categories[0]->term_id, ATBDP_CATEGORY ) );
-		?>
-		<a href="<?php echo esc_url( $term_link ); ?>"><?php echo $term_icon . esc_html($categories[0]->name); ?></a>
-		<?php
-		$totalTerm = count( $categories );
-		if ( $totalTerm > 1 ) { $totalTerm = $totalTerm - 1; ?>
-			<div class="directorist-listing-category__popup">
-				<span class="directorist-listing-category__extran-count">+<?php echo esc_html( $totalTerm ); ?></span>
-				<div class="directorist-listing-category__popup__content">
-					<?php foreach (array_slice($categories, 1) as $cat) {
-						$term_icon  = get_term_meta( $cat->term_id, 'category_icon', true );
-						$term_icon  = atbdp_get_term_icon( [ 'icon' => $term_icon ] );
-						$term_label = trim( "{$term_icon} {$cat->name}" );
-						$term_link  = esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) );
-						$term_link  = esc_url( get_term_link( $cat->term_id, ATBDP_CATEGORY ) );
 
-						echo "<a href='{$term_link}'>{$term_label}</a>";
-					} ?>
+	<?php if ( $count > 0 ): ?>
+
+		<a href="<?php echo esc_url( $listings->category_link( $categories[0] ) ); ?>"><span class="<?php echo esc_attr( $listings->category_icon( $categories[0] ) );?>"></span><?php echo esc_html( $categories[0]->name ); ?></a>
+
+		<?php if( $count > 1 ): ?>
+
+			<div class="directorist-listing-category__popup">
+
+				<span class="directorist-listing-category__extran-count">+<?php echo esc_html( $count ); ?></span>
+
+				<div class="directorist-listing-category__popup__content">
+
+					<?php
+					foreach ( array_slice( $categories, 1 ) as $category ) {
+						printf(
+							'<a href="%s"><span class="%s"></span>%s</a>',
+							esc_url( $listings->category_link( $category ) ),
+							esc_attr( $listings->category_icon( $category ) ),
+							esc_html( $category->name )
+						);
+					}
+					?>
+
 				</div>
 
 			</div>
-			<?php
-		}
-	}
-	else { ?>
-		<a href="#"><?php echo atbdp_get_term_icon(); ?><?php esc_html_e('Uncategorized', 'directorist'); ?></a>
-		<?php
-	}
-	?>
+
+		<?php endif; ?>
+
+	<?php else: ?>
+
+		<a href="#"><span class="<?php echo esc_attr( $listings->default_category_icon() );?>"></span><?php esc_html_e( 'Uncategorized', 'directorist' ); ?></a>
+
+	<?php endif; ?>
+
 </div>

@@ -424,10 +424,37 @@ class Listings {
 	/**
 	 * Listing categories.
 	 *
-	 * @return array Terms list of Listing Category taxonomy.
+	 * @return array Term list of Listing Category taxonomy.
 	 */
 	public function loop_get_categories() {
 		return get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function default_category_icon() {
+		$icon = atbdp_icon_type(). '-folder-open';
+		return apply_filters( 'default_category_icon', $icon );
+	}
+
+	/**
+	 * @param object $term
+	 *
+	 * @return array
+	 */
+	public function category_icon( $term ) {
+		$term_icon = get_term_meta( $term->term_id, 'category_icon', true );
+		return $term_icon ? $term_icon: $this->default_category_icon();
+	}
+
+	/**
+	 * @param object $term
+	 *
+	 * @return array
+	 */
+	public function category_link( $term ) {
+		return get_term_link( $term->term_id, ATBDP_CATEGORY );
 	}
 
 	/**

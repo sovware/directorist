@@ -520,7 +520,6 @@ class Listings {
 	 */
 	public function loop_review_star_html() {
 		$average = $this->loop_rating_average();
-		$average_with_zero = number_format( $average, 1 );
 
 		// Icons
 		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
@@ -1352,11 +1351,9 @@ class Listings {
 			foreach ( $fields as $field ) {
 				self::$current_field = $field;
 
-				// if ( $this->field_value() ) {
-					echo $before;
-					$this->card_field_html( $field );
-					echo $after;
-				// }
+				echo $before;
+				$this->card_field_html( $field );
+				echo $after;
 
 				self::$current_field = '';
 			}

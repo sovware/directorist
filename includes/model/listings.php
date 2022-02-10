@@ -1723,7 +1723,7 @@ class Listings {
 	public function render_map() {
 		if ( $this->map_type() == 'openstreet' ) {
 			$this->load_openstreet_map_data();
-			Helper::get_template( 'archive/openstreet-map' );
+			// Helper::get_template( 'archive/openstreet-map' );
 		}
 		elseif( $this->map_type() == 'google' ) {
 			$this->load_google_map();

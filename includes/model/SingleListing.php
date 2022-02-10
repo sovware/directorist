@@ -348,18 +348,31 @@ class Directorist_Single_Listing {
 	}
 
 	public function single_page_content() {
-		$page_id = get_directorist_type_option( $this->type, 'single_listing_page' );
+		$page_id = (int) get_directorist_type_option( $this->type, 'single_listing_page' );
 
-		if ( !$page_id ) {
+		if ( ! $page_id ) {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
-			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
-		} else {
-			$content = get_post_field( 'post_content', $page_id );
-			$content = do_shortcode( $content );
+		$page = get_post( $page_id );
+		if ( $page->post_type !== 'page' ) {
+			return '';
 		}
+
+		global $post;
+		$_temp_post = $post; // Cache listing post.
+		$post       = $page; // Assign custom single page as post.
+		$content    = get_the_content( null, null );
+
+		/**
+		 * Filters the post content.
+		 *
+		 * @param string $content Content of the current post.
+		 */
+		$content = apply_filters( 'the_content', $content );
+
+		// Restore listing post.
+		$post = $_temp_post;
 
 		return $content;
 	}

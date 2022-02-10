@@ -31,18 +31,19 @@ class Directorist_Single_Listing {
 	public $price;
 
 
-	private function __construct($id = '') {
-		if (!$id) {
-			$id = get_the_ID();
+	private function __construct( $listing_id = 0 ) {
+		if ( $listing_id && is_int( $listing_id ) ) {
+			$this->id = $listing_id;
+		} else {
+			$this->id = get_the_ID();
 		}
-		$this->id = (int) $id;
 
 		$this->prepare_data();
 	}
 
-	public static function instance() {
+	public static function instance( $listing_id = 0 ) {
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $listing_id );
 		}
 		return self::$instance;
 	}
@@ -362,7 +363,7 @@ class Directorist_Single_Listing {
 		global $post;
 		$_temp_post = $post; // Cache listing post.
 		$post       = $page; // Assign custom single page as post.
-		$content    = get_the_content( null, null );
+		$content    = get_the_content( null, null, $page );
 
 		/**
 		 * Filters the post content.

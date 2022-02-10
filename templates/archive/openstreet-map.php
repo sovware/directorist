@@ -12,77 +12,72 @@ $listings = directorist()->listings;
 $query = $listings->get_query();
 ?>
 
-<div id="map" style="width: 100%; height: <?php echo esc_attr( $listings->map_height() );?>px;"></div>
 
-<?php while ( $query->have_posts() ): ?>
+
+<?php
+if ( !$listings->display_map_card_window() ) {
+	return;
+}
+
+if ( !$listings->display_map_image() && !$listings->display_map_title() && !$listings->display_map_address() && !$listings->display_map_direction() ) {
+	return;
+}
+
+while ( $query->have_posts() ): ?>
 
 	<?php $query->the_post(); ?>
 
-	<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>
+	<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom">
 
-		<?php if ( $listings->display_map_image() ) { ?>
+		<?php if ( $listings->display_map_image() ): ?>
 			
-			<div class='media-left'>
+			<div class="media-left">
 
-				<?php if ( ! $listings->disable_single_listing() ) { ?>
-					<a href="<?php the_permalink(); ?>">
-					<?php
-				}
-
-				echo $listings->loop_get_the_thumbnail();
-
-				if ( ! $listings->disable_single_listing() ) { ?>
-					</a>
-					<?php
-				}
-				?>
+				<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( $listings->loop_get_the_thumbnail() ) : $listings->loop_get_the_thumbnail(); ?>
 				
 			</div>
-			<?php
-		}
-		?>
 
-		<div class='media-body'>
+		<?php endif; ?>
 
-			<?php if ( $listings->display_map_title() ) { ?>
+		<div class="media-body">
+
+			<?php if ( $listings->display_map_title() ): ?>
 
 				<div class="atbdp-listings-title-block">
-
 					<h3 class="atbdp-no-margin">
 
-						<?php if ( ! $listings->disable_single_listing() ): ?>
-
-							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-
-						<?php else: ?>
-
-							<?php the_title(); ?>
-
-						<?php endif; ?>
+						<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( get_the_title() ) : get_the_title(); ?>
 
 					</h3>
-
-
-
 				</div>
 
-				<?php
-			}
+			<?php endif; ?>
 
-			if ( ! empty( $ls_data['address'] ) ) {
+			<?php if ( $listings->loop_map_address() ) {
+
 				if ( $listings->display_map_address() ) { ?>
-					<div class='osm-iw-location'>
-						<span class='<?php echo atbdp_icon_type(); ?>-map-marker'></span>
-						<a href='./' class='map-info-link'><?php echo $ls_data['address'] ?></a>
+
+					<div class="osm-iw-location">
+
+						<span class="<?php atbdp_icon_type( true ); ?>-map-marker"></span>
+
+						<a href="./" class="map-info-link"><?php echo $listings->loop_map_address(); ?></a>
+
 					</div>
+					
 					<?php
 				}
 
 				if ( $listings->display_map_direction() ) { ?>
-					<div class='osm-iw-get-location'>
-						<a href='http://www.google.com/maps?daddr=<?php echo $ls_data['manual_lat'] . ',' . $ls_data['manual_lng']; ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
-						<span class='<?php echo atbdp_icon_type(); ?>-arrow-right'></span>
+
+					<div class="osm-iw-get-location">
+
+						<a href="<?php echo esc_url( $listings->loop_map_direction_url() )?>" target="_blank"><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
+
+						<span class="<?php atbdp_icon_type( true ); ?>-arrow-right"></span>
+
 					</div>
+
 					<?php
 				}
 			}
@@ -91,7 +86,7 @@ $query = $listings->get_query();
 	</div>
 		
 
-<?php endwhile; ?>
-
 <?php
+endwhile;
+
 wp_reset_postdata();

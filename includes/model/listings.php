@@ -1680,6 +1680,26 @@ class Listings {
 		}
 	}
 
+	public function loop_wrap_permalink( $html ) {
+		return sprintf( '<a href="%s">%s</a>', get_the_permalink(), $html );
+	}
+
+	public function loop_map_latitude() {
+		return get_post_meta( get_the_ID(), '_manual_lat', true );
+	}
+
+	public function loop_map_longitude() {
+		return get_post_meta( get_the_ID(), '_manual_lng', true );
+	}
+
+	public function loop_map_direction_url() {
+		return sprintf( 'http://www.google.com/maps?daddr=%s,%s', $this->loop_map_latitude(), $this->loop_map_longitude() );
+	}
+
+	public function loop_map_address() {
+		return get_post_meta( get_the_ID(), '_address', true );
+	}
+
 	public function display_map_card_window() {
 		return get_directorist_option( 'display_map_info', true );
 	}
@@ -1713,6 +1733,9 @@ class Listings {
 	public function load_openstreet_map_data() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
+		?>
+		<div id="map" style="width: 100%; height: <?php echo esc_attr( $this->map_height() );?>px;"></div>
+		<?php
 		$map_card_data = $this->get_osm_map_info_card_data();
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
@@ -1805,9 +1828,11 @@ class Listings {
 
 				ob_start();
 
-				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
-					Helper::get_template( 'archive/openstreet-map', $opt );
-				}
+				// if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
+				// 	Helper::get_template( 'archive/openstreet-map', $opt );
+				// }
+
+				Helper::get_template( 'archive/openstreet-map', $opt );
 
 				$ls_data['info_content'] = ob_get_clean();
 

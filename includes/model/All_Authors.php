@@ -14,6 +14,10 @@ class Directorist_All_Authors {
 	}
 
 	public function render_shortcode_all_authors() {
+
+		// Enqueue Scripts
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_all_authors', $this );
+
 		return Helper::get_template_contents( 'all-authors', array( 'authors' => $this ) );
 	}
 
@@ -90,7 +94,7 @@ class Directorist_All_Authors {
 		}
 
 		$args['orderby'] 		 = 'display_name';
-		
+
 		if( 'all' != $all_authors_select_role ) {
 			$args['role__in']	= array( $all_authors_select_role );
 		}

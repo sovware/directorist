@@ -1,5 +1,7 @@
 <?php
 
+use Directorist\Asset_Loader\Enqueue;
+
 if ( ! class_exists('ATBDP_Settings_Panel') ) {
 	class ATBDP_Settings_Panel
 	{
@@ -5339,13 +5341,15 @@ Please remember that your order may be canceled if you do not make your payment 
                 $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
             }
 
-            $atbdp_settings_manager_data = [
+			// Enqueue Scripts
+            Enqueue::admin_settings_scripts();
+
+			$atbdp_settings_manager_data = [
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
             ];
-
-            wp_localize_script('directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
+            wp_localize_script( 'directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data );
 
             /* $status = $this->update_settings_options([
                 'new_listing_status' => 'publish',

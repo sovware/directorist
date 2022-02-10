@@ -53,12 +53,12 @@ final class Directorist_Base
 	public $taxonomy;
 
 	/**
-	 * Enqueue_Assets Object.
+	 * Asset_Loader Object.
 	 *
-	 * @var object|Enqueue_Assets
-	 * @since 7.0
+	 * @var object|Asset_Loader
+	 * @since 7.2
 	 */
-	public $enqueue_assets;
+	public $asset_loader;
 
 	/**
 	 * ATBDP_Ajax_Handler Object.
@@ -199,7 +199,7 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+			self::$instance->asset_loader = Directorist\Asset_Loader\Init::instance();
 
 			// ATBDP_Listing_Type_Manager
 			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;
@@ -424,10 +424,22 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'asset-loader/traits/' );
+		$this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
 
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
+			// ATBDP_INC_DIR . 'asset-loader/asset-loader-utility',
+			// ATBDP_INC_DIR . 'asset-loader/asset-loader-base',
+			// ATBDP_INC_DIR . 'asset-loader/scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/localized-data-loader',
+			// ATBDP_INC_DIR . 'asset-loader/map-scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/shortcode-scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/widget-scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/public-scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/admin-scripts-loader',
+			// ATBDP_INC_DIR . 'asset-loader/asset-loader',
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',

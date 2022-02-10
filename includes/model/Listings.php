@@ -958,8 +958,9 @@ class Directorist_Listings {
 	}
 
 	public function render_shortcode( $atts = [] ) {
-		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
-		Script_Helper::load_search_form_script( $script_args );
+
+		// Enqueue Scripts
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_all_listing', $this );
 
 		ob_start();
 
@@ -1072,6 +1073,18 @@ class Directorist_Listings {
 		}
 
 		return $link_list;
+	}
+
+	public function get_dropdown_toggle_button_icon_class() {
+		$icon_type = get_directorist_option( 'font_type', '', true );
+		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
+		$icon      = "directorist-toggle-has-${prefix}-icon";
+
+		return $icon;
+	}
+
+	public function dropdown_toggle_button_icon_class() {
+		echo $this->get_dropdown_toggle_button_icon_class();
 	}
 
 	public function get_sort_by_link_list() {
@@ -1291,6 +1304,7 @@ class Directorist_Listings {
 				$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
 				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
+				$ls_data['font_type']       = $this->options['font_type'];
 
 				$lat_lon = [
 					'lat' => $ls_data['manual_lat'],
@@ -1309,19 +1323,21 @@ class Directorist_Listings {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
-				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = $this->options['font_type'];
+				$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+				$cat_icon = '';
 
-				if ( !empty($cats) ) {
-					$cat_icon = get_cat_icon($cats[0]->term_id);
+				if ( ! empty( $cats ) ) {
+					$cat_icon = get_cat_icon( $cats[0]->term_id );
 				}
 
-				$cat_icon  = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-				$icon_type = substr($cat_icon, 0,2);
-				$fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
-				$cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+				$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
+				$cat_icon_type = substr( $cat_icon, 0, 2 );
 
+				$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
+				$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
+				$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
 				$ls_data['cat_icon'] = $cat_icon;
+
 				$opt['ls_data'] = $ls_data;
 
 				ob_start();
@@ -1355,8 +1371,6 @@ class Directorist_Listings {
 	}
 
 	public function load_google_map() {
-		wp_enqueue_script('directorist-map-view');
-
 		$opt = $this->get_map_options();
 		$disable_info_window = 'no';
 
@@ -1407,17 +1421,24 @@ class Directorist_Listings {
 					$ls_data['crop_height']     = $this->options['crop_height'];
 					$ls_data['address']         = get_post_meta($listings_id, '_address', true);
 					$ls_data['font_type']       = $this->options['font_type'];
-					$ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
+					$ls_data['fa_or_la']        = ('line' === $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 
-					if(!empty($ls_data['cats'])){
-						$cat_icon = get_cat_icon($ls_data['cats'][0]->term_id);
+					$cat_icon = '';
+
+					if ( ! empty( $ls_data['cats'] ) ){
+						$cat_icon = get_cat_icon( $ls_data['cats'][0]->term_id );
+						$ls_data['chk-1::cat_icon'] = $cat_icon;
 					}
 
-					$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-					$icon_type = substr($cat_icon, 0,2);
-					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+					$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
+					$cat_icon_type = substr( $cat_icon, 0, 2 );
+
+					$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
+					$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
+					$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
+					$ls_data['cat_icon'] = $cat_icon;
+
 					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 
 					if (!empty($ls_data['listing_prv_img'])) {

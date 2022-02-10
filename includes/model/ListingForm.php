@@ -828,6 +828,9 @@ class Directorist_Listing_Form {
 		$user_id		  = get_current_user_id();
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
+		// Enqueue Scripts
+		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_add_listing', $this );
+
 		if ( ! $guest_submission && ! is_user_logged_in() ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
 		}
@@ -857,8 +860,6 @@ class Directorist_Listing_Form {
 			$args['form_data'] = $this->build_form_data( $type );
 			$args['is_edit_mode'] = true;
 
-			$this->enqueue_scripts();
-
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
@@ -877,7 +878,7 @@ class Directorist_Listing_Form {
 				} else {
 					$args['error_notice'] = __('Notice: Your given directory type is not valid. Please use a valid directory type', 'directorist');
 				}
-				
+
 				return Helper::get_template_contents( 'listing-form/add-listing-notype', $args );
 			}
 			// if only one directory
@@ -887,8 +888,6 @@ class Directorist_Listing_Form {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
-
-				$this->enqueue_scripts();
 
 				ob_start();
 				if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
@@ -901,23 +900,6 @@ class Directorist_Listing_Form {
 			// multiple directory available
 			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
-		}
-	}
-
-
-	// enqueue_scripts
-	public function enqueue_scripts() {
-		wp_enqueue_media();
-		wp_enqueue_script( 'directorist-ez-media-uploader' );
-		wp_enqueue_script( 'directorist-plupload-public' );
-		wp_enqueue_script( 'directorist-add-listing-public' );
-
-		// Map Scrips
-		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
-			wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script-public' );
-		} else {
-			wp_enqueue_script( 'directorist-add-listing-gmap-custom-script-public' );
-
 		}
 	}
 }

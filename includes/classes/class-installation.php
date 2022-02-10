@@ -100,7 +100,6 @@ class ATBDP_Installation {
 		if ( ! empty( $_GET['do_update_directorist'] ) ) { // WPCS: input var ok.
 			check_admin_referer( 'directorist_db_update', 'directorist_db_update_nonce' );
 			self::update();
-			// WC_Admin_Notices::add_notice( 'update' );
 		}
 
 		if ( ! empty( $_GET['force_update_directorist'] ) ) { // WPCS: input var ok.
@@ -182,7 +181,7 @@ class ATBDP_Installation {
 	 * @since 7.1.0
 	 * @return boolean
 	 */
-	private static function needs_db_update() {
+	public static function needs_db_update() {
 		$current_db_version = get_option( 'directorist_db_version', null );
 		$updates            = self::get_db_update_callbacks();
 

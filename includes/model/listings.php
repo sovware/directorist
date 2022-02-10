@@ -807,7 +807,7 @@ class Listings {
 	 *
 	 * @return string
 	 */
-	public function listings_map_height() {
+	public function map_height() {
 		return (int) $this->atts['map_height'];
 	}
 
@@ -1678,25 +1678,42 @@ class Listings {
 			}
 			break;
 		}
+	}
 
+	public function display_map_card_window() {
+		return get_directorist_option( 'display_map_info', true );
+	}
+
+	public function display_map_image() {
+		return get_directorist_option( 'display_image_map', true );
+	}
+
+	public function display_map_title() {
+		return get_directorist_option( 'display_title_map', true );
+	}
+
+	public function display_map_address() {
+		return get_directorist_option( 'display_address_map', true );
+	}
+
+	public function display_map_direction() {
+		return get_directorist_option( 'display_direction_map', true );
 	}
 
 	public function render_map() {
 		if ( $this->map_type() == 'openstreet' ) {
-			$this->load_openstreet_map();
+			$this->load_openstreet_map_data();
+			Helper::get_template( 'archive/openstreet-map' );
 		}
 		elseif( $this->map_type() == 'google' ) {
 			$this->load_google_map();
 		}
 	}
 
-	public function load_openstreet_map() {
+	public function load_openstreet_map_data() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 		$map_card_data = $this->get_osm_map_info_card_data();
-
-		$map_height = $this->listings_map_height() . "px;";
-		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
@@ -1773,7 +1790,6 @@ class Listings {
 				}
 
 				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = $opt['font_type'];
 
 				if ( !empty($cats) ) {
 					$cat_icon = get_cat_icon($cats[0]->term_id);
@@ -1790,7 +1806,7 @@ class Listings {
 				ob_start();
 
 				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
-					Helper::get_template( 'archive/fields/openstreet-map', $opt );
+					Helper::get_template( 'archive/openstreet-map', $opt );
 				}
 
 				$ls_data['info_content'] = ob_get_clean();
@@ -1843,7 +1859,7 @@ class Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height())?$this->listings_map_height():'';?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->map_height())?$this->map_height():'';?>px;">
 			<?php
 
 			if ( $this->query->have_posts() ) {
@@ -1891,7 +1907,7 @@ class Listings {
 
 					if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
 						$opt['ls_data'] = $ls_data;
-						Helper::get_template( 'archive/fields/google-map', $opt );
+						Helper::get_template( 'archive/google-map', $opt );
 					}
 
 				endforeach;

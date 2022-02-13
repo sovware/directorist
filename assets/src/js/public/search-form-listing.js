@@ -116,9 +116,9 @@
         var cat_id       = $(this).val();
         var form_data = new FormData();
         var custom_field = $('.directorist-category-select option[value='+cat_id+']').attr("data-custom-field");
-        if( ! custom_field ){
+        /* if( ! custom_field ){
           return;
-        }
+        } */
         $('.directorist-search-form-box').addClass('atbdp-form-fade');
         form_data.append('action', 'directorist_category_custom_field_search');
         form_data.append('listing_type', listing_type);

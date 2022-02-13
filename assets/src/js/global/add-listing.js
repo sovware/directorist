@@ -435,7 +435,7 @@ $('body').on('submit', formID, function (e) {
     form_data.append('directorist_nonce',  atbdp_public_data.directorist_nonce );
 
     let field_list = [];
-    let field_list2 = [];
+    let checked_checkbox = [];
     $('.directorist-form-submit__btn').addClass('atbd_loading');
     const fieldValuePairs   = $('#directorist-add-listing-form').serializeArray();
     const frm_element       = document.getElementById ('directorist-add-listing-form');
@@ -461,17 +461,9 @@ $('body').on('submit', formID, function (e) {
                             }
                         } else if (field_type === 'checkbox') {
                             const new_field = $('input[name^="' + name + '"]:checked');
-                            if (new_field.length > 1) {
-                                new_field.each(function () {
-                                    const name = $(this).attr('name');
-                                    const value = $(this).val();
-                                    form_data.append(name, value);
-                                });
-                            } else {
-                                var name = new_field.attr('name');
-                                var value = new_field.val();
-                                form_data.append(name, value);
-                            }
+                            checked_checkbox.push( new_field );
+                            return false;
+
                         } else {
                             var name = $(this).attr('name');
                             var value = $(this).val();
@@ -481,6 +473,7 @@ $('body').on('submit', formID, function (e) {
                             form_data.append(name, value);
                         }
                     });
+
                 } else {
                     const name = ele.attr('name');
                     const value = ele.val();
@@ -489,12 +482,23 @@ $('body').on('submit', formID, function (e) {
                 }
             }
         } else {
-            //  field_list2.push({ nam: name, val: value, field: field, type: type})
             setup_form_data(form_data, type, field);
         }
     });
 
-    // console.log( field_list2 );
+    if (checked_checkbox.length > 1) {
+        checked_checkbox[0].each(function () {
+            const name = $(this).attr('name');
+            const value = $(this).val();
+            form_data.append(name, value);            
+        });
+    } else {
+        var name = checked_checkbox[0].attr('name');
+        var value = checked_checkbox[0].val();
+        form_data.append(name, value);
+    }
+
+    // console.log( checked_checkbox );
     // return;
     // images
 

@@ -4073,35 +4073,35 @@ msgstr ""
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:97, ../includes/classes/class-updater-notice.php:123
+#: ../includes/classes/class-updater-notice.php:99, ../includes/classes/class-updater-notice.php:125
 msgid "Directorist data update"
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:97
+#: ../includes/classes/class-updater-notice.php:99
 msgid "We need to update your directory database to the latest version."
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:101
+#: ../includes/classes/class-updater-notice.php:103
 msgid "Run the updater"
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:107
+#: ../includes/classes/class-updater-notice.php:109
 msgid "It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?"
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:123
+#: ../includes/classes/class-updater-notice.php:125
 msgid "Your database is being updated in the background."
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:125
+#: ../includes/classes/class-updater-notice.php:127
 msgid "Taking a while? Click here to run it now."
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:138
+#: ../includes/classes/class-updater-notice.php:140
 msgid "Dismiss"
 msgstr ""
 
-#: ../includes/classes/class-updater-notice.php:140
+#: ../includes/classes/class-updater-notice.php:142
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 

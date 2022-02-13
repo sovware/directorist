@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5
+ * @version 7.1.1
  */
 ?>
 
@@ -58,7 +58,7 @@
 						<?php
 					}
 
-					if ( ! empty( $address ) ) { ?>
+					if ( ! empty( $ls_data['address'] ) ) { ?>
 						<?php if ( ! empty( $display_address_map ) ) { ?>
 							<div class="map_addr"><span class="<?php atbdp_icon_type( true );?>-map-marker"></span> <a href="" class="map-info-link"><?php echo $ls_data['address']; ?></a></div>
 							<?php

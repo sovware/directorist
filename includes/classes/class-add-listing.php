@@ -630,7 +630,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $states = [];
                     $states['monetization_is_enable'] = get_directorist_option('enable_monetization');
                     $states['featured_enabled']       = $featured_enabled;
-                    $states['listing_is_featured']    = ('featured' === $info['listing_type'] ) ? true : false;
+                    $states['listing_is_featured']    = ( ! empty( $info['listing_type'] ) && ( 'featured' === $info['listing_type'] ) ) ? true : false;
                     $states['is_monetizable']         = ( $states['monetization_is_enable'] && $states['featured_enabled'] && $states['listing_is_featured'] ) ? true : false;
 
                     if ( $states['is_monetizable'] ) {

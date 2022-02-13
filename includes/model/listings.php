@@ -1692,6 +1692,40 @@ class Listings {
 		return get_post_meta( get_the_ID(), '_manual_lng', true );
 	}
 
+	public function map_base_lat_long() {
+		$query = $this->get_query();
+
+		if ( !empty( $query->posts[0] ) ) {
+			$id   = $query->posts[0]->ID;
+			$lat_long = [
+				'lat' => get_post_meta( $id, '_manual_lat', true ),
+				'lon' => get_post_meta( $id, '_manual_lng', true ),
+			];
+		} else {
+			$lat_long = [
+				'lat' => get_directorist_option( 'default_latitude', 40.7127753 ),
+				'lon' => get_directorist_option( 'default_longitude', -74.0059728 ),
+			];
+		}
+
+		return $lat_long;
+	}
+
+	public function loop_map_cat_icon() {
+		$cats      = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+
+		if ( !empty( $cats ) ) {
+			$cat_icon = get_cat_icon( $cats[0]->term_id );
+		}
+		
+		$cat_icon  = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+		$icon_type = substr($cat_icon, 0,2);
+		$fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
+		$cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+
+		return $cat_icon;
+	}
+
 	public function loop_map_direction_url() {
 		return sprintf( 'http://www.google.com/maps?daddr=%s,%s', $this->loop_map_latitude(), $this->loop_map_longitude() );
 	}
@@ -1738,6 +1772,7 @@ class Listings {
 		<?php
 		$map_card_data = $this->get_osm_map_info_card_data();
 
+
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
 		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
@@ -1768,6 +1803,38 @@ class Listings {
 		$opt['map_is_disabled'] = $map_is_disabled;
 
 		return apply_filters( 'atbdp_map_options', $opt );
+	}
+
+	public function openstreet_map_card_data() {
+
+		if ( !$this->display_map_card_window() ) {
+			return [];
+		}
+		
+		if ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
+			return [];
+		}
+
+		$map_data = [];
+
+		$query = $this->get_query();
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$map_data[] = [
+					'info_content' => Helper::get_template_contents( 'archive/openstreet-map-card' ),
+					'manual_lat' => $this->loop_map_latitude(),
+					'manual_lng' => $this->loop_map_longitude(),
+					'cat_icon' => $this->loop_map_cat_icon(),
+				];
+			}
+		}
+
+		wp_reset_postdata();
+
+		return $map_data;
 	}
 
 	public function get_osm_map_info_card_data() {
@@ -1832,7 +1899,7 @@ class Listings {
 				// 	Helper::get_template( 'archive/openstreet-map', $opt );
 				// }
 
-				Helper::get_template( 'archive/openstreet-map', $opt );
+				Helper::get_template( 'archive/openstreet-map-card', $opt );
 
 				$ls_data['info_content'] = ob_get_clean();
 

@@ -110,6 +110,42 @@
             });
         }
     });
+    
+    $('body').on('change', '.directorist-category-select', function(event) {
+        var listing_type = $('#listing_type').val();
+        var cat_id       = $(this).val();
+        var form_data = new FormData();
+        var custom_field = $('.directorist-category-select option[value='+cat_id+']').attr("data-custom-field");
+        /* if( ! custom_field ){
+          return;
+        } */
+        $('.directorist-search-form-box').addClass('atbdp-form-fade');
+        form_data.append('action', 'directorist_category_custom_field_search');
+        form_data.append('listing_type', listing_type);
+        form_data.append('cat_id', cat_id);
+        $.ajax({
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          url: atbdp_search.ajax_url,
+          data: form_data,
+          success: function success(response) {
+            if (response) {
+              $('.directorist-search-form-box').empty().html(response['search_form']);
+            }
+             $('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
+             $('.directorist-category-select option').attr("data-custom-field", 1);
+            var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
+              events.forEach(function (event) {
+                document.body.dispatchEvent(event);
+              });
+              $('.directorist-search-form-box').removeClass('atbdp-form-fade');
+          },
+          error: function error(_error) {
+            console.log(_error);
+          }
+        });
+      })
 
     // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {

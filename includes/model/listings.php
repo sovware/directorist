@@ -1731,6 +1731,10 @@ class Listings {
 		return get_directorist_option( 'display_direction_map', true );
 	}
 
+	public function default_lat_long_forced() {
+		return get_directorist_option( 'use_def_lat_long', true );
+	}
+
 	public function map_base_lat_long() {
 		$query = $this->get_query();
 
@@ -1772,30 +1776,6 @@ class Listings {
 		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}
 
-	public function get_map_options() {
-		$opt['select_listing_map']    		= $this->map_type();
-		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );
-		$opt['crop_height']           		= get_directorist_option( 'crop_height', 360 );
-		$opt['display_map_info']      		= get_directorist_option( 'display_map_info', true );
-		$opt['display_image_map']     		= get_directorist_option( 'display_image_map', true );
-		$opt['display_title_map']     		= get_directorist_option( 'display_title_map', true );
-		$opt['display_address_map']   		= get_directorist_option( 'display_address_map', true );
-		$opt['display_direction_map'] 		= get_directorist_option( 'display_direction_map', true );
-		$opt['zoom']                  		= $this->map_zoom_level();
-		$opt['default_image']         		= get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
-		$opt['default_lat']           		= get_directorist_option( 'default_latitude', 40.7127753 );
-		$opt['default_long']          		= get_directorist_option( 'default_longitude', -74.0059728 );
-		$opt['use_def_lat_long']   			= get_directorist_option( 'use_def_lat_long', true );
-		$opt['font_type']                   = get_directorist_option( 'font_type','line' );
-
-		$opt['disable_single_listing'] = $this->disable_single_listing();
-
-		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
-		$opt['map_is_disabled'] = $map_is_disabled;
-
-		return apply_filters( 'atbdp_map_options', $opt );
-	}
-
 	public function openstreet_map_card_data() {
 
 		if ( !$this->display_map_card_window() ) {
@@ -1828,35 +1808,42 @@ class Listings {
 		return $map_data;
 	}
 
-	public function google_map_card_data() {
-		if ( !$this->display_map_card_window() ) {
-			return [];
-		}
-		
-		if ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
-			return [];
-		}
+	public function load_google_map3() {
+		wp_enqueue_script('directorist-map-view');
+		$data = array(
+			'plugin_url'          => ATBDP_URL,
+			'disable_info_window' => $this->display_map_card_window(),
+			'zoom'                => $this->map_zoom_level(),
+			'default_latitude'    => $this->loop_map_latitude(),
+			'default_longitude'   => $this->loop_map_longitude(),
+			'use_def_lat_long'    => $this->default_lat_long_forced(),
+		);
 
-		$map_data = [];
+		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
+		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
+		?>
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->map_height())? $this->map_height(): ''; ?>px;">
+			<?php
+				$query = $this->get_query();
 
-		$query = $this->get_query();
+				if ( !$this->display_map_card_window() ) {
+					
+				} elseif ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
+					
+				} else {
+					if ( $query->have_posts() ) {
+						while ( $query->have_posts() ) {
+							$query->the_post();
+							Helper::get_template( 'archive/google-map-card' );
+						}
+					}
+	
+					wp_reset_postdata();
+				}
+			?>
+		</div>
+		<?php
 
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-
-				$map_data[] = [
-					// 'info_content' => Helper::get_template_contents( 'archive/openstreet-map-card' ),
-					// 'manual_lat' => $this->loop_map_latitude(),
-					// 'manual_lng' => $this->loop_map_longitude(),
-					// 'cat_icon' => $this->loop_map_cat_icon(),
-				];
-			}
-		}
-
-		wp_reset_postdata();
-
-		return $map_data;
 	}
 
 	public function load_google_map() {
@@ -1942,6 +1929,30 @@ class Listings {
 				wp_reset_postdata();
 			}
 		echo "</div>";
+	}
+
+	public function get_map_options() {
+		$opt['select_listing_map']    		= $this->map_type();
+		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );
+		$opt['crop_height']           		= get_directorist_option( 'crop_height', 360 );
+		$opt['display_map_info']      		= get_directorist_option( 'display_map_info', true );
+		$opt['display_image_map']     		= get_directorist_option( 'display_image_map', true );
+		$opt['display_title_map']     		= get_directorist_option( 'display_title_map', true );
+		$opt['display_address_map']   		= get_directorist_option( 'display_address_map', true );
+		$opt['display_direction_map'] 		= get_directorist_option( 'display_direction_map', true );
+		$opt['zoom']                  		= $this->map_zoom_level();
+		$opt['default_image']         		= get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
+		$opt['default_lat']           		= get_directorist_option( 'default_latitude', 40.7127753 );
+		$opt['default_long']          		= get_directorist_option( 'default_longitude', -74.0059728 );
+		$opt['use_def_lat_long']   			= get_directorist_option( 'use_def_lat_long', true );
+		$opt['font_type']                   = get_directorist_option( 'font_type','line' );
+
+		$opt['disable_single_listing'] = $this->disable_single_listing();
+
+		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
+		$opt['map_is_disabled'] = $map_is_disabled;
+
+		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
 	public function parse_query_args() {

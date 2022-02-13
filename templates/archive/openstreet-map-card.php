@@ -44,7 +44,7 @@ $listings = directorist()->listings;
 
 					<span class="<?php atbdp_icon_type( true ); ?>-map-marker"></span>
 
-					<a href="./" class="map-info-link"><?php echo esc_html( $listings->loop_map_address() ); ?></a>
+					<span><?php echo esc_html( $listings->loop_map_address() ); ?></span>
 
 				</div>
 				
@@ -65,4 +65,5 @@ $listings = directorist()->listings;
 		<?php endif; ?>
 
 	</div>
+	
 </div>

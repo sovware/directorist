@@ -24,52 +24,51 @@ $listings = directorist()->listings;
 
 		<?php endif; ?>
 
-		<?php if ( ! empty( $display_title_map ) || ! empty( $display_address_map ) || ! empty( $display_direction_map ) ): ?>
+		<div class="map-info-details">
 
-			<div class="map-info-details">
+			<?php if ( $listings->display_map_title() ): ?>
 
-				<?php if ( $listings->display_map_title() ): ?>
+				<div class="atbdp-listings-title-block">
+					<h3 class="atbdp-no-margin">
+						
+						<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( get_the_title() ) : get_the_title(); ?>
 
-					<div class="atbdp-listings-title-block">
-						<h3 class="atbdp-no-margin">
-							
-							<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( get_the_title() ) : get_the_title(); ?>
+					</h3>
+				</div>
 
-						</h3>
+			<?php endif; ?>
+
+			<?php if ( $listings->loop_map_address() ): ?>
+
+				<?php if ( $listings->display_map_address() ): ?>
+
+					<div class="map_addr">
+
+						<span class="<?php atbdp_icon_type( true );?>-map-marker"></span>
+
+						<span><?php echo esc_html( $listings->loop_map_address() ); ?></span>
+						
 					</div>
 
 				<?php endif; ?>
 
-				<?php if ( $listings->loop_map_address() ): ?>
+				<?php if ( $listings->display_map_direction() ): ?>
 
-					<?php if ( $listings->display_map_address() ): ?>
+					<div class="map_get_dir">
 
-						<div class="map_addr">
-							<span class="<?php atbdp_icon_type( true );?>-map-marker"></span>
-							<a href="" class="map-info-link"><?php echo esc_html( $listings->loop_map_address() ); ?></a>
-						</div>
+						<a href="<?php echo esc_url( $listings->loop_map_direction_url() )?>" target="_blank"><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
 
-					<?php endif; ?>
+						<span class="<?php atbdp_icon_type( true );?>-arrow-right"></span>
 
-					<?php if ( $listings->display_map_direction() ): ?>
-
-						<div class="map_get_dir">
-
-							<a href="<?php echo esc_url( $listings->loop_map_direction_url() )?>" target="_blank"><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
-
-							<span class="<?php atbdp_icon_type( true );?>-arrow-right"></span>
-
-						</div>
-
-					<?php endif; ?>
+					</div>
 
 				<?php endif; ?>
 
-			</div>
+			<?php endif; ?>
 
-		<?php endif; ?>>
+		</div>
 
-		<span class="iw-close-btn"><i class="la la-times"></i></span>
+		<span class="iw-close-btn"><i class="<?php atbdp_icon_type( true );?>-times"></i></span>
 
 	</div>
 

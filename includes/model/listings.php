@@ -1695,8 +1695,8 @@ class Listings {
 	public function map_base_lat_long() {
 		$query = $this->get_query();
 
-		if ( !empty( $query->posts[0] ) ) {
-			$id   = $query->posts[0]->ID;
+		if ( !empty( $query->posts ) ) {
+			$id   = $query->posts[0];
 			$lat_long = [
 				'lat' => get_post_meta( $id, '_manual_lat', true ),
 				'lon' => get_post_meta( $id, '_manual_lng', true ),
@@ -1712,12 +1712,12 @@ class Listings {
 	}
 
 	public function loop_map_cat_icon() {
-		$cats      = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+		$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
 
 		if ( !empty( $cats ) ) {
 			$cat_icon = get_cat_icon( $cats[0]->term_id );
 		}
-		
+	
 		$cat_icon  = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
 		$icon_type = substr($cat_icon, 0,2);
 		$fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
@@ -1757,7 +1757,6 @@ class Listings {
 	public function render_map() {
 		if ( $this->map_type() == 'openstreet' ) {
 			$this->load_openstreet_map_data();
-			// Helper::get_template( 'archive/openstreet-map' );
 		}
 		elseif( $this->map_type() == 'google' ) {
 			$this->load_google_map();
@@ -1770,13 +1769,10 @@ class Listings {
 		?>
 		<div id="map" style="width: 100%; height: <?php echo esc_attr( $this->map_height() );?>px;"></div>
 		<?php
-		$map_card_data = $this->get_osm_map_info_card_data();
-
-
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
+		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long() );
+		Helper::add_hidden_data_to_dom( 'listings_data', $this->openstreet_map_card_data() );
 
 		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}

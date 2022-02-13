@@ -40,7 +40,7 @@ function initSelect2() {
     const lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
     if ( lazy_load_taxonomy_fields ) {
         // Init Select2 Ajax Fields
-       // initSelect2AjaxFields();
+        initSelect2AjaxFields();
     }
 }
 

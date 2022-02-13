@@ -56,6 +56,7 @@ $listings = directorist()->listings;
 						<div class="map_get_dir">
 
 							<a href="<?php echo esc_url( $listings->loop_map_direction_url() )?>" target="_blank"><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
+
 							<span class="<?php atbdp_icon_type( true );?>-arrow-right"></span>
 
 						</div>
@@ -64,13 +65,12 @@ $listings = directorist()->listings;
 
 				<?php endif; ?>
 
-				<?php do_action( 'atbdp_after_listing_content', $ls_data['post_id'], 'map' );?>
 			</div>
 
 		<?php endif; ?>>
 
 		<span class="iw-close-btn"><i class="la la-times"></i></span>
-		
+
 	</div>
 
 </div>

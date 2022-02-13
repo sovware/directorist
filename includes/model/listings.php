@@ -1828,6 +1828,37 @@ class Listings {
 		return $map_data;
 	}
 
+	public function google_map_card_data() {
+		if ( !$this->display_map_card_window() ) {
+			return [];
+		}
+		
+		if ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
+			return [];
+		}
+
+		$map_data = [];
+
+		$query = $this->get_query();
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$map_data[] = [
+					// 'info_content' => Helper::get_template_contents( 'archive/openstreet-map-card' ),
+					// 'manual_lat' => $this->loop_map_latitude(),
+					// 'manual_lng' => $this->loop_map_longitude(),
+					// 'cat_icon' => $this->loop_map_cat_icon(),
+				];
+			}
+		}
+
+		wp_reset_postdata();
+
+		return $map_data;
+	}
+
 	public function load_google_map() {
 		wp_enqueue_script('directorist-map-view');
 
@@ -1902,7 +1933,7 @@ class Listings {
 
 					if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
 						$opt['ls_data'] = $ls_data;
-						Helper::get_template( 'archive/google-map', $opt );
+						Helper::get_template( 'archive/google-map-card', $opt );
 					}
 
 				endforeach;

@@ -36,22 +36,21 @@ $listings = directorist()->listings;
 
 		<?php endif; ?>
 
-		<?php if ( $listings->loop_map_address() ) {
+		<?php if ( $listings->loop_map_address() ): ?>
 
-			if ( $listings->display_map_address() ) { ?>
+			<?php if ( $listings->display_map_address() ): ?>
 
 				<div class="osm-iw-location">
 
 					<span class="<?php atbdp_icon_type( true ); ?>-map-marker"></span>
 
-					<a href="./" class="map-info-link"><?php echo $listings->loop_map_address(); ?></a>
+					<a href="./" class="map-info-link"><?php echo esc_html( $listings->loop_map_address() ); ?></a>
 
 				</div>
 				
-				<?php
-			}
+			<?php endif; ?>
 
-			if ( $listings->display_map_direction() ) { ?>
+			<?php if ( $listings->display_map_direction() ): ?>
 
 				<div class="osm-iw-get-location">
 
@@ -61,9 +60,9 @@ $listings = directorist()->listings;
 
 				</div>
 
-				<?php
-			}
-		}
-		?>
+			<?php endif; ?>
+
+		<?php endif; ?>
+
 	</div>
 </div>

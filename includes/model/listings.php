@@ -1731,6 +1731,14 @@ class Listings {
 		return get_directorist_option( 'display_direction_map', true );
 	}
 
+	public function default_latitude() {
+		return get_directorist_option( 'default_latitude', 40.7127753 );
+	}
+
+	public function default_longitude() {
+		return get_directorist_option( 'default_longitude', -74.0059728 );
+	}
+
 	public function default_lat_long_forced() {
 		return get_directorist_option( 'use_def_lat_long', true );
 	}
@@ -1808,20 +1816,21 @@ class Listings {
 		return $map_data;
 	}
 
-	public function load_google_map3() {
+	public function load_google_map() {
 		wp_enqueue_script('directorist-map-view');
 		$data = array(
 			'plugin_url'          => ATBDP_URL,
-			'disable_info_window' => $this->display_map_card_window(),
+			'disable_info_window' => $this->display_map_card_window() ? 'no' : 'yes',
 			'zoom'                => $this->map_zoom_level(),
-			'default_latitude'    => $this->loop_map_latitude(),
-			'default_longitude'   => $this->loop_map_longitude(),
+			'default_latitude'    => $this->default_latitude(),
+			'default_longitude'   => $this->default_longitude(),
 			'use_def_lat_long'    => $this->default_lat_long_forced(),
 		);
 
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		?>
+		
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->map_height())? $this->map_height(): ''; ?>px;">
 			<?php
 				$query = $this->get_query();
@@ -1844,91 +1853,6 @@ class Listings {
 		</div>
 		<?php
 
-	}
-
-	public function load_google_map() {
-		wp_enqueue_script('directorist-map-view');
-
-		$opt = $this->get_map_options();
-		$disable_info_window = 'no';
-
-		if (empty($opt['display_map_info'])) {
-			$disable_info_window = 'yes';
-		}
-		elseif (empty($opt['display_image_map'] || $opt['display_title_map'] || $opt['display_address_map'] || $opt['display_direction_map'])){
-			$disable_info_window = 'yes';
-		}
-
-		$data = array(
-			'plugin_url'          => ATBDP_URL,
-			'disable_info_window' => $disable_info_window,
-			'zoom'                => $opt['zoom'],
-			'default_latitude'    => $opt['default_lat'],
-			'default_longitude'   => $opt['default_long'],
-			'use_def_lat_long'    => $opt['use_def_lat_long'],
-		);
-
-		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
-		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
-
-		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->map_height())?$this->map_height():'';?>px;">
-			<?php
-
-			if ( $this->query->have_posts() ) {
-				// Prime caches to reduce future queries.
-				if ( is_callable( '_prime_post_caches' ) ) {
-					_prime_post_caches( $this->post_ids() );
-				}
-
-				$original_post = $GLOBALS['post'];
-
-				foreach ( $this->post_ids() as $listings_id ) :
-					$GLOBALS['post'] = get_post( $listings_id );
-					setup_postdata( $GLOBALS['post'] );
-					$ls_data = [];
-
-					$ls_data['post_id']         = $listings_id;
-					$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
-					$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
-					$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
-					$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
-					$ls_data['crop_width']      = $opt['crop_width'];
-					$ls_data['crop_height']     = $opt['crop_height'];
-					$ls_data['address']         = get_post_meta($listings_id, '_address', true);
-					$ls_data['font_type']       = $opt['font_type'];
-					$ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
-					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
-
-					if(!empty($ls_data['cats'])){
-						$cat_icon = get_cat_icon($ls_data['cats'][0]->term_id);
-					}
-
-					$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-					$icon_type = substr($cat_icon, 0,2);
-					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
-
-					if (!empty($ls_data['listing_prv_img'])) {
-						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
-					}
-
-					if (!empty($ls_data['listing_img'][0])) {
-						$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
-					}
-
-					if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
-						$opt['ls_data'] = $ls_data;
-						Helper::get_template( 'archive/google-map-card', $opt );
-					}
-
-				endforeach;
-
-				$GLOBALS['post'] = $original_post;
-				wp_reset_postdata();
-			}
-		echo "</div>";
 	}
 
 	public function get_map_options() {

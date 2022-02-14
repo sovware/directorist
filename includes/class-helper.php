@@ -5,6 +5,7 @@
 
 namespace Directorist;
 
+use wpWax\Directorist\Settings;
 use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -599,15 +600,18 @@ class Helper {
 	}
 
 	public static function new_badge_text() {
-		return get_directorist_option('new_badge_text', 'New');
+		_deprecated_function( 'new_badge_text', '7.1.2', 'Settings::new_badge_text' );
+		return Settings::new_badge_text();
 	}
 
 	public static function popular_badge_text() {
-		return get_directorist_option('popular_badge_text', 'Popular');
+		_deprecated_function( 'popular_badge_text', '7.1.2', 'Settings::popular_badge_text' );
+		return Settings::popular_badge_text();
 	}
 
 	public static function featured_badge_text() {
-		return get_directorist_option('feature_badge_text', 'Featured');
+		_deprecated_function( 'featured_badge_text', '7.1.2', 'Settings::featured_badge_text' );
+		return Settings::featured_badge_text();
 	}
 
 	public static function builder_selected_single_pages() {

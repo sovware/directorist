@@ -17,5 +17,16 @@ class Settings {
 		return get_directorist_option( 'enable_multi_directory', false );
 	}
 
+	public static function new_badge_text() {
+		return get_directorist_option( 'new_badge_text', 'New' );
+	}
+
+	public static function popular_badge_text() {
+		return get_directorist_option( 'popular_badge_text', 'Popular' );
+	}
+
+	public static function featured_badge_text() {
+		return get_directorist_option( 'feature_badge_text', 'Featured' );
+	}
 
 }

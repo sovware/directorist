@@ -1365,10 +1365,12 @@ class Listings {
 	 *
 	 * @param  array $field
 	 */
-	public function card_field_html( $field ) {
+	public function card_field_html() {
+		$field = self::$current_field;
+
 		// For badges, load badge template
 		if ( $field['type'] == 'badge' ) {
-			$this->render_badge_template( $field );
+			$this->render_badge_template();
 		} else {
 			$form_field = $this->get_form_field_data();
 
@@ -1621,15 +1623,15 @@ class Listings {
 		return !empty( $field['align'] ) ? $field['align'] : '' ;
 	}
 
-	public function render_badge_template( $field ) {
+	public function render_badge_template() {
+		$field = self::$current_field;
+
 		$id = get_the_ID();
 
-		do_action( 'atbdp_all_listings_badge_template', $field );
-
-		switch ($field['widget_key']) {
+		switch ( $field['widget_key'] ) {
 			case 'popular_badge':
 			$field['class'] = 'popular';
-			$field['label'] = Helper::popular_badge_text();
+			$field['label'] = Settings::popular_badge_text();
 			if ( Helper::is_popular( $id ) ) {
 				Helper::get_template( 'archive/fields/badge', $field );
 			}
@@ -1637,7 +1639,7 @@ class Listings {
 
 			case 'featured_badge':
 			$field['class'] = 'featured';
-			$field['label'] = Helper::featured_badge_text();
+			$field['label'] = Settings::featured_badge_text();
 			if ( Helper::is_featured( $id ) ) {
 				Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 			}
@@ -1645,7 +1647,7 @@ class Listings {
 
 			case 'new_badge':
 			$field['class'] = 'new';
-			$field['label'] = Helper::new_badge_text();
+			$field['label'] = Settings::new_badge_text();
 			if ( Helper::is_new( $id ) ) {
 				Helper::get_template( 'archive/fields/badge', $field );
 			}

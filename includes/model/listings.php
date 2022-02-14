@@ -280,8 +280,7 @@ class Listings {
 	 */
 	public function directory_type_nav_template() {
 		$count = count( $this->allowed_directory_types() );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+		if ( $count > 1 && Settings::is_multi_directory_enabled() ) {
 			Helper::get_template( 'archive/directory-type-nav' );
 		}
 	}
@@ -1696,8 +1695,8 @@ class Listings {
 			];
 		} else {
 			$lat_long = [
-				'lat' => get_directorist_option( 'default_latitude', 40.7127753 ),
-				'lon' => get_directorist_option( 'default_longitude', -74.0059728 ),
+				'lat' => Settings::map_default_latitude(),
+				'lon' => Settings::map_default_longitude(),
 			];
 		}
 

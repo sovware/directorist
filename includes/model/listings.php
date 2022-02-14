@@ -858,15 +858,6 @@ class Listings {
 	}
 
 	/**
-	 * Listing map type.
-	 *
-	 * @return string Possible values: google, openstreet.
-	 */
-	public function map_type() {
-		return get_directorist_option( 'select_listing_map', 'google' );
-	}
-
-	/**
 	 * Search Filter opening behaviour.
 	 *
 	 * @return string Possible values: overlapping, sliding, always_open.
@@ -1041,24 +1032,6 @@ class Listings {
 	}
 
 	/**
-	 * Display each info in single line or not.
-	 *
-	 * @return bool
-	 */
-	public function display_info_in_single_line() {
-		return get_directorist_option( 'info_display_in_single_line', false );
-	}
-
-	/**
-	 * Single listing view disabled or not.
-	 *
-	 * @return bool
-	 */
-	public function disable_single_listing() {
-		return get_directorist_option( 'disable_single_listing', false );
-	}
-
-	/**
 	 * @return array
 	 */
 	public function allowed_directory_types() {
@@ -1175,7 +1148,7 @@ class Listings {
 			$class[] = 'directorist-featured';
 		}
 
-		if ( $this->display_info_in_single_line() ) {
+		if ( Settings::display_card_info_in_single_line() ) {
 			$class[] = 'directorist-single-line';
 		}
 
@@ -1732,10 +1705,10 @@ class Listings {
 	}
 
 	public function render_map() {
-		if ( $this->map_type() == 'openstreet' ) {
+		if ( Settings::map_type() == 'openstreet' ) {
 			$this->load_openstreet_map();
 		}
-		elseif( $this->map_type() == 'google' ) {
+		elseif( Settings::map_type() == 'google' ) {
 			$this->load_google_map();
 		}
 	}
@@ -1825,7 +1798,7 @@ class Listings {
 	}
 
 	public function get_map_options() {
-		$opt['select_listing_map']    		= $this->map_type();
+		$opt['select_listing_map']    		= Settings::map_type();
 		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );
 		$opt['crop_height']           		= get_directorist_option( 'crop_height', 360 );
 		$opt['display_map_info']      		= get_directorist_option( 'display_map_info', true );
@@ -1840,7 +1813,7 @@ class Listings {
 		$opt['use_def_lat_long']   			= get_directorist_option( 'use_def_lat_long', true );
 		$opt['font_type']                   = get_directorist_option( 'font_type','line' );
 
-		$opt['disable_single_listing'] = $this->disable_single_listing();
+		$opt['disable_single_listing'] = Settings::disable_single_listing();
 
 		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
 		$opt['map_is_disabled'] = $map_is_disabled;

@@ -20,7 +20,7 @@ $listings = directorist()->listings;
 
 			<div class="map-info-img">
 
-				<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( $listings->loop_get_the_thumbnail() ) : $listings->loop_get_the_thumbnail(); ?>
+				<?php echo !Settings::disable_single_listing() ? $listings->loop_wrap_permalink( $listings->loop_get_the_thumbnail() ) : $listings->loop_get_the_thumbnail(); ?>
 
 			</div>
 
@@ -33,7 +33,7 @@ $listings = directorist()->listings;
 				<div class="atbdp-listings-title-block">
 					<h3 class="atbdp-no-margin">
 						
-						<?php echo !$listings->disable_single_listing() ? $listings->loop_wrap_permalink( get_the_title() ) : get_the_title(); ?>
+						<?php echo !Settings::disable_single_listing() ? $listings->loop_wrap_permalink( get_the_title() ) : get_the_title(); ?>
 
 					</h3>
 				</div>

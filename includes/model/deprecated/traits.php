@@ -8,6 +8,8 @@
 
 namespace wpWax\Directorist\Model;
 
+use wpWax\Directorist\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait Deprecated_Listings {
@@ -36,7 +38,7 @@ trait Deprecated_Listings {
 
 	public function select_listing_map() {
 		_deprecated_function( 'select_listing_map', '7.1.2', 'map_type' );
-		return $this->map_type();
+		return Settings::map_type();
 	}
 
 	public function filters_display() {
@@ -96,7 +98,7 @@ trait Deprecated_Listings {
 
 	public function has_featured() {
 		_deprecated_function( 'has_featured', '7.1.2', 'monetize_by_featued_enabled' );
-		return monetize_by_featued_enabled();
+		return $this->monetize_by_featued_enabled();
 	}
 
 	public function get_sort_by_link_list() {

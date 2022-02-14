@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait Map {
 
+	public static function map_type() {
+		return get_directorist_option( 'select_listing_map', 'google' );
+	}
+
 	public static function display_map_card_window() {
 		return get_directorist_option( 'display_map_info', true );
 	}

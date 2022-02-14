@@ -5,11 +5,13 @@
  * @version 6.7
  */
 
+use wpWax\Directorist\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
 
-if ( !$listings->disable_single_listing() ) {
+if ( !Settings::disable_single_listing() ) {
 	echo '<a href="'.esc_url( $listings->loop_get_permalink() ).'">';
 }
 ?>
@@ -31,6 +33,6 @@ if ( !$listings->disable_single_listing() ) {
 </div>
 
 <?php
-if ( !$listings->disable_single_listing() ) {
+if ( !Settings::disable_single_listing() ) {
 	echo '</a>';
 }

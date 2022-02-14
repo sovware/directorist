@@ -372,7 +372,7 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		$category_custom_field = array( 
+		$category_custom_field = array(
 			'custom_field_key'	=> $custom_field_key,
 			'assign_to_cat'		=> $assign_to_cat,
 		);

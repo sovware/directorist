@@ -1672,7 +1672,8 @@ Please remember that your order may be canceled if you do not make your payment 
                         'popular',
                         'price_low_high',
                         'price_high_low',
-                        'random'
+                        'random',
+                        'distance',
                         ],
                     'options' => [
                         [
@@ -1706,6 +1707,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         [
                             'value' => 'random',
                             'label' => __('Random listings', 'directorist'),
+                        ],
+                        [
+                            'value' => 'distance',
+                            'label' => __('Distance', 'directorist'),
                         ],
                     ],
                 ],
@@ -3097,7 +3102,8 @@ Please remember that your order may be canceled if you do not make your payment 
                         'popular',
                         'price_low_high',
                         'price_high_low',
-                        'random'
+                        'random',
+                        'distance',
                     ],
                     'options' => [
                         [
@@ -3131,6 +3137,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         [
                             'value' => 'random',
                             'label' => __('Random listings', 'directorist'),
+                        ],
+						[
+                            'value' => 'distance',
+                            'label' => __('Distance', 'directorist'),
                         ],
                     ],
                 ],

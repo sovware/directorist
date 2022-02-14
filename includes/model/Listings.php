@@ -162,7 +162,7 @@ class Directorist_Listings {
 		$this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
-		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
+		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random', 'distance' ) );
 		$this->options['disable_list_price']              = get_directorist_option( 'disable_list_price' );
 		$this->options['listings_view_as_items']          = get_directorist_option( 'listings_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
@@ -221,7 +221,7 @@ class Directorist_Listings {
 		$this->options['view_as_text']                    = get_directorist_option( 'search_viewas_text', __( 'View As', 'directorist' ) );
 		$this->options['listings_view_as_items']          = get_directorist_option( 'search_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
 		$this->options['sort_by_text']                    = get_directorist_option( 'search_sortby_text', __( 'Sort By', 'directorist' ) );
-		$this->options['listings_sort_by_items']          = get_directorist_option( 'search_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
+		$this->options['listings_sort_by_items']          = get_directorist_option( 'search_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random', 'distance' ) );
 		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'search_order_listing_by', 'date' ) );
 		$this->options['sort_listing_by']                 = get_directorist_option( 'search_sort_listing_by', 'asc' );
 		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
@@ -419,7 +419,7 @@ class Directorist_Listings {
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
-		if ( 'rand' === $this->orderby ) {
+		if ( in_array( $this->orderby, [ 'rand', 'distance' ] ) ) {
 			$current_order = atbdp_get_listings_current_order( $this->orderby );
 		} else {
 			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
@@ -642,6 +642,14 @@ class Directorist_Listings {
 					$args['orderby']  = 'meta_value_num rand';
 				} else {
 					$args['orderby'] = 'rand';
+				}
+				break;
+			case 'distance':
+				if ( $this->has_featured ) {
+					$args['meta_key'] = '_featured';
+					$args['orderby']  = 'meta_value_num distance';
+				} else {
+					$args['orderby'] = 'distance';
 				}
 				break;
 		}

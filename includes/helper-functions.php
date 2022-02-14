@@ -6462,6 +6462,7 @@ function atbdp_get_listings_orderby_options($sort_by_items)
         'price-asc' => __("Price (low to high)", 'directorist'),
         'price-desc' => __("Price (high to low)", 'directorist'),
         'rand' => __("Random listings", 'directorist'),
+        'distance' => __("Distance", 'directorist'),
     );
     $sort_by_items 	= is_array( $sort_by_items ) ? $sort_by_items : [];
     if (!in_array('a_z', $sort_by_items)) {
@@ -6487,6 +6488,9 @@ function atbdp_get_listings_orderby_options($sort_by_items)
     }
     if (!in_array('random', $sort_by_items)) {
         unset($options['rand']);
+    }
+    if (!in_array('distance', $sort_by_items)) {
+        unset($options['distance']);
     }
     $args = array(
         'post_type'   => ATBDP_POST_TYPE,

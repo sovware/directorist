@@ -392,6 +392,13 @@ function initSelect2AjaxTaxonomy(args) {
     perPage: 10
   };
   args = _objectSpread(_objectSpread({}, defaultArgs), args);
+
+  if (!args.selector.length) {
+    return;
+  }
+
+  var parent = $(args.selector).closest('.directorist-search-form');
+  var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
   var currentPage = 1;
   $(args.selector).select2({
     allowClear: true,
@@ -411,6 +418,11 @@ function initSelect2AjaxTaxonomy(args) {
           page: currentPage,
           per_page: args.perPage
         };
+
+        if (directory_type_id) {
+          query.directory = directory_type_id;
+        }
+
         return query;
       },
       processResults: function processResults(data) {

@@ -8546,3 +8546,20 @@ function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
 function directorist_is_current_user_listing_author( $listing_id = null ) {
 	return directorist_is_listing_author( $listing_id, get_current_user_id() );
 }
+
+/**
+ * Check if the current theme is a block theme.
+ *
+ * @since x.x.x
+ * @return bool
+ */
+function directorist_current_theme_is_fse_theme() {
+	if ( function_exists( 'wp_is_block_theme' ) ) {
+		return (bool) wp_is_block_theme();
+	}
+	if ( function_exists( 'gutenberg_is_fse_theme' ) ) {
+		return (bool) gutenberg_is_fse_theme();
+	}
+
+	return false;
+}

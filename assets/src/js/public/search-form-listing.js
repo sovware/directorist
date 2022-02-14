@@ -119,7 +119,8 @@
         /* if( ! custom_field ){
           return;
         } */
-        const parent = $(this).closest('.directorist-search-contents');
+        const parent         = $(this).closest('.directorist-search-contents');
+        const searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
         parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
         form_data.append('action', 'directorist_category_custom_field_search');
         form_data.append('listing_type', listing_type);
@@ -132,7 +133,7 @@
           data: form_data,
           success: function success(response) {
             if (response) {
-              $('.directorist-search-form-box').empty().html(response['search_form']);
+              $(searchForm_box).empty().html(response['search_form']);
             }
              $('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
              $('.directorist-category-select option').attr("data-custom-field", 1);

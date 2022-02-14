@@ -15,7 +15,9 @@
 
 <div class="directorist-archive-adv-filter directorist-advanced-filter">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
-		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $searchform->listing_type; ?>'>
+	<?php if(get_directorist_option("enable_multi_directory")) {?>
+		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $searchform->listing_type; ?>'> <?php
+				} ?>
 		<div class="directorist-advanced-filter__basic">
 			<?php foreach ( $searchform->form_data[0]['fields'] as $field ): ?>
 				<div class="directorist-advanced-filter__basic--element"><?php $searchform->field_template( $field ); ?></div>

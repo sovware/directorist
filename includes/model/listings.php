@@ -1731,11 +1731,11 @@ class Listings {
 		return get_directorist_option( 'display_direction_map', true );
 	}
 
-	public function default_latitude() {
+	public function map_default_latitude() {
 		return get_directorist_option( 'default_latitude', 40.7127753 );
 	}
 
-	public function default_longitude() {
+	public function map_default_longitude() {
 		return get_directorist_option( 'default_longitude', -74.0059728 );
 	}
 
@@ -1822,8 +1822,8 @@ class Listings {
 			'plugin_url'          => ATBDP_URL,
 			'disable_info_window' => $this->display_map_card_window() ? 'no' : 'yes',
 			'zoom'                => $this->map_zoom_level(),
-			'default_latitude'    => $this->default_latitude(),
-			'default_longitude'   => $this->default_longitude(),
+			'default_latitude'    => $this->map_default_latitude(),
+			'default_longitude'   => $this->map_default_longitude(),
 			'use_def_lat_long'    => $this->default_lat_long_forced(),
 		);
 

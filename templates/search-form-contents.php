@@ -35,10 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form">
 
 			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
-
-				<?php $searchform->directory_type_nav_template(); ?>
-
-				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
+				
+			<?php if(get_directorist_option("enable_multi_directory")) {
+					$searchform->directory_type_nav_template();
+			?>
+				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>"> <?php
+				} ?>
 
 				<div class="directorist-search-form-box">
 

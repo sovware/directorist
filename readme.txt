@@ -40,6 +40,7 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
 Directorist Business Directory & Classified Listings is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allow you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.

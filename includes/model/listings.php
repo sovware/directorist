@@ -1369,8 +1369,8 @@ class Listings {
 		$field = self::$current_field;
 
 		// For badges, load badge template
-		if ( $field['type'] == 'badge' ) {
-			$this->render_badge_template();
+		if ( $field['type'] == 'badge' && $this->can_load_badge() ) {
+			Helper::get_template( 'archive/fields/badge' );
 		} else {
 			$form_field = $this->get_form_field_data();
 
@@ -1623,35 +1623,58 @@ class Listings {
 		return !empty( $field['align'] ) ? $field['align'] : '' ;
 	}
 
-	public function render_badge_template() {
-		$field = self::$current_field;
+	public function badge_text() {
+		$text = '';
 
-		$id = get_the_ID();
-
-		switch ( $field['widget_key'] ) {
+		switch ( self::$current_field['widget_key'] ) {
 			case 'popular_badge':
-			$field['class'] = 'popular';
-			$field['label'] = Settings::popular_badge_text();
-			if ( Helper::is_popular( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', $field );
-			}
-			break;
+				$text = Settings::popular_badge_text();
+				break;
 
 			case 'featured_badge':
-			$field['class'] = 'featured';
-			$field['label'] = Settings::featured_badge_text();
-			if ( Helper::is_featured( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
-			}
-			break;
+				$text = Settings::featured_badge_text();
+				break;
 
 			case 'new_badge':
-			$field['class'] = 'new';
-			$field['label'] = Settings::new_badge_text();
-			if ( Helper::is_new( $id ) ) {
-				Helper::get_template( 'archive/fields/badge', $field );
-			}
-			break;
+				$text = Settings::new_badge_text();
+				break;
+		}
+
+		return $text;
+	}
+
+	public function badge_class() {
+		$class = '';
+
+		switch ( self::$current_field['widget_key'] ) {
+			case 'popular_badge':
+				$class = 'popular';
+				break;
+
+			case 'featured_badge':
+				$class = 'featured';
+				break;
+
+			case 'new_badge':
+				$class = 'new';
+				break;
+		}
+
+		return $class;
+	}
+
+	public function can_load_badge() {
+		$field_type = self::$current_field['widget_key'];
+
+		if ( $field_type == 'popular_badge' && Helper::is_popular() ) {
+			return true;
+		} elseif( $field_type == 'featured_badge' && Helper::is_featured() ) {
+			return true;
+		} elseif( $field_type == 'new_badge' && Helper::is_new() ) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 

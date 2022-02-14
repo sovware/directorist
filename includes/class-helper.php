@@ -499,7 +499,11 @@ class Helper {
 		return $embeddable_url;
 	}
 
-	public static function is_popular( $listing_id ) {
+	public static function is_popular( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$listing_popular_by = get_directorist_option('listing_popular_by');
 		$average = ATBDP()->review->get_average($listing_id);
 		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
@@ -524,6 +528,14 @@ class Helper {
 		}
 	}
 
+	public static function is_featured( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
+		return get_post_meta( $listing_id, '_featured', true );
+	}
+
 	public static function badge_exists( $listing_id ) {
 		// @cache @kowsar
 		if ( self::is_new( $listing_id ) || self::is_featured( $listing_id ) || self::is_popular( $listing_id ) ) {
@@ -534,7 +546,11 @@ class Helper {
 		}
 	}
 
-	public static function is_new( $listing_id ) {
+	public static function is_new( $listing_id = '' ) {
+		if ( !$listing_id ) {
+			$listing_id = get_the_ID();
+		}
+
 		$post = get_post( $listing_id ); // @cache @kowsar
 		$new_listing_time = get_directorist_option('new_listing_day');
 		$each_hours = 60 * 60 * 24;
@@ -593,10 +609,6 @@ class Helper {
 
 	public static function is_review_enabled() {
 		return get_directorist_option( 'enable_review', 1 );
-	}
-
-	public static function is_featured( $listing_id ) {
-		return get_post_meta( $listing_id, '_featured', true );
 	}
 
 	public static function new_badge_text() {

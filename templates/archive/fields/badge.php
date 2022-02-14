@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$listings = directorist()->listings;
 ?>
 
-<span class="directorist-badge directorist-info-item directorist-badge-<?php echo esc_attr( $class )?>"><?php echo esc_html( $label );?></span>
+<span class="directorist-badge directorist-info-item directorist-badge-<?php echo esc_attr( $listings->badge_class() )?>"><?php echo esc_html( $listings->badge_text() );?></span>

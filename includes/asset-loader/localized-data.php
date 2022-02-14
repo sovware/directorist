@@ -10,17 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Localized_Data {
 
 	public static function load_localized_data() {
+        wp_localize_script( 'directorist-main-script',  'directorist', self::public_data() );
+        wp_localize_script( 'directorist-admin-script', 'directorist_admin', self::admin_data() );
+
 		// Public JS
 		wp_localize_script( 'directorist-main-script', 'atbdp_public_data', self::get_listings_data() );
 		wp_localize_script( 'directorist-main-script', 'directorist_options', self::directorist_options_data() );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', self::search_form_localized_data() );
-
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', self::search_listing_localized_data() );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', self::search_listing_localized_data() );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-			'ajax_url' => admin_url('admin-ajax.php'),
-		]);
+		wp_localize_script( 'directorist-search-listing', 'atbdp_search', self::search_listing_data());
 
 		// Admin JS
 		wp_localize_script( 'directorist-admin-script', 'atbdp_admin_data', self::get_admin_script_data() );
@@ -31,6 +30,37 @@ class Localized_Data {
 		wp_localize_script( 'directorist-settings-manager', 'ajax_data', self::admin_ajax_localized_data() );
 		wp_localize_script( 'directorist-import-export', 'import_export_data', self::admin_ajax_localized_data() );
 	}
+
+    public static function public_data() {
+        $data = [];
+
+        array_push( $data, self::get_listings_data() );
+        array_push( $data, self::directorist_options_data() );
+        array_push( $data, self::search_form_localized_data() );
+        array_push( $data, self::search_listing_localized_data() );
+        array_push( $data, self::search_listing_data() );
+
+        return $data;
+    }
+
+    public static function admin_data() {
+        $data = [];
+
+        array_push( $data, self::get_admin_script_data() );
+        array_push( $data, self::directorist_options_data() );
+        array_push( $data, self::get_listings_data() );
+        array_push( $data, self::admin_ajax_localized_data() );
+
+        return $data;
+    }
+
+    private static function search_listing_data() {
+        $data = [
+			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+			'ajax_url' => admin_url('admin-ajax.php'),
+        ];
+        return $data;
+    }
 
 	private static function search_listing_localized_data() {
 		return self::get_search_script_data([

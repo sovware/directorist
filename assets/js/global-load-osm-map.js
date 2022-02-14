@@ -170,12 +170,7 @@ function get_dom_data(key, parent) {
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    if (is_script_debugging) {
-      console.log({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (is_script_debugging) {//console.log({key,dataElm,error});
     }
 
     return '';

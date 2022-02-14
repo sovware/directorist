@@ -483,8 +483,10 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'settings-traits/' );
 
 		self::require_files([
+			ATBDP_INC_DIR . 'settings',
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
 			ATBDP_INC_DIR . 'template-functions',

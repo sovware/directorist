@@ -5,6 +5,8 @@
  * @version 7.1.1
  */
 
+use wpWax\Directorist\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $listings = directorist()->listings;
@@ -14,7 +16,7 @@ $listings = directorist()->listings;
 
 	<div class="map-info-wrapper" style="display:none;">
 
-		<?php if ( $listings->display_map_image() ): ?>
+		<?php if ( Settings::display_map_image() ): ?>
 
 			<div class="map-info-img">
 
@@ -26,7 +28,7 @@ $listings = directorist()->listings;
 
 		<div class="map-info-details">
 
-			<?php if ( $listings->display_map_title() ): ?>
+			<?php if ( Settings::display_map_title() ): ?>
 
 				<div class="atbdp-listings-title-block">
 					<h3 class="atbdp-no-margin">
@@ -40,7 +42,7 @@ $listings = directorist()->listings;
 
 			<?php if ( $listings->loop_map_address() ): ?>
 
-				<?php if ( $listings->display_map_address() ): ?>
+				<?php if ( Settings::display_map_address() ): ?>
 
 					<div class="map_addr">
 
@@ -52,7 +54,7 @@ $listings = directorist()->listings;
 
 				<?php endif; ?>
 
-				<?php if ( $listings->display_map_direction() ): ?>
+				<?php if ( Settings::display_map_direction() ): ?>
 
 					<div class="map_get_dir">
 

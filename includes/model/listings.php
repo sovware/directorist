@@ -9,6 +9,7 @@
 namespace wpWax\Directorist\Model;
 
 use Directorist\Helper;
+use wpWax\Directorist\Settings;
 use ATBDP_Listings_Data_Store;
 use ATBDP_Permalink;
 
@@ -1711,38 +1712,6 @@ class Listings {
 		return get_post_meta( get_the_ID(), '_address', true );
 	}
 
-	public function display_map_card_window() {
-		return get_directorist_option( 'display_map_info', true );
-	}
-
-	public function display_map_image() {
-		return get_directorist_option( 'display_image_map', true );
-	}
-
-	public function display_map_title() {
-		return get_directorist_option( 'display_title_map', true );
-	}
-
-	public function display_map_address() {
-		return get_directorist_option( 'display_address_map', true );
-	}
-
-	public function display_map_direction() {
-		return get_directorist_option( 'display_direction_map', true );
-	}
-
-	public function map_default_latitude() {
-		return get_directorist_option( 'default_latitude', 40.7127753 );
-	}
-
-	public function map_default_longitude() {
-		return get_directorist_option( 'default_longitude', -74.0059728 );
-	}
-
-	public function default_lat_long_forced() {
-		return get_directorist_option( 'use_def_lat_long', true );
-	}
-
 	public function map_base_lat_long() {
 		$query = $this->get_query();
 
@@ -1786,11 +1755,11 @@ class Listings {
 
 	public function openstreet_map_card_data() {
 
-		if ( !$this->display_map_card_window() ) {
+		if ( !Settings::display_map_card_window() ) {
 			return [];
 		}
 		
-		if ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
+		if ( !Settings::display_map_image() && !Settings::display_map_title() && !Settings::display_map_address() && !Settings::display_map_direction() ) {
 			return [];
 		}
 
@@ -1820,11 +1789,11 @@ class Listings {
 		wp_enqueue_script('directorist-map-view');
 		$data = array(
 			'plugin_url'          => ATBDP_URL,
-			'disable_info_window' => $this->display_map_card_window() ? 'no' : 'yes',
+			'disable_info_window' => Settings::display_map_card_window() ? 'no' : 'yes',
 			'zoom'                => $this->map_zoom_level(),
-			'default_latitude'    => $this->map_default_latitude(),
-			'default_longitude'   => $this->map_default_longitude(),
-			'use_def_lat_long'    => $this->default_lat_long_forced(),
+			'default_latitude'    => Settings::map_default_latitude(),
+			'default_longitude'   => Settings::map_default_longitude(),
+			'use_def_lat_long'    => Settings::map_force_default_location(),
 		);
 
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
@@ -1835,9 +1804,9 @@ class Listings {
 			<?php
 				$query = $this->get_query();
 
-				if ( !$this->display_map_card_window() ) {
+				if ( !Settings::display_map_card_window() ) {
 					
-				} elseif ( !$this->display_map_image() && !$this->display_map_title() && !$this->display_map_address() && !$this->display_map_direction() ) {
+				} elseif ( !Settings::display_map_image() && !Settings::display_map_title() && !Settings::display_map_address() && !Settings::display_map_direction() ) {
 					
 				} else {
 					if ( $query->have_posts() ) {

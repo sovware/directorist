@@ -453,7 +453,24 @@ function initSelect2AjaxTaxonomy(args) {
         return $request;
       }
     }
-  });
+  }); // Setup Preselected Option
+
+  var selected_item_id = $(args.selector).data('selected-id');
+  var selected_item_label = $(args.selector).data('selected-label');
+
+  if (selected_item_id) {
+    var option = new Option(selected_item_label, selected_item_id, true, true);
+    $(args.selector).append(option);
+    $(args.selector).trigger({
+      type: 'select2:select',
+      params: {
+        data: {
+          id: selected_item_id,
+          text: selected_item_label
+        }
+      }
+    });
+  }
 }
 
 /***/ }),

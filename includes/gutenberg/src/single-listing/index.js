@@ -35,6 +35,7 @@ registerBlockType( 'directorist/single-listing', {
 	edit( { attributes } ) {
 		return (
 			<div { ...useBlockProps() }>
+				<div style={{textAlign: 'center', fontSize: '12px'}}><em>{ __( 'Directory Builder can be used to change or modify single listing view.', 'directorist' ) }</em></div>
 				{ getPreview( 'single-listing', attributes.isPreview) }
 			</div>
 		);

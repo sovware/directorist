@@ -16,6 +16,7 @@ class Localized_Data {
 		// Public JS
 		wp_localize_script( 'directorist-main', 'atbdp_public_data', self::get_listings_data() );
 		wp_localize_script( 'directorist-main', 'directorist_options', self::directorist_options_data() );
+        wp_localize_script( 'directorist-main', 'ajax_login_object', self::login_data() );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', self::search_form_localized_data() );
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', self::search_listing_localized_data() );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', self::search_listing_localized_data() );
@@ -36,6 +37,7 @@ class Localized_Data {
 
         array_push( $data, self::get_listings_data() );
         array_push( $data, self::directorist_options_data() );
+        array_push( $data, self::login_data() );
         array_push( $data, self::search_form_localized_data() );
         array_push( $data, self::search_listing_localized_data() );
         array_push( $data, self::search_listing_data() );
@@ -275,6 +277,17 @@ class Localized_Data {
         $options['script_debugging'] = get_directorist_option( 'script_debugging', DIRECTORIST_LOAD_MIN_FILES, true );
 
         return $options;
+    }
+
+    public static function login_data() {
+        $redirection = \ATBDP_Permalink::get_login_redirection_page_link();
+        $data = [
+            'ajax_url'            => admin_url( 'admin-ajax.php' ),
+            'redirect_url'        => $redirection ? $redirection : \ATBDP_Permalink::get_dashboard_page_link(),
+            'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
+            'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
+        ];
+        return $data;
     }
 
 }

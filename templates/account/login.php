@@ -75,15 +75,6 @@ use \Directorist\Helper;
                                 <p><?php echo apply_filters( 'directorist_reset_password_link_exp_message', esc_html__( 'Sorry! The link is invalid.', 'directorist' ) ); ?></p>
                             <?php }
                                 } else {
-                                    $redirection = ATBDP_Permalink::get_login_redirection_page_link();
-                                    $data        = [
-                                        'ajax_url'            => admin_url( 'admin-ajax.php' ),
-                                        'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_dashboard_page_link(),
-                                        'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
-                                        'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
-                                    ];
-                                    wp_localize_script( 'directorist-main', 'ajax_login_object', $data );
-
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
                                     $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
                                     $display_rememberMe  = get_directorist_option( 'display_rememberme', 1 );

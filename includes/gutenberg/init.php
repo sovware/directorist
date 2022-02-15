@@ -280,7 +280,7 @@ add_filter( 'use_block_editor_for_post_type', __NAMESPACE__ . '\disable_block_ed
 
 function add_single_listing_shortcode( $atts = array() ) {
 	if ( ! empty( $atts['is_block_editor'] ) ) {
-		$source = _x( 'block', 'noun' );
+		$source = _x( 'block', 'noun', 'directorist' );
 	} else {
 		$source = __( 'shortcode', 'directorist' );
 	}

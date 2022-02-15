@@ -32,18 +32,6 @@ class Localized_Data {
 		wp_localize_script( 'directorist-import-export', 'import_export_data', self::admin_ajax_localized_data() );
 	}
 
-	public static function range_slider( $args ) {
-		$data = [
-			'miles' => $args['miles'],
-			'slider_config' => [
-				'minValue' => $args['minValue'],
-				'maxValue' => 1000,
-			]
-		];
-
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', $data ) );
-	}
-
 	public static function public_data() {
 		$data = [];
 

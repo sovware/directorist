@@ -341,13 +341,17 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
 
-		$args = [
-			'miles'    => $miles,
-			'minValue' => $value,
+		wp_enqueue_script( 'directorist-range-slider' );
+
+		$data = [
+			'miles' => $miles,
+			'slider_config' => [
+				'minValue' => $value,
+				'maxValue' => 1000,
+			]
 		];
 
-		wp_enqueue_script( 'directorist-range-slider' );
-		Localized_Data::range_slider( $args );
+		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', $data ) );
 	}
 
 	public function get_pricing_type() {

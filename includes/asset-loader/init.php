@@ -26,6 +26,8 @@ class Init {
 		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'inline_styles' ], 15 );
 
+		add_filter( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
+
 		// Admin
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
@@ -42,6 +44,16 @@ class Init {
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+
+	public function load_template_scripts( $template ) {
+		switch ( $template ) {
+
+			case 'search-form/fields/radius_search':
+				wp_enqueue_script( 'directorist-range-slider' );
+				break;
+			
+		}
 	}
 
 	public function set_scripts() {

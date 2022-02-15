@@ -4,6 +4,7 @@ module.exports = {
         // -------------------------------------------
         // JS
         ['public-main']: ["./assets/src/js/public/main.js"],
+        ['public-dashboard']: ["./assets/src/js/public/dashboard.js"],
         ['public-checkout']: ["./assets/src/js/public/checkout.js"],
         ['public-search-listing']: ["./assets/src/js/public/search-listing.js"],
         ['public-search-form-listing']: ["./assets/src/js/public/search-form-listing.js"],

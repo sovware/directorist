@@ -5,10 +5,8 @@
         var checkout_net_price_area        = $( '#atbdp_checkout_total_amount' );
         var checkout_net_hidden_price_area = $( '#atbdp_checkout_total_amount_hidden' );
         var pricing_statement              = get_pricing_statement( checkout_price_item );
-
         checkout_net_price_area.html( get_currency_format( pricing_statement.total_price ) );
         checkout_net_hidden_price_area.val( pricing_statement.total_price );
-
         update_payment_methods( pricing_statement );
     });
 
@@ -16,7 +14,6 @@
     function get_pricing_statement( price_item_elm ) {
         var total_price   = 0;
         var total_product = 0;
-
         price_item_elm.each( function( index ) {
             var price_item = price_item_elm[ index ];
             var price = price_item.value;
@@ -27,7 +24,6 @@
                 total_product++;
             }
         });
-
         return {
             total_product: total_product,
             total_price: total_price,

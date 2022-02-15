@@ -83,13 +83,11 @@ function initSelect2AjaxTaxonomy( args ) {
             data: function (params) {
                 currentPage = params.page || 1;
                 const search_term = ( params.term ) ? params.term : '';
-
                 const query = {
                     search: search_term,
                     page: currentPage,
                     per_page: args.perPage,
                 }
-
                 return query;
             },
             processResults: function (data) {
@@ -101,26 +99,21 @@ function initSelect2AjaxTaxonomy( args ) {
 
             transport: function (params, success, failure) {
                 var $request = $.ajax(params);
-
                 $request.then(function( data, textStatus, jqXHR ) {
                     var totalPage = parseInt( jqXHR.getResponseHeader('x-wp-totalpages') );
                     var paginationMore = currentPage < totalPage;
-
                     var items = data.map(item => {
                         return {
                             id: item.id,
                             text: item.name,
                         };
                     });
-
                     return {
                         items,
                         paginationMore,
                     };
                 }).then(success);
-
                 $request.fail(failure);
-
                 return $request;
             }
         }

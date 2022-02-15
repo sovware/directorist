@@ -1,7 +1,7 @@
 <?php
 /**
  * Base class for loading all assets.
- * 
+ *
  * @author wpWax
  */
 

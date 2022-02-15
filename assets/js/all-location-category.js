@@ -81,89 +81,73 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/atmodal.js":
-/*!*****************************************!*\
-  !*** ./assets/src/js/public/atmodal.js ***!
-  \*****************************************/
+/***/ "./assets/src/js/public/components/loc_cat.js":
+/*!****************************************************!*\
+  !*** ./assets/src/js/public/components/loc_cat.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
-
-/* disable-eslint */
-var aazztechModal1 = function aazztechModal1(selector) {
-  var element = document.querySelectorAll(selector);
-  element.forEach(function (el, index) {
-    el.style.display = 'none';
-    document.addEventListener('click', function (event) {
-      var current_elm = event.target;
-      var target_id = current_elm.getAttribute('data-target');
-      var el_id = el.getAttribute('id');
-
-      if (target_id === el_id) {
-        event.preventDefault();
-        el.style.display = 'block';
-        document.body.classList.add('atm-open');
-        setTimeout(function () {
-          el.classList.add('atm-show');
-        }, 100);
-        document.querySelector('html').style.overflow = 'hidden';
-      }
-    }, false);
-    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
-      e.preventDefault();
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
-    el.addEventListener('click', function (e) {
-      if (e.target.closest('.atm-contents-inner')) return;
-      el.classList.remove('atm-show');
-      document.body.classList.remove('atm-open');
-      setTimeout(function () {
-        el.style.display = 'none';
-      }, 100);
-      document.querySelector('html').removeAttribute('style');
-    });
+(function ($) {
+  /* multi level hierarchy content */
+  $('.atbdp_child_category').hide();
+  $('.atbd_category_wrapper > .expander').on('click', function () {
+    $(this).siblings('.atbdp_child_category').slideToggle();
   });
-};
+  $('.atbdp_child_category li .expander').on('click', function () {
+    $(this).siblings('.atbdp_child_category').slideToggle();
+    $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
+  });
+  $('.atbdp_parent_category >li >span').on('click', function () {
+    $(this).siblings('.atbdp_child_category').slideToggle();
+  }); //
 
-function initModal() {
-  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
-}
-
-window.addEventListener('load', function () {
-  setTimeout(function () {
-    initModal();
-  }, 500);
-});
+  $('.atbdp_child_location').hide();
+  $('.atbd_location_wrapper > .expander').on('click', function () {
+    $(this).siblings('.atbdp_child_location').slideToggle();
+  });
+  $('.atbdp_child_location li .expander').on('click', function () {
+    $(this).siblings('.atbdp_child_location').slideToggle();
+    $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
+  });
+  $('.atbdp_parent_location >li >span').on('click', function () {
+    $(this).siblings('.atbdp_child_location').slideToggle();
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ 13:
-/*!***********************************************!*\
-  !*** multi ./assets/src/js/public/atmodal.js ***!
-  \***********************************************/
+/***/ "./assets/src/js/public/modules/all-location-category.js":
+/*!***************************************************************!*\
+  !*** ./assets/src/js/public/modules/all-location-category.js ***!
+  \***************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/***/ }),
+
+/***/ 6:
+/*!*********************************************************************!*\
+  !*** multi ./assets/src/js/public/modules/all-location-category.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/public/atmodal.js */"./assets/src/js/public/atmodal.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/all-location-category.js */"./assets/src/js/public/modules/all-location-category.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=public-atmodal.js.map
+//# sourceMappingURL=all-location-category.js.map

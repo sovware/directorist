@@ -13,7 +13,7 @@ import './../../scss/layout/public/main-style.scss';
 
 // General Components
 // import './components/general';
-// import './components/helpers';
+import './components/helpers';
 // import './components/review';
 // import './components/atbdSorting';
 // import './components/atbdAlert';
@@ -27,7 +27,7 @@ import './../../scss/layout/public/main-style.scss';
 // import './components/atbdDropdown';
 // import './components/atbdSelect';
 // import './components/loc_cat';
-// import './components/legacy-support';
+import './components/legacy-support';
 // import './components/author';
 
 // Booking

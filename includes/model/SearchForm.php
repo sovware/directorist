@@ -5,7 +5,7 @@
 
 namespace Directorist;
 
-use Directorist\Asset_Loader\Localize;
+use Directorist\Asset_Loader\Localized_Data;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -347,7 +347,7 @@ class Directorist_Listing_Search_Form {
 		];
 
 		wp_enqueue_script( 'directorist-range-slider' );
-		Localize::range_slider( $args );
+		Localized_Data::range_slider( $args );
 	}
 
 	public function get_pricing_type() {

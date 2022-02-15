@@ -65,7 +65,7 @@ class Init {
 	 * Load localized data.
 	 */
 	public function localized_data() {
-		Localize::load_localized_data();
+		Localized_Data::load_localized_data();
 	}
 
 	public function enqueue_scripts() {

@@ -7,7 +7,7 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Localize {
+class Localized_Data {
 
 	public static function load_localized_data() {
 		wp_localize_script( 'jquery', 'directorist', self::public_data() );

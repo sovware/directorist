@@ -187,7 +187,7 @@ class Scripts {
 			],
 
 			// Public JS
-			'directorist-main-script' => [
+			'directorist-main' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-main',
 				'dep' => ['jquery', 'directorist-plasma-slider' ],

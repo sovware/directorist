@@ -38,7 +38,7 @@ class Enqueue {
 
     public static function single_listing() {
 
-		self::common_scripts();
+		wp_enqueue_script( 'directorist-main' );
 		wp_enqueue_script( 'directorist-jquery-barrating' );
 		wp_enqueue_script( 'directorist-sweetalert-script' );
 		wp_enqueue_script( 'directorist-slick' );
@@ -90,14 +90,9 @@ class Enqueue {
 		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 	}
 
-	public static function common_scripts() {
-		wp_enqueue_script( 'directorist-main-script' );
-	}
-
 	public static function common_shortcode_scripts() {
 		wp_enqueue_script('jquery-masonry');
 		wp_enqueue_script( 'directorist-ez-media-uploader' );
-        wp_enqueue_script( 'directorist-main-script' );
 		wp_enqueue_script( 'directorist-popper' );
 		wp_enqueue_script( 'directorist-tooltip' );
 		wp_enqueue_script( 'directorist-no-script' );

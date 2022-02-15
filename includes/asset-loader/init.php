@@ -84,7 +84,7 @@ class Init {
 	 */
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
-		Enqueue::common_scripts();
+		wp_enqueue_script( 'directorist-main' );
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':

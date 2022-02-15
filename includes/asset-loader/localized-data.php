@@ -10,12 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Localized_Data {
 
 	public static function load_localized_data() {
-        wp_localize_script( 'directorist-main-script',  'directorist', self::public_data() );
+        wp_localize_script( 'directorist-main',  'directorist', self::public_data() );
         wp_localize_script( 'directorist-admin-script', 'directorist_admin', self::admin_data() );
 
 		// Public JS
-		wp_localize_script( 'directorist-main-script', 'atbdp_public_data', self::get_listings_data() );
-		wp_localize_script( 'directorist-main-script', 'directorist_options', self::directorist_options_data() );
+		wp_localize_script( 'directorist-main', 'atbdp_public_data', self::get_listings_data() );
+		wp_localize_script( 'directorist-main', 'directorist_options', self::directorist_options_data() );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', self::search_form_localized_data() );
 		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', self::search_listing_localized_data() );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', self::search_listing_localized_data() );

@@ -11,6 +11,8 @@ trait Enqueue_Shortcodes {
 
     public static function all_listings( $listings ) {
 
+        wp_enqueue_script('directorist-all-listings');
+
 		wp_enqueue_script('jquery-masonry');
         wp_enqueue_script('directorist-range-slider');
         wp_enqueue_script('directorist-jquery-barrating');

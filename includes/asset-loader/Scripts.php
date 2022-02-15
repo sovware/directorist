@@ -187,10 +187,14 @@ class Scripts {
 			],
 
 			// Public JS
-			'directorist-main-script' => [
+			'directorist-main' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-main',
 				'dep' => ['jquery', 'directorist-plasma-slider' ],
+			],
+			'directorist-all-listings' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'public-all-listings.js',
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

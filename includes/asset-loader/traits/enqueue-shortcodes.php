@@ -11,6 +11,8 @@ trait Enqueue_Shortcodes {
 
     public static function all_listings( $listings ) {
 
+        wp_enqueue_script('directorist-all-listings');
+
 		wp_enqueue_script('jquery-masonry');
         wp_enqueue_script('directorist-range-slider');
         wp_enqueue_script('directorist-jquery-barrating');
@@ -38,20 +40,6 @@ trait Enqueue_Shortcodes {
         
 		// Custom Scripts
 		wp_enqueue_script( 'directorist-search-form-listing' );
-    }
-
-    public static function single_listing() {
-
-		wp_enqueue_script( 'directorist-jquery-barrating' );
-		wp_enqueue_script( 'directorist-sweetalert-script' );
-		wp_enqueue_script( 'directorist-slick' );
-
-		// Map Scripts
-        if ( Helper::map_type() == 'openstreet' ) {
-            self::openstreet_map_scripts();
-        } elseif ( Helper::map_type() == 'google' ) {
-            self::google_map_scripts();
-        }
     }
 
     public static function add_listing(  $listing  ) {

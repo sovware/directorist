@@ -82,7 +82,7 @@ use \Directorist\Helper;
                                         'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
                                         'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
                                     ];
-                                    wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
+                                    wp_localize_script( 'directorist-main', 'ajax_login_object', $data );
 
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
                                     $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );

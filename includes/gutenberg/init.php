@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Directorist\Helper;
 use Exception;
 
+require_once __DIR__ . '/includes/class-block-template-utils.php';
+require_once __DIR__ . '/includes/class-block-templates-controller.php';
+
 /**
  * Initialize gutenberg blocks.
  *
@@ -312,5 +315,5 @@ function add_single_listing_shortcode( $atts = array() ) {
 		return '';
 	}
 }
-
 add_shortcode( 'directorist_single_listing', __NAMESPACE__ . '\add_single_listing_shortcode' );
+

@@ -87,7 +87,7 @@ class Directorist_Template_Hooks {
 		}
 
 		$template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
-		if ( $template_type === 'directorist_template' ) {
+		if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
 			$_template = Helper::template_path( 'single' );
 		} elseif ( $template_type === 'theme_template_page' ) {
 			$_template = get_page_template();
@@ -101,6 +101,58 @@ class Directorist_Template_Hooks {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Checks whether a block template with that name exists.
+	 *
+	 * **Note: ** This checks both the `templates` and `block-templates` directories
+	 * as both conventions should be supported.
+	 *
+	 * @since  7.1.2
+	 * @param string $template_name Template to check.
+	 * @return bool
+	 */
+	private static function has_block_template( $template_name ) {
+		if ( ! $template_name ) {
+			return false;
+		}
+
+		$has_template            = false;
+		$template_filename       = $template_name . '.html';
+		// Since Gutenberg 12.1.0, the conventions for block templates directories have changed,
+		// we should check both these possible directories for backwards-compatibility.
+		$possible_templates_dirs = array( 'templates', 'block-templates' );
+
+		// Combine the possible root directory names with either the template directory
+		// or the stylesheet directory for child themes, getting all possible block templates
+		// locations combinations.
+		$filepath        = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_filename;
+		$legacy_filepath = DIRECTORY_SEPARATOR . 'block-templates' . DIRECTORY_SEPARATOR . $template_filename;
+		$possible_paths  = array(
+			get_stylesheet_directory() . $filepath,
+			get_stylesheet_directory() . $legacy_filepath,
+			get_template_directory() . $filepath,
+			get_template_directory() . $legacy_filepath,
+		);
+
+		// Check the first matching one.
+		foreach ( $possible_paths as $path ) {
+			if ( is_readable( $path ) ) {
+				$has_template = true;
+				break;
+			}
+		}
+
+		/**
+		 * Filters the value of the result of the block template check.
+		 *
+		 * @since 7.1.2
+		 *
+		 * @param boolean $has_template value to be filtered.
+		 * @param string $template_name The name of the template.
+		 */
+		return (bool) apply_filters( 'directorist_has_block_template', $has_template, $template_name );
 	}
 }
 

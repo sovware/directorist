@@ -682,6 +682,13 @@ class Directorist_Listing_Search_Form {
 		return self::get_taxonomy_select_option_data( $id );
 	}
 
+	public static function get_selected_location_option_data() {
+		$id = ( isset( $_REQUEST['in_loc'] ) ) ? $_REQUEST['in_loc'] : '';
+		$id = ( isset( $_REQUEST['loc_id'] ) ) ? $_REQUEST['loc_id'] : $id;
+
+		return self::get_taxonomy_select_option_data( $id );
+	}
+
 	public static function get_taxonomy_select_option_data( $id ) {
 		$item = [ 'id' => '', 'label' => '' ];
 

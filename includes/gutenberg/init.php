@@ -287,33 +287,24 @@ function add_single_listing_shortcode( $atts = array() ) {
 
 	try {
 		if ( ! is_singular( ATBDP_POST_TYPE ) || ! is_main_query() ) {
-			throw new \Exception( sprintf(
-				'<p style="text-align: center"><small>%s</small></p>',
-				sprintf( __( 'The only purpose of <mark>single listing %s</mark> is to show the single listing details. Maybe the block has been used in a wrong way!', 'directorist' ), $source )
-			) );
+			throw new Exception( sprintf( __( 'The only purpose of <mark>single listing %s</mark> is to show the single listing details. Maybe the block has been used in a wrong way!', 'directorist' ), $source ) );
 		}
 
 		if ( get_the_ID() !== get_queried_object_id() && get_post_type( get_the_ID() ) === 'page' ) {
-			throw new \Exception( sprintf(
-				'<p><small>%s</small></p>',
-				sprintf( __( 'Looks like you are using <mark>single listing %s</mark> inside your custom single listing page. Please use the generated shortcodes from directory builder.', 'directorist' ), $source )
-			) );
+			throw new Exception( sprintf( __( 'Looks like you are using <mark>single listing %s</mark> inside your custom single listing page. Please use the generated shortcodes from directory builder.', 'directorist' ), $source ) );
 		}
 
 		if ( get_post_type( get_the_ID() ) !== ATBDP_POST_TYPE ) {
-			throw new \Exception( sprintf(
-				'<p><small>%s</small></p>',
-				sprintf( __( '<mark>Single listing %s</mark> has been used in a wrong way, please check documentation.', 'directorist' ), $source )
-			) );
+			throw new Exception( sprintf( __( '<mark>Single listing %s</mark> has been used in a wrong way, please check documentation.', 'directorist' ), $source ) );
 		}
 
 		return Helper::get_template_contents( 'single-contents' );
 	} catch( \Exception $e ) {
 		if ( current_user_can( 'edit_posts' ) ) {
-			return $e->getMessage();
+			return '<p class="directorist-alert directorist-alert-info" style="text-align:center">' . $e->getMessage() . '</p>';
 		}
+
 		return '';
 	}
 }
 add_shortcode( 'directorist_single_listing', __NAMESPACE__ . '\add_single_listing_shortcode' );
-

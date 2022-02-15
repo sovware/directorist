@@ -538,60 +538,41 @@ class Helper {
 	}
 
 	/**
-	 * Check if the given page id is assigned as single listing page.
+	 * Get a list of directories that has custom single listing page enabled and set.
 	 *
-	 * @param  int $page_id
-	 *
-	 * @return bool
-	 */
-	public static function is_custom_single_listing_page( $page_id ) {
-		if ( get_post_type( $page_id ) !== 'page' ) {
-			return false;
-		}
-
-		$directory_types = self::get_directory_type_by_page_id( $page_id );
-		if ( empty( $directory_types ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Get directory types from the given page id.
-	 *
-	 * @param  int  $page_id
+	 * @param  int|null $page_id Optional page id.
 	 *
 	 * @return array
 	 */
-	public static function get_directory_type_by_page_id( $page_id = 0 ) {
-		if ( empty( $page_id ) ) {
-			return [];
-		}
-
-		$types = get_terms( array(
+	public static function get_directory_types_with_custom_single_page( $page_id = null ) {
+		$args = array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 			'meta_query' => array(
-				'relation' => 'AND',
-				array(
-					'key'     => 'single_listing_page',
-					'compare' => 'EXISTS',
-				),
-				array(
-					'key'     => 'single_listing_page',
-					'type'    => 'NUMERIC',
+				'page_enabled' => array(
+					'key'     => 'enable_single_listing_page',
 					'compare' => '=',
-					'value'   => $page_id,
+					'value'   => 1,
 				),
 			),
-		) );
+		);
 
-		if ( empty( $types ) || is_wp_error( $types ) ) {
+		$directory_types = get_terms( $args );
+		if ( empty( $directory_types ) || is_wp_error( $directory_types ) ) {
 			return [];
 		}
 
-		return $types;
+		$directory_types = array_filter( $directory_types, static function( $directory_type ) use ( $page_id ) {
+			$selected_page_id = (int) get_term_meta( $directory_type->term_id, 'single_listing_page', true );
+
+			if ( is_null( $page_id ) ) {
+				return $selected_page_id;
+			}
+
+			return ( $selected_page_id === (int) $page_id );
+		} );
+
+		return $directory_types;
 	}
 
 	public static function builder_selected_single_pages() {

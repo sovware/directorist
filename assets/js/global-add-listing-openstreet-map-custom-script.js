@@ -182,7 +182,10 @@ __webpack_require__.r(__webpack_exports__);
         lon = loc_manual_lng;
     mapLeaflet(lat, lon);
     $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
-      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      if (document.getElementById('osm')) {
+        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      }
+
       event.preventDefault();
       var text = $(this).text(),
           lat = $(this).data('lat'),
@@ -283,12 +286,7 @@ function get_dom_data(key, parent) {
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    if (is_script_debugging) {
-      console.log({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (is_script_debugging) {//console.log({key,dataElm,error});
     }
 
     return '';

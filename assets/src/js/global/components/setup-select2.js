@@ -69,6 +69,13 @@ function initSelect2AjaxTaxonomy( args ) {
     const defaultArgs = { selector: '', url: '', perPage: 10};
     args = { ...defaultArgs, ...args };
 
+    if ( ! args.selector.length ) {
+        return;
+    }
+
+    const parent = $( args.selector ).closest( '.directorist-search-form' );
+    const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
+
     var currentPage = 1;
     $( args.selector ).select2({
         allowClear: true,
@@ -84,10 +91,14 @@ function initSelect2AjaxTaxonomy( args ) {
                 currentPage = params.page || 1;
                 const search_term = ( params.term ) ? params.term : '';
 
-                const query = {
+                let query = {
                     search: search_term,
                     page: currentPage,
                     per_page: args.perPage,
+                }
+
+                if ( directory_type_id ) {
+                    query.directory = directory_type_id;
                 }
 
                 return query;

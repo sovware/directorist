@@ -1,4 +1,4 @@
-Directorist - Business Directory Plugin
+Directorist – Business Directory & Classified Listings WordPress Plugin
 
 Copyright 2017 by wpWax
 
@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 This program incorporates work covered by the following copyright and
 permission notices:
 
-  Directorist - Business Directory Plugin
+  Directorist – Business Directory & Classified Listings WordPress Plugin
 
   Directorist is Copyright (c) 2017 wpWax
 

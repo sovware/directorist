@@ -36,6 +36,21 @@ class Enqueue {
 		}
 	}
 
+    public static function single_listing() {
+
+		self::common_scripts();
+		wp_enqueue_script( 'directorist-jquery-barrating' );
+		wp_enqueue_script( 'directorist-sweetalert-script' );
+		wp_enqueue_script( 'directorist-slick' );
+
+		// Map Scripts
+        if ( Helper::map_type() == 'openstreet' ) {
+            self::openstreet_map_scripts();
+        } elseif ( Helper::map_type() == 'google' ) {
+            self::google_map_scripts();
+        }
+    }
+
 	/**
 	 * @todo apply icon condition
 	 */
@@ -73,6 +88,10 @@ class Enqueue {
 		);
 
 		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
+	}
+
+	public static function common_scripts() {
+		wp_enqueue_script( 'directorist-main-script' );
 	}
 
 	public static function common_shortcode_scripts() {

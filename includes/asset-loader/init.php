@@ -84,23 +84,31 @@ class Init {
 	 */
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
-		Enqueue::common_shortcode_scripts();
+		Enqueue::common_scripts();
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
+				Enqueue::common_shortcode_scripts();
 				Enqueue::all_listings( $model );
 				break;
 
 			case 'directorist_add_listing':
+				Enqueue::common_shortcode_scripts();
 				Enqueue::add_listing( $model );
 				break;
 
 			case 'directorist_search_listing':
+				Enqueue::common_shortcode_scripts();
 				Enqueue::search_form( $model );
 				break;
 
 			case 'directorist_user_dashboard':
+				Enqueue::common_shortcode_scripts();
 				Enqueue::dashboard( $model );
+				break;
+
+			default:
+				Enqueue::common_shortcode_scripts();
 				break;
 		}
 	}

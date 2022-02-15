@@ -1,4 +1,4 @@
-﻿=== Directorist – Business Directory & Classified Listings WordPress Plugin ===
+﻿=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
@@ -40,13 +40,14 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
 Directorist Business Directory & Classified Listings is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allow you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
 
 [youtube https://www.youtube.com/watch?v=iPZFpAqS7Ok]
 
-== Here’s What Users Say about Directorist – Business Directory & Classified Listings WordPress Plugin ==
+== Here’s What Users Say about Directorist - WordPress Business Directory Plugin with Classified Ads Listings ==
 
 >👨 __Simply the BEST directory plugin__
 
@@ -357,7 +358,7 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 
 == Frequently Asked Questions ==
 
-= Is Directorist – Business Directory & Classified Listings WordPress Plugin freemium in type? =
+= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings freemium in type? =
 Directorist is a free business directory plugin that offers a number of paid extensions to extend the functionalities of your directory listing website.
 
 = How to make a listing featured? =
@@ -366,10 +367,10 @@ You can make a listing featured according to the respective pricing plans.
 = Is there any widget facility with Directorist Business Directory plugin? =
 Absolutely, you will get 35+ custom widgets using this awesome plugin.
 
-= Is Directorist – Business Directory & Classified Listings WordPress Plugin compatible with any themes out there in the market? =
+= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings compatible with any themes out there in the market? =
 Yes, Directorist is built in such a way that it works smoothly with all the major themes in the market.
 
-= Can I translate the Directorist – Business Directory & Classified Listings WordPress Plugin to my language and make it multi-lingual? =
+= Can I translate the Directorist - WordPress Business Directory Plugin with Classified Ads Listings to my language and make it multi-lingual? =
 Yes, you can use the Loco Translate plugin or Poedit tool to translate your directory into your language. You can also make it multi-lingual using the gTranslate or Polylang plugin. For more information and guidelines refer to the blog post [here](https://directorist.com/blog/how-to-make-directorist-multi-lingual).
 
 = What types of directories can I build? =
@@ -396,8 +397,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - User not able to select address if there's no map added on the add listing form
 * Fix - Wrong listings in Author Profile page where usernames with a space
 * Fix - Wrong directory type assign if search form used with listing form
+* Fix - Search Form category loading issue with select2 lazy load
 * Fix - Migration confirmation notice on fresh Installation
 * Fix - Some minor issues with the review system
+* Fix - Google map info window issue
 * Fix - Style & responsive issues
 * Fix - Error in System Info page
 * Improve - Resource loading and performance

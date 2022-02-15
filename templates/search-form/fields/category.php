@@ -6,7 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-	$selected_item = $searchform::get_selected_category_item();
+	$selected_item = $searchform::get_selected_category_option_data();
 ?>
 <div class="directorist-search-field">
 	<div class="directorist-select directorist-search-category">

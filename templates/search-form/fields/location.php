@@ -9,11 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $location_source = !empty($data['location_source']) && $data['location_source'] == 'from_map_api' ? 'map' : 'listing';
 
-if ( $location_source == 'listing' ) { ?>
+if ( $location_source == 'listing' ) {
+	$selected_item = $searchform::get_selected_location_option_data();
+	?>
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
-			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo $selected_item['id'] ?>" data-selected-label="<?php echo $selected_item['label'] ?>">
 				<?php
 					echo '<option value="">Select Location</option>';
 					echo $searchform->locations_fields;

@@ -360,20 +360,25 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		global $post;
+		global $post, $wp_embed;
 		$_temp_post = $post; // Cache listing post.
 		$post       = $page; // Assign custom single page as post.
-		$content    = get_the_content( null, null, $page );
 
-		/**
-		 * Filters the post content.
-		 *
-		 * @param string $content Content of the current post.
-		 */
-		$content = apply_filters( 'the_content', $content );
+		$content = get_post_field( 'post_content', $page_id );
+		$content = $wp_embed->run_shortcode( $content );
+		$content = $wp_embed->autoembed( $content );
+		// do_blocks available from WP 5.0
+		$content = function_exists( 'do_blocks' ) ? do_blocks( $content ) : $content;
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = shortcode_unautop( $content );
+		$content = wp_filter_content_tags( $content );
+		$content = do_shortcode( $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
 
 		// Restore listing post.
 		$post = $_temp_post;
+		unset( $_temp_post );
 
 		return $content;
 	}

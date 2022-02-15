@@ -135,8 +135,8 @@
           success: function success(response) {
             if (response) {
               $(searchForm_box).empty().html(response['search_form']);
-              $('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
-              $('.directorist-category-select option').attr("data-custom-field", 1);
+              parent.find('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
+              parent.find('.directorist-category-select option').attr("data-custom-field", 1);
               var events = [
                 new CustomEvent('directorist-search-form-nav-tab-reloaded'), 
                 new CustomEvent('directorist-reload-select2-fields'), 

@@ -48,21 +48,25 @@ class Directorist_Single_Listing {
 		return self::$instance;
 	}
 
+	public function get_directory_type_id() {
+		$directory_type = directorist_get_object_terms( $this->id, ATBDP_TYPE, 'term_id' );
+		if ( empty( $directory_type ) ) {
+			return 0;
+		}
+
+		return $directory_type[0];
+	}
+
 	public function prepare_data() {
-		$id = $this->id;
-
-		$this->author_id     = get_post_field( 'post_author', $id );
-		$this->post   		 = get_post( $id );
-		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
-		$term 				 = get_term_by( is_numeric($directory_type) ? 'id' : 'slug', $directory_type, 'atbdp_listing_types' );
-		$this->type          = (int) $term->term_id;
-		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
-		$this->content_data  = $this->build_content_data();
-
-		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
-		$this->price_range           = get_post_meta( $id, '_price_range', true );
-		$this->atbd_listing_pricing  = get_post_meta( $id, '_atbd_listing_pricing', true );
-		$this->price                 = get_post_meta( $id, '_price', true );
+		$this->author_id            = get_post_field( 'post_author', $this->id );
+		$this->post                 = get_post( $this->id );
+		$this->type                 = $this->get_directory_type_id();
+		$this->header_data          = get_term_meta( $this->type, 'single_listing_header', true );
+		$this->content_data         = $this->build_content_data();
+		$this->fm_plan              = get_post_meta( $this->id, '_fm_plans', true );
+		$this->price_range          = get_post_meta( $this->id, '_price_range', true );
+		$this->atbd_listing_pricing = get_post_meta( $this->id, '_atbd_listing_pricing', true );
+		$this->price                = get_post_meta( $this->id, '_price', true );
 	}
 
 	public function build_content_data() {

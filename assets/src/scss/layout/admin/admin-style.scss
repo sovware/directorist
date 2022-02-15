@@ -4224,11 +4224,7 @@ input.atbdp-form-control {
     }
 
     @media only screen and (max-width: 1399px) {
-      width: 200px;
-    }
-
-    @media only screen and (max-width: 1299px) {
-      width: 140px;
+      width: 230px;
     }
 
     @media only screen and (max-width: 1199px) {
@@ -4290,6 +4286,9 @@ input.atbdp-form-control {
         font-weight: 500;
         color: #fff;
         margin-top: 15px;
+        @media only screen and (max-width: 1199px) {
+          font-size: 15px;
+        }
       }
     }
 
@@ -4429,6 +4428,9 @@ input.atbdp-form-control {
                 @media only screen and (max-width: 1599px) {
                   min-width: 200px;
                 }
+                @media only screen and (max-width: 1399px) {
+                  min-width: 140px;
+                }
               }
 
               &.directorist_listing-count {
@@ -4437,6 +4439,9 @@ input.atbdp-form-control {
 
                 @media only screen and (max-width: 1599px) {
                   min-width: 110px;
+                }
+                @media only screen and (max-width: 1399px) {
+                  min-width: 70px;
                 }
 
                 .directorist_listing-count-title {
@@ -4447,10 +4452,19 @@ input.atbdp-form-control {
 
               &.directorist_listing-c-date {
                 min-width: 160px;
+                @media only screen and (max-width: 1399px) {
+                  min-width: 140px;
+                }
+                @media only screen and (max-width: 1299px) {
+                  min-width: 120px;
+                }
               }
 
               &.directorist_listing-c-action {
                 min-width: 200px;
+                @media only screen and (max-width: 1499px) {
+                  min-width: 130px;
+                }
               }
             }
           }

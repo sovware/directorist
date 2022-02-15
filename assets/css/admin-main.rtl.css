@@ -4182,12 +4182,7 @@ input.atbdp-form-control {
 }
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--left {
-    width: 200px;
-  }
-}
-@media only screen and (max-width: 1299px) {
-  .directorist_builder__content .directorist_builder__content--left {
-    width: 140px;
+    width: 230px;
   }
 }
 @media only screen and (max-width: 1199px) {
@@ -4272,6 +4267,11 @@ input.atbdp-form-control {
   font-weight: 500;
   color: #fff;
   margin-top: 15px;
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_builder__content .directorist_builder__content--left .directorist_link-block .directorist_link-text {
+    font-size: 15px;
+  }
 }
 .directorist_builder__content .directorist_builder__content--left .directorist_btn-migrate {
   margin-top: 20px;
@@ -4401,6 +4401,11 @@ input.atbdp-form-control {
     min-width: 200px;
   }
 }
+@media only screen and (max-width: 1399px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-title {
+    min-width: 140px;
+  }
+}
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
   min-width: 150px;
   text-align: left;
@@ -4410,6 +4415,11 @@ input.atbdp-form-control {
     min-width: 110px;
   }
 }
+@media only screen and (max-width: 1399px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
+    min-width: 70px;
+  }
+}
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count .directorist_listing-count-title {
   display: block;
   margin-left: 40px;
@@ -4417,8 +4427,23 @@ input.atbdp-form-control {
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-date {
   min-width: 160px;
 }
+@media only screen and (max-width: 1399px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-date {
+    min-width: 140px;
+  }
+}
+@media only screen and (max-width: 1299px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-date {
+    min-width: 120px;
+  }
+}
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-action {
   min-width: 200px;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-action {
+    min-width: 130px;
+  }
 }
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td {
   background-color: #F8F9FB;
@@ -12544,6 +12569,10 @@ input[type=radio] {
   background-color: #f2f2f2;
 }
 
+.cptm-import-directory-modal .cptm-file-input-wrap {
+  margin: 16px -5px 0 -5px;
+}
+
 /* Sticky fields */
 .cptm-col-sticky {
   position: -webkit-sticky;
@@ -15723,6 +15752,10 @@ input[type=radio] {
 .directorist_dropdown .directorist_dropdown-option ul li a.active {
   color: #3e62f5;
   background-color: #f2f2f2;
+}
+
+.cptm-import-directory-modal .cptm-file-input-wrap {
+  margin: 16px -5px 0 -5px;
 }
 
 /* Sticky fields */
@@ -18909,6 +18942,10 @@ input[type=radio] {
 .directorist_dropdown .directorist_dropdown-option ul li a.active {
   color: #3e62f5;
   background-color: #f2f2f2;
+}
+
+.cptm-import-directory-modal .cptm-file-input-wrap {
+  margin: 16px -5px 0 -5px;
 }
 
 /* Sticky fields */

@@ -549,8 +549,8 @@ class Helper {
 			return false;
 		}
 
-		$directory_type = self::get_directory_type_by_page_id( $page_id );
-		if ( empty( $directory_type ) || is_wp_error( $directory_type ) ) {
+		$directory_types = self::get_directory_type_by_page_id( $page_id );
+		if ( empty( $directory_types ) ) {
 			return false;
 		}
 
@@ -558,21 +558,20 @@ class Helper {
 	}
 
 	/**
-	 * Get directory type (id=>name) from the given page id.
+	 * Get directory types from the given page id.
 	 *
 	 * @param  int  $page_id
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public static function get_directory_type_by_page_id( $page_id = 0 ) {
 		if ( empty( $page_id ) ) {
-			return '';
+			return [];
 		}
 
-		$type = get_terms( array(
+		$types = get_terms( array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
-			'fields'     => 'id=>name',
 			'meta_query' => array(
 				'relation' => 'AND',
 				array(
@@ -588,7 +587,11 @@ class Helper {
 			),
 		) );
 
-		return $type;
+		if ( empty( $types ) || is_wp_error( $types ) ) {
+			return [];
+		}
+
+		return $types;
 	}
 
 	public static function builder_selected_single_pages() {

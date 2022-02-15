@@ -67,8 +67,10 @@ class Directorist_Template_Hooks {
 		}
 
 		if ( Helper::is_custom_single_listing_page( get_the_ID() ) ) {
-			$directory_type = Helper::get_directory_type_by_page_id( get_the_ID() );
-			return sprintf( __( '<p style="text-align:center">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , current( $directory_type ) );
+			$directory_types = Helper::get_directory_type_by_page_id( get_the_ID() );
+			$directory_names = wp_list_pluck( $directory_types, 'name' );
+
+			return sprintf( __( '<p style="text-align:center">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , implode( ', ', $directory_names ) );
 		}
 
 		return $content;

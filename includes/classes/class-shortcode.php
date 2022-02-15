@@ -53,16 +53,16 @@ class ATBDP_Shortcode {
 				'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
 
 				// Single -- legacy shortcode
-				'directorist_listing_top_area'            => [ $this, 'empty_string' ],
-				'directorist_listing_tags'                => [ $this, 'empty_string' ],
-				'directorist_listing_custom_fields'       => [ $this, 'empty_string' ],
-				'directorist_listing_video'               => [ $this, 'empty_string' ],
-				'directorist_listing_map'                 => [ $this, 'empty_string' ],
-				'directorist_listing_contact_information' => [ $this, 'empty_string' ],
-				'directorist_listing_author_info'         => [ $this, 'empty_string' ],
-				'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
-				'directorist_listing_review'              => [ $this, 'empty_string' ],
-				'directorist_related_listings'            => [ $this, 'empty_string' ],
+				'directorist_listing_top_area'            => '__return_empty_string',
+				'directorist_listing_tags'                => '__return_empty_string',
+				'directorist_listing_custom_fields'       => '__return_empty_string',
+				'directorist_listing_video'               => '__return_empty_string',
+				'directorist_listing_map'                 => '__return_empty_string',
+				'directorist_listing_contact_information' => '__return_empty_string',
+				'directorist_listing_author_info'         => '__return_empty_string',
+				'directorist_listing_contact_owner'       => '__return_empty_string',
+				'directorist_listing_review'              => '__return_empty_string',
+				'directorist_related_listings'            => '__return_empty_string',
 
 			]);
 
@@ -73,10 +73,6 @@ class ATBDP_Shortcode {
 		}
 
 		return self::$instance;
-	}
-
-	public function empty_string() {
-		return '';
 	}
 
 	// single_listings_header

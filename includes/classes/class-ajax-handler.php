@@ -107,6 +107,37 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //author paginate
             add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
             add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
+
+            //ajax search 
+            add_action('wp_ajax_directorist_ajax_search', array($this, 'ajax_search'));
+            add_action('wp_ajax_nopriv_directorist_ajax_search', array($this, 'ajax_search'));
+        }
+
+        public function ajax_search() {
+            if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
+
+                $listings = new Directorist\Directorist_Listings( null, 'search_result');
+
+                ob_start();
+                echo $listings->archive_view_template();
+                $search_value = ob_get_clean();
+
+                ob_start();
+                echo $listings->render_shortcode();
+                $directory_type_result = ob_get_clean();
+
+                ob_start();
+                echo $listings->archive_view_template();
+                $view_as = ob_get_clean();
+
+                wp_send_json( 
+                    array( 
+                        'search_result'  => $search_value,
+                        'directory_type' => $directory_type_result,
+                        'view_as'        => $view_as
+                    )
+                 );
+            }
         }
 
         // directorist_quick_ajax_login

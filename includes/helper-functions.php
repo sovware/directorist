@@ -6525,8 +6525,8 @@ function atbdp_get_listings_current_view_name($view)
 {
 
 
-    if (isset($_GET['view'])) {
-        $view = sanitize_text_field($_GET['view']);
+    if (isset($_REQUEST['view'])) {
+        $view = sanitize_text_field($_REQUEST['view']);
     }
 
     $allowed_views = array('list', 'grid', 'map');

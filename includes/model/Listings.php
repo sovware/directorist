@@ -743,8 +743,8 @@ class Directorist_Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		if ( ! empty( $_GET['q'] ) ) {
-			$args['s'] = sanitize_text_field( $_GET['q'] );
+		if ( ! empty( $_REQUEST['q'] ) ) {
+			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
 		}
 
 		if ( $this->has_featured ) {
@@ -760,29 +760,29 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
-		if ( ! empty( $_GET['in_cat'] ) ) {
+		if ( ! empty( $_REQUEST['in_cat'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_GET['in_cat'] ),
+				'terms'            => wp_parse_id_list( $_REQUEST['in_cat'] ),
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $_GET['in_loc'] ) ) {
+		if ( ! empty( $_REQUEST['in_loc'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_GET['in_loc'] ),
+				'terms'            => wp_parse_id_list( $_REQUEST['in_loc'] ),
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $_GET['in_tag'] ) ) {
+		if ( ! empty( $_REQUEST['in_tag'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
 				'field'    => 'term_id',
-				'terms'    => wp_parse_id_list( $_GET['in_tag'] ),
+				'terms'    => wp_parse_id_list( $_REQUEST['in_tag'] ),
 			);
 		}
 
@@ -794,8 +794,8 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args( $args, $meta_queries );
 
-		if ( isset( $_GET['custom_field'] ) ) {
-			$custom_fields = array_filter( $_GET['custom_field'] );
+		if ( isset( $_REQUEST['custom_field'] ) ) {
+			$custom_fields = array_filter( $_REQUEST['custom_field'] );
 
 			foreach ( $custom_fields as $key => $values ) {
 				if ( is_array( $values ) ) {
@@ -828,8 +828,8 @@ class Directorist_Listings {
 			}
 		}
 
-		if ( ! empty( $_GET['price'] ) ) {
-			$price = array_filter( $_GET['price'] );
+		if ( ! empty( $_REQUEST['price'] ) ) {
+			$price = array_filter( $_REQUEST['price'] );
 
 			if ($n = count($price)) {
 				if ( 2 == $n ) {
@@ -859,32 +859,32 @@ class Directorist_Listings {
 			}
 		}
 
-		if ( ! empty( $_GET['price_range'] ) && 'none' !== $_GET['price_range'] ) {
+		if ( ! empty( $_REQUEST['price_range'] ) && 'none' !== $_REQUEST['price_range'] ) {
 			$meta_queries['_price_range'] = array(
 				'key'     => '_price_range',
-				'value'   => sanitize_text_field( $_GET['price_range'] ),
+				'value'   => sanitize_text_field( $_REQUEST['price_range'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['website'] ) ) {
+		if ( ! empty( $_REQUEST['website'] ) ) {
 			$meta_queries['_website'] = array(
 				'key'     => '_website',
-				'value'   => sanitize_text_field( $_GET['website'] ),
+				'value'   => sanitize_text_field( $_REQUEST['website'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['email'] ) ) {
+		if ( ! empty( $_REQUEST['email'] ) ) {
 			$meta_queries['_email'] = array(
 				'key'     => '_email',
-				'value'   => sanitize_text_field( $_GET['email'] ),
+				'value'   => sanitize_text_field( $_REQUEST['email'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['phone'] ) ) {
-			$phone = sanitize_text_field( $_GET['phone'] );
+		if ( ! empty( $_REQUEST['phone'] ) ) {
+			$phone = sanitize_text_field( $_REQUEST['phone'] );
 			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
@@ -900,41 +900,41 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( ! empty( $_GET['fax'] ) ) {
+		if ( ! empty( $_REQUEST['fax'] ) ) {
 			$meta_queries['_fax'] = array(
 				'key'     => '_fax',
-				'value'   => sanitize_text_field( $_GET['fax'] ),
+				'value'   => sanitize_text_field( $_REQUEST['fax'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['miles'] ) && ! empty( $_GET['cityLat'] ) && ! empty( $_GET['cityLng'] ) ) {
+		if ( ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_GET['cityLat'] ),
-				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
-				'distance'  => sanitize_text_field( $_GET['miles'] ),
+				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
+				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
+				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
 				'units'     => $this->radius_search_unit
 			);
-		} elseif ( ! empty($_GET['address']) ) {
+		} elseif ( ! empty($_REQUEST['address']) ) {
 			$meta_queries['_address'] = array(
 				'key'     => '_address',
-				'value'   => sanitize_text_field( $_GET['address'] ),
+				'value'   => sanitize_text_field( $_REQUEST['address'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['zip'] ) ) {
+		if ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
 				'key'     => '_zip',
-				'value'   => sanitize_text_field( $_GET['zip'] ),
+				'value'   => sanitize_text_field( $_REQUEST['zip'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['search_by_rating'] ) ) {
-			$rating_query = sanitize_text_field( $_GET['search_by_rating'] );
+		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
+			$rating_query = sanitize_text_field( $_REQUEST['search_by_rating'] );
 			$meta_queries['_rating'] = array(
 				'key'     => directorist_get_rating_field_meta_key(),
 				'value'   => absint( $rating_query ),
@@ -1121,8 +1121,8 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( isset( $_REQUEST['directory_type'] ) ) {
+			$current = $_REQUEST['directory_type'];
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;

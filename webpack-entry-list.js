@@ -8,6 +8,10 @@ module.exports = {
         ['public-search-listing']: ["./assets/src/js/public/search-listing.js"],
         ['public-search-form-listing']: ["./assets/src/js/public/search-form-listing.js"],
 
+        //Pages
+        ['public-all-listings']: ["./assets/src/js/public/modules/all-listings.js"],
+        //['public-dashboard']: ["./assets/src/js/public/dashboard.js"],
+
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
         ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
 

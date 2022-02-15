@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Localized_Data {
 
 	public static function load_localized_data() {
-        wp_localize_script( 'directorist-main',  'directorist', self::public_data() );
-        wp_localize_script( 'directorist-admin-script', 'directorist_admin', self::admin_data() );
+        wp_localize_script( 'jquery', 'directorist', self::public_data() );
+        wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
 
 		// Public JS
 		wp_localize_script( 'directorist-main', 'atbdp_public_data', self::get_listings_data() );

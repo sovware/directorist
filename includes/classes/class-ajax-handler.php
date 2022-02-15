@@ -269,7 +269,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
                 'search_form'          => $search_form,
-                'atbdp_search_listing' => \Directorist\Asset_Loader\Localized_Data::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
+                'atbdp_search_listing' => \Directorist\Asset_Loader\Localize::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
              ) );
         }
 

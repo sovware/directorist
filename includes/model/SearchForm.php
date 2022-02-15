@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Directorist\Asset_Loader\Localize;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Search_Form {
@@ -329,8 +331,6 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function load_radius_search_scripts( $data ) {
-		$sliderjs = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
-		wp_enqueue_script( $sliderjs );
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
 		if ( 'kilometers' == $radius_search_unit ) {
 			$miles = __( ' Kilometers', 'directorist' );
@@ -341,13 +341,13 @@ class Directorist_Listing_Search_Form {
 
 		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
 
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
-			'miles' => $miles,
-			'slider_config' => [
-				'minValue' => $value,
-				'maxValue' => 1000,
-			]
-		]));
+		$args = [
+			'miles'    => $miles,
+			'minValue' => $value,
+		];
+
+		wp_enqueue_script( 'directorist-range-slider' );
+		Localize::range_slider( $args );
 	}
 
 	public function get_pricing_type() {

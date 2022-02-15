@@ -65,7 +65,7 @@ class Init {
 	 * Load localized data.
 	 */
 	public function localized_data() {
-		Localized_Data::load_localized_data();
+		Localize::load_localized_data();
 	}
 
 	public function enqueue_scripts() {
@@ -88,7 +88,7 @@ class Init {
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
-				Enqueue::common_shortcode_scripts();
+				//Enqueue::common_shortcode_scripts();
 				Enqueue::all_listings( $model );
 				break;
 

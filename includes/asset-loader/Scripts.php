@@ -158,6 +158,7 @@ class Scripts {
 			'directorist-range-slider' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'range-slider',
+				'rtl'  => true,
 			],
 			'directorist-ez-media-uploader' => [
 				'type' => 'js',

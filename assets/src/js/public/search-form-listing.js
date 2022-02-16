@@ -64,7 +64,7 @@
                 }
 
                 parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-                atbd_callingSlider();
+                directorist_callingSlider();
             },
             error(error) {
                 console.log(error);

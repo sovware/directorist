@@ -20,7 +20,7 @@ $searchform->load_radius_search_scripts( $data );
 	<?php endif; ?>
 
 	<div class="directorist-range-slider-wrap">
-		<div class="atbdp-range-slider"></div>
+		<div class="directorist-range-slider"></div>
 		<p class="atbd-current-value"></p>
 		<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo esc_attr( $value ); ?>" />
 	</div>

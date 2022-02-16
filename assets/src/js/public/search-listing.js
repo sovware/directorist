@@ -138,7 +138,7 @@
         e.preventDefault();
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-        atbd_callingSlider();
+        directorist_callingSlider();
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
@@ -282,7 +282,7 @@
                     adsFormReset(searchForm);
                 }
             }
-            atbd_callingSlider(0);
+            directorist_callingSlider(0);
         });
     }
 
@@ -296,7 +296,7 @@
                     adsFormReset(searchForm);
                 }
             }
-            atbd_callingSlider(0);
+            directorist_callingSlider(0);
         });
     }
 
@@ -315,7 +315,7 @@
                     adsFormReset(searchForm);
                 }
             }
-            atbd_callingSlider(0);
+            directorist_callingSlider(0);
         });
     }
 
@@ -329,7 +329,7 @@
                     adsFormReset(searchForm);
                 }
             }
-            atbd_callingSlider(0);
+            directorist_callingSlider(0);
         });
     }
 
@@ -343,7 +343,7 @@
                     adsFormReset(searchForm);
                 }
             }
-            atbd_callingSlider(0);
+            directorist_callingSlider(0);
         });
     }
 

@@ -329,7 +329,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function load_radius_search_scripts( $data ) {
-		$sliderjs = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+		$sliderjs = is_rtl() ? 'directorist-range-slider-rtl' : 'directorist-range-slider';
 		wp_enqueue_script( $sliderjs );
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
 		if ( 'kilometers' == $radius_search_unit ) {
@@ -372,7 +372,7 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		$category_custom_field = array( 
+		$category_custom_field = array(
 			'custom_field_key'	=> $custom_field_key,
 			'assign_to_cat'		=> $assign_to_cat,
 		);

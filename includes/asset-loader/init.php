@@ -100,7 +100,7 @@ class Init {
 
 		switch ( $shortcode ) {
 			case 'directorist_all_listing':
-				//Enqueue::common_shortcode_scripts();
+				// Enqueue::common_shortcode_scripts();
 				Enqueue::all_listings( $model );
 				break;
 

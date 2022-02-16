@@ -5,8 +5,6 @@
 
 namespace Directorist;
 
-use Directorist\Asset_Loader\Localized_Data;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Search_Form {

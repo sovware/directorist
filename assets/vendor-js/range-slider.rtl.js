@@ -1,5 +1,5 @@
 /* range slider */
-const atbd_slider = (selector, obj) => {
+const directorist_range_slider = (selector, obj) => {
     var isDraging 	= false,
         max 		= obj.maxValue,
         min 		= obj.minValue,
@@ -8,9 +8,9 @@ const atbd_slider = (selector, obj) => {
         move 		= 'mousemove',
 
         div = `
-            <div class="atbd-slide1" draggable="true"></div>
-            <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
-            <div class="atbd-child"></div>
+            <div class="directorist-range-slider1" draggable="true"></div>
+            <input type='hidden' class="directorist-range-slider-minimum" name="minimum" value=${min} />
+            <div class="directorist-range-slider-child"></div>
 		`;
 
     const touch = "ontouchstart" in document.documentElement;
@@ -23,19 +23,21 @@ const atbd_slider = (selector, obj) => {
     const slider = document.querySelectorAll(selector);
 
     slider.forEach((id, index) => {
+        var sliderData = JSON.parse(id.getAttribute('data-slider'));
+        min = sliderData.minValue;
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
-        let slide1 	= id.querySelector('.atbd-slide1'),
+        let slide1 	= id.querySelector('.directorist-range-slider1'),
             width 	= id.clientWidth;
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        document.querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.miles}`;
+        document.querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderData.miles}`;
 
         var x 			= null,
             count 		= 0,
             slid1_val 	= 0,
-            slid1_val2 	= obj.minValue,
+            slid1_val2 	= sliderData.minValue,
             count2 		= width;
 
         if(window.outerWidth < 600){
@@ -52,7 +54,7 @@ const atbd_slider = (selector, obj) => {
                 x = event.touches[0].clientX;
             }
             isDraging = true;
-            event.target.classList.add('atbd-active');
+            event.target.classList.add('directorist-rs-active');
         });
         window.addEventListener(up, (event2) => {
             if(!touch){
@@ -61,17 +63,17 @@ const atbd_slider = (selector, obj) => {
             }
             isDraging 	= false;
             slid1_val2 	= slid1_val;
-            slide1.classList.remove('atbd-active');
+            slide1.classList.remove('directorist-rs-active');
         });
 
-        slide1.classList.add('atbd-active1');
+        slide1.classList.add('directorist-rs-active1');
         count = (width / max);
-        if(slide1.classList.contains('atbd-active1')){
+        if(slide1.classList.contains('directorist-rs-active1')){
             var onLoadValue 	= count * min;
-            document.querySelector('.atbd-current-value span').innerHTML = obj.minValue;
-            id.querySelector('.atbd-minimum').value = obj.minValue;
-            id.querySelector('.atbd-active1').style.right = onLoadValue <= 0 ? 0 : onLoadValue +'px';
-            id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            document.querySelector('.directorist-range-slider-current-value span').innerHTML = sliderData.minValue;
+            id.querySelector('.directorist-range-slider-minimum').value = sliderData.minValue;
+            id.querySelector('.directorist-rs-active1').style.right = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
         window.addEventListener(move, (e) => {
@@ -87,13 +89,13 @@ const atbd_slider = (selector, obj) => {
                     count = count2 - 19;
                 }
             }
-            if(slide1.classList.contains('atbd-active')){
+            if(slide1.classList.contains('directorist-rs-active')){
                 slid1_val 	= Math.floor(max/ (width -19) * count);
-                document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.miles}`;
-                id.querySelector('.atbd-minimum').value = slid1_val;
-                document.querySelector('.atbdrs-value').value = slid1_val;
-                id.querySelector('.atbd-active').style.right = count +'px';
-                id.querySelector('.atbd-child').style.width = count+'px';
+                document.querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderData.miles}`;
+                id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
+                document.querySelector('.directorist-range-slider-value').value = slid1_val;
+                id.querySelector('.directorist-rs-active').style.right = count +'px';
+                id.querySelector('.directorist-range-slider-child').style.width = count+'px';
 
             }
         });
@@ -101,7 +103,7 @@ const atbd_slider = (selector, obj) => {
     });
 };
 
-function atbd_callingSlider() {
+function directorist_callingSlider() {
     var default_args = {
         maxValue: 1000,
         minValue: 0,
@@ -114,10 +116,10 @@ function atbd_callingSlider() {
 
     var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
 
-    atbd_slider ('.directorist-range-slider', config);
+    directorist_range_slider ('.directorist-range-slider', config);
 }
 
 window.addEventListener("load", function () {
-    atbd_callingSlider();
+    directorist_callingSlider();
 });
 

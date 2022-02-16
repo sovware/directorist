@@ -8,9 +8,9 @@ var directorist_range_slider = (selector, obj) => {
         move 		= 'mousemove',
 
         div = `
-            <div class="atbd-slide1" draggable="true"></div>
-            <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
-            <div class="atbd-child"></div>
+            <div class="directorist-range-slider1" draggable="true"></div>
+            <input type='hidden' class="directorist-range-slider-minimum" name="minimum" value=${min} />
+            <div class="directorist-range-slider-child"></div>
 		`;
 
     var touch = "ontouchstart" in document.documentElement;
@@ -26,7 +26,7 @@ var directorist_range_slider = (selector, obj) => {
         min = sliderData.minValue;
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
-        let slide1 	= id.querySelector('.atbd-slide1'),
+        let slide1 	= id.querySelector('.directorist-range-slider1'),
             width 	= id.clientWidth;
 
         slide1.style.background = obj.pointerColor;
@@ -53,7 +53,7 @@ var directorist_range_slider = (selector, obj) => {
                 x = event.touches[0].clientX;
             }
             isDraging = true;
-            event.target.classList.add('atbd-active');
+            event.target.classList.add('directorist-rs-active');
         });
         window.addEventListener(up, (event2) => {
             if(!touch){
@@ -62,17 +62,17 @@ var directorist_range_slider = (selector, obj) => {
             }
             isDraging 	= false;
             slid1_val2 	= slid1_val;
-            slide1.classList.remove('atbd-active');
+            slide1.classList.remove('directorist-rs-active');
         });
 
-        slide1.classList.add('atbd-active1');
+        slide1.classList.add('directorist-rs-active1');
         count = (width / max);
-        if(slide1.classList.contains('atbd-active1')){
+        if(slide1.classList.contains('directorist-rs-active1')){
             var onLoadValue 	= count * min;
             id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderData.minValue;
-            id.querySelector('.atbd-minimum').value = sliderData.minValue;
-            id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
-            id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.directorist-range-slider-minimum').value = sliderData.minValue;
+            id.querySelector('.directorist-rs-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
         window.addEventListener(move, (e) => {
@@ -87,13 +87,13 @@ var directorist_range_slider = (selector, obj) => {
                     count = count2 - 18;
                 }
             }
-            if(slide1.classList.contains('atbd-active')){
+            if(slide1.classList.contains('directorist-rs-active')){
                 slid1_val 	= Math.floor(max/ (width -18) * count);
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderData.miles}`;
-                id.querySelector('.atbd-minimum').value = slid1_val;
-                id.closest('.directorist-range-slider-wrap').querySelector('.atbdrs-value').value = slid1_val;
-                id.querySelector('.atbd-active').style.left = count +'px';
-                id.querySelector('.atbd-child').style.width = count+'px';
+                id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
+                id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
+                id.querySelector('.directorist-rs-active').style.left = count +'px';
+                id.querySelector('.directorist-range-slider-child').style.width = count+'px';
             }
         });
 

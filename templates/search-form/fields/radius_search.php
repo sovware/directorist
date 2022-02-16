@@ -20,7 +20,7 @@ $value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $default_distance;
 	<div class="directorist-range-slider-wrap">
 		<div class="directorist-range-slider" data-slider="<?php echo esc_attr( $searchform->range_slider_data( $data ) );?>"></div>
 		<p class="directorist-range-slider-current-value"></p>
-		<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo esc_attr( $value ); ?>" />
+		<input type="hidden" class="directorist-range-slider-value" name="miles" value="<?php echo esc_attr( $value ); ?>" />
 	</div>
 
 </div>

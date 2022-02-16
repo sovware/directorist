@@ -392,7 +392,6 @@ Directorist is a complete directory solution and in combination with its advance
 7.1.1 – Feb 14, 2022
 
 * Add - Load category custom field when selecting search form categories
-* Add - New user role support named 'seller'
 * Add - 'section_data' as the second parameter of 'directorist_single_section_has_contents' filter hook
 * Fix - User not able to select address if there's no map added on the add listing form
 * Fix - Wrong listings in Author Profile page where usernames with a space

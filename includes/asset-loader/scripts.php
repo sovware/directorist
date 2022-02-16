@@ -195,7 +195,7 @@ class Scripts {
 			],
 			'directorist-all-listings' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'public-all-listings.js',
+				'path' => DIRECTORIST_JS . 'all-listings.js',
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

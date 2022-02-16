@@ -226,7 +226,7 @@
       data: form_data,
       success: function success(html) {
         if (html.view_as) {
-          $('.directorist-archive-contents').empty().append(html.view_as); //$('.directorist-archive-contents').children('div:last-child').empty().append( html.view_as );
+          $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));

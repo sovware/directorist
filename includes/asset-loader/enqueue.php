@@ -39,7 +39,6 @@ class Enqueue {
     public static function single_listing() {
 
 		wp_enqueue_script( 'directorist-main' );
-		wp_enqueue_script( 'directorist-jquery-barrating' );
 		wp_enqueue_script( 'directorist-sweetalert-script' );
 		wp_enqueue_script( 'directorist-slick' );
 

@@ -113,7 +113,6 @@ function directorist_callingSlider() {
     var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
 
     directorist_range_slider ('.directorist-range-slider', config);
-    console.log(atbdp_range_slider);
 }
 
 window.addEventListener("load", function () {

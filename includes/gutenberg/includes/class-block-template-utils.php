@@ -221,7 +221,7 @@ class Block_Template_Utils {
 			// Plugin was agreed as a valid source value despite existing inline docs at the time of creating: https://github.com/WordPress/gutenberg/issues/36597#issuecomment-976232909.
 			'source'      => $template_is_from_theme ? 'theme' : 'plugin',
 			'title'       => self::convert_slug_to_title( $template_slug ),
-			'description' => 'test',
+			'description' => '',
 			'post_types'  => array(), // Don't appear in any Edit Post template selector dropdown.
 		);
 

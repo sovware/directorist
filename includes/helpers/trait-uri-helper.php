@@ -69,6 +69,8 @@ trait URI_Helper {
 		$template = apply_filters( 'directorist_template', $template, $args );
 		$file = self::template_path( $template, $args );
 
+		do_action( 'before_directorist_template_loaded', $template, $file, $args );
+
 		if ( file_exists( $file ) ) {
 			include $file;
 		}

@@ -5058,7 +5058,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   margin-bottom: 0;
 }
 
-.atbdp-range-slider-widget .atbd-current-value {
+.atbdp-range-slider-widget .directorist-range-slider-current-value {
   margin-bottom: 10px;
 }
 
@@ -6595,7 +6595,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0 15px;
 }
 
-.directorist-range-slider-wrap .atbd-current-value {
+.directorist-range-slider-wrap .directorist-range-slider-current-value {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
@@ -6612,7 +6612,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0;
 }
 
-.directorist-range-slider-wrap.atbdprs-widget .atbd-current-value {
+.directorist-range-slider-wrap.atbdprs-widget .directorist-range-slider-current-value {
   margin-bottom: 15px !important;
   padding: 0 !important;
 }
@@ -14987,7 +14987,7 @@ Review: New Style
             flex: 0 0 100%;
     margin: 10px 0;
   }
-  .atbdp-range-slider-wrapper .atbd-current-value {
+  .atbdp-range-slider-wrapper .directorist-range-slider-current-value {
     padding: 0 !important;
   }
 

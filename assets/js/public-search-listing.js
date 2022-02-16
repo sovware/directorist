@@ -371,7 +371,7 @@
       irisPicker.click();
     }
 
-    var rangeValue = searchForm.querySelector(".atbd-current-value span");
+    var rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
 
     if (rangeValue !== null) {
       rangeValue.innerHTML = "0";

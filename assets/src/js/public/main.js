@@ -6,7 +6,7 @@
 */
 
 // Styles
-import './../../scss/layout/public/main-style.scss';
+//import './../../scss/layout/public/main-style.scss';
 
 // Single Listing Page
 // import './components/single-listing-page/slider';

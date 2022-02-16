@@ -1,0 +1,1 @@
+import '../components/loc_cat';

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -306,59 +306,9 @@ atbdSelectData.forEach(function (el) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdSorting.js":
-/*!********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdSorting.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  // Sorting Js
-  $('.directorist-dropdown__links--single-js').click(function () {
-    var href = $(this).attr('data-link');
-    $('#directorsit-listing-sort').attr('action', href);
-    $('#directorsit-listing-sort').submit();
-  }); //sorting toggle
-
-  $('.sorting span').on('click', function () {
-    $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
-  });
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/general.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/public/components/general.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Fix listing with no thumb if card width is less than 220px
-(function ($) {
-  if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
-    $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
-  } // Auhtor Profile Listing responsive fix
-
-
-  if ($('.directorist-author-listing-content').innerWidth() <= 750) {
-    $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
-  } // Directorist Archive responsive fix
-
-
-  if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
-    $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
-  }
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/gridResponsive.js":
+/***/ "./assets/src/js/public/components/formValidation.js":
 /*!***********************************************************!*\
-  !*** ./assets/src/js/public/components/gridResponsive.js ***!
+  !*** ./assets/src/js/public/components/formValidation.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -366,273 +316,78 @@ atbdSelectData.forEach(function (el) {
 ;
 
 (function ($) {
-  /* Responsive grid control */
-  $(document).ready(function () {
-    var d_wrapper = $("#directorist.atbd_wrapper");
-    var columnLeft = $(".atbd_col_left.col-lg-8");
-    var columnRight = $(".directorist.col-lg-4");
-    var tabColumn = $(".atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4");
-    var w_size = d_wrapper.width();
+  $('#directorist-report-abuse-form').on('submit', function (e) {
+    $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading'); // Check for errors
 
-    if (w_size >= 500 && w_size <= 735) {
-      columnLeft.toggleClass("col-lg-8");
-      columnRight.toggleClass("col-lg-4");
-    }
+    if (!e.isDefaultPrevented()) {
+      e.preventDefault(); // Post via AJAX
 
-    if (w_size <= 600) {
-      d_wrapper.addClass("size-xs");
-      tabColumn.toggleClass("col-lg-4");
-    }
+      var data = {
+        'action': 'atbdp_public_report_abuse',
+        'directorist_nonce': atbdp_public_data.directorist_nonce,
+        'post_id': $('#atbdp-post-id').val(),
+        'message': $('#directorist-report-message').val()
+      };
+      $.post(atbdp_public_data.ajaxurl, data, function (response) {
+        if (1 == response.error) {
+          $('#directorist-report-abuse-message-display').addClass('text-danger').html(response.message);
+        } else {
+          $('#directorist-report-message').val('');
+          $('#directorist-report-abuse-message-display').addClass('text-success').html(response.message);
+        }
 
-    var listing_size = $(".atbd_dashboard_wrapper .atbd_single_listing").width();
-
-    if (listing_size < 200) {
-      $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
-    }
-  });
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/helpers.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/public/components/helpers.js ***!
-  \****************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_printRating__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/printRating */ "./assets/src/js/public/components/helpers/printRating.js");
-/* harmony import */ var _helpers_printRating__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_helpers_printRating__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_createMysql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/createMysql */ "./assets/src/js/public/components/helpers/createMysql.js");
-/* harmony import */ var _helpers_createMysql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_helpers_createMysql__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers_postDraft__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/postDraft */ "./assets/src/js/public/components/helpers/postDraft.js");
-/* harmony import */ var _helpers_postDraft__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_helpers_postDraft__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _helpers_handleAjaxRequest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/handleAjaxRequest */ "./assets/src/js/public/components/helpers/handleAjaxRequest.js");
-/* harmony import */ var _helpers_handleAjaxRequest__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_helpers_handleAjaxRequest__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _helpers_noImageController__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/noImageController */ "./assets/src/js/public/components/helpers/noImageController.js");
-/* harmony import */ var _helpers_noImageController__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_helpers_noImageController__WEBPACK_IMPORTED_MODULE_4__);
-// Helper Components
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/helpers/createMysql.js":
-/*!****************************************************************!*\
-  !*** ./assets/src/js/public/components/helpers/createMysql.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  // Helper function to convert the mysql date
-  Date.createFromMysql = function (mysql_string) {
-    var t,
-        result = null;
-
-    if (typeof mysql_string === 'string') {
-      t = mysql_string.split(/[- :]/); //when t[3], t[4] and t[5] are missing they defaults to zero
-
-      result = new Date(t[0], t[1] - 1, t[2], t[3] || 0, t[4] || 0, t[5] || 0);
-    }
-
-    return result;
-  };
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/helpers/handleAjaxRequest.js":
-/*!**********************************************************************!*\
-  !*** ./assets/src/js/public/components/helpers/handleAjaxRequest.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  /*This function handles all ajax request*/
-  function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
-    var data;
-    if (ActionName) data = "action=" + ActionName;
-    if (arg) data = arg + "&action=" + ActionName;
-    if (arg && !ActionName) data = arg; //data = data ;
-
-    var n = data.search(atbdp_public_data.nonceName);
-
-    if (n < 0) {
-      data = data + "&" + atbdp_public_data.nonceName + "=" + atbdp_public_data.nonce;
-    }
-
-    jQuery.ajax({
-      type: "post",
-      url: atbdp_public_data.ajaxurl,
-      data: data,
-      beforeSend: function beforeSend() {
-        jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
-      },
-      success: function success(data) {
-        jQuery(".atbdp_ajax_loading").remove();
-        CallBackHandler(data);
-      }
-    });
-  }
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/helpers/noImageController.js":
-/*!**********************************************************************!*\
-  !*** ./assets/src/js/public/components/helpers/noImageController.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  /* Listing No Image Controller */
-  $('.atbd_listing_no_image .atbd_lower_badge').each(function (i, elm) {
-    if (!$.trim($(elm).html()).length) {
-      $(this).addClass('atbd-no-spacing');
+        $('.directorist-report-abuse-modal button[type=submit]').removeClass('directorist-btn-loading');
+      }, 'json');
     }
   });
-})(jQuery);
+  $('#atbdp-report-abuse-form').removeAttr('novalidate'); // Validate contact form
 
-/***/ }),
+  $('.directorist-contact-owner-form').on('submit', function (e) {
+    e.preventDefault();
+    var submit_button = $(this).find('button[type="submit"]');
+    var status_area = $(this).find('.directorist-contact-message-display'); // Show loading message
 
-/***/ "./assets/src/js/public/components/helpers/postDraft.js":
-/*!**************************************************************!*\
-  !*** ./assets/src/js/public/components/helpers/postDraft.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+    var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + atbdp_public_data.waiting_msg + ' </div>';
+    status_area.html(msg);
+    var name = $(this).find('input[name="atbdp-contact-name"]');
+    var contact_email = $(this).find('input[name="atbdp-contact-email"]');
+    var message = $(this).find('textarea[name="atbdp-contact-message"]');
+    var post_id = $(this).find('input[name="atbdp-post-id"]');
+    var listing_email = $(this).find('input[name="atbdp-listing-email"]'); // Post via AJAX
 
-;
+    var data = {
+      'action': 'atbdp_public_send_contact_email',
+      'post_id': post_id.val(),
+      'name': name.val(),
+      'email': contact_email.val(),
+      'listing_email': listing_email.val(),
+      'message': message.val(),
+      'directorist_nonce': atbdp_public_data.directorist_nonce
+    };
+    submit_button.prop('disabled', true);
+    $.post(atbdp_public_data.ajaxurl, data, function (response) {
+      submit_button.prop('disabled', false);
 
-(function ($) {
-  //adding temporary css class to post draft page
-  if ($(".edit_btn_wrap .atbdp_float_active").length) {
-    $("body").addClass("atbd_post_draft");
-  }
-})(jQuery);
+      if (1 == response.error) {
+        atbdp_contact_submitted = false; // Show error message
 
-/***/ }),
-
-/***/ "./assets/src/js/public/components/helpers/printRating.js":
-/*!****************************************************************!*\
-  !*** ./assets/src/js/public/components/helpers/printRating.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-;
-
-(function ($) {
-  /* Helper Function for priting static rating */
-  function print_static_rating($star_number) {
-    var v;
-
-    if ($star_number) {
-      v = '<ul>';
-
-      for (var i = 1; i <= 5; i++) {
-        v += i <= $star_number ? "<li><span class='directorist-rate-active'></span></li>" : "<li><span class='directorist-rate-disable'></span></li>";
-      }
-
-      v += '</ul>';
-    }
-
-    return v;
-  }
-})(jQuery);
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/legacy-support.js":
-/*!***********************************************************!*\
-  !*** ./assets/src/js/public/components/legacy-support.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* custom dropdown */
-var atbdDropdown = document.querySelectorAll('.atbd-dropdown'); // toggle dropdown
-
-var clickCount = 0;
-
-if (atbdDropdown !== null) {
-  atbdDropdown.forEach(function (el) {
-    el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
-      e.preventDefault();
-      clickCount++;
-
-      if (clickCount % 2 === 1) {
-        document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-          elem.classList.remove('atbd-show');
-        });
-        el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
+        var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
+        status_area.html(msg);
       } else {
-        document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-          elem.classList.remove('atbd-show');
-        });
+        name.val('');
+        message.val('');
+        contact_email.val(''); // Show success message
+
+        var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
+        status_area.html(msg);
       }
-    });
-  });
-} // remvoe toggle when click outside
 
-
-document.body.addEventListener('click', function (e) {
-  if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
-    clickCount = 0;
-    document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
-      el.classList.remove('atbd-show');
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/loc_cat.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/public/components/loc_cat.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-(function ($) {
-  /* multi level hierarchy content */
-  $('.atbdp_child_category').hide();
-  $('.atbd_category_wrapper > .expander').on('click', function () {
-    $(this).siblings('.atbdp_child_category').slideToggle();
+      setTimeout(function () {
+        status_area.html('');
+      }, 5000);
+    }, 'json');
   });
-  $('.atbdp_child_category li .expander').on('click', function () {
-    $(this).siblings('.atbdp_child_category').slideToggle();
-    $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
-  });
-  $('.atbdp_parent_category >li >span').on('click', function () {
-    $(this).siblings('.atbdp_child_category').slideToggle();
-  }); //
-
-  $('.atbdp_child_location').hide();
-  $('.atbd_location_wrapper > .expander').on('click', function () {
-    $(this).siblings('.atbdp_child_location').slideToggle();
-  });
-  $('.atbdp_child_location li .expander').on('click', function () {
-    $(this).siblings('.atbdp_child_location').slideToggle();
-    $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
-  });
-  $('.atbdp_parent_location >li >span').on('click', function () {
-    $(this).siblings('.atbdp_child_location').slideToggle();
-  });
+  $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
 })(jQuery);
 
 /***/ }),
@@ -1159,43 +914,44 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
-/***/ "./assets/src/js/public/modules/all-listings.js":
-/*!******************************************************!*\
-  !*** ./assets/src/js/public/modules/all-listings.js ***!
-  \******************************************************/
+/***/ "./assets/src/js/public/components/single-listing-page/slider.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/public/components/single-listing-page/slider.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Plasma Slider Initialization 
+var single_listing_slider = new PlasmaSlider({
+  containerID: "directorist-single-listing-slider"
+});
+single_listing_slider.init();
+
+/***/ }),
+
+/***/ "./assets/src/js/public/modules/single-listing.js":
+/*!********************************************************!*\
+  !*** ./assets/src/js/public/modules/single-listing.js ***!
+  \********************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../scss/layout/public/main-style.scss */ "./assets/src/scss/layout/public/main-style.scss");
-/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/helpers */ "./assets/src/js/public/components/helpers.js");
-/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/gridResponsive */ "./assets/src/js/public/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_11__);
-/*
-    File: all-listings.js
-    Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
-    Author: wpWax
-    Author URI: www.wpwax.com
-*/
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/single-listing-page/slider */ "./assets/src/js/public/components/single-listing-page/slider.js");
+/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/formValidation */ "./assets/src/js/public/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_6__);
+// Single Listing Page
  // General Components
 
 
@@ -1204,22 +960,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./assets/src/scss/layout/public/main-style.scss":
-/*!*******************************************************!*\
-  !*** ./assets/src/scss/layout/public/main-style.scss ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -1269,17 +1009,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 4:
-/*!************************************************************!*\
-  !*** multi ./assets/src/js/public/modules/all-listings.js ***!
-  \************************************************************/
+/***/ 12:
+/*!**************************************************************!*\
+  !*** multi ./assets/src/js/public/modules/single-listing.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/all-listings.js */"./assets/src/js/public/modules/all-listings.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/single-listing.js */"./assets/src/js/public/modules/single-listing.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=public-all-listings.js.map
+//# sourceMappingURL=single-listing.js.map

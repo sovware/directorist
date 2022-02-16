@@ -10,7 +10,14 @@ module.exports = {
 
         //Pages
         ['public-all-listings']: ["./assets/src/js/public/modules/all-listings.js"],
-        //['public-dashboard']: ["./assets/src/js/public/dashboard.js"],
+        ['all-authors']: ["./assets/src/js/public/modules/all-authors.js"],
+        ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
+        ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
+        ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
+        ['search-home']: ["./assets/src/js/public/modules/search-home.js"],
+        ['add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
+        ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
+        ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
 
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
         ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],

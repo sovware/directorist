@@ -1168,33 +1168,35 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/helpers */ "./assets/src/js/public/components/helpers.js");
-/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/gridResponsive */ "./assets/src/js/public/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../scss/layout/public/main-style.scss */ "./assets/src/scss/layout/public/main-style.scss");
+/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
+/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/helpers */ "./assets/src/js/public/components/helpers.js");
+/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/gridResponsive */ "./assets/src/js/public/components/gridResponsive.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_11__);
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
     Author: wpWax
     Author URI: www.wpwax.com
 */
-// General Components
+ // General Components
 
 
 
@@ -1206,6 +1208,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+/***/ }),
+
+/***/ "./assets/src/scss/layout/public/main-style.scss":
+/*!*******************************************************!*\
+  !*** ./assets/src/scss/layout/public/main-style.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

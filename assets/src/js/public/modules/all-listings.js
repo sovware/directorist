@@ -5,6 +5,8 @@
     Author URI: www.wpwax.com
 */
 
+import '../../../scss/layout/public/main-style.scss';
+
 // General Components
 import '../components/general';
 import '../components/helpers';

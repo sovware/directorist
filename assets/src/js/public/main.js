@@ -6,14 +6,14 @@
 */
 
 // Styles
-import './../../scss/layout/public/main-style.scss';
+//import './../../scss/layout/public/main-style.scss';
 
 // Single Listing Page
 // import './components/single-listing-page/slider';
 
 // General Components
 // import './components/general';
-import './components/helpers';
+// import './components/helpers';
 // import './components/review';
 // import './components/atbdSorting';
 // import './components/atbdAlert';
@@ -27,7 +27,7 @@ import './components/helpers';
 // import './components/atbdDropdown';
 // import './components/atbdSelect';
 // import './components/loc_cat';
-import './components/legacy-support';
+// import './components/legacy-support';
 // import './components/author';
 
 // Booking

@@ -23,6 +23,7 @@ var directorist_range_slider = (selector, obj) => {
     var slider = document.querySelectorAll(selector);
     slider.forEach((id, index) => {
         var sliderData = JSON.parse(id.getAttribute('data-slider'));
+        min = sliderData.minValue;
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
         let slide1 	= id.querySelector('.atbd-slide1'),
@@ -35,7 +36,7 @@ var directorist_range_slider = (selector, obj) => {
         var x 			= null,
             count 		= 0,
             slid1_val 	= 0,
-            slid1_val2 	= obj.minValue,
+            slid1_val2 	= sliderData.minValue,
             count2 		= width;
 
         if(window.outerWidth < 600){
@@ -68,8 +69,8 @@ var directorist_range_slider = (selector, obj) => {
         count = (width / max);
         if(slide1.classList.contains('atbd-active1')){
             var onLoadValue 	= count * min;
-            id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = obj.minValue;
-            id.querySelector('.atbd-minimum').value = obj.minValue;
+            id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderData.minValue;
+            id.querySelector('.atbd-minimum').value = sliderData.minValue;
             id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }

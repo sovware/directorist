@@ -89,7 +89,7 @@ class Block_Templates_Controller {
 		// Remove the filter at this point because if we don't then this function will infinite loop.
 		remove_filter( 'pre_get_block_file_template', array( $this, 'maybe_return_blocks_template' ), 10, 3 );
 
-		// Check if the theme has a saved version of this template before falling back to the woo one. Please note how
+		// Check if the theme has a saved version of this template before falling back to the directorist one. Please note how
 		// the slug has not been modified at this point, we're still using the default one passed to this hook.
 		$maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
 			gutenberg_get_block_template( $id, $template_type ) :
@@ -100,7 +100,7 @@ class Block_Templates_Controller {
 			return $maybe_template;
 		}
 
-		// Theme-based template didn't exist, try switching the theme to woocommerce and try again. This function has
+		// Theme-based template didn't exist, try switching the theme to directorist and try again. This function has
 		// been unhooked so won't run again.
 		add_filter( 'get_block_file_template', array( $this, 'get_single_block_template' ), 10, 3 );
 		$maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
@@ -274,11 +274,6 @@ class Block_Templates_Controller {
 	 * @return int[]|\WP_Post[] An array of found templates.
 	 */
 	public function get_block_templates_from_db( $slugs = array(), $template_type = 'wp_template' ) {
-		// This was the previously incorrect slug used to save DB templates against.
-		// To maintain compatibility with users sites who have already customised WooCommerce block templates using this slug we have to still use it to query those.
-		// More context found here: https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5423.
-		$invalid_plugin_slug = 'directorist';
-
 		$check_query_args = array(
 			'post_type'      => $template_type,
 			'posts_per_page' => -1,
@@ -287,7 +282,7 @@ class Block_Templates_Controller {
 				array(
 					'taxonomy' => 'wp_theme',
 					'field'    => 'name',
-					'terms'    => array( $invalid_plugin_slug, Block_Template_Utils::PLUGIN_SLUG, get_stylesheet() ),
+					'terms'    => array( Block_Template_Utils::PLUGIN_SLUG, get_stylesheet() ),
 				),
 			),
 		);
@@ -391,7 +386,7 @@ class Block_Templates_Controller {
 	}
 
 	/**
-	 * Checks whether a block template with that name exists in Woo Blocks
+	 * Checks whether a block template with that name exists in Directorist Blocks
 	 *
 	 * @param string $template_name Template to check.
 	 * @param array  $template_type wp_template or wp_template_part.

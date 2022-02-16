@@ -41,7 +41,7 @@ class Block_Template_Utils {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_SLUG = 'directorist/directorist';
+	const PLUGIN_SLUG = 'directorist/directorist-base';
 
 	/**
 	 * Returns an array containing the references of
@@ -154,10 +154,7 @@ class Block_Template_Utils {
 			}
 		}
 
-		// We are checking 'woocommerce' to maintain legacy templates which are saved to the DB,
-		// prior to updating to use the correct slug.
-		// More information found here: https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5423.
-		if ( self::PLUGIN_SLUG === $theme || 'woocommerce' === strtolower( $theme ) ) {
+		if ( self::PLUGIN_SLUG === $theme ) {
 			$template->origin = 'plugin';
 		}
 
@@ -203,12 +200,12 @@ class Block_Template_Utils {
 	}
 
 	/**
-	 * Build a new template object so that we can make Woo Blocks default templates available in the current theme should they not have any.
+	 * Build a new template object so that we can make Directorist Blocks default templates available in the current theme should they not have any.
 	 *
 	 * @param string $template_file Block template file path.
 	 * @param string $template_type wp_template or wp_template_part.
 	 * @param string $template_slug Block template slug e.g. single-LISTIN.
-	 * @param bool   $template_is_from_theme If the block template file is being loaded from the current theme instead of Woo Blocks.
+	 * @param bool   $template_is_from_theme If the block template file is being loaded from the current theme instead of Directorist Blocks.
 	 *
 	 * @return object Block template object.
 	 */

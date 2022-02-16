@@ -105,7 +105,7 @@
     })
 
     // Directorist view as changes  
-    $('body').on("click", ".directorist-dropdown__links--single", function( e ) {
+    $('body').on("click", ".directorist-viewas-dropdown .directorist-dropdown__links--single", function( e ) {
         e.preventDefault();
         let view_href = $(this).attr('href');
         let view = view_href.match( /view=.+/ );
@@ -138,14 +138,55 @@
             success: function( html ) {
 
                 if( html.view_as ) {
-                    
+
                     $('.directorist-archive-contents').children('div:last-child').empty().append( html.view_as );
                     
                 }
                 window.dispatchEvent(new CustomEvent( 'directorist-reload-listings-map-archive'));
             }
         });
-    })
+    });
+
+    // Directorist sort by changes  
+    $('body').on("click", ".directorist-sortby-dropdown .directorist-dropdown__links--single-js", function( e ) {
+        e.preventDefault();
+        
+        var form_data = {
+            action  : 'directorist_ajax_search',
+            _nonce  : atbdp_public_data.ajax_nonce,
+            q       : $('input[name="q"]').val(),
+            in_cat  : $('.bdas-category-search').val(),
+            in_loc  : $('.bdas-category-location').val(),
+            in_tag  : tag,
+            price   : price,
+            price_range : $("input[name='price_range']:checked").val(),
+            search_by_rating: $('select[name=search_by_rating]').val(),
+            cityLat : $('#cityLat').val(),
+            cityLng : $('#cityLng').val(),
+            miles   : $('.atbdrs-value').val(),
+            address : $('input[name="address"]').val(),
+            zip     : $('input[name="zip"]').val(),
+            fax     : $('input[name="fax"]').val(),
+            email   : $('input[name="email"]').val(),
+            website   : $('input[name="website"]').val(),
+            phone   : $('input[name="phone"]').val(),
+            custom_field : custom_field
+        };
+        $.ajax({
+            url: atbdp_public_data.ajaxurl,
+            type: "POST",
+            data: form_data,
+            success: function( html ) {
+
+                if( html.view_as ) {
+
+                   // $('.directorist-archive-contents').children('div:last-child').empty().append( html.view_as );
+                    
+                }
+                window.dispatchEvent(new CustomEvent( 'directorist-reload-listings-map-archive'));
+            }
+        });
+    });
     
 
 })(jQuery);

@@ -64,7 +64,13 @@ class Init {
 				break;
 
 			case 'archive/map-view.php':
-				// wp_enqueue_script( 'directorist-geolocation' );
+				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
+
+				if ( $map_type == 'openstreet' ) {
+
+				} elseif ( $map_type == 'google' ) ) {
+
+				}
 				break;
 	
 			case 'search-form/fields/radius_search':

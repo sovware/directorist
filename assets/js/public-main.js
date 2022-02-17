@@ -133,7 +133,17 @@ __webpack_require__.r(__webpack_exports__);
       custom_field[post_id] = value;
     }
   });
+
+  function directorist_ajax_search_seo(form_data) {
+    if (history.pushState) {
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + form_data.q;
+      window.history.pushState({
+        path: newurl
+      }, '', newurl);
+    }
+  }
   /* Directorist ajax search */
+
 
   $('body').on("submit", ".directorist-ajax-search .directorist-advanced-filter__form", function (e) {
     e.preventDefault();
@@ -162,25 +172,23 @@ __webpack_require__.r(__webpack_exports__);
       custom_field: custom_field
     };
 
-    if (history.pushState) {
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + form_data.q;
-      window.history.pushState({
-        path: newurl
-      }, '', newurl);
-    }
-
     if (view && view.length) {
       form_data.view = view;
     }
 
+    directorist_ajax_search_seo(form_data);
     $.ajax({
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+      },
       success: function success(html) {
         if (html.search_result) {
           $('.directorist-header-found-title span').text(html.count);
           $('.directorist-archive-contents').children('div:last-child').empty().append(html.search_result);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
       }
@@ -200,9 +208,13 @@ __webpack_require__.r(__webpack_exports__);
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').addClass('atbdp-form-fade');
+      },
       success: function success(html) {
         if (html.directory_type) {
           $('.directorist-archive-contents').empty().append(html.directory_type);
+          $('.directorist-archive-contents').removeClass('atbdp-form-fade');
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
 
@@ -260,9 +272,13 @@ __webpack_require__.r(__webpack_exports__);
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+      },
       success: function success(html) {
         if (html.view_as) {
           $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -307,9 +323,13 @@ __webpack_require__.r(__webpack_exports__);
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+      },
       success: function success(html) {
         if (html.view_as) {
           $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -370,9 +390,13 @@ __webpack_require__.r(__webpack_exports__);
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+      },
       success: function success(html) {
         if (html.view_as) {
           $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));

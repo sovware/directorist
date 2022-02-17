@@ -5,7 +5,7 @@
     ------------------ */
 
     //ad search js
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");*/
+    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
 
     function defaultTags() {
         $('.directorist-btn-ml').each((index, element) => {
@@ -26,10 +26,10 @@
         $(this).toggleClass('active');
 
         if ($(this).hasClass('active')) {
-            $(this).text(atbdp_search_listing.i18n_text.show_less);
+            $(this).text(directorist.i18n_text.show_less);
             $(abc2).slice(4, abc2.length).fadeIn();
         } else {
-            $(this).text(atbdp_search_listing.i18n_text.show_more);
+            $(this).text(directorist.i18n_text.show_more);
             $(abc2).slice(4, abc2.length).fadeOut();
         }
 

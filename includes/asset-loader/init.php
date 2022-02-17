@@ -68,7 +68,7 @@ class Init {
 
 				if ( $map_type == 'openstreet' ) {
 
-				} elseif ( $map_type == 'google' ) ) {
+				} elseif ( $map_type == 'google' ) {
 
 				}
 				break;

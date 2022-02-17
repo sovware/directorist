@@ -5808,7 +5808,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = 1;
+            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
         }
 
         return absint($paged);
@@ -6434,10 +6434,10 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_GET['sort'])) {
-        $order = sanitize_text_field($_GET['sort']);
-    } else if (isset($_GET['order'])) {
-        $order = sanitize_text_field($_GET['order']);
+    if (isset($_REQUEST['sort'])) {
+        $order = sanitize_text_field($_REQUEST['sort']);
+    } else if (isset($_REQUEST['order'])) {
+        $order = sanitize_text_field($_REQUEST['order']);
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);

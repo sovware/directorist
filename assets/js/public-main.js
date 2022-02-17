@@ -90,8 +90,13 @@
 /*!*******************************************************!*\
   !*** ./assets/src/js/public/components/ajaxSearch.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 
 ;
 
@@ -132,6 +137,9 @@
 
   $('body').on("submit", ".directorist-advanced-filter__form", function (e) {
     e.preventDefault();
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var form_data = {
       action: 'directorist_ajax_search',
       _nonce: atbdp_public_data.ajax_nonce,
@@ -153,12 +161,18 @@
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
     };
+
+    if (view && view.length) {
+      form_data.view = view;
+    }
+
     $.ajax({
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
       success: function success(html) {
         if (html.search_result) {
+          $('.directorist-header-found-title span').text(html.count);
           $('.directorist-archive-contents').children('div:last-child').empty().append(html.search_result);
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
@@ -196,8 +210,14 @@
 
   $('body').on("click", ".directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
     e.preventDefault();
+    var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(this).attr('href');
     var view = view_href.match(/view=.+/);
+    var page_no = $(".page-numbers.current").text();
+    $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
+    $(this).addClass("active");
     var form_data = {
       action: 'directorist_ajax_search',
       _nonce: atbdp_public_data.ajax_nonce,
@@ -220,6 +240,15 @@
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
     };
+
+    if (page_no && page_no.length) {
+      form_data.paged = page_no;
+    }
+
+    if (sort && sort.length) {
+      form_data.sort = sort;
+    }
+
     $.ajax({
       url: atbdp_public_data.ajaxurl,
       type: "POST",
@@ -232,13 +261,80 @@
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
-  }); // Directorist sort by changes  
+  });
+  $('.directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes  
 
   $('body').on("click", ".directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
     e.preventDefault();
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var sort_href = $(this).attr('data-link');
+    var sort_by = sort_href.match(/sort=.+/);
+    $(this).addClass("active");
     var form_data = {
       action: 'directorist_ajax_search',
       _nonce: atbdp_public_data.ajax_nonce,
+      sort: sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '',
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      in_tag: tag,
+      price: price,
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      cityLat: $('#cityLat').val(),
+      cityLng: $('#cityLng').val(),
+      miles: $('.atbdrs-value').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val(),
+      custom_field: custom_field,
+      view: view
+    };
+    $.ajax({
+      url: atbdp_public_data.ajaxurl,
+      type: "POST",
+      data: form_data,
+      success: function success(html) {
+        if (html.view_as) {
+          $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
+        }
+
+        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+      }
+    });
+  }); // Directorist pagination
+
+  $('body').on("click", ".directorist-pagination .page-numbers", function (e) {
+    var _form_data;
+
+    e.preventDefault();
+    var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    $(".directorist-pagination .page-numbers").removeClass('current');
+    $(this).addClass("current");
+    var paginate_link = $(this).attr('href');
+    var page = paginate_link.match(/page\/.+/);
+    var page_value = page && page.length ? page[0].replace(/page\//, '') : '';
+    var page_no = page_value && page_value.length ? page_value.replace(/\//, '') : '';
+
+    if (!page_no) {
+      var page = paginate_link.match(/paged=.+/);
+      var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
+    }
+
+    var form_data = (_form_data = {
+      action: 'directorist_ajax_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      view: view && view.length ? view[0].replace(/view=/, '') : '',
       q: $('input[name="q"]').val(),
       in_cat: $('.bdas-category-search').val(),
       in_loc: $('.bdas-category-location').val(),
@@ -256,13 +352,19 @@
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
-    };
+    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+
+    if (sort && sort.length) {
+      form_data.sort = sort;
+    }
+
     $.ajax({
       url: atbdp_public_data.ajaxurl,
       type: "POST",
       data: form_data,
       success: function success(html) {
-        if (html.view_as) {// $('.directorist-archive-contents').children('div:last-child').empty().append( html.view_as );
+        if (html.view_as) {
+          $('.directorist-archive-contents').children('div:last-child').empty().append(html.view_as);
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -2300,36 +2402,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/helpers */ "./assets/src/js/public/components/helpers.js");
 /* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/review */ "./assets/src/js/public/components/review.js");
-/* harmony import */ var _components_ajaxSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ajaxSearch */ "./assets/src/js/public/components/ajaxSearch.js");
-/* harmony import */ var _components_ajaxSearch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_ajaxSearch__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/public/components/pureScriptTab.js");
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/public/components/profileForm.js");
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/public/components/gridResponsive.js");
-/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/public/components/formValidation.js");
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/public/components/login.js");
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/public/components/tab.js");
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/author */ "./assets/src/js/public/components/author.js");
-/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_author__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
+/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
+/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pureScriptTab */ "./assets/src/js/public/components/pureScriptTab.js");
+/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/profileForm */ "./assets/src/js/public/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/gridResponsive */ "./assets/src/js/public/components/gridResponsive.js");
+/* harmony import */ var _components_gridResponsive__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_gridResponsive__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/formValidation */ "./assets/src/js/public/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
+/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login */ "./assets/src/js/public/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/tab */ "./assets/src/js/public/components/tab.js");
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
+/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
+/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
+/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/author */ "./assets/src/js/public/components/author.js");
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_author__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _components_ajaxSearch__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/ajaxSearch */ "./assets/src/js/public/components/ajaxSearch.js");
 /* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
 /* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
@@ -2438,6 +2539,33 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),

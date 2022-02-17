@@ -117,7 +117,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
 
                 $listings = new Directorist\Directorist_Listings( null, 'search_result');
-
+                $count = $listings->query_results->total;
                 ob_start();
                 echo $listings->archive_view_template();
                 $search_value = ob_get_clean();
@@ -134,7 +134,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     array( 
                         'search_result'  => $search_value,
                         'directory_type' => $directory_type_result,
-                        'view_as'        => $view_as
+                        'view_as'        => $view_as,
+                        'count'          => $count
                     )
                  );
             }

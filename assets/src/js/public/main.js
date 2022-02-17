@@ -15,7 +15,6 @@ import './components/single-listing-page/slider';
 import './components/general';
 import './components/helpers';
 import './components/review';
-import './components/ajaxSearch';
 import './components/atbdSorting';
 import './components/atbdAlert';
 import './components/pureScriptTab';
@@ -30,6 +29,7 @@ import './components/atbdSelect';
 import './components/loc_cat';
 import './components/legacy-support';
 import './components/author';
+import './components/ajaxSearch';
 
 // Dashboard Js
 import './components/dashboard/dashboardSidebar';

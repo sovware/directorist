@@ -47,18 +47,21 @@ class Init {
 	}
 
 	public function load_template_scripts( $template ) {
-		
+
 		switch ( $template ) {
-			case 'search-form/fields/radius_search':
-				wp_enqueue_script( 'directorist-range-slider' );
+			case 'archive-contents':
+				wp_enqueue_script('directorist-all-listings');
 				break;
 
 			case 'archive/search-form':
-			case 'search-form-contents':
-			case 'search-form/adv-search':
-				wp_enqueue_script( 'directorist-search-form' );
-				break;
+				case 'search-form-contents':
+				case 'search-form/adv-search':
+					wp_enqueue_script( 'directorist-search-form' );
+					break;
 
+			case 'search-form/fields/radius_search':
+				wp_enqueue_script( 'directorist-range-slider' );
+				break;
 		}
 	}
 

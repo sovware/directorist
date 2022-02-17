@@ -197,6 +197,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'all-listings.js',
 			],
+			'directorist-search-form' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'search-form.js',
+			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-releated-listings-slider',

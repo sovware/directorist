@@ -16,9 +16,6 @@ trait Enqueue_Shortcodes {
 		wp_enqueue_script('jquery-masonry');
 
         // Search Form
-        wp_enqueue_script('directorist-select2-script');
-        wp_enqueue_script('directorist-range-slider');
-        wp_enqueue_script('directorist-jquery-barrating');
         wp_enqueue_script('directorist-geolocation');
 
         // Map Scripts

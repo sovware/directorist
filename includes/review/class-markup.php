@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Markup {
 
 	public static function get_rating( $selected = 0 ) {
+		wp_enqueue_script( 'directorist-jquery-barrating' );
 		ob_start();
 		?>
 		<div class="directorist-review-criteria__single">

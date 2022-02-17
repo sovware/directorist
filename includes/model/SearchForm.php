@@ -372,7 +372,7 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		$category_custom_field = array( 
+		$category_custom_field = array(
 			'custom_field_key'	=> $custom_field_key,
 			'assign_to_cat'		=> $assign_to_cat,
 		);
@@ -673,5 +673,38 @@ class Directorist_Listing_Search_Form {
 		} else {
 			return array();
 		}
+	}
+
+	public static function get_selected_category_option_data() {
+		$id = ( isset( $_REQUEST['in_cat'] ) ) ? $_REQUEST['in_cat'] : '';
+		$id = ( isset( $_REQUEST['cat_id'] ) ) ? $_REQUEST['cat_id'] : $id;
+
+		return self::get_taxonomy_select_option_data( $id );
+	}
+
+	public static function get_selected_location_option_data() {
+		$id = ( isset( $_REQUEST['in_loc'] ) ) ? $_REQUEST['in_loc'] : '';
+		$id = ( isset( $_REQUEST['loc_id'] ) ) ? $_REQUEST['loc_id'] : $id;
+
+		return self::get_taxonomy_select_option_data( $id );
+	}
+
+	public static function get_taxonomy_select_option_data( $id ) {
+		$item = [ 'id' => '', 'label' => '' ];
+
+		if ( empty( $id ) ) {
+			return $item;
+		}
+
+		$taxonomy = get_term( $id );
+
+		if ( is_wp_error( $taxonomy ) ) {
+			return $item;
+		}
+
+		$item[ 'id' ]    = $taxonomy->term_id;
+		$item[ 'label' ] = $taxonomy->name;
+
+		return $item;
 	}
 }

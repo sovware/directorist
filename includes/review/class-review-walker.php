@@ -157,6 +157,8 @@ class Walker extends Walker_Comment {
 				<?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
 				<div class="directorist-review-single__reply">
 					<?php
+					wp_enqueue_script( 'directorist-jquery-barrating' );
+					
 					echo $comment_reply_link;
 
 					echo directorist_get_comment_edit_link(

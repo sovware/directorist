@@ -47,18 +47,25 @@ class Init {
 	}
 
 	public function load_template_scripts( $template ) {
-		
+
 		switch ( $template ) {
-			case 'search-form/fields/radius_search':
-				wp_enqueue_script( 'directorist-range-slider' );
+			// All Listings
+			case 'archive-contents':
+				wp_enqueue_script('directorist-all-listings');
+				wp_enqueue_script('directorist-select2-script');
 				break;
 
+			// Search Form
 			case 'archive/search-form':
 			case 'search-form-contents':
 			case 'search-form/adv-search':
 				wp_enqueue_script( 'directorist-search-form' );
+				wp_enqueue_script('directorist-select2-script');
 				break;
 
+			case 'search-form/fields/radius_search':
+				wp_enqueue_script( 'directorist-range-slider' );
+				break;
 		}
 	}
 
@@ -103,13 +110,13 @@ class Init {
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
 		// wp_enqueue_script( 'directorist-main' );
-		wp_enqueue_script('directorist-select2-script');
+		// wp_enqueue_script('directorist-select2-script');
 
 		switch ( $shortcode ) {
-			case 'directorist_all_listing':
-				// Enqueue::common_shortcode_scripts();
-				Enqueue::all_listings( $model );
-				break;
+			// case 'directorist_all_listing':
+			// 	// Enqueue::common_shortcode_scripts();
+			// 	Enqueue::all_listings( $model );
+			// 	break;
 
 			case 'directorist_add_listing':
 				Enqueue::common_shortcode_scripts();

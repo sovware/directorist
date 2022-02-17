@@ -183,6 +183,7 @@ class Bootstrap {
 	public static function enqueue_comment_scripts() {
 		if ( is_singular( ATBDP_POST_TYPE ) && directorist_is_review_enabled() ) {
 			wp_enqueue_script( 'comment-reply' );
+			wp_enqueue_script( 'directorist-jquery-barrating' );
 		}
 	}
 

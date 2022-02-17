@@ -66,6 +66,35 @@ class Init {
 			case 'search-form/fields/radius_search':
 				wp_enqueue_script( 'directorist-range-slider' );
 				break;
+
+			case 'search-form/fields/location.php':
+				wp_enqueue_script( 'directorist-geolocation' );
+				break;
+
+			case 'listing-form/fields/address.php':
+				wp_enqueue_script( 'directorist-geolocation' );
+				break;
+
+		}
+	}
+
+	public function load_shortcode_scripts( $shortcode, $model = false ) {
+
+		switch ( $shortcode ) {
+
+			case 'directorist_add_listing':
+				Enqueue::common_shortcode_scripts();
+				Enqueue::add_listing( $model );
+				break;
+
+			case 'directorist_user_dashboard':
+				Enqueue::common_shortcode_scripts();
+				Enqueue::dashboard( $model );
+				break;
+
+			default:
+				Enqueue::common_shortcode_scripts();
+				break;
 		}
 	}
 
@@ -102,42 +131,6 @@ class Init {
 		Enqueue::admin_scripts( $page );
 	}
 
-	/**
-	 * Enqueue scripts based on shortcode.
-	 *
-	 * @param string $shortcode Shortcode Name.
-	 */
-	public function load_shortcode_scripts( $shortcode, $model = false ) {
-
-		// wp_enqueue_script( 'directorist-main' );
-		// wp_enqueue_script('directorist-select2-script');
-
-		switch ( $shortcode ) {
-			// case 'directorist_all_listing':
-			// 	// Enqueue::common_shortcode_scripts();
-			// 	Enqueue::all_listings( $model );
-			// 	break;
-
-			case 'directorist_add_listing':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::add_listing( $model );
-				break;
-
-			case 'directorist_search_listing':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::search_form( $model );
-				break;
-
-			case 'directorist_user_dashboard':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::dashboard( $model );
-				break;
-
-			default:
-				Enqueue::common_shortcode_scripts();
-				break;
-		}
-	}
 
 	public function defer_load_js( $tag, $handle ) {
 

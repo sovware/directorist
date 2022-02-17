@@ -195,11 +195,11 @@ class Scripts {
 			],
 			'directorist-all-listings' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'all-listings.js',
+				'path' => DIRECTORIST_JS . 'all-listings',
 			],
 			'directorist-search-form' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'search-form.js',
+				'path' => DIRECTORIST_JS . 'search-form',
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

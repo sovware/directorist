@@ -47,12 +47,18 @@ class Init {
 	}
 
 	public function load_template_scripts( $template ) {
+		
 		switch ( $template ) {
-
 			case 'search-form/fields/radius_search':
 				wp_enqueue_script( 'directorist-range-slider' );
 				break;
-			
+
+			case 'archive/search-form':
+			case 'search-form-contents':
+			case 'search-form/adv-search':
+				wp_enqueue_script( 'directorist-search-form' );
+				break;
+
 		}
 	}
 

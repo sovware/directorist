@@ -13,21 +13,21 @@ trait Enqueue_Shortcodes {
 
         wp_enqueue_script('directorist-all-listings');
 
-		wp_enqueue_script('jquery-masonry');
+		// wp_enqueue_script('jquery-masonry');
 
         // Search Form
-        wp_enqueue_script('directorist-geolocation');
+        // wp_enqueue_script('directorist-geolocation');
 
         // Map Scripts
-        if ( Helper::map_type() == 'openstreet' ) {
-            self::openstreet_map_scripts( true );
-        } elseif ( Helper::map_type() == 'google' ) {
-            self::google_map_scripts();
-        }
+        // if ( Helper::map_type() == 'openstreet' ) {
+        //     self::openstreet_map_scripts( true );
+        // } elseif ( Helper::map_type() == 'google' ) {
+        //     self::google_map_scripts();
+        // }
 
         // Search
-        wp_enqueue_script('directorist-search-listing');
-        wp_enqueue_script('directorist-search-form-listing');
+        // wp_enqueue_script('directorist-search-listing');
+        // wp_enqueue_script('directorist-search-form-listing');
     }
 
     public static function search_form( $searchform ) {

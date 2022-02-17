@@ -215,7 +215,7 @@ final class Directorist_Base
 			self::$instance->listing = new ATBDP_Listing;
 			self::$instance->user = new ATBDP_User;
 			self::$instance->roles = new ATBDP_Roles;
-			if( class_exists( 'ATBDP_Gateway ') ) {
+			if( class_exists( 'ATBDP_Gateway' ) ) {
 				self::$instance->gateway = new ATBDP_Gateway;
 			}
 			self::$instance->order = new ATBDP_Order;

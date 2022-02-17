@@ -63,6 +63,10 @@ class Init {
 				wp_enqueue_script('directorist-select2-script');
 				break;
 
+			case 'archive/map-view.php':
+				// wp_enqueue_script( 'directorist-geolocation' );
+				break;
+	
 			case 'search-form/fields/radius_search':
 				wp_enqueue_script( 'directorist-range-slider' );
 				break;

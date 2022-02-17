@@ -97,280 +97,287 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 
-var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes
+init();
+window.addEventListener('directorist-on-changed-map-view', init);
 
-var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
+function init() {
+  var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes
 
-var inherits = function inherits(childCtor, parentCtor) {
-  /** @constructor */
-  function tempCtor() {}
+  var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
-  tempCtor.prototype = parentCtor.prototype;
-  childCtor.superClass_ = parentCtor.prototype;
-  childCtor.prototype = new tempCtor();
-  childCtor.prototype.constructor = childCtor;
-};
+  var inherits = function inherits(childCtor, parentCtor) {
+    /** @constructor */
+    function tempCtor() {}
 
-function Marker(options) {
-  google.maps.Marker.apply(this, arguments);
+    tempCtor.prototype = parentCtor.prototype;
+    childCtor.superClass_ = parentCtor.prototype;
+    childCtor.prototype = new tempCtor();
+    childCtor.prototype.constructor = childCtor;
+  };
 
-  if (options.map_icon_label) {
-    this.MarkerLabel = new MarkerLabel({
-      map: this.map,
-      marker: this,
-      text: options.map_icon_label
-    });
-    this.MarkerLabel.bindTo('position', this, 'position');
-  }
-} // Apply the inheritance
+  function Marker(options) {
+    google.maps.Marker.apply(this, arguments);
 
-
-inherits(Marker, google.maps.Marker); // Custom Marker SetMap
-
-Marker.prototype.setMap = function () {
-  google.maps.Marker.prototype.setMap.apply(this, arguments);
-  this.MarkerLabel && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
-}; // Marker Label Overlay
-
-
-var MarkerLabel = function MarkerLabel(options) {
-  var self = this;
-  this.setValues(options); // Create the label container
-
-  this.div = document.createElement('div');
-  this.div.className = 'map-icon-label'; // Trigger the marker click handler if clicking on the label
-
-  google.maps.event.addDomListener(this.div, 'click', function (e) {
-    e.stopPropagation && e.stopPropagation();
-    google.maps.event.trigger(self.marker, 'click');
-  });
-}; // Create MarkerLabel Object
-
-
-MarkerLabel.prototype = new google.maps.OverlayView(); // Marker Label onAdd
-
-MarkerLabel.prototype.onAdd = function () {
-  var pane = this.getPanes().overlayImage.appendChild(this.div);
-  var self = this;
-  this.listeners = [google.maps.event.addListener(this, 'position_changed', function () {
-    self.draw();
-  }), google.maps.event.addListener(this, 'text_changed', function () {
-    self.draw();
-  }), google.maps.event.addListener(this, 'zindex_changed', function () {
-    self.draw();
-  })];
-}; // Marker Label onRemove
-
-
-MarkerLabel.prototype.onRemove = function () {
-  this.div.parentNode.removeChild(this.div);
-
-  for (var i = 0, I = this.listeners.length; i < I; ++i) {
-    google.maps.event.removeListener(this.listeners[i]);
-  }
-}; // Implement draw
-
-
-MarkerLabel.prototype.draw = function () {
-  var projection = this.getProjection();
-  var position = projection.fromLatLngToDivPixel(this.get('position'));
-  var div = this.div;
-  this.div.innerHTML = this.get('text').toString();
-  div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
-
-  div.style.position = 'absolute';
-  div.style.display = 'block';
-  div.style.left = "".concat(position.x - div.offsetWidth / 2, "px");
-  div.style.top = "".concat(position.y - div.offsetHeight, "px");
-};
-
-(function ($) {
-  // map view
-
-  /**
-   *  Render a Google Map onto the selected jQuery element.
-   *
-   *  @since    5.0.0
-   */
-  var at_icon = [];
-  /* Use Default lat/lng in listings map view */
-
-  var defCordEnabled = atbdp_map.use_def_lat_long;
-
-  function atbdp_rander_map($el) {
-    $el.addClass('atbdp-map-loaded'); // var
-
-    var $markers = $el.find('.marker'); // vars
-
-    var args = {
-      zoom: parseInt(atbdp_map.zoom),
-      center: new google.maps.LatLng(0, 0),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoomControl: true,
-      scrollwheel: false,
-      gestureHandling: 'cooperative',
-      averageCenter: true,
-      scrollWheelZoom: 'center'
-    }; // create map
-
-    var map = new google.maps.Map($el[0], args); // add a markers reference
-
-    map.markers = []; // set map type
-
-    map.type = $el.data('type');
-    var infowindow = new google.maps.InfoWindow({
-      content: ''
-    }); // add markers
-
-    $markers.each(function () {
-      atbdp_add_marker($(this), map, infowindow);
-    });
-    var cord = {
-      lat: Number(atbdp_map.default_latitude) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : undefined,
-      lng: Number(atbdp_map.default_longitude) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude)
-    };
-
-    if ($markers.length) {
-      cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
-      cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
-    } // center map
-
-
-    atbdp_center_map(map, cord);
-    var mcOptions = new MarkerClusterer(map, [], {
-      imagePath: atbdp_map.plugin_url + 'assets/images/m'
-    });
-    mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
-      style.textColor = '#fff';
-      return style;
-    }));
-
-    if (map.type === 'markerclusterer') {
-      //const markerCluster = new MarkerClusterer(map, map.markers, mcOptions);
-      mcOptions.addMarkers(map.markers);
+    if (options.map_icon_label) {
+      this.MarkerLabel = new MarkerLabel({
+        map: this.map,
+        marker: this,
+        text: options.map_icon_label
+      });
+      this.MarkerLabel.bindTo('position', this, 'position');
     }
-  }
-  /**
-   *  Add a marker to the selected Google Map.
-   *
-   *  @since    1.0.0
-   */
+  } // Apply the inheritance
 
 
-  function atbdp_add_marker($marker, map, infowindow) {
-    // var
-    var latlng = new google.maps.LatLng($marker.data('latitude'), $marker.data('longitude')); // check to see if any of the existing markers match the latlng of the new marker
+  inherits(Marker, google.maps.Marker); // Custom Marker SetMap
 
-    if (map.markers.length) {
-      for (var i = 0; i < map.markers.length; i++) {
-        var existing_marker = map.markers[i];
-        var pos = existing_marker.getPosition(); // if a marker already exists in the same position as this marker
+  Marker.prototype.setMap = function () {
+    google.maps.Marker.prototype.setMap.apply(this, arguments);
+    this.MarkerLabel && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
+  }; // Marker Label Overlay
 
-        if (latlng.equals(pos)) {
-          // update the position of the coincident marker by applying a small multipler to its coordinates
-          var latitude = latlng.lat() + (Math.random() - 0.5) / 1500; // * (Math.random() * (max - min) + min);
 
-          var longitude = latlng.lng() + (Math.random() - 0.5) / 1500; // * (Math.random() * (max - min) + min);
+  var MarkerLabel = function MarkerLabel(options) {
+    var self = this;
+    this.setValues(options); // Create the label container
 
-          latlng = new google.maps.LatLng(latitude, longitude);
-        }
+    this.div = document.createElement('div');
+    this.div.className = 'map-icon-label'; // Trigger the marker click handler if clicking on the label
+
+    google.maps.event.addDomListener(this.div, 'click', function (e) {
+      e.stopPropagation && e.stopPropagation();
+      google.maps.event.trigger(self.marker, 'click');
+    });
+  }; // Create MarkerLabel Object
+
+
+  MarkerLabel.prototype = new google.maps.OverlayView(); // Marker Label onAdd
+
+  MarkerLabel.prototype.onAdd = function () {
+    var pane = this.getPanes().overlayImage.appendChild(this.div);
+    var self = this;
+    this.listeners = [google.maps.event.addListener(this, 'position_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'text_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'zindex_changed', function () {
+      self.draw();
+    })];
+  }; // Marker Label onRemove
+
+
+  MarkerLabel.prototype.onRemove = function () {
+    this.div.parentNode.removeChild(this.div);
+
+    for (var i = 0, I = this.listeners.length; i < I; ++i) {
+      google.maps.event.removeListener(this.listeners[i]);
+    }
+  }; // Implement draw
+
+
+  MarkerLabel.prototype.draw = function () {
+    var projection = this.getProjection();
+    var position = projection.fromLatLngToDivPixel(this.get('position'));
+    var div = this.div;
+    this.div.innerHTML = this.get('text').toString();
+    div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
+
+    div.style.position = 'absolute';
+    div.style.display = 'block';
+    div.style.left = "".concat(position.x - div.offsetWidth / 2, "px");
+    div.style.top = "".concat(position.y - div.offsetHeight, "px");
+  };
+
+  (function ($) {
+    // map view
+
+    /**
+     *  Render a Google Map onto the selected jQuery element.
+     *
+     *  @since    5.0.0
+     */
+    var at_icon = [];
+    /* Use Default lat/lng in listings map view */
+
+    var defCordEnabled = atbdp_map.use_def_lat_long;
+
+    function atbdp_rander_map($el) {
+      $el.addClass('atbdp-map-loaded');
+      var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // var
+
+      var $markers = $el.find('.marker'); // vars
+
+      var args = {
+        zoom: parseInt(atbdp_map.zoom),
+        center: new google.maps.LatLng(0, 0),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoomControl: true,
+        scrollwheel: false,
+        gestureHandling: 'cooperative',
+        averageCenter: true,
+        scrollWheelZoom: 'center'
+      }; // create map
+
+      var map = new google.maps.Map($el[0], args); // add a markers reference
+
+      map.markers = []; // set map type
+
+      map.type = $el.data('type');
+      var infowindow = new google.maps.InfoWindow({
+        content: ''
+      }); // add markers
+
+      $markers.each(function () {
+        atbdp_add_marker($(this), map, infowindow);
+      });
+      var cord = {
+        lat: Number(atbdp_map.default_latitude) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : undefined,
+        lng: Number(atbdp_map.default_longitude) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude)
+      };
+
+      if ($markers.length) {
+        cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
+        cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
+      } // center map
+
+
+      atbdp_center_map(map, cord);
+      var mcOptions = new MarkerClusterer(map, [], {
+        imagePath: atbdp_map.plugin_url + 'assets/images/m'
+      });
+      mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
+        style.textColor = '#fff';
+        return style;
+      }));
+
+      if (map.type === 'markerclusterer') {
+        //const markerCluster = new MarkerClusterer(map, map.markers, mcOptions);
+        mcOptions.addMarkers(map.markers);
       }
     }
+    /**
+     *  Add a marker to the selected Google Map.
+     *
+     *  @since    1.0.0
+     */
 
-    var icon = $marker.data('icon');
-    var marker = new Marker({
-      position: latlng,
-      map: map,
-      icon: {
-        path: MAP_PIN,
-        fillColor: 'transparent',
-        fillOpacity: 1,
-        strokeColor: '',
-        strokeWeight: 0
-      },
-      map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\"><i class=\"".concat(icon, "\"></i></div>")
-    }); // add to array
 
-    map.markers.push(marker); // if marker contains HTML, add it to an infoWindow
+    function atbdp_add_marker($marker, map, infowindow) {
+      // var
+      var latlng = new google.maps.LatLng($marker.data('latitude'), $marker.data('longitude')); // check to see if any of the existing markers match the latlng of the new marker
 
-    if ($marker.html()) {
-      // map info window close button
-      google.maps.event.addListener(infowindow, 'domready', function () {
-        var closeBtn = $('.iw-close-btn').get();
-        google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-          infowindow.close();
-        });
-      }); // show info window when marker is clicked
+      if (map.markers.length) {
+        for (var i = 0; i < map.markers.length; i++) {
+          var existing_marker = map.markers[i];
+          var pos = existing_marker.getPosition(); // if a marker already exists in the same position as this marker
 
-      google.maps.event.addListener(marker, 'click', function () {
-        if (atbdp_map.disable_info_window === 'no') {
-          var marker_childrens = $($marker).children();
+          if (latlng.equals(pos)) {
+            // update the position of the coincident marker by applying a small multipler to its coordinates
+            var latitude = latlng.lat() + (Math.random() - 0.5) / 1500; // * (Math.random() * (max - min) + min);
 
-          if (marker_childrens.length) {
-            var marker_content = marker_childrens[0];
-            $(marker_content).addClass('map-info-wrapper--show');
+            var longitude = latlng.lng() + (Math.random() - 0.5) / 1500; // * (Math.random() * (max - min) + min);
+
+            latlng = new google.maps.LatLng(latitude, longitude);
           }
+        }
+      }
 
-          infowindow.setContent($marker.html());
-          infowindow.open(map, marker);
+      var icon = $marker.data('icon');
+      var marker = new Marker({
+        position: latlng,
+        map: map,
+        icon: {
+          path: MAP_PIN,
+          fillColor: 'transparent',
+          fillOpacity: 1,
+          strokeColor: '',
+          strokeWeight: 0
+        },
+        map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\"><i class=\"".concat(icon, "\"></i></div>")
+      }); // add to array
+
+      map.markers.push(marker); // if marker contains HTML, add it to an infoWindow
+
+      if ($marker.html()) {
+        // map info window close button
+        google.maps.event.addListener(infowindow, 'domready', function () {
+          var closeBtn = $('.iw-close-btn').get();
+          google.maps.event.addDomListener(closeBtn[0], 'click', function () {
+            infowindow.close();
+          });
+        }); // show info window when marker is clicked
+
+        google.maps.event.addListener(marker, 'click', function () {
+          if (atbdp_map.disable_info_window === 'no') {
+            var marker_childrens = $($marker).children();
+
+            if (marker_childrens.length) {
+              var marker_content = marker_childrens[0];
+              $(marker_content).addClass('map-info-wrapper--show');
+            }
+
+            infowindow.setContent($marker.html());
+            infowindow.open(map, marker);
+          }
+        });
+      }
+    }
+    /**
+     *  Center the map, showing all markers attached to this map.
+     *
+     *  @since    1.0.0
+     */
+
+
+    function atbdp_center_map(map, cord) {
+      var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map');
+      map.setCenter(cord);
+      map.setZoom(parseInt(atbdp_map.zoom));
+    }
+
+    function setup_info_window() {
+      var abc = document.querySelectorAll('div');
+      abc.forEach(function (el, index) {
+        if (el.innerText === 'atgm_marker') {
+          // console.log(at_icon)
+          el.innerText = ' ';
+          el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+        } // ${$marker.data('icon')}
+
+      });
+      document.querySelectorAll('div').forEach(function (el1, index) {
+        if (el1.style.backgroundImage.split('/').pop() === 'm1.png")') {
+          el1.addEventListener('click', function () {
+            setInterval(function () {
+              var abc = document.querySelectorAll('div');
+              abc.forEach(function (el, index) {
+                if (el.innerText === 'atgm_marker') {
+                  el.innerText = ' ';
+                  el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+                }
+              });
+            }, 100);
+          });
         }
       });
     }
-  }
-  /**
-   *  Center the map, showing all markers attached to this map.
-   *
-   *  @since    1.0.0
-   */
 
+    function setup_map() {
+      // render map in the custom post
+      $('.atbdp-map').each(function () {
+        atbdp_rander_map($(this));
+      });
+    }
 
-  function atbdp_center_map(map, cord) {
-    map.setCenter(cord);
-    map.setZoom(parseInt(atbdp_map.zoom));
-  }
-
-  function setup_info_window() {
-    var abc = document.querySelectorAll('div');
-    abc.forEach(function (el, index) {
-      if (el.innerText === 'atgm_marker') {
-        // console.log(at_icon)
-        el.innerText = ' ';
-        el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
-      } // ${$marker.data('icon')}
-
+    window.addEventListener('load', setup_map);
+    window.addEventListener('load', setup_info_window);
+    window.addEventListener('directorist-reload-listings-map-archive', setup_map);
+    window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
+    $(document).ready(function () {
+      $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
     });
-    document.querySelectorAll('div').forEach(function (el1, index) {
-      if (el1.style.backgroundImage.split('/').pop() === 'm1.png")') {
-        el1.addEventListener('click', function () {
-          setInterval(function () {
-            var abc = document.querySelectorAll('div');
-            abc.forEach(function (el, index) {
-              if (el.innerText === 'atgm_marker') {
-                el.innerText = ' ';
-                el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
-              }
-            });
-          }, 100);
-        });
-      }
-    });
-  }
-
-  function setup_map() {
-    // render map in the custom post
-    $('.atbdp-map').each(function () {
-      atbdp_rander_map($(this));
-    });
-  }
-
-  window.addEventListener('load', setup_map);
-  window.addEventListener('load', setup_info_window);
-  window.addEventListener('directorist-reload-listings-map-archive', setup_map);
-  window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
-  $(document).ready(function () {
-    $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
-  });
-})(jQuery);
+  })(jQuery);
+}
 
 /***/ }),
 

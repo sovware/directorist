@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
   });
   /* Directorist ajax search */
 
-  $('body').on("submit", ".directrist-advanced-filter__form", function (e) {
+  $('body').on("submit", ".directorist-ajax-search .directorist-advanced-filter__form", function (e) {
     e.preventDefault();
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href.match(/view=.+/);
@@ -187,7 +187,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   }); // Directorist type changes
 
-  $('body').on("click", ".directorist-type-nav__link", function (e) {
+  $('body').on("click", ".directorist-ajax-search .directorist-type-nav__link", function (e) {
     e.preventDefault();
     var type_href = $(this).attr('href');
     var type = type_href.match(/directory_type=.+/);
@@ -215,7 +215,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   }); // Directorist view as changes  
 
-  $('body').on("click", ".directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
+  $('body').on("click", ".directorist-ajax-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
     e.preventDefault();
     var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
@@ -266,12 +266,13 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+        window.dispatchEvent(new CustomEvent('directorist-on-changed-map-view'));
       }
     });
   });
-  $('.directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes  
+  $('.directorist-ajax-search .directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes  
 
-  $('body').on("click", ".directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
+  $('body').on("click", ".directorist-ajax-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
     e.preventDefault();
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href.match(/view=.+/);

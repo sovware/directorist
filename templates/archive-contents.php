@@ -2,13 +2,13 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-archive-contents">
+<div class="directorist-archive-contents <?php echo esc_attr( $listings->ajax_searching_class() ); ?>">
 
 	<?php
 	$listings->directory_type_nav_template();

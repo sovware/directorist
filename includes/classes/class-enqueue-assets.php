@@ -938,7 +938,7 @@ class Enqueue_Assets {
 			'deps'      => [],
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
-			'section'   => '_',
+			//'section'   => '_',
 			'enable'    => Script_Helper::is_enable_map( 'google' )
 		];
 

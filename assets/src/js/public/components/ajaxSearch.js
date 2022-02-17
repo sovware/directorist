@@ -35,7 +35,7 @@
         });
 
     /* Directorist ajax search */
-    $('body').on("submit", ".directrist-advanced-filter__form", function( e ) {
+    $('body').on("submit", ".directorist-ajax-search .directorist-advanced-filter__form", function( e ) {
         e.preventDefault();
         
         let view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
@@ -89,7 +89,7 @@
     });
 
     // Directorist type changes
-    $('body').on("click", ".directorist-type-nav__link", function( e ) {
+    $('body').on("click", ".directorist-ajax-search .directorist-type-nav__link", function( e ) {
         e.preventDefault();
         let type_href = $(this).attr('href');
         let type        = type_href.match( /directory_type=.+/ );
@@ -120,9 +120,9 @@
             }
         });
     })
-
+    
     // Directorist view as changes  
-    $('body').on("click", ".directorist-viewas-dropdown .directorist-dropdown__links--single", function( e ) {
+    $('body').on("click", ".directorist-ajax-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function( e ) {
         e.preventDefault();
         let sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
         let sort_by = ( sort_href && sort_href.length ) ? sort_href.match( /sort=.+/ ) : '';
@@ -172,17 +172,20 @@
             success: function( html ) {
 
                 if( html.view_as ) {
-
+                    
                     $('.directorist-archive-contents').children('div:last-child').empty().append( html.view_as );
                     
                 }
                 window.dispatchEvent(new CustomEvent( 'directorist-reload-listings-map-archive'));
+                window.dispatchEvent(new CustomEvent( 'directorist-on-changed-map-view'));
             }
         });
     });
-    $('.directorist-dropdown__links--single-js').off( 'click' );
+    
+    $('.directorist-ajax-search .directorist-dropdown__links--single-js').off( 'click' );
+
     // Directorist sort by changes  
-    $('body').on("click", ".directorist-sortby-dropdown .directorist-dropdown__links--single-js", function( e ) {
+    $('body').on("click", ".directorist-ajax-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function( e ) {
         e.preventDefault();
         let view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
         let view_as = view_href.match( /view=.+/ );

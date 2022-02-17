@@ -53,6 +53,7 @@ class Init {
 			case 'archive-contents':
 				wp_enqueue_script('directorist-all-listings');
 				wp_enqueue_script('directorist-select2-script');
+				Enqueue::color_picker_scripts();
 				break;
 
 			// Search Form

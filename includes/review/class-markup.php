@@ -14,11 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Markup {
 
 	public static function get_rating( $selected = 0 ) {
-		// Since this part could be loaded inside ajax as well, script has been
-		// enqueued inside Directorist\Review\Walker::html5_comment() function too
-		// to ensure the loading
-		wp_enqueue_script( 'directorist-jquery-barrating' );
-
 		ob_start();
 		?>
 		<div class="directorist-review-criteria__single">

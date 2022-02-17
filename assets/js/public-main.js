@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
   });
   /* Directorist ajax search */
 
-  $('body').on("submit", ".directorist-advanced-filter__form", function (e) {
+  $('body').on("submit", ".directrist-advanced-filter__form", function (e) {
     e.preventDefault();
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href.match(/view=.+/);
@@ -161,6 +161,13 @@ __webpack_require__.r(__webpack_exports__);
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
     };
+
+    if (history.pushState) {
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + form_data.q;
+      window.history.pushState({
+        path: newurl
+      }, '', newurl);
+    }
 
     if (view && view.length) {
       form_data.view = view;

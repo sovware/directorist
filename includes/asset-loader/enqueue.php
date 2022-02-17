@@ -76,8 +76,16 @@ class Enqueue {
 	}
 
     public static function color_picker_scripts() {
-		wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
-		wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
+		
+		// wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+		// wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
+
+		wp_enqueue_script( 'jquery-touch-punch' );
+		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'jquery-ui-draggable' );
+		wp_enqueue_script( 'wp-i18n' );
+		wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ) );
+		wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ) );
 
 		$colorpicker_l10n = array(
 			'clear'         => __( 'Clear' ),

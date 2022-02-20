@@ -6194,7 +6194,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0 15px;
   font-size: 15px;
 }
-.directorist-sidebar .atbd_widget .default-ad-search .atbd-slide1 {
+.directorist-sidebar .atbd_widget .default-ad-search .directorist-range-slider1 {
   width: 1em;
   height: 1em;
 }
@@ -6635,7 +6635,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   margin-bottom: 5px;
 }
 
-.atbd-slide1 {
+.directorist-range-slider1 {
   width: 1.2em;
   height: 1.2em;
   position: absolute;
@@ -6676,7 +6676,7 @@ p.atbd-min {
   float: left;
 }
 
-.atbd-child {
+.directorist-range-slider-child {
   height: 4px;
   border-radius: 2px;
   background: #444752;
@@ -15258,4 +15258,4 @@ Review: New Style
   }
 }
 
-/*# sourceMappingURL=public-all-listings.css.map*/
+/*# sourceMappingURL=all-listings.css.map*/

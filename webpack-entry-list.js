@@ -5,11 +5,10 @@ module.exports = {
         // JS
         ['public-main']: ["./assets/src/js/public/main.js"],
         ['public-checkout']: ["./assets/src/js/public/checkout.js"],
-        ['public-search-listing']: ["./assets/src/js/public/search-listing.js"],
-        ['public-search-form-listing']: ["./assets/src/js/public/search-form-listing.js"],
+        ['search-form']: ["./assets/src/js/public/search-form.js"],
 
         //Pages
-        ['public-all-listings']: ["./assets/src/js/public/modules/all-listings.js"],
+        ['all-listings']: ["./assets/src/js/public/modules/all-listings.js"],
         ['all-authors']: ["./assets/src/js/public/modules/all-authors.js"],
         ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
         ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -241,6 +241,23 @@ atbdSelectData.forEach(function (el) {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/colorPicker.js":
+/*!********************************************************!*\
+  !*** ./assets/src/js/public/components/colorPicker.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+wpColorPicker.forEach(function (elm) {
+  if (elm !== null) {
+    var dColorPicker = elm.querySelector('.directorist-color-picker');
+    dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+  }
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/public/modules/add-listing.js":
 /*!*****************************************************!*\
   !*** ./assets/src/js/public/modules/add-listing.js ***!
@@ -254,13 +271,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
 /* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__);
 // General Components
+
 
 
 
 /***/ }),
 
-/***/ 10:
+/***/ 9:
 /*!***********************************************************!*\
   !*** multi ./assets/src/js/public/modules/add-listing.js ***!
   \***********************************************************/

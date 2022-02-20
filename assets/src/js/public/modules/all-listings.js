@@ -18,4 +18,5 @@ import '../components/atbdFavourite';
 import '../components/atbdDropdown';
 import '../components/atbdSelect';
 import '../components/loc_cat';
+import '../components/colorPicker';
 import '../components/legacy-support';

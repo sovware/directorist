@@ -53,6 +53,7 @@ class Init {
 			case 'archive-contents':
 				wp_enqueue_script('directorist-all-listings');
 				wp_enqueue_script('directorist-select2-script');
+				Enqueue::color_picker_scripts();
 				break;
 
 			// Search Form
@@ -63,6 +64,16 @@ class Init {
 				wp_enqueue_script('directorist-select2-script');
 				break;
 
+			case 'archive/map-view.php':
+				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
+
+				if ( $map_type == 'openstreet' ) {
+
+				} elseif ( $map_type == 'google' ) {
+
+				}
+				break;
+	
 			case 'search-form/fields/radius_search':
 				wp_enqueue_script( 'directorist-range-slider' );
 				break;

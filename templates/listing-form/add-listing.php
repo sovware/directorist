@@ -27,7 +27,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
                     $listing_form->type_hidden_field();
                 }
-
+                if(empty($listing_form->current_listing_type)) {
+                    $value             		= get_post_meta( $listing_form->get_add_listing_id(), '_directory_type', true );
+                    $current_directory_type = $listing_form->get_current_listing_type();
+                    $default_directory 		= default_directory_type();
+                    $directory_type         = ! empty( $current_directory_type ) ? $current_directory_type : $default_directory;
+                    $current_type      		= ! empty( $value ) ? $value : $directory_type;
+                    $listing_form->current_listing_type = $current_type;
+                }
                 foreach ( $form_data as $section ) {
                     $listing_form->section_template( $section );
                 }

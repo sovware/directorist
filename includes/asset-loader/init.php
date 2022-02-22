@@ -65,7 +65,7 @@ class Init {
 
 			case 'archive/grid-view':
 				/**
-				 * @todo check Listings::has_masonry() condition
+				 * @todo load based on Listings::has_masonry() condition.
 				 */
 				wp_enqueue_script('jquery-masonry');
 				break;

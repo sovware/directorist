@@ -329,7 +329,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),

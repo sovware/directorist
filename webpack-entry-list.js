@@ -13,7 +13,7 @@ module.exports = {
         ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
         ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
-        ['search-home']: ["./assets/src/js/public/modules/search-home.js"],
+        //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
         ['add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],

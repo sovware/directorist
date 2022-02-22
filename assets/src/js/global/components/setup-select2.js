@@ -48,7 +48,7 @@ function initSelect2() {
 
 // Init Select2 Ajax Fields
 function initSelect2AjaxFields () {
-    const rest_base_url = `${atbdp_public_data.rest_url}directorist/v1`;
+    const rest_base_url = `${directorist.rest_url}directorist/v1`;
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({

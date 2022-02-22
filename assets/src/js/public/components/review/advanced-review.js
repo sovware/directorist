@@ -309,7 +309,7 @@
         }
 
         initStarRating() {
-            $('.directorist-stars, .directorist-review-criteria-select').barrating({
+            $('.directorist-review-criteria-select').barrating({
                 theme: 'fontawesome-stars'
             });
         }

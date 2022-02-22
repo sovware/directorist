@@ -571,15 +571,15 @@
   document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
   function init_map_api_field() {
-    if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+    if (directorist[3].i18n_text.select_listing_map === 'google') {
       function initialize() {
         var opt = {
           types: ['geocode'],
           componentRestrictions: {
-            country: atbdp_search_listing.restricted_countries
+            country: directorist.restricted_countries
           }
         };
-        var options = atbdp_search_listing.countryRestriction ? opt : '';
+        var options = directorist.countryRestriction ? opt : '';
         var input_fields = [{
           input_class: '.directorist-location-js',
           lat_id: 'cityLat',
@@ -614,7 +614,7 @@
       }
 
       initialize();
-    } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+    } else if (directorist[3].i18n_text.select_listing_map === 'openstreet') {
       var getResultContainer = function getResultContainer(context, field) {
         return $(context).next(field.search_result_elm);
       };

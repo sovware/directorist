@@ -248,13 +248,18 @@ atbdSelectData.forEach(function (el) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-wpColorPicker.forEach(function (elm) {
-  if (elm !== null) {
-    var dColorPicker = elm.querySelector('.directorist-color-picker');
-    dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-  }
-});
+/* Initialize wpColorPicker */
+(function ($) {
+  $(document).ready(function () {
+    var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+    wpColorPicker.forEach(function (elm) {
+      if (elm !== null) {
+        var dColorPicker = $('.directorist-color-picker');
+        dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+      }
+    });
+  });
+})(jQuery);
 
 /***/ }),
 

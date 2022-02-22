@@ -337,13 +337,18 @@ atbdSelectData.forEach(function (el) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-wpColorPicker.forEach(function (elm) {
-  if (elm !== null) {
-    var dColorPicker = elm.querySelector('.directorist-color-picker');
-    dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-  }
-});
+/* Initialize wpColorPicker */
+(function ($) {
+  $(document).ready(function () {
+    var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+    wpColorPicker.forEach(function (elm) {
+      if (elm !== null) {
+        var dColorPicker = $('.directorist-color-picker');
+        dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+      }
+    });
+  });
+})(jQuery);
 
 /***/ }),
 
@@ -1048,7 +1053,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
       key: "initStarRating",
       value: function initStarRating() {
-        $('.directorist-stars, .directorist-review-criteria-select').barrating({
+        $('.directorist-review-criteria-select').barrating({
           theme: 'fontawesome-stars'
         });
       }
@@ -1161,12 +1166,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 (function ($) {
   //Star rating
-  if ($('.directorist-stars').length) {
-    $(".directorist-stars").barrating({
-      theme: 'fontawesome-stars'
-    });
-  }
-
   if ($('.directorist-review-criteria-select').length) {
     $('.directorist-review-criteria-select').barrating({
       theme: 'fontawesome-stars'

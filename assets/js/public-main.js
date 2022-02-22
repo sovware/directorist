@@ -2654,7 +2654,8 @@ __webpack_require__.r(__webpack_exports__);
     Author: wpWax
     Author URI: www.wpwax.com
 */
-// Styles
+console.log(directorist_options); // Styles
+
  // Single Listing Page
 
  // General Components

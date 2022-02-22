@@ -4,7 +4,7 @@
     Author: wpWax
     Author URI: www.wpwax.com
 */
-
+console.log( directorist_options )
 // Styles
 import './../../scss/layout/public/main-style.scss';
 

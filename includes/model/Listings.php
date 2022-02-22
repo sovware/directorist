@@ -1587,6 +1587,10 @@ class Directorist_Listings {
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 
+		public function has_masonary() {
+			return ( $this->view_as == 'masonry_grid' ) ? true : false;
+		}
+
 		public function masonary_grid_attr() {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}

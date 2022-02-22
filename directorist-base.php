@@ -227,6 +227,9 @@ final class Directorist_Base
 			self::$instance->tools = new ATBDP_Tools;
 			self::$instance->announcement = new ATBDP_Announcement;
 
+			// Load widgets
+			Directorist\Widgets\Init::instance();
+
 			/*Extensions Link*/
 			/*initiate extensions link*/
 
@@ -426,6 +429,7 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',

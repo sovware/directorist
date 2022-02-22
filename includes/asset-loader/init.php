@@ -64,7 +64,14 @@ class Init {
 				wp_enqueue_script('directorist-select2-script');
 				break;
 
-			case 'archive/map-view.php':
+			case 'archive/grid-view':
+				/**
+				 * @todo check Listings::has_masonary() condition
+				 */
+				wp_enqueue_script('jquery-masonry');
+				break;
+
+			case 'archive/map-view':
 				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 				if ( $map_type == 'openstreet' ) {
@@ -78,11 +85,11 @@ class Init {
 				wp_enqueue_script( 'directorist-range-slider' );
 				break;
 
-			case 'search-form/fields/location.php':
+			case 'search-form/fields/location':
 				wp_enqueue_script( 'directorist-geolocation' );
 				break;
 
-			case 'listing-form/fields/address.php':
+			case 'listing-form/fields/address':
 				wp_enqueue_script( 'directorist-geolocation' );
 				break;
 

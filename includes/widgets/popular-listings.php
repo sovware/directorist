@@ -33,20 +33,24 @@ class Popular_Listings extends \WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = [];
 
+		// k_var_dump($new_instance);
+
 		$instance['title']            = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
 		$instance['pop_listing_num']  = ( ! empty( $new_instance['pop_listing_num'] ) ) ? sanitize_text_field( $new_instance['pop_listing_num'] ) : '';
-		$instance['single_only']      = ( ! empty( $new_instance['single_only'] ) ) ? sanitize_text_field( $new_instance['single_only'] ) : '';
+		$instance['single_only']      = ( ! empty( $new_instance['single_only'] ) ) ? 1 : 0;
 
-        k_var_dump($new_instance);
+        // k_var_dump($instance);
 
 		return $instance;
 	}
 
 	public function form( $instance ) {
+		// k_var_dump($instance);
+
 		$defaults = [
 			'title'           => esc_html__( 'Popular Listings', 'directorist' ),
 			'pop_listing_num' => 5,
-			'single_only'     => 0,
+			'single_only'     => 1,
 		];
 
 		$instance = wp_parse_args( (array) $instance, $defaults );

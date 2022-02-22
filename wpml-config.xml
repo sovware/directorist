@@ -114,6 +114,8 @@
             <key name="bank_transfer_title"/>
             <key name="bank_transfer_description"/>
             <key name="bank_transfer_instruction"/>
+            <key name="featured_listing_title"/>
+            <key name="featured_listing_desc"/>
             
             <!-- Badge Management -->
             <key name="new_badge_text"/>

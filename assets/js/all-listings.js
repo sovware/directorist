@@ -1076,7 +1076,7 @@ document.body.addEventListener('click', function (e) {
   function authorsMasonry(selector) {
     var authorsCard = $(selector);
     $(authorsCard).each(function (id, elm) {
-      var authorsCardRow = $(elm).find('.directorist-row');
+      var authorsCardRow = $(elm).find('.directorist-masonary');
       var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
         $(authorMasonryInit).masonry({
           percentPosition: true,

@@ -76,7 +76,7 @@ class Enqueue {
 	}
 
     public static function color_picker_scripts() {
-		
+
 		// wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
 		// wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), false, 1 );
 
@@ -117,10 +117,10 @@ class Enqueue {
 		if ( $cluster ) {
 			wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
 		}
-		
+
 		wp_enqueue_script( 'directorist-openstreet-libs-setup' );
 		wp_enqueue_script( 'directorist-openstreet-open-layers' );
-		wp_enqueue_script( 'directorist-openstreet-crosshairs' );	
+		wp_enqueue_script( 'directorist-openstreet-crosshairs' );
 	}
 
 	public static function google_map_scripts() {

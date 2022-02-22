@@ -51,14 +51,14 @@ class Enqueue_Assets {
 		$script_version = ( self::load_min_files() ) ? DIRECTORIST_SCRIPT_VERSION : md5( time() );
 		self::$script_version = apply_filters( 'directorist_script_version', $script_version );
 
+		// Load Vendor Assets
+		self::add_vendor_css_scripts();
+		self::add_vendor_js_scripts();
+
 		// Load Global Assets
 		self::add_global_css_scripts();
 		self::add_global_js_scripts();
 
-		// Load Vendor Assets
-		self::add_vendor_css_scripts();
-		self::add_vendor_js_scripts();
-		
 		// Load Public Assets
 		self::add_public_css_scripts();
 		self::add_public_js_scripts();
@@ -368,7 +368,7 @@ class Enqueue_Assets {
 			'has_min'   => true,
 			'ver'       => '',
 			'group'     => $common_asset_group,
-			//'section'   => '__',
+			'section'   => '__',
 			'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
 		];
 

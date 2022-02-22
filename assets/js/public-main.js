@@ -101,42 +101,85 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
-  var tag = '';
-  var price = [];
-  var custom_field = {};
-  $.each($("input[name='in_tag[]']:checked"), function () {
-    tag = $(this).val();
-  });
-  $('input[name^="price["]').each(function (index, el) {
-    price.push($(el).val());
-  });
-  $('[name^="custom_field"]').each(function (index, el) {
-    var test = $(el).attr('name');
-    var type = $(el).attr('type');
-    var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
-
-    if ('radio' === type) {
-      $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-        value = $(this).val();
-        custom_field[post_id] = value;
-      });
-    } else if ('checkbox' === type) {
-      post_id = post_id.split('[]')[0];
-      $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-        var checkValue = [];
-        value = $(this).val();
-        checkValue.push(value);
-        custom_field[post_id] = checkValue;
-      });
-    } else {
-      var value = $(el).val();
-      custom_field[post_id] = value;
-    }
-  });
-
   function directorist_ajax_search_seo(form_data) {
+    console.log(form_data.price);
+
     if (history.pushState) {
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + form_data.q;
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+      if (form_data.q && form_data.q.length) {
+        var query = '?q=' + form_data.q;
+      }
+
+      if (form_data.in_cat && form_data.in_cat.length) {
+        var query = query && query.length ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
+      }
+
+      if (form_data.in_loc && form_data.in_loc.length) {
+        var query = query && query.length ? query + '&in_loc=' + form_data.in_loc : '?in_loc=' + form_data.in_loc;
+      }
+
+      if (form_data.in_tag && form_data.in_tag.length) {
+        var query = query && query.length ? query + '&in_tag=' + form_data.in_tag : '?in_tag=' + form_data.in_tag;
+      }
+
+      if (form_data.price[0] && form_data.price[0] > 0) {
+        var query = query && query.length ? query + '&min-price=' + form_data.price[0] : '?min-price=' + form_data.price[0];
+      }
+
+      if (form_data.price[1] && form_data.price[1] > 0) {
+        var query = query && query.length ? query + '&max-price=' + form_data.price[1] : '?max-price=' + form_data.price[1];
+      }
+
+      if (form_data.price_range && form_data.price_range.length) {
+        var query = query && query.length ? query + '&price_range=' + form_data.price_range : '?price_range=' + form_data.price_range;
+      }
+
+      if (form_data.search_by_rating && form_data.search_by_rating.length) {
+        var query = query && query.length ? query + '&search_by_rating=' + form_data.search_by_rating : '?search_by_rating=' + form_data.search_by_rating;
+      }
+
+      if (form_data.cityLat && form_data.cityLat.length) {
+        var query = query && query.length ? query + '&cityLat=' + form_data.cityLat : '?cityLat=' + form_data.cityLat;
+      }
+
+      if (form_data.cityLng && form_data.cityLng.length) {
+        var query = query && query.length ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
+      }
+
+      if (form_data.miles && form_data.miles > 0) {
+        var query = query && query.length ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
+      }
+
+      if (form_data.address && form_data.address.length) {
+        var query = query && query.length ? query + '&address=' + form_data.address : '?address=' + form_data.address;
+      }
+
+      if (form_data.zip && form_data.zip.length) {
+        var query = query && query.length ? query + '&zip=' + form_data.zip : '?zip=' + form_data.zip;
+      }
+
+      if (form_data.fax && form_data.fax.length) {
+        var query = query && query.length ? query + '&fax=' + form_data.fax : '?fax=' + form_data.fax;
+      }
+
+      if (form_data.email && form_data.email.length) {
+        var query = query && query.length ? query + '&email=' + form_data.email : '?email=' + form_data.email;
+      }
+
+      if (form_data.website && form_data.website.length) {
+        var query = query && query.length ? query + '&website=' + form_data.website : '?website=' + form_data.website;
+      }
+
+      if (form_data.phone && form_data.phone.length) {
+        var query = query && query.length ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
+      }
+
+      if (form_data.custom_field && form_data.custom_field.length) {
+        var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+      }
+
+      var newurl = query ? newurl + query : newurl;
       window.history.pushState({
         path: newurl
       }, '', newurl);
@@ -147,6 +190,38 @@ __webpack_require__.r(__webpack_exports__);
 
   $('body').on("submit", ".directorist-ajax-search .directorist-advanced-filter__form", function (e) {
     e.preventDefault();
+    var tag = '';
+    var price = [];
+    var custom_field = {};
+    $.each($("input[name='in_tag[]']:checked"), function () {
+      tag = $(this).val();
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href.match(/view=.+/);
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
@@ -176,6 +251,7 @@ __webpack_require__.r(__webpack_exports__);
       form_data.view = view;
     }
 
+    console.log(form_data);
     directorist_ajax_search_seo(form_data);
     $.ajax({
       url: atbdp_public_data.ajaxurl,
@@ -229,6 +305,38 @@ __webpack_require__.r(__webpack_exports__);
 
   $('body').on("click", ".directorist-ajax-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
     e.preventDefault();
+    var tag = '';
+    var price = [];
+    var custom_field = {};
+    $.each($("input[name='in_tag[]']:checked"), function () {
+      tag = $(this).val();
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
     var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
@@ -289,6 +397,38 @@ __webpack_require__.r(__webpack_exports__);
 
   $('body').on("click", ".directorist-ajax-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
     e.preventDefault();
+    var tag = '';
+    var price = [];
+    var custom_field = {};
+    $.each($("input[name='in_tag[]']:checked"), function () {
+      tag = $(this).val();
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href.match(/view=.+/);
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
@@ -340,6 +480,38 @@ __webpack_require__.r(__webpack_exports__);
     var _form_data;
 
     e.preventDefault();
+    var tag = '';
+    var price = [];
+    var custom_field = {};
+    $.each($("input[name='in_tag[]']:checked"), function () {
+      tag = $(this).val();
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
     var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';

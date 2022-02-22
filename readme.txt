@@ -1,11 +1,11 @@
-﻿=== Directorist – Business Directory & Classified Listings WordPress Plugin ===
+﻿=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 7.1.0
+Stable tag: 7.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,13 +40,14 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
 Directorist Business Directory & Classified Listings is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allow you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
 
 [youtube https://www.youtube.com/watch?v=iPZFpAqS7Ok]
 
-== Here’s What Users Say about Directorist – Business Directory & Classified Listings WordPress Plugin ==
+== Here’s What Users Say about Directorist - WordPress Business Directory Plugin with Classified Ads Listings ==
 
 >👨 __Simply the BEST directory plugin__
 
@@ -304,6 +305,8 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 
 🔥 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
 
+🔥 **[dCar](https://directorist.com/product/dcar/)** - dCar theme is hammered out to construct a car directory that fits any screen, from the largest desktop screens, over any tablet size, down to the smallest smartphones. It’s a theme that showers you to create a car directory with selling and renting features.
+
 🔥 **[dPlace](https://directorist.com/product/dplace/)** - dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.
 
 🔥 **[dRestaurant](https://directorist.com/product/drestaurant/)** - Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.
@@ -327,7 +330,8 @@ Directorist Business Directory offers cost-effective premium [Themes](https://di
 * GamiPress Integration
 * Advanced Review System
 * dEvent (Theme)
-* dCar (Theme)
+* dClassified (Theme)
+* dJobs (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -354,7 +358,7 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 
 == Frequently Asked Questions ==
 
-= Is Directorist – Business Directory & Classified Listings WordPress Plugin freemium in type? =
+= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings freemium in type? =
 Directorist is a free business directory plugin that offers a number of paid extensions to extend the functionalities of your directory listing website.
 
 = How to make a listing featured? =
@@ -363,10 +367,10 @@ You can make a listing featured according to the respective pricing plans.
 = Is there any widget facility with Directorist Business Directory plugin? =
 Absolutely, you will get 35+ custom widgets using this awesome plugin.
 
-= Is Directorist – Business Directory & Classified Listings WordPress Plugin compatible with any themes out there in the market? =
+= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings compatible with any themes out there in the market? =
 Yes, Directorist is built in such a way that it works smoothly with all the major themes in the market.
 
-= Can I translate the Directorist – Business Directory & Classified Listings WordPress Plugin to my language and make it multi-lingual? =
+= Can I translate the Directorist - WordPress Business Directory Plugin with Classified Ads Listings to my language and make it multi-lingual? =
 Yes, you can use the Loco Translate plugin or Poedit tool to translate your directory into your language. You can also make it multi-lingual using the gTranslate or Polylang plugin. For more information and guidelines refer to the blog post [here](https://directorist.com/blog/how-to-make-directorist-multi-lingual).
 
 = What types of directories can I build? =
@@ -384,6 +388,26 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.1.2 – Feb 17, 2022
+
+* Fix - Fatal error when review disabled
+
+7.1.1 – Feb 16, 2022
+
+* Add - Load category custom field when selecting search form categories
+* Add - 'section_data' as the second parameter of 'directorist_single_section_has_contents' filter hook
+* Fix - User not able to select address if there's no map added on the add listing form
+* Fix - Wrong listings in Author Profile page where usernames with a space
+* Fix - Wrong directory type assign if search form used with listing form
+* Fix - Search Form category loading issue with select2 lazy load
+* Fix - Migration confirmation notice on fresh Installation
+* Fix - Some minor issues with the review system
+* Fix - Google map info window issue
+* Fix - Style & responsive issues
+* Fix - Error in System Info page
+* Improve - Resource loading and performance
+* Tweak - External links from settings & builder open in new tab
 
 7.1.0 – Jan 19, 2022
 

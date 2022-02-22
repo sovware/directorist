@@ -177,7 +177,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
+		return apply_filters( 'directorist_single_section_has_contents', $has_contents, $section_data );
 	}
 
 	public function has_whatsapp( $data ) {

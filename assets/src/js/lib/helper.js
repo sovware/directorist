@@ -17,7 +17,7 @@ function get_dom_data( key, parent ) {
         return dataValue;
     } catch (error) {
         if ( is_script_debugging ) {
-            console.log({key,dataElm,error});
+            //console.log({key,dataElm,error});
         }
         
         return '';

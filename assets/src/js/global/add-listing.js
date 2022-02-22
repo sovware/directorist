@@ -563,7 +563,10 @@ $('body').on('submit', formID, function (e) {
     if (typeof categories === 'string') {
         form_data.append('tax_input[at_biz_dir-category][]', categories);
     }
-    var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
+    var form_directory_type = frm_element.querySelector('[name="directory_type"]');
+    var form_directory_type_value = form_directory_type ? form_directory_type.value : '';
+    var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
+
     form_data.append('directory_type', directory_type);
 
     if (qs.plan) {

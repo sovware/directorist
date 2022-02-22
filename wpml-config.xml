@@ -1,0 +1,147 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">at_biz_dir</custom-type>
+        <custom-type translate="0">atbdp_orders</custom-type>
+        <custom-type translate="0">listing-announcement</custom-type>
+    </custom-types>
+
+    <taxonomies>
+        <taxonomy translate="1">at_biz_dir-location</taxonomy>
+        <taxonomy translate="1">at_biz_dir-category</taxonomy>
+        <taxonomy translate="1">at_biz_dir-tags</taxonomy>
+        <taxonomy translate="1">atbdp_listing_types</taxonomy>
+    </taxonomies>
+
+    <admin-texts>
+        <key name="atbdp_option">
+            <!-- All Listings -->
+            <key name="all_listing_title"/>
+            <key name="listings_filter_button_text"/>
+            <key name="listings_reset_text"/>
+            <key name="listings_apply_text"/>
+            <key name="sort_by_text"/>
+            <key name="view_as_text"/>
+
+            <!-- Single Listings -->
+            <key name="pending_confirmation_msg"/>
+            <key name="publish_confirmation_msg"/>
+
+            <!-- Listing Currency -->
+            <key name="g_currency"/>
+
+            <!-- Search Listing -->
+            <key name="search_title"/>
+            <key name="search_subtitle"/>
+            <key name="search_listing_text"/>
+            <key name="search_more_filters"/>
+            <key name="search_reset_text"/>
+            <key name="search_apply_filter"/>
+
+            <!-- Search Result -->
+            <key name="search_result_filter_button_text"/>
+            <key name="sresult_reset_text"/>
+            <key name="sresult_apply_text"/>
+            <key name="search_viewas_text"/>
+            <key name="search_sortby_text"/>
+
+            <!-- Registration Form -->
+            <key name="reg_username"/>
+            <key name="reg_password"/>
+            <key name="reg_email"/>
+            <key name="registration_privacy_label"/>
+            <key name="registration_privacy_label_link"/>
+            <key name="regi_terms_label"/>
+            <key name="reg_signup"/>
+            <key name="login_text"/>
+            <key name="log_linkingmsg"/>
+
+            <!-- Login Form -->
+            <key name="log_username"/>
+            <key name="log_password"/>
+            <key name="log_rememberme"/>
+            <key name="log_button"/>
+            <key name="reg_text"/>
+            <key name="reg_linktxt"/>
+            <key name="recpass_text"/>
+            <key name="recpass_desc"/>
+            <key name="recpass_username"/>
+            <key name="recpass_placeholder"/>
+            <key name="recpass_button"/>
+
+            <!-- Dashboard -->
+            <key name="my_profile_tab_text"/>
+            <key name="fav_listings_tab_text"/>
+            <key name="announcement_tab_text"/>
+            <key name="my_listing_tab_text"/>
+            <key name="become_author_button_text"/>
+
+            <!-- All Authors -->
+            <key name="all_authors_button_text"/>
+
+            <!-- Email General -->
+            <key name="email_from_name"/>
+
+            <!-- Email Templates -->
+            <key name="email_sub_new_listing"/>
+            <key name="email_tmpl_new_listing"/>
+            <key name="email_sub_pub_listing"/>
+            <key name="email_tmpl_pub_listing"/>
+            <key name="email_sub_edit_listing"/>
+            <key name="email_tmpl_edit_listing"/>
+            <key name="email_sub_to_expire_listing"/>
+            <key name="email_tmpl_to_expire_listing"/>
+            <key name="email_sub_expired_listing"/>
+            <key name="email_tmpl_expired_listing"/>
+            <key name="email_sub_to_renewal_listing"/>
+            <key name="email_tmpl_to_renewal_listing"/>
+            <key name="email_sub_renewed_listing"/>
+            <key name="email_tmpl_renewed_listing"/>
+            <key name="email_sub_deleted_listing"/>
+            <key name="email_tmpl_deleted_listing"/>
+            <key name="email_sub_new_order"/>
+            <key name="email_tmpl_new_order"/>
+            <key name="email_sub_offline_new_order"/>
+            <key name="email_tmpl_offline_new_order"/>
+            <key name="email_sub_completed_order"/>
+            <key name="email_tmpl_completed_order"/>
+            <key name="email_sub_listing_contact_email"/>
+            <key name="tmpl_listing_contact_email"/>
+            <key name="sub_registration_confirmation"/>
+            <key name="email_tmpl_registration_confirmation"/>
+            
+            <!-- Monetization -->
+            <key name="payment_currency"/>
+            <key name="bank_transfer_title"/>
+            <key name="bank_transfer_description"/>
+            <key name="bank_transfer_instruction"/>
+            
+            <!-- Badge Management -->
+            <key name="new_badge_text"/>
+            <key name="popular_badge_text"/>
+            <key name="feature_badge_text"/>
+            
+            <!-- SEO -->
+            <key name="add_listing_page_meta_title"/>
+            <key name="add_listing_page_meta_desc"/>
+            <key name="all_listing_meta_title"/>
+            <key name="all_listing_meta_desc"/>
+            <key name="dashboard_meta_title"/>
+            <key name="dashboard_meta_desc"/>
+            <key name="author_profile_meta_title"/>
+            <key name="author_page_meta_desc"/>
+            <key name="category_meta_title"/>
+            <key name="single_category_meta_title"/>
+            <key name="single_category_meta_desc"/>
+            <key name="all_locations_meta_title"/>
+            <key name="all_locations_meta_desc"/>
+            <key name="single_locations_meta_title"/>
+            <key name="single_locations_meta_desc"/>
+            <key name="registration_meta_title"/>
+            <key name="registration_meta_desc"/>
+            <key name="login_meta_title"/>
+            <key name="login_meta_desc"/>
+            <key name="homepage_meta_desc"/>
+            <key name="search_result_meta_desc"/>
+        </key>
+    </admin-texts>
+</wpml-config>

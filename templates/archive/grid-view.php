@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php if ( $listings->have_posts() ): ?>
 
-			<div class="<?php echo $listings->has_masonary() ? 'directorist-masonary' : ''; ?> <?php Helper::directorist_row(); ?>">
+			<div class="<?php echo $listings->has_masonry() ? 'directorist-masonry' : ''; ?> <?php Helper::directorist_row(); ?>">
 
 				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 

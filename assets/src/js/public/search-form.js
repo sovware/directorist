@@ -133,10 +133,10 @@
                 'action': 'atbdp-favourites-all-listing',
                 'post_id': $(this).data('listing_id')
             };
-            var fav_tooltip_success = '<span>' + atbdp_search_listing.i18n_text.added_favourite + '</span>';
-            var fav_tooltip_warning = '<span>' + atbdp_search_listing.i18n_text.please_login + '</span>';
+            var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
+            var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
             $(".directorist-favorite-tooltip").hide();
-            $.post(atbdp_search_listing.ajax_url, data, function (response) {
+            $.post(directorist.ajax_url, data, function (response) {
                 var post_id = data['post_id'].toString();
                 var staElement = $('.directorist-fav_' + post_id);
                 var data_id = staElement.attr('data-listing_id');
@@ -483,16 +483,16 @@
 
     function init_map_api_field() {
 
-        if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+        if (directorist.i18n_text.select_listing_map === 'google') {
 
             function initialize() {
                 let opt = {
                     types: ['geocode'],
                     componentRestrictions: {
-                        country: atbdp_search_listing.restricted_countries
+                        country: directorist.restricted_countries
                     },
                 };
-                const options = atbdp_search_listing.countryRestriction ? opt : '';
+                const options = directorist.countryRestriction ? opt : '';
 
                 let input_fields = [{
                         input_class: '.directorist-location-js',
@@ -532,7 +532,7 @@
 
             initialize();
 
-        } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+        } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
 
             const getResultContainer = function (context, field) {
                 return $(context).next(field.search_result_elm);

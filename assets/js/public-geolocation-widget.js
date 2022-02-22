@@ -188,7 +188,7 @@
         getLocation();
       });
 
-      if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+      if (directorist.i18n_text.select_listing_map === 'google') {
         function initialize() {
           var input = document.getElementById('address_widget');
           var options = atbdp_search_listing.countryRestriction ? {
@@ -208,7 +208,7 @@
         google.maps.event.addDomListener(window, 'load', initialize);
       }
     })();
-  } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+  } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
     $('#address_widget').on('keyup', function (event) {
       event.preventDefault();
       var search = $('#address_widget').val();

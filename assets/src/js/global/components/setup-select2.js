@@ -37,7 +37,7 @@ function initSelect2() {
         convertToSelect2( field );
     });
 
-    const lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
+    const lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
     if ( lazy_load_taxonomy_fields ) {
         // Init Select2 Ajax Fields
         initSelect2AjaxFields();

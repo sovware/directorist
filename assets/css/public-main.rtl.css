@@ -5050,7 +5050,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   margin-bottom: 0;
 }
 
-.atbdp-range-slider-widget .atbd-current-value {
+.atbdp-range-slider-widget .directorist-range-slider-current-value {
   margin-bottom: 10px;
 }
 
@@ -6186,7 +6186,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0 15px;
   font-size: 15px;
 }
-.directorist-sidebar .atbd_widget .default-ad-search .atbd-slide1 {
+.directorist-sidebar .atbd_widget .default-ad-search .directorist-range-slider1 {
   width: 1em;
   height: 1em;
 }
@@ -6587,7 +6587,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0 15px;
 }
 
-.directorist-range-slider-wrap .atbd-current-value {
+.directorist-range-slider-wrap .directorist-range-slider-current-value {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
@@ -6604,7 +6604,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding: 0;
 }
 
-.directorist-range-slider-wrap.atbdprs-widget .atbd-current-value {
+.directorist-range-slider-wrap.atbdprs-widget .directorist-range-slider-current-value {
   margin-bottom: 15px !important;
   padding: 0 !important;
 }
@@ -6627,7 +6627,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   margin-bottom: 5px;
 }
 
-.atbd-slide1 {
+.directorist-range-slider1 {
   width: 1.2em;
   height: 1.2em;
   position: absolute;
@@ -6668,7 +6668,7 @@ p.atbd-min {
   float: right;
 }
 
-.atbd-child {
+.directorist-range-slider-child {
   height: 4px;
   border-radius: 2px;
   background: #444752;
@@ -14955,29 +14955,6 @@ Review: New Style
 
   .atbd_post_draft {
     padding-bottom: 80px;
-  }
-
-  .atbdp-range-slider-wrapper {
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-  }
-  .atbdp-range-slider-wrapper > span {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 100%;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-  }
-  .atbdp-range-slider-wrapper > div {
-    padding-right: 0;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 100%;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-    margin: 10px 0;
-  }
-  .atbdp-range-slider-wrapper .atbd-current-value {
-    padding: 0 !important;
   }
 
   .ads-advanced .atbd_seach_fields_wrapper .single_search_field {

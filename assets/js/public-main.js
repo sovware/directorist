@@ -90,9 +90,13 @@
 /*!**************************************!*\
   !*** ./assets/src/js/public/main.js ***!
   \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/main-style.scss */ "./assets/src/scss/layout/public/main-style.scss");
+/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /*
     File: Main.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -100,8 +104,7 @@
     Author URI: www.wpwax.com
 */
 // Styles
-//import './../../scss/layout/public/main-style.scss';
-// Single Listing Page
+ // Single Listing Page
 // import './components/single-listing-page/slider';
 // General Components
 // import './components/general';
@@ -123,6 +126,17 @@
 // import './components/author';
 // Booking
 // import './components/booking';
+
+/***/ }),
+
+/***/ "./assets/src/scss/layout/public/main-style.scss":
+/*!*******************************************************!*\
+  !*** ./assets/src/scss/layout/public/main-style.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

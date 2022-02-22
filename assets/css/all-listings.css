@@ -14968,29 +14968,6 @@ Review: New Style
     padding-bottom: 80px;
   }
 
-  .atbdp-range-slider-wrapper {
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-  }
-  .atbdp-range-slider-wrapper > span {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 100%;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-  }
-  .atbdp-range-slider-wrapper > div {
-    padding-left: 0;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 100%;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-    margin: 10px 0;
-  }
-  .atbdp-range-slider-wrapper .directorist-range-slider-current-value {
-    padding: 0 !important;
-  }
-
   .ads-advanced .atbd_seach_fields_wrapper .single_search_field {
     margin-bottom: 10px !important;
     margin-top: 0 !important;

@@ -1064,6 +1064,33 @@ document.body.addEventListener('click', function (e) {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/masonry.js":
+/*!****************************************************!*\
+  !*** ./assets/src/js/public/components/masonry.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* All listings Masonry layout */
+(function ($) {
+  function authorsMasonry(selector) {
+    var authorsCard = $(selector);
+    $(authorsCard).each(function (id, elm) {
+      var authorsCardRow = $(elm).find('.directorist-row');
+      var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+        $(authorMasonryInit).masonry({
+          percentPosition: true,
+          horizontalOrder: true
+        });
+      });
+    });
+  }
+
+  authorsMasonry('.directorist-archive-grid-view');
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/review.js":
 /*!***************************************************!*\
   !*** ./assets/src/js/public/components/review.js ***!
@@ -1613,9 +1640,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/masonry */ "./assets/src/js/public/components/masonry.js");
+/* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_masonry__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_15__);
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -1623,6 +1652,7 @@ __webpack_require__.r(__webpack_exports__);
     Author URI: www.wpwax.com
 */
  // General Components
+
 
 
 

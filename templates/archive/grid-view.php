@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php if ( $listings->have_posts() ): ?>
 
-			<div class="<?php Helper::directorist_row(); ?>">
+			<div class="<?php echo esc_attr( $listings->grid_view_class() ); ?> <?php Helper::directorist_row(); ?>">
 
 				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 

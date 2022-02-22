@@ -53,7 +53,6 @@ class Init {
 			case 'archive-contents':
 				wp_enqueue_script('directorist-all-listings');
 				wp_enqueue_script('directorist-select2-script');
-				Enqueue::color_picker_scripts();
 				break;
 
 			// Search Form
@@ -87,6 +86,11 @@ class Init {
 
 			case 'search-form/fields/location':
 				wp_enqueue_script( 'directorist-geolocation' );
+				break;
+
+			case 'search-form/custom-fields/color_picker':
+				wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
+				wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 				break;
 
 			case 'listing-form/fields/address':

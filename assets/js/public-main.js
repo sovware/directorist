@@ -281,8 +281,7 @@ __webpack_require__.r(__webpack_exports__);
           $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
         }
 
-        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
-        window.dispatchEvent(new CustomEvent('directorist-on-changed-map-view'));
+        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive')); // window.dispatchEvent(new CustomEvent( 'directorist-on-changed-map-view'));
       }
     });
   });

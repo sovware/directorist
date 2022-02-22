@@ -352,7 +352,7 @@ import './../global/components/select2-custom-control';
         form_data.append('listing_type', listing_type);
 
         const atts = parent.attr('data-atts');
-        atts_decoded = btoa(atts);
+        let atts_decoded = btoa(atts);
 
         form_data.append('atts', atts_decoded);
 
@@ -362,7 +362,7 @@ import './../global/components/select2-custom-control';
             method: 'POST',
             processData: false,
             contentType: false,
-            url: atbdp_search.ajax_url,
+            url: directorist.ajax_url,
             data: form_data,
             success(response) {
                 if (response) {
@@ -433,10 +433,10 @@ import './../global/components/select2-custom-control';
                 taxonomy,
                 parent: value,
                 class: classes,
-                security: atbdp_search.ajaxnonce,
+                security: directorist.ajaxnonce,
             };
 
-            $.post(atbdp_search.ajax_url, data, function (response) {
+            $.post(directorist.ajax_url, data, function (response) {
                 $this.parent()
                     .find('div:first')
                     .remove();
@@ -457,10 +457,10 @@ import './../global/components/select2-custom-control';
             const data = {
                 action: 'atbdp_custom_fields_search',
                 term_id: $(this).val(),
-                security: atbdp_search.ajaxnonce,
+                security: directorist.ajaxnonce,
             };
 
-            $.post(atbdp_search.ajax_url, data, function (response) {
+            $.post(directorist.ajax_url, data, function (response) {
                 $search_elem.html(response);
                 const item = $('.custom-control').closest('.bads-custom-checks');
                 item.each(function (index, el) {

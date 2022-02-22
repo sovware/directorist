@@ -1071,14 +1071,14 @@ __webpack_require__.r(__webpack_exports__);
     form_data.append('action', 'atbdp_listing_types_form');
     form_data.append('listing_type', listing_type);
     var atts = parent.attr('data-atts');
-    atts_decoded = btoa(atts);
+    var atts_decoded = btoa(atts);
     form_data.append('atts', atts_decoded);
     parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
     $.ajax({
       method: 'POST',
       processData: false,
       contentType: false,
-      url: atbdp_search.ajax_url,
+      url: directorist.ajax_url,
       data: form_data,
       success: function success(response) {
         if (response) {
@@ -1129,9 +1129,9 @@ __webpack_require__.r(__webpack_exports__);
         taxonomy: taxonomy,
         parent: value,
         class: classes,
-        security: atbdp_search.ajaxnonce
+        security: directorist.ajaxnonce
       };
-      $.post(atbdp_search.ajax_url, data, function (response) {
+      $.post(directorist.ajax_url, data, function (response) {
         $this.parent().find('div:first').remove();
         $this.parent().append(response);
       });
@@ -1146,9 +1146,9 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         action: 'atbdp_custom_fields_search',
         term_id: $(this).val(),
-        security: atbdp_search.ajaxnonce
+        security: directorist.ajaxnonce
       };
-      $.post(atbdp_search.ajax_url, data, function (response) {
+      $.post(directorist.ajax_url, data, function (response) {
         $search_elem.html(response);
         var item = $('.custom-control').closest('.bads-custom-checks');
         item.each(function (index, el) {

@@ -33,14 +33,7 @@ class Localized_Data {
 	}
 
 	public static function public_data() {
-		$data = [];
-
-		array_push( $data, self::get_listings_data() );
-		array_push( $data, self::directorist_options_data() );
-		array_push( $data, self::login_data() );
-		array_push( $data, self::search_form_localized_data() );
-		array_push( $data, self::search_listing_localized_data() );
-		array_push( $data, self::search_listing_data() );
+		$data = self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
 
 		return $data;
 	}

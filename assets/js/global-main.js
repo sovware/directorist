@@ -361,7 +361,7 @@ function initSelect2() {
   select_fields.forEach(function (field) {
     Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(field);
   });
-  var lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
+  var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
 
   if (lazy_load_taxonomy_fields) {
     // Init Select2 Ajax Fields

@@ -483,7 +483,7 @@
 
     function init_map_api_field() {
 
-        if (directorist[3].i18n_text.select_listing_map === 'google') {
+        if (directorist.i18n_text.select_listing_map === 'google') {
 
             function initialize() {
                 let opt = {
@@ -532,7 +532,7 @@
 
             initialize();
 
-        } else if (directorist[3].i18n_text.select_listing_map === 'openstreet') {
+        } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
 
             const getResultContainer = function (context, field) {
                 return $(context).next(field.search_result_elm);

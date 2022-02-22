@@ -571,7 +571,7 @@
   document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
   function init_map_api_field() {
-    if (directorist[3].i18n_text.select_listing_map === 'google') {
+    if (directorist.i18n_text.select_listing_map === 'google') {
       function initialize() {
         var opt = {
           types: ['geocode'],
@@ -614,7 +614,7 @@
       }
 
       initialize();
-    } else if (directorist[3].i18n_text.select_listing_map === 'openstreet') {
+    } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
       var getResultContainer = function getResultContainer(context, field) {
         return $(context).next(field.search_result_elm);
       };

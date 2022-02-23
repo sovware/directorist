@@ -1208,11 +1208,41 @@ class Directorist_Listings {
 		return $lat_long;
 	}
 
+	public function map_options() {
+		$data = [
+			'map_type'              => $this->select_listing_map,
+			'crop_width'            => get_directorist_option( 'crop_width', 360 ),
+			'crop_height'           => get_directorist_option( 'crop_height', 360 ),
+			'display_map_info'      => get_directorist_option( 'display_map_info', true ),
+			'display_image_map'     => get_directorist_option( 'display_image_map', true ),
+			'display_title_map'     => get_directorist_option( 'display_title_map', true ),
+			'display_address_map'   => get_directorist_option( 'display_address_map', true ),
+			'display_direction_map' => get_directorist_option( 'display_direction_map', true ),
+			'zoom'                  => $this->map_zoom_level,
+			'default_image'         => get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' ),
+			'default_lat'           => get_directorist_option( 'default_latitude', 40.7127753 ),
+			'default_long'          => get_directorist_option( 'default_longitude', -74.0059728 ),
+			'use_def_lat_long'      => get_directorist_option( 'use_def_lat_long', true ),
+			'disable_single_listing'=> $this->disable_single_listing,
+		];
+
+		return $data;
+	}
+
 	public function load_openstreet_map() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$card = json_encode( $this->get_osm_map_info_card_data() );
+		$base_loc = json_encode( $this->map_base_lat_long() );
+		$options = json_encode( $this->map_options() );
+		$style = 'width:100%;height:' . $this->listings_map_height . 'px';
+		// e_var_dump($base_loc);
+		// e_var_dump($this->map_base_lat_long());
 
-		$map_height = $this->listings_map_height . "px;";
-		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
+		// $card = '';
+		// $base_loc = '';
+		// $options = '';
+
+		printf( '<div id="map" style="%s" data-card="%s" data-base-loc="%s" data-options="%s" data-script="%s"></div>', $style, $card, $base_loc, $options, $script_path );
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );

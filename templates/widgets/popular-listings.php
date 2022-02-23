@@ -5,11 +5,13 @@
  * @version 7.2.0
  */
 
+use Directorist\Directorist_Listings;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$count = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
+$count = !empty( $instance['pop_listing_num'] ) ? $instance['pop_listing_num'] : 5;
 
-$popular_listings = ATBDP()->get_popular_listings($count);
+$popular_listings = Directorist_Listings::popular_listings_query( $count );
 
 if ($popular_listings->have_posts()) { ?>
     <div class="atbd_categorized_listings">

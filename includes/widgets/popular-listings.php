@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Popular_Listings extends \WP_Widget {
 
 	public function __construct() {
-		$id_base        = 'bdpl_widget2';
-        $name           = esc_html__( 'Directorist - Popular Listings2', 'directorist' );
+		$id_base        = 'bdpl_widget';
+        $name           = esc_html__( 'Directorist - Popular Listings', 'directorist' );
         $widget_options =             [
             'classname' => 'atbd_widget',
             'description' => esc_html__( 'You can show popular listing by this widget', 'directorist' ),

@@ -113,6 +113,11 @@ class Widget_Fields {
 	}
 
 	public static function load_scripts() {
+		global $pagenow;
+
+		if ( $pagenow != 'widgets.php' ) {
+			return;
+		}
 		?>
 		<style>
 			.directorist_widget_image_area .directorist-widget-upload-img,

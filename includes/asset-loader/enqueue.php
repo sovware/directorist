@@ -100,10 +100,10 @@ class Enqueue {
 		if ( $cluster ) {
 			wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions' );
 		}
-		
+
 		wp_enqueue_script( 'directorist-openstreet-libs-setup' );
 		wp_enqueue_script( 'directorist-openstreet-open-layers' );
-		wp_enqueue_script( 'directorist-openstreet-crosshairs' );	
+		wp_enqueue_script( 'directorist-openstreet-crosshairs' );
 	}
 
 	public static function google_map_scripts() {

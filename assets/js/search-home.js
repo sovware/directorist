@@ -86,6 +86,8 @@
 /************************************************************************/
 /******/ ({
 
+<<<<<<< HEAD
+=======
 /***/ "./assets/src/js/public/components/atbdDropdown.js":
 /*!*********************************************************!*\
   !*** ./assets/src/js/public/components/atbdDropdown.js ***!
@@ -263,25 +265,15 @@ atbdSelectData.forEach(function (el) {
 
 /***/ }),
 
+>>>>>>> upstream/improve/asset2
 /***/ "./assets/src/js/public/modules/search-home.js":
 /*!*****************************************************!*\
   !*** ./assets/src/js/public/modules/search-home.js ***!
   \*****************************************************/
 /*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__);
-// General Components
-
-
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\aazzt\\OneDrive\\Documents\\Local\\directorist\\app\\public\\wp-content\\plugins\\directorist\\assets\\src\\js\\public\\modules\\search-home.js'");
 
 /***/ }),
 

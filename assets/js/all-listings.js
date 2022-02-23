@@ -329,7 +329,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
@@ -428,7 +428,7 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
@@ -745,13 +745,21 @@ atbdSelectData.forEach(function (el) {
 /* Initialize wpColorPicker */
 (function ($) {
   $(document).ready(function () {
-    var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-    wpColorPicker.forEach(function (elm) {
-      if (elm !== null) {
-        var dColorPicker = $('.directorist-color-picker');
-        dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-      }
-    });
+    /* Initialize wp color picker */
+    function colorPickerInit() {
+      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+      wpColorPicker.forEach(function (elm) {
+        if (elm !== null) {
+          var dColorPicker = $('.directorist-color-picker');
+          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+        }
+      });
+    }
+
+    colorPickerInit();
+    /* Initialize on Directory type change */
+
+    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
   });
 })(jQuery);
 
@@ -1076,7 +1084,7 @@ document.body.addEventListener('click', function (e) {
   function authorsMasonry(selector) {
     var authorsCard = $(selector);
     $(authorsCard).each(function (id, elm) {
-      var authorsCardRow = $(elm).find('.directorist-row');
+      var authorsCardRow = $(elm).find('.directorist-masonary');
       var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
         $(authorMasonryInit).masonry({
           percentPosition: true,

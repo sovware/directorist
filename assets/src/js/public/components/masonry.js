@@ -3,7 +3,7 @@
     function authorsMasonry(selector) {
         let authorsCard = $(selector);
         $(authorsCard).each(function(id, elm){
-            let authorsCardRow = $(elm).find('.directorist-row');
+            let authorsCardRow = $(elm).find('.directorist-masonary');
             let authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
                 $(authorMasonryInit).masonry({
                     percentPosition: true,

@@ -13,7 +13,7 @@ module.exports = {
         ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
         ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
-        ['search-home']: ["./assets/src/js/public/modules/search-home.js"],
+        //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
         ['add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
@@ -45,7 +45,7 @@ module.exports = {
         ['public-single-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
         ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
         ['public-geolocation-widget']: ["./assets/src/js/global/map-scripts/geolocation-widget.js"],
-        ['global-load-osm-map']: ["./assets/src/js/global/map-scripts/load-osm-map.js"],
+        ['openstreet-map']: ["./assets/src/js/global/map-scripts/openstreet-map.js"],
         ['global-map-view']: ["./assets/src/js/global/map-scripts/map-view.js"],
         ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
 

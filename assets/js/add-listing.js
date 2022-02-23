@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -251,13 +251,21 @@ atbdSelectData.forEach(function (el) {
 /* Initialize wpColorPicker */
 (function ($) {
   $(document).ready(function () {
-    var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-    wpColorPicker.forEach(function (elm) {
-      if (elm !== null) {
-        var dColorPicker = $('.directorist-color-picker');
-        dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-      }
-    });
+    /* Initialize wp color picker */
+    function colorPickerInit() {
+      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+      wpColorPicker.forEach(function (elm) {
+        if (elm !== null) {
+          var dColorPicker = $('.directorist-color-picker');
+          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+        }
+      });
+    }
+
+    colorPickerInit();
+    /* Initialize on Directory type change */
+
+    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
   });
 })(jQuery);
 
@@ -285,7 +293,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 9:
+/***/ 8:
 /*!***********************************************************!*\
   !*** multi ./assets/src/js/public/modules/add-listing.js ***!
   \***********************************************************/

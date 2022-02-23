@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -371,7 +371,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
@@ -522,7 +522,7 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
@@ -644,7 +644,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 14:
+/***/ 13:
 /*!**********************************************!*\
   !*** multi ./assets/src/js/global/global.js ***!
   \**********************************************/

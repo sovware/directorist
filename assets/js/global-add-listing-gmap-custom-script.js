@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -331,7 +331,7 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
@@ -426,7 +426,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 17:
+/***/ 16:
 /*!**************************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/add-listing/google-map.js ***!
   \**************************************************************************/

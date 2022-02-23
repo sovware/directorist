@@ -226,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
     var view_as = view_href.match(/view=.+/);
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href.match(/directory_type=.+/);
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var form_data = {
       action: 'directorist_ajax_search',
       _nonce: atbdp_public_data.ajax_nonce,
@@ -246,12 +246,15 @@ __webpack_require__.r(__webpack_exports__);
       email: $('input[name="email"]').val(),
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
-      custom_field: custom_field,
-      directory_type: type && type.length ? type[0].replace(/directory_type=/, '') : ''
+      custom_field: custom_field
     };
 
     if (view && view.length) {
       form_data.view = view;
+    }
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
     }
 
     directorist_ajax_search_seo(form_data);
@@ -345,7 +348,7 @@ __webpack_require__.r(__webpack_exports__);
     var view_href = $(this).attr('href');
     var view = view_href.match(/view=.+/);
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href.match(/directory_type=.+/);
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var page_no = $(".page-numbers.current").text();
     $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
@@ -369,12 +372,15 @@ __webpack_require__.r(__webpack_exports__);
       email: $('input[name="email"]').val(),
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
-      custom_field: custom_field,
-      directory_type: type && type.length ? type[0].replace(/directory_type=/, '') : ''
+      custom_field: custom_field
     };
 
     if (page_no && page_no.length) {
       form_data.paged = page_no;
+    }
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
     }
 
     if (sort && sort.length) {
@@ -440,7 +446,7 @@ __webpack_require__.r(__webpack_exports__);
     var sort_href = $(this).attr('data-link');
     var sort_by = sort_href.match(/sort=.+/);
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href.match(/directory_type=.+/);
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     $(this).addClass("active");
     var form_data = {
       action: 'directorist_ajax_search',
@@ -463,9 +469,13 @@ __webpack_require__.r(__webpack_exports__);
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field,
-      view: view,
-      directory_type: type && type.length ? type[0].replace(/directory_type=/, '') : ''
+      view: view
     };
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
+    }
+
     $.ajax({
       url: atbdp_public_data.ajaxurl,
       type: "POST",
@@ -527,7 +537,7 @@ __webpack_require__.r(__webpack_exports__);
     var view_as = view_href.match(/view=.+/);
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href.match(/directory_type=.+/);
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     $(".directorist-pagination .page-numbers").removeClass('current');
     $(this).addClass("current");
     var paginate_link = $(this).attr('href');
@@ -561,7 +571,11 @@ __webpack_require__.r(__webpack_exports__);
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "directory_type", type && type.length ? type[0].replace(/directory_type=/, '') : ''), _form_data);
+    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
+    }
 
     if (sort && sort.length) {
       form_data.sort = sort;

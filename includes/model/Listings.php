@@ -1189,18 +1189,35 @@ class Directorist_Listings {
 		}
 	}
 
+	public function map_base_lat_long() {
+		$ids = $this->post_ids();
+
+		if ( !empty( $ids ) ) {
+			$id   = $ids[0];
+			$lat_long = [
+				'lat' => get_post_meta( $id, '_manual_lat', true ),
+				'lon' => get_post_meta( $id, '_manual_lng', true ),
+			];
+		} else {
+			$lat_long = [
+				'lat' => $this->options['default_latitude'],
+				'lon' => $this->options['default_longitude'],
+			];
+		}
+
+		return $lat_long;
+	}
+
 	public function load_openstreet_map() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		$opt = $this->get_map_options();
-		$map_card_data = $this->get_osm_map_info_card_data();
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
-		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
+		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );
+		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long() );
+		Helper::add_hidden_data_to_dom( 'listings_data', $this->get_osm_map_info_card_data() );
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {
@@ -1272,11 +1289,23 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
+	public function loop_map_cat_icon() {
+		$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+		if ( !empty( $cats ) ) {
+			$cat_icon = get_cat_icon( $cats[0]->term_id );
+		}
+
+		$cat_icon = $cat_icon ? $cat_icon : atbdp_icon_type() . '-map-marker';
+	
+		return $cat_icon;
+	}
+
 	public function get_osm_map_info_card_data() {
 		$opt = $this->get_map_options();
 
-		$listings_data = [];
 		$lat_lon = [];
+
+		$map_data = [];
 
 		$listings = $this->query_results;
 
@@ -1291,6 +1320,7 @@ class Directorist_Listings {
 			foreach ( $listings->ids as $listings_id ) :
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
+
 				$ls_data = [];
 
 				$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
@@ -1334,34 +1364,20 @@ class Directorist_Listings {
 
 				$opt['ls_data'] = $ls_data;
 
-				ob_start();
+				$map_data[] = [
+					'info_content' => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
+					'manual_lat' => get_post_meta( $listings_id, '_manual_lat', true ),
+					'manual_lng' => get_post_meta( $listings_id, '_manual_lng', true ),
+					'cat_icon' => $this->loop_map_cat_icon(),
+				];
 
-				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
-					Helper::get_template( 'archive/fields/openstreet-map', $opt );
-				}
-
-				$ls_data['info_content'] = ob_get_clean();
-
-				$listings_data[] = $ls_data;
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;
 			wp_reset_postdata();
 		endif;
 
-		$cord = [
-			'lat' => $this->options['default_latitude'],
-			'lon' => $this->options['default_longitude']
-		];
-
-		if ( ! empty( $listings_data ) ) {
-			$cord = $listings_data[0]['lat_lon'];
-		}
-
-		return [
-			'lat_lon'       => $cord,
-			'listings_data' => $listings_data,
-		];
+		return $map_data;
 	}
 
 	public function load_google_map() {

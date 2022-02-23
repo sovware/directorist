@@ -711,6 +711,23 @@ final class Directorist_Base
 		return;
 	}
 
+	public function show_static_rating($post) {
+		if ( ! directorist_is_review_enabled() ) {
+			return;
+		}
+
+		if ( empty( $post ) || ! ( $post instanceof \WP_Post ) || $post->post_type !== ATBDP_POST_TYPE ) {
+			return;
+		}
+
+		$average = directorist_get_listing_rating( $post->ID );
+		?>
+		<div class="atbd_rated_stars">
+			<?php echo ATBDP()->review->print_static_rating($average); ?>
+		</div>
+		<?php
+	}
+
 	/**
 	 * It displays related listings of the given post
 	 * @param object|WP_Post $post The current post object

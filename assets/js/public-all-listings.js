@@ -1031,7 +1031,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
       key: "initStarRating",
       value: function initStarRating() {
-        $('.directorist-stars, .directorist-review-criteria-select').barrating({
+        $('.directorist-review-criteria-select').barrating({
           theme: 'fontawesome-stars'
         });
       }
@@ -1144,12 +1144,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 (function ($) {
   //Star rating
-  if ($('.directorist-stars').length) {
-    $(".directorist-stars").barrating({
-      theme: 'fontawesome-stars'
-    });
-  }
-
   if ($('.directorist-review-criteria-select').length) {
     $('.directorist-review-criteria-select').barrating({
       theme: 'fontawesome-stars'

@@ -251,13 +251,21 @@ atbdSelectData.forEach(function (el) {
 /* Initialize wpColorPicker */
 (function ($) {
   $(document).ready(function () {
-    var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-    wpColorPicker.forEach(function (elm) {
-      if (elm !== null) {
-        var dColorPicker = $('.directorist-color-picker');
-        dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-      }
-    });
+    /* Initialize wp color picker */
+    function colorPickerInit() {
+      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+      wpColorPicker.forEach(function (elm) {
+        if (elm !== null) {
+          var dColorPicker = $('.directorist-color-picker');
+          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+        }
+      });
+    }
+
+    colorPickerInit();
+    /* Initialize on Directory type change */
+
+    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
   });
 })(jQuery);
 

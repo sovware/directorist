@@ -111,10 +111,6 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet-versions',
 			],
-			'directorist-openstreet-leaflet-markercluster-versions' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions',
-			],
 			'directorist-openstreet-libs-setup' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/libs-setup',
@@ -127,9 +123,18 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openlayers4jgsi/crosshairs',
 			],
-			'directorist-openstreet-load-scripts' => [
+			'directorist-openstreet-leaflet-markercluster-versions' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-load-osm-map',
+				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions',
+			],
+			'directorist-openstreet-markercluster-controllayers' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388',
+			],
+			'directorist-openstreet-map' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'openstreet-map',
+				'dep' => ['jquery', 'directorist-openstreet-layers', 'directorist-openstreet-unpkg', 'directorist-openstreet-unpkg-index', 'directorist-openstreet-unpkg-libs', 'directorist-openstreet-leaflet-versions', 'directorist-openstreet-libs-setup', 'directorist-openstreet-open-layers', 'directorist-openstreet-crosshairs', 'directorist-openstreet-leaflet-markercluster-versions', 'directorist-openstreet-markercluster-controllayers' ],
 			],
 			'directorist-google-map' => [
 				'type' => 'js',

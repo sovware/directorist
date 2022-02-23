@@ -67,14 +67,14 @@ class Init {
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
 				 */
-				wp_enqueue_script('jquery-masonry');
+				wp_enqueue_script( 'jquery-masonry' );
 				break;
 
 			case 'archive/map-view':
 				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 				if ( $map_type == 'openstreet' ) {
-
+					wp_enqueue_script( 'directorist-openstreet-map' );
 				} elseif ( $map_type == 'google' ) {
 
 				}

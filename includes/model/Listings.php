@@ -1201,8 +1201,6 @@ class Directorist_Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
 		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
 		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
-
-		wp_enqueue_script('directorist-openstreet-load-scripts');
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {

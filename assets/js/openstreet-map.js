@@ -81,177 +81,61 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/global/map-scripts/add-listing/openstreet-map.js":
-/*!************************************************************************!*\
-  !*** ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js ***!
-  \************************************************************************/
+/***/ "./assets/src/js/global/map-scripts/openstreet-map.js":
+/*!************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/openstreet-map.js ***!
+  \************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helper */ "./assets/src/js/lib/helper.js");
 
-;
+var loc_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('loc_data');
+window.addEventListener('load', setup_map);
+window.addEventListener('directorist-reload-listings-map-archive', setup_map);
 
-(function ($) {
-  $(document).ready(function () {
-    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
+function setup_map() {
+  bundle1.fillPlaceholders();
+  var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
 
-    var loc_default_latitude = parseFloat(localized_data.default_latitude);
-    var loc_default_longitude = parseFloat(localized_data.default_longitude);
-    var loc_manual_lat = parseFloat(localized_data.manual_lat);
-    var loc_manual_lng = parseFloat(localized_data.manual_lng);
-    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var loc_map_icon = localized_data.map_icon;
-    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+  if (localVersion) {
+    localVersion.checkAssetsAvailability(true).then(function () {
+      load();
+    }).catch(function () {
+      var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
 
-    function mapLeaflet(lat, lon) {
-      // @todo @kowsar / remove later. fix js error
-      if ($("#gmap").length == 0) {
-        return;
+      if (version102) {
+        version102.defaultVersion = true;
       }
 
-      var fontAwesomeIcon = L.icon({
-        iconUrl: loc_map_icon,
-        iconSize: [20, 25]
-      });
-      var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
-      L.marker([lat, lon], {
-        icon: fontAwesomeIcon,
-        draggable: true
-      }).addTo(mymap).addTo(mymap).on("drag", function (e) {
-        var marker = e.target;
-        var position = marker.getLatLng();
-        $('#manual_lat').val(position.lat);
-        $('#manual_lng').val(position.lng);
-        $.ajax({
-          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
-          type: 'POST',
-          data: {},
-          success: function success(data) {
-            $('.directorist-location-js').val(data.display_name);
-          }
-        });
-      });
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(mymap);
-    }
-
-    $('.directorist-location-js').each(function (id, elm) {
-      $(elm).on('keyup', function (event) {
-        event.preventDefault();
-
-        if (event.keyCode !== 40 && event.keyCode !== 38) {
-          var search = $(elm).val();
-          $(elm).siblings('.address_result').css({
-            'display': 'block'
-          });
-
-          if (search === "") {
-            $(elm).siblings('.address_result').css({
-              'display': 'none'
-            });
-          }
-
-          var res = "";
-          $.ajax({
-            url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-            type: 'POST',
-            data: {},
-            success: function success(data) {
-              //console.log(data);
-              for (var i = 0; i < data.length; i++) {
-                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-              }
-
-              $(elm).siblings('.address_result').find('ul').html(res);
-            }
-          });
-        }
-      });
+      load();
     });
-    var lat = loc_manual_lat,
-        lon = loc_manual_lng;
-    mapLeaflet(lat, lon);
-    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
-      if (document.getElementById('osm')) {
-        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
-      }
+  } else {
+    load();
+  }
+}
 
-      event.preventDefault();
-      var text = $(this).text(),
-          lat = $(this).data('lat'),
-          lon = $(this).data('lon');
-      $('#manual_lat').val(lat);
-      $('#manual_lng').val(lon);
-      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-      $('.address_result').css({
-        'display': 'none'
-      });
-      mapLeaflet(lat, lon);
-    });
-    $('body').on('click', '.location-names ul li a', function (event) {
-      event.preventDefault();
-      var text = $(this).text();
-      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-      $('.address_result').css({
-        'display': 'none'
-      });
-    });
-    $('body').on('click', '#generate_admin_map', function (event) {
-      event.preventDefault();
-      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
-      mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
-    }); // Popup controller by keyboard
-
-    var index = 0;
-    $('.directorist-location-js').on('keyup', function (event) {
-      event.preventDefault();
-      var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
-
-      if (event.keyCode === 40) {
-        index++;
-
-        if (index > length) {
-          index = 0;
-        }
-      } else if (event.keyCode === 38) {
-        index--;
-
-        if (index < 0) {
-          index = length;
-        }
-
-        ;
-      }
-
-      if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
-        $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
-        $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
-
-        if (event.keyCode === 13) {
-          $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
-          event.preventDefault();
-          index = 0;
-          return false;
-        }
-      }
-
-      ;
-    }); // $('#post').on('submit', function (event) {
-    //     event.preventDefault();
-    //     return false;
-    // });
+function load() {
+  var url = window.location.href;
+  var urlParts = URI.parse(url);
+  var queryStringParts = URI.parseQuery(urlParts.query);
+  var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
+  list.push({
+    type: 'script',
+    path: loc_data.script_path
   });
-})(jQuery);
+  loadJsCss.list(list, {
+    delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
+
+  });
+}
 
 /***/ }),
 
@@ -374,17 +258,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 15:
-/*!******************************************************************************!*\
-  !*** multi ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js ***!
-  \******************************************************************************/
+/***/ 23:
+/*!******************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/openstreet-map.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js */"./assets/src/js/global/map-scripts/add-listing/openstreet-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/openstreet-map.js */"./assets/src/js/global/map-scripts/openstreet-map.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=global-add-listing-openstreet-map-custom-script.js.map
+//# sourceMappingURL=openstreet-map.js.map

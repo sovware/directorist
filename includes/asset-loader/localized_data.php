@@ -39,12 +39,7 @@ class Localized_Data {
 	}
 
 	public static function admin_data() {
-		$data = [];
-
-		array_push( $data, self::get_admin_script_data() );
-		array_push( $data, self::directorist_options_data() );
-		array_push( $data, self::get_listings_data() );
-		array_push( $data, self::admin_ajax_localized_data() );
+		$data = self::get_admin_script_data() + self::directorist_options_data() + self::get_listings_data() + self::admin_ajax_localized_data();
 
 		return $data;
 	}

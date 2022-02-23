@@ -93,9 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-console.log("It's a beautiful day!");
 /* custom dropdown */
-
 var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
 var clickCount = 0;

@@ -127,14 +127,6 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions',
 			],
-			'directorist-openstreet-controllayers' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-controlLayers-nestedGroups',
-			],
-			'directorist-openstreet-markercluster-controllayers' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388',
-			],
 			'directorist-openstreet-map' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'openstreet-map',
@@ -143,13 +135,13 @@ class Scripts {
 					'directorist-openstreet-layers',
 					'directorist-openstreet-unpkg',
 					'directorist-openstreet-unpkg-index',
-					'directorist-openstreet-unpkg-libs', 'directorist-openstreet-leaflet-versions',
+					'directorist-openstreet-unpkg-libs',
+					'directorist-openstreet-leaflet-versions',
 					'directorist-openstreet-leaflet-markercluster-versions',
 					'directorist-openstreet-libs-setup',
 					'directorist-openstreet-open-layers',
 					'directorist-openstreet-crosshairs',
-					/* 'directorist-openstreet-controllayers',
-					'directorist-openstreet-markercluster-controllayers'  */],
+				],
 			],
 			'directorist-google-map' => [
 				'type' => 'js',

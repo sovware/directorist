@@ -1,3 +1,5 @@
+console.log("It's a beautiful day!");
+
 /* custom dropdown */
 const atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
 

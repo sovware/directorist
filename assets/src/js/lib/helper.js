@@ -4,8 +4,6 @@ function get_dom_data( key, parent ) {
     var elmKey = 'directorist-dom-data-' + key;
     var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
 
-    console.log(dataElm);
-
     if ( ! dataElm ) {
         return '';
     }
@@ -15,13 +13,11 @@ function get_dom_data( key, parent ) {
     try {
         let dataValue = atob( dataElm[0].dataset.value );
         dataValue = JSON.parse( dataValue );
-
         return dataValue;
     } catch (error) {
         if ( is_script_debugging ) {
             console.log({key,dataElm,error});
         }
-
         return '';
     }
 }

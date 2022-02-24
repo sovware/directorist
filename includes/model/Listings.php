@@ -1258,10 +1258,6 @@ class Directorist_Listings {
 		?>
 		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>" data-script="<?php echo esc_attr( $script_path ); ?>"></div>
 		<?php
-		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
-		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long2() );
-		Helper::add_hidden_data_to_dom( 'listings_data', $this->get_osm_map_info_card_data() );
 	}
 
 	public function load_inline_openstreet_map( array $map_options = [] ) {
@@ -1343,7 +1339,7 @@ class Directorist_Listings {
 		}
 
 		$cat_icon = $cat_icon ? $cat_icon : atbdp_icon_type() . '-map-marker';
-	
+
 		return $cat_icon;
 	}
 
@@ -1413,7 +1409,7 @@ class Directorist_Listings {
 
 				$map_data[] = [
 					'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
-					'latitute'  => get_post_meta( $listings_id, '_manual_lat', true ),
+					'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
 					'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
 					'cat_icon'  => $this->loop_map_cat_icon(),
 				];

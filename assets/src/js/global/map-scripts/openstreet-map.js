@@ -1,6 +1,6 @@
-import { get_dom_data } from './../../lib/helper';
 
-const loc_data = get_dom_data( 'loc_data' );
+var $ = jQuery;
+const script_data = $('#map').attr('data-script');
 
 window.addEventListener( 'load', setup_map );
 window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
@@ -34,7 +34,7 @@ function load() {
 
     list.push({
         type: 'script',
-        path: loc_data.script_path
+        path: script_data
     });
     loadJsCss.list(list, {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).

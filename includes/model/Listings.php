@@ -1189,7 +1189,7 @@ class Directorist_Listings {
 		}
 	}
 
-	public function map_base_lat_long() {
+	public function map_base_lat_long2() {
 		$ids = $this->post_ids();
 
 		if ( !empty( $ids ) ) {
@@ -1208,7 +1208,7 @@ class Directorist_Listings {
 		return $lat_long;
 	}
 
-	public function map_base_lat_long2() {
+	public function map_base_lat_long() {
 		$ids = $this->post_ids();
 
 		if ( !empty( $ids ) ) {

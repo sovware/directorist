@@ -1219,8 +1219,8 @@ class Directorist_Listings {
 			];
 		} else {
 			$lat_long = [
-				'latitude'  => $this->options['default_latitude'],
-				'longitude' => $this->options['default_longitude'],
+				'latitude'  => get_directorist_option( 'default_latitude', 40.7127753 ),
+				'longitude' => get_directorist_option( 'default_longitude', -74.0059728 ),
 			];
 		}
 
@@ -1239,6 +1239,8 @@ class Directorist_Listings {
 			'display_direction'       => get_directorist_option( 'display_direction_map', true ),
 			'zoom_level'              => $this->map_zoom_level,
 			'default_image'           => get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' ),
+			'base_latitude'           => $this->map_base_lat_long()['latitude'],
+			'base_longitude'          => $this->map_base_lat_long()['longitude'],
 			'default_latitude'        => get_directorist_option( 'default_latitude', 40.7127753 ),
 			'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
 			'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
@@ -1251,11 +1253,10 @@ class Directorist_Listings {
 	public function load_openstreet_map() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$card = base64_encode( json_encode( $this->openstreet_map_card_data() ) );
-		$base_loc = json_encode( $this->map_base_lat_long() );
 		$options = json_encode( $this->map_options() );
 		$style = 'width:100%;height:' . $this->listings_map_height . 'px';
 
-		printf( '<div id="map" style="%s" data-card="%s" data-base-loc="%s" data-options="%s" data-script="%s"></div>', $style, $card, $base_loc, $options, $script_path );
+		printf( '<div id="map" style="%s" data-card="%s" data-options="%s" data-script="%s"></div>', $style, $card, $options, $script_path );
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );

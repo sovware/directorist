@@ -1,4 +1,4 @@
-import { get_dom_data } from '../../lib/helper';
+import { get_dom_data } from './../../lib/helper';
 
 const loc_data = get_dom_data( 'loc_data' );
 

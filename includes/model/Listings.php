@@ -1252,12 +1252,12 @@ class Directorist_Listings {
 
 	public function load_openstreet_map() {
 		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		$card = base64_encode( json_encode( $this->openstreet_map_card_data() ) );
+		$card = json_encode( $this->openstreet_map_card_data() );
 		$options = json_encode( $this->map_options() );
 		$style = 'width:100%;height:' . $this->listings_map_height . 'px';
-
-		printf( '<div id="map" style="%s" data-card="%s" data-options="%s" data-script="%s"></div>', $style, $card, $options, $script_path );
-
+		?>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>" data-script="<?php echo esc_attr( $script_path ); ?>"></div>
+		<?php
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );
 		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long2() );
@@ -1336,11 +1336,13 @@ class Directorist_Listings {
 	public function loop_map_cat_icon() {
 		$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
 
+		$cat_icon = '';
+
 		if ( !empty( $cats ) ) {
 			$cat_icon = get_cat_icon( $cats[0]->term_id );
-		} else {
-			$cat_icon = atbdp_icon_type() . '-map-marker';
 		}
+
+		$cat_icon = $cat_icon ? $cat_icon : atbdp_icon_type() . '-map-marker';
 	
 		return $cat_icon;
 	}

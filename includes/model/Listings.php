@@ -1208,6 +1208,25 @@ class Directorist_Listings {
 		return $lat_long;
 	}
 
+	public function map_base_lat_long2() {
+		$ids = $this->post_ids();
+
+		if ( !empty( $ids ) ) {
+			$id   = $ids[0];
+			$lat_long = [
+				'latitude'  => get_post_meta( $id, '_manual_lat', true ),
+				'longitude' => get_post_meta( $id, '_manual_lng', true ),
+			];
+		} else {
+			$lat_long = [
+				'latitude'  => $this->options['default_latitude'],
+				'longitude' => $this->options['default_longitude'],
+			];
+		}
+
+		return $lat_long;
+	}
+
 	public function map_options() {
 		$data = [
 			'map_type'                => $this->select_listing_map,
@@ -1240,7 +1259,7 @@ class Directorist_Listings {
 
 		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long() );
+		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long2() );
 		Helper::add_hidden_data_to_dom( 'listings_data', $this->get_osm_map_info_card_data() );
 	}
 

@@ -143,13 +143,22 @@ class Scripts {
 					'directorist-openstreet-crosshairs',
 				],
 			],
-			'directorist-google-map' => [
+			'google-map-api' => [
 				'type' => 'js',
 				'ext'  => self::gmap_url(),
 			],
 			'directorist-markerclusterer' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'markerclusterer',
+			],
+			'directorist-google-map' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'google-map',
+				'dep' => [
+					'jquery',
+					'google-map-api',
+					'directorist-markerclusterer',
+				],
 			],
 			'directorist-select2-script' => [
 				'type' => 'js',
@@ -296,15 +305,6 @@ class Scripts {
 				'path' => DIRECTORIST_JS . 'admin-import-export',
 			],
 
-			// Global JS
-			'directorist-map-view' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-map-view',
-			],
-			'directorist-gmap-marker-clusterer' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-markerclusterer',
-			],
 		];
 
         return $scripts;

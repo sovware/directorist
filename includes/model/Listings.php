@@ -1245,18 +1245,18 @@ class Directorist_Listings {
 			'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
 			'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
 			'disable_single_listing'  => $this->disable_single_listing,
+			'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js',
 		];
 
 		return $data;
 	}
 
 	public function load_openstreet_map() {
-		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$card = json_encode( $this->openstreet_map_card_data() );
 		$options = json_encode( $this->map_options() );
 		$style = 'width:100%;height:' . $this->listings_map_height . 'px';
 		?>
-		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>" data-script="<?php echo esc_attr( $script_path ); ?>"></div>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
 		<?php
 	}
 

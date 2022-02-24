@@ -95,21 +95,21 @@
 
 (function ($) {
   /* $("button[type='reset']").on("click", function (){
-  $("#atbd_rs_value").val(0);
-  $(".atbdpr_amount").text(0 + miles);
-  slider_range.each(function () {
-      $(this).slider({
-          range: "min",
-          min: 0,
-          max: 1000,
-          value: 0,
-          slide: function (event, ui) {
-              $(".atbdpr_amount").text(ui.value + miles);
-              $("#atbd_rs_value").val(ui.value);
-          }
+      $("#atbd_rs_value").val(0);
+      $(".atbdpr_amount").text(0 + miles);
+      slider_range.each(function () {
+          $(this).slider({
+              range: "min",
+              min: 0,
+              max: 1000,
+              value: 0,
+              slide: function (event, ui) {
+                  $(".atbdpr_amount").text(ui.value + miles);
+                  $("#atbd_rs_value").val(ui.value);
+              }
+          });
       });
-  });
-  $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
+      $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
   }); */
 
   /* get current location */

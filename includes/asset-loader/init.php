@@ -76,7 +76,7 @@ class Init {
 				if ( $map_type == 'openstreet' ) {
 					wp_enqueue_script( 'directorist-openstreet-map' );
 				} elseif ( $map_type == 'google' ) {
-
+					wp_enqueue_script( 'directorist-google-map' );
 				}
 				break;
 	

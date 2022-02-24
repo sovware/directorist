@@ -1,6 +1,6 @@
 
 var $ = jQuery;
-const script_data = $('#map').attr('data-script');
+const mapData = JSON.parse($('#map').attr('data-options'));
 
 window.addEventListener( 'load', setup_map );
 window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
@@ -34,7 +34,7 @@ function load() {
 
     list.push({
         type: 'script',
-        path: script_data
+        path: mapData.openstreet_script,
     });
     loadJsCss.list(list, {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).

@@ -1212,7 +1212,7 @@ class Directorist_Listings {
 		$ids = $this->post_ids();
 
 		if ( !empty( $ids ) ) {
-			$id   = $ids[0];
+			$id = $ids[0];
 			$lat_long = [
 				'latitude'  => get_post_meta( $id, '_manual_lat', true ),
 				'longitude' => get_post_meta( $id, '_manual_lng', true ),
@@ -1339,10 +1339,10 @@ class Directorist_Listings {
 		$cat_icon = '';
 
 		if ( !empty( $cats ) ) {
-			$cat_icon = get_cat_icon( $cats[0]->term_id );
+			$cat_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
 		}
 
-		$cat_icon = $cat_icon ? $cat_icon : atbdp_icon_type() . '-map-marker';
+		$cat_icon = !empty( $cat_icon ) ? $cat_icon : atbdp_icon_type() . '-map-marker';
 	
 		return $cat_icon;
 	}

@@ -12427,9 +12427,9 @@ Review: New Style
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment {
   padding-right: 40px;
-}
-.directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment:last-child {
-  padding-bottom: 0;
+  /* &:last-child {
+      padding-bottom: 0;
+  } */
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment .directorist-review-single__contents-wrap {
   position: relative;

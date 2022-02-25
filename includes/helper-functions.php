@@ -8546,3 +8546,63 @@ function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
 function directorist_is_current_user_listing_author( $listing_id = null ) {
 	return directorist_is_listing_author( $listing_id, get_current_user_id() );
 }
+
+
+/**
+ * Get the user's favorite listings
+ *
+ * @param int $user_id The user ID of the user whose favorites you want to retrieve.
+ *
+ * @return array An array of listing IDs.
+ */
+function directorist_get_user_favorites( $user_id = 0 ) {
+	$favorites = get_user_meta( $user_id, 'atbdp_favourites', true );
+
+	if ( ! empty( $favorites ) && is_array( $favorites ) ) {
+		$favorites = array_map( 'absint', $favorites );
+	} else {
+		$favorites = array();
+	}
+
+	/**
+	 * User favorite listings filter hook.
+	 *
+	 * @param array $favorites
+	 * @param int $user_id
+	 */
+	$favorites = apply_filters( 'directorist_user_favorites', $favorites, $user_id );
+
+	return $favorites;
+}
+
+/**
+ * This function updates the user's favorites
+ *
+ * @param int $user_id The ID of the user whose favorites are being updated.
+ * @param array $new_favorites The new favorites array.
+ */
+function directorist_update_user_favorites( $user_id = 0, $new_favorites = array() ) {
+	if ( ! is_array( $new_favorites ) ) {
+		$new_favorites = (array) $new_favorites;
+	}
+
+	$old_favorites = directorist_get_user_favorites( $user_id );
+
+	$new_favorites = array_map( 'absint', $new_favorites );
+	$new_favorites = array_merge( $old_favorites, $new_favorites );
+	$new_favorites = array_unique( $new_favorites );
+	$new_favorites = array_values( $new_favorites );
+
+	update_user_meta( $user_id, 'atbdp_favourites', $new_favorites );
+
+	$new_favorites = directorist_get_user_favorites( $user_id );
+
+	/**
+	 * Fire after user favorite listings updated.
+	 *
+	 * @param int $user_id
+	 * @param array $new_favorites
+	 * @param array $old_favorites
+	 */
+	do_action( 'directorist_user_favorites_updated', $user_id, $new_favorites, $old_favorites );
+}

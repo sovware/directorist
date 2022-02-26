@@ -615,4 +615,17 @@ class Helper {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
 	}
 
+	public static function sanitize_query_strings( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+		
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
 }

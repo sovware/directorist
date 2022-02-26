@@ -337,7 +337,7 @@ class ATBDP_Permalink {
                 $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id ' => $listing_id ), $link );
             }
         }
-        return apply_filters('atbdp_edit_listing_page_url', $link );
+        return apply_filters( 'atbdp_edit_listing_page_url', $link, $listing_id );
     }
 
 
@@ -587,7 +587,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_payment_receipt_page_url', $link);
+        return apply_filters( 'atbdp_payment_receipt_page_url', $link, $order_id );
     }
 
     /**
@@ -617,7 +617,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_checkout_page_url', $link);
+        return apply_filters( 'atbdp_checkout_page_url', $link, $listing_id );
     }
 
     /**

@@ -142,6 +142,11 @@ class ATBDP_Checkout
         if (!atbdp_is_user_logged_in()) return null; // vail out showing a friendly-message, if user is not logged in.
         //content of order receipt should be outputted here.
         $order_id = (int)get_query_var('atbdp_order_id');
+
+        if ( empty( $order_id ) ) {
+            $order_id = $_REQUEST['order'];
+        }
+
         if (empty($order_id)) {
             return __('Sorry! No order id has been provided.', 'directorist');
         }

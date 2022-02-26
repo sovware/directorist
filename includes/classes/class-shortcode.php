@@ -224,10 +224,9 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$url = $_SERVER['REQUEST_URI'];
-		$pattern = "/edit\/(\d+)/i";
-		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
+		$atts  = !empty( $atts ) ? $atts : array();
+		$id    = get_query_var( 'atbdp_listing_id', 0 );
+		$id    = empty( $listing_id ) ? $_REQUEST['edit'] : $id;
 		$forms = Directorist_Listing_Form::instance($id);
 
 		$atts[ 'shortcode' ] = 'directorist_add_listing';

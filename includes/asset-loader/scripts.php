@@ -276,7 +276,8 @@ class Scripts {
 			],
 			'directorist-plupload' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-directorist-plupload',
+				'path' => DIRECTORIST_JS . 'directorist-plupload',
+				'dep'  => ['jquery', 'plupload-handlers'],
 			],
 
 			// Admin JS

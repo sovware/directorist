@@ -6,8 +6,6 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$listing_form->load_color_picker_script( $data );
 ?>
 
 <div class="directorist-form-group directorist-custom-field-color">

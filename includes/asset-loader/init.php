@@ -120,10 +120,10 @@ class Init {
 
 		switch ( $shortcode ) {
 
-			case 'directorist_add_listing':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::add_listing( $model );
-				break;
+			// case 'directorist_add_listing':
+			// 	Enqueue::common_shortcode_scripts();
+			// 	Enqueue::add_listing( $model );
+			// 	break;
 
 			case 'directorist_user_dashboard':
 				Enqueue::common_shortcode_scripts();

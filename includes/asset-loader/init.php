@@ -51,8 +51,8 @@ class Init {
 		switch ( $template ) {
 			// All Listings
 			case 'archive-contents':
-				wp_enqueue_script('directorist-all-listings');
-				wp_enqueue_script('directorist-select2-script');
+				wp_enqueue_script( 'directorist-all-listings' );
+				wp_enqueue_script( 'directorist-select2-script' );
 				break;
 
 			// Search Form
@@ -60,12 +60,13 @@ class Init {
 			case 'search-form-contents':
 			case 'search-form/adv-search':
 				wp_enqueue_script( 'directorist-search-form' );
-				wp_enqueue_script('directorist-select2-script');
+				wp_enqueue_script( 'directorist-select2-script' );
 				break;
 
 			// Add Listing Form
 			case 'listing-form/add-listing.php':
-				wp_enqueue_script('directorist-select2-script');
+				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-add-listing' );
 				break;
 
 			case 'archive/grid-view':
@@ -94,6 +95,7 @@ class Init {
 				break;
 
 			case 'search-form/custom-fields/color_picker':
+			case 'listing-form/custom-fields/color_picker.php':
 				wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 				wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 				break;
@@ -106,6 +108,11 @@ class Init {
 				wp_enqueue_script( 'directorist-ez-media-uploader' );
 				break;
 
+			case 'listing-form/fields/social_info.php':
+				wp_enqueue_script( 'directorist-sweetalert-script' );
+				break;
+
+
 		}
 	}
 
@@ -113,10 +120,10 @@ class Init {
 
 		switch ( $shortcode ) {
 
-			case 'directorist_add_listing':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::add_listing( $model );
-				break;
+			// case 'directorist_add_listing':
+			// 	Enqueue::common_shortcode_scripts();
+			// 	Enqueue::add_listing( $model );
+			// 	break;
 
 			case 'directorist_user_dashboard':
 				Enqueue::common_shortcode_scripts();

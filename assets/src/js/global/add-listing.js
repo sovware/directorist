@@ -1,3 +1,8 @@
+// General Components
+import '../public/components/atbdDropdown'
+import '../public/components/atbdSelect';
+import '../public/components/colorPicker';
+
 /* eslint-disable */
 const $ = jQuery;
 const localized_data = directorist.add_listing_data;

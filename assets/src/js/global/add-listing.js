@@ -21,7 +21,7 @@ $(window).on('load', function () {
     }
 });
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('body').on("click", "#manual_coordinate", function (e) {
         if ($('input#manual_coordinate').is(':checked')) {
             $('.directorist-map-coordinates').show();
@@ -31,18 +31,6 @@ $(document).ready(function(){
             $('#hide_if_no_manual_cor').hide();
         }
     });
-
-
-    // enable sorting if only the container has any social or skill field
-    const $s_wrap = $('#social_info_sortable_container'); // cache it
-    /* if (window.outerWidth > 1700) {
-            if ($s_wrap.length) {
-                    $s_wrap.sortable({
-                            axis: 'y',
-                            opacity: '0.7',
-                    });
-            }
-    } */
 
     // SOCIAL SECTION
     // Rearrange the IDS and Add new social field
@@ -72,8 +60,7 @@ $(document).ready(function(){
         const id = $(this).data('id');
         const elementToRemove = $(`div#socialID-${id}`);
         /* Act on the event */
-        swal(
-            {
+        swal({
                 title: localized_data.i18n_text.confirmation_text,
                 text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
                 type: 'warning',
@@ -169,7 +156,6 @@ $(document).ready(function(){
 
         // Tags
         const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
-        // console.log($('#at_biz_dir-tags').attr("data-max"));
         let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
         if (createTag) {
             $('#at_biz_dir-tags').select2({
@@ -184,6 +170,7 @@ $(document).ready(function(){
                 tokenSeparators: [','],
             });
         }
+
         //Category
         const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
         let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
@@ -202,9 +189,6 @@ $(document).ready(function(){
         }
 
     }
-
-
-    // Custom Image uploader for listing image (multiple)
 
     // price range
     $('#price_range').hide();
@@ -234,9 +218,9 @@ $(document).ready(function(){
     }
 
     $('#atbd_optional_field_check').on('change', function () {
-        $(this).is(':checked')
-            ? $('.atbd_tagline_moto_field').fadeIn()
-            : $('.atbd_tagline_moto_field').fadeOut();
+        $(this).is(':checked') ?
+            $('.atbd_tagline_moto_field').fadeIn() :
+            $('.atbd_tagline_moto_field').fadeOut();
     });
 
     // it shows the hidden term and conditions
@@ -263,7 +247,6 @@ $(document).ready(function(){
         }
         return b;
     })(window.location.search.substr(1).split('&'));
-    console.log(qs)
 
     $('#at_biz_dir-categories').on('change', function () {
         var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
@@ -283,6 +266,7 @@ $(document).ready(function(){
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
                 $('.atbdp_category_custom_fields').empty().append(response);
+
                 function atbdp_tooltip() {
                     var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
                     atbd_tooltip.forEach(function (el) {
@@ -304,9 +288,6 @@ $(document).ready(function(){
             }
         });
     });
-
-
-    let test_data = null;
 
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
     var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
@@ -342,15 +323,6 @@ $(document).ready(function(){
         }
     });
 
-
-    function atbdp_is_checked(name) {
-        const is_checked = $(`input[name="${name}"]`).is(':checked');
-        if (is_checked) {
-            return '1';
-        }
-        return '';
-    }
-
     function setup_form_data(form_data, type, field) {
         //normal input
         if ((type === 'hidden') || (type === 'text') || (type === 'number') || (type === 'tel') || (type === 'email') || (type === 'date') || (type === 'time') || (type === 'url')) {
@@ -385,8 +357,11 @@ $(document).ready(function(){
         }
     }
 
-    function scrollToEl( selector ){
-        document.querySelector( selector ).scrollIntoView({ block: 'start', behavior: 'smooth' })
+    function scrollToEl(selector) {
+        document.querySelector(selector).scrollIntoView({
+            block: 'start',
+            behavior: 'smooth'
+        })
     }
 
     function atbdp_element_value(element) {
@@ -426,9 +401,6 @@ $(document).ready(function(){
         e.preventDefault();
         let error_count = 0;
         const err_log = {};
-        // if ($('#atbdp_front_media_wrap:visible').length == 0) {
-        //         has_media = false;
-        // }
         if (on_processing) {
             $('.directorist-form-submit__btn').attr('disabled', true);
             return;
@@ -437,19 +409,20 @@ $(document).ready(function(){
         let form_data = new FormData();
 
         form_data.append('action', 'add_listing_action');
-        form_data.append('directorist_nonce',  directorist.directorist_nonce );
+        form_data.append('directorist_nonce', directorist.directorist_nonce);
 
         let field_list = [];
         let field_list2 = [];
         $('.directorist-form-submit__btn').addClass('atbd_loading');
-        const fieldValuePairs   = $('#directorist-add-listing-form').serializeArray();
-        const frm_element       = document.getElementById ('directorist-add-listing-form');
+        const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+        const frm_element = document.getElementById('directorist-add-listing-form');
         $.each(fieldValuePairs, function (index, fieldValuePair) {
             const field__name = fieldValuePair.name;
-            const field = frm_element.querySelector('[name="'+field__name+'"]');
-
+            const field = frm_element.querySelector('[name="' + field__name + '"]');
             const type = field.type;
-            field_list.push({ name: field.name, });
+            field_list.push({
+                name: field.name,
+            });
             //array fields
             if (field.name.indexOf('[') > -1) {
                 const field_name = field.name.substr(0, field.name.indexOf("["));
@@ -494,15 +467,11 @@ $(document).ready(function(){
                     }
                 }
             } else {
-                //  field_list2.push({ nam: name, val: value, field: field, type: type})
                 setup_form_data(form_data, type, field);
             }
         });
 
-        // console.log( field_list2 );
-        // return;
         // images
-
         if (mediaUploaders.length) {
             for (var uploader of mediaUploaders) {
                 if (uploader.media_uploader && has_media) {
@@ -526,7 +495,9 @@ $(document).ready(function(){
                         }
                     } else {
                         $('.directorist-form-submit__btn').removeClass('atbd_loading');
-                        err_log.listing_gallery = { msg: uploader.uploaders_data['error_msg'] };
+                        err_log.listing_gallery = {
+                            msg: uploader.uploaders_data['error_msg']
+                        };
                         error_count++;
                         scrollToEl('#' + uploader.uploaders_data['element_id']);
                     }
@@ -587,7 +558,6 @@ $(document).ready(function(){
         }
 
         // on_processing = true;
-        // $('.directorist-form-submit__btn').attr('disabled', true);
         $.ajax({
             method: 'POST',
             processData: false,
@@ -595,12 +565,9 @@ $(document).ready(function(){
             url: localized_data.ajaxurl,
             data: form_data,
             success(response) {
-                //console.log(response);
-                // return;
                 // show the error notice
                 $('.directorist-form-submit__btn').attr('disabled', false);
 
-                // var is_pending = response ? '&' : '?';
                 var is_pending = (response && response.pending) ? '&' : '?';
 
                 if (response.error === true) {
@@ -661,9 +628,9 @@ $(document).ready(function(){
                         window.location.href = `${response.preview_url
                             }?preview=1&payment=1&redirect=${response.redirect_url}`;
                     } else {
-                        const is_edited = response.edited_listing
-                            ? `${is_pending}listing_id=${response.id}&edited=1`
-                            : '';
+                        const is_edited = response.edited_listing ?
+                            `${is_pending}listing_id=${response.id}&edited=1` :
+                            '';
                         if (response.need_payment === true) {
                             $('#listing_notifier')
                                 .show()
@@ -689,7 +656,7 @@ $(document).ready(function(){
     });
 
     // Custom Field Checkbox Button More
-    function customFieldSeeMore(){
+    function customFieldSeeMore() {
         if ($('.directorist-custom-field-btn-more').length) {
             $('.directorist-custom-field-btn-more').each((index, element) => {
                 let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
@@ -767,15 +734,12 @@ $(document).ready(function(){
                 submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
             },
             success: function (response) {
-                //console.log({ response });
                 submit_button.html(submit_button_default_html);
 
                 if (response.loggedin) {
                     password.prop('disabled', true);
-
                     var message = 'Successfully logged in, please continue to the listing submission';
                     var msg = '<div class="directorist-alert directorist-alert-success directorist-text-center directorist-mb-20">' + message + '</div>';
-
                     form_feedback.html(msg);
 
                     if (quick_login_modal__success_callback) {
@@ -788,7 +752,6 @@ $(document).ready(function(){
                                 submit_button
                             }
                         };
-
                         quick_login_modal__success_callback(args);
                     }
                 } else {
@@ -796,11 +759,11 @@ $(document).ready(function(){
                     form_feedback.html(msg);
                     submit_button.prop('disabled', false);
                 }
-
             },
             error: function (error) {
-                console.log({ error });
-
+                console.log({
+                    error
+                });
                 submit_button.prop('disabled', false);
                 submit_button.html(submit_button_default_html);
             },

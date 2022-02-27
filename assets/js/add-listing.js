@@ -140,19 +140,7 @@ $(document).ready(function () {
       $('.directorist-map-coordinates').hide();
       $('#hide_if_no_manual_cor').hide();
     }
-  }); // enable sorting if only the container has any social or skill field
-
-  var $s_wrap = $('#social_info_sortable_container'); // cache it
-
-  /* if (window.outerWidth > 1700) {
-          if ($s_wrap.length) {
-                  $s_wrap.sortable({
-                          axis: 'y',
-                          opacity: '0.7',
-                  });
-          }
-  } */
-  // SOCIAL SECTION
+  }); // SOCIAL SECTION
   // Rearrange the IDS and Add new social field
 
   $('body').on('click', '#addNewSocial', function (e) {
@@ -269,8 +257,7 @@ $(document).ready(function () {
     } // Tags
 
 
-    var createTag = $('#at_biz_dir-tags').attr("data-allow_new"); // console.log($('#at_biz_dir-tags').attr("data-max"));
-
+    var createTag = $('#at_biz_dir-tags').attr("data-allow_new");
     var maxTagLength = $('#at_biz_dir-tags').attr("data-max");
 
     if (createTag) {
@@ -304,8 +291,7 @@ $(document).ready(function () {
         allowClear: true
       });
     }
-  } // Custom Image uploader for listing image (multiple)
-  // price range
+  } // price range
 
 
   $('#price_range').hide();
@@ -363,7 +349,6 @@ $(document).ready(function () {
     return b;
   }(window.location.search.substr(1).split('&'));
 
-  console.log(qs);
   $('#at_biz_dir-categories').on('change', function () {
     var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
     var length = $('#at_biz_dir-categories option:selected');
@@ -402,8 +387,7 @@ $(document).ready(function () {
         $('.atbdp_category_custom_fields').empty();
       }
     });
-  });
-  var test_data = null; // Load custom fields of the selected category in the custom post type "atbdp_listings"
+  }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
   var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
   var length = $('#at_biz_dir-categories option:selected');
@@ -439,16 +423,6 @@ $(document).ready(function () {
       atbdp_tooltip();
     }
   });
-
-  function atbdp_is_checked(name) {
-    var is_checked = $("input[name=\"".concat(name, "\"]")).is(':checked');
-
-    if (is_checked) {
-      return '1';
-    }
-
-    return '';
-  }
 
   function setup_form_data(form_data, type, field) {
     //normal input
@@ -546,9 +520,7 @@ $(document).ready(function () {
     if (localized_data.is_admin) return;
     e.preventDefault();
     var error_count = 0;
-    var err_log = {}; // if ($('#atbdp_front_media_wrap:visible').length == 0) {
-    //         has_media = false;
-    // }
+    var err_log = {};
 
     if (on_processing) {
       $('.directorist-form-submit__btn').attr('disabled', true);
@@ -619,12 +591,9 @@ $(document).ready(function () {
           }
         }
       } else {
-        //  field_list2.push({ nam: name, val: value, field: field, type: type})
         setup_form_data(form_data, type, field);
       }
-    }); // console.log( field_list2 );
-    // return;
-    // images
+    }); // images
 
     if (mediaUploaders.length) {
       var _iterator2 = _createForOfIteratorHelper(mediaUploaders),
@@ -729,7 +698,6 @@ $(document).ready(function () {
       console.log(error_count, err_log);
       return;
     } // on_processing = true;
-    // $('.directorist-form-submit__btn').attr('disabled', true);
 
 
     $.ajax({
@@ -739,11 +707,8 @@ $(document).ready(function () {
       url: localized_data.ajaxurl,
       data: form_data,
       success: function success(response) {
-        //console.log(response);
-        // return;
         // show the error notice
-        $('.directorist-form-submit__btn').attr('disabled', false); // var is_pending = response ? '&' : '?';
-
+        $('.directorist-form-submit__btn').attr('disabled', false);
         var is_pending = response && response.pending ? '&' : '?';
 
         if (response.error === true) {
@@ -881,7 +846,6 @@ $(document).ready(function () {
         submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
       },
       success: function success(response) {
-        //console.log({ response });
         submit_button.html(submit_button_default_html);
 
         if (response.loggedin) {

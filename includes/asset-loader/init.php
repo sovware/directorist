@@ -63,6 +63,11 @@ class Init {
 				wp_enqueue_script('directorist-select2-script');
 				break;
 
+			// Add Listing Form
+			case 'listing-form/add-listing.php':
+				wp_enqueue_script('directorist-select2-script');
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
@@ -95,6 +100,10 @@ class Init {
 
 			case 'listing-form/fields/address':
 				wp_enqueue_script( 'directorist-geolocation' );
+				break;
+
+			case 'listing-form/fields/image_upload.php':
+				wp_enqueue_script( 'directorist-ez-media-uploader' );
 				break;
 
 		}

@@ -46,7 +46,7 @@ module.exports = {
         ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
         ['public-geolocation-widget']: ["./assets/src/js/global/map-scripts/geolocation-widget.js"],
         ['openstreet-map']: ["./assets/src/js/global/map-scripts/openstreet-map.js"],
-        ['global-map-view']: ["./assets/src/js/global/map-scripts/map-view.js"],
+        ['google-map']: ["./assets/src/js/global/map-scripts/map-view.js"],
         ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
 
         ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",

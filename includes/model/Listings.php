@@ -1226,7 +1226,7 @@ class Directorist_Listings {
 	public function load_openstreet_map() {
 		$card = json_encode( $this->openstreet_map_card_data() );
 		$options = json_encode( $this->map_options() );
-		$style = 'width:100%;height:' . $this->listings_map_height . 'px';
+		$style = 'height:' . $this->listings_map_height . 'px';
 		?>
 		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
 		<?php

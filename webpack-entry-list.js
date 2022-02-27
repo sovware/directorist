@@ -37,8 +37,8 @@ module.exports = {
         ['global-main']: ["./assets/src/js/global/global.js"],
         ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
 
-        ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
-        ['global-add-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
+        ['add-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
+        ['add-listing-google-map']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
         ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],
         ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
         ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],

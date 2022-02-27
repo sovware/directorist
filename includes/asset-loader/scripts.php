@@ -264,7 +264,7 @@ class Scripts {
 			],
 			'directorist-add-listing' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'global-add-listing',
+				'path' => DIRECTORIST_JS . 'add-listing',
 			],
 			'directorist-add-listing-openstreet-map-custom-script' => [
 				'type' => 'js',

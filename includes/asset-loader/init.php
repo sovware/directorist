@@ -108,6 +108,10 @@ class Init {
 				wp_enqueue_script( 'directorist-ez-media-uploader' );
 				break;
 
+			case 'listing-form/custom-fields/file':
+				wp_enqueue_script( 'directorist-plupload' );
+				break;
+
 			case 'listing-form/fields/social_info.php':
 				wp_enqueue_script( 'directorist-sweetalert-script' );
 				break;

@@ -47,7 +47,7 @@ class Helper {
 	 *
 	 * @param  array $script Single item of $Asset_Loader::scripts array.
 	 *
-	 * @return string        URL string.
+	 * @return string URL string.
 	 */
 	public static function script_file_url( $script ) {
 		if ( !empty( $script['ext'] ) ) {

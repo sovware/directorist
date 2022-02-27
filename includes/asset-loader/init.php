@@ -64,7 +64,7 @@ class Init {
 				break;
 
 			// Add Listing Form
-			case 'listing-form/add-listing.php':
+			case 'listing-form/add-listing':
 				wp_enqueue_script( 'directorist-select2-script' );
 				wp_enqueue_script( 'directorist-add-listing' );
 				break;
@@ -106,6 +106,10 @@ class Init {
 
 			case 'listing-form/fields/image_upload.php':
 				wp_enqueue_script( 'directorist-ez-media-uploader' );
+				break;
+
+			case 'listing-form/custom-fields/file':
+				wp_enqueue_script( 'directorist-plupload' );
 				break;
 
 			case 'listing-form/fields/social_info.php':

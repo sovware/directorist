@@ -115,37 +115,12 @@ class Init {
 
 			case 'directorist_add_listing':
 				Enqueue::common_shortcode_scripts();
-
-				wp_enqueue_media();
-				wp_enqueue_script( 'directorist-select2-script' );
-				wp_enqueue_script( 'directorist-ez-media-uploader' );
-				wp_enqueue_script( 'directorist-validator' );
-				wp_enqueue_script( 'directorist-plupload' );
-				wp_enqueue_script( 'directorist-sweetalert-script' );
-		
-				// Color Picker
-				Enqueue::color_picker_scripts();
-		
-				// Map Scripts
-				if ( Helper::map_type() == 'openstreet' ) {
-					self::openstreet_map_scripts();
-					wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script' );
-				} elseif ( Helper::map_type() == 'google' ) {
-					self::google_map_scripts();
-					wp_enqueue_script( 'directorist-add-listing-gmap-custom-script' );
-				}
-		
-				// Custom Scripts
-				wp_enqueue_script( 'directorist-add-listing' );			
-
+				Enqueue::add_listing( $model );
 				break;
 
 			case 'directorist_user_dashboard':
 				Enqueue::common_shortcode_scripts();
-
-				wp_enqueue_script( 'directorist-sweetalert-script' );
-				wp_enqueue_script( 'directorist-ez-media-uploader' );
-								
+				Enqueue::dashboard( $model );
 				break;
 
 			default:

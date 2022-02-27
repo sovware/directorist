@@ -154,7 +154,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		}
 
 		$old_favorites = directorist_get_user_favorites( $user_id );
-		$new_favorites = directorist_update_user_favorites( $user_id, [ $listing_id ] );
+		$new_favorites = directorist_update_user_favorites( $user_id, $listing_id );
 
 		$data = array(
 			'id'            => $listing_id,
@@ -202,7 +202,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 
 		$old_favorites = directorist_get_user_favorites( $user_id );
 
-		directorist_delete_user_favorites( $user_id, array( $listing_id ) );
+		directorist_delete_user_favorites( $user_id, $listing_id );
 
 		$new_favorites = directorist_get_user_favorites( $user_id );
 
@@ -222,7 +222,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		 * @param WP_REST_Response $response  The response returned from the API.
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
-		do_action( 'directorist_rest_delete_user_favorite', $favorites, $response, $request );
+		do_action( 'directorist_rest_delete_user_favorite', $new_favorites, $response, $request );
 
 		return $response;
 	}

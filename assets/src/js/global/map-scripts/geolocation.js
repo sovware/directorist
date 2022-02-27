@@ -18,7 +18,7 @@
     }); */
     /* get current location */
     setTimeout(() => {
-        if (adbdp_geolocation.select_listing_map === 'google') {
+        if (directorist.select_listing_map === 'google') {
             (function () {
                 const locationInput = document.querySelector('.location-name');
                 const get_lat = document.querySelector('#cityLat');
@@ -119,7 +119,7 @@
                     getLocation();
                 });
             })();
-        } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
+        } else if (directorist.select_listing_map === 'openstreet') {
             function displayLocation(position) {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;

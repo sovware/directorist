@@ -35,7 +35,7 @@ module.exports = {
         // -------------------------------------------
         // JS
         ['global-main']: ["./assets/src/js/global/global.js"],
-        ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
+        ['add-listing']: ["./assets/src/js/global/add-listing.js"],
 
         ['add-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
         ['add-listing-google-map']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],

@@ -1,6 +1,6 @@
 /* eslint-disable */
 const $ = jQuery;
-const localized_data = atbdp_public_data.add_listing_data;
+const localized_data = directorist.add_listing_data;
 
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
@@ -432,7 +432,7 @@ $('body').on('submit', formID, function (e) {
     let form_data = new FormData();
 
     form_data.append('action', 'add_listing_action');
-    form_data.append('directorist_nonce',  atbdp_public_data.directorist_nonce );
+    form_data.append('directorist_nonce',  directorist.directorist_nonce );
 
     let field_list = [];
     let field_list2 = [];
@@ -754,7 +754,7 @@ $('#quick-login-from-submit-btn').on('click', function (e) {
 
     $.ajax({
         method: 'POST',
-        url: atbdp_public_data.ajaxurl,
+        url: directorist.ajaxurl,
         data: form_data,
         beforeSend: function () {
             form_feedback.html('');

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -114,7 +114,7 @@
 
   /* get current location */
   setTimeout(function () {
-    if (adbdp_geolocation.select_listing_map === 'google') {
+    if (directorist.select_listing_map === 'google') {
       (function () {
         var locationInput = document.querySelector('.location-name');
         var get_lat = document.querySelector('#cityLat');
@@ -214,7 +214,7 @@
           getLocation();
         });
       })();
-    } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
+    } else if (directorist.select_listing_map === 'openstreet') {
       function displayLocation(position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
@@ -239,7 +239,7 @@
 
 /***/ }),
 
-/***/ 17:
+/***/ 16:
 /*!***************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/geolocation.js ***!
   \***************************************************************/

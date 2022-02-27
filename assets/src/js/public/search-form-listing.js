@@ -55,6 +55,7 @@
                         new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                         new CustomEvent('directorist-reload-select2-fields'),
                         new CustomEvent('directorist-reload-map-api-field'),
+                        new CustomEvent('triggerSlice'),
                     ];
 
                     events.forEach(event => {
@@ -110,6 +111,50 @@
             });
         }
     });
+    
+    $('body').on('change', '.directorist-category-select', function(event) {
+        var listing_type = $('#listing_type').val();
+        var cat_id       = $(this).val();
+        var form_data = new FormData();
+        var custom_field = $('.directorist-category-select option[value='+cat_id+']').attr("data-custom-field");
+        /* if( ! custom_field ){
+          return;
+        } */
+        const parent         = $(this).closest('.directorist-search-contents');
+        const searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
+        parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
+        form_data.append('action', 'directorist_category_custom_field_search');
+        form_data.append('listing_type', listing_type);
+        form_data.append('cat_id', cat_id);
+        $.ajax({
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          url: atbdp_search.ajax_url,
+          data: form_data,
+          success: function success(response) {
+            if (response) {
+              $(searchForm_box).empty().html(response['search_form']);
+              parent.find('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
+              parent.find('.directorist-category-select option').attr("data-custom-field", 1);
+              var events = [
+                new CustomEvent('directorist-search-form-nav-tab-reloaded'), 
+                new CustomEvent('directorist-reload-select2-fields'), 
+                new CustomEvent('directorist-reload-map-api-field'),
+                new CustomEvent('triggerSlice'),
+              ];
+              events.forEach(event => {
+                document.body.dispatchEvent(event);
+                window.dispatchEvent(event);
+              });
+            }
+            parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
+          },
+          error: function error(_error) {
+            console.log(_error);
+          }
+        });
+      })
 
     // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {

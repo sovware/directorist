@@ -14,7 +14,7 @@ module.exports = {
         ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
         //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
-        ['add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
+        ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
 
@@ -35,15 +35,15 @@ module.exports = {
         // -------------------------------------------
         // JS
         ['global-main']: ["./assets/src/js/global/global.js"],
-        ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
+        ['add-listing']: ["./assets/src/js/global/add-listing.js"],
 
-        ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
-        ['global-add-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
+        ['add-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
+        ['add-listing-google-map']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
         ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],
-        ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
-        ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],
-        ['public-single-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
-        ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
+        ['single-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
+        ['single-listing-openstreet-map-widget']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],
+        ['single-listing-google-map']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
+        ['single-listing-google-map-widget']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
         ['public-geolocation-widget']: ["./assets/src/js/global/map-scripts/geolocation-widget.js"],
         ['openstreet-map']: ["./assets/src/js/global/map-scripts/openstreet-map.js"],
         ['google-map']: ["./assets/src/js/global/map-scripts/map-view.js"],

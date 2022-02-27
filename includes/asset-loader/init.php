@@ -95,7 +95,7 @@ class Init {
 				break;
 
 			case 'search-form/custom-fields/color_picker':
-			case 'listing-form/custom-fields/color_picker.php':
+			case 'listing-form/custom-fields/color_picker':
 				wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 				wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 				break;
@@ -104,7 +104,7 @@ class Init {
 				wp_enqueue_script( 'directorist-geolocation' );
 				break;
 
-			case 'listing-form/fields/image_upload.php':
+			case 'listing-form/fields/image_upload':
 				wp_enqueue_script( 'directorist-ez-media-uploader' );
 				break;
 
@@ -112,7 +112,7 @@ class Init {
 				wp_enqueue_script( 'directorist-plupload' );
 				break;
 
-			case 'listing-form/fields/social_info.php':
+			case 'listing-form/fields/social_info':
 				wp_enqueue_script( 'directorist-sweetalert-script' );
 				break;
 

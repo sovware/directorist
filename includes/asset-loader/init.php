@@ -116,7 +116,15 @@ class Init {
 				wp_enqueue_script( 'directorist-sweetalert-script' );
 				break;
 
+			case 'listing-form/fields/map':
+				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
+				if ( $map_type == 'openstreet' ) {
+					wp_enqueue_script( 'directorist-add-listing-openstreet-map' );
+				} elseif ( $map_type == 'google' ) {
+					wp_enqueue_script( 'directorist-add-listing-google-map' );
+				}
+				break;
 		}
 	}
 

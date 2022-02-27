@@ -6664,15 +6664,15 @@ function directorist_clean($var)
  * @since    4.0
  *
  */
-function the_atbdp_favourites_link($post_id = 0)
-{
-    if (is_user_logged_in()) {
-        if ($post_id == 0) {
+function the_atbdp_favourites_link( $post_id = 0 ) {
+    if ( is_user_logged_in() ) {
+        if ( $post_id == 0 ) {
             global $post;
             $post_id = $post->ID;
         }
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-        if (in_array($post_id, $favourites)) {
+
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
+        if ( in_array( $post_id, $favourites ) ) {
             return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
             return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
@@ -6683,13 +6683,14 @@ function the_atbdp_favourites_link($post_id = 0)
 }
 
 
-function atbdp_listings_mark_as_favourite($listing_id)
-{
-    $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-    $fav_class = '';
-    if (in_array($listing_id, $favourites)) {
+function atbdp_listings_mark_as_favourite( $listing_id ) {
+    $favourites = directorist_get_user_favorites( get_current_user_id() );
+    $fav_class  = '';
+
+    if ( in_array( $listing_id, $favourites ) ) {
         $fav_class = 'atbdp_fav_isActive';
     }
+
     $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav ' . $fav_class . '" id="atbdp-fav_' . $listing_id . '" data-listing_id="' . $listing_id . '" href=""><span class="atbd_fav_icon"></span><span class="atbd_fav_tooltip"></span></a></div>';
     return $mark_as_fav_link;
 }
@@ -6729,7 +6730,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
             $post_id = $post->ID;
         }
 
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
         if (in_array($post_id, $favourites)) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="' . $post_id . '"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {
@@ -8605,4 +8606,6 @@ function directorist_update_user_favorites( $user_id = 0, $new_favorites = array
 	 * @param array $old_favorites
 	 */
 	do_action( 'directorist_user_favorites_updated', $user_id, $new_favorites, $old_favorites );
+
+	return $new_favorites;
 }

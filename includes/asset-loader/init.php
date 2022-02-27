@@ -64,7 +64,7 @@ class Init {
 				break;
 
 			// Add Listing Form
-			case 'listing-form/add-listing.php':
+			case 'listing-form/add-listing':
 				wp_enqueue_script( 'directorist-select2-script' );
 				wp_enqueue_script( 'directorist-add-listing' );
 				break;

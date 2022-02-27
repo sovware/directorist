@@ -9,38 +9,6 @@ if (!defined('ABSPATH')) exit;
 
 trait Enqueue_Shortcodes {
 
-    public static function all_listings( $listings ) {
-
-        // wp_enqueue_script('directorist-all-listings');
-
-		// wp_enqueue_script('jquery-masonry');
-
-        // Search Form
-        // wp_enqueue_script('directorist-geolocation');
-
-        // Map Scripts
-        // if ( Helper::map_type() == 'openstreet' ) {
-        //     self::openstreet_map_scripts( true );
-        // } elseif ( Helper::map_type() == 'google' ) {
-        //     self::google_map_scripts();
-        // }
-
-        // Search
-        // wp_enqueue_script('directorist-search-listing');
-        // wp_enqueue_script('directorist-search-form-listing');
-    }
-
-    public static function search_form( $searchform ) {
-
-		wp_enqueue_script( 'directorist-select2-script' );
-		wp_enqueue_script( 'directorist-range-slider' );
-		wp_enqueue_script( 'directorist-jquery-barrating' );
-		wp_enqueue_script( 'directorist-geolocation' );
-        
-		// Custom Scripts
-		wp_enqueue_script( 'directorist-search-form-listing' );
-    }
-
     public static function add_listing(  $listing  ) {
 
 		wp_enqueue_media();

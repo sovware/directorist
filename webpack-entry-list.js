@@ -14,7 +14,7 @@ module.exports = {
         ['dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
         //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
-        ['add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
+        ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
 

@@ -122,7 +122,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
                 if ( in_array( $listing_id, $favorites ) ) {
 					directorist_delete_user_favorites( $user_id, $listing_id );
                 } else {
-					directorist_update_user_favorites( $user_id, $listing_id );
+					directorist_add_user_favorites( $user_id, $listing_id );
                 }
 
 				$favorites = directorist_get_user_favorites( $user_id );

@@ -154,7 +154,7 @@ class User_Favorites_Controller extends Abstract_Controller {
 		}
 
 		$old_favorites = directorist_get_user_favorites( $user_id );
-		$new_favorites = directorist_update_user_favorites( $user_id, $listing_id );
+		$new_favorites = directorist_add_user_favorites( $user_id, $listing_id );
 
 		$data = array(
 			'id'            => $listing_id,

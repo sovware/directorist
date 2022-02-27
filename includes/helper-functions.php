@@ -8577,14 +8577,14 @@ function directorist_get_user_favorites( $user_id = 0 ) {
 }
 
 /**
- * This function updates the user's favorites
+ * This function update the user's favorites
  *
  * @param int $user_id The ID of the user whose favorites are being updated.
  * @param int $listing_id The new favorite listing id.
  *
  * @return array
  */
-function directorist_update_user_favorites( $user_id = 0, $listing_id = 0 ) {
+function directorist_add_user_favorites( $user_id = 0, $listing_id = 0 ) {
 	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
 		return array();
 	}
@@ -8604,7 +8604,7 @@ function directorist_update_user_favorites( $user_id = 0, $listing_id = 0 ) {
 	 * @param array $new_favorites
 	 * @param array $old_favorites
 	 */
-	do_action( 'directorist_user_favorites_updated', $user_id, $new_favorites, $old_favorites );
+	do_action( 'directorist_user_favorites_added', $user_id, $new_favorites, $old_favorites );
 
 	return $new_favorites;
 }
@@ -8618,6 +8618,10 @@ function directorist_update_user_favorites( $user_id = 0, $listing_id = 0 ) {
  * @return array An array of listing IDs that are favorites for the user.
  */
 function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return array();
+	}
+
 	$old_favorites = directorist_get_user_favorites( $user_id );
 	$new_favorites = array_filter( $old_favorites, static function( $favorite ) use ( $listing_id ) {
 		return ( $favorite !== $listing_id );

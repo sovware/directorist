@@ -26,7 +26,7 @@ class Init {
 		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'inline_styles' ], 15 );
 
-		add_filter( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
+		add_action( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
 
 		// Admin
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );

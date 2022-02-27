@@ -108,12 +108,12 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
             add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
 
-            //ajax search 
-            add_action('wp_ajax_directorist_ajax_search', array($this, 'ajax_search'));
-            add_action('wp_ajax_nopriv_directorist_ajax_search', array($this, 'ajax_search'));
+            //instant search 
+            add_action('wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
+            add_action('wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
         }
 
-        public function ajax_search() {
+        public function instant_search() {
             if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
 
                 $listings = new Directorist\Directorist_Listings( null, 'search_result');

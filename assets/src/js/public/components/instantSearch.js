@@ -1,8 +1,7 @@
 ;(function ($) {
     
 
-    function directorist_ajax_search_seo( form_data ) {
-        console.log( form_data.price );
+    function update_instant_search_url( form_data ) {
         if (history.pushState) {
             var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             
@@ -61,14 +60,13 @@
                 var query =  ( query && query.length ) ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
             }
 
-
             var newurl = query ? newurl + query : newurl;
             window.history.pushState({path:newurl},'',newurl);
         }
     }
 
-    /* Directorist ajax search */
-    $('body').on("submit", ".directorist-ajax-search .directorist-advanced-filter__form", function( e ) {
+    /* Directorist instant search */
+    $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function( e ) {
         e.preventDefault();
         let tag = '';
         let price = [];
@@ -112,7 +110,7 @@
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
 
         var form_data = {
-            action  : 'directorist_ajax_search',
+            action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             q       : $('input[name="q"]').val(),
             in_cat  : $('.bdas-category-search').val(),
@@ -141,7 +139,7 @@
             form_data.directory_type = type[0].replace( /directory_type=/, '' )
         }
 
-        directorist_ajax_search_seo( form_data );
+        update_instant_search_url( form_data );
         
         $.ajax({
             url: atbdp_public_data.ajaxurl,
@@ -151,7 +149,6 @@
                 $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
             },
             success: function( html ) {
-                
                 if( html.search_result ) {
                     $('.directorist-header-found-title span').text( html.count );
                     $('.directorist-archive-contents').children('div:last-child').replaceWith( html.search_result );
@@ -163,12 +160,12 @@
     });
 
     // Directorist type changes
-    $('body').on("click", ".directorist-ajax-search .directorist-type-nav__link", function( e ) {
+    $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function( e ) {
         e.preventDefault();
         let type_href = $(this).attr('href');
         let type        = type_href.match( /directory_type=.+/ );
         var form_data = {
-            action  : 'directorist_ajax_search',
+            action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             directory_type    : ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '',
         };
@@ -200,7 +197,7 @@
     })
     
     // Directorist view as changes  
-    $('body').on("click", ".directorist-ajax-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function( e ) {
+    $('body').on("click", ".directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function( e ) {
         e.preventDefault();
         let tag = '';
         let price = [];
@@ -249,7 +246,7 @@
         $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
         $(this).addClass("active");
         var form_data = {
-            action  : 'directorist_ajax_search',
+            action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
@@ -296,15 +293,14 @@
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
                 }
                 window.dispatchEvent(new CustomEvent( 'directorist-reload-listings-map-archive'));
-               // window.dispatchEvent(new CustomEvent( 'directorist-on-changed-map-view'));
             }
         });
     });
     
-    $('.directorist-ajax-search .directorist-dropdown__links--single-js').off( 'click' );
+    $('.directorist-instant-search .directorist-dropdown__links--single-js').off( 'click' );
 
     // Directorist sort by changes  
-    $('body').on("click", ".directorist-ajax-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function( e ) {
+    $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function( e ) {
         e.preventDefault();
         let tag = '';
         let price = [];
@@ -352,7 +348,7 @@
         $(this).addClass("active");
         
         var form_data = {
-            action  : 'directorist_ajax_search',
+            action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             sort    : ( sort_by && sort_by.length ) ? sort_by[0].replace( /sort=/, '' ) : '',
             q       : $('input[name="q"]').val(),
@@ -387,7 +383,6 @@
                 $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
             },
             success: function( html ) {
-
                 if( html.view_as ) {
                     $('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
@@ -398,7 +393,7 @@
     });
 
     // Directorist pagination
-    $('body').on("click", ".directorist-pagination .page-numbers", function( e ) {
+    $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function( e ) {
         e.preventDefault();
         let tag = '';
         let price = [];
@@ -457,7 +452,7 @@
         }
         
         var form_data = {
-            action  : 'directorist_ajax_search',
+            action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
@@ -497,7 +492,6 @@
                 $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
             },
             success: function( html ) {
-
                 if( html.view_as ) {
                     $('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');

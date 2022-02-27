@@ -50,7 +50,7 @@ class Directorist_Listings {
 	public $map_zoom_level;
 	public $directory_type;
 	public $default_directory_type;
-	public $instance_search;
+	public $instant_search;
 
 	public $query;
 	public $loop;
@@ -203,7 +203,7 @@ class Directorist_Listings {
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instance_search']         = ! empty( get_directorist_option( 'listing_instance_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
 	}
 
 	// update_search_options
@@ -258,7 +258,7 @@ class Directorist_Listings {
 			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
 			'directory_type'	       => '',
 			'default_directory_type'   => '',
-			'instance_search'   	   => $this->options['listing_instance_search'],
+			'instant_search'   	   	   => $this->options['listing_instant_search'],
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -289,7 +289,7 @@ class Directorist_Listings {
 		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
-		$this->instance_search          = !empty( $this->params['instance_search'] ) ? $this->params['instance_search'] : '';
+		$this->instant_search          = !empty( $this->params['instant_search'] ) ? $this->params['instant_search'] : '';
 	}
 
 	public function prepare_data() {
@@ -1625,14 +1625,14 @@ class Directorist_Listings {
 			return implode( ' ' , $class );
 		}
 
-		public function ajax_searching_class() {
+		public function instant_searching_class() {
 			$class  = '';
 
-			if ( 'yes' == $this->instance_search ) {
-				$class = 'directorist-ajax-search';
+			if ( 'yes' == $this->instant_search ) {
+				$class = 'directorist-instant-search';
 			}
 
-			$class  = apply_filters( 'directorist_ajax_searching_class', $class, $this->current_listing_type );
+			$class  = apply_filters( 'directorist_instant_searching_class', $class, $this->current_listing_type );
 
 			return $class;
 		}

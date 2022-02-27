@@ -1623,44 +1623,35 @@ class Listings {
 		return !empty( $field['align'] ) ? $field['align'] : '' ;
 	}
 
+	public function badges() {
+		$badges = [
+			'popular_badge' => [
+				'label' => Settings::popular_badge_text(),
+				'class' => 'popular',
+			],
+			'featured_badge' => [
+				'label' => Settings::featured_badge_text(),
+				'class' => 'featured',
+			],
+			'new_badge' => [
+				'label' => Settings::new_badge_text(),
+				'class' => 'new',
+			],
+		];
+
+		return apply_filters( 'directorist_badges', $badges );
+	}
+
 	public function badge_text() {
-		$text = '';
-
-		switch ( self::$current_field['widget_key'] ) {
-			case 'popular_badge':
-				$text = Settings::popular_badge_text();
-				break;
-
-			case 'featured_badge':
-				$text = Settings::featured_badge_text();
-				break;
-
-			case 'new_badge':
-				$text = Settings::new_badge_text();
-				break;
-		}
-
-		return $text;
+		$all_badges = $this->badges();
+		$current_badge = self::$current_field['widget_key'];
+		return ! empty( $all_badges[$current_badge]['label'] ) ? $all_badges[$current_badge]['label'] : '';
 	}
 
 	public function badge_class() {
-		$class = '';
-
-		switch ( self::$current_field['widget_key'] ) {
-			case 'popular_badge':
-				$class = 'popular';
-				break;
-
-			case 'featured_badge':
-				$class = 'featured';
-				break;
-
-			case 'new_badge':
-				$class = 'new';
-				break;
-		}
-
-		return $class;
+		$all_badges = $this->badges();
+		$current_badge = self::$current_field['widget_key'];
+		return ! empty( $all_badges[$current_badge]['class'] ) ? $all_badges[$current_badge]['class'] : '';
 	}
 
 	public function can_load_badge() {

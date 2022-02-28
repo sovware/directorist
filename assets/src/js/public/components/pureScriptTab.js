@@ -107,7 +107,7 @@ pureScriptTabChild2 = (selector1) => {
     });
 }; */
 
-if ( $('.directorist-tab') ) {
+if ($('.directorist-tab')) {
     pureScriptTab('.directorist-tab');
 }
 

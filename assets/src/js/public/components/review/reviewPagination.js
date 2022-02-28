@@ -1,6 +1,7 @@
-;(function ($) {
+;
+(function ($) {
 
-    // Review Pagination Control 
+    // Review Pagination Control
     function atbdp_load_all_posts(page) {
 
         var listing_id = $('#review_post_id').attr('data-post-id');
@@ -30,5 +31,5 @@
         var page = $(this).attr('data-page');
         atbdp_load_all_posts(page);
     });
-    
+
 })(jQuery);

@@ -5,8 +5,8 @@ import '../components/single-listing-page/slider';
 
 // General Components
 import '../components/review';
-import '../components/atbdAlert';
+import '../components/directoristAlert';
 import '../components/formValidation';
-import '../components/atbdFavourite';
-import '../components/atbdDropdown';
-import '../components/atbdSelect';
+import '../components/directoristFavorite';
+import '../components/directoristDropdown';
+import '../components/directoristSelect';

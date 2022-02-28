@@ -1,9 +1,12 @@
-import { get_dom_data } from './../../../lib/helper';
+import {
+    get_dom_data
+} from './../../../lib/helper';
 
 
-; (function ($) {
+;
+(function ($) {
     $(document).ready(function () {
-        var localized_data = get_dom_data( 'map_data' );
+        var localized_data = get_dom_data('map_data');
 
         // Localized Data
         var loc_default_latitude = parseFloat(localized_data.default_latitude);
@@ -19,7 +22,7 @@ import { get_dom_data } from './../../../lib/helper';
         function mapLeaflet(lat, lon) {
 
             // @todo @kowsar / remove later. fix js error
-            if($("#gmap").length == 0) {
+            if ($("#gmap").length == 0) {
                 return;
             }
 
@@ -52,14 +55,18 @@ import { get_dom_data } from './../../../lib/helper';
             }).addTo(mymap);
         }
 
-        $('.directorist-location-js').each(function(id, elm){
+        $('.directorist-location-js').each(function (id, elm) {
             $(elm).on('keyup', function (event) {
                 event.preventDefault();
                 if (event.keyCode !== 40 && event.keyCode !== 38) {
                     var search = $(elm).val();
-                    $(elm).siblings('.address_result').css({ 'display': 'block' });
+                    $(elm).siblings('.address_result').css({
+                        'display': 'block'
+                    });
                     if (search === "") {
-                        $(elm).siblings('.address_result').css({ 'display': 'none' });
+                        $(elm).siblings('.address_result').css({
+                            'display': 'none'
+                        });
                     }
                     var res = "";
                     $.ajax({
@@ -84,7 +91,7 @@ import { get_dom_data } from './../../../lib/helper';
         mapLeaflet(lat, lon);
 
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
-            if(document.getElementById('osm')) {
+            if (document.getElementById('osm')) {
                 document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             }
             event.preventDefault();
@@ -96,7 +103,9 @@ import { get_dom_data } from './../../../lib/helper';
             $('#manual_lng').val(lon);
 
             $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-            $('.address_result').css({ 'display': 'none' });
+            $('.address_result').css({
+                'display': 'none'
+            });
 
             mapLeaflet(lat, lon);
         });
@@ -106,7 +115,9 @@ import { get_dom_data } from './../../../lib/helper';
             let text = $(this).text();
 
             $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-            $('.address_result').css({ 'display': 'none' });
+            $('.address_result').css({
+                'display': 'none'
+            });
         });
 
 
@@ -131,8 +142,7 @@ import { get_dom_data } from './../../../lib/helper';
                 index--;
                 if (index < 0) {
                     index = length
-                }
-                ;
+                };
             }
 
             if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
@@ -146,8 +156,7 @@ import { get_dom_data } from './../../../lib/helper';
                     index = 0;
                     return false;
                 }
-            }
-            ;
+            };
 
         });
 

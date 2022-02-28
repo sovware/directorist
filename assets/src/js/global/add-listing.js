@@ -1,6 +1,6 @@
 // General Components
-import '../public/components/atbdDropdown'
-import '../public/components/atbdSelect';
+import '../public/components/directoristDropdown'
+import '../public/components/directoristSelect';
 import '../public/components/colorPicker';
 
 /* eslint-disable */
@@ -305,6 +305,7 @@ $(document).ready(function () {
     $.post(localized_data.ajaxurl, data, function (response) {
         if (response) {
             $('.atbdp_category_custom_fields').empty().append(response);
+
             function atbdp_tooltip() {
                 var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
                 atbd_tooltip.forEach(function (el) {

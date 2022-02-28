@@ -1222,7 +1222,7 @@ $('.theme-update-btn').on('click', function (e) {
 
     const theme_stylesheet = $(this).data('target');
     const button_default_html = $(this).html();
-    const form_data = { 
+    const form_data = {
         action: 'atbdp_update_theme',
         nonce: atbdp_admin_data.nonce,
 

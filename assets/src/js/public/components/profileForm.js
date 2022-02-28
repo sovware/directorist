@@ -1,4 +1,5 @@
-;(function ($) {
+;
+(function ($) {
     var profileMediaUploader = null;
     if ($("#user_profile_pic").length) {
         profileMediaUploader = new EzMediaUploader({
@@ -16,7 +17,10 @@
         submit_button.attr('disabled', true);
         submit_button.addClass("directorist-loader");
 
-        if (is_processing) { submit_button.removeAttr('disabled'); return; }
+        if (is_processing) {
+            submit_button.removeAttr('disabled');
+            return;
+        }
 
         var form_data = new FormData();
         var err_log = {};
@@ -24,8 +28,8 @@
 
         // ajax action
         form_data.append('action', 'update_user_profile');
-        form_data.append( 'directorist_nonce', atbdp_public_data.directorist_nonce );
-        if ( profileMediaUploader ) {
+        form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+        if (profileMediaUploader) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
             if (hasValidFiles) {
                 //files
@@ -49,7 +53,9 @@
 
             } else {
                 $(".directorist-form-submit__btn").removeClass("atbd_loading");
-                err_log.user_profile_avater = { msg: 'Listing gallery has invalid files' };
+                err_log.user_profile_avater = {
+                    msg: 'Listing gallery has invalid files'
+                };
                 error_count++;
             }
         }
@@ -72,7 +78,7 @@
                 submit_button.removeAttr('disabled');
                 submit_button.removeClass("directorist-loader");
 
-                console.log( response );
+                console.log(response);
 
                 if (response.success) {
                     $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');

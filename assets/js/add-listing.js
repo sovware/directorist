@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,10 +97,10 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _public_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../public/components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _public_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _public_components_atbdSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _public_components_atbdSelect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_atbdSelect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
 /* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__);
 
@@ -885,10 +885,40 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdDropdown.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdDropdown.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/public/components/colorPicker.js":
+/*!********************************************************!*\
+  !*** ./assets/src/js/public/components/colorPicker.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* Initialize wpColorPicker */
+(function ($) {
+  $(document).ready(function () {
+    /* Initialize wp color picker */
+    function colorPickerInit() {
+      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
+      wpColorPicker.forEach(function (elm) {
+        if (elm !== null) {
+          var dColorPicker = $('.directorist-color-picker');
+          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+        }
+      });
+    }
+
+    colorPickerInit();
+    /* Initialize on Directory type change */
+
+    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/directoristDropdown.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristDropdown.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1001,10 +1031,10 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdSelect.js":
-/*!*******************************************************!*\
-  !*** ./assets/src/js/public/components/atbdSelect.js ***!
-  \*******************************************************/
+/***/ "./assets/src/js/public/components/directoristSelect.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristSelect.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1040,36 +1070,6 @@ atbdSelectData.forEach(function (el) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/colorPicker.js":
-/*!********************************************************!*\
-  !*** ./assets/src/js/public/components/colorPicker.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* Initialize wpColorPicker */
-(function ($) {
-  $(document).ready(function () {
-    /* Initialize wp color picker */
-    function colorPickerInit() {
-      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-      wpColorPicker.forEach(function (elm) {
-        if (elm !== null) {
-          var dColorPicker = $('.directorist-color-picker');
-          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
-        }
-      });
-    }
-
-    colorPickerInit();
-    /* Initialize on Directory type change */
-
-    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
-  });
-})(jQuery);
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
@@ -1097,7 +1097,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 14:
+/***/ 13:
 /*!***************************************************!*\
   !*** multi ./assets/src/js/global/add-listing.js ***!
   \***************************************************/

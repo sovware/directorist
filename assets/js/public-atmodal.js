@@ -94,11 +94,11 @@
 /***/ (function(module, exports) {
 
 /*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
+    Name:  ATModal
+    Version: 1.0
+    Author: AazzTech
+    Author URI: http://aazztech.com
+*/
 
 /* disable-eslint */
 var aazztechModal1 = function aazztechModal1(selector) {

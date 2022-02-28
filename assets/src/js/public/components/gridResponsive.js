@@ -1,5 +1,6 @@
-;(function ($) {
-    
+;
+(function ($) {
+
     /* Responsive grid control */
     $(document).ready(function () {
         var d_wrapper = $("#directorist.atbd_wrapper");

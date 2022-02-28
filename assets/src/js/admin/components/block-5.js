@@ -80,11 +80,11 @@ $('.directorist-type-slug-content').each(function (id, element) {
         $(this).attr('data-value', slugText);
         var setSlugBtn = $(this).siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-add');
         $(this).attr('data-value') === '' ? setSlugBtn.addClass('disabled') : setSlugBtn.removeClass('disabled');
-        if(e.key === 'Enter' && $(this).attr('data-value') !== ''){
+        if (e.key === 'Enter' && $(this).attr('data-value') !== '') {
             e.preventDefault();
             setSlugBtn.click();
         }
-        if($(this).attr('data-value') === '' && e.key === 'Enter'){
+        if ($(this).attr('data-value') === '' && e.key === 'Enter') {
             e.preventDefault();
         }
 
@@ -177,8 +177,8 @@ $('.directorist-type-slug-content').each(function (id, element) {
     });
 
     // Hide Slug Form outside click
-    $(document).on('click', function(e) {
-        if(!e.target.closest('.directorist-type-slug')){
+    $(document).on('click', function (e) {
+        if (!e.target.closest('.directorist-type-slug')) {
             findElmSlug.attr('data-value', oldSlugVal);
             findElmSlug.text(oldSlugVal);
             findElmSlug.attr('contenteditable', 'false');
@@ -192,7 +192,6 @@ $('.directorist-type-slug-content').each(function (id, element) {
 })
 
 // Tab Content
-// ----------------------------------------------------------------------------------
 // Modular, classes has no styling, so reusable
 $('.atbdp-tab__nav-link').on('click', function (e) {
     e.preventDefault();

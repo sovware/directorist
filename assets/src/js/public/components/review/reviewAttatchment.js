@@ -1,4 +1,5 @@
-;(function ($) {
+;
+(function ($) {
 
     // Review Attatchment
     function handleFiles(files) {
@@ -34,5 +35,5 @@
     $('#atbd_review_attachment').on('change', function (e) {
         handleFiles(this.files);
     });
-    
+
 })(jQuery);

@@ -1,4 +1,4 @@
 // General Components
-/* import '../components/atbdDropdown';
-import '../components/atbdSelect';
+/* import '../components/directoristDropdown';
+import '../components/directoristSelect';
 import '../components/colorPicker'; */

@@ -1,8 +1,9 @@
-;(function ($) {
+;
+(function ($) {
 
     // remove the review of a user
     var delete_count = 1;
-    
+
     $(document).on('click', '#directorist-review-remove', function (e) {
         e.preventDefault();
         if (delete_count > 1) {
@@ -23,18 +24,18 @@
             action: "remove_listing_review",
             directorist_nonce: atbdp_public_data.directorist_nonce,
         };
-        
+
         swal({
-            title: atbdp_public_data.review_sure_msg,
-            text: atbdp_public_data.review_want_to_remove,
-            type: "warning",
-            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: atbdp_public_data.review_delete_msg,
-            showLoaderOnConfirm: true,
-            closeOnConfirm: false
-        },
+                title: atbdp_public_data.review_sure_msg,
+                text: atbdp_public_data.review_want_to_remove,
+                type: "warning",
+                cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: atbdp_public_data.review_delete_msg,
+                showLoaderOnConfirm: true,
+                closeOnConfirm: false
+            },
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the review
@@ -68,9 +69,7 @@
                     });
                 }
             });
-
         // send an ajax request to the ajax-handler.php and then delete the review of the given id
-
     });
-    
+
 })(jQuery);

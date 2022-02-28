@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -168,7 +168,6 @@ function selec2_add_custom_dropdown_toggle_button() {
 
   addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
   var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
-  // -----------------------------
 
   $('.select2-hidden-accessible').on('select2:open', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
@@ -178,7 +177,6 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
   }); // Toggle Dropdown
-  // -----------------------------
 
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
@@ -644,7 +642,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 13:
+/***/ 12:
 /*!**********************************************!*\
   !*** multi ./assets/src/js/global/global.js ***!
   \**********************************************/

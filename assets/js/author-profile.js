@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/components/atbdAlert.js":
-/*!******************************************************!*\
-  !*** ./assets/src/js/public/components/atbdAlert.js ***!
-  \******************************************************/
+/***/ "./assets/src/js/public/components/directoristAlert.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristAlert.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -109,10 +109,10 @@
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdDropdown.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdDropdown.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/public/components/directoristDropdown.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristDropdown.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -225,10 +225,10 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdFavourite.js":
-/*!**********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdFavourite.js ***!
-  \**********************************************************/
+/***/ "./assets/src/js/public/components/directoristFavorite.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristFavorite.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -267,10 +267,10 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdSorting.js":
-/*!********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdSorting.js ***!
-  \********************************************************/
+/***/ "./assets/src/js/public/components/directoristSorting.js":
+/*!***************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristSorting.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -350,14 +350,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_review_starRating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/review/starRating */ "./assets/src/js/public/components/review/starRating.js");
 /* harmony import */ var _components_review_starRating__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_review_starRating__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/atbdSorting */ "./assets/src/js/public/components/atbdSorting.js");
-/* harmony import */ var _components_atbdSorting__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSorting__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_directoristSorting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/directoristSorting */ "./assets/src/js/public/components/directoristSorting.js");
+/* harmony import */ var _components_directoristSorting__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSorting__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
 // General Components
 
 

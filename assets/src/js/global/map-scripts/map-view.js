@@ -1,4 +1,6 @@
-import { get_dom_data } from './../../lib/helper';
+import {
+    get_dom_data
+} from './../../lib/helper';
 
 const atbdp_map = get_dom_data('atbdp_map');
 
@@ -8,8 +10,7 @@ const MAP_PIN =
 
 const inherits = function (childCtor, parentCtor) {
     /** @constructor */
-    function tempCtor() { }
-
+    function tempCtor() {}
     tempCtor.prototype = parentCtor.prototype;
     childCtor.superClass_ = parentCtor.prototype;
     childCtor.prototype = new tempCtor();
@@ -18,7 +19,6 @@ const inherits = function (childCtor, parentCtor) {
 
 function Marker(options) {
     google.maps.Marker.apply(this, arguments);
-
     if (options.map_icon_label) {
         this.MarkerLabel = new MarkerLabel({
             map: this.map,
@@ -78,7 +78,6 @@ MarkerLabel.prototype.onAdd = function () {
 // Marker Label onRemove
 MarkerLabel.prototype.onRemove = function () {
     this.div.parentNode.removeChild(this.div);
-
     for (let i = 0, I = this.listeners.length; i < I; ++i) {
         google.maps.event.removeListener(this.listeners[i]);
     }
@@ -88,10 +87,10 @@ MarkerLabel.prototype.onRemove = function () {
 MarkerLabel.prototype.draw = function () {
     const projection = this.getProjection();
     const position = projection.fromLatLngToDivPixel(this.get('position'));
-    const { div } = this;
-
+    const {
+        div
+    } = this;
     this.div.innerHTML = this.get('text').toString();
-
     div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
     div.style.position = 'absolute';
     div.style.display = 'block';
@@ -138,27 +137,29 @@ MarkerLabel.prototype.draw = function () {
         // set map type
         map.type = $el.data('type');
 
-        const infowindow = new google.maps.InfoWindow({ content: '' });
+        const infowindow = new google.maps.InfoWindow({
+            content: ''
+        });
         // add markers
         $markers.each(function () {
             atbdp_add_marker($(this), map, infowindow);
         });
 
         var cord = {
-            lat: ( Number( atbdp_map.default_latitude ) ) ? Number( atbdp_map.default_latitude ) : 40.7127753 ? defCordEnabled : Number( atbdp_map.default_latitude ),
-            lng: ( Number( atbdp_map.default_longitude ) ) ? Number( atbdp_map.default_longitude ) : -74.0059728 ? defCordEnabled : Number( atbdp_map.default_longitude ),
+            lat: (Number(atbdp_map.default_latitude)) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : Number(atbdp_map.default_latitude),
+            lng: (Number(atbdp_map.default_longitude)) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude),
         };
 
-        if ( $markers.length ){
-            cord.lat = defCordEnabled ? Number( atbdp_map.default_latitude ) : Number( $markers[0].getAttribute('data-latitude') );
-            cord.lng = defCordEnabled ? Number( atbdp_map.default_longitude ) : Number( $markers[0].getAttribute('data-longitude') );
+        if ($markers.length) {
+            cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
+            cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
         }
 
         // center map
         atbdp_center_map(map, cord);
 
         var mcOptions = new MarkerClusterer(map, [], {
-            imagePath: atbdp_map.plugin_url+'assets/images/m'
+            imagePath: atbdp_map.plugin_url + 'assets/images/m'
         });
         mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
             style.textColor = '#fff';
@@ -206,8 +207,7 @@ MarkerLabel.prototype.draw = function () {
                 strokeColor: '',
                 strokeWeight: 0,
             },
-            map_icon_label:
-                icon !== undefined && `<div class="atbd_map_shape"><i class="${icon}"></i></div>`,
+            map_icon_label: icon !== undefined && `<div class="atbd_map_shape"><i class="${icon}"></i></div>`,
         });
 
         // add to array
@@ -225,11 +225,11 @@ MarkerLabel.prototype.draw = function () {
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
                 if (atbdp_map.disable_info_window === 'no') {
-                    let marker_childrens = $( $marker ).children();
+                    let marker_childrens = $($marker).children();
 
-                    if ( marker_childrens.length ) {
+                    if (marker_childrens.length) {
                         let marker_content = marker_childrens[0];
-                        $( marker_content ).addClass( 'map-info-wrapper--show' );
+                        $(marker_content).addClass('map-info-wrapper--show');
                     }
 
                     infowindow.setContent($marker.html());
@@ -246,13 +246,12 @@ MarkerLabel.prototype.draw = function () {
      */
 
     function atbdp_center_map(map, cord) {
-        map.setCenter( cord );
+        map.setCenter(cord);
         map.setZoom(parseInt(atbdp_map.zoom));
     }
 
     function setup_info_window() {
         const abc = document.querySelectorAll('div');
-
         abc.forEach(function (el, index) {
             if (el.innerText === 'atgm_marker') {
                 // console.log(at_icon)
@@ -283,17 +282,17 @@ MarkerLabel.prototype.draw = function () {
     function setup_map() {
         // render map in the custom post
         $('.atbdp-map').each(function () {
-            atbdp_rander_map( $( this ) );
+            atbdp_rander_map($(this));
         });
     }
 
-    window.addEventListener( 'load', setup_map );
-    window.addEventListener( 'load', setup_info_window );
+    window.addEventListener('load', setup_map);
+    window.addEventListener('load', setup_info_window);
 
-    window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
-    window.addEventListener( 'directorist-reload-listings-map-archive', setup_info_window );
+    window.addEventListener('directorist-reload-listings-map-archive', setup_map);
+    window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
     });
 

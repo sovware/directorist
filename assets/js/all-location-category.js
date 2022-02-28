@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/components/loc_cat.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/public/components/loc_cat.js ***!
-  \****************************************************/
+/***/ "./assets/src/js/public/components/categoryLocation.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/categoryLocation.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -131,8 +131,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/loc_cat */ "./assets/src/js/public/components/loc_cat.js");
-/* harmony import */ var _components_loc_cat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_loc_cat__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/categoryLocation */ "./assets/src/js/public/components/categoryLocation.js");
+/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /***/ }),

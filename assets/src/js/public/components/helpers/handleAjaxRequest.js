@@ -1,5 +1,6 @@
-;(function ($) {
-    
+;
+(function ($) {
+
     /*This function handles all ajax request*/
     function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
         var data;

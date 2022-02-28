@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.1.1
+ * Version: 7.1.2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -215,7 +215,9 @@ final class Directorist_Base
 			self::$instance->listing = new ATBDP_Listing;
 			self::$instance->user = new ATBDP_User;
 			self::$instance->roles = new ATBDP_Roles;
-			self::$instance->gateway = new ATBDP_Gateway;
+			if( class_exists( 'ATBDP_Gateway' ) ) {
+				self::$instance->gateway = new ATBDP_Gateway;
+			}
 			self::$instance->order = new ATBDP_Order;
 			self::$instance->shortcode = new \Directorist\ATBDP_Shortcode;
 			self::$instance->email = new ATBDP_Email;
@@ -224,6 +226,9 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools;
 			self::$instance->announcement = new ATBDP_Announcement;
+
+			// Load widgets
+			Directorist\Widgets\Init::instance();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/
@@ -424,6 +429,7 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
@@ -520,7 +526,7 @@ final class Directorist_Base
 			));
 		}
 
-		register_widget('BD_Popular_Listing_Widget');
+		// register_widget('BD_Popular_Listing_Widget');
 		register_widget('BD_video_Widget');
 		register_widget('BD_contact_form_Widget');
 		register_widget('BD_Submit_Item_Widget');
@@ -530,7 +536,7 @@ final class Directorist_Base
 		register_widget('BD_Tags_Widget');
 		register_widget('BD_Search_Widget');
 		register_widget('BD_Map_Widget');
-		// register_widget('BD_All_Map_Widget');
+		// ---register_widget('BD_All_Map_Widget');
 		register_widget('BD_Similar_Listings_Widget');
 		register_widget('BD_Author_Info_Widget');
 		register_widget('BD_Featured_Listings_Widget');
@@ -598,235 +604,17 @@ final class Directorist_Base
 		return $menus;
 	}
 
-	/**
-	 * It displays popular listings
-	 * @param int $count [optional] Number of popular listing to show. Default 5.
-	 * If the count is more than one then it uses it, else the function will use the value from the settings page.
-	 * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
-	 * @todo Try to move popular listings related functionalities to a dedicated listing related class that handles popular listings, related listings etc. when have time.
-	 */
-	public function show_popular_listing($count = 5)
-	{
-		$popular_listings = $this->get_popular_listings($count);
-
-		if ($popular_listings->have_posts()) { ?>
-			<div class="atbd_categorized_listings">
-				<ul class="listings">
-					<?php foreach ($popular_listings->posts as $pop_post) {
-						// get only one parent or high level term object
-						$top_category = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
-						$listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
-						$listing_prv_img = get_post_meta($pop_post->ID, '_listing_prv_img', true);
-						$cats = get_the_terms($pop_post->ID, ATBDP_CATEGORY);
-						$post_link = get_the_permalink( $pop_post->ID );
-						?>
-						<li>
-							<div class="atbd_left_img">
-								<?php
-								$disable_single_listing = get_directorist_option('disable_single_listing');
-								if (empty($disable_single_listing)){
-								?>
-								<a href="<?php echo esc_url( $post_link ); ?>">
-									<?php
-									}
-									$default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
-									if (!empty($listing_prv_img)) {
-										echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="' . esc_html($pop_post->post_title) . '">';
-									} elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
-										echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="' . esc_html($pop_post->post_title) . '">';
-									} else {
-										echo '<img src="' . $default_image . '" alt="' . esc_html($pop_post->post_title) . '">';
-									}
-									if (empty($disable_single_listing)) {
-										echo '</a>';
-									}
-									?>
-							</div>
-							<div class="atbd_right_content">
-								<div class="cate_title">
-									<h4>
-										<?php
-										if (empty($disable_single_listing)) {
-											?>
-											<a href="<?php echo esc_url($post_link); ?>"><?php echo esc_html($pop_post->post_title); ?></a>
-											<?php
-										} else {
-											echo esc_html($pop_post->post_title);
-										} ?>
-									</h4>
-								</div>
-
-								<?php if (!empty($cats)) {
-									$totalTerm = count($cats);
-									?>
-
-									<p class="directory_tag">
-										<span class="<?php atbdp_icon_type(true); ?>-tags"></span>
-										<span>
-												<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-																	 <?php echo esc_html($cats[0]->name); ?>
-												</a>
-											<?php
-											if ($totalTerm > 1) {
-												?>
-												<span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
-													<span class="atbd_cat_popup_wrapper">
-																	<?php
-																	$output = array();
-																	foreach (array_slice($cats, 1) as $cat) {
-																		$link = ATBDP_Permalink::atbdp_get_category_page($cat);
-																		$space = str_repeat(' ', 1);
-																		$output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-																	} ?>
-														<span><?php echo join($output) ?></span>
-																</span>
-															</span>
-											<?php } ?>
-
-										</span>
-									</p>
-								<?php }
-								ATBDP()->show_static_rating($pop_post);
-								?>
-							</div>
-						</li>
-					<?php } // ends the loop
-					?>
-
-				</ul>
-			</div> <!--ends .categorized_listings-->
-		<?php }
-
+	public function show_popular_listing() {
+		_deprecated_function( '7.2.2', 'ATBDP()->show_popular_listing' );
+		return;
 	}
 
-	/**
-	 * It gets the popular listings of the given listing/post
-	 *
-	 * @param int $count [optional] Number of popular listing to show.  If the count is more than one then it uses it,
-	 *                   else the function will use the value from the settings page.
-	 *                   Count variable is handy if we want to show different number of popular listings on different pages.
-	 *                   For example, on different widgets place. Default 5.
-	 * @return WP_Query It returns the popular listings if found.
-	 */
-	public function get_popular_listings( $count = 5, $listing_id = 0 ) {
-		$count           = intval( $count > 0 ? $count : 5 );
-		$view_to_popular = get_directorist_option( 'views_for_popular' );
-
-		/**
-		 * It filters the number of the popular listing to display
-		 * @since 1.0.0
-		 * @param int $count The number of popular listing  to show
-		 */
-		$count = apply_filters( 'atbdp_popular_listing_number', $count );
-
-		$args = array(
-			'post_type'      => ATBDP_POST_TYPE,
-			'post_status'    => 'publish',
-			'posts_per_page' => $count,
-		);
-
-		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
-		$has_featured               = $has_featured || is_fee_manager_active();
-		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
-		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
-		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
-
-		$meta_queries = array();
-
-		if ( $has_featured ) {
-			if ( 'average_rating' === $listing_popular_by ) {
-				$meta_queries['_rating'] = array(
-					'key'     => directorist_get_rating_field_meta_key(),
-					'value'   => $average_review_for_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '<=',
-				);
-			} elseif ( 'view_count' === $listing_popular_by ) {
-				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
-					'value'   => $view_to_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '>=',
-				);
-
-				$args['orderby'] = array(
-					'_featured' => 'DESC',
-					'views'     => 'DESC',
-				);
-			} else {
-				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
-					'value'   => $view_to_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '>=',
-				);
-
-				$meta_queries['_rating'] = array(
-					'key'     => directorist_get_rating_field_meta_key(),
-					'value'   => $average_review_for_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '<=',
-				);
-
-				$args['orderby'] = array(
-					'_featured' => 'DESC',
-					'views'     => 'DESC',
-				);
-			}
-		} else {
-			if ( 'average_rating' === $listing_popular_by ) {
-				$meta_queries['_rating'] = array(
-					'key'     => directorist_get_rating_field_meta_key(),
-					'value'   => $average_review_for_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '<=',
-				);
-			} elseif ( 'view_count' === $listing_popular_by ) {
-				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
-					'value'   => $view_to_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '>=',
-				);
-
-				$args['orderby'] = array(
-					'views' => 'DESC',
-				);
-			} else {
-				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
-					'value'   => $view_to_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '>=',
-				);
-
-				$meta_queries['_rating'] = array(
-					'key'     => directorist_get_rating_field_meta_key(),
-					'value'   => $average_review_for_popular,
-					'type'    => 'NUMERIC',
-					'compare' => '<=',
-				);
-
-				$args['orderby'] = array(
-					'views' => 'DESC',
-				);
-			}
-		}
-
-		if ( count( $meta_queries ) ) {
-			$meta_queries['relation'] = 'AND';
-			$args['meta_query'] = $meta_queries;
-		}
-
-		return new WP_Query( apply_filters( 'atbdp_popular_listing_args', $args ) );
+	public function get_popular_listings() {
+		_deprecated_function( '7.2.2', 'ATBDP()->get_popular_listings' );
+		return;
 	}
 
-	/**
-	 * It displays static rating of the given post
-	 * @param object|WP_Post $post The current post object
-	 */
-	public function show_static_rating($post)
-	{
+	public function show_static_rating($post) {
 		if ( ! directorist_is_review_enabled() ) {
 			return;
 		}

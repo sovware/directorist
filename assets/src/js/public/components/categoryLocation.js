@@ -1,4 +1,4 @@
-(function($){
+(function ($) {
     /* multi level hierarchy content */
     $('.atbdp_child_category').hide();
     $('.atbd_category_wrapper > .expander').on('click', function () {
@@ -12,8 +12,9 @@
     $('.atbdp_parent_category >li >span').on('click', function () {
         $(this).siblings('.atbdp_child_category').slideToggle();
     });
+
     //
-   $('.atbdp_child_location').hide();
+    $('.atbdp_child_location').hide();
     $('.atbd_location_wrapper > .expander').on('click', function () {
         $(this).siblings('.atbdp_child_location').slideToggle();
     });

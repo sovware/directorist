@@ -1675,7 +1675,6 @@ $('.directorist-type-slug-content').each(function (id, element) {
     }
   });
 }); // Tab Content
-// ----------------------------------------------------------------------------------
 // Modular, classes has no styling, so reusable
 
 $('.atbdp-tab__nav-link').on('click', function (e) {

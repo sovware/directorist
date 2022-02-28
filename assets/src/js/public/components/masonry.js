@@ -1,8 +1,8 @@
 /* All listings Masonry layout */
-(function($){
+(function ($) {
     function authorsMasonry(selector) {
         let authorsCard = $(selector);
-        $(authorsCard).each(function(id, elm){
+        $(authorsCard).each(function (id, elm) {
             let authorsCardRow = $(elm).find('.directorist-masonary');
             let authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
                 $(authorMasonryInit).masonry({

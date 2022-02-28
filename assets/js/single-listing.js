@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/components/atbdAlert.js":
-/*!******************************************************!*\
-  !*** ./assets/src/js/public/components/atbdAlert.js ***!
-  \******************************************************/
+/***/ "./assets/src/js/public/components/directoristAlert.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristAlert.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -109,10 +109,10 @@
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdDropdown.js":
-/*!*********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdDropdown.js ***!
-  \*********************************************************/
+/***/ "./assets/src/js/public/components/directoristDropdown.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristDropdown.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -225,10 +225,10 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdFavourite.js":
-/*!**********************************************************!*\
-  !*** ./assets/src/js/public/components/atbdFavourite.js ***!
-  \**********************************************************/
+/***/ "./assets/src/js/public/components/directoristFavorite.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristFavorite.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -267,10 +267,10 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/atbdSelect.js":
-/*!*******************************************************!*\
-  !*** ./assets/src/js/public/components/atbdSelect.js ***!
-  \*******************************************************/
+/***/ "./assets/src/js/public/components/directoristSelect.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristSelect.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -915,11 +915,49 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// Plasma Slider Initialization 
-var single_listing_slider = new PlasmaSlider({
-  containerID: "directorist-single-listing-slider"
+document.addEventListener('DOMContentLoaded', function () {
+  // Plasma Slider Initialization
+  var single_listing_slider = new PlasmaSlider({
+    containerID: "directorist-single-listing-slider"
+  });
+  single_listing_slider.init();
+  /* Related listings slider */
+
+  var rtl = !data.is_rtl ? false : true;
+  $('.directorist-related-carousel').slick({
+    dots: false,
+    arrows: true,
+    prevArrow: '<a class="directorist-slc__nav directorist-slc__nav--left"><span class="las la-angle-left"></span></a>',
+    nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
+    infinite: true,
+    speed: 300,
+    slidesToShow: data.rel_listing_column,
+    slidesToScroll: 1,
+    autoplay: false,
+    rtl: rtl,
+    responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: data.rel_listing_column,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false
+      }
+    }, {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }]
+  });
 });
-single_listing_slider.init();
 
 /***/ }),
 
@@ -935,16 +973,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/single-listing-page/slider */ "./assets/src/js/public/components/single-listing-page/slider.js");
 /* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/atbdAlert */ "./assets/src/js/public/components/atbdAlert.js");
-/* harmony import */ var _components_atbdAlert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_atbdAlert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/formValidation */ "./assets/src/js/public/components/formValidation.js");
 /* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/atbdFavourite */ "./assets/src/js/public/components/atbdFavourite.js");
-/* harmony import */ var _components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_atbdFavourite__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/atbdDropdown */ "./assets/src/js/public/components/atbdDropdown.js");
-/* harmony import */ var _components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_atbdDropdown__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/atbdSelect */ "./assets/src/js/public/components/atbdSelect.js");
-/* harmony import */ var _components_atbdSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_atbdSelect__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
 // Single Listing Page
  // General Components
 

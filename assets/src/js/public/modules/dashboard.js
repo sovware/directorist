@@ -11,6 +11,6 @@ import '../components/dashboard/dashboardBecomeAuthor';
 import '../components/pureScriptTab';
 import '../components/profileForm';
 import '../components/tab';
-import '../components/atbdDropdown';
-import '../components/atbdSelect';
+import '../components/directoristDropdown';
+import '../components/directoristSelect';
 import '../components/legacy-support';

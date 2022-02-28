@@ -19,7 +19,6 @@ module.exports = {
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
 
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
-        ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
 
         // Admin
         // -------------------------------------------
@@ -49,7 +48,7 @@ module.exports = {
         ['google-map']: ["./assets/src/js/global/map-scripts/map-view.js"],
         ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
 
-        ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
+        ['directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
     },
 
     vueEntries: {

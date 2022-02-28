@@ -1,1 +1,1 @@
-import '../components/loc_cat';
+import '../components/categoryLocation';

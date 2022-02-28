@@ -8,7 +8,7 @@ $( '.atbdp-directory-migration-link' ).on( 'click', function( e ) {
 
     $( '.cptm-directory-migration-form' ).find( '.cptm-comfirmation-text' ).html( 'Please wait...' );
     $( '.atbdp-directory-migration-cencel-link' ).remove();
-    
+
     $( this ).html( '<i class="fas fa-circle-notch fa-spin"></i> Migrating' );
     $( this ).addClass( 'atbdp-disabled' );
 
@@ -30,7 +30,7 @@ $( '.atbdp-directory-migration-link' ).on( 'click', function( e ) {
                 <div class="cptm-section-alert-message">${msg}</div>
             </div>
             `;
-            
+
             $( '.cptm-directory-migration-form' ).find( '.cptm-comfirmation-text' ).html( alert_content );
             $( self ).remove();
 
@@ -55,7 +55,7 @@ $( '.atbdp-directory-migration-link' ).on( 'click', function( e ) {
             <div class="cptm-section-alert-message">${msg}</div>
         </div>
         `;
-        
+
         $( '.cptm-directory-migration-form' ).find( '.cptm-comfirmation-text' ).html( alert_content );
         $( self ).remove();
     };

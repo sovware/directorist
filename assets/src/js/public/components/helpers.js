@@ -1,5 +1,4 @@
 // Helper Components
-
 import './helpers/printRating'
 import './helpers/createMysql'
 import './helpers/postDraft'

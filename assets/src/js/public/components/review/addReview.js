@@ -1,41 +1,42 @@
-;(function ($) {
+;
+(function ($) {
     // 	prepear_form_data
-    function prepear_form_data ( form, field_map, data ) {
-        if ( ! data || typeof data !== 'object' ) {
-        var data = {};
+    function prepear_form_data(form, field_map, data) {
+        if (!data || typeof data !== 'object') {
+            var data = {};
         }
 
-        for ( var key in field_map) {
-        var field_item = field_map[ key ];
-        var field_key = field_item.field_key;
-        var field_type = field_item.type;
+        for (var key in field_map) {
+            var field_item = field_map[key];
+            var field_key = field_item.field_key;
+            var field_type = field_item.type;
 
-        if ( 'name' === field_type ) {
-            var field = form.find( '[name="'+ field_key +'"]' );
-        } else {
-            var field = form.find( field_key );
-        }
+            if ('name' === field_type) {
+                var field = form.find('[name="' + field_key + '"]');
+            } else {
+                var field = form.find(field_key);
+            }
 
-        if ( field.length ) {
-            var data_key = ( 'name' === field_type ) ? field_key : field.attr('name') ;
-            var data_value = ( field.val() ) ? field.val() : '';
+            if (field.length) {
+                var data_key = ('name' === field_type) ? field_key : field.attr('name');
+                var data_value = (field.val()) ? field.val() : '';
 
-            data[data_key] = data_value;
-        }
+                data[data_key] = data_value;
+            }
         }
 
         return data;
     }
 
-     /*HELPERS*/
-     function print_static_rating($star_number) {
+    /*HELPERS*/
+    function print_static_rating($star_number) {
         var v;
         if ($star_number) {
             v = '<ul>';
             for (var i = 1; i <= 5; i++) {
-                v += (i <= $star_number)
-                    ? "<li><span class='directorist-rate-active'></span></li>"
-                    : "<li><span class='directoristrate-disable'></span></li>";
+                v += (i <= $star_number) ?
+                    "<li><span class='directorist-rate-active'></span></li>" :
+                    "<li><span class='directoristrate-disable'></span></li>";
             }
             v += '</ul>';
         }
@@ -62,26 +63,46 @@
         var $form = $(this);
         var $data = $form.serialize();
 
-        var field_field_map = [
-            { type: 'name', field_key: 'post_id' },
-            { type: 'id', field_key: '#atbdp_review_nonce_form' },
-            { type: 'id', field_key: '#guest_user_email' },
-            { type: 'id', field_key: '#reviewer_name' },
-            { type: 'id', field_key: '#review_content' },
-            { type: 'id', field_key: '#directorist-review-rating' },
-            { type: 'id', field_key: '#review_duplicate' },
+        var field_field_map = [{
+                type: 'name',
+                field_key: 'post_id'
+            },
+            {
+                type: 'id',
+                field_key: '#atbdp_review_nonce_form'
+            },
+            {
+                type: 'id',
+                field_key: '#guest_user_email'
+            },
+            {
+                type: 'id',
+                field_key: '#reviewer_name'
+            },
+            {
+                type: 'id',
+                field_key: '#review_content'
+            },
+            {
+                type: 'id',
+                field_key: '#directorist-review-rating'
+            },
+            {
+                type: 'id',
+                field_key: '#review_duplicate'
+            },
         ];
 
-        var _data = { 
-            action: 'save_listing_review', 
+        var _data = {
+            action: 'save_listing_review',
             directorist_nonce: atbdp_public_data.directorist_nonce,
         };
 
-        _data = prepear_form_data( $form, field_field_map, _data );
+        _data = prepear_form_data($form, field_field_map, _data);
 
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
-        jQuery.post(atbdp_public_data.ajaxurl, _data, function(response) {
+        jQuery.post(atbdp_public_data.ajaxurl, _data, function (response) {
             var output = '';
             var deleteBtn = '';
             var d;
@@ -92,7 +113,7 @@
             var approve_immediately = $form.find("#approve_immediately").val();
             var review_duplicate = $form.find("#review_duplicate").val();
             if (approve_immediately === 'no') {
-                if(content === '') {
+                if (content === '') {
                     // show error message
                     swal({
                         title: "ERROR!!",
@@ -139,12 +160,12 @@
                     '<span class="directorist-signle-review-time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="directorist-rated-stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
-                if( atbdp_public_data.enable_reviewer_content ) {
-                output +=
-                    '<div class="directorist-signle-review__content"> ' +
-                    '<p>' + content + '</p> ' +
-                    //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
-                    '</div> ';
+                if (atbdp_public_data.enable_reviewer_content) {
+                    output +=
+                        '<div class="directorist-signle-review__content"> ' +
+                        '<p>' + content + '</p> ' +
+                        //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
+                        '</div> ';
                 }
                 output +=
                     '</div>';

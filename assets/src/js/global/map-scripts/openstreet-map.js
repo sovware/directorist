@@ -1,9 +1,8 @@
-
 var $ = jQuery;
 const mapData = JSON.parse($('#map').attr('data-options'));
 
-window.addEventListener( 'load', setup_map );
-window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
+window.addEventListener('load', setup_map);
+window.addEventListener('directorist-reload-listings-map-archive', setup_map);
 
 function setup_map() {
     bundle1.fillPlaceholders();

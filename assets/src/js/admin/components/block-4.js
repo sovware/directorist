@@ -31,7 +31,9 @@ const pureScriptTab = selector1 => {
                     // console.log(element1);
                     element1.classList.remove('directorist-tab__pane--active');
                 });
-                const { target } = event.target;
+                const {
+                    target
+                } = event.target;
                 document.getElementById(target).classList.add('directorist-tab__pane--active');
             });
         });

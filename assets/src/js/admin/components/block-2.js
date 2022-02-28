@@ -11,9 +11,9 @@ if (has_excerpt && has_tagline) {
 }
 
 $('#atbd_optional_field_check').on('change', function () {
-    $(this).is(':checked')
-        ? $('.atbd_tagline_moto_field').fadeIn()
-        : $('.atbd_tagline_moto_field').fadeOut();
+    $(this).is(':checked') ?
+        $('.atbd_tagline_moto_field').fadeIn() :
+        $('.atbd_tagline_moto_field').fadeOut();
 });
 
 // Load custom fields of the selected category in the custom post type "atbdp_listings"
@@ -23,18 +23,18 @@ $('#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop').on('change
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
     const from_single_directory = $('input[name="directory_type"]').val();
-    if( length ){
+    if (length) {
         length.each((el, index) => {
             id.push($(index).val());
         });
     }
-    
-    if( length2 ){
+
+    if (length2) {
         length2.each((el, index) => {
             id.push($(index).val());
         });
     }
-    
+
     const data = {
         action: 'atbdp_custom_fields_listings',
         post_id: $('#post_ID').val(),
@@ -51,6 +51,7 @@ $('#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop').on('change
             $('.atbdp_category_custom_fields')
                 .empty()
                 .append(response);
+
             function atbdp_tooltip() {
                 const atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
                 atbd_tooltip.forEach(function (el) {
@@ -59,9 +60,9 @@ $('#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop').on('change
                             'mouseover',
                             function (e) {
                                 for (
-                                    let { target } = e;
-                                    target && target != this;
-                                    target = target.parentNode
+                                    let {
+                                        target
+                                    } = e; target && target != this; target = target.parentNode
                                 ) {
                                     if (target.matches('.atbd_tooltip')) {
                                         el.classList.add(
@@ -89,13 +90,13 @@ $(document).ready(function () {
     const id = [];
     const directory_type = $('select[name="directory_type"]').val();
     const from_single_directory = $('input[name="directory_type"]').val();
-    if( length ){
+    if (length) {
         length.each((el, index) => {
             id.push($(index).val());
         });
     }
-    
-    if( length2 ){
+
+    if (length2) {
         length2.each((el, index) => {
             id.push($(index).val());
         });
@@ -116,6 +117,7 @@ $(document).ready(function () {
             $('.atbdp_category_custom_fields')
                 .empty()
                 .append(response);
+
             function atbdp_tooltip() {
                 const atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
                 atbd_tooltip.forEach(function (el) {
@@ -124,9 +126,9 @@ $(document).ready(function () {
                             'mouseover',
                             function (e) {
                                 for (
-                                    let { target } = e;
-                                    target && target != this;
-                                    target = target.parentNode
+                                    let {
+                                        target
+                                    } = e; target && target != this; target = target.parentNode
                                 ) {
                                     if (target.matches('.atbd_tooltip')) {
                                         el.classList.add(
@@ -255,8 +257,7 @@ $(document).on('click', '.directorist-form-social-fields__remove', function (e) 
     const elementToRemove = $(`div#socialID-${id}`);
     event.preventDefault();
     /* Act on the event */
-    swal(
-        {
+    swal({
             title: atbdp_admin_data.i18n_text.confirmation_text,
             text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
             type: 'warning',

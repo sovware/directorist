@@ -1,4 +1,5 @@
-;(function ($) {
+;
+(function ($) {
 
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
@@ -38,12 +39,9 @@
 
     // Alert users to login (only if applicable)
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
-
         e.preventDefault();
         alert(atbdp_public_data.login_alert_message);
-        
         return false;
-
     });
 
 })(jQuery);

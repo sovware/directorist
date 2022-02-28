@@ -1,11 +1,11 @@
-;(function($) {
+;
+(function ($) {
     'use strict';
-
     class ReplyFormObserver {
         constructor() {
             this.init();
 
-            $( document ).on( 'directorist_review_updated', () => this.init() );
+            $(document).on('directorist_review_updated', () => this.init());
         }
 
         init() {
@@ -48,7 +48,7 @@
                         }
 
                         node.querySelector('#submit').innerHTML = 'Submit Review';
-                        node.querySelector('#comment').setAttribute('placeholder', 'Leave a review' );
+                        node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
 
                         console.log(node.querySelector('#comment'))
                     }
@@ -78,7 +78,7 @@
                     }
 
                     form.querySelector('#submit').innerHTML = 'Submit Reply';
-                    form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply' );
+                    form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
                 }
             }
         };
@@ -101,53 +101,52 @@
         onSubmit(event) {
             event.preventDefault();
 
-            const $form               = $(event.target);
+            const $form = $(event.target);
             const originalButtonLabel = $form.find('[type="submit"]').val();
 
             $(document).trigger('directorist_review_before_submit', $form);
 
             const updateComment = $.ajax({
-                url        : $form.attr('action'),
-                type       : 'POST',
+                url: $form.attr('action'),
+                type: 'POST',
                 contentType: false,
-                cache      : false,
+                cache: false,
                 processData: false,
-                data       : new FormData($form[0])
+                data: new FormData($form[0])
             });
 
-            $form.find( '#comment' ).prop( 'disabled', true );
-            $form.find( '[type="submit"]' ).prop( 'disabled', true ).val( 'loading' );
+            $form.find('#comment').prop('disabled', true);
+            $form.find('[type="submit"]').prop('disabled', true).val('loading');
             const commentID = $form.find('input[name="comment_id"]').val();
-            const $wrap = $('#div-comment-'+commentID);
+            const $wrap = $('#div-comment-' + commentID);
 
             $wrap.addClass('directorist-comment-edit-request');
 
             updateComment.success(
                 function (data, status, request) {
 
-                    if ( typeof data !== 'string' && ! data.success ) {
+                    if (typeof data !== 'string' && !data.success) {
                         $wrap.removeClass('directorist-comment-edit-request');
                         CommentEditHandler.showError($form, data.data.html);
                         return;
                     }
 
-                    let body = $( '<div></div>' );
-                    body.append( data );
+                    let body = $('<div></div>');
+                    body.append(data);
                     let comment_section = '.directorist-review-container';
-                    let comments = body.find( comment_section );
+                    let comments = body.find(comment_section);
 
-                    $( comment_section ).replaceWith( comments );
-                    $( document ).trigger( 'directorist_review_updated', data );
+                    $(comment_section).replaceWith(comments);
+                    $(document).trigger('directorist_review_updated', data);
 
-                    let commentTop = $( "#comment-" + commentID ).offset().top;
-                    if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
-                        commentTop = commentTop - $( '#wpadminbar' ).height();
+                    let commentTop = $("#comment-" + commentID).offset().top;
+                    if ($('body').hasClass('admin-bar')) {
+                        commentTop = commentTop - $('#wpadminbar').height();
                     }
 
                     // scroll to comment
-                    if ( commentID ) {
-                        $( "body, html" ).animate(
-                            {
+                    if (commentID) {
+                        $("body, html").animate({
                                 scrollTop: commentTop
                             },
                             600
@@ -157,19 +156,19 @@
             );
 
             updateComment.fail(
-                function ( data ) {
+                function (data) {
                     console.log(data)
                 }
             );
 
             updateComment.always(
                 function () {
-                    $form.find( '#comment' ).prop( 'disabled', false );
-                    $form.find( '[type="submit"]' ).prop( 'disabled', false ).val( originalButtonLabel );
+                    $form.find('#comment').prop('disabled', false);
+                    $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
                 }
             );
 
-            $( document ).trigger( 'directorist_review_after_submit', $form );
+            $(document).trigger('directorist_review_after_submit', $form);
         }
     }
 
@@ -180,7 +179,7 @@
         }
 
         init() {
-            $( document ).on('submit', '.directorist-review-container #commentform', this.onSubmit);
+            $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
 
         static getErrorMsg($dom) {
@@ -200,53 +199,55 @@
             if (form.find('.directorist-alert').length) {
                 form.find('.directorist-alert').remove();
             }
-            const $error = $('<div />', {class: 'directorist-alert directorist-alert-danger'}).html(CommentAddReplyHandler.getErrorMsg($dom));
+            const $error = $('<div />', {
+                class: 'directorist-alert directorist-alert-danger'
+            }).html(CommentAddReplyHandler.getErrorMsg($dom));
             form.prepend($error)
         }
 
-        onSubmit( event ) {
+        onSubmit(event) {
             event.preventDefault();
 
-            const form                = $( '.directorist-review-container #commentform' );
-            const originalButtonLabel = form.find( '[type="submit"]' ).val();
+            const form = $('.directorist-review-container #commentform');
+            const originalButtonLabel = form.find('[type="submit"]').val();
 
-            $( document ).trigger( 'directorist_review_before_submit', form );
+            $(document).trigger('directorist_review_before_submit', form);
 
             const do_comment = $.ajax({
-                url        : form.attr('action'),
-                type       : 'POST',
+                url: form.attr('action'),
+                type: 'POST',
                 contentType: false,
-                cache      : false,
+                cache: false,
                 processData: false,
-                data       : new FormData(form[0])
+                data: new FormData(form[0])
             });
 
-            $( '#comment' ).prop( 'disabled', true );
+            $('#comment').prop('disabled', true);
 
-            form.find( '[type="submit"]' ).prop( 'disabled', true ).val( 'loading' );
+            form.find('[type="submit"]').prop('disabled', true).val('loading');
 
             do_comment.success(
-                function ( data, status, request ) {
-                    var body = $( '<div></div>' );
-                    body.append( data );
+                function (data, status, request) {
+                    var body = $('<div></div>');
+                    body.append(data);
                     var comment_section = '.directorist-review-container';
-                    var comments = body.find( comment_section );
+                    var comments = body.find(comment_section);
 
-                    const errorMsg = body.find( '.wp-die-message' );
+                    const errorMsg = body.find('.wp-die-message');
                     if (errorMsg.length > 0) {
                         CommentAddReplyHandler.showError(form, errorMsg);
 
-                        $( document ).trigger( 'directorist_review_update_failed' );
+                        $(document).trigger('directorist_review_update_failed');
 
                         return;
                     }
 
-                    $( comment_section ).replaceWith( comments );
+                    $(comment_section).replaceWith(comments);
 
-                    $( document ).trigger( 'directorist_review_updated', data );
+                    $(document).trigger('directorist_review_updated', data);
 
-                    let newComment = comments.find( '.commentlist li:first-child' );
-                    let newCommentId  = newComment.attr('id');
+                    let newComment = comments.find('.commentlist li:first-child');
+                    let newCommentId = newComment.attr('id');
 
                     // // catch the new comment id by comparing to old dom.
                     // commentsLists.each(
@@ -260,16 +261,15 @@
 
                     // console.log(newComment, newCommentId)
 
-                    var commentTop = $( "#" + newCommentId ).offset().top;
+                    var commentTop = $("#" + newCommentId).offset().top;
 
-                    if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
-                        commentTop = commentTop - $( '#wpadminbar' ).height();
+                    if ($('body').hasClass('admin-bar')) {
+                        commentTop = commentTop - $('#wpadminbar').height();
                     }
 
                     // scroll to comment
-                    if ( newCommentId ) {
-                        $( "body, html" ).animate(
-                            {
+                    if (newCommentId) {
+                        $("body, html").animate({
                                 scrollTop: commentTop
                             },
                             600
@@ -279,24 +279,24 @@
             );
 
             do_comment.fail(
-                function ( data ) {
-                    var body = $( '<div></div>' );
-                    body.append( data.responseText );
+                function (data) {
+                    var body = $('<div></div>');
+                    body.append(data.responseText);
 
-                    CommentAddReplyHandler.showError(form, body.find( '.wp-die-message' ));
+                    CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
 
-                    $( document ).trigger( 'directorist_review_update_failed' );
+                    $(document).trigger('directorist_review_update_failed');
                 }
             );
 
             do_comment.always(
                 function () {
-                    $( '#comment' ).prop( 'disabled', false );
-                    $( '#commentform' ).find( '[type="submit"]' ).prop( 'disabled', false ).val( originalButtonLabel );
+                    $('#comment').prop('disabled', false);
+                    $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
                 }
             );
 
-            $( document ).trigger( 'directorist_review_after_submit', form );
+            $(document).trigger('directorist_review_after_submit', form);
         }
     }
 
@@ -315,7 +315,7 @@
         }
 
         cancelOthersEditMode(currentCommentId) {
-            $('.directorist-comment-editing').each(function(index, comment) {
+            $('.directorist-comment-editing').each(function (index, comment) {
                 const $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
 
                 if ($cancelButton.data('commentid') != currentCommentId) {
@@ -332,9 +332,9 @@
         addEventListeners() {
             const self = this;
 
-            this.$doc.on( 'directorist_review_updated', (event) => {
+            this.$doc.on('directorist_review_updated', (event) => {
                 this.initStarRating();
-            } );
+            });
 
             this.$doc.on('directorist_comment_edit_form_loaded', (event) => {
                 this.initStarRating();
@@ -346,11 +346,11 @@
                 this.onWriteReivewClick(event);
             });
 
-            this.$doc.on('click', '.directorist-js-edit-comment', function(event) {
+            this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
                 event.preventDefault();
 
                 const $target = $(event.target);
-                const $wrap = $target.parents('#div-comment-'+$target.data('commentid'));
+                const $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
 
                 $wrap.addClass('directorist-comment-edit-request');
 
@@ -363,9 +363,9 @@
                     setContent: false,
                     method: 'GET',
                     reload: 'strict',
-                    success: function(response) {
+                    success: function (response) {
                         $target
-                            .parents('#div-comment-'+$target.data('commentid'))
+                            .parents('#div-comment-' + $target.data('commentid'))
                             .find('.directorist-review-single__contents-wrap').append(response.data.html);
 
                         $wrap
@@ -387,7 +387,7 @@
                 event.preventDefault();
 
                 const $target = $(event.target);
-                const $wrap = $target.parents('#div-comment-'+$target.data('commentid'));
+                const $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
 
                 $wrap
                     .removeClass(['directorist-comment-edit-request', 'directorist-comment-editing'])
@@ -401,11 +401,13 @@
 
             let scrollTop = $('#respond').offset().top;
 
-            if ($('body').hasClass('admin-bar') ) {
+            if ($('body').hasClass('admin-bar')) {
                 scrollTop = scrollTop - $('#wpadminbar').height();
             }
 
-            $('body, html').animate({scrollTop}, 600);
+            $('body, html').animate({
+                scrollTop
+            }, 600);
         }
 
         setupComponents() {

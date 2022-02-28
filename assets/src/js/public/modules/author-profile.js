@@ -2,7 +2,7 @@
 // General Components
 import '../components/general';
 import '../components/review/starRating';
-import '../components/atbdSorting';
-import '../components/atbdAlert';
-import '../components/atbdFavourite';
-import '../components/atbdDropdown';
+import '../components/directoristSorting';
+import '../components/directoristAlert';
+import '../components/directoristFavorite';
+import '../components/directoristDropdown';

@@ -1,3 +1,3 @@
 // General Components
-import '../components/atbdAlert';
+import '../components/directoristAlert';
 import '../components/login';

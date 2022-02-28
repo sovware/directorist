@@ -22,7 +22,7 @@
     /*
     get current location
 */
-    if('google' === adbdp_geolocation.select_listing_map) {
+    if ('google' === adbdp_geolocation.select_listing_map) {
         (function () {
             var x = document.querySelector(".widget-location-name");
             var get_lat = document.querySelector("#cityLat");
@@ -65,8 +65,9 @@
                 var geocoder;
                 geocoder = new google.maps.Geocoder();
                 var latlng = new google.maps.LatLng(latitude, longitude);
-                geocoder.geocode(
-                    {'latLng': latlng},
+                geocoder.geocode({
+                        'latLng': latlng
+                    },
                     function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[0]) {
@@ -97,8 +98,10 @@
                     var input = document.getElementById('address_widget');
                     var options = atbdp_search_listing.countryRestriction ? {
                         types: ['geocode'],
-                        componentRestrictions: {country: atbdp_search_listing.restricted_countries}
-                       } : '';
+                        componentRestrictions: {
+                            country: atbdp_search_listing.restricted_countries
+                        }
+                    } : '';
                     var autocomplete = new google.maps.places.Autocomplete(input, options);
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         var place = autocomplete.getPlace();
@@ -114,9 +117,13 @@
         $('#address_widget').on('keyup', function (event) {
             event.preventDefault();
             var search = $('#address_widget').val();
-            $('#address_widget_result').css({'display': 'block'});
+            $('#address_widget_result').css({
+                'display': 'block'
+            });
             if (search === "") {
-                $('#address_widget_result').css({'display': 'none'});
+                $('#address_widget_result').css({
+                    'display': 'none'
+                });
             }
 
             var res = "";
@@ -142,7 +149,6 @@
 
             $('#cityLat').val(lat);
             $('#cityLng').val(lon);
-
             $('#address_widget').val(text);
             $('#address_widget_result').hide();
         });
@@ -169,6 +175,8 @@
         })
     }
     if ($('#address_widget').val() === "") {
-        $('#address_widget_result').css({'display': 'none'});
+        $('#address_widget_result').css({
+            'display': 'none'
+        });
     }
 })(jQuery);

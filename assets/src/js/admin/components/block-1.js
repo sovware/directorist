@@ -61,8 +61,7 @@ $(document).on('click', '.directorist-form-social-fields__remove', function (e) 
     const elementToRemove = $(`div#socialID-${id}`);
     e.preventDefault();
     /* Act on the event */
-    swal(
-        {
+    swal({
             title: atbdp_admin_data.i18n_text.confirmation_text,
             text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
             type: 'warning',

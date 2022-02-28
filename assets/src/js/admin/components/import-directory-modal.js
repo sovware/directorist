@@ -13,7 +13,7 @@ $('.cptm-import-directory-form').on('submit', function (e) {
 
     let form_data = new FormData();
     form_data.append('action', 'save_imported_post_type_data');
-    form_data.append('directorist_nonce',  atbdp_public_data.directorist_nonce );
+    form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
 
     if (Number.isInteger(term_id) && term_id > 0) {
         form_data.append('term_id', term_id);
@@ -25,7 +25,9 @@ $('.cptm-import-directory-form').on('submit', function (e) {
     $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
 
     for (let field of form_fields) {
-        if (!field.name.length) { continue; }
+        if (!field.name.length) {
+            continue;
+        }
 
         // General fields
         if (general_fields.includes(field.type)) {
@@ -73,7 +75,9 @@ $('.cptm-import-directory-form').on('submit', function (e) {
             }
         })
         .catch(error => {
-            console.log({ error });
+            console.log({
+                error
+            });
             $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
         });
 });

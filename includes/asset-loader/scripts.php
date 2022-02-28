@@ -14,7 +14,7 @@ class Scripts {
 	 *
 	 * Each item may contain following arguments:
 	 * 		$scripts['handle'] => [
-	 *			'type' => String, // Accespts css, js,
+	 *			'type' => String, // Accepts css, js
 	 *			'path' => String, // Absolute url, without the min/rtl/js extension
 	 *			'ext'  => String, // External url, in case the path is absent
 	 *			'dep'  => Array [], // Dependency list eg. [jquery]

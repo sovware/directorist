@@ -435,7 +435,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'custom-filters',
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'wpml/helper',
-			ATBDP_INC_DIR . 'wpml/listing-submission',
+			ATBDP_INC_DIR . 'wpml/filter-permalinks',
 			ATBDP_INC_DIR . 'wpml/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',

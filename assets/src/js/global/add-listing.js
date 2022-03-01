@@ -378,6 +378,7 @@ $(document).ready(function () {
     if (uploaders) {
         let i = 0;
         for (var uploader of uploaders) {
+            console.log($('#' + uploader['element_id']));
             if ($('#' + uploader['element_id']).length) {
                 let media_uploader = new EzMediaUploader({
                     containerID: uploader['element_id'],

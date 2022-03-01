@@ -492,6 +492,7 @@ $(document).ready(function () {
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var uploader = _step.value;
+        console.log($('#' + uploader['element_id']));
 
         if ($('#' + uploader['element_id']).length) {
           var media_uploader = new EzMediaUploader({

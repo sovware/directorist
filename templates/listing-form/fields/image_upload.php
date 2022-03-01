@@ -30,7 +30,7 @@ $data = json_encode( $data );
 
 <div class="directorist-form-group directorist-form-image-upload-field">
 
-	<div class="ez-media-uploader" data-uploader="<?php echo esc_attr( $data ); ?>">
+	<div id="directorist-image-upload" class="ez-media-uploader" data-uploader="<?php echo esc_attr( $data ); ?>">
 
 		<div class="ezmu__loading-section ezmu--show">
 			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

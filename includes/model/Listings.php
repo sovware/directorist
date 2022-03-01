@@ -1507,13 +1507,8 @@ class Directorist_Listings {
 		}
 
 		public function loop_is_favourite() {
-			$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-			if ( in_array( get_the_id() , $favourites ) ) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			$favourites = directorist_get_user_favorites( get_current_user_id() );
+			return in_array( get_the_id() , $favourites );
 		}
 
 		public function item_found_title_for_search($count) {

@@ -114,46 +114,40 @@ class ATBDP_Listing_DB {
     }
     //@TODO; methods to add: delete all listing by user
 
-    public function get_favourites($user_id=0)
-    {
-        $user_id = !empty($user_id) ? absint($user_id) :  get_current_user_id();
-        $fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
-        $fav_listing = !empty($fav_listing)?$fav_listing:'';
-        /*@Todo; Add pagination later, better use ajax pagination*/
-        if (!empty($_GET['atbdp_action'])?$_GET['atbdp_action']:''){
+    public function get_favourites( $user_id = 0 ) {
+		$user_id = absint( $user_id );
+		if ( ! $user_id ) {
+			$user_id = get_current_user_id();
+		}
 
-            $remove_id = !empty($_GET['atbdp_listing'])?$_GET['atbdp_listing']:array();
-            $fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
-            if( in_array( $remove_id, $fav_listing ) ) {
-                if( ( $key = array_search( $remove_id, $fav_listing ) ) !== false ) {
-                    unset( $fav_listing[ $key ] );
-                }
-            } else {
-                $fav_listing[] = $remove_id;
-            }
+		$favorites  = directorist_get_user_favorites( $user_id );
+		$action     = ! empty( $_GET['atbdp_action'] ) ? $_GET['atbdp_action'] : '';
+		$listing_id = ! empty( $_GET['atbdp_listing'] ) ? absint( $_GET['atbdp_listing'] ) : 0;
 
-            $fav_listing = array_filter( $fav_listing );
-            $fav_listing = array_values( $fav_listing );
+		if ( ! empty( $action ) && ! empty( $listing_id ) ) {
+			if ( in_array( $listing_id, $favorites ) ) {
+				directorist_delete_user_favorites( $user_id, $listing_id );
+			} else {
+				directorist_add_user_favorites( $user_id, $listing_id );
+			}
 
-            delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
-            update_user_meta( get_current_user_id(), 'atbdp_favourites', $fav_listing );
-        }
-        if (!empty($fav_listing)){
+			$favorites = directorist_get_user_favorites( $user_id );
+		}
+
+        if ( ! empty( $favorites ) ) {
             $args = array(
                // 'author'=> $user_id,
                 'post_type'=> ATBDP_POST_TYPE,
                 'posts_per_page' => -1, //@todo; Add pagination in future.
                 'order'=> 'DESC',
-                'post__in' => $fav_listing,
+                'post__in' => $favorites,
                 'orderby' => 'date'
-
             );
-        }else{
+        } else {
             $args = array();
         }
 
-
-        return new WP_Query($args);
+        return new WP_Query( $args );
     }
 
 } // ends class ATBDP_Listing_DB

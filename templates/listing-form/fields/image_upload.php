@@ -18,19 +18,19 @@ $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 $required               = $data['required'] ? '1' : 0;
 
-$data = [
+$img_upload_data = [
 	'type'               => 'jpg, jpeg, png, gif',
 	'max_num_of_img'     => $limit,
 	'max_size_per_img'   => $max_file_size_kb,
 	'max_total_img_size' => $max_total_file_size_kb,
 	'is_required'        => $required,
 ];
-$data = json_encode( $data );
+$img_upload_data = json_encode( $img_upload_data );
 ?>
 
 <div class="directorist-form-group directorist-form-image-upload-field">
 
-	<div class="ez-media-uploader" data-uploader="<?php echo esc_attr( $data ); ?>">
+	<div class="ez-media-uploader" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
 
 		<div class="ezmu__loading-section ezmu--show">
 			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

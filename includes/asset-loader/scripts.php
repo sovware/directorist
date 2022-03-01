@@ -127,6 +127,14 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions',
 			],
+			'google-map-api' => [
+				'type' => 'js',
+				'ext'  => self::gmap_url(),
+			],
+			'directorist-markerclusterer' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'markerclusterer',
+			],
 			'directorist-openstreet-map' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'openstreet-map',
@@ -143,42 +151,9 @@ class Scripts {
 					'directorist-openstreet-crosshairs',
 				],
 			],
-			'google-map-api' => [
-				'type' => 'js',
-				'ext'  => self::gmap_url(),
-			],
-			'directorist-markerclusterer' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'markerclusterer',
-			],
 			'directorist-google-map' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'google-map',
-				'dep' => [
-					'jquery',
-					'google-map-api',
-					'directorist-markerclusterer',
-				],
-			],
-			'directorist-add-listing-openstreet-map' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'add-listing-openstreet-map',
-				'dep' => [
-					'jquery',
-					'directorist-openstreet-layers',
-					'directorist-openstreet-unpkg',
-					'directorist-openstreet-unpkg-index',
-					'directorist-openstreet-unpkg-libs',
-					'directorist-openstreet-leaflet-versions',
-					'directorist-openstreet-leaflet-markercluster-versions',
-					'directorist-openstreet-libs-setup',
-					'directorist-openstreet-open-layers',
-					'directorist-openstreet-crosshairs',
-				],
-			],
-			'directorist-add-listing-google-map' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'add-listing-google-map',
 				'dep' => [
 					'jquery',
 					'google-map-api',

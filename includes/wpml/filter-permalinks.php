@@ -92,7 +92,7 @@ class Filter_Permalinks {
      * 
      * @return string
      */
-    public function get_formated_single_taxonomy_page_url( $url, $current_term_data, $lang = 'en' ) {
+    public function get_formated_single_taxonomy_page_url( $url = '', $current_term_data = [], $lang = 'en' ) {
         global $sitepress;
 
         $term_slug   = get_query_var( $current_term_data['query_var'] );

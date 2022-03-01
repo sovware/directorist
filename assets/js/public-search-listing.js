@@ -355,6 +355,9 @@
     searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
       el.value = "";
     });
+    searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+      el.value = "";
+    });
     searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
       el.checked = false;
     });

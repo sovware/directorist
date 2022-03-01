@@ -8,7 +8,7 @@ window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
 function setup_map() {
     bundle1.fillPlaceholders();
     var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
-    
+
     if (localVersion) {
         localVersion.checkAssetsAvailability(true)
             .then(function () {

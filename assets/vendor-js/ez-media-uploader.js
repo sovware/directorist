@@ -117,15 +117,16 @@
 
       var container = this.container;
       var self = this;
+      let uploadOptions = JSON.parse(this.container.getAttribute('data-uploader'));
 
       var options = [
-        { key: 'maxFileSize', dataAttr: 'max-file-size', dataType: 'int' },
-        { key: 'maxTotalFileSize', dataAttr: 'max-total-file-size', dataType: 'int' },
-        { key: 'minFileItems', dataAttr: 'min-file-items', dataType: 'int' },
-        { key: 'maxFileItems', dataAttr: 'max-file-items', dataType: 'int' },
-        { key: 'allowedFileFormats', dataAttr: 'type', dataType: 'array' },
+        { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img, dataType: 'int' },
+        { key: 'maxTotalFileSize', dataAttr: uploadOptions.max_total_img_size, dataType: 'int' },
+        { key: 'minFileItems', dataAttr: uploadOptions.is_required, dataType: 'int' },
+        { key: 'maxFileItems', dataAttr: uploadOptions.max_num_of_img, dataType: 'int' },
+        { key: 'allowedFileFormats', dataAttr: uploadOptions.type, dataType: 'array' },
         { key: 'allowMultiple', dataAttr: 'allow-multiple', dataType: 'bool' },
-        { key: 'showAlerts', dataAttr: 'show-alerts', dataType: 'bool' },
+        { key: 'showAlerts', dataAttr: uploadOptions.show_alerts, dataType: 'bool' },
         { key: 'showFileSize', dataAttr: 'show-file-size', dataType: 'bool' },
         { key: 'featured', dataAttr: 'featured', dataType: 'bool' },
         { key: 'allowSorting', dataAttr: 'allow-sorting', dataType: 'bool' },
@@ -134,7 +135,7 @@
       ];
 
       forEach(options, function (option) {
-        var option_arrt = container.getAttribute('data-' + option.dataAttr);
+        var option_arrt = option.dataAttr;
         var has_data = (option_arrt && option_arrt.length) ? true : false;
 
         // String
@@ -142,6 +143,7 @@
           self.options[option.key] = option_arrt;
         }
         // Integer
+        console.log(option_arrt);
         if (has_data && option.dataType === 'int') {
           var option_value = parseInt(option_arrt);
           self.options[option.key] = (option_value < 1) ? false : option_value;

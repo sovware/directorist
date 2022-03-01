@@ -15,6 +15,118 @@ class Filter_Permalinks {
         add_filter( 'atbdp_checkout_page_url', [ $this, 'checkout_page_url' ], 20, 2 );
         add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'payment_receipt_page_url' ], 20, 2 );
         add_filter( 'atbdp_edit_listing_page_url', [ $this, 'edit_listing_page_url' ], 20, 2 );
+        add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
+    }
+
+    /**
+     * Filter language switcher URL for single taxonomy page
+     * 
+     * @return void
+     */
+    public function filter_lang_switcher_url_for_single_taxonomy_page( $url, $data ) {
+
+        $taxonomy_data = $this->get_current_page_taxonomy_data();
+
+        if ( $taxonomy_data ) {
+            $lang = $data['tag'];
+
+            return $this->get_formated_single_taxonomy_page_url( $url, $taxonomy_data, $lang );
+        }
+
+        return $url;
+    }
+
+    
+    /**
+     * Get current page taxonomy data
+     * 
+     * @return mixed null | $taxonomy_data
+     */
+    public function get_current_page_taxonomy_data() {
+        $terms_pages = [ 
+            'single_category_page' => [
+                'taxonomy'  => ATBDP_CATEGORY,
+                'query_var' => 'atbdp_category',
+            ],
+            'single_location_page' => [
+                'taxonomy'  => ATBDP_LOCATION,
+                'query_var' => 'atbdp_location',
+            ],
+            'single_tag_page' => [
+                'taxonomy'  => ATBDP_TAGS,
+                'query_var' => 'atbdp_tag',
+            ],
+        ];
+
+        foreach( $terms_pages as $page_key => $taxonomy_data ) {
+            $term_page_id = get_directorist_option( $page_key );
+
+            if ( empty( $term_page_id ) ) {
+                continue;
+            }
+
+            $term_page_translations = apply_filters( 'wpml_get_element_translations', null, $term_page_id, 'post_page' );
+
+            if ( empty( $term_page_translations ) ) {
+                continue;
+            }
+
+            foreach( $term_page_translations as $term_page_translation_key => $term_page_translation_args ) {
+                $translation_page_id = (int) $term_page_translation_args->element_id;
+
+                if ( $translation_page_id === get_the_ID() ) {
+                    return $taxonomy_data;
+                }
+            } 
+        }
+        
+        return null;
+    }
+
+    /**
+     * Get formated single term page URL
+     * 
+     * @param string $url
+     * @param array $current_term_data
+     * @param string $lang
+     * 
+     * @return string
+     */
+    public function get_formated_single_taxonomy_page_url( $url, $current_term_data, $lang = 'en' ) {
+        global $sitepress;
+
+        $term_slug   = get_query_var( $current_term_data['query_var'] );
+        $active_term = get_term_by( 'slug', $term_slug, $current_term_data['taxonomy'] );
+
+        if ( empty( $active_term ) ) {
+            return $url;
+        }
+
+        $term_page_url_lang = $lang;
+        $translation_term_id = wpml_object_id_filter(
+            $active_term->term_id, 
+            $current_term_data['taxonomy'], 
+            false, 
+            $term_page_url_lang 
+        );
+
+        remove_filter( 'get_term', array( $sitepress,'get_term_adjust_id'), 1, 1 );
+        $translation_term = get_term_by( 'id', $translation_term_id, $current_term_data['taxonomy'] );
+        add_filter('get_term', array( $sitepress,'get_term_adjust_id'), 1, 1 );
+        
+        if ( empty( $translation_term ) || is_wp_error( $translation_term ) ) {
+            return $url;
+        }
+
+        $translation_term_slug = $translation_term->slug;
+        $url = trailingslashit( $url ) . $translation_term_slug;
+
+        if ( isset( $_REQUEST['directory_type'] ) ) {
+            $directory_type = $_REQUEST['directory_type'];
+            $url = add_query_arg( [ 'directory_type' => $directory_type ], $url );  
+        }
+        
+        return $url;
     }
 
     /**

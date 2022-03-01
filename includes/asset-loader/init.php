@@ -25,7 +25,6 @@ class Init {
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_styles' ], 12 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_single_listing_scripts' ], 12 );
 		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'inline_styles' ], 15 );
 
 		add_action( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
 
@@ -63,6 +62,9 @@ class Init {
 		wp_enqueue_style( 'directorist-plasma-slider' );
 		wp_enqueue_style( 'directorist-slick-style' );
 		wp_enqueue_style( 'directorist-sweetalert-style' );
+
+		// Inline styles
+		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
 	}
 
 	public function enqueue_single_listing_scripts() {
@@ -182,13 +184,6 @@ class Init {
 		foreach ( $this->scripts as $handle => $script ) {
 			Helper::register_single_script( $handle, $script, $this->version );
 		}
-	}
-
-	/**
-	 * Load inline styles.
-	 */
-	public function inline_styles() {
-		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
 	}
 
 	/**

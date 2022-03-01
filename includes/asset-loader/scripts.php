@@ -291,6 +291,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'add-listing',
 			],
+			'directorist-single-listing' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'single-listing',
+			],
 			'directorist-plupload' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'directorist-plupload',

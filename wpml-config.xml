@@ -146,4 +146,47 @@
             <key name="search_result_meta_desc"/>
         </key>
     </admin-texts>
+
+    <custom-fields>
+        <custom-field action="copy">_tagline</custom-field>
+        <custom-field action="copy">_price</custom-field>
+        <custom-field action="copy">_price_range</custom-field>
+        <custom-field action="copy">_atbdp_post_views_count</custom-field>
+        <custom-field action="copy">_excerpt</custom-field>
+        <custom-field action="copy">_tax_input[at_biz_dir-location][]</custom-field>
+        <custom-field action="copy">_tax_input[at_biz_dir-tags][]</custom-field>
+        <custom-field action="copy">_admin_category_select[]</custom-field>
+        <custom-field action="copy">_hide_contact_info</custom-field>
+        <custom-field action="copy">_address</custom-field>
+        <custom-field action="copy">_manual_lat</custom-field>
+        <custom-field action="copy">_manual_lng</custom-field>
+        <custom-field action="copy">_hide_map</custom-field>
+        <custom-field action="copy">_zip</custom-field>
+        <custom-field action="copy">_phone</custom-field>
+        <custom-field action="copy">_phone2</custom-field>
+        <custom-field action="copy">_fax</custom-field>
+        <custom-field action="copy">_email</custom-field>
+        <custom-field action="copy">_website</custom-field>
+        <custom-field action="copy">_videourl</custom-field>
+        <custom-field action="copy">_fm_plans</custom-field>
+        <custom-field action="copy">_claimed_by_admin</custom-field>
+        <custom-field action="copy">_expiry_date</custom-field>
+        <custom-field action="copy">_featured</custom-field>
+        <custom-field action="copy">_listing_status</custom-field>
+        <custom-field action="copy">_listing_prv_img</custom-field>
+        <custom-field action="copy">_directory_type</custom-field>
+        <custom-field action="copy">_atbd_listing_pricing</custom-field>
+        <custom-field action="copy">_social</custom-field>
+        <custom-field action="copy">_map</custom-field>
+        <custom-field action="copy">_hide_contact_owner</custom-field>
+        <custom-field action="copy">_listing_img</custom-field>
+        <custom-field action="copy">_never_expire</custom-field>
+        <custom-field action="copy">_listing_id</custom-field>
+        <custom-field action="copy">_amount</custom-field>
+        <custom-field action="copy">_payment_gateway</custom-field>
+        <custom-field action="copy">_payment_status</custom-field>
+        <custom-field action="copy">_transaction_id</custom-field>
+        <custom-field action="copy">_listing_type</custom-field>
+        <custom-field action="copy">_admin_category_select</custom-field>
+    </custom-fields>
 </wpml-config>

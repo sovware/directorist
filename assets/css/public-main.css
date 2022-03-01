@@ -4976,7 +4976,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 
 /* wp color picker */
-.wp-picker-container .button {
+.directorist-form-group .wp-picker-container .button {
   position: relative;
   height: 40px;
   border: 0 none;
@@ -4985,10 +4985,10 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   transition: 0.3s ease;
   border-radius: 3px;
 }
-.wp-picker-container .button:hover {
+.directorist-form-group .wp-picker-container .button:hover {
   background: rgba(0, 0, 0, 0.7);
 }
-.wp-picker-container .button .wp-color-result-text {
+.directorist-form-group .wp-picker-container .button .wp-color-result-text {
   position: absolute;
   right: 0;
   top: 50%;
@@ -5013,39 +5013,37 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background: #f7f7f7;
   color: #222;
 }
-.wp-picker-container .wp-picker-input-wrap label {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap label {
   width: 90px;
 }
-.wp-picker-container .wp-picker-input-wrap label input {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap label input {
   height: 40px;
   padding: 0;
   text-align: center;
 }
-.wp-picker-container .hidden {
+.directorist-form-group .wp-picker-container .hidden {
   display: none;
 }
-
-.wp-picker-open + .wp-picker-input-wrap {
+.directorist-form-group .wp-picker-open + .wp-picker-input-wrap {
   display: block;
 }
-
-.wp-picker-container .wp-picker-input-wrap {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap {
   padding: 15px 0;
 }
-.wp-picker-container .wp-picker-input-wrap .screen-reader-text {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap .screen-reader-text {
   display: none;
 }
-.wp-picker-container .wp-picker-input-wrap label {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap label {
   width: 90px;
   margin: 0;
 }
-.wp-picker-container .wp-picker-input-wrap label + .button {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap label + .button {
   margin-left: 10px;
   padding-top: 0;
   padding-bottom: 0;
   font-size: 15px;
 }
-.wp-picker-container .wp-picker-input-wrap label input {
+.directorist-form-group .wp-picker-container .wp-picker-input-wrap label input {
   width: 200px;
 }
 

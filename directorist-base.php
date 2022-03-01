@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.1.1
+ * Version: 7.1.2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -215,7 +215,9 @@ final class Directorist_Base
 			self::$instance->listing = new ATBDP_Listing;
 			self::$instance->user = new ATBDP_User;
 			self::$instance->roles = new ATBDP_Roles;
-			self::$instance->gateway = new ATBDP_Gateway;
+			if( class_exists( 'ATBDP_Gateway' ) ) {
+				self::$instance->gateway = new ATBDP_Gateway;
+			}
 			self::$instance->order = new ATBDP_Order;
 			self::$instance->shortcode = new \Directorist\ATBDP_Shortcode;
 			self::$instance->email = new ATBDP_Email;
@@ -245,9 +247,6 @@ final class Directorist_Base
 			add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 			//add dtbdp custom body class
 			add_filter('body_class', array(self::$instance, 'atbdp_body_class'), 99);
-
-			// display related listings
-			// add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
 
 			// Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
 			// we can check the database if our custom pages have been installed correctly or not here first.
@@ -840,68 +839,6 @@ final class Directorist_Base
 		<div class="atbd_rated_stars">
 			<?php echo ATBDP()->review->print_static_rating($average); ?>
 		</div>
-		<?php
-	}
-
-	/**
-	 * It displays related listings of the given post
-	 * @param object|WP_Post $post The current post object
-	 */
-	public function show_related_listing($post)
-	{
-		/**
-		 * @package Directorist
-		 * @since 5.10.0
-		 */
-		do_action('atbdp_before_related_listing_start', $post);
-		$enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
-		if (empty($enable_rel_listing)) return; // vail if related listing is not enabled
-		$related_listings = $this->get_related_listings($post);
-		$is_disable_price = get_directorist_option('disable_list_price');
-		$rel_listing_column = get_directorist_option('rel_listing_column', 3);
-		if ($related_listings->have_posts()) {
-			$templete = apply_filters('atbdp_related_listing_template', 'default');
-			related_listing_slider($related_listings, $pagenation = null, $is_disable_price, $templete);
-		} ?>
-		<script>
-			jQuery(document).ready(function ($) {
-				$('.related__carousel').slick({
-					dots: false,
-					arrows: false,
-					infinite: true,
-					speed: 300,
-					slidesToShow: <?php echo $rel_listing_column;?>,
-					slidesToScroll: 1,
-					autoplay: true,
-					rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>,
-					responsive: [
-						{
-							breakpoint: 1024,
-							settings: {
-								slidesToShow: <?php echo $rel_listing_column;?>,
-								slidesToScroll: 1,
-								infinite: true,
-								dots: false
-							}
-						},
-						{
-							breakpoint: 767,
-							settings: {
-								slidesToShow: 2,
-								slidesToScroll: 1
-							}
-						},
-						{
-							breakpoint: 575,
-							settings: {
-								slidesToShow: 1,
-								slidesToScroll: 1
-							}
-						}
-					]
-				});
-			});
-		</script>
 		<?php
 	}
 

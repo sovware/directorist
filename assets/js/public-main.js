@@ -1181,6 +1181,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 ;
 
 (function ($) {
@@ -1269,71 +1274,86 @@ __webpack_require__.r(__webpack_exports__);
   /* Directorist instant search */
 
 
-  $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
-  $('body').on('input', '.directorist-instant-search .directorist-advanced-filter__form', function () {
-    $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
-    $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function (e) {
-      e.preventDefault();
-      var tag = [];
-      var price = [];
-      var custom_field = {};
-      $('input[name^="in_tag["]:checked').each(function (index, el) {
-        tag.push($(el).val());
-      });
-      $('input[name^="price["]').each(function (index, el) {
-        price.push($(el).val());
-      });
-      $('[name^="custom_field"]').each(function (index, el) {
-        var test = $(el).attr('name');
-        var type = $(el).attr('type');
-        var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function (e) {
+    e.preventDefault();
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    $('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
-        if ('radio' === type) {
-          $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-            value = $(this).val();
-            custom_field[post_id] = value;
-          });
-        } else if ('checkbox' === type) {
-          post_id = post_id.split('[]')[0];
-          $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-            var checkValue = [];
-            value = $(this).val();
-            checkValue.push(value);
-            custom_field[post_id] = checkValue;
-          });
-        } else {
-          var value = $(el).val();
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
           custom_field[post_id] = value;
-        }
-      });
-      var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-      var view_as = view_href.match(/view=.+/);
-      var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-      var type_href = $('.directorist-type-nav__list .current a').attr('href');
-      var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
-      var form_data = {
-        action: 'directorist_instant_search',
-        _nonce: atbdp_public_data.ajax_nonce,
-        q: $('input[name="q"]').val(),
-        in_cat: $('.bdas-category-search').val(),
-        in_loc: $('.bdas-category-location').val(),
-        in_tag: tag,
-        price: price,
-        price_range: $("input[name='price_range']:checked").val(),
-        search_by_rating: $('select[name=search_by_rating]').val(),
-        miles: $('.atbdrs-value').val(),
-        address: $('input[name="address"]').val(),
-        zip: $('input[name="zip"]').val(),
-        fax: $('input[name="fax"]').val(),
-        email: $('input[name="email"]').val(),
-        website: $('input[name="website"]').val(),
-        phone: $('input[name="phone"]').val(),
-        custom_field: custom_field
-      };
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      in_tag: tag,
+      price: price,
+      custom_field: custom_field
+    };
+    var fields = {
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val()
+    };
 
-      if (form_data.address && form_data.address.length) {
-        form_data.cityLat = $('#cityLat').val();
-        form_data.cityLng = $('#cityLng').val();
+    var form_data = _objectSpread(_objectSpread({}, data), fields);
+
+    var allFieldsAreEmpty = Object.values(fields).every(function (item) {
+      return !item;
+    });
+    var tagFieldEmpty = data.in_tag.every(function (item) {
+      return !item;
+    });
+    var priceFieldEmpty = data.price.every(function (item) {
+      return !item;
+    });
+    var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
+      return !item;
+    });
+
+    if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+      if (fields.address && fields.address.length) {
+        fields.cityLat = $('#cityLat').val();
+        fields.cityLng = $('#cityLng').val();
+        fields.miles = $('.atbdrs-value').val();
       }
 
       if (view && view.length) {
@@ -1352,18 +1372,22 @@ __webpack_require__.r(__webpack_exports__);
         beforeSend: function beforeSend() {
           $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
           $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+          var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+          $(advance_filter).removeClass('directorist-advanced-filter--show');
+          $(advance_filter).hide();
+          $(document).scrollTop($(".directorist-instant-search").offset().top);
         },
         success: function success(html) {
           if (html.search_result) {
             $('.directorist-header-found-title span').text(html.count);
             $('.directorist-archive-contents').children('div:last-child').replaceWith(html.search_result);
-            $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade'); //$('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm'). attr("disabled", false)
-
+            $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+            $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           }
         }
       });
-    });
+    }
   }); // Directorist type changes
 
   $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
@@ -1489,9 +1513,15 @@ __webpack_require__.r(__webpack_exports__);
         $('.directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
         $('.directorist-instant-search .directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
         $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+        $('.directorist-dropdown__links').hide();
+        var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+        $(advance_filter).removeClass('directorist-advanced-filter--show');
+        $(advance_filter).hide();
+        $(document).scrollTop($(".directorist-instant-search").offset().top);
       },
       success: function success(html) {
         if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
           $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
           $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
           $('.directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
@@ -1545,6 +1575,7 @@ __webpack_require__.r(__webpack_exports__);
     var sort_by = sort_href.match(/sort=.+/);
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
       action: 'directorist_instant_search',
@@ -1582,9 +1613,15 @@ __webpack_require__.r(__webpack_exports__);
         $('.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js').addClass("disabled-link");
         $('.directorist-instant-search .directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single-js');
         $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+        $('.directorist-dropdown__links').hide();
+        var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+        $(advance_filter).removeClass('directorist-advanced-filter--show');
+        $(advance_filter).hide();
+        $(document).scrollTop($(".directorist-instant-search").offset().top);
       },
       success: function success(html) {
         if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
           $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
           $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
           $('.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
@@ -1692,8 +1729,10 @@ __webpack_require__.r(__webpack_exports__);
       },
       success: function success(html) {
         if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
           $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
           $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+          $(document).scrollTop($(".directorist-instant-search").offset().top);
         }
 
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));

@@ -10,7 +10,7 @@
 (function () {
   this.EzMediaUploader = function (args) {
     var defaults = {
-      containerID: "ez-media-uploader",
+      containerClass: "directorist-image-upload",
       oldFiels: null,
       oldFielsUrl: null,
       maxFileSize: 0,
@@ -97,8 +97,8 @@
     // -----------------------------------------
     // init
     this.init = function () {
-      var id = this.options.containerID;
-      var container = document.getElementById(id);
+      var className = this.options.containerClass;
+      var container = document.getElementsByClassName(className);
       if (!container) {
         return;
       }
@@ -114,19 +114,18 @@
 
     this.getMarkupOptions = function () {
       if (!this.container) { return null; }
-
       var container = this.container;
       var self = this;
-      let uploadOptions = JSON.parse(this.container.getAttribute('data-uploader'));
+      let uploadOptions = JSON.parse(container[0].getAttribute('data-uploader'));
 
       var options = [
-        { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img, dataType: 'int' },
-        { key: 'maxTotalFileSize', dataAttr: uploadOptions.max_total_img_size, dataType: 'int' },
-        { key: 'minFileItems', dataAttr: uploadOptions.is_required, dataType: 'int' },
-        { key: 'maxFileItems', dataAttr: uploadOptions.max_num_of_img, dataType: 'int' },
-        { key: 'allowedFileFormats', dataAttr: uploadOptions.type, dataType: 'array' },
+        { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img.toString(), dataType: 'int' },
+        { key: 'maxTotalFileSize', dataAttr: uploadOptions.max_total_img_size.toString(), dataType: 'int' },
+        { key: 'minFileItems', dataAttr: uploadOptions.is_required.toString(), dataType: 'int' },
+        { key: 'maxFileItems', dataAttr: uploadOptions.max_num_of_img.toString(), dataType: 'int' },
+        { key: 'allowedFileFormats', dataAttr: uploadOptions.type.toString(), dataType: 'array' },
         { key: 'allowMultiple', dataAttr: 'allow-multiple', dataType: 'bool' },
-        { key: 'showAlerts', dataAttr: uploadOptions.show_alerts, dataType: 'bool' },
+        { key: 'showAlerts', dataAttr: 'show-alerts', dataType: 'bool' },
         { key: 'showFileSize', dataAttr: 'show-file-size', dataType: 'bool' },
         { key: 'featured', dataAttr: 'featured', dataType: 'bool' },
         { key: 'allowSorting', dataAttr: 'allow-sorting', dataType: 'bool' },
@@ -143,7 +142,6 @@
           self.options[option.key] = option_arrt;
         }
         // Integer
-        console.log(option_arrt);
         if (has_data && option.dataType === 'int') {
           var option_value = parseInt(option_arrt);
           self.options[option.key] = (option_value < 1) ? false : option_value;
@@ -180,7 +178,7 @@
     this.getMarkupDictionary = function () {
       if (!this.container) { return null; }
 
-      var container = this.container;
+      var container = this.container[0];
       var self = this;
 
       var label_classes = [
@@ -373,7 +371,7 @@
         updateValidationFeedback(error_log, this.statusSection);
       }
 
-      var info_elm = self.container.querySelectorAll('.ezmu__info-list-item');
+      var info_elm = self.container[0].querySelectorAll('.ezmu__info-list-item');
       if (info_elm && info_elm.length) {
         forEach(info_elm, function (info_elm) {
           removeClass(info_elm, 'has-error');
@@ -382,7 +380,7 @@
 
       if (!this.isClean && this.options.showInfo && error_log.length) {
         forEach(error_log, function (item) {
-          var info_elm = self.container.querySelectorAll('.ezmu__info-list-item.' + item.errorKey);
+          var info_elm = self.container[0].querySelectorAll('.ezmu__info-list-item.' + item.errorKey);
           if (info_elm && info_elm.length) {
             addClass(info_elm[0], 'has-error');
           }
@@ -491,7 +489,7 @@
     this.attachElements = function () {
       if (!this.container) { return null; }
 
-      var container = this.container;
+      var container = this.container[0];
       addClass(container, "ez-media-uploader");
       container.innerHTML = "";
 
@@ -555,7 +553,7 @@
       // Attach Drag & Drop Listener
       this.attachDragNDropListener();
 
-      this.container.addEventListener("click", function (e) {
+      this.container[0].addEventListener("click", function (e) {
         if (!e.target) {
           return;
         }
@@ -577,7 +575,7 @@
     this.attachFileChangeListener = function () {
       if (!this.container) { return null; }
 
-      var file_input = this.container.querySelectorAll("#" + this.fileInputID);
+      var file_input = this.container[0].querySelectorAll("#" + this.fileInputID);
       var fileInputElm = file_input ? file_input[0] : null;
 
       if (fileInputElm) {
@@ -597,7 +595,7 @@
       if (!this.container) { return null; }
 
       var self = this;
-      var drop_area = this.container;
+      var drop_area = this.container[0]
       var drag_events = ["dragenter", "dragleave", "dragover", "drop"];
 
       var dragEnter = function (e) {
@@ -871,7 +869,7 @@
 
       if ( ! this.options.allowMultiple && this.filesMeta.length ) {
         label_txt = this.options.dictionary.label.change;
-        var button = this.container.querySelectorAll('.ezmu__update-file-btn');
+        var button = this.container[0].querySelectorAll('.ezmu__update-file-btn');
         button[0].innerHTML = label_txt;
       }
 
@@ -1340,7 +1338,7 @@
       return false;
     }
 
-    var markup_files_meta = container.querySelectorAll('.ezmu__old-files-meta');
+    var markup_files_meta = container[0].querySelectorAll('.ezmu__old-files-meta');
     var files_meta = [];
 
     if (!markup_files_meta.length) {

@@ -2,7 +2,6 @@ import {
     get_dom_data
 } from './../../../lib/helper';
 
-
 ;
 (function ($) {
     $(document).ready(function () {

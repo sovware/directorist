@@ -297,3 +297,12 @@ MarkerLabel.prototype.draw = function () {
     });
 
 })(jQuery);
+
+/* Add listing google map */
+import './add-listing/google-map';
+
+/* Single listing google map */
+import './single-listing/google-map';
+
+/* Widget google map */
+import './single-listing/google-map-widget';

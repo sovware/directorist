@@ -86,6 +86,227 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./assets/src/js/global/map-scripts/add-listing/google-map.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/add-listing/google-map.js ***!
+  \********************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
+
+
+(function ($) {
+  $(document).ready(function () {
+    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // initialize all vars here to avoid hoisting related misunderstanding.
+
+    var placeSearch;
+    var map;
+    var autocomplete;
+    var address_input;
+    var markers;
+    var info_window;
+    var $manual_lat;
+    var $manual_lng;
+    var saved_lat_lng;
+    var info_content; // Localized Data
+
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    }; // default is London city
+
+    info_content = localized_data.info_content, markers = [], // initialize the array to keep track all the marker
+    info_window = new google.maps.InfoWindow({
+      content: info_content,
+      maxWidth: 400
+    }); // if(address_input){
+    //         address_input = document.getElementById('address');
+    //         address_input.addEventListener('focus', geolocate);
+    // }
+
+    address_input = document.getElementById('address');
+
+    if (address_input !== null) {
+      address_input.addEventListener('focus', geolocate);
+    } // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+
+
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }
+
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      autocomplete = new google.maps.places.Autocomplete(address_input, {
+        types: []
+      }); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+      // Get the place details from the autocomplete object.
+      var place = autocomplete.getPlace(); // set the value of input field to save them to the database
+
+      $manual_lat.val(place.geometry.location.lat());
+      $manual_lng.val(place.geometry.location.lng());
+      map.setCenter(place.geometry.location);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker);
+    }
+
+    initAutocomplete(); // start google map place auto complete API call
+
+    function initMap() {
+      /* Create new map instance */
+      map = new google.maps.Map(document.getElementById('gmap'), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng
+      });
+      var marker = new google.maps.Marker({
+        map: map,
+        position: saved_lat_lng,
+        draggable: true,
+        title: localized_data.marker_title
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker); // create a Geocode instance
+
+      var geocoder = new google.maps.Geocoder();
+      document.getElementById('generate_admin_map').addEventListener('click', function (e) {
+        e.preventDefault();
+        geocodeAddress(geocoder, map);
+      }); // This event listener calls addMarker() when the map is clicked.
+
+      google.maps.event.addListener(map, 'click', function (event) {
+        deleteMarker(); // at first remove previous marker and then set new marker;
+        // set the value of input field to save them to the database
+
+        $manual_lat.val(event.latLng.lat());
+        $manual_lng.val(event.latLng.lng()); // add the marker to the given map.
+
+        addMarker(event.latLng, map);
+      }); // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
+
+      google.maps.event.addListener(marker, 'dragend', function (event) {
+        // set the value of input field to save them to the database
+        $manual_lat.val(event.latLng.lat());
+        $manual_lng.val(event.latLng.lng());
+      });
+    }
+    /*
+     * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+     * */
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+      var address = address_input.value;
+      var lat = parseFloat(document.getElementById('manual_lat').value);
+      var lng = parseFloat(document.getElementById('manual_lng').value);
+      var latLng = new google.maps.LatLng(lat, lng);
+      var opt = {
+        location: latLng,
+        address: address
+      };
+      geocoder.geocode(opt, function (results, status) {
+        if (status === 'OK') {
+          // set the value of input field to save them to the database
+          $manual_lat.val(results[0].geometry.location.lat());
+          $manual_lng.val(results[0].geometry.location.lng());
+          resultsMap.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: resultsMap,
+            position: results[0].geometry.location
+          }); // marker.addListener('click', function () {
+          //     info_window.open(map, marker);
+          // });
+
+          deleteMarker(); // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+          markers.push(marker);
+        } else {
+          alert(localized_data.geocode_error_msg + status);
+        }
+      });
+    }
+
+    initMap(); // adding features of creating marker manually on the map on add listing page.
+
+    /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var labelIndex = 0; */
+    // Adds a marker to the map.
+
+    function addMarker(location, map) {
+      // Add the marker at the clicked location, and add the next-available label
+      // from the array of alphabetical characters.
+      var marker = new google.maps.Marker({
+        position: location,
+
+        /* label: labels[labelIndex++ % labels.length], */
+        draggable: true,
+        title: localized_data.marker_title,
+        map: map
+      }); // marker.addListener('click', function () {
+      //     info_window.open(map, marker);
+      // });
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+
+      markers.push(marker);
+    } // Delete Marker
+
+
+    $('#delete_marker').on('click', function (e) {
+      e.preventDefault();
+      deleteMarker();
+    });
+
+    function deleteMarker() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+
+      markers = [];
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/global/map-scripts/map-view.js":
 /*!******************************************************!*\
   !*** ./assets/src/js/global/map-scripts/map-view.js ***!
@@ -96,6 +317,11 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _add_listing_google_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-listing/google-map */ "./assets/src/js/global/map-scripts/add-listing/google-map.js");
+/* harmony import */ var _single_listing_google_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-listing/google-map */ "./assets/src/js/global/map-scripts/single-listing/google-map.js");
+/* harmony import */ var _single_listing_google_map__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_single_listing_google_map__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./single-listing/google-map-widget */ "./assets/src/js/global/map-scripts/single-listing/google-map-widget.js");
+/* harmony import */ var _single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3__);
 
 var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes
 
@@ -369,6 +595,364 @@ MarkerLabel.prototype.draw = function () {
   window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
   $(document).ready(function () {
     $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
+  });
+})(jQuery);
+/* Add listing google map */
+
+
+
+/* Single listing google map */
+
+
+/* Widget google map */
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/global/map-scripts/single-listing/google-map-widget.js":
+/*!******************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
+
+  var inherits = function inherits(childCtor, parentCtor) {
+    /** @constructor */
+    function tempCtor() {}
+
+    tempCtor.prototype = parentCtor.prototype;
+    childCtor.superClass_ = parentCtor.prototype;
+    childCtor.prototype = new tempCtor();
+    childCtor.prototype.constructor = childCtor;
+  };
+
+  function Marker(options) {
+    google.maps.Marker.apply(this, arguments);
+
+    if (options.map_icon_label) {
+      this.MarkerLabel = new MarkerLabel({
+        map: this.map,
+        marker: this,
+        text: options.map_icon_label
+      });
+      this.MarkerLabel.bindTo('position', this, 'position');
+    }
+  } // Apply the inheritance
+
+
+  inherits(Marker, google.maps.Marker); // Custom Marker SetMap
+
+  Marker.prototype.setMap = function () {
+    google.maps.Marker.prototype.setMap.apply(this, arguments);
+    this.MarkerLabel && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
+  }; // Marker Label Overlay
+
+
+  var MarkerLabel = function MarkerLabel(options) {
+    var self = this;
+    this.setValues(options); // Create the label container
+
+    this.div = document.createElement('div');
+    this.div.className = 'map-icon-label'; // Trigger the marker click handler if clicking on the label
+
+    google.maps.event.addDomListener(this.div, 'click', function (e) {
+      e.stopPropagation && e.stopPropagation();
+      google.maps.event.trigger(self.marker, 'click');
+    });
+  }; // Create MarkerLabel Object
+
+
+  MarkerLabel.prototype = new google.maps.OverlayView(); // Marker Label onAdd
+
+  MarkerLabel.prototype.onAdd = function () {
+    var pane = this.getPanes().overlayImage.appendChild(this.div);
+    var self = this;
+    this.listeners = [google.maps.event.addListener(this, 'position_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'text_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'zindex_changed', function () {
+      self.draw();
+    })];
+  }; // Marker Label onRemove
+
+
+  MarkerLabel.prototype.onRemove = function () {
+    this.div.parentNode.removeChild(this.div);
+
+    for (var i = 0, I = this.listeners.length; i < I; ++i) {
+      google.maps.event.removeListener(this.listeners[i]);
+    }
+  }; // Implement draw
+
+
+  MarkerLabel.prototype.draw = function () {
+    var projection = this.getProjection();
+    var position = projection.fromLatLngToDivPixel(this.get('position'));
+    var div = this.div;
+    this.div.innerHTML = this.get('text').toString();
+    div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
+
+    div.style.position = 'absolute';
+    div.style.display = 'block';
+    div.style.left = position.x - div.offsetWidth / 2 + 'px';
+    div.style.top = position.y - div.offsetHeight + 'px';
+  };
+
+  $(document).ready(function () {
+    // initialize all vars here to avoid hoisting related misunderstanding.
+    var map, info_window, saved_lat_lng, info_content; // Localized Data
+
+    var map_container = localized_data_widget.map_container_id ? localized_data_widget.map_container_id : 'gmap';
+    var loc_default_latitude = parseFloat(localized_data_widget.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data_widget.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data_widget.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
+    var display_map_info = localized_data_widget.display_map_info;
+    var cat_icon = localized_data_widget.cat_icon;
+    var info_content = localized_data_widget.info_content;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    }; // create an info window for map
+
+    if (display_map_info) {
+      info_window = new google.maps.InfoWindow({
+        content: info_content,
+        maxWidth: 400
+        /*Add configuration for max width*/
+
+      });
+    }
+
+    function initMap() {
+      /* Create new map instance*/
+      map = new google.maps.Map(document.getElementById(map_container), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng
+      });
+      /*var marker = new google.maps.Marker({
+          map: map,
+          position: saved_lat_lng
+      });*/
+
+      var marker = new Marker({
+        position: saved_lat_lng,
+        map: map,
+        icon: {
+          path: MAP_PIN,
+          fillColor: 'transparent',
+          fillOpacity: 1,
+          strokeColor: '',
+          strokeWeight: 0
+        },
+        map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+      });
+
+      if (display_map_info) {
+        marker.addListener('click', function () {
+          info_window.open(map, marker);
+        });
+        google.maps.event.addListener(info_window, 'domready', function () {
+          var closeBtn = $('.iw-close-btn').get();
+          google.maps.event.addDomListener(closeBtn[0], 'click', function () {
+            info_window.close();
+          });
+        });
+      }
+    }
+
+    initMap(); //Convert address tags to google map links -
+
+    $('address').each(function () {
+      var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+      $(this).html(link);
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/global/map-scripts/single-listing/google-map.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/google-map.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
+
+  var inherits = function inherits(childCtor, parentCtor) {
+    /** @constructor */
+    function tempCtor() {}
+
+    tempCtor.prototype = parentCtor.prototype;
+    childCtor.superClass_ = parentCtor.prototype;
+    childCtor.prototype = new tempCtor();
+    childCtor.prototype.constructor = childCtor;
+  };
+
+  function Marker(options) {
+    google.maps.Marker.apply(this, arguments);
+
+    if (options.map_icon_label) {
+      this.MarkerLabel = new MarkerLabel({
+        map: this.map,
+        marker: this,
+        text: options.map_icon_label
+      });
+      this.MarkerLabel.bindTo('position', this, 'position');
+    }
+  } // Apply the inheritance
+
+
+  inherits(Marker, google.maps.Marker); // Custom Marker SetMap
+
+  Marker.prototype.setMap = function () {
+    google.maps.Marker.prototype.setMap.apply(this, arguments);
+    this.MarkerLabel && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
+  }; // Marker Label Overlay
+
+
+  var MarkerLabel = function MarkerLabel(options) {
+    var self = this;
+    this.setValues(options); // Create the label container
+
+    this.div = document.createElement('div');
+    this.div.className = 'map-icon-label'; // Trigger the marker click handler if clicking on the label
+
+    google.maps.event.addDomListener(this.div, 'click', function (e) {
+      e.stopPropagation && e.stopPropagation();
+      google.maps.event.trigger(self.marker, 'click');
+    });
+  }; // Create MarkerLabel Object
+
+
+  MarkerLabel.prototype = new google.maps.OverlayView(); // Marker Label onAdd
+
+  MarkerLabel.prototype.onAdd = function () {
+    var pane = this.getPanes().overlayImage.appendChild(this.div);
+    var self = this;
+    this.listeners = [google.maps.event.addListener(this, 'position_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'text_changed', function () {
+      self.draw();
+    }), google.maps.event.addListener(this, 'zindex_changed', function () {
+      self.draw();
+    })];
+  }; // Marker Label onRemove
+
+
+  MarkerLabel.prototype.onRemove = function () {
+    this.div.parentNode.removeChild(this.div);
+
+    for (var i = 0, I = this.listeners.length; i < I; ++i) {
+      google.maps.event.removeListener(this.listeners[i]);
+    }
+  }; // Implement draw
+
+
+  MarkerLabel.prototype.draw = function () {
+    var projection = this.getProjection();
+    var position = projection.fromLatLngToDivPixel(this.get('position'));
+    var div = this.div;
+    this.div.innerHTML = this.get('text').toString();
+    div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
+
+    div.style.position = 'absolute';
+    div.style.display = 'block';
+    div.style.left = position.x - div.offsetWidth / 2 + 'px';
+    div.style.top = position.y - div.offsetHeight + 'px';
+  };
+
+  $(document).ready(function () {
+    // initialize all vars here to avoid hoisting related misunderstanding.
+    var map, info_window, saved_lat_lng, info_content; // Localized Data
+
+    var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    var display_map_info = localized_data.display_map_info;
+    var cat_icon = localized_data.cat_icon;
+    var info_content = localized_data.info_content;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    }; // create an info window for map
+
+    if (display_map_info) {
+      info_window = new google.maps.InfoWindow({
+        content: info_content,
+        maxWidth: 400
+        /*Add configuration for max width*/
+
+      });
+    }
+
+    function initMap() {
+      /* Create new map instance*/
+      map = new google.maps.Map(document.getElementById(map_container), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng
+      });
+      /*var marker = new google.maps.Marker({
+          map: map,
+          position: saved_lat_lng
+      });*/
+
+      var marker = new Marker({
+        position: saved_lat_lng,
+        map: map,
+        icon: {
+          path: MAP_PIN,
+          fillColor: 'transparent',
+          fillOpacity: 1,
+          strokeColor: '',
+          strokeWeight: 0
+        },
+        map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+      });
+
+      if (display_map_info) {
+        marker.addListener('click', function () {
+          info_window.open(map, marker);
+        });
+        google.maps.event.addListener(info_window, 'domready', function () {
+          var closeBtn = $('.iw-close-btn').get();
+          google.maps.event.addDomListener(closeBtn[0], 'click', function () {
+            info_window.close();
+          });
+        });
+      }
+    }
+
+    initMap(); //Convert address tags to google map links -
+
+    $('address').each(function () {
+      var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+      $(this).html(link);
+    });
   });
 })(jQuery);
 

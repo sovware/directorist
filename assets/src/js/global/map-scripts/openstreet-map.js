@@ -1,5 +1,6 @@
 var $ = jQuery;
-const mapData = JSON.parse($('#map').attr('data-options'));
+let mapData;
+$('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
 
 window.addEventListener('load', setup_map);
 window.addEventListener('directorist-reload-listings-map-archive', setup_map);
@@ -39,3 +40,12 @@ function load() {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
     });
 }
+
+/* Add listing OSMap */
+import './add-listing/openstreet-map';
+
+/* Single listing OSMap */
+import './single-listing/openstreet-map';
+
+/* Widget OSMap */
+import './single-listing/openstreet-map-widget';

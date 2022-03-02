@@ -2258,7 +2258,7 @@ span.atbdp-tick-cross {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
 
-.atbdb_content_module_contents #_listing_gallery {
+.atbdb_content_module_contents .ez-media-uploader {
   text-align: center;
 }
 
@@ -7361,7 +7361,7 @@ body.stop-scrolling {
           justify-content: center;
 }
 
-#_listing_gallery {
+.ez-media-uploader {
   text-align: center;
 }
 

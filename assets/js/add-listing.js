@@ -493,9 +493,9 @@ $(document).ready(function () {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var uploader = _step.value;
 
-        if ($('#' + uploader['element_id']).length) {
+        if ($('.' + uploader['element_id']).length) {
           var media_uploader = new EzMediaUploader({
-            containerID: uploader['element_id']
+            containerClass: uploader['element_id']
           });
           mediaUploaders.push({
             media_uploader: media_uploader,

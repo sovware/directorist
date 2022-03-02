@@ -6,6 +6,7 @@ import {
     jQuery(document).ready(function () {
         var localized_data = get_dom_data('map_data');
         // Localized Data
+        console.log(localized_data.map_container_id);
         const map_container = (localized_data.map_container_id) ? localized_data.map_container_id : 'gmap';
         const loc_default_latitude = parseFloat(localized_data.default_latitude);
         const loc_default_longitude = parseFloat(localized_data.default_longitude);
@@ -28,7 +29,7 @@ import {
         $('#manual_lat').length ? $manual_lat = $('#manual_lat') : '';
         $('#manual_lng').length ? $manual_lng = $('#manual_lng') : '';
 
-        saved_lat_lng = {
+        var saved_lat_lng = {
             lat: loc_manual_lat,
             lng: loc_manual_lng,
         };

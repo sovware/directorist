@@ -102,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
   jQuery(document).ready(function () {
     var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
+    console.log(localized_data.map_container_id);
     var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
     var loc_default_latitude = parseFloat(localized_data.default_latitude);
     var loc_default_longitude = parseFloat(localized_data.default_longitude);
@@ -115,7 +116,7 @@ __webpack_require__.r(__webpack_exports__);
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     $('#manual_lat').length ? $manual_lat = $('#manual_lat') : '';
     $('#manual_lng').length ? $manual_lng = $('#manual_lng') : '';
-    saved_lat_lng = {
+    var saved_lat_lng = {
       lat: loc_manual_lat,
       lng: loc_manual_lng
     };

@@ -47,7 +47,6 @@ class Bootstrap {
 
 	public static function setup_hooks() {
 		add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
@@ -178,13 +177,6 @@ class Bootstrap {
 		$args['supports'] = array_merge( $args['supports'], [ 'comments' ] );
 
 		return $args;
-	}
-
-	public static function enqueue_comment_scripts() {
-		if ( is_singular( ATBDP_POST_TYPE ) && directorist_is_review_enabled() ) {
-			wp_enqueue_script( 'comment-reply' );
-			wp_enqueue_script( 'directorist-jquery-barrating' );
-		}
 	}
 
 	public static function load_comments_template( $template ) {

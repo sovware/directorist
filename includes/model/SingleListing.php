@@ -1194,18 +1194,4 @@ class Directorist_Single_Listing {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;
 	}
-
-	public function load_related_listings_script() {
-		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
-
-		$is_rtl = is_rtl() ? 'true' : '';
-
-		$localized_data = array(
-			'is_rtl' => $is_rtl,
-			'rel_listing_column' => $columns,
-		);
-
-		wp_enqueue_script('directorist-releated-listings-slider');
-		wp_localize_script('directorist-releated-listings-slider', 'data', $localized_data);
-	}
 }

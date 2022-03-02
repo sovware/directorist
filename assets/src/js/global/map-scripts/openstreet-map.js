@@ -36,7 +36,7 @@
             var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
             list.push({
                 type: 'script',
-                path: undefined !== openstreet_script ? mapData.openstreet_script : '',
+                path: mapData.openstreet_script,
             });
             loadJsCss.list(list, {
                 delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).

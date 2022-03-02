@@ -1,3 +1,4 @@
+
 ;(function ($) {
     jQuery(document).ready(function () {
         // Localized Data
@@ -20,10 +21,10 @@
         loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
         loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
 
-        //$('#manual_lat').length > 0 ? $manual_lat = $('#manual_lat') : '';
-        //$('#manual_lng').length > 0 ? $manual_lng = $('#manual_lng') : '';
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
 
-        var saved_lat_lng = {
+        saved_lat_lng = {
             lat: loc_manual_lat,
             lng: loc_manual_lng,
         };

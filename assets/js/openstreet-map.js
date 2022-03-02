@@ -307,7 +307,7 @@ __webpack_require__.r(__webpack_exports__);
       var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
       list.push({
         type: 'script',
-        path: undefined !== openstreet_script ? mapData.openstreet_script : ''
+        path: mapData.openstreet_script
       });
       loadJsCss.list(list, {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
@@ -416,10 +416,10 @@ __webpack_require__.r(__webpack_exports__);
     var _localized_data3 = localized_data,
         info_content = _localized_data3.info_content;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng; //$('#manual_lat').length > 0 ? $manual_lat = $('#manual_lat') : '';
-    //$('#manual_lng').length > 0 ? $manual_lng = $('#manual_lng') : '';
-
-    var saved_lat_lng = {
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
       lat: loc_manual_lat,
       lng: loc_manual_lng
     };

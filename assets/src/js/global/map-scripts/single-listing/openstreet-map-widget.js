@@ -1,3 +1,4 @@
+;
 (function ($) {
     jQuery(document).ready(function () {
         // Localized Data

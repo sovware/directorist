@@ -93,6 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+;
+
 (function ($) {
   jQuery(document).ready(function () {
     // Localized Data

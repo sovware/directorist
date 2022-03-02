@@ -266,52 +266,58 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-listing/openstreet-map */ "./assets/src/js/global/map-scripts/add-listing/openstreet-map.js");
 /* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./single-listing/openstreet-map */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js");
+/* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-listing/openstreet-map-widget */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__);
-window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery;
-  var mapData;
-  $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
-  window.addEventListener('load', setup_map);
-  window.addEventListener('directorist-reload-listings-map-archive', setup_map);
+;
 
-  function setup_map() {
-    bundle1.fillPlaceholders();
-    var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
+(function () {
+  window.addEventListener('DOMContentLoaded', function () {
+    var $ = jQuery;
+    var mapData;
+    $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
+    window.addEventListener('load', setup_map);
+    window.addEventListener('directorist-reload-listings-map-archive', setup_map);
 
-    if (localVersion) {
-      localVersion.checkAssetsAvailability(true).then(function () {
+    function setup_map() {
+      bundle1.fillPlaceholders();
+      var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
+
+      if (localVersion) {
+        localVersion.checkAssetsAvailability(true).then(function () {
+          load();
+        }).catch(function () {
+          var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
+
+          if (version102) {
+            version102.defaultVersion = true;
+          }
+
+          load();
+        });
+      } else {
         load();
-      }).catch(function () {
-        var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
-
-        if (version102) {
-          version102.defaultVersion = true;
-        }
-
-        load();
-      });
-    } else {
-      load();
+      }
     }
-  }
 
-  function load() {
-    var url = window.location.href;
-    var urlParts = URI.parse(url);
-    var queryStringParts = URI.parseQuery(urlParts.query);
-    var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
-    list.push({
-      type: 'script',
-      path: mapData.openstreet_script
-    });
-    loadJsCss.list(list, {
-      delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
+    function load() {
+      var url = window.location.href;
+      var urlParts = URI.parse(url);
+      var queryStringParts = URI.parseQuery(urlParts.query);
+      var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
+      list.push({
+        type: 'script',
+        path: undefined !== openstreet_script ? mapData.openstreet_script : ''
+      });
+      loadJsCss.list(list, {
+        delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
 
-    });
-  }
-});
+      });
+    }
+  });
+})();
 /* Add listing OSMap */
+
 
 
 /* Single listing OSMap */
@@ -329,6 +335,8 @@ window.addEventListener('DOMContentLoaded', function () {
   \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
+
+;
 
 (function ($) {
   jQuery(document).ready(function () {
@@ -387,32 +395,30 @@ window.addEventListener('DOMContentLoaded', function () {
 /*!***************************************************************************!*\
   !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
   \***************************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
-
+;
 
 (function ($) {
   jQuery(document).ready(function () {
-    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
-
-    console.log(localized_data.map_container_id);
+    // Localized Data
     var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
     var loc_default_latitude = parseFloat(localized_data.default_latitude);
     var loc_default_longitude = parseFloat(localized_data.default_longitude);
     var loc_manual_lat = parseFloat(localized_data.manual_lat);
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var display_map_info = localized_data.display_map_info;
-    var cat_icon = localized_data.cat_icon;
-    var info_content = localized_data.info_content;
+    var _localized_data = localized_data,
+        display_map_info = _localized_data.display_map_info;
+    var _localized_data2 = localized_data,
+        cat_icon = _localized_data2.cat_icon;
+    var _localized_data3 = localized_data,
+        info_content = _localized_data3.info_content;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-    $('#manual_lat').length ? $manual_lat = $('#manual_lat') : '';
-    $('#manual_lng').length ? $manual_lng = $('#manual_lng') : '';
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng; //$('#manual_lat').length > 0 ? $manual_lat = $('#manual_lat') : '';
+    //$('#manual_lng').length > 0 ? $manual_lng = $('#manual_lng') : '';
+
     var saved_lat_lng = {
       lat: loc_manual_lat,
       lng: loc_manual_lng

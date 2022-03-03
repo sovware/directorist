@@ -89,9 +89,9 @@ class ATBDP_Permalink {
     public static function get_user_profile_page_link( $author_id , $directory_type = '' )
     {
         $link = home_url();
-        $id = get_directorist_option('author_profile_page');
-        if( $id ) {
-            $link = get_permalink( $id );
+        $page_id = get_directorist_option('author_profile_page');
+        if( $page_id ) {
+            $link = get_permalink( $page_id );
 
             if( '' != get_option( 'permalink_structure' ) ) {
                 $author = get_user_by( 'id', $author_id );
@@ -106,7 +106,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_author_profile_page_url', $link, $id );
+        return apply_filters('atbdp_author_profile_page_url', $link, $page_id, $author_id );
     }
 
     /**

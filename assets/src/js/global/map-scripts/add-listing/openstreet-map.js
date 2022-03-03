@@ -75,7 +75,6 @@ import {
                         type: 'POST',
                         data: {},
                         success: function (data) {
-                            //console.log(data);
                             for (var i = 0; i < data.length; i++) {
                                 res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                             }

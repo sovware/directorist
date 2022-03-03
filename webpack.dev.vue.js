@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackRTLPlugin     = require("webpack-rtl-plugin");
+//const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { vueEntries }       = require('./webpack-entry-list.js');
 
 const devConfig = {
@@ -17,6 +18,11 @@ const devConfig = {
       new WebpackRTLPlugin({
         minify: false,
       }),
+      /* new CleanWebpackPlugin({
+        dry: false,
+        cleanOnceBeforeBuildPatterns: [ '../css', '../js' ],
+        dangerouslyAllowCleanPatternsOutsideProject: true,
+      }) */
     ],
 
     output: {

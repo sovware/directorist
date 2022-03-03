@@ -168,7 +168,6 @@ __webpack_require__.r(__webpack_exports__);
             type: 'POST',
             data: {},
             success: function success(data) {
-              //console.log(data);
               for (var i = 0; i < data.length; i++) {
                 res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
               }

@@ -25,7 +25,7 @@ class Filter_Permalinks {
     /**
      * Filter author profile page URL
      * 
-     * @return void
+     * @return string
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
         

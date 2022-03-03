@@ -12,10 +12,51 @@ class Filter_Permalinks {
      * @return void
      */
     public function __construct() {
+        add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
         add_filter( 'atbdp_checkout_page_url', [ $this, 'filter_checkout_page_url' ], 20, 2 );
         add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'filter_payment_receipt_page_url' ], 20, 2 );
         add_filter( 'atbdp_edit_listing_page_url', [ $this, 'filter_edit_listing_page_url' ], 20, 2 );
         add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
+    }
+
+    /**
+     * Filter author profile page URL
+     * 
+     * @return void
+     */
+    public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
+        $language_negotiation_type = apply_filters( 'wpml_setting', 1, 'language_negotiation_type' );
+        $language_negotiation_type = ( ! empty( $language_negotiation_type ) && is_numeric( $language_negotiation_type ) ) ? ( int ) $language_negotiation_type : 1;
+
+        if ( 3 != $language_negotiation_type ) {
+            return $url;
+        }
+
+        $url = home_url();
+        $page_id = get_directorist_option('author_profile_page');
+        
+        if( $page_id ) {
+            $url = get_permalink( $page_id );
+
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $author = get_user_by( 'id', $author_id );
+				$author_id = ( $author ) ? $author->user_login : $author_id;
+                
+                if( ! empty( $directory_type ) ) {
+                    $query_args = [
+                        'author_id'      => $author_id,
+                        'directory-type' => $directory_type,
+                    ];
+
+                    $url = add_query_arg( $query_args, $url );
+                } else {
+                    $query_args = [ 'author_id' => $author_id ];
+                    $url = add_query_arg( $query_args, $url );
+                }
+            }
+        }
+
+        return $url;
     }
 
     /**

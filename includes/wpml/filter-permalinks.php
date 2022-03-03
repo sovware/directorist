@@ -248,7 +248,12 @@ class Filter_Permalinks {
         }
 
         $translation_term_slug = $translation_term->slug;
-        $url = trailingslashit( $url ) . $translation_term_slug;
+
+        if ( $this->wpml_language_url_format_is_pretty() ) {
+            $url = trailingslashit( $url ) . $translation_term_slug;
+        } else {
+            $url = add_query_arg( $current_term_data['query_var'], $translation_term_slug , $url ); 
+        }
 
         if ( isset( $_REQUEST['directory_type'] ) ) {
             $directory_type = $_REQUEST['directory_type'];

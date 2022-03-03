@@ -15,17 +15,17 @@
             if (localVersion) {
                 localVersion.checkAssetsAvailability(true)
                     .then(function () {
-                        load();
+                        mapData !== undefined ? load() : '';
                     })
                     .catch(function () {
                         var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
                         if (version102) {
                             version102.defaultVersion = true;
                         }
-                        load();
+                        mapData !== undefined ? load() : '';
                     });
             } else {
-                load();
+                mapData !== undefined ? load() : '';
             }
         }
 

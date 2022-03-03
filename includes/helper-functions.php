@@ -8701,7 +8701,12 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
 	$views_count = $views_count + 1; // Listing got a new view :D
 	update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $views_count );
 
-	do_action( 'directorist_listing_views_count_updated', $listing_id, $views_count );
+	/**
+	 * Fire this hook when listing got a view.
+	 *
+	 * @param int $listing_id
+	 */
+	do_action( 'directorist_listing_views_count_updated', $listing_id );
 
 	return true;
 }

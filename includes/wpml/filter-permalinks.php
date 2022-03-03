@@ -28,22 +28,29 @@ class Filter_Permalinks {
      * @return string
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
-        
-        if ( $page_id ) {
-            if ( '' != get_option( 'permalink_structure' ) ) {
-                if ( ! empty( $directory_type ) ) {
-                    $query_args = [
-                        'author_id'      => $author_id,
-                        'directory-type' => $directory_type,
-                    ];
 
-                    $url = add_query_arg( $query_args, $url );
-                } else {
-                    $query_args = [ 'author_id' => $author_id ];
-                    $url = add_query_arg( $query_args, $url );
-                }
-            }
+        if ( ! $page_id ) {
+            return $url;
         }
+
+        if ( empty(  get_option( 'permalink_structure' ) ) ) {
+            return $url;
+        }
+        
+        if ( ! empty( $directory_type ) ) {
+            $query_args = [
+                'author_id'      => $author_id,
+                'directory-type' => $directory_type,
+            ];
+
+            $url = add_query_arg( $query_args, $url );
+
+            return $url;
+        }
+        
+
+        $query_args = [ 'author_id' => $author_id ];
+        $url = add_query_arg( $query_args, $url );
 
         return $url;
     }

@@ -96,6 +96,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* Add listing OSMap */
 
 ;
 

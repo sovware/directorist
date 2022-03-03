@@ -29,9 +29,9 @@ class Filter_Permalinks {
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
         
-        if( $page_id ) {
-            if( '' != get_option( 'permalink_structure' ) ) {
-                if( ! empty( $directory_type ) ) {
+        if ( $page_id ) {
+            if ( '' != get_option( 'permalink_structure' ) ) {
+                if ( ! empty( $directory_type ) ) {
                     $query_args = [
                         'author_id'      => $author_id,
                         'directory-type' => $directory_type,

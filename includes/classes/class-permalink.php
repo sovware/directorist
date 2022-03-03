@@ -90,7 +90,7 @@ class ATBDP_Permalink {
     {
         $link = home_url();
         $page_id = get_directorist_option('author_profile_page');
-        
+
         if( $page_id ) {
             $link = get_permalink( $page_id );
 
@@ -107,7 +107,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_author_profile_page_url', $link, $page_id, $author_id );
+        return apply_filters('atbdp_author_profile_page_url', $link, $page_id, $author_id, $directory_type );
     }
 
     /**

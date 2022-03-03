@@ -12,11 +12,14 @@ class Filter_Permalinks {
      * @return void
      */
     public function __construct() {
-        add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
         add_filter( 'atbdp_checkout_page_url', [ $this, 'filter_checkout_page_url' ], 20, 2 );
         add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'filter_payment_receipt_page_url' ], 20, 2 );
         add_filter( 'atbdp_edit_listing_page_url', [ $this, 'filter_edit_listing_page_url' ], 20, 2 );
         add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
+
+        if ( ! $this->wpml_language_url_format_is_pretty() ) {
+            add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
+        }
     }
 
     /**
@@ -25,11 +28,6 @@ class Filter_Permalinks {
      * @return void
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
-
-        if ( $this->wpml_language_url_format_is_pretty() ) {
-            return $url;
-        }
-
         $url = home_url();
         $page_id = get_directorist_option('author_profile_page');
         

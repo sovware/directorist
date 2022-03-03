@@ -19,6 +19,9 @@ class Filter_Permalinks {
 
         if ( ! $this->wpml_language_url_format_is_pretty() ) {
             add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
+            add_filter( 'atbdp_single_category', [ $this, 'filter_single_category_page_url' ], 20, 4 );
+            add_filter( 'atbdp_single_location', [ $this, 'filter_single_location_page_url' ], 20, 4 );
+            add_filter( 'atbdp_single_tag', [ $this, 'filter_single_tag_page_url' ], 20, 4 );
         }
     }
 
@@ -53,6 +56,95 @@ class Filter_Permalinks {
         $url = add_query_arg( $query_args, $url );
 
         return $url;
+    }
+
+    /**
+     * Filter single category page URL
+     * 
+     * @return string
+     */
+    public function filter_single_category_page_url( $link, $term, $page_id, $directory_type ) {
+
+        return $this->filter_single_taxonomy_page_url([
+            'link'           => $link,
+            'term'           => $term,
+            'page_id'        => $page_id,
+            'directory_type' => $directory_type,
+            'query_arg_key'  => 'atbdp_category',
+        ]);
+
+    }
+
+    /**
+     * Filter single location page URL
+     * 
+     * @return string
+     */
+    public function filter_single_location_page_url( $link, $term, $page_id, $directory_type ) {
+
+        return $this->filter_single_taxonomy_page_url([
+            'link'           => $link,
+            'term'           => $term,
+            'page_id'        => $page_id,
+            'directory_type' => $directory_type,
+            'query_arg_key'  => 'atbdp_location',
+        ]);
+
+    }
+
+    /**
+     * Filter single tag page URL
+     * 
+     * @return string
+     */
+    public function filter_single_tag_page_url( $link, $term, $page_id, $directory_type ) {
+
+        return $this->filter_single_taxonomy_page_url([
+            'link'           => $link,
+            'term'           => $term,
+            'page_id'        => $page_id,
+            'directory_type' => $directory_type,
+            'query_arg_key'  => 'atbdp_tag',
+        ]);
+
+    }
+
+    /**
+     * Filter single taxonomy page URL
+     * 
+     * @return string
+     */
+    public function filter_single_taxonomy_page_url( $args = [] ) {
+
+        $link           = ( isset( $args['link'] ) ) ? $args['link'] : '';
+        $term           = ( isset( $args['term'] ) ) ? $args['term'] : null;
+        $page_id        = ( isset( $args['page_id'] ) ) ? $args['page_id'] : 0;
+        $directory_type = ( isset( $args['directory_type'] ) ) ? $args['directory_type'] : 0;
+        $query_arg_key  = ( isset( $args['query_arg_key'] ) ) ? $args['query_arg_key'] : '';
+
+        $link = get_permalink( $page_id );
+
+        if ( ! $page_id ) {
+            return $link;
+        }
+
+        if ( empty( $term ) || is_wp_error( $term ) ) {
+            return $link;
+        }
+
+        if ( empty(  get_option( 'permalink_structure' ) ) ) {
+            return $link;
+        }
+
+        if ( ! empty( $query_arg_key ) ) {
+            $link = add_query_arg( $query_arg_key, $term->slug, $link );
+        }
+
+        if ( ! empty( $directory_type ) && 'all' != $directory_type ) {
+            $link = add_query_arg( 'directory_type', $directory_type, $link );
+        }
+
+        return $link;
     }
 
     /**

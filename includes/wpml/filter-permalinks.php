@@ -28,16 +28,9 @@ class Filter_Permalinks {
      * @return void
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
-        $url = home_url();
-        $page_id = get_directorist_option('author_profile_page');
         
         if( $page_id ) {
-            $url = get_permalink( $page_id );
-
             if( '' != get_option( 'permalink_structure' ) ) {
-                $author = get_user_by( 'id', $author_id );
-				$author_id = ( $author ) ? $author->user_login : $author_id;
-                
                 if( ! empty( $directory_type ) ) {
                     $query_args = [
                         'author_id'      => $author_id,

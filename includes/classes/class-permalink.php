@@ -10,6 +10,8 @@
  * @since       1.0
  */
 
+use Directorist\Helper;
+
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { die( 'You are not allowed to access this file directly' ); }
 
@@ -90,20 +92,22 @@ class ATBDP_Permalink {
         $id = get_directorist_option('author_profile_page');
         if( $id ) {
             $link = get_permalink( $id );
+
             if( '' != get_option( 'permalink_structure' ) ) {
                 $author = get_user_by( 'id', $author_id );
 				$author_id = ( $author ) ? $author->user_login : $author_id;
                 
                 if( ! empty( $directory_type ) && Directorist\Helper::multi_directory_enabled() ) {
-                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id . '/directory/' . $directory_type );
+                    $slug = $author_id . '/directory/' . $directory_type;
+                    $link = Helper::join_slug_to_url( $link, $slug );
                 } else {
-                    $link = user_trailingslashit( trailingslashit( $link ) . $author_id );
+                    $link = Helper::join_slug_to_url( $link, $author_id );
                 }
             }
         }
-        return apply_filters('atbdp_author_profile_page_url', $link );
 
-        }
+        return apply_filters('atbdp_author_profile_page_url', $link );
+    }
 
     /**
      * It returns the link to the custom search archive page of ATBDP

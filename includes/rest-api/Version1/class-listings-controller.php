@@ -300,7 +300,7 @@ class Listings_Controller extends Posts_Controller {
 
 			case 'popular':
 				$meta_query['views'] = [
-					'key'     => '_atbdp_post_views_count',
+					'key'     => directorist_get_listing_views_count_meta_key(),
 					'value'   => get_directorist_option( 'views_for_popular', 4 ),
 					'type'    => 'NUMERIC',
 					'compare' => '>=',
@@ -702,7 +702,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
 					break;
 				case 'views_count':
-					$base_data['views_count'] = (int) get_post_meta( $listing->ID, '_atbdp_post_views_count', true );
+					$base_data['views_count'] = directorist_get_listing_views_count( $listing->ID );
 					break;
 				case 'map_hidden':
 					$base_data['map_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_map', true );

@@ -452,7 +452,7 @@ class Helper {
 		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
 		$average                    = directorist_get_listing_rating( $listing_id );
 		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
-		$view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+		$view_count                 = directorist_get_listing_views_count( $listing_id );
 		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
 		if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {

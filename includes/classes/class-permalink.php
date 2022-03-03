@@ -90,6 +90,7 @@ class ATBDP_Permalink {
     {
         $link = home_url();
         $page_id = get_directorist_option('author_profile_page');
+        
         if( $page_id ) {
             $link = get_permalink( $page_id );
 

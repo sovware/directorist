@@ -25,10 +25,8 @@ class Filter_Permalinks {
      * @return void
      */
     public function filter_author_profile_page_url( $url, $page_id, $author_id, $directory_type ) {
-        $language_negotiation_type = apply_filters( 'wpml_setting', 1, 'language_negotiation_type' );
-        $language_negotiation_type = ( ! empty( $language_negotiation_type ) && is_numeric( $language_negotiation_type ) ) ? ( int ) $language_negotiation_type : 1;
 
-        if ( 3 != $language_negotiation_type ) {
+        if ( $this->wpml_language_url_format_is_pretty() ) {
             return $url;
         }
 
@@ -233,5 +231,18 @@ class Filter_Permalinks {
         }
 
         return $url;
+    }
+
+
+    /**
+     * WPML language url format is pretty
+     * 
+     * @return bool
+     */
+    public function wpml_language_url_format_is_pretty() {
+        $language_negotiation_type = apply_filters( 'wpml_setting', 1, 'language_negotiation_type' );
+        $language_negotiation_type = ( ! empty( $language_negotiation_type ) && is_numeric( $language_negotiation_type ) ) ? ( int ) $language_negotiation_type : 1;
+
+        return ( 3 != $language_negotiation_type );
     }
 }

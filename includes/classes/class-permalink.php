@@ -409,7 +409,7 @@ class ATBDP_Permalink {
 
                     $link = add_query_arg( $args, $translatted_page_link );
 
-                    return apply_filters('atbdp_single_category', $link);
+                    return apply_filters( 'atbdp_single_category', $link, $term, $page_id, $directory_type );
                     
                 }
             }

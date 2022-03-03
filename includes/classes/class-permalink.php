@@ -106,7 +106,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_author_profile_page_url', $link );
+        return apply_filters('atbdp_author_profile_page_url', $link, $id );
     }
 
     /**

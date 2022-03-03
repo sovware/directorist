@@ -12,9 +12,9 @@ class Filter_Permalinks {
      * @return void
      */
     public function __construct() {
-        add_filter( 'atbdp_checkout_page_url', [ $this, 'checkout_page_url' ], 20, 2 );
-        add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'payment_receipt_page_url' ], 20, 2 );
-        add_filter( 'atbdp_edit_listing_page_url', [ $this, 'edit_listing_page_url' ], 20, 2 );
+        add_filter( 'atbdp_checkout_page_url', [ $this, 'filter_checkout_page_url' ], 20, 2 );
+        add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'filter_payment_receipt_page_url' ], 20, 2 );
+        add_filter( 'atbdp_edit_listing_page_url', [ $this, 'filter_edit_listing_page_url' ], 20, 2 );
         add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
     }
 
@@ -144,12 +144,12 @@ class Filter_Permalinks {
     }
 
     /**
-     * Checkout Page URL
+     * Filter Checkout Page URL
      * 
      * @param string $url = ''
      * @param string $listing_id = 0
      */
-    public function checkout_page_url( $url = '',  $listing_id = 0 ) {
+    public function filter_checkout_page_url( $url = '',  $listing_id = 0 ) {
         $pattern = '/(\/submit\/\d+)\/?/';
 
         if ( preg_match( $pattern, $url ) ) {
@@ -161,12 +161,12 @@ class Filter_Permalinks {
     }
 
     /**
-     * Payment Receipt Page URL
+     * Filter Payment Receipt Page URL
      * 
      * @param string $url = ''
      * @param string $order_id = 0
      */
-    public function payment_receipt_page_url( $url = '',  $order_id = 0 ) {
+    public function filter_payment_receipt_page_url( $url = '',  $order_id = 0 ) {
         $pattern = '/(\/order\/\d+)\/?/';
 
         if ( preg_match( $pattern, $url ) ) {
@@ -178,12 +178,12 @@ class Filter_Permalinks {
     }
 
     /**
-     * Edit Listing Page URL
+     * Filter Edit Listing Page URL
      * 
      * @param string $url = ''
      * @param string $listing_id = 0
      */
-    public function edit_listing_page_url( $url = '',  $listing_id = 0 ) {
+    public function filter_edit_listing_page_url( $url = '',  $listing_id = 0 ) {
         $pattern = '/(\/edit\/\d+)\/?/';
 
         if ( preg_match( $pattern, $url ) ) {

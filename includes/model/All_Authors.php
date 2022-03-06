@@ -14,10 +14,6 @@ class Directorist_All_Authors {
 	}
 
 	public function render_shortcode_all_authors() {
-
-		// Enqueue Scripts
-		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_all_authors', $this );
-
 		return Helper::get_template_contents( 'all-authors', array( 'authors' => $this ) );
 	}
 

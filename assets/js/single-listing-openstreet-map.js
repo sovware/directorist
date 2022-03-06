@@ -97,19 +97,18 @@
 (function ($) {
   jQuery(document).ready(function () {
     // Localized Data
-    if ($('.directorist-details-info-wrap #gmap').length) {
-      var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
-      var loc_default_latitude = parseFloat(localized_data.default_latitude);
-      var loc_default_longitude = parseFloat(localized_data.default_longitude);
-      var loc_manual_lat = parseFloat(localized_data.manual_lat);
-      var loc_manual_lng = parseFloat(localized_data.manual_lng);
-      var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-      var _localized_data = localized_data,
-          display_map_info = _localized_data.display_map_info;
-      var _localized_data2 = localized_data,
-          cat_icon = _localized_data2.cat_icon;
-      var _localized_data3 = localized_data,
-          info_content = _localized_data3.info_content;
+    if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+      var mapData = JSON.parse($('.directorist-single-map').attr('data-map'));
+      console.log(mapData);
+      var map_container = mapData.map_container_id ? mapData.map_container_id : 'directorist-single-map';
+      var loc_default_latitude = parseFloat(mapData.default_latitude);
+      var loc_default_longitude = parseFloat(mapData.default_longitude);
+      var loc_manual_lat = parseFloat(mapData.manual_lat);
+      var loc_manual_lng = parseFloat(mapData.manual_lng);
+      var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+      var display_map_info = mapData.display_map_info;
+      var cat_icon = mapData.cat_icon;
+      var info_content = mapData.info_content;
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');

@@ -113,6 +113,7 @@ class Init {
 
 			case 'archive/map-view':
 			case 'listing-form/fields/map':
+			case 'single/fields/map':
 				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 				if ( $map_type == 'openstreet' ) {
@@ -128,6 +129,13 @@ class Init {
 
 			case 'search-form/fields/location':
 				wp_enqueue_script( 'directorist-geolocation' );
+
+				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
+
+				if ( $map_type == 'google' ) {
+					wp_enqueue_script( 'google-map-api' );
+				}
+
 				break;
 
 			case 'search-form/custom-fields/color_picker':

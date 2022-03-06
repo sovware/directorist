@@ -436,455 +436,457 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-;
+window.addEventListener('DOMContentLoaded', function () {
+  ;
 
-(function ($) {
-  'use strict';
+  (function ($) {
+    'use strict';
 
-  var ReplyFormObserver = /*#__PURE__*/function () {
-    function ReplyFormObserver() {
-      var _this = this;
+    var ReplyFormObserver = /*#__PURE__*/function () {
+      function ReplyFormObserver() {
+        var _this = this;
 
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
 
-      this.init();
-      $(document).on('directorist_review_updated', function () {
-        return _this.init();
-      });
-    }
+        this.init();
+        $(document).on('directorist_review_updated', function () {
+          return _this.init();
+        });
+      }
 
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
-      key: "init",
-      value: function init() {
-        var node = document.querySelector('.commentlist');
+      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
+        key: "init",
+        value: function init() {
+          var node = document.querySelector('.commentlist');
 
-        if (node) {
-          this.observe(node);
+          if (node) {
+            this.observe(node);
+          }
         }
-      }
-    }, {
-      key: "observe",
-      value: function observe(node) {
-        var config = {
-          childList: true,
-          subtree: true
-        };
-        var observer = new MutationObserver(this.callback);
-        observer.observe(node, config);
-      }
-    }, {
-      key: "callback",
-      value: function callback(mutationsList, observer) {
-        var _iterator = _createForOfIteratorHelper(mutationsList),
-            _step;
+      }, {
+        key: "observe",
+        value: function observe(node) {
+          var config = {
+            childList: true,
+            subtree: true
+          };
+          var observer = new MutationObserver(this.callback);
+          observer.observe(node, config);
+        }
+      }, {
+        key: "callback",
+        value: function callback(mutationsList, observer) {
+          var _iterator = _createForOfIteratorHelper(mutationsList),
+              _step;
 
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var mutation = _step.value;
-            var target = mutation.target;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var mutation = _step.value;
+              var target = mutation.target;
 
-            if (mutation.removedNodes) {
-              target.classList.remove('directorist-form-added');
+              if (mutation.removedNodes) {
+                target.classList.remove('directorist-form-added');
 
-              var _iterator2 = _createForOfIteratorHelper(mutation.removedNodes),
-                  _step2;
-
-              try {
-                for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                  var node = _step2.value;
-
-                  if (!node.id || node.id !== 'respond') {
-                    continue;
-                  }
-
-                  var criteria = node.querySelector('.directorist-review-criteria');
-
-                  if (criteria) {
-                    criteria.style.display = '';
-                  }
-
-                  var ratings = node.querySelectorAll('.directorist-review-criteria-select');
-
-                  var _iterator3 = _createForOfIteratorHelper(ratings),
-                      _step3;
-
-                  try {
-                    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                      var rating = _step3.value;
-                      rating.removeAttribute('disabled');
-                    }
-                  } catch (err) {
-                    _iterator3.e(err);
-                  } finally {
-                    _iterator3.f();
-                  }
-
-                  node.querySelector('#submit').innerHTML = 'Submit Review';
-                  node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
-                  console.log(node.querySelector('#comment'));
-                }
-              } catch (err) {
-                _iterator2.e(err);
-              } finally {
-                _iterator2.f();
-              }
-            }
-
-            var form = target.querySelector('#commentform');
-
-            if (form) {
-              target.classList.add('directorist-form-added');
-              var isReview = target.classList.contains('review');
-              var isEditing = target.classList.contains('directorist-form-editing');
-
-              if (!isReview || isReview && !isEditing) {
-                var _criteria = form.querySelector('.directorist-review-criteria');
-
-                if (_criteria) {
-                  _criteria.style.display = 'none';
-                }
-
-                var _ratings = form.querySelectorAll('.directorist-review-criteria-select');
-
-                var _iterator4 = _createForOfIteratorHelper(_ratings),
-                    _step4;
+                var _iterator2 = _createForOfIteratorHelper(mutation.removedNodes),
+                    _step2;
 
                 try {
-                  for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                    var _rating = _step4.value;
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    var node = _step2.value;
 
-                    _rating.setAttribute('disabled', 'disabled');
+                    if (!node.id || node.id !== 'respond') {
+                      continue;
+                    }
+
+                    var criteria = node.querySelector('.directorist-review-criteria');
+
+                    if (criteria) {
+                      criteria.style.display = '';
+                    }
+
+                    var ratings = node.querySelectorAll('.directorist-review-criteria-select');
+
+                    var _iterator3 = _createForOfIteratorHelper(ratings),
+                        _step3;
+
+                    try {
+                      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                        var rating = _step3.value;
+                        rating.removeAttribute('disabled');
+                      }
+                    } catch (err) {
+                      _iterator3.e(err);
+                    } finally {
+                      _iterator3.f();
+                    }
+
+                    node.querySelector('#submit').innerHTML = 'Submit Review';
+                    node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
+                    console.log(node.querySelector('#comment'));
                   }
                 } catch (err) {
-                  _iterator4.e(err);
+                  _iterator2.e(err);
                 } finally {
-                  _iterator4.f();
+                  _iterator2.f();
                 }
               }
 
-              var alert = form.querySelector('.directorist-alert');
+              var form = target.querySelector('#commentform');
 
-              if (alert) {
-                alert.style.display = 'none';
+              if (form) {
+                target.classList.add('directorist-form-added');
+                var isReview = target.classList.contains('review');
+                var isEditing = target.classList.contains('directorist-form-editing');
+
+                if (!isReview || isReview && !isEditing) {
+                  var _criteria = form.querySelector('.directorist-review-criteria');
+
+                  if (_criteria) {
+                    _criteria.style.display = 'none';
+                  }
+
+                  var _ratings = form.querySelectorAll('.directorist-review-criteria-select');
+
+                  var _iterator4 = _createForOfIteratorHelper(_ratings),
+                      _step4;
+
+                  try {
+                    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                      var _rating = _step4.value;
+
+                      _rating.setAttribute('disabled', 'disabled');
+                    }
+                  } catch (err) {
+                    _iterator4.e(err);
+                  } finally {
+                    _iterator4.f();
+                  }
+                }
+
+                var alert = form.querySelector('.directorist-alert');
+
+                if (alert) {
+                  alert.style.display = 'none';
+                }
+
+                form.querySelector('#submit').innerHTML = 'Submit Reply';
+                form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
               }
-
-              form.querySelector('#submit').innerHTML = 'Submit Reply';
-              form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
             }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
           }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
         }
+      }]);
+
+      return ReplyFormObserver;
+    }();
+
+    var CommentEditHandler = /*#__PURE__*/function () {
+      function CommentEditHandler() {
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
+
+        this.init();
       }
-    }]);
 
-    return ReplyFormObserver;
-  }();
-
-  var CommentEditHandler = /*#__PURE__*/function () {
-    function CommentEditHandler() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
-
-      this.init();
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
-      key: "init",
-      value: function init() {
-        $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
-      }
-    }, {
-      key: "onSubmit",
-      value: function onSubmit(event) {
-        event.preventDefault();
-        var $form = $(event.target);
-        var originalButtonLabel = $form.find('[type="submit"]').val();
-        $(document).trigger('directorist_review_before_submit', $form);
-        var updateComment = $.ajax({
-          url: $form.attr('action'),
-          type: 'POST',
-          contentType: false,
-          cache: false,
-          processData: false,
-          data: new FormData($form[0])
-        });
-        $form.find('#comment').prop('disabled', true);
-        $form.find('[type="submit"]').prop('disabled', true).val('loading');
-        var commentID = $form.find('input[name="comment_id"]').val();
-        var $wrap = $('#div-comment-' + commentID);
-        $wrap.addClass('directorist-comment-edit-request');
-        updateComment.success(function (data, status, request) {
-          if (typeof data !== 'string' && !data.success) {
-            $wrap.removeClass('directorist-comment-edit-request');
-            CommentEditHandler.showError($form, data.data.html);
-            return;
-          }
-
-          var body = $('<div></div>');
-          body.append(data);
-          var comment_section = '.directorist-review-container';
-          var comments = body.find(comment_section);
-          $(comment_section).replaceWith(comments);
-          $(document).trigger('directorist_review_updated', data);
-          var commentTop = $("#comment-" + commentID).offset().top;
-
-          if ($('body').hasClass('admin-bar')) {
-            commentTop = commentTop - $('#wpadminbar').height();
-          } // scroll to comment
-
-
-          if (commentID) {
-            $("body, html").animate({
-              scrollTop: commentTop
-            }, 600);
-          }
-        });
-        updateComment.fail(function (data) {
-          console.log(data);
-        });
-        updateComment.always(function () {
-          $form.find('#comment').prop('disabled', false);
-          $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
-        });
-        $(document).trigger('directorist_review_after_submit', $form);
-      }
-    }], [{
-      key: "showError",
-      value: function showError($form, msg) {
-        $form.find('.directorist-alert').remove();
-        $form.prepend(msg);
-      }
-    }]);
-
-    return CommentEditHandler;
-  }();
-
-  var CommentAddReplyHandler = /*#__PURE__*/function () {
-    function CommentAddReplyHandler() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
-
-      this.init();
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
-      key: "init",
-      value: function init() {
-        $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
-      }
-    }, {
-      key: "onSubmit",
-      value: function onSubmit(event) {
-        event.preventDefault();
-        var form = $('.directorist-review-container #commentform');
-        var originalButtonLabel = form.find('[type="submit"]').val();
-        $(document).trigger('directorist_review_before_submit', form);
-        var do_comment = $.ajax({
-          url: form.attr('action'),
-          type: 'POST',
-          contentType: false,
-          cache: false,
-          processData: false,
-          data: new FormData(form[0])
-        });
-        $('#comment').prop('disabled', true);
-        form.find('[type="submit"]').prop('disabled', true).val('loading');
-        do_comment.success(function (data, status, request) {
-          var body = $('<div></div>');
-          body.append(data);
-          var comment_section = '.directorist-review-container';
-          var comments = body.find(comment_section);
-          var errorMsg = body.find('.wp-die-message');
-
-          if (errorMsg.length > 0) {
-            CommentAddReplyHandler.showError(form, errorMsg);
-            $(document).trigger('directorist_review_update_failed');
-            return;
-          }
-
-          $(comment_section).replaceWith(comments);
-          $(document).trigger('directorist_review_updated', data);
-          var newComment = comments.find('.commentlist li:first-child');
-          var newCommentId = newComment.attr('id'); // // catch the new comment id by comparing to old dom.
-          // commentsLists.each(
-          //     function ( index ) {
-          //         var _this = $( commentsLists[ index ] );
-          //         if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
-          //             newCommentId = _this.attr( 'id' );
-          //         }
-          //     }
-          // );
-          // console.log(newComment, newCommentId)
-
-          var commentTop = $("#" + newCommentId).offset().top;
-
-          if ($('body').hasClass('admin-bar')) {
-            commentTop = commentTop - $('#wpadminbar').height();
-          } // scroll to comment
-
-
-          if (newCommentId) {
-            $("body, html").animate({
-              scrollTop: commentTop
-            }, 600);
-          }
-        });
-        do_comment.fail(function (data) {
-          var body = $('<div></div>');
-          body.append(data.responseText);
-          CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
-          $(document).trigger('directorist_review_update_failed');
-        });
-        do_comment.always(function () {
-          $('#comment').prop('disabled', false);
-          $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
-        });
-        $(document).trigger('directorist_review_after_submit', form);
-      }
-    }], [{
-      key: "getErrorMsg",
-      value: function getErrorMsg($dom) {
-        if ($dom.find('p').length) {
-          $dom = $dom.find('p');
+      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
+        key: "init",
+        value: function init() {
+          $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
         }
-
-        var words = $dom.text().split(':');
-
-        if (words.length > 1) {
-          words.shift();
-        }
-
-        return words.join(' ').trim();
-      }
-    }, {
-      key: "showError",
-      value: function showError(form, $dom) {
-        if (form.find('.directorist-alert').length) {
-          form.find('.directorist-alert').remove();
-        }
-
-        var $error = $('<div />', {
-          class: 'directorist-alert directorist-alert-danger'
-        }).html(CommentAddReplyHandler.getErrorMsg($dom));
-        form.prepend($error);
-      }
-    }]);
-
-    return CommentAddReplyHandler;
-  }();
-
-  var CommentsManager = /*#__PURE__*/function () {
-    function CommentsManager() {
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentsManager);
-
-      this.$doc = $(document);
-      this.setupComponents();
-      this.addEventListeners();
-    }
-
-    _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
-      key: "initStarRating",
-      value: function initStarRating() {
-        $('.directorist-review-criteria-select').barrating({
-          theme: 'fontawesome-stars'
-        });
-      }
-    }, {
-      key: "cancelOthersEditMode",
-      value: function cancelOthersEditMode(currentCommentId) {
-        $('.directorist-comment-editing').each(function (index, comment) {
-          var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
-
-          if ($cancelButton.data('commentid') != currentCommentId) {
-            $cancelButton.click();
-          }
-        });
-      }
-    }, {
-      key: "cancelReplyMode",
-      value: function cancelReplyMode() {
-        var replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
-        replyLink && replyLink.click();
-      }
-    }, {
-      key: "addEventListeners",
-      value: function addEventListeners() {
-        var _this2 = this;
-
-        var self = this;
-        this.$doc.on('directorist_review_updated', function (event) {
-          _this2.initStarRating();
-        });
-        this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-          _this2.initStarRating();
-        });
-        this.$doc.on('click', 'a[href="#respond"]', function (event) {
-          // First cancle the reply form then scroll to review form. Order matters.
-          _this2.cancelReplyMode();
-
-          _this2.onWriteReivewClick(event);
-        });
-        this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
+      }, {
+        key: "onSubmit",
+        value: function onSubmit(event) {
           event.preventDefault();
-          var $target = $(event.target);
-          var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+          var $form = $(event.target);
+          var originalButtonLabel = $form.find('[type="submit"]').val();
+          $(document).trigger('directorist_review_before_submit', $form);
+          var updateComment = $.ajax({
+            url: $form.attr('action'),
+            type: 'POST',
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: new FormData($form[0])
+          });
+          $form.find('#comment').prop('disabled', true);
+          $form.find('[type="submit"]').prop('disabled', true).val('loading');
+          var commentID = $form.find('input[name="comment_id"]').val();
+          var $wrap = $('#div-comment-' + commentID);
           $wrap.addClass('directorist-comment-edit-request');
-          $.ajax({
-            url: $target.attr('href'),
-            data: {
-              post_id: $target.data('postid'),
-              comment_id: $target.data('commentid')
-            },
-            setContent: false,
-            method: 'GET',
-            reload: 'strict',
-            success: function success(response) {
-              $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
-              $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
-              self.cancelOthersEditMode($target.data('commentid'));
-              self.cancelReplyMode();
-              var $editForm = $('#directorist-form-comment-edit');
-              $editForm.find('textarea').focus();
-              self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
+          updateComment.success(function (data, status, request) {
+            if (typeof data !== 'string' && !data.success) {
+              $wrap.removeClass('directorist-comment-edit-request');
+              CommentEditHandler.showError($form, data.data.html);
+              return;
+            }
+
+            var body = $('<div></div>');
+            body.append(data);
+            var comment_section = '.directorist-review-container';
+            var comments = body.find(comment_section);
+            $(comment_section).replaceWith(comments);
+            $(document).trigger('directorist_review_updated', data);
+            var commentTop = $("#comment-" + commentID).offset().top;
+
+            if ($('body').hasClass('admin-bar')) {
+              commentTop = commentTop - $('#wpadminbar').height();
+            } // scroll to comment
+
+
+            if (commentID) {
+              $("body, html").animate({
+                scrollTop: commentTop
+              }, 600);
             }
           });
-        });
-        this.$doc.on('click', '.directorist-js-cancel-comment-edit', function (event) {
-          event.preventDefault();
-          var $target = $(event.target);
-          var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
-          $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
-        });
-      }
-    }, {
-      key: "onWriteReivewClick",
-      value: function onWriteReivewClick(event) {
-        event.preventDefault();
-        var scrollTop = $('#respond').offset().top;
-
-        if ($('body').hasClass('admin-bar')) {
-          scrollTop = scrollTop - $('#wpadminbar').height();
+          updateComment.fail(function (data) {
+            console.log(data);
+          });
+          updateComment.always(function () {
+            $form.find('#comment').prop('disabled', false);
+            $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
+          });
+          $(document).trigger('directorist_review_after_submit', $form);
         }
+      }], [{
+        key: "showError",
+        value: function showError($form, msg) {
+          $form.find('.directorist-alert').remove();
+          $form.prepend(msg);
+        }
+      }]);
 
-        $('body, html').animate({
-          scrollTop: scrollTop
-        }, 600);
+      return CommentEditHandler;
+    }();
+
+    var CommentAddReplyHandler = /*#__PURE__*/function () {
+      function CommentAddReplyHandler() {
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
+
+        this.init();
       }
-    }, {
-      key: "setupComponents",
-      value: function setupComponents() {
-        new ReplyFormObserver();
-        new CommentAddReplyHandler();
-        new CommentEditHandler();
+
+      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
+        key: "init",
+        value: function init() {
+          $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
+        }
+      }, {
+        key: "onSubmit",
+        value: function onSubmit(event) {
+          event.preventDefault();
+          var form = $('.directorist-review-container #commentform');
+          var originalButtonLabel = form.find('[type="submit"]').val();
+          $(document).trigger('directorist_review_before_submit', form);
+          var do_comment = $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: new FormData(form[0])
+          });
+          $('#comment').prop('disabled', true);
+          form.find('[type="submit"]').prop('disabled', true).val('loading');
+          do_comment.success(function (data, status, request) {
+            var body = $('<div></div>');
+            body.append(data);
+            var comment_section = '.directorist-review-container';
+            var comments = body.find(comment_section);
+            var errorMsg = body.find('.wp-die-message');
+
+            if (errorMsg.length > 0) {
+              CommentAddReplyHandler.showError(form, errorMsg);
+              $(document).trigger('directorist_review_update_failed');
+              return;
+            }
+
+            $(comment_section).replaceWith(comments);
+            $(document).trigger('directorist_review_updated', data);
+            var newComment = comments.find('.commentlist li:first-child');
+            var newCommentId = newComment.attr('id'); // // catch the new comment id by comparing to old dom.
+            // commentsLists.each(
+            //     function ( index ) {
+            //         var _this = $( commentsLists[ index ] );
+            //         if ( $( '#' + _this.attr( 'id' ) ).length == 0 ) {
+            //             newCommentId = _this.attr( 'id' );
+            //         }
+            //     }
+            // );
+            // console.log(newComment, newCommentId)
+
+            var commentTop = $("#" + newCommentId).offset().top;
+
+            if ($('body').hasClass('admin-bar')) {
+              commentTop = commentTop - $('#wpadminbar').height();
+            } // scroll to comment
+
+
+            if (newCommentId) {
+              $("body, html").animate({
+                scrollTop: commentTop
+              }, 600);
+            }
+          });
+          do_comment.fail(function (data) {
+            var body = $('<div></div>');
+            body.append(data.responseText);
+            CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
+            $(document).trigger('directorist_review_update_failed');
+          });
+          do_comment.always(function () {
+            $('#comment').prop('disabled', false);
+            $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
+          });
+          $(document).trigger('directorist_review_after_submit', form);
+        }
+      }], [{
+        key: "getErrorMsg",
+        value: function getErrorMsg($dom) {
+          if ($dom.find('p').length) {
+            $dom = $dom.find('p');
+          }
+
+          var words = $dom.text().split(':');
+
+          if (words.length > 1) {
+            words.shift();
+          }
+
+          return words.join(' ').trim();
+        }
+      }, {
+        key: "showError",
+        value: function showError(form, $dom) {
+          if (form.find('.directorist-alert').length) {
+            form.find('.directorist-alert').remove();
+          }
+
+          var $error = $('<div />', {
+            class: 'directorist-alert directorist-alert-danger'
+          }).html(CommentAddReplyHandler.getErrorMsg($dom));
+          form.prepend($error);
+        }
+      }]);
+
+      return CommentAddReplyHandler;
+    }();
+
+    var CommentsManager = /*#__PURE__*/function () {
+      function CommentsManager() {
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentsManager);
+
+        this.$doc = $(document);
+        this.setupComponents();
+        this.addEventListeners();
       }
-    }]);
 
-    return CommentsManager;
-  }();
+      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
+        key: "initStarRating",
+        value: function initStarRating() {
+          $('.directorist-review-criteria-select').barrating({
+            theme: 'fontawesome-stars'
+          });
+        }
+      }, {
+        key: "cancelOthersEditMode",
+        value: function cancelOthersEditMode(currentCommentId) {
+          $('.directorist-comment-editing').each(function (index, comment) {
+            var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
 
-  var commentsManager = new CommentsManager();
-})(jQuery);
+            if ($cancelButton.data('commentid') != currentCommentId) {
+              $cancelButton.click();
+            }
+          });
+        }
+      }, {
+        key: "cancelReplyMode",
+        value: function cancelReplyMode() {
+          var replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
+          replyLink && replyLink.click();
+        }
+      }, {
+        key: "addEventListeners",
+        value: function addEventListeners() {
+          var _this2 = this;
+
+          var self = this;
+          this.$doc.on('directorist_review_updated', function (event) {
+            _this2.initStarRating();
+          });
+          this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
+            _this2.initStarRating();
+          });
+          this.$doc.on('click', 'a[href="#respond"]', function (event) {
+            // First cancle the reply form then scroll to review form. Order matters.
+            _this2.cancelReplyMode();
+
+            _this2.onWriteReivewClick(event);
+          });
+          this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
+            event.preventDefault();
+            var $target = $(event.target);
+            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+            $wrap.addClass('directorist-comment-edit-request');
+            $.ajax({
+              url: $target.attr('href'),
+              data: {
+                post_id: $target.data('postid'),
+                comment_id: $target.data('commentid')
+              },
+              setContent: false,
+              method: 'GET',
+              reload: 'strict',
+              success: function success(response) {
+                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
+                $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
+                self.cancelOthersEditMode($target.data('commentid'));
+                self.cancelReplyMode();
+                var $editForm = $('#directorist-form-comment-edit');
+                $editForm.find('textarea').focus();
+                self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
+              }
+            });
+          });
+          this.$doc.on('click', '.directorist-js-cancel-comment-edit', function (event) {
+            event.preventDefault();
+            var $target = $(event.target);
+            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+            $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+          });
+        }
+      }, {
+        key: "onWriteReivewClick",
+        value: function onWriteReivewClick(event) {
+          event.preventDefault();
+          var scrollTop = $('#respond').offset().top;
+
+          if ($('body').hasClass('admin-bar')) {
+            scrollTop = scrollTop - $('#wpadminbar').height();
+          }
+
+          $('body, html').animate({
+            scrollTop: scrollTop
+          }, 600);
+        }
+      }, {
+        key: "setupComponents",
+        value: function setupComponents() {
+          new ReplyFormObserver();
+          new CommentAddReplyHandler();
+          new CommentEditHandler();
+        }
+      }]);
+
+      return CommentsManager;
+    }();
+
+    var commentsManager = new CommentsManager();
+  })(jQuery);
+});
 
 /***/ }),
 
@@ -895,16 +897,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+window.addEventListener('DOMContentLoaded', function () {
+  ;
 
-(function ($) {
-  //Star rating
-  if ($('.directorist-review-criteria-select').length) {
-    $('.directorist-review-criteria-select').barrating({
-      theme: 'fontawesome-stars'
-    });
-  }
-})(jQuery);
+  (function ($) {
+    //Star rating
+    if ($('.directorist-review-criteria-select').length) {
+      $('.directorist-review-criteria-select').barrating({
+        theme: 'fontawesome-stars'
+      });
+    }
+  })(jQuery);
+});
 
 /***/ }),
 
@@ -916,14 +920,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Plasma Slider Initialization
+  var $ = jQuery; // Plasma Slider Initialization
+
   var single_listing_slider = new PlasmaSlider({
     containerID: "directorist-single-listing-slider"
   });
   single_listing_slider.init();
   /* Related listings slider */
 
-  var rtl = !data.is_rtl ? false : true;
+  var rtl = !directorist.rtl ? false : true;
+  var relLisCol = document.querySelector('.directorist-related-carousel').getAttribute('data-columns');
   $('.directorist-related-carousel').slick({
     dots: false,
     arrows: true,
@@ -931,14 +937,14 @@ document.addEventListener('DOMContentLoaded', function () {
     nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
     infinite: true,
     speed: 300,
-    slidesToShow: data.rel_listing_column,
+    slidesToShow: relLisCol,
     slidesToScroll: 1,
     autoplay: false,
     rtl: rtl,
     responsive: [{
       breakpoint: 1024,
       settings: {
-        slidesToShow: data.rel_listing_column,
+        slidesToShow: relLisCol,
         slidesToScroll: 1,
         infinite: true,
         dots: false

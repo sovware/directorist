@@ -324,16 +324,18 @@ if (atbdSelect !== null) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+window.addEventListener('DOMContentLoaded', function () {
+  ;
 
-(function ($) {
-  //Star rating
-  if ($('.directorist-review-criteria-select').length) {
-    $('.directorist-review-criteria-select').barrating({
-      theme: 'fontawesome-stars'
-    });
-  }
-})(jQuery);
+  (function ($) {
+    //Star rating
+    if ($('.directorist-review-criteria-select').length) {
+      $('.directorist-review-criteria-select').barrating({
+        theme: 'fontawesome-stars'
+      });
+    }
+  })(jQuery);
+});
 
 /***/ }),
 

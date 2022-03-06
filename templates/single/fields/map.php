@@ -6,8 +6,6 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$listing->load_map_resources();
 ?>
 
-<div id="gmap" class="directorist-google-map"></div>
+<div id="directorist-single-map" class="directorist-single-map" data-map="<?php echo esc_attr( $listing->map_data() ); ?>"></div>

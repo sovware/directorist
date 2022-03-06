@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let $ = jQuery;
     // Plasma Slider Initialization
     var single_listing_slider = new PlasmaSlider({
         containerID: "directorist-single-listing-slider",
@@ -6,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     single_listing_slider.init();
 
     /* Related listings slider */
-    var rtl = !data.is_rtl ? false : true;
+    var rtl = !directorist.rtl ? false : true;
+    const relLisCol = document.querySelector('.directorist-related-carousel').getAttribute('data-columns');
     $('.directorist-related-carousel').slick({
         dots: false,
         arrows: true,
@@ -14,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
         infinite: true,
         speed: 300,
-        slidesToShow: data.rel_listing_column,
+        slidesToShow: relLisCol,
         slidesToScroll: 1,
         autoplay: false,
         rtl: rtl,
         responsive: [{
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: data.rel_listing_column,
+                    slidesToShow: relLisCol,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: false

@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', function () {
   ;
 
   (function ($) {
-    if ($('.directorist-details-info-wrap #gmap').length) {
+    if ($('.directorist-details-info-wrap #directorist-single-map').length) {
       var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
       var inherits = function inherits(childCtor, parentCtor) {
@@ -188,15 +188,17 @@ window.addEventListener('DOMContentLoaded', function () {
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content; // Localized Data
 
-        var map_container = localized_data.map_container_id ? localized_data.map_container_id : 'gmap';
-        var loc_default_latitude = parseFloat(localized_data.default_latitude);
-        var loc_default_longitude = parseFloat(localized_data.default_longitude);
-        var loc_manual_lat = parseFloat(localized_data.manual_lat);
-        var loc_manual_lng = parseFloat(localized_data.manual_lng);
-        var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-        var display_map_info = localized_data.display_map_info;
-        var cat_icon = localized_data.cat_icon;
-        var info_content = localized_data.info_content;
+        var mapWrapper = document.querySelector('#directorist-single-map');
+        var mapData = JSON.parse(mapWrapper.getAttribute('data-map'));
+        var map_container = mapData.map_container_id ? mapData.map_container_id : 'directorist-single-map';
+        var loc_default_latitude = parseFloat(mapData.default_latitude);
+        var loc_default_longitude = parseFloat(mapData.default_longitude);
+        var loc_manual_lat = parseFloat(mapData.manual_lat);
+        var loc_manual_lng = parseFloat(mapData.manual_lng);
+        var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+        var display_map_info = mapData.display_map_info;
+        var cat_icon = mapData.cat_icon;
+        var info_content = mapData.info_content;
         loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
         loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
         $manual_lat = $('#manual_lat');

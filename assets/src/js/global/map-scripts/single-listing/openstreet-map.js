@@ -3,22 +3,23 @@
 (function ($) {
     jQuery(document).ready(function () {
         // Localized Data
-        if ($('.directorist-details-info-wrap #gmap').length) {
-            const map_container = (localized_data.map_container_id) ? localized_data.map_container_id : 'gmap';
-            const loc_default_latitude = parseFloat(localized_data.default_latitude);
-            const loc_default_longitude = parseFloat(localized_data.default_longitude);
-            let loc_manual_lat = parseFloat(localized_data.manual_lat);
-            let loc_manual_lng = parseFloat(localized_data.manual_lng);
-            const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+        if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+            const mapData = JSON.parse($('.directorist-single-map').attr('data-map'));
+            const map_container = (mapData.map_container_id) ? mapData.map_container_id : 'directorist-single-map';
+            const loc_default_latitude = parseFloat(mapData.default_latitude);
+            const loc_default_longitude = parseFloat(mapData.default_longitude);
+            let loc_manual_lat = parseFloat(mapData.manual_lat);
+            let loc_manual_lng = parseFloat(mapData.manual_lng);
+            const loc_map_zoom_level = parseInt(mapData.map_zoom_level);
             const {
                 display_map_info
-            } = localized_data;
+            } = mapData;
             const {
                 cat_icon
-            } = localized_data;
+            } = mapData;
             const {
                 info_content
-            } = localized_data;
+            } = mapData;
 
             loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
             loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;

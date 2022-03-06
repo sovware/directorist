@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackRTLPlugin     = require("webpack-rtl-plugin");
+//const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const devConfig = {
     mode: "development", // production | development
@@ -14,7 +15,12 @@ const devConfig = {
       }),
       new WebpackRTLPlugin({
         minify: false,
-      }),
+      })/* ,
+      new CleanWebpackPlugin({
+        dry: false,
+        cleanOnceBeforeBuildPatterns: [ '../css', '../js', '!./assets/js/main.js' ],
+        dangerouslyAllowCleanPatternsOutsideProject: true,
+      }) */
     ],
 
     output: {

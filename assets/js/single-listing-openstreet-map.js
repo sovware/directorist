@@ -99,7 +99,6 @@
     // Localized Data
     if ($('.directorist-details-info-wrap .directorist-single-map').length) {
       var mapData = JSON.parse($('.directorist-single-map').attr('data-map'));
-      console.log(mapData);
       var map_container = mapData.map_container_id ? mapData.map_container_id : 'directorist-single-map';
       var loc_default_latitude = parseFloat(mapData.default_latitude);
       var loc_default_longitude = parseFloat(mapData.default_longitude);

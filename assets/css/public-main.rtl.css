@@ -11748,7 +11748,8 @@ p.atbd-min {
   font-family: "Font Awesome 5 Brands";
 }
 
-.directorist-google-map {
+.directorist-google-map,
+.directorist-single-map {
   height: 400px;
 }
 

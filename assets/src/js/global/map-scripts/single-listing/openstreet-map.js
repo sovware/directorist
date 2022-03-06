@@ -5,7 +5,6 @@
         // Localized Data
         if ($('.directorist-details-info-wrap .directorist-single-map').length) {
             const mapData = JSON.parse($('.directorist-single-map').attr('data-map'));
-            console.log(mapData);
             const map_container = (mapData.map_container_id) ? mapData.map_container_id : 'directorist-single-map';
             const loc_default_latitude = parseFloat(mapData.default_latitude);
             const loc_default_longitude = parseFloat(mapData.default_longitude);

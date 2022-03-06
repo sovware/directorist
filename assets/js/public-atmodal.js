@@ -96,8 +96,8 @@
 /*
     Name:  ATModal
     Version: 1.0
-    Author: AazzTech
-    Author URI: http://aazztech.com
+    Author: SovWare
+    Author URI: http://sovware.com
 */
 
 /* disable-eslint */

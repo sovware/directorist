@@ -164,7 +164,7 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'select2',
 			],
-			'directorist-sweetalert-script' => [
+			'directorist-sweetalert' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'sweetalert',
 			],

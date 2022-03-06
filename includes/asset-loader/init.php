@@ -172,6 +172,11 @@ class Init {
 			case 'single/section-related_listings':
 				wp_enqueue_script( 'directorist-slick' );
 				break;
+
+			case 'dashboard/listing-row':
+				wp_enqueue_script( 'directorist-sweetalert' );
+				break;
+
 		}
 	}
 

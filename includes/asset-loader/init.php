@@ -106,7 +106,12 @@ class Init {
 
 			// Dashboard
 			case 'dashboard-contents':
-				wp_enqueue_script( 'directorist-dashboar' );
+				wp_enqueue_script( 'directorist-dashboard' );
+				break;
+
+			// All Authors
+			case 'all-authors':
+				wp_enqueue_script( 'directorist-all-authors' );
 				break;
 
 			case 'archive/grid-view':

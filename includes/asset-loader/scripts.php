@@ -201,11 +201,6 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'validator',
 			],
-			// Global JS
-			'directorist-dashboard' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'directorist-dashboard',
-			],
 
 			// Global JS
 			'directorist-global-script' => [
@@ -226,6 +221,14 @@ class Scripts {
 			'directorist-search-form' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'search-form',
+			],
+			'directorist-dashboard' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'directorist-dashboard',
+			],
+			'directorist-all-authors' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'all-authors',
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

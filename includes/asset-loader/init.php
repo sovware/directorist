@@ -112,6 +112,7 @@ class Init {
 			// All Authors
 			case 'all-authors':
 				wp_enqueue_script( 'directorist-all-authors' );
+				wp_enqueue_script( 'jquery-masonry' );
 				break;
 
 			case 'archive/grid-view':

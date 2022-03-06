@@ -230,6 +230,14 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'all-authors',
 			],
+			'directorist-author-profile' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'author-profile',
+			],
+			'directorist-all-location-category' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'all-location-category',
+			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-releated-listings-slider',

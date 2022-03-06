@@ -115,6 +115,19 @@ class Init {
 				wp_enqueue_script( 'jquery-masonry' );
 				break;
 
+			// Author Profile
+			case 'author-contents':
+				wp_enqueue_script( 'directorist-author-profile' );
+				break;
+
+			// All Location/Category
+			case 'categories-grid':
+			case 'categories-list':
+			case 'locations-grid':
+			case 'locations-list':
+				wp_enqueue_script( 'directorist-all-location-category' );
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.

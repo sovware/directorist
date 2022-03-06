@@ -323,11 +323,6 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
-	public function load_map_scripts() {
-		wp_localize_script( 'directorist-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
-		wp_enqueue_script( 'directorist-geolocation' );
-	}
-
 	public function range_slider_data( $data ) {
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
 		if ( 'kilometers' == $radius_search_unit ) {

@@ -164,7 +164,7 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'select2',
 			],
-			'directorist-sweetalert-script' => [
+			'directorist-sweetalert' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'sweetalert',
 			],
@@ -221,6 +221,22 @@ class Scripts {
 			'directorist-search-form' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'search-form',
+			],
+			'directorist-dashboard' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'directorist-dashboard',
+			],
+			'directorist-all-authors' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'all-authors',
+			],
+			'directorist-author-profile' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'author-profile',
+			],
+			'directorist-all-location-category' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'all-location-category',
 			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',

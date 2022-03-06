@@ -104,6 +104,30 @@ class Init {
 				wp_enqueue_script( 'directorist-add-listing' );
 				break;
 
+			// Dashboard
+			case 'dashboard-contents':
+				wp_enqueue_script( 'directorist-dashboard' );
+				break;
+
+			// All Authors
+			case 'all-authors':
+				wp_enqueue_script( 'directorist-all-authors' );
+				wp_enqueue_script( 'jquery-masonry' );
+				break;
+
+			// Author Profile
+			case 'author-contents':
+				wp_enqueue_script( 'directorist-author-profile' );
+				break;
+
+			// All Location/Category
+			case 'categories-grid':
+			case 'categories-list':
+			case 'locations-grid':
+			case 'locations-list':
+				wp_enqueue_script( 'directorist-all-location-category' );
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
@@ -167,21 +191,22 @@ class Init {
 			case 'single/section-related_listings':
 				wp_enqueue_script( 'directorist-slick' );
 				break;
+
+			case 'dashboard/listing-row':
+				wp_enqueue_script( 'directorist-sweetalert' );
+				break;
+
 		}
 	}
 
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
-
-		switch ( $shortcode ) {
-			case 'directorist_user_dashboard':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::dashboard( $model );
-				break;
-
-			default:
-				Enqueue::common_shortcode_scripts();
-				break;
-		}
+		wp_enqueue_script('jquery-masonry');
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
+		wp_enqueue_script( 'directorist-popper' );
+		wp_enqueue_script( 'directorist-tooltip' );
+		wp_enqueue_script( 'directorist-no-script' );
+		wp_enqueue_script( 'directorist-global-script' );
+		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
 	public function set_scripts() {

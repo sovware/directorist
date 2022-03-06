@@ -29,8 +29,6 @@ elseif ( $location_source == 'map' ) {
 	$cityLat = isset( $_GET['cityLat'] ) ? $_GET['cityLat'] : '';
 	$cityLng = isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '';
 	$value   = isset( $_GET['address'] ) ? $_GET['address'] : '';
-
-	$searchform->load_map_scripts();
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">

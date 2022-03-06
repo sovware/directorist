@@ -104,6 +104,11 @@ class Init {
 				wp_enqueue_script( 'directorist-add-listing' );
 				break;
 
+			// Dashboard
+			case 'dashboard-contents':
+				wp_enqueue_script( 'directorist-dashboar' );
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
@@ -173,10 +178,10 @@ class Init {
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
 
 		switch ( $shortcode ) {
-			case 'directorist_user_dashboard':
-				Enqueue::common_shortcode_scripts();
-				Enqueue::dashboard( $model );
-				break;
+			// case 'directorist_user_dashboard':
+			// 	Enqueue::common_shortcode_scripts();
+			// 	Enqueue::dashboard( $model );
+			// 	break;
 
 			default:
 				Enqueue::common_shortcode_scripts();

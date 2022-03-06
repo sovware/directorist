@@ -120,19 +120,6 @@ class Directorist_Listing_Dashboard {
 		return $this->current_listings_query;
 	}
 
-	private function enqueue_scripts() {
-		// wp_enqueue_script( 'directorist-atmodal' );
-		// wp_enqueue_script( 'directorist-ez-media-uploader' );
-
-		// wp_enqueue_script( 'directorist-search-form-listing' );
-		// wp_localize_script( 'directorist-search-form-listing', 'atbdp_search', array(
-		// 	'ajaxnonce'       => wp_create_nonce( 'bdas_ajax_nonce' ),
-		// 	'ajax_url'        => admin_url( 'admin-ajax.php' ),
-		// 	'added_favourite' => __( 'Added to favorite', 'directorist' ),
-		// 	'please_login'    => __( 'Please login first', 'directorist' ),
-		// ));
-	}
-
 	public function get_listing_price_html() {
 		$id = get_the_ID();
 		$price = get_post_meta( $id, '_price', true );
@@ -511,9 +498,6 @@ class Directorist_Listing_Dashboard {
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts( ['show_title' => ''], $atts );
 		self::$display_title = ( $atts['show_title'] == 'yes' ) ? true : false;
-
-		// Enqueue Scripts
-		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_user_dashboard', $this );
 
 		if (!is_user_logged_in()) {
 			return $this->restrict_access_template();

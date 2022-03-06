@@ -201,6 +201,11 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'validator',
 			],
+			// Global JS
+			'directorist-dashboard' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'directorist-dashboard',
+			],
 
 			// Global JS
 			'directorist-global-script' => [

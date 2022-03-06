@@ -181,17 +181,13 @@ class Init {
 	}
 
 	public function load_shortcode_scripts( $shortcode, $model = false ) {
-
-		switch ( $shortcode ) {
-			// case 'directorist_user_dashboard':
-			// 	Enqueue::common_shortcode_scripts();
-			// 	Enqueue::dashboard( $model );
-			// 	break;
-
-			default:
-				Enqueue::common_shortcode_scripts();
-				break;
-		}
+		wp_enqueue_script('jquery-masonry');
+		wp_enqueue_script( 'directorist-ez-media-uploader' );
+		wp_enqueue_script( 'directorist-popper' );
+		wp_enqueue_script( 'directorist-tooltip' );
+		wp_enqueue_script( 'directorist-no-script' );
+		wp_enqueue_script( 'directorist-global-script' );
+		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
 	public function set_scripts() {

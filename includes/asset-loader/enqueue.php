@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Enqueue {
 
-    use Enqueue_Shortcodes;
     use Enqueue_Widgets;
     use Enqueue_Admin;
 
@@ -55,16 +54,6 @@ class Enqueue {
     public static function color_picker_scripts() {
 		wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 		wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
-	}
-
-	public static function common_shortcode_scripts() {
-		wp_enqueue_script('jquery-masonry');
-		wp_enqueue_script( 'directorist-ez-media-uploader' );
-		wp_enqueue_script( 'directorist-popper' );
-		wp_enqueue_script( 'directorist-tooltip' );
-		wp_enqueue_script( 'directorist-no-script' );
-		wp_enqueue_script( 'directorist-global-script' );
-		wp_enqueue_script( 'directorist-atmodal' );
 	}
 
 	public static function openstreet_map_scripts( $cluster = false ) {

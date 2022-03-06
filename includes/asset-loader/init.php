@@ -121,10 +121,10 @@ class Init {
 				break;
 
 			// All Location/Category
-			case 'categories-grid':
-			case 'categories-list':
-			case 'locations-grid':
-			case 'locations-list':
+			case 'taxonomies/categories-grid':
+			case 'taxonomies/categories-list':
+			case 'taxonomies/locations-grid':
+			case 'taxonomies/locations-list':
 				wp_enqueue_script( 'directorist-all-location-category' );
 				break;
 

@@ -31,5 +31,6 @@ class Init {
 		register_widget( 'Directorist\Widgets\Contact_Form' );
 		register_widget( 'Directorist\Widgets\Submit_Listing' );
 		register_widget( 'Directorist\Widgets\Login_Form' );
+		register_widget( 'Directorist\Widgets\All_Categories' );
 	}
 }

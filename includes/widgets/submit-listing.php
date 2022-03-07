@@ -48,7 +48,7 @@ class Submit_Listing extends \WP_Widget {
 		$instance = [];
 
 		$instance['title']            = ! empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
-		$instance['single_only']      = isset( $new_instance['single_only'] ) ? 1 : 0;
+		$instance['single_only']      = ! empty( $new_instance['single_only'] ) ? 1 : 0;
 
 		return $instance;
 	}

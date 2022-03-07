@@ -52,27 +52,6 @@ class Listings {
 	public $data = [];
 
 	/**
-	 * Options from settings panel.
-	 *
-	 * @var array
-	 */
-	public $options = [];
-
-	/**
-	 * Shortcode attributes.
-	 *
-	 * @var array
-	 */
-	public $atts;
-
-	/**
-	 * Type of archive, possible values: listing, search_result.
-	 *
-	 * @var string
-	 */
-	public $type;
-
-	/**
 	 * WP_Query object for Listing post type.
 	 *
 	 * @var object
@@ -144,48 +123,62 @@ class Listings {
 			$options = $this->get_search_result_page_options();
 		}
 
-		$shortcode_atts = $this->get_shortcode_atts( $args['shortcode_atts'], $options );
+		$shortcode_data = $this->get_shortcode_atts( $args['shortcode_atts'], $options );
 
 		$data = [
-			'shortcode_atts'           => [],
-			'query_args'               => [],
-			'is_search_result'         => false,
-			'view'                     => $shortcode_atts['view'],
-			'orderby'                  => $shortcode_atts['orderby'],
-			'order'                    => $shortcode_atts['order'],
-			'listings_per_page'        => $shortcode_atts['listings_per_page'],
-			'show_pagination'          => $shortcode_atts['show_pagination'],
-			'header'                   => $shortcode_atts['header'],
-			'header_title'             => $shortcode_atts['header_title'],
-			'category'                 => $shortcode_atts['category'],
-			'location'                 => $shortcode_atts['location'],
-			'tag'                      => $shortcode_atts['tag'],
-			'ids'                      => $shortcode_atts['ids'],
-			'columns'                  => $shortcode_atts['columns'],
-			'featured_only'            => $shortcode_atts['featured_only'],
-			'popular_only'             => $shortcode_atts['popular_only'],
-			'display_preview_image'    => $shortcode_atts['display_preview_image'],
-			'advanced_filter'          => $shortcode_atts['advanced_filter'],
-			'logged_in_user_only'      => $shortcode_atts['logged_in_user_only'],
-			'redirect_page_url'        => $shortcode_atts['redirect_page_url'],
-			'map_height'               => $shortcode_atts['map_height'],
-			'map_zoom_level'		   => $shortcode_atts['map_zoom_level'],
-			'directory_type'	       => $shortcode_atts['directory_type'],
-			'default_directory_type'   => $shortcode_atts['default_directory_type'],
-
-			'filter_open_method'   => $options['filter_open_method'],
-			'display_sort_by'   => $options['display_sort_by'],
-			'display_view_as'   => $options['display_view_as'],
+			'shortcode_atts'           => $args['shortcode_atts'],
+			'query_args'               => $args['query_args'],
+			'is_search_result'         => $args['is_search_result'],
+			'view'                     => $shortcode_data['view'],
+			'orderby'                  => $shortcode_data['orderby'],
+			'order'                    => $shortcode_data['order'],
+			'listings_per_page'        => $shortcode_data['listings_per_page'],
+			'show_pagination'          => $shortcode_data['show_pagination'],
+			'header'                   => $shortcode_data['header'],
+			'header_title'             => $shortcode_data['header_title'],
+			'category'                 => $shortcode_data['category'],
+			'location'                 => $shortcode_data['location'],
+			'tag'                      => $shortcode_data['tag'],
+			'ids'                      => $shortcode_data['ids'],
+			'columns'                  => $shortcode_data['columns'],
+			'featured_only'            => $shortcode_data['featured_only'],
+			'popular_only'             => $shortcode_data['popular_only'],
+			'display_preview_image'    => $shortcode_data['display_preview_image'],
+			'advanced_filter'          => $shortcode_data['advanced_filter'],
+			'logged_in_user_only'      => $shortcode_data['logged_in_user_only'],
+			'redirect_page_url'        => $shortcode_data['redirect_page_url'],
+			'map_height'               => $shortcode_data['map_height'],
+			'map_zoom_level'		   => $shortcode_data['map_zoom_level'],
+			'directory_type'	       => $shortcode_data['directory_type'],
+			'default_directory_type'   => $shortcode_data['default_directory_type'],
+			'filter_open_method'            => $options['filter_open_method'],
+			'display_sort_by'               => $options['display_sort_by'],
+			'display_view_as'               => $options['display_view_as'],
 			'listings_filter_button_text'   => $options['listings_filter_button_text'],
-			'sort_by_text'   => $options['sort_by_text'],
-			'view_as_text'   => $options['view_as_text'],
-			'listings_view_as_items'   => $options['listings_view_as_items'],
-			'listings_sort_by_items'   => $options['listings_sort_by_items'],
+			'sort_by_text'                  => $options['sort_by_text'],
+			'view_as_text'                  => $options['view_as_text'],
+			'listings_view_as_items'        => $options['listings_view_as_items'],
+			'listings_sort_by_items'        => $options['listings_sort_by_items'],
 		];
 
 		$this->data = $data;
 
+		if ( empty( $args['query_args'] ) ) {
+			if ( $args['is_search_result'] ) {
+				$query_args = $this->parse_search_query_args();
+			}
+			else {
+				$query_args = $this->parse_query_args();
+			}
+		} else {
+			$query_args = $args['query_args'];
+		}
 
+		$this->query = $this->get_query_results( $query_args )->query;
+	}
+
+	public function reset_data() {
+		$this->setup_data();
 	}
 
 	public function get_shortcode_atts( $atts = [], $options ) {
@@ -261,57 +254,8 @@ class Listings {
 		return $options;
 	}
 
-
-	public function reset_data() {
-		$this->is_search_result_page = false;
-		$this->set_options();
-		$this->set_atts();
-		$this->set_query();
-	}
-
 	public function is_search_result_page() {
 		return $this->data['is_search_result'];
-	}
-
-	/**
-	 * Set page type.
-	 *
-	 * @uses atbdp_is_page()
-	 *
-	 * @param string $type Accepts 'listing', 'search_result'.
-	 */
-	public function set_page_type( $type ) {
-		if ( !$type ) {
-			if ( atbdp_is_page('search_result') ) {
-				$this->type = 'search_result';
-			}
-			else {
-				$this->type = 'listing';
-			}
-		}
-		else {
-			$this->type = $type;
-		}
-	}
-
-	/**
-	 * Set query.
-	 *
-	 * @todo migration: remove transients for backword compatibility
-	 *
-	 * @param array $query_args
-	 */
-	public function set_query( $query_args = false ) {
-		if ( ! $query_args ) {
-			if ( $this->type == 'search_result' ) {
-				$query_args = $this->parse_search_query_args();
-			}
-			else {
-				$query_args = $this->parse_query_args();
-			}
-		}
-
-		$this->query = $this->get_query_results( $query_args )->query;
 	}
 
 	/**
@@ -376,7 +320,7 @@ class Listings {
 	 * Renders header template.
 	 */
 	public function header_bar_template() {
-		if ( $this->atts['header'] == 'yes' ) {
+		if ( $this->data['header'] == 'yes' ) {
 			Helper::get_template( 'archive/header-bar' );
 		}
 	}
@@ -421,13 +365,15 @@ class Listings {
 	 * Renders search form template.
 	 */
 	public function search_form_template() {
-		$search_field_atts = array_filter( $this->atts, function( $key ) {
+		$search_field_atts = array_filter( $this->data, function( $key ) {
 			return substr( $key, 0, 7 ) == 'filter_';
 		}, ARRAY_FILTER_USE_KEY ); // only use atts with the prefix 'filter_'
 
+		$type = $this->is_search_result_page() ? 'search_result' : 'listing';
+
 		$args = array(
 			'listings'   => $this,
-			'searchform' => new Search_Form( $this->type, $this->current_directory_type_id(), $search_field_atts ),
+			'searchform' => new Search_Form( $type, $this->current_directory_type_id(), $search_field_atts ),
 		);
 
 		Helper::get_template( 'archive/search-form', $args );
@@ -669,7 +615,7 @@ class Listings {
 	 * @return string
 	 */
 	public function columns() {
-		return (int) atbdp_calculate_column( $this->atts['columns'] );
+		return (int) atbdp_calculate_column( $this->data['columns'] );
 	}
 
 	/**
@@ -681,7 +627,7 @@ class Listings {
 	 */
 	public function item_found_text() {
 		$count = $this->total_count();
-		$title = $this->atts['header_title'];
+		$title = $this->data['header_title'];
 
 		if ( strpos( $title, '%COUNT%') !== false ) {
 			$text = str_replace( '%COUNT%', $count, $title );
@@ -691,7 +637,7 @@ class Listings {
 			$text = $count . ' '. $title;
 		}
 
-		if ( $this->type == 'search_result' ) {
+		if ( $this->is_search_result_page() ) {
 			$text = $this->item_found_text_for_search();
 		}
 
@@ -745,7 +691,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_search_form() {
-		return $this->atts['advanced_filter'] == 'yes' ? true : false;
+		return $this->data['advanced_filter'] == 'yes' ? true : false;
 	}
 
 	/**
@@ -763,7 +709,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_pagination() {
-		return $this->atts['show_pagination'] == 'yes' ? true : false;
+		return $this->data['show_pagination'] == 'yes' ? true : false;
 	}
 
 	/**
@@ -832,7 +778,7 @@ class Listings {
 	 * @return string
 	 */
 	public function query_orderby() {
-		return $this->atts['orderby'];
+		return $this->data['orderby'];
 	}
 
 	/**
@@ -841,7 +787,7 @@ class Listings {
 	 * @return string
 	 */
 	public function query_order() {
-		return $this->atts['order'];
+		return $this->data['order'];
 	}
 
 	/**
@@ -850,7 +796,7 @@ class Listings {
 	 * @return int
 	 */
 	public function listings_per_page() {
-		return (int) $this->atts['listings_per_page'];
+		return (int) $this->data['listings_per_page'];
 	}
 
 	/**
@@ -859,7 +805,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_only_featured() {
-		return $this->atts['featured_only'];
+		return $this->data['featured_only'];
 	}
 
 	/**
@@ -868,7 +814,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_only_popular() {
-		return $this->atts['popular_only'];
+		return $this->data['popular_only'];
 	}
 
 	/**
@@ -877,7 +823,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_only_for_logged_in() {
-		return $this->atts['logged_in_user_only'] == 'yes' ? true : false;
+		return $this->data['logged_in_user_only'] == 'yes' ? true : false;
 	}
 
 	/**
@@ -886,7 +832,7 @@ class Listings {
 	 * @return string
 	 */
 	public function redirect_page_url() {
-		return $this->atts['redirect_page_url'];
+		return $this->data['redirect_page_url'];
 	}
 
 	/**
@@ -895,7 +841,7 @@ class Listings {
 	 * @return string
 	 */
 	public function map_height() {
-		return (int) $this->atts['map_height'];
+		return (int) $this->data['map_height'];
 	}
 
 	/**
@@ -904,7 +850,7 @@ class Listings {
 	 * @return string
 	 */
 	public function map_zoom_level() {
-		return (int) $this->atts['map_zoom_level'];
+		return (int) $this->data['map_zoom_level'];
 	}
 
 	/**
@@ -949,7 +895,7 @@ class Listings {
 	 * @return string Possible values: overlapping, sliding, always_open.
 	 */
 	public function filter_open_method() {
-		return $this->options['filter_open_method'];
+		return $this->data['filter_open_method'];
 	}
 
 	/**
@@ -958,7 +904,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_sortby_dropdown() {
-		return $this->options['display_sort_by'];
+		return $this->data['display_sort_by'];
 	}
 
 	/**
@@ -967,7 +913,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_viewas_dropdown() {
-		return $this->options['display_view_as'];
+		return $this->data['display_view_as'];
 	}
 
 	/**
@@ -976,7 +922,7 @@ class Listings {
 	 * @return string
 	 */
 	public function filter_button_text() {
-		return $this->options['listings_filter_button_text'];
+		return $this->data['listings_filter_button_text'];
 	}
 
 	/**
@@ -985,7 +931,7 @@ class Listings {
 	 * @return string
 	 */
 	public function sort_by_text() {
-		return $this->options['sort_by_text'];
+		return $this->data['sort_by_text'];
 	}
 
 	/**
@@ -994,7 +940,7 @@ class Listings {
 	 * @return string
 	 */
 	public function view_as_text() {
-		return $this->options['view_as_text'];
+		return $this->data['view_as_text'];
 	}
 
 	/**
@@ -1012,7 +958,7 @@ class Listings {
 			'map'   => 'listings_map',
 		];
 
-		$items = array_intersect( $key_convert_list, $this->options['listings_view_as_items'] );
+		$items = array_intersect( $key_convert_list, $this->data['listings_view_as_items'] );
 		$items = array_keys( $items );
 
 		$data = [];
@@ -1048,7 +994,7 @@ class Listings {
 			'rand'         => 'random',
 		];
 
-		$items = array_intersect( $key_convert_list, $this->options['listings_sort_by_items'] );
+		$items = array_intersect( $key_convert_list, $this->data['listings_sort_by_items'] );
 		$items = array_keys( $items );
 
 		$data = [];
@@ -1126,8 +1072,8 @@ class Listings {
 			'hide_empty' => false
 		);
 
-		if( !empty( $this->atts['directory_type'] ) ) {
-			$args['slug'] = explode( ',', $this->atts['directory_type'] );
+		if( !empty( $this->data['directory_type'] ) ) {
+			$args['slug'] = explode( ',', $this->data['directory_type'] );
 		}
 
 		return get_terms( $args );
@@ -1144,8 +1090,8 @@ class Listings {
 		if ( isset( $_GET['directory_type'] ) ) {
 			$current = $_GET['directory_type'];
 		}
-		else if( !empty( $this->atts['default_directory_type'] ) ) {
-			$current = $this->atts['default_directory_type'];
+		else if( !empty( $this->data['default_directory_type'] ) ) {
+			$current = $this->data['default_directory_type'];
 		}
 		else {
 			foreach ( $types as $term ) {
@@ -1276,7 +1222,7 @@ class Listings {
 		if ( !empty( $_GET['view'] ) ) {
 			$view = sanitize_text_field( $_GET['view'] );
 		} else {
-			$view = $this->atts['view'];
+			$view = $this->data['view'];
 		}
 
 		if ( !in_array( $view, $allowed_views ) ) {
@@ -1938,10 +1884,10 @@ class Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		$categories = !empty( $this->atts['category'] ) ? explode( ',', $this->atts['category'] ) : [];
-		$locations = !empty( $this->atts['location'] ) ? explode( ',', $this->atts['location'] ) : [];
-		$tags = !empty( $this->atts['tag'] ) ? explode( ',', $this->atts['tag'] ) : [];
-		$listing_ids = !empty( $this->atts['ids'] ) ? explode( ',', $this->atts['ids'] ) : [];
+		$categories = !empty( $this->data['category'] ) ? explode( ',', $this->data['category'] ) : [];
+		$locations = !empty( $this->data['location'] ) ? explode( ',', $this->data['location'] ) : [];
+		$tags = !empty( $this->data['tag'] ) ? explode( ',', $this->data['tag'] ) : [];
+		$listing_ids = !empty( $this->data['ids'] ) ? explode( ',', $this->data['ids'] ) : [];
 
 		if ( ! empty( $listing_ids ) ) {
 			$args['post__in'] = $listing_ids;

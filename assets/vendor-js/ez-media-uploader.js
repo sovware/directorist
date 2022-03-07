@@ -116,22 +116,21 @@
       if (!this.container) { return null; }
       var container = this.container;
       var self = this;
-      let uploadOptions = container[0].hasAttribute('data-uploader') == true ? JSON.parse(container[0].getAttribute('data-uploader')) : {"type":"jpg, jpeg, png, gif","max_num_of_img":"1","max_total_img_size":2048,"is_required":"1","max_size_per_img":4096, "allow-multiple": "0", "show-alerts": "0", "show-file-size": "0", "featured": "0", "allow-sorting": "0", "show-info": false, "uploader-type": "avater" };
-      console.log(uploadOptions);
+      let uploadOptions = container[0].hasAttribute('data-uploader') ? JSON.parse(container[0].getAttribute('data-uploader')) : {"type":"jpg, jpeg, png, gif","max_num_of_img":"1","max_total_img_size":0,"is_required":"0","max_size_per_img":4096, "allow_multiple": "0", "show_alerts": "0", "show_file_size": "0", "featured": "0", "allow_sorting": "0", "show_info": "0", "uploader_type":"avater"};
 
       var options = [
-        { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img.toString(), dataType: 'int' },
-        { key: 'maxTotalFileSize', dataAttr: uploadOptions.max_total_img_size.toString(), dataType: 'int' },
-        { key: 'minFileItems', dataAttr: uploadOptions.is_required.toString(), dataType: 'int' },
-        { key: 'maxFileItems', dataAttr: uploadOptions.max_num_of_img.toString(), dataType: 'int' },
-        { key: 'allowedFileFormats', dataAttr: uploadOptions.type.toString(), dataType: 'array' },
-        { key: 'allowMultiple', dataAttr: 'allow-multiple', dataType: 'bool' },
-        { key: 'showAlerts', dataAttr: 'show-alerts', dataType: 'bool' },
-        { key: 'showFileSize', dataAttr: 'show-file-size', dataType: 'bool' },
-        { key: 'featured', dataAttr: 'featured', dataType: 'bool' },
-        { key: 'allowSorting', dataAttr: 'allow-sorting', dataType: 'bool' },
-        { key: 'showInfo', dataAttr: 'show-info', dataType: 'bool' },
-        { key: 'uploaderType', dataAttr: 'uploader-type', dataType: 'string' },
+        { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img ? uploadOptions.max_size_per_img.toString() : 'max_size_per_img', dataType: 'int' },
+        { key: 'maxTotalFileSize', dataAttr: uploadOptions.max_total_img_size ? uploadOptions.max_total_img_size.toString() : 'max_total_img_size', dataType: 'int' },
+        { key: 'minFileItems', dataAttr: uploadOptions.is_required ? uploadOptions.is_required.toString() : 'is_required', dataType: 'int' },
+        { key: 'maxFileItems', dataAttr: uploadOptions.max_num_of_img ? uploadOptions.max_num_of_img.toString() : 'max_num_of_img', dataType: 'int' },
+        { key: 'allowedFileFormats', dataAttr: uploadOptions.type ? uploadOptions.type.toString() : 'type', dataType: 'array' },
+        { key: 'allowMultiple', dataAttr: uploadOptions.allow_multiple ? uploadOptions.allow_multiple.toString() : 'allow_multiple', dataType: 'bool' },
+        { key: 'showAlerts', dataAttr: uploadOptions.show_alerts ? uploadOptions.show_alerts.toString() : 'show_alerts', dataType: 'bool' },
+        { key: 'showFileSize', dataAttr: uploadOptions.show_file_size ? uploadOptions.show_file_size.toString() : 'show_file_size', dataType: 'bool' },
+        { key: 'featured', dataAttr: uploadOptions.featured ? uploadOptions.featured.toString() : 'featured', dataType: 'bool' },
+        { key: 'allowSorting', dataAttr: uploadOptions.allow_sorting ? uploadOptions.allow_sorting.toString() : 'allow_sorting', dataType: 'bool' },
+        { key: 'showInfo', dataAttr: uploadOptions.show_info ? uploadOptions.show_info.toString() : 'show_info', dataType: 'bool' },
+        { key: 'uploaderType', dataAttr: uploadOptions.uploader_type ? uploadOptions.uploader_type.toString() : 'uploader_type', dataType: 'string' },
       ];
 
       forEach(options, function (option) {

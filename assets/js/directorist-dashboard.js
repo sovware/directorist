@@ -637,6 +637,48 @@ if (atbdSelect !== null) {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/directoristFavorite.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristFavorite.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  // Add or Remove from favourites
+  $('#atbdp-favourites').on('click', function (e) {
+    var data = {
+      'action': 'atbdp_public_add_remove_favorites',
+      'post_id': $("a.atbdp-favourites").data('post_id')
+    };
+    $.post(directorist.ajaxurl, data, function (response) {
+      $('#atbdp-favourites').html(response);
+    });
+  });
+  $('.directorist-favourite-remove-btn').each(function () {
+    $(this).on('click', function (event) {
+      event.preventDefault();
+      var data = {
+        'action': 'atbdp-favourites-all-listing',
+        'post_id': $(this).data('listing_id')
+      };
+      $(".directorist-favorite-tooltip").hide();
+      $.post(directorist.ajaxurl, data, function (response) {
+        var post_id = data['post_id'].toString();
+        var staElement = $('.directorist_favourite_' + post_id);
+
+        if ('false' === response) {
+          staElement.remove();
+        }
+      });
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/directoristSelect.js":
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/directoristSelect.js ***!
@@ -1009,6 +1051,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__);
 // Dashboard Js
 
 
@@ -1017,6 +1061,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // General Components
+
 
 
 

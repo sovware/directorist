@@ -30,7 +30,7 @@
         $('body').addClass('atbdp-form-fade');
         $.ajax({
             method: 'POST',
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             data: {
                 action   : 'directorist_author_alpha_sorting',
                 _nonce   : $(this).attr("data-nonce"),
@@ -60,7 +60,7 @@
         var getAlphabetValue = alphabetValue;
         $.ajax({
             method: 'POST',
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             data: {
                 action   : 'directorist_author_pagination',
                 paged    : paged

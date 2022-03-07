@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $uid          = $dashboard->id;
 $u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
 $u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
+
+
+
 ?>
 
 <div class="directorist-image-profile-wrap">

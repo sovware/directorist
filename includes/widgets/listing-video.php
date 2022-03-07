@@ -48,20 +48,18 @@ class Listing_Video extends \WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		echo wp_kses_post( $args['before_widget'] );
-
 		$videourl   = get_post_meta( get_the_ID(), '_videourl', true );
 
 		if( is_singular( ATBDP_POST_TYPE ) && ! empty( $videourl ) ) {
+			echo wp_kses_post( $args['before_widget'] );
 
 			if ( ! empty( $instance['title'] ) ) {
 				echo wp_kses_post( $args['before_title'] ) . apply_filters( 'widget_title', esc_html( $instance['title'] ) ) . wp_kses_post( $args['after_title'] );
 			}
 
 			Helper::get_template( 'widgets/listing-video', compact( 'args', 'instance', 'videourl' ) );
-			
+				
+			echo wp_kses_post( $args['after_widget'] );
 		}
-
-		echo wp_kses_post( $args['after_widget'] );
 	}
 }

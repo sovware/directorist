@@ -28,5 +28,6 @@ class Init {
 	public function register_widgets() {
         register_widget( 'Directorist\Widgets\Popular_Listings' );
 		register_widget( 'Directorist\Widgets\Listing_Video' );
+		register_widget( 'Directorist\Widgets\Contact_Form' );
 	}
 }

@@ -241,7 +241,6 @@ class Filter_Permalinks {
         $page = atbdp_get_paged_num();
 
         if ( ! empty( $page ) ) {
-            $url = remove_query_arg( 'paged' );
             $url = add_query_arg( 'paged', $page , $url );
         }
 

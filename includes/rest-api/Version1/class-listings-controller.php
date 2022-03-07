@@ -891,7 +891,7 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		$args    = apply_filters( 'directorist_related_listing_args', $args );
-		$related = new \wpWax\Directorist\Model\Listings( [], 'related', $args, ['cache' => false] );
+		$related = new \wpWax\Directorist\Model\Listings( [], 'listing', $args, ['cache' => false] );
 
 		return $related->post_ids();
 	}

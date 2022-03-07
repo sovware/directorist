@@ -16,7 +16,10 @@ use ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Listings class
+ * Singletone class to power up all listings.
+ *
+ * To use it for shortcode/widgets etc, use the setup_data() method first to initialize,
+ * then after loading all templates use the reset_data() method to reset all data to the default state.
  *
  * @since 7.1.0
  */
@@ -109,6 +112,39 @@ class Listings {
 	}
 
 	/**
+	 * Setup Listing data.
+	 *
+	 * @param  array   $atts     Shortcode attributes.
+	 * @param  string  $type     Optional. Determines All listings page or Search result page.
+	 *                           Accepts 'listing', 'search_result'. Defaults to ''.
+	 * @param  bool $query_args  Optional. Custom args for listing query. Defaults to false.
+	 */
+	public function setup_data( $args = [] ) {
+		$args = [
+			'shortcode_atts'     => [],
+			'query_args'         => [],
+			'is_search_result'   => false,
+		];
+
+		if ( $args['is_search_result'] ) {
+			# code...
+		}
+
+
+	}
+
+	public function reset_data() {
+		$this->is_search_result_page = false;
+		$this->set_options();
+		$this->set_atts();
+		$this->set_query();
+	}
+
+	public function is_search_result_page() {
+
+	}
+
+	/**
 	 * Set page type.
 	 *
 	 * @uses atbdp_is_page()
@@ -134,7 +170,7 @@ class Listings {
 	 *
 	 * @param array $atts Shortcode attributes.
 	 */
-	public function set_atts( $atts ) {
+	public function set_atts( $atts = [] ) {
 		$defaults = array(
 			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
 			'orderby'                  => $this->options['order_listing_by'],
@@ -214,7 +250,7 @@ class Listings {
 	 *
 	 * @param array $query_args
 	 */
-	public function set_query( $query_args ) {
+	public function set_query( $query_args = false ) {
 		if ( ! $query_args ) {
 			if ( $this->type == 'search_result' ) {
 				$query_args = $this->parse_search_query_args();
@@ -1688,7 +1724,7 @@ class Listings {
 		}
 
 		$cat_icon = $cat_icon ? $cat_icon : atbdp_icon_type() . '-map-marker';
-	
+
 		return $cat_icon;
 	}
 
@@ -1746,7 +1782,7 @@ class Listings {
 		if ( !Settings::display_map_card_window() ) {
 			return [];
 		}
-		
+
 		if ( !Settings::display_map_image() && !Settings::display_map_title() && !Settings::display_map_address() && !Settings::display_map_direction() ) {
 			return [];
 		}
@@ -1787,15 +1823,15 @@ class Listings {
 		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		?>
-		
+
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->map_height())? $this->map_height(): ''; ?>px;">
 			<?php
 				$query = $this->get_query();
 
 				if ( !Settings::display_map_card_window() ) {
-					
+
 				} elseif ( !Settings::display_map_image() && !Settings::display_map_title() && !Settings::display_map_address() && !Settings::display_map_direction() ) {
-					
+
 				} else {
 					if ( $query->have_posts() ) {
 						while ( $query->have_posts() ) {
@@ -1803,7 +1839,7 @@ class Listings {
 							Helper::get_template( 'archive/google-map-card' );
 						}
 					}
-	
+
 					wp_reset_postdata();
 				}
 			?>

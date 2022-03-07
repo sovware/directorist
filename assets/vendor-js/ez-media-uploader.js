@@ -116,7 +116,8 @@
       if (!this.container) { return null; }
       var container = this.container;
       var self = this;
-      let uploadOptions = JSON.parse(container[0].getAttribute('data-uploader'));
+      let uploadOptions = container[0].hasAttribute('data-uploader') == true ? JSON.parse(container[0].getAttribute('data-uploader')) : {"type":"jpg, jpeg, png, gif","max_num_of_img":"1","max_total_img_size":2048,"is_required":"1","max_size_per_img":4096, "allow-multiple": "0", "show-alerts": "0", "show-file-size": "0", "featured": "0", "allow-sorting": "0", "show-info": false, "uploader-type": "avater" };
+      console.log(uploadOptions);
 
       var options = [
         { key: 'maxFileSize', dataAttr: uploadOptions.max_size_per_img.toString(), dataType: 'int' },

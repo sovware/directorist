@@ -2,9 +2,9 @@
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
         var profileMediaUploader = null;
-        if ($("#user_profile_pic").length) {
+        if ($(".directorist-profile-uploader").length) {
             profileMediaUploader = new EzMediaUploader({
-                containerID: "user_profile_pic",
+                containerClass: "directorist-profile-uploader",
             });
             profileMediaUploader.init();
         }

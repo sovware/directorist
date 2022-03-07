@@ -730,102 +730,104 @@ document.body.addEventListener('click', function (e) {
 ;
 
 (function ($) {
-  var profileMediaUploader = null;
+  window.addEventListener('DOMContentLoaded', function () {
+    var profileMediaUploader = null;
 
-  if ($("#user_profile_pic").length) {
-    profileMediaUploader = new EzMediaUploader({
-      containerID: "user_profile_pic"
-    });
-    profileMediaUploader.init();
-  }
-
-  var is_processing = false;
-  $('#user_profile_form').on('submit', function (e) {
-    // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
-    e.preventDefault();
-    var submit_button = $('#update_user_profile');
-    submit_button.attr('disabled', true);
-    submit_button.addClass("directorist-loader");
-
-    if (is_processing) {
-      submit_button.removeAttr('disabled');
-      return;
+    if ($("#user_profile_pic").length) {
+      profileMediaUploader = new EzMediaUploader({
+        containerID: "user_profile_pic"
+      });
+      profileMediaUploader.init();
     }
 
-    var form_data = new FormData();
-    var err_log = {};
-    var error_count; // ajax action
+    var is_processing = false;
+    $('#user_profile_form').on('submit', function (e) {
+      // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
+      e.preventDefault();
+      var submit_button = $('#update_user_profile');
+      submit_button.attr('disabled', true);
+      submit_button.addClass("directorist-loader");
 
-    form_data.append('action', 'update_user_profile');
-    form_data.append('directorist_nonce', directorist.directorist_nonce);
+      if (is_processing) {
+        submit_button.removeAttr('disabled');
+        return;
+      }
 
-    if (profileMediaUploader) {
-      var hasValidFiles = profileMediaUploader.hasValidFiles();
+      var form_data = new FormData();
+      var err_log = {};
+      var error_count; // ajax action
 
-      if (hasValidFiles) {
-        //files
-        var files = profileMediaUploader.getTheFiles();
-        var filesMeta = profileMediaUploader.getFilesMeta();
+      form_data.append('action', 'update_user_profile');
+      form_data.append('directorist_nonce', directorist.directorist_nonce);
 
-        if (files.length) {
-          for (var i = 0; i < files.length; i++) {
-            form_data.append('profile_picture', files[i]);
-          }
-        }
+      if (profileMediaUploader) {
+        var hasValidFiles = profileMediaUploader.hasValidFiles();
 
-        if (filesMeta.length) {
-          for (var i = 0; i < filesMeta.length; i++) {
-            var elm = filesMeta[i];
+        if (hasValidFiles) {
+          //files
+          var files = profileMediaUploader.getTheFiles();
+          var filesMeta = profileMediaUploader.getFilesMeta();
 
-            for (var key in elm) {
-              form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+          if (files.length) {
+            for (var i = 0; i < files.length; i++) {
+              form_data.append('profile_picture', files[i]);
             }
           }
-        }
-      } else {
-        $(".directorist-form-submit__btn").removeClass("atbd_loading");
-        err_log.user_profile_avater = {
-          msg: 'Listing gallery has invalid files'
-        };
-        error_count++;
-      }
-    }
 
-    var $form = $(this);
-    var arrData = $form.serializeArray();
-    $.each(arrData, function (index, elem) {
-      var name = elem.name;
-      var value = elem.value;
-      form_data.append(name, value);
-    });
-    $.ajax({
-      method: 'POST',
-      processData: false,
-      contentType: false,
-      url: directorist.ajaxurl,
-      data: form_data,
-      success: function success(response) {
-        submit_button.removeAttr('disabled');
-        submit_button.removeClass("directorist-loader");
-        console.log(response);
+          if (filesMeta.length) {
+            for (var i = 0; i < filesMeta.length; i++) {
+              var elm = filesMeta[i];
 
-        if (response.success) {
-          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+              for (var key in elm) {
+                form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+              }
+            }
+          }
         } else {
-          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+          $(".directorist-form-submit__btn").removeClass("atbd_loading");
+          err_log.user_profile_avater = {
+            msg: 'Listing gallery has invalid files'
+          };
+          error_count++;
         }
-      },
-      error: function error(response) {
-        submit_button.removeAttr('disabled');
-        console.log(response);
       }
-    }); // remove notice after five second
 
-    setTimeout(function () {
-      $("#directorist-prifile-notice .directorist-alert").remove();
-    }, 5000); // prevent the from submitting
+      var $form = $(this);
+      var arrData = $form.serializeArray();
+      $.each(arrData, function (index, elem) {
+        var name = elem.name;
+        var value = elem.value;
+        form_data.append(name, value);
+      });
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: directorist.ajaxurl,
+        data: form_data,
+        success: function success(response) {
+          submit_button.removeAttr('disabled');
+          submit_button.removeClass("directorist-loader");
+          console.log(response);
 
-    return false;
+          if (response.success) {
+            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+          } else {
+            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+          }
+        },
+        error: function error(response) {
+          submit_button.removeAttr('disabled');
+          console.log(response);
+        }
+      }); // remove notice after five second
+
+      setTimeout(function () {
+        $("#directorist-prifile-notice .directorist-alert").remove();
+      }, 5000); // prevent the from submitting
+
+      return false;
+    });
   });
 })(jQuery);
 
@@ -1007,9 +1009,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
-/* Shamim Ahmed */
-console.log("It's a beautiful day!"); // Dashboard Js
-
+// Dashboard Js
 
 
 

@@ -137,7 +137,7 @@
       // console.log( target, 'clear seen announcements' );
       $.ajax({
         type: "post",
-        url: atbdp_public_data.ajaxurl,
+        url: directorist.ajaxurl,
         data: {
           action: 'atbdp_clear_seen_announcements'
         },
@@ -177,7 +177,7 @@
     var self = this;
     $.ajax({
       type: "post",
-      url: atbdp_public_data.ajaxurl,
+      url: directorist.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).html('<span class="fas fa-spinner fa-spin"></span> ');
@@ -244,7 +244,7 @@
       action: "atbdp_become_author"
     }; // Send the data
 
-    $.post(atbdp_public_data.ajaxurl, data, function (response) {
+    $.post(directorist.ajaxurl, data, function (response) {
       $('.directorist-become-author__loader').addClass('active');
       $('#directorist-become-author-success').html(response);
       $('.directorist-become-author').hide();
@@ -273,7 +273,7 @@
     var taskdata = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
     var tab = $activeTab.data('tab');
     $.ajax({
-      url: atbdp_public_data.ajaxurl,
+      url: directorist.ajaxurl,
       type: 'POST',
       dataType: 'json',
       data: {
@@ -323,20 +323,20 @@
 
     if (task == 'delete') {
       swal({
-        title: atbdp_public_data.listing_remove_title,
-        text: atbdp_public_data.listing_remove_text,
+        title: directorist.listing_remove_title,
+        text: directorist.listing_remove_text,
         type: "warning",
-        cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+        cancelButtonText: directorist.review_cancel_btn_text,
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
+        confirmButtonText: directorist.listing_remove_confirm_text,
         showLoaderOnConfirm: true,
         closeOnConfirm: false
       }, function (isConfirm) {
         if (isConfirm) {
           directorist_dashboard_listing_ajax($activeTab, paged, search, task, postid);
           swal({
-            title: atbdp_public_data.listing_delete,
+            title: directorist.listing_delete,
             type: "success",
             timer: 200,
             showConfirmButton: false
@@ -354,13 +354,13 @@
     var id = $this.data('listing_id');
     var data = 'listing_id=' + id;
     swal({
-      title: atbdp_public_data.listing_remove_title,
-      text: atbdp_public_data.listing_remove_text,
+      title: directorist.listing_remove_title,
+      text: directorist.listing_remove_text,
       type: "warning",
-      cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+      cancelButtonText: directorist.review_cancel_btn_text,
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
-      confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
+      confirmButtonText: directorist.listing_remove_confirm_text,
       showLoaderOnConfirm: true,
       closeOnConfirm: false
     }, function (isConfirm) {
@@ -372,7 +372,7 @@
           if ('success' === response) {
             // show success message
             swal({
-              title: atbdp_public_data.listing_delete,
+              title: directorist.listing_delete,
               type: "success",
               timer: 200,
               showConfirmButton: false
@@ -382,8 +382,8 @@
           } else {
             // show error message
             swal({
-              title: atbdp_public_data.listing_error_title,
-              text: atbdp_public_data.listing_error_text,
+              title: directorist.listing_error_title,
+              text: directorist.listing_error_text,
               type: "error",
               timer: 2000,
               showConfirmButton: false
@@ -757,7 +757,7 @@ document.body.addEventListener('click', function (e) {
     var error_count; // ajax action
 
     form_data.append('action', 'update_user_profile');
-    form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+    form_data.append('directorist_nonce', directorist.directorist_nonce);
 
     if (profileMediaUploader) {
       var hasValidFiles = profileMediaUploader.hasValidFiles();
@@ -802,7 +802,7 @@ document.body.addEventListener('click', function (e) {
       method: 'POST',
       processData: false,
       contentType: false,
-      url: atbdp_public_data.ajaxurl,
+      url: directorist.ajaxurl,
       data: form_data,
       success: function success(response) {
         submit_button.removeAttr('disabled');
@@ -1040,4 +1040,4 @@ module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/dashboar
 /***/ })
 
 /******/ });
-//# sourceMappingURL=dashboard.js.map
+//# sourceMappingURL=directorist-dashboard.js.map

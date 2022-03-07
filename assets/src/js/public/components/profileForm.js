@@ -28,7 +28,7 @@
 
         // ajax action
         form_data.append('action', 'update_user_profile');
-        form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+        form_data.append('directorist_nonce', directorist.directorist_nonce);
         if (profileMediaUploader) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
             if (hasValidFiles) {
@@ -72,7 +72,7 @@
             method: 'POST',
             processData: false,
             contentType: false,
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             data: form_data,
             success: function (response) {
                 submit_button.removeAttr('disabled');

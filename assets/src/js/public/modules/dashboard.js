@@ -1,3 +1,5 @@
+/* Shamim Ahmed */
+console.log("It's a beautiful day!");
 // Dashboard Js
 import '../components/dashboard/dashboardSidebar';
 import '../components/dashboard/dashboardTab';

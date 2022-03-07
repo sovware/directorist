@@ -116,7 +116,7 @@ class ATBDP_Shortcode {
 	public function listing_archive( $atts ) {
 		$atts = !empty( $atts ) ? $atts : [];
 		$listings = directorist()->listings;
-		$listings->init( $atts );
+		$listings->setup_data( ['shortcode_atts' => $atts] );
 
 		if ( !empty( $listings->redirect_page_url() ) ) {
 			$redirect = '<script>window.location="' . esc_url( $listings->redirect_page_url() ) . '"</script>';
@@ -131,6 +131,7 @@ class ATBDP_Shortcode {
 		Script_Helper::load_search_form_script( $script_args );
 
 		Helper::get_template( 'archive-contents' );
+		$listings->reset_data();
 	}
 
 	public function category_archive( $atts ) {
@@ -165,16 +166,16 @@ class ATBDP_Shortcode {
 	public function all_categories( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Listing_Taxonomy($atts, 'category');
-		
+
 		$atts[ 'shortcode' ] = 'directorist_all_categories';
-		
+
 		return $taxonomy->render_shortcode( $atts );
 	}
 
 	public function all_locations( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$taxonomy = new Listing_Taxonomy($atts, 'location');
-		
+
 		return $taxonomy->render_shortcode( $atts );
 	}
 
@@ -185,7 +186,7 @@ class ATBDP_Shortcode {
 			$listing_type = $atts['listing_type'];
 		}
 		$searchform = new Search_Form( 'search_form', $listing_type, $atts );
-		
+
 		return $searchform->render_search_shortcode( $atts );
 	}
 
@@ -204,7 +205,7 @@ class ATBDP_Shortcode {
 	public function user_dashboard( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$dashboard = Dashboard::instance();
-		
+
 		return $dashboard->render_shortcode($atts);
 	}
 
@@ -214,7 +215,7 @@ class ATBDP_Shortcode {
 		$pattern = "/edit\/(\d+)/i";
 		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
 		$forms = Listing_Form::instance($id);
-		
+
 		return $forms->render_shortcode($atts);
 	}
 

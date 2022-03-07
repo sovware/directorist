@@ -12,17 +12,67 @@ class Filter_Permalinks {
      * @return void
      */
     public function __construct() {
+        add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_archive_pages' ], 20, 2 );
+        add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_author_profile_page' ], 20, 2 );
+        add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
+        
         add_filter( 'atbdp_checkout_page_url', [ $this, 'filter_checkout_page_url' ], 20, 2 );
         add_filter( 'atbdp_payment_receipt_page_url', [ $this, 'filter_payment_receipt_page_url' ], 20, 2 );
         add_filter( 'atbdp_edit_listing_page_url', [ $this, 'filter_edit_listing_page_url' ], 20, 2 );
-        add_filter( 'wpml_ls_language_url', [ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ], 20, 2 );
+        add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
+        
+        add_filter( 'atbdp_single_category', [ $this, 'filter_single_category_page_url' ], 20, 4 );
+        add_filter( 'atbdp_single_location', [ $this, 'filter_single_location_page_url' ], 20, 4 );
+        add_filter( 'atbdp_single_tag', [ $this, 'filter_single_tag_page_url' ], 20, 4 );
+        
+        add_filter( 'directorist_pagination', [ $this, 'filter_directorist_pagination_url' ], 20, 4 );
+        add_filter( 'directorist_get_directory_type_nav_url', [ $this, 'filter_directorist_directory_type_nav_url' ], 20, 4 );
+    }
 
-        if ( ! $this->wpml_language_url_format_is_pretty() ) {
-            add_filter( 'atbdp_author_profile_page_url', [ $this, 'filter_author_profile_page_url' ], 20, 4 );
-            add_filter( 'atbdp_single_category', [ $this, 'filter_single_category_page_url' ], 20, 4 );
-            add_filter( 'atbdp_single_location', [ $this, 'filter_single_location_page_url' ], 20, 4 );
-            add_filter( 'atbdp_single_tag', [ $this, 'filter_single_tag_page_url' ], 20, 4 );
+    /**
+     * Filter directorist pagination URL
+     * 
+     * @return string
+     */
+    public function filter_directorist_pagination_url( $navigation, $links, $query_results, $paged ) {
+        $paged = 1;
+        $largeNumber = 999999999;
+
+        $total = ( isset( $query_results->total_pages ) ) ? $query_results->total_pages : $query_results->max_num_pages;
+        $paged = ( isset( $query_results->current_page ) ) ? $query_results->current_page : $paged;
+
+        $links = paginate_links(array(
+            'base'      => str_replace( $largeNumber, '%#%', get_pagenum_link( $largeNumber, false ) ),
+            'format'    => '?paged=%#%',
+            'current'   => max(1, $paged),
+            'total'     => $total,
+            'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
+            'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
+        ));
+
+        if ( $links ) {
+            $navigation = '<div class="directorist-pagination">'.$links.'</div>';
         }
+
+        return $navigation;
+    }
+
+    /**
+     * Filter directorist directory type nav URL
+     * 
+     * @return string
+     */
+    public function filter_directorist_directory_type_nav_url( $url, $type, $base_url ) {
+        
+        if ( ! empty( $base_url ) ) {
+            $base_url = remove_query_arg( [ 'page', 'paged', 'directory_type', 'directory-type' ] );
+            $base_url = add_query_arg( [ 'directory_type' => $type ], $base_url );
+            
+            $base_url = preg_replace( '~/page/(\d+)/?~', '', $base_url );
+            $base_url = preg_replace( '~/paged/(\d+)/?~', '', $base_url );
+        }
+
+        return $url;
     }
 
     /**
@@ -39,6 +89,8 @@ class Filter_Permalinks {
         if ( empty(  get_option( 'permalink_structure' ) ) ) {
             return $url;
         }
+
+        $url = get_permalink( $page_id );
         
         if ( ! empty( $directory_type ) ) {
             $query_args = [
@@ -148,9 +200,106 @@ class Filter_Permalinks {
     }
 
     /**
+     * Filter language switcher URL for archive page
+     * 
+     * @return string
+     */
+    public function filter_lang_switcher_url_for_archive_pages( $url, $data ) {
+
+        $page_ids = [
+            'all_listings'  => get_directorist_option('all_listing_page'),
+            'search_result' => get_directorist_option('search_result_page'),
+        ];
+
+        // Check is current page is archive page
+        $is_archive_page = false;
+
+        foreach ( $page_ids as $page_id ) {
+
+            if ( empty( $page_id ) ) {
+                continue;
+            }
+
+            $page_id = ( int ) $page_id;
+
+            if (  $this->is_id_current_page( $page_id ) ) {
+                $is_archive_page = true;
+                break;
+            }
+
+        }
+
+        if ( ! $is_archive_page ) {
+            return $url;
+        }
+
+        if ( ! empty( $_REQUEST ) ) {
+            $url = add_query_arg( $_REQUEST, $url );
+        }
+
+        // Pagination
+        $page = atbdp_get_paged_num();
+
+        if ( ! empty( $page ) ) {
+            $url = remove_query_arg( 'paged' );
+            $url = add_query_arg( 'paged', $page , $url );
+        }
+
+        return $url;
+    }
+
+
+    /**
+     * Filter language switcher URL for author profile page
+     * 
+     * @return string
+     */
+    public function filter_lang_switcher_url_for_author_profile_page( $url, $data ) {
+
+        $page_id = get_directorist_option('author_profile_page');
+
+        if ( empty( $page_id ) ) {
+            return $url;
+        }
+
+        $page_id = ( int ) $page_id;
+
+        if ( ! $this->is_id_current_page( $page_id ) ) {
+            return $url;
+        }
+
+        // Author ID
+        $author_id = ( isset( $_REQUEST['author_id'] ) ) ? $_REQUEST['author_id'] : get_query_var( 'author_id' );
+
+        if ( ! empty( $author_id ) ) {
+            $url = add_query_arg( 'author_id', $author_id , $url );
+        }
+
+        // Directory Type
+        $directory_type = ( isset( $_REQUEST['directory_type'] ) ) ? $_REQUEST['directory_type'] : get_query_var( 'directory_type' );
+        
+        if ( empty( $directory_type ) ) {
+            $directory_type = ( isset( $_REQUEST['directory-type'] ) ) ? $_REQUEST['directory-type'] : get_query_var( 'directory-type' );
+        }
+
+        if ( ! empty( $directory_type ) ) {
+            $url = add_query_arg( 'directory_type', $directory_type , $url );
+        }
+
+        // Pagination
+        $page = atbdp_get_paged_num();
+
+        if ( ! empty( $page ) ) {
+            $url = add_query_arg( 'paged', $page , $url );
+        }
+
+        return $url;
+    }
+
+    /**
      * Filter language switcher URL for single taxonomy page
      * 
-     * @return void
+     * @return string
      */
     public function filter_lang_switcher_url_for_single_taxonomy_page( $url, $data ) {
 
@@ -164,7 +313,6 @@ class Filter_Permalinks {
 
         return $url;
     }
-
     
     /**
      * Get current page taxonomy data
@@ -250,19 +398,10 @@ class Filter_Permalinks {
         $translation_term_slug = $translation_term->slug;
         $page = atbdp_get_paged_num();
 
-        if ( $this->wpml_language_url_format_is_pretty() ) {
-            $url = trailingslashit( $url ) . $translation_term_slug;
+        $url = add_query_arg( $current_term_data['query_var'], $translation_term_slug , $url );
 
-            if ( ! empty( $page ) ) {
-                $url = trailingslashit( $url ) . 'page/' . $page;
-            }
-
-        } else {
-            $url = add_query_arg( $current_term_data['query_var'], $translation_term_slug , $url );
-
-            if ( ! empty( $page ) ) {
-                $url = add_query_arg( 'paged', $page , $url );
-            }
+        if ( ! empty( $page ) ) {
+            $url = add_query_arg( 'paged', $page , $url );
         }
 
         if ( isset( $_REQUEST['directory_type'] ) ) {
@@ -349,5 +488,30 @@ class Filter_Permalinks {
         $language_negotiation_type = ( ! empty( $language_negotiation_type ) && is_numeric( $language_negotiation_type ) ) ? ( int ) $language_negotiation_type : 1;
 
         return ( 3 != $language_negotiation_type );
+    }
+
+    /**
+     * Checks if the given page ID matches with current page ID
+     * 
+     * @return bool
+     */
+    public function is_id_current_page( $page_id = 0, $element_type = 'post_page' ) {
+
+        $page_translations = apply_filters( 'wpml_get_element_translations', null, $page_id, $element_type );
+
+        if ( empty( $page_translations ) ) {
+            return $page_id === get_the_ID();
+        }
+
+
+        foreach( $page_translations as $page_translation_args ) {
+            $translation_page_id = (int) $page_translation_args->element_id;
+
+            if ( $translation_page_id === get_the_ID() ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

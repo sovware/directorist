@@ -122,7 +122,6 @@ class ATBDP_Rewrite {
 		$page_id = $this->get_page_id( 'single_category_page' );
 		if ( $page_id ) {
 			$link = $this->get_page_slug( $page_id, 'directory-single-category' );
-
 			add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$page_id.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
 			add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$page_id.'&atbdp_category=$matches[1]', 'top' );
 		}

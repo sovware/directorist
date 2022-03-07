@@ -121,10 +121,10 @@ class Init {
 				break;
 
 			// All Location/Category
-			case 'categories-grid':
-			case 'categories-list':
-			case 'locations-grid':
-			case 'locations-list':
+			case 'taxonomies/categories-grid':
+			case 'taxonomies/categories-list':
+			case 'taxonomies/locations-grid':
+			case 'taxonomies/locations-list':
 				wp_enqueue_script( 'directorist-all-location-category' );
 				break;
 
@@ -181,7 +181,8 @@ class Init {
 				break;
 
 			case 'listing-form/fields/social_info':
-				wp_enqueue_script( 'directorist-sweetalert-script' );
+			case 'dashboard/listing-row':
+				wp_enqueue_script( 'directorist-sweetalert' );
 				break;
 
 			case 'single/slider':
@@ -190,10 +191,6 @@ class Init {
 
 			case 'single/section-related_listings':
 				wp_enqueue_script( 'directorist-slick' );
-				break;
-
-			case 'dashboard/listing-row':
-				wp_enqueue_script( 'directorist-sweetalert' );
 				break;
 
 		}

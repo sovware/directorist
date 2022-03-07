@@ -55,15 +55,15 @@ class Author {
 	// extract_user_id
 	public function extract_user_id( $user_id = '' ) {
 		$extracted_user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
-		
+
 		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
 			$user = get_user_by( 'login', $user_id );
-			
+
 			if ( $user ) {
 				$extracted_user_id = $user->ID;
 			}
 		}
-		
+
 		$extracted_user_id = intval( $extracted_user_id );
 
 		return $extracted_user_id;
@@ -79,7 +79,7 @@ class Author {
 		if ( ! $this->id ) {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
 		}
-		
+
 		$this->all_listings = $this->get_all_posts();
 		$this->get_rating();
 
@@ -150,7 +150,7 @@ class Author {
 			if ( ! empty( $user_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
 				_prime_post_caches( $user_listings->ids );
 			}
-			
+
 			$original_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : get_post();
 
 			foreach ( $user_listings->ids as $listings_id ) :
@@ -264,7 +264,7 @@ class Author {
 				),
 			);
 		}
-		
+
 		if ( ! empty( $category ) ) {
 			$args['tax_query'] = $category;
 		}
@@ -375,19 +375,18 @@ class Author {
 	}
 
 	public function author_listings_template() {
+		$query    = $this->author_listings_query();
+		$listings = directorist()->listings;
+		$listings->setup_data( ['query_args' => $query] ); // @model @kowsar
+
 		$args = array(
 			'author'   => $this,
-			'listings' => $this->get_listings(),
+			'listings' => $listings,
 		);
 
 		Helper::get_template( 'author/listings', $args );
-	}
 
-	public function get_listings() {
-		$query    = $this->author_listings_query();
-		$listings = directorist()->listings;
-		$listings->init( NULL, NULL, $query, ['cache' => false] ); // @model @kowsar
-		return $listings;
+		$listings->reset_data();
 	}
 
 	public function cat_filter_enabled() {

@@ -1119,7 +1119,12 @@ class Single_Listing {
 		Helper::get_template('single/listing-review', $args);
 	}
 
+	// deprecated
 	public function get_related_listings() {
+		return [];
+	}
+
+	public function get_related_listings_query_args() {
 		$number       = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
 		$same_author  = get_directorist_type_option( $this->type, 'listing_from_same_author', false );
 		$logic        = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
@@ -1184,10 +1189,7 @@ class Single_Listing {
 
 		$args = apply_filters( 'directorist_related_listing_args', $args, $this );
 
-		$related = directorist()->listings;
-		$related->init( [], 'listing', $args, ['cache' => false] ); // @model @kowsar
-
-		return $related;
+		return $args;
 	}
 
 	public function get_related_columns() {

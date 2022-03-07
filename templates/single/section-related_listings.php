@@ -9,12 +9,15 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$related = $listing->get_related_listings();
+$query_args = $listing->get_related_listings_query_args();
+$related = directorist()->listings;
+$related->setup_data( ['query_args' => $query_args] );
 $query = $related->get_query();
 
-
 if ( !$query->have_posts() ) {
+	directorist()->listings->reset_data();
 	return;
+
 }
 
 $listing->load_related_listings_script();
@@ -25,7 +28,7 @@ $listing->load_related_listings_script();
 	<div class="directorist-related-listing-header">
 
 		<h4><?php echo esc_html( $label );?></h4>
-		
+
 	</div>
 
 
@@ -44,3 +47,6 @@ $listing->load_related_listings_script();
 	</div>
 
 </div>
+
+<?php
+directorist()->listings->reset_data();

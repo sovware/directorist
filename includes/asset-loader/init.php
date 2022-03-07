@@ -173,6 +173,7 @@ class Init {
 				break;
 
 			case 'listing-form/fields/image_upload':
+			case 'dashboard/profile-pic':
 				wp_enqueue_script( 'directorist-ez-media-uploader' );
 				break;
 

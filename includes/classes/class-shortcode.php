@@ -89,8 +89,9 @@ class ATBDP_Shortcode {
 		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
 		Script_Helper::load_search_form_script( $script_args );
 
-		Helper::get_template( 'archive-contents' );
+		$contents =  Helper::get_template_contents( 'archive-contents' );
 		$listings->reset_data();
+		return $contents;
 	}
 
 	// single_listings_header

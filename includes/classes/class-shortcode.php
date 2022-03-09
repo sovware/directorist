@@ -38,10 +38,10 @@ class ATBDP_Shortcode {
 		$shortcodes = [
 			// Archive
 			'directorist_all_listing'    => [ $this, 'all_listings' ],
+			'directorist_search_result'  => [ $this, 'all_listings' ],
 			'directorist_category'       => [ $this, 'category_archive' ],
 			'directorist_tag'            => [ $this, 'tag_archive' ],
 			'directorist_location'       => [ $this, 'location_archive' ],
-			'directorist_search_result'  => [ $this, 'search_result_archive' ],
 
 			// Taxonomy
 			'directorist_all_categories' => [ $this, 'all_categories' ],
@@ -114,11 +114,6 @@ class ATBDP_Shortcode {
 		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var( 'atbdp_location' );
 		$atts['location'] = sanitize_title_for_query( $location_slug );
 
-		return $this->all_listings( $atts );
-	}
-
-	public function search_result_archive( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
 		return $this->all_listings( $atts );
 	}
 

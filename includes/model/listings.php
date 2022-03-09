@@ -89,28 +89,21 @@ class Listings {
 	 */
 	public function setup_data( $args = [] ) {
 		$defaults = [
-			'shortcode_atts'     => '',
-			'query_args'         => [],
-			'is_search_result'   => false,
+			'shortcode_atts' => '',
+			'query_args'     => [],
 		];
 
 		$args = wp_parse_args( $args, $defaults );
 
 		$data = [];
 
-		if ( $args['is_search_result'] ) {
-			$options = $this->get_all_listing_page_options();
-		}
-		else {
-			$options = $this->get_search_result_page_options();
-		}
+		$options = $this->is_search_result_page() ? $this->get_search_result_page_options() : $this->get_all_listing_page_options();
 
 		$shortcode_data = $this->get_shortcode_atts( $args['shortcode_atts'], $options );
 
 		$data = [
 			'shortcode_atts'           => $args['shortcode_atts'],
 			'query_args'               => $args['query_args'],
-			'is_search_result'         => $args['is_search_result'],
 			'view'                     => $shortcode_data['view'],
 			'orderby'                  => $shortcode_data['orderby'],
 			'order'                    => $shortcode_data['order'],
@@ -146,12 +139,7 @@ class Listings {
 		$this->data = $data;
 
 		if ( empty( $args['query_args'] ) ) {
-			if ( $args['is_search_result'] ) {
-				$query_args = $this->parse_search_query_args();
-			}
-			else {
-				$query_args = $this->parse_query_args();
-			}
+			$query_args = $this->is_search_result_page() ? $this->parse_search_query_args() : $this->parse_query_args();
 		} else {
 			$query_args = $args['query_args'];
 		}
@@ -264,7 +252,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function is_search_result_page() {
-		return $this->data['is_search_result'];
+		return atbdp_is_page( 'search_result' );
 	}
 
 	/**

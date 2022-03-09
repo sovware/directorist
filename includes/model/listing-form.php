@@ -831,7 +831,7 @@ class Listing_Form {
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 
 		if ( ! $guest_submission && ! is_user_logged_in() ) {
-			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
+			return Helper::get_template_contents( 'global/restrict-content' );
 		}
 		elseif( ! empty( $user_type ) && ( 'general' == $user_type || 'become_author' == $user_type ) ) {
 			return \ATBDP_Helper::guard( array( 'type' => 'user_type' ) );
@@ -878,7 +878,7 @@ class Listing_Form {
 				} else {
 					$args['error_notice'] = __('Notice: Your given directory type is not valid. Please use a valid directory type', 'directorist');
 				}
-				
+
 				return Helper::get_template_contents( 'listing-form/add-listing-notype', $args );
 			}
 			// if only one directory

@@ -83,7 +83,7 @@ class ATBDP_Shortcode {
 		}
 
 		if ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
-			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
+			return Helper::get_template_contents( 'global/restrict-content' );
 		}
 
 		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];

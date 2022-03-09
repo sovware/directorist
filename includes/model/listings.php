@@ -16,7 +16,7 @@ use ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Singletone class, also available as 'directorist()->listings' throughout
+ * Singletone object is available as 'directorist()->listings' throughout
  * the site, much like global variable.
  *
  * To use it effectively, you must call the setup_data() method at

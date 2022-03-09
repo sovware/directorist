@@ -59,7 +59,19 @@ class Listings {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->setup_data();
+		//$this->setup_data();
+	}
+
+	/**
+	 * Singleton instance.
+	 *
+	 * @return object Listings instance.
+	 */
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
 	}
 
 	/**

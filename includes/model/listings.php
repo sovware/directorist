@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Listing archive page.
+ * Power up Listing archive components.
  *
  * @package wpWax\Directorist\Model
  * @author  wpWax
@@ -82,8 +82,8 @@ class Listings {
 	/**
 	 * Setup Listing data.
 	 *
-	 * Since WP_Query is used here which is available after 'init' hook, this method
-	 * shouldn't be called before that hook is executed to avoid fatal error.
+	 * This method shouldn't be called before 'init' hook, because at some point
+	 * it uses WP_Query to generate query data which only works after 'init' hook
 	 *
 	 * @param array $args
 	 */
@@ -95,15 +95,23 @@ class Listings {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$data = [];
+		$this->data  = apply_filters( 'directorist_all_listings_data', $this->build_data( $args['shortcode_atts'] ), $args  );
+		$this->query = apply_filters( 'directorist_all_listings_query', $this->build_query( $args['query_args'] ), $args  );
+	}
 
+	/**
+	 * Build data using plugin settings and shortcode attributes.
+	 *
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	private function build_data( $shortcode_atts ) {
 		$options = $this->is_search_result_page() ? $this->get_search_result_page_options() : $this->get_all_listing_page_options();
 
-		$shortcode_data = $this->get_shortcode_atts( $args['shortcode_atts'], $options );
+		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
 		$data = [
-			'shortcode_atts'           => $args['shortcode_atts'],
-			'query_args'               => $args['query_args'],
 			'view'                     => $shortcode_data['view'],
 			'orderby'                  => $shortcode_data['orderby'],
 			'order'                    => $shortcode_data['order'],
@@ -136,15 +144,24 @@ class Listings {
 			'listings_sort_by_items'        => $options['listings_sort_by_items'],
 		];
 
-		$this->data = $data;
+		return $data;
+	}
 
-		if ( empty( $args['query_args'] ) ) {
+	/**
+	 * Build query using $this->data property.
+	 *
+	 * @param array $args
+	 *
+	 * @return object WP_Query object
+	 */
+	private function build_query( $query_args ) {
+		if ( empty( $query_args ) ) {
 			$query_args = $this->is_search_result_page() ? $this->parse_search_query_args() : $this->parse_query_args();
 		} else {
-			$query_args = $args['query_args'];
+			$query_args = $query_args;
 		}
 
-		$this->query = $this->get_query_results( $query_args )->query;
+		return $this->get_query_results( $query_args )->query;
 	}
 
 	/**

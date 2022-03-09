@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Powers up listing archive components.
  *
  * Should be available as 'directorist()->listings' throughout the site, much like
- * global variable. To use it effectively, you must use the setup_data() method at
+ * global variable. To use it effectively, you must call the setup_data() method at
  * the begining, and then at the end you must use the reset_data() method to reset
  * all data to the default state.
  *
@@ -212,7 +212,7 @@ class Listings {
 		return $options;
 	}
 
-	/**Check if current page is search result page or not.
+	/** Check if current page is search result page or not.
 	 *
 	 * @return bool
 	 */

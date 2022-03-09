@@ -5,7 +5,6 @@
 
 namespace Directorist;
 
-use wpWax\Directorist\Model\Listings;
 use wpWax\Directorist\Model\Account;
 use wpWax\Directorist\Model\All_Authors;
 use wpWax\Directorist\Model\Author;
@@ -37,7 +36,7 @@ class ATBDP_Shortcode {
 	public function get_all_shortcodes() {
 		$shortcodes = [
 			// Archive
-			'directorist_all_listing'    => [ $this, 'listing_archive' ],
+			'directorist_all_listing'    => [ $this, 'all_listings' ],
 			'directorist_category'       => [ $this, 'category_archive' ],
 			'directorist_tag'            => [ $this, 'tag_archive' ],
 			'directorist_location'       => [ $this, 'location_archive' ],
@@ -71,6 +70,27 @@ class ATBDP_Shortcode {
 		];
 
 		return apply_filters( 'atbdp_shortcodes', $shortcodes );
+	}
+
+	public function all_listings( $atts ) {
+		$atts = !empty( $atts ) ? $atts : [];
+		$listings = directorist()->listings;
+		$listings->setup_data( ['shortcode_atts' => $atts] );
+
+		if ( !empty( $listings->redirect_page_url() ) ) {
+			$redirect = '<script>window.location="' . esc_url( $listings->redirect_page_url() ) . '"</script>';
+			return $redirect;
+		}
+
+		if ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
+			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
+		}
+
+		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
+		Script_Helper::load_search_form_script( $script_args );
+
+		Helper::get_template( 'archive-contents' );
+		$listings->reset_data();
 	}
 
 	// single_listings_header
@@ -111,27 +131,6 @@ class ATBDP_Shortcode {
 		}
 
 		return ob_get_clean();
-	}
-
-	public function listing_archive( $atts ) {
-		$atts = !empty( $atts ) ? $atts : [];
-		$listings = directorist()->listings;
-		$listings->setup_data( ['shortcode_atts' => $atts] );
-
-		if ( !empty( $listings->redirect_page_url() ) ) {
-			$redirect = '<script>window.location="' . esc_url( $listings->redirect_page_url() ) . '"</script>';
-			return $redirect;
-		}
-
-		if ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
-			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
-		}
-
-		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
-		Script_Helper::load_search_form_script( $script_args );
-
-		Helper::get_template( 'archive-contents' );
-		$listings->reset_data();
 	}
 
 	public function category_archive( $atts ) {

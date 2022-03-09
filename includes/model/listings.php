@@ -28,17 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Listings {
 
 	/**
-	 * Load deprecated functions.
+	 * Load deprecated methods to avoid fatal error.
 	 */
 	use Deprecated_Listings;
-
-
-	/**
-	 * Current field inside loop
-	 *
-	 * @var string
-	 */
-	public static $current_field = '';
 
 	/**
 	 * Data is based on shortcode attributes and settings.
@@ -53,6 +45,13 @@ class Listings {
 	 * @var object
 	 */
 	public $query;
+
+	/**
+	 * Current field inside loop, value will be updated before loading any field.
+	 *
+	 * @var string
+	 */
+	public $current_field = '';
 
 	/**
 	 * Setup Listing data.
@@ -1341,13 +1340,13 @@ class Listings {
 	public function render_card_view( $fields, $before = '', $after = '' ) {
 		if( !empty( $fields ) ) {
 			foreach ( $fields as $field ) {
-				self::$current_field = $field;
+				$this->current_field = $field;
 
 				echo $before;
 				$this->card_field_html( $field );
 				echo $after;
 
-				self::$current_field = '';
+				$this->current_field = '';
 			}
 		}
 	}
@@ -1358,7 +1357,7 @@ class Listings {
 	 * @param  array $field
 	 */
 	public function card_field_html() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 
 		// For badges, load badge template
 		if ( $field['type'] == 'badge' && $this->can_load_badge() ) {
@@ -1416,7 +1415,7 @@ class Listings {
 	 */
 	public function get_form_field_data( $field = [] ) {
 		if ( empty( $field ) ) {
-			$field = self::$current_field;
+			$field = $this->current_field;
 		}
 
 		$form_field = [];
@@ -1438,7 +1437,7 @@ class Listings {
 	 * @return string
 	 */
 	public function field_icon() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 
 		return !empty( $field['icon'] ) ? $field['icon'] : '';
 	}
@@ -1447,7 +1446,7 @@ class Listings {
 	 * @return string
 	 */
 	public function field_label() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 
 		return !empty( $field['show_label'] ) ? $field['label']: '';
 	}
@@ -1459,7 +1458,7 @@ class Listings {
 	 */
 	public function field_value( $field = [] ) {
 		if ( empty( $field ) ) {
-			$field = self::$current_field;
+			$field = $this->current_field;
 		}
 
 		$form_field = $this->get_form_field_data();
@@ -1545,7 +1544,7 @@ class Listings {
 	public function is_custom_field() {
 		$allowed_fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 
-		$field = self::$current_field;
+		$field = $this->current_field;
 		$form_field = $this->get_form_field_data();
 
 		$widget_name = ( !empty( $form_field['widget_name'] ) ) ? $form_field['widget_name'] : $field['widget_name'];
@@ -1571,7 +1570,7 @@ class Listings {
 	 * @return int
 	 */
 	public function excerpt_word_limit() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return (int) $field['words_limit'];
 	}
 
@@ -1579,7 +1578,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_excerpt_readmore() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return $field['show_readmore'] ?? false;
 	}
 
@@ -1587,7 +1586,7 @@ class Listings {
 	 * @return string
 	 */
 	public function excerpt_readmore_text() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return $field['show_readmore_text'];
 	}
 
@@ -1595,7 +1594,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function display_tagline() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return $field['show_tagline'] ?? false;
 	}
 
@@ -1603,7 +1602,7 @@ class Listings {
 	 * @return bool
 	 */
 	public function posted_date_is_days_ago() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return ( $field['date_type'] == 'days_ago' ) ? true : false;
 	}
 
@@ -1611,7 +1610,7 @@ class Listings {
 	 * @return string
 	 */
 	public function avatar_alignment() {
-		$field = self::$current_field;
+		$field = $this->current_field;
 		return !empty( $field['align'] ) ? $field['align'] : '' ;
 	}
 
@@ -1636,18 +1635,18 @@ class Listings {
 
 	public function badge_text() {
 		$all_badges = $this->badges();
-		$current_badge = self::$current_field['widget_key'];
+		$current_badge = $this->current_field['widget_key'];
 		return ! empty( $all_badges[$current_badge]['label'] ) ? $all_badges[$current_badge]['label'] : '';
 	}
 
 	public function badge_class() {
 		$all_badges = $this->badges();
-		$current_badge = self::$current_field['widget_key'];
+		$current_badge = $this->current_field['widget_key'];
 		return ! empty( $all_badges[$current_badge]['class'] ) ? $all_badges[$current_badge]['class'] : '';
 	}
 
 	public function can_load_badge() {
-		$field_type = self::$current_field['widget_key'];
+		$field_type = $this->current_field['widget_key'];
 
 		if ( $field_type == 'popular_badge' && Helper::is_popular() ) {
 			return true;

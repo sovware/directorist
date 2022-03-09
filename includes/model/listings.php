@@ -16,12 +16,12 @@ use ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Powers up listing archive components.
+ * Singletone class, also available as 'directorist()->listings' throughout
+ * the site, much like global variable.
  *
- * Should be available as 'directorist()->listings' throughout the site, much like
- * global variable. To use it effectively, you must call the setup_data() method at
- * the begining, and then at the end you must use the reset_data() method to reset
- * all data to the default state.
+ * To use it effectively, you must call the setup_data() method at
+ * the begining before using any other methods of this class, and then at the end
+ * you must use the reset_data() method to reset all data to the default state.
  *
  * @since 7.1.0
  */
@@ -31,6 +31,13 @@ class Listings {
 	 * Load deprecated methods to avoid fatal error.
 	 */
 	use Deprecated_Listings;
+
+	/**
+	 * Singleton instance of the class.
+	 *
+	 * @var Listings|null
+	 */
+	protected static $instance = null;
 
 	/**
 	 * Data is based on shortcode attributes and settings.
@@ -54,7 +61,29 @@ class Listings {
 	public $current_field = '';
 
 	/**
+	 * Constructor.
+	 */
+	private function __construct() {
+
+	}
+
+	/**
+	 * Singleton instance.
+	 *
+	 * @return object Listings instance.
+	 */
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Setup Listing data.
+	 *
+	 * Since WP_Query is used here which is available after 'init' hook, this method
+	 * shouldn't be called before that hook is executed to avoid fatal error.
 	 *
 	 * @param array $args
 	 */
@@ -139,6 +168,14 @@ class Listings {
 		$this->setup_data();
 	}
 
+	/**
+	 * Shortcode attrubutes.
+	 *
+	 * @param array $atts
+	 * @param array $options
+	 *
+	 * @return array
+	 */
 	public function get_shortcode_atts( $atts = [], $options ) {
 		$defaults = array(
 			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
@@ -168,6 +205,11 @@ class Listings {
 		return shortcode_atts( $defaults, $atts );
 	}
 
+	/**
+	 * Options for All Listing oage.
+	 *
+	 * @return array
+	 */
 	public function get_all_listing_page_options() {
 		$options = [
 			'order_listing_by'                => get_directorist_option( 'order_listing_by', 'date' ),
@@ -190,6 +232,11 @@ class Listings {
 		return $options;
 	}
 
+	/**
+	 * Options for Search result page.
+	 *
+	 * @return array
+	 */
 	public function get_search_result_page_options() {
 		$options = [
 			'order_listing_by'                => get_directorist_option( 'search_order_listing_by', 'date' ),
@@ -221,7 +268,6 @@ class Listings {
 	}
 
 	/**
-	 *
 	 * @todo improve
 	 *
 	 * @param  array  $query_args

@@ -74,7 +74,6 @@ class ATBDP_Shortcode {
 	}
 
 	public function all_listings( $atts ) {
-		$atts = !empty( $atts ) ? $atts : [];
 		$listings = directorist()->listings;
 
 		$listings->setup_data( ['shortcode_atts' => $atts] );
@@ -93,6 +92,36 @@ class ATBDP_Shortcode {
 
 		return $contents;
 	}
+
+	public function category_archive( $atts ) {
+		$atts             = !empty( $atts ) ? $atts : array();
+		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
+		$atts['category'] = sanitize_title_for_query( $category_slug );
+
+		return $this->listing_archive( $atts );
+	}
+
+	public function tag_archive( $atts ) {
+		$atts        = !empty( $atts ) ? $atts : array();
+		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
+		$atts['tag'] = sanitize_title_for_query( $tag_slug );
+
+		return $this->listing_archive( $atts );
+	}
+
+	public function location_archive( $atts ) {
+		$atts             = !empty( $atts ) ? $atts : array();
+		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
+		$atts['location'] = sanitize_title_for_query( $location_slug );
+
+		return $this->listing_archive( $atts );
+	}
+
+	public function search_result_archive( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
+		return $this->listing_archive( $atts );
+	}
+
 
 	// single_listings_header
 	public function single_listings_header( $atts ) {
@@ -132,35 +161,6 @@ class ATBDP_Shortcode {
 		}
 
 		return ob_get_clean();
-	}
-
-	public function category_archive( $atts ) {
-		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
-		$atts['category'] = sanitize_title_for_query( $category_slug );
-
-		return $this->listing_archive( $atts );
-	}
-
-	public function tag_archive( $atts ) {
-		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
-		$atts['tag'] = sanitize_title_for_query( $tag_slug );
-
-		return $this->listing_archive( $atts );
-	}
-
-	public function location_archive( $atts ) {
-		$atts             = !empty( $atts ) ? $atts : array();
-		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
-		$atts['location'] = sanitize_title_for_query( $location_slug );
-
-		return $this->listing_archive( $atts );
-	}
-
-	public function search_result_archive( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		return $this->listing_archive( $atts );
 	}
 
 	public function all_categories( $atts ) {

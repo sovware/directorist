@@ -89,7 +89,7 @@ class Listings {
 	 */
 	public function setup_data( $args = [] ) {
 		$defaults = [
-			'shortcode_atts'     => [],
+			'shortcode_atts'     => '',
 			'query_args'         => [],
 			'is_search_result'   => false,
 		];

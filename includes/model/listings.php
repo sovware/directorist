@@ -16,13 +16,12 @@ use ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Power up all listings and search result page. Should be available
- * as 'directorist()->listings' throughout  the site much like global variable.
+ * Powers up listing archive components.
  *
- * To use it effectively, call the setup_data() method first to initialize data, then after
- * loading all templates use the reset_data() method to reset all data to the default state.
- * Similar to wp_query->the_post() and wp_reset_query().
- *
+ * Should be available as 'directorist()->listings' throughout the site, much like
+ * global variable. To use it effectively, you must use the setup_data() method at
+ * the begining, and then at the end you must use the reset_data() method to reset
+ * all data to the default state.
  *
  * @since 7.1.0
  */
@@ -54,25 +53,6 @@ class Listings {
 	 * @var object
 	 */
 	public $query;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct() {
-		//$this->setup_data();
-	}
-
-	/**
-	 * Singleton instance.
-	 *
-	 * @return object Listings instance.
-	 */
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
 
 	/**
 	 * Setup Listing data.

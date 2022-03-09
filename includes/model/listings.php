@@ -212,6 +212,10 @@ class Listings {
 		return $options;
 	}
 
+	/**Check if current page is search result page or not.
+	 *
+	 * @return bool
+	 */
 	public function is_search_result_page() {
 		return $this->data['is_search_result'];
 	}

@@ -13,6 +13,7 @@ use wpWax\Directorist\Model\Listing_Form;
 use wpWax\Directorist\Model\Listing_Taxonomy;
 use wpWax\Directorist\Model\Search_Form;
 use wpWax\Directorist\Model\Single_Listing;
+use Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -75,22 +76,21 @@ class ATBDP_Shortcode {
 	public function all_listings( $atts ) {
 		$atts = !empty( $atts ) ? $atts : [];
 		$listings = directorist()->listings;
+
 		$listings->setup_data( ['shortcode_atts' => $atts] );
 
 		if ( !empty( $listings->redirect_page_url() ) ) {
-			$redirect = '<script>window.location="' . esc_url( $listings->redirect_page_url() ) . '"</script>';
-			return $redirect;
+			$contents = Helper::redirection_html( $listings->redirect_page_url() );
+		} elseif ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
+			$contents = Helper::get_template_contents( 'global/restrict-content' );
+		} else {
+			$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
+			Script_Helper::load_search_form_script( $script_args );
+			$contents =  Helper::get_template_contents( 'archive-contents' );
 		}
 
-		if ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
-			return Helper::get_template_contents( 'global/restrict-content' );
-		}
-
-		$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
-		Script_Helper::load_search_form_script( $script_args );
-
-		$contents =  Helper::get_template_contents( 'archive-contents' );
 		$listings->reset_data();
+
 		return $contents;
 	}
 

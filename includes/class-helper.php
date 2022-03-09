@@ -30,7 +30,7 @@ class Helper {
 
 	/**
 	 * Get first wp error message
-	 * 
+	 *
 	 * @param object $wp_error
 	 * @return string $message
 	 */
@@ -48,11 +48,11 @@ class Helper {
 
 	/**
 	 * Get Time In Millisecond
-	 * 
-	 * This function is only available on operating 
+	 *
+	 * This function is only available on operating
 	 * systems that support the gettimeofday() system call.
 	 * @link https://www.php.net/manual/en/function.microtime.php
-	 * 
+	 *
 	 * @return int
 	 */
 	public static function getTimeInMillisecond() {
@@ -65,18 +65,18 @@ class Helper {
 
 	/**
 	 * Maybe JSON
-	 * 
+	 *
 	 * Converts input to an array if contains valid json string
-	 * 
+	 *
 	 * If input contains base64 encoded json string, then it
 	 * can decode it as well
-	 * 
+	 *
 	 * @param $input_data
 	 * @param $return_first_item
-	 * 
+	 *
 	 * Returns first item of the array if $return_first_item is set to true
 	 * Returns original input if it is not decodable
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
@@ -685,14 +685,19 @@ class Helper {
 		return $order_id;
 	}
 
+	public static function redirection_html( $redirection_url ) {
+		$html = sprintf( '<script>window.location="%s"</script>', $redirection_url );
+		return apply_filters( 'directorist_redirection_html', $html );
+	}
+
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }
 
 		$data_value = base64_encode( json_encode( $data ) );
 		?>
-		<span 
-			style="display: none;" 
+		<span
+			style="display: none;"
 			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
 			data-value="<?php echo $data_value; ?>"
 		>

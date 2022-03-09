@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Listing archive page
+ * Handles Listing archive page.
  *
  * @package wpWax\Directorist\Model
  * @author  wpWax
@@ -16,10 +16,13 @@ use ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Singletone class to power up all listings.
+ * Power up all listings and search result page. Should be available
+ * as 'directorist()->listings' throughout  the site much like global variable.
  *
- * To use it for shortcode/widgets etc, use the setup_data() method first to initialize,
- * then after loading all templates use the reset_data() method to reset all data to the default state.
+ * To use it effectively, call the setup_data() method first to initialize data, then after
+ * loading all templates use the reset_data() method to reset all data to the default state.
+ * Similar to wp_query->the_post() and wp_reset_query().
+ *
  *
  * @since 7.1.0
  */
@@ -30,12 +33,6 @@ class Listings {
 	 */
 	use Deprecated_Listings;
 
-	/**
-	 * Singleton instance of the class.
-	 *
-	 * @var Listings|null
-	 */
-	protected static $instance = null;
 
 	/**
 	 * Current field inside loop
@@ -59,51 +56,16 @@ class Listings {
 	public $query;
 
 	/**
-	 * Private Constructor of Singleton.
+	 * Constructor.
 	 */
-	private function __construct() {
-
-	}
-
-	/**
-	 * Singleton instance.
-	 *
-	 * @return object Listings instance.
-	 */
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
-
-	/**
-	 * Initialize Listings
-	 *
-	 * @param  array   $atts     Shortcode attributes.
-	 * @param  string  $type     Optional. Determines All listings page or Search result page.
-	 *                           Accepts 'listing', 'search_result'. Defaults to ''.
-	 * @param  bool $query_args  Optional. Custom args for listing query. Defaults to false.
-	 */
-	public function init( $atts = array(), $type = '', $query_args = false ) {
-		$this->set_page_type( $type );
-		$this->set_options();
-
-		if ( 'search_result' == $this->type ) {
-			$this->update_search_options();
-		}
-
-		$this->set_atts( $atts );
-		$this->set_query( $query_args );
+	public function __construct() {
+		$this->setup_data();
 	}
 
 	/**
 	 * Setup Listing data.
 	 *
-	 * @param  array   $atts     Shortcode attributes.
-	 * @param  string  $type     Optional. Determines All listings page or Search result page.
-	 *                           Accepts 'listing', 'search_result'. Defaults to ''.
-	 * @param  bool $query_args  Optional. Custom args for listing query. Defaults to false.
+	 * @param array $args
 	 */
 	public function setup_data( $args = [] ) {
 		$defaults = [
@@ -177,6 +139,11 @@ class Listings {
 		$this->query = $this->get_query_results( $query_args )->query;
 	}
 
+	/**
+	 * Reset listing data.
+	 *
+	 * @return void
+	 */
 	public function reset_data() {
 		$this->setup_data();
 	}

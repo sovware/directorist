@@ -251,7 +251,7 @@ final class Directorist_Base
 			self::$instance->update_database();
 
 			// Models
-			self::$instance->listings = wpWax\Directorist\Model\Listings::instance();
+			self::$instance->listings = new wpWax\Directorist\Model\Listings();
 
 			/*Extensions Link*/
 			/*initiate extensions link*/

@@ -5,13 +5,11 @@ window.addEventListener('DOMContentLoaded', () => {
         class ReplyFormObserver {
             constructor() {
                 this.init();
-
                 $(document).on('directorist_review_updated', () => this.init());
             }
 
             init() {
                 const node = document.querySelector('.commentlist');
-
                 if (node) {
                     this.observe(node);
                 }
@@ -29,29 +27,23 @@ window.addEventListener('DOMContentLoaded', () => {
             callback(mutationsList, observer) {
                 for (const mutation of mutationsList) {
                     const target = mutation.target;
-
                     if (mutation.removedNodes) {
                         target.classList.remove('directorist-form-added');
-
                         for (const node of mutation.removedNodes) {
                             if (!node.id || node.id !== 'respond') {
                                 continue;
                             }
-
                             const criteria = node.querySelector('.directorist-review-criteria');
                             if (criteria) {
                                 criteria.style.display = '';
                             }
-
                             const ratings = node.querySelectorAll('.directorist-review-criteria-select');
                             for (const rating of ratings) {
                                 rating.removeAttribute('disabled');
                             }
-
                             node.querySelector('#submit').innerHTML = 'Submit Review';
                             node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
-
-                            console.log(node.querySelector('#comment'))
+                            //console.log(node.querySelector('#comment'))
                         }
                     }
 
@@ -66,7 +58,6 @@ window.addEventListener('DOMContentLoaded', () => {
                             if (criteria) {
                                 criteria.style.display = 'none';
                             }
-
                             const ratings = form.querySelectorAll('.directorist-review-criteria-select');
                             for (const rating of ratings) {
                                 rating.setAttribute('disabled', 'disabled');
@@ -101,12 +92,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
             onSubmit(event) {
                 event.preventDefault();
-
                 const $form = $(event.target);
                 const originalButtonLabel = $form.find('[type="submit"]').val();
-
                 $(document).trigger('directorist_review_before_submit', $form);
-
                 const updateComment = $.ajax({
                     url: $form.attr('action'),
                     type: 'POST',
@@ -172,9 +160,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 $(document).trigger('directorist_review_after_submit', $form);
             }
         }
-
         class CommentAddReplyHandler {
-
             constructor() {
                 this.init();
             }
@@ -208,12 +194,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
             onSubmit(event) {
                 event.preventDefault();
-
                 const form = $('.directorist-review-container #commentform');
                 const originalButtonLabel = form.find('[type="submit"]').val();
-
                 $(document).trigger('directorist_review_before_submit', form);
-
                 const do_comment = $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
@@ -224,9 +207,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
 
                 $('#comment').prop('disabled', true);
-
                 form.find('[type="submit"]').prop('disabled', true).val('loading');
-
                 do_comment.success(
                     function (data, status, request) {
                         var body = $('<div></div>');
@@ -304,7 +285,6 @@ window.addEventListener('DOMContentLoaded', () => {
         class CommentsManager {
             constructor() {
                 this.$doc = $(document);
-
                 this.setupComponents();
                 this.addEventListeners();
             }
@@ -386,10 +366,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 this.$doc.on('click', '.directorist-js-cancel-comment-edit', (event) => {
                     event.preventDefault();
-
                     const $target = $(event.target);
                     const $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
-
                     $wrap
                         .removeClass(['directorist-comment-edit-request', 'directorist-comment-editing'])
                         .find('form')
@@ -399,13 +377,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
             onWriteReivewClick(event) {
                 event.preventDefault();
-
                 let scrollTop = $('#respond').offset().top;
-
                 if ($('body').hasClass('admin-bar')) {
                     scrollTop = scrollTop - $('#wpadminbar').height();
                 }
-
                 $('body, html').animate({
                     scrollTop
                 }, 600);

@@ -321,7 +321,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: ../includes/helper-functions.php:7789, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1116, ../templates/listing-form/quick-login.php:41
+#: ../includes/helper-functions.php:7789, ../includes/classes/class-setup-wizard.php:381, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1108, ../templates/listing-form/quick-login.php:41
 msgid "Login"
 msgstr ""
 
@@ -581,11 +581,11 @@ msgstr ""
 msgid "Select a location"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:235, ../includes/model/SearchForm.php:337
+#: ../includes/asset-loader/localized_data.php:235, ../includes/model/SearchForm.php:332
 msgid " Miles"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:233, ../includes/model/SearchForm.php:334
+#: ../includes/asset-loader/localized_data.php:233, ../includes/model/SearchForm.php:329
 msgid " Kilometers"
 msgstr ""
 
@@ -613,27 +613,27 @@ msgstr ""
 msgid "Wrong username or password."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:64
+#: ../includes/checkout/class-checkout.php:61
 msgid "Monetization is not active on this site. if you are an admin, you can enable it from the settings panel."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:72
+#: ../includes/checkout/class-checkout.php:69
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:84, ../includes/checkout/class-checkout.php:175, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:492, ../includes/classes/class-settings-panel.php:2233, ../includes/model/Listings.php:181, ../includes/model/Listings.php:1922, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3312, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:81, ../includes/checkout/class-checkout.php:172, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:492, ../includes/classes/class-settings-panel.php:2233, ../includes/model/Listings.php:181, ../includes/model/Listings.php:1922, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3312, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:108
+#: ../includes/checkout/class-checkout.php:105
 msgid "Sorry, Nothing is available to buy. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:150
+#: ../includes/checkout/class-checkout.php:147
 msgid "Sorry! No order id has been provided."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:156
+#: ../includes/checkout/class-checkout.php:153
 msgid "Sorry! order not found."
 msgstr ""
 
@@ -762,7 +762,7 @@ msgstr ""
 msgid "Sorry! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:31, ../includes/classes/class-announcement.php:264, ../includes/classes/class-settings-panel.php:2578, ../includes/model/ListingDashboard.php:399
+#: ../includes/classes/class-announcement.php:31, ../includes/classes/class-announcement.php:264, ../includes/classes/class-settings-panel.php:2578, ../includes/model/ListingDashboard.php:386
 msgid "Announcements"
 msgstr ""
 
@@ -878,7 +878,7 @@ msgctxt "Author filter link"
 msgid "Filter by %1$s"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:341, ../includes/classes/class-email.php:118, ../includes/model/ListingDashboard.php:155, ../views/front-end/user-dashboard.php:272, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
+#: ../includes/classes/class-custom-post.php:341, ../includes/classes/class-email.php:118, ../includes/model/ListingDashboard.php:142, ../views/front-end/user-dashboard.php:272, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
 msgid "Never Expires"
 msgstr ""
 
@@ -1431,7 +1431,7 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: ../includes/classes/class-helper.php:540, ../includes/classes/class-settings-panel.php:3952, ../includes/classes/class-settings-panel.php:4043, ../includes/model/Account.php:77, ../includes/model/SingleListing.php:1117, ../templates/account/login.php:91
+#: ../includes/classes/class-helper.php:540, ../includes/classes/class-settings-panel.php:3952, ../includes/classes/class-settings-panel.php:4043, ../includes/model/Account.php:74, ../includes/model/SingleListing.php:1109, ../templates/account/login.php:91
 msgid "Sign Up"
 msgstr ""
 
@@ -1537,7 +1537,7 @@ msgstr ""
 msgid "Pending Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:304, ../includes/model/ListingDashboard.php:469, ../includes/model/SingleListing.php:763, ../views/front-end/user-dashboard.php:30
+#: ../includes/classes/class-settings-panel.php:304, ../includes/model/ListingDashboard.php:456, ../includes/model/SingleListing.php:763, ../views/front-end/user-dashboard.php:30
 msgid "Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review."
 msgstr ""
 
@@ -1545,7 +1545,7 @@ msgstr ""
 msgid "Publish Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:316, ../includes/model/ListingDashboard.php:470, ../includes/model/SingleListing.php:764, ../views/front-end/user-dashboard.php:31
+#: ../includes/classes/class-settings-panel.php:316, ../includes/model/ListingDashboard.php:457, ../includes/model/SingleListing.php:764, ../views/front-end/user-dashboard.php:31
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
@@ -2529,7 +2529,7 @@ msgstr ""
 msgid "\"My Listing\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2505, ../includes/model/ListingDashboard.php:359, ../views/front-end/user-dashboard.php:21
+#: ../includes/classes/class-settings-panel.php:2505, ../includes/model/ListingDashboard.php:346, ../views/front-end/user-dashboard.php:21
 msgid "My Listing"
 msgstr ""
 
@@ -2545,7 +2545,7 @@ msgstr ""
 msgid "\"My Profile\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2546, ../includes/model/ListingDashboard.php:373, ../templates/dashboard/tab-profile.php:31, ../views/front-end/user-dashboard.php:23, ../views/front-end/user-dashboard.php:450
+#: ../includes/classes/class-settings-panel.php:2546, ../includes/model/ListingDashboard.php:360, ../templates/dashboard/tab-profile.php:31, ../views/front-end/user-dashboard.php:23, ../views/front-end/user-dashboard.php:450
 msgid "My Profile"
 msgstr ""
 
@@ -2557,7 +2557,7 @@ msgstr ""
 msgid "\"Favourite Listings\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2562, ../includes/model/ListingDashboard.php:381, ../views/front-end/user-dashboard.php:25
+#: ../includes/classes/class-settings-panel.php:2562, ../includes/model/ListingDashboard.php:368, ../views/front-end/user-dashboard.php:25
 msgid "Favorite Listings"
 msgstr ""
 
@@ -2729,7 +2729,7 @@ msgstr ""
 msgid "Popular Categories Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2871, ../includes/model/SearchForm.php:200, ../includes/model/SearchForm.php:496
+#: ../includes/classes/class-settings-panel.php:2871, ../includes/model/SearchForm.php:200, ../includes/model/SearchForm.php:491
 msgid "Browse by popular categories"
 msgstr ""
 
@@ -3057,7 +3057,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3748, ../includes/classes/class-settings-panel.php:4705, ../includes/classes/class-settings-panel.php:4803, ../includes/model/Account.php:60
+#: ../includes/classes/class-settings-panel.php:3748, ../includes/classes/class-settings-panel.php:4705, ../includes/classes/class-settings-panel.php:4803, ../includes/model/Account.php:57
 msgid "Username"
 msgstr ""
 
@@ -3065,7 +3065,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3758, ../includes/classes/class-settings-panel.php:4001, ../includes/classes/class-settings-panel.php:4712, ../includes/classes/class-settings-panel.php:4810, ../includes/model/Account.php:61, ../templates/account/login.php:79
+#: ../includes/classes/class-settings-panel.php:3758, ../includes/classes/class-settings-panel.php:4001, ../includes/classes/class-settings-panel.php:4712, ../includes/classes/class-settings-panel.php:4810, ../includes/model/Account.php:58, ../templates/account/login.php:79
 msgid "Password"
 msgstr ""
 
@@ -3073,27 +3073,27 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3780, ../includes/classes/class-settings-panel.php:4719, ../includes/classes/class-settings-panel.php:4896, ../includes/model/Account.php:64, ../includes/review/class-builder-screen.php:109, ../includes/review/class-comment-form-renderer.php:224, ../templates/single-reviews.php:101, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
+#: ../includes/classes/class-settings-panel.php:3780, ../includes/classes/class-settings-panel.php:4719, ../includes/classes/class-settings-panel.php:4896, ../includes/model/Account.php:61, ../includes/review/class-builder-screen.php:109, ../includes/review/class-comment-form-renderer.php:224, ../templates/single-reviews.php:101, ../templates/single/section-contact_listings_owner.php:34, ../views/widgets/contact-listing-owner.php:15, ../views/admin-templates/listing-form/contact-info.php:203
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3790, ../includes/classes/class-settings-panel.php:4726, ../includes/model/Account.php:66, ../includes/review/class-builder-screen.php:134, ../includes/review/class-comment-form-renderer.php:238, ../templates/single-reviews.php:116, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
+#: ../includes/classes/class-settings-panel.php:3790, ../includes/classes/class-settings-panel.php:4726, ../includes/model/Account.php:63, ../includes/review/class-builder-screen.php:134, ../includes/review/class-comment-form-renderer.php:238, ../templates/single-reviews.php:116, ../templates/dashboard/tab-profile.php:105, ../views/front-end/user-dashboard.php:521, ../views/admin-templates/listing-form/contact-info.php:212
 msgid "Website"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3817, ../includes/classes/class-settings-panel.php:4733, ../includes/model/Account.php:69, ../templates/dashboard/tab-profile.php:65, ../views/front-end/user-dashboard.php:481
+#: ../includes/classes/class-settings-panel.php:3817, ../includes/classes/class-settings-panel.php:4733, ../includes/model/Account.php:66, ../templates/dashboard/tab-profile.php:65, ../views/front-end/user-dashboard.php:481
 msgid "First Name"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3844, ../includes/classes/class-settings-panel.php:4740, ../includes/model/Account.php:72, ../templates/dashboard/tab-profile.php:73, ../views/front-end/user-dashboard.php:489
+#: ../includes/classes/class-settings-panel.php:3844, ../includes/classes/class-settings-panel.php:4740, ../includes/model/Account.php:69, ../templates/dashboard/tab-profile.php:73, ../views/front-end/user-dashboard.php:489
 msgid "Last Name"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3871, ../includes/model/Account.php:75
+#: ../includes/classes/class-settings-panel.php:3871, ../includes/model/Account.php:72
 msgid "About/bio"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3898, ../includes/model/Account.php:86
+#: ../includes/classes/class-settings-panel.php:3898, ../includes/model/Account.php:83
 msgid "I agree to the"
 msgstr ""
 
@@ -3101,15 +3101,15 @@ msgstr ""
 msgid "Linking Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3909, ../includes/model/Account.php:87
+#: ../includes/classes/class-settings-panel.php:3909, ../includes/model/Account.php:84
 msgid "Privacy & Policy"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3925, ../includes/model/Account.php:82
+#: ../includes/classes/class-settings-panel.php:3925, ../includes/model/Account.php:79
 msgid "I agree with all"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3936, ../includes/model/Account.php:83
+#: ../includes/classes/class-settings-panel.php:3936, ../includes/model/Account.php:80
 msgid "terms & conditions"
 msgstr ""
 
@@ -3117,7 +3117,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3962, ../includes/model/Account.php:79
+#: ../includes/classes/class-settings-panel.php:3962, ../includes/model/Account.php:76
 msgid "Already have an account? Please login"
 msgstr ""
 
@@ -4741,11 +4741,11 @@ msgstr ""
 msgid "Login page is not for logged-in user. <a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/Account.php:103
+#: ../includes/model/Account.php:97
 msgid "Registration page is only for unregistered user. <a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/Account.php:81
+#: ../includes/model/Account.php:78
 msgid "here"
 msgstr ""
 
@@ -4767,27 +4767,27 @@ msgid_plural "<span>%s</span> Listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingDashboard.php:156, ../templates/dashboard/tab-my-listings.php:40
+#: ../includes/model/ListingDashboard.php:143, ../templates/dashboard/tab-my-listings.php:40
 msgid "Expired"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:235, ../views/front-end/user-dashboard.php:644
+#: ../includes/model/ListingDashboard.php:222, ../views/front-end/user-dashboard.php:644
 msgid "Untitled"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:365, ../views/front-end/user-dashboard.php:105
+#: ../includes/model/ListingDashboard.php:352, ../views/front-end/user-dashboard.php:105
 msgid "%s (%s)"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:571, ../views/front-end/user-dashboard.php:312, ../views/front-end/user-dashboard.php:303
+#: ../includes/model/ListingDashboard.php:555, ../views/front-end/user-dashboard.php:312, ../views/front-end/user-dashboard.php:303
 msgid "Renew"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:581, ../views/front-end/user-dashboard.php:326
+#: ../includes/model/ListingDashboard.php:565, ../views/front-end/user-dashboard.php:326
 msgid "Promote"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:590
+#: ../includes/model/ListingDashboard.php:574
 msgid "Delete Listing"
 msgstr ""
 
@@ -4815,7 +4815,7 @@ msgstr ""
 msgid "Preview Changes"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:864, ../includes/model/SingleListing.php:1112, ../includes/review/class-builder-screen.php:114
+#: ../includes/model/ListingForm.php:500, ../includes/model/SingleListing.php:864, ../includes/model/SingleListing.php:1104, ../includes/review/class-builder-screen.php:114
 msgid "Your Email"
 msgstr ""
 
@@ -4882,7 +4882,7 @@ msgid_plural "%s results for %s in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingTaxonomy.php:336, ../templates/taxonomies/categories-grid.php:60, ../templates/taxonomies/categories-list.php:35, ../templates/taxonomies/locations-grid.php:48, ../templates/taxonomies/locations-list.php:37
+#: ../includes/model/ListingTaxonomy.php:334, ../templates/taxonomies/categories-grid.php:60, ../templates/taxonomies/categories-list.php:35, ../templates/taxonomies/locations-grid.php:48, ../templates/taxonomies/locations-list.php:37
 msgid "<p>No Results found!</p>"
 msgstr ""
 
@@ -4894,38 +4894,38 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:594
+#: ../includes/model/SearchForm.php:589
 msgid "Select Ratings"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:599
+#: ../includes/model/SearchForm.php:594
 msgid "5 Star"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:604
+#: ../includes/model/SearchForm.php:599
 msgid "4 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:609
+#: ../includes/model/SearchForm.php:604
 msgid "3 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:614
+#: ../includes/model/SearchForm.php:609
 msgid "2 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:619
+#: ../includes/model/SearchForm.php:614
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:842, ../includes/model/SingleListing.php:1107
+#: ../includes/model/SingleListing.php:842, ../includes/model/SingleListing.php:1099
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:868, ../includes/model/SingleListing.php:1113
+#: ../includes/model/SingleListing.php:868, ../includes/model/SingleListing.php:1105
 msgid "example@gmail.com"
 msgstr ""
 

@@ -325,10 +325,9 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-import-export',
 			],
-
 		];
 
-        return $scripts;
+        return apply_filters( 'directorist_scripts', $scripts );
 	}
 
 	private static function gmap_url() {

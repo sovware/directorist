@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     single_listing_slider.init();
 
     /* Related listings slider */
-    var rtl = !directorist.rtl ? false : true;
+    var rtl = directorist.rtl;
     const relLisCol = document.querySelector('.directorist-related-carousel').getAttribute('data-columns');
     $('.directorist-related-carousel').slick({
         dots: false,

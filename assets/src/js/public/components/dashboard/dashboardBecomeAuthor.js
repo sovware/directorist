@@ -21,7 +21,7 @@
         };
 
         // Send the data
-        $.post(atbdp_public_data.ajaxurl, data, function (response) {
+        $.post(directorist.ajaxurl, data, function (response) {
             $('.directorist-become-author__loader').addClass('active');
             $('#directorist-become-author-success').html(response);
             $('.directorist-become-author').hide();

@@ -14,7 +14,7 @@
 
             $.ajax({
                 type: "post",
-                url: atbdp_public_data.ajaxurl,
+                url: directorist.ajaxurl,
                 data: {
                     action: 'atbdp_clear_seen_announcements'
                 },
@@ -59,7 +59,7 @@
 
         $.ajax({
             type: "post",
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).html('<span class="fas fa-spinner fa-spin"></span> ');

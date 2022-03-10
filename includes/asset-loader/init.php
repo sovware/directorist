@@ -210,16 +210,27 @@ class Init {
 
 	public function admin_scripts( $page = '' ) {
 
-		// switch ( $page ) {
-		// 	case 'at_biz_dir_page_atbdp-directory-types':
-		// 		self::admin_multi_builder_page_scripts();
-		// 		break;
-		// }
+		if ( Helper::is_admin_page( 'builder-archive' ) ) {
+			wp_enqueue_style( 'directorist-select2-style' ); // remove - select2 reference from admin script
+			wp_enqueue_script( 'directorist-select2-script' ); // remove - select2 reference from admin script
+			wp_enqueue_style( 'directorist-unicons' ); //  use svg instead
+			wp_enqueue_style( 'directorist-font-awesome' );
 
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-tooltip' ); // order change error
+			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-multi-directory-archive' );
+		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
+			wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
 
+			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_style( 'directorist-unicons' ); //  use svg instead
+			wp_enqueue_style( 'directorist-admin-style' );
+		} else {
+			Enqueue::map_styles();
+			Enqueue::admin_scripts( $page );
+		}
 
-		Enqueue::map_styles();
-		Enqueue::admin_scripts( $page );
 	}
 
 	public function register_scripts() {

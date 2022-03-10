@@ -116,4 +116,27 @@ class Helper {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
+	public static function is_admin_page( $page ) {
+		$status = false;
+		$screen = get_current_screen()->base;
+
+		switch ( $page ) {
+			case 'builder-archive':
+				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' && empty( $GET['action'] ) ) {
+					$status = true;
+				}
+				break;
+
+			case 'builder-edit':
+				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' ) {
+					if ( !empty( $GET['action'] ) && $GET['action'] == 'edit' ) {
+						$status = true;
+					}
+				}
+				break;
+		}
+
+		return $status;
+	}
+
 }

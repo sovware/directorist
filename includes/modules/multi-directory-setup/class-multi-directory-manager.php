@@ -4833,7 +4833,7 @@ class Multi_Directory_Manager
             ];
 
 			// Enqueue Scripts
-			Enqueue::admin_builder_scripts();
+			wp_enqueue_script( 'directorist-multi-directory-builder' );
 
 			/**
 			 * Filter directory builder's all configuration data.

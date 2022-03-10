@@ -201,16 +201,6 @@ class Init {
 		}
 	}
 
-	public function load_shortcode_scripts( $shortcode, $model = false ) {
-		// wp_enqueue_script('jquery-masonry');
-		// wp_enqueue_script( 'directorist-ez-media-uploader' );
-		// wp_enqueue_script( 'directorist-popper' );
-		// wp_enqueue_script( 'directorist-tooltip' );
-		// wp_enqueue_script( 'directorist-no-script' );
-		// wp_enqueue_script( 'directorist-global-script' );
-		// wp_enqueue_script( 'directorist-atmodal' );
-	}
-
 	public function set_scripts() {
 		$this->scripts = apply_filters( 'directorist_scripts', Scripts::all_scripts() );
 	}

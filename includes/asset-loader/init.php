@@ -18,7 +18,7 @@ class Init {
 
 	private function __construct() {
 		$this->version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
-		$this->set_scripts();
+		$this->scripts = Scripts::all_scripts();
 
 		// Frontend
 		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
@@ -30,7 +30,7 @@ class Init {
 
 		// Admin
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ], 12 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'localized_data' ], 15 );
 
 		add_filter( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
@@ -208,8 +208,9 @@ class Init {
 		}
 	}
 
-	public function set_scripts() {
-		$this->scripts = apply_filters( 'directorist_scripts', Scripts::all_scripts() );
+	public function admin_scripts( $page = '' ) {
+		Enqueue::map_styles();
+		Enqueue::admin_scripts( $page );
 	}
 
 	public function register_scripts() {
@@ -218,18 +219,9 @@ class Init {
 		}
 	}
 
-	/**
-	 * Load localized data.
-	 */
 	public function localized_data() {
 		Localized_Data::load_localized_data();
 	}
-
-	public function enqueue_admin_scripts( $page = '' ) {
-		Enqueue::map_styles();
-		Enqueue::admin_scripts( $page );
-	}
-
 
 	public function defer_load_js( $tag, $handle ) {
 

@@ -295,19 +295,16 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $new_l_status   = $args['new_l_status'];
     $edit_l_status  = $args['edit_l_status'];
     $edited         = $args['edited'];
-    $admin_approved = get_post_meta( $listing_id, '_admin_approved', true );
-
-    if( $edited ) {
-        if( 'pending' === $new_l_status ) {
-            if( ! $admin_approved ) {
-                $edit_l_status = 'pending';
-            }
-        }else{
-            update_post_meta( $listing_id, '_admin_approved', true );
-        }
+    
+    if( 'published' === $new_l_status ) {
+        update_post_meta( $listing_id, '_admin_approved', true );
     }
 
+    $admin_approved = get_post_meta( $listing_id, '_admin_approved', true );
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
+
+    $new_l_status_is_pending = 'pending' === $new_l_status;
+    $listing_status = ( $new_l_status_is_pending && ! $admin_approved ) ? 'pending' : $listing_status;
 
     $monitization          = get_directorist_option('enable_monetization', 0);
     $featured_enabled      = get_directorist_option('enable_featured_listing');

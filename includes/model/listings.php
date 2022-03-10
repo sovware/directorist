@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * the begining before using any other methods of this class, and then at the end
  * you must use the reset_data() method to reset all data to the default state.
  *
- * @since 7.1.0
+ * @since 7.2.0
  */
 class Listings {
 

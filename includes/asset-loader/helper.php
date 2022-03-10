@@ -121,6 +121,7 @@ class Helper {
 		$screen = get_current_screen()->base;
 
 		switch ( $page ) {
+
 			case 'builder-archive':
 				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' && empty( $GET['action'] ) ) {
 					$status = true;
@@ -129,9 +130,13 @@ class Helper {
 
 			case 'builder-edit':
 				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' ) {
+					// Multi-directory enabled
 					if ( !empty( $GET['action'] ) && $GET['action'] == 'edit' ) {
 						$status = true;
 					}
+				} elseif ( $screen == 'at_biz_dir_page_atbdp-layout-builder' ) {
+					// Multi-directory disabled
+					$status = true;
 				}
 				break;
 		}

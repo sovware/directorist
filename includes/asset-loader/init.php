@@ -220,8 +220,8 @@ class Init {
 			wp_enqueue_script( 'directorist-tooltip' ); // order change error
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-multi-directory-archive' );
-		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
-			wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
+		} elseif ( Helper::is_admin_page( 'builder-edit-multi' ) ) {
+			// wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
 
 			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_style( 'directorist-unicons' ); //  use svg instead

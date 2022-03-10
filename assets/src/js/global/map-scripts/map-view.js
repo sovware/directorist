@@ -5,7 +5,7 @@ import {
 ;
 (function () {
     window.addEventListener('DOMContentLoaded', () => {
-        const atbdp_map = get_dom_data('atbdp_map');
+        const mapData = get_dom_data('atbdp_map');
 
         // Define Marker Shapes
         const MAP_PIN =
@@ -111,7 +111,7 @@ import {
             const at_icon = [];
 
             /* Use Default lat/lng in listings map view */
-            let defCordEnabled = atbdp_map.use_def_lat_long;
+            let defCordEnabled = mapData.use_def_lat_long;
 
             function atbdp_rander_map($el) {
                 $el.addClass('atbdp-map-loaded');
@@ -121,7 +121,7 @@ import {
 
                 // vars
                 const args = {
-                    zoom: parseInt(atbdp_map.zoom),
+                    zoom: parseInt(mapData.zoom),
                     center: new google.maps.LatLng(0, 0),
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     zoomControl: true,
@@ -149,20 +149,20 @@ import {
                 });
 
                 var cord = {
-                    lat: (Number(atbdp_map.default_latitude)) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : Number(atbdp_map.default_latitude),
-                    lng: (Number(atbdp_map.default_longitude)) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude),
+                    lat: (Number(mapData.default_latitude)) ? Number(mapData.default_latitude) : 40.7127753 ? defCordEnabled : Number(mapData.default_latitude),
+                    lng: (Number(mapData.default_longitude)) ? Number(mapData.default_longitude) : -74.0059728 ? defCordEnabled : Number(mapData.default_longitude),
                 };
 
                 if ($markers.length) {
-                    cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
-                    cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
+                    cord.lat = defCordEnabled ? Number(mapData.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
+                    cord.lng = defCordEnabled ? Number(mapData.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
                 }
 
                 // center map
                 atbdp_center_map(map, cord);
 
                 var mcOptions = new MarkerClusterer(map, [], {
-                    imagePath: atbdp_map.plugin_url + 'assets/images/m'
+                    imagePath: mapData.plugin_url + 'assets/images/m'
                 });
                 mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
                     style.textColor = '#fff';
@@ -227,7 +227,7 @@ import {
 
                     // show info window when marker is clicked
                     google.maps.event.addListener(marker, 'click', function () {
-                        if (atbdp_map.disable_info_window === 'no') {
+                        if (mapData.disable_info_window === 'no') {
                             let marker_childrens = $($marker).children();
 
                             if (marker_childrens.length) {
@@ -250,7 +250,7 @@ import {
 
             function atbdp_center_map(map, cord) {
                 map.setCenter(cord);
-                map.setZoom(parseInt(atbdp_map.zoom));
+                map.setZoom(parseInt(mapData.zoom));
             }
 
             function setup_info_window() {

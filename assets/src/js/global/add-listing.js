@@ -500,10 +500,10 @@ $(document).ready(function () {
                             msg: uploader.uploaders_data['error_msg']
                         };
                         error_count++;
-                        if($('#' + uploader.uploaders_data['element_id']).length){
+                        if ($('#' + uploader.uploaders_data['element_id']).length) {
                             scrollToEl('#' + uploader.uploaders_data['element_id']);
                         }
-                        if($('.' + uploader.uploaders_data['element_id']).length){
+                        if ($('.' + uploader.uploaders_data['element_id']).length) {
                             scrollToEl('.' + uploader.uploaders_data['element_id']);
                         }
                     }

@@ -1,7 +1,9 @@
-// Booking Available Time
-const flatWrapper = document.querySelector(".flatpickr-calendar");
-const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
+window.addEventListener('DOMContentLoaded', () => {
+    // Booking Available Time
+    const flatWrapper = document.querySelector(".flatpickr-calendar");
+    const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
 
-if (flatWrapper != null && fAvailableTime != null) {
-    flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
-}
+    if (flatWrapper != null && fAvailableTime != null) {
+        flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
+    }
+});

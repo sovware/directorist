@@ -758,16 +758,19 @@ class Directorist_Single_Listing {
 		if( isset( $_GET['notice'] ) ) {
 			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
 			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
-			$edited = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
+			$edited 	= ( isset( $_GET['edited'] ) ) ? sanitize_key( $_GET['edited'] ) : 'no';
+			$post_id 	= ( isset( $_GET['post_id'] ) ) ? sanitize_key( $_GET['post_id'] ) : get_the_ID();
+			$admin_approved = get_post_meta( $post_id, '_admin_approved', true );
+
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 
 			if ( $edited === 'no' ) {
-				$notice_text = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
+				$notice_text = ( ( 'publish' === $new_listing_status ) && $admin_approved ) ? $publish_msg : $pending_msg;
 			}
 			else {
-				$notice_text = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
+				$notice_text = ( ( 'publish' === $edit_listing_status ) && $admin_approved ) ? $publish_msg : $pending_msg;
 			}
 		}
 

@@ -198,6 +198,13 @@ class Init {
 			case 'account/registration':
 				wp_enqueue_script( 'directorist-account' );
 				break;
+
+			case 'payment/checkout':
+			case 'payment/payment-receipt':
+			case 'payment/transaction-failure':
+				wp_enqueue_script( 'directorist-checkout' );
+				break;
+
 		}
 	}
 

@@ -1,6 +1,5 @@
 ;
 (function ($) {
-
     /* Responsive grid control */
     $(document).ready(function () {
         var d_wrapper = $("#directorist.atbd_wrapper");
@@ -16,11 +15,9 @@
             d_wrapper.addClass("size-xs");
             tabColumn.toggleClass("col-lg-4");
         }
-
         var listing_size = $(".atbd_dashboard_wrapper .atbd_single_listing").width();
         if (listing_size < 200) {
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
     });
-
 })(jQuery);

@@ -96,33 +96,35 @@
 ;
 
 (function ($) {
-  // Recovery Password Modal
-  $("#recover-pass-modal").hide();
-  $(".atbdp_recovery_pass").on("click", function (e) {
-    e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
-  }); // Contact form [on modal closed]
+  window.addEventListener('DOMContentLoaded', function () {
+    // Recovery Password Modal
+    $("#recover-pass-modal").hide();
+    $(".atbdp_recovery_pass").on("click", function (e) {
+      e.preventDefault();
+      $("#recover-pass-modal").slideToggle().show();
+    }); // Contact form [on modal closed]
 
-  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-contact-message').val('');
-    $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured
-  // Modal
+    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+      $('#atbdp-contact-message').val('');
+      $('#atbdp-contact-message-display').html('');
+    }); // Template Restructured
+    // Modal
 
-  var directoristModal = document.querySelector('.directorist-modal-js');
-  $('body').on('click', '.directorist-btn-modal-js', function (e) {
-    e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
-    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-  });
-  $('body').on('click', '.directorist-modal-close-js', function (e) {
-    e.preventDefault();
-    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-  });
-  $(document).bind('click', function (e) {
-    if (e.target == directoristModal) {
-      directoristModal.classList.remove('directorist-show');
-    }
+    var directoristModal = document.querySelector('.directorist-modal-js');
+    $('body').on('click', '.directorist-btn-modal-js', function (e) {
+      e.preventDefault();
+      var data_target = $(this).attr("data-directorist_target");
+      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
+    });
+    $('body').on('click', '.directorist-modal-close-js', function (e) {
+      e.preventDefault();
+      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+    });
+    $(document).bind('click', function (e) {
+      if (e.target == directoristModal) {
+        directoristModal.classList.remove('directorist-show');
+      }
+    });
   });
 })(jQuery);
 
@@ -138,15 +140,17 @@
 ;
 
 (function ($) {
-  /* Directorist alert dismiss */
-  if ($('.directorist-alert__close') !== null) {
-    $('.directorist-alert__close').each(function (i, e) {
-      $(e).on('click', function (e) {
-        e.preventDefault();
-        $(this).closest('.directorist-alert').remove();
+  window.addEventListener('DOMContentLoaded', function () {
+    /* Directorist alert dismiss */
+    if ($('.directorist-alert__close') !== null) {
+      $('.directorist-alert__close').each(function (i, e) {
+        $(e).on('click', function (e) {
+          e.preventDefault();
+          $(this).closest('.directorist-alert').remove();
+        });
       });
-    });
-  }
+    }
+  });
 })(jQuery);
 
 /***/ }),
@@ -161,49 +165,51 @@
 ;
 
 (function ($) {
-  // Perform AJAX login on form submit
-  $('form#login').on('submit', function (e) {
-    e.preventDefault();
-    $('p.status').show().html(directorist.loading_message);
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: directorist.ajax_url,
-      data: {
-        'action': 'ajaxlogin',
-        //calls wp_ajax_nopriv_ajaxlogin
-        'username': $('form#login #username').val(),
-        'password': $('form#login #password').val(),
-        'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
-        'security': $('#security').val()
-      },
-      success: function success(data) {
-        if ('nonce_faild' in data && data.nonce_faild) {
-          $('p.status').html('<span class="status-success">' + data.message + '</span>');
-        }
+  window.addEventListener('DOMContentLoaded', function () {
+    // Perform AJAX login on form submit
+    $('form#login').on('submit', function (e) {
+      e.preventDefault();
+      $('p.status').show().html(directorist.loading_message);
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: directorist.ajax_url,
+        data: {
+          'action': 'ajaxlogin',
+          //calls wp_ajax_nopriv_ajaxlogin
+          'username': $('form#login #username').val(),
+          'password': $('form#login #password').val(),
+          'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
+          'security': $('#security').val()
+        },
+        success: function success(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
 
-        if (data.loggedin == true) {
-          $('p.status').html('<span class="status-success">' + data.message + '</span>');
-          document.location.href = directorist.redirect_url;
-        } else {
-          $('p.status').html('<span class="status-failed">' + data.message + '</span>');
-        }
-      },
-      error: function error(data) {
-        if ('nonce_faild' in data && data.nonce_faild) {
-          $('p.status').html('<span class="status-success">' + data.message + '</span>');
-        }
+          if (data.loggedin == true) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            document.location.href = directorist.redirect_url;
+          } else {
+            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+          }
+        },
+        error: function error(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
 
-        $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
-      }
+          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+        }
+      });
+      e.preventDefault();
+    }); // Alert users to login (only if applicable)
+
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
+      e.preventDefault();
+      alert(directorist.login_alert_message);
+      return false;
     });
-    e.preventDefault();
-  }); // Alert users to login (only if applicable)
-
-  $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
-    e.preventDefault();
-    alert(atbdp_public_data.login_alert_message);
-    return false;
   });
 })(jQuery);
 

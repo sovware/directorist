@@ -108,16 +108,19 @@ if (!class_exists('ATBDP_Custom_Post')) :
 
         public function work_row_actions_for_quick_view()
         {
-            $nonce = isset($_REQUEST['_wpnonce']) ? $_REQUEST['_wpnonce'] : null;
-            if (wp_verify_nonce($nonce, 'quick-publish-action') && isset($_REQUEST['update_id']) && is_admin()) {
-                $my_post                = [];
-                $my_post['ID']          = $_REQUEST['update_id'];
-                $my_post['post_status'] = 'publish';
-                wp_update_post($my_post);
+            $nonce      = ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_key( $_REQUEST['_wpnonce'] ) : '';
+            $listing_id = ! empty( $_REQUEST['update_id'] ) ? sanitize_key( $_REQUEST['update_id'] ) : '';
+
+            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && $listing_id && is_admin() ) {
+                $data                = [];
+                $data['ID']          = $listing_id;
+                $data['post_status'] = 'publish';
+                wp_update_post($data);
+                update_post_meta( $listing_id, '_admin_approved', true );
                 /**
                  * @since 5.4.0
                  */
-                do_action('atbdp_listing_published', $my_post['ID']); //for sending email notification
+                do_action( 'atbdp_listing_published', $listing_id ); //for sending email notification
                 echo '<script>window.location="' . esc_url(admin_url() . 'edit.php?post_type=at_biz_dir') . '"</script>';
             }
         }

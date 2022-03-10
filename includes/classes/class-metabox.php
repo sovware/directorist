@@ -411,6 +411,7 @@ class ATBDP_Metabox {
 			}
 		}
 
+		update_post_meta( $post_id, '_admin_approved', true );
 
 		if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
 			update_post_meta( $post_id, '_featured', false );

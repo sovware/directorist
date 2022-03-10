@@ -238,6 +238,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'all-location-category',
 			],
+			'directorist-account' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'account',
+			],
 			'directorist-releated-listings-slider' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-releated-listings-slider',

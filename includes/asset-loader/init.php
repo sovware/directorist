@@ -194,6 +194,10 @@ class Init {
 				wp_enqueue_script( 'directorist-slick' );
 				break;
 
+			case 'account/login':
+			case 'account/registration':
+				wp_enqueue_script( 'directorist-account' );
+				break;
 		}
 	}
 

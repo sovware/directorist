@@ -644,40 +644,30 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites_all()
-        {
+        public function atbdp_public_add_remove_favorites_all() {
+            $user_id    = get_current_user_id();
+            $listing_id = (int) $_POST['post_id'];
 
-            $user_id = get_current_user_id();
-            $post_id = (int) $_POST['post_id'];
-
-            if (!$user_id) {
+            if ( ! $user_id ) {
                 $data = "login_required";
                 echo esc_attr($data);
                 wp_die();
             }
 
-            $favourites = (array) get_user_meta($user_id, 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
+			$favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                directorist_delete_user_favorites( $user_id, $listing_id );
             } else {
-                $favourites[] = $post_id;
+                directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta($user_id, 'atbdp_favourites');
-            update_user_meta($user_id, 'atbdp_favourites', $favourites);
-
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-            if (in_array($post_id, $favourites)) {
-                $data = $post_id;
+            $favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                $data = $listing_id;
             } else {
                 $data = false;
             }
+
             echo wp_json_encode($data);
             wp_die();
         }
@@ -688,28 +678,18 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites()
-        {
+        public function atbdp_public_add_remove_favorites() {
+            $listing_id = (int) $_POST['post_id'];
+            $user_id    = get_current_user_id();
+            $favorites  = directorist_get_user_favorites( $user_id );
 
-            $post_id = (int) $_POST['post_id'];
+			if ( in_array( $listing_id, $favorites ) ) {
+				directorist_delete_user_favorites( $user_id, $listing_id );
+			} else {
+				directorist_add_user_favorites( $user_id, $listing_id );
+			}
 
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
-            } else {
-                $favourites[] = $post_id;
-            }
-
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta(get_current_user_id(), 'atbdp_favourites');
-            update_user_meta(get_current_user_id(), 'atbdp_favourites', $favourites);
-
-            echo the_atbdp_favourites_link($post_id);
+            echo the_atbdp_favourites_link( $listing_id );
 
             wp_die();
         }

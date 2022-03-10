@@ -16,7 +16,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
                     $data['query_args']['fields'] = 'ids';
                     $query                        = new \WP_Query( $data['query_args'] );
                     $paginated                    = ! $query->get( 'no_found_rows' );
-                    
+
                     $results = (object) [
                         'ids'          => wp_parse_id_list( $query->posts ),
                         'total'        => $paginated ? (int) $query->found_posts : count( $query->posts ),
@@ -24,7 +24,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
                         'per_page'     => (int) $query->get( 'posts_per_page' ),
                         'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
                     ];
-                    
+
                     return $results;
                 }
             ];
@@ -109,38 +109,32 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
 
         // get_favourite_listings
         public static function get_favourite_listings( $user_id = 0 ) {
-            $user_id     = ! empty( $user_id ) ? absint( $user_id ) :  get_current_user_id();
-            $fav_listing = get_user_meta( $user_id, 'atbdp_favourites', true );
-            $fav_listing = ( ! empty( $fav_listing ) ) ? $fav_listing : [];
-            $fav_listing = ( is_string( $fav_listing ) ) ? [ $fav_listing ] : $fav_listing;
-            $action      = ! empty( $_GET['atbdp_action'] ) ? $_GET['atbdp_action'] : '';
+			$user_id = absint( $user_id );
+			if ( ! $user_id ) {
+				$user_id = get_current_user_id();
+			}
 
-            if ( ! empty( $action ) ) {
-                $remove_id   = ! empty( $_GET['atbdp_listing'] ) ? $_GET['atbdp_listing'] : array();
+			$favorites = directorist_get_user_favorites( $user_id );
+			$action    = ! empty( $_GET['atbdp_action'] ) ? $_GET['atbdp_action'] : '';
+			$listing_id  = ! empty( $_GET['atbdp_listing'] ) ? absint( $_GET['atbdp_listing'] ) : 0;
 
-                if ( is_array( $fav_listing ) && in_array( $remove_id, $fav_listing ) ) {
-                    if ( ( $key = array_search( $remove_id, $fav_listing ) ) !== false ) {
-                        unset( $fav_listing[ $key ] );
-                    }
+            if ( ! empty( $action ) && ! empty( $listing_id ) ) {
+                if ( in_array( $listing_id, $favorites ) ) {
+					directorist_delete_user_favorites( $user_id, $listing_id );
                 } else {
-                    $fav_listing[] = $remove_id;
+					directorist_add_user_favorites( $user_id, $listing_id );
                 }
 
-                $fav_listing = array_filter( $fav_listing );
-                $fav_listing = array_values( $fav_listing );
-
-                delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
-                update_user_meta( get_current_user_id(), 'atbdp_favourites', $fav_listing );
+				$favorites = directorist_get_user_favorites( $user_id );
             }
 
-            if ( ! empty( $fav_listing ) ) {
+            if ( ! empty( $favorites ) ) {
                 $query_args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'posts_per_page' => -1,                //@todo; Add pagination in future.
                     'order'          => 'DESC',
-                    'post__in'       => $fav_listing,
+                    'post__in'       => $favorites,
                     'orderby'        => 'date'
-
                 );
             } else {
                 $query_args = array();
@@ -150,4 +144,3 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
         }
     }
 endif;
-    

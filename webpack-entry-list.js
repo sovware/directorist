@@ -15,7 +15,7 @@ module.exports = {
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
         //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
         ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
-        ['user-access']: ["./assets/src/js/public/modules/user-access.js"],
+        ['account']: ["./assets/src/js/public/modules/account.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
 
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],

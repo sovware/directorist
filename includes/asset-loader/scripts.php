@@ -266,6 +266,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-search-form-listing',
 			],
+			'directorist-checkout' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'checkout',
+			],
 			'directorist-single-listing-openstreet-map-custom-script' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'public-single-listing-openstreet-map-custom-script',

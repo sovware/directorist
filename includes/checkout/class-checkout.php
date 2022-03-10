@@ -54,9 +54,6 @@ class ATBDP_Checkout
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
 
-		// Enqueue Scripts
-        ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_checkout', $this );
-
         ob_start();
         $enable_monetization = apply_filters('atbdp_enable_monetization_checkout',get_directorist_option('enable_monetization'));
         // vail if monetization is not active.
@@ -182,9 +179,6 @@ class ATBDP_Checkout
             );
         }
         $data['order_items'] = $order_items;
-
-		// Enqueue Scripts
-        ATBDP()->asset_loader->load_shortcode_scripts( 'payment_receipt', $this );
 
         ob_start();
         extract($data);
@@ -343,8 +337,6 @@ class ATBDP_Checkout
      */
     public function transaction_failure()
     {
-		// Enqueue Scripts
-		ATBDP()->asset_loader->load_shortcode_scripts( 'directorist_transaction_failure', $this );
 
         ob_start();
 

@@ -185,7 +185,7 @@ class ATBDP_Installation {
 		$current_db_version = get_option( 'directorist_db_version', null );
 		$updates            = self::get_db_update_callbacks();
 
-		return ! is_null( $current_db_version ) && version_compare( $current_db_version, max( array_keys( $updates ) ), '<' );
+		return ( is_null( $current_db_version ) || version_compare( $current_db_version, max( array_keys( $updates ) ), '<' ) );
 	}
 
 }

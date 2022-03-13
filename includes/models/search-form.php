@@ -27,8 +27,6 @@ class Search_Form {
 	public $show_title_subtitle;
 	public $has_search_button;
 	public $has_more_filters_button;
-	public $logged_in_user_only;
-	public $redirect_page_url;
 	public $search_bar_title;
 	public $search_bar_sub_title;
 	public $search_button_text;
@@ -212,7 +210,6 @@ class Search_Form {
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
-		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
 		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
@@ -223,7 +220,6 @@ class Search_Form {
 		$this->reset_filters_text   	= $this->params['reset_filters_text'];
 		$this->apply_filters_text   	= $this->params['apply_filters_text'];
 		$this->more_filters_display 	= $this->params['more_filters_display'];
-		$this->redirect_page_url    	= $this->params['redirect_page_url'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
@@ -341,6 +337,14 @@ class Search_Form {
 		}
 
 		return $form_data;
+	}
+
+	public function display_only_for_logged_in() {
+		return $this->params['logged_in_user_only'] == 'yes' ? true : false;
+	}
+
+	public function redirect_page_url() {
+		return $this->params['redirect_page_url'];
 	}
 
 	public function is_field_allowed_in_atts( $widget_name ) {

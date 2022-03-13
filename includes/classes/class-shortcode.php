@@ -103,18 +103,14 @@ class ATBDP_Shortcode {
 			'shortcode_atts' => $atts,
 		] );
 
-		if ( $search_form->logged_in_user_only && ! is_user_logged_in() ) {
-			return ATBDP()->helper->guard( array('type' => 'auth') );
+		if ( $search_form->redirect_page_url() ) {
+			$contents = Helper::redirection_html( $search_form->redirect_page_url() );
+		} elseif ( $search_form->display_only_for_logged_in() && ! is_user_logged_in() ) {
+			$contents = Helper::get_template_contents( 'global/restrict-content' );
+		} else {
+			$search_form->search_listing_scripts_styles();
+			$contents =  Helper::get_template_contents( 'search-form-contents' );
 		}
-
-		if ($search_form->redirect_page_url) {
-			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
-			return $redirect;
-		}
-
-		$search_form->search_listing_scripts_styles();
-
-		$contents =  Helper::get_template_contents( 'search-form-contents' );
 
 		$search_form->reset_data();
 

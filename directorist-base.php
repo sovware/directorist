@@ -533,13 +533,13 @@ final class Directorist_Base
 		//register_widget('BD_Login_Form_Widget');
 		//register_widget('BD_Categories_Widget');
 		//register_widget('BD_Locations_Widget');
-		register_widget('BD_Tags_Widget');
+		//register_widget('BD_Tags_Widget');
 		//register_widget('BD_Search_Widget');
-		register_widget('BD_Map_Widget');
+		//register_widget('BD_Map_Widget');
 		// ---register_widget('BD_All_Map_Widget');
-		register_widget('BD_Similar_Listings_Widget');
-		register_widget('BD_Author_Info_Widget');
-		register_widget('BD_Featured_Listings_Widget');
+		//register_widget('BD_Similar_Listings_Widget');
+		//register_widget('BD_Author_Info_Widget');
+		//register_widget('BD_Featured_Listings_Widget');
 
 	}
 

@@ -33,6 +33,11 @@ class Init {
 		register_widget( 'Directorist\Widgets\Login_Form' );
 		register_widget( 'Directorist\Widgets\All_Categories' );
 		register_widget( 'Directorist\Widgets\All_Locations' );
+		register_widget( 'Directorist\Widgets\All_Tags' );
 		register_widget( 'Directorist\Widgets\Search_Form' );
+		register_widget( 'Directorist\Widgets\Single_Map' );
+		register_widget( 'Directorist\Widgets\Similar_Listing' );
+		register_widget( 'Directorist\Widgets\Author_Info' );
+		register_widget( 'Directorist\Widgets\Featured_Listing' );
 	}
 }

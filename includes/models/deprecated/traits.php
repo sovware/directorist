@@ -155,4 +155,9 @@ trait Deprecated_Search_Form {
 		return $this->dispaly_search_button_icon();
 	}
 
+	public function has_more_filters_icon() {
+		_deprecated_function( 'has_more_filters_icon', '7.1.2', 'dispaly_more_filters_button_icon' );
+		return $this->dispaly_more_filters_button_icon();
+	}
+
 }

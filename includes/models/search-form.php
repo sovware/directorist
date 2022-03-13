@@ -92,6 +92,15 @@ class Search_Form {
 		return !empty( $search_button_icon ) ? true : false;
 	}
 
+	public function dispaly_more_filters_button() {
+		return $this->params['more_filters_button'] == 'yes' ? true : false;
+	}
+
+	public function dispaly_more_filters_button_icon() {
+		$more_filters_icon = $this->options['display_more_filter_icon'];
+		return !empty( $more_filters_icon ) ? true : false;
+	}
+
 	public function setup_data( $args = [] ) {
 		$defaults = [
 			'source'           => 'shortcode', // shortcode, all_listings, search_result
@@ -468,11 +477,6 @@ class Search_Form {
 		}
 
 		Helper::get_template( 'search-form/directory-type-nav', [ 'searchform' => $this ] );
-	}
-
-	public function has_more_filters_icon() {
-		$more_filters_icon = $this->options['display_more_filter_icon'];
-		return !empty( $more_filters_icon ) ? true : false;
 	}
 
 	public function more_buttons_template() {

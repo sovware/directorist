@@ -12,12 +12,12 @@ $search_form = directorist()->search_form;
 
 <div class="directorist-search-form-action">
 
-	<?php if ( $search_form->has_more_filters_button ): ?>
+	<?php if ( $search_form->dispaly_more_filters_button() ): ?>
 
 		<div class="directorist-search-form-action__filter">
 			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn">
 
-				<?php if ( $search_form->has_more_filters_icon() ): ?>
+				<?php if ( $search_form->dispaly_more_filters_button_icon() ): ?>
 					<span class="<?php atbdp_icon_type( true );?>-filter"></span>
 				<?php endif;?>
 

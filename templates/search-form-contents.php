@@ -62,7 +62,7 @@ $search_form = directorist()->search_form;
 						$search_form->advanced_search_form_fields_template();
 					}
 					else {
-						if ($search_form->has_more_filters_button) { ?>
+						if ( $search_form->dispaly_more_filters_button() ) { ?>
 							<div class="<?php Helper::search_filter_class( $search_form->more_filters_display ); ?>">
 								<?php $search_form->advanced_search_form_fields_template();?>
 							</div>

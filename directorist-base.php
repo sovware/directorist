@@ -277,6 +277,22 @@ final class Directorist_Base
 
 			// Initialize appsero tracking
 			self::$instance->init_appsero();
+
+			/**
+			 * Fire loaded action hook once everything is loaded.
+			 *
+			 * Call anything safely once Directorist is fully loaded with all functionalites.
+			 * For example, all the Directorist extensions can use this hook to load safely.
+			 * Usage:
+			 * add_action( 'directorist_loaded', static function( $instance ) {
+			 *     $instance->{any prop or method}
+			 * } );
+			 *
+			 * @since 7.2.0
+			 *
+			 * @param object Instance of Directorist_Base
+			 */
+			do_action( 'directorist_loaded', self::$instance );
 		}
 
 		return self::$instance;
@@ -606,9 +622,126 @@ final class Directorist_Base
 		return;
 	}
 
-	public function get_popular_listings() {
-		_deprecated_function( '7.2.2', 'ATBDP()->get_popular_listings' );
-		return;
+	/**
+	 * It gets the popular listings of the given listing/post
+	 *
+	 * @param int $count [optional] Number of popular listing to show.  If the count is more than one then it uses it,
+	 *                   else the function will use the value from the settings page.
+	 *                   Count variable is handy if we want to show different number of popular listings on different pages.
+	 *                   For example, on different widgets place. Default 5.
+	 * @return WP_Query It returns the popular listings if found.
+	 */
+	public function get_popular_listings( $count = 5, $listing_id = 0 ) {
+		$count           = intval( $count > 0 ? $count : 5 );
+		$view_to_popular = get_directorist_option( 'views_for_popular' );
+
+		/**
+		 * It filters the number of the popular listing to display
+		 * @since 1.0.0
+		 * @param int $count The number of popular listing  to show
+		 */
+		$count = apply_filters( 'atbdp_popular_listing_number', $count );
+
+		$args = array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'posts_per_page' => $count,
+		);
+
+		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
+		$has_featured               = $has_featured || is_fee_manager_active();
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
+
+		$meta_queries = array();
+
+		if ( $has_featured ) {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
+				$meta_queries['views'] = array(
+					'key'     => directorist_get_listing_views_count_meta_key(),
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				);
+
+				$args['orderby'] = array(
+					'_featured' => 'DESC',
+					'views'     => 'DESC',
+				);
+			} else {
+				$meta_queries['views'] = array(
+					'key'     => directorist_get_listing_views_count_meta_key(),
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
+				$args['orderby'] = array(
+					'_featured' => 'DESC',
+					'views'     => 'DESC',
+				);
+			}
+		} else {
+			if ( 'average_rating' === $listing_popular_by ) {
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+			} elseif ( 'view_count' === $listing_popular_by ) {
+				$meta_queries['views'] = array(
+					'key'     => directorist_get_listing_views_count_meta_key(),
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				);
+
+				$args['orderby'] = array(
+					'views' => 'DESC',
+				);
+			} else {
+				$meta_queries['views'] = array(
+					'key'     => directorist_get_listing_views_count_meta_key(),
+					'value'   => $view_to_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				);
+
+				$meta_queries['_rating'] = array(
+					'key'     => directorist_get_rating_field_meta_key(),
+					'value'   => $average_review_for_popular,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				);
+
+				$args['orderby'] = array(
+					'views' => 'DESC',
+				);
+			}
+		}
+
+		if ( count( $meta_queries ) ) {
+			$meta_queries['relation'] = 'AND';
+			$args['meta_query'] = $meta_queries;
+		}
+
+		return new WP_Query( apply_filters( 'atbdp_popular_listing_args', $args ) );
 	}
 
 	public function show_static_rating($post) {

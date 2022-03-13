@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$search_form = directorist()->search_form;
 ?>
 
 <div class="directorist-search-field">
@@ -15,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="directorist-select">
 		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-placeholder="<?php echo esc_attr( sprintf( _x( 'Select %s', 'Rating search select placeholder', 'directorist' ), $data['label'] ) ); ?> " data-isSearch="true">
 			<?php
-				foreach ( $searchform->rating_field_data() as $option ) {
+				foreach ( $search_form->rating_field_data() as $option ) {
 					printf('<option value="%s" %s>%s</option>', $option['value'], $option['selected'], $option['label']);
 				}
 			?>

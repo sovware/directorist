@@ -7,9 +7,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$search_form = directorist()->search_form;
+
 $source     = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
 $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
-$tag_terms  = $searchform->listing_tag_terms( $tag_source );
+$tag_terms  = $search_form->listing_tag_terms( $tag_source );
 
 if ( !$tag_terms ) {
 	return;

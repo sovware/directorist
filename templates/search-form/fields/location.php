@@ -7,16 +7,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$search_form = directorist()->search_form;
+
 $location_source = !empty($data['location_source']) && $data['location_source'] == 'from_map_api' ? 'map' : 'listing';
 
 if ( $location_source == 'listing' ) { ?>
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
-			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+			<select name="in_loc" id="<?php echo !empty($search_form->location_id) ? esc_attr($search_form->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($search_form->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 				<?php
 					echo '<option value="">Select Location</option>';
-					echo $searchform->locations_fields;
+					echo $search_form->locations_fields;
 				?>
 			</select>
 		</div>
@@ -30,7 +32,7 @@ elseif ( $location_source == 'map' ) {
 	$cityLng = isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '';
 	$value   = isset( $_GET['address'] ) ? $_GET['address'] : '';
 
-	$searchform->load_map_scripts();
+	$search_form->load_map_scripts();
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">

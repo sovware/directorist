@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$search_form = directorist()->search_form;
 ?>
 
 <div class="directorist-listing-category-top">
@@ -17,12 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<li>
 				<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
-					<span class="<?php echo esc_attr( $searchform->category_icon_class( $cat ) ); ?>"></span>
+					<span class="<?php echo esc_attr( $search_form->category_icon_class( $cat ) ); ?>"></span>
 					<p><?php echo esc_html( $cat->name ); ?></p>
 				</a>
 			</li>
-			
+
 		<?php endforeach; ?>
 	</ul>
-	
+
 </div>

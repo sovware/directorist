@@ -7,10 +7,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$search_form = directorist()->search_form;
+
 $default_distance = $data['default_radius_distance'];
 $value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $default_distance;
 
-$searchform->load_radius_search_scripts( $data );
+$search_form->load_radius_search_scripts( $data );
 ?>
 
 <div class="directorist-search-field">

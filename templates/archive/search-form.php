@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+$searchform = directorist()->search_form;
+
 if(  is_numeric( $searchform->listing_type ) ) {
 	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
 	$listing_type = $term->slug;

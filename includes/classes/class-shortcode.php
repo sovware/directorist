@@ -176,13 +176,20 @@ class ATBDP_Shortcode {
 
 	public function search_form( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
-		$listing_type = '';
-		if (!empty($atts['listing_type'])) {
-			$listing_type = $atts['listing_type'];
-		}
-		$searchform = new Search_Form( 'search_form', $listing_type, $atts );
+		$listing_type = !empty( $atts['listing_type'] ) ? $atts['listing_type'] : '';
 
-		return $searchform->render_search_shortcode( $atts );
+		$search_form = directorist()->search_form;
+		$search_form->setup_data( [
+			'source'           => 'shortcode',
+			'directory_type'   => $listing_type,
+			'shortcode_atts' => $atts,
+		] );
+
+		$contents =  $search_form->render_search_shortcode( $atts );
+
+		$search_form->reset_data();
+
+		return $contents;
 	}
 
 	public function author_profile( $atts ) {

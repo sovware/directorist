@@ -382,14 +382,16 @@ class Listings {
 			return substr( $key, 0, 7 ) == 'filter_';
 		}, ARRAY_FILTER_USE_KEY ); // only use atts with the prefix 'filter_'
 
-		$type = $this->is_search_result_page() ? 'search_result' : 'listing';
+		$search_form = directorist()->search_form;
+		$search_form->setup_data( [
+			'source'           => $this->is_search_result_page() ? 'search_result' : 'all_listings',
+			'directory_type'   => $this->current_directory_type_id(),
+			'shortcode_atts'   => $search_field_atts,
+		] );
 
-		$args = array(
-			'listings'   => $this,
-			'searchform' => new Search_Form( $type, $this->current_directory_type_id(), $search_field_atts ),
-		);
+		Helper::get_template( 'archive/search-form' );
 
-		Helper::get_template( 'archive/search-form', $args );
+		$search_form->reset_data();
 	}
 
 	/**

@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Search_Form {
 
+	protected static $instance = null;
+
 	// Search Shortcode
 	public $options = [];
 	public $type;
@@ -55,7 +57,33 @@ class Search_Form {
 	public $location_class;
 	public $select_listing_map;
 
-	public function __construct( $type, $listing_type, $atts = array() ) {
+	private function __construct() {
+
+	}
+
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	public function is_search_result_page() {
+		return atbdp_is_page( 'search_result' );
+	}
+
+	public function setup_data( $args = [] ) {
+		$defaults = [
+			'source'           => 'shortcode', // shortcode, all_listings, search_result
+			'directory_type'   => $this->get_default_listing_type(),
+			'shortcode_atts' => [],
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$type = $args['source'];
+		$listing_type = $args['directory_type'];
+		$atts = $args['shortcode_atts'];
 
 		$this->type = $type;
 		$this->atts = $atts;
@@ -63,7 +91,7 @@ class Search_Form {
 		$this->set_default_options();
 
 		// Search form shortcode
-		if ( $type == 'search_form' ) {
+		if ( $type == 'shortcode' ) {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
@@ -82,7 +110,7 @@ class Search_Form {
 		}
 
 		// Listing Archive page
-		if ( $type == 'listing' ) {
+		if ( $type == 'all_listings' ) {
 			$this->prepare_listing_data();
 		}
 
@@ -94,54 +122,8 @@ class Search_Form {
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
 
-	public function setup_data( $args = [] ) {
-		$defaults = [
-			'type'          => 'search_form',
-			'listing_type'  => $this->get_default_listing_type(),
-			'atts'          => [],
-		];
-
-		$args = wp_parse_args( $args, $defaults );
-
-		$type = $args['type'];
-		$listing_type = $args['listing_type'];
-		$atts = $args['atts'];
-
-		$this->type = $type;
-		$this->atts = $atts;
-
-		$this->set_default_options();
-
-		// Search form shortcode
-		if ( $type == 'search_form' ) {
-			$this->update_options_for_search_form();
-			$this->prepare_search_data($atts);
-		}
-
-		if ( $listing_type ) {
-			$this->listing_type = (int) $listing_type;
-		}
-		else {
-			$this->listing_type = $this->get_default_listing_type();
-		}
-
-		// Search result page
-		if ( $type == 'search_result' ) {
-			$this->update_options_for_search_result_page();
-			$this->prepare_search_data($atts);
-		}
-
-		// Listing Archive page
-		if ( $type == 'listing' ) {
-			$this->prepare_listing_data();
-		}
-
-		$this->form_data          = $this->build_form_data();
-
-		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
+	public function reset_data() {
+		$this->setup_data();
 	}
 
 	// set_default_options
@@ -197,7 +179,7 @@ class Search_Form {
 		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
 		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
 
-		if ( 'search_form' === $this->type ) {
+		if ( 'shortcode' === $this->type ) {
 			$search_fields = $this->options['search_fields'];
 			$reset_filters_button = in_array('search_reset_filters', $search_filters) ? 'yes' : '';
 			$apply_filters_button = in_array('search_apply_filters', $search_filters) ? 'yes' : '';

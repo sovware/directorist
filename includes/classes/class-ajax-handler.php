@@ -270,10 +270,26 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $atts            = !empty( $_POST['atts'] ) ? json_decode( base64_decode( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new Search_Form( 'search_form', $listing_type_id, $atts );
-            $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
+
+			$search_form = directorist()->search_form;
+			$search_form->setup_data( [
+				'source'           => 'shortcode',
+				'directory_type'   => $listing_type_id,
+				'shortcode_atts' => $atts,
+			] );
+
+			$contents =  Helper::get_template_contents( 'search-form-contents' );
+
+			$search_form->reset_data();
+
+
+
+            // $searchform      = new Search_Form( 'search_form', $listing_type_id, $atts );
+            // $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
+
+
             wp_send_json( array(
-                'search_form'          => $search_form,
+                'search_form'          => $contents,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
              ) );
         }

@@ -8,6 +8,8 @@
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$searchform = directorist()->search_form;
 ?>
 
 <div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo $searchform->background_img_style(); ?>">

@@ -92,6 +92,35 @@ class ATBDP_Shortcode {
 		return $contents;
 	}
 
+	public function search_form( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
+		$listing_type = !empty( $atts['listing_type'] ) ? $atts['listing_type'] : '';
+
+		$search_form = directorist()->search_form;
+		$search_form->setup_data( [
+			'source'           => 'shortcode',
+			'directory_type'   => $listing_type,
+			'shortcode_atts' => $atts,
+		] );
+
+		if ( $search_form->logged_in_user_only && ! is_user_logged_in() ) {
+			return ATBDP()->helper->guard( array('type' => 'auth') );
+		}
+
+		if ($search_form->redirect_page_url) {
+			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
+			return $redirect;
+		}
+
+		$search_form->search_listing_scripts_styles();
+
+		$contents =  Helper::get_template_contents( 'search-form-contents' );
+
+		$search_form->reset_data();
+
+		return $contents;
+	}
+
 	public function category_archive( $atts ) {
 		$atts             = (array) $atts;
 		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var( 'atbdp_category' );
@@ -171,24 +200,6 @@ class ATBDP_Shortcode {
 		$taxonomy = new Listing_Taxonomy($atts, 'location');
 
 		return $taxonomy->render_shortcode( $atts );
-	}
-
-	public function search_form( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$listing_type = !empty( $atts['listing_type'] ) ? $atts['listing_type'] : '';
-
-		$search_form = directorist()->search_form;
-		$search_form->setup_data( [
-			'source'           => 'shortcode',
-			'directory_type'   => $listing_type,
-			'shortcode_atts' => $atts,
-		] );
-
-		$contents =  $search_form->render_search_shortcode( $atts );
-
-		$search_form->reset_data();
-
-		return $contents;
 	}
 
 	public function author_profile( $atts ) {

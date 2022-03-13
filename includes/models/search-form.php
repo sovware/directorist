@@ -557,25 +557,6 @@ class Search_Form {
 		return json_encode( $this->params );
 	}
 
-	public function render_search_shortcode( $atts = [] ) {
-
-		if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
-			return ATBDP()->helper->guard( array('type' => 'auth') );
-		}
-
-		if ($this->redirect_page_url) {
-			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
-			return $redirect;
-		}
-
-		$this->search_listing_scripts_styles();
-
-		ob_start();
-		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
-
-		return ob_get_clean();
-	}
-
 	public function search_listing_scripts_styles() {
 		wp_enqueue_script( 'directorist-search-form-listing' );
 		wp_enqueue_script( 'directorist-range-slider' );

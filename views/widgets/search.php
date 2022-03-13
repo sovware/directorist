@@ -1,15 +1,20 @@
 <?php
-use wpWax\Directorist\Model\Search_Form;
 
 $search_form_fields = Directorist\Helper::get_directory_type_term_data( get_the_ID(), 'search_form_fields' );
 $directoriy_type = get_post_meta( get_the_ID(), '_directory_type', true );
-$searchform = new Search_Form( 'listing', $directoriy_type );
+
+$searchform = directorist()->search_form;
+$searchform->setup_data( [
+	'source'           => 'all_listings',
+	'directory_type'   => $directoriy_type,
+] );
+
 
 
 if(  is_numeric( $searchform->listing_type ) ) {
 	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
 	$listing_type = $term->slug;
-} 
+}
 
 echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';
@@ -34,4 +39,7 @@ echo '</div>';
 	</form>
 </div><!-- ends: .default-ad-search -->
 
-<?php echo $args['after_widget']; ?>
+<?php
+echo $args['after_widget'];
+
+$searchform->reset_data();

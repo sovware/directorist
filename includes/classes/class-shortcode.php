@@ -11,7 +11,6 @@ use wpWax\Directorist\Model\Author;
 use wpWax\Directorist\Model\Dashboard;
 use wpWax\Directorist\Model\Listing_Form;
 use wpWax\Directorist\Model\Listing_Taxonomy;
-use wpWax\Directorist\Model\Search_Form;
 use wpWax\Directorist\Model\Single_Listing;
 use Directorist\Helper;
 

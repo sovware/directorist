@@ -4,7 +4,6 @@ defined('ABSPATH') || die('Direct access is not allowed.');
 use Directorist\Helper;
 use wpWax\Directorist\Model\All_Authors;
 use wpWax\Directorist\Model\Listing_Form;
-use wpWax\Directorist\Model\Search_Form;
 
 if (!class_exists('ATBDP_Ajax_Handler')) :
 

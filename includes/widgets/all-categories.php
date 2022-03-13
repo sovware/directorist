@@ -13,7 +13,7 @@ class All_Categories extends \WP_Widget {
 
 	public function __construct() {
 		$id_base        = 'bdcw_widget';
-        $name           = esc_html__( 'Directorist - Categories', 'directorist', 'directorist' );
+        $name           = esc_html__( 'Directorist - Categories', 'directorist' );
         $widget_options =             [
             'classname' => 'atbd_widget',
             'description' => esc_html__( 'You can show Categories by this widget', 'directorist' ),
@@ -156,7 +156,7 @@ class All_Categories extends \WP_Widget {
         if( 'dropdown' == $query_args['template'] ) {
             $categories = $this->dropdown_categories( $query_args );
         } else {
-            $categories = $this->atbdp_categories_list( $query_args );
+            $categories = $this->directorist_categories_list( $query_args );
         }
 
 		Helper::get_template( 'widgets/all-categories', compact( 'args', 'instance', 'query_args', 'categories' ) );
@@ -164,7 +164,7 @@ class All_Categories extends \WP_Widget {
 		echo wp_kses_post( $args['after_widget'] );
 	}
 
-    public function atbdp_categories_list( $settings ) {
+    public function directorist_categories_list( $settings ) {
 
 
         if( $settings['immediate_category'] ) {
@@ -221,7 +221,7 @@ class All_Categories extends \WP_Widget {
                     $html .= ' (' . $totat . ')';
                 }
                 $html .= '</a>'. $plus_icon . '';
-                $html .= $this->atbdp_categories_list( $settings );
+                $html .= $this->directorist_categories_list( $settings );
                 $html .= '</li>';
                 if(!empty($args['number'])) {
                     if( $i++ == $args['number'] ) break;

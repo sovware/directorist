@@ -13,7 +13,7 @@ class All_Tags extends \WP_Widget {
 
 	public function __construct() {
 		$id_base        = 'bdtw_widget';
-        $name           = esc_html__( 'Directorist - Tags', 'directorist', 'directorist' );
+        $name           = esc_html__( 'Directorist - Tags', 'directorist' );
         $widget_options =             [
             'classname' => 'atbd_widget',
             'description' => esc_html__( 'You can show listing tags by this widget', 'directorist' ),
@@ -150,7 +150,7 @@ class All_Tags extends \WP_Widget {
         if( 'dropdown' == $query_args['template'] ) {
             $tags = $this->dropdown_tags( $query_args );
         } else {
-            $tags = $this->atbdp_tags_list( $query_args );
+            $tags = $this->directorist_tags_list( $query_args );
         }
 
 		Helper::get_template( 'widgets/all-tags', compact( 'args', 'instance', 'query_args', 'tags' ) );
@@ -158,7 +158,7 @@ class All_Tags extends \WP_Widget {
 		echo wp_kses_post( $args['after_widget'] );
 	}
 
-    public function atbdp_tags_list( $settings ) {
+    public function directorist_tags_list( $settings ) {
 
         if( $settings['display_single_tag'] ) {
             $terms = get_the_terms(get_the_ID(), ATBDP_TAGS);
@@ -219,7 +219,7 @@ class All_Tags extends \WP_Widget {
                         $html .= ' (' . $count . ')';
                     }
                     $html .= '</a>';
-                   // $html .= $this->atbdp_tags_list($settings);
+                   // $html .= $this->directorist_tags_list($settings);
                     $html .= '</li>';
                 }
 

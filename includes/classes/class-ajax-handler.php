@@ -282,12 +282,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
 			$search_form->reset_data();
 
-
-
-            // $searchform      = new Search_Form( 'search_form', $listing_type_id, $atts );
-            // $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
-
-
             wp_send_json( array(
                 'search_form'          => $contents,
                 'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),

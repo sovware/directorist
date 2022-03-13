@@ -50,7 +50,7 @@ $search_form = directorist()->search_form;
 						foreach ( $search_form->form_data[0]['fields'] as $field ){
 							$search_form->field_template( $field );
 						}
-						if ( $search_form->more_filters_display !== 'always_open' ){
+						if ( $search_form->filter_open_method() !== 'always_open' ){
 							$search_form->more_buttons_template();
 						}
 						?>
@@ -58,12 +58,12 @@ $search_form = directorist()->search_form;
 					</div>
 
 					<?php
-					if ( $search_form->more_filters_display == 'always_open' ){
+					if ( $search_form->filter_open_method() == 'always_open' ){
 						$search_form->advanced_search_form_fields_template();
 					}
 					else {
 						if ( $search_form->dispaly_more_filters_button() ) { ?>
-							<div class="<?php Helper::search_filter_class( $search_form->more_filters_display ); ?>">
+							<div class="<?php Helper::search_filter_class( $search_form->filter_open_method() ); ?>">
 								<?php $search_form->advanced_search_form_fields_template();?>
 							</div>
 							<?php

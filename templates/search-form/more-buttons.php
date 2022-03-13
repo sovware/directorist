@@ -21,7 +21,7 @@ $search_form = directorist()->search_form;
 					<span class="<?php atbdp_icon_type( true );?>-filter"></span>
 				<?php endif;?>
 
-				<?php echo esc_html( $search_form->more_filters_text );?>
+				<?php echo esc_html( $search_form->more_filters_button_label() );?>
 			</a>
 		</div>
 
@@ -36,7 +36,7 @@ $search_form = directorist()->search_form;
 					<span class="<?php atbdp_icon_type( true );?>-search"></span>
 				<?php endif;?>
 
-				<?php echo esc_html( $search_form->search_button_text );?>
+				<?php echo esc_html( $search_form->search_button_label() );?>
 
 			</button>
 		</div>

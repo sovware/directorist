@@ -29,9 +29,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $search_button_text;
-	public $more_filters_text;
-	public $more_filters_display;
 	public $show_connector;
 	public $connectors_title;
 	public $popular_cat_title;
@@ -70,18 +67,6 @@ class Search_Form {
 		return $this->params['show_title_subtitle'] == 'yes' ? true : false;
 	}
 
-	public function is_search_result_page() {
-		return atbdp_is_page( 'search_result' );
-	}
-
-	public function search_bar_title_label() {
-		return $this->params['search_bar_title'];
-	}
-
-	public function search_bar_subtitle_label() {
-		return $this->params['search_bar_sub_title'];
-	}
-
 	public function dispaly_search_button() {
 		return $this->params['search_button'] == 'yes' ? true : false;
 	}
@@ -99,6 +84,39 @@ class Search_Form {
 		$more_filters_icon = $this->options['display_more_filter_icon'];
 		return !empty( $more_filters_icon ) ? true : false;
 	}
+
+	public function search_bar_title_label() {
+		return $this->params['search_bar_title'];
+	}
+
+	public function search_bar_subtitle_label() {
+		return $this->params['search_bar_sub_title'];
+	}
+
+	public function search_button_label() {
+		return $this->params['search_button_text'];
+	}
+
+	public function more_filters_button_label() {
+		return $this->params['more_filters_text'];
+	}
+
+	public function reset_filters_button_label() {
+		return $this->params['reset_filters_text'];
+	}
+
+	public function apply_filters_button_label() {
+		return $this->params['apply_filters_text'];
+	}
+
+	public function is_search_result_page() {
+		return atbdp_is_page( 'search_result' );
+	}
+
+	public function filter_open_method() {
+		return $this->params['more_filters_display'];
+	}
+
 
 	public function setup_data( $args = [] ) {
 		$defaults = [
@@ -232,11 +250,8 @@ class Search_Form {
 		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
 		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
-		$this->search_button_text   	= $this->params['search_button_text'];
-		$this->more_filters_text    	= $this->params['more_filters_text'];
 		$this->reset_filters_text   	= $this->params['reset_filters_text'];
 		$this->apply_filters_text   	= $this->params['apply_filters_text'];
-		$this->more_filters_display 	= $this->params['more_filters_display'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 

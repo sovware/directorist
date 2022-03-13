@@ -94,6 +94,56 @@ class Search_Form {
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
 
+	public function setup_data( $args = [] ) {
+		$defaults = [
+			'type'          => 'search_form',
+			'listing_type'  => $this->get_default_listing_type(),
+			'atts'          => [],
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$type = $args['type'];
+		$listing_type = $args['listing_type'];
+		$atts = $args['atts'];
+
+		$this->type = $type;
+		$this->atts = $atts;
+
+		$this->set_default_options();
+
+		// Search form shortcode
+		if ( $type == 'search_form' ) {
+			$this->update_options_for_search_form();
+			$this->prepare_search_data($atts);
+		}
+
+		if ( $listing_type ) {
+			$this->listing_type = (int) $listing_type;
+		}
+		else {
+			$this->listing_type = $this->get_default_listing_type();
+		}
+
+		// Search result page
+		if ( $type == 'search_result' ) {
+			$this->update_options_for_search_result_page();
+			$this->prepare_search_data($atts);
+		}
+
+		// Listing Archive page
+		if ( $type == 'listing' ) {
+			$this->prepare_listing_data();
+		}
+
+		$this->form_data          = $this->build_form_data();
+
+		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
+		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
+	}
+
 	// set_default_options
 	public function set_default_options() {
 		$this->options['more_filters_fields']     = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );

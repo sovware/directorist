@@ -742,7 +742,7 @@ final class Directorist_Base
 				);
 			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
+					'key'     => directorist_get_listing_views_count_meta_key(),
 					'value'   => $view_to_popular,
 					'type'    => 'NUMERIC',
 					'compare' => '>=',
@@ -754,7 +754,7 @@ final class Directorist_Base
 				);
 			} else {
 				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
+					'key'     => directorist_get_listing_views_count_meta_key(),
 					'value'   => $view_to_popular,
 					'type'    => 'NUMERIC',
 					'compare' => '>=',
@@ -782,7 +782,7 @@ final class Directorist_Base
 				);
 			} elseif ( 'view_count' === $listing_popular_by ) {
 				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
+					'key'     => directorist_get_listing_views_count_meta_key(),
 					'value'   => $view_to_popular,
 					'type'    => 'NUMERIC',
 					'compare' => '>=',
@@ -793,7 +793,7 @@ final class Directorist_Base
 				);
 			} else {
 				$meta_queries['views'] = array(
-					'key'     => '_atbdp_post_views_count',
+					'key'     => directorist_get_listing_views_count_meta_key(),
 					'value'   => $view_to_popular,
 					'type'    => 'NUMERIC',
 					'compare' => '>=',

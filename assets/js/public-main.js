@@ -1206,7 +1206,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       }
 
       if (form_data.in_tag && form_data.in_tag.length) {
-        var query = query && query.length ? query + '&in_tag=' + form_data.in_tag : '?tag=' + form_data.in_tag;
+        var query = query && query.length ? query + '&in_tag=' + form_data.in_tag : '?in_tag=' + form_data.in_tag;
       }
 
       if (form_data.price && form_data.price[0] && form_data.price[0] > 0) {

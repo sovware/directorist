@@ -14,7 +14,7 @@
                 var query =  ( query && query.length ) ? query + '&in_loc=' + form_data.in_loc : '?in_loc=' + form_data.in_loc;
             }
             if( form_data.in_tag && form_data.in_tag.length ) {
-                var query =  ( query && query.length ) ? query + '&in_tag=' + form_data.in_tag : '?tag=' + form_data.in_tag;
+                var query =  ( query && query.length ) ? query + '&in_tag=' + form_data.in_tag : '?in_tag=' + form_data.in_tag;
             }
             if( form_data.price&& form_data.price[0] && form_data.price[0] > 0 ) {
                 var query =  ( query && query.length ) ? query + '&min-price=' + form_data.price[0] : '?min-price=' + form_data.price[0];

@@ -29,7 +29,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $has_more_filters_button;
 	public $search_button_text;
 	public $more_filters_text;
 	public $more_filters_display;
@@ -228,7 +227,6 @@ class Search_Form {
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
 
-		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
 		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;

@@ -123,7 +123,7 @@ class Helper {
 		switch ( $page ) {
 
 			case 'builder-archive':
-				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' && empty( $GET['action'] ) ) {
+				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' && empty( $_GET['action'] ) ) {
 					$status = true;
 				}
 				break;
@@ -131,7 +131,7 @@ class Helper {
 			case 'builder-edit':
 				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' ) {
 					// Multi-directory enabled
-					if ( !empty( $GET['action'] ) && $GET['action'] == 'edit' ) {
+					if ( !empty( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
 						$status = true;
 					}
 				} elseif ( $screen == 'at_biz_dir_page_atbdp-layout-builder' ) {

@@ -18,16 +18,16 @@ $search_form = directorist()->search_form;
 
 		<?php do_action('directorist_search_listing_before_title'); ?>
 
-		<?php if ( $search_form->show_title_subtitle && ( $search_form->search_bar_title || $search_form->search_bar_sub_title ) ): ?>
+		<?php if ( $search_form->display_title_area() ): ?>
 
 			<div class="directorist-search-top">
 
-				<?php if ( $search_form->search_bar_title ): ?>
-					<h2 class="directorist-search-top__title"><?php echo esc_html( $search_form->search_bar_title ); ?></h2>
+				<?php if ( $search_form->search_bar_title_label() ): ?>
+					<h2 class="directorist-search-top__title"><?php echo esc_html( $search_form->search_bar_title_label() ); ?></h2>
 				<?php endif; ?>
 
-				<?php if ( $search_form->search_bar_sub_title ): ?>
-					<p class="directorist-search-top__subtitle"><?php echo esc_html( $search_form->search_bar_sub_title ); ?></p>
+				<?php if ( $search_form->search_bar_subtitle_label() ): ?>
+					<p class="directorist-search-top__subtitle"><?php echo esc_html( $search_form->search_bar_subtitle_label() ); ?></p>
 				<?php endif; ?>
 
 			</div>

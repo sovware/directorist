@@ -24,7 +24,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $show_title_subtitle;
 	public $has_search_button;
 	public $has_more_filters_button;
 	public $search_bar_title;
@@ -66,9 +65,22 @@ class Search_Form {
 		return self::$instance;
 	}
 
+	public function display_title_area() {
+		return $this->params['show_title_subtitle'] == 'yes' ? true : false;
+	}
+
 	public function is_search_result_page() {
 		return atbdp_is_page( 'search_result' );
 	}
+
+	public function search_bar_title_label() {
+		return $this->params['search_bar_title'];
+	}
+
+	public function search_bar_subtitle_label() {
+		return $this->params['search_bar_sub_title'];
+	}
+
 
 	public function setup_data( $args = [] ) {
 		$defaults = [
@@ -91,7 +103,7 @@ class Search_Form {
 		// Search form shortcode
 		if ( $type == 'shortcode' ) {
 			$this->update_options_for_search_form();
-			$this->prepare_search_data($atts);
+			$this->prepare_search_data();
 		}
 
 		if ( $listing_type ) {
@@ -104,7 +116,7 @@ class Search_Form {
 		// Search result page
 		if ( $type == 'search_result' ) {
 			$this->update_options_for_search_result_page();
-			$this->prepare_search_data($atts);
+			$this->prepare_search_data();
 		}
 
 		// Listing Archive page
@@ -164,8 +176,8 @@ class Search_Form {
 	}
 
 	// prepare_search_data
-	public function prepare_search_data($atts) {
-		$search_filters             = $this->options['search_filters'];
+	public function prepare_search_data() {
+		$search_filters = $this->options['search_filters'];
 
 		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
 		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
@@ -197,7 +209,6 @@ class Search_Form {
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
 
-		$this->show_title_subtitle      = $this->params['show_title_subtitle'] == 'yes' ? true : false;
 		$this->has_search_button        = $this->params['search_button'] == 'yes' ? true : false;
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;

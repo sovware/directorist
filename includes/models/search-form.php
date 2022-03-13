@@ -29,9 +29,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $popular_cat_title;
-	public $popular_cat_num;
-	public $show_popular_category;
 	public $directory_type;
 	public $default_directory_type;
 
@@ -81,6 +78,10 @@ class Search_Form {
 	public function dispaly_more_filters_button_icon() {
 		$more_filters_icon = $this->options['display_more_filter_icon'];
 		return !empty( $more_filters_icon ) ? true : false;
+	}
+
+	public function dispaly_popular_categories() {
+		return $this->params['show_popular_category'] == 'yes' ? true : false;
 	}
 
 	public function search_bar_title_label() {
@@ -245,7 +246,6 @@ class Search_Form {
 
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
-		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
 		$this->reset_filters_text   	= $this->params['reset_filters_text'];
 		$this->apply_filters_text   	= $this->params['apply_filters_text'];
@@ -256,8 +256,6 @@ class Search_Form {
 		$this->category_class          = 'search_fields directorist-category-select';
 		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
-		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
-		$this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
 	}
 
 	public function prepare_listing_data() {
@@ -505,7 +503,7 @@ class Search_Form {
 			'orderby'       => 'count',
 			'order'         => 'desc',
 			'hide_empty'    => 1,
-			'number'        => (int)$this->popular_cat_num,
+			'number'        => (int) get_directorist_option( 'popular_cat_num', 10 ),
 			'taxonomy'      => ATBDP_CATEGORY,
 			'no_found_rows' => true,
 		);
@@ -526,7 +524,7 @@ class Search_Form {
 	}
 
 	public function top_categories_template() {
-		if ( $this->show_popular_category ) {
+		if ( $this->dispaly_popular_categories() ) {
 			$top_categories = $this->top_categories();
 			$title = get_directorist_option( 'popular_cat_title', __( 'Browse by popular categories', 'directorist' ) );
 

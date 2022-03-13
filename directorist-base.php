@@ -274,6 +274,22 @@ final class Directorist_Base
 
 			// Initialize appsero tracking
 			self::$instance->init_appsero();
+
+			/**
+			 * Fire loaded action hook once everything is loaded.
+			 *
+			 * Call anything safely once Directorist is fully loaded with all functionalites.
+			 * For example, all the Directorist extensions can use this hook to load safely.
+			 * Usage:
+			 * add_action( 'directorist_loaded', static function( $instance ) {
+			 *     $instance->{any prop or method}
+			 * } );
+			 *
+			 * @since 7.2.0
+			 *
+			 * @param object Instance of Directorist_Base
+			 */
+			do_action( 'directorist_loaded', self::$instance );
 		}
 
 		return self::$instance;

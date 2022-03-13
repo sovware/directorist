@@ -12,6 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Search_Form {
 
+	/**
+	 * Load deprecated methods to avoid fatal error.
+	 */
+	use Deprecated_Search_Form;
+
 	protected static $instance = null;
 
 	// Search Shortcode
@@ -24,7 +29,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $has_search_button;
 	public $has_more_filters_button;
 	public $search_button_text;
 	public $more_filters_text;
@@ -79,6 +83,14 @@ class Search_Form {
 		return $this->params['search_bar_sub_title'];
 	}
 
+	public function dispaly_search_button() {
+		return $this->params['search_button'] == 'yes' ? true : false;
+	}
+
+	public function dispaly_search_button_icon() {
+		$search_button_icon = $this->options['display_search_button_icon'];
+		return !empty( $search_button_icon ) ? true : false;
+	}
 
 	public function setup_data( $args = [] ) {
 		$defaults = [
@@ -207,7 +219,6 @@ class Search_Form {
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
 
-		$this->has_search_button        = $this->params['search_button'] == 'yes' ? true : false;
 		$this->has_more_filters_button  = $this->params['more_filters_button'] == 'yes' ? true : false;
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
@@ -462,11 +473,6 @@ class Search_Form {
 	public function has_more_filters_icon() {
 		$more_filters_icon = $this->options['display_more_filter_icon'];
 		return !empty( $more_filters_icon ) ? true : false;
-	}
-
-	public function has_search_button_icon() {
-		$search_button_icon = $this->options['display_search_button_icon'];
-		return !empty( $search_button_icon ) ? true : false;
 	}
 
 	public function more_buttons_template() {

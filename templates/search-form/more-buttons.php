@@ -27,12 +27,12 @@ $search_form = directorist()->search_form;
 
 	<?php endif ?>
 
-	<?php if ( $search_form->has_search_button ): ?>
+	<?php if ( $search_form->dispaly_search_button() ): ?>
 
 		<div class="directorist-search-form-action__submit">
 			<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
 
-				<?php if ( $search_form->has_search_button_icon() ): ?>
+				<?php if ( $search_form->dispaly_search_button_icon() ): ?>
 					<span class="<?php atbdp_icon_type( true );?>-search"></span>
 				<?php endif;?>
 

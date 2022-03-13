@@ -128,7 +128,7 @@ trait Deprecated_Listings {
 
 	public function get_current_listing_type() {
 		_deprecated_function( 'get_current_listing_type', '7.1.2', 'current_directory_type_id' );
-		return $current = $this->current_directory_type_id();
+		return $this->current_directory_type_id();
 	}
 
 	public function get_the_location() {
@@ -144,6 +144,15 @@ trait Deprecated_Listings {
 	public function card_view_data() {
 		_deprecated_function( 'card_view_data', '7.1.2' );
 		return [];
+	}
+
+}
+
+trait Deprecated_Search_Form {
+
+	public function has_search_button_icon() {
+		_deprecated_function( 'has_search_button_icon', '7.1.2', 'dispaly_search_button_icon' );
+		return $this->dispaly_search_button_icon();
 	}
 
 }

@@ -16,7 +16,7 @@ function atbdp_get_extension_template_path( string $base_path = '', string $file
     $extension_template = "{$ext_dir_path}{$ext_file_path}.php";
     $theme_template     = get_template_directory() . "/directorist/extensions/{$base_dirrectory}/{$ext_file_path}.php";
 
-    if ( file_exists( $extension_template ) ) {
+    if ( ! empty( $ext_dir_path ) && ! empty( $ext_file_path ) && file_exists( $extension_template ) ) {
         $template_file = $extension_template;
     }
 

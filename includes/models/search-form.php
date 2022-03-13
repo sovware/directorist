@@ -29,8 +29,6 @@ class Search_Form {
 	public $defaults;
 	public $params;
 
-	public $show_connector;
-	public $connectors_title;
 	public $popular_cat_title;
 	public $popular_cat_num;
 	public $show_popular_category;
@@ -247,7 +245,6 @@ class Search_Form {
 
 		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
 		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
-		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
 		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
 		$this->reset_filters_text   	= $this->params['reset_filters_text'];
@@ -259,7 +256,6 @@ class Search_Form {
 		$this->category_class          = 'search_fields directorist-category-select';
 		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
-		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
 		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
 		$this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
 	}

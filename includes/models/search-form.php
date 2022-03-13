@@ -26,8 +26,6 @@ class Search_Form {
 
 	public $has_search_button;
 	public $has_more_filters_button;
-	public $search_bar_title;
-	public $search_bar_sub_title;
 	public $search_button_text;
 	public $more_filters_text;
 	public $more_filters_display;
@@ -216,8 +214,6 @@ class Search_Form {
 		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
 		$this->show_popular_category    = ( 'yes' == $this->params['show_popular_category'] ) ? true : false;
 
-		$this->search_bar_title     	= $this->params['search_bar_title'];
-		$this->search_bar_sub_title 	= $this->params['search_bar_sub_title'];
 		$this->search_button_text   	= $this->params['search_button_text'];
 		$this->more_filters_text    	= $this->params['more_filters_text'];
 		$this->reset_filters_text   	= $this->params['reset_filters_text'];

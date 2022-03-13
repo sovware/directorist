@@ -9,10 +9,6 @@ use Directorist\Directorist_Listings;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$count = !empty( $instance['pop_listing_num'] ) ? $instance['pop_listing_num'] : 5;
-
-$query = Directorist_Listings::popular_listings_query( $count );
-
 if ( !$query->have_posts() ) {
     return;
 }

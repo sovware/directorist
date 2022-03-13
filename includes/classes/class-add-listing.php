@@ -110,6 +110,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $manual_lat = !empty( $info['manual_lat']) ? ( $info['manual_lat']) : array();
                 $manual_lng = !empty( $info['manual_lng']) ? ( $info['manual_lng']) : array();
                 $map        = !empty( $manual_lat ) && !empty( $manual_lng ) ? true : false;
+                $attatchemt_only_for_admin = false;
                 // meta input
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
@@ -157,6 +158,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 array_push( $error, $msg );
                             }
                         }
+                    }
+
+                    if( ( 'image_upload' == $key ) && $only_for_admin ) {
+                        $attatchemt_only_for_admin = true;
                     }
 
                     // array_push( $dummy, [
@@ -547,74 +552,77 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['id'] = $post_id;
 
                     // handling media files
-                    $listing_images = atbdp_get_listing_attachment_ids($post_id);
-                    $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
-                    $files_meta = !empty($_POST['files_meta']) ? $_POST['files_meta'] : array();
-                    if (!empty($listing_images)) {
-                        foreach ($listing_images as $__old_id) {
-                            $match_found = false;
-                            if (!empty($files_meta)){
-                                foreach ($files_meta as $__new_id) {
-                                    $new_id = isset($__new_id['attachmentID']) ? (int)$__new_id['attachmentID'] : '';
-                                    if ($new_id === (int)$__old_id) {
-                                        $match_found = true;
-                                        break;
+                    if( ! $attatchemt_only_for_admin ) {
+
+                        $listing_images = atbdp_get_listing_attachment_ids($post_id);
+                        $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
+                        $files_meta = !empty($_POST['files_meta']) ? $_POST['files_meta'] : array();
+                        if (!empty($listing_images)) {
+                            foreach ($listing_images as $__old_id) {
+                                $match_found = false;
+                                if (!empty($files_meta)){
+                                    foreach ($files_meta as $__new_id) {
+                                        $new_id = isset($__new_id['attachmentID']) ? (int)$__new_id['attachmentID'] : '';
+                                        if ($new_id === (int)$__old_id) {
+                                            $match_found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!$match_found) {
+                                    wp_delete_attachment((int)$__old_id, true);
+                                }
+                            }
+                        }
+                        $attach_data = array();
+                        if ($files) {
+                            foreach ($files['name'] as $key => $value) {
+                                if ($files['name'][$key]) {
+                                    $file = array(
+                                        'name' => $files['name'][$key],
+                                        'type' => $files['type'][$key],
+                                        'tmp_name' => $files['tmp_name'][$key],
+                                        'error' => $files['error'][$key],
+                                        'size' => $files['size'][$key]
+                                    );
+                                    $_FILES["my_file_upload"] = $file;
+                                    $meta_data = [];
+                                    $meta_data['name'] = $files['name'][$key];
+                                    $meta_data['id'] = atbdp_handle_attachment("my_file_upload", $post_id);
+                                    array_push($attach_data, $meta_data);
+                                }
+                            }
+                        }
+
+                        $new_files_meta = [];
+                        foreach ($files_meta as $key => $value) {
+                            if ($key === 0 && $value['oldFile'] === 'true') {
+                                update_post_meta($post_id, '_listing_prv_img', $value['attachmentID']);
+                                set_post_thumbnail($post_id, $value['attachmentID']);
+                            }
+                            if ($key === 0 && $value['oldFile'] !== 'true') {
+                                foreach ($attach_data as $item) {
+                                    if ($item['name'] === $value['name']) {
+                                        $id = $item['id'];
+                                        update_post_meta($post_id, '_listing_prv_img', $id);
+                                        set_post_thumbnail($post_id, $id);
                                     }
                                 }
                             }
-                            if (!$match_found) {
-                                wp_delete_attachment((int)$__old_id, true);
+                            if ($key !== 0 && $value['oldFile'] === 'true') {
+                                array_push($new_files_meta, $value['attachmentID']);
                             }
-                        }
-                    }
-                    $attach_data = array();
-                    if ($files) {
-                        foreach ($files['name'] as $key => $value) {
-                            if ($files['name'][$key]) {
-                                $file = array(
-                                    'name' => $files['name'][$key],
-                                    'type' => $files['type'][$key],
-                                    'tmp_name' => $files['tmp_name'][$key],
-                                    'error' => $files['error'][$key],
-                                    'size' => $files['size'][$key]
-                                );
-                                $_FILES["my_file_upload"] = $file;
-                                $meta_data = [];
-                                $meta_data['name'] = $files['name'][$key];
-                                $meta_data['id'] = atbdp_handle_attachment("my_file_upload", $post_id);
-                                array_push($attach_data, $meta_data);
-                            }
-                        }
-                    }
-
-                    $new_files_meta = [];
-                    foreach ($files_meta as $key => $value) {
-                        if ($key === 0 && $value['oldFile'] === 'true') {
-                            update_post_meta($post_id, '_listing_prv_img', $value['attachmentID']);
-                            set_post_thumbnail($post_id, $value['attachmentID']);
-                        }
-                        if ($key === 0 && $value['oldFile'] !== 'true') {
-                            foreach ($attach_data as $item) {
-                                if ($item['name'] === $value['name']) {
-                                    $id = $item['id'];
-                                    update_post_meta($post_id, '_listing_prv_img', $id);
-                                    set_post_thumbnail($post_id, $id);
+                            if ($key !== 0 && $value['oldFile'] !== 'true') {
+                                foreach ($attach_data as $item) {
+                                    if ($item['name'] === $value['name']) {
+                                        $id = $item['id'];
+                                        array_push($new_files_meta, $id);
+                                    }
                                 }
                             }
                         }
-                        if ($key !== 0 && $value['oldFile'] === 'true') {
-                            array_push($new_files_meta, $value['attachmentID']);
-                        }
-                        if ($key !== 0 && $value['oldFile'] !== 'true') {
-                            foreach ($attach_data as $item) {
-                                if ($item['name'] === $value['name']) {
-                                    $id = $item['id'];
-                                    array_push($new_files_meta, $id);
-                                }
-                            }
-                        }
+                        update_post_meta($post_id, '_listing_img', $new_files_meta);
                     }
-                    update_post_meta($post_id, '_listing_img', $new_files_meta);
                     $permalink = get_permalink( $post_id );
                     //no pay extension own yet let treat as general user
 

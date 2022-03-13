@@ -222,7 +222,7 @@ class Init {
 			wp_enqueue_script( 'directorist-multi-directory-archive' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
 			// wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
-
+			wp_enqueue_media();
 			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_style( 'directorist-unicons' ); //  use svg instead
 			wp_enqueue_style( 'directorist-admin-style' );

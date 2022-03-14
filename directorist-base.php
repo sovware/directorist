@@ -603,7 +603,7 @@ final class Directorist_Base
 	}
 
 	public function show_popular_listing() {
-		_deprecated_function( '7.2.2', 'ATBDP()->show_popular_listing' );
+		_deprecated_function( 'ATBDP()->show_popular_listing', '7.2.2' );
 		return;
 	}
 

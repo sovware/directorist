@@ -204,7 +204,14 @@
 
                         update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
-                    do_action('directorist_after_import_single_listing', $post_id, $post);
+                    /**
+                     * Fire this event once a listing is successfully imported from CSV.
+                     *
+                     * @param int $post_id Listing id.
+                     * @param array $post  Listing data.
+                     */
+                    do_action( 'directorist_listing_imported', $post_id, $post );
+                    
                     $count++;
             }
 

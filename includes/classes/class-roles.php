@@ -119,7 +119,6 @@ class ATBDP_Roles {
                 'shop_vendor',
                 'dc_vendor',
                 'yith_vendor',
-				'seller',
                 ) );
 
             // Add the "editor" capabilities of all of our custom posts

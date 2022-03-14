@@ -644,40 +644,30 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites_all()
-        {
+        public function atbdp_public_add_remove_favorites_all() {
+            $user_id    = get_current_user_id();
+            $listing_id = (int) $_POST['post_id'];
 
-            $user_id = get_current_user_id();
-            $post_id = (int) $_POST['post_id'];
-
-            if (!$user_id) {
+            if ( ! $user_id ) {
                 $data = "login_required";
                 echo esc_attr($data);
                 wp_die();
             }
 
-            $favourites = (array) get_user_meta($user_id, 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
+			$favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                directorist_delete_user_favorites( $user_id, $listing_id );
             } else {
-                $favourites[] = $post_id;
+                directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta($user_id, 'atbdp_favourites');
-            update_user_meta($user_id, 'atbdp_favourites', $favourites);
-
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-            if (in_array($post_id, $favourites)) {
-                $data = $post_id;
+            $favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                $data = $listing_id;
             } else {
                 $data = false;
             }
+
             echo wp_json_encode($data);
             wp_die();
         }
@@ -688,28 +678,18 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites()
-        {
+        public function atbdp_public_add_remove_favorites() {
+            $listing_id = (int) $_POST['post_id'];
+            $user_id    = get_current_user_id();
+            $favorites  = directorist_get_user_favorites( $user_id );
 
-            $post_id = (int) $_POST['post_id'];
+			if ( in_array( $listing_id, $favorites ) ) {
+				directorist_delete_user_favorites( $user_id, $listing_id );
+			} else {
+				directorist_add_user_favorites( $user_id, $listing_id );
+			}
 
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
-            } else {
-                $favourites[] = $post_id;
-            }
-
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta(get_current_user_id(), 'atbdp_favourites');
-            update_user_meta(get_current_user_id(), 'atbdp_favourites', $favourites);
-
-            echo the_atbdp_favourites_link($post_id);
+            echo the_atbdp_favourites_link( $listing_id );
 
             wp_die();
         }
@@ -947,51 +927,59 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             die();
         }
 
-        public function atbdp_email_admin_report_abuse()
-        {
-
-            // sanitize form values
-            $post_id = (int) $_POST["post_id"];
-            $message = esc_textarea($_POST["message"]);
-
-            // vars
-            $user = wp_get_current_user();
-            $site_name = get_bloginfo('name');
-            $site_url = get_bloginfo('url');
-            $listing_title = get_the_title($post_id);
-            $listing_url = get_permalink($post_id);
+		/**
+		 * Send listing report email to admin.
+		 *
+		 * @param  int $user_id				User who reported.
+		 * @param  int $listing_id			Reported listing.
+		 * @param  string $report_message	Report message.
+		 *
+		 * @return bool
+		 */
+        public function send_listing_report_email_to_admin( $user_id, $listing_id, $report_message ) {
+			$message       = esc_textarea( $report_message );
+			$user          = get_user_by( 'id', $user_id );
+			$site_name     = get_bloginfo( 'name' );
+			$site_url      = get_bloginfo( 'url' );
+			$listing_title = get_the_title( $listing_id );
+			$listing_url   = get_permalink( $listing_id );
 
             $placeholders = array(
-                '{site_name}' => $site_name,
-                '{site_link}' => sprintf('<a href="%s">%s</a>', $site_url, $site_name),
-                '{site_url}' => sprintf('<a href="%s">%s</a>', $site_url, $site_url),
-                '{listing_title}' => $listing_title,
-                '{listing_link}' => sprintf('<a href="%s">%s</a>', $listing_url, $listing_title),
-                '{listing_url}' => sprintf('<a href="%s">%s</a>', $listing_url, $listing_url),
-                '{sender_name}' => $user->display_name,
-                '{sender_email}' => $user->user_email,
-                '{message}' => $message
+                '{site_name}'     => $site_name,
+                '{site_link}'     => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), $site_name ),
+                '{site_url}'      => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), $site_url ),
+
+				'{listing_title}' => $listing_title,
+                '{listing_link}'  => sprintf( '<a href="%s">%s</a>', esc_url( $listing_url ), $listing_title ),
+                '{listing_url}'   => sprintf( '<a href="%s">%s</a>', esc_url( $listing_url ), $listing_url ),
+
+				'{sender_name}'   => $user->display_name,
+                '{sender_email}'  => $user->user_email,
+                '{message}'       => $message
             );
-            $send_email = get_directorist_option('admin_email_lists');
 
-            $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
+            $admin_email = get_directorist_option( 'admin_email_lists' );
+			if ( ! $admin_email || ! is_email( $admin_email ) ) {
+				$admin_email = get_bloginfo( 'admin_email' );
+			}
 
-            $subject = __('{site_name} Report Abuse via "{listing_title}"', 'directorist');
-            $subject = strtr($subject, $placeholders);
+            $subject = __( '{site_name} Report Abuse via "{listing_title}"', 'directorist' );
+            $subject = strtr( $subject, $placeholders );
 
-            $message = __("Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist');
-            $message = strtr($message, $placeholders);
-            $message = atbdp_email_html($subject, $message);
+            $message = __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist' );
+            $message = strtr( $message, $placeholders );
+            $message = atbdp_email_html( $subject, $message );
+
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            return ATBDP()->email->send_mail( $admin_email, $subject, $message, $headers );
         }
 
-        public function ajax_callback_report_abuse()
-        {
-            $data = array('error' => 0);
+        public function ajax_callback_report_abuse() {
+            $data = array(
+				'error' => 0
+			);
 
             if ( ! directorist_verify_nonce() ) {
                 $data['error'] = 1;
@@ -1000,18 +988,36 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 wp_send_json( $data );
             }
 
-            if ($this->atbdp_email_admin_report_abuse()) {
+			$listing_id = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+			$message    = ! empty( $_POST['message'] ) ? trim( $_POST['message'] ) : '';
 
-                $data['message'] = __('Your message sent successfully.', 'directorist');
-            } else {
+			if ( empty( $listing_id ) || get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Trying to report invalid listing.', 'directorist' );
 
-                $data['error'] = 1;
-                $data['message'] = __('Sorry! Please try again.', 'directorist');
+				wp_send_json( $data );
+			}
+
+			if ( empty( $message ) ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Report message cannot be empty.', 'directorist' );
+
+				wp_send_json( $data );
+			}
+
+			$mail_sent = $this->send_listing_report_email_to_admin( get_current_user_id(), $listing_id, $message );
+            if ( ! $mail_sent ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+
+				wp_send_json( $data );
             }
 
+			$data['message'] = __('Your message sent successfully.', 'directorist');
 
-            echo wp_json_encode($data);
-            wp_die();
+			do_action( 'directorist_listing_reported', $listing_id );
+
+			wp_send_json( $data );
         }
 
         /**

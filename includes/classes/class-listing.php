@@ -83,7 +83,7 @@ if (!class_exists('ATBDP_Listing')):
                 $query->set( 'tax_query', $tax_query );
             }
         }
-        
+
         public function atbdp_listings_filter(  ) {
             $type = 'post';
             if (isset($_GET['post_type'])) {
@@ -116,11 +116,11 @@ if (!class_exists('ATBDP_Listing')):
             $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
             $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
-            
+
             if ( $preview || $status || $reviewed ) {
                 $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
                 $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
-                
+
                 $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
@@ -150,7 +150,7 @@ if (!class_exists('ATBDP_Listing')):
                     wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
                 }
             }
-            
+
         }
 
         // manage_listings_status
@@ -163,9 +163,9 @@ if (!class_exists('ATBDP_Listing')):
             $featured_enabled = get_directorist_option('enable_featured_listing');
             $pricing_plan_enabled = is_fee_manager_active();
 
-            if ( $pricing_plan_enabled ) { return; }; 
-            if ( ! $featured_enabled ) { return; }; 
-            
+            if ( $pricing_plan_enabled ) { return; };
+            if ( ! $featured_enabled ) { return; };
+
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );
 
@@ -287,15 +287,7 @@ if (!class_exists('ATBDP_Listing')):
         public function set_post_views($postID)
         {
             /*@todo; add option to verify the user using his/her IP address so that reloading the page multiple times by the same user does not increase his post view of the same post on the same day.*/
-            $count_key = '_atbdp_post_views_count';
-            $count = get_post_meta($postID, $count_key, true);
-            if ('' == $count) {
-                delete_post_meta($postID, $count_key);
-                add_post_meta($postID, $count_key, '0');
-            } else {
-                $count++;
-                update_post_meta($postID, $count_key, $count);
-            }
+            directorist_set_listing_views_count( $postID );
         }
 
 

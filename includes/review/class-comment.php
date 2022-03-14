@@ -17,7 +17,7 @@ class Comment {
 	public static function init() {
 		// Rating posts.
 		add_filter( 'comments_open', [ __CLASS__, 'comments_open' ], 10, 2 );
-		add_filter( 'preprocess_comment', [ __CLASS__, 'validate_comment_data' ], 0 );
+		add_filter( 'preprocess_comment', [ __CLASS__, 'validate_data' ], 0 );
 		add_action( 'comment_post', [ __CLASS__, 'on_comment_post' ], 10, 3 );
 
 		// Support avatars for `review` comment type.
@@ -60,7 +60,7 @@ class Comment {
 	 * @param  array $comment_data Comment data.
 	 * @return array
 	 */
-	public static function validate_comment_data( $comment_data ) {
+	public static function validate_data( $comment_data ) {
 		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
 			return $comment_data;
 		}
@@ -109,7 +109,7 @@ class Comment {
 				}
 			}
 
-			do_action( 'directorist/review/validate_comment_data', $comment_data );
+			do_action( 'directorist_review_validate_data', $comment_data );
 		} catch( Exception $e ) {
 			wp_die( $e->getMessage(), $e->getCode() );
 			exit;
@@ -273,10 +273,10 @@ class Comment {
 		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0; // WPCS: input var ok, CSRF ok.
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
-			do_action( 'directorist/review/save_comment' );
-
 			self::post_rating( $comment_id, $comment_data, $_POST );
 			self::clear_transients( $post_id );
+
+			do_action( 'directorist_review_updated', $comment_id, $comment_data );
 		}
 	}
 
@@ -297,7 +297,7 @@ class Comment {
 		Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
 		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 
-		do_action( 'directorist/review/maybe_clear_transients', $listing_id );
+		do_action( 'directorist_review_clear_cache', $listing_id );
 	}
 
 	/**
@@ -439,6 +439,8 @@ class Comment {
 		} else {
 			delete_comment_meta( $comment_id, 'rating' );
 		}
+
+		do_action( 'directorist_review_rating_updated', $rating, $comment_data );
 	}
 
 	public static function get_rating( $comment_id ) {

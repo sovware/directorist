@@ -22,19 +22,12 @@ class Bootstrap {
 
 	public static function include_files() {
 		require_once 'directorist-review-functions.php';
-
-		// Return early when review is disabled.
-		if ( ! directorist_is_review_enabled() ) {
-			return;
-		}
-
 		require_once 'class-email.php';
 		require_once 'class-markup.php';
 		require_once 'class-builder.php';
 		require_once 'class-comment.php';
 		require_once 'class-comment-meta.php';
 		require_once 'class-listing-review-meta.php';
-
 		require_once 'class-comment-form-renderer.php';
 		require_once 'class-comment-form-processor.php';
 

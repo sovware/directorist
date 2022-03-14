@@ -195,7 +195,7 @@
                         $attachment_ids = [];
                         foreach ( $preview_url as $_url_index => $_url ) {
                             $attachment_id = self::atbdp_insert_attachment_from_url($_url, $post_id);
-                            if ( 1 === $_url_index ) {
+                            if ( $_url_index == 0) {
                                 update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                             } else {
                                 $attachment_ids[] = $attachment_id;

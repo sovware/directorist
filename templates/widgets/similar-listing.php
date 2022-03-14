@@ -5,8 +5,6 @@
  * @version 7.2.0
  */
 
-use Directorist\Directorist_Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
 global $post;

@@ -5,8 +5,6 @@
  * @version 7.2.0
  */
 
-use Directorist\Directorist_Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
 ?>

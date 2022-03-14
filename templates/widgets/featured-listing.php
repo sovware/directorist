@@ -5,8 +5,6 @@
  * @version 7.2.0
  */
 
-use Directorist\Directorist_Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 $f_listing_num = !empty($instance['f_listing_num']) ? $instance['f_listing_num'] : 5;
 

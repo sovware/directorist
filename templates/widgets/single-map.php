@@ -5,8 +5,6 @@
  * @version 7.2.0
  */
 
-use Directorist\Directorist_Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 

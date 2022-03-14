@@ -5,8 +5,6 @@
  * @version 7.2.0
  */
 
-use Directorist\Directorist_Listings;
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $search_form_fields = Directorist\Helper::get_directory_type_term_data( get_the_ID(), 'search_form_fields' );

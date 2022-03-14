@@ -8661,7 +8661,59 @@ function directorist_prepare_user_favorites( $favorites = array() ) {
 }
 
 /**
+ * Check if email notification is enabled and user can get notification for a specific event.
+ *
+ * @param string $event_name The name of the event.
+ * @param string $user_type user or admin
+ *
+ * @return bool
+ */
+function directorist_user_notifiable_for( $event_name = '', $user_type = '' ) {
+	if ( empty( $event_name ) || get_directorist_option( 'disable_email_notification' ) ) {
+		return false;
+	}
+
+	if ( empty( $user_type ) || ! in_array( $user_type, array( 'user', 'admin' ), true ) ) {
+		return false;
+	}
+
+	$user_type  = 'notify_' . (string) $user_type;
+	$event_name = (string) $event_name;
+	if ( ! in_array( $event_name, get_directorist_option( $user_type, array() ), true ) )  {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if admin can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return An array of user IDs.
+ */
+function directorist_admin_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'admin' );
+}
+
+/**
+ * Check if listing owner can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return bool
+ */
+function directorist_owner_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'user' );
+}
+
+/**
  * This function returns the meta key for the listing views count.
+ *
+ * @since 7.2.0
  *
  * @return string The meta key for the views count.
  */
@@ -8671,6 +8723,8 @@ function directorist_get_listing_views_count_meta_key() {
 
 /**
  * Get the number of views for a listing.
+ *
+ * @since 7.2.0
  *
  * @param int $listing_id The ID of the listing.
  *

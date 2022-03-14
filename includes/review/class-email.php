@@ -30,24 +30,20 @@ class Email {
 	}
 
 	public static function notify_owner( $comment_id ) {
-		if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', array() ), true ) ) {
+		if ( ! directorist_owner_notifiable_for( 'listing_review' ) ) {
 			return false;
 		}
 
-		$comment = get_comment( $comment_id );
-		if ( empty( $comment ) || empty( $comment->comment_post_ID ) ) {
+		$review = self::get_review( $comment_id );
+		if ( ! $review ) {
 			return false;
 		}
 
-		if ( ! isset( $comment->comment_type, $comment->comment_approved ) || $comment->comment_type !== 'review' || ! in_array( $comment->comment_approved, array( '', '1' ) ) ) {
-			return false;
-		}
-
-		$post = get_post( $comment->comment_post_ID );
+		$post = get_post( $review->comment_post_ID );
 		$user = get_userdata( $post->post_author );
 
 		// The comment was left by the user.
-		if ( $user && $comment->user_id == $post->post_author ) {
+		if ( $user && $review->user_id == $post->post_author ) {
 			return false;
 		}
 
@@ -68,49 +64,39 @@ class Email {
 
 		$placeholders = array(
 			'{site_name}'     => $site_name,
-			'{site_link}'     => sprintf('<a href="%s">%s</a>', $site_url, $site_name),
-			'{site_url}'      => sprintf('<a href="%s">%s</a>', $site_url, $site_url),
+			'{site_link}'     => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+			'{site_url}'      => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
 			'{listing_title}' => $listing_title,
-			'{listing_link}'  => sprintf('<a href="%s">%s</a>', $listing_url, $listing_title),
-			'{listing_url}'   => sprintf('<a href="%s">%s</a>', $listing_url, $listing_url),
-			'{sender_name}'   => empty( $comment->comment_author ) ? $comment->comment_author_email : $comment->comment_author,
-			'{sender_email}'  => $comment->comment_author_email,
-			'{message}'       => $comment->comment_content,
+			'{listing_link}'  => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+			'{listing_url}'   => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+			'{sender_name}'   => empty( $review->comment_author ) ? $review->comment_author_email : $review->comment_author,
+			'{sender_email}'  => $review->comment_author_email,
+			'{message}'       => $review->comment_content,
 		);
-
-		$to = $user->user_email;
 
 		$subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
 		$subject = strtr( $subject, $placeholders );
 
-		$message = __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />", 'directorist' );
-		$message = strtr( $comment->comment_content, $placeholders );
+		$message = __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Review: {message}", 'directorist' );
+		$message = strtr( $message, $placeholders );
 
-		$headers = "From: {$comment->comment_author_email} <{$comment->comment_author_email}>\r\n";
-		$headers .= "Reply-To: {$comment->comment_author_email}\r\n";
+		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
+		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
 
-		return ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+		return ATBDP()->email->send_mail( $user->user_email, $subject, $message, $headers );
 	}
 
 	public static function notify_admin( $comment_id ) {
-		if ( get_directorist_option( 'disable_email_notification' ) ) {
+		if ( ! directorist_admin_notifiable_for( 'listing_review' ) )  {
 			return false;
 		}
 
-		if ( ! in_array( 'listing_review', get_directorist_option( 'notify_admin', array() ), true ) )  {
+		$review = self::get_review( $comment_id );
+		if ( ! $review ) {
 			return false;
 		}
 
-		$comment = get_comment( $comment_id );
-		if ( empty( $comment ) || empty( $comment->comment_post_ID ) ) {
-			return false;
-		}
-
-		if ( ! isset( $comment->comment_type, $comment->comment_approved ) || $comment->comment_type !== 'review' || ! in_array( $comment->comment_approved, array( '', '1' ) ) ) {
-			return false;
-		}
-
-		$post          = get_post( $comment->comment_post_ID );
+		$post          = get_post( $review->comment_post_ID );
 		$site_name     = get_bloginfo( 'name' );
 		$site_url      = get_bloginfo( 'url' );
 		$listing_title = get_the_title( $post->ID );
@@ -123,9 +109,9 @@ class Email {
 			'{listing_title}' => $listing_title,
 			'{listing_link}'  => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
 			'{listing_url}'   => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
-			'{sender_name}'   => empty( $comment->comment_author ) ? $comment->comment_author_email : $comment->comment_author,
-			'{sender_email}'  => $comment->comment_author_email,
-			'{message}'       => $comment->comment_content,
+			'{sender_name}'   => empty( $review->comment_author ) ? $review->comment_author_email : $review->comment_author,
+			'{sender_email}'  => $review->comment_author_email,
+			'{message}'       => $review->comment_content,
 		);
 
 		$to = get_directorist_option( 'admin_email_lists' );
@@ -137,13 +123,30 @@ class Email {
 		$subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
 		$subject = strtr( $subject, $placeholders );
 
-		$message = __( "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", 'directorist' );
-		$message = strtr( $comment->comment_content, $placeholders );
+		$message = __( "Dear Admin,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Review: {message}", 'directorist' );
+		$message = strtr( $message, $placeholders );
 
-		$headers = "From: {$comment->comment_author_email} <{$comment->comment_author_email}>\r\n";
-		$headers .= "Reply-To: {$comment->comment_author_email}\r\n";
+		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
+		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
 
 		return ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+	}
+
+	public static function get_review( $comment_id ) {
+		$comment = get_comment( $comment_id );
+		if ( empty( $comment ) || empty( $comment->comment_post_ID ) ) {
+			return false;
+		}
+
+		if ( get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+			return false;
+		}
+
+		if ( ! isset( $comment->comment_type ) || $comment->comment_type !== 'review' ) {
+			return false;
+		}
+
+		return $comment;
 	}
 }
 

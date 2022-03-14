@@ -204,7 +204,7 @@
 
                         update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
-
+                    do_action('directorist_after_import_single_listing', $post_id, $post);
                     $count++;
             }
 

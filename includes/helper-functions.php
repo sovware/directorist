@@ -8709,3 +8709,58 @@ function directorist_admin_notifiable_for( $event_name = '' ) {
 function directorist_owner_notifiable_for( $event_name = '' ) {
 	return directorist_user_notifiable_for( $event_name, 'user' );
 }
+
+/**
+ * This function returns the meta key for the listing views count.
+ *
+ * @since 7.2.0
+ *
+ * @return string The meta key for the views count.
+ */
+function directorist_get_listing_views_count_meta_key() {
+	return '_atbdp_post_views_count';
+}
+
+/**
+ * Get the number of views for a listing.
+ *
+ * @since 7.2.0
+ *
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return int The number of views for a given listing.
+ */
+function directorist_get_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return 0;
+	}
+
+	$views_count = get_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), true );
+	return absint( $views_count );
+}
+
+/**
+ * This function increments the views count of a listing by 1.
+ *
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return The number of views for a listing.
+ */
+function directorist_set_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	$views_count = directorist_get_listing_views_count( $listing_id );
+	$views_count = $views_count + 1; // Listing got a new view :D
+	update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $views_count );
+
+	/**
+	 * Fire this hook when listing got a view.
+	 *
+	 * @param int $listing_id
+	 */
+	do_action( 'directorist_listing_views_count_updated', $listing_id );
+
+	return true;
+}

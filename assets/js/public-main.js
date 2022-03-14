@@ -1210,11 +1210,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       }
 
       if (form_data.price && form_data.price[0] && form_data.price[0] > 0) {
-        var query = query && query.length ? query + '&min-price=' + form_data.price[0] : '?min-price=' + form_data.price[0];
+        var query = query && query.length ? query + '&price%5B0%5D=' + form_data.price[0] : '?price%5B0%5D=' + form_data.price[0];
       }
 
       if (form_data.price && form_data.price[1] && form_data.price[1] > 0) {
-        var query = query && query.length ? query + '&max-price=' + form_data.price[1] : '?max-price=' + form_data.price[1];
+        var query = query && query.length ? query + '&price%5B1%5D=' + form_data.price[1] : '?price%5B1%5D=' + form_data.price[1];
       }
 
       if (form_data.price_range && form_data.price_range.length) {

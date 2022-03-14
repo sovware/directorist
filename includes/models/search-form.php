@@ -206,9 +206,6 @@ class Search_Form {
 		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
 		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
-
-		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
-		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 	}
 
 	// search_result

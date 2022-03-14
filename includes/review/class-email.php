@@ -30,7 +30,7 @@ class Email {
 	}
 
 	public static function notify_owner( $comment_id ) {
-		if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', array() ), true ) ) {
+		if ( ! directorist_owner_notifiable_for( 'listing_review' ) ) {
 			return false;
 		}
 
@@ -77,8 +77,8 @@ class Email {
 		$subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
 		$subject = strtr( $subject, $placeholders );
 
-		$message = __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />", 'directorist' );
-		$message = strtr( $review->comment_content, $placeholders );
+		$message = __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Review: {message}", 'directorist' );
+		$message = strtr( $message, $placeholders );
 
 		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
 		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
@@ -87,11 +87,7 @@ class Email {
 	}
 
 	public static function notify_admin( $comment_id ) {
-		if ( get_directorist_option( 'disable_email_notification' ) ) {
-			return false;
-		}
-
-		if ( ! in_array( 'listing_review', get_directorist_option( 'notify_admin', array() ), true ) )  {
+		if ( ! directorist_admin_notifiable_for( 'listing_review' ) )  {
 			return false;
 		}
 
@@ -127,8 +123,8 @@ class Email {
 		$subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
 		$subject = strtr( $subject, $placeholders );
 
-		$message = __( "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", 'directorist' );
-		$message = strtr( $review->comment_content, $placeholders );
+		$message = __( "Dear Admin,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Review: {message}", 'directorist' );
+		$message = strtr( $message, $placeholders );
 
 		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
 		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
@@ -139,6 +135,10 @@ class Email {
 	public static function get_review( $comment_id ) {
 		$comment = get_comment( $comment_id );
 		if ( empty( $comment ) || empty( $comment->comment_post_ID ) ) {
+			return false;
+		}
+
+		if ( get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
 			return false;
 		}
 

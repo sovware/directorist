@@ -79,9 +79,6 @@ class Search_Form {
 	}
 
 	public function dispaly_more_filters_button_icon() {
-
-
-
 		$more_filters_icon = $this->options['display_more_filter_icon'];
 		return !empty( $more_filters_icon ) ? true : false;
 	}
@@ -176,15 +173,15 @@ class Search_Form {
 
 		if ( $type == 'shortcode' ) {
 			// Search form shortcode
-			$this->set_search_form_options();
+			$this->options = $this->get_search_form_options();
 			$this->prepare_search_data();
 		} elseif ( $type == 'search_result' ) {
 			// Search result page
-			$this->set_search_result_options();
+			$this->options = $this->get_search_result_options();
 			$this->prepare_search_data();
 		} elseif ( $type == 'all_listings' ) {
 			// Listing Archive page
-			$this->set_listing_options();
+			$this->options = $this->get_all_listings_options();
 			$this->prepare_listing_data();
 		}
 
@@ -196,42 +193,90 @@ class Search_Form {
 	}
 
 	// all listings
-	public function set_listing_options() {
-		$this->options['search_filters']          = get_directorist_option('listings_filters_button', array('search_reset_filters', 'search_apply_filters'));
-		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
-		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+	public function get_all_listings_options() {
+		$options = [
+			'search_filters'             => get_directorist_option( 'listings_filters_button', ['search_reset_filters', 'search_apply_filters'] ),
+			'more_filters_button'        => get_directorist_option( 'listing_filters_button', 1 ),
+			'reset_filters_text'         => get_directorist_option( 'listings_reset_text', __( 'Reset Filters', 'directorist')),
+			'apply_filters_text'         => get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) ),
+			'display_more_filter_icon'   => get_directorist_option( 'listing_filters_icon', 1 ),
+			'display_search_button_icon' => get_directorist_option( 'listing_filters_icon', 1 ),
+			'open_filter_fields'         => get_directorist_option( 'listings_display_filter', 'sliding' ),
+		];
 
-		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
-		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
+		return $options;
 	}
 
 	// search_result
-	public function set_search_result_options() {
-		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
-		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
-		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
+	public function get_search_result_options() {
+		$options = [
+			'search_filters'             => get_directorist_option( 'search_result_filters_button', ['reset_button', 'apply_button'], true ),
+			'more_filters_button'        => get_directorist_option( 'search_result_filters_button_display', 1 ),
+			'reset_filters_text'         => get_directorist_option( 'sresult_reset_text', __( 'Reset Filters', 'directorist')),
+			'apply_filters_text'         => get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) ),
+			'display_more_filter_icon'   => get_directorist_option( 'listing_filters_icon', 1 ),
+			'display_search_button_icon' => get_directorist_option( 'listing_filters_icon', 1 ),
+			'open_filter_fields'         => get_directorist_option( 'listings_display_filter', 'sliding' ),
+		];
 
-		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
-		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
+		return $options;
 	}
 
 	// search form
-	public function set_search_form_options() {
-		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'), true );
-		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
-		$this->options['reset_filters_text']         = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']         = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
+	public function get_search_form_options() {
+		$options = [
+			'search_filters'             => get_directorist_option( 'search_filters', ['search_reset_filters', 'search_apply_filters'], true ),
+			'more_filters_button'        => get_directorist_option( 'search_more_filter', 1 ),
+			'reset_filters_text'         => get_directorist_option( 'search_reset_text', __( 'Reset Filters', 'directorist')),
+			'apply_filters_text'         => get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) ),
+			'display_more_filter_icon'   => get_directorist_option( 'search_more_filter_icon', 1 ),
+			'display_search_button_icon' => get_directorist_option( 'search_button_icon', 1 ),
+			'open_filter_fields'         => get_directorist_option( 'home_display_filter', 'sliding' ),
+		];
+
+		return $options;
+	}
+
+	private function build_data( $shortcode_atts ) {
+		$options = [];
+
+		if ( $this->type == 'shortcode' ) {
+			$options = $this->get_search_form_options();
+		} elseif ( $this->type == 'search_result' ) {
+			$options = $this->get_search_result_options();
+		} elseif ( $this->type == 'all_listings' ) {
+			$options = $this->get_search_result_options();
+		}
+
+		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
 
-		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
-		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'sliding');
 
+	}
 
+	public function get_shortcode_atts( $atts = [], $options ) {
+
+		$defaults = array(
+			'show_title_subtitle'    		=> 'yes',
+			'search_bar_title'       		=> get_directorist_option( 'search_title', __( 'Search here', 'directorist' ) ),
+			'search_bar_sub_title'  		=> get_directorist_option( 'search_subtitle', __( 'Find the best match of your interest', 'directorist' ) ),
+			'search_button'          		=> get_directorist_option( 'search_button', 1 ) ? 'yes' : '',
+			'search_button_text'     		=> get_directorist_option( 'search_listing_text', __( 'Search Listing', 'directorist') ),
+			'more_filters_button'    		=> $options['more_filters_button'] ? 'yes' : '',
+			'more_filters_text'      		=> get_directorist_option( 'search_more_filters', __( 'More Filters', 'directorist') ),
+			'reset_filters_button'   		=> in_array( ['reset_button', 'search_reset_filters'], $options['search_filters'] ) ? 'yes' : '',
+			'apply_filters_button'   		=> in_array( ['apply_button', 'search_apply_filters'], $options['search_filters'] ) ? 'yes' : '',
+			'reset_filters_text'     		=> $options['reset_filters_text'],
+			'apply_filters_text'     		=> $options['apply_filters_text'],
+			'logged_in_user_only'    		=> '',
+			'redirect_page_url'      		=> '',
+			'more_filters_display'   		=> $options['open_filter_fields'],
+			'directory_type'         		=> '',
+			'default_directory_type'        => '',
+			'show_popular_category'			=> get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : ''
+		);
+
+		return shortcode_atts( $defaults, $atts );
 	}
 
 	// $type == 'shortcode'

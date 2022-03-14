@@ -99,6 +99,7 @@ class Listings {
 		$this->query = apply_filters( 'directorist_all_listings_query', $this->build_query( $args['query_args'] ), $args  );
 	}
 
+
 	/**
 	 * Build data using plugin settings and shortcode attributes.
 	 *
@@ -111,8 +112,10 @@ class Listings {
 
 		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
+		$view = get_directorist_option( 'default_listing_view', 'grid' );
+
 		$data = [
-			'view'                          => $shortcode_data['view'],
+			'view'                          => $shortcode_data['view'] ?: $view,
 			'orderby'                       => $shortcode_data['orderby'],
 			'order'                         => $shortcode_data['order'],
 			'listings_per_page'             => $shortcode_data['listings_per_page'],
@@ -182,7 +185,7 @@ class Listings {
 	 * @return array
 	 */
 	public function get_shortcode_atts( $atts = [], $options ) {
-		$defaults = array(
+		$defaults = [
 			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
 			'orderby'                  => $options['order_listing_by'],
 			'order'                    => $options['sort_listing_by'],
@@ -205,7 +208,7 @@ class Listings {
 			'map_zoom_level'		   => get_directorist_option( 'map_view_zoom_level', 16 ),
 			'directory_type'	       => '',
 			'default_directory_type'   => ''
-		);
+		];
 
 		return shortcode_atts( $defaults, $atts );
 	}

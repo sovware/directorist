@@ -41,11 +41,6 @@ class Search_Form {
 	public $c_symbol;
 	public $categories_fields;
 	public $locations_fields;
-	public $category_id;
-	public $category_class;
-	public $location_id;
-	public $location_class;
-	public $select_listing_map;
 
 	private function __construct() {
 
@@ -116,6 +111,21 @@ class Search_Form {
 		return $this->params['more_filters_display'];
 	}
 
+	public function category_id() {
+		return ( $this->type == 'all_listings' ) ? 'cat-type' : '';
+	}
+
+	public function category_class() {
+		return ( $this->type == 'all_listings' ) ? 'directory_field bdas-category-search' : 'search_fields directorist-category-select';
+	}
+
+	public function location_id() {
+		return ( $this->type == 'all_listings' ) ? 'loc-type' : '';
+	}
+
+	public function location_class() {
+		return ( $this->type == 'all_listings' ) ? 'directory_field bdas-category-location' : 'search_fields directorist-location-select';
+	}
 
 	public function setup_data( $args = [] ) {
 		$defaults = [
@@ -164,7 +174,6 @@ class Search_Form {
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
 
 	public function reset_data() {
@@ -210,7 +219,8 @@ class Search_Form {
 		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
 	}
 
-	// prepare_search_data
+	// $type == 'shortcode'
+	// $type == 'search_result'
 	public function prepare_search_data() {
 		$search_filters = $this->options['search_filters'];
 
@@ -251,24 +261,15 @@ class Search_Form {
 		$this->apply_filters_text   	= $this->params['apply_filters_text'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
-
-		$this->category_id             = '';
-		$this->category_class          = 'search_fields directorist-category-select';
-		$this->location_id             = '';
-		$this->location_class          = 'search_fields directorist-location-select';
 	}
 
+	// $type == 'all_listings'
 	public function prepare_listing_data() {
 		$filters_buttons                = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ), true );
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
 		$this->reset_filters_text       = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
 		$this->apply_filters_text       = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
-
-		$this->category_id             = 'cat-type';
-		$this->category_class          = 'directory_field bdas-category-search';
-		$this->location_id             = 'loc-type';
-		$this->location_class          = 'directory_field bdas-category-location';
 	}
 
 	public function get_default_listing_type() {
@@ -389,7 +390,8 @@ class Search_Form {
 	}
 
 	public function load_map_scripts() {
-		wp_localize_script( 'directorist-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
+		$select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
+		wp_localize_script( 'directorist-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $select_listing_map ) );
 		wp_enqueue_script( 'directorist-geolocation' );
 	}
 

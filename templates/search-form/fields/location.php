@@ -15,7 +15,7 @@ if ( $location_source == 'listing' ) { ?>
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
-			<select name="in_loc" id="<?php echo !empty($search_form->location_id) ? esc_attr($search_form->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($search_form->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+			<select name="in_loc" id="<?php echo !empty($search_form->location_id()) ? esc_attr($search_form->location_id()) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($search_form->location_class()); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 				<?php
 					echo '<option value="">Select Location</option>';
 					echo $search_form->locations_fields;

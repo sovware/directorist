@@ -79,6 +79,9 @@ class Search_Form {
 	}
 
 	public function dispaly_more_filters_button_icon() {
+
+
+
 		$more_filters_icon = $this->options['display_more_filter_icon'];
 		return !empty( $more_filters_icon ) ? true : false;
 	}
@@ -163,14 +166,6 @@ class Search_Form {
 		$this->type = $type;
 		$this->atts = $atts;
 
-		$this->set_default_options();
-
-		// Search form shortcode
-		if ( $type == 'shortcode' ) {
-			$this->update_options_for_search_form();
-			$this->prepare_search_data();
-		}
-
 		if ( $listing_type ) {
 			$this->listing_type = (int) $listing_type;
 		}
@@ -178,18 +173,22 @@ class Search_Form {
 			$this->listing_type = $this->get_default_listing_type();
 		}
 
-		// Search result page
-		if ( $type == 'search_result' ) {
-			$this->update_options_for_search_result_page();
-			$this->prepare_search_data();
-		}
 
-		// Listing Archive page
-		if ( $type == 'all_listings' ) {
+		if ( $type == 'shortcode' ) {
+			// Search form shortcode
+			$this->set_search_form_options();
+			$this->prepare_search_data();
+		} elseif ( $type == 'search_result' ) {
+			// Search result page
+			$this->set_search_result_options();
+			$this->prepare_search_data();
+		} elseif ( $type == 'all_listings' ) {
+			// Listing Archive page
+			$this->set_listing_options();
 			$this->prepare_listing_data();
 		}
 
-		$this->form_data          = $this->build_form_data();
+		$this->form_data = $this->build_form_data();
 	}
 
 	public function reset_data() {
@@ -197,7 +196,7 @@ class Search_Form {
 	}
 
 	// all listings
-	public function set_default_options() {
+	public function set_listing_options() {
 		$this->options['search_filters']          = get_directorist_option('listings_filters_button', array('search_reset_filters', 'search_apply_filters'));
 		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
@@ -209,15 +208,19 @@ class Search_Form {
 	}
 
 	// search_result
-	public function update_options_for_search_result_page() {
+	public function set_search_result_options() {
 		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
 		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
 		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
+
+		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
+		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
+		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
 	}
 
 	// search form
-	public function update_options_for_search_form() {
+	public function set_search_form_options() {
 		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'), true );
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['reset_filters_text']         = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));

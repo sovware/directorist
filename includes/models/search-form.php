@@ -269,13 +269,13 @@ class Search_Form {
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
 
-		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
-		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
-
-		$this->reset_filters_text   	= $this->params['reset_filters_text'];
-		$this->apply_filters_text   	= $this->params['apply_filters_text'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
+
+		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
+		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
+		$this->reset_filters_text   	= $this->params['reset_filters_text'];
+		$this->apply_filters_text   	= $this->params['apply_filters_text'];
 	}
 
 	// $type == 'all_listings'

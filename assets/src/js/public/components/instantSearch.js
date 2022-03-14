@@ -4,6 +4,9 @@
         if (history.pushState) {
             var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             
+            if( form_data.paged && form_data.paged.length ) {
+                var query = '?paged=' + form_data.paged + '';
+            }
             if( form_data.q && form_data.q.length ) {
                 var query = '?q=' + form_data.q;
             }
@@ -60,6 +63,7 @@
             }
 
             var newurl = query ? newurl + query : newurl;
+            
             window.history.pushState({path:newurl},'',newurl);
         }
     }
@@ -130,6 +134,12 @@
             phone   : $('input[name="phone"]').val(),
         };
 
+        if( fields.address && fields.address.length ) {
+            fields.cityLat = $('#cityLat').val();
+            fields.cityLng = $('#cityLng').val();
+            fields.miles   = $('.atbdrs-value').val();
+        }
+
         var form_data = {
             ...data,
             ...fields
@@ -141,12 +151,6 @@
         const customFieldsAreEmpty = Object.values( data.custom_field ).every( item => ! item );
 
         if ( ! allFieldsAreEmpty || ! tagFieldEmpty || ! priceFieldEmpty || ! customFieldsAreEmpty ) {
-        
-            if( fields.address && fields.address.length ) {
-                fields.cityLat = $('#cityLat').val();
-                fields.cityLng = $('#cityLng').val();
-                fields.miles   = $('.atbdrs-value').val();
-            }
 
             if( view && view.length ) {
                 form_data.view = view
@@ -500,7 +504,6 @@
         var page            = paginate_link.match( /page\/.+/ );
         var page_value      = ( page && page.length ) ? page[0].replace( /page\//, '' ) : '';
         var page_no         = ( page_value && page_value.length ) ? page_value.replace( /\//, '' ) : '';
-        
         if( ! page_no ){
             var page       = paginate_link.match( /paged=.+/ );
             var page_no    = ( page && page.length ) ? page[0].replace( /paged=/, '' ) : '';
@@ -530,6 +533,8 @@
             view    : view,
             paged   : page_no,
         };
+
+        update_instant_search_url( form_data );
 
         if( type && type.length ) {
             form_data.directory_type = type[0].replace( /directory_type=/, '' )

@@ -1193,6 +1193,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (history.pushState) {
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
+      if (form_data.paged && form_data.paged.length) {
+        var query = '?paged=' + form_data.paged + '';
+      }
+
       if (form_data.q && form_data.q.length) {
         var query = '?q=' + form_data.q;
       }
@@ -1334,6 +1338,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       phone: $('input[name="phone"]').val()
     };
 
+    if (fields.address && fields.address.length) {
+      fields.cityLat = $('#cityLat').val();
+      fields.cityLng = $('#cityLng').val();
+      fields.miles = $('.atbdrs-value').val();
+    }
+
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1350,12 +1360,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
 
     if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
-      if (fields.address && fields.address.length) {
-        fields.cityLat = $('#cityLat').val();
-        fields.cityLng = $('#cityLng').val();
-        fields.miles = $('.atbdrs-value').val();
-      }
-
       if (view && view.length) {
         form_data.view = view;
       }
@@ -1711,6 +1715,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
     }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+    update_instant_search_url(form_data);
 
     if (type && type.length) {
       form_data.directory_type = type[0].replace(/directory_type=/, '');

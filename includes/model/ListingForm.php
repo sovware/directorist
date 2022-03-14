@@ -337,7 +337,7 @@ class Directorist_Listing_Form {
 			$listing_info['atbd_listing_pricing']    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
 			$listing_info['listing_status']          = get_post_meta( $p_id, '_listing_status', true );
 			$listing_info['tagline']                 = get_post_meta( $p_id, '_tagline', true );
-			$listing_info['atbdp_post_views_count']  = get_post_meta( $p_id, '_atbdp_post_views_count', true );
+			$listing_info['atbdp_post_views_count']  = directorist_get_listing_views_count( $p_id );
 			$listing_info['excerpt']                 = get_post_meta( $p_id, '_excerpt', true );
 			$listing_info['address']                 = get_post_meta( $p_id, '_address', true );
 			$listing_info['phone']                   = get_post_meta( $p_id, '_phone', true );
@@ -877,7 +877,7 @@ class Directorist_Listing_Form {
 				} else {
 					$args['error_notice'] = __('Notice: Your given directory type is not valid. Please use a valid directory type', 'directorist');
 				}
-				
+
 				return Helper::get_template_contents( 'listing-form/add-listing-notype', $args );
 			}
 			// if only one directory

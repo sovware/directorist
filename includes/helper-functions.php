@@ -6664,15 +6664,15 @@ function directorist_clean($var)
  * @since    4.0
  *
  */
-function the_atbdp_favourites_link($post_id = 0)
-{
-    if (is_user_logged_in()) {
-        if ($post_id == 0) {
+function the_atbdp_favourites_link( $post_id = 0 ) {
+    if ( is_user_logged_in() ) {
+        if ( $post_id == 0 ) {
             global $post;
             $post_id = $post->ID;
         }
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-        if (in_array($post_id, $favourites)) {
+
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
+        if ( in_array( $post_id, $favourites ) ) {
             return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
             return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
@@ -6683,13 +6683,14 @@ function the_atbdp_favourites_link($post_id = 0)
 }
 
 
-function atbdp_listings_mark_as_favourite($listing_id)
-{
-    $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-    $fav_class = '';
-    if (in_array($listing_id, $favourites)) {
+function atbdp_listings_mark_as_favourite( $listing_id ) {
+    $favourites = directorist_get_user_favorites( get_current_user_id() );
+    $fav_class  = '';
+
+    if ( in_array( $listing_id, $favourites ) ) {
         $fav_class = 'atbdp_fav_isActive';
     }
+
     $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav ' . $fav_class . '" id="atbdp-fav_' . $listing_id . '" data-listing_id="' . $listing_id . '" href=""><span class="atbd_fav_icon"></span><span class="atbd_fav_tooltip"></span></a></div>';
     return $mark_as_fav_link;
 }
@@ -6729,7 +6730,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
             $post_id = $post->ID;
         }
 
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
         if (in_array($post_id, $favourites)) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="' . $post_id . '"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {
@@ -8545,4 +8546,167 @@ function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
  */
 function directorist_is_current_user_listing_author( $listing_id = null ) {
 	return directorist_is_listing_author( $listing_id, get_current_user_id() );
+}
+
+
+/**
+ * Get the user's favorite listings
+ *
+ * @param int $user_id The user ID of the user whose favorites you want to retrieve.
+ *
+ * @return array An array of listing IDs.
+ */
+function directorist_get_user_favorites( $user_id = 0 ) {
+	$favorites = get_user_meta( $user_id, 'atbdp_favourites', true );
+
+	if ( ! empty( $favorites ) && is_array( $favorites ) ) {
+		$favorites = directorist_prepare_user_favorites( $favorites );
+	} else {
+		$favorites = array();
+	}
+
+	/**
+	 * User favorite listings filter hook.
+	 *
+	 * @param array $favorites
+	 * @param int $user_id
+	 */
+	$favorites = apply_filters( 'directorist_user_favorites', $favorites, $user_id );
+
+	return $favorites;
+}
+
+/**
+ * This function update the user's favorites
+ *
+ * @param int $user_id The ID of the user whose favorites are being updated.
+ * @param int $listing_id The new favorite listing id.
+ *
+ * @return array
+ */
+function directorist_add_user_favorites( $user_id = 0, $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return array();
+	}
+
+	$old_favorites = directorist_get_user_favorites( $user_id );
+	$new_favorites = array_merge( $old_favorites, array( $listing_id ) );
+	$new_favorites = directorist_prepare_user_favorites( $new_favorites );
+
+	update_user_meta( $user_id, 'atbdp_favourites', $new_favorites );
+
+	$new_favorites = directorist_get_user_favorites( $user_id );
+
+	/**
+	 * Fire after user favorite listings updated.
+	 *
+	 * @param int $user_id
+	 * @param array $new_favorites
+	 * @param array $old_favorites
+	 */
+	do_action( 'directorist_user_favorites_added', $user_id, $new_favorites, $old_favorites );
+
+	return $new_favorites;
+}
+
+/**
+ * This function deletes a listing from a user's favorites
+ *
+ * @param int $user_id The ID of the user who's favorites are being updated.
+ * @param int $listing_id The listing ID that is being deleted from the user's favorites.
+ *
+ * @return array An array of listing IDs that are favorites for the user.
+ */
+function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return array();
+	}
+
+	$old_favorites = directorist_get_user_favorites( $user_id );
+	$new_favorites = array_filter( $old_favorites, static function( $favorite ) use ( $listing_id ) {
+		return ( $favorite !== $listing_id );
+	} );
+
+	if ( count( $old_favorites ) > count( $new_favorites ) ) {
+		update_user_meta( $user_id, 'atbdp_favourites', $new_favorites );
+	}
+
+	/**
+	 * Fire after user favorite listings updated.
+	 *
+	 * @param int $user_id
+	 * @param array $new_favorites
+	 * @param array $old_favorites
+	 */
+	do_action( 'directorist_user_favorites_deleted', $user_id, $new_favorites, $old_favorites );
+
+	return $new_favorites;
+}
+
+/**
+ * Process user favorites listings ids before saving and after retriving.
+ *
+ * @param array $favorites
+ * @access private
+ *
+ * @return array
+ */
+function directorist_prepare_user_favorites( $favorites = array() ) {
+	$favorites = array_values( $favorites );
+	$favorites = array_map( 'absint', $favorites );
+	$favorites = array_filter( $favorites );
+	$favorites = array_unique( $favorites );
+
+	return $favorites;
+}
+
+/**
+ * This function returns the meta key for the listing views count.
+ *
+ * @return string The meta key for the views count.
+ */
+function directorist_get_listing_views_count_meta_key() {
+	return '_atbdp_post_views_count';
+}
+
+/**
+ * Get the number of views for a listing.
+ *
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return int The number of views for a given listing.
+ */
+function directorist_get_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return 0;
+	}
+
+	$views_count = get_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), true );
+	return absint( $views_count );
+}
+
+/**
+ * This function increments the views count of a listing by 1.
+ *
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return The number of views for a listing.
+ */
+function directorist_set_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	$views_count = directorist_get_listing_views_count( $listing_id );
+	$views_count = $views_count + 1; // Listing got a new view :D
+	update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $views_count );
+
+	/**
+	 * Fire this hook when listing got a view.
+	 *
+	 * @param int $listing_id
+	 */
+	do_action( 'directorist_listing_views_count_updated', $listing_id );
+
+	return true;
 }

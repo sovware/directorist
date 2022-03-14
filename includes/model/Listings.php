@@ -369,7 +369,7 @@ class Directorist_Listings {
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
 			'tagline'              => get_post_meta( $id, '_tagline', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
-			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
+			'post_view'            => directorist_get_listing_views_count( $id ),
 
 			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
 			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
@@ -476,7 +476,7 @@ class Directorist_Listings {
 					);
 				} elseif ( 'view_count' === $this->popular_by ) {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -488,7 +488,7 @@ class Directorist_Listings {
 					);
 				} else {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -515,7 +515,7 @@ class Directorist_Listings {
 					);
 				} elseif ( 'view_count' === $this->popular_by ) {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -526,7 +526,7 @@ class Directorist_Listings {
 					);
 				} else {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => (int) $this->view_to_popular,
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -1511,13 +1511,8 @@ class Directorist_Listings {
 		}
 
 		public function loop_is_favourite() {
-			$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-			if ( in_array( get_the_id() , $favourites ) ) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			$favourites = directorist_get_user_favorites( get_current_user_id() );
+			return in_array( get_the_id() , $favourites );
 		}
 
 		public function item_found_title_for_search($count) {

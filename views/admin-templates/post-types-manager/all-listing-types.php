@@ -107,7 +107,7 @@
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                                     $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
                                             ?>
-                                            <tr>
+                                            <tr class="directory-type-row" data-term-id="<?php echo $listing_type->term_id ?>">
                                                 <td>
                                                     <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title">
                                                         <?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?>
@@ -119,7 +119,9 @@
                                                 </td>
                                                 <td class="directorist-type-slug">
                                                     <div class="directorist-type-slug-content">
-                                                        <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>" data-value="<?php echo ! empty( $listing_type->slug ) ? $listing_type->slug : '-'; ?>" contenteditable="false"><?php echo $listing_type->slug; ?></span>
+                                                        <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>" data-value="<?php echo ! empty( $listing_type->slug ) ? $listing_type->slug : '-'; ?>" contenteditable="false">
+                                                            <?php echo html_entity_decode( $listing_type->slug ); ?>
+                                                        </span>
                                                         <div class="directorist-listing-slug-edit-wrap">
                                                             <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
                                                             <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>

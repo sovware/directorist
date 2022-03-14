@@ -96,6 +96,8 @@ trait Multi_Directory_Helper {
 
         // Create the directory
         $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
+
+        
         
         if ( is_wp_error( $term ) ) {
             $response['status']['status_log']['term_exists'] = [
@@ -111,6 +113,8 @@ trait Multi_Directory_Helper {
             $response['status']['success'] = false;
             return $response;
         }
+
+        do_action( 'directorist_after_directory_created', $term );
 
         $response['term_id'] = ( int ) $term['term_id'];
 

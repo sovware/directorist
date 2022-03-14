@@ -112,7 +112,7 @@ function atbd_callingSlider() {
         pointerBorder: '4px solid #444752',
     };
 
-    var config = ( atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
+    var config = ( ( typeof atbdp_range_slider !== 'undefined' ) && atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
 
     atbd_slider ('.atbdp-range-slider', config);
 }

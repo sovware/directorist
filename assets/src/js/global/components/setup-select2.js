@@ -69,60 +69,93 @@ function initSelect2AjaxTaxonomy( args ) {
     const defaultArgs = { selector: '', url: '', perPage: 10};
     args = { ...defaultArgs, ...args };
 
-    var currentPage = 1;
-    $( args.selector ).select2({
-        allowClear: true,
-        width: '100%',
-        escapeMarkup: function (text) {
-            return text;
-        },
-        ajax: {
-            url: args.url,
-            dataType: 'json',
-            cache: true,
-            data: function (params) {
-                currentPage = params.page || 1;
-                const search_term = ( params.term ) ? params.term : '';
+    if ( ! args.selector.length ) {
+        return;
+    }
 
-                const query = {
-                    search: search_term,
-                    page: currentPage,
-                    per_page: args.perPage,
-                }
+    [ ...args.selector ].forEach( ( item, index ) => {
+        const parent = $( item ).closest( '.directorist-search-form' );
+        const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
 
-                return query;
+        var currentPage = 1;
+        $( item ).select2({
+            allowClear: true,
+            width: '100%',
+            escapeMarkup: function (text) {
+                return text;
             },
-            processResults: function (data) {
-                return {
-                    results: data.items,
-                    pagination: { more: data.paginationMore }
-                };
-            },
+            ajax: {
+                url: args.url,
+                dataType: 'json',
+                cache: true,
+                data: function (params) {
+                    currentPage = params.page || 1;
+                    const search_term = ( params.term ) ? params.term : '';
 
-            transport: function (params, success, failure) {
-                var $request = $.ajax(params);
+                    let query = {
+                        search: search_term,
+                        page: currentPage,
+                        per_page: args.perPage,
+                    }
 
-                $request.then(function( data, textStatus, jqXHR ) {
-                    var totalPage = parseInt( jqXHR.getResponseHeader('x-wp-totalpages') );
-                    var paginationMore = currentPage < totalPage;
+                    if ( directory_type_id ) {
+                        query.directory = directory_type_id;
+                    }
 
-                    var items = data.map(item => {
-                        return {
-                            id: item.id,
-                            text: item.name,
-                        };
-                    });
-
+                    return query;
+                },
+                processResults: function (data) {
                     return {
-                        items,
-                        paginationMore,
+                        results: data.items,
+                        pagination: { more: data.paginationMore }
                     };
-                }).then(success);
+                },
 
-                $request.fail(failure);
+                transport: function (params, success, failure) {
+                    var $request = $.ajax(params);
 
-                return $request;
+                    $request.then(function( data, textStatus, jqXHR ) {
+                        var totalPage = parseInt( jqXHR.getResponseHeader('x-wp-totalpages') );
+                        var paginationMore = currentPage < totalPage;
+
+                        var items = data.map(item => {
+                            return {
+                                id: item.id,
+                                text: item.name,
+                            };
+                        });
+
+                        return {
+                            items,
+                            paginationMore,
+                        };
+                    }).then(success);
+
+                    $request.fail(failure);
+
+                    return $request;
+                }
             }
+        });
+
+        // Setup Preselected Option
+        const selected_item_id = $( item ).data( 'selected-id' );
+        const selected_item_label = $( item ).data( 'selected-label' );
+
+        if ( selected_item_id ) {
+            var option = new Option( selected_item_label, selected_item_id, true, true );
+            $( item ).append( option );
+
+            $( item ).trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: selected_item_id, text:
+                        selected_item_label
+                    }
+                }
+            });
         }
     });
+
 }

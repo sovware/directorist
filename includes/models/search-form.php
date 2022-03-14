@@ -38,9 +38,6 @@ class Search_Form {
 	public $reset_filters_text;
 	public $apply_filters_text;
 
-	public $categories_fields;
-	public $locations_fields;
-
 	private function __construct() {
 
 	}
@@ -130,6 +127,14 @@ class Search_Form {
 		return atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 	}
 
+	public function categories_fields() {
+		return search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+	}
+
+	public function locations_fields() {
+		return search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+	}
+
 	public function setup_data( $args = [] ) {
 		$defaults = [
 			'source'           => 'shortcode', // shortcode, all_listings, search_result
@@ -173,9 +178,6 @@ class Search_Form {
 		}
 
 		$this->form_data          = $this->build_form_data();
-
-		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 	}
 
 	public function reset_data() {

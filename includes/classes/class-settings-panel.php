@@ -5344,12 +5344,11 @@ Please remember that your order may be canceled if you do not make your payment 
 			// Enqueue Scripts
             Enqueue::admin_settings_scripts();
 
-			$atbdp_settings_manager_data = [
+			$settings_builder_data = [
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
             ];
-            wp_localize_script( 'directorist-settings-manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data );
 
             /* $status = $this->update_settings_options([
                 'new_listing_status' => 'publish',
@@ -5361,7 +5360,12 @@ Please remember that your order may be canceled if you do not make your payment 
 
             var_dump( [ '$check_new' => $check_new,  '$check_edit' => $check_edit] ); */
 
-            atbdp_load_admin_template('settings-manager/settings');
+
+            $data = [
+                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data ) )
+            ];
+
+            atbdp_load_admin_template( 'settings-manager/settings', $data );
         }
 
         /**

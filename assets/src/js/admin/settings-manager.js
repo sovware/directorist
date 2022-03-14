@@ -12,6 +12,15 @@ import settings_manager_component from './vue/apps/settings-manager/Settings_Man
 
 const settings_panel_el = document.getElementById( 'atbdp-settings-manager' );
 if ( settings_panel_el ) {
+    const encodedBuilderData = settings_panel_el.getAttribute( 'data-builder-data' );
+    let builderData = atob( encodedBuilderData );
+
+    try {
+        builderData = JSON.parse( builderData );
+    } catch ( error ) {
+        builderData = [];
+    }
+
     new Vue({
         el:'#atbdp-settings-manager',
         store,
@@ -21,10 +30,10 @@ if ( settings_panel_el ) {
 
         data() {
             return {
-                id: atbdp_settings_manager_data.id,
-                fields: atbdp_settings_manager_data.fields,
-                layouts: atbdp_settings_manager_data.layouts,
-                config: atbdp_settings_manager_data.config,
+                id: builderData.id,
+                fields: builderData.fields,
+                layouts: builderData.layouts,
+                config: builderData.config,
             }
         }
     });

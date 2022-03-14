@@ -33,16 +33,16 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 
 			<div class="directorist-price-ranges__item directorist-price-ranges__price-frequency">
 				<label class="directorist-price-ranges__price-frequency--btn">
-					<?php $search_form->the_price_range_input('bellow_economy');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->c_symbol, 1); ?></span>
+					<?php $search_form->the_price_range_input('bellow_economy');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->currency_symbol(), 1); ?></span>
 				</label>
 				<label class="directorist-price-ranges__price-frequency--btn">
-					<?php $search_form->the_price_range_input('economy');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->c_symbol, 2); ?></span>
+					<?php $search_form->the_price_range_input('economy');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->currency_symbol(), 2); ?></span>
 				</label>
 				<label class="directorist-price-ranges__price-frequency--btn">
-					<?php $search_form->the_price_range_input('moderate');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->c_symbol, 3); ?></span>
+					<?php $search_form->the_price_range_input('moderate');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->currency_symbol(), 3); ?></span>
 				</label>
 				<label class="directorist-price-ranges__price-frequency--btn">
-					<?php $search_form->the_price_range_input('skimming');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->c_symbol, 4); ?></span>
+					<?php $search_form->the_price_range_input('skimming');?><span class="directorist-pf-range"><?php echo str_repeat($search_form->currency_symbol(), 4); ?></span>
 				</label>
 			</div>
 

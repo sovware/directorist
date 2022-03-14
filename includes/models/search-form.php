@@ -38,7 +38,6 @@ class Search_Form {
 	public $reset_filters_text;
 	public $apply_filters_text;
 
-	public $c_symbol;
 	public $categories_fields;
 	public $locations_fields;
 
@@ -127,6 +126,10 @@ class Search_Form {
 		return ( $this->type == 'all_listings' ) ? 'directory_field bdas-category-location' : 'search_fields directorist-location-select';
 	}
 
+	public function currency_symbol() {
+		return atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
+	}
+
 	public function setup_data( $args = [] ) {
 		$defaults = [
 			'source'           => 'shortcode', // shortcode, all_listings, search_result
@@ -171,7 +174,6 @@ class Search_Form {
 
 		$this->form_data          = $this->build_form_data();
 
-		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 	}

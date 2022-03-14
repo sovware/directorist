@@ -188,10 +188,9 @@
                     update_post_meta( $post_id, '_directory_type', $directory_type );
                     wp_set_object_terms( $post_id, (int)$directory_type, ATBDP_DIRECTORY_TYPE );
 
-                    $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
-                    $preview_url = explode( ',', $preview_url );
+                    $preview_url = !empty($post[$preview_image]) ? explode(',', trim($post[$preview_image])) : '';
 
-                    if ( $preview_url ) {
+                    if ( !empty($preview_url) ) {
                         $attachment_ids = [];
                         foreach ( $preview_url as $_url_index => $_url ) {
                             $attachment_id = self::atbdp_insert_attachment_from_url($_url, $post_id);

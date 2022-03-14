@@ -17,7 +17,19 @@ class Search_Form {
 	 */
 	use Deprecated_Search_Form;
 
+	/**
+	 * Singleton instance of the class.
+	 *
+	 * @var Search_Form|null
+	 */
 	protected static $instance = null;
+
+	/**
+	 * Data is based on shortcode attributes and settings.
+	 *
+	 * @var array
+	 */
+	public $data = [];
 
 	// Search Shortcode
 	public $options = [];
@@ -184,26 +196,22 @@ class Search_Form {
 		$this->setup_data();
 	}
 
-	// set_default_options
+	// all listings
 	public function set_default_options() {
 		$this->options['search_filters']          = get_directorist_option('listings_filters_button', array('search_reset_filters', 'search_apply_filters'));
-		$this->options['search_listing_text']     = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
-		$this->options['search_more_filter']      = !empty( get_directorist_option( 'search_more_filter', 1 ) ) ? 'yes' : '';
-		$this->options['search_more_filters']     = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
-		$this->options['search_button']           = !empty( get_directorist_option( 'search_button', 1 ) ) ? 'yes' : '';
-		$this->options['search_placeholder']      = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
-		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
-
 		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
+		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+
 		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
 		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
 
-		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 	}
 
-	// update_options_for_search_result_page
+	// search_result
 	public function update_options_for_search_result_page() {
 		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
 		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
@@ -211,16 +219,19 @@ class Search_Form {
 		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
 	}
 
-	// update_options_for_search_form
+	// search form
 	public function update_options_for_search_form() {
 		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'), true );
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
+		$this->options['reset_filters_text']         = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']         = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
+
+
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
 		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'sliding');
 
-		$this->options['reset_filters_text']      = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
+
 	}
 
 	// $type == 'shortcode'
@@ -240,10 +251,10 @@ class Search_Form {
 			'show_title_subtitle'    		=> 'yes',
 			'search_bar_title'       		=> get_directorist_option('search_title', __("Search here", 'directorist')),
 			'search_bar_sub_title'  		=> get_directorist_option('search_subtitle', __("Find the best match of your interest", 'directorist')),
-			'search_button'          		=> $this->options['search_button'],
-			'search_button_text'     		=> $this->options['search_listing_text'],
+			'search_button'          		=> get_directorist_option( 'search_button', 1 ) ? 'yes' : '',
+			'search_button_text'     		=> get_directorist_option( 'search_listing_text', __( 'Search Listing', 'directorist') ),
 			'more_filters_button'    		=> ( $this->options['more_filters_button'] ) ? 'yes' : '',
-			'more_filters_text'      		=> $this->options['search_more_filters'],
+			'more_filters_text'      		=> get_directorist_option( 'search_more_filters', __( 'More Filters', 'directorist') ),
 			'reset_filters_button'   		=> $reset_filters_button,
 			'apply_filters_button'   		=> $apply_filters_button,
 			'reset_filters_text'     		=> $this->options['reset_filters_text'],

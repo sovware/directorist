@@ -4497,7 +4497,7 @@ class Multi_Directory_Manager
         self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
-                'icon' => '<img class="test" src="' . ATBDP_ADMIN_ASSETS . 'images/estate.svg">',
+                'icon' => '<img class="svg-inline" src="' . ATBDP_ADMIN_ASSETS . 'images/estate.svg">',
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),
@@ -4540,7 +4540,7 @@ class Multi_Directory_Manager
 
             'submission_form' => [
                 'label' => __( 'Add Listing Form', 'directorist' ),
-                'icon' => '<span class="uil uil-file-edit-alt"></span>',
+                'icon' => '<img class="svg-inline" src="' . ATBDP_ADMIN_ASSETS . 'images/file-edit-alt.svg">',
                 'submenu' => [
                     'form_fields' => [
                         'label' => __( 'Form Fields', 'directorist' ),
@@ -4591,7 +4591,7 @@ class Multi_Directory_Manager
 
             'single_page_layout' => [
                 'label' => __( 'Single Page Layout', 'directorist' ),
-                'icon' => '<span class="uil uil-credit-card"></span>',
+                'icon' => '<img class="svg-inline" src="' . ATBDP_ADMIN_ASSETS . 'images/credit-card.svg">',
                 'submenu' => [
                     'listing_header' => [
                         'label' => __( 'Listing Header', 'directorist' ),
@@ -4644,7 +4644,7 @@ class Multi_Directory_Manager
             ],
             'listings_card_layout' => [
                 'label' => __( 'All Listing Layout', 'directorist' ),
-                'icon' => '<span class="uil uil-list-ul"></span>',
+                'icon' => '<img class="svg-inline" src="' . ATBDP_ADMIN_ASSETS . 'images/list-ul.svg">',
                 'submenu' => [
                     'grid_view' => [
                         'label' => __( 'All Listing Grid Layout', 'directorist' ),
@@ -4679,7 +4679,7 @@ class Multi_Directory_Manager
             ],
             'search_forms' => [
                 'label' => __( 'Search Form', 'directorist' ),
-                'icon' => '<span class="uil uil-search"></span>',
+                'icon' => '<img class="svg-inline" src="' . ATBDP_ADMIN_ASSETS . 'images/search.svg">',
                 'container' => 'wide',
                 'sections' => [
                     'form_fields' => [

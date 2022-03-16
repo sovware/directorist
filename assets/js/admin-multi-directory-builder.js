@@ -141,21 +141,26 @@ if (cpt_manager_el) {
   });
 }
 
-$('img.test').each(function () {
-  var $img = $(this),
-      imgURL = $img.attr('src'),
-      imgID = $img.attr('id');
-  $.get(imgURL, function (data) {
-    // Get the SVG tag, ignore the rest
-    var $svg = $(data).find('svg'); // Add replaced image's ID to the new SVG
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery;
+  /* Replace all svg img to inline svg */
 
-    if (typeof imgID !== 'undefined') {
-      $svg = $svg.attr('id', imgID);
-    }
+  $('img.svg-inline').each(function () {
+    var $img = $(this),
+        imgURL = $img.attr('src'),
+        imgID = $img.attr('id');
+    $.get(imgURL, function (data) {
+      // Get the SVG tag, ignore the rest
+      var $svg = $(data).find('svg'); // Add replaced image's ID to the new SVG
 
-    $svg = $svg.removeAttr('xmlns:a');
-    $img.replaceWith($svg);
-  }, 'xml');
+      if (typeof imgID !== 'undefined') {
+        $svg = $svg.attr('id', imgID);
+      }
+
+      $svg = $svg.removeAttr('xmlns:a');
+      $img.replaceWith($svg);
+    }, 'xml');
+  });
 });
 
 /***/ }),

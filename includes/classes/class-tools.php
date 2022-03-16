@@ -207,6 +207,8 @@
                     /**
                      * Fire this event once a listing is successfully imported from CSV.
                      *
+                     * @since 7.2.0
+                     * 
                      * @param int $post_id Listing id.
                      * @param array $post  Listing data.
                      */

@@ -5,7 +5,7 @@
                 <label v-if="( label.length )">
                     <component :is="labelType">{{ label }}</component>
                 </label>
-                
+
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 
@@ -15,7 +15,7 @@
                         <img :src="thumbnailSrc" class="cptm-thumbnail-img" width="100%" height="auto"/>
 
                         <span v-if="hasThumbnail" class="cptm-thumbnail-action action-trash" @click="deleteThumbnail()">
-                            <i class="uil uil-trash-alt"></i>
+                            <i class="fa fa-trash-alt"></i>
                         </span>
                     </div>
 
@@ -28,13 +28,13 @@
 
                 <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="theButtonLabel">
 
-                <form-field-validatior 
+                <form-field-validatior
                     :section-id="sectionId"
                     :field-id="fieldId"
                     :root="root"
-                    :value="value" 
-                    :rules="rules" 
-                    v-model="validationLog" 
+                    :value="value"
+                    :rules="rules"
+                    v-model="validationLog"
                     @validate="$emit( 'validate', $event )"
                 />
             </div>

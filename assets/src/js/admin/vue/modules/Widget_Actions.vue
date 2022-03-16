@@ -10,7 +10,7 @@
             </span>
 
             <span class="cptm-widget-control-action cptm-widget-control-action-trash" @click="$emit('trash')">
-                <span class="uil uil-trash-alt"></span>
+                <span class="fa fa-trash-alt"></span>
             </span>
         </div>
     </div>

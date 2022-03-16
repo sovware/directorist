@@ -9905,6 +9905,9 @@ for shortable field*/
   color: #fff;
   background-color: #3e62f5;
 }
+.cptm-header-nav__list-item-link.active .cptm-header-nav__icon svg {
+  fill: #fff !important;
+}
 .cptm-header-nav__list-item-link.active .cptm-header-nav__label {
   color: #3e62f5;
 }
@@ -9934,10 +9937,18 @@ for shortable field*/
       -ms-flex-pack: center;
           justify-content: center;
 }
+.cptm-header-nav__icon svg {
+  width: 18px;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
 
 .general .cptm-header-nav__icon {
   background: rgba(62, 98, 245, 0.1);
   color: #3e62f5;
+}
+.general .cptm-header-nav__icon svg {
+  fill: #3e62f5 !important;
 }
 .general .active .cptm-header-nav__icon {
   background-color: #3e62f5;
@@ -9947,6 +9958,9 @@ for shortable field*/
   background: rgba(8, 191, 156, 0.1);
   color: #08bf9c;
 }
+.submission_form .cptm-header-nav__icon svg {
+  fill: #08bf9c !important;
+}
 .submission_form .active .cptm-header-nav__icon {
   background-color: #08bf9c;
 }
@@ -9954,6 +9968,9 @@ for shortable field*/
 .single_page_layout .cptm-header-nav__icon {
   background: rgba(250, 139, 12, 0.1);
   color: #fa8b0c;
+}
+.single_page_layout .cptm-header-nav__icon svg {
+  fill: #fa8b0c !important;
 }
 .single_page_layout .active .cptm-header-nav__icon {
   background-color: #fa8b0c;
@@ -9963,6 +9980,9 @@ for shortable field*/
   background: rgba(44, 153, 255, 0.1);
   color: #2c99ff;
 }
+.listings_card_layout .cptm-header-nav__icon svg {
+  fill: #2c99ff !important;
+}
 .listings_card_layout .active .cptm-header-nav__icon {
   background-color: #2c99ff;
 }
@@ -9970,6 +9990,9 @@ for shortable field*/
 .search_forms .cptm-header-nav__icon {
   background: rgba(255, 64, 140, 0.1);
   color: #ff408c;
+}
+.search_forms .cptm-header-nav__icon svg {
+  fill: #ff408c !important;
 }
 .search_forms .active .cptm-header-nav__icon {
   background-color: #ff408c;
@@ -10390,7 +10413,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #e3e6ef;
   border-radius: 50%;
   width: 34px;
@@ -13086,6 +13109,9 @@ input[type=radio] {
   color: #fff;
   background-color: #3e62f5;
 }
+.cptm-header-nav__list-item-link.active .cptm-header-nav__icon svg {
+  fill: #fff !important;
+}
 .cptm-header-nav__list-item-link.active .cptm-header-nav__label {
   color: #3e62f5;
 }
@@ -13115,10 +13141,18 @@ input[type=radio] {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.cptm-header-nav__icon svg {
+  width: 18px;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
 
 .general .cptm-header-nav__icon {
   background: rgba(62, 98, 245, 0.1);
   color: #3e62f5;
+}
+.general .cptm-header-nav__icon svg {
+  fill: #3e62f5 !important;
 }
 .general .active .cptm-header-nav__icon {
   background-color: #3e62f5;
@@ -13128,6 +13162,9 @@ input[type=radio] {
   background: rgba(8, 191, 156, 0.1);
   color: #08bf9c;
 }
+.submission_form .cptm-header-nav__icon svg {
+  fill: #08bf9c !important;
+}
 .submission_form .active .cptm-header-nav__icon {
   background-color: #08bf9c;
 }
@@ -13135,6 +13172,9 @@ input[type=radio] {
 .single_page_layout .cptm-header-nav__icon {
   background: rgba(250, 139, 12, 0.1);
   color: #fa8b0c;
+}
+.single_page_layout .cptm-header-nav__icon svg {
+  fill: #fa8b0c !important;
 }
 .single_page_layout .active .cptm-header-nav__icon {
   background-color: #fa8b0c;
@@ -13144,6 +13184,9 @@ input[type=radio] {
   background: rgba(44, 153, 255, 0.1);
   color: #2c99ff;
 }
+.listings_card_layout .cptm-header-nav__icon svg {
+  fill: #2c99ff !important;
+}
 .listings_card_layout .active .cptm-header-nav__icon {
   background-color: #2c99ff;
 }
@@ -13151,6 +13194,9 @@ input[type=radio] {
 .search_forms .cptm-header-nav__icon {
   background: rgba(255, 64, 140, 0.1);
   color: #ff408c;
+}
+.search_forms .cptm-header-nav__icon svg {
+  fill: #ff408c !important;
 }
 .search_forms .active .cptm-header-nav__icon {
   background-color: #ff408c;
@@ -13571,7 +13617,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #e3e6ef;
   border-radius: 50%;
   width: 34px;
@@ -16272,6 +16318,9 @@ input[type=radio] {
   color: #fff;
   background-color: #3e62f5;
 }
+.cptm-header-nav__list-item-link.active .cptm-header-nav__icon svg {
+  fill: #fff !important;
+}
 .cptm-header-nav__list-item-link.active .cptm-header-nav__label {
   color: #3e62f5;
 }
@@ -16301,10 +16350,18 @@ input[type=radio] {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.cptm-header-nav__icon svg {
+  width: 18px;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
 
 .general .cptm-header-nav__icon {
   background: rgba(62, 98, 245, 0.1);
   color: #3e62f5;
+}
+.general .cptm-header-nav__icon svg {
+  fill: #3e62f5 !important;
 }
 .general .active .cptm-header-nav__icon {
   background-color: #3e62f5;
@@ -16314,6 +16371,9 @@ input[type=radio] {
   background: rgba(8, 191, 156, 0.1);
   color: #08bf9c;
 }
+.submission_form .cptm-header-nav__icon svg {
+  fill: #08bf9c !important;
+}
 .submission_form .active .cptm-header-nav__icon {
   background-color: #08bf9c;
 }
@@ -16321,6 +16381,9 @@ input[type=radio] {
 .single_page_layout .cptm-header-nav__icon {
   background: rgba(250, 139, 12, 0.1);
   color: #fa8b0c;
+}
+.single_page_layout .cptm-header-nav__icon svg {
+  fill: #fa8b0c !important;
 }
 .single_page_layout .active .cptm-header-nav__icon {
   background-color: #fa8b0c;
@@ -16330,6 +16393,9 @@ input[type=radio] {
   background: rgba(44, 153, 255, 0.1);
   color: #2c99ff;
 }
+.listings_card_layout .cptm-header-nav__icon svg {
+  fill: #2c99ff !important;
+}
 .listings_card_layout .active .cptm-header-nav__icon {
   background-color: #2c99ff;
 }
@@ -16337,6 +16403,9 @@ input[type=radio] {
 .search_forms .cptm-header-nav__icon {
   background: rgba(255, 64, 140, 0.1);
   color: #ff408c;
+}
+.search_forms .cptm-header-nav__icon svg {
+  fill: #ff408c !important;
 }
 .search_forms .active .cptm-header-nav__icon {
   background-color: #ff408c;
@@ -16757,7 +16826,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #e3e6ef;
   border-radius: 50%;
   width: 34px;

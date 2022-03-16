@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
             term_id: id,
             directory_type: directory_type ? directory_type : from_single_directory,
         };
-        $.post(atbdp_admin_data.ajaxurl, data, function (response) {
+        $.post(directorist_admin.ajaxurl, data, function (response) {
             if (response) {
                 var response = `<div class="form-group atbd_content_module">
                                 <div class="atbdb_content_module_contents">
@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
         term_id: id,
         directory_type: directory_type ? directory_type : from_single_directory,
     };
-    $.post(atbdp_admin_data.ajaxurl, data, function (response) {
+    $.post(directorist_admin.ajaxurl, data, function (response) {
         if (response) {
             var response = `<div class="form-group atbd_content_module">
                               <div class="atbdb_content_module_contents">
@@ -190,7 +190,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     $("#category_icon").select2({
-    placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+    placeholder: directorist_admin.i18n_text.icon_choose_text,
     allowClear: true,
     templateResult: selecWithIcon,
     });
@@ -256,12 +256,12 @@ window.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         /* Act on the event */
         swal({
-                title: atbdp_admin_data.i18n_text.confirmation_text,
-                text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                title: directorist_admin.i18n_text.confirmation_text,
+                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
-                confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
                 closeOnConfirm: false,
             },
             function (isConfirm) {
@@ -284,7 +284,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     // show success message
                     swal({
-                        title: atbdp_admin_data.i18n_text.deleted,
+                        title: directorist_admin.i18n_text.deleted,
                         // text: "Item has been deleted.",
                         type: 'success',
                         timer: 200,
@@ -345,7 +345,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'send_system_info', // calls wp_ajax_nopriv_ajaxlogin
                 _nonce: $('#atbdp_email_nonce').val(),
@@ -377,7 +377,7 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'generate_url', // calls wp_ajax_nopriv_ajaxlogin nonce: ()
                 _nonce: $(this).attr('data-nonce'),
@@ -401,7 +401,7 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'revoke_url', // calls wp_ajax_nopriv_ajaxlogin
                 _nonce: $(this).attr('data-nonce'),
@@ -424,7 +424,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // redirect to import import_page_link
     $('#csv_import input[name="csv_import"]').on('change', function (event) {
         event.preventDefault();
-        window.location = atbdp_admin_data.import_page_link;
+        window.location = directorist_admin.import_page_link;
     });
 
     /* This function handles all ajax request */
@@ -435,14 +435,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if (arg && !ActionName) data = arg;
         // data = data ;
 
-        const n = data.search(atbdp_admin_data.nonceName);
+        const n = data.search(directorist_admin.nonceName);
         if (n < 0) {
-            data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
+            data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
         }
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data,
             beforeSend() {
                 jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(

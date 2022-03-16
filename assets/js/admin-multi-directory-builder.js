@@ -139,29 +139,28 @@ if (cpt_manager_el) {
       };
     }
   });
-}
+} //window.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery;
-  /* Replace all svg img to inline svg */
 
-  $('img.svg-inline').each(function () {
-    var $img = $(this),
-        imgURL = $img.attr('src'),
-        imgID = $img.attr('id');
-    $.get(imgURL, function (data) {
-      // Get the SVG tag, ignore the rest
-      var $svg = $(data).find('svg'); // Add replaced image's ID to the new SVG
+var $ = jQuery;
+/* Replace all svg img to inline svg */
 
-      if (typeof imgID !== 'undefined') {
-        $svg = $svg.attr('id', imgID);
-      }
+$('img.svg-inline').each(function () {
+  var $img = $(this),
+      imgURL = $img.attr('src'),
+      imgID = $img.attr('id');
+  $.get(imgURL, function (data) {
+    // Get the SVG tag, ignore the rest
+    var $svg = $(data).find('svg'); // Add replaced image's ID to the new SVG
 
-      $svg = $svg.removeAttr('xmlns:a');
-      $img.replaceWith($svg);
-    }, 'xml');
-  });
-});
+    if (typeof imgID !== 'undefined') {
+      $svg = $svg.attr('id', imgID);
+    }
+
+    $svg = $svg.removeAttr('xmlns:a');
+    $img.replaceWith($svg);
+  }, 'xml');
+}); //});
 
 /***/ }),
 
@@ -16159,8 +16158,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'widget-action-tools',
+  name: "widget-action-tools",
   props: {
     canMove: {
       type: Boolean,
@@ -18674,26 +18680,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-component',
+  name: "form-builder-widget-component",
   props: {
     widgetKey: {
-      default: ''
+      default: ""
     },
     activeWidgets: {
-      default: ''
+      default: ""
     },
     avilableWidgets: {
-      default: ''
+      default: ""
     },
     groupData: {
-      default: ''
+      default: ""
     },
     isEnabledGroupDragging: {
       default: false
     },
     untrashableWidgets: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
@@ -18725,7 +18745,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.groupData.fields;
     },
     widgetTitle: function widgetTitle() {
-      var label = '';
+      var label = "";
 
       if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].label) {
         label = this.activeWidgets[this.widgetKey].label;
@@ -18738,10 +18758,10 @@ __webpack_require__.r(__webpack_exports__);
       return label;
     },
     widgetSubtitle: function widgetSubtitle() {
-      var label = '';
+      var label = "";
 
       if (!(this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].label)) {
-        return '';
+        return "";
       }
 
       if (this.current_widget && this.current_widget.label) {
@@ -18760,7 +18780,7 @@ __webpack_require__.r(__webpack_exports__);
       return state;
     },
     canTrashWidget: function canTrashWidget() {
-      if (typeof this.current_widget.canTrash === 'undefined') {
+      if (typeof this.current_widget.canTrash === "undefined") {
         return true;
       }
 
@@ -18769,8 +18789,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      current_widget: '',
-      widget_fields: '',
+      current_widget: "",
+      widget_fields: "",
       expanded: false,
       widgetIsDragging: false,
       activeWidgetsIsUpdating: false
@@ -18783,31 +18803,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     syncCurrentWidget: function syncCurrentWidget() {
       if (!this.avilableWidgets) {
-        return '';
+        return "";
       }
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.avilableWidgets) !== 'object') {
-        return '';
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.avilableWidgets) !== "object") {
+        return "";
       }
 
       if (!this.activeWidgets) {
-        return '';
+        return "";
       }
 
       if (!this.activeWidgets[this.widgetKey]) {
-        return '';
+        return "";
       }
 
       var current_widget = this.activeWidgets[this.widgetKey];
-      var widget_group = current_widget.widget_group ? current_widget.widget_group : '';
-      var widget_name = current_widget.widget_name ? current_widget.widget_name : '';
+      var widget_group = current_widget.widget_group ? current_widget.widget_group : "";
+      var widget_name = current_widget.widget_name ? current_widget.widget_name : "";
 
       if (!this.avilableWidgets[widget_group]) {
-        return '';
+        return "";
       }
 
       var the_current_widget = null;
-      var current_widget_name = '';
+      var current_widget_name = "";
 
       if (this.avilableWidgets[widget_group][widget_name]) {
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
@@ -18820,7 +18840,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!the_current_widget) {
-        return '';
+        return "";
       }
 
       this.checkIfHasUntrashableWidget(widget_group, current_widget_name);
@@ -18828,15 +18848,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     syncWidgetFields: function syncWidgetFields() {
       if (!this.current_widget) {
-        return '';
+        return "";
       }
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.current_widget) !== 'object') {
-        return '';
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.current_widget) !== "object") {
+        return "";
       }
 
       if (!this.current_widget.options) {
-        return '';
+        return "";
       }
 
       this.widget_fields = this.current_widget.options;
@@ -18849,7 +18869,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.untrashableWidgets) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.untrashableWidgets) !== "object") {
         return;
       }
 
@@ -18862,7 +18882,7 @@ __webpack_require__.r(__webpack_exports__);
           continue;
         }
 
-        this.$emit('found-untrashable-widget');
+        this.$emit("found-untrashable-widget");
         return;
       }
     }
@@ -29930,9 +29950,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'wp-media-picker-field-theme-default',
+  name: "wp-media-picker-field-theme-default",
   mixins: [_mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -32990,7 +33028,7 @@ var render = function() {
               }
             }
           },
-          [_c("span", { staticClass: "uil uil-trash-alt" })]
+          [_c("span", { staticClass: "fa fa-trash-alt" })]
         )
       : _vm._e()
   ])
@@ -33059,7 +33097,7 @@ var render = function() {
             }
           }
         },
-        [_c("span", { staticClass: "uil uil-trash-alt" })]
+        [_c("span", { staticClass: "fa fa-trash-alt" })]
       )
     ])
   ])
@@ -34813,7 +34851,7 @@ var render = function() {
               },
               [
                 _c("span", {
-                  staticClass: "uil uil-trash-alt",
+                  staticClass: "fa fa-trash-alt",
                   attrs: { "aria-hidden": "true" }
                 })
               ]
@@ -35181,7 +35219,7 @@ var render = function() {
                   },
                   [
                     _c("span", {
-                      staticClass: "uil uil-trash-alt",
+                      staticClass: "fa fa-trash-alt",
                       attrs: { "aria-hidden": "true" }
                     })
                   ]
@@ -43134,7 +43172,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_c("i", { staticClass: "uil uil-trash-alt" })]
+                        [_c("i", { staticClass: "fa fa-trash-alt" })]
                       )
                     : _vm._e()
                 ])
@@ -44897,7 +44935,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_c("i", { staticClass: "uil uil-trash-alt" })]
+                    [_c("i", { staticClass: "fa fa-trash-alt" })]
                   )
                 : _vm._e()
             ])

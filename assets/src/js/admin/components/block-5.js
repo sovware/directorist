@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if ($('#category_icon').length) {
         $('#category_icon').select2({
-            placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+            placeholder: directorist_admin.i18n_text.icon_choose_text,
             allowClear: true,
             templateResult: selecWithIcon,
         });
@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             $.ajax({
                 type: 'post',
-                url: atbdp_admin_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: {
                     action: 'directorist_type_slug_change',
                     type_id: type_id,

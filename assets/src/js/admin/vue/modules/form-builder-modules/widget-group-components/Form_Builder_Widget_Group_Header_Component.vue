@@ -4,7 +4,7 @@
         <div class="cptm-form-builder-group-header">
             <!-- Group Header Titlebar -->
             <draggable-list-item :can-drag="isEnabledGroupDragging" @drag-start="$emit( 'drag-start' )" @drag-end="$emit( 'drag-end' )">
-                <form-builder-widget-group-titlebar-component 
+                <form-builder-widget-group-titlebar-component
                     v-bind="$props"
                     :widgets-expanded="widgetsExpanded"
                     @toggle-expand-group="toggleGroupFieldsExpand"
@@ -15,7 +15,7 @@
             <!-- Group Header Actions -->
             <div class="cptm-form-builder-group-actions">
                 <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="canTrash" @click.prevent="$emit( 'trash-group' )">
-                    <span class="uil uil-trash-alt" aria-hidden="true"></span>
+                    <span class="fa fa-trash-alt" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
@@ -23,9 +23,9 @@
         <!-- Group Header Body -->
         <slide-up-down :active="groupFieldsExpandState" :duration="500">
             <div class="cptm-form-builder-group-options">
-                <field-list-component 
-                    :field-list="groupFields" 
-                    :value="groupData" 
+                <field-list-component
+                    :field-list="groupFields"
+                    :value="groupData"
                     @update="$emit( 'update-group-field', $event)"
                 />
             </div>
@@ -70,7 +70,7 @@ export default {
     computed: {
         groupFieldsExpandState() {
             let state = this.groupFieldsExpanded;
-            
+
             if ( 'expand' === this.forceExpandStateTo ) {
                 state = true;
             }

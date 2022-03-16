@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         let form_data = new FormData();
         form_data.append('action', 'save_imported_post_type_data');
-        form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+        form_data.append('directorist_nonce', directorist.directorist_nonce);
 
         if (Number.isInteger(term_id) && term_id > 0) {
             form_data.append('term_id', term_id);

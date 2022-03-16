@@ -41,7 +41,7 @@ if (cpt_manager_el) {
     });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+//window.addEventListener('DOMContentLoaded', () => {
     var $ = jQuery;
     /* Replace all svg img to inline svg */
     $('img.svg-inline').each(function () {
@@ -59,4 +59,4 @@ window.addEventListener('DOMContentLoaded', () => {
             $img.replaceWith($svg);
         }, 'xml');
     });
-});
+//});

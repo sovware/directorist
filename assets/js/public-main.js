@@ -1169,6 +1169,585 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/instantSearch.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/public/components/instantSearch.js ***!
+  \**********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+;
+
+(function ($) {
+  function update_instant_search_url(form_data) {
+    if (history.pushState) {
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+      if (form_data.paged && form_data.paged.length) {
+        var query = '?paged=' + form_data.paged + '';
+      }
+
+      if (form_data.q && form_data.q.length) {
+        var query = '?q=' + form_data.q;
+      }
+
+      if (form_data.in_cat && form_data.in_cat.length) {
+        var query = query && query.length ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
+      }
+
+      if (form_data.in_loc && form_data.in_loc.length) {
+        var query = query && query.length ? query + '&in_loc=' + form_data.in_loc : '?in_loc=' + form_data.in_loc;
+      }
+
+      if (form_data.in_tag && form_data.in_tag.length) {
+        var query = query && query.length ? query + '&in_tag=' + form_data.in_tag : '?in_tag=' + form_data.in_tag;
+      }
+
+      if (form_data.price && form_data.price[0] && form_data.price[0] > 0) {
+        var query = query && query.length ? query + '&price%5B0%5D=' + form_data.price[0] : '?price%5B0%5D=' + form_data.price[0];
+      }
+
+      if (form_data.price && form_data.price[1] && form_data.price[1] > 0) {
+        var query = query && query.length ? query + '&price%5B1%5D=' + form_data.price[1] : '?price%5B1%5D=' + form_data.price[1];
+      }
+
+      if (form_data.price_range && form_data.price_range.length) {
+        var query = query && query.length ? query + '&price_range=' + form_data.price_range : '?price_range=' + form_data.price_range;
+      }
+
+      if (form_data.search_by_rating && form_data.search_by_rating.length) {
+        var query = query && query.length ? query + '&search_by_rating=' + form_data.search_by_rating : '?search_by_rating=' + form_data.search_by_rating;
+      }
+
+      if (form_data.cityLat && form_data.cityLat.length && form_data.address && form_data.address.length) {
+        var query = query && query.length ? query + '&cityLat=' + form_data.cityLat : '?cityLat=' + form_data.cityLat;
+      }
+
+      if (form_data.cityLng && form_data.cityLng.length && form_data.address && form_data.address.length) {
+        var query = query && query.length ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
+      }
+
+      if (form_data.miles && form_data.miles > 0) {
+        var query = query && query.length ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
+      }
+
+      if (form_data.address && form_data.address.length) {
+        var query = query && query.length ? query + '&address=' + form_data.address : '?address=' + form_data.address;
+      }
+
+      if (form_data.zip && form_data.zip.length) {
+        var query = query && query.length ? query + '&zip=' + form_data.zip : '?zip=' + form_data.zip;
+      }
+
+      if (form_data.fax && form_data.fax.length) {
+        var query = query && query.length ? query + '&fax=' + form_data.fax : '?fax=' + form_data.fax;
+      }
+
+      if (form_data.email && form_data.email.length) {
+        var query = query && query.length ? query + '&email=' + form_data.email : '?email=' + form_data.email;
+      }
+
+      if (form_data.website && form_data.website.length) {
+        var query = query && query.length ? query + '&website=' + form_data.website : '?website=' + form_data.website;
+      }
+
+      if (form_data.phone && form_data.phone.length) {
+        var query = query && query.length ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
+      }
+
+      if (form_data.custom_field && form_data.custom_field.length) {
+        var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+      }
+
+      var newurl = query ? newurl + query : newurl;
+      window.history.pushState({
+        path: newurl
+      }, '', newurl);
+    }
+  }
+  /* Directorist instant search */
+
+
+  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function (e) {
+    e.preventDefault();
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    $('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      in_tag: tag,
+      price: price,
+      custom_field: custom_field
+    };
+    var fields = {
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val()
+    };
+
+    if (fields.address && fields.address.length) {
+      fields.cityLat = $('#cityLat').val();
+      fields.cityLng = $('#cityLng').val();
+      fields.miles = $('.atbdrs-value').val();
+    }
+
+    var form_data = _objectSpread(_objectSpread({}, data), fields);
+
+    var allFieldsAreEmpty = Object.values(fields).every(function (item) {
+      return !item;
+    });
+    var tagFieldEmpty = data.in_tag.every(function (item) {
+      return !item;
+    });
+    var priceFieldEmpty = data.price.every(function (item) {
+      return !item;
+    });
+    var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
+      return !item;
+    });
+
+    if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+      if (view && view.length) {
+        form_data.view = view;
+      }
+
+      if (type && type.length) {
+        form_data.directory_type = type[0].replace(/directory_type=/, '');
+      }
+
+      update_instant_search_url(form_data);
+      $.ajax({
+        url: atbdp_public_data.ajaxurl,
+        type: "POST",
+        data: form_data,
+        beforeSend: function beforeSend() {
+          $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
+          $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+          var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+          $(advance_filter).removeClass('directorist-advanced-filter--show');
+          $(advance_filter).hide();
+          $(document).scrollTop($(".directorist-instant-search").offset().top);
+        },
+        success: function success(html) {
+          if (html.search_result) {
+            $('.directorist-header-found-title span').text(html.count);
+            $('.directorist-archive-contents').children('div:last-child').replaceWith(html.search_result);
+            $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+            $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
+            window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+          }
+        }
+      });
+    }
+  }); // Directorist type changes
+
+  $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
+    e.preventDefault();
+    var type_href = $(this).attr('href');
+    var type = type_href.match(/directory_type=.+/);
+    var form_data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      directory_type: type && type.length ? type[0].replace(/directory_type=/, '') : ''
+    };
+    update_instant_search_url(form_data);
+    $.ajax({
+      url: atbdp_public_data.ajaxurl,
+      type: "POST",
+      data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').addClass('atbdp-form-fade');
+      },
+      success: function success(html) {
+        if (html.directory_type) {
+          $('.directorist-archive-contents').replaceWith(html.directory_type);
+          $('.directorist-archive-contents').removeClass('atbdp-form-fade');
+          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+        }
+
+        var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
+        events.forEach(function (event) {
+          document.body.dispatchEvent(event);
+          window.dispatchEvent(event);
+        });
+      }
+    });
+  });
+  $('body').on("click", ".disabled-link", function (e) {
+    e.preventDefault();
+  }); // Directorist view as changes  
+
+  $('body').on("click", ".directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
+    e.preventDefault();
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    $('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var view_href = $(this).attr('href');
+    var view = view_href.match(/view=.+/);
+    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var page_no = $(".page-numbers.current").text();
+    $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
+    $(this).addClass("active");
+    var form_data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      view: view && view.length ? view[0].replace(/view=/, '') : '',
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      in_tag: tag,
+      price: price,
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      cityLat: $('#cityLat').val(),
+      cityLng: $('#cityLng').val(),
+      miles: $('.atbdrs-value').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val(),
+      custom_field: custom_field
+    };
+
+    if (page_no && page_no.length) {
+      form_data.paged = page_no;
+    }
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
+    }
+
+    if (sort && sort.length) {
+      form_data.sort = sort;
+    }
+
+    $.ajax({
+      url: atbdp_public_data.ajaxurl,
+      type: "POST",
+      data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
+        $('.directorist-instant-search .directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+        $('.directorist-dropdown__links').hide();
+        var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+        $(advance_filter).removeClass('directorist-advanced-filter--show');
+        $(advance_filter).hide();
+        $(document).scrollTop($(".directorist-instant-search").offset().top);
+      },
+      success: function success(html) {
+        if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
+          $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+          $('.directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
+          $('.directorist-instant-search .directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+        }
+
+        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+      }
+    });
+  });
+  $('.directorist-instant-search .directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes  
+
+  $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
+    e.preventDefault();
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    $('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var sort_href = $(this).attr('data-link');
+    var sort_by = sort_href.match(/sort=.+/);
+    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
+    $(this).addClass("active");
+    var form_data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      sort: sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '',
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      in_tag: tag,
+      price: price,
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      cityLat: $('#cityLat').val(),
+      cityLng: $('#cityLng').val(),
+      miles: $('.atbdrs-value').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val(),
+      custom_field: custom_field,
+      view: view
+    };
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
+    }
+
+    $.ajax({
+      url: atbdp_public_data.ajaxurl,
+      type: "POST",
+      data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js').addClass("disabled-link");
+        $('.directorist-instant-search .directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single-js');
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+        $('.directorist-dropdown__links').hide();
+        var advance_filter = $('.directorist-instant-search .directorist-advanced-filter')[0];
+        $(advance_filter).removeClass('directorist-advanced-filter--show');
+        $(advance_filter).hide();
+        $(document).scrollTop($(".directorist-instant-search").offset().top);
+      },
+      success: function success(html) {
+        if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
+          $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+          $('.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
+          $('.directorist-instant-search .directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
+        }
+
+        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+      }
+    });
+  }); // Directorist pagination
+
+  $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
+    var _form_data;
+
+    e.preventDefault();
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    $('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $('[name^="custom_field"]').each(function (index, el) {
+      var test = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var sort_href = $(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href.match(/view=.+/);
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    $(".directorist-pagination .page-numbers").removeClass('current');
+    $(this).addClass("current");
+    var paginate_link = $(this).attr('href');
+    var page = paginate_link.match(/page\/.+/);
+    var page_value = page && page.length ? page[0].replace(/page\//, '') : '';
+    var page_no = page_value && page_value.length ? page_value.replace(/\//, '') : '';
+
+    if (!page_no) {
+      var page = paginate_link.match(/paged=.+/);
+      var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
+    }
+
+    var form_data = (_form_data = {
+      action: 'directorist_instant_search',
+      _nonce: atbdp_public_data.ajax_nonce,
+      view: view && view.length ? view[0].replace(/view=/, '') : '',
+      q: $('input[name="q"]').val(),
+      in_cat: $('.bdas-category-search').val(),
+      in_loc: $('.bdas-category-location').val(),
+      in_tag: tag,
+      price: price,
+      price_range: $("input[name='price_range']:checked").val(),
+      search_by_rating: $('select[name=search_by_rating]').val(),
+      cityLat: $('#cityLat').val(),
+      cityLng: $('#cityLng').val(),
+      miles: $('.atbdrs-value').val(),
+      address: $('input[name="address"]').val(),
+      zip: $('input[name="zip"]').val(),
+      fax: $('input[name="fax"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      phone: $('input[name="phone"]').val(),
+      custom_field: custom_field
+    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+    update_instant_search_url(form_data);
+
+    if (type && type.length) {
+      form_data.directory_type = type[0].replace(/directory_type=/, '');
+    }
+
+    if (sort && sort.length) {
+      form_data.sort = sort;
+    }
+
+    $.ajax({
+      url: atbdp_public_data.ajaxurl,
+      type: "POST",
+      data: form_data,
+      beforeSend: function beforeSend() {
+        $('.directorist-archive-contents').children('div:last-child').addClass('atbdp-form-fade');
+      },
+      success: function success(html) {
+        if (html.view_as) {
+          $('.directorist-header-found-title span').text(html.count);
+          $('.directorist-archive-contents').children('div:last-child').replaceWith(html.view_as);
+          $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
+          $(document).scrollTop($(".directorist-instant-search").offset().top);
+        }
+
+        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+      }
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/legacy-support.js":
 /*!***********************************************************!*\
   !*** ./assets/src/js/public/components/legacy-support.js ***!
@@ -2141,30 +2720,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_17__);
 /* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/author */ "./assets/src/js/public/components/author.js");
 /* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_components_author__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/instantSearch */ "./assets/src/js/public/components/instantSearch.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_26__);
 /*
     File: Main.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
     Author: wpWax
     Author URI: www.wpwax.com
 */
-// Styles
+console.log(directorist_options); // Styles
+
  // Single Listing Page
 
  // General Components
+
 
 
 
@@ -2248,6 +2830,33 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),

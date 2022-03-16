@@ -17,10 +17,6 @@ class Localized_Data {
 		wp_localize_script( 'directorist-admin-script', 'atbdp_admin_data', self::get_admin_script_data() );
 		wp_localize_script( 'directorist-admin-script', 'directorist_options', self::directorist_options_data() );
 		wp_localize_script( 'directorist-admin-script', 'atbdp_public_data', self::get_listings_data() );
-		wp_localize_script( 'directorist-multi-directory-builder', 'ajax_data', self::admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-multi-directory-archive', 'ajax_data', self::admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-settings-manager', 'ajax_data', self::admin_ajax_localized_data() );
-		wp_localize_script( 'directorist-import-export', 'import_export_data', self::admin_ajax_localized_data() );
 	}
 
 	public static function public_data() {

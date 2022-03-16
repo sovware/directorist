@@ -1074,7 +1074,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       this.button_label = "<i class=\"fas fa-circle-notch fa-spin\"></i> ".concat(button_label_default);
       this.isPreparingExportFile = true;
       var self = this;
-      axios.post(ajax_data.ajax_url, data).then(function (response) {
+      axios.post(directorist_admin.ajax_url, data).then(function (response) {
         var _response$data;
 
         console.log({
@@ -27944,7 +27944,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -40436,7 +40436,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

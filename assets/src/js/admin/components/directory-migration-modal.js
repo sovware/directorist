@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         // Send Request
-        axios.post( ajax_data.ajax_url, form_data ).then( response => {
+        axios.post( directorist_admin.ajax_url, form_data ).then( response => {
             responseSuccessCallback( response );
         }).catch( response => {
             responseFaildCallback( response );

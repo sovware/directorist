@@ -1620,16 +1620,59 @@ class Directorist_Listings {
 			return implode( ' ' , $class );
 		}
 
-		public function instant_searching_class() {
-			$class  = '';
+		/**
+		 * Displays the class names for the listings wrapper element.
+		 *
+		 * @since 7.2.0
+		 *
+		 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+		 */
+		public function wrapper_class( $class = '' ) {
+			// Separates class names with a single space, collates class names for wrapper tag element.
+			echo 'class="' . esc_attr( implode( ' ', $this->get_wrapper_class( $class ) ) ) . '"';
+		}
 
-			if ( 'yes' == $this->instant_search ) {
-				$class = 'directorist-instant-search';
+		/**
+		 * Retrieves an array of the class names for the listings wrapper element.
+		 *
+		 * @since 7.2.0
+		 *
+		 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+		 * @return string[] Array of class names.
+		 */
+		public function get_wrapper_class( $class = '' ) {
+			$classes = array(
+				'directorist-archive-contents',
+			);
+
+			if ( 'yes' === $this->instant_search ) {
+				$classes[] = 'directorist-instant-search';
 			}
 
-			$class  = apply_filters( 'directorist_instant_searching_class', $class, $this->current_listing_type );
+			if ( ! empty( $class ) ) {
+				if ( ! is_array( $class ) ) {
+					$class = preg_split( '#\s+#', $class );
+				}
+				$classes = array_merge( $classes, $class );
+			} else {
+				// Ensure that we always coerce class to being an array.
+				$class = array();
+			}
 
-			return $class;
+			$classes = array_map( 'esc_attr', $classes );
+
+			/**
+			 * Filters the list of CSS listings wrapper class names for the wrapper.
+			 *
+			 * @since 7.2.0
+			 *
+			 * @param string[] $classes An array of listings wrapper class names.
+			 * @param string[] $class   An array of additional class names added to the listings wrapper.
+			 * @param object   $this    An instantce of Directorist_Listings
+			 */
+			$classes = apply_filters( 'directorist_listings_wrapper_class', $classes, $class, $this );
+
+			return array_unique( $classes );
 		}
 
 		public function loop_link_attr() {

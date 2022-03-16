@@ -4497,7 +4497,7 @@ class Multi_Directory_Manager
         self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
-                'icon' => '<i class="uil uil-estate"></i>',
+                'icon' => '<img class="test" src="' . ATBDP_ADMIN_ASSETS . 'images/estate.svg">',
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),

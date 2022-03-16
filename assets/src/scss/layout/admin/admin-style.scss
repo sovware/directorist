@@ -4704,8 +4704,8 @@ input.atbdp-form-control {
     transition: 0.3s ease;
     &:before{
       content: "\f044";
-      font-family: "Line Awesome Free";
-      font-weight: 900;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
       font-size: 15px;
       color: $info;
     }
@@ -4732,6 +4732,8 @@ input.atbdp-form-control {
     display: none;
     &:before{
       content: '\f00c';
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       color: #fff;
     }
     &.active{
@@ -4756,7 +4758,7 @@ input.atbdp-form-control {
     color: #fff;
     &:before{
       content: "\f00d";
-      font-family: "Line Awesome Free";
+      font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-size: 15px;
       color: #fff;

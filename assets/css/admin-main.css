@@ -4667,8 +4667,8 @@ input.atbdp-form-control {
 .directorist-listing-slug-edit-wrap .directorist-listing-slug__edit:before,
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add:before {
   content: "";
-  font-family: "Line Awesome Free";
-  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
   font-size: 15px;
   color: #2C99FF;
 }
@@ -4704,6 +4704,8 @@ input.atbdp-form-control {
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add:before {
   content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   color: #fff;
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add.active {
@@ -4740,7 +4742,7 @@ input.atbdp-form-control {
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-remove:before {
   content: "";
-  font-family: "Line Awesome Free";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 15px;
   color: #fff;

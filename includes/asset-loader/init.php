@@ -218,17 +218,17 @@ class Init {
 		 *  5. Make sure that all scripts are under doc.ready/other events. [directorist-tooltip makes error]
 		 */
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
-			wp_enqueue_style( 'directorist-select2-style' );
-			wp_enqueue_script( 'directorist-select2-script' );
+			//wp_enqueue_style( 'directorist-select2-style' );
+			// wp_enqueue_script( 'directorist-select2-script' );
 			wp_enqueue_style( 'directorist-font-awesome' );
 
 			wp_enqueue_script( 'directorist-tooltip' );
-			wp_enqueue_script( 'directorist-multi-directory-archive' );
+			wp_enqueue_script( 'admin-builder-archive' );
 
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
-			wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
+			wp_enqueue_script( 'admin-builder-archive' ); // loaded inside class
 			wp_enqueue_media();
 			wp_enqueue_style( 'directorist-font-awesome' );
 

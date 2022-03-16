@@ -277,6 +277,8 @@ final class Directorist_Base
 
 			// Initialize appsero tracking
 			self::$instance->init_appsero();
+
+			do_action( 'directorist_loaded' );
 		}
 
 		return self::$instance;

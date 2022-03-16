@@ -109,34 +109,36 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
-var settings_panel_el = document.getElementById('atbdp-settings-manager');
+window.addEventListener('DOMContentLoaded', function () {
+  var settings_panel_el = document.getElementById('atbdp-settings-manager');
 
-if (settings_panel_el) {
-  var encodedBuilderData = settings_panel_el.getAttribute('data-builder-data');
-  var builderData = atob(encodedBuilderData);
+  if (settings_panel_el) {
+    var encodedBuilderData = settings_panel_el.getAttribute('data-builder-data');
+    var builderData = atob(encodedBuilderData);
 
-  try {
-    builderData = JSON.parse(builderData);
-  } catch (error) {
-    builderData = [];
-  }
-
-  new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
-    el: '#atbdp-settings-manager',
-    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
-    components: {
-      'settings-manager': _vue_apps_settings_manager_Settings_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
-    },
-    data: function data() {
-      return {
-        id: builderData.id,
-        fields: builderData.fields,
-        layouts: builderData.layouts,
-        config: builderData.config
-      };
+    try {
+      builderData = JSON.parse(builderData);
+    } catch (error) {
+      builderData = [];
     }
-  });
-}
+
+    new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+      el: '#atbdp-settings-manager',
+      store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
+      components: {
+        'settings-manager': _vue_apps_settings_manager_Settings_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+      },
+      data: function data() {
+        return {
+          id: builderData.id,
+          fields: builderData.fields,
+          layouts: builderData.layouts,
+          config: builderData.config
+        };
+      }
+    });
+  }
+});
 
 /***/ }),
 

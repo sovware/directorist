@@ -139,6 +139,12 @@ class Helper {
 					$status = true;
 				}
 				break;
+
+			case 'settings':
+				if ( $screen == 'at_biz_dir_page_atbdp-settings' ) {
+					$status = true;
+				}
+				break;
 		}
 
 		return $status;

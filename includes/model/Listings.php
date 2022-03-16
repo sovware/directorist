@@ -2030,4 +2030,5 @@ class Directorist_Listings {
     		echo atbdp_listings_mark_as_favourite( get_the_ID() );
     	}
     }
+	
 }

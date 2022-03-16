@@ -28,7 +28,7 @@ module.exports = {
         ['admin-import-export']: "./assets/src/js/admin/import-export.js",
         ['admin-plugins']: "./assets/src/js/admin/plugins.js",
         ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
-        ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
+        ['admin-builder-archive']: "./assets/src/js/admin/multi-directory-archive.js",
 
         // Global
         // -------------------------------------------

@@ -220,12 +220,12 @@ class Init {
 		 *
 		 */
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
-			wp_enqueue_style( 'directorist-select2-style' );
-			wp_enqueue_script( 'directorist-select2-script' );
+			//wp_enqueue_style( 'directorist-select2-style' );
+			// wp_enqueue_script( 'directorist-select2-script' );
 			wp_enqueue_style( 'directorist-font-awesome' );
 
 			wp_enqueue_script( 'directorist-tooltip' );
-			wp_enqueue_script( 'directorist-multi-directory-archive' );
+			wp_enqueue_script( 'admin-builder-archive' );
 
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );

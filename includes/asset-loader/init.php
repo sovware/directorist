@@ -215,20 +215,20 @@ class Init {
 		 *  2. Use fontawesome here instead of lineawesome https://prnt.sc/AaRTsvKk9Lix
 		 *  3. Remove unicon here, use svg instead: https://prnt.sc/eNJSVozEPlKR
 		 * 	4. Rename admin-multi-directory-archive.js => admin-builder-archive.js
-		 *  5. Make sure that all scripts are under doc.ready/other events.
+		 *  5. Make sure that all scripts are under doc.ready/other events. [directorist-tooltip makes error]
 		 */
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
-			wp_enqueue_style( 'directorist-select2-style' ); // remove - select2 reference from admin script
-			wp_enqueue_script( 'directorist-select2-script' ); // remove - select2 reference from admin script
+			wp_enqueue_style( 'directorist-select2-style' );
+			wp_enqueue_script( 'directorist-select2-script' );
 			wp_enqueue_style( 'directorist-font-awesome' );
 
-			wp_enqueue_script( 'directorist-tooltip' ); // order change error
+			wp_enqueue_script( 'directorist-tooltip' );
 			wp_enqueue_script( 'directorist-multi-directory-archive' );
 
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
-			// wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
+			wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
 			wp_enqueue_media();
 			wp_enqueue_style( 'directorist-font-awesome' );
 

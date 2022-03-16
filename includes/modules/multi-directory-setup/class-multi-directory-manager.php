@@ -4832,9 +4832,6 @@ class Multi_Directory_Manager
                 'id'      => $listing_type_id,
             ];
 
-			// Enqueue Scripts
-			wp_enqueue_script( 'directorist-multi-directory-builder' );
-
 			/**
 			 * Filter directory builder's all configuration data.
 			 *

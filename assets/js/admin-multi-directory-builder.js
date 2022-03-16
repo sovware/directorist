@@ -113,7 +113,7 @@ var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
 
 if (cpt_manager_el) {
   var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
-  var builderData = atob(encodedBuilderData);
+  var builderData = encodedBuilderData;
 
   try {
     builderData = JSON.parse(builderData);

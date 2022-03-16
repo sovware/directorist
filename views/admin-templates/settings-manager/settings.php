@@ -1,5 +1,5 @@
 <div class="wrap">
-    <div id="atbdp-settings-manager" class="atbdp-settings-manager" data-builder-data="<?php echo $data['settings_builder_data']; ?>">
+    <div id="atbdp-settings-manager" class="atbdp-settings-manager" data-builder-data="<?php echo esc_attr( $data['settings_builder_data'] ); ?>">
 
         <div class="atbdp-settings-manager__top">
             <h4 class="atbdp-settings-manager__title">

@@ -113,7 +113,7 @@ var settings_panel_el = document.getElementById('atbdp-settings-manager');
 
 if (settings_panel_el) {
   var encodedBuilderData = settings_panel_el.getAttribute('data-builder-data');
-  var builderData = atob(encodedBuilderData);
+  var builderData = encodedBuilderData;
 
   try {
     builderData = JSON.parse(builderData);

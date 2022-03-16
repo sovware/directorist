@@ -13,7 +13,7 @@ import settings_manager_component from './vue/apps/settings-manager/Settings_Man
 const settings_panel_el = document.getElementById( 'atbdp-settings-manager' );
 if ( settings_panel_el ) {
     const encodedBuilderData = settings_panel_el.getAttribute( 'data-builder-data' );
-    let builderData = atob( encodedBuilderData );
+    let builderData = encodedBuilderData;
 
     try {
         builderData = JSON.parse( builderData );

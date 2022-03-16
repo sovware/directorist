@@ -109,37 +109,39 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
-var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
+window.addEventListener('DOMContentLoaded', function () {
+  var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
 
-if (cpt_manager_el) {
-  var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
-  var builderData = atob(encodedBuilderData);
+  if (cpt_manager_el) {
+    var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
+    var builderData = atob(encodedBuilderData);
 
-  try {
-    builderData = JSON.parse(builderData);
-  } catch (error) {
-    builderData = [];
-  }
-
-  new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
-    el: '#atbdp-cpt-manager',
-    store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
-    components: {
-      'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
-    },
-    data: function data() {
-      return {
-        id: typeof builderData.id !== 'undefined' ? builderData.id : 0,
-        fields: typeof builderData.fields !== 'undefined' ? builderData.fields : [],
-        layouts: typeof builderData.layouts !== 'undefined' ? builderData.layouts : [],
-        options: typeof builderData.options !== 'undefined' ? builderData.options : {
-          test: 'asas'
-        },
-        config: typeof builderData.config !== 'undefined' ? builderData.config : {}
-      };
+    try {
+      builderData = JSON.parse(builderData);
+    } catch (error) {
+      builderData = [];
     }
-  });
-}
+
+    new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+      el: '#atbdp-cpt-manager',
+      store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_4__["default"],
+      components: {
+        'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+      },
+      data: function data() {
+        return {
+          id: typeof builderData.id !== 'undefined' ? builderData.id : 0,
+          fields: typeof builderData.fields !== 'undefined' ? builderData.fields : [],
+          layouts: typeof builderData.layouts !== 'undefined' ? builderData.layouts : [],
+          options: typeof builderData.options !== 'undefined' ? builderData.options : {
+            test: 'asas'
+          },
+          config: typeof builderData.config !== 'undefined' ? builderData.config : {}
+        };
+      }
+    });
+  }
+});
 
 /***/ }),
 
@@ -1074,7 +1076,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       this.button_label = "<i class=\"fas fa-circle-notch fa-spin\"></i> ".concat(button_label_default);
       this.isPreparingExportFile = true;
       var self = this;
-      axios.post(ajax_data.ajax_url, data).then(function (response) {
+      axios.post(directorist_admin.ajax_url, data).then(function (response) {
         var _response$data;
 
         console.log({
@@ -27944,7 +27946,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -40436,7 +40438,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

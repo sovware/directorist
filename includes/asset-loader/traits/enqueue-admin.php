@@ -45,7 +45,7 @@ trait Enqueue_Admin {
 			case 'at_biz_dir_page_atbdp-settings':
 				self::admin_settings_page_scripts();
 				break;
-			
+
 			// Directorist Status Page
 			case 'at_biz_dir_page_directorist-status':
 				self::admin_common_scripts();
@@ -147,10 +147,6 @@ trait Enqueue_Admin {
 
 	public static function admin_builder_scripts() {
 		wp_enqueue_script( 'directorist-multi-directory-builder' );
-	}
-
-	public static function admin_settings_scripts() {
-		wp_enqueue_script( 'directorist-settings-manager' );
 	}
 
 }

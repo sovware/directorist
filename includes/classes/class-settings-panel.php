@@ -5341,9 +5341,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
             }
 
-			// Enqueue Scripts
-            Enqueue::admin_settings_scripts();
-
 			$settings_builder_data = [
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,

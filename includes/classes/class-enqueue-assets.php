@@ -368,8 +368,12 @@ class Enqueue_Assets {
 			'has_min'   => true,
 			'ver'       => '',
 			'group'     => $common_asset_group,
-			'section'   => '__',
+			//'section'   => '__',
 			'enable'    => Script_Helper::is_enable_map( 'openstreet' ),
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
 		];
 
 		// Google Map
@@ -938,7 +942,7 @@ class Enqueue_Assets {
 			'deps'      => [],
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
-			'section'   => '_',
+			//'section'   => '_',
 			'enable'    => Script_Helper::is_enable_map( 'google' )
 		];
 

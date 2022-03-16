@@ -209,17 +209,36 @@ class Init {
 	}
 
 	public function admin_scripts( $page = '' ) {
+		/**
+		 * @todo
+		 *  1. Remove select2 reference from admin script
+		 *  2. Use fontawesome here instead of lineawesome https://prnt.sc/AaRTsvKk9Lix
+		 *  3. Remove unicon here, use svg instead: https://prnt.sc/eNJSVozEPlKR
+		 * 	4. Rename admin-multi-directory-archive.js => admin-builder-archive.js
+		 *  5. Make sure that all scripts are under doc.ready/other events. [directorist-tooltip makes error]
+		 */
+		if ( Helper::is_admin_page( 'builder-archive' ) ) {
+			wp_enqueue_style( 'directorist-select2-style' );
+			wp_enqueue_script( 'directorist-select2-script' );
+			wp_enqueue_style( 'directorist-font-awesome' );
 
-		// switch ( $page ) {
-		// 	case 'at_biz_dir_page_atbdp-directory-types':
-		// 		self::admin_multi_builder_page_scripts();
-		// 		break;
-		// }
+			wp_enqueue_script( 'directorist-tooltip' );
+			wp_enqueue_script( 'directorist-multi-directory-archive' );
 
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-admin-script' );
+		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
+			wp_enqueue_script( 'directorist-multi-directory-builder' ); // loaded inside class
+			wp_enqueue_media();
+			wp_enqueue_style( 'directorist-font-awesome' );
 
+			// wp_enqueue_style( 'directorist-unicons' ); //  use svg instead
+			wp_enqueue_style( 'directorist-admin-style' );
+		} else {
+			Enqueue::map_styles();
+			Enqueue::admin_scripts( $page );
+		}
 
-		Enqueue::map_styles();
-		Enqueue::admin_scripts( $page );
 	}
 
 	public function register_scripts() {

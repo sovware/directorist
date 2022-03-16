@@ -116,4 +116,32 @@ class Helper {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
+	public static function is_admin_page( $page ) {
+		$status = false;
+		$screen = get_current_screen()->base;
+
+		switch ( $page ) {
+
+			case 'builder-archive':
+				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' && empty( $_GET['action'] ) ) {
+					$status = true;
+				}
+				break;
+
+			case 'builder-edit':
+				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' ) {
+					// Multi-directory enabled
+					if ( !empty( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+						$status = true;
+					}
+				} elseif ( $screen == 'at_biz_dir_page_atbdp-layout-builder' ) {
+					// Multi-directory disabled
+					$status = true;
+				}
+				break;
+		}
+
+		return $status;
+	}
+
 }

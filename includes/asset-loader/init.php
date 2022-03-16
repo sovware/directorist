@@ -235,7 +235,9 @@ class Init {
 			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_style( 'directorist-admin-style' );
 		} elseif ( Helper::is_admin_page( 'settings' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_script( 'directorist-settings-manager' );
 		} else {
 			Enqueue::map_styles();
 			Enqueue::admin_scripts( $page );

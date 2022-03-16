@@ -305,9 +305,9 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-main',
 			],
-			'directorist-multi-directory-archive' => [
+			'directorist-admin-builder-archive' => [
 				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'admin-multi-directory-archive',
+				'path' => DIRECTORIST_JS . 'admin-builder-archive',
 			],
 			'directorist-multi-directory-builder' => [
 				'type' => 'js',

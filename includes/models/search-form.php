@@ -157,8 +157,9 @@ class Search_Form {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$this->data   = apply_filters( 'directorist_search_form_data', $this->build_data( $args['shortcode_atts'] ), $args );
 		$this->source = $args['source'];
+		$this->data   = apply_filters( 'directorist_search_form_data', $this->build_data( $args['shortcode_atts'] ), $args );
+
 
 		$type = $args['source'];
 		$listing_type = $args['directory_type'];

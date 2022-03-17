@@ -35,22 +35,13 @@ class Search_Form {
 
 	// Search Shortcode
 	public $options = [];
-	public $type;
 	public $listing_type;
 	public $form_data;
 
 	public $atts;
-	public $defaults;
-	public $params;
 
 	public $directory_type;
 	public $default_directory_type;
-
-	// Common - Search Shortcode and Listing Header
-	public $has_reset_filters_button;
-	public $has_apply_filters_button;
-	public $reset_filters_text;
-	public $apply_filters_text;
 
 	private function __construct() {
 
@@ -64,11 +55,11 @@ class Search_Form {
 	}
 
 	public function display_title_area() {
-		return $this->params['show_title_subtitle'] == 'yes' ? true : false;
+		return $this->data['show_title_subtitle'] == 'yes' ? true : false;
 	}
 
 	public function dispaly_search_button() {
-		return $this->params['search_button'] == 'yes' ? true : false;
+		return $this->data['search_button'] == 'yes' ? true : false;
 	}
 
 	public function dispaly_search_button_icon() {
@@ -77,7 +68,7 @@ class Search_Form {
 	}
 
 	public function dispaly_more_filters_button() {
-		return $this->params['more_filters_button'] == 'yes' ? true : false;
+		return $this->data['more_filters_button'] == 'yes' ? true : false;
 	}
 
 	public function dispaly_more_filters_button_icon() {
@@ -94,31 +85,31 @@ class Search_Form {
 	}
 
 	public function dispaly_popular_categories() {
-		return $this->params['show_popular_category'] == 'yes' ? true : false;
+		return $this->data['show_popular_category'] == 'yes' ? true : false;
 	}
 
 	public function search_bar_title_label() {
-		return $this->params['search_bar_title'];
+		return $this->data['search_bar_title'];
 	}
 
 	public function search_bar_subtitle_label() {
-		return $this->params['search_bar_sub_title'];
+		return $this->data['search_bar_sub_title'];
 	}
 
 	public function search_button_label() {
-		return $this->params['search_button_text'];
+		return $this->data['search_button_text'];
 	}
 
 	public function more_filters_button_label() {
-		return $this->params['more_filters_text'];
+		return $this->data['more_filters_text'];
 	}
 
 	public function reset_filters_button_label() {
-		return $this->params['reset_filters_text'];
+		return $this->data['reset_filters_text'];
 	}
 
 	public function apply_filters_button_label() {
-		return $this->params['apply_filters_text'];
+		return $this->data['apply_filters_text'];
 	}
 
 	public function is_search_result_page() {
@@ -126,23 +117,23 @@ class Search_Form {
 	}
 
 	public function filter_open_method() {
-		return $this->params['more_filters_display'];
+		return $this->data['more_filters_display'];
 	}
 
 	public function category_id() {
-		return ( $this->type == 'all_listings' ) ? 'cat-type' : '';
+		return ( $this->source == 'all_listings' ) ? 'cat-type' : '';
 	}
 
 	public function category_class() {
-		return ( $this->type == 'all_listings' ) ? 'directory_field bdas-category-search' : 'search_fields directorist-category-select';
+		return ( $this->source == 'all_listings' ) ? 'directory_field bdas-category-search' : 'search_fields directorist-category-select';
 	}
 
 	public function location_id() {
-		return ( $this->type == 'all_listings' ) ? 'loc-type' : '';
+		return ( $this->source == 'all_listings' ) ? 'loc-type' : '';
 	}
 
 	public function location_class() {
-		return ( $this->type == 'all_listings' ) ? 'directory_field bdas-category-location' : 'search_fields directorist-location-select';
+		return ( $this->source == 'all_listings' ) ? 'directory_field bdas-category-location' : 'search_fields directorist-location-select';
 	}
 
 	public function currency_symbol() {
@@ -173,7 +164,7 @@ class Search_Form {
 		$listing_type = $args['directory_type'];
 		$atts = $args['shortcode_atts'];
 
-		$this->type = $type;
+		$this->source = $type;
 		$this->atts = $atts;
 
 		if ( $listing_type ) {
@@ -181,21 +172,6 @@ class Search_Form {
 		}
 		else {
 			$this->listing_type = $this->get_default_listing_type();
-		}
-
-
-		if ( $type == 'shortcode' ) {
-			// Search form shortcode
-			$this->options = $this->get_search_form_options();
-			$this->prepare_search_data();
-		} elseif ( $type == 'search_result' ) {
-			// Search result page
-			$this->options = $this->get_search_result_options();
-			$this->prepare_search_data();
-		} elseif ( $type == 'all_listings' ) {
-			// Listing Archive page
-			$this->options = $this->get_all_listings_options();
-			$this->prepare_listing_data();
 		}
 
 		$this->form_data = $this->build_form_data();
@@ -208,11 +184,11 @@ class Search_Form {
 	private function build_data( $shortcode_atts ) {
 		$options = [];
 
-		if ( $this->type == 'shortcode' ) {
+		if ( $this->source == 'shortcode' ) {
 			$options = $this->get_search_form_options();
-		} elseif ( $this->type == 'search_result' ) {
+		} elseif ( $this->source == 'search_result' ) {
 			$options = $this->get_search_result_options();
-		} elseif ( $this->type == 'all_listings' ) {
+		} elseif ( $this->source == 'all_listings' ) {
 			$options = $this->get_all_listings_options();
 		}
 
@@ -237,8 +213,6 @@ class Search_Form {
 			'reset_filters_text'      => $shortcode_data['reset_filters_text'],
 			'apply_filters_text'      => $shortcode_data['apply_filters_text'],
 			'more_filters_display'    => $shortcode_data['more_filters_display'],
-
-
 		];
 
 		return $data;
@@ -246,7 +220,7 @@ class Search_Form {
 
 	public function get_shortcode_atts( $atts = [], $options ) {
 		$defaults = [
-			'show_title_subtitle'     => ( $this->type == 'shortcode' ) ? 'yes' : '',
+			'show_title_subtitle'     => ( $this->source == 'shortcode' ) ? 'yes' : '',
 			'search_bar_title'        => get_directorist_option( 'search_title', __( 'Search here', 'directorist' ) ),
 			'search_bar_sub_title'    => get_directorist_option( 'search_subtitle', __( 'Find the best match of your interest', 'directorist' ) ),
 			'search_button'           => get_directorist_option( 'search_button', 1 ) ? 'yes' : '',
@@ -257,7 +231,7 @@ class Search_Form {
 			'redirect_page_url'       => '',
 			'directory_type'          => '',
 			'default_directory_type'  => '',
-			'show_popular_category'	  => ( $this->type == 'shortcode' ) && get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : '',
+			'show_popular_category'	  => ( $this->source == 'shortcode' ) && get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : '',
 
 			'reset_filters_button'    => in_array( ['reset_button', 'search_reset_filters'], $options['search_filters'] ) ? 'yes' : '',
 			'apply_filters_button'    => in_array( ['apply_button', 'search_apply_filters'], $options['search_filters'] ) ? 'yes' : '',
@@ -322,7 +296,7 @@ class Search_Form {
 		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
 		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
 
-		if ( 'shortcode' === $this->type ) {
+		if ( 'shortcode' === $this->source ) {
 			$reset_filters_button = in_array('search_reset_filters', $search_filters) ? 'yes' : '';
 			$apply_filters_button = in_array('search_apply_filters', $search_filters) ? 'yes' : '';
 		}
@@ -347,15 +321,15 @@ class Search_Form {
 			'show_popular_category'			=> ! empty( get_directorist_option('show_popular_category', 1 ) ) ? 'yes' : ''
 		);
 
-		$this->params = shortcode_atts( $this->defaults, $this->atts );
+		$this->data = shortcode_atts( $this->defaults, $this->atts );
 
-		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
-		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
+		$this->directory_type           = !empty( $this->data['directory_type'] ) ? explode( ',', $this->data['directory_type'] ) : '';
+		$this->default_directory_type   = !empty( $this->data['default_directory_type'] ) ? $this->data['default_directory_type'] : '';
 
-		$this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
-		$this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
-		$this->reset_filters_text   	= $this->params['reset_filters_text'];
-		$this->apply_filters_text   	= $this->params['apply_filters_text'];
+		$this->has_reset_filters_button = $this->data['reset_filters_button'] == 'yes' ? true : false;
+		$this->has_apply_filters_button = $this->data['apply_filters_button'] == 'yes' ? true : false;
+		$this->reset_filters_text   	= $this->data['reset_filters_text'];
+		$this->apply_filters_text   	= $this->data['apply_filters_text'];
 	}
 
 	// $type == 'all_listings'
@@ -462,11 +436,11 @@ class Search_Form {
 	}
 
 	public function display_only_for_logged_in() {
-		return $this->params['logged_in_user_only'] == 'yes' ? true : false;
+		return $this->data['logged_in_user_only'] == 'yes' ? true : false;
 	}
 
 	public function redirect_page_url() {
-		return $this->params['redirect_page_url'];
+		return $this->data['redirect_page_url'];
 	}
 
 	public function is_field_allowed_in_atts( $widget_name ) {
@@ -671,7 +645,7 @@ class Search_Form {
 	}
 
 	public function get_atts_data() {
-		return json_encode( $this->params );
+		return json_encode( $this->data );
 	}
 
 	public function search_listing_scripts_styles() {

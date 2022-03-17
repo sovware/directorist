@@ -34,7 +34,6 @@ class Search_Form {
 	public $source;
 
 
-	public $options = [];
 	public $listing_type;
 	public $form_data;
 

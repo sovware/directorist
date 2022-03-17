@@ -173,7 +173,7 @@
                             update_post_meta( $post_id, '_' . $index, $meta_value );
                         }
                     }
-                    $default_expiration = get_term_meta( $directory_type, 'default_expiration', true);
+                    $default_expiration = get_term_meta( $directory_type, 'default_expiration', true );
                     if( ! $default_expiration ){
                         update_post_meta($post_id, '_never_expire', 1);
                     }

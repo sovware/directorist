@@ -219,7 +219,12 @@ class Search_Form {
 		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
 		$data = [
-			'show_title_subtitle'     => $shortcode_data['show_title_subtitle'],
+			'show_title_subtitle'     => ( $this->type == 'shortcode' ) ? $shortcode_data['show_title_subtitle'] : '',
+			'show_popular_category'   => ( $this->type == 'shortcode' ) ? $shortcode_data['show_popular_category'] : '',
+			'logged_in_user_only'     => $shortcode_data['logged_in_user_only'],
+			'redirect_page_url'       => $shortcode_data['redirect_page_url'],
+			'directory_type'          => $shortcode_data['directory_type'],
+			'default_directory_type'  => $shortcode_data['default_directory_type'],
 			'search_bar_title'        => $shortcode_data['search_bar_title'],
 			'search_bar_sub_title'    => $shortcode_data['search_bar_sub_title'],
 			'search_button'           => $shortcode_data['search_button'],
@@ -230,12 +235,9 @@ class Search_Form {
 			'apply_filters_button'    => $shortcode_data['apply_filters_button'],
 			'reset_filters_text'      => $shortcode_data['reset_filters_text'],
 			'apply_filters_text'      => $shortcode_data['apply_filters_text'],
-			'logged_in_user_only'     => $shortcode_data['logged_in_user_only'],
-			'redirect_page_url'       => $shortcode_data['redirect_page_url'],
 			'more_filters_display'    => $shortcode_data['more_filters_display'],
-			'directory_type'          => $shortcode_data['directory_type'],
-			'default_directory_type'  => $shortcode_data['default_directory_type'],
-			'show_popular_category'   => $shortcode_data['show_popular_category'],
+
+
 		];
 
 		return $data;
@@ -244,6 +246,11 @@ class Search_Form {
 	public function get_shortcode_atts( $atts = [], $options ) {
 		$defaults = array(
 			'show_title_subtitle'     => 'yes',
+			'show_popular_category'	  => get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : '',
+			'logged_in_user_only'     => '',
+			'redirect_page_url'       => '',
+			'directory_type'          => '',
+			'default_directory_type'  => '',
 			'search_bar_title'        => get_directorist_option( 'search_title', __( 'Search here', 'directorist' ) ),
 			'search_bar_sub_title'    => get_directorist_option( 'search_subtitle', __( 'Find the best match of your interest', 'directorist' ) ),
 			'search_button'           => get_directorist_option( 'search_button', 1 ) ? 'yes' : '',
@@ -254,12 +261,8 @@ class Search_Form {
 			'apply_filters_button'    => in_array( ['apply_button', 'search_apply_filters'], $options['search_filters'] ) ? 'yes' : '',
 			'reset_filters_text'      => $options['reset_filters_text'],
 			'apply_filters_text'      => $options['apply_filters_text'],
-			'logged_in_user_only'     => '',
-			'redirect_page_url'       => '',
 			'more_filters_display'    => $options['open_filter_fields'],
-			'directory_type'          => '',
-			'default_directory_type'  => '',
-			'show_popular_category'	  => get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : ''
+
 		);
 
 		return shortcode_atts( $defaults, $atts );

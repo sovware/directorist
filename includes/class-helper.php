@@ -690,10 +690,6 @@ class Helper {
 		return apply_filters( 'directorist_redirection_html', $html );
 	}
 
-	public static function get_one_value( $value1, $value2 ) {
-		return $value1 ? $value1 : $value2;
-	}
-
 	public static function add_hidden_data_to_dom( string $data_key = '', array $data = [] ) {
 
 		if ( empty( $data ) ) { return; }

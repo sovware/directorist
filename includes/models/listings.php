@@ -112,10 +112,8 @@ class Listings {
 
 		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
-		$view = get_directorist_option( 'default_listing_view', 'grid' );
-
 		$data = [
-			'view'                          => $shortcode_data['view'] ?: $view,
+			'view'                          => $shortcode_data['view'],
 			'orderby'                       => $shortcode_data['orderby'],
 			'order'                         => $shortcode_data['order'],
 			'listings_per_page'             => $shortcode_data['listings_per_page'],

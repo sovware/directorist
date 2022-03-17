@@ -42,7 +42,24 @@ import {
   uniFileCheck,
   uniCheckSquare,
   uniCircle,
-  uniFileUploadAlt
+  uniFileUploadAlt,
+  uniBill,
+  uniEye,
+  uniSubject,
+  uniMapMarker,
+  uniTagAlt,
+  uniFolderOpen,
+  uniMap,
+  uniMapPin,
+  uniPhone,
+  uniPrint,
+  uniEnvelope,
+  uniGlobe,
+  uniUserArrows,
+  uniImage,
+  uniVideo,
+  uniPostCard,
+  uniLocationPoint
 } from "vue-unicons/dist/icons";
 Unicon.add([
   uniText,
@@ -55,7 +72,24 @@ Unicon.add([
   uniFileCheck,
   uniCheckSquare,
   uniCircle,
-  uniFileUploadAlt
+  uniFileUploadAlt,
+  uniBill,
+  uniEye,
+  uniSubject,
+  uniMapMarker,
+  uniTagAlt,
+  uniFolderOpen,
+  uniMap,
+  uniMapPin,
+  uniPhone,
+  uniPrint,
+  uniEnvelope,
+  uniGlobe,
+  uniUserArrows,
+  uniImage,
+  uniVideo,
+  uniPostCard,
+  uniLocationPoint
 ]);
 Vue.use(Unicon);
 

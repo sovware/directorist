@@ -48,7 +48,7 @@
         >
           <pre>{{ widget.in_used }}</pre>
           <span class="cptm-form-builder-field-list-icon">
-            <span :class="widget.icon"></span>
+            <unicon :name="widget.icon"></unicon>
           </span>
           <span class="cptm-form-builder-field-list-label">
             {{ widget.label }}

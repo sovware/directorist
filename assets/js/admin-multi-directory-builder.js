@@ -18416,7 +18416,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a.add([vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniText"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTextFields"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uni0Plus"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLinkAdd"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCalender"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniClock"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPalette"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileCheck"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCheckSquare"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCircle"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileUploadAlt"]]);
+vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a.add([vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniText"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTextFields"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uni0Plus"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLinkAdd"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCalender"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniClock"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPalette"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileCheck"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCheckSquare"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCircle"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileUploadAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniBill"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEye"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniSubject"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapMarker"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTagAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFolderOpen"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMap"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapPin"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPhone"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPrint"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEnvelope"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniGlobe"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniUserArrows"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniImage"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniVideo"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPostCard"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLocationPoint"]]);
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-list-section-component",
@@ -33229,7 +33229,8 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "cptm-form-builder-field-list-icon" },
-                      [_c("span", { class: widget.icon })]
+                      [_c("unicon", { attrs: { name: widget.icon } })],
+                      1
                     ),
                     _vm._v(" "),
                     _c(

@@ -95,8 +95,8 @@ class Listings {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$this->data  = apply_filters( 'directorist_all_listings_data', $this->build_data( $args['shortcode_atts'] ), $args  );
-		$this->query = apply_filters( 'directorist_all_listings_query', $this->build_query( $args['query_args'] ), $args  );
+		$this->data  = apply_filters( 'directorist_all_listings_data', $this->build_data( $args['shortcode_atts'] ), $args );
+		$this->query = apply_filters( 'directorist_all_listings_query', $this->build_query( $args['query_args'] ), $args );
 	}
 
 

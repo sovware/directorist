@@ -170,7 +170,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }; // Send Request
 
 
-    axios.post(ajax_data.ajax_url, form_data).then(function (response) {
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       responseSuccessCallback(response);
     }).catch(function (response) {
       responseFaildCallback(response);
@@ -245,7 +245,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var self = this;
     form_feedback.html('');
-    axios.post(ajax_data.ajax_url, form_data).then(function (response) {
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       // console.log( { response } );
       $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none'); // Store term ID if exist
 

@@ -1559,7 +1559,7 @@ class Multi_Directory_Manager
                 'widgets' => apply_filters('atbdp_form_custom_widgets', [
                     'text' => [
                         'label' => 'Text',
-                        'icon' => 'uil uil-text',
+                        'icon' => 'text',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1610,7 +1610,7 @@ class Multi_Directory_Manager
 
                     'textarea' => [
                         'label' => 'Textarea',
-                        'icon' => 'uil uil-text-fields',
+                        'icon' => 'text-fields',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1666,7 +1666,7 @@ class Multi_Directory_Manager
 
                     'number' => [
                         'label' => 'Number',
-                        'icon' => 'uil uil-0-plus',
+                        'icon' => '0-plus',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1717,7 +1717,7 @@ class Multi_Directory_Manager
 
                     'url' => [
                         'label' => 'URL',
-                        'icon' => 'uil uil-link-add',
+                        'icon' => 'link-add',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1773,7 +1773,7 @@ class Multi_Directory_Manager
 
                     'date' => [
                         'label' => 'Date',
-                        'icon' => 'uil uil-calender',
+                        'icon' => 'calender',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1824,7 +1824,7 @@ class Multi_Directory_Manager
 
                     'time' => [
                         'label' => 'Time',
-                        'icon' => 'uil uil-clock',
+                        'icon' => 'clock',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1875,7 +1875,7 @@ class Multi_Directory_Manager
 
                     'color_picker' => [
                         'label' => 'Color',
-                        'icon' => 'uil uil-palette',
+                        'icon' => 'palette',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1921,7 +1921,7 @@ class Multi_Directory_Manager
 
                     'select' => [
                         'label' => 'Select',
-                        'icon' => 'uil uil-file-check',
+                        'icon' => 'file-check',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -1984,7 +1984,7 @@ class Multi_Directory_Manager
 
                     'checkbox' => [
                         'label' => 'Checkbox',
-                        'icon' => 'uil uil-check-square',
+                        'icon' => 'check-square',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -2046,7 +2046,7 @@ class Multi_Directory_Manager
 
                     'radio' => [
                         'label' => 'Radio',
-                        'icon' => 'uil uil-circle',
+                        'icon' => 'circle',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -2107,7 +2107,7 @@ class Multi_Directory_Manager
 
                     'file' => [
                         'label' => __( 'File Upload', 'directorist' ),
-                        'icon' => 'uil uil-file-upload-alt',
+                        'icon' => 'file-upload-alt',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',

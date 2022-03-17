@@ -10556,12 +10556,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   cursor: move;
 }
 
+.directorist-draggable-list-item-slot {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .cptm-form-builder-field-list-icon {
   display: inline-block;
   margin-right: 4px;
   width: 22px;
   font-size: 18px;
   color: #272b41;
+}
+.cptm-form-builder-field-list-icon svg {
+  width: 18px;
+  fill: #272b41;
 }
 
 .cptm-form-builder-field-list-label {
@@ -13760,12 +13775,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   cursor: move;
 }
 
+.directorist-draggable-list-item-slot {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .cptm-form-builder-field-list-icon {
   display: inline-block;
   margin-right: 4px;
   width: 22px;
   font-size: 18px;
   color: #272b41;
+}
+.cptm-form-builder-field-list-icon svg {
+  width: 18px;
+  fill: #272b41;
 }
 
 .cptm-form-builder-field-list-label {
@@ -16969,12 +16999,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   cursor: move;
 }
 
+.directorist-draggable-list-item-slot {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .cptm-form-builder-field-list-icon {
   display: inline-block;
   margin-right: 4px;
   width: 22px;
   font-size: 18px;
   color: #272b41;
+}
+.cptm-form-builder-field-list-icon svg {
+  width: 18px;
+  fill: #272b41;
 }
 
 .cptm-form-builder-field-list-label {

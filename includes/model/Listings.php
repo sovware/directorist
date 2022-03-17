@@ -1369,9 +1369,7 @@ class Directorist_Listings {
 			'use_def_lat_long'   => $this->options['use_def_lat_long'],
 		);
 
-		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
-
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
 			<?php

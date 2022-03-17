@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const self = this;
         form_feedback.html('');
 
-        axios.post(ajax_data.ajax_url, form_data)
+        axios.post(directorist_admin.ajax_url, form_data)
             .then(response => {
                 // console.log( { response } );
                 $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');

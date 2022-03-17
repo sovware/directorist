@@ -5808,7 +5808,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = 1;
+            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
         }
 
         return absint($paged);
@@ -6434,10 +6434,10 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_GET['sort'])) {
-        $order = sanitize_text_field($_GET['sort']);
-    } else if (isset($_GET['order'])) {
-        $order = sanitize_text_field($_GET['order']);
+    if (isset($_REQUEST['sort'])) {
+        $order = sanitize_text_field($_REQUEST['sort']);
+    } else if (isset($_REQUEST['order'])) {
+        $order = sanitize_text_field($_REQUEST['order']);
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);
@@ -6525,8 +6525,8 @@ function atbdp_get_listings_current_view_name($view)
 {
 
 
-    if (isset($_GET['view'])) {
-        $view = sanitize_text_field($_GET['view']);
+    if (isset($_REQUEST['view'])) {
+        $view = sanitize_text_field($_REQUEST['view']);
     }
 
     $allowed_views = array('list', 'grid', 'map');
@@ -8661,7 +8661,59 @@ function directorist_prepare_user_favorites( $favorites = array() ) {
 }
 
 /**
+ * Check if email notification is enabled and user can get notification for a specific event.
+ *
+ * @param string $event_name The name of the event.
+ * @param string $user_type user or admin
+ *
+ * @return bool
+ */
+function directorist_user_notifiable_for( $event_name = '', $user_type = '' ) {
+	if ( empty( $event_name ) || get_directorist_option( 'disable_email_notification' ) ) {
+		return false;
+	}
+
+	if ( empty( $user_type ) || ! in_array( $user_type, array( 'user', 'admin' ), true ) ) {
+		return false;
+	}
+
+	$user_type  = 'notify_' . (string) $user_type;
+	$event_name = (string) $event_name;
+	if ( ! in_array( $event_name, get_directorist_option( $user_type, array() ), true ) )  {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if admin can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return An array of user IDs.
+ */
+function directorist_admin_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'admin' );
+}
+
+/**
+ * Check if listing owner can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return bool
+ */
+function directorist_owner_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'user' );
+}
+
+/**
  * This function returns the meta key for the listing views count.
+ *
+ * @since 7.2.0
  *
  * @return string The meta key for the views count.
  */
@@ -8671,6 +8723,8 @@ function directorist_get_listing_views_count_meta_key() {
 
 /**
  * Get the number of views for a listing.
+ *
+ * @since 7.2.0
  *
  * @param int $listing_id The ID of the listing.
  *

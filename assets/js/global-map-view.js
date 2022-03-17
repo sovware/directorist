@@ -198,7 +198,8 @@ MarkerLabel.prototype.draw = function () {
   var defCordEnabled = atbdp_map.use_def_lat_long;
 
   function atbdp_rander_map($el) {
-    $el.addClass('atbdp-map-loaded'); // var
+    $el.addClass('atbdp-map-loaded');
+    var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // var
 
     var $markers = $el.find('.marker'); // vars
 
@@ -325,6 +326,7 @@ MarkerLabel.prototype.draw = function () {
 
 
   function atbdp_center_map(map, cord) {
+    var atbdp_map = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map');
     map.setCenter(cord);
     map.setZoom(parseInt(atbdp_map.zoom));
   }

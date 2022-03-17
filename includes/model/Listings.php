@@ -50,6 +50,7 @@ class Directorist_Listings {
 	public $map_zoom_level;
 	public $directory_type;
 	public $default_directory_type;
+	public $instant_search;
 
 	public $query;
 	public $loop;
@@ -130,7 +131,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search_result' ) {
+			if ( $this->type == 'search_result' || ! empty( $_GET ) ) {
 				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
@@ -202,6 +203,7 @@ class Directorist_Listings {
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
+		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
 	}
 
 	// update_search_options
@@ -255,7 +257,8 @@ class Directorist_Listings {
 			'map_height'               => $this->options['listings_map_height'],
 			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
 			'directory_type'	       => '',
-			'default_directory_type'   => ''
+			'default_directory_type'   => '',
+			'instant_search'   	   	   => $this->options['listing_instant_search'],
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -286,6 +289,7 @@ class Directorist_Listings {
 		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
+		$this->instant_search          = !empty( $this->params['instant_search'] ) ? $this->params['instant_search'] : '';
 	}
 
 	public function prepare_data() {
@@ -743,8 +747,8 @@ class Directorist_Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		if ( ! empty( $_GET['q'] ) ) {
-			$args['s'] = sanitize_text_field( $_GET['q'] );
+		if ( ! empty( $_REQUEST['q'] ) ) {
+			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
 		}
 
 		if ( $this->has_featured ) {
@@ -760,29 +764,29 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
-		if ( ! empty( $_GET['in_cat'] ) ) {
+		if ( ! empty( $_REQUEST['in_cat'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_GET['in_cat'] ),
+				'terms'            => wp_parse_id_list( $_REQUEST['in_cat'] ),
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $_GET['in_loc'] ) ) {
+		if ( ! empty( $_REQUEST['in_loc'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_GET['in_loc'] ),
+				'terms'            => wp_parse_id_list( $_REQUEST['in_loc'] ),
 				'include_children' => true,
 			);
 		}
 
-		if ( ! empty( $_GET['in_tag'] ) ) {
+		if ( ! empty( $_REQUEST['in_tag'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
 				'field'    => 'term_id',
-				'terms'    => wp_parse_id_list( $_GET['in_tag'] ),
+				'terms'    => wp_parse_id_list( $_REQUEST['in_tag'] ),
 			);
 		}
 
@@ -794,8 +798,8 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args( $args, $meta_queries );
 
-		if ( isset( $_GET['custom_field'] ) ) {
-			$custom_fields = array_filter( $_GET['custom_field'] );
+		if ( isset( $_REQUEST['custom_field'] ) ) {
+			$custom_fields = array_filter( $_REQUEST['custom_field'] );
 
 			foreach ( $custom_fields as $key => $values ) {
 				if ( is_array( $values ) ) {
@@ -828,8 +832,8 @@ class Directorist_Listings {
 			}
 		}
 
-		if ( ! empty( $_GET['price'] ) ) {
-			$price = array_filter( $_GET['price'] );
+		if ( ! empty( $_REQUEST['price'] ) ) {
+			$price = array_filter( $_REQUEST['price'] );
 
 			if ($n = count($price)) {
 				if ( 2 == $n ) {
@@ -859,32 +863,32 @@ class Directorist_Listings {
 			}
 		}
 
-		if ( ! empty( $_GET['price_range'] ) && 'none' !== $_GET['price_range'] ) {
+		if ( ! empty( $_REQUEST['price_range'] ) && 'none' !== $_REQUEST['price_range'] ) {
 			$meta_queries['_price_range'] = array(
 				'key'     => '_price_range',
-				'value'   => sanitize_text_field( $_GET['price_range'] ),
+				'value'   => sanitize_text_field( $_REQUEST['price_range'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['website'] ) ) {
+		if ( ! empty( $_REQUEST['website'] ) ) {
 			$meta_queries['_website'] = array(
 				'key'     => '_website',
-				'value'   => sanitize_text_field( $_GET['website'] ),
+				'value'   => sanitize_text_field( $_REQUEST['website'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['email'] ) ) {
+		if ( ! empty( $_REQUEST['email'] ) ) {
 			$meta_queries['_email'] = array(
 				'key'     => '_email',
-				'value'   => sanitize_text_field( $_GET['email'] ),
+				'value'   => sanitize_text_field( $_REQUEST['email'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['phone'] ) ) {
-			$phone = sanitize_text_field( $_GET['phone'] );
+		if ( ! empty( $_REQUEST['phone'] ) ) {
+			$phone = sanitize_text_field( $_REQUEST['phone'] );
 			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
@@ -900,41 +904,41 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( ! empty( $_GET['fax'] ) ) {
+		if ( ! empty( $_REQUEST['fax'] ) ) {
 			$meta_queries['_fax'] = array(
 				'key'     => '_fax',
-				'value'   => sanitize_text_field( $_GET['fax'] ),
+				'value'   => sanitize_text_field( $_REQUEST['fax'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['miles'] ) && ! empty( $_GET['cityLat'] ) && ! empty( $_GET['cityLng'] ) ) {
+		if ( ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_GET['cityLat'] ),
-				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
-				'distance'  => sanitize_text_field( $_GET['miles'] ),
+				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
+				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
+				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
 				'units'     => $this->radius_search_unit
 			);
-		} elseif ( ! empty($_GET['address']) ) {
+		} elseif ( ! empty($_REQUEST['address']) ) {
 			$meta_queries['_address'] = array(
 				'key'     => '_address',
-				'value'   => sanitize_text_field( $_GET['address'] ),
+				'value'   => sanitize_text_field( $_REQUEST['address'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['zip'] ) ) {
+		if ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
 				'key'     => '_zip',
-				'value'   => sanitize_text_field( $_GET['zip'] ),
+				'value'   => sanitize_text_field( $_REQUEST['zip'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if ( ! empty( $_GET['search_by_rating'] ) ) {
-			$rating_query = sanitize_text_field( $_GET['search_by_rating'] );
+		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
+			$rating_query = sanitize_text_field( $_REQUEST['search_by_rating'] );
 			$meta_queries['_rating'] = array(
 				'key'     => directorist_get_rating_field_meta_key(),
 				'value'   => absint( $rating_query ),
@@ -1121,8 +1125,8 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( isset( $_REQUEST['directory_type'] ) ) {
+			$current = $_REQUEST['directory_type'];
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
@@ -1279,7 +1283,7 @@ class Directorist_Listings {
 				_prime_post_caches( $listings->ids );
 			}
 
-			$original_post = $GLOBALS['post'];
+			$original_post = ! empty( $GLOBALS['post'] ) ? $GLOBALS['post'] : '';
 
 			foreach ( $listings->ids as $listings_id ) :
 				$GLOBALS['post'] = get_post( $listings_id );
@@ -1391,7 +1395,7 @@ class Directorist_Listings {
 					_prime_post_caches( $listings->ids );
 				}
 
-				$original_post = $GLOBALS['post'];
+				$original_post = ! empty( $GLOBALS['post'] ) ? $GLOBALS['post'] : '';
 
 				foreach ( $listings->ids as $listings_id ) :
 					$GLOBALS['post'] = get_post( $listings_id );
@@ -1614,6 +1618,61 @@ class Directorist_Listings {
 			$class  = apply_filters( 'directorist_loop_wrapper_class', $class, $this->current_listing_type );
 
 			return implode( ' ' , $class );
+		}
+
+		/**
+		 * Displays the class names for the listings wrapper element.
+		 *
+		 * @since 7.2.0
+		 *
+		 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+		 */
+		public function wrapper_class( $class = '' ) {
+			// Separates class names with a single space, collates class names for wrapper tag element.
+			echo 'class="' . esc_attr( implode( ' ', $this->get_wrapper_class( $class ) ) ) . '"';
+		}
+
+		/**
+		 * Retrieves an array of the class names for the listings wrapper element.
+		 *
+		 * @since 7.2.0
+		 *
+		 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+		 * @return string[] Array of class names.
+		 */
+		public function get_wrapper_class( $class = '' ) {
+			$classes = array(
+				'directorist-archive-contents',
+			);
+
+			if ( 'yes' === $this->instant_search ) {
+				$classes[] = 'directorist-instant-search';
+			}
+
+			if ( ! empty( $class ) ) {
+				if ( ! is_array( $class ) ) {
+					$class = preg_split( '#\s+#', $class );
+				}
+				$classes = array_merge( $classes, $class );
+			} else {
+				// Ensure that we always coerce class to being an array.
+				$class = array();
+			}
+
+			$classes = array_map( 'esc_attr', $classes );
+
+			/**
+			 * Filters the list of CSS listings wrapper class names for the wrapper.
+			 *
+			 * @since 7.2.0
+			 *
+			 * @param string[] $classes An array of listings wrapper class names.
+			 * @param string[] $class   An array of additional class names added to the listings wrapper.
+			 * @param object   $this    An instantce of Directorist_Listings
+			 */
+			$classes = apply_filters( 'directorist_listings_wrapper_class', $classes, $class, $this );
+
+			return array_unique( $classes );
 		}
 
 		public function loop_link_attr() {

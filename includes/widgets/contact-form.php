@@ -61,9 +61,10 @@ class Contact_Form extends \WP_Widget {
 
 			if ( $plan_permission && ! $hide_form ) {
 
-				if ( ! empty( $instance['title'] ) ) {
-					echo wp_kses_post( $args['before_title'] ) . apply_filters( 'widget_title', esc_html( $instance['title'] ) ) . wp_kses_post( $args['after_title'] );
-				}
+				$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact the listing owner', 'directorist');
+				echo '<div class="atbd_widget_title">';
+				echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+				echo '</div>';
 
 				Helper::get_template( 'widgets/contact-form', compact( 'args', 'instance', 'email' ) );
 

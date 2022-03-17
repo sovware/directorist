@@ -59,9 +59,10 @@ class Single_Map extends \WP_Widget {
 
 		echo wp_kses_post( $args['before_widget'] );
 
-		if ( ! empty( $instance['title'] ) ) {
-			echo wp_kses_post( $args['before_title'] ) . apply_filters( 'widget_title', esc_html( $instance['title'] ) ) . wp_kses_post( $args['after_title'] );
-		}
+		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
+		echo '<div class="atbd_widget_title">';
+		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo '</div>';
 
         $manual_lat = get_post_meta( get_the_ID(), '_manual_lat', true );
         $manual_lng = get_post_meta( get_the_ID(), '_manual_lng', true );

@@ -53,9 +53,10 @@ class Search_Form extends \WP_Widget {
 
 		echo wp_kses_post( $args['before_widget'] );
 
-		if ( ! empty( $instance['title'] ) ) {
-			echo wp_kses_post( $args['before_title'] ) . apply_filters( 'widget_title', esc_html( $instance['title'] ) ) . wp_kses_post( $args['after_title'] );
-		}
+		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Search', 'directorist');
+		echo '<div class="atbd_widget_title">';
+		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo '</div>';
 
         wp_enqueue_script( 'directorist-search-form-listing' );
         wp_enqueue_script( 'directorist-range-slider' );

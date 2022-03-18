@@ -120,7 +120,7 @@
                                                 <td class="directorist-type-slug">
                                                     <div class="directorist-type-slug-content">
                                                         <span class="directorist_listing-slug-text directorist-slug-text-<?php echo $listing_type->term_id; ?>" data-value="<?php echo ! empty( $listing_type->slug ) ? $listing_type->slug : '-'; ?>" contenteditable="false">
-                                                            <?php echo html_entity_decode( $listing_type->slug ); ?>
+                                                            <?php echo $listing_type->slug; ?>
                                                         </span>
                                                         <div class="directorist-listing-slug-edit-wrap">
                                                             <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>

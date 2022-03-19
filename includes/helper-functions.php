@@ -5808,7 +5808,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = 1;
+            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
         }
 
         return absint($paged);
@@ -6434,10 +6434,10 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_GET['sort'])) {
-        $order = sanitize_text_field($_GET['sort']);
-    } else if (isset($_GET['order'])) {
-        $order = sanitize_text_field($_GET['order']);
+    if (isset($_REQUEST['sort'])) {
+        $order = sanitize_text_field($_REQUEST['sort']);
+    } else if (isset($_REQUEST['order'])) {
+        $order = sanitize_text_field($_REQUEST['order']);
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);
@@ -6525,8 +6525,8 @@ function atbdp_get_listings_current_view_name($view)
 {
 
 
-    if (isset($_GET['view'])) {
-        $view = sanitize_text_field($_GET['view']);
+    if (isset($_REQUEST['view'])) {
+        $view = sanitize_text_field($_REQUEST['view']);
     }
 
     $allowed_views = array('list', 'grid', 'map');
@@ -7319,13 +7319,6 @@ function atbdp_can_overwrite_yoast()
 
 function atbdp_disable_overwrite_yoast() {
     atbdp_can_overwrite_yoast();
-}
-
-if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
-    function directorist_is_active_rankmath() {
-
-        return class_exists( 'RankMath' );
-    }
 }
 
 

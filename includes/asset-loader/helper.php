@@ -131,7 +131,7 @@ class Helper {
 			case 'builder-edit':
 				if ( $screen == 'at_biz_dir_page_atbdp-directory-types' ) {
 					// Multi-directory enabled
-					if ( !empty( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+					if ( !empty( $_GET['action'] ) && ( $_GET['action'] == 'edit' || $_GET['action'] == 'add_new' ) ) {
 						$status = true;
 					}
 				} elseif ( $screen == 'at_biz_dir_page_atbdp-layout-builder' ) {

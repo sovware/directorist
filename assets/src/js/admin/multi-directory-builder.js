@@ -11,7 +11,6 @@ import cpt_manager_component from './vue/apps/cpt-manager/CPT_Manager.vue';
 
 window.addEventListener('DOMContentLoaded', () => {
     const cpt_manager_el = document.getElementById('atbdp-cpt-manager');
-
     if (cpt_manager_el) {
         const encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
         let builderData = atob(encodedBuilderData);

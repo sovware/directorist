@@ -16179,6 +16179,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-unicons/dist/vue-unicons-vue2.umd */ "./node_modules/vue-unicons/dist/vue-unicons-vue2.umd.js");
+/* harmony import */ var vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-unicons/dist/icons */ "./node_modules/vue-unicons/dist/icons.js");
 //
 //
 //
@@ -16202,6 +16206,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+
+vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_1___default.a.add([vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_2__["uniExpandArrows"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_2__["uniCog"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_2__["uniTrashAlt"]]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "widget-action-tools",
   props: {
@@ -18452,7 +18461,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a.add([vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniText"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTextFields"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uni0Plus"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLinkAdd"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCalender"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniClock"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPalette"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileCheck"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCheckSquare"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCircle"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileUploadAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniBill"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEye"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniSubject"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapMarker"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTagAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFolderOpen"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMap"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapPin"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPhone"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPrint"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEnvelope"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniGlobe"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniUserArrows"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniImage"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniVideo"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPostCard"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLocationPoint"]]);
+vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a.add([vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniText"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTextFields"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uni0Plus"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLinkAdd"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCalender"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniClock"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPalette"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileCheck"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCheckSquare"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniCircle"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFileUploadAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniBill"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEye"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniSubject"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapMarker"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniTagAlt"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniFolderOpen"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMap"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniMapPin"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPhone"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPrint"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniEnvelope"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniGlobe"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniUserArrows"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniImage"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniVideo"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniPostcard"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLocationPoint"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniAlignLeft"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniAlignRight"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniSchedule"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniLink"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniQuestionCircle"], vue_unicons_dist_icons__WEBPACK_IMPORTED_MODULE_4__["uniToggleOn"]]);
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_unicons_dist_vue_unicons_vue2_umd__WEBPACK_IMPORTED_MODULE_3___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-list-section-component",
@@ -33188,7 +33197,8 @@ var render = function() {
               }
             }
           },
-          [_c("span", { staticClass: "uil uil-expand-arrows" })]
+          [_c("unicon", { attrs: { name: "expand-arrows" } })],
+          1
         )
       : _vm._e(),
     _vm._v(" "),
@@ -33204,7 +33214,8 @@ var render = function() {
               }
             }
           },
-          [_c("span", { staticClass: "uil uil-cog" })]
+          [_c("unicon", { attrs: { name: "cog" } })],
+          1
         )
       : _vm._e(),
     _vm._v(" "),
@@ -33220,7 +33231,8 @@ var render = function() {
               }
             }
           },
-          [_c("span", { staticClass: "fa fa-trash-alt" })]
+          [_c("unicon", { attrs: { name: "trash-alt" } })],
+          1
         )
       : _vm._e()
   ])

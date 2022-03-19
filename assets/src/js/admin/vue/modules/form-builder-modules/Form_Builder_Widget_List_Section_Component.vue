@@ -14,10 +14,10 @@
         @drag-end="$emit('drag-end', { widget_key, widget })"
       >
         <span class="cptm-form-builder-field-list-icon">
-          <unicon
+          <span
             v-if="widget.icon && widget.icon.length"
-            :name="widget.icon"
-          ></unicon>
+            :class="widget.icon"
+          ></span>
         </span>
         <span class="cptm-form-builder-field-list-label">{{
           widget.label
@@ -28,70 +28,7 @@
 </template>
 
 <script>
-import Vue from "vue";
 import helpers from "../../mixins/helpers";
-import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
-import {
-  uniText,
-  uniTextFields,
-  uni0Plus,
-  uniLinkAdd,
-  uniCalender,
-  uniClock,
-  uniPalette,
-  uniFileCheck,
-  uniCheckSquare,
-  uniCircle,
-  uniFileUploadAlt,
-  uniBill,
-  uniEye,
-  uniSubject,
-  uniMapMarker,
-  uniTagAlt,
-  uniFolderOpen,
-  uniMap,
-  uniMapPin,
-  uniPhone,
-  uniPrint,
-  uniEnvelope,
-  uniGlobe,
-  uniUserArrows,
-  uniImage,
-  uniVideo,
-  uniPostCard,
-  uniLocationPoint
-} from "vue-unicons/dist/icons";
-Unicon.add([
-  uniText,
-  uniTextFields,
-  uni0Plus,
-  uniLinkAdd,
-  uniCalender,
-  uniClock,
-  uniPalette,
-  uniFileCheck,
-  uniCheckSquare,
-  uniCircle,
-  uniFileUploadAlt,
-  uniBill,
-  uniEye,
-  uniSubject,
-  uniMapMarker,
-  uniTagAlt,
-  uniFolderOpen,
-  uniMap,
-  uniMapPin,
-  uniPhone,
-  uniPrint,
-  uniEnvelope,
-  uniGlobe,
-  uniUserArrows,
-  uniImage,
-  uniVideo,
-  uniPostCard,
-  uniLocationPoint
-]);
-Vue.use(Unicon);
 
 export default {
   name: "form-builder-widget-list-section-component",

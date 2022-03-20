@@ -208,7 +208,7 @@ class Init {
 		}
 	}
 
-	public function admin_scripts( $page = '' ) {
+	public function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
@@ -237,23 +237,17 @@ class Init {
 		} elseif ( Helper::is_admin_page( 'extensions' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
-
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
-		}  elseif ( Helper::is_admin_page( 'plugins' ) ) {
-			// @todo
+		} elseif ( Helper::is_admin_page( 'plugins' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
-
-			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-plugins' );
+		} elseif ( Helper::is_admin_page( 'taxonomy' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
-
-			// Enqueue::map_styles();
-			// Enqueue::admin_scripts( $page );
-		} else {
-			// Enqueue::map_styles();
-			// Enqueue::admin_scripts( $page );
+			wp_enqueue_style( 'directorist-select2-style' );
+			wp_enqueue_script( 'directorist-select2-script' );
 		}
 
 	}

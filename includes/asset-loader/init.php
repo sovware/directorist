@@ -204,7 +204,6 @@ class Init {
 			case 'payment/transaction-failure':
 				wp_enqueue_script( 'directorist-checkout' );
 				break;
-
 		}
 	}
 

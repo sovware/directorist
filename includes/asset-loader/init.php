@@ -204,43 +204,50 @@ class Init {
 			case 'payment/transaction-failure':
 				wp_enqueue_script( 'directorist-checkout' );
 				break;
-
 		}
 	}
 
-	public function admin_scripts( $page = '' ) {
-		/**
-		 * @todo
-		 *  1. Remove select2 reference from admin script
-		 * 	2. Make sure that all scripts are under doc.ready/other events. [directorist-tooltip makes error]
-		 *  3. Use fontawesome here instead of lineawesome https://prnt.sc/AaRTsvKk9Lix
-		 *  4. Remove unicon here, use svg instead: https://prnt.sc/eNJSVozEPlKR
-		 * 	5. Rename admin-multi-directory-archive.js => admin-builder-archive.js
-		 * 	6. Use 'directorist_admin' for localized data
-		 *
-		 */
+	public function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
-			wp_enqueue_style( 'directorist-font-awesome' );
-
-			wp_enqueue_script( 'directorist-tooltip' );
-			wp_enqueue_script( 'directorist-admin-builder-archive' );
-
 			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-admin-builder-archive' );
+			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();
-			wp_enqueue_style( 'directorist-font-awesome' );
-			wp_enqueue_style( 'directorist-admin-style' );
 		} elseif ( Helper::is_admin_page( 'settings' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-settings-manager' );
 			wp_enqueue_media();
-		} else {
-			Enqueue::map_styles();
-			Enqueue::admin_scripts( $page );
+		} elseif ( Helper::is_admin_page( 'support' ) ) {
+			// @todo remove lineawesome dependency
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-tooltip' );
+		} elseif ( Helper::is_admin_page( 'extensions' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-tooltip' );
+		} elseif ( Helper::is_admin_page( 'plugins' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-plugins' );
+		} elseif ( Helper::is_admin_page( 'taxonomy' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-tooltip' );
+			wp_enqueue_style( 'directorist-select2-style' );
+			wp_enqueue_script( 'directorist-select2-script' );
+			wp_enqueue_style( 'directorist-line-awesome' );
+			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_media();
 		}
 
 	}

@@ -462,6 +462,10 @@ p.status:empty {
   border-color: #ececec;
 }
 
+.taxonomy-at_biz_dir-category .select2-container--open .select2-dropdown--above {
+  top: 0;
+}
+
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
   outline: 0;
 }

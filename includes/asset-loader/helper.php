@@ -119,7 +119,7 @@ class Helper {
 	public static function is_admin_page( $page ) {
 		$status = false;
 		$screen = get_current_screen()->base;
-		e_var_dump($screen);
+		// e_var_dump($screen);
 
 		switch ( $page ) {
 
@@ -178,6 +178,12 @@ class Helper {
 
 			case 'plugins':
 				if ( $screen == 'plugins' ) {
+					$status = true;
+				}
+				break;
+
+			case 'import_export':
+				if ( $screen == 'at_biz_dir_page_tools' ) {
 					$status = true;
 				}
 				break;

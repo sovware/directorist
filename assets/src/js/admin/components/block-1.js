@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return selected.text;
         }
         const $elem = $(
-            `<span><span class='${atbdp_admin_data.icon_type} ${selected.element.value}'></span> ${selected.text
+            `<span><span class='${directorist_admin.icon_type} ${selected.element.value}'></span> ${selected.text
         }</span>`
         );
         return $elem;
@@ -63,12 +63,12 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         /* Act on the event */
         swal({
-                title: atbdp_admin_data.i18n_text.confirmation_text,
-                text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                title: directorist_admin.i18n_text.confirmation_text,
+                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
-                confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
                 closeOnConfirm: false,
             },
             function (isConfirm) {
@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     // show success message
                     swal({
-                        title: atbdp_admin_data.i18n_text.deleted,
+                        title: directorist_admin.i18n_text.deleted,
                         // text: "Item has been deleted.",
                         type: 'success',
                         timer: 200,
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // redirect to import import_page_link
     $('#csv_import input[name="csv_import"]').on('change', function (event) {
         event.preventDefault();
-        window.location = atbdp_admin_data.import_page_link;
+        window.location = directorist_admin.import_page_link;
     });
 
     /* This function handles all ajax request */
@@ -148,14 +148,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if (arg && !ActionName) data = arg;
         // data = data ;
 
-        const n = data.search(atbdp_admin_data.nonceName);
+        const n = data.search(directorist_admin.nonceName);
         if (n < 0) {
-            data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
+            data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
         }
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data,
             beforeSend() {
                 jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(

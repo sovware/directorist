@@ -140,7 +140,7 @@ __webpack_require__.r(__webpack_exports__);
       var nonce = $(this).attr('data-nonce');
       $.ajax({
         type: 'post',
-        url: atbdp_admin_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: {
           action: 'atbdp_user_type_approved',
           _nonce: nonce,
@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
       var nonce = $(this).attr('data-nonce');
       $.ajax({
         type: 'post',
-        url: atbdp_admin_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: {
           action: 'atbdp_user_type_deny',
           _nonce: nonce,
@@ -199,7 +199,7 @@ window.addEventListener('DOMContentLoaded', function () {
       return selected.text;
     }
 
-    var $elem = $("<span><span class='".concat(atbdp_admin_data.icon_type, " ").concat(selected.element.value, "'></span> ").concat(selected.text, "</span>"));
+    var $elem = $("<span><span class='".concat(directorist_admin.icon_type, " ").concat(selected.element.value, "'></span> ").concat(selected.text, "</span>"));
     return $elem;
   }
 
@@ -255,12 +255,12 @@ window.addEventListener('DOMContentLoaded', function () {
     /* Act on the event */
 
     swal({
-      title: atbdp_admin_data.i18n_text.confirmation_text,
-      text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+      title: directorist_admin.i18n_text.confirmation_text,
+      text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
-      confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+      confirmButtonText: directorist_admin.i18n_text.confirm_delete,
       closeOnConfirm: false
     }, function (isConfirm) {
       if (isConfirm) {
@@ -278,7 +278,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }); // show success message
 
         swal({
-          title: atbdp_admin_data.i18n_text.deleted,
+          title: directorist_admin.i18n_text.deleted,
           // text: "Item has been deleted.",
           type: 'success',
           timer: 200,
@@ -318,7 +318,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
-    window.location = atbdp_admin_data.import_page_link;
+    window.location = directorist_admin.import_page_link;
   });
   /* This function handles all ajax request */
 
@@ -328,15 +328,15 @@ window.addEventListener('DOMContentLoaded', function () {
     if (arg) data = "".concat(arg, "&action=").concat(ActionName);
     if (arg && !ActionName) data = arg; // data = data ;
 
-    var n = data.search(atbdp_admin_data.nonceName);
+    var n = data.search(directorist_admin.nonceName);
 
     if (n < 0) {
-      data = "".concat(data, "&").concat(atbdp_admin_data.nonceName, "=").concat(atbdp_admin_data.nonce);
+      data = "".concat(data, "&").concat(directorist_admin.nonceName, "=").concat(directorist_admin.nonce);
     }
 
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: data,
       beforeSend: function beforeSend() {
         jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
@@ -399,7 +399,7 @@ window.addEventListener('DOMContentLoaded', function () {
       term_id: id,
       directory_type: directory_type ? directory_type : from_single_directory
     };
-    $.post(atbdp_admin_data.ajaxurl, data, function (response) {
+    $.post(directorist_admin.ajaxurl, data, function (response) {
       if (response) {
         var response = "<div class=\"form-group atbd_content_module\">\n                                <div class=\"atbdb_content_module_contents\">\n                                  ".concat(response, "\n                                </div>\n                              </div>");
         $('.atbdp_category_custom_fields').empty().append(response);
@@ -450,7 +450,7 @@ window.addEventListener('DOMContentLoaded', function () {
     term_id: id,
     directory_type: directory_type ? directory_type : from_single_directory
   };
-  $.post(atbdp_admin_data.ajaxurl, data, function (response) {
+  $.post(directorist_admin.ajaxurl, data, function (response) {
     if (response) {
       var response = "<div class=\"form-group atbd_content_module\">\n                              <div class=\"atbdb_content_module_contents\">\n                                ".concat(response, "\n                              </div>\n                            </div>");
       $('.atbdp_category_custom_fields').empty().append(response);
@@ -517,12 +517,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
-  placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+    $("#category_icon").select2({
+  placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-   /* Show and hide manual coordinate input field */
+    /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -586,12 +586,12 @@ window.addEventListener('DOMContentLoaded', function () {
     /* Act on the event */
 
     swal({
-      title: atbdp_admin_data.i18n_text.confirmation_text,
-      text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+      title: directorist_admin.i18n_text.confirmation_text,
+      text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
-      confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+      confirmButtonText: directorist_admin.i18n_text.confirm_delete,
       closeOnConfirm: false
     }, function (isConfirm) {
       if (isConfirm) {
@@ -609,7 +609,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }); // show success message
 
         swal({
-          title: atbdp_admin_data.i18n_text.deleted,
+          title: directorist_admin.i18n_text.deleted,
           // text: "Item has been deleted.",
           type: 'success',
           timer: 200,
@@ -667,7 +667,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'send_system_info',
         // calls wp_ajax_nopriv_ajaxlogin
@@ -700,7 +700,7 @@ window.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'generate_url',
         // calls wp_ajax_nopriv_ajaxlogin nonce: ()
@@ -720,7 +720,7 @@ window.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'revoke_url',
         // calls wp_ajax_nopriv_ajaxlogin
@@ -739,7 +739,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
-    window.location = atbdp_admin_data.import_page_link;
+    window.location = directorist_admin.import_page_link;
   });
   /* This function handles all ajax request */
 
@@ -749,15 +749,15 @@ window.addEventListener('DOMContentLoaded', function () {
     if (arg) data = "".concat(arg, "&action=").concat(ActionName);
     if (arg && !ActionName) data = arg; // data = data ;
 
-    var n = data.search(atbdp_admin_data.nonceName);
+    var n = data.search(directorist_admin.nonceName);
 
     if (n < 0) {
-      data = "".concat(data, "&").concat(atbdp_admin_data.nonceName, "=").concat(atbdp_admin_data.nonce);
+      data = "".concat(data, "&").concat(directorist_admin.nonceName, "=").concat(directorist_admin.nonce);
     }
 
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: data,
       beforeSend: function beforeSend() {
         jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
@@ -811,9 +811,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
     frame = wp.media({
-      title: atbdp_admin_data.i18n_text.upload_image,
+      title: directorist_admin.i18n_text.upload_image,
       button: {
-        text: atbdp_admin_data.i18n_text.choose_image
+        text: directorist_admin.i18n_text.choose_image
       },
       library: {
         type: 'image'
@@ -883,7 +883,7 @@ window.addEventListener('DOMContentLoaded', function () {
   delImgLink.on('click', function (event) {
     event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
-    $('.listing-img-container').html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
+    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
     delImgLink.addClass('hidden');
   });
@@ -894,7 +894,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).parent().remove(); // if no image exist then add placeholder and hide remove image button
 
     if ($('.single_attachment').length === 0) {
-      $('.listing-img-container').html("<img src=\"".concat(atbdp_admin_data.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
+      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
       delImgLink.addClass('hidden');
     }
   });
@@ -919,9 +919,9 @@ window.addEventListener('DOMContentLoaded', function () {
   $('.upload-header').on('click', function (element) {
     element.preventDefault();
     imageUpload = wp.media.frames.file_frame = wp.media({
-      title: atbdp_admin_data.i18n_text.select_prv_img,
+      title: directorist_admin.i18n_text.select_prv_img,
       button: {
-        text: atbdp_admin_data.i18n_text.insert_prv_img
+        text: directorist_admin.i18n_text.insert_prv_img
       }
     });
     imageUpload.open();
@@ -994,15 +994,15 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
-   title: atbdp_admin_data.i18n_text.upload_cat_image,
+   title: directorist_admin.i18n_text.upload_cat_image,
    button: {
-       text: atbdp_admin_data.i18n_text.choose_image
+       text: directorist_admin.i18n_text.choose_image
    },
    library: {type: 'image'}, // only allow image upload only
    multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -1139,7 +1139,7 @@ window.addEventListener('DOMContentLoaded', function () {
     announcement_is_sending = true;
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       processData: false,
       contentType: false,
@@ -1277,7 +1277,7 @@ window.addEventListener('DOMContentLoaded', function () {
   function admin_listing_form(directory_type) {
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'atbdp_dynamic_admin_listing_form',
         directory_type: directory_type,
@@ -1330,7 +1330,7 @@ window.addEventListener('DOMContentLoaded', function () {
     defaultSubmitDom.closest('.directorist_listing-actions').append("<span class=\"directorist_loader\"></span>");
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'atbdp_listing_default_type',
         type_id: $(this).data('type-id')
@@ -1381,9 +1381,9 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.upload-header').on('click', function (element) {
       element.preventDefault();
       imageUpload = wp.media.frames.file_frame = wp.media({
-        title: atbdp_admin_data.i18n_text.select_prv_img,
+        title: directorist_admin.i18n_text.select_prv_img,
         button: {
-          text: atbdp_admin_data.i18n_text.insert_prv_img
+          text: directorist_admin.i18n_text.insert_prv_img
         }
       });
       imageUpload.open();
@@ -1513,7 +1513,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   if ($('#category_icon').length) {
     $('#category_icon').select2({
-      placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+      placeholder: directorist_admin.i18n_text.icon_choose_text,
       allowClear: true,
       templateResult: selecWithIcon
     });
@@ -1613,7 +1613,7 @@ window.addEventListener('DOMContentLoaded', function () {
       addSlug.closest('.directorist-listing-slug-edit-wrap').append("<span class=\"directorist_loader\"></span>");
       $.ajax({
         type: 'post',
-        url: atbdp_admin_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: {
           action: 'directorist_type_slug_change',
           type_id: type_id,
@@ -1765,13 +1765,13 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_authenticate_the_customer',
       username: form.find('input[name="username"]').val(),
       password: form.find('input[name="password"]').val(),
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     $('.atbdp-form-feedback').html('');
     is_sending = true;
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>');
@@ -1953,11 +1953,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 action: 'atbdp_download_file',
                 download_item: file,
                 type: file_type,
-                nonce: atbdp_admin_data.nonce
+                nonce: directorist_admin.nonce
               };
               jQuery.ajax({
                 type: 'post',
-                url: atbdp_admin_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: form_data,
                 beforeSend: function beforeSend() {
                   icon_elm.removeClass('atbdp-text-danger');
@@ -2115,7 +2115,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var button_default_html = $(this).html();
     var form_data = {
       action: 'atbdp_update_plugins',
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
 
     if (plugin_key) {
@@ -2126,7 +2126,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var self = this;
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         var icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
@@ -2164,7 +2164,7 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_install_file_from_subscriptions',
       item_key: data_key,
       type: data_type,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     var btn_default_html = $(this).html();
     ext_is_installing = true;
@@ -2173,7 +2173,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).addClass('in-progress');
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).html('Installing');
@@ -2214,7 +2214,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var form_data = {
       action: 'atbdp_activate_plugin',
       item_key: data_key,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     var btn_default_html = $(this).html();
     var self = this;
@@ -2222,7 +2222,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).addClass('in-progress');
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).html('Activating');
@@ -2290,12 +2290,12 @@ window.addEventListener('DOMContentLoaded', function () {
     var form_data = {
       action: 'atbdp_refresh_purchase_status',
       password: password,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     form_feedback.html('');
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
@@ -2335,12 +2335,12 @@ window.addEventListener('DOMContentLoaded', function () {
     var form_data = {
       action: 'atbdp_close_subscriptions_sassion',
       hard_logout: hard_logout,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     var self = this;
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
@@ -2416,11 +2416,11 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_plugins_bulk_action',
       task: task,
       plugin_items: plugins_items,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
@@ -2561,11 +2561,11 @@ window.addEventListener('DOMContentLoaded', function () {
         action: form_action,
         item_key: current_item,
         type: 'plugin',
-        nonce: atbdp_admin_data.nonce
+        nonce: directorist_admin.nonce
       };
       jQuery.ajax({
         type: 'post',
-        url: atbdp_admin_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: form_data,
         beforeSend: function beforeSend() {
           action_btn.html("<span class=\"atbdp-icon\">\n                        <span class=\"fas fa-circle-notch fa-spin\"></span>\n                    </span> ".concat(btnLabelOnProgress[task]));
@@ -2602,13 +2602,13 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_plugins_bulk_action',
       task: 'uninstall',
       plugin_items: [data_target],
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     var self = this;
     uninstalling = true;
     jQuery.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
@@ -2687,13 +2687,13 @@ window.addEventListener('DOMContentLoaded', function () {
     var form_data = {
       action: 'atbdp_activate_theme',
       theme_stylesheet: data_target,
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
     var self = this;
     theme_is_activating = true;
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
@@ -2726,7 +2726,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var button_default_html = $(this).html();
     var form_data = {
       action: 'atbdp_update_theme',
-      nonce: atbdp_admin_data.nonce
+      nonce: directorist_admin.nonce
     };
 
     if (theme_stylesheet) {
@@ -2737,7 +2737,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).addClass('in-progress');
     $.ajax({
       type: 'post',
-      url: atbdp_admin_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
         $(self).html('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating');

@@ -34,9 +34,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Create a new media frame
         frame = wp.media({
-            title: atbdp_admin_data.i18n_text.upload_image,
+            title: directorist_admin.i18n_text.upload_image,
             button: {
-                text: atbdp_admin_data.i18n_text.choose_image,
+                text: directorist_admin.i18n_text.choose_image,
             },
             library: {
                 type: 'image'
@@ -117,7 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         // Clear out the preview image and set no image as placeholder
         $('.listing-img-container').html(
-            `<img src="${atbdp_admin_data.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
+            `<img src="${directorist_admin.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
         );
         // Hide the delete image link
         delImgLink.addClass('hidden');
@@ -132,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // if no image exist then add placeholder and hide remove image button
         if ($('.single_attachment').length === 0) {
             $('.listing-img-container').html(
-                `<img src="${atbdp_admin_data.AdminAssetPath
+                `<img src="${directorist_admin.AdminAssetPath
             }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
                 `<small>(allowed formats jpeg. png. gif)</small>`
             );
@@ -163,9 +163,9 @@ window.addEventListener('DOMContentLoaded', () => {
         element.preventDefault();
 
         imageUpload = wp.media.frames.file_frame = wp.media({
-            title: atbdp_admin_data.i18n_text.select_prv_img,
+            title: directorist_admin.i18n_text.select_prv_img,
             button: {
-                text: atbdp_admin_data.i18n_text.insert_prv_img,
+                text: directorist_admin.i18n_text.insert_prv_img,
             },
         });
         imageUpload.open();
@@ -252,9 +252,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Create a new media frame
     frame = wp.media({
-     title: atbdp_admin_data.i18n_text.upload_cat_image,
+     title: directorist_admin.i18n_text.upload_cat_image,
      button: {
-         text: atbdp_admin_data.i18n_text.choose_image
+         text: directorist_admin.i18n_text.choose_image
      },
      library: {type: 'image'}, // only allow image upload only
      multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -423,7 +423,7 @@ window.addEventListener('DOMContentLoaded', () => {
         announcement_is_sending = true;
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             processData: false,
             contentType: false,
@@ -586,7 +586,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
     function admin_listing_form(directory_type) {
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'atbdp_dynamic_admin_listing_form',
                 directory_type: directory_type,
@@ -662,7 +662,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             .append(`<span class="directorist_loader"></span>`);
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'atbdp_listing_default_type',
                 type_id: $(this).data('type-id'),
@@ -725,9 +725,9 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             element.preventDefault();
 
             imageUpload = wp.media.frames.file_frame = wp.media({
-                title: atbdp_admin_data.i18n_text.select_prv_img,
+                title: directorist_admin.i18n_text.select_prv_img,
                 button: {
-                    text: atbdp_admin_data.i18n_text.insert_prv_img,
+                    text: directorist_admin.i18n_text.insert_prv_img,
                 },
             });
             imageUpload.open();

@@ -136,7 +136,7 @@
                                                 ?></td>
                                                 <td>
                                                     <div class="directorist_listing-actions">
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
+                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="fa fa-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
                                                         <?php
                                                         if( ! $default ) {  ?>
                                                             <div class="directorist_more-dropdown">
@@ -159,7 +159,7 @@
                                                                         </li>
                                                                         <li>
                                                                             <a href="#" class="cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo $delete_link; ?>" data-target="cptm-delete-directory-modal">
-                                                                                <i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
+                                                                                <i class="fa fa-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
                                                                             </a>
                                                                         </li>
                                                                     </ul>

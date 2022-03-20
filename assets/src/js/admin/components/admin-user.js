@@ -7,7 +7,7 @@
             var nonce = $(this).attr('data-nonce');
             $.ajax({
                 type: 'post',
-                url: atbdp_admin_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: {
                     action: 'atbdp_user_type_approved',
                     _nonce: nonce,
@@ -30,7 +30,7 @@
             var nonce = $(this).attr('data-nonce');
             $.ajax({
                 type: 'post',
-                url: atbdp_admin_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: {
                     action: 'atbdp_user_type_deny',
                     _nonce: nonce,

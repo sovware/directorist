@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
             action: 'atbdp_authenticate_the_customer',
             username: form.find('input[name="username"]').val(),
             password: form.find('input[name="password"]').val(),
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
         };
 
         $('.atbdp-form-feedback').html('');
@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
         is_sending = true;
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 submit_button.prepend(
@@ -265,12 +265,12 @@ window.addEventListener('DOMContentLoaded', () => {
                                 action: 'atbdp_download_file',
                                 download_item: file,
                                 type: file_type,
-                                nonce: atbdp_admin_data.nonce,
+                                nonce: directorist_admin.nonce,
 
                             };
                             jQuery.ajax({
                                 type: 'post',
-                                url: atbdp_admin_data.ajaxurl,
+                                url: directorist_admin.ajaxurl,
                                 data: form_data,
                                 beforeSend() {
                                     icon_elm.removeClass('atbdp-text-danger');
@@ -446,7 +446,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const form_data = {
             action: 'atbdp_update_plugins',
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -460,7 +460,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 const icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
@@ -501,7 +501,7 @@ window.addEventListener('DOMContentLoaded', () => {
             action: 'atbdp_install_file_from_subscriptions',
             item_key: data_key,
             type: data_type,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
         const btn_default_html = $(this).html();
@@ -513,7 +513,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).html('Installing');
@@ -559,7 +559,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const form_data = {
             action: 'atbdp_activate_plugin',
             item_key: data_key,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
         const btn_default_html = $(this).html();
@@ -570,7 +570,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).html('Activating');
@@ -665,7 +665,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const form_data = {
             action: 'atbdp_refresh_purchase_status',
             password,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -673,7 +673,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
@@ -722,7 +722,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const form_data = {
             action: 'atbdp_close_subscriptions_sassion',
             hard_logout,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -730,7 +730,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
@@ -815,13 +815,13 @@ window.addEventListener('DOMContentLoaded', () => {
             action: 'atbdp_plugins_bulk_action',
             task,
             plugin_items: plugins_items,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self)
@@ -1025,13 +1025,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 action: form_action,
                 item_key: current_item,
                 type: 'plugin',
-                nonce: atbdp_admin_data.nonce,
+                nonce: directorist_admin.nonce,
 
             };
 
             jQuery.ajax({
                 type: 'post',
-                url: atbdp_admin_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: form_data,
                 beforeSend() {
                     action_btn.html(
@@ -1075,7 +1075,7 @@ window.addEventListener('DOMContentLoaded', () => {
             action: 'atbdp_plugins_bulk_action',
             task: 'uninstall',
             plugin_items: [data_target],
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -1084,7 +1084,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         jQuery.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).prepend(
@@ -1185,7 +1185,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const form_data = {
             action: 'atbdp_activate_theme',
             theme_stylesheet: data_target,
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -1194,7 +1194,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).prepend(
@@ -1234,7 +1234,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const button_default_html = $(this).html();
         const form_data = {
             action: 'atbdp_update_theme',
-            nonce: atbdp_admin_data.nonce,
+            nonce: directorist_admin.nonce,
 
         };
 
@@ -1247,7 +1247,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         $.ajax({
             type: 'post',
-            url: atbdp_admin_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: form_data,
             beforeSend() {
                 $(self).html(

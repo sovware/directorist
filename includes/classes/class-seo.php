@@ -71,6 +71,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
         // Add Rank Math Compatibility
         public function add_rankmath_compatibility() {
+            add_filter( 'the_title', array( $this, 'update_taxonomy_page_title' ), 10, 2 );
+			add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
+			add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
+
             add_filter( 'rank_math/frontend/title', [ $this, 'optimize_rankmath_frontend_meta_title' ], 20, 1 );
             add_filter( 'rank_math/frontend/description', [ $this, 'optimize_rankmath_frontend_meta_description' ], 20, 1);
         }
@@ -85,7 +89,8 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 				return $content;
 			}
 
-			$current_page_title = get_the_title();
+            $current_page        = get_post();
+			$current_page_title  = $current_page->post_title;
 			$taxonomy_page_title = str_replace( $current_page_title, $term['name'], $content );
 
 			return $taxonomy_page_title;

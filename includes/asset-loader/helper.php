@@ -147,7 +147,7 @@ class Helper {
 				break;
 
 			case 'add_listing':
-				if ( $screen == 'post.php' || $screen == 'post-new.php' ) {
+				if ( $screen == 'post' ) {
 					if ( get_post_type( get_the_ID() ) === 'at_biz_dir' ) {
 						$status = true;
 					}
@@ -155,7 +155,7 @@ class Helper {
 				break;
 
 			case 'taxonomy':
-				if ( $screen == 'term.php' || $screen == 'edit-tags.php' ) {
+				if ( $screen == 'term' || $screen == 'edit-tags' ) {
 					$taxonomies   = [ 'at_biz_dir-category', 'at_biz_dir-location', 'at_biz_dir-tags' ];
 					if ( isset( $_GET['taxonomy'] ) && in_array( $_GET['taxonomy'], $taxonomies ) ) {
 						$status = true;
@@ -176,7 +176,7 @@ class Helper {
 				break;
 
 			case 'plugins':
-				if ( $screen == 'plugins.php' ) {
+				if ( $screen == 'plugins' ) {
 					$status = true;
 				}
 				break;

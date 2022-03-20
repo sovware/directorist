@@ -119,6 +119,7 @@ class Helper {
 	public static function is_admin_page( $page ) {
 		$status = false;
 		$screen = get_current_screen()->base;
+		e_var_dump($screen);
 
 		switch ( $page ) {
 

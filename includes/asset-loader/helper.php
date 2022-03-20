@@ -145,6 +145,41 @@ class Helper {
 					$status = true;
 				}
 				break;
+
+			case 'add_listing':
+				if ( $screen == 'post.php' || $screen == 'post-new.php' ) {
+					if ( get_post_type( get_the_ID() ) === 'at_biz_dir' ) {
+						$status = true;
+					}
+				}
+				break;
+
+			case 'taxonomy':
+				if ( $screen == 'term.php' || $screen == 'edit-tags.php' ) {
+					$taxonomies   = [ 'at_biz_dir-category', 'at_biz_dir-location', 'at_biz_dir-tags' ];
+					if ( isset( $_GET['taxonomy'] ) && in_array( $_GET['taxonomy'], $taxonomies ) ) {
+						$status = true;
+					}
+				}
+				break;
+
+			case 'support':
+				if ( $screen == 'at_biz_dir_page_directorist-status' ) {
+					$status = true;
+				}
+				break;
+
+			case 'extensions':
+				if ( $screen == 'at_biz_dir_page_atbdp-extension' ) {
+					$status = true;
+				}
+				break;
+
+			case 'plugins':
+				if ( $screen == 'plugins.php' ) {
+					$status = true;
+				}
+				break;
 		}
 
 		return $status;

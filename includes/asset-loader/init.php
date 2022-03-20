@@ -254,6 +254,7 @@ class Init {
 			wp_enqueue_script( 'directorist-import-export' );
 		} elseif ( Helper::is_admin_page( 'add_listing' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-plupload' );
 			wp_enqueue_script( 'directorist-select2-script' );
 			wp_enqueue_script( 'directorist-add-listing' );

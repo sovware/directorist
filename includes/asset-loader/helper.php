@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Helper {
 
 	public static function debug_enabled() {
-		return get_directorist_option('script_debugging', false, true );
+		return get_directorist_option( 'script_debugging', false, true );
 	}
 
 	public static function register_single_script( $handle, $script, $version ) {

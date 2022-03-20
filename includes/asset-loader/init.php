@@ -248,6 +248,18 @@ class Init {
 			wp_enqueue_style( 'directorist-line-awesome' );
 			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_media();
+		} elseif ( Helper::is_admin_page( 'add_listing' ) ) {
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-plupload' );
+			wp_enqueue_script( 'directorist-select2-script' );
+			wp_enqueue_script( 'directorist-add-listing' );
+			wp_enqueue_media();
+
+			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
+			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
+
+			Enqueue::map_styles();
+			Enqueue::icon_styles();
 		}
 
 	}

@@ -9,9 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Enqueue {
 
-    use Enqueue_Widgets;
-    use Enqueue_Admin;
-
     public static function single_listing() {
 
 		wp_enqueue_script( 'directorist-main' );

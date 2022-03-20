@@ -424,22 +424,11 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
-		$this->autoload( ATBDP_INC_DIR . 'asset-loader/traits/' );
 		$this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
 
 		self::require_files([
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
-			// ATBDP_INC_DIR . 'asset-loader/asset-loader-utility',
-			// ATBDP_INC_DIR . 'asset-loader/asset-loader-base',
-			// ATBDP_INC_DIR . 'asset-loader/scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/localized-data-loader',
-			// ATBDP_INC_DIR . 'asset-loader/map-scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/shortcode-scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/widget-scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/public-scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/admin-scripts-loader',
-			// ATBDP_INC_DIR . 'asset-loader/asset-loader',
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',

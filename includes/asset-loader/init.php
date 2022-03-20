@@ -247,6 +247,7 @@ class Init {
 			wp_enqueue_script( 'directorist-select2-script' );
 			wp_enqueue_style( 'directorist-line-awesome' );
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_media();
 		}
 
 	}

@@ -105,7 +105,6 @@ class Directorist_Listings {
 	public $display_address_field;
 	public $display_phone_field;
 	public $display_readmore;
-	public $address_location;
 	public $excerpt_limit;
 	public $use_def_lat_long;
 	public $display_map_info;
@@ -171,7 +170,6 @@ class Directorist_Listings {
 		$this->options['display_view_as']                 = get_directorist_option( 'display_view_as', 1 );
 		$this->options['grid_view_as']                    = get_directorist_option( 'grid_view_as', 'normal_grid' );
 		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
-		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->options['listings_category_placeholder']   = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->options['listings_location_placeholder']   = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
@@ -185,7 +183,6 @@ class Directorist_Listings {
 		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
 		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
 		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
 		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
 		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;
@@ -200,7 +197,6 @@ class Directorist_Listings {
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
-		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
@@ -215,7 +211,6 @@ class Directorist_Listings {
 		$this->options['listings_display_filter']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_location_address']        = get_directorist_option( 'sresult_location_address', 'map_api' );
-		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
 		$this->options['listings_category_placeholder']   = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->options['listings_location_placeholder']   = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
@@ -302,7 +297,6 @@ class Directorist_Listings {
 		$this->average_review_for_popular  = $this->options['average_review_for_popular'];
 		$this->view_to_popular             = $this->options['views_for_popular'];
 		$this->radius_search_unit          = $this->options['radius_search_unit'];
-		$this->default_radius_distance     = $this->options['listing_default_radius_distance'];
 		$this->select_listing_map          = $this->options['select_listing_map'];
 		$this->filters_display             = $this->options['listings_display_filter'];
 		$this->search_more_filters_fields  = $this->options['listing_filters_fields'];

@@ -517,7 +517,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
         admin_listing_form(directory_type);
     }
 
-    const localized_data = atbdp_public_data.add_listing_data;
+    const localized_data = directorist_admin.add_listing_data;
     $('body').on('change', 'select[name="directory_type"]', function () {
         $(this)
             .parent('.inside')

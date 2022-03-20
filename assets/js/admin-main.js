@@ -1209,7 +1209,7 @@ window.addEventListener('DOMContentLoaded', function () {
     admin_listing_form(directory_type);
   }
 
-  var localized_data = atbdp_public_data.add_listing_data;
+  var localized_data = directorist_admin.add_listing_data;
   $('body').on('change', 'select[name="directory_type"]', function () {
     $(this).parent('.inside').append("<span class=\"directorist_loader\"></span>");
     admin_listing_form($(this).val());

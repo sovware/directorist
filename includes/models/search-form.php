@@ -80,7 +80,7 @@ class Search_Form {
 	}
 
 	public function display_apply_filter_button() {
-		$this->data['apply_filters_button'] == 'yes' ? true : false;
+		return $this->data['apply_filters_button'] == 'yes' ? true : false;
 	}
 
 	public function dispaly_popular_categories() {

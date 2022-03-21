@@ -4227,6 +4227,7 @@ input.atbdp-form-control {
   }
   .directorist_membership-notice__content {
     display: flex;
+    align-items: center;
     @media only screen and (max-width: 1199px) {
       flex-direction: column;
     }
@@ -4242,13 +4243,10 @@ input.atbdp-form-control {
       text-align: center;
     }
     img {
-      max-width: 172px;
+      max-width: 140px;
+      height: 140px;
       border-radius: 14px;
       margin-right: 30px;
-      @media only screen and (max-width: 1499px) {
-        max-width: 140px;
-        height: 140px;
-      }
       @media only screen and (max-width: 1399px) {
         max-width: 130px;
         height: 130px;
@@ -4269,9 +4267,9 @@ input.atbdp-form-control {
     .directorist_membership-notice__text {
       color: #fff;
       h4 {
-        font-size: 30px;
+        font-size: 24px;
         font-weight: bold;
-        margin: 10px 0 8px;
+        margin: 4px 0 8px;
         @media only screen and (max-width: 1499px) {
           font-size: 22px;
         }
@@ -4281,19 +4279,16 @@ input.atbdp-form-control {
         }
       }
       p {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 500;
         max-width: 350px;
         margin-bottom: 12px;
         color: #ffffff90;
-        @media only screen and (max-width: 1499px) {
-          font-size: 16px;
-        }
       }
       .directorist_membership-sale-badge {
         display: inline-flex;
         align-items: center;
-        font-size: 25px;
+        font-size: 20px;
         font-weight: bold;
         min-height: 47px;
         line-height: 1.95;
@@ -4337,7 +4332,7 @@ input.atbdp-form-control {
     align-items: center;
     line-height: 1;
     width: 50%;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: #fff;
     margin: 8px 0;
@@ -4351,13 +4346,15 @@ input.atbdp-form-control {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background-color: #f8d633;
       margin-right: 12px;
       i {
-        font-size: 12px;
+        position: relative;
+        top: 2px;
+        font-size: 11px;
         color: #000;
       }
     }
@@ -4377,7 +4374,7 @@ input.atbdp-form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #000;
     min-height: 52px;

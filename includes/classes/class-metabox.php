@@ -58,7 +58,7 @@ class ATBDP_Metabox {
 		$required_script_src = [];
 
 		$map_type = get_directorist_option('select_listing_map', 'openstreet');
-		$script_name = ( 'openstreet' === $map_type ) ? 'global-add-listing-openstreet-map-custom-script' : 'global-add-listing-gmap-custom-script';
+		$script_name = ( 'openstreet' === $map_type ) ? 'openstreet-map' : 'google-map';
 
 		$is_enabled_script_debugging = get_directorist_option( 'script_debugging', false, true );
 		$ext = $is_enabled_script_debugging ? '.js' : '.min.js';

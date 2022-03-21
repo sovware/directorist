@@ -755,7 +755,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Apply button active status - My extension form
     var extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
     var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]');
-    console.log(extFormActionSelect);
+    //console.log(extFormActionSelect);
     extFormCheckboxes.forEach(function (elm) {
         var thisClosest = elm.closest('form');
         var bulkAction = thisClosest.querySelector('.ei-action-dropdown select');

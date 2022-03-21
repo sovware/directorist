@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 
-	<div class="directorist-form-group">
+	<div class="directorist-form-group directorist-zipcode-search">
 		<input class="<?php echo esc_attr( $searchform->zip_code_class() ); ?>" type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
-		<div class="directorist-country" style="display: none"></div>
+		<div class="directorist-country directorist-search-country" style="display: none"></div>
 		<input type="hidden" id="zip-cityLat" name="zip-cityLat" value="" />
 		<input type="hidden" id="zip-cityLng" name="zip-cityLng" value="" />
 	</div>

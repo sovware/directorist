@@ -44,7 +44,6 @@ class Search_Form {
 
 	public $atts;
 
-	public $directory_type;
 
 	private function __construct() {
 
@@ -164,17 +163,20 @@ class Search_Form {
 		$this->source = $args['source'];
 		$this->data   = apply_filters( 'directorist_search_form_data', $this->build_data( $args['shortcode_atts'] ), $args );
 
-
-		$this->current_directory_type = $this->get_current_directory_type( $args['current_directory_type'] );
-
+		$this->current_directory_type = $this->build_current_directory_type( $args['current_directory_type'] );
 		$this->form_data = $this->build_form_data();
 	}
 
-	public function get_default_listing_type() {
+	public function get_current_directory_type() {
 		return $this->current_directory_type;
 	}
 
-	public function get_current_directory_type( $directory_type = '' ) {
+	public function get_default_listing_type() {
+		// deprecated
+		return $this->current_directory_type;
+	}
+
+	public function build_current_directory_type( $directory_type = '' ) {
 		if ( $directory_type ) {
 			// For Listings and Search result page
 			$type = $directory_type;
@@ -229,7 +231,7 @@ class Search_Form {
 	}
 
 	public function reset_data() {
-		// $this->setup_data();
+		$this->setup_data();
 	}
 
 	private function build_data( $shortcode_atts ) {

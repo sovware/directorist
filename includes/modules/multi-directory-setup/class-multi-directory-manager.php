@@ -4545,8 +4545,7 @@ class Multi_Directory_Manager
                         'container' => 'wide',
                         'sections' => [
                             'form_fields' => [
-                                'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
-                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
+                                'title' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'submission_form_fields'
                                 ],
@@ -4554,7 +4553,7 @@ class Multi_Directory_Manager
                         ],
                     ],
                     'settings' => [
-                        'label' => __( 'Settings', 'directorist' ),
+                       'label' => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
                             'terms_and_conditions' => [
                                 'title' => __('Terms and Conditions', 'directorist'),

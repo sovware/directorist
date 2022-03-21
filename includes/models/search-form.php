@@ -39,6 +39,9 @@ class Search_Form {
 
 	public $atts;
 
+	public $directory_type;
+	public $default_directory_type;
+
 	private function __construct() {
 
 	}
@@ -294,6 +297,27 @@ class Search_Form {
 			if ( $is_default ) {
 				$current = $type->term_id;
 				break;
+			}
+		}
+
+		if( $this->default_directory_type ) {
+			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
+			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
+		}
+
+		if( $this->directory_type ) {
+			$current_id = true;
+			foreach( $this->directory_type as $value ) {
+				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
+				$term_id      = $default_type->term_taxonomy_id;
+				if( $current == $term_id ) {
+					$current_id = null;
+					break;
+				}
+			}
+			if( $current_id != null ) {
+				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
+				$current 		 = $directory_types->term_taxonomy_id;
 			}
 		}
 

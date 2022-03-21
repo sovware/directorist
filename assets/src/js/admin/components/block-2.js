@@ -207,7 +207,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    $("[data-toggle='tooltip']").tooltip();
+    if($("[data-toggle='tooltip']").length){
+        $("[data-toggle='tooltip']").tooltip();
+    }
 
     // price range
     const pricerange = $('#pricerange_val').val();

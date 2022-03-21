@@ -203,7 +203,10 @@ window.addEventListener('DOMContentLoaded', function () {
     return $elem;
   }
 
-  $("[data-toggle='tooltip']").tooltip(); // price range
+  if ($("[data-toggle='tooltip']").length) {
+    $("[data-toggle='tooltip']").tooltip();
+  } // price range
+
 
   var pricerange = $('#pricerange_val').val();
 
@@ -535,7 +538,11 @@ window.addEventListener('DOMContentLoaded', function () {
       $('.directorist-map-coordinates').hide();
     }
   });
-  $("[data-toggle='tooltip']").tooltip(); // price range
+
+  if ($("[data-toggle='tooltip']").length) {
+    $("[data-toggle='tooltip']").tooltip();
+  } // price range
+
 
   var pricerange = $('#pricerange_val').val();
 
@@ -2360,8 +2367,8 @@ window.addEventListener('DOMContentLoaded', function () {
   // Apply button active status - My extension form
 
   var extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
-  var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]');
-  console.log(extFormActionSelect);
+  var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]'); //console.log(extFormActionSelect);
+
   extFormCheckboxes.forEach(function (elm) {
     var thisClosest = elm.closest('form');
     var bulkAction = thisClosest.querySelector('.ei-action-dropdown select');

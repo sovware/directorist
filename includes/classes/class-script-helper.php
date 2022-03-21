@@ -55,7 +55,6 @@ class Script_Helper {
         $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
-        $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
 
         if ( 'kilometers' == $radius_search_unit ) {
             $miles = __( ' Kilometers', 'directorist' );
@@ -79,7 +78,6 @@ class Script_Helper {
             'directory_type_term_data' => $directory_type_term_data,
             'ajax_url'                 => admin_url( 'admin-ajax.php' ),
             'miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
-            'default_val'              => $default_radius_distance,
             'countryRestriction'       => get_directorist_option( 'country_restriction' ),
             'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
             'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),

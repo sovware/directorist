@@ -40,7 +40,6 @@ class Search_Form {
 	public $atts;
 
 	public $directory_type;
-	public $default_directory_type;
 
 	private function __construct() {
 
@@ -160,8 +159,10 @@ class Search_Form {
 		$this->source = $args['source'];
 		$this->data   = apply_filters( 'directorist_search_form_data', $this->build_data( $args['shortcode_atts'] ), $args );
 
+		$this->directory_type = !empty( $this->data['directory_type'] ) ? explode( ',', $this->data['directory_type'] ) : ''; // shortcode
 
-		$listing_type = $args['directory_type'];
+
+		$listing_type = $args['directory_type']; // from listing
 		$this->atts = $args['shortcode_atts'];
 
 		if ( $listing_type ) {
@@ -172,6 +173,76 @@ class Search_Form {
 		}
 
 		$this->form_data = $this->build_form_data();
+	}
+
+	public function get_default_listing_type() {
+		$listing_types = get_terms(
+			array(
+				'taxonomy'   => ATBDP_TYPE,
+				'hide_empty' => false,
+			)
+		);
+
+		foreach ( $listing_types as $type ) {
+			$is_default = get_term_meta( $type->term_id, '_default', true );
+			if ( $is_default ) {
+				$current = $type->term_id;
+				break;
+			}
+		}
+
+		if( $this->data['default_directory_type'] ) {
+			$default_type = get_term_by( 'slug', $this->data['default_directory_type'], ATBDP_TYPE );
+			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
+		}
+
+		if( $this->directory_type ) {
+			$current_id = true;
+			foreach( $this->directory_type as $value ) {
+				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
+				$term_id      = $default_type->term_taxonomy_id;
+				if( $current == $term_id ) {
+					$current_id = null;
+					break;
+				}
+			}
+			if( $current_id != null ) {
+				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
+				$current 		 = $directory_types->term_taxonomy_id;
+			}
+		}
+
+		return (int) $current;
+	}
+
+	public function directory_types_to_display() {
+		$listing_types = array();
+		$args          = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+		);
+	}
+
+	public function get_listing_type_data() {
+		$listing_types = array();
+		$args          = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+		);
+		if( $this->directory_type ) {
+			$args['slug']     = $this->directory_type;
+		}
+
+		$all_types     = get_terms( $args );
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->term_id ] = [
+				'term' => $type,
+				'name' => $type->name,
+				'data' => get_term_meta( $type->term_id, 'general_config', true ),
+			];
+		}
+		return $listing_types;
 	}
 
 	public function reset_data() {
@@ -191,6 +262,25 @@ class Search_Form {
 
 		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
+		$args = [
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+		];
+
+		if( $shortcode_data['directory_type'] ) {
+			$args['slug'] = explode( ',', $shortcode_data['directory_type'];
+		}
+
+		$types = get_terms( $args );
+
+
+		$directory_types_to_show = $shortcode_data['directory_type'] ? explode( ',', $shortcode_data['directory_type'] ) : '';
+		$default_directory_type = $shortcode_data['default_directory_type'];
+
+
+
+
 		$data = [
 			'show_title_subtitle'     => $shortcode_data['show_title_subtitle'],
 			'search_bar_title'        => $shortcode_data['search_bar_title'],
@@ -201,8 +291,15 @@ class Search_Form {
 			'more_filters_text'       => $shortcode_data['more_filters_text'],
 			'logged_in_user_only'     => $shortcode_data['logged_in_user_only'],
 			'redirect_page_url'       => $shortcode_data['redirect_page_url'],
+
+			'directory_types_to_display' => $shortcode_data['directory_type'] ? explode( ',', $shortcode_data['directory_type'] ) : '',
+
 			'directory_type'          => $shortcode_data['directory_type'],
 			'default_directory_type'  => $shortcode_data['default_directory_type'],
+
+
+
+
 			'show_popular_category'   => $shortcode_data['show_popular_category'],
 
 			'reset_filters_button'    => $shortcode_data['reset_filters_button'],
@@ -282,46 +379,6 @@ class Search_Form {
 		];
 
 		return $options;
-	}
-
-	public function get_default_listing_type() {
-		$listing_types = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
-
-		foreach ( $listing_types as $type ) {
-			$is_default = get_term_meta( $type->term_id, '_default', true );
-			if ( $is_default ) {
-				$current = $type->term_id;
-				break;
-			}
-		}
-
-		if( $this->default_directory_type ) {
-			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
-			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
-		}
-
-		if( $this->directory_type ) {
-			$current_id = true;
-			foreach( $this->directory_type as $value ) {
-				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
-				$term_id      = $default_type->term_taxonomy_id;
-				if( $current == $term_id ) {
-					$current_id = null;
-					break;
-				}
-			}
-			if( $current_id != null ) {
-				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
-				$current 		 = $directory_types->term_taxonomy_id;
-			}
-		}
-
-		return (int) $current;
 	}
 
 	public function build_form_data() {
@@ -466,29 +523,6 @@ class Search_Form {
 		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 		return in_array( $data['widget_name'], $fields ) ? true : false;
 	}
-
-	public function get_listing_type_data() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-
-		$all_types     = get_terms( $args );
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
-		}
-		return $listing_types;
-	}
-
 
 	public function directory_type_nav_template() {
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );

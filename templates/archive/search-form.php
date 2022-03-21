@@ -7,8 +7,8 @@
 
 $search_form = directorist()->search_form;
 
-if(  is_numeric( $search_form->listing_type ) ) {
-	$term = get_term_by( 'id', $search_form->listing_type, ATBDP_TYPE );
+if(  is_numeric( $search_form->current_directory_type ) ) {
+	$term = get_term_by( 'id', $search_form->current_directory_type, ATBDP_TYPE );
 	$listing_type = $term->slug;
 }
 ?>
@@ -17,7 +17,7 @@ if(  is_numeric( $search_form->listing_type ) ) {
 
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 
-		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $search_form->listing_type; ?>'>
+		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $search_form->current_directory_type; ?>'>
 
 		<div class="directorist-advanced-filter__basic">
 

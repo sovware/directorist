@@ -385,9 +385,9 @@ class Listings {
 
 		$search_form = directorist()->search_form;
 		$search_form->setup_data( [
-			'source'           => $this->is_search_result_page() ? 'search_result' : 'all_listings',
-			'directory_type'   => $this->current_directory_type_id(),
-			'shortcode_atts'   => $search_field_atts,
+			'source'                   => $this->is_search_result_page() ? 'search_result' : 'all_listings',
+			'current_directory_type'   => $this->current_directory_type_id(),
+			'shortcode_atts'           => $search_field_atts,
 		] );
 
 		Helper::get_template( 'archive/search-form' );

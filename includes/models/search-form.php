@@ -31,10 +31,15 @@ class Search_Form {
 	 */
 	public $data = [];
 
+	/**
+	 * In which page this form is being displayed, possible values: shortcode, all_listings, search_result
+	 *
+	 * @var string
+	 */
 	public $source;
 
 
-	public $listing_type;
+	public $current_directory_type;
 	public $form_data;
 
 	public $atts;
@@ -148,9 +153,9 @@ class Search_Form {
 
 	public function setup_data( $args = [] ) {
 		$defaults = [
-			'source'           => 'shortcode', // shortcode, all_listings, search_result
-			'directory_type'   => $this->get_default_listing_type(),
-			'shortcode_atts' => [],
+			'source'                  => 'shortcode', // shortcode, all_listings, search_result
+			'current_directory_type'  => '',
+			'shortcode_atts'          => [],
 		];
 
 		$args = wp_parse_args( $args, $defaults );
@@ -159,81 +164,59 @@ class Search_Form {
 		$this->source = $args['source'];
 		$this->data   = apply_filters( 'directorist_search_form_data', $this->build_data( $args['shortcode_atts'] ), $args );
 
-		$this->directory_type = !empty( $this->data['directory_type'] ) ? explode( ',', $this->data['directory_type'] ) : ''; // shortcode
 
-
-		$listing_type = $args['directory_type']; // from listing
-		$this->atts = $args['shortcode_atts'];
-
-		if ( $listing_type ) {
-			$this->listing_type = (int) $listing_type;
-		}
-		else {
-			$this->listing_type = $this->get_default_listing_type();
-		}
+		$this->current_directory_type = $this->get_current_directory_type( $args['current_directory_type'] );
 
 		$this->form_data = $this->build_form_data();
 	}
 
 	public function get_default_listing_type() {
-		$listing_types = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
+		return $this->current_directory_type;
+	}
 
-		foreach ( $listing_types as $type ) {
-			$is_default = get_term_meta( $type->term_id, '_default', true );
-			if ( $is_default ) {
-				$current = $type->term_id;
-				break;
-			}
-		}
-
-		if( $this->data['default_directory_type'] ) {
-			$default_type = get_term_by( 'slug', $this->data['default_directory_type'], ATBDP_TYPE );
-			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
-		}
-
-		if( $this->directory_type ) {
-			$current_id = true;
-			foreach( $this->directory_type as $value ) {
-				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
-				$term_id      = $default_type->term_taxonomy_id;
-				if( $current == $term_id ) {
-					$current_id = null;
+	public function get_current_directory_type( $directory_type = '' ) {
+		if ( $directory_type ) {
+			// For Listings and Search result page
+			$type = $directory_type;
+		} elseif( $this->data['default_directory_type'] ) {
+			// For shortcode when value is given
+			$type = get_term_by( 'slug', $this->data['default_directory_type'], ATBDP_TYPE );
+			return $type->term_taxonomy_id;
+		} else {
+			$types = get_terms( ['taxonomy' => ATBDP_TYPE, 'hide_empty' => false] );
+			foreach ( $types as $type ) {
+				$is_default = get_term_meta( $type->term_id, '_default', true );
+				if ( $is_default ) {
+					$type = $type->term_id;
 					break;
 				}
 			}
-			if( $current_id != null ) {
-				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
-				$current 		 = $directory_types->term_taxonomy_id;
-			}
 		}
-
-		return (int) $current;
+		return $type;
 	}
 
-	public function directory_types_to_display() {
-		$listing_types = array();
-		$args          = array(
+	/**
+	 * Applicaple only for search form shortcode.
+	 *
+	 * @return array
+	 */
+
+	public function get_directory_types() {
+		$args =[
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
-		);
+		];
+
+		if( $this->data['directory_types'] ) {
+			$args['slug'] = explode( ',', $this->data['directory_types'] );
+		}
+
+		return get_terms( $args );
 	}
 
 	public function get_listing_type_data() {
 		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-
-		$all_types     = get_terms( $args );
+		$all_types = $this->get_directory_types();
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
@@ -262,25 +245,6 @@ class Search_Form {
 
 		$shortcode_data = $this->get_shortcode_atts( $shortcode_atts, $options );
 
-		$args = [
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-		];
-
-		if( $shortcode_data['directory_type'] ) {
-			$args['slug'] = explode( ',', $shortcode_data['directory_type'];
-		}
-
-		$types = get_terms( $args );
-
-
-		$directory_types_to_show = $shortcode_data['directory_type'] ? explode( ',', $shortcode_data['directory_type'] ) : '';
-		$default_directory_type = $shortcode_data['default_directory_type'];
-
-
-
-
 		$data = [
 			'show_title_subtitle'     => $shortcode_data['show_title_subtitle'],
 			'search_bar_title'        => $shortcode_data['search_bar_title'],
@@ -291,15 +255,8 @@ class Search_Form {
 			'more_filters_text'       => $shortcode_data['more_filters_text'],
 			'logged_in_user_only'     => $shortcode_data['logged_in_user_only'],
 			'redirect_page_url'       => $shortcode_data['redirect_page_url'],
-
-			'directory_types_to_display' => $shortcode_data['directory_type'] ? explode( ',', $shortcode_data['directory_type'] ) : '',
-
-			'directory_type'          => $shortcode_data['directory_type'],
+			'directory_types'         => $shortcode_data['directory_type'],
 			'default_directory_type'  => $shortcode_data['default_directory_type'],
-
-
-
-
 			'show_popular_category'   => $shortcode_data['show_popular_category'],
 
 			'reset_filters_button'    => $shortcode_data['reset_filters_button'],
@@ -383,8 +340,8 @@ class Search_Form {
 
 	public function build_form_data() {
 		$form_data          = array();
-		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
-		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+		$search_form_fields     = get_term_meta( $this->current_directory_type, 'search_form_fields', true );
+		$submission_form_fields = get_term_meta( $this->current_directory_type, 'submission_form_fields', true );
 
 		if ( !empty( $search_form_fields['fields'] ) ) {
 
@@ -487,7 +444,7 @@ class Search_Form {
 	}
 
 	public function get_pricing_type() {
-		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+		$submission_form_fields = get_term_meta( $this->current_directory_type, 'submission_form_fields', true );
 		$ptype = !empty( $submission_form_fields['fields']['pricing']['pricing_type'] ) ? $submission_form_fields['fields']['pricing']['pricing_type'] : 'both';
 		return $ptype;
 	}
@@ -561,7 +518,7 @@ class Search_Form {
 		foreach ( $cats as $cat ) {
 			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
 			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
-			$listing_type_id     = $this->listing_type;
+			$listing_type_id     = $this->current_directory_type;
 
 			if( in_array( $listing_type_id, $directory_type ) ) {
 				$top_categories[] = $cat;
@@ -600,7 +557,7 @@ class Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
-			'listing_type'		 => $this->listing_type
+			'listing_type'		 => $this->current_directory_type
 		);
 	}
 
@@ -630,7 +587,7 @@ class Search_Form {
 		wp_enqueue_script( 'directorist-range-slider' );
 		wp_enqueue_script( 'directorist-search-listing' );
 
-		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->listing_type ] );
+		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->current_directory_type ] );
 		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
 		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -641,7 +598,7 @@ class Search_Form {
 	}
 
 	public function listing_type_slug() {
-		$term_data = get_term( $this->listing_type, ATBDP_TYPE );
+		$term_data = get_term( $this->current_directory_type, ATBDP_TYPE );
 		return $term_data->slug;
 	}
 

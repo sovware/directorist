@@ -4509,19 +4509,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-
-                        'currency_settings' => [
-                            'label' => __( 'Listing Currency', 'directorist' ),
-                            'icon' => '<i class="fa fa-money-bill"></i>',
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
                         'page_settings' => [
                             'label' => __( 'Page Setup', 'directorist' ),
                             'icon' => '<i class="fa fa-desktop directorist_wordpress"></i>',
@@ -5186,6 +5173,18 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'others' => [
                                     'title' => __( 'Others', 'directorist' ),
                                     'fields' => [ 'font_type' ]
+                                ],
+                                
+                            ] ),
+                        ],
+                        'currency_settings' => [
+                            'label' => __( 'Listing Currency', 'directorist' ),
+                            'icon' => '<i class="fa fa-money-bill"></i>',
+                            'sections' => apply_filters( 'directorist_listing_currency_settings_sections', [
+                                'title_metas' => [
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                                     ],
                                 ],
                             ] ),
                         ],

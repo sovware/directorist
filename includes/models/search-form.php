@@ -232,8 +232,8 @@ class Search_Form {
 			'default_directory_type'  => '',
 			'show_popular_category'	  => ( $this->source == 'shortcode' ) && get_directorist_option( 'show_popular_category', 1 ) ? 'yes' : '',
 
-			'reset_filters_button'    => in_array( ['reset_button', 'search_reset_filters'], $options['search_filters'] ) ? 'yes' : '',
-			'apply_filters_button'    => in_array( ['apply_button', 'search_apply_filters'], $options['search_filters'] ) ? 'yes' : '',
+			'reset_filters_button'    => array_intersect( ['reset_button', 'search_reset_filters'], $options['search_filters'] ) ? 'yes' : '',
+			'apply_filters_button'    => array_intersect( ['apply_button', 'search_apply_filters'], $options['search_filters'] ) ? 'yes' : '',
 			'reset_filters_text'      => $options['reset_filters_text'],
 			'apply_filters_text'      => $options['apply_filters_text'],
 			'more_filters_display'    => $options['open_filter_fields'],

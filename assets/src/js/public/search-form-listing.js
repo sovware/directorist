@@ -192,6 +192,65 @@
         }
     });
 
+    $('body').on("keyup", '.zip-radius-search', function(){
+        var zipcode = $(this).val();
+
+        $('.directorist-country').css({
+            display: 'block'
+        });
+
+        if (zipcode === '') {
+            $('.directorist-country').css({
+                display: 'none'
+            });
+        }
+        let res = '';
+        $.ajax({
+            url: `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`,
+            type: "POST",
+            data: {},
+            success: function( data ) {
+                if( data.length === 1 ) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    $('#zip-cityLat').val(lat);
+                    $('#zip-cityLng').val(lon);
+                } else {
+                    for (let i = 0; i < data.length; i++) {
+                        res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                    }
+                }
+
+                $('.directorist-country').html(`<ul>${res}</ul>`);
+
+                if (res.length) {
+                    $('.directorist-country').show();
+                } else {
+                    $('.directorist-country').hide();
+                }
+            }
+        });
+    });
+
+    // hide country result when click outside the zipcode field
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.directorist-zip-code').length) {
+            $('.directorist-country').hide();
+        }
+    });
+
+    $('body').on('click', '.directorist-country ul li a', function (event) {
+        event.preventDefault();
+
+        const lat = $(this).data('lat');
+        const lon = $(this).data('lon');
+
+        $('#zip-cityLat').val(lat);
+        $('#zip-cityLng').val(lon);
+
+        $('.directorist-country').hide();
+    });
+
     $('.address_result').hide();
 
 

@@ -218,7 +218,6 @@
     "submit_listing_button": 1,
     "search_title": false,
     "search_subtitle": false,
-    "search_border": 1,
     "search_tsc_fields": "[\"search_text\",\"search_category\",\"search_location\"]",
     "search_location_address": "map_api",
     "require_search_text": 0,

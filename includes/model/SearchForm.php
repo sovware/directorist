@@ -591,8 +591,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function border_class() {
-		$search_border = get_directorist_option( 'search_border', 1 );
-		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';
+		return apply_filters( 'directorist_search_form_border_class', 'directorist-with-search-border' );
 	}
 
 	public function category_icon_class($cat) {

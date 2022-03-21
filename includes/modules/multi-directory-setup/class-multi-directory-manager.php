@@ -2970,6 +2970,15 @@ class Multi_Directory_Manager
                                     [ 'value' => 'kilometers', 'label' => 'Kilometers' ],
                                 ]
                             ],
+                            'radius_search_based_on' => [
+                                'type'  => 'select',
+                                'label' => __( 'Radius Search Based on', 'directorist' ),
+                                'value' => 'address',
+                                'options' => [
+                                    [ 'value' => 'address', 'label' => 'Address' ],
+                                    [ 'value' => 'zip', 'label' => 'Zip Code' ],
+                                ]
+                            ],
                         ],
                     ],
                 ]

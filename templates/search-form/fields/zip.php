@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,7 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<div class="directorist-form-group">
-		<input class="directorist-form-element" type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+		<input class="<?php echo esc_attr( $searchform->zip_code_class() ); ?>" type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off" placeholder="<?php echo !empty( $data['placeholder'] ) ? esc_attr( $data['placeholder'] ) : ''; ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+
+		<div class="directorist-country" style="display: none"></div>
+		<input type="hidden" id="zip-cityLat" name="zip-cityLat" value="" />
+		<input type="hidden" id="zip-cityLng" name="zip-cityLng" value="" />
 	</div>
 	
 </div>

@@ -234,7 +234,7 @@ class Directorist_Listings {
 
 	public function build_search_data( $key, $value ) {
 		$search_form_fields = get_term_meta( $this->get_current_listing_type(), 'search_form_fields', true );
-		return $search_form_fields['fields'][ $key ][ $value ];
+		return ! empty( $search_form_fields['fields'][ $key ][ $value ] ) ? $search_form_fields['fields'][ $key ][ $value ] : '';
 	}
 
 	public function prepare_atts_data() {

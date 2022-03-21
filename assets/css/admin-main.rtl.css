@@ -4206,6 +4206,10 @@ input.atbdp-form-control {
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 }
 @media only screen and (max-width: 800px) {
@@ -4276,7 +4280,7 @@ input.atbdp-form-control {
 }
 @media only screen and (max-width: 1499px) {
   .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text h4 {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 @media only screen and (max-width: 800px) {
@@ -4407,6 +4411,11 @@ input.atbdp-form-control {
   top: 2px;
   font-size: 11px;
   color: #000;
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice__list li .directorist_membership-notice__list--icon i {
+    top: 0;
+  }
 }
 
 .directorist_membership-notice__action {

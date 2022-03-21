@@ -4230,6 +4230,7 @@ input.atbdp-form-control {
     align-items: center;
     @media only screen and (max-width: 1199px) {
       flex-direction: column;
+      align-items: flex-start;
     }
     @media only screen and (max-width: 800px) {
       flex-direction: row;
@@ -4271,7 +4272,7 @@ input.atbdp-form-control {
         font-weight: bold;
         margin: 4px 0 8px;
         @media only screen and (max-width: 1499px) {
-          font-size: 22px;
+          font-size: 20px;
         }
         @media only screen and (max-width: 800px) {
           font-size: 20px;
@@ -4356,6 +4357,9 @@ input.atbdp-form-control {
         top: 2px;
         font-size: 11px;
         color: #000;
+        @media only screen and (max-width: 1199px) {
+          top: 0;
+        }
       }
     }
   }

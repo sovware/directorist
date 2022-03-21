@@ -59,7 +59,6 @@ class Directorist_Listings {
 	public $popular_by;
 	public $average_review_for_popular;
 	public $view_to_popular;
-	public $radius_search_unit;
 	public $default_radius_distance;
 	public $select_listing_map;
 	public $filters_display;
@@ -156,7 +155,6 @@ class Directorist_Listings {
 		$this->options['enable_featured_listing']         = get_directorist_option( 'enable_featured_listing' );
 		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
 		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
-		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
 		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
 		$this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
@@ -296,7 +294,6 @@ class Directorist_Listings {
 		$this->popular_by                  = $this->options['listing_popular_by'];
 		$this->average_review_for_popular  = $this->options['average_review_for_popular'];
 		$this->view_to_popular             = $this->options['views_for_popular'];
-		$this->radius_search_unit          = $this->options['radius_search_unit'];
 		$this->select_listing_map          = $this->options['select_listing_map'];
 		$this->filters_display             = $this->options['listings_display_filter'];
 		$this->search_more_filters_fields  = $this->options['listing_filters_fields'];
@@ -913,7 +910,7 @@ class Directorist_Listings {
 				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
 				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
 				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
-				'units'     => $this->radius_search_unit
+				'units'     => apply_filters( 'directorist_default_radius_search_unit', 'miles' ),
 			);
 		} elseif ( ! empty($_REQUEST['address']) ) {
 			$meta_queries['_address'] = array(

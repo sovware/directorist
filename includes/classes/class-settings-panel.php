@@ -3109,21 +3109,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'max'           => '100',
                     'step'          => '1',
                 ],
-                'radius_search_unit' => [
-                    'label' => __('Radius Search Unit', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'miles',
-                    'options' => [
-                        [
-                            'value' => 'miles',
-                            'label' => __('Miles', 'directorist'),
-                        ],
-                        [
-                            'value' => 'kilometers',
-                            'label' => __('Kilometers', 'directorist'),
-                        ],
-                    ],
-                ],
                 // upgrade/ regenerate pages
                 'shortcode-updated' => [
                     'type'  => 'toggle',
@@ -4583,7 +4568,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_result' => [
                                     'fields'      => [
-                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
+                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num',
                                      ],
                                 ],
                             ] ),

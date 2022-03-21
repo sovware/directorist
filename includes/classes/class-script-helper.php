@@ -54,9 +54,13 @@ class Script_Helper {
         $category_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
         $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
         $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
-        $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
+        /**
+         * It can set form directory builder too
+         * @since 7..3.0 
+         */
+        $radius_unit      = apply_filters( 'directorist_default_radius_search_unit', 'miles' );
 
-        if ( 'kilometers' == $radius_search_unit ) {
+        if ( 'kilometers' == $radius_unit ) {
             $miles = __( ' Kilometers', 'directorist' );
         } else {
             $miles = __( ' Miles', 'directorist' );

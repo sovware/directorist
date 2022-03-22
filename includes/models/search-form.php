@@ -173,12 +173,12 @@ class Search_Form {
 
 	public function get_default_listing_type() {
 		// deprecated
-		return $this->current_directory_type;
+		return $this->get_current_directory_type();
 	}
 
 	public function build_current_directory_type( $directory_type = '' ) {
 		if ( $directory_type ) {
-			// For Listings and Search result page
+			// For listings and search result page
 			$type = $directory_type;
 		} elseif( $this->data['default_directory_type'] ) {
 			// For shortcode when value is given

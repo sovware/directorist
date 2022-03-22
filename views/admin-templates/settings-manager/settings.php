@@ -1,67 +1,9 @@
 <div class="wrap">
     <div id="atbdp-settings-manager" class="atbdp-settings-manager">
         <!-- Directorist Membership Notice -->
-        <div class="directorist_membership-notice">
-            <div class="directorist_membership-notice__content">
-                <img
-                src="https://ps.w.org/directorist/assets/icon-256x256.gif?rev=2642947"
-                alt="Drectorist membership notice"
-                />
-                <div class="directorist_membership-notice__text">
-                <h4>Directorist Membership</h4>
-                <p>Get a membership plan and unlock all the themes & extensions.</p>
-                <span class="directorist_membership-sale-badge">Save up to 85%</span>
-                </div>
-            </div>
-            <ul class="directorist_membership-notice__list">
-                <li>
-                <span class="directorist_membership-notice__list--icon"
-                    ><i class="fa fa-check"></i
-                ></span>
-                <span class="directorist_membership-notice__list--text"
-                    >26 extensions</span
-                >
-                </li>
-                <li>
-                <span class="directorist_membership-notice__list--icon"
-                    ><i class="fa fa-check"></i
-                ></span>
-                <span class="directorist_membership-notice__list--text"
-                    >11 themes</span
-                >
-                </li>
-                <li>
-                <span class="directorist_membership-notice__list--icon"
-                    ><i class="fa fa-check"></i
-                ></span>
-                <span class="directorist_membership-notice__list--text"
-                    >All future products</span
-                >
-                </li>
-                <li>
-                <span class="directorist_membership-notice__list--icon"
-                    ><i class="fa fa-check"></i
-                ></span>
-                <span class="directorist_membership-notice__list--text"
-                    >Prioritized support</span
-                >
-                </li>
-                <li>
-                <span class="directorist_membership-notice__list--icon"
-                    ><i class="fa fa-check"></i
-                ></span>
-                <span class="directorist_membership-notice__list--text"
-                    >Automatic updates
-                </span>
-                </li>
-            </ul>
-            <div class="directorist_membership-notice__action">
-                <a href="#" class="directorist_membership-btn">Get Membership</a>
-            </div>
-            <a href="#" class="directorist_membership-notice-close">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
+        <?php
+            ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
+        ?>
         <div class="atbdp-settings-manager__top">
             <h4 class="atbdp-settings-manager__title">
                 <span><?php _e( 'Settings', 'directorist' ) ?></span>

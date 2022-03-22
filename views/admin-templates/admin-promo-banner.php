@@ -72,7 +72,7 @@ try {
     <?php } 
     if( $get_now_button_text ) { ?>
         <div class="directorist_membership-notice__action">
-            <a href="<?php echo esc_url( $get_now_button_link ); ?>" class="directorist_membership-btn"><?php echo esc_attr( $get_now_button_text ); ?></a>
+            <a href="<?php echo esc_url( $get_now_button_link ); ?>" target="_blank" class="directorist_membership-btn"><?php echo esc_attr( $get_now_button_text ); ?></a>
         </div>
     <?php } ?>
     <a href="#" class="directorist_membership-notice-close">

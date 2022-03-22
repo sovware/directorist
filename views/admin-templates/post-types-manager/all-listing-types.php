@@ -6,6 +6,10 @@
     <hr class="wp-header-end">
 
     <div class="directorist_builder-wrap">
+        <!-- Directorist Membership Notice -->
+        <?php
+            ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
+        ?>
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">
                 <div class="directorist_logo">

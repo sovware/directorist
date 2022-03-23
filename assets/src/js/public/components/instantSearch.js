@@ -107,7 +107,6 @@
         });
         
         let view_href   = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-        //let view_as     = view_href.match( /view=.+/ );
         let view_as     = ( view_href && view_href.length ) ? view_href.match( /view=.+/ ) : '';
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
@@ -387,7 +386,6 @@
         });
 
         let view_href   = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-        //let view_as     = view_href.match( /view=.+/ );
         let view_as     = ( view_href && view_href.length ) ? view_href.match( /view=.+/ ) : '';
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let sort_href   = $(this).attr('data-link');

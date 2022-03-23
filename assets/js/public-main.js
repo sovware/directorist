@@ -1312,8 +1312,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href'); //let view_as     = view_href.match( /view=.+/ );
-
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
@@ -1573,8 +1572,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href'); //let view_as     = view_href.match( /view=.+/ );
-
+    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var sort_href = $(this).attr('data-link');

@@ -28,6 +28,11 @@ try {
     if ( ! is_wp_error( $response ) ) {
         $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
         
+        $display_promo        = ! empty( $response_body['display_promo'] ) ? $response_body['display_promo'] : '';
+        if( ! $display_promo ) {
+            return;
+        }
+        
         $banner_title        = ! empty( $response_body['banner_title'] ) ? $response_body['banner_title'] : '';
         $banner_description  = ! empty( $response_body['banner_description'] ) ? $response_body['banner_description'] : '';
         $sale_badge_text     = ! empty( $response_body['sale_badge_text'] ) ? $response_body['sale_badge_text'] : '';

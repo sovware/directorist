@@ -1723,6 +1723,12 @@ $('.atbdp-accordion-toggle').on('click', function (e) {
     $(data_target).slideToggle();
   }
 });
+/* Directorist Membership Notice */
+
+$('body').on('click', '.directorist_membership-notice-close', function (e) {
+  e.preventDefault();
+  $('.directorist_membership-notice').remove();
+});
 
 /***/ }),
 

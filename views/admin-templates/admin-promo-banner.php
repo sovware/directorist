@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-$url     = 'https://directorist.com/wp-json/directorist/v1/get-promo';
+$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-promo';
 $headers = [
     'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
     'Accept'     => 'application/json',

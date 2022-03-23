@@ -14252,6 +14252,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
 
 
 
@@ -31773,9 +31775,14 @@ var staticRenderFns = [
             )
           ]),
           _vm._v(" "),
-          _c("span", { staticClass: "directorist_membership-sale-badge" }, [
-            _vm._v("Save up to 85%")
-          ])
+          _c(
+            "a",
+            {
+              staticClass: "directorist_membership-sale-badge",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Save up to 85%")]
+          )
         ])
       ]),
       _vm._v(" "),

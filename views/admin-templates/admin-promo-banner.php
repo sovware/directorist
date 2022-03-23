@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-$url     = 'https://directorist.com/wp-json/directorist/v1/get-promo';
+$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-promo';
 $headers = [
     'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
     'Accept'     => 'application/json',
@@ -27,6 +27,11 @@ try {
 
     if ( ! is_wp_error( $response ) ) {
         $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+        
+        $display_promo        = ! empty( $response_body['display_promo'] ) ? $response_body['display_promo'] : '';
+        if( ! $display_promo ) {
+            return;
+        }
         
         $banner_title        = ! empty( $response_body['banner_title'] ) ? $response_body['banner_title'] : '';
         $banner_description  = ! empty( $response_body['banner_description'] ) ? $response_body['banner_description'] : '';

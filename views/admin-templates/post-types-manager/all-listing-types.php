@@ -8,10 +8,10 @@
     <div class="directorist_builder-wrap">
         <?php
             /**
-             * Fires before all directory types table and edit directory screen
+             * Fires before all directory types table
              * @since 7.2.0
              */
-            do_action( 'directorist_before_builder_header' );
+            do_action( 'directorist_before_all_directory_types' );
         ?>
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">

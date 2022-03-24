@@ -14190,70 +14190,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -28010,7 +27946,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -31659,8 +31595,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "atbdp-cpt-manager cptm-p-20" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c(
       "div",
       { staticClass: "atbdp-cptm-header" },
@@ -31751,132 +31685,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "directorist_membership-notice" }, [
-      _c("div", { staticClass: "directorist_membership-notice__content" }, [
-        _c("img", {
-          attrs: {
-            src:
-              "https://ps.w.org/directorist/assets/icon-256x256.gif?rev=2642947",
-            alt: "Drectorist membership notice"
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "directorist_membership-notice__text" }, [
-          _c("h4", [_vm._v("Directorist Membership")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Get a membership plan and unlock all the themes & extensions."
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "directorist_membership-sale-badge",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Save up to 85%")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "directorist_membership-notice__list" }, [
-        _c("li", [
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--icon" },
-            [_c("i", { staticClass: "fa fa-check" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--text" },
-            [_vm._v("26 extensions")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--icon" },
-            [_c("i", { staticClass: "fa fa-check" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--text" },
-            [_vm._v("11 themes")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--icon" },
-            [_c("i", { staticClass: "fa fa-check" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--text" },
-            [_vm._v("All future products")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--icon" },
-            [_c("i", { staticClass: "fa fa-check" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--text" },
-            [_vm._v("Prioritized support")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--icon" },
-            [_c("i", { staticClass: "fa fa-check" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "directorist_membership-notice__list--text" },
-            [_vm._v("Automatic updates\n        ")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "directorist_membership-notice__action" }, [
-        _c(
-          "a",
-          { staticClass: "directorist_membership-btn", attrs: { href: "#" } },
-          [_vm._v("Get Membership")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "directorist_membership-notice-close",
-          attrs: { href: "#" }
-        },
-        [_c("i", { staticClass: "fa fa-times" })]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40621,7 +40430,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )

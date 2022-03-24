@@ -21,7 +21,9 @@ class ATBDP_Upgrade
 
 		add_action('directorist_before_settings_panel_header', array($this, 'promo_banner') );
 		
-		add_action('directorist_before_builder_header', array($this, 'promo_banner') );
+		add_action('directorist_before_all_directory_types', array($this, 'promo_banner') );
+		
+		add_action('directorist_before_directory_type_edited', array($this, 'promo_banner') );
 
 	}
 

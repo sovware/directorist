@@ -361,8 +361,7 @@
     });
     searchForm.querySelectorAll("select").forEach(function (el) {
       el.selectedIndex = 0;
-      $(el).select2('val', '');
-      $(el).val('').trigger('change');
+      $(el).val(null).trigger('change');
     });
     var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 

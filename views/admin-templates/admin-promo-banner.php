@@ -35,7 +35,8 @@ try {
         
         $banner_title        = ! empty( $response_body['banner_title'] ) ? $response_body['banner_title'] : '';
         $banner_description  = ! empty( $response_body['banner_description'] ) ? $response_body['banner_description'] : '';
-        $sale_badge_text     = ! empty( $response_body['sale_badge_text'] ) ? $response_body['sale_badge_text'] : '';
+        $sale_button_text    = ! empty( $response_body['sale_button_text'] ) ? $response_body['sale_button_text'] : '';
+        $sale_button_link    = ! empty( $response_body['sale_button_link'] ) ? $response_body['sale_button_link'] : '';
         $offer_lists         = ! empty( $response_body['offer_lists'] ) ? $response_body['offer_lists'] : [];
         $get_now_button_text = ! empty( $response_body['get_now_button_text'] ) ? $response_body['get_now_button_text'] : '';
         $get_now_button_link = ! empty( $response_body['get_now_button_link'] ) ? $response_body['get_now_button_link'] : '';
@@ -56,8 +57,8 @@ try {
             if( $banner_description ){ ?>
                 <p><?php echo esc_attr( $banner_description ); ?></p>
             <?php }  
-            if( $sale_badge_text ){ ?>
-                <a class="directorist_membership-sale-badge" href="#"><?php echo esc_attr( $sale_badge_text ); ?></a>
+            if( $sale_button_text ){ ?>
+                <a class="directorist_membership-sale-badge" target="_blank" href="<?php echo esc_attr( $sale_button_link ); ?>"><?php echo esc_attr( $sale_button_text ); ?></a>
             <?php } ?>
         </div>
     </div>

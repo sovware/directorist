@@ -454,6 +454,13 @@
       });
     }
   }
+
+  document.querySelectorAll(".directorist-search-contents").forEach(function (el) {
+    if (el.nextElementSibling === null) {
+      el.querySelector('.directorist-search-country').style.maxHeight = "175px";
+      el.querySelector('.directorist-search-field .address_result').style.maxHeight = "175px";
+    }
+  });
 })(jQuery);
 
 /***/ }),

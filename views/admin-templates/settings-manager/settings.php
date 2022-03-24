@@ -1,6 +1,9 @@
 <div class="wrap">
     <div id="atbdp-settings-manager" class="atbdp-settings-manager">
-
+        <!-- Directorist Membership Notice -->
+        <?php
+            ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
+        ?>
         <div class="atbdp-settings-manager__top">
             <h4 class="atbdp-settings-manager__title">
                 <span><?php _e( 'Settings', 'directorist' ) ?></span>

@@ -256,7 +256,8 @@
         });
         searchForm.querySelectorAll("select").forEach(function (el) {
             el.selectedIndex = 0;
-            $(el).val('').trigger('change');
+            $('.directorist-select2-dropdown-close').click();
+            $(el).val(null).trigger('change');
         });
 
         const irisPicker = searchForm.querySelector("input.wp-picker-clear");

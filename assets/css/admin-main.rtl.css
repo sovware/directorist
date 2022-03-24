@@ -4312,7 +4312,12 @@ input.atbdp-form-control {
   padding: 0 15px;
   border-radius: 6px;
   color: #000000;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   background-color: #3af4c2;
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge:hover {
+  background-color: #64d8b9;
 }
 @media only screen and (max-width: 1499px) {
   .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge {
@@ -4452,6 +4457,11 @@ input.atbdp-form-control {
   border-radius: 8px;
   padding: 0 34.45px;
   background-color: #f8d633;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist_membership-notice__action .directorist_membership-btn:hover {
+  background-color: #edc400;
 }
 @media only screen and (max-width: 1499px) {
   .directorist_membership-notice__action .directorist_membership-btn {
@@ -4486,6 +4496,14 @@ input.atbdp-form-control {
   height: 18px;
   border-radius: 50%;
   background-color: #fff;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist_membership-notice-close:hover {
+  background-color: #EF0000;
+}
+.directorist_membership-notice-close:hover i {
+  color: #fff;
 }
 .directorist_membership-notice-close i {
   color: #b541d8;

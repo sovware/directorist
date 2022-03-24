@@ -23,36 +23,33 @@ $config = [
 $response_body = [];
 
 try {
+    $cached_response = get_transient( 'directorist_get_promo_banner' );
     
-    $response = get_transient( 'directorist_get_promo_banner' );
-
-    if( ! $response ) {
+    if( ! $cached_response ) {
         $response = wp_remote_get( $url, $config );
-        // cache it for 2 hours
-        set_transient( 'directorist_get_promo_banner', $response, 2 * HOUR_IN_SECONDS );
+        $response_body = ! is_wp_error( $response ) ? wp_remote_retrieve_body( $response ) : []; 
+        set_transient( 'directorist_get_promo_banner', $response_body, 2 * HOUR_IN_SECONDS );
+    }else {
+        $response_body = $cached_response;
+    } 
+ 
+    $response_body       = ( 'string' === gettype( $response_body ) ) ? json_decode( $response_body ) : $response_body;
+    $display_promo       = ! empty( $response_body->display_promo ) ? $response_body->display_promo : '';
+    $promo_version       = ! empty( $response_body->promo_version ) ? $response_body->promo_version : 'sdas';
+    $directorist_promo_closed = get_user_meta( get_current_user_id(), '_directorist_promo_closed', true );
 
-    }
-
-    if ( ! is_wp_error( $response ) ) {
-
-        $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
-        $display_promo       = ! empty( $response_body['display_promo'] ) ? $response_body['display_promo'] : '';
-        $promo_version       = ! empty( $response_body['promo-version'] ) ? $response_body['promo-version'] : '';
-        $directorist_promo_closed = get_user_meta( get_current_user_id(), '_directorist_promo_closed', true );
-
-        if( ! $display_promo || ( $directorist_promo_closed == $promo_version ) ) {
-            return;
-        }
-        
-        $banner_title        = ! empty( $response_body['banner_title'] ) ? $response_body['banner_title'] : '';
-        $banner_description  = ! empty( $response_body['banner_description'] ) ? $response_body['banner_description'] : '';
-        $sale_button_text    = ! empty( $response_body['sale_button_text'] ) ? $response_body['sale_button_text'] : '';
-        $sale_button_link    = ! empty( $response_body['sale_button_link'] ) ? $response_body['sale_button_link'] : '';
-        $offer_lists         = ! empty( $response_body['offer_lists'] ) ? $response_body['offer_lists'] : [];
-        $get_now_button_text = ! empty( $response_body['get_now_button_text'] ) ? $response_body['get_now_button_text'] : '';
-        $get_now_button_link = ! empty( $response_body['get_now_button_link'] ) ? $response_body['get_now_button_link'] : '';
+    if( ! $display_promo || ( $directorist_promo_closed && ( $directorist_promo_closed == $promo_version ) ) ) {
+        return;
     }
     
+    $banner_title        = ! empty( $response_body->banner_title ) ? $response_body->banner_title : '';
+    $banner_description  = ! empty( $response_body->banner_description ) ? $response_body->banner_description : '';
+    $sale_button_text    = ! empty( $response_body->sale_button_text ) ? $response_body->sale_button_text : '';
+    $sale_button_link    = ! empty( $response_body->sale_button_link ) ? $response_body->sale_button_link : '';
+    $offer_lists         = ! empty( $response_body->offer_lists ) ? $response_body->offer_lists : [];
+    $get_now_button_text = ! empty( $response_body->get_now_button_text ) ? $response_body->get_now_button_text : '';
+    $get_now_button_link = ! empty( $response_body->get_now_button_link ) ? $response_body->get_now_button_link : '';
+
 } catch ( Exception $e ) {
     return;
 }

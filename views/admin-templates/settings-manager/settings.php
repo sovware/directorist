@@ -1,13 +1,12 @@
 <div class="wrap">
+    <?php
+        /**
+         * Fires before settings pane
+         * @since 7.2.0
+         */
+        do_action( 'directorist_before_settings_panel_header' );
+    ?>
     <div id="atbdp-settings-manager" class="atbdp-settings-manager">
-        <!-- Directorist Membership Notice -->
-        <?php
-            $plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-            $theme  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            if( ! $plugin && ! $theme ) {
-                ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
-            }
-        ?>
         <div class="atbdp-settings-manager__top">
             <h4 class="atbdp-settings-manager__title">
                 <span><?php _e( 'Settings', 'directorist' ) ?></span>

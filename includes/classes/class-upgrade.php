@@ -19,6 +19,18 @@ class ATBDP_Upgrade
 
 		add_action('admin_notices', array($this, 'upgrade_notice'), 100);
 
+		add_action('directorist_before_settings_panel_header', array($this, 'promo_banner') );
+		
+		add_action('directorist_before_builder_header', array($this, 'promo_banner') );
+
+	}
+
+	public function promo_banner(){
+		$plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+		$theme  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+		if( ! $plugin && ! $theme ) {
+			ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
+		}
 	}
 
 	public function upgrade_notice()

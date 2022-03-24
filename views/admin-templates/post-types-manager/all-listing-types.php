@@ -6,13 +6,12 @@
     <hr class="wp-header-end">
 
     <div class="directorist_builder-wrap">
-        <!-- Directorist Membership Notice -->
         <?php
-             $plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-             $theme  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-             if( ! $plugin && ! $theme ) {
-                 ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
-             }
+            /**
+             * Fires before all directory types table and edit directory screen
+             * @since 7.2.0
+             */
+            do_action( 'directorist_before_builder_header' );
         ?>
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">

@@ -1,6 +1,6 @@
 import { get_dom_data } from './../../lib/helper';
 
-const loc_data = get_dom_data( 'loc_data' );
+var loc_data = get_dom_data( 'loc_data' );
 
 window.addEventListener( 'load', setup_map );
 window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
@@ -27,6 +27,7 @@ function setup_map() {
 }
 
 function load() {
+    var loc_data = get_dom_data( 'loc_data' );
     var url = window.location.href;
     var urlParts = URI.parse(url);
     var queryStringParts = URI.parseQuery(urlParts.query);

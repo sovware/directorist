@@ -189,13 +189,14 @@
                     wp_set_object_terms( $post_id, (int)$directory_type, ATBDP_DIRECTORY_TYPE );
 
                     $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
-                    $preview_url = explode( ',', $preview_url );
+                    $preview_url = ( ! empty( $preview_url ) ) ? explode( ',', $preview_url ) : '';
 
-                    if ( $preview_url ) {
+                    if ( ! empty( $preview_url ) ) {
                         $attachment_ids = [];
                         foreach ( $preview_url as $_url_index => $_url ) {
+                            $_url = trim( $_url ); 
                             $attachment_id = self::atbdp_insert_attachment_from_url($_url, $post_id);
-                            if ( 1 === $_url_index ) {
+                            if ( $_url_index == 0 ) {
                                 update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                             } else {
                                 $attachment_ids[] = $attachment_id;
@@ -204,7 +205,16 @@
 
                         update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
-
+                    /**
+                     * Fire this event once a listing is successfully imported from CSV.
+                     *
+                     * @since 7.2.0
+                     * 
+                     * @param int $post_id Listing id.
+                     * @param array $post  Listing data.
+                     */
+                    do_action( 'directorist_listing_imported', $post_id, $post );
+                    
                     $count++;
             }
 

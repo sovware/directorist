@@ -1,6 +1,6 @@
 import { get_dom_data } from './../../lib/helper';
 
-const atbdp_map = get_dom_data('atbdp_map');
+var atbdp_map = get_dom_data('atbdp_map');
 
 // Define Marker Shapes
 const MAP_PIN =
@@ -113,7 +113,7 @@ MarkerLabel.prototype.draw = function () {
 
     function atbdp_rander_map($el) {
         $el.addClass('atbdp-map-loaded');
-
+        var atbdp_map = get_dom_data('atbdp_map');
         // var
         const $markers = $el.find('.marker');
 
@@ -145,20 +145,20 @@ MarkerLabel.prototype.draw = function () {
         });
 
         var cord = {
-            lat: ( Number( atbdp_map.default_latitude ) ) ? Number( atbdp_map.default_latitude ) : 40.7127753 ? defCordEnabled : Number( atbdp_map.default_latitude ),
-            lng: ( Number( atbdp_map.default_longitude ) ) ? Number( atbdp_map.default_longitude ) : -74.0059728 ? defCordEnabled : Number( atbdp_map.default_longitude ),
+            lat: (Number(atbdp_map.default_latitude)) ? Number(atbdp_map.default_latitude) : 40.7127753 ? defCordEnabled : Number(atbdp_map.default_latitude),
+            lng: (Number(atbdp_map.default_longitude)) ? Number(atbdp_map.default_longitude) : -74.0059728 ? defCordEnabled : Number(atbdp_map.default_longitude),
         };
 
-        if ( $markers.length ){
-            cord.lat = defCordEnabled ? Number( atbdp_map.default_latitude ) : Number( $markers[0].getAttribute('data-latitude') );
-            cord.lng = defCordEnabled ? Number( atbdp_map.default_longitude ) : Number( $markers[0].getAttribute('data-longitude') );
+        if ($markers.length) {
+            cord.lat = defCordEnabled ? Number(atbdp_map.default_latitude) : Number($markers[0].getAttribute('data-latitude'));
+            cord.lng = defCordEnabled ? Number(atbdp_map.default_longitude) : Number($markers[0].getAttribute('data-longitude'));
         }
 
         // center map
         atbdp_center_map(map, cord);
 
         var mcOptions = new MarkerClusterer(map, [], {
-            imagePath: atbdp_map.plugin_url+'assets/images/m'
+            imagePath: atbdp_map.plugin_url + 'assets/images/m'
         });
         mcOptions.setStyles(mcOptions.getStyles().map(function (style) {
             style.textColor = '#fff';
@@ -225,11 +225,11 @@ MarkerLabel.prototype.draw = function () {
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
                 if (atbdp_map.disable_info_window === 'no') {
-                    let marker_childrens = $( $marker ).children();
+                    let marker_childrens = $($marker).children();
 
-                    if ( marker_childrens.length ) {
+                    if (marker_childrens.length) {
                         let marker_content = marker_childrens[0];
-                        $( marker_content ).addClass( 'map-info-wrapper--show' );
+                        $(marker_content).addClass('map-info-wrapper--show');
                     }
 
                     infowindow.setContent($marker.html());
@@ -246,7 +246,8 @@ MarkerLabel.prototype.draw = function () {
      */
 
     function atbdp_center_map(map, cord) {
-        map.setCenter( cord );
+        var atbdp_map = get_dom_data('atbdp_map');
+        map.setCenter(cord);
         map.setZoom(parseInt(atbdp_map.zoom));
     }
 
@@ -283,18 +284,19 @@ MarkerLabel.prototype.draw = function () {
     function setup_map() {
         // render map in the custom post
         $('.atbdp-map').each(function () {
-            atbdp_rander_map( $( this ) );
+            atbdp_rander_map($(this));
         });
     }
 
-    window.addEventListener( 'load', setup_map );
-    window.addEventListener( 'load', setup_info_window );
+    window.addEventListener('load', setup_map);
+    window.addEventListener('load', setup_info_window);
 
-    window.addEventListener( 'directorist-reload-listings-map-archive', setup_map );
-    window.addEventListener( 'directorist-reload-listings-map-archive', setup_info_window );
+    window.addEventListener('directorist-reload-listings-map-archive', setup_map);
+    window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
     });
 
 })(jQuery);
+

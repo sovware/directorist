@@ -256,6 +256,7 @@
         });
         searchForm.querySelectorAll("select").forEach(function (el) {
             el.selectedIndex = 0;
+            $(el).select2('val','');
             $(el).val('').trigger('change');
         });
 

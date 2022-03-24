@@ -33,7 +33,7 @@ try {
         $response_body = $cached_response;
     } 
  
-    $response_body       = ( 'string' === gettype( $response_body ) ) ? json_decode( $response_body ) : $response_body;
+    $response_body       = is_string( $response_body ) ? json_decode( $response_body ) : $response_body;
     $display_promo       = ! empty( $response_body->display_promo ) ? $response_body->display_promo : '';
     $promo_version       = ! empty( $response_body->promo_version ) ? $response_body->promo_version : 'sdas';
     $directorist_promo_closed = get_user_meta( get_current_user_id(), '_directorist_promo_closed', true );
@@ -63,13 +63,13 @@ $url_args = [
         <div class="directorist_membership-notice__text">
             <?php 
             if( $banner_title ){ ?>
-                <h4><?php echo esc_attr( $banner_title ); ?></h4>
+                <h4><?php echo esc_html( $banner_title ); ?></h4>
             <?php } 
             if( $banner_description ){ ?>
-                <p><?php echo esc_attr( $banner_description ); ?></p>
+                <p><?php echo esc_html( $banner_description ); ?></p>
             <?php }  
             if( $sale_button_text ){ ?>
-                <a class="directorist_membership-sale-badge" target="_blank" href="<?php echo esc_attr( $sale_button_link ); ?>"><?php echo esc_attr( $sale_button_text ); ?></a>
+                <a class="directorist_membership-sale-badge" target="_blank" href="<?php echo esc_url( $sale_button_link ); ?>"><?php echo esc_html( $sale_button_text ); ?></a>
             <?php } ?>
         </div>
     </div>
@@ -81,14 +81,14 @@ $url_args = [
         foreach( $offer_lists as $offer ){ ?>
             <li>
                 <span class="directorist_membership-notice__list--icon"><i class="fa fa-check"></i></span>
-                <span class="directorist_membership-notice__list--text"><?php echo esc_attr( $offer ); ?></span>
+                <span class="directorist_membership-notice__list--text"><?php echo esc_html( $offer ); ?></span>
             </li>
         <?php } ?>
     </ul>
     <?php } 
     if( $get_now_button_text ) { ?>
         <div class="directorist_membership-notice__action">
-            <a href="<?php echo esc_url( $get_now_button_link ); ?>" target="_blank" class="directorist_membership-btn"><?php echo esc_attr( $get_now_button_text ); ?></a>
+            <a href="<?php echo esc_url( $get_now_button_link ); ?>" target="_blank" class="directorist_membership-btn"><?php echo esc_html( $get_now_button_text ); ?></a>
         </div>
     <?php } ?>
     <a href="<?php echo esc_url( add_query_arg( $url_args, atbdp_get_current_url() ) );?>" class="directorist_membership-notice-close">

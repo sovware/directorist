@@ -10,7 +10,9 @@
         <div class="directorist_membership-notice__text">
           <h4>Directorist Membership</h4>
           <p>Get a membership plan and unlock all the themes & extensions.</p>
-          <span class="directorist_membership-sale-badge">Save up to 85%</span>
+          <a class="directorist_membership-sale-badge" href="#"
+            >Save up to 85%</a
+          >
         </div>
       </div>
       <ul class="directorist_membership-notice__list">

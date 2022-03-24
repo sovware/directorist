@@ -57,7 +57,7 @@ try {
                 <p><?php echo esc_attr( $banner_description ); ?></p>
             <?php }  
             if( $sale_badge_text ){ ?>
-                <span class="directorist_membership-sale-badge"><?php echo esc_attr( $sale_badge_text ); ?></span>
+                <a class="directorist_membership-sale-badge" href="#"><?php echo esc_attr( $sale_badge_text ); ?></a>
             <?php } ?>
         </div>
     </div>

@@ -1,8 +1,12 @@
 <?php
-echo $args['before_widget'];
-echo '<div class="atbd_widget_title">';
-  echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-  echo '</div>';
+/**
+ * @author  wpWax
+ * @since   7.2.0
+ * @version 7.2.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+$sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
 global $post;
 $related_listings = ATBDP()->get_related_listings_widget($post, $sim_listing_num); ?>
 <div class="atbd_categorized_listings">
@@ -101,5 +105,3 @@ $related_listings = ATBDP()->get_related_listings_widget($post, $sim_listing_num
 </div>
 <!--ends .categorized_listings-->
 
-
-<?php echo $args['after_widget'];

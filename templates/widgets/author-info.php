@@ -1,9 +1,13 @@
 <?php
-echo $args['before_widget'];
-echo '<div class="atbd_widget_title">';
-echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
-echo '</div>';
+/**
+ * @author  wpWax
+ * @since   7.2.0
+ * @version 7.2.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
+
 <div class="atbdp atbd_author_info_widget">
 
     <div class="atbd_avatar_wrapper">
@@ -113,5 +117,3 @@ echo '</div>';
         class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
     </a>
 </div>
-
-<?php echo $args['after_widget']; ?> 

@@ -1,10 +1,14 @@
 <?php
-echo $args['before_widget'];
-echo '<div class="atbd_widget_title">';
-echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
-echo '</div>';
+/**
+ * @author  wpWax
+ * @since   7.2.0
+ * @version 7.2.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
 ?>
+
 <div class="atbdp directorist atbdp-widget-listing-contact">
   <form id="<?php echo $form_id; ?>" class="form-vertical directorist-contact-owner-form">
     <div class="form-group">
@@ -26,8 +30,8 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
     echo apply_filters('atbdp_widget_contact_form_message_field', $msg_html);
     ?>
 
-    <input type="hidden" name="atbdp-post-id" value="<?php echo $post->ID; ?>" />
-    <input type="hidden" name="atbdp-listing-email" value="<?php echo ! empty($email) ? sanitize_email($email) : ''; ?>" />
+    <input type="hidden" name="atbdp-post-id" value="<?php echo get_the_ID(); ?>" />
+    <input type="hidden" name="atbdp-listing-email" value="<?php echo ! empty( $email ) ? sanitize_email( $email ) : ''; ?>" />
     
     <?php
     /**
@@ -43,5 +47,3 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
   </form>
 </div>
 
-<?php
-echo $args['after_widget'];

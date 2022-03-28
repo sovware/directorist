@@ -48,7 +48,7 @@ class Author_Info extends \WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		if ( is_singular(ATBDP_POST_TYPE ) ) {
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
 			echo wp_kses_post( $args['before_widget'] );
 
 			$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', 'directorist');

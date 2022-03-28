@@ -10,6 +10,5 @@ window.addEventListener('DOMContentLoaded', () => {
             $(this).siblings('.atbdp_child_location').slideToggle();
         });
 
-
     })(jQuery);
 });

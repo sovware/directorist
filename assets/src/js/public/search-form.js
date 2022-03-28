@@ -202,13 +202,14 @@ import './../global/components/select2-custom-control';
             checkBoxes.forEach(function (el, ind) {
                 el.checked = false;
             })
+
             var radios = document.querySelectorAll('.directorist-advanced-filter input[type="radio"]');
             radios.forEach(function (el, ind) {
                 el.checked = false;
             })
+            
             $('.search-area select').prop('selectedIndex', 0);
             $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
-
         }
         $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
             e.preventDefault();

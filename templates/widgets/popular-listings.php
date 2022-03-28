@@ -27,7 +27,7 @@ if ( !$query->have_posts() ) {
             $post_link = get_the_permalink( $id );
 
             ?>
-        
+
             <li>
 
                 <div class="atbd_left_img">
@@ -104,5 +104,7 @@ if ( !$query->have_posts() ) {
             </li>
 
         <?php endwhile; ?>
+
+		<?php wp_reset_postdata(); ?>
     </ul>
 </div>

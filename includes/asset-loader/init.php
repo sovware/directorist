@@ -132,6 +132,10 @@ class Init {
 				wp_enqueue_script( 'directorist-all-location-category' );
 				break;
 
+			case 'widgets/search-form':
+				wp_enqueue_script( 'directorist-select2-script' );
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.

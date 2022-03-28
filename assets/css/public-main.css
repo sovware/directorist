@@ -9944,6 +9944,10 @@ p.atbd-min {
   background-color: transparent;
   color: #00AC17;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top span,
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top a {
+  word-break: break-all;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt:empty {
   display: none;
 }
@@ -10056,6 +10060,7 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li a {
   text-decoration: none;
   color: #7a82a6;
+  word-break: break-word;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list .directorist-listing-card-location-list {
   display: block;

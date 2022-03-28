@@ -98,6 +98,7 @@ class Init {
 			case 'archive/search-form':
 			case 'search-form-contents':
 			case 'search-form/adv-search':
+			case 'widgets/search-form':
 				wp_enqueue_script( 'directorist-search-form' );
 				wp_enqueue_script( 'directorist-select2-script' );
 				break;
@@ -130,10 +131,6 @@ class Init {
 			case 'taxonomies/locations-grid':
 			case 'taxonomies/locations-list':
 				wp_enqueue_script( 'directorist-all-location-category' );
-				break;
-
-			case 'widgets/search-form':
-				wp_enqueue_script( 'directorist-select2-script' );
 				break;
 
 			case 'archive/grid-view':

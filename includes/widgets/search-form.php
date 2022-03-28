@@ -47,6 +47,52 @@ class Search_Form extends \WP_Widget {
 		return $instance;
 	}
 
+    public static function get_search_script_data( $args = [] ) {
+
+        $directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+        $directory_type_term_data = [
+            'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
+            'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),
+        ];
+
+        /*Internationalization*/
+        $category_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
+        $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
+        $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
+        $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
+        $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
+
+        if ( 'kilometers' == $radius_search_unit ) {
+            $miles = __( ' Kilometers', 'directorist' );
+        } else {
+            $miles = __( ' Miles', 'directorist' );
+        }
+
+        $data = array(
+            'i18n_text'   => array(
+                'category_selection' => ! empty( $category_placeholder ) ? $category_placeholder : __( 'Select a category', 'directorist' ),
+                'location_selection' => ! empty( $location_placeholder ) ? $location_placeholder : __( 'Select a location', 'directorist' ),
+                'show_more'          => __( 'Show More', 'directorist' ),
+                'show_less'          => __( 'Show Less', 'directorist' ),
+                'added_favourite'    => __( 'Added to favorite', 'directorist' ),
+                'please_login'          => __( 'Please login first', 'directorist' ),
+                'select_listing_map' => $select_listing_map,
+                'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+            ),
+            'args'                     => $args,
+            'directory_type'           => $directory_type,
+            'directory_type_term_data' => $directory_type_term_data,
+            'ajax_url'                 => admin_url( 'admin-ajax.php' ),
+            'miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+            'default_val'              => $default_radius_distance,
+            'countryRestriction'       => get_directorist_option( 'country_restriction' ),
+            'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
+            'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),
+        );
+        return $data;
+    }
+
+
 	public function widget( $args, $instance ) {
         $allowWidget = apply_filters('atbdp_allow_search_widget', true);
         if ( ! $allowWidget ) return;
@@ -65,7 +111,7 @@ class Search_Form extends \WP_Widget {
         $listing_type = get_post_meta( get_the_ID(), '_directory_type', true );
         $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();
 
-        $data = \Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type ] );
+        $data = $this->get_search_script_data( [ 'directory_type_id' => $listing_type ] );
         wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
         wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
             'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),

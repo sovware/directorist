@@ -6,9 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
-global $post;
-$related_listings = ATBDP()->get_related_listings_widget($post, $sim_listing_num); ?>
+?>
+
 <div class="atbd_categorized_listings">
   <ul class="listings">
     <?php

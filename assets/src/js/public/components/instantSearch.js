@@ -122,8 +122,8 @@
         
         var fields = {
             q       : $('input[name="q"]').val(),
-            in_cat  : $('.bdas-category-search').val(),
-            in_loc  : $('.bdas-category-location').val(),
+            in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
+            in_loc  : $('.bdas-category-location, .directorist-location-select').val(),
             price_range : $("input[name='price_range']:checked").val(),
             search_by_rating: $('select[name=search_by_rating]').val(),
             address : $('input[name="address"]').val(),

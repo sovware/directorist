@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 7.1.1
+Stable tag: 7.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,6 +40,7 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
 👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
 Directorist Business Directory & Classified Listings is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allow you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
@@ -388,10 +389,13 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.1.1 – Feb 14, 2022
+7.1.2 – Feb 17, 2022
+
+* Fix - Fatal error when review disabled
+
+7.1.1 – Feb 16, 2022
 
 * Add - Load category custom field when selecting search form categories
-* Add - New user role support named 'seller'
 * Add - 'section_data' as the second parameter of 'directorist_single_section_has_contents' filter hook
 * Fix - User not able to select address if there's no map added on the add listing form
 * Fix - Wrong listings in Author Profile page where usernames with a space

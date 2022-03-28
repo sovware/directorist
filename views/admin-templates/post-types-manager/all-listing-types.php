@@ -6,6 +6,13 @@
     <hr class="wp-header-end">
 
     <div class="directorist_builder-wrap">
+        <?php
+            /**
+             * Fires before all directory types table
+             * @since 7.2.0
+             */
+            do_action( 'directorist_before_all_directory_types' );
+        ?>
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">
                 <div class="directorist_logo">
@@ -203,23 +210,23 @@
                     <form action="#" method="post" class="cptm-import-directory-form">
                         <div class="cptm-form-group cptm-mb-10">
                             <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name or ID">
+                            <div class="cptm-file-input-wrap">
+                                <label for="directory-import-file" class="cptm-btn cptm-btn-secondery"><?php _e( 'Select File', 'directorist' ); ?></label>
+                                <button type="submit" class="cptm-btn cptm-btn-primary">
+                                    <span class="cptm-loading-icon cptm-d-none">
+                                        <span class="fa fa-spin fa fa-spinner"></span>
+                                    </span>
+                                    <?php _e( 'Import', 'directorist' ); ?>
+                                </button>
+                                <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
+                            </div>
+                            
                             <p class="cptm-info-text">
                                 <?php _e( '<b>Note:</b> You can use an existed directory ID to update it the importing file', 'directorist' ) ?>
                             </p>
                         </div>
 
                         <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
-
-                        <div class="cptm-file-input-wrap">
-                            <label for="directory-import-file" class="cptm-btn cptm-btn-secondery"><?php _e( 'Select File', 'directorist' ); ?></label>
-                            <button type="submit" class="cptm-btn cptm-btn-primary">
-                                <span class="cptm-loading-icon cptm-d-none">
-                                    <span class="fa fa-spin fa fa-spinner"></span>
-                                </span>
-                                <?php _e( 'Import', 'directorist' ); ?>
-                            </button>
-                            <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
-                        </div>
                     </form>
                 </div>
             </div>

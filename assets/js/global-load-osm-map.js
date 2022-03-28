@@ -123,6 +123,7 @@ function setup_map() {
 }
 
 function load() {
+  var loc_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('loc_data');
   var url = window.location.href;
   var urlParts = URI.parse(url);
   var queryStringParts = URI.parseQuery(urlParts.query);

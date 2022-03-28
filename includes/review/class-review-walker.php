@@ -145,9 +145,11 @@ class Walker extends Walker_Comment {
 						</div>
 					</header>
 					<div class="directorist-review-single__content">
+						<?php do_action( 'directorist_review_content_before' ); ?>
+
 						<?php comment_text(); ?>
 
-						<?php do_action( 'directorist/review/after_comment_text' ); ?>
+						<?php do_action( 'directorist_review_content_after' ); ?>
 					</div>
 				</div>
 				<?php if ( $comment->comment_approved == '0' ) : ?>

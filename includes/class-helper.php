@@ -452,7 +452,7 @@ class Helper {
 		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
 		$average                    = directorist_get_listing_rating( $listing_id );
 		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
-		$view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+		$view_count                 = directorist_get_listing_views_count( $listing_id );
 		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
 		if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
@@ -613,6 +613,52 @@ class Helper {
 
 	public static function add_shortcode_comment( string $shortcode = '' ) {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
+	}
+
+
+	/**
+	 * Is Rank Math Active
+	 *
+	 * Determines whether Rank Math is active
+	 *
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_rankmath_active() {
+		return self::is_plugin_active( 'seo-by-rank-math/rank-math.php' );
+	}
+
+	/**
+	 * Is Yoast Active
+	 *
+	 * Determines whether Yoast is active
+	 *
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_yoast_active() {
+		$yoast_free_is_active    = self::is_plugin_active( 'wordpress-seo/wp-seo.php' );
+    	$yoast_premium_is_active = self::is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' );
+
+		return ( $yoast_free_is_active || $yoast_premium_is_active );
+	}
+
+	/**
+	 * Is Plugin Active
+	 *
+	 * Determines whether a plugin is active
+	 *
+	 * @param string $plugin — Path to the plugin file relative to the plugins directory.
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_plugin_active( string $plugin = '' ) {
+
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			return false;
+		}
+
+		return is_plugin_active( $plugin );
 	}
 
 }

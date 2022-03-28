@@ -132,6 +132,10 @@ class Init {
 				wp_enqueue_script( 'directorist-all-location-category' );
 				break;
 
+			case 'widgets/search-form':
+				wp_enqueue_script( 'directorist-select2-script' );
+				break;
+
 			case 'archive/grid-view':
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
@@ -142,6 +146,7 @@ class Init {
 			case 'archive/map-view':
 			case 'listing-form/fields/map':
 			case 'single/fields/map':
+			case 'widgets/single-map':
 				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 				if ( $map_type == 'openstreet' ) {

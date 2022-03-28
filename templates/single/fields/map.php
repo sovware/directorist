@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist-single-map" class="directorist-single-map" data-map="<?php echo esc_attr( $listing->map_data() ); ?>"></div>
+<div class="directorist-single-map" data-map="<?php echo esc_attr( $listing->map_data() ); ?>"></div>

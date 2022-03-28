@@ -208,7 +208,6 @@ import './../global/components/select2-custom-control';
             })
             $('.search-area select').prop('selectedIndex', 0);
             $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
-
         }
         $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
             e.preventDefault();

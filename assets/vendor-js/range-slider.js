@@ -1,6 +1,5 @@
 /* range slider */
 var atbd_slider = (selector, obj) => {
-    console.log("work")
     var isDraging 	= false,
         max 		= obj.maxValue,
         min 		= obj.minValue,

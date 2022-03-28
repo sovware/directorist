@@ -207,14 +207,10 @@ import './../global/components/select2-custom-control';
             radios.forEach(function (el, ind) {
                 el.checked = false;
             })
-            
+
             $('.search-area select').prop('selectedIndex', 0);
             $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
         }
-        $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
-            e.preventDefault();
-            resetFields();
-        });
 
         /* advanced search form reset */
         function adsFormReset(searchForm) {
@@ -319,19 +315,7 @@ import './../global/components/select2-custom-control';
             });
         }
 
-        /* Single Listing widget Form */
-        if ($(".atbd_widget .search-area .directorist-btn-reset-js") !== null) {
-            $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
-                e.preventDefault();
-                if (this.closest('.search-area')) {
-                    const searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                directorist_callingSlider(0);
-            });
-        }
+        
 
 
         /* ----------------

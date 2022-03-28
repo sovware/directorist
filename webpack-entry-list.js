@@ -17,8 +17,8 @@ module.exports = {
         ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['account']: ["./assets/src/js/public/modules/account.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
-
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
+        ['widgets']: ["./assets/src/js/public/modules/widgets.js"],
 
         // Admin
         // -------------------------------------------
@@ -35,7 +35,6 @@ module.exports = {
         // JS
         ['global-main']: ["./assets/src/js/global/global.js"],
         ['add-listing']: ["./assets/src/js/global/add-listing.js"],
-
         ['add-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
         ['add-listing-google-map']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
         ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],
@@ -47,7 +46,6 @@ module.exports = {
         ['openstreet-map']: ["./assets/src/js/global/map-scripts/openstreet-map.js"],
         ['google-map']: ["./assets/src/js/global/map-scripts/map-view.js"],
         ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
-
         ['directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
     },
 

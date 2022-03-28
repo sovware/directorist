@@ -142,6 +142,7 @@ class Init {
 			case 'archive/map-view':
 			case 'listing-form/fields/map':
 			case 'single/fields/map':
+			case 'widgets/single-map':
 				$map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
 
 				if ( $map_type == 'openstreet' ) {

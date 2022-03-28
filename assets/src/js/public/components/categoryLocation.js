@@ -1,6 +1,6 @@
-(function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
-        /* multi level hierarchy content */
+window.addEventListener('DOMContentLoaded', () => {
+    (function ($) {
+        /* Multi level hierarchy content */
         /* Category */
         $('.atbdp_child_category').hide();
         $('.atbd_category_wrapper > .expander').on('click', function () {
@@ -20,5 +20,5 @@
             $(this).siblings('.atbdp_child_location').slideToggle();
             $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
         });
-    });
-})(jQuery);
+    })(jQuery);
+});

@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php
 				foreach ($author->get_listing_categories() as $category) {
 					$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';
-					$link = add_query_arg( 'category', $category->slug );
+					$link = directorist_add_query_args_with_no_pagination( [ 'category' => $category->slug ] );
 					printf('<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', $active_class, $link, $category->name);
 				}
 				?>

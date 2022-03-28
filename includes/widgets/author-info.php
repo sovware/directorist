@@ -48,15 +48,17 @@ class Author_Info extends \WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		echo wp_kses_post( $args['before_widget'] );
+		if ( is_singular(ATBDP_POST_TYPE ) ) {
+			echo wp_kses_post( $args['before_widget'] );
 
-		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', 'directorist');
-		echo '<div class="atbd_widget_title">';
-		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-		echo '</div>';
+			$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', 'directorist');
+			echo '<div class="atbd_widget_title">';
+			echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+			echo '</div>';
 
-		Helper::get_template( 'widgets/author-info', compact( 'args', 'instance' ) );
+			Helper::get_template( 'widgets/author-info', compact( 'args', 'instance' ) );
 
-		echo wp_kses_post( $args['after_widget'] );
+			echo wp_kses_post( $args['after_widget'] );
+		}
 	}
 }

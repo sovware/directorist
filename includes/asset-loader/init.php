@@ -83,6 +83,10 @@ class Init {
 
 	public function load_template_scripts( $template ) {
 
+		if ( $this->is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
+			wp_enqueue_script( 'directorist-widgets' );
+		}
+
 		switch ( $template ) {
 			// All Listings
 			case 'archive-contents':
@@ -291,5 +295,9 @@ class Init {
 		}
 
 		return $tag;
+	}
+
+	private function is_widget_template( $template ) {
+		return str_starts_with( $template, 'widgets/' );
 	}
 }

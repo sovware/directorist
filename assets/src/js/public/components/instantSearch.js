@@ -68,6 +68,10 @@
         }
     }
 
+    function getURLParameter(url, name) {
+        return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+    }
+
     /* Directorist instant search */
     $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function( e ) {
         e.preventDefault();
@@ -111,6 +115,7 @@
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
+        let directory_type = getURLParameter( type_href, 'directory_type' );
 
         var data = {
             action  : 'directorist_instant_search',
@@ -156,8 +161,8 @@
                 form_data.view = view
             }
 
-            if( type && type.length ) {
-                form_data.directory_type = type[0].replace( /directory_type=/, '' )
+            if( directory_type && directory_type.length ) {
+                form_data.directory_type = directory_type;
             }
 
             update_instant_search_url( form_data );
@@ -193,10 +198,12 @@
         e.preventDefault();
         let type_href   = $(this).attr('href');
         let type        = type_href.match( /directory_type=.+/ );
+        //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
+        let directory_type = getURLParameter( type_href, 'directory_type' );
         var form_data = {
             action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
-            directory_type    : ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '',
+            directory_type    : directory_type,
         };
 
         update_instant_search_url( form_data );
@@ -279,6 +286,7 @@
         let view        = view_href.match( /view=.+/ );
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
+        let directory_type = getURLParameter( type_href, 'directory_type' );
         let page_no     = $(".page-numbers.current").text();
 
         $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
@@ -288,8 +296,8 @@
             _nonce  : atbdp_public_data.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
-            in_cat  : $('.bdas-category-search').val(),
-            in_loc  : $('.bdas-category-location').val(),
+            in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
+            in_loc  : $('.bdas-category-location, .directorist-location-select').val(),
             in_tag  : tag,
             price   : price,
             price_range : $("input[name='price_range']:checked").val(),
@@ -310,8 +318,8 @@
             form_data.paged = page_no;
         }
 
-        if( type && type.length ) {
-            form_data.directory_type = type[0].replace( /directory_type=/, '' )
+        if( directory_type && directory_type.length ) {
+            form_data.directory_type = directory_type;
         }
 
         if( sort && sort.length ) {
@@ -392,6 +400,7 @@
         let sort_by     = sort_href.match( /sort=.+/ );
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
+        let directory_type = getURLParameter( type_href, 'directory_type' );
 
         $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
         $(this).addClass("active");
@@ -401,8 +410,8 @@
             _nonce  : atbdp_public_data.ajax_nonce,
             sort    : ( sort_by && sort_by.length ) ? sort_by[0].replace( /sort=/, '' ) : '',
             q       : $('input[name="q"]').val(),
-            in_cat  : $('.bdas-category-search').val(),
-            in_loc  : $('.bdas-category-location').val(),
+            in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
+            in_loc  : $('.bdas-category-location, .directorist-location-select').val(),
             in_tag  : tag,
             price   : price,
             price_range : $("input[name='price_range']:checked").val(),
@@ -420,8 +429,8 @@
             view : view,
         };
 
-        if( type && type.length ) {
-            form_data.directory_type = type[0].replace( /directory_type=/, '' )
+        if( directory_type && directory_type.length ) {
+            form_data.directory_type = directory_type;
         }
 
         $.ajax({
@@ -497,6 +506,7 @@
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
+        let directory_type = getURLParameter( type_href, 'directory_type' );
         
         $(".directorist-pagination .page-numbers").removeClass('current');
         $(this).addClass("current");
@@ -514,8 +524,8 @@
             _nonce  : atbdp_public_data.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
-            in_cat  : $('.bdas-category-search').val(),
-            in_loc  : $('.bdas-category-location').val(),
+            in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
+            in_loc  : $('.bdas-category-location, .directorist-location-select').val(),
             in_tag  : tag,
             price   : price,
             price_range : $("input[name='price_range']:checked").val(),
@@ -536,8 +546,8 @@
 
         update_instant_search_url( form_data );
 
-        if( type && type.length ) {
-            form_data.directory_type = type[0].replace( /directory_type=/, '' )
+        if( directory_type && directory_type.length ) {
+            form_data.directory_type = directory_type;
         }
 
         if( sort && sort.length ) {

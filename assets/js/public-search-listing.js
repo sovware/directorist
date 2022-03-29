@@ -246,9 +246,21 @@
   ad_slide.hide().slideUp();
   $('body').on("click", '.directorist-filter-btn', function (e) {
     e.preventDefault();
+    var miles = parseInt($('.atbdrs-value').val());
+    var default_args = {
+      maxValue: 1000,
+      minValue: miles,
+      maxWidth: '100%',
+      barColor: '#d4d5d9',
+      barBorder: 'none',
+      pointerColor: '#fff',
+      pointerBorder: '4px solid #444752'
+    };
+    var config = default_args;
     $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
     $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
     atbd_callingSlider();
+    atbd_slider('.atbdp-range-slider', config);
   });
   $(".directorist-advanced-filter").parents("div").css("overflow", "visible"); //remove preload after window load
 

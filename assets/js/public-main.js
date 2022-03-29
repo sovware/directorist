@@ -1287,13 +1287,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var tag = [];
     var price = [];
     var custom_field = {};
-    $('input[name^="in_tag["]:checked').each(function (index, el) {
+    $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
-    $('input[name^="price["]').each(function (index, el) {
+    $(this).find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
     });
-    $('[name^="custom_field"]').each(function (index, el) {
+    $(this).find('[name^="custom_field"]').each(function (index, el) {
       var test = $(el).attr('name');
       var type = $(el).attr('type');
       var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
@@ -1330,23 +1330,23 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       custom_field: custom_field
     };
     var fields = {
-      q: $('input[name="q"]').val(),
-      in_cat: $('.bdas-category-search, .directorist-category-select').val(),
-      in_loc: $('.bdas-category-location, .directorist-location-select').val(),
-      price_range: $("input[name='price_range']:checked").val(),
-      search_by_rating: $('select[name=search_by_rating]').val(),
-      address: $('input[name="address"]').val(),
-      zip: $('input[name="zip"]').val(),
-      fax: $('input[name="fax"]').val(),
-      email: $('input[name="email"]').val(),
-      website: $('input[name="website"]').val(),
-      phone: $('input[name="phone"]').val()
+      q: $(this).find('input[name="q"]').val(),
+      in_cat: $(this).find('.bdas-category-search, .directorist-category-select').val(),
+      in_loc: $(this).find('.bdas-category-location, .directorist-location-select').val(),
+      price_range: $(this).find("input[name='price_range']:checked").val(),
+      search_by_rating: $(this).find('select[name=search_by_rating]').val(),
+      address: $(this).find('input[name="address"]').val(),
+      zip: $(this).find('input[name="zip"]').val(),
+      fax: $(this).find('input[name="fax"]').val(),
+      email: $(this).find('input[name="email"]').val(),
+      website: $(this).find('input[name="website"]').val(),
+      phone: $(this).find('input[name="phone"]').val()
     };
 
     if (fields.address && fields.address.length) {
-      fields.cityLat = $('#cityLat').val();
-      fields.cityLng = $('#cityLng').val();
-      fields.miles = $('.atbdrs-value').val();
+      fields.cityLat = $(this).find('#cityLat').val();
+      fields.cityLng = $(this).find('#cityLng').val();
+      fields.miles = $(this).find('.atbdrs-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -1435,7 +1435,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   });
   $('body').on("click", ".disabled-link", function (e) {
     e.preventDefault();
-  }); // Directorist view as changes  
+  }); // Directorist view as changes
 
   $('body').on("click", ".directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
     e.preventDefault();
@@ -1544,7 +1544,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       }
     });
   });
-  $('.directorist-instant-search .directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes  
+  $('.directorist-instant-search .directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes
 
   $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
     e.preventDefault();

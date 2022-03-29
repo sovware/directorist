@@ -111,7 +111,7 @@
   if (checkbox.length <= 4) {
       show_more.remove();
   }
-    var item = $('.custom-control').closest('.bads-custom-checks');
+      var item = $('.custom-control').closest('.bads-custom-checks');
   item.each(function (index, el) {
       var count = 0;
       var abc = $(el)[0];
@@ -120,9 +120,9 @@
           $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
       }
       $(abc2).slice(4, abc2.length).hide();
-   });
+    });
   
-  $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
+      $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags"); */
   function defaultTags() {
     $('.directorist-btn-ml').each(function (index, element) {
       var item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
@@ -246,9 +246,21 @@
   ad_slide.hide().slideUp();
   $('body').on("click", '.directorist-filter-btn', function (e) {
     e.preventDefault();
+    var miles = parseInt($('.atbdrs-value').val());
+    var default_args = {
+      maxValue: 1000,
+      minValue: miles,
+      maxWidth: '100%',
+      barColor: '#d4d5d9',
+      barBorder: 'none',
+      pointerColor: '#fff',
+      pointerBorder: '4px solid #444752'
+    };
+    var config = default_args;
     $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
     $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
     atbd_callingSlider();
+    atbd_slider('.atbdp-range-slider', config);
   });
   $(".directorist-advanced-filter").parents("div").css("overflow", "visible"); //remove preload after window load
 
@@ -361,7 +373,8 @@
     });
     searchForm.querySelectorAll("select").forEach(function (el) {
       el.selectedIndex = 0;
-      $(el).val('').trigger('change');
+      $('.directorist-select2-dropdown-close').click();
+      $(el).val(null).trigger('change');
     });
     var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 

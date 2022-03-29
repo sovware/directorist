@@ -4142,6 +4142,373 @@ input.atbdp-form-control {
   display: none;
 }
 
+/* Directorist Membership Notice */
+.atbdp-settings-manager .directorist_membership-notice {
+  margin-bottom: 0;
+}
+
+.directorist_membership-notice {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #5441b9;
+  background: linear-gradient(-45deg, #5441b9 1%, #b541d8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#5441b9", endColorstr="#b541d8",GradientType=1 );
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 767px) {
+  .directorist_membership-notice {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+@media only screen and (max-width: 475px) {
+  .directorist_membership-notice {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+.directorist_membership-notice .directorist_membership-notice__content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice .directorist_membership-notice__content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .directorist_membership-notice .directorist_membership-notice__content {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .directorist_membership-notice .directorist_membership-notice__content {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width: 475px) {
+  .directorist_membership-notice .directorist_membership-notice__content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+  }
+}
+.directorist_membership-notice .directorist_membership-notice__content img {
+  max-width: 140px;
+  height: 140px;
+  border-radius: 14px;
+  margin-left: 30px;
+}
+@media only screen and (max-width: 1399px) {
+  .directorist_membership-notice .directorist_membership-notice__content img {
+    max-width: 130px;
+    height: 130px;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice .directorist_membership-notice__content img {
+    margin-left: 0;
+    margin-bottom: 24px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .directorist_membership-notice .directorist_membership-notice__content img {
+    margin: 0 0 0 20px;
+  }
+}
+@media only screen and (max-width: 475px) {
+  .directorist_membership-notice .directorist_membership-notice__content img {
+    margin-left: 0;
+    margin-bottom: 24px;
+    margin: 0 auto 24px auto;
+  }
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text {
+  color: #fff;
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text h4 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 4px 0 8px;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text h4 {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text h4 {
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text p {
+  font-size: 16px;
+  font-weight: 500;
+  max-width: 350px;
+  margin-bottom: 12px;
+  color: #ffffff90;
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  min-height: 47px;
+  line-height: 1.95;
+  padding: 0 15px;
+  border-radius: 6px;
+  color: #000000;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #3af4c2;
+}
+.directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge:hover {
+  background-color: #64d8b9;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 475px) {
+  .directorist_membership-notice .directorist_membership-notice__content .directorist_membership-notice__text .directorist_membership-sale-badge {
+    font-size: 14px;
+    min-height: 35px;
+  }
+}
+
+.directorist_membership-notice__list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 450px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice__list {
+    max-width: 410px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .directorist_membership-notice__list {
+    max-width: 380px;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice__list {
+    max-width: 250px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .directorist_membership-notice__list {
+    display: none;
+  }
+}
+.directorist_membership-notice__list li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 1;
+  width: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  margin: 8px 0;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice__list li {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice__list li {
+    width: 100%;
+  }
+}
+.directorist_membership-notice__list li .directorist_membership-notice__list--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #f8d633;
+  margin-left: 12px;
+}
+.directorist_membership-notice__list li .directorist_membership-notice__list--icon i {
+  position: relative;
+  top: 1px;
+  font-size: 11px;
+  color: #000;
+}
+@media only screen and (max-width: 1199px) {
+  .directorist_membership-notice__list li .directorist_membership-notice__list--icon i {
+    top: 0;
+  }
+}
+
+.directorist_membership-notice__action {
+  margin-left: 25px;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice__action {
+    margin-left: 0;
+  }
+}
+@media only screen and (max-width: 475px) {
+  .directorist_membership-notice__action {
+    width: 100%;
+    text-align: center;
+  }
+}
+.directorist_membership-notice__action .directorist_membership-btn {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  min-height: 52px;
+  border-radius: 8px;
+  padding: 0 34.45px;
+  background-color: #f8d633;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist_membership-notice__action .directorist_membership-btn:hover {
+  background-color: #edc400;
+}
+@media only screen and (max-width: 1499px) {
+  .directorist_membership-notice__action .directorist_membership-btn {
+    font-size: 15px;
+    padding: 0 15.45px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .directorist_membership-notice__action .directorist_membership-btn {
+    font-size: 14px;
+    min-width: 115px;
+  }
+}
+
+.directorist_membership-notice-close {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist_membership-notice-close:hover {
+  background-color: #EF0000;
+}
+.directorist_membership-notice-close:hover i {
+  color: #fff;
+}
+.directorist_membership-notice-close i {
+  color: #b541d8;
+}
+
 .directorist_builder__content {
   display: -webkit-box;
   display: -webkit-flex;

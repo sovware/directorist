@@ -71,8 +71,9 @@
     /* Directorist instant search */
     $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function( e ) {
         e.preventDefault();
-        let tag          = [];
-        let price        = [];
+        
+        let tag = [];
+        let price = [];
         let custom_field = {};
         
         $('input[name^="in_tag["]:checked').each(function(index, el) {

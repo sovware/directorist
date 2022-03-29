@@ -393,39 +393,39 @@ msgstr ""
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:8404
+#: ../includes/helper-functions.php:8429
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8405
+#: ../includes/helper-functions.php:8430
 msgid "Registration failed. Please make sure you filed up all the necessary fields marked with <span style=\"color: red\">*</span>"
 msgstr ""
 
-#: ../includes/helper-functions.php:8406
+#: ../includes/helper-functions.php:8431
 msgid "Sorry, that email already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8407, ../includes/classes/class-user.php:216
+#: ../includes/helper-functions.php:8432, ../includes/classes/class-user.php:216
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/helper-functions.php:8408, ../includes/classes/class-user.php:220
+#: ../includes/helper-functions.php:8433, ../includes/classes/class-user.php:220
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8409, ../includes/classes/class-user.php:230
+#: ../includes/helper-functions.php:8434, ../includes/classes/class-user.php:230
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:8410, ../includes/classes/class-user.php:245
+#: ../includes/helper-functions.php:8435, ../includes/classes/class-user.php:245
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/helper-functions.php:8411
+#: ../includes/helper-functions.php:8436
 msgid "Space is not allowed in username"
 msgstr ""
 
-#: ../includes/helper-functions.php:8412
+#: ../includes/helper-functions.php:8437
 msgid "Please make sure you filed up the user type"
 msgstr ""
 

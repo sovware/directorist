@@ -9,7 +9,6 @@ const localized_data = directorist.add_listing_data;
 
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
-
     if ($('input#manual_coordinate').length) {
 
         $('input#manual_coordinate').each((index, element) => {
@@ -18,6 +17,11 @@ $(window).on('load', function () {
                 $('.directorist-map-coordinates').hide();
             }
         });
+    }
+
+    //initialize color picker
+    if($('.directorist-color-field-js').length){
+        $('.directorist-color-field-js').wpColorPicker().empty();
     }
 });
 
@@ -229,11 +233,6 @@ $(document).ready(function () {
         $('#tc_container').toggleClass('active');
     });
 
-    $(function () {
-        $('.directorist-color-field-js')
-            .wpColorPicker()
-            .empty();
-    });
 
     $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
     // Load custom fields of the selected category in the custom post type "atbdp_listings"

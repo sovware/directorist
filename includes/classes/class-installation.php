@@ -165,6 +165,11 @@ class ATBDP_Installation {
 	 * @since 7.1.0
 	 */
 	private static function maybe_update_db_version() {
+		// Probably new installation, so add current db version.
+		if ( ! get_option( 'directorist_setup_wizard_completed' ) && ! get_option( 'directorist_db_version', null ) ) {
+			self::update_db_version();
+		}
+
 		if ( self::needs_db_update() ) {
 			if ( apply_filters( 'directorist/updater/enable_db_auto_update', false ) ) {
 				self::init_background_updater();

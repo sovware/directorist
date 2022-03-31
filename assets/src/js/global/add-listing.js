@@ -58,6 +58,11 @@ $(document).ready(function () {
             social_wrap.append(data);
         });
     });
+    document.addEventListener('directorist-reload-plupload', function(){
+        if($('.directorist-color-field-js').length){
+            $('.directorist-color-field-js').wpColorPicker().empty();
+        }
+    })
 
     // remove the social field and then reset the ids while maintaining position
     $('body').on('click', '.directorist-form-social-fields__remove', function (e) {

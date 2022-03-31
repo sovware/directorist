@@ -594,7 +594,6 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             },
             success(response) {
                 // console.log( response );
-
                 $('#directiost-listing-fields_wrapper')
                     .empty()
                     .append(response.data['listing_meta_fields']);
@@ -621,6 +620,9 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     .closest('#poststuff')
                     .find('#publishing-action')
                     .removeClass('directorist_disable');
+                if($('.directorist-color-field-js').length){
+                    $('.directorist-color-field-js').wpColorPicker().empty();
+                }
 
                 window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
                 window.dispatchEvent(new CustomEvent('directorist-type-change'));

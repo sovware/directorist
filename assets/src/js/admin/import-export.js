@@ -168,7 +168,7 @@ jQuery(document).ready(function ($) {
                         run_import();
                         counter++;
                     } else {
-                        // window.location = `${response.url}&listing-imported=${imported}&listing-failed=${failed}`;
+                        window.location = `${response.url}&listing-imported=${imported}&listing-failed=${failed}`;
                     }
 
                     $('.directorist-importer-length').css( 'width', response.percentage + '%' );

@@ -242,7 +242,8 @@ jQuery(document).ready(function ($) {
             position = response.next_position;
             run_import();
             counter++;
-          } else {// window.location = `${response.url}&listing-imported=${imported}&listing-failed=${failed}`;
+          } else {
+            window.location = "".concat(response.url, "&listing-imported=").concat(imported, "&listing-failed=").concat(failed);
           }
 
           $('.directorist-importer-length').css('width', response.percentage + '%');

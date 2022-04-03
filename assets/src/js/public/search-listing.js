@@ -70,6 +70,7 @@
     });
 
     let adsFilterHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
+    console.log(adsFilterHeight());
     let adsItemsHeight;
     function getItemsHeight(selector) {
         let advElmHeight;

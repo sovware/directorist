@@ -160,6 +160,7 @@
     return $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
   };
 
+  console.log(adsFilterHeight());
   var adsItemsHeight;
 
   function getItemsHeight(selector) {

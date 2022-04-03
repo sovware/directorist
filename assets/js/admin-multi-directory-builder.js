@@ -14179,6 +14179,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14187,30 +14198,30 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'cpt-manager',
+  name: "cpt-manager",
   components: {
     headerNavigation: _Header_Navigation_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     tabContents: _TabContents_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
-    options: 'options'
+    options: "options"
   })),
   created: function created() {
     if (this.$root.fields) {
-      this.$store.commit('updateFields', this.$root.fields);
+      this.$store.commit("updateFields", this.$root.fields);
     }
 
     if (this.$root.layouts) {
-      this.$store.commit('updatelayouts', this.$root.layouts);
+      this.$store.commit("updatelayouts", this.$root.layouts);
     }
 
     if (this.$root.options) {
-      this.$store.commit('updateOptions', this.$root.options);
+      this.$store.commit("updateOptions", this.$root.options);
     } // console.log( this.options );
 
 
     if (this.$root.config) {
-      this.$store.commit('updateConfig', this.$root.config);
+      this.$store.commit("updateConfig", this.$root.config);
     }
 
     if (this.$root.id && !isNaN(this.$root.id)) {
@@ -14218,7 +14229,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
       if (id > 0) {
         this.listing_type_id = id;
-        this.footer_actions.save.label = 'Update';
+        this.footer_actions.save.label = "Update";
       }
     }
   },
@@ -14229,24 +14240,24 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       footer_actions: {
         save: {
           show: true,
-          label: 'Create',
+          label: "Create",
           showLoading: false,
           isDisabled: false
         }
       }
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['getFieldsValue'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(["getFieldsValue"])), {}, {
     updateOptionsField: function updateOptionsField(payload) {
       if (!payload.field) {
         return;
       }
 
-      if (typeof payload.value === 'undefined') {
+      if (typeof payload.value === "undefined") {
         return;
       }
 
-      this.$store.commit('updateOptionsField', payload);
+      this.$store.commit("updateOptionsField", payload);
     },
     updateData: function updateData() {
       var fields = this.getFieldsValue();
@@ -14254,15 +14265,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var submission_with = this.$store.state.config.submission.with;
       var form_data = new FormData();
 
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === 'object') {
+      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
         for (var _data_key in submission_with) {
           form_data.append(_data_key, submission_with[_data_key]);
         }
       }
 
       if (this.listing_type_id) {
-        form_data.append('listing_type_id', this.listing_type_id);
-        this.footer_actions.save.label = 'Update';
+        form_data.append("listing_type_id", this.listing_type_id);
+        this.footer_actions.save.label = "Update";
       }
 
       for (var field_key in fields) {
@@ -14282,15 +14293,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var submission_with = this.$store.state.config.submission.with;
       var form_data = new FormData();
 
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === 'object') {
+      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
         for (var _data_key2 in submission_with) {
           form_data.append(_data_key2, submission_with[_data_key2]);
         }
       }
 
       if (this.listing_type_id) {
-        form_data.append('listing_type_id', this.listing_type_id);
-        this.footer_actions.save.label = 'Update';
+        form_data.append("listing_type_id", this.listing_type_id);
+        this.footer_actions.save.label = "Update";
       } // Get Options Fields Data
 
 
@@ -14302,7 +14313,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         options_field_list.push(field);
       }
 
-      form_data.append('field_list', JSON.stringify(field_list)); // Get Form Fields Data
+      form_data.append("field_list", JSON.stringify(field_list)); // Get Form Fields Data
 
       var field_list = [];
 
@@ -14313,7 +14324,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         field_list.push(_field);
       }
 
-      form_data.append('field_list', this.maybeJSON(field_list));
+      form_data.append("field_list", this.maybeJSON(field_list));
       this.status_messages = [];
       this.footer_actions.save.showLoading = true;
       this.footer_actions.save.isDisabled = true;
@@ -14326,7 +14337,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
         if (response.data.term_id && !isNaN(response.data.term_id)) {
           self.listing_type_id = response.data.term_id;
-          self.footer_actions.save.label = 'Update';
+          self.footer_actions.save.label = "Update";
           self.listing_type_id = response.data.term_id;
 
           if (response.data.redirect_url) {
@@ -14354,9 +14365,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       });
     },
     maybeJSON: function maybeJSON(data) {
-      var value = typeof data === 'undefined' ? '' : data;
+      var value = typeof data === "undefined" ? "" : data;
 
-      if ('object' === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+      if ("object" === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
         var json_encoded_value = JSON.stringify(value);
         var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
@@ -14369,7 +14380,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       // then we convert the percent encodings into raw bytes which
       // can be fed into btoa.
       return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
-        return String.fromCharCode('0x' + p1);
+        return String.fromCharCode("0x" + p1);
       }));
     }
   })
@@ -31633,13 +31644,7 @@ var render = function() {
                     staticClass: "cptm-alert",
                     class: "cptm-alert-" + status.type
                   },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(status.message) +
-                        "\n            "
-                    )
-                  ]
+                  [_vm._v("\n        " + _vm._s(status.message) + "\n      ")]
                 )
               }),
               0
@@ -31672,9 +31677,7 @@ var render = function() {
               ? _c("span", { staticClass: "fa fa-spinner fa-spin" })
               : _vm._e(),
             _vm._v(
-              "\n                " +
-                _vm._s(_vm.footer_actions.save.label) +
-                "\n            "
+              "\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      "
             )
           ]
         )

@@ -790,6 +790,33 @@ class Directorist_Listings {
 			);
 		}
 
+		if ( ! empty( $this->categories ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( ! empty( $this->locations ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( ! empty( $this->tags ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_TAGS,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
 		if ( count( $tax_queries ) ) {
 			$args['tax_query'] = array_merge( array( 'relation' => 'AND' ), $tax_queries );
 		}

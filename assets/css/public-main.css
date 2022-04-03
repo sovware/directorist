@@ -2939,6 +2939,11 @@ body.stop-scrolling {
   padding: 0 20px;
 }
 
+.price-type-price_range .directorist-form-pricing-field__options,
+.price-type-price_unit .directorist-form-pricing-field__options {
+  margin: 0;
+}
+
 /* location */
 .directorist-select-multi select {
   display: none;

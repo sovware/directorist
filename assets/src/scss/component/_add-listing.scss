@@ -119,6 +119,12 @@
     padding: 0 20px;
   }
 }
+.price-type-price_range,
+.price-type-price_unit{
+  .directorist-form-pricing-field__options{
+    margin: 0;
+  }
+}
 
 /* location */
 .directorist-select-multi select {

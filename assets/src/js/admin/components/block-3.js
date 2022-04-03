@@ -658,8 +658,11 @@ function assetsNeedToWorkInVirtualDom() {
         $('#price').hide();
         $('#price_range').show();
     }
-
-    $('.atbd_pricing_options label').on( 'click', function () {
+	if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
+		$('#price').hide();
+		$('#price_range').show();
+	}
+    $('.directorist_pricing_options label').on( 'click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
             ? $(`#${$this.data('option')}`).show()

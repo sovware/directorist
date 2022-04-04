@@ -391,7 +391,7 @@ class Directorist_Listing_Search_Form {
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
-			'value'      		=> $value,
+			'value'      		=> wp_unslash( $value ),
 		);
 		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];

@@ -110,6 +110,7 @@
       + .directorist-checkbox__label {
       font-size: 15px;
       font-weight: 700;
+      min-height: 18px;
     }
   }
   .directorist-form-element{
@@ -117,6 +118,12 @@
   }
   select.directorist-form-element {
     padding: 0 20px;
+  }
+}
+.price-type-price_range,
+.price-type-price_unit{
+  .directorist-form-pricing-field__options{
+    margin: 0;
   }
 }
 

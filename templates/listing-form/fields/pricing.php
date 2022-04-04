@@ -73,10 +73,7 @@ $current_price_type      = '';
 
 			echo $price_range_checkbox;
 		}
-
-		if ( ! empty( $price_unit_checkbox ) || ! empty( $price_range_checkbox ) ) { ?>
-			<small class="directorist-form-pricing-field__options__info"><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
-		<?php } ?>
+		?>
 	</div>
 
 	<?php

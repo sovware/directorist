@@ -116,7 +116,7 @@
         var listing_type = $('#listing_type').val();
         var cat_id       = $(this).val();
         var form_data = new FormData();
-        var custom_field = $('.directorist-category-select option[value='+cat_id+']').attr("data-custom-field");
+        var custom_field = $(`.directorist-category-select option[value="${cat_id}"]`).attr("data-custom-field");
         /* if( ! custom_field ){
           return;
         } */
@@ -135,7 +135,7 @@
           success: function success(response) {
             if (response) {
               $(searchForm_box).empty().html(response['search_form']);
-              parent.find('.directorist-category-select option[value='+cat_id+']').attr("selected",true);
+              parent.find(`.directorist-category-select option[value="${cat_id}"]`).attr("selected",true);
               parent.find('.directorist-category-select option').attr("data-custom-field", 1);
               var events = [
                 new CustomEvent('directorist-search-form-nav-tab-reloaded'), 

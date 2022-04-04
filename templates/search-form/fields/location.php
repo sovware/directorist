@@ -28,9 +28,9 @@ if ( $location_source == 'listing' ) {
 }
 
 elseif ( $location_source == 'map' ) {
-	$cityLat = isset( $_GET['cityLat'] ) ? $_GET['cityLat'] : '';
-	$cityLng = isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '';
-	$value   = isset( $_GET['address'] ) ? $_GET['address'] : '';
+	$cityLat = isset( $_GET['cityLat'] ) ? wp_unslash( $_GET['cityLat'] ) : '';
+	$cityLng = isset( $_GET['cityLng'] ) ? wp_unslash( $_GET['cityLng'] ) : '';
+	$value   = isset( $_GET['address'] ) ? wp_unslash( $_GET['address'] ) : '';
 
 	$searchform->load_map_scripts();
 	?>

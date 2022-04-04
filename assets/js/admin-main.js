@@ -1354,7 +1354,12 @@ function assetsNeedToWorkInVirtualDom() {
     $('#price_range').show();
   }
 
-  $('.atbd_pricing_options label').on('click', function () {
+  if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
+    $('#price').hide();
+    $('#price_range').show();
+  }
+
+  $('.directorist_pricing_options label').on('click', function () {
     var $this = $(this);
     $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
     var $sibling = $this.siblings('label');

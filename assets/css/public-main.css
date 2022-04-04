@@ -2931,12 +2931,18 @@ body.stop-scrolling {
 .directorist-form-pricing-field__options .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
   font-size: 15px;
   font-weight: 700;
+  min-height: 18px;
 }
 .directorist-form-pricing-field .directorist-form-element {
   min-width: 100%;
 }
 .directorist-form-pricing-field select.directorist-form-element {
   padding: 0 20px;
+}
+
+.price-type-price_range .directorist-form-pricing-field__options,
+.price-type-price_unit .directorist-form-pricing-field__options {
+  margin: 0;
 }
 
 /* location */
@@ -9944,6 +9950,10 @@ p.atbd-min {
   background-color: transparent;
   color: #00AC17;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top span,
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top a {
+  word-break: break-all;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt:empty {
   display: none;
 }
@@ -10056,6 +10066,7 @@ p.atbd-min {
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li a {
   text-decoration: none;
   color: #7a82a6;
+  word-break: break-word;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list .directorist-listing-card-location-list {
   display: block;

@@ -7364,12 +7364,18 @@ body.stop-scrolling {
 .directorist-form-pricing-field__options .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
   font-size: 15px;
   font-weight: 700;
+  min-height: 18px;
 }
 .directorist-form-pricing-field .directorist-form-element {
   min-width: 100%;
 }
 .directorist-form-pricing-field select.directorist-form-element {
   padding: 0 20px;
+}
+
+.price-type-price_range .directorist-form-pricing-field__options,
+.price-type-price_unit .directorist-form-pricing-field__options {
+  margin: 0;
 }
 
 /* location */

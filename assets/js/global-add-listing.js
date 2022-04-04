@@ -304,6 +304,11 @@ if (is_checked === 'range') {
   $('#price_range').show();
 }
 
+if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
+  $('#price').hide();
+  $('#price_range').show();
+}
+
 $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
   var $this = $(this);
 
@@ -316,6 +321,15 @@ $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('c
   var $sibling = $this.parent().siblings('.directorist-checkbox');
   $sibling.children('input[type=checkbox]').prop('checked', false);
   $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
+});
+$('.directorist_pricing_options label').on('click', function () {
+  var self = $(this);
+  var current_input = self.attr('for');
+  var current_field = "#".concat(self.data('option'));
+  $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+  $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+  $('.directory_pricing_field').hide();
+  $(current_field).show();
 });
 var has_tagline = $('#has_tagline').val();
 var has_excerpt = $('#has_excerpt').val();

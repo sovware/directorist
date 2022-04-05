@@ -193,7 +193,6 @@ window.addEventListener('DOMContentLoaded', function () {
           }
 
           $('body').on('click', '.directorist-filter-location-icon', function () {
-            console.log("All Praises to Allah");
             getLocation();
           });
         })();

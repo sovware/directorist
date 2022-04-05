@@ -147,7 +147,6 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success( response ) {
-                    console.log( 'log', { response } );
                     
                     if ( response.error ) {
                         console.log({ response });

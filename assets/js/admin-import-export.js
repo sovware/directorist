@@ -222,10 +222,6 @@ jQuery(document).ready(function ($) {
         url: import_export_data.ajaxurl,
         data: form_data,
         success: function success(response) {
-          console.log('log', {
-            response: response
-          });
-
           if (response.error) {
             console.log({
               response: response

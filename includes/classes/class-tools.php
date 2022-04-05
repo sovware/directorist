@@ -112,33 +112,9 @@
             $all_posts             = isset( $_POST['csv_file'] ) ? csv_get_data( $_POST['csv_file'], true, $delimiter ) : [];
             $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? ( int ) $_POST['total_post'] : count( $all_posts );
             $limit                 = apply_filters('atbdp_listing_import_limit_per_cycle', ( $total_length > 100 ) ? 20 : ( ( $total_length < 35 ) ? 2 : 5 ) );
+            $limit                 = 10;
             $posts                 = ( ! empty( $all_posts ) ) ? array_slice( $all_posts, $position ) : [];
             $posts                 = apply_filters( 'directorist_listings_importing_posts', $posts, $position, $limit, $_POST );
-
-            $count    = 0;
-            $imported = 0;
-
-            foreach( $posts as $index => $post ) {
-                if ( $count === $limit ) {
-                    break;
-                }
-
-                $listing_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
-                $posts[ $index ][ 'final_post_status_a' ] = $listing_status;
-                
-                $listing_status = ( in_array( $listing_status, $supported_post_status ) ) ? $listing_status : $new_listing_status;
-                $posts[ $index ][ 'final_post_status_b' ] = $listing_status;
-
-                $imported++;
-                $count++;
-            }
-
-            $data['next_position'] = ( int ) $position + ( int ) $count;
-            $data['percentage']    = absint( min( round( ( ( $data['next_position'] ) / $total_length ) * 100 ), 100 ) );
-            $data['url']           = admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' );
-            $data['total']         = $total_length;
-            $data['imported']      = $imported;
-            $data['failed']        = 0;
 
             if ( empty( $total_length ) ) {
                 $data['error']     = __('No data found', 'directorist');
@@ -161,14 +137,14 @@
                     }
 
                     // start importing listings
-                    $listing_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
-                    $listing_status = ( in_array( $listing_status, $supported_post_status ) ) ? $listing_status : $new_listing_status;
+                    $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
+                    $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
 
                     $args = array(
                         "post_title"   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
                         "post_content" => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
-                        "post_type"    => 'at_biz_dir',
-                        "post_status"  => $listing_status,
+                        "post_type"    => ATBDP_POST_TYPE,
+                        "post_status"  => $post_status,
                     );
 
                     $post_id = wp_insert_post( $args );
@@ -190,21 +166,28 @@
                                 $taxonomy = ATBDP_TAGS;
                             }
 
-                            $final_term = isset( $post[ $term ] ) ? $post[ $term ] : '';
-                            $term_exists = get_term_by( 'name', $final_term, $taxonomy );
-                            
-                            if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
-                                $result = wp_insert_term( $final_term, $taxonomy );
+                            $final_term  = isset( $post[ $term ] ) ? $post[ $term ] : '';
+                            $final_terms = ( ! empty( $final_term ) ) ? explode( ',', $final_term ) : [];
+
+                            if ( ! empty( $final_terms ) ) {
+                                foreach( $final_terms as $term_item ) {
+                                    $term_exists = get_term_by( 'name', $term_item, $taxonomy );
                                 
-                                if ( !is_wp_error( $result ) ) {
-                                    $term_id = $result['term_id'];
-                                    wp_set_object_terms( $post_id, $term_id, $taxonomy);
-                                    update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+                                    if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                                        $result = wp_insert_term( $term_item, $taxonomy );
+                                        
+                                        if ( ! is_wp_error( $result ) ) {
+                                            $term_id = $result['term_id'];
+                                            wp_set_object_terms( $post_id, $term_id, $taxonomy);
+                                            update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+                                        }
+                                    } else {
+                                        wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy, true );
+                                        update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
+                                    }
                                 }
-                            } else {
-                                wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy );
-                                update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
                             }
+                            
                         }
                     }
 

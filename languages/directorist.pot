@@ -3837,7 +3837,7 @@ msgstr ""
 msgid "Extensions General"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:5212, ../includes/classes/class-tools.php:397, ../includes/classes/class-tools.php:398, ../__/class-tools.php:414, ../__/class-tools.php:415
+#: ../includes/classes/class-settings-panel.php:5212, ../includes/classes/class-tools.php:380, ../includes/classes/class-tools.php:381, ../__/class-tools.php:414, ../__/class-tools.php:415
 msgid "Tools"
 msgstr ""
 
@@ -3949,7 +3949,7 @@ msgstr ""
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:117, ../includes/classes/class-tools.php:144, ../__/class-tools.php:161
+#: ../includes/classes/class-setup-wizard.php:117, ../includes/classes/class-tools.php:120, ../__/class-tools.php:161
 msgid "No data found"
 msgstr ""
 
@@ -4081,19 +4081,19 @@ msgstr ""
 msgid "Invalid request!"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:489, ../__/class-tools.php:506
+#: ../includes/classes/class-tools.php:472, ../__/class-tools.php:506
 msgid "Upload CSV File"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:497, ../__/class-tools.php:514
+#: ../includes/classes/class-tools.php:480, ../__/class-tools.php:514
 msgid "Column Mapping"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:505, ../views/admin-templates/post-types-manager/all-listing-types.php:54, ../views/admin-templates/post-types-manager/all-listing-types.php:194, ../views/admin-templates/post-types-manager/all-listing-types.php:212, ../__/class-tools.php:522
+#: ../includes/classes/class-tools.php:488, ../views/admin-templates/post-types-manager/all-listing-types.php:54, ../views/admin-templates/post-types-manager/all-listing-types.php:194, ../views/admin-templates/post-types-manager/all-listing-types.php:212, ../__/class-tools.php:522
 msgid "Import"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:511, ../__/class-tools.php:528
+#: ../includes/classes/class-tools.php:494, ../__/class-tools.php:528
 msgid "Done"
 msgstr ""
 

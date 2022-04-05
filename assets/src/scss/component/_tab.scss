@@ -1,0 +1,93 @@
+
+$text-color: #585A6A;
+$primary-color: #4353FF;
+$primary-color-accent: #ffffff;
+$light-bg-color: #ECEEF2;
+
+// Navigation
+.directorist-tab-navigation {
+    padding: 0;
+    margin: 0 -10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.directorist-tab-navigation-list-item {
+    position: relative;
+    list-style: none;
+    flex-grow: 1;
+    text-align: center;
+    margin: 10px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    flex-basis: 50%;
+    background-color: $light-bg-color;
+
+    &.--is-active {
+        color: $primary-color-accent;
+        background-color: $primary-color;
+    }
+
+    &.--is-active::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid $primary-color;
+        transform: translate(-50%, 0);
+        
+    }
+
+    .directorist-tab-navigation-list-item-link {
+        margin: -15px -20px;
+    }
+}
+
+.directorist-tab-navigation-list-item-link {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: $text-color;
+    background-color: $light-bg-color;
+
+    &:active, &:visited, &:focus {
+        outline: none;
+        box-shadow: none;
+        color: $text-color;
+    }
+
+    &.--is-active {
+        cursor: default;
+        color: $primary-color-accent;
+        background-color: $primary-color;
+    }
+
+    &.--is-active::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid $primary-color;
+        transform: translate(-50%, 0);
+    }
+}
+
+// Content
+.directorist-tab-content {
+    display: none;
+
+    &.--is-active {
+        display: block;
+    }
+}

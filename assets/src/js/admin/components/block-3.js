@@ -582,6 +582,20 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
 
     });
 
+    // Custom Field Checkbox Button More
+    function customFieldSeeMore() {
+        if ($('.directorist-custom-field-btn-more').length) {
+            $('.directorist-custom-field-btn-more').each((index, element) => {
+                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+                $(customField).slice(20, customField.length).slideUp();
+
+                if (customField.length <= 20) {
+                    $(element).slideUp();
+                }
+            });
+        }
+    }
 
     function admin_listing_form(directory_type) {
         $.ajax({
@@ -594,7 +608,6 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             },
             success(response) {
                 // console.log( response );
-
                 $('#directiost-listing-fields_wrapper')
                     .empty()
                     .append(response.data['listing_meta_fields']);
@@ -621,6 +634,9 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     .closest('#poststuff')
                     .find('#publishing-action')
                     .removeClass('directorist_disable');
+                if($('.directorist-color-field-js').length){
+                    $('.directorist-color-field-js').wpColorPicker().empty();
+                }
 
                 window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
                 window.dispatchEvent(new CustomEvent('directorist-type-change'));
@@ -641,6 +657,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                         document.body.appendChild(script);
                     }
                 }
+                customFieldSeeMore();
             },
             error(error) {
                 console.log({

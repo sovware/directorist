@@ -1279,7 +1279,21 @@ window.addEventListener('DOMContentLoaded', function () {
         pureScriptSelect('#directorist-select-fr-e-js');
       }
     }
-  });
+  }); // Custom Field Checkbox Button More
+
+  function customFieldSeeMore() {
+    if ($('.directorist-custom-field-btn-more').length) {
+      $('.directorist-custom-field-btn-more').each(function (index, element) {
+        var fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
+        var customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
+        $(customField).slice(20, customField.length).slideUp();
+
+        if (customField.length <= 20) {
+          $(element).slideUp();
+        }
+      });
+    }
+  }
 
   function admin_listing_form(directory_type) {
     $.ajax({
@@ -1301,6 +1315,11 @@ window.addEventListener('DOMContentLoaded', function () {
         $('.misc-pub-atbdp-expiration-time').empty().html(response.data['listing_expiration']);
         $('#listing_form_info').find('.directorist_loader').remove();
         $('select[name="directory_type"]').closest('#poststuff').find('#publishing-action').removeClass('directorist_disable');
+
+        if ($('.directorist-color-field-js').length) {
+          $('.directorist-color-field-js').wpColorPicker().empty();
+        }
+
         window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
         window.dispatchEvent(new CustomEvent('directorist-type-change'));
 
@@ -1320,6 +1339,8 @@ window.addEventListener('DOMContentLoaded', function () {
             document.body.appendChild(script);
           }
         }
+
+        customFieldSeeMore();
       },
       error: function error(_error2) {
         console.log({

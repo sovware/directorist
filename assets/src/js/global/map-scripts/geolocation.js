@@ -1,25 +1,8 @@
-(function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
-        /* $("button[type='reset']").on("click", function (){
-        $("#atbd_rs_value").val(0);
-        $(".atbdpr_amount").text(0 + miles);
-        slider_range.each(function () {
-            $(this).slider({
-                range: "min",
-                min: 0,
-                max: 1000,
-                value: 0,
-                slide: function (event, ui) {
-                    $(".atbdpr_amount").text(ui.value + miles);
-                    $("#atbd_rs_value").val(ui.value);
-                }
-            });
-        });
-        $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
-    }); */
+window.addEventListener('DOMContentLoaded', () => {
+    (function ($) {
         /* get current location */
         setTimeout(() => {
-            if (directorist.select_listing_map === 'google') {
+            if (directorist.i18n_text.select_listing_map === 'google') {
                 (function () {
                     const locationInput = document.querySelector('.location-name');
                     const get_lat = document.querySelector('#cityLat');
@@ -115,12 +98,11 @@
                             });
                     }
 
-                    const get_loc_btn = $('.directorist-filter-location-icon');
-                    get_loc_btn.on('click', function () {
+                    $('body').on('click', '.directorist-filter-location-icon', function () {
                         getLocation();
                     });
                 })();
-            } else if (directorist.select_listing_map === 'openstreet') {
+            } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
                 function displayLocation(position) {
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
@@ -141,6 +123,7 @@
                     navigator.geolocation.getCurrentPosition(displayLocation);
                 });
             }
+
         }, 1000);
-    });
-})(jQuery);
+    })(jQuery);
+});

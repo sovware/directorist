@@ -129,6 +129,11 @@ $(window).on('load', function () {
         $('.directorist-map-coordinates').hide();
       }
     });
+  } //initialize color picker
+
+
+  if ($('.directorist-color-field-js').length) {
+    $('.directorist-color-field-js').wpColorPicker().empty();
   }
 });
 $(document).ready(function () {
@@ -162,6 +167,11 @@ $(document).ready(function () {
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
       social_wrap.append(data);
     });
+  });
+  document.addEventListener('directorist-reload-plupload', function () {
+    if ($('.directorist-color-field-js').length) {
+      $('.directorist-color-field-js').wpColorPicker().empty();
+    }
   }); // remove the social field and then reset the ids while maintaining position
 
   $('body').on('click', '.directorist-form-social-fields__remove', function (e) {
@@ -331,9 +341,6 @@ $(document).ready(function () {
   $('#listing_t_c').on('click', function (e) {
     e.preventDefault();
     $('#tc_container').toggleClass('active');
-  });
-  $(function () {
-    $('.directorist-color-field-js').wpColorPicker().empty();
   });
   $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 

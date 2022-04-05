@@ -119,7 +119,7 @@ jQuery(document).ready(function ($) {
                 data: form_data,
                 success(response) {
                     console.log({ response });
-                    
+
                     if ( response.error ) {
                         console.log({ response });
                         return;

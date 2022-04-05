@@ -207,6 +207,10 @@ if (is_checked === 'range') {
     $('#price').hide();
     $('#price_range').show();
 }
+if($('.directorist-form-pricing-field').hasClass('price-type-price_range')){
+    $('#price').hide();
+    $('#price_range').show();
+}
 $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
     const $this = $(this);
     if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
@@ -217,6 +221,18 @@ $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('c
     const $sibling = $this.parent().siblings('.directorist-checkbox');
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
+});
+$('.directorist_pricing_options label').on( 'click', function () {
+    const self = $( this );
+
+    const current_input = self.attr( 'for' );
+    const current_field = `#${self.data('option')}`;
+
+    $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
+    $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
+
+    $('.directory_pricing_field').hide();
+    $( current_field ).show();
 });
 
 const has_tagline = $('#has_tagline').val();

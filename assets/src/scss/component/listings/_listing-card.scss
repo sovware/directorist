@@ -254,6 +254,10 @@
                 background-color: transparent;
                 color: $success;
             }
+            span,
+            a{
+                word-break: break-all;
+            }
         }
 
         .directorist-listing-single__info--excerpt{
@@ -380,6 +384,7 @@
                     a {
                         text-decoration: none;
                         color: #7a82a6;
+                        word-break: break-word;
                     }
                 }
             }

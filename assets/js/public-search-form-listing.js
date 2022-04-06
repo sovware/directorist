@@ -181,6 +181,8 @@
     var form_data = new FormData();
     var cat_id = $(this).val();
     var listing_type = $(this).closest('.listing_type').val();
+    var directory_type = $(this).closest("form.directorist-advanced-filter__form").find("input[name='directory_type']").val();
+    listing_type = typeof listing_type != 'undefined' ? listing_type : directory_type;
     var parent = $(this).closest('.directorist-search-contents');
     var searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
     parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
@@ -189,8 +191,7 @@
     form_data.append('cat_id', cat_id); //get atts
 
     var atts = parent.attr('data-atts');
-    atts_decoded = btoa(atts);
-    form_data.append('atts', atts_decoded);
+    form_data.append('atts', atts);
     $.ajax({
       method: 'POST',
       processData: false,

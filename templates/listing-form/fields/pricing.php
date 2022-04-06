@@ -19,7 +19,7 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 $current_price_type      = '';
 ?>
 
-<div class="directorist-form-group directorist-form-pricing-field">
+<div class="directorist-form-group directorist-form-pricing-field price-type-<?php echo esc_attr( $data['pricing_type'] ); ?>">
 
 	<?php $listing_form->field_label_template( $data ); ?>
 
@@ -27,7 +27,7 @@ $current_price_type      = '';
 
 	<div class="directorist-form-pricing-field__options">
 		<?php
-		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
+		if ( $data['pricing_type'] == 'both' ) {
 			$checked =  ( $atbd_listing_pricing == 'price' || empty($p_id) ) ? ' checked' : '';
 			$current_price_type = ( ! empty( $checked ) ) ? 'price_unit' : $current_price_type;
 
@@ -50,7 +50,7 @@ $current_price_type      = '';
 		}
 
 
-		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) {
+		if ( $data['pricing_type'] == 'both' ) {
 			ob_start();
 
 			$current_price_type = ( checked( $atbd_listing_pricing, 'range', false ) ) ? 'price_range' : $current_price_type;
@@ -73,10 +73,7 @@ $current_price_type      = '';
 
 			echo $price_range_checkbox;
 		}
-
-		if ( ! empty( $price_unit_checkbox ) || ! empty( $price_range_checkbox ) ) { ?>
-			<small class="directorist-form-pricing-field__options__info"><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
-		<?php } ?>
+		?>
 	</div>
 
 	<?php

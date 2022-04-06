@@ -113,19 +113,25 @@
     });
     
     $('body').on('change', '.directorist-category-select', function(event) {
-        var listing_type = $('#listing_type').val();
+
+        var listing_type = $('.listing_type').val();
         var cat_id       = $(this).val();
-        var form_data = new FormData();
-        var custom_field = $(`.directorist-category-select option[value="${cat_id}"]`).attr("data-custom-field");
-        /* if( ! custom_field ){
-          return;
-        } */
+        var form_data    = new FormData();
+       
         const parent         = $(this).closest('.directorist-search-contents');
         const searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
         parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
+        
         form_data.append('action', 'directorist_category_custom_field_search');
         form_data.append('listing_type', listing_type);
         form_data.append('cat_id', cat_id);
+
+         //get atts
+         const atts = parent.attr('data-atts');
+         atts_decoded = btoa(atts);
+ 
+         form_data.append('atts', atts_decoded);
+
         $.ajax({
           method: 'POST',
           processData: false,
@@ -151,7 +157,7 @@
             parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
           },
           error: function error(_error) {
-            console.log(_error);
+            //console.log(_error);
           }
         });
       })

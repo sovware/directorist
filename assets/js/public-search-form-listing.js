@@ -178,9 +178,9 @@
     }
   });
   $('body').on('change', '.directorist-category-select', function (event) {
-    var listing_type = $('.listing_type').val();
-    var cat_id = $(this).val();
     var form_data = new FormData();
+    var cat_id = $(this).val();
+    var listing_type = $(this).closest('.listing_type').val();
     var parent = $(this).closest('.directorist-search-contents');
     var searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
     parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');

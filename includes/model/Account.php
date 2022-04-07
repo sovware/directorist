@@ -43,6 +43,19 @@ class Directorist_Account {
 	}
 
 	public function render_shortcode_registration( $atts ) {
+
+		if( ! get_option( 'users_can_register' ) ) {
+
+			$message = sprintf( __( 'Registration is not allowed in this site. %s', 'directorist' ), '<a href="'. esc_url( ATBDP_Permalink::get_login_page_link() ) .'">'. __( 'Go to Login', 'directorist' ).'</a>' );			
+			$error_message = apply_filters( 'directoirst_new_user_not_allowed_text', $message );
+			?>
+            <div class="notice_wrapper">
+                <div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $error_message; ?></div>
+            </div>
+            <?php
+			return;
+		}
+
 		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',

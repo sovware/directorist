@@ -177,45 +177,45 @@
       });
     }
   });
-  $('body').on('change', '.directorist-category-select', function (event) {
-    var form_data = new FormData();
-    var cat_id = $(this).val();
-    var listing_type = $(this).closest('.listing_type').val();
-    var directory_type = $(this).closest("form.directorist-advanced-filter__form").find("input[name='directory_type']").val();
-    listing_type = typeof listing_type != 'undefined' ? listing_type : directory_type;
-    var parent = $(this).closest('.directorist-search-contents');
-    var searchForm_box = $(this).closest('.directorist-search-contents .directorist-search-form-box');
-    parent.find('.directorist-search-form-box').addClass('atbdp-form-fade');
-    form_data.append('action', 'directorist_category_custom_field_search');
-    form_data.append('listing_type', listing_type);
-    form_data.append('cat_id', cat_id); //get atts
 
-    var atts = parent.attr('data-atts');
-    form_data.append('atts', atts);
-    $.ajax({
-      method: 'POST',
-      processData: false,
-      contentType: false,
-      url: atbdp_search.ajax_url,
-      data: form_data,
-      success: function success(response) {
-        if (response) {
-          $(searchForm_box).empty().html(response['search_form']);
-          parent.find(".directorist-category-select option[value=\"".concat(cat_id, "\"]")).attr("selected", true);
-          parent.find('.directorist-category-select option').attr("data-custom-field", 1);
-          var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')];
-          events.forEach(function (event) {
-            document.body.dispatchEvent(event);
-            window.dispatchEvent(event);
-          });
+  if ($('.directorist-search-contents').length) {
+    $('body').on('change', '.directorist-category-select', function (event) {
+      var $this = $(this);
+      var $container = $this.parents('form');
+      var cat_id = $this.val();
+      var directory_type = $container.find('.listing_type').val();
+      var $search_form_box = $container.find('.directorist-search-form-box');
+      var form_data = new FormData();
+      form_data.append('action', 'directorist_category_custom_field_search');
+      form_data.append('listing_type', directory_type);
+      form_data.append('cat_id', cat_id);
+      form_data.append('atts', JSON.stringify($container.data('atts')));
+      $search_form_box.addClass('atbdp-form-fade');
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: atbdp_search.ajax_url,
+        data: form_data,
+        success: function success(response) {
+          if (response) {
+            $search_form_box.html(response['search_form']);
+            $container.find('.directorist-category-select option[value="' + cat_id + '"]').attr('selected', true);
+            $container.find('.directorist-category-select option').data('custom-field', 1);
+            [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
+              document.body.dispatchEvent(event);
+              window.dispatchEvent(event);
+            });
+          }
+
+          $search_form_box.removeClass('atbdp-form-fade');
+        },
+        error: function error(_error) {//console.log(_error);
         }
-
-        parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-      },
-      error: function error(_error) {//console.log(_error);
-      }
+      });
     });
-  }); // load custom fields of the selected category in the search form
+  } // load custom fields of the selected category in the search form
+
 
   $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
     var $search_elem = $(this).closest('form').find('.atbdp-custom-fields-search');

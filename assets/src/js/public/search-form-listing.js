@@ -197,7 +197,26 @@
         }
     });
 
-    $('body').on("keyup", '.zip-radius-search', function(){
+    // Returns a function, that, as long as it continues to be invoked, will not
+    // be triggered. The function will be called after it stops being called for
+    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // leading edge, instead of the trailing.
+    function directorist_debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    $('body').on("keyup", '.zip-radius-search', directorist_debounce( function(){
         var zipcode = $(this).val();
 
         $('.directorist-country').css({
@@ -218,8 +237,8 @@
                 if( data.length === 1 ) {
                     var lat = data[0].lat;
                     var lon = data[0].lon;
-                    $('#zip-cityLat').val(lat);
-                    $('#zip-cityLng').val(lon);
+                    $('.zip-cityLat').val(lat);
+                    $('.zip-cityLng').val(lon);
                 } else {
                     for (let i = 0; i < data.length; i++) {
                         res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
@@ -235,7 +254,7 @@
                 }
             }
         });
-    });
+    }, 250 ));
 
     // hide country result when click outside the zipcode field
     $(document).on('click', function (e) {
@@ -250,8 +269,8 @@
         const lat = $(this).data('lat');
         const lon = $(this).data('lon');
 
-        $('#zip-cityLat').val(lat);
-        $('#zip-cityLng').val(lon);
+        $('.zip-cityLat').val(lat);
+        $('.zip-cityLng').val(lon);
 
         $('.directorist-country').hide();
     });

@@ -478,10 +478,10 @@
     }
   }
 
-  document.querySelectorAll(".directorist-search-contents").forEach(function (el) {
-    if (el.nextElementSibling === null) {
-      el.querySelector('.directorist-search-country').style.maxHeight = "175px";
-      el.querySelector('.directorist-search-field .address_result').style.maxHeight = "175px";
+  $(".directorist-search-contents").each(function () {
+    if ($(this).next().length === 0) {
+      $(this).find(".directorist-search-country").css("max-height", "175px");
+      $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
     }
   });
 })(jQuery);

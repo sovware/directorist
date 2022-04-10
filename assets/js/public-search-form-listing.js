@@ -243,6 +243,85 @@
         });
       });
     }
+  }); // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+
+  function directorist_debounce(func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function later() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  ;
+  $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
+    var zipcode = $(this).val();
+    var zipcode_search = $(this).closest('.directorist-zipcode-search');
+    var country_suggest = zipcode_search.find('.directorist-country');
+    $('.directorist-country').css({
+      display: 'block'
+    });
+
+    if (zipcode === '') {
+      $('.directorist-country').css({
+        display: 'none'
+      });
+    }
+
+    var res = '';
+    $.ajax({
+      url: "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1"),
+      type: "POST",
+      data: {},
+      success: function success(data) {
+        if (data.length === 1) {
+          var lat = data[0].lat;
+          var lon = data[0].lon;
+          zipcode_search.find('.zip-cityLat').val(lat);
+          zipcode_search.find('.zip-cityLng').val(lon);
+        } else {
+          for (var i = 0; i < data.length; i++) {
+            res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
+          }
+        }
+
+        $(country_suggest).html("<ul>".concat(res, "</ul>"));
+
+        if (res.length) {
+          $('.directorist-country').show();
+        } else {
+          $('.directorist-country').hide();
+        }
+      }
+    });
+  }, 250)); // hide country result when click outside the zipcode field
+
+  $(document).on('click', function (e) {
+    if (!$(e.target).closest('.directorist-zip-code').length) {
+      $('.directorist-country').hide();
+    }
+  });
+  $('body').on('click', '.directorist-country ul li a', function (event) {
+    event.preventDefault();
+    var zipcode_search = $(this).closest('.directorist-zipcode-search');
+    var lat = $(this).data('lat');
+    var lon = $(this).data('lon');
+    zipcode_search.find('.zip-cityLat').val(lat);
+    zipcode_search.find('.zip-cityLng').val(lon);
+    $('.directorist-country').hide();
   });
   $('.address_result').hide();
   window.addEventListener('load', init_map_api_field);
@@ -400,6 +479,13 @@
       });
     }
   }
+
+  $(".directorist-search-contents").each(function () {
+    if ($(this).next().length === 0) {
+      $(this).find(".directorist-search-country").css("max-height", "175px");
+      $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
+    }
+  });
 })(jQuery);
 
 /***/ }),

@@ -2971,7 +2971,7 @@ class Multi_Directory_Manager
                                 ]
                             ],
                             'radius_search_based_on' => [
-                                'type'  => 'select',
+                                'type'  => 'radio',
                                 'label' => __( 'Radius Search Based on', 'directorist' ),
                                 'value' => 'address',
                                 'options' => [

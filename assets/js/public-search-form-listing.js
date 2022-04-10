@@ -269,6 +269,7 @@
   ;
   $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
     var zipcode = $(this).val();
+    var country_suggest = $(this).closest('.directorist-zipcode-search').find('.directorist-country');
     $('.directorist-country').css({
       display: 'block'
     });
@@ -296,7 +297,7 @@
           }
         }
 
-        $('.directorist-country').html("<ul>".concat(res, "</ul>"));
+        $(country_suggest).html("<ul>".concat(res, "</ul>"));
 
         if (res.length) {
           $('.directorist-country').show();
@@ -316,8 +317,8 @@
     event.preventDefault();
     var lat = $(this).data('lat');
     var lon = $(this).data('lon');
-    $('.zip-cityLat').val(lat);
-    $('.zip-cityLng').val(lon);
+    $(this).closest('.directorist-zipcode-search').find('.zip-cityLat').val(lat);
+    $(this).closest('.directorist-zipcode-search').find('.zip-cityLng').val(lon);
     $('.directorist-country').hide();
   });
   $('.address_result').hide();

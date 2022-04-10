@@ -112,7 +112,6 @@
             $all_posts             = isset( $_POST['csv_file'] ) ? csv_get_data( $_POST['csv_file'], true, $delimiter ) : [];
             $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? ( int ) $_POST['total_post'] : count( $all_posts );
             $limit                 = apply_filters('atbdp_listing_import_limit_per_cycle', ( $total_length > 100 ) ? 20 : ( ( $total_length < 35 ) ? 2 : 5 ) );
-            $limit                 = 10;
             $posts                 = ( ! empty( $all_posts ) ) ? array_slice( $all_posts, $position ) : [];
             $posts                 = apply_filters( 'directorist_listings_importing_posts', $posts, $position, $limit, $_POST );
 

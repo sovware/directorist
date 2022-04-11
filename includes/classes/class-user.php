@@ -283,7 +283,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function handle_user_registration() {
-			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) ) {
+			$new_user_registration = get_directorist_option( 'new_user_registration', true );
+			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! $new_user_registration ) {
 				return;
 			}
 

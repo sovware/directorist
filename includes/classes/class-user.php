@@ -37,7 +37,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			if( get_directorist_option( 'custom_registration' ) == get_queried_object_id() ) {
 				$new_user_registration = get_directorist_option( 'new_user_registration', true );
 				if( ! $new_user_registration ) {
-					wp_redirect( home_url() );
+					wp_redirect( home_url( '/' ) );
 					exit;
 				}
 			}

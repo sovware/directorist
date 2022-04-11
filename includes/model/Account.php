@@ -71,10 +71,6 @@ class Directorist_Account {
 		return ob_get_clean();
 	}
 
-	private function redirect_to_home() {
-		wp_redirect( home_url() );
-	}
-
 	public function render_shortcode_registration( $atts ) {
 
 		if ( ! is_user_logged_in() ) {

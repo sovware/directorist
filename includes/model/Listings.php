@@ -51,6 +51,7 @@ class Directorist_Listings {
 	public $directory_type;
 	public $default_directory_type;
 	public $instant_search;
+	public $radius_search_based_on;
 
 	public $query;
 	public $loop;
@@ -126,7 +127,7 @@ class Directorist_Listings {
 
 		$this->prepare_atts_data();
 		$this->prepare_data();
-
+		
 		if ( $query_args ) {
 			$this->query_args = $query_args;
 		}
@@ -231,6 +232,11 @@ class Directorist_Listings {
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
 	}
 
+	public function build_search_data( $key, $value ) {
+		$search_form_fields = get_term_meta( $this->get_current_listing_type(), 'search_form_fields', true );
+		return ! empty( $search_form_fields['fields'][ $key ][ $value ] ) ? $search_form_fields['fields'][ $key ][ $value ] : '';
+	}
+
 	public function prepare_atts_data() {
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
@@ -259,6 +265,7 @@ class Directorist_Listings {
 			'directory_type'	       => '',
 			'default_directory_type'   => '',
 			'instant_search'   	   	   => $this->options['listing_instant_search'],
+			'radius_search_based_on'   => $this->build_search_data( 'radius_search', 'radius_search_based_on' )
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -289,7 +296,8 @@ class Directorist_Listings {
 		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
-		$this->instant_search          = !empty( $this->params['instant_search'] ) ? $this->params['instant_search'] : '';
+		$this->instant_search          	= !empty( $this->params['instant_search'] ) ? $this->params['instant_search'] : '';
+		$this->radius_search_based_on   = !empty( $this->params['radius_search_based_on'] ) ? $this->params['radius_search_based_on'] : 'address';
 	}
 
 	public function prepare_data() {
@@ -790,6 +798,33 @@ class Directorist_Listings {
 			);
 		}
 
+		if ( ! empty( $this->categories ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( ! empty( $this->locations ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( ! empty( $this->tags ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_TAGS,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
 		if ( count( $tax_queries ) ) {
 			$args['tax_query'] = array_merge( array( 'relation' => 'AND' ), $tax_queries );
 		}
@@ -911,8 +946,8 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-
-		if ( ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
+		
+		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
@@ -929,7 +964,16 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( ! empty( $_REQUEST['zip'] ) ) {
+		if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip-cityLat'] ) && ! empty( $_REQUEST['zip-cityLng'] ) ) {
+			$args['atbdp_geo_query'] = array(
+				'lat_field' => '_manual_lat',
+				'lng_field' => '_manual_lng',
+				'latitude'  => sanitize_text_field( $_REQUEST['zip-cityLat'] ),
+				'longitude' => sanitize_text_field( $_REQUEST['zip-cityLng'] ),
+				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'units'     => $this->radius_search_unit
+			);
+		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
 				'key'     => '_zip',
 				'value'   => sanitize_text_field( $_REQUEST['zip'] ),

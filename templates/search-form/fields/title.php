@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$value = isset( $_GET['q'] ) ? $_GET['q'] : '';
+$value = isset( $_GET['q'] ) ? wp_unslash( $_GET['q'] ) : '';
 ?>
 
 <div class="directorist-search-field directorist-form-group directorist-search-query">

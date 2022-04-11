@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -17,8 +17,8 @@ if ( $location_source == 'listing' ) {
 		<div class="directorist-select directorist-search-location">
 			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo $selected_item['id'] ?>" data-selected-label="<?php echo $selected_item['label'] ?>">
 				<?php
-					echo '<option value="">Select Location</option>';
-					echo $searchform->locations_fields;
+				echo '<option value="">' . __( 'Select Location', 'directorist' ) . '</option>';
+				echo $searchform->locations_fields;
 				?>
 			</select>
 		</div>
@@ -28,9 +28,9 @@ if ( $location_source == 'listing' ) {
 }
 
 elseif ( $location_source == 'map' ) {
-	$cityLat = isset( $_GET['cityLat'] ) ? $_GET['cityLat'] : '';
-	$cityLng = isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '';
-	$value   = isset( $_GET['address'] ) ? $_GET['address'] : '';
+	$cityLat = isset( $_GET['cityLat'] ) ? wp_unslash( $_GET['cityLat'] ) : '';
+	$cityLng = isset( $_GET['cityLng'] ) ? wp_unslash( $_GET['cityLng'] ) : '';
+	$value   = isset( $_GET['address'] ) ? wp_unslash( $_GET['address'] ) : '';
 
 	$searchform->load_map_scripts();
 	?>

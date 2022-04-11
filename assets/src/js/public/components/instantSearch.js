@@ -219,7 +219,6 @@
                 $('.directorist-archive-contents').addClass('atbdp-form-fade');
             },
             success: function( html ) {
-                console.log( html.test)
                 if( html.directory_type ) {
                     $('.directorist-archive-contents').replaceWith( html.directory_type );
                     $('.directorist-archive-contents').removeClass('atbdp-form-fade');

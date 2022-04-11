@@ -1421,8 +1421,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         $('.directorist-archive-contents').addClass('atbdp-form-fade');
       },
       success: function success(html) {
-        console.log(html.test);
-
         if (html.directory_type) {
           $('.directorist-archive-contents').replaceWith(html.directory_type);
           $('.directorist-archive-contents').removeClass('atbdp-form-fade');

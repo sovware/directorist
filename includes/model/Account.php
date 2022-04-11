@@ -122,7 +122,7 @@ class Directorist_Account {
 				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : '',
 			);
-
+			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'account/registration', $args );
 

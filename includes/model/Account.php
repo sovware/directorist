@@ -71,13 +71,11 @@ class Directorist_Account {
 		return ob_get_clean();
 	}
 
-	public function render_shortcode_registration( $atts ) {
+	private function redirect_to_home() {
+		wp_redirect( home_url() );
+	}
 
-		$new_user_registration = get_directorist_option( 'new_user_registration', true );
-		if( ! $new_user_registration ) {
-			$redirect = '<script>window.location="' . esc_url( home_url() ) . '"</script>';
-			return $redirect;
-		}
+	public function render_shortcode_registration( $atts ) {
 
 		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
@@ -122,7 +120,7 @@ class Directorist_Account {
 				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : '',
 			);
-			
+
 			ob_start();
 			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
 			echo Helper::get_template_contents( 'account/registration', $args );

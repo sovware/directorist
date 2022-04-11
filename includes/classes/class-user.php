@@ -27,6 +27,20 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			add_filter( 'manage_users_columns', array( $this,'manage_users_columns' ), 10, 1 );
 			add_filter( 'manage_users_custom_column', array( $this,'manage_users_custom_column' ), 10, 3 );
+
+			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
+
+		}
+
+		public function registration_redirection() {
+			
+			if( get_directorist_option( 'custom_registration' ) == get_queried_object_id() ) {
+				$new_user_registration = get_directorist_option( 'new_user_registration', true );
+				if( ! $new_user_registration ) {
+					wp_redirect( home_url() );
+					exit;
+				}
+			}
 		}
 
 		/**

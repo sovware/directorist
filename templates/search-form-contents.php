@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.2.1
  */
 
 use \Directorist\Helper;
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php endif; ?>
 
-		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form">
+		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
 			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 

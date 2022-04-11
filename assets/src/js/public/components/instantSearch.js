@@ -201,10 +201,12 @@
         let type        = type_href.match( /directory_type=.+/ );
         //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
         var form_data = {
             action  : 'directorist_instant_search',
             _nonce  : atbdp_public_data.ajax_nonce,
             directory_type    : directory_type,
+            data_atts : JSON.parse(data_atts)
         };
 
         update_instant_search_url( form_data );
@@ -217,6 +219,7 @@
                 $('.directorist-archive-contents').addClass('atbdp-form-fade');
             },
             success: function( html ) {
+                console.log( html.test)
                 if( html.directory_type ) {
                     $('.directorist-archive-contents').replaceWith( html.directory_type );
                     $('.directorist-archive-contents').removeClass('atbdp-form-fade');

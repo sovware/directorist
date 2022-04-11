@@ -1701,6 +1701,11 @@ class Directorist_Listings {
 
 			return array_unique( $classes );
 		}
+		
+		public function data_atts() {
+			// Separates class names with a single space, collates class names for wrapper tag element.
+			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
+		}
 
 		public function loop_link_attr() {
 			$attr = " " . apply_filters('grid_view_title_link_add_attr', '');

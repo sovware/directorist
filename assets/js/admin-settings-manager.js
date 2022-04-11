@@ -2784,6 +2784,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     event: 'update'
   },
   computed: {
+    filteredValue: function filteredValue() {
+      return this.decodeEntity(this.value);
+    },
     input_type: function input_type() {
       var supported_types = {
         'text-field': 'text',
@@ -2826,6 +2829,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     return {
       validationLog: {}
     };
+  },
+  methods: {
+    decodeEntity: function decodeEntity(inputStr) {
+      var textarea = document.createElement("textarea");
+      textarea.innerHTML = inputStr;
+      return textarea.value;
+    }
   }
 });
 
@@ -27991,7 +28001,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -40606,7 +40616,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
+                    "\n            " + _vm._s(alert.message) + "\n        "
                   )
                 ]
               )
@@ -42880,7 +42890,7 @@ var render = function() {
           "div",
           { staticClass: "atbdp-col atbdp-col-8" },
           [
-            (typeof _vm.value !== "object"
+            (typeof _vm.filteredValue !== "object"
             ? true
             : false)
               ? _c("input", {
@@ -42891,7 +42901,9 @@ var render = function() {
                     placeholder: _vm.placeholder,
                     disabled: _vm.disable
                   },
-                  domProps: { value: _vm.value === false ? "" : _vm.value },
+                  domProps: {
+                    value: _vm.filteredValue === false ? "" : _vm.filteredValue
+                  },
                   on: {
                     input: function($event) {
                       return _vm.$emit("update", $event.target.value)
@@ -42900,12 +42912,12 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            (typeof _vm.value === "object"
+            (typeof _vm.filteredValue === "object"
             ? true
             : false)
               ? _c("input", {
                   attrs: { type: "hidden" },
-                  domProps: { value: JSON.stringify(_vm.value) }
+                  domProps: { value: JSON.stringify(_vm.filteredValue) }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -42914,7 +42926,7 @@ var render = function() {
                 "section-id": _vm.sectionId,
                 "field-id": _vm.fieldId,
                 root: _vm.root,
-                value: _vm.value,
+                value: _vm.filteredValue,
                 rules: _vm.rules
               },
               on: {
@@ -44673,7 +44685,7 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      (typeof _vm.value !== "object"
+      (typeof _vm.filteredValue !== "object"
       ? true
       : false)
         ? _c("input", {
@@ -44684,7 +44696,7 @@ var render = function() {
               placeholder: _vm.placeholder,
               disabled: _vm.disable
             },
-            domProps: { value: _vm.value },
+            domProps: { value: _vm.filteredValue },
             on: {
               input: function($event) {
                 return _vm.$emit("update", $event.target.value)
@@ -44693,12 +44705,12 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      (typeof _vm.value === "object"
+      (typeof _vm.filteredValue === "object"
       ? true
       : false)
         ? _c("input", {
             attrs: { type: "hidden" },
-            domProps: { value: JSON.stringify(_vm.value) }
+            domProps: { value: JSON.stringify(_vm.filteredValue) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44707,7 +44719,7 @@ var render = function() {
           "section-id": _vm.sectionId,
           "field-id": _vm.fieldId,
           root: _vm.root,
-          value: _vm.value,
+          value: _vm.filteredValue,
           rules: _vm.rules
         },
         on: {

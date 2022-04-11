@@ -136,7 +136,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         'search_result'  => $search_value,
                         'directory_type' => $directory_type_result,
                         'view_as'        => $view_as,
-                        'count'          => $count,
+                        'count'          => $count
                     )
                  );
             }

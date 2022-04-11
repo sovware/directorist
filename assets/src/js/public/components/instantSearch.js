@@ -203,10 +203,10 @@
         let directory_type = getURLParameter( type_href, 'directory_type' );
         let data_atts   = $('.directorist-instant-search').attr('data-atts');
         var form_data = {
-            action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            action      : 'directorist_instant_search',
+            _nonce      : atbdp_public_data.ajax_nonce,
             directory_type    : directory_type,
-            data_atts : JSON.parse(data_atts)
+            data_atts   : JSON.parse( data_atts )
         };
 
         update_instant_search_url( form_data );

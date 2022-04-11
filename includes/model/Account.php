@@ -73,6 +73,11 @@ class Directorist_Account {
 
 	public function render_shortcode_registration( $atts ) {
 
+		$new_user_registration = get_directorist_option( 'new_user_registration', true );
+		if( ! $new_user_registration ) {
+			return;
+		}
+		
 		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',

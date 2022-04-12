@@ -820,7 +820,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $settings_title = get_directorist_option('search_result_meta_title');
             if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
 
-            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( $_GET['q'] ) : '';
+            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( wp_unslash( $_GET['q'] ) ) : '';
             $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( $_GET['in_cat'] ) : '';
             $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( $_GET['in_loc'] ) : '';
 

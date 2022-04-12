@@ -3745,6 +3745,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value'         => false,
                 ],
                 // registration settings
+                'new_user_registration' => [
+                    'label'         => __('New User Registration', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
                 'reg_username'    => [
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
@@ -4704,6 +4709,13 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Registration Form', 'directorist'),
                             'icon' => '<i class="fa fa-envelope-open"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
+                                'new_user' => [
+                                    'title'       => '',
+                                    'description' => '',
+                                    'fields'      => [
+                                        'new_user_registration'
+                                     ],
+                                ],
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
                                     'description' => '',

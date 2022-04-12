@@ -68,8 +68,10 @@ trait Multi_Directory_Helper {
             ]
         ];
 
+        $directory_name = esc_attr( $args['directory_name'] );
+
         // Validate name
-        if ( empty( $args['directory_name'] ) ) {
+        if ( empty( $directory_name ) ) {
             $response['status']['status_log']['name_is_missing'] = [
                 'type'    => 'error',
                 'message' => __( 'Name is missing', 'directorist' ),
@@ -79,7 +81,7 @@ trait Multi_Directory_Helper {
         }
 
         // Validate term name
-        if ( ! empty( $args['directory_name'] ) && term_exists( $args['directory_name'], 'atbdp_listing_types' ) ) {
+        if ( ! empty( $directory_name ) && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
             $response['status']['status_log']['term_exists'] = [
                 'type'    => 'error',
                 'message' => __( 'The name already exists', 'directorist' ),
@@ -95,7 +97,7 @@ trait Multi_Directory_Helper {
         }
 
         // Create the directory
-        $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
+        $term = wp_insert_term( $directory_name, 'atbdp_listing_types');
         
         if ( is_wp_error( $term ) ) {
             $response['status']['status_log']['term_exists'] = [
@@ -212,16 +214,19 @@ trait Multi_Directory_Helper {
 
         $directory_name = ( ! empty( $fields['name'] ) ) ? $fields['name'] : '';
         $directory_name = ( ! empty( $args['directory_name'] ) ) ? $args['directory_name'] : $directory_name;
+        $directory_name = esc_attr( $directory_name );
         
         $response['fields_value']   = $fields;
         $response['directory_name'] = $args['directory_name'];
 
         unset( $fields['name'] );
 
-        $term = get_term( $args['term_id'], 'atbdp_listing_types');
+        $term = get_term( $args['term_id'], ATBDP_DIRECTORY_TYPE );
         $old_name = $term->name;
 
-        if ( $old_name !== $directory_name && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
+        $has_diffrent_name = $old_name !== $directory_name;
+
+        if ( $has_diffrent_name && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
             $response['status']['status_log']['name_exists'] = [
                 'type'    => 'error',
                 'message' => __( 'The name already exists', 'directorist' ),

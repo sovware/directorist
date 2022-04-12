@@ -9620,12 +9620,8 @@ p.atbd-min {
   margin-top: 25px;
 }
 
-.select2-selection__arrow:before,
-.select2-selection__clear:before {
-  display: none !important;
-}
-.select2-selection__arrow:after,
-.select2-selection__clear:after {
+.select2-selection__arrow,
+.select2-selection__clear {
   display: none !important;
 }
 

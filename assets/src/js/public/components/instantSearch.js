@@ -503,7 +503,7 @@
         let sort_by     = ( sort_href && sort_href.length ) ? sort_href.match( /sort=.+/ ) : '';
         let sort        = ( sort_by && sort_by.length ) ? sort_by[0].replace( /sort=/, '' ) : '';
         let view_href   = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-        let view_as     = view_href.match( /view=.+/ );
+        let view_as     = ( view_href && view_href.length ) ? view_href.match( /view=.+/ ) : '';
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';

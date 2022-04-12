@@ -1,7 +1,10 @@
 .select2-selection__arrow,
 .select2-selection__clear {
-    &:after{
-        display: none;
+    &:before {
+        display: none !important;
+    }
+    &:after {
+        display: none !important;
     }
 }
 

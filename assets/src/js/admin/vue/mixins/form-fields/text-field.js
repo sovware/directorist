@@ -8,6 +8,11 @@ export default {
     },
 
     computed: {
+
+        filteredValue() {
+            return this.decodeEntity( this.value );
+        },
+
         input_type() {
             const supported_types = {
                 'text-field': 'text', 
@@ -54,4 +59,12 @@ export default {
             validationLog: {}
         }
     },
+
+    methods: {
+        decodeEntity: function( inputStr ) {
+            var textarea = document.createElement("textarea");
+            textarea.innerHTML = inputStr;
+            return textarea.value;
+        }
+    }
 }

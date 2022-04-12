@@ -1686,7 +1686,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-    var view_as = view_href.match(/view=.+/);
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';

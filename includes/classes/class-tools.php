@@ -101,6 +101,7 @@
             $title                 = isset( $_POST['listing_title'] ) ? sanitize_text_field( $_POST['listing_title'] ) : '';
             $new_listing_status    = get_term_meta( $directory_type, 'new_listing_status', 'pending');
             $supported_post_status = array_keys( get_post_statuses() );
+            $publish_date          = isset( $_POST['publish_date'] ) ? sanitize_text_field( $_POST['publish_date'] ) : '';
             $listing_status        = isset( $_POST['listing_status'] ) ? sanitize_text_field( $_POST['listing_status'] ) : '';
             $delimiter             = isset( $_POST['delimiter'] ) ? sanitize_text_field( $_POST['delimiter'] ) : '';
             $description           = isset( $_POST['listing_content'] ) ? sanitize_text_field( $_POST['listing_content'] ) : '';
@@ -145,6 +146,14 @@
                         "post_type"    => ATBDP_POST_TYPE,
                         "post_status"  => $post_status,
                     );
+
+                    // Post Date
+                    $post_date = ! empty( $post[ $publish_date ] ) ? sanitize_text_field( $post[ $publish_date ] ) : '';
+                    $post_date = apply_filters( 'directorist_importing_listings_post_date', $post_date, $post, $args, $index );
+
+                    if ( Directorist\Helper::validate_date_format( $post_date ) ) {
+                        $args[ 'post_date' ] = $post_date;
+                    }
 
                     $post_id = wp_insert_post( $args );
 
@@ -339,7 +348,8 @@
             $directory = $directory ? $directory : $this->default_directory;
             $fields    = directorist_get_form_fields_by_directory_type( 'id', $directory );
 
-            $this->importable_fields[ 'listing_status' ] = 'Listing Status';
+            $this->importable_fields[ 'publish_date' ]   = __( 'Publish Date', 'directorist' );
+            $this->importable_fields[ 'listing_status' ] = __( 'Listing Status', 'directorist' );
 
             if ( empty( $fields ) || ! is_array( $fields ) ) {
                 return;

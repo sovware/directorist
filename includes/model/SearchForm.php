@@ -608,10 +608,11 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function zip_code_class() {
-		$class = 'directorist-form-element';
-		$radius_search = $this->build_search_data( 'radius_search' );
+		$class 					= 'directorist-form-element';
+		$radius_search 			= $this->build_search_data( 'radius_search' );
+		$radius_search_based_on = ! empty( $radius_search['radius_search_based_on'] ) ? $radius_search['radius_search_based_on'] : 'address';
 
-		if( ! empty( $radius_search ) && 'zip' == $radius_search['radius_search_based_on'] ) {
+		if( ! empty( $radius_search ) && 'zip' == $radius_search_based_on ) {
 			$class .= ' zip-radius-search';
 		}
 		return $class;

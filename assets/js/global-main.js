@@ -595,6 +595,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+
 
 var $ = jQuery;
 
@@ -633,31 +636,33 @@ function convertToSelect2(field) {
     return;
   }
 
-  var default_args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      // We only really care if there is an field to pull classes from
-      if (!data.field) {
-        return data.text;
+  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
+    var default_args = {
+      allowClear: true,
+      width: '100%',
+      templateResult: function templateResult(data) {
+        // We only really care if there is an field to pull classes from
+        if (!data.field) {
+          return data.text;
+        }
+
+        var $field = $(data.field);
+        var $wrapper = $('<span></span>');
+        $wrapper.addClass($field[0].className);
+        $wrapper.text(data.text);
+        return $wrapper;
       }
+    };
+    var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+    var options = $(item).find('option');
+    var placeholder = options.length ? options[0].innerHTML : '';
 
-      var $field = $(data.field);
-      var $wrapper = $('<span></span>');
-      $wrapper.addClass($field[0].className);
-      $wrapper.text(data.text);
-      return $wrapper;
+    if (placeholder.length) {
+      args.placeholder = placeholder;
     }
-  };
-  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-  var options = field.elm.find('option');
-  var placeholder = options.length ? options[0].innerHTML : '';
 
-  if (placeholder.length) {
-    args.placeholder = placeholder;
-  }
-
-  field.elm.select2(args);
+    $(item).select2(args);
+  });
 }
 
 

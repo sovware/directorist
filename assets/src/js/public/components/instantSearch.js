@@ -117,6 +117,7 @@
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
 
         var data = {
             action  : 'directorist_instant_search',
@@ -124,6 +125,7 @@
             in_tag  : tag,
             price   : price,
             custom_field : custom_field,
+            data_atts   : JSON.parse( data_atts )
         };
 
         var fields = {
@@ -201,10 +203,12 @@
         let type        = type_href.match( /directory_type=.+/ );
         //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
         var form_data = {
-            action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            action      : 'directorist_instant_search',
+            _nonce      : atbdp_public_data.ajax_nonce,
             directory_type    : directory_type,
+            data_atts   : JSON.parse( data_atts )
         };
 
         update_instant_search_url( form_data );
@@ -289,6 +293,7 @@
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
         let page_no     = $(".page-numbers.current").text();
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
 
         $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
         $(this).addClass("active");
@@ -313,6 +318,7 @@
             website   : $('input[name="website"]').val(),
             phone   : $('input[name="phone"]').val(),
             custom_field : custom_field,
+            data_atts   : JSON.parse( data_atts )
         };
 
         if( page_no && page_no.length ) {
@@ -402,6 +408,7 @@
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
 
         $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
         $(this).addClass("active");
@@ -428,6 +435,7 @@
             phone   : $('input[name="phone"]').val(),
             custom_field : custom_field,
             view : view,
+            data_atts   : JSON.parse( data_atts )
         };
 
         if( directory_type && directory_type.length ) {
@@ -503,11 +511,12 @@
         let sort_by     = ( sort_href && sort_href.length ) ? sort_href.match( /sort=.+/ ) : '';
         let sort        = ( sort_by && sort_by.length ) ? sort_by[0].replace( /sort=/, '' ) : '';
         let view_href   = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-        let view_as     = view_href.match( /view=.+/ );
+        let view_as     = ( view_href && view_href.length ) ? view_href.match( /view=.+/ ) : '';
         let view        = ( view_as && view_as.length ) ? view_as[0].replace( /view=/, '' ) : '';
         let type_href   = $('.directorist-type-nav__list .current a').attr('href');
         let type        = ( type_href && type_href.length ) ? type_href.match( /directory_type=.+/ ) : '';
         let directory_type = getURLParameter( type_href, 'directory_type' );
+        let data_atts   = $('.directorist-instant-search').attr('data-atts');
 
         $(".directorist-pagination .page-numbers").removeClass('current');
         $(this).addClass("current");
@@ -543,6 +552,7 @@
             custom_field : custom_field,
             view    : view,
             paged   : page_no,
+            data_atts   : JSON.parse( data_atts )
         };
 
         update_instant_search_url( form_data );

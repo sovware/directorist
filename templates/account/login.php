@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.5.3
+ * @version 7.2.1
  */
 
 use \Directorist\Helper;
@@ -74,31 +74,7 @@ use \Directorist\Helper;
                                     ?>
                                 <p><?php echo apply_filters( 'directorist_reset_password_link_exp_message', esc_html__( 'Sorry! The link is invalid.', 'directorist' ) ); ?></p>
                             <?php }
-                                } else {
-                                    $redirection = ATBDP_Permalink::get_login_redirection_page_link();
-                                    $data        = [
-                                        'ajax_url'            => admin_url( 'admin-ajax.php' ),
-                                        'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_dashboard_page_link(),
-                                        'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
-                                        'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
-                                    ];
-                                    wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
-
-                                    $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
-                                    $log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
-                                    $display_rememberMe  = get_directorist_option( 'display_rememberme', 1 );
-                                    $log_rememberMe      = get_directorist_option( 'log_rememberme', __( 'Remember Me', 'directorist' ) );
-                                    $log_button          = get_directorist_option( 'log_button', __( 'Log In', 'directorist' ) );
-                                    $display_recpass     = get_directorist_option( 'display_recpass', 1 );
-                                    $recpass_text        = get_directorist_option( 'recpass_text', __( 'Recover Password', 'directorist' ) );
-                                    $recpass_desc        = get_directorist_option( 'recpass_desc', __( 'Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist' ) );
-                                    $recpass_username    = get_directorist_option( 'recpass_username', __( 'E-mail:', 'directorist' ) );
-                                    $recpass_placeholder = get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) );
-                                    $recpass_button      = get_directorist_option( 'recpass_button', __( 'Get New Password', 'directorist' ) );
-                                    $reg_text            = get_directorist_option( 'reg_text', __( "Don't have an account?", 'directorist' ) );
-                                    $reg_url             = ATBDP_Permalink::get_registration_page_link();
-                                    $reg_linktxt         = get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) );
-                                    $display_signup      = get_directorist_option( 'display_signup', 1 );
+                                } else {  
                                 ?>
                             <form action="#" id="login" method="POST">
                                 <div class="directorist-form-group directorist-mb-15">
@@ -138,7 +114,7 @@ use \Directorist\Helper;
                                 <?php do_action( 'atbdp_before_login_form_end' );?>
                             </div>
 
-                            <?php if ( ! empty( $display_signup ) ) {?>
+                            <?php if ( ! empty( $display_signup ) && $new_user_registration ) {?>
                                 <p>
                                     <?php echo $reg_text; ?>
                                     <a href="<?php echo $reg_url; ?>"><?php echo $reg_linktxt; ?></a>

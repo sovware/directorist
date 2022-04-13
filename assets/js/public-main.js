@@ -132,8 +132,14 @@
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -142,7 +148,36 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-window.addEventListener('load', function () {
+window.addEventListener('load', init);
+setup_dom_observer(); // Setup DOM Observer
+
+function setup_dom_observer() {
+  // Select the select fields that will be observed for mutations
+  var observableItems = {
+    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
+    selectFields: document.querySelectorAll('.directorist-select')
+  };
+  var observableElements = [];
+  Object.values(observableItems).forEach(function (item) {
+    if (item.length) {
+      observableElements = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(observableElements), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(item));
+    }
+  });
+
+  if (observableElements.length) {
+    // Create an observer instance linked to the callback function
+    var observer = new MutationObserver(init);
+    observableElements.forEach(function (item) {
+      // Start observing the target node for configured mutations
+      observer.observe(item, {
+        childList: true
+      });
+    });
+  }
+} // Initialize
+
+
+function init() {
   // Add custom dropdown toggle button
   selec2_add_custom_dropdown_toggle_button(); // Add custom close button where needed
 
@@ -157,16 +192,27 @@ window.addEventListener('load', function () {
 
     selec2_add_custom_close_button($(this));
   });
-});
+}
 
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
     'display': 'none'
   });
-  var addon_container = selec2_get_addon_container(); // Add Dropdown Toggle Button
+  var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
 
-  addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
+  if (!addon_container) {
+    return;
+  }
+
+  var dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
+
+  if (!dropdown.length) {
+    // Add Dropdown Toggle Button
+    var dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>';
+    addon_container.append(dropdownHTML);
+  }
+
   var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
   // -----------------------------
 
@@ -174,15 +220,15 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.addClass('--is-open');
   });
-  $('.select2-hidden-accessible').on('select2:close', function (e) {
+  $('.select2-hidden-accessible').on('select2:close', function () {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
   }); // Toggle Dropdown
   // -----------------------------
 
-  selec2_custom_dropdown.on('click', function (e) {
+  selec2_custom_dropdown.on('click', function () {
     var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
 
     if (isOpen) {
       field.select2('close');
@@ -207,7 +253,7 @@ function selec2_add_custom_close_button_if_needed() {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var field = _step.value;
-      var value = $(field).children("option:selected").val();
+      var value = $(field).children('option:selected').val();
 
       if (!value) {
         continue;
@@ -239,7 +285,7 @@ function selec2_add_custom_close_button(field) {
   addon_container.prepend('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
   var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
   selec2_custom_close.on('click', function (e) {
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
     field.val(null).trigger('change');
     addon_container.find('.directorist-select2-dropdown-close').remove();
     selec2_adjust_space_for_addons();
@@ -263,18 +309,23 @@ function selec2_remove_custom_close_button(field) {
 
 function selec2_get_addon_container(field) {
   if (field && !field.length) {
-    return;
+    return null;
   }
 
-  var container = field ? $(field).next('.select2-container') : $('.select2-container');
-  container = $(container).find('.directorist-select2-addons-area');
+  var container = field ? $(field).next('.select2-container') : null;
 
-  if (!container.length) {
-    $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
-    container = $('.select2-container').find('.directorist-select2-addons-area');
+  if (!container) {
+    return null;
   }
 
-  return container;
+  var addonsArea = $(container).find('.directorist-select2-addons-area');
+
+  if (!addonsArea.length) {
+    container.append('<span class="directorist-select2-addons-area"></span>');
+    return container.find('.directorist-select2-addons-area');
+  }
+
+  return addonsArea;
 }
 
 function selec2_adjust_space_for_addons() {
@@ -628,7 +679,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -650,6 +700,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+
 
 var $ = jQuery;
 
@@ -688,31 +741,33 @@ function convertToSelect2(field) {
     return;
   }
 
-  var default_args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      // We only really care if there is an field to pull classes from
-      if (!data.field) {
-        return data.text;
+  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
+    var default_args = {
+      allowClear: true,
+      width: '100%',
+      templateResult: function templateResult(data) {
+        // We only really care if there is an field to pull classes from
+        if (!data.field) {
+          return data.text;
+        }
+
+        var $field = $(data.field);
+        var $wrapper = $('<span></span>');
+        $wrapper.addClass($field[0].className);
+        $wrapper.text(data.text);
+        return $wrapper;
       }
+    };
+    var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+    var options = $(item).find('option');
+    var placeholder = options.length ? options[0].innerHTML : '';
 
-      var $field = $(data.field);
-      var $wrapper = $('<span></span>');
-      $wrapper.addClass($field[0].className);
-      $wrapper.text(data.text);
-      return $wrapper;
+    if (placeholder.length) {
+      args.placeholder = placeholder;
     }
-  };
-  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-  var options = field.elm.find('option');
-  var placeholder = options.length ? options[0].innerHTML : '';
 
-  if (placeholder.length) {
-    args.placeholder = placeholder;
-  }
-
-  field.elm.select2(args);
+    $(item).select2(args);
+  });
 }
 
 
@@ -1955,12 +2010,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     var data = {
       action: 'directorist_instant_search',
       _nonce: atbdp_public_data.ajax_nonce,
       in_tag: tag,
       price: price,
-      custom_field: custom_field
+      custom_field: custom_field,
+      data_atts: JSON.parse(data_atts)
     };
     var fields = {
       q: $(this).find('input[name="q"]').val(),
@@ -2038,10 +2095,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href.match(/directory_type=.+/); //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
 
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: atbdp_public_data.ajax_nonce,
-      directory_type: directory_type
+      directory_type: directory_type,
+      data_atts: JSON.parse(data_atts)
     };
     update_instant_search_url(form_data);
     $.ajax({
@@ -2113,6 +2172,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var page_no = $(".page-numbers.current").text();
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -2135,7 +2195,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       email: $('input[name="email"]').val(),
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
-      custom_field: custom_field
+      custom_field: custom_field,
+      data_atts: JSON.parse(data_atts)
     };
 
     if (page_no && page_no.length) {
@@ -2221,6 +2282,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -2244,7 +2306,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field,
-      view: view
+      view: view,
+      data_atts: JSON.parse(data_atts)
     };
 
     if (directory_type && directory_type.length) {
@@ -2319,11 +2382,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
-    var view_as = view_href.match(/view=.+/);
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-pagination .page-numbers").removeClass('current');
     $(this).addClass("current");
     var paginate_link = $(this).attr('href');
@@ -2357,7 +2421,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
     update_instant_search_url(form_data);
 
     if (directory_type && directory_type.length) {

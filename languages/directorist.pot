@@ -437,11 +437,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-<<<<<<< HEAD
-#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:490, ../includes/classes/class-settings-panel.php:2236, ../includes/model/Listings.php:182, ../includes/model/Listings.php:1999, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3310, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
-=======
 #: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:171, ../includes/classes/class-custom-post.php:255, ../includes/classes/class-custom-post.php:263, ../includes/classes/class-settings-panel.php:490, ../includes/classes/class-settings-panel.php:2236, ../includes/model/Listings.php:183, ../includes/model/Listings.php:2021, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3319, ../views/front-end/user-dashboard.php:216, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
->>>>>>> upstream/alpha
 msgid "Featured"
 msgstr ""
 
@@ -2425,11 +2421,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-<<<<<<< HEAD
-#: ../includes/classes/class-settings-panel.php:2241, ../includes/model/Listings.php:181, ../includes/model/Listings.php:2011, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3324, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
-=======
 #: ../includes/classes/class-settings-panel.php:2241, ../includes/model/Listings.php:182, ../includes/model/Listings.php:2033, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3333, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
->>>>>>> upstream/alpha
 msgid "Popular"
 msgstr ""
 
@@ -3849,11 +3841,7 @@ msgstr ""
 msgid "Extensions General"
 msgstr ""
 
-<<<<<<< HEAD
-#: ../includes/classes/class-settings-panel.php:5212, ../includes/classes/class-tools.php:379, ../includes/classes/class-tools.php:380
-=======
-#: ../includes/classes/class-settings-panel.php:5224, ../includes/classes/class-tools.php:339, ../includes/classes/class-tools.php:340
->>>>>>> upstream/alpha
+#: ../includes/classes/class-settings-panel.php:5224, ../includes/classes/class-tools.php:389, ../includes/classes/class-tools.php:390
 msgid "Tools"
 msgstr ""
 
@@ -3965,7 +3953,7 @@ msgstr ""
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: ../includes/classes/class-setup-wizard.php:117, ../includes/classes/class-tools.php:119
+#: ../includes/classes/class-setup-wizard.php:117, ../includes/classes/class-tools.php:120
 msgid "No data found"
 msgstr ""
 
@@ -4097,19 +4085,27 @@ msgstr ""
 msgid "Invalid request!"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:471
+#: ../includes/classes/class-tools.php:351
+msgid "Publish Date"
+msgstr ""
+
+#: ../includes/classes/class-tools.php:352
+msgid "Listing Status"
+msgstr ""
+
+#: ../includes/classes/class-tools.php:481
 msgid "Upload CSV File"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:479
+#: ../includes/classes/class-tools.php:489
 msgid "Column Mapping"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:487, ../views/admin-templates/post-types-manager/all-listing-types.php:61, ../views/admin-templates/post-types-manager/all-listing-types.php:201, ../views/admin-templates/post-types-manager/all-listing-types.php:219
+#: ../includes/classes/class-tools.php:497, ../views/admin-templates/post-types-manager/all-listing-types.php:61, ../views/admin-templates/post-types-manager/all-listing-types.php:201, ../views/admin-templates/post-types-manager/all-listing-types.php:219
 msgid "Import"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:493
+#: ../includes/classes/class-tools.php:503
 msgid "Done"
 msgstr ""
 
@@ -4898,17 +4894,6 @@ msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-<<<<<<< HEAD
-#: ../includes/model/Listings.php:1085
-msgid "No listing found."
-msgstr ""
-
-#: ../includes/model/Listings.php:1518
-msgid "Posted %s ago"
-msgstr ""
-
-#: ../includes/model/Listings.php:1577
-=======
 #: ../includes/model/Listings.php:1102
 msgid "No listing found."
 msgstr ""
@@ -4918,40 +4903,27 @@ msgid "Posted %s ago"
 msgstr ""
 
 #: ../includes/model/Listings.php:1594
->>>>>>> upstream/alpha
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-<<<<<<< HEAD
-#: ../includes/model/Listings.php:1574
-=======
 #: ../includes/model/Listings.php:1591
->>>>>>> upstream/alpha
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-<<<<<<< HEAD
-#: ../includes/model/Listings.php:1571
-=======
 #: ../includes/model/Listings.php:1588
->>>>>>> upstream/alpha
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-<<<<<<< HEAD
-#: ../includes/model/Listings.php:1568
-=======
 #: ../includes/model/Listings.php:1585
->>>>>>> upstream/alpha
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"

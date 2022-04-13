@@ -1322,12 +1322,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     var data = {
       action: 'directorist_instant_search',
       _nonce: atbdp_public_data.ajax_nonce,
       in_tag: tag,
       price: price,
-      custom_field: custom_field
+      custom_field: custom_field,
+      data_atts: JSON.parse(data_atts)
     };
     var fields = {
       q: $(this).find('input[name="q"]').val(),
@@ -1405,10 +1407,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href.match(/directory_type=.+/); //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
 
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: atbdp_public_data.ajax_nonce,
-      directory_type: directory_type
+      directory_type: directory_type,
+      data_atts: JSON.parse(data_atts)
     };
     update_instant_search_url(form_data);
     $.ajax({
@@ -1480,6 +1484,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var page_no = $(".page-numbers.current").text();
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -1502,7 +1507,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       email: $('input[name="email"]').val(),
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
-      custom_field: custom_field
+      custom_field: custom_field,
+      data_atts: JSON.parse(data_atts)
     };
 
     if (page_no && page_no.length) {
@@ -1588,6 +1594,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -1611,7 +1618,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field,
-      view: view
+      view: view,
+      data_atts: JSON.parse(data_atts)
     };
 
     if (directory_type && directory_type.length) {
@@ -1691,6 +1699,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = $('.directorist-instant-search').attr('data-atts');
     $(".directorist-pagination .page-numbers").removeClass('current');
     $(this).addClass("current");
     var paginate_link = $(this).attr('href');
@@ -1724,7 +1733,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       website: $('input[name="website"]').val(),
       phone: $('input[name="phone"]').val(),
       custom_field: custom_field
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _form_data);
+    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
     update_instant_search_url(form_data);
 
     if (directory_type && directory_type.length) {

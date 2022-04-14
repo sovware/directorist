@@ -3190,6 +3190,11 @@ body.stop-scrolling {
 .directorist-add-listing-form__action .directorist-form-required {
   padding-left: 5px;
 }
+.directorist-add-listing-form__action .directorist-checkbox input[type=checkbox] {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Custom Fields */
 /* select */

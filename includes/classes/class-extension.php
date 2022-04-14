@@ -673,10 +673,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             foreach ( $outdated_themes as $theme_key => $theme ) {
                 $url = '';
 
-                if ( in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
-                    $theme_item = $themes_available_in_subscriptions[$theme_key];
-                    $url        = self::get_file_download_link( $theme_item, 'theme' );
+                if ( ! in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
+                    continue;
                 }
+
+                $theme_item = $themes_available_in_subscriptions[$theme_key];
+                $url        = self::get_file_download_link( $theme_item, 'theme' );
 
                 $download_status = $this->download_theme( ['url' => $url] );
 

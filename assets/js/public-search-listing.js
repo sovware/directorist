@@ -201,7 +201,9 @@
 
     var _this = $(this);
 
-    getItemsHeight(_this);
+    setTimeout(function () {
+      getItemsHeight(_this);
+    }, 500);
 
     _this.toggleClass('directorist-filter-btn--active');
 
@@ -243,6 +245,15 @@
         transition: '.3s ease'
       });
     }
+  });
+  $('body').on('click', '.directorist-sortby-dropdown > a, .directorist-viewas-dropdown > a', function () {
+    count = 0;
+    directoristAdvFilter().css({
+      visibility: 'hidden',
+      opacity: '0',
+      height: '0',
+      transition: '.3s ease'
+    });
   });
   var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
   ad_slide.hide().slideUp();

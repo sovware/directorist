@@ -98,7 +98,9 @@
         count++;
         e.preventDefault();
         let _this = $(this);
-        getItemsHeight(_this);
+        setTimeout(() => {
+            getItemsHeight(_this);
+        }, 500);
         _this.toggleClass('directorist-filter-btn--active');
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
         var advFilterWrap = $(e.currentTarget).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
@@ -133,6 +135,15 @@
             });
         }
     });
+    $('body').on('click', '.directorist-sortby-dropdown > a, .directorist-viewas-dropdown > a', function(){
+        count = 0;
+        directoristAdvFilter().css({
+            visibility: 'hidden',
+            opacity: '0',
+            height: '0',
+            transition: '.3s ease'
+        });
+    })
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();

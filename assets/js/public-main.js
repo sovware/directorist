@@ -2090,7 +2090,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       });
     }
   });
-  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form, .directorist-instant-search .directorist-search-form", function (e) {
+  $('body').on("submit", ".widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form", function (e) {
     e.preventDefault();
 
     var _this = $(this);
@@ -2192,18 +2192,18 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         type: "POST",
         data: form_data,
         beforeSend: function beforeSend() {
-          $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
-          $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
-          $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
-          $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
-          $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+          //$(_this).closest('.search-area').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
+          $('.directorist-archive-contents').find('.directorist-archive-items').addClass('atbdp-form-fade');
+          $('.directorist-archive-contents').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
+          $('.directorist-archive-contents').find('.directorist-header-bar .directorist-advanced-filter').hide();
+          $(document).scrollTop($(".directorist-archive-contents").offset().top);
         },
         success: function success(html) {
           if (html.search_result) {
-            $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
-            $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
-            $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
-            $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
+            $('.directorist-archive-contents').find('.directorist-header-found-title span').text(html.count);
+            $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
+            $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
+            $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           }
         }

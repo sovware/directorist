@@ -5,9 +5,8 @@
  * @package WooCommerce\Admin\Importers
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
+
 $imported = isset($_GET['listing-imported']) ? sanitize_text_field($_GET['listing-imported']) : '';
 $failed = isset($_GET['listing-failed']) ? sanitize_text_field($_GET['listing-failed']) : '0';
 ?>

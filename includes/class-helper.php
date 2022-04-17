@@ -707,4 +707,18 @@ class Helper {
 		return is_plugin_active( $plugin );
 	}
 
+	/**
+	 * Validate Date Format
+	 * 
+	 * @param string $date Date
+	 * @param string $format Date Format
+	 * @return bool
+	 */
+	public static function validate_date_format( $date, $format = 'Y-m-d h:i:s' ) {
+
+		$d = \DateTime::createFromFormat( $format, $date );
+
+		return $d && $d->format($format) === $date;
+	}
+
 }

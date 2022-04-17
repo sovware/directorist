@@ -116,7 +116,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function instant_search() {
             if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
 
-                $listings = new Directorist\Directorist_Listings( null, 'search_result');
+                $data_atts = ! empty( $_POST['data_atts'] ) ? $_POST['data_atts'] : null;
+                $listings = new Directorist\Directorist_Listings( $data_atts, 'search_result' );
                 $count = $listings->query_results->total;
                 ob_start();
                 echo $listings->archive_view_template();

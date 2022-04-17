@@ -743,10 +743,10 @@ $('body').on('submit', formID, function (e) {
     console.log('Form has invalid data');
     console.log(error_count, err_log);
     return;
-  } // on_processing = true;
-  // $('.directorist-form-submit__btn').attr('disabled', true);
+  }
 
-
+  on_processing = true;
+  $('.directorist-form-submit__btn').attr('disabled', true);
   $.ajax({
     method: 'POST',
     processData: false,

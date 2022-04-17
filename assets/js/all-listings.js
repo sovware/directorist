@@ -1091,12 +1091,12 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 /* All listings Masonry layout */
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', function () {
+  (function ($) {
     function authorsMasonry(selector) {
       var authorsCard = $(selector);
       $(authorsCard).each(function (id, elm) {
-        var authorsCardRow = $(elm).find('.directorist-masonary');
+        var authorsCardRow = $(elm).find('.directorist-masonry');
         var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
           $(authorMasonryInit).masonry({
             percentPosition: true,
@@ -1107,8 +1107,8 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     authorsMasonry('.directorist-archive-grid-view');
-  });
-})(jQuery);
+  })(jQuery);
+});
 
 /***/ }),
 

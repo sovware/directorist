@@ -307,7 +307,7 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 == Themes ==
 
-Directorist Business Directory offers cost-effective premium [Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
 🔥 **[dClassified](https://directorist.com/product/dclassified/)** - dClassified is a theme that is specially rigged up to create classified listing websites with aplomb. The theme is clean and simple yet one of the most powerful Classified WordPress themes with a string of useful features that you need to build your classified website.
 

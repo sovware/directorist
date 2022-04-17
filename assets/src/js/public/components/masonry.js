@@ -1,10 +1,10 @@
 /* All listings Masonry layout */
-(function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
+    (function ($) {
         function authorsMasonry(selector) {
             let authorsCard = $(selector);
             $(authorsCard).each(function (id, elm) {
-                let authorsCardRow = $(elm).find('.directorist-masonary');
+                let authorsCardRow = $(elm).find('.directorist-masonry');
                 let authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
                     $(authorMasonryInit).masonry({
                         percentPosition: true,
@@ -14,5 +14,5 @@
             })
         }
         authorsMasonry('.directorist-archive-grid-view');
-    });
-})(jQuery);
+    })(jQuery);
+});

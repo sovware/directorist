@@ -18,22 +18,21 @@ class Init {
 
 	private function __construct() {
 		$this->version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
-		$this->scripts = Scripts::all_scripts();
+		$this->scripts = Scripts::get_all_scripts();
 
-		// Frontend
-		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_styles' ], 12 );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_single_listing_scripts' ], 12 );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
+		// Frontend scripts
+		add_action( 'wp_enqueue_scripts',    array( $this, 'register_scripts' ) );
+		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_styles' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_single_listing_scripts' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( $this, 'localized_data' ), 15 );
 
-		add_action( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
+		// Admin Scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 12 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'localized_data' ), 15 );
 
-		// Admin
-		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ], 12 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'localized_data' ], 15 );
-
-		add_filter( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
+		// Enqueue conditional scripts based on templates
+		add_action( 'before_directorist_template_loaded', array( $this, 'load_template_scripts' ) );
 	}
 
 	/**
@@ -99,7 +98,7 @@ class Init {
 
 	public function load_template_scripts( $template ) {
 
-		if ( $this->is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
+		if ( Helper::is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
 			wp_enqueue_script( 'directorist-widgets' );
 		}
 
@@ -299,23 +298,5 @@ class Init {
 
 	public function localized_data() {
 		Localized_Data::load_localized_data();
-	}
-
-	public function defer_load_js( $tag, $handle ) {
-
-		$scripts = array_filter( $this->scripts, function( $script ) {
-			return $script['type'] == 'js' ? true : false;
-		} );
-		$scripts = array_keys( $scripts );
-
-		if ( in_array( $handle, $scripts ) ) {
-			return str_replace(' src', ' defer="defer" src', $tag );
-		}
-
-		return $tag;
-	}
-
-	private function is_widget_template( $template ) {
-		return str_starts_with( $template, 'widgets/' );
 	}
 }

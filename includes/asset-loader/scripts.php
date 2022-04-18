@@ -21,7 +21,7 @@ class Scripts {
 	 *			'rtl'  => Boolean false, // RTL exists or not
 	 *		];
 	 */
-	public static function all_scripts() {
+	public static function get_all_scripts() {
 		$scripts = [
 			// Vendor CSS
 			'directorist-openstreet-map-leaflet' => [

@@ -27,7 +27,7 @@ class Helper {
             wp_register_style( $handle, $url, $dep, $version );
         }
         else {
-            wp_register_script( $handle, $url, $dep, $version );
+            wp_register_script( $handle, $url, $dep, $version, true );
         }
 	}
 
@@ -116,10 +116,13 @@ class Helper {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
+	public static function is_widget_template( $template ) {
+		return str_starts_with( $template, 'widgets/' );
+	}
+
 	public static function is_admin_page( $page ) {
 		$status = false;
 		$screen = get_current_screen()->base;
-		// e_var_dump($screen);
 
 		switch ( $page ) {
 

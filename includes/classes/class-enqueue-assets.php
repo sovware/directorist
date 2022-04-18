@@ -610,8 +610,14 @@ class Enqueue_Assets {
 			'section'   => '',
 			'enable'    => true,
 			'localize_data' => [
-				'object_name' => 'atbdp_public_data',
-				'data' => Script_Helper::get_main_script_data()
+				[
+					'object_name' => 'atbdp_public_data',
+					'data' => Script_Helper::get_main_script_data()
+				],
+				[
+					'object_name' => 'directorist_options',
+					'data'        => Script_Helper::get_option_data(),
+				]
 			],
 		];
 

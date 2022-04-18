@@ -790,6 +790,10 @@ class Enqueue_Assets {
 					'object_name' => 'atbdp_public_data',
 					'data' => Script_Helper::get_main_script_data()
 				],
+				[
+					'object_name' => 'directorist_options',
+					'data'        => Script_Helper::get_option_data(),
+				]
 			],
 		];
 
@@ -923,6 +927,18 @@ class Enqueue_Assets {
 	public static function add_global_js_scripts() {
 		$scripts = [];
 		$common_asset_group = 'global';
+
+		$scripts['directorist-global-script'] = [
+			'file_name' => 'global-main',
+			'base_path' => DIRECTORIST_JS,
+			'deps'      => [],
+			'ver'       => self::$script_version,
+			'group'     => $common_asset_group,
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
+		];
 
 		$scripts['directorist-map-view'] = [
 			'file_name' => 'global-map-view',

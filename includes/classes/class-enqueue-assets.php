@@ -924,18 +924,6 @@ class Enqueue_Assets {
 		$scripts = [];
 		$common_asset_group = 'global';
 
-		$scripts['directorist-global-script'] = [
-			'file_name' => 'global-main',
-			'base_path' => DIRECTORIST_JS,
-			'deps'      => [],
-			'ver'       => self::$script_version,
-			'group'     => $common_asset_group,
-			'localize_data' => [
-				'object_name' => 'directorist_options',
-				'data'        => Script_Helper::get_option_data(),
-			],
-		];
-
 		$scripts['directorist-map-view'] = [
 			'file_name' => 'global-map-view',
 			'base_path' => DIRECTORIST_JS,

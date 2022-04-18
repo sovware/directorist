@@ -9,48 +9,36 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Init {
+class Asset_Loader {
 
-	public static $instance = null;
+	public static $version;
+	public static $scripts;
 
-	public $version;
-	public $scripts;
-
-	private function __construct() {
-		$this->version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
-		$this->scripts = Scripts::get_all_scripts();
+	public static function init() {
+		self::$version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+		self::$scripts = Scripts::get_all_scripts();
 
 		// Frontend scripts
-		add_action( 'wp_enqueue_scripts',    array( $this, 'register_scripts' ) );
-		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_styles' ), 12 );
-		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_single_listing_scripts' ), 12 );
-		add_action( 'wp_enqueue_scripts',    array( $this, 'localized_data' ), 15 );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'register_scripts' ) );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'enqueue_styles' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'enqueue_single_listing_scripts' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'localized_data' ), 15 );
 
 		// Admin Scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 12 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'localized_data' ), 15 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ), 12 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localized_data' ), 15 );
 
 		// Enqueue conditional scripts based on templates
-		add_action( 'before_directorist_template_loaded', array( $this, 'load_template_scripts' ) );
+		add_action( 'before_directorist_template_loaded', array( __CLASS__, 'load_template_scripts' ) );
 	}
 
-	/**
-	 * Singletone instance
-	 */
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
-
-	public function enqueue_styles() {
+	public static function enqueue_styles() {
 		// Map CSS
-		$this->enqueue_map_styles();
+		self::enqueue_map_styles();
 
 		// Icon CSS
-		$this->enqueue_icon_styles();
+		self::enqueue_icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -69,20 +57,20 @@ class Init {
 	/**
 	 * @todo apply icon condition
 	 */
-	public function enqueue_icon_styles() {
+	public static function enqueue_icon_styles() {
 
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );
 	}
 
-    public function enqueue_map_styles() {
+    public static function enqueue_map_styles() {
 		if ( Helper::map_type() == 'openstreet' ) {
 			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
 			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
 		}
 	}
 
-	public function enqueue_single_listing_scripts() {
+	public static function enqueue_single_listing_scripts() {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return;
 		}
@@ -96,7 +84,7 @@ class Init {
 		}
 	}
 
-	public function load_template_scripts( $template ) {
+	public static function load_template_scripts( $template ) {
 
 		if ( Helper::is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
 			wp_enqueue_script( 'directorist-widgets' );
@@ -228,7 +216,7 @@ class Init {
 		}
 	}
 
-	public function admin_scripts() {
+	public static function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
@@ -284,19 +272,19 @@ class Init {
 			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 
-			$this->enqueue_map_styles();
-			$this->enqueue_icon_styles();
+			self::enqueue_map_styles();
+			self::enqueue_icon_styles();
 		}
 
 	}
 
-	public function register_scripts() {
-		foreach ( $this->scripts as $handle => $script ) {
-			Helper::register_single_script( $handle, $script, $this->version );
+	public static function register_scripts() {
+		foreach ( self::$scripts as $handle => $script ) {
+			Helper::register_single_script( $handle, $script, self::$version );
 		}
 	}
 
-	public function localized_data() {
+	public static function localized_data() {
 		Localized_Data::load_localized_data();
 	}
 }

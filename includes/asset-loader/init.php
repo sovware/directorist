@@ -48,10 +48,10 @@ class Init {
 
 	public function enqueue_styles() {
 		// Map CSS
-		Enqueue::map_styles();
+		$this->enqueue_map_styles();
 
 		// Icon CSS
-		Enqueue::icon_styles();
+		$this->enqueue_icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -65,6 +65,22 @@ class Init {
 
 		// Inline styles
 		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
+	}
+
+	/**
+	 * @todo apply icon condition
+	 */
+	public function enqueue_icon_styles() {
+
+		wp_enqueue_style( 'directorist-line-awesome' );
+		wp_enqueue_style( 'directorist-font-awesome' );
+	}
+
+    public function enqueue_map_styles() {
+		if ( Helper::map_type() == 'openstreet' ) {
+			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+		}
 	}
 
 	public function enqueue_single_listing_scripts() {
@@ -269,8 +285,8 @@ class Init {
 			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 
-			Enqueue::map_styles();
-			Enqueue::icon_styles();
+			$this->enqueue_map_styles();
+			$this->enqueue_icon_styles();
 		}
 
 	}

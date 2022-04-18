@@ -77,6 +77,13 @@ function initSelect2AjaxTaxonomy( args ) {
         const parent = $( item ).closest( '.directorist-search-form' );
         const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
 
+        if ( ! directory_type_id ) {
+            const parent = $( item ).closest( '.directorist-archive-contents' );
+            const parentAtts = ( parent ) ? parent.data( 'atts' ) : null;
+            
+            directory_type_id = ( parentAtts.directory_type_id ) ? parentAtts.directory_type_id : 0;
+        }
+
         var currentPage = 1;
         $( item ).select2({
             allowClear: true,

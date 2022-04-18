@@ -941,7 +941,11 @@ class Enqueue_Assets {
 			'ver'       => self::$script_version,
 			'group'     => $common_asset_group,
 			//'section'   => '_',
-			'enable'    => Script_Helper::is_enable_map( 'google' )
+			'enable'    => Script_Helper::is_enable_map( 'google' ),
+			'localize_data' => [
+				'object_name' => 'directorist_options',
+				'data'        => Script_Helper::get_option_data(),
+			],
 		];
 
 		$scripts['directorist-gmap-marker-clusterer'] = [

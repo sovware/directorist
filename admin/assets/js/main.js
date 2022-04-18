@@ -7,7 +7,7 @@
                         return selected.text;
                 }
                 const $elem = $(
-                        `<span><span class='${atbdp_admin_data.icon_type} ${selected.element.value}'></span> ${
+                        `<span><span class='${directorist_admin.icon_type} ${selected.element.value}'></span> ${
                                 selected.text
                         }</span>`
                 );
@@ -15,7 +15,7 @@
         }
 
         $('#category_icon').select2({
-                placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+                placeholder: directorist_admin.i18n_text.icon_choose_text,
                 allowClear: true,
                 templateResult: selecWithIcon,
         });
@@ -70,12 +70,12 @@
                 /* Act on the event */
                 swal(
                         {
-                                title: atbdp_admin_data.i18n_text.confirmation_text,
-                                text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                                title: directorist_admin.i18n_text.confirmation_text,
+                                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
                                 type: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#DD6B55',
-                                confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+                                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
                                 closeOnConfirm: false,
                         },
                         function(isConfirm) {
@@ -98,7 +98,7 @@
 
                                         // show success message
                                         swal({
-                                                title: atbdp_admin_data.i18n_text.deleted,
+                                                title: directorist_admin.i18n_text.deleted,
                                                 // text: "Item has been deleted.",
                                                 type: 'success',
                                                 timer: 200,
@@ -144,7 +144,7 @@
         // redirect to import import_page_link
         $('#csv_import input[name="csv_import"]').on('change', function(event) {
                 event.preventDefault();
-                window.location = atbdp_admin_data.import_page_link;
+                window.location = directorist_admin.import_page_link;
         });
 
         /* This function handles all ajax request */
@@ -155,14 +155,14 @@
                 if (arg && !ActionName) data = arg;
                 // data = data ;
 
-                const n = data.search(atbdp_admin_data.nonceName);
+                const n = data.search(directorist_admin.nonceName);
                 if (n < 0) {
-                        data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
+                        data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
                 }
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data,
                         beforeSend() {
                                 jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
@@ -365,7 +365,7 @@ return $elem;
 }
 
 $("#category_icon").select2({
-placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+placeholder: directorist_admin.i18n_text.icon_choose_text,
 allowClear: true,
 templateResult: selecWithIcon,
 });
@@ -432,12 +432,12 @@ templateResult: selecWithIcon,
                 /* Act on the event */
                 swal(
                         {
-                                title: atbdp_admin_data.i18n_text.confirmation_text,
-                                text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
+                                title: directorist_admin.i18n_text.confirmation_text,
+                                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
                                 type: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#DD6B55',
-                                confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+                                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
                                 closeOnConfirm: false,
                         },
                         function(isConfirm) {
@@ -460,7 +460,7 @@ templateResult: selecWithIcon,
 
                                         // show success message
                                         swal({
-                                                title: atbdp_admin_data.i18n_text.deleted,
+                                                title: directorist_admin.i18n_text.deleted,
                                                 // text: "Item has been deleted.",
                                                 type: 'success',
                                                 timer: 200,
@@ -521,7 +521,7 @@ templateResult: selecWithIcon,
                 }
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: {
                                 action: 'send_system_info', // calls wp_ajax_nopriv_ajaxlogin
                                 _nonce: $('#atbdp_email_nonce').val(),
@@ -553,7 +553,7 @@ templateResult: selecWithIcon,
                 e.preventDefault();
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: {
                                 action: 'generate_url', // calls wp_ajax_nopriv_ajaxlogin nonce: ()
                                 _nonce: $(this).attr('data-nonce'),
@@ -577,7 +577,7 @@ templateResult: selecWithIcon,
                 e.preventDefault();
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: {
                                 action: 'revoke_url', // calls wp_ajax_nopriv_ajaxlogin
                                 _nonce: $(this).attr('data-nonce'),
@@ -600,7 +600,7 @@ templateResult: selecWithIcon,
         // redirect to import import_page_link
         $('#csv_import input[name="csv_import"]').on('change', function(event) {
                 event.preventDefault();
-                window.location = atbdp_admin_data.import_page_link;
+                window.location = directorist_admin.import_page_link;
         });
 
         /* This function handles all ajax request */
@@ -611,14 +611,14 @@ templateResult: selecWithIcon,
                 if (arg && !ActionName) data = arg;
                 // data = data ;
 
-                const n = data.search(atbdp_admin_data.nonceName);
+                const n = data.search(directorist_admin.nonceName);
                 if (n < 0) {
-                        data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
+                        data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
                 }
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data,
                         beforeSend() {
                                 jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
@@ -656,9 +656,9 @@ templateResult: selecWithIcon,
 
                 // Create a new media frame
                 frame = wp.media({
-                        title: atbdp_admin_data.i18n_text.upload_image,
+                        title: directorist_admin.i18n_text.upload_image,
                         button: {
-                                text: atbdp_admin_data.i18n_text.choose_image,
+                                text: directorist_admin.i18n_text.choose_image,
                         },
                         library: { type: 'image' }, // only allow image upload only
                         multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -741,7 +741,7 @@ templateResult: selecWithIcon,
                 event.preventDefault();
                 // Clear out the preview image and set no image as placeholder
                 imgContainer.html(
-                        `<img src="${atbdp_admin_data.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
+                        `<img src="${directorist_admin.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
                 );
                 // Hide the delete image link
                 delImgLink.addClass('hidden');
@@ -757,7 +757,7 @@ templateResult: selecWithIcon,
                 if ($('.single_attachment').length === 0) {
                         imgContainer.html(
                                 `<img src="${
-                                        atbdp_admin_data.AdminAssetPath
+                                        directorist_admin.AdminAssetPath
                                 }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
                                         `<small>(allowed formats jpeg. png. gif)</small>`
                         );
@@ -789,9 +789,9 @@ templateResult: selecWithIcon,
                 element.preventDefault();
 
                 imageUpload = wp.media.frames.file_frame = wp.media({
-                        title: atbdp_admin_data.i18n_text.select_prv_img,
+                        title: directorist_admin.i18n_text.select_prv_img,
                         button: {
-                                text: atbdp_admin_data.i18n_text.insert_prv_img,
+                                text: directorist_admin.i18n_text.insert_prv_img,
                         },
                 });
                 imageUpload.open();
@@ -905,9 +905,9 @@ templateResult: selecWithIcon,
 
      // Create a new media frame
      frame = wp.media({
-         title: atbdp_admin_data.i18n_text.upload_cat_image,
+         title: directorist_admin.i18n_text.upload_cat_image,
          button: {
-             text: atbdp_admin_data.i18n_text.choose_image
+             text: directorist_admin.i18n_text.choose_image
          },
          library: {type: 'image'}, // only allow image upload only
          multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -1055,7 +1055,7 @@ templateResult: selecWithIcon,
                 announcement_is_sending = true;
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         processData: false,
                         contentType: false,
@@ -1157,7 +1157,7 @@ templateResult: selecWithIcon,
         function admin_listing_form(directory_type) {
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: {
                                 action: 'atbdp_dynamic_admin_listing_form',
                                 directory_type: directory_type,
@@ -1197,7 +1197,7 @@ templateResult: selecWithIcon,
                         .append(`<span class="directorist_loader"></span>`);
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: {
                                 action: 'atbdp_listing_default_type',
                                 type_id: $(this).data('type-id'),
@@ -1256,9 +1256,9 @@ templateResult: selecWithIcon,
 
                         // Create a new media frame
                         frame = wp.media({
-                                title: atbdp_admin_data.i18n_text.upload_image,
+                                title: directorist_admin.i18n_text.upload_image,
                                 button: {
-                                        text: atbdp_admin_data.i18n_text.choose_image,
+                                        text: directorist_admin.i18n_text.choose_image,
                                 },
                                 library: { type: 'image' }, // only allow image upload only
                                 multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -1342,7 +1342,7 @@ templateResult: selecWithIcon,
                         // Clear out the preview image and set no image as placeholder
                         imgContainer.html(
                                 `<img src="${
-                                        atbdp_admin_data.AdminAssetPath
+                                        directorist_admin.AdminAssetPath
                                 }images/no-image.png" alt="Listing Image" />`
                         );
                         // Hide the delete image link
@@ -1359,7 +1359,7 @@ templateResult: selecWithIcon,
                         if ($('.single_attachment').length === 0) {
                                 imgContainer.html(
                                         `<img src="${
-                                                atbdp_admin_data.AdminAssetPath
+                                                directorist_admin.AdminAssetPath
                                         }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
                                                 `<small>(allowed formats jpeg. png. gif)</small>`
                                 );
@@ -1377,9 +1377,9 @@ templateResult: selecWithIcon,
                         element.preventDefault();
 
                         imageUpload = wp.media.frames.file_frame = wp.media({
-                                title: atbdp_admin_data.i18n_text.select_prv_img,
+                                title: directorist_admin.i18n_text.select_prv_img,
                                 button: {
-                                        text: atbdp_admin_data.i18n_text.insert_prv_img,
+                                        text: directorist_admin.i18n_text.insert_prv_img,
                                 },
                         });
                         imageUpload.open();
@@ -1659,7 +1659,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 is_sending = true;
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 submit_button.prepend(
@@ -1902,7 +1902,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                                         };
                                                         jQuery.ajax({
                                                                 type: 'post',
-                                                                url: atbdp_admin_data.ajaxurl,
+                                                                url: directorist_admin.ajaxurl,
                                                                 data: form_data,
                                                                 beforeSend() {
                                                                         icon_elm.removeClass('atbdp-text-danger');
@@ -2089,7 +2089,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 const icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
@@ -2140,7 +2140,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self).html('Installing');
@@ -2242,7 +2242,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
@@ -2306,7 +2306,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
@@ -2367,7 +2367,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self)
@@ -2464,7 +2464,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                         jQuery.ajax({
                                 type: 'post',
-                                url: atbdp_admin_data.ajaxurl,
+                                url: directorist_admin.ajaxurl,
                                 data: form_data,
                                 beforeSend() {
                                         install_btn.html(
@@ -2528,7 +2528,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 jQuery.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self).prepend(
@@ -2624,7 +2624,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self).prepend(
@@ -2673,7 +2673,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 $.ajax({
                         type: 'post',
-                        url: atbdp_admin_data.ajaxurl,
+                        url: directorist_admin.ajaxurl,
                         data: form_data,
                         beforeSend() {
                                 $(self).html(

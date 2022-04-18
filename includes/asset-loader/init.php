@@ -11,13 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Asset_Loader {
 
-	public static $version;
-	public static $scripts;
-
 	public static function init() {
-		self::$version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
-		self::$scripts = Scripts::get_all_scripts();
-
 		// Frontend scripts
 		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'register_scripts' ) );
 		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'enqueue_styles' ), 12 );
@@ -52,22 +46,6 @@ class Asset_Loader {
 
 		// Inline styles
 		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
-	}
-
-	/**
-	 * @todo apply icon condition
-	 */
-	public static function enqueue_icon_styles() {
-
-		wp_enqueue_style( 'directorist-line-awesome' );
-		wp_enqueue_style( 'directorist-font-awesome' );
-	}
-
-    public static function enqueue_map_styles() {
-		if ( Helper::map_type() == 'openstreet' ) {
-			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
-			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
-		}
 	}
 
 	public static function enqueue_single_listing_scripts() {
@@ -275,16 +253,32 @@ class Asset_Loader {
 			self::enqueue_map_styles();
 			self::enqueue_icon_styles();
 		}
-
 	}
 
 	public static function register_scripts() {
-		foreach ( self::$scripts as $handle => $script ) {
-			Helper::register_single_script( $handle, $script, self::$version );
+		$scripts = Scripts::get_all_scripts();
+		foreach ( $scripts as $handle => $script ) {
+			Helper::register_single_script( $handle, $script );
 		}
 	}
 
 	public static function localized_data() {
 		Localized_Data::load_localized_data();
+	}
+
+	/**
+	 * @todo apply icon condition
+	 */
+	public static function enqueue_icon_styles() {
+
+		wp_enqueue_style( 'directorist-line-awesome' );
+		wp_enqueue_style( 'directorist-font-awesome' );
+	}
+
+    public static function enqueue_map_styles() {
+		if ( Helper::map_type() == 'openstreet' ) {
+			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+		}
 	}
 }

@@ -25,7 +25,9 @@ class Helper {
 	 * @param array $script single item of Scripts::get_all_scripts() array.
 	 * @param string $version
 	 */
-	public static function register_single_script( $handle, $script, $version ) {
+	public static function register_single_script( $handle, $script ) {
+		$version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+
         $url = self::script_file_url( $script );
 
         if ( !empty( $script['dep'] ) ) {

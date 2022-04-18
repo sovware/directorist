@@ -11,6 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Asset_Loader {
 
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
 	public static function init() {
 		// Frontend scripts
 		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'register_scripts' ) );
@@ -23,10 +28,15 @@ class Asset_Loader {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ), 12 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localized_data' ), 15 );
 
-		// Enqueue conditional scripts based on templates
+		// Enqueue conditional scripts depending on loaded template
 		add_action( 'before_directorist_template_loaded', array( __CLASS__, 'load_template_scripts' ) );
 	}
 
+	/**
+	 * Enqueue all styles to all pages.
+	 *
+	 * @return void
+	 */
 	public static function enqueue_styles() {
 		// Map CSS
 		self::enqueue_map_styles();
@@ -48,6 +58,11 @@ class Asset_Loader {
 		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
 	}
 
+	/**
+	 * Enqueue scripts in Single listing page.
+	 *
+	 * @return void
+	 */
 	public static function enqueue_single_listing_scripts() {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return;
@@ -62,6 +77,13 @@ class Asset_Loader {
 		}
 	}
 
+	/**
+	 * Enqueue conditional scripts depending on loaded template.
+	 *
+	 * @param string $template
+	 *
+	 * @return void
+	 */
 	public static function load_template_scripts( $template ) {
 
 		if ( Helper::is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
@@ -194,6 +216,11 @@ class Asset_Loader {
 		}
 	}
 
+	/**
+	 * Enqueue conditional admin scripts depending on current admin screen.
+	 *
+	 * @return void
+	 */
 	public static function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );

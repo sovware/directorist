@@ -10,8 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Localized_Data {
 
 	public static function load_localized_data() {
+		// Load in frontend and backend
 		wp_localize_script( 'jquery', 'directorist', self::public_data() );
-		wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
+
+		// Load in backend only
+		if ( is_admin() ) {
+			wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
+		}
 
 		// Admin JS
 		// wp_localize_script( 'directorist-admin-script', 'atbdp_admin_data', self::get_admin_script_data() );

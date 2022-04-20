@@ -116,7 +116,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function instant_search() {
             if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
 
-                $listings = new Directorist\Directorist_Listings( null, 'search_result');
+                $data_atts = ! empty( $_POST['data_atts'] ) ? $_POST['data_atts'] : null;
+                $listings = new Directorist\Directorist_Listings( $data_atts, 'search_result' );
                 $count = $listings->query_results->total;
                 ob_start();
                 echo $listings->archive_view_template();
@@ -308,9 +309,10 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // category_custom_field_search
         public function category_custom_field_search() {
             $listing_type    = ! empty( $_POST['listing_type'] ) ? sanitize_key( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : [];
             $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
             $listing_type_id = ( $term ) ? $term->term_id : 0;
-            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, [] );
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
             // search form
             ob_start();

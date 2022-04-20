@@ -8,6 +8,8 @@ console.log( directorist_options )
 // Styles
 import './../../scss/layout/public/main-style.scss';
 
+import './../global/global';
+
 // Single Listing Page
 import './components/single-listing-page/slider';
 

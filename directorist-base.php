@@ -53,14 +53,6 @@ final class Directorist_Base
 	public $taxonomy;
 
 	/**
-	 * Asset_Loader Object.
-	 *
-	 * @var object|Asset_Loader
-	 * @since 7.2
-	 */
-	public $asset_loader;
-
-	/**
 	 * ATBDP_Ajax_Handler Object.
 	 *
 	 * @var object|ATBDP_Ajax_Handler
@@ -199,7 +191,7 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			self::$instance->asset_loader = Directorist\Asset_Loader\Init::instance();
+			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
 			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;

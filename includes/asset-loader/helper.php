@@ -9,11 +9,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Helper {
 
+	/**
+	 * Script debugging enabled or not.
+	 *
+	 * @return bool
+	 */
 	public static function debug_enabled() {
 		return get_directorist_option( 'script_debugging', false, true );
 	}
 
-	public static function register_single_script( $handle, $script, $version ) {
+	/**
+	 * Register a script.
+	 *
+	 * @param string $handle
+	 * @param array $script single item of Scripts::get_all_scripts() array.
+	 * @param string $version
+	 */
+	public static function register_single_script( $handle, $script ) {
+		$version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+
         $url = self::script_file_url( $script );
 
         if ( !empty( $script['dep'] ) ) {
@@ -27,10 +41,15 @@ class Helper {
             wp_register_style( $handle, $url, $dep, $version );
         }
         else {
-            wp_register_script( $handle, $url, $dep, $version );
+            wp_register_script( $handle, $url, $dep, $version, true );
         }
 	}
 
+	/**
+	 * Generate dynamic style css from php file.
+	 *
+	 * @return string css
+	 */
 	public static function dynamic_style() {
 		$style_path = ATBDP_DIR . 'assets/other/style.php';
 
@@ -112,14 +131,36 @@ class Helper {
 			$input);
 	}
 
+	/**
+	 * Selected Listing map type from settings.
+	 *
+	 * @return string
+	 */
 	public static function map_type() {
 		return get_directorist_option( 'select_listing_map', 'openstreet' );
 	}
 
+	/**
+	 * Determine if a template is inside widgets directory.
+	 *
+	 * @param string $template template file name.
+	 *
+	 * @return bool
+	 */
+	public static function is_widget_template( $template ) {
+		return str_starts_with( $template, 'widgets/' );
+	}
+
+	/**
+	 * Determine if user is inside an admin page of given page-type.
+	 *
+	 * @param string $page page type.
+	 *
+	 * @return bool
+	 */
 	public static function is_admin_page( $page ) {
 		$status = false;
 		$screen = get_current_screen()->base;
-		// e_var_dump($screen);
 
 		switch ( $page ) {
 
@@ -191,5 +232,4 @@ class Helper {
 
 		return $status;
 	}
-
 }

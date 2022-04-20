@@ -9,49 +9,40 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Init {
+class Asset_Loader {
 
-	public static $instance = null;
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
+	public static function init() {
+		// Frontend scripts
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'register_scripts' ) );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'enqueue_styles' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'enqueue_single_listing_scripts' ), 12 );
+		add_action( 'wp_enqueue_scripts',    array( __CLASS__, 'localized_data' ), 15 );
 
-	public $version;
-	public $scripts;
+		// Admin Scripts
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ), 12 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'localized_data' ), 15 );
 
-	private function __construct() {
-		$this->version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
-		$this->scripts = Scripts::all_scripts();
-
-		// Frontend
-		add_action( 'wp_enqueue_scripts',    [ $this, 'register_scripts' ] );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_styles' ], 12 );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue_single_listing_scripts' ], 12 );
-		add_action( 'wp_enqueue_scripts',    [ $this, 'localized_data' ], 15 );
-
-		add_action( 'before_directorist_template_loaded',  [ $this, 'load_template_scripts' ] );
-
-		// Admin
-		add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ], 12 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'localized_data' ], 15 );
-
-		add_filter( 'script_loader_tag', array( $this, 'defer_load_js' ), 10, 2 );
+		// Enqueue conditional scripts depending on loaded template
+		add_action( 'before_directorist_template_loaded', array( __CLASS__, 'load_template_scripts' ) );
 	}
 
 	/**
-	 * Singletone instance
+	 * Enqueue all styles to all pages.
+	 *
+	 * @return void
 	 */
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
-
-	public function enqueue_styles() {
+	public static function enqueue_styles() {
 		// Map CSS
-		Enqueue::map_styles();
+		self::enqueue_map_styles();
 
 		// Icon CSS
-		Enqueue::icon_styles();
+		self::enqueue_icon_styles();
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
@@ -67,7 +58,12 @@ class Init {
 		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
 	}
 
-	public function enqueue_single_listing_scripts() {
+	/**
+	 * Enqueue scripts in Single listing page.
+	 *
+	 * @return void
+	 */
+	public static function enqueue_single_listing_scripts() {
 		if ( ! is_singular( ATBDP_POST_TYPE ) ) {
 			return;
 		}
@@ -81,9 +77,16 @@ class Init {
 		}
 	}
 
-	public function load_template_scripts( $template ) {
+	/**
+	 * Enqueue conditional scripts depending on loaded template.
+	 *
+	 * @param string $template
+	 *
+	 * @return void
+	 */
+	public static function load_template_scripts( $template ) {
 
-		if ( $this->is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
+		if ( Helper::is_widget_template( $template ) && !wp_script_is( 'directorist-widgets' ) ) {
 			wp_enqueue_script( 'directorist-widgets' );
 		}
 
@@ -213,7 +216,12 @@ class Init {
 		}
 	}
 
-	public function admin_scripts() {
+	/**
+	 * Enqueue conditional admin scripts depending on current admin screen.
+	 *
+	 * @return void
+	 */
+	public static function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
@@ -269,37 +277,35 @@ class Init {
 			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
 			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 
-			Enqueue::map_styles();
-			Enqueue::icon_styles();
-		}
-
-	}
-
-	public function register_scripts() {
-		foreach ( $this->scripts as $handle => $script ) {
-			Helper::register_single_script( $handle, $script, $this->version );
+			self::enqueue_map_styles();
+			self::enqueue_icon_styles();
 		}
 	}
 
-	public function localized_data() {
+	public static function register_scripts() {
+		$scripts = Scripts::get_all_scripts();
+		foreach ( $scripts as $handle => $script ) {
+			Helper::register_single_script( $handle, $script );
+		}
+	}
+
+	public static function localized_data() {
 		Localized_Data::load_localized_data();
 	}
 
-	public function defer_load_js( $tag, $handle ) {
+	/**
+	 * @todo apply icon condition
+	 */
+	public static function enqueue_icon_styles() {
 
-		$scripts = array_filter( $this->scripts, function( $script ) {
-			return $script['type'] == 'js' ? true : false;
-		} );
-		$scripts = array_keys( $scripts );
-
-		if ( in_array( $handle, $scripts ) ) {
-			return str_replace(' src', ' defer="defer" src', $tag );
-		}
-
-		return $tag;
+		wp_enqueue_style( 'directorist-line-awesome' );
+		wp_enqueue_style( 'directorist-font-awesome' );
 	}
 
-	private function is_widget_template( $template ) {
-		return str_starts_with( $template, 'widgets/' );
+    public static function enqueue_map_styles() {
+		if ( Helper::map_type() == 'openstreet' ) {
+			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
+		}
 	}
 }

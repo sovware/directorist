@@ -27,5 +27,5 @@
             }
         });
     }
-
+		window.atbdp_do_ajax = atbdp_do_ajax;
 })(jQuery);

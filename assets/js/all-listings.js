@@ -965,6 +965,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     });
   }
+
+  window.atbdp_do_ajax = atbdp_do_ajax;
 })(jQuery);
 
 /***/ }),

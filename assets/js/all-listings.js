@@ -946,15 +946,15 @@ __webpack_require__.r(__webpack_exports__);
     if (arg) data = arg + "&action=" + ActionName;
     if (arg && !ActionName) data = arg; //data = data ;
 
-    var n = data.search(atbdp_public_data.nonceName);
+    var n = data.search(directorist.nonceName);
 
     if (n < 0) {
-      data = data + "&" + atbdp_public_data.nonceName + "=" + atbdp_public_data.nonce;
+      data = data + "&" + directorist.nonceName + "=" + directorist.nonce;
     }
 
     jQuery.ajax({
       type: "post",
-      url: atbdp_public_data.ajaxurl,
+      url: directorist.ajaxurl,
       data: data,
       beforeSend: function beforeSend() {
         jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);

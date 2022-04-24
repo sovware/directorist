@@ -17,12 +17,6 @@ class Localized_Data {
 		if ( is_admin() ) {
 			wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
 		}
-
-		// Admin JS
-		// wp_localize_script( 'directorist-admin-script', 'atbdp_admin_data', self::get_admin_script_data() );
-		wp_localize_script( 'directorist-admin-script', 'directorist_options', self::directorist_options_data() );
-		// wp_localize_script( 'directorist-admin-script', 'atbdp_public_data', self::get_listings_data() );
-		// wp_localize_script( 'directorist-admin-script', 'import_export_data', self::admin_ajax_localized_data() );
 	}
 
 	public static function public_data() {

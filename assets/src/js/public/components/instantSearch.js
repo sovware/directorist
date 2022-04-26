@@ -185,7 +185,8 @@
                 success: function( html ) {
                     if( html.search_result ) {
                         $('.directorist-header-found-title span').text( html.count );
-                        $('.directorist-archive-contents').children('div:last-child').replaceWith( html.search_result );
+                        //$('.directorist-archive-contents').children('div:last-child').replaceWith( html.search_result );
+                        $('.directorist-archive').replaceWith( html.search_result );
                         $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
                         $('.directorist-instant-search .directorist-advanced-filter__form .directorist-btn-sm'). attr("disabled", false)
                         window.dispatchEvent(new CustomEvent( 'directorist-reload-listings-map-archive'));
@@ -350,7 +351,8 @@
             success: function( html ) {
                 if( html.view_as ) {
                     $('.directorist-header-found-title span').text( html.count );
-                    $('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    //$('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    $('.directorist-archive').replaceWith( html.search_result );
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
                     $('.directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
                     $('.directorist-instant-search .directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
@@ -459,7 +461,8 @@
             success: function( html ) {
                 if( html.view_as ) {
                     $('.directorist-header-found-title span').text( html.count );
-                    $('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    //$('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    $('.directorist-archive').replaceWith( html.search_result );
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
                     $('.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
                     $('.directorist-instant-search .directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
@@ -575,7 +578,8 @@
             success: function( html ) {
                 if( html.view_as ) {
                     $('.directorist-header-found-title span').text( html.count );
-                    $('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    //$('.directorist-archive-contents').children('div:last-child').replaceWith( html.view_as );
+                    $('.directorist-archive').replaceWith( html.search_result );
                     $('.directorist-archive-contents').children('div:last-child').removeClass('atbdp-form-fade');
                     $(document).scrollTop( $(".directorist-instant-search").offset().top );
                 }

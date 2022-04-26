@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.2.1
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-archive-grid-view">
+<div class="directorist-archive directorist-archive-grid-view">
 
 	<?php do_action( 'directorist_before_grid_listings_loop' ); ?>
 

@@ -597,8 +597,8 @@ $('body').on('submit', formID, function (e) {
         return;
     }
 
-    // on_processing = true;
-    // $('.directorist-form-submit__btn').attr('disabled', true);
+    on_processing = true;
+    $('.directorist-form-submit__btn').attr('disabled', true);
     $.ajax({
         method: 'POST',
         processData: false,

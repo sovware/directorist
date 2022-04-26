@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,10 +15,10 @@ if ( $location_source == 'listing' ) {
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
-			<select name="in_loc" id="<?php echo !empty($searchform->location_id) ? esc_attr($searchform->location_id) : "notEmptyIdLoc".uniqid(); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo $selected_item['id'] ?>" data-selected-label="<?php echo $selected_item['label'] ?>">
+			<select name="in_loc" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo $selected_item['id'] ?>" data-selected-label="<?php echo $selected_item['label'] ?>">
 				<?php
-					echo '<option value="">Select Location</option>';
-					echo $searchform->locations_fields;
+				echo '<option value="">' . __( 'Select Location', 'directorist' ) . '</option>';
+				echo $searchform->locations_fields;
 				?>
 			</select>
 		</div>

@@ -1,5 +1,8 @@
 import './../../scss/layout/admin/admin-style.scss'
 
+// Global
+import './../global/global';
+
 // Blocks
 import './components/block-1';
 import './components/block-2';

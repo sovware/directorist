@@ -15,7 +15,7 @@ echo '<div class="atbd_widget_title">';
 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 echo '</div>';
 ?>
-<div class="atbdp search-area default-ad-search">
+<div class="atbdp search-area default-ad-search <?php echo is_singular( ATBDP_POST_TYPE ) ? esc_html( 'directorist_single' ) : ''; ?>">
     <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $searchform->listing_type; ?>'>
 		<div class="directorist-advanced-filter__basic">

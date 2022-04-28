@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-archive-list-view">
+<div class="directorist-archive-items directorist-archive-list-view">
 
 	<?php do_action( 'directorist_before_list_listings_loop' ); ?>
 
@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php foreach ( $listings->post_ids() as $listing_id ): ?>
 
 				<?php $listings->loop_template( 'list', $listing_id ); ?>
-				
+
 			<?php endforeach; ?>
-			
+
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php

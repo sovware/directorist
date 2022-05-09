@@ -106,7 +106,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 				'id'      => 'columns',
 				'label'   => __( 'Listings Per Row', 'directorist' ),
 				'options' => array(
-					'5' => __( '5 Items / Row', 'directorist'  ),
+					'6' => __( '6 Items / Row', 'directorist'  ),
 					'4' => __( '4 Items / Row', 'directorist'  ),
 					'3' => __( '3 Items / Row', 'directorist'  ),
 					'2' => __( '2 Items / Row', 'directorist'  ),

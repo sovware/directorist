@@ -65,7 +65,7 @@
                     <span class="atbdp-counter-list__label"><?php _e( 'Theme updates Available', 'directorist'); ?></span>
                     <span class="atbdp-counter-list__actions">
                         <?php if ( ! empty( $args[ 'total_outdated_themes' ] ) ) : ?>
-                            <button class="button button-primary"><?php _e( 'Update All', 'directorist'); ?></button>
+                            <button class="button button-primary theme-update-btn"><?php _e( 'Update All', 'directorist'); ?></button>
                         <?php else: ?>
                             <span class="atbdp-text-muted"><?php _e( 'All up to date', 'directorist'); ?></span>
                         <?php endif ?>

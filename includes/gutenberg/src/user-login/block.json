@@ -1,0 +1,9 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "directorist/user-login",
+    "title": "Login",
+    "category": "directorist-blocks-collection",
+    "description": "Create user login page and this block only works on login page set from settings.",
+    "textdomain": "directorist"
+}

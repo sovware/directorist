@@ -77,3 +77,57 @@
         }
     }
 }
+
+.directorist-label {
+    margin-bottom: 0;
+}
+
+input.directorist-toggle-input {
+    display: none;
+}
+
+.directorist-toggle-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+span.directorist-toggle-input-label-text {
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+span.directorist-toggle-input-label-icon {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    border-radius: 30px;
+    background-color: #d9d9d9;
+    transition: all ease-in-out 300ms;
+}
+
+span.directorist-toggle-input-label-icon::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    top: 50%;
+    transform: translate( 0, -50% );
+    transition: all ease-in-out 300ms;
+}
+
+input.directorist-toggle-input:checked +.directorist-toggle-input-label span.directorist-toggle-input-label-icon {
+    background-color: #4353FF;
+}
+
+input.directorist-toggle-input:not(:checked) +.directorist-toggle-input-label span.directorist-toggle-input-label-icon::after {
+    left: 5px;
+}
+
+input.directorist-toggle-input:checked +.directorist-toggle-input-label span.directorist-toggle-input-label-icon::after {
+    left: calc( 100% - 20px );
+}

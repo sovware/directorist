@@ -221,14 +221,14 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.addClass('--is-open');
   });
-  $('.select2-hidden-accessible').on('select2:close', function () {
+  $('.select2-hidden-accessible').on('select2:close', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
   }); // Toggle Dropdown
 
-  selec2_custom_dropdown.on('click', function () {
+  selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest('.select2-container').siblings('select:enabled');
+    var field = $(this).closest(".select2-container").siblings('select:enabled');
 
     if (isOpen) {
       field.select2('close');
@@ -309,7 +309,15 @@ function selec2_remove_custom_close_button(field) {
 
 function selec2_get_addon_container(field) {
   if (field && !field.length) {
-    return null;
+    return;
+  }
+
+  var container = field ? $(field).next('.select2-container') : $('.select2-container');
+  container = $(container).find('.directorist-select2-addons-area');
+
+  if (!container.length) {
+    $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
+    container = $('.select2-container').find('.directorist-select2-addons-area');
   }
 
   var container = field ? $(field).next('.select2-container') : null;
@@ -723,7 +731,12 @@ function get_dom_data(key, parent) {
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    if (is_script_debugging) {//console.log({key,dataElm,error});
+    if (is_script_debugging) {
+      console.log({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
     }
 
     return '';
@@ -931,7 +944,6 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
@@ -955,10 +967,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 6:
-=======
 /***/ 13:
->>>>>>> improve/asset2
 /*!**********************************************!*\
   !*** multi ./assets/src/js/global/global.js ***!
   \**********************************************/

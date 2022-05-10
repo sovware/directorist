@@ -147,10 +147,10 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         $('.atbd_tagline_moto_field').fadeOut();
     }
-	if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-		$('#price').hide();
-		$('#price_range').show();
-	}
+		if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
+			$('#price').hide();
+			$('#price_range').show();
+		}
     $('.directorist_pricing_options label').on( 'click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
@@ -172,6 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         $('.directory_pricing_field').hide();
         $( current_field ).show();
+		});
 
     $('#atbd_optional_field_check').on('change', function () {
         $(this).is(':checked') ?

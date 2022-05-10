@@ -31,8 +31,6 @@ elseif ( $location_source == 'map' ) {
 	$cityLat = isset( $_GET['cityLat'] ) ? wp_unslash( $_GET['cityLat'] ) : '';
 	$cityLng = isset( $_GET['cityLng'] ) ? wp_unslash( $_GET['cityLng'] ) : '';
 	$value   = isset( $_GET['address'] ) ? wp_unslash( $_GET['address'] ) : '';
-
-	$searchform->load_map_scripts();
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">

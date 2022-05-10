@@ -2258,7 +2258,7 @@ span.atbdp-tick-cross {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
 
-.atbdb_content_module_contents #_listing_gallery {
+.atbdb_content_module_contents .ez-media-uploader {
   text-align: center;
 }
 
@@ -5065,8 +5065,8 @@ input.atbdp-form-control {
 .directorist-listing-slug-edit-wrap .directorist-listing-slug__edit:before,
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add:before {
   content: "";
-  font-family: "Line Awesome Free";
-  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
   font-size: 15px;
   color: #2C99FF;
 }
@@ -5102,6 +5102,8 @@ input.atbdp-form-control {
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add:before {
   content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   color: #fff;
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-add.active {
@@ -5138,7 +5140,7 @@ input.atbdp-form-control {
 }
 .directorist-listing-slug-edit-wrap .directorist_listing-slug-formText-remove:before {
   content: "";
-  font-family: "Line Awesome Free";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 15px;
   color: #fff;
@@ -5923,6 +5925,10 @@ p.status:empty {
 .select2-container--open .select2-dropdown--above {
   top: 32px;
   border-color: #ececec;
+}
+
+.taxonomy-at_biz_dir-category .select2-container--open .select2-dropdown--above {
+  top: 0;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
@@ -7768,7 +7774,7 @@ body.stop-scrolling {
           justify-content: center;
 }
 
-#_listing_gallery {
+.ez-media-uploader {
   text-align: center;
 }
 
@@ -8786,7 +8792,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 #map {
-  width: 800px;
+  width: 100%;
   height: 600px;
   border: 1px solid #ccc;
 }

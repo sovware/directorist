@@ -1004,7 +1004,7 @@ class Directorist_Single_Listing {
 		return $result;
 	}
 
-	public function load_map_resources() {
+	public function map_data() {
 		$id      = $this->id;
 
 		$manual_lat  = get_post_meta($id, '_manual_lat', true);
@@ -1069,15 +1069,7 @@ class Directorist_Single_Listing {
 			'cat_icon'              => $cat_icon,
 		);
 
-		if ('openstreet' === $args['select_listing_map']) {
-			wp_localize_script('directorist-single-listing-openstreet-map-custom-script', 'localized_data', $args);
-			wp_enqueue_script('directorist-single-listing-openstreet-map-custom-script');
-		}
-
-		if ('google' === $args['select_listing_map']) {
-			wp_localize_script('directorist-single-listing-gmap-custom-script', 'localized_data', $args);
-			wp_enqueue_script('directorist-single-listing-gmap-custom-script');
-		}
+		return json_encode( $args );
 	}
 
 	public function get_reviewer_img()
@@ -1193,19 +1185,5 @@ class Directorist_Single_Listing {
 	public function get_related_columns() {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;
-	}
-
-	public function load_related_listings_script() {
-		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
-
-		$is_rtl = is_rtl() ? 'true' : '';
-
-		$localized_data = array(
-			'is_rtl' => $is_rtl,
-			'rel_listing_column' => $columns,
-		);
-
-		wp_enqueue_script('directorist-releated-listings-slider');
-		wp_localize_script('directorist-releated-listings-slider', 'data', $localized_data);
 	}
 }

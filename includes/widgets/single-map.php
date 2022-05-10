@@ -64,6 +64,8 @@ class Single_Map extends \WP_Widget {
 		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 		echo '</div>';
 
+		$map_zoom_level = !empty( $instance['zoom'] ) ? (int) $instance['zoom'] : get_directorist_option('map_zoom_level', 16 );
+
         $manual_lat = get_post_meta( get_the_ID(), '_manual_lat', true );
         $manual_lng = get_post_meta( get_the_ID(), '_manual_lng', true );
         $tagline    = get_post_meta( get_the_ID(), '_tagline', true );
@@ -74,44 +76,14 @@ class Single_Map extends \WP_Widget {
         $info_content .= "<p> {$tagline} </p>";
         $info_content .= "<address>{$address}</address>";
         $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', 'directorist') . "</a></div>";
-        $select_listing_map = get_directorist_option('select_listing_map', 'google');
-        $title              = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', 'directorist');
-        $map_zoom_level     = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 10;
-        $cats               = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-        $font_type          = get_directorist_option('font_type','line');
-        $fa_or_la           = ('line' == $font_type) ? "la " : "fa ";
-        if( ! empty( $cats ) ){
-            $cat_icon         = get_cat_icon($cats[0]->term_id);
-        }
-        $cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
 
-        $display_map_info           = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
-        $data = array(
-            'listing'               => $this,
-            'map_container_id'      => 'gmap-widget',
-            'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),
-            'default_longitude'     => get_directorist_option('default_longitude', '-74.0059728'),
-            'manual_lat'            => $manual_lat,
-            'manual_lng'            => $manual_lng,
-            'listing_location_text' => apply_filters('atbdp_single_listing_map_section_text', get_directorist_option('listing_location_text', __('Location', 'directorist'))),
-            'select_listing_map'    => get_directorist_option('select_listing_map', 'google'),
-            'info_content'          => $info_content,
-            'display_map_info'      => $display_map_info,
-            'map_zoom_level'        => get_directorist_option('map_zoom_level', 16),
-            'cat_icon'              => $cat_icon,
-        );
+		$listing = \Directorist\Directorist_Single_Listing::instance();
+		$map_data = json_decode( $listing->map_data() );
+		$map_data->map_zoom_level = $map_zoom_level;
+		$map_data->info_content = $info_content;
+		$map_data = json_encode( $map_data );
 
-        if ('openstreet' == $select_listing_map) {
-            wp_localize_script('directorist-single-listing-openstreet-map-widget-custom-script', 'localized_data_widget', $data);
-            wp_enqueue_script('directorist-single-listing-openstreet-map-widget-custom-script');
-        }
-
-        if ('google' == $select_listing_map) {
-                wp_localize_script('directorist-single-listing-gmap-widget-custom-script', 'localized_data_widget', $data);
-                wp_enqueue_script('directorist-single-listing-gmap-widget-custom-script');
-        }
-
-		Helper::get_template( 'widgets/single-map', compact( 'args', 'instance' ) );
+		Helper::get_template( 'widgets/single-map', compact( 'args', 'instance', 'map_data' ) );
 
 		echo wp_kses_post( $args['after_widget'] );
 	}

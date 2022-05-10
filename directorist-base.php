@@ -53,14 +53,6 @@ final class Directorist_Base
 	public $taxonomy;
 
 	/**
-	 * Enqueue_Assets Object.
-	 *
-	 * @var object|Enqueue_Assets
-	 * @since 7.0
-	 */
-	public $enqueue_assets;
-
-	/**
 	 * ATBDP_Ajax_Handler Object.
 	 *
 	 * @var object|ATBDP_Ajax_Handler
@@ -199,7 +191,7 @@ final class Directorist_Base
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
-			self::$instance->enqueue_assets = new Directorist\Enqueue_Assets;
+			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
 			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;
@@ -442,6 +434,7 @@ final class Directorist_Base
 	private function includes()
 	{
 		$this->autoload( ATBDP_INC_DIR . 'helpers/' );
+		$this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
 		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
@@ -538,7 +531,6 @@ final class Directorist_Base
 				'after_title' => '</h4></div>',
 			));
 		}
-
 	}
 
 	public function load_textdomain()

@@ -86,6 +86,7 @@
 /************************************************************************/
 /******/ ({
 
+<<<<<<< HEAD
 /***/ "./assets/src/js/global/components/modal.js":
 /*!**************************************************!*\
   !*** ./assets/src/js/global/components/modal.js ***!
@@ -3382,6 +3383,8 @@ if (tab_url.startsWith("#active_")) {
 
 /***/ }),
 
+=======
+>>>>>>> improve/asset2
 /***/ "./assets/src/js/public/main.js":
 /*!**************************************!*\
   !*** ./assets/src/js/public/main.js ***!
@@ -3393,6 +3396,7 @@ if (tab_url.startsWith("#active_")) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/public/main-style.scss */ "./assets/src/scss/layout/public/main-style.scss");
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+<<<<<<< HEAD
 /* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../global/global */ "./assets/src/js/global/global.js");
 /* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/single-listing-page/slider */ "./assets/src/js/public/components/single-listing-page/slider.js");
 /* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_2__);
@@ -3443,6 +3447,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_26__);
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_27__);
+=======
+>>>>>>> improve/asset2
 /*
     File: Main.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -3453,6 +3459,7 @@ console.log(directorist_options); // Styles
 
 
  // Single Listing Page
+<<<<<<< HEAD
 
  // General Components
 
@@ -3482,6 +3489,28 @@ console.log(directorist_options); // Styles
 
 
  // Booking
+=======
+// import './components/single-listing-page/slider';
+// General Components
+// import './components/general';
+// import './components/helpers';
+// import './components/review';
+// import './components/directoristSorting';
+// import './components/directoristAlert';
+// import './components/pureScriptTab';
+// import './components/profileForm';
+// import './components/gridResponsive';
+// import './components/formValidation';
+// import './components/directoristFavorite';
+// import './components/login';
+// import './components/tab';
+// import './components/directoristDropdown';
+// import './components/directoristSelect';
+// import './components/categoryLocation';
+// import './components/legacy-support';
+// import './components/author';
+// Booking
+>>>>>>> improve/asset2
 // import './components/booking';
 
 /***/ }),
@@ -3497,6 +3526,7 @@ console.log(directorist_options); // Styles
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
@@ -3721,6 +3751,8 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+=======
+>>>>>>> improve/asset2
 /***/ 0:
 /*!********************************************!*\
   !*** multi ./assets/src/js/public/main.js ***!

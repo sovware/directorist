@@ -53,13 +53,13 @@ class ATBDP_Checkout
     {
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
+
         ob_start();
         $enable_monetization = apply_filters('atbdp_enable_monetization_checkout',get_directorist_option('enable_monetization'));
         // vail if monetization is not active.
         if (!$enable_monetization) {
             return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');
         }
-        wp_enqueue_script('atbdp_checkout_script');
         // user logged in & monetization is active, so lets continue
         // get the listing id from the url query var
         $listing_id = get_query_var('atbdp_listing_id');
@@ -116,14 +116,14 @@ class ATBDP_Checkout
             $symbol     = atbdp_currency_symbol($currency);
             $before     = '';
             $after      = '';
-            $args       = array( 
+            $args       = array(
                 'form_data'     => $form_data,
                 'listing_id'    => $listing_id,
                 'c_position'    => $c_position,
                 'currency'      => $currency,
                 'symbol'        => $symbol,
-                'before'        => $before, 
-                'after'         => $after, 
+                'before'        => $before,
+                'after'         => $after,
             );
 
             \Directorist\Helper::add_shortcode_comment( 'directorist_checkout' );
@@ -336,6 +336,7 @@ class ATBDP_Checkout
      */
     public function transaction_failure()
     {
+
         ob_start();
 
         \Directorist\Helper::add_shortcode_comment( 'directorist_transaction_failure' );

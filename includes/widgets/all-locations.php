@@ -114,8 +114,6 @@ class All_Locations extends \WP_Widget {
 
         if( ( ! empty( $instance['single_only'] ) && ! is_singular( ATBDP_POST_TYPE ) ) || ! $allowWidget)
             return;
-        wp_enqueue_script('loc_cat_assets');
-        
 		echo wp_kses_post( $args['before_widget'] );
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
@@ -143,18 +141,18 @@ class All_Locations extends \WP_Widget {
         if( $query_args['immediate_category'] ) {
 
             $term_slug = get_query_var( ATBDP_LOCATION );
-        
+
             if( '' != $term_slug ) {
-            $term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
-            $query_args['active_term_id'] = $term->term_id;
-        
-            $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
-            $query_args['ancestors'][] = $query_args['active_term_id'];
-            $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
+				$term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
+				$query_args['active_term_id'] = $term->term_id;
+
+				$query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
+				$query_args['ancestors'][] = $query_args['active_term_id'];
+				$query_args['ancestors'] = array_unique( $query_args['ancestors'] );
             }
-        
+
         }
-        
+
         if( 'dropdown' == $query_args['template'] ) {
             $categories = $this->dropdown_locations( $query_args );
         } else {

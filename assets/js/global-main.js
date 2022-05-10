@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -96,33 +96,35 @@
 ;
 
 (function ($) {
-  // Recovery Password Modal
-  $("#recover-pass-modal").hide();
-  $(".atbdp_recovery_pass").on("click", function (e) {
-    e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
-  }); // Contact form [on modal closed]
+  window.addEventListener('DOMContentLoaded', function () {
+    // Recovery Password Modal
+    $("#recover-pass-modal").hide();
+    $(".atbdp_recovery_pass").on("click", function (e) {
+      e.preventDefault();
+      $("#recover-pass-modal").slideToggle().show();
+    }); // Contact form [on modal closed]
 
-  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-contact-message').val('');
-    $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured
-  // Modal
+    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+      $('#atbdp-contact-message').val('');
+      $('#atbdp-contact-message-display').html('');
+    }); // Template Restructured
+    // Modal
 
-  var directoristModal = document.querySelector('.directorist-modal-js');
-  $('body').on('click', '.directorist-btn-modal-js', function (e) {
-    e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
-    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-  });
-  $('body').on('click', '.directorist-modal-close-js', function (e) {
-    e.preventDefault();
-    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-  });
-  $(document).bind('click', function (e) {
-    if (e.target == directoristModal) {
-      directoristModal.classList.remove('directorist-show');
-    }
+    var directoristModal = document.querySelector('.directorist-modal-js');
+    $('body').on('click', '.directorist-btn-modal-js', function (e) {
+      e.preventDefault();
+      var data_target = $(this).attr("data-directorist_target");
+      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
+    });
+    $('body').on('click', '.directorist-modal-close-js', function (e) {
+      e.preventDefault();
+      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+    });
+    $(document).bind('click', function (e) {
+      if (e.target == directoristModal) {
+        directoristModal.classList.remove('directorist-show');
+      }
+    });
   });
 })(jQuery);
 
@@ -214,7 +216,6 @@ function selec2_add_custom_dropdown_toggle_button() {
   }
 
   var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
-  // -----------------------------
 
   $('.select2-hidden-accessible').on('select2:open', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
@@ -224,7 +225,6 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
   }); // Toggle Dropdown
-  // -----------------------------
 
   selec2_custom_dropdown.on('click', function () {
     var isOpen = $(this).hasClass('--is-open');
@@ -415,7 +415,7 @@ function initSelect2() {
   select_fields.forEach(function (field) {
     Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
   });
-  var lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
+  var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
 
   if (lazy_load_taxonomy_fields) {
     // Init Select2 Ajax Fields
@@ -425,7 +425,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
@@ -641,24 +641,26 @@ function init() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var $ = jQuery;
-document.querySelectorAll('.la-icon i').forEach(function (item) {
-  className.push(item.getAttribute('class'));
-}); // Handle Disabled Link Action
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery;
+  document.querySelectorAll('.la-icon i').forEach(function (item) {
+    className.push(item.getAttribute('class'));
+  }); // Handle Disabled Link Action
 
-$('.atbdp-disabled').on('click', function (e) {
-  e.preventDefault();
-}); // Toggle Modal
+  $('.atbdp-disabled').on('click', function (e) {
+    e.preventDefault();
+  }); // Toggle Modal
 
-$('.cptm-modal-toggle').on('click', function (e) {
-  e.preventDefault();
-  var target_class = $(this).data('target');
-  $('.' + target_class).toggleClass('active');
-}); // Change label on file select/change
+  $('.cptm-modal-toggle').on('click', function (e) {
+    e.preventDefault();
+    var target_class = $(this).data('target');
+    $('.' + target_class).toggleClass('active');
+  }); // Change label on file select/change
 
-$('.cptm-file-field').on('change', function (e) {
-  var target_id = $(this).attr('id');
-  $('label[for=' + target_id + ']').text('Change');
+  $('.cptm-file-field').on('change', function (e) {
+    var target_id = $(this).attr('id');
+    $('label[for=' + target_id + ']').text('Change');
+  });
 });
 
 /***/ }),
@@ -714,7 +716,7 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
@@ -929,6 +931,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
@@ -953,6 +956,9 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ }),
 
 /***/ 6:
+=======
+/***/ 13:
+>>>>>>> improve/asset2
 /*!**********************************************!*\
   !*** multi ./assets/src/js/global/global.js ***!
   \**********************************************/

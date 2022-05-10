@@ -58,22 +58,6 @@ class Search_Form extends \WP_Widget {
 		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 		echo '</div>';
 
-        wp_enqueue_script( 'directorist-search-form-listing' );
-        wp_enqueue_script( 'directorist-range-slider' );
-        wp_enqueue_script( 'directorist-search-listing' );
-
-        $listing_type = get_post_meta( get_the_ID(), '_directory_type', true );
-        $listing_type = ( ! empty( $listing_type ) ) ? $listing_type : default_directory_type();
-
-        $data = \Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type ] );
-        wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-        wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-            'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-            'ajax_url' => admin_url('admin-ajax.php'),
-        ]);
-        wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-        wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
-
 		Helper::get_template( 'widgets/search-form', compact( 'args', 'instance' ) );
 
 		echo wp_kses_post( $args['after_widget'] );

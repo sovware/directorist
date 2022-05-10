@@ -66,15 +66,6 @@ class Scripts {
 				'type' => 'css',
 				'path' => DIRECTORIST_CSS . 'public-main',
 			],
-			'directorist-inline-style' => [
-				'type' => 'css',
-				'path' => DIRECTORIST_ASSETS . 'other/inline-style',
-				'rtl'  => false,
-			],
-			'directorist-settings-style' => [
-				'type' => 'css',
-				'path' => DIRECTORIST_ASSETS . 'other/settings-style',
-			],
 
 			// Admin CSS
 			'directorist-admin-style' => [

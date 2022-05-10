@@ -46,8 +46,6 @@ class Asset_Loader {
 
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
-		wp_enqueue_style( 'directorist-inline-style' );
-		wp_enqueue_style( 'directorist-settings-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
 		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
 		wp_enqueue_style( 'directorist-plasma-slider' );

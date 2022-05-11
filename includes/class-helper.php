@@ -537,6 +537,26 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function single_shortcode_string( $shortcode, $atts = [] ) {
+		$atts_string = '';
+
+		if ( $atts ) {
+			foreach ( $atts as $key => $value ) {
+				$atts_string .= sprintf( ' %s="%s"', $key, $value );
+			}
+		}
+
+		return sprintf( '<div class="directorist-single-dummy-shortcode">%s%s</div>', $shortcode, $atts_string );
+	}
+
+	public static function is_builder_single_page() {
+		$selected_single_pages = self::builder_selected_single_pages();
+		if( !empty( $selected_single_pages ) && is_page( array_keys( $selected_single_pages ) ) ) {
+			return true;
+		}
+		return false;
+	}
+
 	public static function builder_selected_single_pages() {
 		// @cache @kowsar
 		$pages = [];
@@ -663,7 +683,7 @@ class Helper {
 
 	/**
 	 * Validate Date Format
-	 * 
+	 *
 	 * @param string $date Date
 	 * @param string $format Date Format
 	 * @return bool

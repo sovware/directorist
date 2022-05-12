@@ -79,7 +79,7 @@
                     submit_button.removeAttr('disabled');
                     submit_button.removeClass("directorist-loader");
 
-                    console.log(response);
+                    // console.log(response);
 
                     if (response.success) {
                         $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');

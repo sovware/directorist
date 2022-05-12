@@ -807,8 +807,8 @@ __webpack_require__.r(__webpack_exports__);
     Author: wpWax
     Author URI: www.wpwax.com
 */
-console.log(directorist_options); // Styles
-
+// console.log( directorist_options )
+// Styles
 
  // Single Listing Page
 // import './components/single-listing-page/slider';

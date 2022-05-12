@@ -309,7 +309,6 @@
                         $(document).scrollTop($(".directorist-archive-contents").offset().top);
                     },
                     success: function (html) {
-						console.log(html.search_result);
                         if (html.search_result) {
                             $('.directorist-archive-contents').find('.directorist-header-found-title span').text(html.count);
                             $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);

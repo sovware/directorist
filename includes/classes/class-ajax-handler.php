@@ -108,7 +108,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
             add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
 
-            //instant search 
+            //instant search
             add_action('wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
             add_action('wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
         }
@@ -131,8 +131,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo $listings->archive_view_template();
                 $view_as = ob_get_clean();
 
-                wp_send_json( 
-                    array( 
+                wp_send_json(
+                    array(
                         'search_result'  => $search_value,
                         'directory_type' => $directory_type_result,
                         'view_as'        => $view_as,
@@ -301,8 +301,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
-                'search_form'          => $search_form,
-                'atbdp_search_listing' => \Directorist\Asset_Loader\Localized_Data::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
+                'search_form' => $search_form,
              ) );
         }
 

@@ -431,7 +431,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Reload Button
     $('body').on('click', '.reload', function (e) {
         e.preventDefault();
-        console.log('reloading...');
+        // console.log('reloading...');
         location.reload();
     });
 
@@ -491,7 +491,7 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         if ($(this).hasClass('in-progress')) {
-            console.log('Wait...');
+            // console.log('Wait...');
             return;
         }
 
@@ -551,7 +551,7 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         if ($(this).hasClass('in-progress')) {
-            console.log('Wait...');
+            // console.log('Wait...');
             return;
         }
 

@@ -166,7 +166,7 @@
       e.preventDefault();
 
       if (closing_announcement) {
-        console.log('Please wait...');
+        // console.log('Please wait...');
         return;
       }
 
@@ -871,8 +871,7 @@ window.addEventListener('DOMContentLoaded', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader");
-          console.log(response);
+          submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
             $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');

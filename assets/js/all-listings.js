@@ -1461,8 +1461,7 @@ window.addEventListener('DOMContentLoaded', function () {
               }, 600);
             }
           });
-          updateComment.fail(function (data) {
-            console.log(data);
+          updateComment.fail(function (data) {// console.log(data)
           });
           updateComment.always(function () {
             $form.find('#comment').prop('disabled', false);

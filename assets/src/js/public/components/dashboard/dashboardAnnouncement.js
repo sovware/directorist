@@ -43,7 +43,7 @@
             e.preventDefault();
 
             if (closing_announcement) {
-                console.log('Please wait...');
+                // console.log('Please wait...');
                 return;
             }
 

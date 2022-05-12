@@ -146,7 +146,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 updateComment.fail(
                     function (data) {
-                        console.log(data)
+                        // console.log(data)
                     }
                 );
 

@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Response Success Callback
         const responseSuccessCallback = function ( response ) {
-            console.log( { response } );
+            // console.log( { response } );
 
             if ( response?.data?.success ) {
                 let msg = ( response?.data?.message ) ?? 'Migration Successful';
@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Response Error Callback
         const responseFaildCallback = function ( response ) {
-            console.log( { response } );
+            // console.log( { response } );
 
             let msg = ( response?.data?.message ) ?? 'Something went wrong please try again';
             let alert_content = `

@@ -121,7 +121,7 @@
 
         var data = {
             action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            _nonce  : directorist.ajax_nonce,
             in_tag  : tag,
             price   : price,
             custom_field : custom_field,
@@ -171,7 +171,7 @@
             update_instant_search_url( form_data );
 
             $.ajax({
-                url: atbdp_public_data.ajaxurl,
+                url: directorist.ajaxurl,
                 type: "POST",
                 data: form_data,
                 beforeSend: function () {
@@ -206,7 +206,7 @@
         let data_atts   = $('.directorist-instant-search').attr('data-atts');
         var form_data = {
             action      : 'directorist_instant_search',
-            _nonce      : atbdp_public_data.ajax_nonce,
+            _nonce      : directorist.ajax_nonce,
             directory_type    : directory_type,
             data_atts   : JSON.parse( data_atts )
         };
@@ -214,7 +214,7 @@
         update_instant_search_url( form_data );
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
@@ -299,7 +299,7 @@
         $(this).addClass("active");
         var form_data = {
             action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            _nonce  : directorist.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
             in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
@@ -334,7 +334,7 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
@@ -415,7 +415,7 @@
 
         var form_data = {
             action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            _nonce  : directorist.ajax_nonce,
             sort    : ( sort_by && sort_by.length ) ? sort_by[0].replace( /sort=/, '' ) : '',
             q       : $('input[name="q"]').val(),
             in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
@@ -443,7 +443,7 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
@@ -531,7 +531,7 @@
 
         var form_data = {
             action  : 'directorist_instant_search',
-            _nonce  : atbdp_public_data.ajax_nonce,
+            _nonce  : directorist.ajax_nonce,
             view    : ( view && view.length ) ? view[0].replace( /view=/, '' ) : '',
             q       : $('input[name="q"]').val(),
             in_cat  : $('.bdas-category-search, .directorist-category-select').val(),
@@ -566,7 +566,7 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {

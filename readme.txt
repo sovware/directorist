@@ -301,7 +301,7 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration allows you to coalesce the famous plugin, GamiPress with Directorist activity events based on the points gained and features to make your directory website even more magnetic and interactive.
 
-🔥 **[WPML Integration](https://wordpress.org/plugins/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
+🔥 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 

@@ -4249,11 +4249,11 @@ msgstr ""
 msgid "4 Items / Row"
 msgstr ""
 
-#: ../includes/elementor/all-categories.php:80, ../includes/elementor/all-listing.php:109, ../includes/elementor/all-locations.php:80, ../includes/elementor/category.php:67, ../includes/elementor/location.php:67, ../includes/elementor/search-result.php:74, ../includes/elementor/tag.php:67
+#: ../includes/elementor/all-categories.php:80, ../includes/elementor/all-locations.php:80, ../includes/elementor/category.php:67, ../includes/elementor/location.php:67, ../includes/elementor/search-result.php:74, ../includes/elementor/tag.php:67
 msgid "5 Items / Row"
 msgstr ""
 
-#: ../includes/elementor/all-categories.php:81, ../includes/elementor/all-locations.php:81
+#: ../includes/elementor/all-categories.php:81, ../includes/elementor/all-listing.php:109, ../includes/elementor/all-locations.php:81
 msgid "6 Items / Row"
 msgstr ""
 

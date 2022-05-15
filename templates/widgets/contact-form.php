@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  wpWax
- * @since   7.2.0
- * @version 7.2.0
+ * @since   7.3
+ * @version 7.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -23,7 +23,7 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
     $msg_html = '<div class="form-group">';
     $msg_html .= '<textarea class="form-control" name="atbdp-contact-message" rows="3" placeholder="' . __('Message', 'directorist') . '..." required ></textarea>';
     $msg_html .= '</div>';
-    
+
     /**
      * @since 5.10.0
      */
@@ -32,7 +32,7 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
 
     <input type="hidden" name="atbdp-post-id" value="<?php echo get_the_ID(); ?>" />
     <input type="hidden" name="atbdp-listing-email" value="<?php echo ! empty( $email ) ? sanitize_email( $email ) : ''; ?>" />
-    
+
     <?php
     /**
      * It fires before contact form in the widget area

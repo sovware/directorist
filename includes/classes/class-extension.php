@@ -212,7 +212,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public function setup_products_list() {
 
 
-            $url     = 'https://directorist.com/wp-json/directorist/v1/get-remote-products';
+            $url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products';
             $headers = [
                 'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
                 'Accept'     => 'application/json',
@@ -673,10 +673,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             foreach ( $outdated_themes as $theme_key => $theme ) {
                 $url = '';
 
-                if ( in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
-                    $theme_item = $themes_available_in_subscriptions[$theme_key];
-                    $url        = self::get_file_download_link( $theme_item, 'theme' );
+                if ( ! in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
+                    continue;
                 }
+
+                $theme_item = $themes_available_in_subscriptions[$theme_key];
+                $url        = self::get_file_download_link( $theme_item, 'theme' );
 
                 $download_status = $this->download_theme( ['url' => $url] );
 

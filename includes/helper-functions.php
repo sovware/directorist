@@ -8369,6 +8369,31 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 	return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 }
 
+/**
+ * Directorist add query args with no pagination
+ *
+ * @since 7.1.3
+ *
+ * @param string $query_args Query Args
+ * @param string|null|mixed $base_url Base url for type url.
+ *
+ * @return string Final URL
+ */
+function directorist_add_query_args_with_no_pagination( $query_args = [], $base_url = null ) {
+	
+    if ( empty( $base_url ) ) {
+		$base_url = $_SERVER['REQUEST_URI'];
+	}
+
+    $base_url = remove_query_arg( [ 'page', 'paged' ], $base_url );
+    $base_url = preg_replace( '~/page/(\d+)/?~', '', $base_url );
+    $base_url = preg_replace( '~/paged/(\d+)/?~', '', $base_url );
+
+	$url = add_query_arg( $query_args, $base_url );
+
+	return apply_filters( 'directorist_add_query_args_with_no_pagination', $url, $query_args, $base_url );
+}
+
 if ( ! function_exists( 'directorist_is_plugin_active' ) ) {
     function directorist_is_plugin_active( $plugin ) {
         return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || directorist_is_plugin_active_for_network( $plugin );

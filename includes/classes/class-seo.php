@@ -754,7 +754,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
         public function get_seo_meta_data() {
             global $wp;
 
-            $desc      = esc_html( get_the_excerpt() );
+            $desc      = ! is_search() ? esc_html( get_the_excerpt() ) : '';
             $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
 
             $default_seo_meta = [
@@ -820,7 +820,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $settings_title = get_directorist_option('search_result_meta_title');
             if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
 
-            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( $_GET['q'] ) : '';
+            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( wp_unslash( $_GET['q'] ) ) : '';
             $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( $_GET['in_cat'] ) : '';
             $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( $_GET['in_loc'] ) : '';
 

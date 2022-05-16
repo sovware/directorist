@@ -2,13 +2,13 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.2
+ * @version 7.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div <?php $listings->wrapper_class(); ?>>
+<div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
 
 	<?php
 	$listings->directory_type_nav_template();

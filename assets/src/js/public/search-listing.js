@@ -70,6 +70,7 @@
     });
 
     let adsFilterHeight = () => $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
+    console.log(adsFilterHeight());
     let adsItemsHeight;
     function getItemsHeight(selector) {
         let advElmHeight;
@@ -97,33 +98,36 @@
         count++;
         e.preventDefault();
         let _this = $(this);
-        getItemsHeight(_this);
+        setTimeout(() => {
+            getItemsHeight(_this);
+        }, 500);
         _this.toggleClass('directorist-filter-btn--active');
         var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
-        var dafwrap = $(e.currentTarget).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
+        var advFilterWrap = $(e.currentTarget).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-float').find('.directorist-advanced-filter');
         if (count % 2 === 0) {
-            $(dafwrap).css({
+            $(advFilterWrap).css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
                 transition: '.3s ease'
             });
         } else {
-            $(dafwrap).css({
+            $(advFilterWrap).css({
                 visibility: 'visible',
                 height: adsItemsHeight + adsFilterHeight() + 50 + 'px',
                 transition: '0.3s ease',
                 opacity: '1',
+                display: 'block'
             });
         }
     });
 
     /* Hide overlapped advanced filter */
-    var daf = () => $('.directorist-search-float .directorist-advanced-filter');
+    var directoristAdvFilter = () => $('.directorist-search-float .directorist-advanced-filter');
     $(document).on('click', function(e){
         if(!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')){
             count = 0;
-            daf().css({
+            directoristAdvFilter().css({
                 visibility: 'hidden',
                 opacity: '0',
                 height: '0',
@@ -131,14 +135,35 @@
             });
         }
     });
+    $('body').on('click', '.directorist-sortby-dropdown > a, .directorist-viewas-dropdown > a', function(){
+        count = 0;
+        directoristAdvFilter().css({
+            visibility: 'hidden',
+            opacity: '0',
+            height: '0',
+            transition: '.3s ease'
+        });
+    })
 
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
     $('body').on("click", '.directorist-filter-btn', function (e) {
         e.preventDefault();
+        let miles = parseInt($('.atbdrs-value').val());
+        let default_args = {
+            maxValue: 1000,
+            minValue: miles,
+            maxWidth: '100%',
+            barColor: '#d4d5d9',
+            barBorder: 'none',
+            pointerColor: '#fff',
+            pointerBorder: '4px solid #444752',
+        };
+        let config = default_args;
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
         $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
         atbd_callingSlider();
+        atbd_slider('.atbdp-range-slider', config);
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
@@ -256,7 +281,8 @@
         });
         searchForm.querySelectorAll("select").forEach(function (el) {
             el.selectedIndex = 0;
-            $(el).val('').trigger('change');
+            $('.directorist-select2-dropdown-close').click();
+            $(el).val(null).trigger('change');
         });
 
         const irisPicker = searchForm.querySelector("input.wp-picker-clear");

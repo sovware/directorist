@@ -6,9 +6,8 @@
  * @package Directorist
  */
 
-if (!defined('ABSPATH')) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
+
 $file            = isset( $_GET['file'] ) ? wp_unslash( $_GET['file'] ) : '';
 $delimiter       = isset( $_GET['delimiter'] ) ? wp_unslash( $_GET['delimiter'] ) : ',';
 $posts           = csv_get_data( $file, true, $delimiter );
@@ -56,7 +55,7 @@ function csv_from_builder( $data = [] ) {
 					<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
 					<div class="directory_type_wrapper">
 						<?php if ( $csv_from_builder ) :
-							?><input type="hidden" name="csv_file" value="<?php echo $file ?>"><?php
+							?><input type="hidden" class="directorist-listings-importer-config-field" name="csv_file" value="<?php echo $file ?>"><?php
 							foreach ( $builder_posts[0] as $post_key => $post_value  ) {
 								?><input type="hidden" class="atbdp_map_to" name="<?php echo $post_key ?>" value="<?php echo $post_key ?>"><?php
 							}
@@ -79,9 +78,9 @@ function csv_from_builder( $data = [] ) {
 			</div>
 			<div class="atbdp-actions">
 				<button type="submit" class="button btn-run-importer" value="<?php esc_attr_e('Run the importer', 'directorist'); ?>" name="save_step_two"><?php esc_html_e('Run the importer', 'directorist'); ?></button>
-				<input type="hidden" name="csv_file" value="<?php echo esc_attr($file); ?>">
-				<input type="hidden" name="delimiter" value="<?php echo esc_attr($delimiter); ?>" />
-				<input type="hidden" name="update_existing" value="<?php echo $update_existing; ?>" />
+				<input type="hidden" class="directorist-listings-importer-config-field" name="csv_file" value="<?php echo esc_attr( $file ); ?>">
+				<input type="hidden" class="directorist-listings-importer-config-field" name="delimiter" value="<?php echo esc_attr( $delimiter ); ?>" />
+				<input type="hidden" class="directorist-listings-importer-config-field" name="update_existing" value="<?php echo $update_existing; ?>" />
 				<?php wp_nonce_field('directorist-csv-importer'); ?>
 			</div>
 		</form>

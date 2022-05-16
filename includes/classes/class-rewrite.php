@@ -14,7 +14,7 @@ class ATBDP_Rewrite {
 		// add the rewrite rules to the init hook
 		add_action( 'init', array( $this, 'add_write_rules' ) );
 
-		$should_flush_write_rule_on_demand = apply_filters( 'flush_rewrite_rules_on_demand', false );
+		$should_flush_write_rule_on_demand = apply_filters( 'directorist_flush_rewrite_rules_on_demand', false );
 
 		if ( $should_flush_write_rule_on_demand ) {
 			add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );

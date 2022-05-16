@@ -93,7 +93,7 @@ function init_blocks() {
 
 	foreach ( $blocks as $block ) {
 		$args['attributes'] = array_merge(
-			get_attributes_from_metadata( __DIR__ . '/src/' . $block ),
+			get_attributes_from_metadata( trailingslashit( __DIR__ ) . $block ),
 			array(
 				'isPreview' => array(
 					'type'    => 'boolean',
@@ -151,7 +151,7 @@ if ( version_compare( $wp_version, '5.8', '>=' ) ) {
 function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode       = str_replace( array( '/', '-' ), '_', $instance->name );
 	$block_name      = str_replace( 'directorist/', '', $instance->name );
-	$registered_atts = get_attributes_from_metadata( __DIR__ . '/src/' . $block_name );
+	$registered_atts = get_attributes_from_metadata( trailingslashit( __DIR__ ) . $block_name );
 
 	foreach ( $atts as $_key => $_value ) {
 		if ( ! isset( $registered_atts[ $_key  ] ) || $_value === "" ) {

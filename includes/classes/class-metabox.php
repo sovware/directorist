@@ -58,9 +58,10 @@ class ATBDP_Metabox {
 		$required_script_src = [];
 
 		$map_type = get_directorist_option('select_listing_map', 'openstreet');
-		$script_name = ( 'openstreet' === $map_type ) ? 'global-add-listing-openstreet-map-custom-script' : 'global-add-listing-gmap-custom-script';
-		
-		$ext = ( apply_filters( 'directorist_load_min_files',  DIRECTORIST_LOAD_MIN_FILES ) ) ? '.min.js' : '.js';
+		$script_name = ( 'openstreet' === $map_type ) ? 'openstreet-map' : 'google-map';
+
+		$is_enabled_script_debugging = get_directorist_option( 'script_debugging', false, true );
+		$ext = $is_enabled_script_debugging ? '.js' : '.min.js';
 		$required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
 
 		wp_send_json_success( array(
@@ -194,7 +195,7 @@ class ATBDP_Metabox {
 					</label>
 				</div>
 		<?php endif;
-		
+
 	}
 
 	public function listing_form_info_meta( $post ) {
@@ -292,7 +293,7 @@ class ATBDP_Metabox {
 		$default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
-		
+
 		if( apply_filters( 'directorist_before_featured_expire_metabox', true, $post ) ){
 			ATBDP()->load_template('admin-templates/listing-form/expiration-featured-fields', array('data'=> $data));
 		}
@@ -304,7 +305,7 @@ class ATBDP_Metabox {
 	 * @param object    $post       Current post object being saved
 	 */
 	public function save_post_meta( $post_id, $post ) {
-		
+
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
@@ -334,7 +335,7 @@ class ATBDP_Metabox {
 				}
 			}
 		}
-		
+
 		foreach( $submission_form_fields as $key => $value ){
 			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
 			if( 'image_upload' === $key ) {
@@ -358,7 +359,7 @@ class ATBDP_Metabox {
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
 			}
 
-		}	
+		}
 		$metas['_directory_type'] = $listing_type;
 		
 		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', ! empty( $metas['_directory_type'] ) );
@@ -385,7 +386,7 @@ class ATBDP_Metabox {
 		}else{
 			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
 		}
-	
+
 		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
 		// save the meta data to the database
@@ -406,7 +407,7 @@ class ATBDP_Metabox {
 
 		// let's check is listing need to update
 		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
-			
+
 			if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
 				wp_update_post( array(
 					'ID'           => $post_id,

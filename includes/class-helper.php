@@ -26,7 +26,6 @@ class Helper {
 		return get_term_meta( $directory_type, $term_key, true );
 	}
 
-
 	/**
 	 * Get first wp error message
 	 *

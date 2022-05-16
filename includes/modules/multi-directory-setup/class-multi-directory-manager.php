@@ -2,6 +2,8 @@
 
 namespace Directorist;
 
+use Directorist\Asset_Loader\Enqueue;
+
 include_files();
 class Multi_Directory_Manager
 {
@@ -4503,7 +4505,7 @@ class Multi_Directory_Manager
         self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
-                'icon' => '<i class="uil uil-estate"></i>',
+                'icon' => '<span class="uil uil-estate"></span>',
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),
@@ -4830,7 +4832,7 @@ class Multi_Directory_Manager
 
             $this->update_fields_with_old_data( $listing_type_id );
 
-            $cptm_data = [
+            $directory_builder_data = [
                 'fields'  => self::$fields,
                 'layouts' => self::$layouts,
                 'config'  => self::$config,
@@ -4844,13 +4846,9 @@ class Multi_Directory_Manager
 			 * @since 7.0.5.*
 			 * TODO: Update with exact version number.
 			 */
-			$cptm_data = apply_filters( 'directorist_builder_localize_data', $cptm_data );
+			$directory_builder_data = apply_filters( 'directorist_builder_localize_data', $directory_builder_data );
 
-            wp_localize_script(
-				'directorist-multi-directory-builder',
-				'cptm_data',
-				$cptm_data
-			);
+            $data[ 'directory_builder_data' ] = $directory_builder_data;
 
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;

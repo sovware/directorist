@@ -6,7 +6,8 @@
          */
         do_action( 'directorist_before_settings_panel_header' );
     ?>
-    <div id="atbdp-settings-manager" class="atbdp-settings-manager">
+    <div id="atbdp-settings-manager" class="atbdp-settings-manager" data-builder-data="<?php echo $data['settings_builder_data']; ?>">
+
         <div class="atbdp-settings-manager__top">
             <h4 class="atbdp-settings-manager__title">
                 <span><?php _e( 'Settings', 'directorist' ) ?></span>
@@ -16,7 +17,7 @@
                     <span></span>
                 </span>
             </h4>
-            
+
             <ul class="directorist_builder-links">
                 <li>
                     <a href="https://directorist.com/documentation/" target="_blank">
@@ -32,7 +33,7 @@
                 </li>
             </ul>
         </div>
-        
+
         <span class="directorist_settings-panel-shade"></span>
         <settings-manager />
     </div>

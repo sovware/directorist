@@ -1,25 +1,27 @@
 const $ = jQuery;
 
-function get_dom_data( key, parent ) {
+function get_dom_data(key, parent) {
     var elmKey = 'directorist-dom-data-' + key;
-    var dataElm = ( parent ) ? parent.getElementsByClassName( elmKey ) : document.getElementsByClassName( elmKey );
+    var dataElm = (parent) ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
-    if ( ! dataElm ) {
+    if (!dataElm) {
         return '';
     }
-    
-    var is_script_debugging = ( directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ) ? true : false;
+
+    var is_script_debugging = (directorist && directorist.script_debugging && directorist.script_debugging == '1') ? true : false;
 
     try {
-        let dataValue = atob( dataElm[0].dataset.value );
-        dataValue = JSON.parse( dataValue );
-
+        let dataValue = atob(dataElm[0].dataset.value);
+        dataValue = JSON.parse(dataValue);
         return dataValue;
     } catch (error) {
-        if ( is_script_debugging ) {
-            //console.log({key,dataElm,error});
+        if (is_script_debugging) {
+            console.log({
+                key,
+                dataElm,
+                error
+            });
         }
-        
         return '';
     }
 }
@@ -28,7 +30,7 @@ function convertToSelect2( field ) {
     if ( ! field ) { return; }
     if ( ! field.elm ) { return; }
     if ( ! field.elm.length ) { return; }
-    
+
     [ ...field.elm ].forEach( item => {
         const default_args = {
             allowClear: true,
@@ -40,16 +42,16 @@ function convertToSelect2( field ) {
                 }
                 var $field = $(data.field);
                 var $wrapper = $('<span></span>');
-    
+
                 $wrapper.addClass($field[0].className);
                 $wrapper.text(data.text);
-    
+
                 return $wrapper;
             }
         };
-    
+
         var args = ( field.args && typeof field.args === 'object' ) ? Object.assign( default_args, field.args ) : default_args;
-    
+
         var options = $(item).find( 'option' );
         var placeholder = ( options.length ) ? options[0].innerHTML: '';
         if ( placeholder.length ) {
@@ -59,4 +61,7 @@ function convertToSelect2( field ) {
     });
 }
 
-export { get_dom_data, convertToSelect2 };
+export {
+    get_dom_data,
+    convertToSelect2
+};

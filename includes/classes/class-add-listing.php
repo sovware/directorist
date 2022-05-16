@@ -688,13 +688,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $listing_data = $data;
 
                 // Sanitize Preview URL
-                if ( ! empty( $listing_data['preview_url'] ) ) {
-                    $listing_data['preview_url'] = Directorist\Helper::sanitize_query_strings( $listing_data['preview_url'] );
+                if ( ! empty( $data['preview_url'] ) ) {
+                    $data['preview_url'] = Directorist\Helper::sanitize_query_strings( $data['preview_url'] );
                 }
 
                 // Sanitize Redirect URL
-                if ( ! empty( $listing_data['redirect_url'] ) ) {
-                    $listing_data['redirect_url'] = Directorist\Helper::sanitize_query_strings( $listing_data['redirect_url'] );
+                if ( ! empty( $data['redirect_url'] ) ) {
+                    $data['redirect_url'] = Directorist\Helper::sanitize_query_strings( $data['redirect_url'] );
                 }
 
                 $listing_data = apply_filters( 'atbdp_listing_form_submission_info', $data );

@@ -617,8 +617,8 @@ $('body').on('submit', formID, function (e) {
         url: localized_data.ajaxurl,
         data: form_data,
         success(response) {
-            //console.log(response);
-            // return;
+            const redirect_url = ( typeof response.redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
+
             // show the error notice
             $('.directorist-form-submit__btn').attr('disabled', false);
 
@@ -662,25 +662,24 @@ $('body').on('submit', formID, function (e) {
                         $('#listing_notifier')
                             .show()
                             .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                        // window.location.href = `${response.preview_url}?preview=1&redirect=${response.redirect_url}`;
-                        window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${response.redirect_url}` );
+                        // window.location.href = `${response.preview_url}?preview=1&redirect=${redirect_url}`;
+                        window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${redirect_url}` );
                     } else {
                         $('#listing_notifier')
                             .show()
                             .html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                        
                         if (qs.redirect) {
                             var is_pending = '?';
-                            // window.location.href = `${response.preview_url + is_pending}post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}`;
                             window.location.href = joinQueryString( response.preview_url, `post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}` );
                         } else {
-                            // window.location.href = `${response.preview_url}?preview=1&edited=1&redirect=${response.redirect_url}`;
-                            window.location.href = joinQueryString( response.preview_url, `preview=1&edited=1&redirect=${response.redirect_url}` );
+                            const url = joinQueryString( response.preview_url, `preview=1&edited=1&redirect=${redirect_url}` );
+                            window.location.href = url;
                         }
                     }
                     // preview mode active and need payment
                 } else if (response.preview_mode === true && response.need_payment === true) {
-                    // window.location.href = `${response.preview_url}?preview=1&payment=1&redirect=${response.redirect_url}`;
-                    window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${response.redirect_url}` );
+                    window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                 } else {
                     const is_edited = response.edited_listing
                         ? `listing_id=${response.id}&edited=1`
@@ -694,7 +693,6 @@ $('body').on('submit', formID, function (e) {
                         $('#listing_notifier')
                             .show()
                             .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                        // window.location.href = response.redirect_url + is_edited;
                         window.location.href = joinQueryString( response.redirect_url, is_edited );
                     }
                 }

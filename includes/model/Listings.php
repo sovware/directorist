@@ -127,7 +127,7 @@ class Directorist_Listings {
 
 		$this->prepare_atts_data();
 		$this->prepare_data();
-		
+
 		if ( $query_args ) {
 			$this->query_args = $query_args;
 		}
@@ -755,6 +755,11 @@ class Directorist_Listings {
 			$args['no_found_rows'] = true;
 		}
 
+		if ( ! empty( $_REQUEST['ids'] ) ) {
+			$args['post__in'] = wp_parse_id_list( $_REQUEST['ids'] );
+			$this->ids = $args['post__in'];
+		}
+
 		if ( ! empty( $_REQUEST['q'] ) ) {
 			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
 		}
@@ -946,7 +951,7 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-		
+
 		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
@@ -1718,7 +1723,7 @@ class Directorist_Listings {
 
 			return array_unique( $classes );
 		}
-		
+
 		public function data_atts() {
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';

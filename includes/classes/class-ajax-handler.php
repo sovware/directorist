@@ -108,16 +108,27 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
             add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
 
-            //instant search 
+            //instant search
             add_action('wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
             add_action('wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
         }
 
         public function instant_search() {
-            if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
+			$nonce = ! empty( $_POST['_nonce'] ) ? wp_unslash( $_POST['_nonce'] ) : '';
 
-                $data_atts = ! empty( $_POST['data_atts'] ) ? $_POST['data_atts'] : null;
-                $listings = new Directorist\Directorist_Listings( $data_atts, 'search_result' );
+            if ( wp_verify_nonce( $nonce, 'bdas_ajax_nonce' ) ) {
+				$args = array();
+
+				if ( ! empty( $_POST['data_atts'] ) ) {
+					$args = (array) wp_unslash( $_POST['data_atts'] );
+				}
+
+				if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
+					$_REQUEST['ids'] = $args['ids'];
+					$_POST['ids']    = $_REQUEST['ids'];
+				}
+
+                $listings = new Directorist\Directorist_Listings( $args, 'search_result' );
                 $count = $listings->query_results->total;
                 ob_start();
                 echo $listings->archive_view_template();
@@ -131,14 +142,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo $listings->archive_view_template();
                 $view_as = ob_get_clean();
 
-                wp_send_json( 
-                    array( 
+                wp_send_json(
+                    array(
                         'search_result'  => $search_value,
                         'directory_type' => $directory_type_result,
                         'view_as'        => $view_as,
                         'count'          => $count
                     )
-                 );
+				);
             }
         }
 

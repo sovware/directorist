@@ -301,7 +301,7 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration allows you to coalesce the famous plugin, GamiPress with Directorist activity events based on the points gained and features to make your directory website even more magnetic and interactive.
 
-🔥 **[WPML Integration](https://wordpress.org/plugins/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
+🔥 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 
@@ -395,7 +395,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.2.1 – Apr 18, 2022
+7.2.1 – May 9, 2022
 
 * Add - Listing search based on zip code radius
 * Add - New option to restrict frontend user registration
@@ -412,6 +412,7 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Update all Themes button is not working on the membership page
 * Fix - Single taxonomy searching issue with instant search
 * Fix - Multiple listing submitted on clicking Listing Submit button too frequently
+* Fix - Listings column issue with Elementor’s widgets
 
 7.2.0 – Mar 30, 2022
 

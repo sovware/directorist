@@ -171,7 +171,7 @@ class Directorist_Listing_Taxonomy {
     		foreach ($terms as $term) {
 				
     			$child_category = get_term_children($term->term_id, $this->tax);
-    			$plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
+    			$plus_icon = !empty($child_category) ? '<span class="expander">&#8964;</span>' : '';
     			$count = 0;
     			if ($this->hide_empty || $this->show_count) {
     				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);

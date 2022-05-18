@@ -652,6 +652,52 @@ class Helper {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
 	}
 
+	public static function sanitize_query_strings( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+		
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
+	public static function get_query_string_pattern() {
+		return '/\/?[?].+\/?/';
+	}
+
+	public static function join_slug_to_url( $url = '', $slug = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$query_string = self::get_query_strings_from_url( $url );
+		$query_string = trim( $query_string, '/' );
+
+		$url = preg_replace( self::get_query_string_pattern(), '', $url );
+		$url = rtrim( $url, '/' );
+		$url = "${url}/${slug}/${query_string}";
+
+		return $url;
+	}
+
+	public static function get_query_strings_from_url( $url = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$qs_pattern = self::get_query_string_pattern();
+		$matches = [];
+
+		preg_match( $qs_pattern, $url, $matches );
+
+		$query_strings = ( ! empty( $matches ) ) ? $matches[0] : '';
+
+		return $query_strings;
+	}
 
 	/**
 	 * Is Rank Math Active

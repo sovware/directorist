@@ -207,8 +207,12 @@ class ATBDP_Metabox {
 		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if( !empty ( $multi_directory ) && ( count( $all_types ) > 1 )){
-		?>
+
+		$show_directory_type_nav = ! empty ( $multi_directory ) && ( count( $all_types ) > 1 );
+		$show_directory_type_nav = apply_filters( 'directorist_show_admin_edit_listing_directory_type_nav', $show_directory_type_nav, $post->ID );
+
+		if ( $show_directory_type_nav ) { ?>
+
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
@@ -357,7 +361,10 @@ class ATBDP_Metabox {
 
 		}
 		$metas['_directory_type'] = $listing_type;
-		if( !empty( $metas['_directory_type'] ) ){
+		
+		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', ! empty( $metas['_directory_type'] ) );
+		
+		if ( $should_update_directory_type ) {
 			wp_set_object_terms($post_id, (int)$listing_type, ATBDP_TYPE);
 		}
 

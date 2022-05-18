@@ -27,7 +27,6 @@ class Multi_Directory_Manager
     public function run() {
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'update_default_directory_type_option'] );
 
         if ( ! is_admin() ) {
             return;

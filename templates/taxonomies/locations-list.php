@@ -22,7 +22,7 @@ $columns = floor( 12 / $taxonomy->columns );
 			<?php
 			if( $locations ) {
 				foreach ($locations as $location) {
-					$plus_icon = $location['has_child'] ? '<span class="expander">+</span>' : '';
+					$plus_icon = $location['has_child'] ? '<span class="expander">&#8964;</span>' : '';
 					?>
 					<div class="<?php Helper::directorist_column( $columns ); ?>">
 						<div class="atbd_category_wrapper">

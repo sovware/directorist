@@ -685,6 +685,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['edited_listing'] = true;
                 }
 
+                if ( ! empty( $info['preview_url'] ) ) {
+                    $info['preview_url'] = Directorist\Helper::escape_query_strings_from_url( $info['preview_url'] );
+                }
+
+                if ( ! empty( $info['redirect_url'] ) ) {
+                    $info['redirect_url'] = Directorist\Helper::escape_query_strings_from_url( $info['redirect_url'] );
+                }
+
                 wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
         }
 

@@ -675,4 +675,23 @@ class Helper {
 		return $d && $d->format($format) === $date;
 	}
 
+	/**
+	 * Escape Query Strings From URL
+	 * 
+	 * @param string $url URL
+	 * @return string URL
+	 */
+	public static function escape_query_strings_from_url( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
 }

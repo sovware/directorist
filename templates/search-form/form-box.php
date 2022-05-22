@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  wpWax
- * @since   7.2.1
- * @version 7.2.1
+ * @since   7.2.2
+ * @version 7.2.2
  */
 
 use \Directorist\Helper;

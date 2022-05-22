@@ -2,8 +2,6 @@
 
 namespace Directorist;
 
-use Directorist\Asset_Loader\Enqueue;
-
 include_files();
 class Multi_Directory_Manager
 {
@@ -34,7 +32,6 @@ class Multi_Directory_Manager
 
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
-        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -5002,21 +4999,6 @@ class Multi_Directory_Manager
         }
 
         return $pages_options;
-    }
-
-    // enqueue_scripts
-    public function enqueue_scripts( $page = '' )
-    {
-        wp_enqueue_media();
-        wp_enqueue_style('atbdp-unicons');
-        wp_enqueue_style('atbdp-font-awesome');
-        wp_enqueue_style('atbdp-line-awesome');
-        // wp_enqueue_style('atbdp-select2-style');
-        // wp_enqueue_style('atbdp-select2-bootstrap-style');
-        wp_enqueue_style('atbdp_admin_css');
-
-        wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
-        wp_enqueue_script('atbdp_admin_app');
     }
 
 	/**

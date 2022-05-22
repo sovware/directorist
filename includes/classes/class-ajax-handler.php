@@ -114,10 +114,21 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
 
         public function instant_search() {
-            if ( wp_verify_nonce( $_POST['_nonce'], 'bdas_ajax_nonce' ) ) {
+			$nonce = ! empty( $_POST['_nonce'] ) ? wp_unslash( $_POST['_nonce'] ) : '';
 
-                $data_atts = ! empty( $_POST['data_atts'] ) ? $_POST['data_atts'] : null;
-                $listings = new Directorist\Directorist_Listings( $data_atts, 'search_result' );
+            if ( wp_verify_nonce( $nonce, 'bdas_ajax_nonce' ) ) {
+				$args = array();
+
+				if ( ! empty( $_POST['data_atts'] ) ) {
+					$args = (array) wp_unslash( $_POST['data_atts'] );
+				}
+
+				if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
+					$_REQUEST['ids'] = $args['ids'];
+					$_POST['ids']    = $_REQUEST['ids'];
+				}
+
+                $listings = new Directorist\Directorist_Listings( $args, 'search_result' );
                 $count = $listings->query_results->total;
                 ob_start();
                 echo $listings->archive_view_template();
@@ -138,7 +149,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         'view_as'        => $view_as,
                         'count'          => $count
                     )
-                 );
+				);
             }
         }
 

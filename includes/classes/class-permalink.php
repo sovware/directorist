@@ -101,7 +101,7 @@ class ATBDP_Permalink {
                 }
             }
         }
-        return apply_filters('atbdp_edit_listing_page_url', $link );
+        return apply_filters( 'atbdp_author_profile_page_url', $link, $author_id, $directory_type );
 
         }
 
@@ -271,7 +271,7 @@ class ATBDP_Permalink {
             $link = get_permalink( $id );
             $link = add_query_arg( $args, $link);
         } 
-        return apply_filters('atbdp_add_listing_page_url', $link );
+        return apply_filters( 'atbdp_add_listing_page_url', $link, $plan_id );
     }
 
     /**
@@ -337,7 +337,7 @@ class ATBDP_Permalink {
                 $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id ' => $listing_id ), $link );
             }
         }
-        return apply_filters('atbdp_edit_listing_page_url', $link );
+        return apply_filters( 'atbdp_edit_listing_page_url', $link, $listing_id );
     }
 
 
@@ -373,7 +373,7 @@ class ATBDP_Permalink {
             ),
             self::get_search_result_page_link()
         );
-        return apply_filters('atbdp_category_archive_url', $link);
+        return apply_filters( 'atbdp_category_archive_url', $link, $cat, $field );
     }
 
     /**
@@ -404,7 +404,7 @@ class ATBDP_Permalink {
 
                     $link = add_query_arg( $args, $translatted_page_link );
 
-                    return apply_filters('atbdp_single_category', $link);
+                    return apply_filters( 'atbdp_single_category', $link, $term, $directory_type, $page_settings );
                     
                 }
             }
@@ -425,7 +425,7 @@ class ATBDP_Permalink {
             $link = $link . '?directory_type=' . $directory_type;
         }
 
-        return apply_filters('atbdp_single_category', $link);
+        return apply_filters( 'atbdp_single_category', $link, $term, $directory_type, $page_settings );
 
     }
 
@@ -456,7 +456,7 @@ class ATBDP_Permalink {
 
                     $link = add_query_arg( $args, $translatted_page_link );
 
-                    return apply_filters('atbdp_single_location', $link);
+                    return apply_filters( 'atbdp_single_location', $link, $term, $directory_type, $page_settings );
                     
                 }
             }
@@ -478,7 +478,7 @@ class ATBDP_Permalink {
             $link = $link . '?directory_type=' . $directory_type;
         }
 
-        return apply_filters('atbdp_single_location', $link);
+        return apply_filters( 'atbdp_single_location', $link, $term, $directory_type, $page_settings );
 
     }
 
@@ -502,7 +502,7 @@ class ATBDP_Permalink {
 
                 if ( $translation_page ) {
                     $link = get_permalink( $translation_page ) . "?tag={$term->slug}";
-                    return apply_filters('atbdp_single_tag', $link);
+                    return apply_filters( 'atbdp_single_tag', $link, $term, $page_settings );
                 }
             }
         }
@@ -519,7 +519,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_single_tag', $link);
+        return apply_filters( 'atbdp_single_tag', $link, $term, $page_settings );
 
     }
 
@@ -538,7 +538,7 @@ class ATBDP_Permalink {
             ),
             self::get_search_result_page_link()
         );
-        return apply_filters('atbdp_location_archive_url', $link);
+        return apply_filters( 'atbdp_location_archive_url', $link, $loc, $field );
 
     }
 
@@ -557,7 +557,7 @@ class ATBDP_Permalink {
             ),
             self::get_search_result_page_link()
         );
-        return apply_filters('atbdp_tag_archive_url', $link);
+        return apply_filters( 'atbdp_tag_archive_url', $link, $tag, $field );
     }
 
     /**
@@ -587,7 +587,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_payment_receipt_page_url', $link);
+        return apply_filters( 'atbdp_payment_receipt_page_url', $link, $order_id );
     }
 
     /**
@@ -617,7 +617,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_checkout_page_url', $link);
+        return apply_filters( 'atbdp_checkout_page_url', $link, $listing_id );
     }
 
     /**
@@ -647,7 +647,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_checkout_page_url', $link);
+        return apply_filters( 'atbdp_checkout_page_url', $link, $listing_id );
     }
 
     public static function get_renewal_page_link($listing_id)
@@ -694,7 +694,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters('atbdp_paypal_ipn_page_url', $link);
+        return apply_filters( 'atbdp_paypal_ipn_page_url', $link, $order_id );
     }
 
 } // end ATBDP_Permalink

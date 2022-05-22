@@ -114,6 +114,8 @@ trait Multi_Directory_Helper {
             return $response;
         }
 
+        do_action( 'directorist_after_directory_created', $term );
+
         $response['term_id'] = ( int ) $term['term_id'];
 
         $response['status']['status_log']['term_created'] = [

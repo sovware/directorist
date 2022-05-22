@@ -325,35 +325,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $listing_type_id = ( $term ) ? $term->term_id : 0;
             $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
+            
             // search form
             ob_start();
-            ?>
-				<div class="<?php echo esc_attr( $class ); ?>">
-                    <?php
-                    foreach ( $searchform->form_data[0]['fields'] as $field ){
-                        $searchform->field_template( $field );
-                    }
-                    if ( $searchform->more_filters_display !== 'always_open' ){
-                        $searchform->more_buttons_template();
-                    }
-                    ?>
-
-                </div>
-
-                <?php
-                if ( $searchform->more_filters_display == 'always_open' ){
-                    $searchform->advanced_search_form_fields_template();
-                }
-                else {
-                    if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                            <?php $searchform->advanced_search_form_fields_template();?>
-                        </div>
-                        <?php
-                    }
-                }
+            Helper::get_template( 'search-form/form-box', [ 'searchform' =>  $searchform ] );
             $search_form =  ob_get_clean();
-
 
             wp_send_json( array(
                 'search_form'          => $search_form,

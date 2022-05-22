@@ -1,5 +1,7 @@
 <?php
 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', 'directorist');
+$title = apply_filters( 'widget_title', $title );
+
 echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';
 echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];

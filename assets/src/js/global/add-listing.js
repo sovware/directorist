@@ -2,6 +2,17 @@
 const $ = jQuery;
 const localized_data = atbdp_public_data.add_listing_data;
 
+/**
+ * Join Query String
+ * 
+ * @param string url
+ * @param string queryString
+ * @return string
+ */
+ function joinQueryString( url, queryString ) {
+    return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
+}
+
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
 
@@ -611,8 +622,8 @@ $('body').on('submit', formID, function (e) {
             // show the error notice
             $('.directorist-form-submit__btn').attr('disabled', false);
 
-            // var is_pending = response ? '&' : '?';
-            var is_pending = (response && response.pending) ? '&' : '?';
+            var redirect_url = ( response && response.redirect_url ) ? response.redirect_url : '';
+            redirect_url = ( redirect_url && typeof redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
 
             if (response.error === true) {
                 $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
@@ -651,40 +662,31 @@ $('body').on('submit', formID, function (e) {
                         $('#listing_notifier')
                             .show()
                             .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                        window.location.href = `${response.preview_url
-                            }?preview=1&redirect=${response.redirect_url}`;
+                        
+                        window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${redirect_url}` );
+
                     } else {
                         $('#listing_notifier')
                             .show()
                             .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                         if (qs.redirect) {
-                            var is_pending = '?';
-                            window.location.href = `${response.preview_url +
-                                is_pending}post_id=${response.id
-                                }&preview=1&payment=1&edited=1&redirect=${qs.redirect}`;
+                            window.location.href = joinQueryString( response.preview_url, `post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}` );
                         } else {
-                            window.location.href = `${response.preview_url
-                                }?preview=1&edited=1&redirect=${response.redirect_url}`;
+                            window.location.href = joinQueryString( response.preview_url, `preview=1&edited=1&redirect=${redirect_url}` );
                         }
                     }
                     // preview mode active and need payment
                 } else if (response.preview_mode === true && response.need_payment === true) {
-                    window.location.href = `${response.preview_url
-                        }?preview=1&payment=1&redirect=${response.redirect_url}`;
+                    window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                 } else {
-                    const is_edited = response.edited_listing
-                        ? `${is_pending}listing_id=${response.id}&edited=1`
-                        : '';
+                    const is_edited = response.edited_listing ? `listing_id=${response.id}&edited=1` : '';
+
                     if (response.need_payment === true) {
-                        $('#listing_notifier')
-                            .show()
-                            .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                        window.location.href = response.redirect_url;
+                        $('#listing_notifier').show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                        window.location.href = redirect_url;
                     } else {
-                        $('#listing_notifier')
-                            .show()
-                            .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                        window.location.href = response.redirect_url + is_edited;
+                        $('#listing_notifier').show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                        window.location.href = joinQueryString( response.redirect_url, is_edited );
                     }
                 }
             }

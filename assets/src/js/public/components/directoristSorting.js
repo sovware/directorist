@@ -2,11 +2,14 @@
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
         // Sorting Js
-        $('.directorist-dropdown__links--single-js').click(function () {
-            var href = $(this).attr('data-link');
-            $('#directorsit-listing-sort').attr('action', href);
-            $('#directorsit-listing-sort').submit();
-        });
+        if(!$('.directorist-instant-search').length){
+            $('.directorist-dropdown__links--single-js').click(function (e) {
+                e.preventDefault();
+                var href = $(this).attr('data-link');
+                $('#directorsit-listing-sort').attr('action', href);
+                $('#directorsit-listing-sort').submit();
+            });
+        }
 
         //sorting toggle
         $('.sorting span').on('click', function () {

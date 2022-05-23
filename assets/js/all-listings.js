@@ -892,11 +892,15 @@ window.addEventListener('DOMContentLoaded', function () {
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Sorting Js
-    $('.directorist-dropdown__links--single-js').click(function () {
-      var href = $(this).attr('data-link');
-      $('#directorsit-listing-sort').attr('action', href);
-      $('#directorsit-listing-sort').submit();
-    }); //sorting toggle
+    if (!$('.directorist-instant-search').length) {
+      $('.directorist-dropdown__links--single-js').click(function (e) {
+        e.preventDefault();
+        var href = $(this).attr('data-link');
+        $('#directorsit-listing-sort').attr('action', href);
+        $('#directorsit-listing-sort').submit();
+      });
+    } //sorting toggle
+
 
     $('.sorting span').on('click', function () {
       $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
@@ -1628,7 +1632,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       beforeSend: function beforeSend() {
         $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
         $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
-        $(_this).closest('.directorist-instant-search').find('.directorist-archive-contents').find('.directorist-archive-items').addClass('atbdp-form-fade');
+        $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
         $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links').hide();
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'hidden'); //$(document).scrollTop( $(this).closest(".directorist-instant-search").offset().top );

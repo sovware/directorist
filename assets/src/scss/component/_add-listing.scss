@@ -257,6 +257,9 @@
 
   .ezmu__info-list-item {
     margin-right: 15px !important;
+    &:empty{
+      display: none;
+    }
   }
 
   .ezmu__thumbnail-list-item {
@@ -564,6 +567,20 @@
       &:after {
         content: "\f106";
       }
+    }
+  }
+}
+
+.directorist-add-listing-form .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  li {
+    margin-left: 0;
+    margin-top: 0;
+    input{
+      margin-top: 0;
     }
   }
 }

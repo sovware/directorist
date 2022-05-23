@@ -96,6 +96,8 @@ trait Multi_Directory_Helper {
             return $response;
         }
 
+        do_action( 'directorist_before_create_directory_type', $directory_name );
+
         // Create the directory
         $term = wp_insert_term( $directory_name, 'atbdp_listing_types');
         
@@ -114,7 +116,7 @@ trait Multi_Directory_Helper {
             return $response;
         }
 
-        do_action( 'directorist_after_directory_created', $term );
+        do_action( 'directorist_after_create_directory_type', $term );
 
         $response['term_id'] = ( int ) $term['term_id'];
 
@@ -203,6 +205,8 @@ trait Multi_Directory_Helper {
      
             return $response;
         }
+
+        do_action( 'directorist_before_update_directory_type', (int) $term_id );
         
         $fields = $args['fields_value'];
 
@@ -257,6 +261,8 @@ trait Multi_Directory_Helper {
             'type'    => 'success',
             'message' => __( 'The directory has been updated successfully', 'directorist' ),
         ];
+
+        do_action( 'directorist_after_update_directory_type', (int) $term_id );
 
         return $response;
     }

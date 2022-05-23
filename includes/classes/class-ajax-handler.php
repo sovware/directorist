@@ -366,12 +366,21 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'taxonomy'   => 'atbdp_listing_types',
                 'hide_empty' => false,
               ]);
-              foreach ($listing_types as $listing_type) {
+
+            do_action( 'directorist_before_set_default_directory_type', (int) $type_id );
+
+            foreach ($listing_types as $listing_type) {
                 if( $listing_type->term_id !== (int) $type_id ){
                     update_term_meta( $listing_type->term_id, '_default', false );
+
+                    do_action( 'directorist_after_unset_default_directory_type', $listing_type->term_id, $listing_types );
                 }
-              }
+            }
+
             update_term_meta( $type_id, '_default', true );
+
+            do_action( 'directorist_after_set_default_directory_type', (int) $type_id );
+
             wp_send_json( 'Updated Successfully!' );
         }
 

@@ -43,7 +43,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-search-form-box">
 
 					<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
-
 						<?php
 						foreach ( $searchform->form_data[0]['fields'] as $field ){
 							$searchform->field_template( $field );

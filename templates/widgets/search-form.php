@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  wpWax
- * @since   7.2.0
- * @version 7.2.0
+ * @since   7.3
+ * @version 7.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,10 +15,9 @@ $searchform = new Directorist\Directorist_Listing_Search_Form( 'listing', $direc
 if(  is_numeric( $searchform->listing_type ) ) {
 	$term = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
 	$listing_type = $term->slug;
-} 
+}
 ?>
-
-<div class="atbdp search-area default-ad-search">
+<div class="atbdp search-area default-ad-search <?php echo is_singular( ATBDP_POST_TYPE ) ? esc_html( 'directorist_single' ) : ''; ?>">
     <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 		<input type="hidden" name='directory_type' value='<?php echo ! empty( $listing_type ) ? $listing_type : $searchform->listing_type; ?>'>
 		<div class="directorist-advanced-filter__basic">

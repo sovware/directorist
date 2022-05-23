@@ -1,14 +1,11 @@
 <?php
 /**
- * Custom field file upload field template.
- *
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6.3
+ * @version 7.3
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
 $file_types = 'all_types';

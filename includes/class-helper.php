@@ -536,6 +536,44 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	/**
+	 * Get a list of directories that has custom single listing page enabled and set.
+	 *
+	 * @param  int|null $page_id Optional page id.
+	 *
+	 * @return array
+	 */
+	public static function get_directory_types_with_custom_single_page( $page_id = null ) {
+		$args = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'meta_query' => array(
+				'page_enabled' => array(
+					'key'     => 'enable_single_listing_page',
+					'compare' => '=',
+					'value'   => 1,
+				),
+			),
+		);
+
+		$directory_types = get_terms( $args );
+		if ( empty( $directory_types ) || is_wp_error( $directory_types ) ) {
+			return [];
+		}
+
+		$directory_types = array_filter( $directory_types, static function( $directory_type ) use ( $page_id ) {
+			$selected_page_id = (int) get_term_meta( $directory_type->term_id, 'single_listing_page', true );
+
+			if ( is_null( $page_id ) ) {
+				return $selected_page_id;
+			}
+
+			return ( $selected_page_id === (int) $page_id );
+		} );
+
+		return $directory_types;
+	}
+
 	public static function builder_selected_single_pages() {
 		// @cache @kowsar
 		$pages = [];
@@ -614,6 +652,52 @@ class Helper {
 		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
 	}
 
+	public static function sanitize_query_strings( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+		
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
+	public static function get_query_string_pattern() {
+		return '/\/?[?].+\/?/';
+	}
+
+	public static function join_slug_to_url( $url = '', $slug = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$query_string = self::get_query_strings_from_url( $url );
+		$query_string = trim( $query_string, '/' );
+
+		$url = preg_replace( self::get_query_string_pattern(), '', $url );
+		$url = rtrim( $url, '/' );
+		$url = "${url}/${slug}/${query_string}";
+
+		return $url;
+	}
+
+	public static function get_query_strings_from_url( $url = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$qs_pattern = self::get_query_string_pattern();
+		$matches = [];
+
+		preg_match( $qs_pattern, $url, $matches );
+
+		$query_strings = ( ! empty( $matches ) ) ? $matches[0] : '';
+
+		return $query_strings;
+	}
 
 	/**
 	 * Is Rank Math Active

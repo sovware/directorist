@@ -295,9 +295,9 @@ class Asset_Loader {
 	 * @todo apply icon condition
 	 */
 	public static function enqueue_icon_styles() {
-
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );
+		wp_enqueue_style( 'directorist-unicons' );
 	}
 
     public static function enqueue_map_styles() {

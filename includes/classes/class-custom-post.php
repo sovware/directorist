@@ -59,8 +59,10 @@ if (!class_exists('ATBDP_Custom_Post')) :
                 return;
             }
 
+            $should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', ! empty( $_REQUEST['directory_type'] ) );
+
             // Make sure that it is set.
-            if (!empty($_REQUEST['directory_type'])) {
+            if ( $should_update_directory_type ) {
                 update_post_meta($post_id, '_directory_type', sanitize_text_field($_REQUEST['directory_type']));
                 wp_set_object_terms($post_id, (int) $_REQUEST['directory_type'], ATBDP_TYPE);
             }

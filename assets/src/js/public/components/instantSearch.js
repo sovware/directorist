@@ -465,7 +465,7 @@
             beforeSend: function () {
                 $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
                 $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
-                $(_this).closest('.directorist-instant-search').find('.directorist-archive-contents').find('.directorist-archive-items').addClass('atbdp-form-fade');
+                $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
                 $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links').hide();
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'hidden');

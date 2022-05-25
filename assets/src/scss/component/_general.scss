@@ -8,11 +8,11 @@
       width: 140px;
       transition: 0.3s ease;
       border-radius: 3px;
-  
+
       &:hover {
         background: rgba(0, 0, 0, 0.7);
       }
-  
+
       .wp-color-result-text {
         position: absolute;
         right: 0;
@@ -29,11 +29,11 @@
         color: #222;
       }
     }
-  
+
     .wp-picker-input-wrap {
       label {
         width: 90px;
-  
+
         input {
           height: 40px;
           padding: 0;
@@ -41,7 +41,7 @@
         }
       }
     }
-  
+
     .hidden {
       display: none;
     }
@@ -51,27 +51,28 @@
   }
   .wp-picker-container .wp-picker-input-wrap {
     padding: 15px 0;
-  
+    display: flex;
+    align-items: center;
+    &.hidden{
+      display: none;
+    }
+
     .screen-reader-text {
       display: none;
     }
-  
+
     label {
       width: 90px;
       margin: 0;
-  
+
       & + .button {
         margin-left: 10px;
         padding-top: 0;
         padding-bottom: 0;
         font-size: 15px;
       }
-  
-      input {
-        width: 200px;
-      }
     }
-  }  
+  }
 }
 
 .diectorist-show {

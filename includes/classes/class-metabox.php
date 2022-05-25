@@ -387,7 +387,7 @@ class ATBDP_Metabox {
 			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
 		}
 	
-		//$metas['_expiry_date']  = $exp_dt;
+		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
 		// save the meta data to the database
 

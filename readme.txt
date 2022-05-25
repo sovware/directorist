@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 7.2.1
+Stable tag: 7.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -394,6 +394,13 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.2.2 – May 25, 2022
+
+* Add - WPML extension compatibility
+* Add - Auto field mapping on CSV importer
+* Fix - Instant searching issue with selected listing ids in shortcode
+* Improve - Search form templating
 
 7.2.1 – May 9, 2022
 

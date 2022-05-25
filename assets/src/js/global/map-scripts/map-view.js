@@ -2,9 +2,19 @@ import {
     get_dom_data
 } from './../../lib/helper';
 
-;
-(function () {
-    window.addEventListener('DOMContentLoaded', () => {
+;(function () {
+
+    // DOM Mutation observer
+    function initObserver(params) {
+        const targetNode = document.querySelector('.directorist-archive-contents');
+        const observer = new MutationObserver( initMap );
+        observer.observe( targetNode, { childList: true } );
+    }
+
+    window.addEventListener('DOMContentLoaded', initObserver );
+    window.addEventListener('DOMContentLoaded', initMap );
+
+    function initMap() {
         const mapData = get_dom_data('atbdp_map');
 
         // Define Marker Shapes
@@ -114,6 +124,7 @@ import {
             let defCordEnabled = mapData.use_def_lat_long;
 
             function atbdp_rander_map($el) {
+
                 $el.addClass('atbdp-map-loaded');
 
                 // var
@@ -289,19 +300,18 @@ import {
                 });
             }
 
-            window.addEventListener('load', setup_map);
-            window.addEventListener('load', setup_info_window);
-
-            window.addEventListener('directorist-reload-listings-map-archive', setup_map);
-            window.addEventListener('directorist-reload-listings-map-archive', setup_info_window);
+            setup_map();
+            setup_info_window();
 
             $(document).ready(function () {
                 $('body').find('.map-info-wrapper').addClass('map-info-wrapper--show');
             });
 
         })(jQuery);
-    })
+    }
+
 })();
+
 
 /* Add listing google map */
 import './add-listing/google-map';

@@ -359,7 +359,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'taxonomy'   => 'atbdp_listing_types',
                 'hide_empty' => false,
             ]);
-            
+
             foreach ($listing_types as $listing_type) {
                 if( $listing_type->term_id !== (int) $type_id ){
                     update_term_meta( $listing_type->term_id, '_default', false );

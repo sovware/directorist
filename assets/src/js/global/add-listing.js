@@ -6,10 +6,11 @@ import '../public/components/colorPicker';
 /* eslint-disable */
 const $ = jQuery;
 const localized_data = directorist.add_listing_data;
+console.log(directorist.add_listing_data);
 
 /**
  * Join Query String
- * 
+ *
  * @param string url
  * @param string queryString
  * @return string
@@ -648,12 +649,12 @@ $(document).ready(function () {
                         window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                     } else {
                         const is_edited = response.edited_listing ? `${is_pending}listing_id=${response.id}&edited=1` : '';
-                        
+
                         if (response.need_payment === true) {
                             $('#listing_notifier')
                                 .show()
                                 .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                            window.location.href = response.redirect_url;                            
+                            window.location.href = response.redirect_url;
                         } else {
                             $('#listing_notifier')
                                 .show()

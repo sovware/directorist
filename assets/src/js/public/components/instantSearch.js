@@ -1,3 +1,6 @@
+import {
+    get_dom_data
+} from './../../lib/helper';
 ;
 (function ($) {
 
@@ -426,22 +429,22 @@
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
             view: (view && view.length) ? view[0].replace(/view=/, '') : '',
-            q: $(this).find('input[name="q"]').val(),
-            in_cat: $(this).find('.bdas-category-search, .directorist-category-select').val(),
-            in_loc: $(this).find('.bdas-category-location, .directorist-location-select').val(),
+            q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
+            in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
+            in_loc: $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val(),
             in_tag: tag,
             price: price,
-            price_range: $(this).find("input[name='price_range']:checked").val(),
-            search_by_rating: $(this).find('select[name=search_by_rating]').val(),
-            cityLat: $(this).find('#cityLat').val(),
-            cityLng: $(this).find('#cityLng').val(),
-            miles: $(this).find('.atbdrs-value').val(),
-            address: $(this).find('input[name="address"]').val(),
-            zip: $(this).find('input[name="zip"]').val(),
-            fax: $(this).find('input[name="fax"]').val(),
-            email: $(this).find('input[name="email"]').val(),
-            website: $(this).find('input[name="website"]').val(),
-            phone: $(this).find('input[name="phone"]').val(),
+            price_range: $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val(),
+            search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
+            cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
+            cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
+            miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+            address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
+            zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
+            fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
+            email: $(this).closest('.directorist-instant-search').find('input[name="email"]').val(),
+            website: $(this).closest('.directorist-instant-search').find('input[name="website"]').val(),
+            phone: $(this).closest('.directorist-instant-search').find('input[name="phone"]').val(),
             custom_field: custom_field,
             data_atts: JSON.parse(data_atts)
         };
@@ -478,8 +481,9 @@
                     $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                     $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
                     $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+
+                    window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                 }
-                window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
         });
     });

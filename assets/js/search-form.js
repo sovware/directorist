@@ -515,6 +515,7 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -530,7 +531,7 @@ function get_dom_data(key, parent) {
     return dataValue;
   } catch (error) {
     if (is_script_debugging) {
-      console.log({
+      console.warn({
         key: key,
         dataElm: dataElm,
         error: error

@@ -127,7 +127,7 @@ class Directorist_Listings {
 
 		$this->prepare_atts_data();
 		$this->prepare_data();
-		
+
 		if ( $query_args ) {
 			$this->query_args = $query_args;
 		}
@@ -946,7 +946,7 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-		
+
 		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
@@ -1418,6 +1418,7 @@ class Directorist_Listings {
 		);
 
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
+
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
 			<?php
@@ -1720,7 +1721,7 @@ class Directorist_Listings {
 
 			return array_unique( $classes );
 		}
-		
+
 		public function data_atts() {
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
@@ -2124,5 +2125,5 @@ class Directorist_Listings {
     		echo atbdp_listings_mark_as_favourite( get_the_ID() );
     	}
     }
-	
+
 }

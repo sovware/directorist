@@ -18,6 +18,10 @@ class Helper {
 		return get_directorist_option( 'script_debugging', false, true );
 	}
 
+	public static function instant_search_enabled() {
+		return get_directorist_option( 'listing_instant_search', false, true );
+	}
+
 	/**
 	 * Register a script.
 	 *

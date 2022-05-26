@@ -703,7 +703,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters( 'atbdp_checkout_page_url', $link, $page_id, $listing_id );
+        return apply_filters( 'atbdp_renewal_checkout_page_url', $link, $page_id, $listing_id );
     }
 
     public static function get_renewal_page_link($listing_id)

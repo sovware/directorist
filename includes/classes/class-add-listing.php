@@ -63,9 +63,6 @@ if (!class_exists('ATBDP_Add_Listing')):
         public function atbdp_submit_listing()
         {
                 $info = $_POST;
-
-                // wp_send_json( $info );
-                // die();
                 $data = array();
 
                 if ( ! directorist_verify_nonce() ) {

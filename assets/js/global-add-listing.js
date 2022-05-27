@@ -97,6 +97,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -118,6 +121,41 @@ var localized_data = atbdp_public_data.add_listing_data;
 
 function joinQueryString(url, queryString) {
   return url.match(/[?]/) ? "".concat(url, "&").concat(queryString) : "".concat(url, "?").concat(queryString);
+}
+/**
+ * Append To Form Data
+ * 
+ * @param string key 
+ * @param mixed value 
+ * @param FormData formData 
+ * @param object formDataLog
+ * 
+ * @return void
+ */
+
+
+function appendToFormData(key, value, formData, formDataLog) {
+  formData.append(key, value);
+
+  if (!formDataLog) {
+    return;
+  }
+
+  if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(formDataLog) != 'object') {
+    return;
+  }
+
+  if (!Object.keys(formDataLog).includes(key)) {
+    formDataLog[key] = value;
+    return;
+  }
+
+  if (!Array.isArray(formDataLog[key])) {
+    var previousValue = formDataLog[key];
+    formDataLog[key] = [previousValue];
+  }
+
+  formDataLog[key].push(value);
 }
 /* Show and hide manual coordinate input field */
 
@@ -453,21 +491,21 @@ function atbdp_is_checked(name) {
   return '';
 }
 
-function setup_form_data(form_data, type, field) {
+function setup_form_data(form_data, type, field, formDataLog) {
   //normal input
   if (type === 'hidden' || type === 'text' || type === 'number' || type === 'tel' || type === 'email' || type === 'date' || type === 'time' || type === 'url') {
-    form_data.append(field.name, field.value);
+    appendToFormData(field.name, field.value, form_data, formDataLog);
   } //textarea
 
 
   if ('textarea' === type) {
     var value = $('#' + field.name + '_ifr').length ? tinymce.get(field.name).getContent() : atbdp_element_value('textarea[name="' + field.name + '"]');
-    form_data.append(field.name, value);
+    appendToFormData(field.name, value, form_data, formDataLog);
   } //radio
 
 
   if ('radio' === type) {
-    form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
+    appendToFormData(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'), form_data, formDataLog);
   } // checkbox
 
 
@@ -480,15 +518,15 @@ function setup_form_data(form_data, type, field) {
         var value = $(this).val();
         values.push(value);
       });
-      form_data.append(field.name, values);
+      appendToFormData(field.name, values, form_data, formDataLog);
     } else {
-      form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
+      appendToFormData(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'), form_data, formDataLog);
     }
   } //select
 
 
   if ('select-one' === type) {
-    form_data.append(field.name, atbdp_element_value('select[name="' + field.name + '"]'));
+    appendToFormData(field.name, atbdp_element_value('select[name="' + field.name + '"]'), form_data, formDataLog);
   }
 }
 
@@ -571,83 +609,41 @@ $('body').on('submit', formID, function (e) {
   }
 
   var form_data = new FormData();
-  form_data.append('action', 'add_listing_action');
-  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+  var form_data_log = null;
+  appendToFormData('action', 'add_listing_action', form_data, form_data_log);
+  appendToFormData('directorist_nonce', atbdp_public_data.directorist_nonce, form_data, form_data_log);
   var field_list = [];
   var field_list2 = [];
   $('.directorist-form-submit__btn').addClass('atbd_loading');
   var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
-  var frm_element = document.getElementById('directorist-add-listing-form');
-  $.each(fieldValuePairs, function (index, fieldValuePair) {
-    var field__name = fieldValuePair.name;
-    var field = frm_element.querySelector('[name="' + field__name + '"]');
-    var type = field.type;
-    field_list.push({
-      name: field.name
-    }); //array fields
+  var frm_element = document.getElementById('directorist-add-listing-form'); // Append fields values to form data 
 
-    if (field.name.indexOf('[') > -1) {
-      var field_name = field.name.substr(0, field.name.indexOf("["));
-      var ele = $("[name^='" + field_name + "']"); // process tax input
+  var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
+      _step2;
 
-      if ('tax_input' !== field_name) {
-        if (ele.length && ele.length > 1) {
-          ele.each(function (index, value) {
-            var field_type = $(this).attr('type');
-            var name = $(this).attr('name');
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var formFieldItem = _step2.value;
 
-            if (field_type === 'radio') {
-              if ($(this).is(':checked')) {
-                form_data.append(name, $(this).val());
-              }
-            } else if (field_type === 'checkbox') {
-              var new_field = $('input[name^="' + name + '"]:checked');
-
-              if (new_field.length > 1) {
-                new_field.each(function () {
-                  var name = $(this).attr('name');
-                  var value = $(this).val();
-                  form_data.append(name, value);
-                });
-              } else {
-                var name = new_field.attr('name');
-                var value = new_field.val();
-                form_data.append(name, value);
-              }
-            } else {
-              var name = $(this).attr('name');
-              var value = $(this).val();
-
-              if (!value) {
-                value = $(this).attr('data-time');
-              }
-
-              form_data.append(name, value);
-            }
-          });
-        } else {
-          var name = ele.attr('name');
-
-          var _value = ele.val();
-
-          form_data.append(name, _value);
-        }
+      if ('tax_input' === formFieldItem.name) {
+        continue;
       }
-    } else {
-      //  field_list2.push({ nam: name, val: value, field: field, type: type})
-      setup_form_data(form_data, type, field);
+
+      appendToFormData(formFieldItem.name, formFieldItem.value, form_data, form_data_log);
     }
-  }); // console.log( field_list2 );
-  // return;
-  // images
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
 
   if (mediaUploaders.length) {
-    var _iterator2 = _createForOfIteratorHelper(mediaUploaders),
-        _step2;
+    var _iterator3 = _createForOfIteratorHelper(mediaUploaders),
+        _step3;
 
     try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var uploader = _step2.value;
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var uploader = _step3.value;
 
         if (uploader.media_uploader && has_media) {
           var hasValidFiles = uploader.media_uploader.hasValidFiles();
@@ -658,7 +654,7 @@ $('body').on('submit', formID, function (e) {
 
             if (files) {
               for (var i = 0; i < files.length; i++) {
-                form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
+                appendToFormData(uploader.uploaders_data['meta_name'] + '[]', files[i], form_data, form_data_log);
               }
             }
 
@@ -669,7 +665,7 @@ $('body').on('submit', formID, function (e) {
                 var elm = files_meta[i];
 
                 for (var key in elm) {
-                  form_data.append("".concat(uploader.uploaders_data['files_meta_name'], "[").concat(i, "][").concat(key, "]"), elm[key]);
+                  appendToFormData("".concat(uploader.uploaders_data['files_meta_name'], "[").concat(i, "][").concat(key, "]"), elm[key], form_data, form_data_log);
                 }
               }
             }
@@ -684,9 +680,9 @@ $('body').on('submit', formID, function (e) {
         }
       }
     } catch (err) {
-      _iterator2.e(err);
+      _iterator3.e(err);
     } finally {
-      _iterator2.f();
+      _iterator3.f();
     }
   } // locations
 
@@ -696,12 +692,12 @@ $('body').on('submit', formID, function (e) {
   if (Array.isArray(locaitons) && locaitons.length) {
     for (var key in locaitons) {
       var value = locaitons[key];
-      form_data.append('tax_input[at_biz_dir-location][]', value);
+      appendToFormData('tax_input[at_biz_dir-location][]', value, form_data, form_data_log);
     }
   }
 
   if (typeof locaitons === 'string') {
-    form_data.append('tax_input[at_biz_dir-location][]', locaitons);
+    appendToFormData('tax_input[at_biz_dir-location][]', locaitons, form_data, form_data_log);
   } // tags
 
 
@@ -710,7 +706,7 @@ $('body').on('submit', formID, function (e) {
   if (tags) {
     for (var key in tags) {
       var value = tags[key];
-      form_data.append('tax_input[at_biz_dir-tags][]', value);
+      appendToFormData('tax_input[at_biz_dir-tags][]', value, form_data, form_data_log);
     }
   } // categories
 
@@ -720,21 +716,21 @@ $('body').on('submit', formID, function (e) {
   if (Array.isArray(categories) && categories.length) {
     for (var key in categories) {
       var value = categories[key];
-      form_data.append('tax_input[at_biz_dir-category][]', value);
+      appendToFormData('tax_input[at_biz_dir-category][]', value, form_data, form_data_log);
     }
   }
 
   if (typeof categories === 'string') {
-    form_data.append('tax_input[at_biz_dir-category][]', categories);
+    appendToFormData('tax_input[at_biz_dir-category][]', categories, form_data, form_data_log);
   }
 
   var form_directory_type = frm_element.querySelector('[name="directory_type"]');
   var form_directory_type_value = form_directory_type ? form_directory_type.value : '';
   var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
-  form_data.append('directory_type', directory_type);
+  appendToFormData('directory_type', directory_type, form_data, form_data_log);
 
   if (qs.plan) {
-    form_data.append('plan_id', qs.plan);
+    appendToFormData('plan_id', qs.plan, form_data, form_data_log);
   }
 
   if (error_count) {
@@ -957,6 +953,38 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),

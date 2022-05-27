@@ -13,6 +13,40 @@ const localized_data = atbdp_public_data.add_listing_data;
     return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }
 
+/**
+ * Append To Form Data
+ * 
+ * @param string key 
+ * @param mixed value 
+ * @param FormData formData 
+ * @param object formDataLog
+ * 
+ * @return void
+ */
+function appendToFormData( key, value, formData, formDataLog ) {
+    formData.append( key, value );
+
+    if ( ! formDataLog ) {
+        return;
+    }
+
+    if ( typeof formDataLog != 'object' ) {
+        return;
+    }
+
+    if ( ! Object.keys( formDataLog ).includes( key ) ) {
+        formDataLog[ key ] = value;
+        return;
+    }
+    
+    if ( ! Array.isArray( formDataLog[ key ] ) ) {
+        const previousValue = formDataLog[ key ];
+        formDataLog[ key ] = [ previousValue ];
+    }
+
+    formDataLog[ key ].push( value );
+}
+
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
 
@@ -362,19 +396,19 @@ function atbdp_is_checked(name) {
     return '';
 }
 
-function setup_form_data(form_data, type, field) {
+function setup_form_data(form_data, type, field, formDataLog) {
     //normal input
     if ((type === 'hidden') || (type === 'text') || (type === 'number') || (type === 'tel') || (type === 'email') || (type === 'date') || (type === 'time') || (type === 'url')) {
-        form_data.append(field.name, field.value);
+        appendToFormData(field.name, field.value, form_data, formDataLog );
     }
     //textarea
     if ('textarea' === type) {
         const value = $('#' + field.name + '_ifr').length ? tinymce.get(field.name).getContent() : atbdp_element_value('textarea[name="' + field.name + '"]');
-        form_data.append(field.name, value);
+        appendToFormData(field.name, value, form_data, formDataLog );
     }
     //radio
     if ('radio' === type) {
-        form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
+        appendToFormData(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'), form_data, formDataLog );
     }
     // checkbox
     if ('checkbox' === type) {
@@ -385,14 +419,14 @@ function setup_form_data(form_data, type, field) {
                 var value = $(this).val();
                 values.push(value);
             });
-            form_data.append(field.name, values);
+            appendToFormData(field.name, values, form_data, formDataLog );
         } else {
-            form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
+            appendToFormData(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'), form_data, formDataLog );
         }
     }
     //select
     if ('select-one' === type) {
-        form_data.append(field.name, atbdp_element_value('select[name="' + field.name + '"]'));
+        appendToFormData(field.name, atbdp_element_value('select[name="' + field.name + '"]'), form_data, formDataLog );
     }
 }
 
@@ -457,73 +491,26 @@ $('body').on('submit', formID, function (e) {
     }
 
     let form_data = new FormData();
+    let form_data_log = null;
 
-    form_data.append('action', 'add_listing_action');
-    form_data.append('directorist_nonce',  atbdp_public_data.directorist_nonce );
+    appendToFormData( 'action', 'add_listing_action', form_data, form_data_log );
+    appendToFormData( 'directorist_nonce', atbdp_public_data.directorist_nonce, form_data, form_data_log );
 
     let field_list = [];
     let field_list2 = [];
     $('.directorist-form-submit__btn').addClass('atbd_loading');
-    const fieldValuePairs   = $('#directorist-add-listing-form').serializeArray();
-    const frm_element       = document.getElementById ('directorist-add-listing-form');
-    $.each(fieldValuePairs, function (index, fieldValuePair) {
-        const field__name = fieldValuePair.name;
-        const field = frm_element.querySelector('[name="'+field__name+'"]');
+    const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
+    const frm_element     = document.getElementById ('directorist-add-listing-form');
 
-        const type = field.type;
-        field_list.push({ name: field.name, });
-        //array fields
-        if (field.name.indexOf('[') > -1) {
-            const field_name = field.name.substr(0, field.name.indexOf("["));
-            const ele = $("[name^='" + field_name + "']");
-            // process tax input
-            if ('tax_input' !== field_name) {
-                if (ele.length && (ele.length > 1)) {
-                    ele.each(function (index, value) {
-                        const field_type = $(this).attr('type');
-                        var name = $(this).attr('name');
-                        if (field_type === 'radio') {
-                            if ($(this).is(':checked')) {
-                                form_data.append(name, $(this).val());
-                            }
-                        } else if (field_type === 'checkbox') {
-                            const new_field = $('input[name^="' + name + '"]:checked');
-                            if (new_field.length > 1) {
-                                new_field.each(function () {
-                                    const name = $(this).attr('name');
-                                    const value = $(this).val();
-                                    form_data.append(name, value);
-                                });
-                            } else {
-                                var name = new_field.attr('name');
-                                var value = new_field.val();
-                                form_data.append(name, value);
-                            }
-                        } else {
-                            var name = $(this).attr('name');
-                            var value = $(this).val();
-                            if (!value) {
-                                value = $(this).attr('data-time');
-                            }
-                            form_data.append(name, value);
-                        }
-                    });
-                } else {
-                    const name = ele.attr('name');
-                    const value = ele.val();
+    // Append fields values to form data 
+    for ( const formFieldItem of fieldValuePairs ) {
 
-                    form_data.append(name, value);
-                }
-            }
-        } else {
-            //  field_list2.push({ nam: name, val: value, field: field, type: type})
-            setup_form_data(form_data, type, field);
+        if ( 'tax_input' === formFieldItem.name ) {
+            continue;
         }
-    });
 
-    // console.log( field_list2 );
-    // return;
-    // images
+        appendToFormData( formFieldItem.name, formFieldItem.value, form_data, form_data_log );
+    }
 
     if (mediaUploaders.length) {
         for (var uploader of mediaUploaders) {
@@ -534,7 +521,7 @@ $('body').on('submit', formID, function (e) {
                     var files = uploader.media_uploader.getTheFiles();
                     if (files) {
                         for (var i = 0; i < files.length; i++) {
-                            form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
+                            appendToFormData( uploader.uploaders_data['meta_name'] + '[]', files[i], form_data, form_data_log );
                         }
                     }
                     var files_meta = uploader.media_uploader.getFilesMeta();
@@ -542,7 +529,7 @@ $('body').on('submit', formID, function (e) {
                         for (var i = 0; i < files_meta.length; i++) {
                             var elm = files_meta[i];
                             for (var key in elm) {
-                                form_data.append(`${uploader.uploaders_data['files_meta_name']}[${i}][${key}]`, elm[key]);
+                                appendToFormData( `${uploader.uploaders_data['files_meta_name']}[${i}][${key}]`, elm[key], form_data, form_data_log );
                             }
                         }
                     }
@@ -561,12 +548,12 @@ $('body').on('submit', formID, function (e) {
     if (Array.isArray(locaitons) && locaitons.length) {
         for (var key in locaitons) {
             var value = locaitons[key];
-            form_data.append('tax_input[at_biz_dir-location][]', value);
+            appendToFormData( 'tax_input[at_biz_dir-location][]', value, form_data, form_data_log );
         }
     }
 
     if (typeof locaitons === 'string') {
-        form_data.append('tax_input[at_biz_dir-location][]', locaitons);
+        appendToFormData( 'tax_input[at_biz_dir-location][]', locaitons, form_data, form_data_log );
     }
 
     // tags
@@ -574,7 +561,7 @@ $('body').on('submit', formID, function (e) {
     if (tags) {
         for (var key in tags) {
             var value = tags[key];
-            form_data.append('tax_input[at_biz_dir-tags][]', value);
+            appendToFormData( 'tax_input[at_biz_dir-tags][]', value, form_data, form_data_log );
         }
     }
 
@@ -583,21 +570,21 @@ $('body').on('submit', formID, function (e) {
     if (Array.isArray(categories) && categories.length) {
         for (var key in categories) {
             var value = categories[key];
-            form_data.append('tax_input[at_biz_dir-category][]', value);
+            appendToFormData( 'tax_input[at_biz_dir-category][]', value, form_data, form_data_log );
         }
     }
 
     if (typeof categories === 'string') {
-        form_data.append('tax_input[at_biz_dir-category][]', categories);
+        appendToFormData( 'tax_input[at_biz_dir-category][]', categories, form_data, form_data_log );
     }
     var form_directory_type = frm_element.querySelector('[name="directory_type"]');
     var form_directory_type_value = form_directory_type ? form_directory_type.value : '';
     var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
 
-    form_data.append('directory_type', directory_type);
+    appendToFormData( 'directory_type', directory_type, form_data, form_data_log );
 
     if (qs.plan) {
-        form_data.append('plan_id', qs.plan);
+        appendToFormData( 'plan_id', qs.plan, form_data, form_data_log );
     }
 
     if (error_count) {

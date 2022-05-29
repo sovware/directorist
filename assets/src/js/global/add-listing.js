@@ -9,7 +9,7 @@ const localized_data = directorist.add_listing_data;
 
 /**
  * Join Query String
- * 
+ *
  * @param string url
  * @param string queryString
  * @return string
@@ -561,10 +561,12 @@ $(document).ready(function () {
             form_data.append('tax_input[at_biz_dir-category][]', categories);
         }
         var form_directory_type = frm_element.querySelector('[name="directory_type"]');
-        var form_directory_type_value = form_directory_type.length ? form_directory_type.value : '';
+
+        var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
         var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
 
         form_data.append('directory_type', directory_type);
+
 
         if (qs.plan) {
             form_data.append('plan_id', qs.plan);
@@ -648,12 +650,12 @@ $(document).ready(function () {
                         window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                     } else {
                         const is_edited = response.edited_listing ? `${is_pending}listing_id=${response.id}&edited=1` : '';
-                        
+
                         if (response.need_payment === true) {
                             $('#listing_notifier')
                                 .show()
                                 .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                            window.location.href = response.redirect_url;                            
+                            window.location.href = response.redirect_url;
                         } else {
                             $('#listing_notifier')
                                 .show()

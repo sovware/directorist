@@ -515,6 +515,7 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -530,7 +531,7 @@ function get_dom_data(key, parent) {
     return dataValue;
   } catch (error) {
     if (is_script_debugging) {
-      console.log({
+      console.warn({
         key: key,
         dataElm: dataElm,
         error: error
@@ -1152,11 +1153,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 ;
 
@@ -1593,22 +1596,22 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
       view: view && view.length ? view[0].replace(/view=/, '') : '',
-      q: $(this).find('input[name="q"]').val(),
-      in_cat: $(this).find('.bdas-category-search, .directorist-category-select').val(),
-      in_loc: $(this).find('.bdas-category-location, .directorist-location-select').val(),
+      q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
+      in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
+      in_loc: $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val(),
       in_tag: tag,
       price: price,
-      price_range: $(this).find("input[name='price_range']:checked").val(),
-      search_by_rating: $(this).find('select[name=search_by_rating]').val(),
-      cityLat: $(this).find('#cityLat').val(),
-      cityLng: $(this).find('#cityLng').val(),
-      miles: $(this).find('.atbdrs-value').val(),
-      address: $(this).find('input[name="address"]').val(),
-      zip: $(this).find('input[name="zip"]').val(),
-      fax: $(this).find('input[name="fax"]').val(),
-      email: $(this).find('input[name="email"]').val(),
-      website: $(this).find('input[name="website"]').val(),
-      phone: $(this).find('input[name="phone"]').val(),
+      price_range: $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val(),
+      search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
+      cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
+      cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
+      miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+      address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
+      zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
+      fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
+      email: $(this).closest('.directorist-instant-search').find('input[name="email"]').val(),
+      website: $(this).closest('.directorist-instant-search').find('input[name="website"]').val(),
+      phone: $(this).closest('.directorist-instant-search').find('input[name="phone"]').val(),
       custom_field: custom_field,
       data_atts: JSON.parse(data_atts)
     };
@@ -1644,9 +1647,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
           $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
           $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
-
-        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
   });
@@ -1926,25 +1928,37 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/* All listings Masonry layout */
-window.addEventListener('DOMContentLoaded', function () {
-  (function ($) {
-    function authorsMasonry(selector) {
-      var authorsCard = $(selector);
-      $(authorsCard).each(function (id, elm) {
-        var authorsCardRow = $(elm).find('.directorist-masonry');
-        var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
-          $(authorMasonryInit).masonry({
-            percentPosition: true,
-            horizontalOrder: true
-          });
+// DOM Mutation observer
+function initObserver() {
+  var targetNode = document.querySelector('.directorist-archive-contents');
+  var observer = new MutationObserver(initMasonry);
+  observer.observe(targetNode, {
+    childList: true
+  });
+} // All listings Masonry layout
+
+
+function initMasonry() {
+  var $ = jQuery;
+
+  function authorsMasonry(selector) {
+    var authorsCard = $(selector);
+    $(authorsCard).each(function (id, elm) {
+      var authorsCardRow = $(elm).find('.directorist-masonry');
+      var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+        $(authorMasonryInit).masonry({
+          percentPosition: true,
+          horizontalOrder: true
         });
       });
-    }
+    });
+  }
 
-    authorsMasonry('.directorist-archive-grid-view');
-  })(jQuery);
-});
+  authorsMasonry('.directorist-archive-grid-view');
+}
+
+window.addEventListener('DOMContentLoaded', initObserver);
+window.addEventListener('DOMContentLoaded', initMasonry);
 
 /***/ }),
 

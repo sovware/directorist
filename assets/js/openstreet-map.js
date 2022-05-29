@@ -272,12 +272,26 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function () {
-  window.addEventListener('DOMContentLoaded', function () {
+  // DOM Mutation observer
+  var targetNode = document.querySelector('.directorist-archive-contents');
+
+  if (targetNode) {
+    function initObserver() {
+      var observer = new MutationObserver(initMap);
+      observer.observe(targetNode, {
+        childList: true
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', initObserver);
+  }
+
+  window.addEventListener('DOMContentLoaded', initMap);
+
+  function initMap() {
     var $ = jQuery;
     var mapData;
     $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
-    window.addEventListener('load', setup_map);
-    window.addEventListener('directorist-reload-listings-map-archive', setup_map);
 
     function setup_map() {
       bundle1.fillPlaceholders();
@@ -314,7 +328,9 @@ __webpack_require__.r(__webpack_exports__);
 
       });
     }
-  });
+
+    setup_map();
+  }
 })();
 /* Add listing OSMap */
 
@@ -476,6 +492,7 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -491,7 +508,7 @@ function get_dom_data(key, parent) {
     return dataValue;
   } catch (error) {
     if (is_script_debugging) {
-      console.log({
+      console.warn({
         key: key,
         dataElm: dataElm,
         error: error

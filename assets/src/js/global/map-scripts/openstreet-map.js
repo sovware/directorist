@@ -1,12 +1,21 @@
 ;
 (function () {
-    window.addEventListener('DOMContentLoaded', () => {
+    // DOM Mutation observer
+    const targetNode = document.querySelector('.directorist-archive-contents');
+    if(targetNode){
+        function initObserver() {
+            const observer = new MutationObserver( initMap );
+            observer.observe( targetNode, { childList: true } );
+        }
+
+        window.addEventListener('DOMContentLoaded', initObserver );
+    }
+    window.addEventListener('DOMContentLoaded', initMap);
+
+    function initMap() {
         var $ = jQuery;
         let mapData;
         $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
-
-        window.addEventListener('load', setup_map);
-        window.addEventListener('directorist-reload-listings-map-archive', setup_map);
 
         function setup_map() {
             bundle1.fillPlaceholders();
@@ -42,7 +51,8 @@
                 delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
             });
         }
-    })
+        setup_map();
+    }
 })();
 
 /* Add listing OSMap */

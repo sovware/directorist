@@ -8380,7 +8380,7 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
  * @return string Final URL
  */
 function directorist_add_query_args_with_no_pagination( $query_args = [], $base_url = null ) {
-	
+
     if ( empty( $base_url ) ) {
 		$base_url = $_SERVER['REQUEST_URI'];
 	}
@@ -8781,4 +8781,52 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
 	do_action( 'directorist_listing_views_count_updated', $listing_id );
 
 	return true;
+}
+
+
+/**
+ * Get listings field key by import file header key.
+ * Used in listings import.
+ *
+ * @param  string $header_key CSV file header key.
+ *
+ * @return string Listing field key
+ */
+function directorist_translate_to_listing_field_key( $header_key = '' ) {
+    $fields_map = array(
+        'date'                   => 'publish_date',
+        'publish_date'           => 'publish_date',
+        'status'                 => 'listing_status',
+        'listing_status'         => 'listing_status',
+        'name'                   => 'listing_title',
+        'title'                  => 'listing_title',
+        'details'                => 'listing_content',
+        'content'                => 'listing_content',
+        'price'                  => 'price',
+        'price_range'            => 'price_range',
+        'location'               => 'location',
+        'tag'                    => 'tag',
+        'ategory'                => 'category',
+        'zip'                    => 'zip',
+        'phone'                  => 'phone',
+        'phone2'                 => 'phone2',
+        'fax'                    => 'fax',
+        'email'                  => 'email',
+        'website'                => 'website',
+        'social'                 => 'social',
+        'atbdp_post_views_count' => 'atbdp_post_views_count',
+        'views_count'            => 'atbdp_post_views_count',
+        'manual_lat'             => 'manual_lat',
+        'manual_lng'             => 'manual_lng',
+        'hide_map'               => 'hide_map',
+        'hide_contact_info'      => 'hide_contact_owner',
+        'listing_prv_img'        => 'listing_img',
+        'preview'                => 'listing_img',
+        'listing_img'            => 'listing_img',
+        'videourl'               => 'videourl',
+        'tagline'                => 'tagline',
+        'address'                => 'address',
+    );
+
+    return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
 }

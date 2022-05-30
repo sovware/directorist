@@ -555,6 +555,7 @@ $(document).ready(function () {
     $('.directorist-form-submit__btn').addClass('atbd_loading');
     var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
     var frm_element = document.getElementById('directorist-add-listing-form');
+    console.log(frm_element);
     $.each(fieldValuePairs, function (index, fieldValuePair) {
       var field__name = fieldValuePair.name;
       var field = frm_element.querySelector('[name="' + field__name + '"]');

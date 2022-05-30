@@ -321,7 +321,6 @@ $(document).ready(function () {
     $.post(localized_data.ajaxurl, data, function (response) {
         if (response) {
             $('.atbdp_category_custom_fields').empty().append(response);
-
             function atbdp_tooltip() {
                 var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
                 atbd_tooltip.forEach(function (el) {
@@ -433,6 +432,7 @@ $(document).ready(function () {
         $('.directorist-form-submit__btn').addClass('atbd_loading');
         const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
         const frm_element = document.getElementById('directorist-add-listing-form');
+        console.log(frm_element);
         $.each(fieldValuePairs, function (index, fieldValuePair) {
             const field__name = fieldValuePair.name;
             const field = frm_element.querySelector('[name="' + field__name + '"]');

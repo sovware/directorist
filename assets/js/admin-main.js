@@ -523,12 +523,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
+    $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-   /* Show and hide manual coordinate input field */
+    /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -1025,11 +1025,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -1201,13 +1201,12 @@ window.addEventListener('DOMContentLoaded', function () {
   // Custom Tab Support Status
 
   $('.atbds_wrapper a.nav-link').on('click', function (e) {
-    e.preventDefault();
-    console.log($(this).data('tabarea'));
+    e.preventDefault(); //console.log($(this).data('tabarea'));
+
     var atbds_tabParent = $(this).parent().parent().find('a.nav-link');
     var $href = $(this).attr('href');
     $(atbds_tabParent).removeClass('active');
-    $(this).addClass('active');
-    console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
+    $(this).addClass('active'); //console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
 
     switch ($(this).data('tabarea')) {
       case 'atbds_system-status-tab':
@@ -1226,8 +1225,8 @@ window.addEventListener('DOMContentLoaded', function () {
   }); // Custom Tooltip Support Added
 
   $('.atbds_tooltip').on('hover', function () {
-    var toolTipLabel = $(this).data('label');
-    console.log(toolTipLabel);
+    var toolTipLabel = $(this).data('label'); //console.log(toolTipLabel);
+
     $(this).find('.atbds_tooltip__text').text(toolTipLabel);
     $(this).find('.atbds_tooltip__text').addClass('show');
   });

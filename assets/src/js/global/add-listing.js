@@ -6,7 +6,6 @@ import '../public/components/colorPicker';
 /* eslint-disable */
 const $ = jQuery;
 const localized_data = directorist.add_listing_data;
-console.log(directorist.add_listing_data);
 
 /**
  * Join Query String

@@ -562,10 +562,12 @@ $(document).ready(function () {
             form_data.append('tax_input[at_biz_dir-category][]', categories);
         }
         var form_directory_type = frm_element.querySelector('[name="directory_type"]');
-        var form_directory_type_value = form_directory_type.length ? form_directory_type.value : '';
+
+        var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
         var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
 
         form_data.append('directory_type', directory_type);
+
 
         if (qs.plan) {
             form_data.append('plan_id', qs.plan);

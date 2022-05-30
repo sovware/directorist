@@ -431,7 +431,6 @@ $(document).ready(function () {
         $('.directorist-form-submit__btn').addClass('atbd_loading');
         const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
         const frm_element = document.getElementById('directorist-add-listing-form');
-        console.log(frm_element);
         $.each(fieldValuePairs, function (index, fieldValuePair) {
             const field__name = fieldValuePair.name;
             const field = frm_element.querySelector('[name="' + field__name + '"]');

@@ -685,23 +685,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['edited_listing'] = true;
                 }
 
-                $listing_data = $data;
-
-                // Sanitize Preview URL
-                if ( ! empty( $data['preview_url'] ) ) {
-                    $data['preview_url'] = Directorist\Helper::sanitize_query_strings( $data['preview_url'] );
+                if ( ! empty( $info['preview_url'] ) ) {
+                    $info['preview_url'] = Directorist\Helper::escape_query_strings_from_url( $info['preview_url'] );
                 }
 
-                // Sanitize Redirect URL
-                if ( ! empty( $data['redirect_url'] ) ) {
-                    $data['redirect_url'] = Directorist\Helper::sanitize_query_strings( $data['redirect_url'] );
+                if ( ! empty( $info['redirect_url'] ) ) {
+                    $info['redirect_url'] = Directorist\Helper::escape_query_strings_from_url( $info['redirect_url'] );
                 }
 
-                $listing_data = apply_filters( 'atbdp_listing_form_submission_info', $data );
-                
-                do_action( 'directorist_before_submit_listing', $listing_data );
-
-                wp_send_json( $listing_data );
+                wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
         }
 
 

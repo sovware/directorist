@@ -110,7 +110,7 @@ var $ = jQuery;
 var localized_data = atbdp_public_data.add_listing_data;
 /**
  * Join Query String
- * 
+ *
  * @param string url
  * @param string queryString
  * @return string
@@ -811,12 +811,12 @@ $('body').on('submit', formID, function (e) {
 
           if (response.need_payment === true) {
             $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-            window.location.href = response.redirect_url;
+            window.location.href = redirect_url;
           } else {
             $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
             window.location.href = joinQueryString(response.redirect_url, is_edited);
           }
-        } // 
+        } //
 
       }
     },

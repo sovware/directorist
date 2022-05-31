@@ -663,11 +663,11 @@ msgstr ""
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:150
+#: ../includes/classes/class-ajax-handler.php:161
 msgid "Invalid Nonce"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:157, ../includes/classes/class-ajax-handler.php:266
+#: ../includes/classes/class-ajax-handler.php:168, ../includes/classes/class-ajax-handler.php:277
 msgid "Your are already loggedin"
 msgstr ""
 
@@ -683,11 +683,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:244
+#: ../includes/classes/class-ajax-handler.php:255
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:258, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:45
+#: ../includes/classes/class-ajax-handler.php:269, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:45
 msgid "Invalid request."
 msgstr ""
 
@@ -8603,11 +8603,11 @@ msgstr ""
 msgid "Map to field"
 msgstr ""
 
-#: ../views/admin-templates/import-export/data-table.php:27
+#: ../views/admin-templates/import-export/data-table.php:29
 msgid "Sample:"
 msgstr ""
 
-#: ../views/admin-templates/import-export/data-table.php:33
+#: ../views/admin-templates/import-export/data-table.php:35
 msgid "Do not import"
 msgstr ""
 

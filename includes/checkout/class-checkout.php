@@ -143,7 +143,7 @@ class ATBDP_Checkout
         //content of order receipt should be outputted here.
         $order_id = (int)get_query_var('atbdp_order_id');
 
-        if ( empty( $order_id ) ) {
+        if ( empty( $order_id ) && ! empty( $_REQUEST['order'] ) ) {
             $order_id = $_REQUEST['order'];
         }
 

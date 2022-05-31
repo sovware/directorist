@@ -755,6 +755,11 @@ class Directorist_Listings {
 			$args['no_found_rows'] = true;
 		}
 
+		if ( ! empty( $_REQUEST['ids'] ) ) {
+			$args['post__in'] = wp_parse_id_list( $_REQUEST['ids'] );
+			$this->ids = $args['post__in'];
+		}
+
 		if ( ! empty( $_REQUEST['q'] ) ) {
 			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
 		}

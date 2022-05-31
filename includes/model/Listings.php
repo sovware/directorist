@@ -1854,14 +1854,14 @@ class Directorist_Listings {
 		}
 
 		public function is_custom_field( $data ) {
-			$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+			$fields      = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 			$widget_name = $data['widget_name'];
 
 			if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
 				$widget_name = $data['original_field']['widget_name'];
 			}
 
-			return in_array( $widget_name, $fields ) ? true : false;
+			return in_array( $widget_name, $fields, true );
 		}
 
 		public function has_whatsapp( $data ) {

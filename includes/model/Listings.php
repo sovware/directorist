@@ -1758,73 +1758,85 @@ class Directorist_Listings {
 			return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
 		}
 
-		public function render_card_field( $field ) {
+		public function render_card_field( $field, $before = '', $after = '' ) {
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
-			}
-			else {
+			} else {
+				$original_field         = '';
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-				$original_field = '';
 
 				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
 					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
 				}
+
 				if ( ! empty( $original_field ) ) {
 					$field['original_field'] = $original_field;
 				}
 
-				$id = get_the_id();
 				$load_template = true;
-				$value = get_post_meta( $id, '_'.$field['widget_key'], true );
-				if ( isset( $field['field_key']  ) ) {
-					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
-				}
-				if ( isset( $original_field['field_key']  ) ) {
-					$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
+
+				if ( ! empty( $original_field['field_key'] ) ) {
+					$meta_field_key = $original_field['field_key'];
+				} else if ( ! empty( $field['field_key'] ) ) {
+					$meta_field_key = $field['field_key'];
+				} else {
+					$meta_field_key = $field['widget_key'];
 				}
 
-				if( 'listings_location' === $field['widget_name'] ) {
-					$location = get_the_terms( $id, ATBDP_LOCATION );
-					if( $location ) {
+				$value = get_post_meta( get_the_id(), '_' . $meta_field_key, true );
+				if ( empty( $value ) ) {
+					$value = get_post_meta( get_the_id(), $meta_field_key, true );
+				}
+
+				if ( 'listings_location' === $field['widget_name'] ) {
+					$location = get_the_terms( get_the_id(), ATBDP_LOCATION );
+					if ( ! is_wp_error( $location ) && ! empty( $location ) ) {
 						$value = true;
 					}
 				}
 
-				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
+				// If $load_template is false then what's the point going forward? why don't we return here!
+				if ( ! $value && $field['type'] === 'list-item' && 'posted_date' !== $field['widget_name'] ) {
+					return; // Return early, return wisely.
 					$load_template = false;
 				}
 
-				$label = !empty( $field['show_label'] ) ? $field['label']: '';
 				$args = array(
-					'listings' => $this,
-					'post_id'  => $id,
-					'data'     => $field,
-					'value'    => $value,
-					'label'    => $label,
-					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+					'listings'       => $this,
+					'post_id'        => get_the_id(),
+					'data'           => $field,
+					'value'          => $value,
+					'label'          => directorist_get_var( $field['show_label'] ),
+					'icon'           => directorist_get_var( $field['icon'] ),
 					'original_field' => $submission_form_fields,
 				);
 
-				$widget_name = $field['widget_name'];
-				if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
-					$widget_name = $data['original_field']['widget_name'];
-				}
+				// Didn't find any $data within this method.
+				// if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+				// 	$widget_name = $data['original_field']['widget_name'];
+				// }
 
+				$widget_name = $field['widget_name'];
 				if ( $this->is_custom_field( $field ) ) {
-					$field_type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
-					if( 'checkbox' === $field_type ){
-						$option_value = [];
-						$value = is_array( $value ) ? join( ",",$value ) : $value;
-						foreach( $field['original_field']['options'] as $option ) {
-							$key = $option['option_value'];
-							if( in_array( $key, explode( ',', $value ) ) ) {
-								$space = str_repeat(' ', 1);
-								$option_value[] = $space . $option['option_label'];
+					$field_type = directorist_get_var( $field['original_field']['type'] );
+
+					if ( 'checkbox' === $field_type ) {
+						if ( ! is_array( $value ) ) {
+							$value = array_filter( explode( ',', $value ) );
+						}
+
+						$options_value = '';
+						$options       = (array) directorist_get_var( $field['original_field']['options'], array() );
+						foreach ( $options as $option ) {
+							if ( in_array( $option['option_value'], $value, true ) ) {
+								$options_value .= $option['option_label'] . ', ';
 							}
 						}
-						$output = join( ',', $option_value );
-						$result = $output ? $output : $value;
-						$args['value'] = $result;
+
+						$options_value = rtrim( $options_value, ', ' );
+						if ( $options_value ) {
+							$args['value'] = $options_value;
+						}
 					}
 
 					$template = 'archive/custom-fields/' . $widget_name;
@@ -1832,10 +1844,12 @@ class Directorist_Listings {
 					$template = 'archive/fields/' . $widget_name;
 				}
 
-				if( $load_template ) {
+				if ( $load_template ) {
+					// Print $before and $after here so that empty li or other wrapper tags are not printed.
+					echo $before;
 					Helper::get_template( $template, $args );
+					echo $after;
 				}
-
 			}
 		}
 
@@ -1870,10 +1884,9 @@ class Directorist_Listings {
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
-
-			if( !empty( $fields ) ) {
+			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
-					echo $before;$this->render_card_field( $field );echo $after;
+					$this->render_card_field( $field, $before, $after );
 				}
 			}
 		}

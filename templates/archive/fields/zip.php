@@ -6,4 +6,4 @@
  */
 ?>
 
-<div class="directorist-listing-card-zip"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label, true ); ?></span> <?php echo esc_html( $value ); ?></div>
+<div class="directorist-listing-card-zip"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label, true ); ?><?php echo esc_html( $value ); ?></div>

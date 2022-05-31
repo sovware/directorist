@@ -14,17 +14,6 @@ const localized_data = directorist.add_listing_data;
  * @param string queryString
  * @return string
  */
-function joinQueryString( url, queryString ) {
-    return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
-}
-
-/**
- * Join Query String
- *
- * @param string url
- * @param string queryString
- * @return string
- */
  function joinQueryString( url, queryString ) {
     return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }

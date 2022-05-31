@@ -509,20 +509,13 @@ class ATBDP_Permalink {
         if ( $page_id ) {
             $link = get_permalink( $page_id );
 
-                $args = [
-                    'location'          => $term->slug,
-                    'directory_type'    => $directory_type,
-                ];
+            if ( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
 
-                $translatted_page_link = get_permalink( $translation_page );
-
-                $link = add_query_arg( $args, $translatted_page_link );
-
-                return apply_filters( 'atbdp_single_location', $link, $term, $page_id, $directory_type );
+            } else {
+                $link = add_query_arg( 'atbdp_location', $term->slug, $link );
             }
         }
-
-        $link = get_permalink( $page_id );
 
         if ( ! empty( $directory_type ) && 'all' != $directory_type ) {
             $link = $link . '?directory_type=' . $directory_type;

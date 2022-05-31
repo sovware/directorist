@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-29 03:50+0000\n"
+"POT-Creation-Date: 2022-05-31 06:08+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Here"
 msgstr ""
 
-#: ../includes/helper-functions.php:5863, ../templates/widgets/login-form.php:18, ../views/widgets/login.php:16
+#: ../includes/helper-functions.php:5863, ../templates/widgets/login-form.php:18, ../views/widgets/login.php:18
 msgid "Sign up"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgstr ""
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:263, ../includes/classes/class-ajax-handler.php:170, ../includes/classes/class-ajax-handler.php:282, ../includes/classes/class-ajax-handler.php:571, ../includes/model/Account.php:43
+#: ../includes/asset-loader/localized_data.php:263, ../includes/classes/class-ajax-handler.php:181, ../includes/classes/class-ajax-handler.php:293, ../includes/classes/class-ajax-handler.php:561, ../includes/model/Account.php:43
 msgid "Wrong username or password."
 msgstr ""
 
@@ -622,7 +622,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:176, ../includes/classes/class-custom-post.php:257, ../includes/classes/class-custom-post.php:265, ../includes/classes/class-settings-panel.php:492, ../includes/classes/class-settings-panel.php:2238, ../includes/model/Listings.php:183, ../includes/model/Listings.php:2024, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3317, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:80, ../includes/checkout/class-checkout.php:176, ../includes/classes/class-custom-post.php:257, ../includes/classes/class-custom-post.php:265, ../includes/classes/class-settings-panel.php:492, ../includes/classes/class-settings-panel.php:2238, ../includes/model/Listings.php:183, ../includes/model/Listings.php:2029, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3317, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:73, ../includes/classes/class-ajax-handler.php:207, ../includes/classes/class-ajax-handler.php:1030, ../includes/classes/class-ajax-handler.php:1238, ../includes/classes/class-settings-panel.php:362, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
+#: ../includes/classes/class-add-listing.php:73, ../includes/classes/class-ajax-handler.php:218, ../includes/classes/class-ajax-handler.php:1020, ../includes/classes/class-ajax-handler.php:1228, ../includes/classes/class-settings-panel.php:362, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
@@ -671,15 +671,15 @@ msgstr ""
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:178, ../includes/classes/class-ajax-handler.php:290, ../includes/classes/class-ajax-handler.php:553, ../includes/classes/class-ajax-handler.php:578
+#: ../includes/classes/class-ajax-handler.php:189, ../includes/classes/class-ajax-handler.php:301, ../includes/classes/class-ajax-handler.php:543, ../includes/classes/class-ajax-handler.php:568
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-settings-panel.php:4707, ../includes/classes/class-user.php:65
+#: ../includes/classes/class-ajax-handler.php:233, ../includes/classes/class-settings-panel.php:4707, ../includes/classes/class-user.php:65
 msgid "User"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:233, ../includes/classes/class-custom-post.php:254, ../includes/classes/class-user.php:63
+#: ../includes/classes/class-ajax-handler.php:244, ../includes/classes/class-custom-post.php:254, ../includes/classes/class-user.php:63
 msgid "Author"
 msgstr ""
 
@@ -691,83 +691,83 @@ msgstr ""
 msgid "Invalid request."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:404
+#: ../includes/classes/class-ajax-handler.php:394
 msgid "Slug Changes Successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:397
+#: ../includes/classes/class-ajax-handler.php:387
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:532
+#: ../includes/classes/class-ajax-handler.php:522
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:543
+#: ../includes/classes/class-ajax-handler.php:533
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:598
+#: ../includes/classes/class-ajax-handler.php:588
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:602
+#: ../includes/classes/class-ajax-handler.php:592
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:748, ../includes/classes/class-ajax-handler.php:775, ../includes/classes/class-ajax-handler.php:779
+#: ../includes/classes/class-ajax-handler.php:738, ../includes/classes/class-ajax-handler.php:765, ../includes/classes/class-ajax-handler.php:769
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:772
+#: ../includes/classes/class-ajax-handler.php:762
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:855, ../includes/classes/class-ajax-handler.php:918, ../includes/review/class-email.php:77, ../includes/review/class-email.php:123
+#: ../includes/classes/class-ajax-handler.php:845, ../includes/classes/class-ajax-handler.php:908, ../includes/review/class-email.php:77, ../includes/review/class-email.php:123
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:858
+#: ../includes/classes/class-ajax-handler.php:848
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:921
+#: ../includes/classes/class-ajax-handler.php:911
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1010, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
+#: ../includes/classes/class-ajax-handler.php:1000, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1013, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
+#: ../includes/classes/class-ajax-handler.php:1003, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1040
+#: ../includes/classes/class-ajax-handler.php:1030
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1047
+#: ../includes/classes/class-ajax-handler.php:1037
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1055, ../includes/classes/class-ajax-handler.php:1273, ../includes/classes/class-ajax-handler.php:1281
+#: ../includes/classes/class-ajax-handler.php:1045, ../includes/classes/class-ajax-handler.php:1263, ../includes/classes/class-ajax-handler.php:1271
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1060, ../includes/classes/class-ajax-handler.php:1286
+#: ../includes/classes/class-ajax-handler.php:1050, ../includes/classes/class-ajax-handler.php:1276
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1190
+#: ../includes/classes/class-ajax-handler.php:1180
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1192
+#: ../includes/classes/class-ajax-handler.php:1182
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1257, ../includes/classes/class-ajax-handler.php:1264
+#: ../includes/classes/class-ajax-handler.php:1247, ../includes/classes/class-ajax-handler.php:1254
 msgid "Sorry! Something wrong."
 msgstr ""
 
@@ -1464,11 +1464,11 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:216, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4975
+#: ../includes/classes/class-metabox.php:217, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4975
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:218
+#: ../includes/classes/class-metabox.php:219
 msgid "Select Listing Type"
 msgstr ""
 
@@ -2426,7 +2426,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2243, ../includes/model/Listings.php:182, ../includes/model/Listings.php:2036, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3331, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
+#: ../includes/classes/class-settings-panel.php:2243, ../includes/model/Listings.php:182, ../includes/model/Listings.php:2041, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3331, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
 msgid "Popular"
 msgstr ""
 
@@ -4633,51 +4633,51 @@ msgstr ""
 msgid "Delete Listing"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:181
+#: ../includes/model/ListingForm.php:180
 msgid "Select an Option"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:316
+#: ../includes/model/ListingForm.php:315
 msgid "No Title "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:471
+#: ../includes/model/ListingForm.php:470
 msgid "I agree to the %Privacy & Policy%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:478
+#: ../includes/model/ListingForm.php:477
 msgid "I agree with all %terms & conditions%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:491, ../includes/model/ListingForm.php:511, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4011, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4018
+#: ../includes/model/ListingForm.php:490, ../includes/model/ListingForm.php:510, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4011, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4018
 msgid "Save & Preview"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:488
+#: ../includes/model/ListingForm.php:487
 msgid "Preview Changes"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:503, ../includes/model/SingleListing.php:887, ../includes/model/SingleListing.php:1127, ../includes/review/class-builder-screen.php:114
+#: ../includes/model/ListingForm.php:502, ../includes/model/SingleListing.php:887, ../includes/model/SingleListing.php:1127, ../includes/review/class-builder-screen.php:114
 msgid "Your Email"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:818
+#: ../includes/model/ListingForm.php:817
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:819
+#: ../includes/model/ListingForm.php:818
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:879
+#: ../includes/model/ListingForm.php:878
 msgid "Notice: Your given directory type is not valid. Please use a valid directory type"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:876
+#: ../includes/model/ListingForm.php:875
 msgid "There's something unexpected happen. Please contact site admin."
 msgstr ""
 
-#: ../includes/model/ListingForm.php:874
+#: ../includes/model/ListingForm.php:873
 msgid "Please add a directory type first %s"
 msgstr ""
 
@@ -4688,36 +4688,36 @@ msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1099
+#: ../includes/model/Listings.php:1104
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1534
+#: ../includes/model/Listings.php:1539
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:1593
+#: ../includes/model/Listings.php:1598
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1590
+#: ../includes/model/Listings.php:1595
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1587
+#: ../includes/model/Listings.php:1592
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1584
+#: ../includes/model/Listings.php:1589
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"
@@ -6024,7 +6024,7 @@ msgstr ""
 msgid "File is missing"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:364, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:168
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:364, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:170
 msgid "The data is invalid"
 msgstr ""
 
@@ -6854,19 +6854,19 @@ msgstr ""
 msgid "Fetured"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:87, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:105, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:234
+#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:87, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:107, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:238
 msgid "The name already exists"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:123
+#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:125
 msgid "The directory has been created successfully"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:198
+#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:200
 msgid "Invalid term ID"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:258
+#: ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:262
 msgid "The directory has been updated successfully"
 msgstr ""
 
@@ -8207,15 +8207,15 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../templates/widgets/login-form.php:14, ../views/widgets/login.php:12
+#: ../templates/widgets/login-form.php:14, ../views/widgets/login.php:14
 msgid " Invalid username or password!"
 msgstr ""
 
-#: ../templates/widgets/login-form.php:18, ../views/widgets/login.php:16
+#: ../templates/widgets/login-form.php:18, ../views/widgets/login.php:18
 msgid "<p>Don't have an account? %s</p>"
 msgstr ""
 
-#: ../templates/widgets/submit-listing.php:13, ../views/widgets/submit-listing.php:10
+#: ../templates/widgets/submit-listing.php:13, ../views/widgets/submit-listing.php:12
 msgid "Submit New Listing"
 msgstr ""
 

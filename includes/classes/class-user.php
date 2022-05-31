@@ -34,10 +34,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 		public function registration_redirection() {
 			
-			$new_user_registration = get_directorist_option( 'new_user_registration', true );
 			$registration_page = get_directorist_option( 'custom_registration' );
-			
-			if( ! $new_user_registration && $registration_page && ( $registration_page == get_queried_object_id()) ) {
+			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {
 				wp_redirect( home_url( '/' ) );
 				exit;
 			}

@@ -44,6 +44,7 @@ var directorist_range_slider = (selector, obj) => {
             slide1.classList.add('m-device2');
         }
         slide1.addEventListener(down, (event) => {
+
             if(!touch){
                 event.preventDefault();
                 event.stopPropagation();
@@ -55,7 +56,8 @@ var directorist_range_slider = (selector, obj) => {
             isDraging = true;
             event.target.classList.add('directorist-rs-active');
         });
-        window.addEventListener(up, (event2) => {
+        document.body.addEventListener(up, (event2) => {
+
             if(!touch){
                 event2.preventDefault();
                 event2.stopPropagation();
@@ -75,7 +77,7 @@ var directorist_range_slider = (selector, obj) => {
             id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
-        window.addEventListener(move, (e) => {
+        document.body.addEventListener(move, (e) => {
             if(isDraging){
                 count = e.clientX + slid1_val2 * width / max - x;
                 if (touch){

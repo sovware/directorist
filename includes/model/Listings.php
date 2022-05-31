@@ -1806,7 +1806,7 @@ class Directorist_Listings {
 					'post_id'        => get_the_id(),
 					'data'           => $field,
 					'value'          => $value,
-					'label'          => directorist_get_var( $field['show_label'] ),
+					'label'          => ( ! empty( $field['show_label'] ) ? $field['label'] : '' ),
 					'icon'           => directorist_get_var( $field['icon'] ),
 					'original_field' => $submission_form_fields,
 				);
@@ -1833,10 +1833,7 @@ class Directorist_Listings {
 							}
 						}
 
-						$options_value = rtrim( $options_value, ', ' );
-						if ( $options_value ) {
-							$args['value'] = $options_value;
-						}
+						$args['value'] = rtrim( $options_value, ', ' );
 					}
 
 					$template = 'archive/custom-fields/' . $widget_name;

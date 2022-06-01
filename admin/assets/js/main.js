@@ -1,24 +1,24 @@
 (function ($) {
 
-	const content = '';
-	// Category icon selection
-	function selecWithIcon(selected) {
-		if (!selected.id) {
-			return selected.text;
-		}
-		const $elem = $(
-			`<span><span class='${atbdp_admin_data.icon_type} ${selected.element.value}'></span> ${
+        const content = '';
+        // Category icon selection
+        function selecWithIcon(selected) {
+                if (!selected.id) {
+                        return selected.text;
+                }
+                const $elem = $(
+                        `<span><span class='${directorist_admin.icon_type} ${selected.element.value}'></span> ${
                                 selected.text
                         }</span>`
 		);
 		return $elem;
 	}
 
-	$('#category_icon').select2({
-		placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
-		allowClear: true,
-		templateResult: selecWithIcon,
-	});
+        $('#category_icon').select2({
+                placeholder: directorist_admin.i18n_text.icon_choose_text,
+                allowClear: true,
+                templateResult: selecWithIcon,
+        });
 
 	$("[data-toggle='tooltip']").tooltip();
 
@@ -62,51 +62,52 @@
 		});
 	});
 
-	// remove the social field and then reset the ids while maintaining position
-	$(document).on('click', '.removeSocialField', function (e) {
-		const id = $(this).data('id');
-		const elementToRemove = $(`div#socialID-${id}`);
-		event.preventDefault();
-		/* Act on the event */
-		swal({
-				title: atbdp_admin_data.i18n_text.confirmation_text,
-				text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#DD6B55',
-				confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
-				closeOnConfirm: false,
-			},
-			function (isConfirm) {
-				if (isConfirm) {
-					// user has confirmed, no remove the item and reset the ids
-					elementToRemove.slideUp('fast', function () {
-						elementToRemove.remove();
-						// reorder the index
-						$('.atbdp_social_field_wrapper').each(function (index, element) {
-							const e = $(element);
-							e.attr('id', `socialID-${index}`);
-							e.find('select').attr('name', `social[${index}][id]`);
-							e.find('.atbdp_social_input').attr(
-								'name',
-								`social[${index}][url]`
-							);
-							e.find('.removeSocialField').attr('data-id', index);
-						});
-					});
+        // remove the social field and then reset the ids while maintaining position
+        $(document).on('click', '.removeSocialField', function(e) {
+                const id = $(this).data('id');
+                const elementToRemove = $(`div#socialID-${id}`);
+                event.preventDefault();
+                /* Act on the event */
+                swal(
+                        {
+                                title: directorist_admin.i18n_text.confirmation_text,
+                                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#DD6B55',
+                                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
+                                closeOnConfirm: false,
+                        },
+                        function(isConfirm) {
+                                if (isConfirm) {
+                                        // user has confirmed, no remove the item and reset the ids
+                                        elementToRemove.slideUp('fast', function() {
+                                                elementToRemove.remove();
+                                                // reorder the index
+                                                $('.atbdp_social_field_wrapper').each(function(index, element) {
+                                                        const e = $(element);
+                                                        e.attr('id', `socialID-${index}`);
+                                                        e.find('select').attr('name', `social[${index}][id]`);
+                                                        e.find('.atbdp_social_input').attr(
+                                                                'name',
+                                                                `social[${index}][url]`
+                                                        );
+                                                        e.find('.removeSocialField').attr('data-id', index);
+                                                });
+                                        });
 
-					// show success message
-					swal({
-						title: atbdp_admin_data.i18n_text.deleted,
-						// text: "Item has been deleted.",
-						type: 'success',
-						timer: 200,
-						showConfirmButton: false,
-					});
-				}
-			}
-		);
-	});
+                                        // show success message
+                                        swal({
+                                                title: directorist_admin.i18n_text.deleted,
+                                                // text: "Item has been deleted.",
+                                                type: 'success',
+                                                timer: 200,
+                                                showConfirmButton: false,
+                                        });
+                                }
+                        }
+                );
+        });
 
 	// upgrade old listing
 	$('#upgrade_directorist').on('click', function (event) {
@@ -140,11 +141,11 @@
 		});
 	});
 
-	// redirect to import import_page_link
-	$('#csv_import input[name="csv_import"]').on('change', function (event) {
-		event.preventDefault();
-		window.location = atbdp_admin_data.import_page_link;
-	});
+        // redirect to import import_page_link
+        $('#csv_import input[name="csv_import"]').on('change', function(event) {
+                event.preventDefault();
+                window.location = directorist_admin.import_page_link;
+        });
 
 	/* This function handles all ajax request */
 	function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
@@ -154,26 +155,26 @@
 		if (arg && !ActionName) data = arg;
 		// data = data ;
 
-		const n = data.search(atbdp_admin_data.nonceName);
-		if (n < 0) {
-			data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
-		}
+                const n = data.search(directorist_admin.nonceName);
+                if (n < 0) {
+                        data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
+                }
 
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data,
-			beforeSend() {
-				jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
-					ElementToShowLoadingIconAfter
-				);
-			},
-			success(data) {
-				jQuery('.atbdp_ajax_loading').remove();
-				CallBackHandler(data);
-			},
-		});
-	}
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data,
+                        beforeSend() {
+                                jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
+                                        ElementToShowLoadingIconAfter
+                                );
+                        },
+                        success(data) {
+                                jQuery('.atbdp_ajax_loading').remove();
+                                CallBackHandler(data);
+                        },
+                });
+        }
 })(jQuery);
 
 // Custom Image uploader for listing image
@@ -370,7 +371,7 @@ return $elem;
 }
 
 $("#category_icon").select2({
-placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
+placeholder: directorist_admin.i18n_text.icon_choose_text,
 allowClear: true,
 templateResult: selecWithIcon,
 });
@@ -429,51 +430,52 @@ templateResult: selecWithIcon,
 		});
 	});
 
-	// remove the social field and then reset the ids while maintaining position
-	$(document).on('click', '.removeSocialField', function (e) {
-		const id = $(this).data('id');
-		const elementToRemove = $(`div#socialID-${id}`);
-		event.preventDefault();
-		/* Act on the event */
-		swal({
-				title: atbdp_admin_data.i18n_text.confirmation_text,
-				text: atbdp_admin_data.i18n_text.ask_conf_sl_lnk_del_txt,
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#DD6B55',
-				confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
-				closeOnConfirm: false,
-			},
-			function (isConfirm) {
-				if (isConfirm) {
-					// user has confirmed, no remove the item and reset the ids
-					elementToRemove.slideUp('fast', function () {
-						elementToRemove.remove();
-						// reorder the index
-						$('.atbdp_social_field_wrapper').each(function (index, element) {
-							const e = $(element);
-							e.attr('id', `socialID-${index}`);
-							e.find('select').attr('name', `social[${index}][id]`);
-							e.find('.atbdp_social_input').attr(
-								'name',
-								`social[${index}][url]`
-							);
-							e.find('.removeSocialField').attr('data-id', index);
-						});
-					});
+        // remove the social field and then reset the ids while maintaining position
+        $(document).on('click', '.removeSocialField', function(e) {
+                const id = $(this).data('id');
+                const elementToRemove = $(`div#socialID-${id}`);
+                event.preventDefault();
+                /* Act on the event */
+                swal(
+                        {
+                                title: directorist_admin.i18n_text.confirmation_text,
+                                text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#DD6B55',
+                                confirmButtonText: directorist_admin.i18n_text.confirm_delete,
+                                closeOnConfirm: false,
+                        },
+                        function(isConfirm) {
+                                if (isConfirm) {
+                                        // user has confirmed, no remove the item and reset the ids
+                                        elementToRemove.slideUp('fast', function() {
+                                                elementToRemove.remove();
+                                                // reorder the index
+                                                $('.atbdp_social_field_wrapper').each(function(index, element) {
+                                                        const e = $(element);
+                                                        e.attr('id', `socialID-${index}`);
+                                                        e.find('select').attr('name', `social[${index}][id]`);
+                                                        e.find('.atbdp_social_input').attr(
+                                                                'name',
+                                                                `social[${index}][url]`
+                                                        );
+                                                        e.find('.removeSocialField').attr('data-id', index);
+                                                });
+                                        });
 
-					// show success message
-					swal({
-						title: atbdp_admin_data.i18n_text.deleted,
-						// text: "Item has been deleted.",
-						type: 'success',
-						timer: 200,
-						showConfirmButton: false,
-					});
-				}
-			}
-		);
-	});
+                                        // show success message
+                                        swal({
+                                                title: directorist_admin.i18n_text.deleted,
+                                                // text: "Item has been deleted.",
+                                                type: 'success',
+                                                timer: 200,
+                                                showConfirmButton: false,
+                                        });
+                                }
+                        }
+                );
+        });
 
 	// upgrade old listing
 	$('#upgrade_directorist').on('click', function (event) {
@@ -511,101 +513,101 @@ templateResult: selecWithIcon,
 	$('#atbdp-send-system-info-submit').on('click', function (event) {
 		event.preventDefault();
 
-		if (!$('#atbdp-email-subject').val()) {
-			alert('The Subject field is required');
-			return;
-		}
-		if (!$('#atbdp-email-address').val()) {
-			alert('The Email field is required');
-			return;
-		}
-		if (!$('#atbdp-email-message').val()) {
-			alert('The Message field is required');
-			return;
-		}
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: {
-				action: 'send_system_info', // calls wp_ajax_nopriv_ajaxlogin
-				_nonce: $('#atbdp_email_nonce').val(),
-				email: $('#atbdp-email-address').val(),
-				sender_email: $('#atbdp-sender-address').val(),
-				subject: $('#atbdp-email-subject').val(),
-				message: $('#atbdp-email-message').val(),
-				system_info_url: $('#atbdp-system-info-url').val(),
-			},
-			beforeSend() {
-				$('#atbdp-send-system-info-submit').html('Sending');
-			},
-			success(data) {
-				if (data.success) {
-					$('#atbdp-send-system-info-submit').html('Send Email');
-					$('.system_info_success').html('Successfully sent');
-				}
-			},
-			error(data) {
-				console.log(data);
-			},
-		});
-	});
+                if (!$('#atbdp-email-subject').val()) {
+                        alert('The Subject field is required');
+                        return;
+                }
+                if (!$('#atbdp-email-address').val()) {
+                        alert('The Email field is required');
+                        return;
+                }
+                if (!$('#atbdp-email-message').val()) {
+                        alert('The Message field is required');
+                        return;
+                }
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: {
+                                action: 'send_system_info', // calls wp_ajax_nopriv_ajaxlogin
+                                _nonce: $('#atbdp_email_nonce').val(),
+                                email: $('#atbdp-email-address').val(),
+                                sender_email: $('#atbdp-sender-address').val(),
+                                subject: $('#atbdp-email-subject').val(),
+                                message: $('#atbdp-email-message').val(),
+                                system_info_url: $('#atbdp-system-info-url').val(),
+                        },
+                        beforeSend() {
+                                $('#atbdp-send-system-info-submit').html('Sending');
+                        },
+                        success(data) {
+                                if (data.success) {
+                                        $('#atbdp-send-system-info-submit').html('Send Email');
+                                        $('.system_info_success').html('Successfully sent');
+                                }
+                        },
+                        error(data) {
+                                console.log(data);
+                        },
+                });
+        });
 
-	/**
-	 * Generate new Remote View URL and display it on the admin page
-	 */
-	$('#generate-url').on('click', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: {
-				action: 'generate_url', // calls wp_ajax_nopriv_ajaxlogin nonce: ()
-				_nonce: $(this).attr('data-nonce'),
-			},
-			success(response) {
-				$('#atbdp-remote-response').html(response.data.message);
-				$('#system-info-url, #atbdp-system-info-url').val(response.data.url);
-				$('#system-info-url-text-link')
-					.attr('href', response.data.url)
-					.css('display', 'inline-block');
-			},
-			error(response) {
-				// $('#atbdp-remote-response').val(response.data.error);
-			},
-		});
-
-		return false;
-	});
-
-	$('#revoke-url').on('click', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: {
-				action: 'revoke_url', // calls wp_ajax_nopriv_ajaxlogin
-				_nonce: $(this).attr('data-nonce'),
-			},
-			success(response) {
-				$('#atbdp-remote-response').html(response.data);
-				$('#system-info-url, #atbdp-system-info-url').val('');
-				$('#system-info-url-text-link')
-					.attr('href', '#')
-					.css('display', 'none');
-			},
-			error(response) {
-				// $('#atbdp-remote-response').val(response.data.error);
-			},
-		});
+        /**
+         * Generate new Remote View URL and display it on the admin page
+         */
+        $('#generate-url').on('click', function(e) {
+                e.preventDefault();
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: {
+                                action: 'generate_url', // calls wp_ajax_nopriv_ajaxlogin nonce: ()
+                                _nonce: $(this).attr('data-nonce'),
+                        },
+                        success(response) {
+                                $('#atbdp-remote-response').html(response.data.message);
+                                $('#system-info-url, #atbdp-system-info-url').val(response.data.url);
+                                $('#system-info-url-text-link')
+                                        .attr('href', response.data.url)
+                                        .css('display', 'inline-block');
+                        },
+                        error(response) {
+                                // $('#atbdp-remote-response').val(response.data.error);
+                        },
+                });
 
 		return false;
 	});
 
-	// redirect to import import_page_link
-	$('#csv_import input[name="csv_import"]').on('change', function (event) {
-		event.preventDefault();
-		window.location = atbdp_admin_data.import_page_link;
+        $('#revoke-url').on('click', function(e) {
+                e.preventDefault();
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: {
+                                action: 'revoke_url', // calls wp_ajax_nopriv_ajaxlogin
+                                _nonce: $(this).attr('data-nonce'),
+                        },
+                        success(response) {
+                                $('#atbdp-remote-response').html(response.data);
+                                $('#system-info-url, #atbdp-system-info-url').val('');
+                                $('#system-info-url-text-link')
+                                        .attr('href', '#')
+                                        .css('display', 'none');
+                        },
+                        error(response) {
+                                // $('#atbdp-remote-response').val(response.data.error);
+                        },
+                });
+
+		return false;
 	});
+
+        // redirect to import import_page_link
+        $('#csv_import input[name="csv_import"]').on('change', function(event) {
+                event.preventDefault();
+                window.location = directorist_admin.import_page_link;
+        });
 
 	/* This function handles all ajax request */
 	function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
@@ -615,26 +617,26 @@ templateResult: selecWithIcon,
 		if (arg && !ActionName) data = arg;
 		// data = data ;
 
-		const n = data.search(atbdp_admin_data.nonceName);
-		if (n < 0) {
-			data = `${data}&${atbdp_admin_data.nonceName}=${atbdp_admin_data.nonce}`;
-		}
+                const n = data.search(directorist_admin.nonceName);
+                if (n < 0) {
+                        data = `${data}&${directorist_admin.nonceName}=${directorist_admin.nonce}`;
+                }
 
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data,
-			beforeSend() {
-				jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
-					ElementToShowLoadingIconAfter
-				);
-			},
-			success(data) {
-				jQuery('.atbdp_ajax_loading').remove();
-				CallBackHandler(data);
-			},
-		});
-	}
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data,
+                        beforeSend() {
+                                jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(
+                                        ElementToShowLoadingIconAfter
+                                );
+                        },
+                        success(data) {
+                                jQuery('.atbdp_ajax_loading').remove();
+                                CallBackHandler(data);
+                        },
+                });
+        }
 })(jQuery);
 
 // Custom Image uploader for listing image
@@ -658,17 +660,15 @@ templateResult: selecWithIcon,
 			return;
 		}
 
-		// Create a new media frame
-		frame = wp.media({
-			title: atbdp_admin_data.i18n_text.upload_image,
-			button: {
-				text: atbdp_admin_data.i18n_text.choose_image,
-			},
-			library: {
-				type: 'image'
-			}, // only allow image upload only
-			multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-		});
+                // Create a new media frame
+                frame = wp.media({
+                        title: directorist_admin.i18n_text.upload_image,
+                        button: {
+                                text: directorist_admin.i18n_text.choose_image,
+                        },
+                        library: { type: 'image' }, // only allow image upload only
+                        multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+                });
 
 		// When an image is selected in the media frame...
 		frame.on('select', function () {
@@ -742,28 +742,28 @@ templateResult: selecWithIcon,
 		frame.open();
 	});
 
-	// DELETE ALL IMAGES LINK
-	delImgLink.on('click', function (event) {
-		event.preventDefault();
-		// Clear out the preview image and set no image as placeholder
-		imgContainer.html(
-			`<img src="${atbdp_admin_data.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
-		);
-		// Hide the delete image link
-		delImgLink.addClass('hidden');
-	});
+        // DELETE ALL IMAGES LINK
+        delImgLink.on('click', function(event) {
+                event.preventDefault();
+                // Clear out the preview image and set no image as placeholder
+                imgContainer.html(
+                        `<img src="${directorist_admin.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
+                );
+                // Hide the delete image link
+                delImgLink.addClass('hidden');
+        });
 
-	/* REMOVE SINGLE IMAGE */
-	$(document).on('click', '.remove_image', function (e) {
-		e.preventDefault();
-		$(this)
-			.parent()
-			.remove();
-		// if no image exist then add placeholder and hide remove image button
-		if ($('.single_attachment').length === 0) {
-			imgContainer.html(
-				`<img src="${
-                                        atbdp_admin_data.AdminAssetPath
+        /* REMOVE SINGLE IMAGE */
+        $(document).on('click', '.remove_image', function(e) {
+                e.preventDefault();
+                $(this)
+                        .parent()
+                        .remove();
+                // if no image exist then add placeholder and hide remove image button
+                if ($('.single_attachment').length === 0) {
+                        imgContainer.html(
+                                `<img src="${
+                                        directorist_admin.AdminAssetPath
                                 }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
 				`<small>(allowed formats jpeg. png. gif)</small>`
 			);
@@ -794,13 +794,13 @@ templateResult: selecWithIcon,
 	$('.upload-header').on('click', function (element) {
 		element.preventDefault();
 
-		imageUpload = wp.media.frames.file_frame = wp.media({
-			title: atbdp_admin_data.i18n_text.select_prv_img,
-			button: {
-				text: atbdp_admin_data.i18n_text.insert_prv_img,
-			},
-		});
-		imageUpload.open();
+                imageUpload = wp.media.frames.file_frame = wp.media({
+                        title: directorist_admin.i18n_text.select_prv_img,
+                        button: {
+                                text: directorist_admin.i18n_text.insert_prv_img,
+                        },
+                });
+                imageUpload.open();
 
 		imageUpload.on('select', function () {
 			prv_image = imageUpload
@@ -911,9 +911,9 @@ templateResult: selecWithIcon,
 
      // Create a new media frame
      frame = wp.media({
-         title: atbdp_admin_data.i18n_text.upload_cat_image,
+         title: directorist_admin.i18n_text.upload_cat_image,
          button: {
-             text: atbdp_admin_data.i18n_text.choose_image
+             text: directorist_admin.i18n_text.choose_image
          },
          library: {type: 'image'}, // only allow image upload only
          multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
@@ -1082,22 +1082,22 @@ templateResult: selecWithIcon,
 			form_data.append(field, fields_elm[field].value);
 		}
 
-		announcement_is_sending = true;
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			processData: false,
-			contentType: false,
-			beforeSend() {
-				// console.log( 'Sending...' );
-				form_feedback
-					.find('.announcement-feedback')
-					.html('<div class="form-alert">Sending the announcement, please wait..</div>');
-			},
-			success(response) {
-				// console.log( {response} );
-				announcement_is_sending = false;
+                announcement_is_sending = true;
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        beforeSend() {
+                                // console.log( 'Sending...' );
+                                form_feedback
+                                        .find('.announcement-feedback')
+                                        .html('<div class="form-alert">Sending the announcement, please wait..</div>');
+                        },
+                        success(response) {
+                                // console.log( {response} );
+                                announcement_is_sending = false;
 
 				if (response.message) {
 					form_feedback
@@ -1186,69 +1186,69 @@ templateResult: selecWithIcon,
 			.addClass('directorist_disable');
 	});
 
-	function admin_listing_form(directory_type) {
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: {
-				action: 'atbdp_dynamic_admin_listing_form',
-				directory_type: directory_type,
-				listing_id: $('#directiost-listing-fields_wrapper').data('id'),
-			},
-			success(response) {
-				$('#directiost-listing-fields_wrapper')
-					.empty()
-					.append(response.data['listing_meta_fields']);
-				assetsNeedToWorkInVirtualDom();
-				$('#at_biz_dir-locationchecklist')
-					.empty()
-					.html(response.data['listing_locations']);
-				$('#at_biz_dir-categorychecklist')
-					.empty()
-					.html(response.data['listing_categories']);
-				$('#listing_form_info')
-					.find('.directorist_loader')
-					.remove();
-				$('select[name="directory_type"]')
-					.closest('#poststuff')
-					.find('#publishing-action')
-					.removeClass('directorist_disable');
-			},
-		});
-	}
+        function admin_listing_form(directory_type) {
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: {
+                                action: 'atbdp_dynamic_admin_listing_form',
+                                directory_type: directory_type,
+                                listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+                        },
+                        success(response) {
+                                $('#directiost-listing-fields_wrapper')
+                                        .empty()
+                                        .append(response.data['listing_meta_fields']);
+                                assetsNeedToWorkInVirtualDom();
+                                $('#at_biz_dir-locationchecklist')
+                                                .empty()
+                                                .html( response.data['listing_locations'] );
+                                $('#at_biz_dir-categorychecklist')
+                                                .empty()
+                                                .html( response.data['listing_categories'] );
+                                $('#listing_form_info')
+                                        .find('.directorist_loader')
+                                        .remove();
+                                $('select[name="directory_type"]')
+                                        .closest('#poststuff')
+                                        .find('#publishing-action')
+                                        .removeClass('directorist_disable');
+                        },
+                });
+        }
 
-	// default directory type
-	$('body').on('click', '.submitdefault', function (e) {
-		e.preventDefault();
-		$(this)
-			.children('.submitDefaultCheckbox')
-			.prop('checked', true);
-		const defaultSubmitDom = $(this);
-		defaultSubmitDom
-			.closest('.directorist_listing-actions')
-			.append(`<span class="directorist_loader"></span>`);
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: {
-				action: 'atbdp_listing_default_type',
-				type_id: $(this).data('type-id'),
-			},
-			success(response) {
-				defaultSubmitDom
-					.closest('.directorist_listing-actions')
-					.siblings('.directorist_notifier')
-					.append(`<span class="atbd-listing-type-active-status">${response}</span>`);
-				defaultSubmitDom
-					.closest('.directorist_listing-actions')
-					.children('.directorist_loader')
-					.remove();
-				setTimeout(function () {
-					location.reload();
-				}, 500);
-			},
-		});
-	});
+        // default directory type
+        $('body').on('click', '.submitdefault', function(e) {
+                e.preventDefault();
+                $(this)
+                        .children('.submitDefaultCheckbox')
+                        .prop('checked', true);
+                const defaultSubmitDom = $(this);
+                defaultSubmitDom
+                        .closest('.directorist_listing-actions')
+                        .append(`<span class="directorist_loader"></span>`);
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: {
+                                action: 'atbdp_listing_default_type',
+                                type_id: $(this).data('type-id'),
+                        },
+                        success(response) {
+                                defaultSubmitDom
+                                        .closest('.directorist_listing-actions')
+                                        .siblings('.directorist_notifier')
+                                        .append(`<span class="atbd-listing-type-active-status">${response}</span>`);
+                                defaultSubmitDom
+                                        .closest('.directorist_listing-actions')
+                                        .children('.directorist_loader')
+                                        .remove();
+                                setTimeout(function() {
+                                        location.reload();
+                                }, 500);
+                        },
+                });
+        });
 
 	function assetsNeedToWorkInVirtualDom() {
 		// price range
@@ -1286,17 +1286,15 @@ templateResult: selecWithIcon,
 				return;
 			}
 
-			// Create a new media frame
-			frame = wp.media({
-				title: atbdp_admin_data.i18n_text.upload_image,
-				button: {
-					text: atbdp_admin_data.i18n_text.choose_image,
-				},
-				library: {
-					type: 'image'
-				}, // only allow image upload only
-				multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-			});
+                        // Create a new media frame
+                        frame = wp.media({
+                                title: directorist_admin.i18n_text.upload_image,
+                                button: {
+                                        text: directorist_admin.i18n_text.choose_image,
+                                },
+                                library: { type: 'image' }, // only allow image upload only
+                                multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+                        });
 
 			// When an image is selected in the media frame...
 			frame.on('select', function () {
@@ -1370,30 +1368,30 @@ templateResult: selecWithIcon,
 			frame.open();
 		});
 
-		// DELETE ALL IMAGES LINK
-		delImgLink.on('click', function (event) {
-			event.preventDefault();
-			// Clear out the preview image and set no image as placeholder
-			imgContainer.html(
-				`<img src="${
-                                        atbdp_admin_data.AdminAssetPath
+                // DELETE ALL IMAGES LINK
+                delImgLink.on('click', function(event) {
+                        event.preventDefault();
+                        // Clear out the preview image and set no image as placeholder
+                        imgContainer.html(
+                                `<img src="${
+                                        directorist_admin.AdminAssetPath
                                 }images/no-image.png" alt="Listing Image" />`
 			);
 			// Hide the delete image link
 			delImgLink.addClass('hidden');
 		});
 
-		/* REMOVE SINGLE IMAGE */
-		$(document).on('click', '.remove_image', function (e) {
-			e.preventDefault();
-			$(this)
-				.parent()
-				.remove();
-			// if no image exist then add placeholder and hide remove image button
-			if ($('.single_attachment').length === 0) {
-				imgContainer.html(
-					`<img src="${
-                                                atbdp_admin_data.AdminAssetPath
+                /* REMOVE SINGLE IMAGE */
+                $(document).on('click', '.remove_image', function(e) {
+                        e.preventDefault();
+                        $(this)
+                                .parent()
+                                .remove();
+                        // if no image exist then add placeholder and hide remove image button
+                        if ($('.single_attachment').length === 0) {
+                                imgContainer.html(
+                                        `<img src="${
+                                                directorist_admin.AdminAssetPath
                                         }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
 					`<small>(allowed formats jpeg. png. gif)</small>`
 				);
@@ -1410,13 +1408,13 @@ templateResult: selecWithIcon,
 		$('.upload-header').on('click', function (element) {
 			element.preventDefault();
 
-			imageUpload = wp.media.frames.file_frame = wp.media({
-				title: atbdp_admin_data.i18n_text.select_prv_img,
-				button: {
-					text: atbdp_admin_data.i18n_text.insert_prv_img,
-				},
-			});
-			imageUpload.open();
+                        imageUpload = wp.media.frames.file_frame = wp.media({
+                                title: directorist_admin.i18n_text.select_prv_img,
+                                button: {
+                                        text: directorist_admin.i18n_text.insert_prv_img,
+                                },
+                        });
+                        imageUpload.open();
 
 			imageUpload.on('select', function () {
 				prv_image = imageUpload
@@ -1692,23 +1690,23 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
 		$('.atbdp-form-feedback').html('');
 
-		is_sending = true;
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				submit_button.prepend(
-					'<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>'
-				);
-				submit_button.attr('disabled', true);
-			},
-			success(response) {
-				// console.log(response);
-				if (response.has_previous_subscriptions) {
-					location.reload();
-					return;
-				}
+                is_sending = true;
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                submit_button.prepend(
+                                        '<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>'
+                                );
+                                submit_button.attr('disabled', true);
+                        },
+                        success(response) {
+                                // console.log(response);
+                                if (response.has_previous_subscriptions) {
+                                        location.reload();
+                                        return;
+                                }
 
 				is_sending = false;
 				submit_button.attr('disabled', false);
@@ -1931,23 +1929,23 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 								return;
 							}
 
-							const form_data = {
-								action: 'atbdp_download_file',
-								download_item: file,
-								type: file_type,
-							};
-							jQuery.ajax({
-								type: 'post',
-								url: atbdp_admin_data.ajaxurl,
-								data: form_data,
-								beforeSend() {
-									icon_elm.removeClass('atbdp-text-danger');
-									icon_elm.html(
-										'<span class="fas fa-circle-notch fa-spin"></span>'
-									);
-								},
-								success(response) {
-									console.log('success', counter, response);
+                                                        const form_data = {
+                                                                action: 'atbdp_download_file',
+                                                                download_item: file,
+                                                                type: file_type,
+                                                        };
+                                                        jQuery.ajax({
+                                                                type: 'post',
+                                                                url: directorist_admin.ajaxurl,
+                                                                data: form_data,
+                                                                beforeSend() {
+                                                                        icon_elm.removeClass('atbdp-text-danger');
+                                                                        icon_elm.html(
+                                                                                '<span class="fas fa-circle-notch fa-spin"></span>'
+                                                                        );
+                                                                },
+                                                                success(response) {
+                                                                        console.log('success', counter, response);
 
 									if (response.status.success) {
 										icon_elm.addClass('atbdp-text-success');
@@ -2126,16 +2124,16 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
 		const self = this;
 
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				const icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
-				$(self).html(icon);
-			},
-			success(response) {
-				console.log(response);
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                const icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
+                                $(self).html(icon);
+                        },
+                        success(response) {
+                                console.log(response);
 
 				if (response.status.success) {
 					$(self).html('Updated');
@@ -2177,13 +2175,13 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 		$(this).prop('disabled', true);
 		$(this).addClass('in-progress');
 
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self).html('Installing');
-				const icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self).html('Installing');
+                                const icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
 
 				$(self).prepend(icon);
 			},
@@ -2275,15 +2273,15 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
 		form_feedback.html('');
 
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
-			},
-			success(response) {
-				console.log(response);
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(submit_btn).html('<i class="fas fa-circle-notch fa-spin"></i>');
+                        },
+                        success(response) {
+                                console.log(response);
 
 				if (response.status.message) {
 					var feedback_type = response.status.success ? 'success' : 'danger';
@@ -2300,453 +2298,441 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                                 response.status.massage
                                         }</span>`;
 
-					form_feedback.html(message);
-				}
-
-				if (!response.status.success) {
-					$(submit_btn).html(btn_default_html);
-					$(submit_btn).prop('disabled', false);
-					$(close_btn).removeClass('atbdp-d-none');
-
-					if (response.status.reload) {
-						location.reload();
-					}
-				} else {
-					location.reload();
-				}
-			},
-			error(error) {
-				console.log(error);
-
-				$(submit_btn).prop('disabled', false);
-				$(submit_btn).html(btn_default_html);
-
-				$(close_btn).removeClass('atbdp-d-none');
-			},
-		});
-	});
-
-	// Logout
-	$('.subscriptions-logout-btn').on('click', function (e) {
-		e.preventDefault();
-
-		const hard_logout = $(this).data('hard-logout');
-
-		const form_data = {
-			action: 'atbdp_close_subscriptions_sassion',
-			hard_logout,
-		};
-
-		const self = this;
-
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
-			},
-			success(response) {
-				// console.log( response );
-				location.reload();
-			},
-			error(error) {
-				console.log(error);
-				$(this).prop('disabled', false);
-				$(this).removeClass('in-progress');
-
-				$(self).html(btn_default_html);
-			},
-		});
-
-		// atbdp_close_subscriptions_sassion
-	});
-
-	// Form Actions
-	// Bulk Actions - My extensions form
-	var is_bulk_processing = false;
-	$('#atbdp-my-extensions-form').on('submit', function (e) {
-		e.preventDefault();
-
-		if (is_bulk_processing) {
-			return;
-		}
-
-		const task = $(this)
-			.find('select[name="bulk-actions"]')
-			.val();
-		const plugins_items = [];
-
-		$(this)
-			.find('.extension-name-checkbox')
-			.each(function (i, e) {
-				const is_checked = $(e).is(':checked');
-				const id = $(e).attr('id');
-
-				if (is_checked) {
-					plugins_items.push(id);
-				}
-			});
-
-		if (!task.length || !plugins_items.length) {
-			return;
-		}
-
-		const self = this;
-		is_bulk_processing = true;
-		form_data = {
-			action: 'atbdp_plugins_bulk_action',
-			task,
-			plugin_items: plugins_items,
-		};
-
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self)
-					.find('button[type="submit"]')
-					.prepend(
-						'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
-					);
-			},
-			success(response) {
-				// console.log( response );
-				$(self)
-					.find('button[type="submit"] .atbdp-icon')
-					.remove();
-				location.reload();
-			},
-			error(error) {
-				console.log(error);
-				uninstalling = false;
-			},
-		});
-
-		// console.log( task, plugins_items );
-	});
-
-	// Bulk Actions - My extensions form
-	var is_bulk_processing = false;
-	$('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
-		e.preventDefault();
-
-		if (is_bulk_processing) {
-			return;
-		}
-
-		const self = this;
-		const task = $(this)
-			.find('select[name="bulk-actions"]')
-			.val();
-		const plugins_items = [];
-
-		$(self)
-			.find('.extension-name-checkbox')
-			.each(function (i, e) {
-				const is_checked = $(e).is(':checked');
-				const id = $(e).attr('id');
-
-				if (is_checked) {
-					plugins_items.push(id);
-				}
-			});
-
-		if (!task.length || !plugins_items.length) {
-			return;
-		}
-
-		// Before Install
-		$(this)
-			.find('.file-install-btn')
-			.addClass('in-progress');
-		$(this)
-			.find('.file-install-btn')
-			.prop('disabled', true);
-
-		const loading_icon =
-			'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
-		$(this)
-			.find('button[type="submit"]')
-			.prop('disabled', true);
-		$(this)
-			.find('button[type="submit"]')
-			.prepend(loading_icon);
-
-		var install_plugins = function (plugins, counter, callback) {
-			if (counter > plugins.length - 1) {
-				if (callback) {
-					callback();
-				}
-				return;
-			}
-
-			const current_item = plugins[counter];
-			const action_wrapper = $(`.ext-action-${current_item}`);
-			const install_btn = action_wrapper.find('.file-install-btn');
-			const next_index = counter + 1;
-
-			// console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
-
-			console.log({
-				current_item
-			});
-
-			form_data = {
-				action: 'atbdp_install_file_from_subscriptions',
-				item_key: current_item,
-				type: 'plugin',
-			};
-
-			jQuery.ajax({
-				type: 'post',
-				url: atbdp_admin_data.ajaxurl,
-				data: form_data,
-				beforeSend() {
-					install_btn.html(
-						'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Installing'
-					);
-				},
-				success(response) {
-					console.log(response);
-
-					if (response.status.success) {
-						install_btn.html('Installed');
-					} else {
-						install_btn.html('Failed');
-					}
-
-					install_plugins(plugins, next_index, callback);
-				},
-				error(error) {
-					console.log(error);
-				},
-			});
-		};
-
-		const after_plugins_install = function () {
-			console.log('Done');
-			is_bulk_processing = false;
-
-			$(self)
-				.find('button[type="submit"]')
-				.find('.atbdp-icon')
-				.remove();
-			$(self)
-				.find('button[type="submit"]')
-				.prop('disabled', false);
-
-			location.reload();
-		};
-
-		is_bulk_processing = true;
-		install_plugins(plugins_items, 0, after_plugins_install);
-	});
-
-	// Ext Actions | Uninstall
-	var uninstalling = false;
-	$('.ext-action-uninstall').on('click', function (e) {
-		e.preventDefault();
-		if (uninstalling) {
-			return;
-		}
-
-		const data_target = $(this).data('target');
-
-		const form_data = {
-			action: 'atbdp_plugins_bulk_action',
-			task: 'uninstall',
-			plugin_items: [data_target],
-		};
-
-		const self = this;
-		uninstalling = true;
-
-		jQuery.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self).prepend(
-					'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
-				);
-			},
-			success(response) {
-				// console.log( response );
-				$(self)
-					.closest('.ext-action')
-					.find('.ext-action-drop')
-					.removeClass('active');
-				location.reload();
-			},
-			error(error) {
-				console.log(error);
-				uninstalling = false;
-			},
-		});
-	});
-
-	// Bulk checkbox toggle
-	$('#atbdp-my-extensions-form')
-		.find('input[name="select-all"]')
-		.on('change', function (e) {
-			const is_checked = $(this).is(':checked');
-
-			if (is_checked) {
-				$('#atbdp-my-extensions-form')
-					.find('.extension-name-checkbox')
-					.prop('checked', true);
-			} else {
-				$('#atbdp-my-extensions-form')
-					.find('.extension-name-checkbox')
-					.prop('checked', false);
-			}
-		});
-
-	$('#atbdp-my-subscribed-extensions-form')
-		.find('input[name="select-all"]')
-		.on('change', function (e) {
-			const is_checked = $(this).is(':checked');
-
-			if (is_checked) {
-				$('#atbdp-my-subscribed-extensions-form')
-					.find('.extension-name-checkbox')
-					.prop('checked', true);
-			} else {
-				$('#atbdp-my-subscribed-extensions-form')
-					.find('.extension-name-checkbox')
-					.prop('checked', false);
-			}
-		});
-
-	//
-	$('.ext-action-drop').each(function (i, e) {
-		$(e).on('click', function (elm) {
-			elm.preventDefault();
-
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-			} else {
-				$('.ext-action-drop').removeClass('active');
-				$(this).addClass('active');
-			}
-		});
-	});
-
-	// Theme Activation
-	let theme_is_activating = false;
-	$('.theme-activate-btn').on('click', function (e) {
-		e.preventDefault();
-
-		if (theme_is_activating) {
-			return;
-		}
-
-		const data_target = $(this).data('target');
-		if (!data_target) {
-			return;
-		}
-		if (!data_target.length) {
-			return;
-		}
-
-		const form_data = {
-			action: 'atbdp_activate_theme',
-			theme_stylesheet: data_target,
-		};
-
-		const self = this;
-		theme_is_activating = true;
-
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self).prepend(
-					'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
-				);
-			},
-			success(response) {
-				console.log({
-					response
-				});
-				$(self)
-					.find('.atbdp-icon')
-					.remove();
-
-				if (response.status && response.status.success) {
-					location.reload();
-				}
-			},
-			error(error) {
-				console.log({
-					error
-				});
-				theme_is_activating = false;
-				$(self)
-					.find('.atbdp-icon')
-					.remove();
-			},
-		});
-	});
-
-	// Theme Update
-	$('.theme-update-btn').on('click', function (e) {
-		e.preventDefault();
-
-		$(this).prop('disabled', true);
-		if ($(this).hasClass('in-progress')) {
-			return;
-		}
-
-		const theme_stylesheet = $(this).data('target');
-		const button_default_html = $(this).html();
-		const form_data = {
-			action: 'atbdp_update_theme'
-		};
-
-		if (theme_stylesheet) {
-			form_data.theme_stylesheet = theme_stylesheet;
-		}
-
-		const self = this;
-		$(this).addClass('in-progress');
-
-		$.ajax({
-			type: 'post',
-			url: atbdp_admin_data.ajaxurl,
-			data: form_data,
-			beforeSend() {
-				$(self).html(
-					'<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating'
-				);
-			},
-			success(response) {
-				console.log({
-					response
-				});
-
-				if (response.status && response.status.success) {
-					$(self).html('Updated');
-					location.reload();
-				} else {
-					$(self).removeClass('in-progress');
-					$(self).html(button_default_html);
-					$(self).prop('disabled', false);
-
-					alert(response.status.message);
-				}
-			},
-			error(error) {
-				console.log({
-					error
-				});
-				$(self).removeClass('in-progress');
-				$(self).html(button_default_html);
-				$(self).prop('disabled', false);
-			},
-		});
-	});
+                                        form_feedback.html(message);
+                                }
+
+                                if (!response.status.success) {
+                                        $(submit_btn).html(btn_default_html);
+                                        $(submit_btn).prop('disabled', false);
+                                        $(close_btn).removeClass('atbdp-d-none');
+
+                                        if (response.status.reload) {
+                                                location.reload();
+                                        }
+                                } else {
+                                        location.reload();
+                                }
+                        },
+                        error(error) {
+                                console.log(error);
+
+                                $(submit_btn).prop('disabled', false);
+                                $(submit_btn).html(btn_default_html);
+
+                                $(close_btn).removeClass('atbdp-d-none');
+                        },
+                });
+        });
+
+        // Logout
+        $('.subscriptions-logout-btn').on('click', function(e) {
+                e.preventDefault();
+
+                const hard_logout = $(this).data('hard-logout');
+
+                const form_data = {
+                        action: 'atbdp_close_subscriptions_sassion',
+                        hard_logout,
+                };
+
+                const self = this;
+
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self).html('<i class="fas fa-circle-notch fa-spin"></i> Logging out');
+                        },
+                        success(response) {
+                                // console.log( response );
+                                location.reload();
+                        },
+                        error(error) {
+                                console.log(error);
+                                $(this).prop('disabled', false);
+                                $(this).removeClass('in-progress');
+
+                                $(self).html(btn_default_html);
+                        },
+                });
+
+                // atbdp_close_subscriptions_sassion
+        });
+
+        // Form Actions
+        // Bulk Actions - My extensions form
+        var is_bulk_processing = false;
+        $('#atbdp-my-extensions-form').on('submit', function(e) {
+                e.preventDefault();
+
+                if (is_bulk_processing) {
+                        return;
+                }
+
+                const task = $(this)
+                        .find('select[name="bulk-actions"]')
+                        .val();
+                const plugins_items = [];
+
+                $(this)
+                        .find('.extension-name-checkbox')
+                        .each(function(i, e) {
+                                const is_checked = $(e).is(':checked');
+                                const id = $(e).attr('id');
+
+                                if (is_checked) {
+                                        plugins_items.push(id);
+                                }
+                        });
+
+                if (!task.length || !plugins_items.length) {
+                        return;
+                }
+
+                const self = this;
+                is_bulk_processing = true;
+                form_data = {
+                        action: 'atbdp_plugins_bulk_action',
+                        task,
+                        plugin_items: plugins_items,
+                };
+
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self)
+                                        .find('button[type="submit"]')
+                                        .prepend(
+                                                '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
+                                        );
+                        },
+                        success(response) {
+                                // console.log( response );
+                                $(self)
+                                        .find('button[type="submit"] .atbdp-icon')
+                                        .remove();
+                                location.reload();
+                        },
+                        error(error) {
+                                console.log(error);
+                                uninstalling = false;
+                        },
+                });
+
+                // console.log( task, plugins_items );
+        });
+
+        // Bulk Actions - My extensions form
+        var is_bulk_processing = false;
+        $('#atbdp-my-subscribed-extensions-form').on('submit', function(e) {
+                e.preventDefault();
+
+                if (is_bulk_processing) {
+                        return;
+                }
+
+                const self = this;
+                const task = $(this)
+                        .find('select[name="bulk-actions"]')
+                        .val();
+                const plugins_items = [];
+
+                $(self)
+                        .find('.extension-name-checkbox')
+                        .each(function(i, e) {
+                                const is_checked = $(e).is(':checked');
+                                const id = $(e).attr('id');
+
+                                if (is_checked) {
+                                        plugins_items.push(id);
+                                }
+                        });
+
+                if (!task.length || !plugins_items.length) {
+                        return;
+                }
+
+                // Before Install
+                $(this)
+                        .find('.file-install-btn')
+                        .addClass('in-progress');
+                $(this)
+                        .find('.file-install-btn')
+                        .prop('disabled', true);
+
+                const loading_icon =
+                        '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
+                $(this)
+                        .find('button[type="submit"]')
+                        .prop('disabled', true);
+                $(this)
+                        .find('button[type="submit"]')
+                        .prepend(loading_icon);
+
+                var install_plugins = function(plugins, counter, callback) {
+                        if (counter > plugins.length - 1) {
+                                if (callback) {
+                                        callback();
+                                }
+                                return;
+                        }
+
+                        const current_item = plugins[counter];
+                        const action_wrapper = $(`.ext-action-${current_item}`);
+                        const install_btn = action_wrapper.find('.file-install-btn');
+                        const next_index = counter + 1;
+
+                        // console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
+
+                        console.log({ current_item });
+
+                        form_data = {
+                                action: 'atbdp_install_file_from_subscriptions',
+                                item_key: current_item,
+                                type: 'plugin',
+                        };
+
+                        jQuery.ajax({
+                                type: 'post',
+                                url: directorist_admin.ajaxurl,
+                                data: form_data,
+                                beforeSend() {
+                                        install_btn.html(
+                                                '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Installing'
+                                        );
+                                },
+                                success(response) {
+                                        console.log(response);
+
+                                        if (response.status.success) {
+                                                install_btn.html('Installed');
+                                        } else {
+                                                install_btn.html('Failed');
+                                        }
+
+                                        install_plugins(plugins, next_index, callback);
+                                },
+                                error(error) {
+                                        console.log(error);
+                                },
+                        });
+                };
+
+                const after_plugins_install = function() {
+                        console.log('Done');
+                        is_bulk_processing = false;
+
+                        $(self)
+                                .find('button[type="submit"]')
+                                .find('.atbdp-icon')
+                                .remove();
+                        $(self)
+                                .find('button[type="submit"]')
+                                .prop('disabled', false);
+
+                        location.reload();
+                };
+
+                is_bulk_processing = true;
+                install_plugins(plugins_items, 0, after_plugins_install);
+        });
+
+        // Ext Actions | Uninstall
+        var uninstalling = false;
+        $('.ext-action-uninstall').on('click', function(e) {
+                e.preventDefault();
+                if (uninstalling) {
+                        return;
+                }
+
+                const data_target = $(this).data('target');
+
+                const form_data = {
+                        action: 'atbdp_plugins_bulk_action',
+                        task: 'uninstall',
+                        plugin_items: [data_target],
+                };
+
+                const self = this;
+                uninstalling = true;
+
+                jQuery.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self).prepend(
+                                        '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
+                                );
+                        },
+                        success(response) {
+                                // console.log( response );
+                                $(self)
+                                        .closest('.ext-action')
+                                        .find('.ext-action-drop')
+                                        .removeClass('active');
+                                location.reload();
+                        },
+                        error(error) {
+                                console.log(error);
+                                uninstalling = false;
+                        },
+                });
+        });
+
+        // Bulk checkbox toggle
+        $('#atbdp-my-extensions-form')
+                .find('input[name="select-all"]')
+                .on('change', function(e) {
+                        const is_checked = $(this).is(':checked');
+
+                        if (is_checked) {
+                                $('#atbdp-my-extensions-form')
+                                        .find('.extension-name-checkbox')
+                                        .prop('checked', true);
+                        } else {
+                                $('#atbdp-my-extensions-form')
+                                        .find('.extension-name-checkbox')
+                                        .prop('checked', false);
+                        }
+                });
+
+        $('#atbdp-my-subscribed-extensions-form')
+                .find('input[name="select-all"]')
+                .on('change', function(e) {
+                        const is_checked = $(this).is(':checked');
+
+                        if (is_checked) {
+                                $('#atbdp-my-subscribed-extensions-form')
+                                        .find('.extension-name-checkbox')
+                                        .prop('checked', true);
+                        } else {
+                                $('#atbdp-my-subscribed-extensions-form')
+                                        .find('.extension-name-checkbox')
+                                        .prop('checked', false);
+                        }
+                });
+
+        //
+        $('.ext-action-drop').each(function(i, e) {
+                $(e).on('click', function(elm) {
+                        elm.preventDefault();
+
+                        if ($(this).hasClass('active')) {
+                                $(this).removeClass('active');
+                        } else {
+                                $('.ext-action-drop').removeClass('active');
+                                $(this).addClass('active');
+                        }
+                });
+        });
+
+        // Theme Activation
+        let theme_is_activating = false;
+        $('.theme-activate-btn').on('click', function(e) {
+                e.preventDefault();
+
+                if (theme_is_activating) {
+                        return;
+                }
+
+                const data_target = $(this).data('target');
+                if (!data_target) {
+                        return;
+                }
+                if (!data_target.length) {
+                        return;
+                }
+
+                const form_data = {
+                        action: 'atbdp_activate_theme',
+                        theme_stylesheet: data_target,
+                };
+
+                const self = this;
+                theme_is_activating = true;
+
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self).prepend(
+                                        '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> '
+                                );
+                        },
+                        success(response) {
+                                console.log({ response });
+                                $(self)
+                                        .find('.atbdp-icon')
+                                        .remove();
+
+                                if (response.status && response.status.success) {
+                                        location.reload();
+                                }
+                        },
+                        error(error) {
+                                console.log({ error });
+                                theme_is_activating = false;
+                                $(self)
+                                        .find('.atbdp-icon')
+                                        .remove();
+                        },
+                });
+        });
+
+        // Theme Update
+        $('.theme-update-btn').on('click', function(e) {
+                e.preventDefault();
+
+                $(this).prop('disabled', true);
+                if ($(this).hasClass('in-progress')) {
+                        return;
+                }
+
+                const theme_stylesheet = $(this).data('target');
+                const button_default_html = $(this).html();
+                const form_data = { action: 'atbdp_update_theme' };
+
+                if (theme_stylesheet) {
+                        form_data.theme_stylesheet = theme_stylesheet;
+                }
+
+                const self = this;
+                $(this).addClass('in-progress');
+
+                $.ajax({
+                        type: 'post',
+                        url: directorist_admin.ajaxurl,
+                        data: form_data,
+                        beforeSend() {
+                                $(self).html(
+                                        '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating'
+                                );
+                        },
+                        success(response) {
+                                console.log({ response });
+
+                                if (response.status && response.status.success) {
+                                        $(self).html('Updated');
+                                        location.reload();
+                                } else {
+                                        $(self).removeClass('in-progress');
+                                        $(self).html(button_default_html);
+                                        $(self).prop('disabled', false);
+
+                                        alert(response.status.message);
+                                }
+                        },
+                        error(error) {
+                                console.log({ error });
+                                $(self).removeClass('in-progress');
+                                $(self).html(button_default_html);
+                                $(self).prop('disabled', false);
+                        },
+                });
+        });
 })(jQuery);

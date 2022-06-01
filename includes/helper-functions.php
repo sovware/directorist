@@ -5686,7 +5686,9 @@ function directorist_icon( $icon, $echo = true ) {
         return;
     }
 
-    $html = sprintf('<i class="directorist-icon %s"></i>', $icon );
+	$icon_src = \Directorist\Helper::get_icon_src( $icon );
+
+    $html = sprintf('<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-mage:url(%1$s);"></span></i>', $icon_src );
 
     if ($echo) {
         echo $html;

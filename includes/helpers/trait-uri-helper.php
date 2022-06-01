@@ -86,4 +86,13 @@ trait URI_Helper {
 			return $index_path;
 		}
 	}
+
+	public static function get_icon_src( $icon ) {
+		$file     = 'bell.svg';
+		$base_url = ATBDP_URL . 'assets/icons/';
+		$icon_dir = 'font-awesome-6.1.1/regular/';
+		$url      = $base_url . $icon_dir. $file;
+		return $url;
+	}
+
 }

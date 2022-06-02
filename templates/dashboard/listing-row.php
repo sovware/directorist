@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.3
+ * @version 7.4
  */
 
 use \Directorist\Helper;
@@ -52,7 +52,7 @@ if ( $query->have_posts() ) {
 			<td>
 				<div class="directorist-actions">
 
-					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><?php directorist_icon( 'la la-edit' ); ?><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
 
 					<div class="directorist-dropdown">
 

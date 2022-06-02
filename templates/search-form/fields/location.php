@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3
+ * @version 7.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -34,7 +34,7 @@ elseif ( $location_source == 'map' ) {
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">
-		<span class="directorist-input-icon directorist-filter-location-icon"><span class="la la-crosshairs"></span></span>
+		<span class="directorist-input-icon directorist-filter-location-icon"><?php directorist_icon( 'la la-crosshairs' ); ?></span>
 		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element directorist-location-js location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 		<div class="address_result location-names" style="display: none"></div>

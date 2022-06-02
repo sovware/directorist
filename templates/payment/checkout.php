@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.5.3
+ * @version 7.4
  */
 
 extract( $checkout );
@@ -17,7 +17,7 @@ use \Directorist\Helper;
             <?php do_action('atbdp_after_checkout_form_start'); ?>
             <div class="directorist-alert directorist-alert-info directorist-mb-15" role="alert">
                 <div class="directorist-alert__content">
-                    <span class="fa fa-info-circle"></span>
+					<?php directorist_icon( 'fa fa-info-circle' ); ?>
                     <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
                     <a href="#" class="directorist-alert__close"><span aria-hidden="true">×</span></a>
                 </div>

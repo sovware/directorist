@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.4
  */
 
 use \Directorist\Helper;
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="all" class="directorist-tab__nav__active"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
 					</li>
-					
+
 					<li class="directorist-tab-nav--content-link">
 						<a href="#" data-tab="publish"><?php esc_html_e( 'Published', 'directorist' ); ?></a>
 					</li>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-user-dashboard-search">
 
 					<div class="directorist-user-dashboard-search__icon">
-						<i class="la la-search"></i>
+						<?php directorist_icon( 'la la-search' ); ?>
 					</div>
 
 					<form id="directorist-dashboard-listing-searchform">
@@ -91,9 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						</tbody>
 
 					</table>
-					
+
 					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
-					
+
 					<div class="directorist-dashboard-pagination">
 						<?php echo $dashboard->listing_pagination(); ?>
 					</div>

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.1.1
+ * @version 7.4
  */
 ?>
 
@@ -79,7 +79,7 @@
 			}
 			?>
 
-			<span class="iw-close-btn"><i class="la la-times"></i></span>
+			<span class="iw-close-btn"><?php directorist_icon( 'la la-times' ); ?></span>
 		</div>
 		<?php
 	}

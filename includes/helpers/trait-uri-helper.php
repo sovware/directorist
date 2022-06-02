@@ -100,13 +100,40 @@ trait URI_Helper {
 
 	private static function get_icon_file( $icon ) {
 		if ( str_starts_with( $icon, 'fa' ) ) {
-			return self::get_fontawesome_file( $icon );
+			return self::get_font_awesome_file( $icon );
+		} elseif ( str_starts_with( $icon, 'la' ) ) {
+			return self::get_line_awesome_file( $icon );
 		}
 
 		return '';
 	}
 
-	private static function get_fontawesome_file( $icon ) {
+	private static function get_line_awesome_file( $icon ) {
+		$slice = explode(' ', $icon );
+
+		$filename = str_replace( 'la-', '', $slice[1] );
+
+		if ( $slice[0] == 'la' || $slice[0] == 'las' ) {
+			$filename = $filename . '-solid.svg';
+		} else {
+			$filename = $filename . '.svg';
+		}
+
+		// Backward commpatibility for v1.2.1
+		if ( $slice[0] == 'la' || $slice[0] == 'las' ) {
+			$filename = str_replace( '-o-', '-', $filename );
+		}
+
+		$dir = 'line-awesome-1.3.0/';
+
+		if ( !$dir ) {
+			return '';
+		}
+
+		return $dir . $filename;
+	}
+
+	private static function get_font_awesome_file( $icon ) {
 		$slice = explode(' ', $icon );
 		$filename = str_replace( 'fa-', '', $slice[1] );
 		$filename = $filename . '.svg';

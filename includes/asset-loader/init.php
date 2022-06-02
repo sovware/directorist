@@ -43,9 +43,6 @@ class Asset_Loader {
 		// Map CSS
 		self::enqueue_map_styles();
 
-		// Icon CSS
-		self::enqueue_icon_styles();
-
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
@@ -292,9 +289,6 @@ class Asset_Loader {
 		Localized_Data::load_localized_data();
 	}
 
-	/**
-	 * @todo apply icon condition
-	 */
 	public static function enqueue_icon_styles() {
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );

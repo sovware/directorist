@@ -103,10 +103,29 @@ trait URI_Helper {
 			return self::get_font_awesome_file( $icon );
 		} elseif ( str_starts_with( $icon, 'la' ) ) {
 			return self::get_line_awesome_file( $icon );
+		} elseif ( str_starts_with( $icon, 'ui' ) ) {
+			return self::get_unicons_file( $icon );
 		}
 
 		return '';
 	}
+
+	private static function get_unicons_file( $icon ) {
+		$slice = explode(' ', $icon );
+
+		if ( $slice[0] == 'uil' ) {
+			$filename = str_replace( 'uil-', '', $slice[1] );
+			$dir = 'unicons-4.0.1/line/';
+		} else if ( $slice[0] == 'uis' ) {
+			$filename = str_replace( 'uis-', '', $slice[1] );
+			$dir = 'unicons-4.0.1/solid/';
+		} else {
+			return '';
+		}
+
+		return $dir . $filename . '.svg';
+	}
+
 
 	private static function get_line_awesome_file( $icon ) {
 		$slice = explode(' ', $icon );
@@ -126,10 +145,6 @@ trait URI_Helper {
 
 		$dir = 'line-awesome-1.3.0/';
 
-		if ( !$dir ) {
-			return '';
-		}
-
 		return $dir . $filename;
 	}
 
@@ -138,21 +153,13 @@ trait URI_Helper {
 		$filename = str_replace( 'fa-', '', $slice[1] );
 		$filename = $filename . '.svg';
 
-		$dir = '';
-		switch ( $slice[0] ) {
-			case 'fa':
-			case 'far':
-				$dir = 'font-awesome-5.15.4/regular/';
-				break;
-			case 'fab':
-				$dir = 'font-awesome-5.15.4/brands/';
-				break;
-			case 'fas':
-				$dir = 'font-awesome-5.15.4/solid/';
-				break;
-		}
-
-		if ( !$dir ) {
+		if ( $slice[0] == 'fa' || $slice[0] == 'far' ) {
+			$dir = 'font-awesome-5.15.4/regular/';
+		} elseif ( $slice[0] == 'fab' ) {
+			$dir = 'font-awesome-5.15.4/brands/';
+		} elseif ( $slice[0] == 'fas' ) {
+			$dir = 'font-awesome-5.15.4/solid/';
+		} else {
 			return '';
 		}
 

@@ -5694,6 +5694,17 @@ img.atbdp-file-info {
   display: none;
 }
 
+.directorist-icon-mask span {
+  background: #111111;
+  width: 18px;
+  height: 18px;
+  display: block;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+}
+
 .directorist-error .directorist-error__msg {
   color: #EF0000;
   font-size: 14px;

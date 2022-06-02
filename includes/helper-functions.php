@@ -5712,8 +5712,8 @@ function directorist_icon( $icon, $echo = true ) {
         return;
     }
 
-
-    $html = sprintf('<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', $icon_src );
+    $html = sprintf( '<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', $icon_src );
+	$html = apply_filters( 'directorist_icon', $html );
 
     if ($echo) {
         echo $html;

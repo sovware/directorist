@@ -1870,28 +1870,13 @@ class Directorist_Listings {
 			}
 		}
 
-
-		/**
-		 * It prints a label for a listing detail
-		 *
-		 * @param string $label The label to be printed.
-		 * @param bool $with_tag If you want to print the label with a span tag, set this to true. Otherwise, it
-		 * will print the label without a span tag.
-		 *
-		 * @return void
-		 */
-		public function print_label( $label = '', $with_tag = false ) {
-			if ( empty( $label ) ) {
-				return;
+		public function print_label( $label ) {
+			if ( $label ) {
+				$label_text = $label . ': ';
+				echo apply_filters( 'directorist_loop_label', $label_text, $label );
 			}
-
-			$formatted_label = $label . ': ';
-			$formatted_label = apply_filters( 'directorist_loop_label', $formatted_label, $label );
-
-			if ( ! $with_tag ) {
-				echo $formatted_label;
-			} else {
-				echo '<span class="directorist-listing-single__info--list__label">' . $formatted_label . '</span>';
+			else {
+				return;
 			}
 		}
 

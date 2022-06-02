@@ -5681,12 +5681,37 @@ if (!function_exists('atbdp_icon_type')) {
     }
 }
 
+if ( ! function_exists( 'str_starts_with' ) ) {
+	/**
+	 * Polyfill for `str_starts_with()` function added in WP 5.9.0.
+	 *
+	 * Performs a case-sensitive check indicating if
+	 * the haystack begins with needle.
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle   The substring to search for in the `$haystack`.
+	 * @return bool True if `$haystack` starts with `$needle`, otherwise false.
+	 */
+	function str_starts_with( $haystack, $needle ) {
+		if ( '' === $needle ) {
+			return true;
+		}
+		return 0 === strpos( $haystack, $needle );
+	}
+}
+
+
 function directorist_icon( $icon, $echo = true ) {
     if ( !$icon ) {
         return;
     }
 
 	$icon_src = \Directorist\Helper::get_icon_src( $icon );
+
+    if ( !$icon_src ) {
+        return;
+    }
+
 
     $html = sprintf('<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', $icon_src );
 

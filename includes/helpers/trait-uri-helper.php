@@ -88,19 +88,47 @@ trait URI_Helper {
 	}
 
 	public static function get_icon_src( $icon ) {
+		$file = self::get_icon_file( $icon );
 
+		if ( !$file ) {
+			return '';
+		}
 
-
-
-		$file     = 'bell.svg';
-		$base_url = ATBDP_URL . 'assets/icons/';
-		$icon_dir = 'font-awesome-5.15.4/regular/';
-		$url      = $base_url . $icon_dir. $file;
+		$url = ATBDP_URL . 'assets/icons/' . $file;
 		return $url;
 	}
 
-	public static function get_icon_file( $icon ) {
+	private static function get_icon_file( $icon ) {
+		if ( str_starts_with( $icon, 'fa' ) ) {
+			return self::get_fontawesome_file( $icon );
+		}
 
+		return '';
 	}
 
+	private static function get_fontawesome_file( $icon ) {
+		$slice = explode(' ', $icon );
+		$filename = str_replace( 'fa-', '', $slice[1] );
+		$filename = $filename . '.svg';
+
+		$dir = '';
+		switch ( $slice[0] ) {
+			case 'fa':
+			case 'far':
+				$dir = 'font-awesome-5.15.4/regular/';
+				break;
+			case 'fab':
+				$dir = 'font-awesome-5.15.4/brands/';
+				break;
+			case 'fas':
+				$dir = 'font-awesome-5.15.4/solid/';
+				break;
+		}
+
+		if ( !$dir ) {
+			return '';
+		}
+
+		return $dir . $filename;
+	}
 }

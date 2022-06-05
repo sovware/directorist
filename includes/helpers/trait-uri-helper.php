@@ -110,23 +110,38 @@ trait URI_Helper {
 		return '';
 	}
 
-	private static function get_unicons_file( $icon ) {
+	/**
+	 * FontAwesome 5.15.4
+	 *
+	 * @param string $icon
+	 *
+	 * @return string
+	 */
+	private static function get_font_awesome_file( $icon ) {
 		$slice = explode(' ', $icon );
+		$filename = str_replace( 'fa-', '', $slice[1] );
+		$filename = $filename . '.svg';
 
-		if ( $slice[0] == 'uil' ) {
-			$filename = str_replace( 'uil-', '', $slice[1] );
-			$dir = 'unicons-4.0.1/line/';
-		} else if ( $slice[0] == 'uis' ) {
-			$filename = str_replace( 'uis-', '', $slice[1] );
-			$dir = 'unicons-4.0.1/solid/';
+		if ( $slice[0] == 'fa' || $slice[0] == 'far' ) {
+			$dir = 'font-awesome/regular/';
+		} elseif ( $slice[0] == 'fab' ) {
+			$dir = 'font-awesome/brands/';
+		} elseif ( $slice[0] == 'fas' ) {
+			$dir = 'font-awesome/solid/';
 		} else {
 			return '';
 		}
 
-		return $dir . $filename . '.svg';
+		return $dir . $filename;
 	}
 
-
+	/**
+	 * LineAwesome 1.3.0
+	 *
+	 * @param string $icon
+	 *
+	 * @return string
+	 */
 	private static function get_line_awesome_file( $icon ) {
 		$slice = explode(' ', $icon );
 
@@ -143,26 +158,31 @@ trait URI_Helper {
 			$filename = str_replace( '-o-', '-', $filename );
 		}
 
-		$dir = 'line-awesome-1.3.0/';
+		$dir = 'line-awesome/';
 
 		return $dir . $filename;
 	}
 
-	private static function get_font_awesome_file( $icon ) {
+	/**
+	 * Unicons 4.0.1
+	 *
+	 * @param string $icon
+	 *
+	 * @return string
+	 */
+	private static function get_unicons_file( $icon ) {
 		$slice = explode(' ', $icon );
-		$filename = str_replace( 'fa-', '', $slice[1] );
-		$filename = $filename . '.svg';
 
-		if ( $slice[0] == 'fa' || $slice[0] == 'far' ) {
-			$dir = 'font-awesome-5.15.4/regular/';
-		} elseif ( $slice[0] == 'fab' ) {
-			$dir = 'font-awesome-5.15.4/brands/';
-		} elseif ( $slice[0] == 'fas' ) {
-			$dir = 'font-awesome-5.15.4/solid/';
+		if ( $slice[0] == 'uil' ) {
+			$filename = str_replace( 'uil-', '', $slice[1] );
+			$dir = 'unicons/line/';
+		} else if ( $slice[0] == 'uis' ) {
+			$filename = str_replace( 'uis-', '', $slice[1] );
+			$dir = 'unicons/solid/';
 		} else {
 			return '';
 		}
 
-		return $dir . $filename;
+		return $dir . $filename . '.svg';
 	}
 }

@@ -413,7 +413,6 @@ $(document).ready(function () {
         })
     }
 
-<<<<<<< HEAD
     let form_data = new FormData();
     let form_data_log = null;
 
@@ -564,108 +563,6 @@ $(document).ready(function () {
 
                         var form_actions = args.elements.form.find('.directorist-form-actions');
                         form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
-=======
-    function atbdp_element_value(element) {
-        const field = $(element);
-        if (field.length) {
-            return field.val();
-        }
-        return '';
-    }
-
-    const uploaders = localized_data.media_uploader;
-    let mediaUploaders = [];
-    if (uploaders) {
-        let i = 0;
-        for (var uploader of uploaders) {
-            if ($('.' + uploader['element_id']).length) {
-                let media_uploader = new EzMediaUploader({
-                    containerClass: uploader['element_id'],
-                });
-                mediaUploaders.push({
-                    media_uploader: media_uploader,
-                    uploaders_data: uploader,
-                });
-                mediaUploaders[i].media_uploader.init();
-                i++;
-            }
-        }
-    }
-
-    const formID = $('#directorist-add-listing-form');
-    let on_processing = false;
-    let has_media = true;
-    let quick_login_modal__success_callback = null;
-
-    $('body').on('submit', formID, function (e) {
-        if (localized_data.is_admin) return;
-        e.preventDefault();
-        let error_count = 0;
-        const err_log = {};
-        if (on_processing) {
-            $('.directorist-form-submit__btn').attr('disabled', true);
-            return;
-        }
-
-        let form_data = new FormData();
-
-        form_data.append('action', 'add_listing_action');
-        form_data.append('directorist_nonce', directorist.directorist_nonce);
-
-        let field_list = [];
-        let field_list2 = [];
-        $('.directorist-form-submit__btn').addClass('atbd_loading');
-        const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
-        const frm_element = document.getElementById('directorist-add-listing-form');
-        $.each(fieldValuePairs, function (index, fieldValuePair) {
-            const field__name = fieldValuePair.name;
-            const field = frm_element.querySelector('[name="' + field__name + '"]');
-            const type = field.type;
-            field_list.push({
-                name: field.name,
-            });
-            //array fields
-            if (field.name.indexOf('[') > -1) {
-                const field_name = field.name.substr(0, field.name.indexOf("["));
-                const ele = $("[name^='" + field_name + "']");
-                // process tax input
-                if ('tax_input' !== field_name) {
-                    if (ele.length && (ele.length > 1)) {
-                        ele.each(function (index, value) {
-                            const field_type = $(this).attr('type');
-                            var name = $(this).attr('name');
-                            if (field_type === 'radio') {
-                                if ($(this).is(':checked')) {
-                                    form_data.append(name, $(this).val());
-                                }
-                            } else if (field_type === 'checkbox') {
-                                const new_field = $('input[name^="' + name + '"]:checked');
-                                if (new_field.length > 1) {
-                                    new_field.each(function () {
-                                        const name = $(this).attr('name');
-                                        const value = $(this).val();
-                                        form_data.append(name, value);
-                                    });
-                                } else {
-                                    var name = new_field.attr('name');
-                                    var value = new_field.val();
-                                    form_data.append(name, value);
-                                }
-                            } else {
-                                var name = $(this).attr('name');
-                                var value = $(this).val();
-                                if (!value) {
-                                    value = $(this).attr('data-time');
-                                }
-                                form_data.append(name, value);
-                            }
-                        });
-                    } else {
-                        const name = ele.attr('name');
-                        const value = ele.val();
-
-                        form_data.append(name, value);
->>>>>>> upstream/alpha
                     }
                 }
             } else {

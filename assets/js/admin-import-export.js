@@ -120,7 +120,7 @@ jQuery(document).ready(function ($) {
     var delimiter = query_string.delimiter;
     $.ajax({
       type: 'post',
-      url: import_export_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'directorist_listing_type_form_fields',
         directory_type: directory_type,
@@ -219,7 +219,7 @@ jQuery(document).ready(function ($) {
         processData: false,
         contentType: false,
         // async: false,
-        url: import_export_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: form_data,
         success: function success(response) {
           if (response.error) {

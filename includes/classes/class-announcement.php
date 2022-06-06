@@ -429,8 +429,11 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             }
 
             // Send email if enabled
-            if ( '1' == $send_to_email ) {
-                wp_mail( $recipient, $subject, $message );
+            if ( $send_to_email ) {
+                $message = atbdp_email_html( $subject, $message );
+                $headers = ATBDP()->email->get_email_headers();
+
+                ATBDP()->email->send_mail( $recipient, $subject, $message, $headers );
             }
 
             $status['success']  = true;

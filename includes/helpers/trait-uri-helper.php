@@ -25,20 +25,15 @@ trait URI_Helper {
 		return $dir;
 	}
 
-	public static function template_path( $template, $args = array() ) {
-		$theme_template  = self::theme_template_directory() . '/' . $template . '.php';
-		$theme_file_path = locate_template( $theme_template );
+	public static function template_path( $template_name, $args = array() ) {
+		$templates = trailingslashit( self::theme_template_directory() ) . "{$template_name}.php";
+		$template  = locate_template( $templates );
 
-		if ( $theme_file_path ) {
-			$file_path = $theme_file_path;
-		}
-		else {
-			$file_path = self::template_directory() . $template . '.php';
+		if ( ! $template ) {
+			$template = self::template_directory() . "{$template_name}.php";;
 		}
 
-		$file_path = apply_filters( 'directorist_template_file_path', $file_path, $template, $args );
-
-		return $file_path;
+		return apply_filters( 'directorist_template_file_path', $template, $template_name, $args );
 	}
 
 	public static function get_template( $template, $args = array(), $shortcode_key = '' ) {
@@ -68,6 +63,8 @@ trait URI_Helper {
 
 		$template = apply_filters( 'directorist_template', $template, $args );
 		$file = self::template_path( $template, $args );
+
+		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 
 		if ( file_exists( $file ) ) {
 			include $file;

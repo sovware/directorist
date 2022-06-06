@@ -4,9 +4,15 @@
  */
 namespace WpWax\Directorist\Gutenberg;
 
-defined( 'ABSPATH' ) || die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 use Directorist\Helper;
+use Exception;
+
+require_once __DIR__ . '/includes/class-block-template-utils.php';
+require_once __DIR__ . '/includes/class-block-templates-controller.php';
 
 /**
  * Initialize gutenberg blocks.
@@ -19,7 +25,7 @@ function init_blocks() {
 	$script_asset_path = "$dir/assets/index.asset.php";
 
 	if ( ! file_exists( $script_asset_path ) ) {
-		throw new Error(
+		throw new Exception(
 			'You need to run `npm run blocks:build` first.'
 		);
 	}
@@ -82,11 +88,12 @@ function init_blocks() {
 		'transaction-failure',
 		'user-dashboard',
 		'user-login',
+		'single-listing',
 	);
 
 	foreach ( $blocks as $block ) {
 		$args['attributes'] = array_merge(
-			get_attributes_from_metadata( __DIR__ . '/src/' . $block ),
+			get_attributes_from_metadata( trailingslashit( __DIR__ ) . $block ),
 			array(
 				'isPreview' => array(
 					'type'    => 'boolean',
@@ -144,7 +151,7 @@ if ( version_compare( $wp_version, '5.8', '>=' ) ) {
 function dynamic_render_callback( $atts, $content, $instance ) {
 	$shortcode       = str_replace( array( '/', '-' ), '_', $instance->name );
 	$block_name      = str_replace( 'directorist/', '', $instance->name );
-	$registered_atts = get_attributes_from_metadata( __DIR__ . '/src/' . $block_name );
+	$registered_atts = get_attributes_from_metadata( trailingslashit( __DIR__ ) . $block_name );
 
 	foreach ( $atts as $_key => $_value ) {
 		if ( ! isset( $registered_atts[ $_key  ] ) || $_value === "" ) {
@@ -160,6 +167,7 @@ function dynamic_render_callback( $atts, $content, $instance ) {
 		unset( $_value );
 	}
 
+	$atts['is_block_editor'] = true;
 	$output = do_shortcode_callback( $shortcode, $atts, $content );
 
 	if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
@@ -269,3 +277,34 @@ function disable_block_editor( $current_status, $post_type ) {
     return $current_status;
 }
 add_filter( 'use_block_editor_for_post_type', __NAMESPACE__ . '\disable_block_editor', 10, 2 );
+
+function add_single_listing_shortcode( $atts = array() ) {
+	if ( ! empty( $atts['is_block_editor'] ) ) {
+		$source = _x( 'block', 'noun', 'directorist' );
+	} else {
+		$source = __( 'shortcode', 'directorist' );
+	}
+
+	try {
+		if ( ! is_singular( ATBDP_POST_TYPE ) || ! is_main_query() ) {
+			throw new Exception( sprintf( __( 'The only purpose of <mark>single listing %s</mark> is to show the single listing details. Maybe the block has been used in a wrong way!', 'directorist' ), $source ) );
+		}
+
+		if ( get_the_ID() !== get_queried_object_id() && get_post_type( get_the_ID() ) === 'page' ) {
+			throw new Exception( sprintf( __( 'Looks like you are using <mark>single listing %s</mark> inside your custom single listing page. Please use the generated shortcodes from directory builder.', 'directorist' ), $source ) );
+		}
+
+		if ( get_post_type( get_the_ID() ) !== ATBDP_POST_TYPE ) {
+			throw new Exception( sprintf( __( '<mark>Single listing %s</mark> has been used in a wrong way, please check documentation.', 'directorist' ), $source ) );
+		}
+
+		return Helper::get_template_contents( 'single-contents' );
+	} catch( \Exception $e ) {
+		if ( current_user_can( 'edit_posts' ) ) {
+			return '<p class="directorist-alert directorist-alert-info" style="text-align:center">' . $e->getMessage() . '</p>';
+		}
+
+		return '';
+	}
+}
+add_shortcode( 'directorist_single_listing', __NAMESPACE__ . '\add_single_listing_shortcode' );

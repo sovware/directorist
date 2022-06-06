@@ -1,3 +1,6 @@
+import {
+    get_dom_data
+} from './../../lib/helper';
 ;
 (function ($) {
 
@@ -124,7 +127,7 @@
 
         var data = {
             action: 'directorist_instant_search',
-            _nonce: atbdp_public_data.ajax_nonce,
+            _nonce: directorist.ajax_nonce,
             in_tag: tag,
             price: price,
             custom_field: custom_field,
@@ -174,7 +177,7 @@
             update_instant_search_url(form_data);
 
             $.ajax({
-                url: atbdp_public_data.ajaxurl,
+                url: directorist.ajaxurl,
                 type: "POST",
                 data: form_data,
                 beforeSend: function () {
@@ -246,7 +249,7 @@
 
             var data = {
                 action: 'directorist_instant_search',
-                _nonce: atbdp_public_data.ajax_nonce,
+                _nonce: directorist.ajax_nonce,
                 in_tag: tag,
                 price: price,
                 custom_field: custom_field,
@@ -296,7 +299,7 @@
                 update_instant_search_url(form_data);
 
                 $.ajax({
-                    url: atbdp_public_data.ajaxurl,
+                    url: directorist.ajaxurl,
                     type: "POST",
                     data: form_data,
                     beforeSend: function () {
@@ -331,7 +334,7 @@
         let data_atts = $('.directorist-instant-search').attr('data-atts');
         var form_data = {
             action: 'directorist_instant_search',
-            _nonce: atbdp_public_data.ajax_nonce,
+            _nonce: directorist.ajax_nonce,
             directory_type: directory_type,
             data_atts: JSON.parse(data_atts)
         };
@@ -339,7 +342,7 @@
         update_instant_search_url(form_data);
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
@@ -424,7 +427,7 @@
         $(this).addClass("active");
         var form_data = {
             action: 'directorist_instant_search',
-            _nonce: atbdp_public_data.ajax_nonce,
+            _nonce: directorist.ajax_nonce,
             view: (view && view.length) ? view[0].replace(/view=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -459,14 +462,14 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
                 $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
                 $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
                 $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
-                $(_this).closest('.directorist-instant-search').find('.directorist-archive-contents').find('.directorist-archive-items').addClass('atbdp-form-fade');
+                $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
                 $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links').hide();
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'hidden');
@@ -479,9 +482,10 @@
                     $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                     $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
                     $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+
+                    window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                     $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
                 }
-                window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
         });
     });
@@ -542,7 +546,7 @@
 
         var form_data = {
             action: 'directorist_instant_search',
-            _nonce: atbdp_public_data.ajax_nonce,
+            _nonce: directorist.ajax_nonce,
             sort: (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -570,7 +574,7 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
@@ -659,7 +663,7 @@
 
         var form_data = {
             action: 'directorist_instant_search',
-            _nonce: atbdp_public_data.ajax_nonce,
+            _nonce: directorist.ajax_nonce,
             view: (view && view.length) ? view[0].replace(/view=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -694,7 +698,7 @@
         }
 
         $.ajax({
-            url: atbdp_public_data.ajaxurl,
+            url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {

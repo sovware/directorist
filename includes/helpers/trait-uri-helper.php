@@ -123,11 +123,11 @@ trait URI_Helper {
 		$filename = $filename . '.svg';
 
 		if ( $slice[0] == 'fa' || $slice[0] == 'far' ) {
-			$dir = 'font-awesome/regular/';
+			$dir = 'font-awesome/svgs/regular/';
 		} elseif ( $slice[0] == 'fab' ) {
-			$dir = 'font-awesome/brands/';
+			$dir = 'font-awesome/svgs/brands/';
 		} elseif ( $slice[0] == 'fas' ) {
-			$dir = 'font-awesome/solid/';
+			$dir = 'font-awesome/svgs/solid/';
 		} else {
 			return '';
 		}
@@ -158,7 +158,7 @@ trait URI_Helper {
 			$filename = str_replace( '-o-', '-', $filename );
 		}
 
-		$dir = 'line-awesome/';
+		$dir = 'line-awesome/svgs/';
 
 		return $dir . $filename;
 	}

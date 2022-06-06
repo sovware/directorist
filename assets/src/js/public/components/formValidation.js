@@ -1,20 +1,20 @@
-;(function ($) {
-
+;
+(function ($) {
+    window.addEventListener('DOMContentLoaded', () => {
         $('#directorist-report-abuse-form').on('submit', function (e) {
             $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading');
             // Check for errors
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
-
                 // Post via AJAX
                 var data = {
                     'action': 'atbdp_public_report_abuse',
-                    'directorist_nonce': atbdp_public_data.directorist_nonce,
+                    'directorist_nonce': directorist.directorist_nonce,
                     'post_id': $('#atbdp-post-id').val(),
                     'message': $('#directorist-report-message').val()
                 };
 
-                $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                $.post(directorist.ajaxurl, data, function (response) {
                     if (1 == response.error) {
                         $('#directorist-report-abuse-message-display').addClass('text-danger').html(response.message);
                     } else {
@@ -24,7 +24,6 @@
                     $('.directorist-report-abuse-modal button[type=submit]').removeClass('directorist-btn-loading');
 
                 }, 'json');
-
             }
         });
         $('#atbdp-report-abuse-form').removeAttr('novalidate');
@@ -36,7 +35,7 @@
             var status_area = $(this).find('.directorist-contact-message-display');
 
             // Show loading message
-            var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + atbdp_public_data.waiting_msg + ' </div>';
+            var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + directorist.waiting_msg + ' </div>';
             status_area.html(msg);
 
             var name = $(this).find('input[name="atbdp-contact-name"]');
@@ -53,14 +52,13 @@
                 'email': contact_email.val(),
                 'listing_email': listing_email.val(),
                 'message': message.val(),
-                'directorist_nonce': atbdp_public_data.directorist_nonce
+                'directorist_nonce': directorist.directorist_nonce
             };
 
             submit_button.prop('disabled', true);
-            $.post(atbdp_public_data.ajaxurl, data, function (response) {
+            $.post(directorist.ajaxurl, data, function (response) {
                 submit_button.prop('disabled', false);
-
-                if ( 1 == response.error ) {
+                if (1 == response.error) {
                     atbdp_contact_submitted = false;
 
                     // Show error message
@@ -80,11 +78,9 @@
                 setTimeout(function () {
                     status_area.html('');
                 }, 5000);
-
             }, 'json');
-
         });
 
         $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
-
+    });
 })(jQuery);

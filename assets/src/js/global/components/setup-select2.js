@@ -119,7 +119,7 @@ function initSelect2AjaxTaxonomy(args) {
 
     [ ...args.selector ].forEach( ( item, index ) => {
         const parent = $( item ).closest( '.directorist-search-form' );
-        const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
+        let directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
 
         if ( ! directory_type_id ) {
             const parent = $( item ).closest( '.directorist-archive-contents' );

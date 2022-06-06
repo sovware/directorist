@@ -1730,7 +1730,8 @@ class Directorist_Listings {
 		public function data_atts() {
 			$atts = $this->atts;
 
-			$directory_type    = ( ! empty( $this->directory_type ) && is_array( $this->directory_type ) ) ? $this->directory_type[0] : $_GET['directory_type'];
+			$directory_type_qr = ( ! empty( $_GET['directory_type'] ) ) ? $_GET['directory_type'] : '';
+			$directory_type    = ( ! empty( $this->directory_type ) && is_array( $this->directory_type ) ) ? $this->directory_type[0] : $directory_type_qr;
 			$directory_type    = ( ! empty( $directory_type ) ) ? get_term_by( 'slug', $directory_type, ATBDP_DIRECTORY_TYPE ) : null;
 			$directory_type_id = ( ! empty( $directory_type ) && ! is_wp_error( $directory_type ) ) ? $directory_type->term_id : directorist_default_directory();
 			

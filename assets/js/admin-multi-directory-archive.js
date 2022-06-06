@@ -93,19 +93,21 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var $ = jQuery; // Open Delete Modal
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery; // Open Delete Modal
 
-$('.atbdp-directory-delete-link-action').on('click', function (e) {
-  e.preventDefault();
-  var delete_link = $(this).data('delete-link');
-  $('.atbdp-directory-delete-link').prop('href', delete_link);
-}); // Delete Action
+  $('.atbdp-directory-delete-link-action').on('click', function (e) {
+    e.preventDefault();
+    var delete_link = $(this).data('delete-link');
+    $('.atbdp-directory-delete-link').prop('href', delete_link);
+  }); // Delete Action
 
-$('.atbdp-directory-delete-link').on('click', function (e) {
-  // e.preventDefault();
-  $(this).prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
-  $('.atbdp-directory-delete-cancel-link').removeClass('cptm-modal-toggle');
-  $('.atbdp-directory-delete-cancel-link').addClass('atbdp-disabled');
+  $('.atbdp-directory-delete-link').on('click', function (e) {
+    // e.preventDefault();
+    $(this).prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+    $('.atbdp-directory-delete-cancel-link').removeClass('cptm-modal-toggle');
+    $('.atbdp-directory-delete-cancel-link').addClass('atbdp-disabled');
+  });
 });
 
 /***/ }),
@@ -117,60 +119,57 @@ $('.atbdp-directory-delete-link').on('click', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $ = jQuery;
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery;
 
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default; // Migration Link
+  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default; // Migration Link
 
 
-$('.atbdp-directory-migration-link').on('click', function (e) {
-  e.preventDefault();
-  var self = this;
-  $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html('Please wait...');
-  $('.atbdp-directory-migration-cencel-link').remove();
-  $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
-  $(this).addClass('atbdp-disabled');
-  var form_data = new FormData();
-  form_data.append('action', 'directorist_force_migrate'); // Response Success Callback
+  $('.atbdp-directory-migration-link').on('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html('Please wait...');
+    $('.atbdp-directory-migration-cencel-link').remove();
+    $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
+    $(this).addClass('atbdp-disabled');
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_force_migrate'); // Response Success Callback
 
-  var responseSuccessCallback = function responseSuccessCallback(response) {
-    var _response$data;
+    var responseSuccessCallback = function responseSuccessCallback(response) {
+      var _response$data;
 
-    console.log({
-      response: response
-    });
+      // console.log( { response } );
+      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
+        var _response$data$messag, _response$data2;
 
-    if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
-      var _response$data$messag, _response$data2;
+        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
+        $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
+        $(self).remove();
+        location.reload();
+        return;
+      }
 
-      var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
-      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                    <span class=\"fa fa-check\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
+      responseFaildCallback(response);
+    }; // Response Error Callback
+
+
+    var responseFaildCallback = function responseFaildCallback(response) {
+      var _response$data$messag2, _response$data3;
+
+      // console.log( { response } );
+      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
-      location.reload();
-      return;
-    }
-
-    responseFaildCallback(response);
-  }; // Response Error Callback
+    }; // Send Request
 
 
-  var responseFaildCallback = function responseFaildCallback(response) {
-    var _response$data$messag2, _response$data3;
-
-    console.log({
-      response: response
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      responseSuccessCallback(response);
+    }).catch(function (response) {
+      responseFaildCallback(response);
     });
-    var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
-    var alert_content = "\n        <div class=\"cptm-section-alert-content\">\n            <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                <span class=\"fa fa-times\"></span>\n            </div>\n\n            <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n        </div>\n        ");
-    $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-    $(self).remove();
-  }; // Send Request
-
-
-  axios.post(ajax_data.ajax_url, form_data).then(function (response) {
-    responseSuccessCallback(response);
-  }).catch(function (response) {
-    responseFaildCallback(response);
   });
 });
 
@@ -189,88 +188,90 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+window.addEventListener('DOMContentLoaded', function () {
+  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
-var $ = jQuery; // cptm-import-directory-form
+  var $ = jQuery; // cptm-import-directory-form
 
-var term_id = 0;
-$('.cptm-import-directory-form').on('submit', function (e) {
-  e.preventDefault();
-  var form_feedback = $(this).find('.cptm-form-group-feedback');
-  var modal_content = $('.cptm-import-directory-modal').find('.cptm-modal-content');
-  var modal_alert = $('.cptm-import-directory-modal-alert');
-  var form_data = new FormData();
-  form_data.append('action', 'save_imported_post_type_data');
-  form_data.append('directorist_nonce', atbdp_public_data.directorist_nonce);
+  var term_id = 0;
+  $('.cptm-import-directory-form').on('submit', function (e) {
+    e.preventDefault();
+    var form_feedback = $(this).find('.cptm-form-group-feedback');
+    var modal_content = $('.cptm-import-directory-modal').find('.cptm-modal-content');
+    var modal_alert = $('.cptm-import-directory-modal-alert');
+    var form_data = new FormData();
+    form_data.append('action', 'save_imported_post_type_data');
+    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
 
-  if (Number.isInteger(term_id) && term_id > 0) {
-    form_data.append('term_id', term_id);
-  }
-
-  var form_fields = $(this).find('.cptm-form-field');
-  var general_fields = ['text', 'number'];
-  $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
-
-  var _iterator = _createForOfIteratorHelper(form_fields),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var field = _step.value;
-
-      if (!field.name.length) {
-        continue;
-      } // General fields
-
-
-      if (general_fields.includes(field.type)) {
-        form_data.append(field.name, $(field).val());
-      } // Media fields
-
-
-      if ('file' === field.type) {
-        form_data.append(field.name, field.files[0]);
-      }
+    if (Number.isInteger(term_id) && term_id > 0) {
+      form_data.append('term_id', term_id);
     }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
 
-  var self = this;
-  form_feedback.html('');
-  axios.post(ajax_data.ajax_url, form_data).then(function (response) {
-    // console.log( { response } );
-    $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none'); // Store term ID if exist
+    var form_fields = $(this).find('.cptm-form-field');
+    var general_fields = ['text', 'number'];
+    $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
 
-    if (response.data.term_id && Number.isInteger(response.data.term_id) && response.data.term_id > 0) {
-      term_id = response.data.term_id; // console.log( 'Term ID has been updated' );
-    } // Show status log
+    var _iterator = _createForOfIteratorHelper(form_fields),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var field = _step.value;
+
+        if (!field.name.length) {
+          continue;
+        } // General fields
 
 
-    if (response.data && response.data.status.status_log) {
-      var status_log = response.data.status.status_log;
+        if (general_fields.includes(field.type)) {
+          form_data.append(field.name, $(field).val());
+        } // Media fields
 
-      for (var status in status_log) {
-        var alert = '<div class="cptm-form-alert cptm-' + status_log[status].type + '">' + status_log[status].message + '</div>';
-        form_feedback.append(alert);
+
+        if ('file' === field.type) {
+          form_data.append(field.name, field.files[0]);
+        }
       }
-    } // Reload the page if success
-
-
-    if (response.data && response.data.status && response.data.status.success) {
-      // console.log( 'reloading...' );
-      modal_content.addClass('cptm-d-none');
-      modal_alert.removeClass('cptm-d-none');
-      $(self).trigger("reset");
-      location.reload();
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
-  }).catch(function (error) {
-    console.log({
-      error: error
+
+    var self = this;
+    form_feedback.html('');
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      // console.log( { response } );
+      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none'); // Store term ID if exist
+
+      if (response.data.term_id && Number.isInteger(response.data.term_id) && response.data.term_id > 0) {
+        term_id = response.data.term_id; // console.log( 'Term ID has been updated' );
+      } // Show status log
+
+
+      if (response.data && response.data.status.status_log) {
+        var status_log = response.data.status.status_log;
+
+        for (var status in status_log) {
+          var alert = '<div class="cptm-form-alert cptm-' + status_log[status].type + '">' + status_log[status].message + '</div>';
+          form_feedback.append(alert);
+        }
+      } // Reload the page if success
+
+
+      if (response.data && response.data.status && response.data.status.success) {
+        // console.log( 'reloading...' );
+        modal_content.addClass('cptm-d-none');
+        modal_alert.removeClass('cptm-d-none');
+        $(self).trigger("reset");
+        location.reload();
+      }
+    }).catch(function (error) {
+      console.log({
+        error: error
+      });
+      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
     });
-    $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
   });
 });
 

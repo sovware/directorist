@@ -93,37 +93,39 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function ($) {
-  $('table.posts #the-list, table.pages #the-list').sortable({
-    'items': 'tr',
-    'axis': 'y',
-    'helper': fixHelper,
-    'update': function update() {
-      $.post(ajaxurl, {
-        action: 'update-menu-order',
-        order: $('#the-list').sortable('serialize')
-      });
-    }
-  });
-  $('table.tags #the-list').sortable({
-    'items': 'tr',
-    'axis': 'y',
-    'helper': fixHelper,
-    'update': function update() {
-      $.post(ajaxurl, {
-        action: 'update-menu-order-tags',
-        order: $('#the-list').sortable('serialize')
-      });
-    }
-  });
-
-  var fixHelper = function fixHelper(e, ui) {
-    ui.children().children().each(function () {
-      $(this).width($(this).width());
+window.addEventListener('DOMContentLoaded', function () {
+  (function ($) {
+    $('table.posts #the-list, table.pages #the-list').sortable({
+      'items': 'tr',
+      'axis': 'y',
+      'helper': fixHelper,
+      'update': function update() {
+        $.post(ajaxurl, {
+          action: 'update-menu-order',
+          order: $('#the-list').sortable('serialize')
+        });
+      }
     });
-    return ui;
-  };
-})(jQuery);
+    $('table.tags #the-list').sortable({
+      'items': 'tr',
+      'axis': 'y',
+      'helper': fixHelper,
+      'update': function update() {
+        $.post(ajaxurl, {
+          action: 'update-menu-order-tags',
+          order: $('#the-list').sortable('serialize')
+        });
+      }
+    });
+
+    var fixHelper = function fixHelper(e, ui) {
+      ui.children().children().each(function () {
+        $(this).width($(this).width());
+      });
+      return ui;
+    };
+  })(jQuery);
+});
 
 /***/ })
 

@@ -295,6 +295,8 @@ p.status:empty {
     .select2-results__option{
         margin: 0;
     }
+.taxonomy-at_biz_dir-category .select2-container--open .select2-dropdown--above{
+    top: 0;
 }
 
 .select2-container--default{
@@ -395,4 +397,5 @@ p.status:empty {
             color: #fff;
         }
     }
+	}
 }

@@ -312,8 +312,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $search_form =  Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $searchform ] );
             wp_send_json( array(
-                'search_form'          => $search_form,
-                'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
+                'search_form' => $search_form,
              ) );
         }
 
@@ -325,7 +324,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $listing_type_id = ( $term ) ? $term->term_id : 0;
             $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
             $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
-            
+
             // search form
             ob_start();
             Helper::get_template( 'search-form/form-box', [ 'searchform' =>  $searchform ] );
@@ -338,6 +337,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         public function atbdp_listing_default_type() {
             $type_id = sanitize_key( $_POST[ 'type_id' ] );
+
+            $current_language = apply_filters( 'wpml_current_language', NULL );
+
+            do_action( 'directorist_before_set_default_directory_type', (int) $type_id, $current_language );
+
             $listing_types = get_terms([
                 'taxonomy'   => 'atbdp_listing_types',
                 'hide_empty' => false,

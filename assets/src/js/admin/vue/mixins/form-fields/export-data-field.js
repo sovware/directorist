@@ -61,7 +61,7 @@ export default {
             this.isPreparingExportFile = true;
             const self = this;
 
-            axios.post( ajax_data.ajax_url, data ).then( function( response ) {
+            axios.post( directorist_admin.ajax_url, data ).then( function( response ) {
                 console.log( {response} );
 
                 self.button_label = button_label_default;

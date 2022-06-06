@@ -284,7 +284,8 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ })
 

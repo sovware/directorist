@@ -53,16 +53,16 @@ class ATBDP_Shortcode {
 				'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
 
 				// Single -- legacy shortcode
-				'directorist_listing_top_area'            => [ $this, 'empty_string' ],
-				'directorist_listing_tags'                => [ $this, 'empty_string' ],
-				'directorist_listing_custom_fields'       => [ $this, 'empty_string' ],
-				'directorist_listing_video'               => [ $this, 'empty_string' ],
-				'directorist_listing_map'                 => [ $this, 'empty_string' ],
-				'directorist_listing_contact_information' => [ $this, 'empty_string' ],
-				'directorist_listing_author_info'         => [ $this, 'empty_string' ],
-				'directorist_listing_contact_owner'       => [ $this, 'empty_string' ],
-				'directorist_listing_review'              => [ $this, 'empty_string' ],
-				'directorist_related_listings'            => [ $this, 'empty_string' ],
+				'directorist_listing_top_area'            => '__return_empty_string',
+				'directorist_listing_tags'                => '__return_empty_string',
+				'directorist_listing_custom_fields'       => '__return_empty_string',
+				'directorist_listing_video'               => '__return_empty_string',
+				'directorist_listing_map'                 => '__return_empty_string',
+				'directorist_listing_contact_information' => '__return_empty_string',
+				'directorist_listing_author_info'         => '__return_empty_string',
+				'directorist_listing_contact_owner'       => '__return_empty_string',
+				'directorist_listing_review'              => '__return_empty_string',
+				'directorist_related_listings'            => '__return_empty_string',
 
 			]);
 
@@ -75,10 +75,6 @@ class ATBDP_Shortcode {
 		return self::$instance;
 	}
 
-	public function empty_string() {
-		return '';
-	}
-
 	// single_listings_header
 	public function single_listings_header( $atts ) {
 
@@ -87,27 +83,49 @@ class ATBDP_Shortcode {
 			return Helper::single_shortcode_string( 'directorist_single_listings_header', $atts );
 		}
 
-		$listing = Directorist_Single_Listing::instance();
+		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+
+		if ( ! $listing_id ) {
+			global $post;
+			$_temp_post = $post; // Cache global post.
+			$listing_id = get_queried_object_id();
+			$post       = get_post( get_queried_object_id() ); // Assign custom single page as post.
+		}
+
+		$listing = Directorist_Single_Listing::instance( $listing_id );
 
 		ob_start();
 		echo '<div class="directorist-single-wrapper">';
 		$listing->header_template();
-		echo '<br>';
 		echo '</div>';
+
+		if ( isset( $_temp_post ) ) {
+			$post = $_temp_post;
+			unset( $_temp_post );
+		}
 
 		return ob_get_clean();
 	}
 
-	public function single_listing_section( $atts ) {
+	public function single_listing_section( $atts = array() ) {
 
 		// Make sure actual shortcode runs on single listing page only
 		if ( !is_singular( ATBDP_POST_TYPE ) ) {
 			return Helper::single_shortcode_string( 'directorist_single_listing_section', $atts );
 		}
 
+		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+
+		if ( ! $listing_id ) {
+			global $post;
+			$_temp_post = $post; // Cache global post.
+			$listing_id = get_queried_object_id();
+			$post       = get_post( get_queried_object_id() ); // Assign custom single page as post.
+		}
+
+		$listing = Directorist_Single_Listing::instance( $listing_id );
+
 		ob_start();
-		$post_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
-		$listing = Directorist_Single_Listing::instance( $post_id );
 
 		foreach ( $listing->content_data as $section ) {
 			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
@@ -121,6 +139,11 @@ class ATBDP_Shortcode {
 			}
 
 			$listing->section_template( $section );
+		}
+
+		if ( isset( $_temp_post ) ) {
+			$post = $_temp_post;
+			unset( $_temp_post );
 		}
 
 		return ob_get_clean();
@@ -231,10 +254,10 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$url = $_SERVER['REQUEST_URI'];
-		$pattern = "/edit\/(\d+)/i";
-		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
+		$atts  = !empty( $atts ) ? $atts : array();
+		$id    = get_query_var( 'atbdp_listing_id', 0 );
+		$id    = empty( $id ) && ! empty( $_REQUEST['edit'] ) ? $_REQUEST['edit'] : $id;
+
 		$forms = Directorist_Listing_Form::instance($id);
 
 		$atts[ 'shortcode' ] = 'directorist_add_listing';

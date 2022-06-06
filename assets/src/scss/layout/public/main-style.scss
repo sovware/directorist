@@ -1,4 +1,4 @@
-@import "../../vendor/bootstrap/config.bs";
+@import "../../vendor/bootstrap/config.bs.scss";
 //base css
 @import "./../../base/index";
 //mixins
@@ -457,24 +457,6 @@
 
   .atbd_post_draft {
     padding-bottom: 80px;
-  }
-
-  .atbdp-range-slider-wrapper {
-    flex-wrap: wrap;
-
-    >span {
-      flex: 0 0 100%;
-    }
-
-    >div {
-      padding-left: 0;
-      flex: 0 0 100%;
-      margin: 10px 0;
-    }
-
-    .atbd-current-value {
-      padding: 0 !important;
-    }
   }
 
   .ads-advanced .atbd_seach_fields_wrapper .single_search_field {

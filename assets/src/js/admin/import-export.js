@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
         var delimiter = query_string.delimiter;
         $.ajax({
             type: 'post',
-            url: import_export_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'directorist_listing_type_form_fields',
                 directory_type: directory_type,
@@ -111,7 +111,7 @@ jQuery(document).ready(function ($) {
                     const name  = $(this).attr('name');
                     const value = $(this).val();
 
-                    const postFields = [ 
+                    const postFields = [
                         'listing_status',
                         'listing_title',
                         'listing_content',
@@ -119,7 +119,7 @@ jQuery(document).ready(function ($) {
                         'directory_type',
                     ];
 
-                    const taxonomyFields = [ 
+                    const taxonomyFields = [
                         'category',
                         'location',
                         'tag',
@@ -144,10 +144,10 @@ jQuery(document).ready(function ($) {
                 processData: false,
                 contentType: false,
                 // async: false,
-                url: import_export_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: form_data,
                 success( response ) {
-                    
+
                     if ( response.error ) {
                         console.log({ response });
                         return;

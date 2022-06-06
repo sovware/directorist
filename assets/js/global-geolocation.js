@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -93,31 +93,13 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function ($) {
-  /* $("button[type='reset']").on("click", function (){
-      $("#atbd_rs_value").val(0);
-      $(".atbdpr_amount").text(0 + miles);
-      slider_range.each(function () {
-          $(this).slider({
-              range: "min",
-              min: 0,
-              max: 1000,
-              value: 0,
-              slide: function (event, ui) {
-                  $(".atbdpr_amount").text(ui.value + miles);
-                  $("#atbd_rs_value").val(ui.value);
-              }
-          });
-      });
-      $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
-  }); */
-
-  /* get current location */
-  setTimeout(function () {
-    if (adbdp_geolocation.select_listing_map === 'google') {
-      (function () {
+window.addEventListener('DOMContentLoaded', function () {
+  (function ($) {
+    /* get current location */
+    setTimeout(function () {
+      if (directorist.i18n_text.select_listing_map === 'google') {
         var get_loc_btn = $('.directorist-filter-location-icon');
-        get_loc_btn.on('click', function (e) {
+        $(get_loc_btn).on('click', function (e) {
           var _this = e.target.closest('.directorist-filter-location-icon');
 
           var locationInput = $(_this).siblings('.location-name');
@@ -213,37 +195,39 @@
             });
           }
 
-          getLocation();
-        });
-      })();
-    } else if (adbdp_geolocation.select_listing_map === 'openstreet') {
-      $('.directorist-filter-location-icon').on('click', function (e) {
-        var _this = e.target.closest('.directorist-filter-location-icon');
-
-        function displayLocation(position) {
-          var lat = position.coords.latitude;
-          var lng = position.coords.longitude;
-          $.ajax({
-            url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-            type: 'POST',
-            data: {},
-            success: function success(data) {
-              $(_this).siblings('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-              $(_this).siblings('#cityLat').val(lat);
-              $(_this).siblings('#cityLng').val(lng);
-            }
+          $('body').on('click', '.directorist-filter-location-icon', function () {
+            getLocation();
           });
-        }
+        });
+      } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
+        $('.directorist-filter-location-icon').on('click', function (e) {
+          var _this = e.target.closest('.directorist-filter-location-icon');
 
-        navigator.geolocation.getCurrentPosition(displayLocation);
-      });
-    }
-  }, 1000);
-})(jQuery);
+          function displayLocation(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            $.ajax({
+              url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
+              type: 'POST',
+              data: {},
+              success: function success(data) {
+                $(_this).siblings('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                $(_this).siblings('#cityLat').val(lat);
+                $(_this).siblings('#cityLng').val(lng);
+              }
+            });
+          }
+
+          navigator.geolocation.getCurrentPosition(displayLocation);
+        });
+      }
+    }, 1000);
+  })(jQuery);
+});
 
 /***/ }),
 
-/***/ 10:
+/***/ 17:
 /*!***************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/geolocation.js ***!
   \***************************************************************/

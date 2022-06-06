@@ -120,7 +120,7 @@ jQuery(document).ready(function ($) {
     var delimiter = query_string.delimiter;
     $.ajax({
       type: 'post',
-      url: import_export_data.ajaxurl,
+      url: directorist_admin.ajaxurl,
       data: {
         action: 'directorist_listing_type_form_fields',
         directory_type: directory_type,
@@ -219,7 +219,7 @@ jQuery(document).ready(function ($) {
         processData: false,
         contentType: false,
         // async: false,
-        url: import_export_data.ajaxurl,
+        url: directorist_admin.ajaxurl,
         data: form_data,
         success: function success(response) {
           if (response.error) {
@@ -284,8 +284,7 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-module.exports = _defineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ })
 

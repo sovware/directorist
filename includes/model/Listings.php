@@ -1011,9 +1011,6 @@ class Directorist_Listings {
 	}
 
 	public function render_shortcode( $atts = [] ) {
-		$script_args = [ 'directory_type_id' => $this->current_listing_type ];
-		Script_Helper::load_search_form_script( $script_args );
-
 		ob_start();
 
 		if (!empty($this->redirect_page_url)) {
@@ -1127,6 +1124,18 @@ class Directorist_Listings {
 		return $link_list;
 	}
 
+	public function get_dropdown_toggle_button_icon_class() {
+		$icon_type = get_directorist_option( 'font_type', '', true );
+		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
+		$icon      = "directorist-toggle-has-${prefix}-icon";
+
+		return $icon;
+	}
+
+	public function dropdown_toggle_button_icon_class() {
+		echo $this->get_dropdown_toggle_button_icon_class();
+	}
+
 	public function get_sort_by_link_list() {
 		$link_list = array();
 
@@ -1224,74 +1233,55 @@ class Directorist_Listings {
 		}
 	}
 
-	public function inline_map_template() {
-		if ( 'google' == $this->select_listing_map ) {
-			$this->load_google_map();
+	public function map_base_lat_long() {
+		$ids = $this->post_ids();
+
+		if ( !empty( $ids ) ) {
+			$id = $ids[0];
+			$lat_long = [
+				'latitude'  => get_post_meta( $id, '_manual_lat', true ),
+				'longitude' => get_post_meta( $id, '_manual_lng', true ),
+			];
+		} else {
+			$lat_long = [
+				'latitude'  => get_directorist_option( 'default_latitude', 40.7127753 ),
+				'longitude' => get_directorist_option( 'default_longitude', -74.0059728 ),
+			];
 		}
-		else {
-			$this->load_inline_openstreet_map();
-		}
+
+		return $lat_long;
+	}
+
+	public function map_options() {
+		$data = [
+			'map_type'                => $this->select_listing_map,
+			'crop_width'              => get_directorist_option( 'crop_width', 360 ),
+			'crop_height'             => get_directorist_option( 'crop_height', 360 ),
+			'display_map'             => get_directorist_option( 'display_map_info', true ),
+			'display_image'           => get_directorist_option( 'display_image_map', true ),
+			'display_title'           => get_directorist_option( 'display_title_map', true ),
+			'display_address'         => get_directorist_option( 'display_address_map', true ),
+			'display_direction'       => get_directorist_option( 'display_direction_map', true ),
+			'zoom_level'              => $this->map_zoom_level,
+			'default_image'           => get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' ),
+			'base_latitude'           => $this->map_base_lat_long()['latitude'],
+			'base_longitude'          => $this->map_base_lat_long()['longitude'],
+			'default_latitude'        => get_directorist_option( 'default_latitude', 40.7127753 ),
+			'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
+			'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
+			'disable_single_listing'  => $this->disable_single_listing,
+			'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js',
+		];
+
+		return $data;
 	}
 
 	public function load_openstreet_map() {
-		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		$opt = $this->get_map_options();
-		$map_card_data = $this->get_osm_map_info_card_data();
-
-		$map_height = $this->listings_map_height . "px;";
-		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
-
-		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
-		Helper::add_hidden_data_to_dom( 'atbdp_map', $opt );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		Helper::add_hidden_data_to_dom( 'listings_data', $map_card_data['listings_data'] );
-
-		wp_enqueue_script('directorist-openstreet-load-scripts');
-	}
-
-	public function load_inline_openstreet_map( array $map_options = [] ) {
-		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		$opt = array_merge( $this->get_map_options(), $map_options ) ;
-
-		$map_card_data     = $this->get_osm_map_info_card_data();
-
-		$default_lat_lon   = array( 'lat' => 40.7128, 'lon' => 74.0060 );
-		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
-		$load_scripts_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/load-scripts.js';
-
-		$map_height = $this->listings_map_height . "px;";
-		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
-
-		wp_enqueue_script('no_script');
-		wp_localize_script( 'no_script', 'atbdp_map', $opt );
-		wp_localize_script( 'no_script', 'atbdp_lat_lon', $atbdp_lat_lon);
-
-		wp_localize_script( 'no_script', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
-		wp_localize_script( 'no_script', 'loc_data', [
-			'script_path'  => $script_path
-		]);
-
-		$listings_data = $map_card_data['listings_data'];
+		$card = json_encode( $this->openstreet_map_card_data() );
+		$options = json_encode( $this->map_options() );
+		$style = 'height:' . $this->listings_map_height . 'px';
 		?>
-		<script>
-			var listings_data = [];
-
-			<?php foreach( $listings_data as $listing_data ) { ?>
-			listings_data.push({
-				address: `<?php echo isset( $listing_data['address'] ) ? $listing_data['address']: '' ; ?>`,
-				cat_icon: `<?php echo isset( $listing_data['cat_icon'] ) ? $listing_data['cat_icon'] : ''; ?>`,
-				default_image: `<?php echo isset( $listing_data['default_image'] ) ? $listing_data['default_image'] : ''; ?>`,
-				prv_image: `<?php echo isset( $listing_data['prv_image'] ) ? $listing_data['prv_image'] : ''; ?>`,
-				listing_img: `<?php echo isset( $listing_data['listing_img'] ) ? $listing_data['listing_img'] : ''; ?>`,
-				listing_prv_img: `<?php echo isset( $listing_data['listing_prv_img'] ) ? $listing_data['listing_prv_img'] : ''; ?>`,
-				info_content: `<?php echo isset( $listing_data['info_content'] ) ? $listing_data['info_content'] : ''; ?>`,
-				manual_lat: `<?php echo isset( $listing_data['manual_lat'] ) ? $listing_data['manual_lat'] : ''; ?>`,
-				manual_lng: `<?php echo isset( $listing_data['manual_lng'] ) ? $listing_data['manual_lng'] : ''; ?>`,
-			});
-			<?php } ?>
-		</script>
-
-		<script src="<?php echo $load_scripts_path; ?>"></script>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
 		<?php
 	}
 
@@ -1318,11 +1308,26 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
-	public function get_osm_map_info_card_data() {
+	public function loop_map_cat_icon() {
+		$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+
+		$cat_icon = '';
+
+		if ( !empty( $cats ) ) {
+			$cat_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
+		}
+
+		$cat_icon = !empty( $cat_icon ) ? $cat_icon : atbdp_icon_type() . '-map-marker';
+
+		return $cat_icon;
+	}
+
+	public function openstreet_map_card_data() {
 		$opt = $this->get_map_options();
 
-		$listings_data = [];
 		$lat_lon = [];
+
+		$map_data = [];
 
 		$listings = $this->query_results;
 
@@ -1337,6 +1342,7 @@ class Directorist_Listings {
 			foreach ( $listings->ids as $listings_id ) :
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
+
 				$ls_data = [];
 
 				$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
@@ -1344,6 +1350,7 @@ class Directorist_Listings {
 				$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
 				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
+				$ls_data['font_type']       = $this->options['font_type'];
 
 				$lat_lon = [
 					'lat' => $ls_data['manual_lat'],
@@ -1362,54 +1369,40 @@ class Directorist_Listings {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
-				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = $this->options['font_type'];
+				$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+				$cat_icon = '';
 
-				if ( !empty($cats) ) {
-					$cat_icon = get_cat_icon($cats[0]->term_id);
+				if ( ! empty( $cats ) ) {
+					$cat_icon = get_cat_icon( $cats[0]->term_id );
 				}
 
-				$cat_icon  = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-				$icon_type = substr($cat_icon, 0,2);
-				$fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
-				$cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+				$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
+				$cat_icon_type = substr( $cat_icon, 0, 2 );
 
+				$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
+				$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
+				$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
 				$ls_data['cat_icon'] = $cat_icon;
+
 				$opt['ls_data'] = $ls_data;
 
-				ob_start();
+				$map_data[] = [
+					'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
+					'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
+					'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
+					'cat_icon'  => $this->loop_map_cat_icon(),
+				];
 
-				if ( ! empty( $opt['display_map_info'] ) && ( ! empty( $opt['display_image_map'] ) || ! empty( $opt['display_title_map'] ) || ! empty( $opt['display_address_map'] ) || ! empty( $opt['display_direction_map'] ) ) ) {
-					Helper::get_template( 'archive/fields/openstreet-map', $opt );
-				}
-
-				$ls_data['info_content'] = ob_get_clean();
-
-				$listings_data[] = $ls_data;
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;
 			wp_reset_postdata();
 		endif;
 
-		$cord = [
-			'lat' => $this->options['default_latitude'],
-			'lon' => $this->options['default_longitude']
-		];
-
-		if ( ! empty( $listings_data ) ) {
-			$cord = $listings_data[0]['lat_lon'];
-		}
-
-		return [
-			'lat_lon'       => $cord,
-			'listings_data' => $listings_data,
-		];
+		return $map_data;
 	}
 
 	public function load_google_map() {
-		wp_enqueue_script('directorist-map-view');
-
 		$opt = $this->get_map_options();
 		$disable_info_window = 'no';
 
@@ -1429,7 +1422,6 @@ class Directorist_Listings {
 			'use_def_lat_long'   => $this->options['use_def_lat_long'],
 		);
 
-		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 
 		?>
@@ -1460,17 +1452,24 @@ class Directorist_Listings {
 					$ls_data['crop_height']     = $this->options['crop_height'];
 					$ls_data['address']         = get_post_meta($listings_id, '_address', true);
 					$ls_data['font_type']       = $this->options['font_type'];
-					$ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
+					$ls_data['fa_or_la']        = ('line' === $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 
-					if(!empty($ls_data['cats'])){
-						$cat_icon = get_cat_icon($ls_data['cats'][0]->term_id);
+					$cat_icon = '';
+
+					if ( ! empty( $ls_data['cats'] ) ){
+						$cat_icon = get_cat_icon( $ls_data['cats'][0]->term_id );
+						$ls_data['chk-1::cat_icon'] = $cat_icon;
 					}
 
-					$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-					$icon_type = substr($cat_icon, 0,2);
-					$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-					$ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+					$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
+					$cat_icon_type = substr( $cat_icon, 0, 2 );
+
+					$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
+					$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
+					$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
+					$ls_data['cat_icon'] = $cat_icon;
+
 					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
 
 					if (!empty($ls_data['listing_prv_img'])) {
@@ -1618,6 +1617,10 @@ class Directorist_Listings {
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 
+		public function has_masonry() {
+			return ( $this->view_as == 'masonry_grid' ) ? true : false;
+		}
+
 		public function masonary_grid_attr() {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
@@ -1758,73 +1761,82 @@ class Directorist_Listings {
 			return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
 		}
 
-		public function render_card_field( $field ) {
+		public function render_card_field( $field, $before = '', $after = '' ) {
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
-			}
-			else {
+			} else {
+				$original_field         = '';
 				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-				$original_field = '';
 
 				if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
 					$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
 				}
+
 				if ( ! empty( $original_field ) ) {
 					$field['original_field'] = $original_field;
 				}
 
-				$id = get_the_id();
 				$load_template = true;
-				$value = get_post_meta( $id, '_'.$field['widget_key'], true );
-				if ( isset( $field['field_key']  ) ) {
-					$value = ! empty( get_post_meta( $id, '_'.$field['field_key'], true ) ) ? get_post_meta( $id, '_'.$field['field_key'], true ) : get_post_meta( $id, $field['field_key'], true );
-				}
-				if ( isset( $original_field['field_key']  ) ) {
-					$value = ! empty( get_post_meta( $id, '_'.$original_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : get_post_meta( $id, $original_field['field_key'], true );
+
+				if ( ! empty( $original_field['field_key'] ) ) {
+					$meta_field_key = $original_field['field_key'];
+				} else if ( ! empty( $field['field_key'] ) ) {
+					$meta_field_key = $field['field_key'];
+				} else {
+					$meta_field_key = $field['widget_key'];
 				}
 
-				if( 'listings_location' === $field['widget_name'] ) {
-					$location = get_the_terms( $id, ATBDP_LOCATION );
-					if( $location ) {
+				$value = get_post_meta( get_the_id(), '_' . $meta_field_key, true );
+				if ( empty( $value ) ) {
+					$value = get_post_meta( get_the_id(), $meta_field_key, true );
+				}
+
+				if ( 'listings_location' === $field['widget_name'] ) {
+					$location = get_the_terms( get_the_id(), ATBDP_LOCATION );
+					if ( ! is_wp_error( $location ) && ! empty( $location ) ) {
 						$value = true;
 					}
 				}
 
-				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) ) {
+				// If $load_template is false then what's the point going forward? why don't we return here!
+				if ( ! $value && $field['type'] === 'list-item' && 'posted_date' !== $field['widget_name'] ) {
+					return; // Return early, return wisely.
 					$load_template = false;
 				}
 
-				$label = !empty( $field['show_label'] ) ? $field['label']: '';
 				$args = array(
-					'listings' => $this,
-					'post_id'  => $id,
-					'data'     => $field,
-					'value'    => $value,
-					'label'    => $label,
-					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+					'listings'       => $this,
+					'post_id'        => get_the_id(),
+					'data'           => $field,
+					'value'          => $value,
+					'label'          => ( ! empty( $field['show_label'] ) ? $field['label'] : '' ),
+					'icon'           => directorist_get_var( $field['icon'] ),
 					'original_field' => $submission_form_fields,
 				);
 
-				$widget_name = $field['widget_name'];
-				if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
-					$widget_name = $data['original_field']['widget_name'];
-				}
+				// Didn't find any $data within this method.
+				// if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
+				// 	$widget_name = $data['original_field']['widget_name'];
+				// }
 
+				$widget_name = $field['widget_name'];
 				if ( $this->is_custom_field( $field ) ) {
-					$field_type = !empty( $field['original_field']['type'] ) ? $field['original_field']['type'] : '';
-					if( 'checkbox' === $field_type ){
-						$option_value = [];
-						$value = is_array( $value ) ? join( ",",$value ) : $value;
-						foreach( $field['original_field']['options'] as $option ) {
-							$key = $option['option_value'];
-							if( in_array( $key, explode( ',', $value ) ) ) {
-								$space = str_repeat(' ', 1);
-								$option_value[] = $space . $option['option_label'];
+					$field_type = directorist_get_var( $field['original_field']['type'] );
+
+					if ( 'checkbox' === $field_type ) {
+						if ( ! is_array( $value ) ) {
+							$value = array_filter( explode( ',', $value ) );
+						}
+
+						$options_value = '';
+						$options       = (array) directorist_get_var( $field['original_field']['options'], array() );
+						foreach ( $options as $option ) {
+							if ( in_array( $option['option_value'], $value, true ) ) {
+								$options_value .= $option['option_label'] . ', ';
 							}
 						}
-						$output = join( ',', $option_value );
-						$result = $output ? $output : $value;
-						$args['value'] = $result;
+
+						$args['value'] = rtrim( $options_value, ', ' );
 					}
 
 					$template = 'archive/custom-fields/' . $widget_name;
@@ -1832,22 +1844,24 @@ class Directorist_Listings {
 					$template = 'archive/fields/' . $widget_name;
 				}
 
-				if( $load_template ) {
+				if ( $load_template ) {
+					// Print $before and $after here so that empty li or other wrapper tags are not printed.
+					echo $before;
 					Helper::get_template( $template, $args );
+					echo $after;
 				}
-
 			}
 		}
 
 		public function is_custom_field( $data ) {
-			$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+			$fields      = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 			$widget_name = $data['widget_name'];
 
 			if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {
 				$widget_name = $data['original_field']['widget_name'];
 			}
 
-			return in_array( $widget_name, $fields ) ? true : false;
+			return in_array( $widget_name, $fields, true );
 		}
 
 		public function has_whatsapp( $data ) {
@@ -1870,10 +1884,9 @@ class Directorist_Listings {
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
-
-			if( !empty( $fields ) ) {
+			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
-					echo $before;$this->render_card_field( $field );echo $after;
+					$this->render_card_field( $field, $before, $after );
 				}
 			}
 		}
@@ -2127,4 +2140,5 @@ class Directorist_Listings {
     		echo atbdp_listings_mark_as_favourite( get_the_ID() );
     	}
     }
+
 }

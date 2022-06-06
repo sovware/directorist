@@ -539,6 +539,7 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -546,14 +547,19 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    if (is_script_debugging) {//console.log({key,dataElm,error});
+    if (is_script_debugging) {
+      console.warn({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
     }
 
     return '';

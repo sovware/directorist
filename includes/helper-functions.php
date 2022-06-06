@@ -8566,10 +8566,28 @@ function directorist_is_current_user_listing_author( $listing_id = null ) {
 	return directorist_is_listing_author( $listing_id, get_current_user_id() );
 }
 
+/**
+ * Check if the current theme is a block theme.
+ *
+ * @since 7.2.0
+ *
+ * @return bool
+ */
+function directorist_current_theme_is_fse_theme() {
+	if ( function_exists( 'wp_is_block_theme' ) ) {
+		return (bool) wp_is_block_theme();
+	}
+	if ( function_exists( 'gutenberg_is_fse_theme' ) ) {
+		return (bool) gutenberg_is_fse_theme();
+	}
+
+	return false;
+}
 
 /**
  * Get the user's favorite listings
  *
+ * @since 7.2.0
  * @param int $user_id The user ID of the user whose favorites you want to retrieve.
  *
  * @return array An array of listing IDs.
@@ -8586,6 +8604,7 @@ function directorist_get_user_favorites( $user_id = 0 ) {
 	/**
 	 * User favorite listings filter hook.
 	 *
+	 * @since 7.2.0
 	 * @param array $favorites
 	 * @param int $user_id
 	 */
@@ -8597,6 +8616,7 @@ function directorist_get_user_favorites( $user_id = 0 ) {
 /**
  * This function update the user's favorites
  *
+ * @since 7.2.0
  * @param int $user_id The ID of the user whose favorites are being updated.
  * @param int $listing_id The new favorite listing id.
  *
@@ -8618,6 +8638,7 @@ function directorist_add_user_favorites( $user_id = 0, $listing_id = 0 ) {
 	/**
 	 * Fire after user favorite listings updated.
 	 *
+	 * @since 7.2.0
 	 * @param int $user_id
 	 * @param array $new_favorites
 	 * @param array $old_favorites
@@ -8630,6 +8651,7 @@ function directorist_add_user_favorites( $user_id = 0, $listing_id = 0 ) {
 /**
  * This function deletes a listing from a user's favorites
  *
+ * @since 7.2.0
  * @param int $user_id The ID of the user who's favorites are being updated.
  * @param int $listing_id The listing ID that is being deleted from the user's favorites.
  *
@@ -8652,6 +8674,7 @@ function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
 	/**
 	 * Fire after user favorite listings updated.
 	 *
+	 * @since 7.2.0
 	 * @param int $user_id
 	 * @param array $new_favorites
 	 * @param array $old_favorites
@@ -8664,6 +8687,7 @@ function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
 /**
  * Process user favorites listings ids before saving and after retriving.
  *
+ * @since 7.2.0
  * @param array $favorites
  * @access private
  *
@@ -8681,6 +8705,7 @@ function directorist_prepare_user_favorites( $favorites = array() ) {
 /**
  * Check if email notification is enabled and user can get notification for a specific event.
  *
+ * @since 7.2.0
  * @param string $event_name The name of the event.
  * @param string $user_type user or admin
  *
@@ -8743,7 +8768,6 @@ function directorist_get_listing_views_count_meta_key() {
  * Get the number of views for a listing.
  *
  * @since 7.2.0
- *
  * @param int $listing_id The ID of the listing.
  *
  * @return int The number of views for a given listing.
@@ -8760,6 +8784,7 @@ function directorist_get_listing_views_count( $listing_id = 0 ) {
 /**
  * This function increments the views count of a listing by 1.
  *
+ * @since 7.2.0
  * @param int $listing_id The ID of the listing.
  *
  * @return The number of views for a listing.
@@ -8776,6 +8801,7 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
 	/**
 	 * Fire this hook when listing got a view.
 	 *
+	 * @since 7.2.0
 	 * @param int $listing_id
 	 */
 	do_action( 'directorist_listing_views_count_updated', $listing_id );
@@ -8829,4 +8855,16 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
+}
+
+/**
+ * Get data if set, otherwise return a default value or null. Prevents notices when data is not set.
+ *
+ * @since  7.3.0
+ * @param  mixed  $var     Variable.
+ * @param  string $default Default value.
+ * @return mixed
+ */
+function directorist_get_var( &$var, $default = null ) {
+	return isset( $var ) ? $var : $default;
 }

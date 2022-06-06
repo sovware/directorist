@@ -1,14 +1,11 @@
 <?php
 /**
- * Custom field file upload field template.
- *
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6.3
+ * @version 7.3
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
 $file_types = 'all_types';
@@ -84,18 +81,10 @@ $gd_plupload_init     = array(
 	// 'upload_img_size' => $file_size
 );
 
-wp_localize_script( 'directorist-plupload-public', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
 
 Directorist\Helper::add_hidden_data_to_dom( 'atbdp_plupload_params', $gd_plupload_init );
 Directorist\Helper::add_hidden_data_to_dom( 'atbdp_params', $text_value );
 
- wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
- wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
- wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
- wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
 $id                 = $post_id;
 $is_required        = 0;
 $image_limit        = 0;

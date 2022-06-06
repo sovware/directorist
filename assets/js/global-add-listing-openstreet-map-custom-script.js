@@ -96,19 +96,20 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* Add listing OSMap */
 
 ;
 
 (function ($) {
   $(document).ready(function () {
-    var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
+    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
-    var loc_default_latitude = parseFloat(localized_data.default_latitude);
-    var loc_default_longitude = parseFloat(localized_data.default_longitude);
-    var loc_manual_lat = parseFloat(localized_data.manual_lat);
-    var loc_manual_lng = parseFloat(localized_data.manual_lng);
-    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var loc_map_icon = localized_data.map_icon;
+    var loc_default_latitude = parseFloat(mapData.default_latitude);
+    var loc_default_longitude = parseFloat(mapData.default_longitude);
+    var loc_manual_lat = parseFloat(mapData.manual_lat);
+    var loc_manual_lng = parseFloat(mapData.manual_lng);
+    var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+    var loc_map_icon = mapData.map_icon;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
 
@@ -167,7 +168,6 @@ __webpack_require__.r(__webpack_exports__);
             type: 'POST',
             data: {},
             success: function success(data) {
-              //console.log(data);
               for (var i = 0; i < data.length; i++) {
                 res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
               }
@@ -275,6 +275,7 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -282,14 +283,19 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
     return dataValue;
   } catch (error) {
-    if (is_script_debugging) {//console.log({key,dataElm,error});
+    if (is_script_debugging) {
+      console.warn({
+        key: key,
+        dataElm: dataElm,
+        error: error
+      });
     }
 
     return '';

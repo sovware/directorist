@@ -285,6 +285,9 @@
             $(el).val(null).trigger('change');
         });
 
+        searchForm.querySelector("input[name='cityLat']").value = '';
+        searchForm.querySelector("input[name='cityLng']").value = '';
+
         const irisPicker = searchForm.querySelector("input.wp-picker-clear");
         if(irisPicker !== null){
             irisPicker.click();

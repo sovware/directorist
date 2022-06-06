@@ -42,11 +42,11 @@ class Scripts {
 			],
 			'directorist-font-awesome' => [
 				'type' => 'css',
-				'path' => DIRECTORIST_VENDOR_CSS . 'font-awesome',
+				'path' => DIRECTORIST_ICON_URL . 'font-awesome/css/all',
 			],
 			'directorist-line-awesome' => [
 				'type' => 'css',
-				'path' => DIRECTORIST_VENDOR_CSS . 'line-awesome',
+				'path' => DIRECTORIST_ICON_URL . 'line-awesome/css/line-awesome',
 			],
 			'directorist-ez-media-uploader-style' => [
 				'type' => 'css',

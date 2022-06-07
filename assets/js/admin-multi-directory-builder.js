@@ -12100,6 +12100,114 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
+/***/ "./assets/src/js/lib/icon-picker.js":
+/*!******************************************!*\
+  !*** ./assets/src/js/lib/icon-picker.js ***!
+  \******************************************/
+/*! exports provided: IconPicker */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconPicker", function() { return IconPicker; });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var IconPicker = function IconPicker(args) {
+  return {
+    value: '',
+    iconType: 'solid',
+    container: null,
+    onSelect: null,
+    icons: null,
+    init: function init() {
+      this.container = typeof args.container !== 'undefined' ? args.container : this.container;
+      this.onSelect = typeof args.onSelect !== 'undefined' ? args.onSelect : this.onSelect;
+      this.icons = typeof args.icons !== 'undefined' ? args.icons : this.icons;
+      this.value = typeof args.value === 'string' ? args.value : this.value;
+
+      if (!this.container) {
+        return;
+      }
+
+      this.renderIcons();
+      this.attachEvents();
+    },
+    renderIcons: function renderIcons() {
+      console.log('renderIcons');
+      var markup = '';
+
+      for (var _i = 0, _Object$keys = Object.keys(this.icons); _i < _Object$keys.length; _i++) {
+        var iconGroupKey = _Object$keys[_i];
+        markup += "<div class=\"icons-group ".concat(iconGroupKey, "\">");
+        markup += "<h4>".concat(this.icons[iconGroupKey].label, "</h4>");
+        markup += "<div class=\"icons-group-icons\">";
+
+        var _iterator = _createForOfIteratorHelper(this.icons[iconGroupKey].icons),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var icon = _step.value;
+            var fullIcon = this.getFullIcon(icon.key, iconGroupKey, this.iconType);
+            var buttonClass = this.value === fullIcon ? 'cptm-btn-primary' : 'cptm-btn-secondery';
+            markup += "\n                        <button class=\"font-icon-btn cptm-btn ".concat(buttonClass, "\" style=\"margin: 5px\" data-group-key=\"").concat(iconGroupKey, "\" data-icon-key=\"").concat(icon.key, "\">\n                            ").concat(icon.key, "\n                        </button>\n                    ");
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        markup += "</div>";
+        markup += "</div>";
+      }
+
+      this.container.innerHTML = markup;
+    },
+    attachEvents: function attachEvents() {
+      var iconButtons = document.querySelectorAll('.font-icon-btn');
+      var self = this;
+
+      var _iterator2 = _createForOfIteratorHelper(iconButtons),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var iconButton = _step2.value;
+          iconButton.addEventListener('click', function (event) {
+            var iconGroupKey = event.target.getAttribute('data-group-key');
+            var iconKey = event.target.getAttribute('data-icon-key');
+            var icon = self.getFullIcon(iconKey, iconGroupKey, self.iconType);
+            self.value = icon;
+            self.renderIcons();
+            self.attachEvents();
+
+            if (typeof self.onSelect === 'function') {
+              self.onSelect(icon);
+            }
+          });
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    },
+    getFullIcon: function getFullIcon(iconKey, iconGroupKey, iconType) {
+      var prefix = this.icons[iconGroupKey].iconTypes[iconType].key;
+      return "".concat(prefix, " ").concat(iconKey);
+    }
+  };
+};
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
@@ -26978,17 +27086,96 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+/* harmony import */ var _lib_icon_picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../../lib/icon-picker */ "./assets/src/js/lib/icon-picker.js");
+//
 //
 //
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'icon-field',
+  name: "icon-field",
   mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_0__["default"]],
   model: {
-    prop: 'value',
-    event: 'input'
+    prop: "value",
+    event: "input"
+  },
+  mounted: function mounted() {
+    var args = {};
+    args.container = this.$refs.iconPickerElm;
+    args.onSelect = this.onSelectIcon;
+    args.icons = this.icons;
+    args.value = this.value;
+    this.iconPicker = new _lib_icon_picker__WEBPACK_IMPORTED_MODULE_1__["IconPicker"](args);
+    this.iconPicker.init();
+  },
+  data: function data() {
+    return {
+      iconPicker: null,
+      icons: {
+        fontAwesome: {
+          label: "Font Awesome",
+          iconTypes: {
+            solid: {
+              label: "Solid",
+              key: "fa-solid"
+            },
+            regular: {
+              label: "Solid",
+              key: "fa-regular"
+            },
+            brand: {
+              label: "Brand",
+              key: "fa-brands"
+            }
+          },
+          icons: [{
+            key: "fa-home",
+            types: ["solid", "regular"]
+          }, {
+            key: "fa-car",
+            types: ["solid", "regular"]
+          }, {
+            key: "fa-facebook",
+            types: ["brand"]
+          }]
+        },
+        lineAwesome: {
+          label: "Line Awesome",
+          iconTypes: {
+            solid: {
+              label: "Solid",
+              key: "fa-solid"
+            },
+            regular: {
+              label: "Solid",
+              key: "fa-regular"
+            },
+            brand: {
+              label: "Brand",
+              key: "fa-brands"
+            }
+          },
+          icons: [{
+            key: "la-home",
+            types: ["solid", "regular"]
+          }, {
+            key: "la-car",
+            types: ["solid", "regular"]
+          }, {
+            key: "la-facebook",
+            types: ["brand"]
+          }]
+        }
+      }
+    };
+  },
+  methods: {
+    onSelectIcon: function onSelectIcon(value) {
+      console.log("onSelectIcon", value);
+      this.$emit("update", value);
+    }
   }
 });
 
@@ -28181,7 +28368,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -40499,24 +40686,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "text-field",
-    _vm._b(
-      {
-        on: {
-          update: function ($event) {
-            return _vm.$emit("update", $event)
-          },
-          "do-action": function ($event) {
-            return _vm.$emit("do-action", $event)
-          },
-        },
-      },
-      "text-field",
-      _vm.$props,
-      false
-    )
-  )
+  return _c("div", { ref: "iconPickerElm", staticClass: "icon-picker" })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40652,7 +40822,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   ),
                 ]
               )

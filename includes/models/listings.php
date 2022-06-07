@@ -476,7 +476,8 @@ class Listings {
 	 * @return array Term list of Listing Category taxonomy.
 	 */
 	public function loop_get_categories() {
-		return get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+		$terms = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
+		return $terms ? $terms : array();
 	}
 
 	/**

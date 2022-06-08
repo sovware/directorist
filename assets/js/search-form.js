@@ -998,7 +998,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (searchForm) {
             adsFormReset(searchForm);
-            this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider', '{"miles":"Miles","minValue":"0"}');
+            this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider', '{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
           }
         }
 

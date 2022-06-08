@@ -301,7 +301,7 @@ import './../global/components/select2-custom-control';
                     const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
                     if (searchForm) {
                         adsFormReset(searchForm);
-                        this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider','{"miles":"Miles","minValue":"0"}');
+                        this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider','{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
                     }
                 }
                 directorist_callingSlider(0);

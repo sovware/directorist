@@ -147,10 +147,6 @@ class Directorist_Listing_Taxonomy {
 
     public function subterms_html($term){
 
-    	if ($this->depth <= 0) {
-    		return;
-    	}
-
     	$args = array(
     		'orderby'      => $this->orderby,
     		'order'        => $this->order,
@@ -171,7 +167,7 @@ class Directorist_Listing_Taxonomy {
     		foreach ($terms as $term) {
 
     			$child_category = get_term_children($term->term_id, $this->tax);
-    			$plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
+    			$plus_icon = ! empty( $child_category ) && $this->depth >= 1 ? '<span class="expander">+</span>' : '';
     			$count = 0;
     			if ($this->hide_empty || $this->show_count) {
     				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);

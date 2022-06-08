@@ -81,97 +81,84 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/checkout.js":
-/*!******************************************!*\
-  !*** ./assets/src/js/public/checkout.js ***!
-  \******************************************/
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+/* Single listing OSMap */
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // Update checkout pricing on product item change
-    var checkout_price_item = $('.atbdp-checkout-price-item');
-    checkout_price_item.on('change', function () {
-      var checkout_net_price_area = $('#atbdp_checkout_total_amount');
-      var checkout_net_hidden_price_area = $('#atbdp_checkout_total_amount_hidden');
-      var pricing_statement = get_pricing_statement(checkout_price_item);
-      checkout_net_price_area.html(get_currency_format(pricing_statement.total_price));
-      checkout_net_hidden_price_area.val(pricing_statement.total_price);
-      update_payment_methods(pricing_statement);
-    }); // get_pricing_statement
+  jQuery(document).ready(function () {
+    // Localized Data
+    if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+      document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
+        var mapData = JSON.parse(mapElm.getAttribute('data-map'));
+        var loc_default_latitude = parseFloat(mapData.default_latitude);
+        var loc_default_longitude = parseFloat(mapData.default_longitude);
+        var loc_manual_lat = parseFloat(mapData.manual_lat);
+        var loc_manual_lng = parseFloat(mapData.manual_lng);
+        var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+        var display_map_info = mapData.display_map_info;
+        var cat_icon = mapData.cat_icon;
+        var info_content = mapData.info_content;
+        loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+        loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
+        saved_lat_lng = {
+          lat: loc_manual_lat,
+          lng: loc_manual_lng
+        };
 
-    function get_pricing_statement(price_item_elm) {
-      var total_price = 0;
-      var total_product = 0;
-      price_item_elm.each(function (index) {
-        var price_item = price_item_elm[index];
-        var price = price_item.value;
-        price = isNaN(price_item.value) ? 0 : Number(price);
+        function mapLeaflet(lat, lon) {
+          var fontAwesomeIcon = L.divIcon({
+            html: "<div class=\"atbd_map_shape\"><span class=\"".concat(cat_icon, "\"></span></div>"),
+            iconSize: [20, 20],
+            className: 'myDivIcon'
+          });
+          var mymap = L.map(mapElm).setView([lat, lon], loc_map_zoom_level);
 
-        if ($(price_item).is(':checked')) {
-          total_price = total_price + price;
-          total_product++;
+          if (display_map_info) {
+            L.marker([lat, lon], {
+              icon: fontAwesomeIcon
+            }).addTo(mymap).bindPopup(info_content);
+          } else {
+            L.marker([lat, lon], {
+              icon: fontAwesomeIcon
+            }).addTo(mymap);
+          }
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(mymap);
         }
+
+        mapLeaflet(loc_manual_lat, loc_manual_lng);
       });
-      return {
-        total_product: total_product,
-        total_price: total_price
-      };
-    } // update_payment_methods
-
-
-    function update_payment_methods(pricing_statement) {
-      if (!pricing_statement.total_product) {
-        $('#directorist_payment_gateways, #atbdp_checkout_submit_btn').hide();
-        return;
-      }
-
-      if (pricing_statement.total_price > 0) {
-        $('#directorist_payment_gateways').show();
-        $('#atbdp_checkout_submit_btn').val(directorist.payNow).show();
-        $('#atbdp_checkout_submit_btn_label').val(directorist.payNow);
-      } else {
-        $('#directorist_payment_gateways').hide();
-        $('#atbdp_checkout_submit_btn').val(directorist.completeSubmission).show();
-        $('#atbdp_checkout_submit_btn_label').val(directorist.completeSubmission);
-      }
-    } // Helpers
-    // --------------------
-    // get_currency_format
-
-
-    function get_currency_format(number) {
-      number = number.toFixed(2);
-      number = number_with_commas(number);
-      return number;
-    } // number_with_commas
-
-
-    function number_with_commas(number) {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   });
 })(jQuery);
 
 /***/ }),
 
-/***/ 1:
-/*!************************************************!*\
-  !*** multi ./assets/src/js/public/checkout.js ***!
-  \************************************************/
+/***/ 11:
+/*!*********************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/public/checkout.js */"./assets/src/js/public/checkout.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js */"./assets/src/js/global/map-scripts/single-listing/openstreet-map.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=public-checkout.js.map
+//# sourceMappingURL=public-single-listing-openstreet-map-custom-script.js.map

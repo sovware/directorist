@@ -220,20 +220,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_default_listing_type() {
-		$listing_types = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
-
-		foreach ( $listing_types as $type ) {
-			$is_default = get_term_meta( $type->term_id, '_default', true );
-			if ( $is_default ) {
-				$current = $type->term_id;
-				break;
-			}
-		}
+		$current = default_directory_type();
 
 		if( $this->default_directory_type ) {
 			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );

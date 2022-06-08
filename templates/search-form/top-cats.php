@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -13,16 +13,24 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<h3><?php echo esc_html( $title ); ?></h3>
 
 	<ul>
-		<?php foreach ( $top_categories as $cat ): ?>
-
-			<li>
-				<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
-					<span class="<?php echo esc_attr( $searchform->category_icon_class( $cat ) ); ?>"></span>
-					<p><?php echo esc_html( $cat->name ); ?></p>
-				</a>
-			</li>
+		<?php 
+			$count = 0;
+			foreach ( $top_categories as $cat ): ?>
 			
-		<?php endforeach; ?>
+				<?php if( $searchform->popular_cat_num > $count ) { ?>
+
+					<li>
+						<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
+							<span class="<?php echo esc_attr( $searchform->category_icon_class( $cat ) ); ?>"></span>
+							<p><?php echo esc_html( $cat->name ); ?></p>
+						</a>
+					</li>
+
+				<?php } ?>
+
+		<?php 
+			$count++;
+			endforeach; ?>
 	</ul>
 	
 </div>

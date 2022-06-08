@@ -470,7 +470,6 @@ class Directorist_Listing_Search_Form {
 			'orderby'       => 'count',
 			'order'         => 'desc',
 			'hide_empty'    => 1,
-			'number'        => (int)$this->popular_cat_num,
 			'taxonomy'      => ATBDP_CATEGORY,
 			'no_found_rows' => true,
 		);

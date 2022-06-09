@@ -227,6 +227,7 @@ class Asset_Loader {
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_style( 'directorist-line-awesome' );
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();

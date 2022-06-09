@@ -17,7 +17,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: white;
-        max-height: 800px;
+        height: 800px;
         display: flex;
         overflow: hidden;
         border-radius: 6px;
@@ -47,7 +47,6 @@
     &__content{
         width: 75%;
         overflow: auto;
-        margin-right: -17px;
         .icons-group{
             h4{
                 font-size: 16px;

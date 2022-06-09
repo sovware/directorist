@@ -129,15 +129,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 					$_POST['ids']    = $_REQUEST['ids'];
 				}
 
-                $listings = new Directorist\Directorist_Listings( $args, 'search_result' );
-                $count = $listings->query_results->total;
+				$listings = directorist()->listings;
+				$listings->setup_data( ['shortcode_atts' => $args] );
+                $count = $listings->total_count();
+
                 ob_start();
                 echo $listings->archive_view_template();
                 $search_value = ob_get_clean();
 
-                ob_start();
-                echo $listings->render_shortcode();
-                $directory_type_result = ob_get_clean();
+                $directory_type_result = Helper::get_template_contents( 'archive-contents' );;
 
                 ob_start();
                 echo $listings->archive_view_template();

@@ -177,7 +177,7 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 
 	global $wpdb;
 
-	$cache_key = 'directorist_user_review_found_by_' . md5( $user_email );
+	$cache_key = 'directorist_user_review_found_by_' . md5( $user_email . $post_id );
 	$exists    = wp_cache_get( $cache_key );
 
 	if ( ! $exists ) {
@@ -189,7 +189,6 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 			AND ( comment_approved = '1' OR comment_approved = '0' )
 			AND comment_type = 'review'
 			AND comment_author_email = '%s'
-			LIMIT 0, 1
 				",
 				$post_id,
 				$user_email

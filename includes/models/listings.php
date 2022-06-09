@@ -2499,7 +2499,8 @@ class Listings {
 	 * @todo new/refactor
 	 */
 	public function has_masonry() {
-		return ( $this->view_as == 'masonry_grid' ) ? true : false;
+		$grid_type = get_directorist_option( 'grid_view_as', 'normal_grid' );
+		return ( $grid_type == 'masonry_grid' ) ? true : false;
 	}
 
 	/**
